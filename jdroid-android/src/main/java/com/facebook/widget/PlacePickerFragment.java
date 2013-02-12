@@ -528,4 +528,5 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
 		public void afterTextChanged(Editable s) {
 		}
 	}
+	
 }

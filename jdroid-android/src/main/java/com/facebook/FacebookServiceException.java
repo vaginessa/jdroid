@@ -49,5 +49,4 @@ public class FacebookServiceException extends FacebookException {
 			", facebookErrorType: ").append(error.getErrorType()).append(", message: ").append(error.getErrorMessage()).append(
 			"}").toString();
 	}
-	
 }

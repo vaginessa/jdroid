@@ -157,5 +157,4 @@ class SimpleGraphObjectCursor<T extends GraphObject> implements GraphObjectCurso
 	public boolean isClosed() {
 		return closed;
 	}
-	
 }

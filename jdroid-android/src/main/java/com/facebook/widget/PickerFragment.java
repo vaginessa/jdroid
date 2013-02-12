@@ -760,9 +760,9 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	public interface OnErrorListener {
 		
 		/**
-		 * Called when a network or other error is encountered. <<<<<<< HEAD
+		 * Called when a network or other error is encountered.
 		 * 
-		 * @param fragment ======= >>>>>>> Upload facebook 3.0 SDK
+		 * @param fragment
 		 * 
 		 * @param error a FacebookException representing the error that was encountered.
 		 */
@@ -775,9 +775,9 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	public interface OnDataChangedListener {
 		
 		/**
-		 * Called when the set of data being displayed in the picker has changed. <<<<<<< HEAD
+		 * Called when the set of data being displayed in the picker has changed.
 		 * 
-		 * @param fragment ======= >>>>>>> Upload facebook 3.0 SDK
+		 * @param fragment
 		 */
 		void onDataChanged(PickerFragment<?> fragment);
 	}
@@ -788,9 +788,9 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	public interface OnSelectionChangedListener {
 		
 		/**
-		 * Called when the user selects or unselects graph objects in the picker. <<<<<<< HEAD
+		 * Called when the user selects or unselects graph objects in the picker.
 		 * 
-		 * @param fragment ======= >>>>>>> Upload facebook 3.0 SDK
+		 * @param fragment
 		 */
 		void onSelectionChanged(PickerFragment<?> fragment);
 	}
@@ -801,9 +801,9 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	public interface OnDoneButtonClickedListener {
 		
 		/**
-		 * Called when the user clicks the Done button. <<<<<<< HEAD
+		 * Called when the user clicks the Done button.
 		 * 
-		 * @param fragment ======= >>>>>>> Upload facebook 3.0 SDK
+		 * @param fragment
 		 */
 		void onDoneButtonClicked(PickerFragment<?> fragment);
 	}
