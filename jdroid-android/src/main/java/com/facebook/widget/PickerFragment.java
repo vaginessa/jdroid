@@ -58,7 +58,8 @@ import com.jdroid.android.R;
  * (for certain properties) by specifying attributes in their XML layout files. <br/>
  * PickerFragments support callbacks that will be called in the event of an error, when the underlying data has been
  * changed, or when the set of selected graph objects changes.
- * @param <T> 
+ * 
+ * @param <T>
  */
 public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	
@@ -759,8 +760,9 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	public interface OnErrorListener {
 		
 		/**
-		 * Called when a network or other error is encountered.
-		 * @param fragment 
+		 * Called when a network or other error is encountered. <<<<<<< HEAD
+		 * 
+		 * @param fragment ======= >>>>>>> Upload facebook 3.0 SDK
 		 * 
 		 * @param error a FacebookException representing the error that was encountered.
 		 */
@@ -773,8 +775,9 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	public interface OnDataChangedListener {
 		
 		/**
-		 * Called when the set of data being displayed in the picker has changed.
-		 * @param fragment 
+		 * Called when the set of data being displayed in the picker has changed. <<<<<<< HEAD
+		 * 
+		 * @param fragment ======= >>>>>>> Upload facebook 3.0 SDK
 		 */
 		void onDataChanged(PickerFragment<?> fragment);
 	}
@@ -785,8 +788,9 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	public interface OnSelectionChangedListener {
 		
 		/**
-		 * Called when the user selects or unselects graph objects in the picker.
-		 * @param fragment 
+		 * Called when the user selects or unselects graph objects in the picker. <<<<<<< HEAD
+		 * 
+		 * @param fragment ======= >>>>>>> Upload facebook 3.0 SDK
 		 */
 		void onSelectionChanged(PickerFragment<?> fragment);
 	}
@@ -797,8 +801,9 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	public interface OnDoneButtonClickedListener {
 		
 		/**
-		 * Called when the user clicks the Done button.
-		 * @param fragment 
+		 * Called when the user clicks the Done button. <<<<<<< HEAD
+		 * 
+		 * @param fragment ======= >>>>>>> Upload facebook 3.0 SDK
 		 */
 		void onDoneButtonClicked(PickerFragment<?> fragment);
 	}
