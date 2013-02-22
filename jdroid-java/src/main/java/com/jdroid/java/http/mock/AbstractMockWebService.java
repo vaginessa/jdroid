@@ -8,6 +8,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.cookie.Cookie;
 import org.slf4j.Logger;
 import com.jdroid.java.collections.Maps;
+import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.http.MultipartWebService;
 import com.jdroid.java.http.WebService;
 import com.jdroid.java.http.post.EntityEnclosingWebService;
@@ -81,12 +82,18 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 			ExecutorUtils.sleep(httpMockSleep);
 		}
 		
-		InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filePath);
-		
-		// Parse the stream
-		T t = (T)(parser != null ? parser.parse(inputStream) : null);
-		FileUtils.safeClose(inputStream);
-		return t;
+		if (parser != null) {
+			InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filePath);
+			if (inputStream == null) {
+				throw new UnexpectedException("The mocked file wasn't found");
+			}
+			// Parse the stream
+			T t = (T)(parser.parse(inputStream));
+			FileUtils.safeClose(inputStream);
+			return t;
+		} else {
+			return null;
+		}
 	}
 	
 	/**

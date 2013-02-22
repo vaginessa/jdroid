@@ -6,13 +6,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.util.Log;
-import com.jdroid.android.R;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.R;
 import com.jdroid.android.context.ErrorReportingContext;
 import com.jdroid.android.utils.AlertDialogUtils;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.android.utils.ToastUtils;
+import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.exception.ApplicationException;
 import com.jdroid.java.exception.BusinessException;
 import com.jdroid.java.exception.ConnectionException;
@@ -25,6 +26,8 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	
 	private static final String TAG = DefaultExceptionHandler.class.getSimpleName();
 	private static final String MAIN_THREAD_NAME = "main";
+	
+	private static final String GO_BACK_KEY = "goBack";
 	
 	private UncaughtExceptionHandler defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
 	
@@ -127,5 +130,14 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 			});
 			AlertDialogUtils.show(dialog);
 		}
+	}
+	
+	private Boolean shouldGoBack(AbstractException abstractException, Boolean defaultValue) {
+		return abstractException.hasParameter(GO_BACK_KEY) ? abstractException.<Boolean>getParameter(GO_BACK_KEY)
+				: defaultValue;
+	}
+	
+	public static void markAsNotGoBack(AbstractException abstractException) {
+		abstractException.addParameter(GO_BACK_KEY, false);
 	}
 }

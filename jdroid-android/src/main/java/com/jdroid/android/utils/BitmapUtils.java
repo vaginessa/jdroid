@@ -15,7 +15,9 @@ public class BitmapUtils {
 	
 	public static Bitmap toBitmap(int resId, Integer maxWidth, Integer maxHeight) {
 		Bitmap bitmap = BitmapFactory.decodeResource(AbstractApplication.get().getResources(), resId);
-		return Bitmap.createScaledBitmap(bitmap, maxWidth, maxHeight, true);
+		Bitmap scaled = Bitmap.createScaledBitmap(bitmap, maxWidth, maxHeight, true);
+		bitmap.recycle();
+		return scaled;
 	}
 	
 	public static Bitmap toBitmap(InputStream input, Integer maxWidth, Integer maxHeight) {
