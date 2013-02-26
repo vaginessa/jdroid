@@ -6,4 +6,8 @@
 		<CheckBoxPreference android:key="httpMockSleep" android:title="@string/httpMockSleepTitle"
 			android:summary="@string/httpMockSleepDescription" android:defaultValue="false" />
 	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/crashSettings">
+		<ListPreference android:key="crashType" android:title="@string/crashType" android:summary="@string/crashTypeDescription"
+			android:entries="@array/crashTypeEntries" android:entryValues="@array/crashTypeEntries" android:dialogTitle="@string/crashType" />
+	</PreferenceCategory>
 </PreferenceScreen>

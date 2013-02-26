@@ -107,4 +107,8 @@
 	<string name="commitTime">Commit Time: %1$s</string>
 	<string name="buildTime">Build Time: %1$s</string>
 
+	<string name="crashSettings">Crash</string>
+	<string name="crashType">Crash Type</string>
+	<string name="crashTypeDescription">Pick the crash type</string>
+
 </resources>

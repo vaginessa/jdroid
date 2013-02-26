@@ -360,4 +360,12 @@ public abstract class AbstractPreferenceActivity extends SherlockPreferenceActiv
 	public AdSize getAdSize() {
 		return baseActivity.getAdSize();
 	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#isLauncherActivity()
+	 */
+	@Override
+	public Boolean isLauncherActivity() {
+		return baseActivity.isLauncherActivity();
+	}
 }

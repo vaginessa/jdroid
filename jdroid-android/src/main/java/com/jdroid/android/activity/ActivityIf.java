@@ -35,4 +35,6 @@ public interface ActivityIf extends FragmentIf, ScopedObjectMapProvider {
 	
 	public ActionBar getSupportActionBar();
 	
+	public Boolean isLauncherActivity();
+	
 }

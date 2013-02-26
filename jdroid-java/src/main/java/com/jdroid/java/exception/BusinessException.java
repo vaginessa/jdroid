@@ -8,13 +8,6 @@ public class BusinessException extends AbstractException {
 	private ErrorCode errorCode;
 	private Object[] errorCodeParameters;
 	
-	/**
-	 * @param errorMessage The error message related to this exception.
-	 */
-	public BusinessException(String errorMessage) {
-		super(errorMessage);
-	}
-	
 	public BusinessException(ErrorCode errorCode, Object... errorCodeParameters) {
 		this.errorCode = errorCode;
 		this.errorCodeParameters = errorCodeParameters;

@@ -508,4 +508,12 @@ public abstract class AbstractListActivity<T> extends SherlockListActivity imple
 	public AdSize getAdSize() {
 		return baseActivity.getAdSize();
 	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#isLauncherActivity()
+	 */
+	@Override
+	public Boolean isLauncherActivity() {
+		return baseActivity.isLauncherActivity();
+	}
 }

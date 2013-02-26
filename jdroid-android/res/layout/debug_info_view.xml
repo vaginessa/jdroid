@@ -18,4 +18,7 @@
 	<TextView android:id="@+id/buildTime" android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:text="@string/buildTime" />
 
+	<Button android:id="@+id/crash" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:text="@string/crashSettings" />
+
 </LinearLayout>

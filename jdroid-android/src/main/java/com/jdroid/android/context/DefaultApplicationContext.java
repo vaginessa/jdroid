@@ -25,6 +25,8 @@ public class DefaultApplicationContext {
 	private Boolean cookieRepositoryEnabled = false;
 	private Boolean analyticsEnabled;
 	private String analyticsTrackingId;
+	private Boolean crittercismEnabled;
+	private String crittercismAppId;
 	
 	public DefaultApplicationContext() {
 		PropertiesUtils.loadProperties(LOCAL_PROPERTIES_RESOURCE_NAME);
@@ -40,6 +42,8 @@ public class DefaultApplicationContext {
 		testDevicesIds = PropertiesUtils.getStringSetProperty("ads.tests.devices.ids");
 		analyticsEnabled = PropertiesUtils.getBooleanProperty("analytics.enabled", false);
 		analyticsTrackingId = PropertiesUtils.getStringProperty("analytics.trackingId");
+		crittercismEnabled = PropertiesUtils.getBooleanProperty("crittercism.enabled", false);
+		crittercismAppId = PropertiesUtils.getStringProperty("crittercism.appId");
 	}
 	
 	/**
@@ -129,5 +133,17 @@ public class DefaultApplicationContext {
 	public Integer getHttpMockSleepDuration() {
 		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean("httpMockSleep",
 			false) ? 10 : null;
+	}
+	
+	public String getCrashType() {
+		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString("crashType", null);
+	}
+	
+	public Boolean isCrittercismEnabled() {
+		return crittercismEnabled;
+	}
+	
+	public String getCrittercismAppId() {
+		return crittercismAppId;
 	}
 }

@@ -1,6 +1,7 @@
 package com.jdroid.android.activity;
 
 import java.util.Map;
+import org.json.JSONObject;
 import roboguice.RoboGuice;
 import android.app.Activity;
 import android.app.Dialog;
@@ -16,6 +17,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.crittercism.app.Crittercism;
 import com.google.ads.AdSize;
 import com.google.inject.Key;
 import com.jdroid.android.AbstractApplication;
@@ -104,6 +106,8 @@ public class BaseActivity implements ActivityIf {
 		Log.v(TAG, "Executing onCreate on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 		
+		initCrittercism();
+		
 		ActionBar actionBar = getActivityIf().getSupportActionBar();
 		if (actionBar != null) {
 			actionBar.setHomeButtonEnabled(true);
@@ -131,6 +135,40 @@ public class BaseActivity implements ActivityIf {
 		}
 		
 		AdLoader.loadAd(activity, (ViewGroup)(activity.findViewById(R.id.adViewContainer)), getActivityIf().getAdSize());
+	}
+	
+	private void initCrittercism() {
+		
+		if (getAndroidApplicationContext().isCrittercismEnabled() && getActivityIf().isLauncherActivity()) {
+			try {
+				// send logcat data for devices with API Level 16 and higher
+				JSONObject crittercismConfig = new JSONObject();
+				crittercismConfig.put("shouldCollectLogcat", true);
+				
+				Crittercism.init(activity.getApplicationContext(),
+					getAndroidApplicationContext().getCrittercismAppId(), crittercismConfig);
+				
+				String installationId = AbstractApplication.get().getInstallationId();
+				if (installationId != null) {
+					Crittercism.setUsername(installationId);
+				}
+				
+				// send metadata to crittercism (asynchronously)
+				JSONObject metadata = new JSONObject();
+				metadata.put("freeApp", getAndroidApplicationContext().isFreeApp());
+				Crittercism.setMetadata(metadata);
+			} catch (Exception e) {
+				Log.e(TAG, "Error when initializing Crittercism");
+			}
+		}
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#isLauncherActivity()
+	 */
+	@Override
+	public Boolean isLauncherActivity() {
+		return false;
 	}
 	
 	public void onContentChanged() {

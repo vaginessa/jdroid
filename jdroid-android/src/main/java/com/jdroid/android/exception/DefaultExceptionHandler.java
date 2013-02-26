@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.util.Log;
+import com.crittercism.app.Crittercism;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.context.ErrorReportingContext;
@@ -110,6 +111,10 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 		Log.e(TAG, "Unexepected error", throwable);
 		if (ErrorReportingContext.get().isMailReportingEnabled()) {
 			ExceptionReportService.reportException(thread, throwable);
+		}
+		
+		if (AbstractApplication.get().getAndroidApplicationContext().isCrittercismEnabled()) {
+			Crittercism.logHandledException(throwable);
 		}
 		
 		Activity activity = AbstractApplication.get().getCurrentActivity();
