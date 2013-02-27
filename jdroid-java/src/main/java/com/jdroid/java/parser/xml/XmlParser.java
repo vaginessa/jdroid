@@ -8,6 +8,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
+import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.parser.Parser;
 import com.jdroid.java.utils.EncodingUtils;
@@ -58,7 +59,7 @@ public abstract class XmlParser extends DefaultHandler implements Parser {
 			
 			return getResponse();
 		} catch (IOException e) {
-			throw new UnexpectedException(e);
+			throw new ConnectionException(e);
 		} catch (SAXException e) {
 			throw new UnexpectedException(e);
 		} finally {

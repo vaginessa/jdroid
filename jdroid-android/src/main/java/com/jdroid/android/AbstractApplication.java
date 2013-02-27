@@ -1,7 +1,9 @@
 package com.jdroid.android;
 
 import java.io.File;
+import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.UUID;
+import org.json.JSONObject;
 import roboguice.RoboGuice;
 import roboguice.application.RoboApplication;
 import android.annotation.TargetApi;
@@ -13,6 +15,7 @@ import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import com.crittercism.app.Crittercism;
 import com.google.android.gcm.GCMRegistrar;
 import com.google.inject.AbstractModule;
 import com.google.inject.util.Modules;
@@ -31,6 +34,7 @@ import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.ExecutorUtils;
 import com.jdroid.java.utils.FileUtils;
+import com.jdroid.java.utils.ReflectionUtils;
 
 /**
  * 
@@ -48,7 +52,6 @@ public abstract class AbstractApplication extends RoboApplication {
 	private static final String IMAGES_DIRECTORY = "images";
 	protected static AbstractApplication INSTANCE;
 	
-	private ExceptionHandler exceptionHandler;
 	private DefaultApplicationContext applicationContext;
 	
 	/** Current activity in the top stack. */
@@ -98,8 +101,6 @@ public abstract class AbstractApplication extends RoboApplication {
 		initBitmapLruCache();
 		
 		initInAppBilling();
-		
-		initExceptionHandler();
 		
 		initRoboGuice();
 		
@@ -171,9 +172,41 @@ public abstract class AbstractApplication extends RoboApplication {
 		}
 	}
 	
-	private void initExceptionHandler() {
-		exceptionHandler = createExceptionHandler();
-		Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);
+	public void initExceptionHandlers() {
+		UncaughtExceptionHandler currentExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
+		if ((currentExceptionHandler == null) || !currentExceptionHandler.getClass().equals(getExceptionHandlerClass())) {
+			initCrittercism();
+			
+			Thread.setDefaultUncaughtExceptionHandler(ReflectionUtils.newInstance(getExceptionHandlerClass()));
+			Log.i(TAG, "Custom exception handler initialized");
+		}
+	}
+	
+	private void initCrittercism() {
+		
+		if (applicationContext.isCrittercismEnabled()) {
+			try {
+				// send logcat data for devices with API Level 16 and higher
+				JSONObject crittercismConfig = new JSONObject();
+				crittercismConfig.put("shouldCollectLogcat", true);
+				
+				Crittercism.init(getApplicationContext(), applicationContext.getCrittercismAppId(), crittercismConfig);
+				
+				if (installationId != null) {
+					Crittercism.setUsername(installationId);
+				}
+			} catch (Exception e) {
+				Log.e(TAG, "Error when initializing Crittercism");
+			}
+		}
+	}
+	
+	public ExceptionHandler getExceptionHandler() {
+		return (ExceptionHandler)Thread.getDefaultUncaughtExceptionHandler();
+	}
+	
+	public Class<? extends ExceptionHandler> getExceptionHandlerClass() {
+		return DefaultExceptionHandler.class;
 	}
 	
 	private void initRoboGuice() {
@@ -209,14 +242,6 @@ public abstract class AbstractApplication extends RoboApplication {
 	}
 	
 	public abstract Class<? extends Activity> getHomeActivityClass();
-	
-	protected ExceptionHandler createExceptionHandler() {
-		return new DefaultExceptionHandler();
-	}
-	
-	public ExceptionHandler getExceptionHandler() {
-		return exceptionHandler;
-	}
 	
 	protected AbstractModule createAndroidModule() {
 		return new DefaultAndroidModule();
