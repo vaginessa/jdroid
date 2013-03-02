@@ -56,6 +56,13 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 		return false;
 	}
 	
+	private void handleMainThreadException(Thread thread, Throwable throwable) {
+		if (ErrorReportingContext.get().isMailReportingEnabled()) {
+			ExceptionReportService.reportException(thread, throwable);
+		}
+		defaultExceptionHandler.uncaughtException(thread, throwable);
+	}
+	
 	/**
 	 * @see com.jdroid.android.exception.ExceptionHandler#handleException(com.jdroid.java.exception.BusinessException)
 	 */
@@ -97,13 +104,6 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 		String message = LocalizationUtils.getMessageFor(applicationException.getErrorCode());
 		Log.e(TAG, message, applicationException);
 		ToastUtils.showToastOnUIThread(message);
-	}
-	
-	private void handleMainThreadException(Thread thread, Throwable throwable) {
-		if (ErrorReportingContext.get().isMailReportingEnabled()) {
-			ExceptionReportService.reportException(thread, throwable);
-		}
-		defaultExceptionHandler.uncaughtException(thread, throwable);
 	}
 	
 	private void handleException(Thread thread, Throwable throwable) {

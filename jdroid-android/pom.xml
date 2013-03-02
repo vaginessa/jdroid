@@ -147,7 +147,7 @@
 		<dependency>
 			<groupId>android.crittercism</groupId>
 			<artifactId>crittercism-sdk</artifactId>
-			<version>3.0.3</version>
+			<version>3.0.7</version>
 		</dependency>
 
 	</dependencies>
