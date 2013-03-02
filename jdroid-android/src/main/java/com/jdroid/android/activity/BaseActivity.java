@@ -148,7 +148,7 @@ public class BaseActivity implements ActivityIf {
 	}
 	
 	/**
-	 * @see roboguice.util.ScopedObjectMapProvider#getScopedObjectMap()
+	 * @see roboguice.util.RoboContext#getScopedObjectMap()
 	 */
 	@Override
 	public Map<Key<?>, Object> getScopedObjectMap() {

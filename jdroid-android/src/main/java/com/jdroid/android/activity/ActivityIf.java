@@ -1,6 +1,6 @@
 package com.jdroid.android.activity;
 
-import roboguice.util.ScopedObjectMapProvider;
+import roboguice.util.RoboContext;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,7 +12,7 @@ import com.jdroid.android.fragment.FragmentIf;
  * 
  * @author Maxi Rosson
  */
-public interface ActivityIf extends FragmentIf, ScopedObjectMapProvider {
+public interface ActivityIf extends FragmentIf, RoboContext {
 	
 	public Boolean onBeforeSetContentView();
 	

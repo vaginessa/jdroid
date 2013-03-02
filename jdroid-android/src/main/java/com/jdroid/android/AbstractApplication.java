@@ -5,10 +5,10 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.UUID;
 import org.json.JSONObject;
 import roboguice.RoboGuice;
-import roboguice.application.RoboApplication;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.os.StrictMode;
@@ -40,7 +40,7 @@ import com.jdroid.java.utils.ReflectionUtils;
  * 
  * @author Maxi Rosson
  */
-public abstract class AbstractApplication extends RoboApplication {
+public abstract class AbstractApplication extends Application {
 	
 	private static final String INSTALLATION_ID_KEY = "installationId";
 	
@@ -113,6 +113,7 @@ public abstract class AbstractApplication extends RoboApplication {
 	/**
 	 * @see android.app.Application#onTrimMemory(int)
 	 */
+	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 	@Override
 	public void onTrimMemory(int level) {
 		super.onTrimMemory(level);

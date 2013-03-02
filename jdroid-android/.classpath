@@ -16,10 +16,10 @@
 	<classpathentry exported="true" kind="var" path="M2_REPO/android/mail/mail/1.0/mail-1.0.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/android/commonsware/mergeadapter/0.3.0/mergeadapter-0.3.0.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/net/sf/opencsv/opencsv/2.3/opencsv-2.3.jar" sourcepath="M2_REPO/net/sf/opencsv/opencsv/2.3/opencsv-2.3-sources.jar"/>
-	<classpathentry exported="true" kind="var" path="M2_REPO/org/roboguice/roboguice/2.0-RC2/roboguice-2.0-RC2.jar" sourcepath="M2_REPO/org/roboguice/roboguice/2.0-RC2/roboguice-2.0-RC2-sources.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/org/roboguice/roboguice/2.0/roboguice-2.0.jar" sourcepath="/M2_REPO/org/roboguice/roboguice/2.0/roboguice-2.0-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/android/commonsware/sackofviewsadapter/0.3.1/sackofviewsadapter-0.3.1.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/slf4j/slf4j-android/1.6.1-RC1/slf4j-android-1.6.1-RC1.jar" sourcepath="M2_REPO/org/slf4j/slf4j-android/1.6.1-RC1/slf4j-android-1.6.1-RC1-sources.jar"/>
-  	<classpathentry exported="true" kind="var" path="M2_REPO/android/twitter/twitter4j-core-android/2.2.6/twitter4j-core-android-2.2.6.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/android/twitter/twitter4j-core-android/2.2.6/twitter4j-core-android-2.2.6.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/android/gcm/gcm-client/r3/gcm-client-r3.jar" sourcepath="M2_REPO/android/gcm/gcm-client/r3/gcm-client-r3-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/android/analytics/google-analytics-sdk/2.0Beta4/google-analytics-sdk-2.0Beta4.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/android/crittercism/crittercism-sdk/3.0.7/crittercism-sdk-3.0.7.jar"/>
