@@ -6,8 +6,8 @@ import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Handler;
-import com.jdroid.android.R;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.R;
 
 public final class AlertDialogUtils {
 	
@@ -50,8 +50,11 @@ public final class AlertDialogUtils {
 	}
 	
 	public static void showOKDialog(int titleResId, int messageResId) {
-		showOKDialog(LocalizationUtils.getString(titleResId), LocalizationUtils.getString(messageResId), null,
-			LocalizationUtils.getString(R.string.ok));
+		showOKDialog(LocalizationUtils.getString(titleResId), LocalizationUtils.getString(messageResId));
+	}
+	
+	public static void showOKDialog(String title, String message) {
+		showOKDialog(title, message, null, LocalizationUtils.getString(R.string.ok));
 	}
 	
 	public static void showOKDialog(int titleResId, int messageResId, DialogInterface.OnClickListener onClickListener) {

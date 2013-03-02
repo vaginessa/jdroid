@@ -3,6 +3,9 @@
 	<dimen name="contextual_list_item_icon_size">36dip</dimen>
 	<dimen name="listSeparatorTextSize">16sp</dimen>
 
+	<dimen name="borderedCustomImageViewMargin">3dp</dimen>
+	<dimen name="borderedCustomImageViewPadding">2dp</dimen>
+
 	<!-- About Dialog -->
 	<dimen name="aboutDialogTitleTextSize">20sp</dimen>
 	<dimen name="aboutDialogTextSize">16sp</dimen>
