@@ -25,6 +25,8 @@ import com.jdroid.android.utils.AndroidUtils;
  */
 public class PictureDialogFragment extends AbstractDialogFragment {
 	
+	private static final String OUTPUT_FILE_URI_EXTRA = "outputFileUriExtra";
+	
 	private static final String IMAGE_TYPE = "image/*";
 	
 	private static final int CAMERA_REQUEST_CODE = 1;
@@ -44,6 +46,18 @@ public class PictureDialogFragment extends AbstractDialogFragment {
 		PictureDialogFragment pictureDialogFragment = new PictureDialogFragment();
 		pictureDialogFragment.setTargetFragment(targetFragment, 1);
 		pictureDialogFragment.show(fm, PictureDialogFragment.class.getSimpleName());
+	}
+	
+	/**
+	 * @see com.jdroid.android.dialog.AbstractDialogFragment#onCreate(android.os.Bundle)
+	 */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		if (savedInstanceState != null) {
+			outputFileUri = savedInstanceState.getParcelable(OUTPUT_FILE_URI_EXTRA);
+		}
 	}
 	
 	/**
@@ -127,4 +141,14 @@ public class PictureDialogFragment extends AbstractDialogFragment {
 			dismissAllowingStateLoss();
 		}
 	}
+	
+	/**
+	 * @see android.support.v4.app.DialogFragment#onSaveInstanceState(android.os.Bundle)
+	 */
+	@Override
+	public void onSaveInstanceState(Bundle bundle) {
+		super.onSaveInstanceState(bundle);
+		bundle.putParcelable(OUTPUT_FILE_URI_EXTRA, outputFileUri);
+	}
+	
 }
