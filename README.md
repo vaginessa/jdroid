@@ -35,6 +35,7 @@ jdroid Android
 * RoboGuice integration
 * Facebook integration
 * Twitter integration
+* Crittercism integration
 * Base Activity & Fragment implementations
 * Exception handling
 * HTTP Cookies storing.
