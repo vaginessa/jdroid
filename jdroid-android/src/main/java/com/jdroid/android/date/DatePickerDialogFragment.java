@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.DatePicker.OnDateChangedListener;
 import com.jdroid.android.R;
@@ -69,7 +68,6 @@ public class DatePickerDialogFragment extends AbstractDialogFragment implements 
 		fragment.show(fm, DatePickerDialogFragment.class.getSimpleName());
 	}
 	
-	private DatePicker datePicker;
 	private Date defaultDate;
 	private Date minDate;
 	private Date maxDate;
@@ -91,15 +89,11 @@ public class DatePickerDialogFragment extends AbstractDialogFragment implements 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		Bundle args = getArguments();
-		if (args != null) {
-			defaultDate = (Date)args.getSerializable(DEFAULT_DATE_EXTRA);
-			titleResId = args.containsKey(TITLE_EXTRA) ? args.getInt(TITLE_EXTRA) : null;
-			minDate = args.containsKey(MIN_DATE_EXTRA) ? (Date)args.getSerializable(MIN_DATE_EXTRA) : null;
-			maxDate = args.containsKey(MAX_DATE_EXTRA) ? (Date)args.getSerializable(MAX_DATE_EXTRA) : null;
-			onDateSetListener = args.containsKey(LISTENER_EXTRA) ? (OnDateSetListener)args.getSerializable(LISTENER_EXTRA)
-					: null;
-		}
+		defaultDate = getArgument(DEFAULT_DATE_EXTRA);
+		titleResId = getArgument(TITLE_EXTRA);
+		minDate = getArgument(MIN_DATE_EXTRA);
+		maxDate = getArgument(MAX_DATE_EXTRA);
+		onDateSetListener = getArgument(LISTENER_EXTRA);
 	}
 	
 	private OnDateSetListener getOnDateSetListener() {
@@ -113,9 +107,18 @@ public class DatePickerDialogFragment extends AbstractDialogFragment implements 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.date_picker_dialog_fragment, container, false);
+		return inflater.inflate(R.layout.date_picker_dialog_fragment, container, false);
+	}
+	
+	/**
+	 * @see com.jdroid.android.dialog.AbstractDialogFragment#onViewCreated(android.view.View, android.os.Bundle)
+	 */
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 		
-		datePicker = (DatePicker)view.findViewById(R.id.datePicker);
+		final DatePicker datePicker = findView(R.id.datePicker);
 		datePicker.init(com.jdroid.java.utils.DateUtils.getYear(defaultDate),
 			com.jdroid.java.utils.DateUtils.getMonth(defaultDate), com.jdroid.java.utils.DateUtils.getDay(defaultDate),
 			this);
@@ -138,8 +141,7 @@ public class DatePickerDialogFragment extends AbstractDialogFragment implements 
 			}
 		}
 		
-		Button ok = (Button)view.findViewById(R.id.ok);
-		ok.setOnClickListener(new OnClickListener() {
+		findView(R.id.ok).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -151,15 +153,13 @@ public class DatePickerDialogFragment extends AbstractDialogFragment implements 
 			}
 		});
 		
-		Button cancel = (Button)view.findViewById(R.id.cancel);
-		cancel.setOnClickListener(new OnClickListener() {
+		findView(R.id.cancel).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				dismiss();
 			}
 		});
-		return view;
 	}
 	
 	@Override

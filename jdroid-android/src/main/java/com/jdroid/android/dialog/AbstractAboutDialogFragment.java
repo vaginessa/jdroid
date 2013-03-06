@@ -42,16 +42,24 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.about_dialog, container, false);
+		return inflater.inflate(R.layout.about_dialog, container, false);
+	}
+	
+	/**
+	 * @see com.jdroid.android.dialog.AbstractDialogFragment#onViewCreated(android.view.View, android.os.Bundle)
+	 */
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 		
-		TextView appName = (TextView)view.findViewById(R.id.appName);
+		TextView appName = findView(R.id.appName);
 		appName.setText(getAppName());
 		
-		TextView version = (TextView)view.findViewById(R.id.version);
+		TextView version = findView(R.id.version);
 		version.setText(getString(R.string.version, AndroidUtils.getVersionName()));
 		
-		TextView contactUsLabel = (TextView)view.findViewById(R.id.contactUsLabel);
-		TextView contactUsEmail = (TextView)view.findViewById(R.id.contactUsEmail);
+		TextView contactUsLabel = findView(R.id.contactUsLabel);
+		TextView contactUsEmail = findView(R.id.contactUsEmail);
 		final String contactUsEmailAddress = getContactUsEmail();
 		if (contactUsEmailAddress != null) {
 			contactUsEmail.setText(contactUsEmailAddress);
@@ -60,13 +68,13 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 			contactUsEmail.setVisibility(View.GONE);
 		}
 		
-		TextView copyright = (TextView)view.findViewById(R.id.copyright);
+		TextView copyright = findView(R.id.copyright);
 		copyright.setText(getCopyRightLegend());
 		
-		TextView allRightsReservedLegend = (TextView)view.findViewById(R.id.allRightsReservedLegend);
+		TextView allRightsReservedLegend = findView(R.id.allRightsReservedLegend);
 		allRightsReservedLegend.setText(getAllRightsReservedLegend());
 		
-		Button termsOfService = (Button)view.findViewById(R.id.termsOfService);
+		Button termsOfService = findView(R.id.termsOfService);
 		final String termsOfUseURL = getTermsOfUseURL();
 		if (termsOfUseURL != null) {
 			termsOfService.setOnClickListener(new android.view.View.OnClickListener() {
@@ -80,7 +88,7 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 			termsOfService.setVisibility(View.VISIBLE);
 		}
 		
-		Button privacy = (Button)view.findViewById(R.id.privacy);
+		Button privacy = findView(R.id.privacy);
 		final String privacyURL = getPrivacyURL();
 		if (privacyURL != null) {
 			privacy.setOnClickListener(new android.view.View.OnClickListener() {
@@ -94,7 +102,7 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 			privacy.setVisibility(View.VISIBLE);
 		}
 		
-		Button share = (Button)view.findViewById(R.id.share);
+		Button share = findView(R.id.share);
 		final String shareEmailSubject = getShareEmailSubject();
 		final String shareEmailContent = getShareEmailContent();
 		if ((shareEmailSubject != null) && (shareEmailContent != null)) {
@@ -113,15 +121,13 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 			share.setVisibility(View.GONE);
 		}
 		
-		view.findViewById(R.id.ok).setOnClickListener(new android.view.View.OnClickListener() {
+		findView(R.id.ok).setOnClickListener(new android.view.View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				dismiss();
 			}
 		});
-		
-		return view;
 	}
 	
 	protected String getAllRightsReservedLegend() {

@@ -46,6 +46,14 @@ public abstract class AbstractListFragment<T> extends SherlockListFragment imple
 	}
 	
 	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#shouldRetainInstance()
+	 */
+	@Override
+	public Boolean shouldRetainInstance() {
+		return baseFragment.shouldRetainInstance();
+	}
+	
+	/**
 	 * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
 	 */
 	@Override

@@ -37,6 +37,14 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	}
 	
 	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#shouldRetainInstance()
+	 */
+	@Override
+	public Boolean shouldRetainInstance() {
+		return false;
+	}
+	
+	/**
 	 * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
 	 */
 	@Override

@@ -32,7 +32,12 @@ public class BaseFragment {
 	
 	public void onCreate(Bundle savedInstanceState) {
 		Log.v(TAG, "Executing onCreate on " + fragment);
+		fragment.setRetainInstance(getFragmentIf().shouldRetainInstance());
 		RoboGuice.getInjector(fragment.getActivity()).injectMembersWithoutViews(fragment);
+	}
+	
+	public Boolean shouldRetainInstance() {
+		return true;
 	}
 	
 	public void onViewCreated(View view, Bundle savedInstanceState) {

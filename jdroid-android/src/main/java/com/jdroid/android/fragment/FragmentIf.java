@@ -99,4 +99,7 @@ public interface FragmentIf extends DefaultUseCaseListener {
 	public User getUser();
 	
 	public AdSize getAdSize();
+	
+	public Boolean shouldRetainInstance();
+	
 }

@@ -34,6 +34,14 @@ public abstract class AbstractPreferenceActivity extends SherlockPreferenceActiv
 	}
 	
 	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#shouldRetainInstance()
+	 */
+	@Override
+	public Boolean shouldRetainInstance() {
+		throw new IllegalArgumentException();
+	}
+	
+	/**
 	 * @see com.jdroid.android.activity.ActivityIf#getContentView()
 	 */
 	@Override

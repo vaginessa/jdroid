@@ -73,6 +73,14 @@ public class BaseActivity implements ActivityIf {
 	}
 	
 	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#shouldRetainInstance()
+	 */
+	@Override
+	public Boolean shouldRetainInstance() {
+		throw new IllegalArgumentException();
+	}
+	
+	/**
 	 * @see com.jdroid.android.activity.ActivityIf#getContentView()
 	 */
 	@Override

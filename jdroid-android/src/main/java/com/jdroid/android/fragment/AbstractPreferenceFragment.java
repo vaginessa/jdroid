@@ -30,6 +30,14 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	}
 	
 	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#shouldRetainInstance()
+	 */
+	@Override
+	public Boolean shouldRetainInstance() {
+		return true;
+	}
+	
+	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#findView(int)
 	 */
 	@Override

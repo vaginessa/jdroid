@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TimePicker;
 import com.jdroid.android.R;
 import com.jdroid.android.dialog.AbstractDialogFragment;
@@ -35,7 +34,6 @@ public class TimePickerDialogFragment extends AbstractDialogFragment {
 		fragment.show(fm, TimePickerDialogFragment.class.getSimpleName());
 	}
 	
-	private TimePicker timePicker;
 	private Date defaultTime;
 	
 	public interface OnTimeSetListener {
@@ -50,10 +48,7 @@ public class TimePickerDialogFragment extends AbstractDialogFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		Bundle args = getArguments();
-		if (args != null) {
-			defaultTime = (Date)args.getSerializable(DEFAULT_TIME_EXTRA);
-		}
+		defaultTime = getArgument(DEFAULT_TIME_EXTRA);
 	}
 	
 	/**
@@ -62,16 +57,24 @@ public class TimePickerDialogFragment extends AbstractDialogFragment {
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.time_picker_dialog_fragment, container, false);
+		return inflater.inflate(R.layout.time_picker_dialog_fragment, container, false);
+	}
+	
+	/**
+	 * @see com.jdroid.android.dialog.AbstractDialogFragment#onViewCreated(android.view.View, android.os.Bundle)
+	 */
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 		
 		getDialog().setTitle(R.string.selectTime);
-		timePicker = (TimePicker)view.findViewById(R.id.timePicker);
+		
+		final TimePicker timePicker = findView(R.id.timePicker);
 		timePicker.setIs24HourView(DateFormat.is24HourFormat(getActivity()));
 		timePicker.setCurrentHour(DateUtils.getHour(defaultTime, true));
 		timePicker.setCurrentMinute(DateUtils.getMinute(defaultTime));
 		
-		Button ok = (Button)view.findViewById(R.id.ok);
-		ok.setOnClickListener(new OnClickListener() {
+		findView(R.id.ok).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -81,14 +84,12 @@ public class TimePickerDialogFragment extends AbstractDialogFragment {
 			}
 		});
 		
-		Button cancel = (Button)view.findViewById(R.id.cancel);
-		cancel.setOnClickListener(new OnClickListener() {
+		findView(R.id.cancel).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				dismiss();
 			}
 		});
-		return view;
 	}
 }

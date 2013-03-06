@@ -1,6 +1,7 @@
 package com.jdroid.android.contextual;
 
 import java.util.List;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.jdroid.java.collections.Lists;
  * 
  * @author Maxi Rosson
  */
+@SuppressLint("ValidFragment")
 public class ContextualListFragment extends AbstractListFragment<TabAction> {
 	
 	private static final String ACTIONS_EXTRA = "actions";
@@ -43,7 +45,6 @@ public class ContextualListFragment extends AbstractListFragment<TabAction> {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setRetainInstance(true);
 		
 		actions = getArgument(ACTIONS_EXTRA);
 		defaultIndex = getArgument(DEFAULT_INDEX_EXTRA);

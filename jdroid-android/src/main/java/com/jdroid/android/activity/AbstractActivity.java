@@ -33,6 +33,14 @@ public abstract class AbstractActivity extends SherlockActivity implements Activ
 	}
 	
 	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#shouldRetainInstance()
+	 */
+	@Override
+	public Boolean shouldRetainInstance() {
+		throw new IllegalArgumentException();
+	}
+	
+	/**
 	 * @see com.jdroid.android.activity.ActivityIf#onBeforeSetContentView()
 	 */
 	@Override
