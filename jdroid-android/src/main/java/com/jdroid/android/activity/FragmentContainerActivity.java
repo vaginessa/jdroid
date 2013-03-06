@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import com.jdroid.android.R;
+import com.jdroid.java.exception.UnexpectedException;
 
 /**
  * 
@@ -52,7 +53,26 @@ public abstract class FragmentContainerActivity extends AbstractFragmentActivity
 		fragmentTransaction.commit();
 	}
 	
-	protected abstract Fragment createNewFragment();
+	protected Fragment createNewFragment() {
+		return instance(getFragmentClass(), getIntent().getExtras());
+	}
+	
+	private <E extends Fragment> E instance(Class<E> fragmentClass, Bundle bundle) {
+		E fragment = null;
+		try {
+			fragment = fragmentClass.newInstance();
+		} catch (InstantiationException e) {
+			throw new UnexpectedException(e);
+		} catch (IllegalAccessException e) {
+			throw new UnexpectedException(e);
+		}
+		fragment.setArguments(bundle);
+		return fragment;
+	}
+	
+	protected Class<? extends Fragment> getFragmentClass() {
+		return null;
+	}
 	
 	protected int getTransition() {
 		return FragmentTransaction.TRANSIT_FRAGMENT_FADE;

@@ -105,70 +105,70 @@ public abstract class BaseHolderArrayAdapter<ITEM, VIEWHOLDER> extends BaseArray
 	/**
 	 * Called when the view of the unique item of the list is created
 	 * 
-	 * @param convertView The convertView from the list.
+	 * @param view The View corresponding to the data at the specified position.
 	 * @param holder The VIEWHOLDER.
 	 */
-	protected void onUniqueListItem(View convertView, VIEWHOLDER holder) {
+	protected void onUniqueListItem(View view, VIEWHOLDER holder) {
 		// Do Nothing
 	}
 	
 	/**
 	 * Called when the view of the first item of the list is created
 	 * 
-	 * @param convertView The convertView from the list.
+	 * @param view The View corresponding to the data at the specified position.
 	 * @param holder The VIEWHOLDER.
 	 */
-	protected void onFirstListItem(View convertView, VIEWHOLDER holder) {
+	protected void onFirstListItem(View view, VIEWHOLDER holder) {
 		// Do Nothing
 	}
 	
 	/**
 	 * Called when the view of the middle item of the list is created
 	 * 
-	 * @param convertView The convertView from the list.
+	 * @param view The View corresponding to the data at the specified position.
 	 * @param holder The VIEWHOLDER.
 	 */
-	protected void onMiddleListItem(View convertView, VIEWHOLDER holder) {
+	protected void onMiddleListItem(View view, VIEWHOLDER holder) {
 		// Do Nothing
 	}
 	
 	/**
 	 * Called when the view of the last item of the list is created
 	 * 
-	 * @param convertView The convertView from the list.
+	 * @param view The View corresponding to the data at the specified position.
 	 * @param holder The VIEWHOLDER.
 	 */
-	protected void onLastListItem(View convertView, VIEWHOLDER holder) {
+	protected void onLastListItem(View view, VIEWHOLDER holder) {
 		// Do Nothing
 	}
 	
 	/**
 	 * Called when the view of an odd item of the list is created
 	 * 
-	 * @param convertView The convertView from the list.
+	 * @param view The View corresponding to the data at the specified position.
 	 * @param holder The VIEWHOLDER.
 	 */
-	protected void onOddListItem(View convertView, VIEWHOLDER holder) {
+	protected void onOddListItem(View view, VIEWHOLDER holder) {
 		// Do Nothing
 	}
 	
 	/**
 	 * Called when the view of an even item of the list is created
 	 * 
-	 * @param convertView The convertView from the list.
+	 * @param view The View corresponding to the data at the specified position.
 	 * @param holder The VIEWHOLDER.
 	 */
-	protected void onEvenListItem(View convertView, VIEWHOLDER holder) {
+	protected void onEvenListItem(View view, VIEWHOLDER holder) {
 		// Do Nothing
 	}
 	
 	/**
 	 * Called when the view of an item of the list is created
 	 * 
-	 * @param convertView The convertView from the list.
+	 * @param view The View corresponding to the data at the specified position.
 	 * @param holder The VIEWHOLDER.
 	 */
-	protected void onListItem(View convertView, VIEWHOLDER holder) {
+	protected void onListItem(View view, VIEWHOLDER holder) {
 		// Do Nothing
 	}
 	
