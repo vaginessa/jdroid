@@ -1,7 +1,5 @@
 package com.jdroid.android.activity;
 
-import java.util.Map;
-import roboguice.RoboGuice;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
@@ -17,7 +15,6 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.ads.AdSize;
-import com.google.inject.Key;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.ActivityLauncher;
 import com.jdroid.android.R;
@@ -33,7 +30,6 @@ import com.jdroid.android.loading.DefaultLoadingDialogBuilder;
 import com.jdroid.android.loading.LoadingDialogBuilder;
 import com.jdroid.android.usecase.DefaultUseCase;
 import com.jdroid.android.utils.AndroidUtils;
-import com.jdroid.java.collections.Maps;
 import com.jdroid.java.utils.ExecutorUtils;
 
 /**
@@ -47,7 +43,6 @@ public class BaseActivity implements ActivityIf {
 	private Activity activity;
 	protected Dialog loadingDialog;
 	private BroadcastReceiver clearTaskBroadcastReceiver;
-	private Map<Key<?>, Object> scopedObjects = Maps.newHashMap();
 	
 	/**
 	 * @param activity
@@ -105,7 +100,6 @@ public class BaseActivity implements ActivityIf {
 	}
 	
 	public void beforeOnCreate() {
-		RoboGuice.getInjector(activity).injectMembersWithoutViews(activity);
 	}
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -152,15 +146,6 @@ public class BaseActivity implements ActivityIf {
 	}
 	
 	public void onContentChanged() {
-		RoboGuice.getInjector(activity).injectViewMembers(activity);
-	}
-	
-	/**
-	 * @see roboguice.util.RoboContext#getScopedObjectMap()
-	 */
-	@Override
-	public Map<Key<?>, Object> getScopedObjectMap() {
-		return scopedObjects;
 	}
 	
 	public void onSaveInstanceState(Bundle outState) {
@@ -200,7 +185,6 @@ public class BaseActivity implements ActivityIf {
 			activity.unregisterReceiver(clearTaskBroadcastReceiver);
 		}
 		dismissLoading();
-		RoboGuice.destroyInjector(activity);
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -1,6 +1,5 @@
 package com.jdroid.android.activity;
 
-import java.util.Map;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.ads.AdSize;
-import com.google.inject.Key;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.context.DefaultApplicationContext;
@@ -79,14 +77,6 @@ public abstract class AbstractFragmentActivity extends SherlockFragmentActivity 
 	public void onContentChanged() {
 		super.onContentChanged();
 		baseActivity.onContentChanged();
-	}
-	
-	/**
-	 * @see roboguice.util.ScopedObjectMapProvider#getScopedObjectMap()
-	 */
-	@Override
-	public Map<Key<?>, Object> getScopedObjectMap() {
-		return baseActivity.getScopedObjectMap();
 	}
 	
 	/**

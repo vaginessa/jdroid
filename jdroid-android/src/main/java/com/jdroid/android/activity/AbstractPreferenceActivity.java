@@ -1,6 +1,5 @@
 package com.jdroid.android.activity;
 
-import java.util.Map;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -9,7 +8,6 @@ import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.ads.AdSize;
-import com.google.inject.Key;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.context.DefaultApplicationContext;
 import com.jdroid.android.domain.User;
@@ -83,14 +81,6 @@ public abstract class AbstractPreferenceActivity extends SherlockPreferenceActiv
 	public void onContentChanged() {
 		super.onContentChanged();
 		baseActivity.onContentChanged();
-	}
-	
-	/**
-	 * @see roboguice.util.ScopedObjectMapProvider#getScopedObjectMap()
-	 */
-	@Override
-	public Map<Key<?>, Object> getScopedObjectMap() {
-		return baseActivity.getScopedObjectMap();
 	}
 	
 	/**

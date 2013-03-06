@@ -1,6 +1,5 @@
 package com.jdroid.android.fragment;
 
-import roboguice.RoboGuice;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -33,7 +32,6 @@ public class BaseFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		Log.v(TAG, "Executing onCreate on " + fragment);
 		fragment.setRetainInstance(getFragmentIf().shouldRetainInstance());
-		RoboGuice.getInjector(fragment.getActivity()).injectMembersWithoutViews(fragment);
 	}
 	
 	public Boolean shouldRetainInstance() {
@@ -42,7 +40,6 @@ public class BaseFragment {
 	
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		Log.v(TAG, "Executing onViewCreated on " + fragment);
-		RoboGuice.getInjector(fragment.getActivity()).injectViewMembers(fragment);
 		
 		AdLoader.loadAd(fragment.getActivity(), (ViewGroup)(fragment.getView().findViewById(R.id.adViewContainer)),
 			getFragmentIf().getAdSize());

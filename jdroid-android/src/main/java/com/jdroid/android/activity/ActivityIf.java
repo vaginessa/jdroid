@@ -1,6 +1,5 @@
 package com.jdroid.android.activity;
 
-import roboguice.util.RoboContext;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,7 +11,7 @@ import com.jdroid.android.fragment.FragmentIf;
  * 
  * @author Maxi Rosson
  */
-public interface ActivityIf extends FragmentIf, RoboContext {
+public interface ActivityIf extends FragmentIf {
 	
 	public Boolean onBeforeSetContentView();
 	
