@@ -27,7 +27,7 @@ public class ContextualListFragment extends AbstractListFragment<TabAction> {
 	private static final String DEFAULT_INDEX_EXTRA = "defaultIndex";
 	
 	private List<TabAction> actions;
-	private int defaultIndex;
+	private Integer defaultIndex;
 	
 	public ContextualListFragment() {
 	}
