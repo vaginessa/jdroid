@@ -57,6 +57,7 @@
     <issue id="ScrollViewCount" severity="ignore" />
     <issue id="ScrollViewSize" severity="ignore" />
     <issue id="SdCardPath" severity="ignore" />
+    <issue id="SelectableText" severity="ignore" />
     <issue id="SetJavaScriptEnabled" severity="ignore" />
     <issue id="ShowToast" severity="ignore" />
     <issue id="SpUsage" severity="ignore" />

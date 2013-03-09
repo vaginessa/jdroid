@@ -8,6 +8,7 @@
     <issue id="Registered">
         <ignore path="src\main\java\com\jdroid\android\exception\ExceptionReportActivity.java" />
     </issue>
+    <issue id="SelectableText" severity="ignore" />
     <issue id="SetJavaScriptEnabled">
         <ignore path="src\main\java\com\facebook\android\FbDialog.java" />
     </issue>

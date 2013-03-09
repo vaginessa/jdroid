@@ -27,7 +27,6 @@ import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.fragment.BaseFragment;
 import com.jdroid.android.images.BitmapLruCache;
 import com.jdroid.android.utils.AlertDialogUtils;
-import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.SharedPreferencesUtils;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.exception.UnexpectedException;
@@ -127,10 +126,8 @@ public abstract class AbstractApplication extends Application {
 		return true;
 	}
 	
-	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 	private void initStrictMode() {
-		if (!applicationContext.isProductionEnvironment() && isStrictModeEnabled()
-				&& (AndroidUtils.getApiLevel() >= Build.VERSION_CODES.GINGERBREAD)) {
+		if (!applicationContext.isProductionEnvironment() && isStrictModeEnabled()) {
 			StrictMode.enableDefaults();
 		}
 	}
