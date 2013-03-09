@@ -1,18 +1,30 @@
 package com.jdroid.android.exception;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.NotificationUtils;
+import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.utils.IdGenerator;
 
 /**
  * 
  * @author Maxi Rosson
  */
 public class ExceptionReportActivity extends Activity {
+	
+	private static final String TAG = ExceptionReportActivity.class.getSimpleName();
+	
+	private static final String EXCEPTION_EXTRA = "exceptionExtra";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,21 +39,38 @@ public class ExceptionReportActivity extends Activity {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				Intent intent = getIntent();
-				intent.setClass(ExceptionReportActivity.this, ExceptionReportService.class);
-				startService(intent);
-				dialog.dismiss();
-				finish();
-			}
-		});
-		dialog.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.cancel();
-				finish();
+				throw (RuntimeException)(getIntent().getSerializableExtra(EXCEPTION_EXTRA));
 			}
 		});
 		dialog.show();
+	}
+	
+	/**
+	 * Sends an error report.
+	 * 
+	 * @param thread The thread where the exception occurred (e.g. {@link java.lang.Thread#currentThread()})
+	 * @param ex The exception
+	 */
+	public static void reportException(Thread thread, Throwable ex) {
+		
+		try {
+			Context context = AbstractApplication.get();
+			
+			Writer writer = new StringWriter();
+			ex.printStackTrace(new PrintWriter(writer));
+			
+			Bundle bundle = new Bundle();
+			bundle.putSerializable(EXCEPTION_EXTRA, ex);
+			
+			String notificationTitle = context.getString(R.string.exceptionReportNotificationTitle,
+				AndroidUtils.getApplicationName());
+			String notificationText = context.getString(R.string.exceptionReportNotificationText);
+			
+			NotificationUtils.sendNotification(IdGenerator.getRandomIntId(), android.R.drawable.stat_notify_error,
+				notificationTitle, notificationTitle, notificationText, ExceptionReportActivity.class,
+				DateUtils.now().getTime(), bundle);
+		} catch (Exception e) {
+			Log.e(TAG, "Unexepected error from the exception reporter", e);
+		}
 	}
 }

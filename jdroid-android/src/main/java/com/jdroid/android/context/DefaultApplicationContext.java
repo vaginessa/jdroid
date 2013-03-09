@@ -27,6 +27,7 @@ public class DefaultApplicationContext {
 	private String analyticsTrackingId;
 	private Boolean crittercismEnabled;
 	private String crittercismAppId;
+	private Boolean crittercismPremium;
 	
 	public DefaultApplicationContext() {
 		PropertiesUtils.loadProperties(LOCAL_PROPERTIES_RESOURCE_NAME);
@@ -44,6 +45,7 @@ public class DefaultApplicationContext {
 		analyticsTrackingId = PropertiesUtils.getStringProperty("analytics.trackingId");
 		crittercismEnabled = PropertiesUtils.getBooleanProperty("crittercism.enabled", false);
 		crittercismAppId = PropertiesUtils.getStringProperty("crittercism.appId");
+		crittercismPremium = PropertiesUtils.getBooleanProperty("crittercism.premium", false);
 	}
 	
 	/**
@@ -145,5 +147,9 @@ public class DefaultApplicationContext {
 	
 	public String getCrittercismAppId() {
 		return crittercismAppId;
+	}
+	
+	public Boolean isCrittercismPremium() {
+		return crittercismPremium;
 	}
 }

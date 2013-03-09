@@ -119,23 +119,6 @@
 			<version>1.6.1-RC1</version>
 		</dependency>
 
-		<!-- Required to send mails -->
-		<dependency>
-			<groupId>android.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>android.mail</groupId>
-			<artifactId>activation</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>android.mail</groupId>
-			<artifactId>additionnal</artifactId>
-			<version>1.0</version>
-		</dependency>
-
 		<!-- Twitter4J -->
 		<dependency>
 			<groupId>android.twitter</groupId>

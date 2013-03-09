@@ -1,4 +1,4 @@
-package com.jdroid.android.mail;
+package com.jdroid.java.mail;
 
 import java.util.Properties;
 import javax.mail.Message;
@@ -8,14 +8,13 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import android.util.Log;
-import com.jdroid.java.mail.MailException;
-import com.jdroid.java.mail.MailService;
+import org.slf4j.Logger;
+import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.PropertiesUtils;
 
 public class MailServiceImpl implements MailService {
 	
-	private static final String TAG = MailServiceImpl.class.getSimpleName();
+	protected static final Logger LOGGER = LoggerUtils.getLogger(MailServiceImpl.class);
 	
 	private static final String MAIL_USER = PropertiesUtils.getStringProperty("mail.user");
 	private static final String MAIL_PASSWORD = PropertiesUtils.getStringProperty("mail.password");
@@ -44,7 +43,7 @@ public class MailServiceImpl implements MailService {
 				try {
 					transport.close();
 				} catch (MessagingException e) {
-					Log.e(TAG, "", e);
+					LOGGER.error("", e);
 				}
 			}
 		}

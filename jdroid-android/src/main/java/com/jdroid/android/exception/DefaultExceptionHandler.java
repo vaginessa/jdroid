@@ -6,9 +6,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.util.Log;
+import com.crittercism.app.Crittercism;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
-import com.jdroid.android.context.ErrorReportingContext;
+import com.jdroid.android.context.DefaultApplicationContext;
 import com.jdroid.android.utils.AlertDialogUtils;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.LocalizationUtils;
@@ -57,9 +58,6 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	}
 	
 	private void handleMainThreadException(Thread thread, Throwable throwable) {
-		if (ErrorReportingContext.get().isMailReportingEnabled()) {
-			ExceptionReportService.reportException(thread, throwable);
-		}
 		defaultExceptionHandler.uncaughtException(thread, throwable);
 	}
 	
@@ -108,8 +106,13 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	
 	private void handleException(Thread thread, Throwable throwable) {
 		Log.e(TAG, "Unexepected error", throwable);
-		if (ErrorReportingContext.get().isMailReportingEnabled()) {
-			ExceptionReportService.reportException(thread, throwable);
+		DefaultApplicationContext appContext = AbstractApplication.get().getAndroidApplicationContext();
+		if (appContext.isCrittercismEnabled()) {
+			if (appContext.isCrittercismPremium()) {
+				Crittercism.logHandledException(throwable);
+			} else if (!appContext.isProductionEnvironment()) {
+				ExceptionReportActivity.reportException(thread, throwable);
+			}
 		}
 		
 		Activity activity = AbstractApplication.get().getCurrentActivity();
@@ -132,10 +135,10 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 		}
 	}
 	
-	private Boolean shouldGoBack(AbstractException abstractException, Boolean defaultValue) {
-		return abstractException.hasParameter(GO_BACK_KEY) ? abstractException.<Boolean>getParameter(GO_BACK_KEY)
-				: defaultValue;
-	}
+	// private Boolean shouldGoBack(AbstractException abstractException, Boolean defaultValue) {
+	// return abstractException.hasParameter(GO_BACK_KEY) ? abstractException.<Boolean>getParameter(GO_BACK_KEY)
+	// : defaultValue;
+	// }
 	
 	public static void markAsNotGoBack(AbstractException abstractException) {
 		abstractException.addParameter(GO_BACK_KEY, false);
