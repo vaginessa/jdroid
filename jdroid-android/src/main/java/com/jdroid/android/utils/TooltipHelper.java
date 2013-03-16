@@ -20,10 +20,10 @@ import android.widget.Toast;
 public class TooltipHelper {
 	
 	/**
-	 * The estimated height of a toast, in dips (density-independent pixels). This is used to determine whether or not
+	 * The estimated height of a toast, in dps (density-independent pixels). This is used to determine whether or not
 	 * the toast should appear above or below the UI element.
 	 */
-	private static final int ESTIMATED_TOAST_HEIGHT_DIPS = 48;
+	private static final int ESTIMATED_TOAST_HEIGHT_DPS = 48;
 	
 	/**
 	 * Sets up a cheat sheet (tooltip) for the given view by setting its {@link android.view.View.OnLongClickListener}.
@@ -105,7 +105,7 @@ public class TooltipHelper {
 		final int viewHeight = view.getHeight();
 		final int viewCenterX = screenPos[0] + (viewWidth / 2);
 		final int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
-		final int estimatedToastHeight = (int)(ESTIMATED_TOAST_HEIGHT_DIPS * context.getResources().getDisplayMetrics().density);
+		final int estimatedToastHeight = (int)(ESTIMATED_TOAST_HEIGHT_DPS * context.getResources().getDisplayMetrics().density);
 		
 		Toast cheatSheet = Toast.makeText(context, text, Toast.LENGTH_SHORT);
 		boolean showBelow = screenPos[1] < estimatedToastHeight;

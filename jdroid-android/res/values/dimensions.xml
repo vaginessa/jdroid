@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<dimen name="contextual_list_item_icon_size">36dip</dimen>
+	<dimen name="contextual_list_item_icon_size">36dp</dimen>
 	<dimen name="listSeparatorTextSize">16sp</dimen>
 
 	<dimen name="borderedCustomImageViewMargin">3dp</dimen>
