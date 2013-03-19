@@ -28,6 +28,10 @@ public final class ExecutorUtils {
 		scheduledExecutor.schedule(runnable, delaySeconds, TimeUnit.SECONDS);
 	}
 	
+	public static void scheduleInMillis(Runnable runnable, Long delayMilliSeconds) {
+		scheduledExecutor.schedule(runnable, delayMilliSeconds, TimeUnit.MILLISECONDS);
+	}
+	
 	/**
 	 * @param seconds The time to sleep in seconds.
 	 */

@@ -175,8 +175,14 @@ public abstract class AbstractApplication extends Application {
 		if ((currentExceptionHandler == null) || !currentExceptionHandler.getClass().equals(getExceptionHandlerClass())) {
 			initCrittercism();
 			
-			Thread.setDefaultUncaughtExceptionHandler(ReflectionUtils.newInstance(getExceptionHandlerClass()));
-			Log.i(TAG, "Custom exception handler initialized");
+			ExecutorUtils.scheduleInMillis(new Runnable() {
+				
+				@Override
+				public void run() {
+					Thread.setDefaultUncaughtExceptionHandler(ReflectionUtils.newInstance(getExceptionHandlerClass()));
+					Log.i(TAG, "Custom exception handler initialized");
+				}
+			}, 100L);
 		}
 	}
 	
