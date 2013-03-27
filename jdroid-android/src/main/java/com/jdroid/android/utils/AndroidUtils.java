@@ -3,11 +3,13 @@ package com.jdroid.android.utils;
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
@@ -261,5 +263,11 @@ public class AndroidUtils {
 	
 	public static Boolean supportsContextualActionBar() {
 		return !AndroidUtils.isPreHoneycomb() && !AndroidUtils.isGoogleTV();
+	}
+	
+	public static void startSkypeCall(String username) {
+		Intent skypeIntent = new Intent("android.intent.action.VIEW");
+		skypeIntent.setData(Uri.parse("skype:" + username));
+		AbstractApplication.get().startActivity(skypeIntent);
 	}
 }

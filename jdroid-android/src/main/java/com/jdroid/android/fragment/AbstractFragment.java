@@ -132,7 +132,7 @@ public abstract class AbstractFragment extends SherlockFragment implements Fragm
 	@Override
 	@SuppressWarnings("unchecked")
 	public <V extends View> V findView(int id) {
-		return (V)getActivity().findViewById(id);
+		return (V)getView().findViewById(id);
 	}
 	
 	/**

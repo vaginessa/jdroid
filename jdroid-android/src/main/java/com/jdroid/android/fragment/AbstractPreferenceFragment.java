@@ -43,7 +43,7 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	@Override
 	@SuppressWarnings("unchecked")
 	public <V extends View> V findView(int id) {
-		return (V)getActivity().findViewById(id);
+		return (V)getView().findViewById(id);
 	}
 	
 	/**

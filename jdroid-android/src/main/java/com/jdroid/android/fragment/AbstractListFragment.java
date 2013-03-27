@@ -183,7 +183,7 @@ public abstract class AbstractListFragment<T> extends SherlockListFragment imple
 	@Override
 	@SuppressWarnings("unchecked")
 	public <V extends View> V findView(int id) {
-		return (V)getActivity().findViewById(id);
+		return (V)getView().findViewById(id);
 	}
 	
 	/**

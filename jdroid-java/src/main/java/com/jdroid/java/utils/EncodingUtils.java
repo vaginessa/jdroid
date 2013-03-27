@@ -106,7 +106,7 @@ public class EncodingUtils {
 	 */
 	private static boolean isAllowed(char c, String allow) {
 		return ((c >= 'A') && (c <= 'Z')) || ((c >= 'a') && (c <= 'z')) || ((c >= '0') && (c <= '9'))
-				|| ("_-!.~'()*".indexOf(c) != NOT_FOUND) || ((allow != null) && (allow.indexOf(c) != NOT_FOUND));
+				|| ("_-!.~'()*/".indexOf(c) != NOT_FOUND) || ((allow != null) && (allow.indexOf(c) != NOT_FOUND));
 	}
 	
 }

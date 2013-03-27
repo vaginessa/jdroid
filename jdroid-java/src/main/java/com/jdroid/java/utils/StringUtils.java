@@ -269,4 +269,33 @@ public abstract class StringUtils {
 	public static String getFirstToken(String string) {
 		return getFirstToken(string, COMMA);
 	}
+	
+	/**
+	 * This method word wrap a text to two lines if the text has multiple words and its length is greater than the
+	 * specified minLength. To do the word wrap, the white space closest to the middle of the string is replaced by a
+	 * "\n" character
+	 * 
+	 * @param text A Sting, the text to word wrap to two lines.
+	 * @param minLength The min text length to appy word wrap.
+	 * @return The input text word wrapped to two lines or the original text.
+	 */
+	public static String wordWrapToTwoLines(String text, int minLength) {
+		String wordWrapText = text.trim();
+		if ((wordWrapText != null) && (wordWrapText.length() > minLength)) {
+			int middle = wordWrapText.length() / 2;
+			int leftSpaceIndex = wordWrapText.substring(0, middle).lastIndexOf(SPACE);
+			int rightSpaceIndex = wordWrapText.indexOf(SPACE, middle);
+			int wordWrapIndex = rightSpaceIndex;
+			if ((leftSpaceIndex >= 0)
+					&& ((rightSpaceIndex < 0) || ((middle - leftSpaceIndex) < (rightSpaceIndex - middle)))) {
+				wordWrapIndex = leftSpaceIndex;
+			}
+			if (wordWrapIndex >= 0) {
+				wordWrapText = wordWrapText.substring(0, wordWrapIndex) + "\n"
+						+ wordWrapText.substring(wordWrapIndex + 1);
+			}
+		}
+		
+		return wordWrapText;
+	}
 }
