@@ -27,6 +27,7 @@ jdroid Java Web
 
 jdroid Android
 --------------
+Support for Android 2.3 and higher versions
 * Google Maps v2 integration
 * In App Billing integration
 * Google Analytics integration
@@ -46,6 +47,8 @@ jdroid Android
 * Coverflow component
 * Voice Recognizer component
 * Date & Time picker components
+* Animations
+ * Fade in / Fade out
 * Utilities for Alarms, Bitmaps, Notifications, Shared Preferences, Toasts, Sounds, GPS, and more.
 
 For more information, visit the [GitHub Wiki][1] or our [Site][2].
