@@ -7,6 +7,8 @@ jdroid Java
 -----------
 * HTTP Service Layer
  * GET, POST, PUT & DELETE methods
+ * Headers appender
+ * Response validator
  * Response Mocks support
  * GZIP encoding
  * Cookies
@@ -38,6 +40,7 @@ Support for Android 2.3 and higher versions
 * Twitter integration
 * Crittercism integration
 * Base Activity & Fragment implementations
+* Strict mode support
 * Exception handling
 * HTTP Cookies storing.
 * Remote image loading component
