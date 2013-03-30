@@ -20,8 +20,7 @@ public class PreHoneycombDebugSettingsActivity extends AbstractPreferenceActivit
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.debug_preferences);
 		
-		View debugInfoView = DebugSettingsFragment.inflateDebugInfoView(this);
-		
+		View debugInfoView = new DebugInfoView(this);
 		getListView().addFooterView(debugInfoView);
 	}
 	

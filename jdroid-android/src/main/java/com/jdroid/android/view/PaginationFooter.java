@@ -84,12 +84,10 @@ public class PaginationFooter extends LinearLayout implements PaginationListener
 	public void hide() {
 		// REVIEW: see if we can hide the whole footer
 		findViewById(R.id.progressBar).setVisibility(View.GONE);
-		findViewById(R.id.loading).setVisibility(View.GONE);
 	}
 	
 	private void show() {
 		findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
-		findViewById(R.id.loading).setVisibility(View.VISIBLE);
 	}
 	
 	/**
