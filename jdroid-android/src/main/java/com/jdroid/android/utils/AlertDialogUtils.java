@@ -42,13 +42,6 @@ public final class AlertDialogUtils {
 		HANDLER.sendMessage(HANDLER.obtainMessage(BUILDER, builder));
 	}
 	
-	/**
-	 * @param alertDialog
-	 */
-	public static void show(AlertDialog alertDialog) {
-		HANDLER.sendMessage(HANDLER.obtainMessage(DIALOG, alertDialog));
-	}
-	
 	public static void showOKDialog(int titleResId, int messageResId) {
 		showOKDialog(LocalizationUtils.getString(titleResId), LocalizationUtils.getString(messageResId));
 	}
