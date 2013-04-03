@@ -6,8 +6,6 @@
 	<string name="cancel">Cancel</string>
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
-	<string name="confirmExit">If you exit this screen, you will lose any unsaved changes </string>
-	<string name="areYouSure">Are you sure ?</string>
 	<string name="noResults">There are no available results</string>
 	<string name="featureNotAvailable">This feature is not available yet</string>
 	<string name="zeroPercent">0%</string>

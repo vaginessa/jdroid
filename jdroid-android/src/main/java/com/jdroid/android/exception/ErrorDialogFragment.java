@@ -1,28 +1,18 @@
 package com.jdroid.android.exception;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import com.jdroid.android.R;
-import com.jdroid.android.dialog.AbstractDialogFragment;
+import com.jdroid.android.dialog.AlertDialogFragment;
 
 /**
  * 
  * @author Maxi Rosson
  */
-public class ErrorDialogFragment extends AbstractDialogFragment {
+public class ErrorDialogFragment extends AlertDialogFragment {
 	
-	private static final String TITLE_EXTRA = "titleExtra";
-	private static final String MESSAGE_EXTRA = "messageExtra";
 	private static final String SHOULD_GO_BACK_EXTRA = "shouldGoBackExtra";
-	
-	private String title;
-	private String message;
-	private Boolean shouldGoBack;
 	
 	public static void show(FragmentActivity activity, String title, String message, Boolean shouldGoBack) {
 		
@@ -31,44 +21,19 @@ public class ErrorDialogFragment extends AbstractDialogFragment {
 		
 		if (currentErrorDialogFragment == null) {
 			ErrorDialogFragment fragment = new ErrorDialogFragment();
+			fragment.addParameter(SHOULD_GO_BACK_EXTRA, shouldGoBack);
 			
-			Bundle bundle = new Bundle();
-			bundle.putSerializable(TITLE_EXTRA, title);
-			bundle.putSerializable(MESSAGE_EXTRA, message);
-			bundle.putSerializable(SHOULD_GO_BACK_EXTRA, shouldGoBack);
-			fragment.setArguments(bundle);
-			
-			fragment.show(activity.getSupportFragmentManager(), ErrorDialogFragment.class.getSimpleName());
+			String okButton = activity.getString(R.string.ok);
+			AlertDialogFragment.show(activity, fragment, title, message, okButton, null, true);
 		}
 	}
 	
 	/**
-	 * @see com.jdroid.android.dialog.AbstractDialogFragment#onCreate(android.os.Bundle)
+	 * @see com.jdroid.android.dialog.AlertDialogFragment#onPostivieClick()
 	 */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
-		title = getArgument(TITLE_EXTRA);
-		message = getArgument(MESSAGE_EXTRA);
-		shouldGoBack = getArgument(SHOULD_GO_BACK_EXTRA);
-	}
-	
-	@Override
-	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		
-		AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-		dialog.setTitle(title);
-		dialog.setCancelable(true);
-		dialog.setMessage(message);
-		dialog.setPositiveButton(R.string.ok, new OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				goBackIfrequired();
-			}
-		});
-		return dialog.create();
+	protected void onPostivieClick() {
+		goBackIfrequired();
 	}
 	
 	/**
@@ -81,6 +46,7 @@ public class ErrorDialogFragment extends AbstractDialogFragment {
 	}
 	
 	private void goBackIfrequired() {
+		Boolean shouldGoBack = getArgument(SHOULD_GO_BACK_EXTRA);
 		if (shouldGoBack) {
 			getActivity().finish();
 		}
