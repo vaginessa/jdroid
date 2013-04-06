@@ -25,6 +25,7 @@ import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.debug.DebugSettingsActivity;
 import com.jdroid.android.debug.PreHoneycombDebugSettingsActivity;
 import com.jdroid.android.domain.User;
+import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.intent.ClearTaskIntent;
 import com.jdroid.android.loading.DefaultLoadingDialogBuilder;
 import com.jdroid.android.loading.LoadingDialogBuilder;
@@ -478,6 +479,11 @@ public class BaseActivity implements ActivityIf {
 	 */
 	@Override
 	public void onFinishFailedUseCase(RuntimeException runtimeException) {
+		if (getActivityIf().goBackOnError()) {
+			DefaultExceptionHandler.markAsGoBackOnError(runtimeException);
+		} else {
+			DefaultExceptionHandler.markAsNotGoBackOnError(runtimeException);
+		}
 		getActivityIf().dismissLoadingOnUIThread();
 		throw runtimeException;
 	}
@@ -488,6 +494,14 @@ public class BaseActivity implements ActivityIf {
 	@Override
 	public void onFinishCanceledUseCase() {
 		// Do nothing by default
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError()
+	 */
+	@Override
+	public Boolean goBackOnError() {
+		return true;
 	}
 	
 	/**

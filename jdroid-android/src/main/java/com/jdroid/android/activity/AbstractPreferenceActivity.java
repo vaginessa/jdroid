@@ -382,6 +382,14 @@ public abstract class AbstractPreferenceActivity extends SherlockPreferenceActiv
 	}
 	
 	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError()
+	 */
+	@Override
+	public Boolean goBackOnError() {
+		return baseActivity.goBackOnError();
+	}
+	
+	/**
 	 * @see com.jdroid.android.activity.ActivityIf#requiresAuthentication()
 	 */
 	@Override

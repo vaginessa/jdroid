@@ -224,7 +224,7 @@ public abstract class AbstractListFragment<T> extends SherlockListFragment imple
 	 */
 	@Override
 	public void onFinishFailedUseCase(RuntimeException runtimeException) {
-		getFragmentIf().onFinishFailedUseCase(runtimeException);
+		baseFragment.onFinishFailedUseCase(runtimeException);
 	}
 	
 	/**
@@ -241,6 +241,14 @@ public abstract class AbstractListFragment<T> extends SherlockListFragment imple
 	@Override
 	public void onFinishCanceledUseCase() {
 		getFragmentIf().onFinishCanceledUseCase();
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError()
+	 */
+	@Override
+	public Boolean goBackOnError() {
+		return getFragmentIf().goBackOnError();
 	}
 	
 	/**

@@ -530,6 +530,14 @@ public abstract class AbstractListActivity<T> extends SherlockListActivity imple
 	}
 	
 	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError()
+	 */
+	@Override
+	public Boolean goBackOnError() {
+		return baseActivity.goBackOnError();
+	}
+	
+	/**
 	 * @see com.jdroid.android.activity.ActivityIf#requiresAuthentication()
 	 */
 	@Override

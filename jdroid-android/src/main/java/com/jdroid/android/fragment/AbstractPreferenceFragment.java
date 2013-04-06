@@ -107,6 +107,14 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	}
 	
 	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError()
+	 */
+	@Override
+	public Boolean goBackOnError() {
+		return getFragmentIf().goBackOnError();
+	}
+	
+	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#executeOnUIThread(java.lang.Runnable)
 	 */
 	@Override

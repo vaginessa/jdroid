@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.jdroid.android.R;
 import com.jdroid.android.ad.AdLoader;
+import com.jdroid.android.exception.DefaultExceptionHandler;
 
 /**
  * 
@@ -79,5 +80,15 @@ public class BaseFragment {
 		Bundle arguments = fragment.getArguments();
 		E value = (arguments != null) && arguments.containsKey(key) ? (E)arguments.get(key) : null;
 		return value != null ? value : defaultValue;
+	}
+	
+	public void onFinishFailedUseCase(RuntimeException runtimeException) {
+		if (getFragmentIf().goBackOnError()) {
+			DefaultExceptionHandler.markAsGoBackOnError(runtimeException);
+		} else {
+			DefaultExceptionHandler.markAsNotGoBackOnError(runtimeException);
+		}
+		getFragmentIf().dismissLoadingOnUIThread();
+		throw runtimeException;
 	}
 }
