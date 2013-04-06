@@ -438,6 +438,12 @@ public abstract class AbstractFragmentActivity extends SherlockFragmentActivity 
 		}
 	}
 	
+	public void removeUseCaseFragment(Class<? extends UseCaseFragment<?>> useCaseFragmentClass) {
+		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+		fragmentTransaction.remove(getUseCaseUseCaseFragment(useCaseFragmentClass));
+		fragmentTransaction.commit();
+	}
+	
 	public UseCaseFragment<?> getUseCaseUseCaseFragment(Class<? extends UseCaseFragment<?>> useCaseFragmentClass) {
 		return (UseCaseFragment<?>)getSupportFragmentManager().findFragmentByTag(useCaseFragmentClass.getSimpleName());
 	}

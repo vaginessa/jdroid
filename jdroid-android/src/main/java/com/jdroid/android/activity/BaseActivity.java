@@ -386,34 +386,36 @@ public class BaseActivity implements ActivityIf {
 	@Override
 	public void onResumeUseCase(final DefaultAbstractUseCase useCase, final DefaultUseCaseListener listener,
 			final UseCaseTrigger useCaseTrigger) {
-		ExecutorUtils.execute(new Runnable() {
-			
-			@Override
-			public void run() {
-				useCase.addListener(listener);
-				if (useCase.isNotified()) {
-					if (useCaseTrigger.equals(UseCaseTrigger.ALWAYS)) {
-						useCase.run();
-					}
-				} else {
-					if (useCase.isInProgress()) {
-						listener.onStartUseCase();
-					} else if (useCase.isFinishSuccessful()) {
-						listener.onFinishUseCase();
-						useCase.markAsNotified();
-					} else if (useCase.isFinishFailed()) {
-						try {
-							listener.onFinishFailedUseCase(useCase.getRuntimeException());
-						} finally {
-							useCase.markAsNotified();
+		if (useCase != null) {
+			ExecutorUtils.execute(new Runnable() {
+				
+				@Override
+				public void run() {
+					useCase.addListener(listener);
+					if (useCase.isNotified()) {
+						if (useCaseTrigger.equals(UseCaseTrigger.ALWAYS)) {
+							useCase.run();
 						}
-					} else if (useCase.isNotInvoked()
-							&& (useCaseTrigger.equals(UseCaseTrigger.ONCE) || useCaseTrigger.equals(UseCaseTrigger.ALWAYS))) {
-						useCase.run();
+					} else {
+						if (useCase.isInProgress()) {
+							listener.onStartUseCase();
+						} else if (useCase.isFinishSuccessful()) {
+							listener.onFinishUseCase();
+							useCase.markAsNotified();
+						} else if (useCase.isFinishFailed()) {
+							try {
+								listener.onFinishFailedUseCase(useCase.getRuntimeException());
+							} finally {
+								useCase.markAsNotified();
+							}
+						} else if (useCase.isNotInvoked()
+								&& (useCaseTrigger.equals(UseCaseTrigger.ONCE) || useCaseTrigger.equals(UseCaseTrigger.ALWAYS))) {
+							useCase.run();
+						}
 					}
 				}
-			}
-		});
+			});
+		}
 	}
 	
 	public enum UseCaseTrigger {
