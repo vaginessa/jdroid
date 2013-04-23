@@ -19,7 +19,7 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.ActivityLauncher;
 import com.jdroid.android.R;
 import com.jdroid.android.ad.AdLoader;
-import com.jdroid.android.analytics.AnalyticsTracker;
+import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.context.DefaultApplicationContext;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.debug.DebugSettingsActivity;
@@ -163,7 +163,7 @@ public class BaseActivity implements ActivityIf {
 	public void onStart() {
 		Log.v(TAG, "Executing onStart on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
-		AnalyticsTracker.activityStart(activity);
+		AnalyticsSender.get().onActivityStart(activity);
 	}
 	
 	public void onResume() {
@@ -179,7 +179,7 @@ public class BaseActivity implements ActivityIf {
 	
 	public void onStop() {
 		Log.v(TAG, "Executing onStop on " + activity);
-		AnalyticsTracker.activityStop(activity);
+		AnalyticsSender.get().onActivityStop(activity);
 	}
 	
 	public void onDestroy() {
