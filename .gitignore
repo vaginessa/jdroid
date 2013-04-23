@@ -15,6 +15,7 @@ jdroid-javaweb/.settings/org.maven.ide.eclipse.prefs
 jdroid-android/bin/
 jdroid-android/gen/
 jdroid-android/target/
+jdroid-android/tmp/
 jdroid-android/.settings/org.maven.ide.eclipse.prefs
 
 jdroid-android-googlemaps/bin/

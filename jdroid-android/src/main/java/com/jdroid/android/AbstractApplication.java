@@ -154,7 +154,7 @@ public abstract class AbstractApplication extends Application {
 		});
 	}
 	
-	private void initBitmapLruCache() {
+	protected void initBitmapLruCache() {
 		// Get memory class of this device, exceeding this amount will throw an OutOfMemory exception.
 		int memClass = ((ActivityManager)getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass();
 		// Use 1/8th of the available memory for this memory cache.

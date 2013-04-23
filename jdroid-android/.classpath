@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry exported="true" kind="src" path="/jdroid-java"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/android/compatibility/android-support-v4/r11/android-support-v4-r11.jar"/>
@@ -20,6 +21,8 @@
 	<classpathentry exported="true" kind="var" path="M2_REPO/android/gcm/gcm-client/r3/gcm-client-r3.jar" sourcepath="M2_REPO/android/gcm/gcm-client/r3/gcm-client-r3-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/android/analytics/google-analytics-sdk/2.0Beta4/google-analytics-sdk-2.0Beta4.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/android/crittercism/crittercism-sdk/3.0.7/crittercism-sdk-3.0.7.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/pivotallabs/robolectric/1.2/robolectric-1.2-jar-with-dependencies.jar" />
+	<classpathentry kind="var" path="M2_REPO/junit/junit/4.8.2/junit-4.8.2.jar"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="output" path="bin/classes"/>
