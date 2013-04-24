@@ -1,19 +1,17 @@
 package com.jdroid.android.analytics;
 
 import java.util.List;
-import org.slf4j.Logger;
 import android.app.Activity;
+import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.ExecutorUtils;
-import com.jdroid.java.utils.LoggerUtils;
 
 /**
  * 
  * @author Maxi Rosson
  */
 public class AnalyticsSender implements AnalyticsTracker {
-	
-	private static final Logger LOGGER = LoggerUtils.getLogger(AnalyticsSender.class);
 	
 	private List<? extends AnalyticsTracker> trackers;
 	
@@ -38,8 +36,10 @@ public class AnalyticsSender implements AnalyticsTracker {
 					}
 				}
 			} catch (Exception e) {
-				LOGGER.error("Error tracking", e);
-				// TODO We should log on Crittercism as a handled exception
+				ExceptionHandler exceptionHandler = AbstractApplication.get().getExceptionHandler();
+				if (exceptionHandler != null) {
+					exceptionHandler.logHandledException(e);
+				}
 			}
 		}
 		

@@ -128,6 +128,18 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 			LocalizationUtils.getString(R.string.serverError), throwable);
 	}
 	
+	/**
+	 * @see com.jdroid.android.exception.ExceptionHandler#logHandledException(java.lang.Throwable)
+	 */
+	@Override
+	public void logHandledException(Throwable throwable) {
+		Log.e(TAG, "Handled Exception", throwable);
+		DefaultApplicationContext appContext = AbstractApplication.get().getAndroidApplicationContext();
+		if (appContext.isCrittercismEnabled() && appContext.isCrittercismPremium()) {
+			Crittercism.logHandledException(throwable);
+		}
+	}
+	
 	protected void displayError(String title, String message, Throwable throwable) {
 		Activity activity = AbstractApplication.get().getCurrentActivity();
 		if (activity != null) {

@@ -23,8 +23,8 @@ public class DefaultApplicationContext {
 	private String adUnitId;
 	private Set<String> testDevicesIds;
 	private Boolean cookieRepositoryEnabled = false;
-	private Boolean analyticsEnabled;
-	private String analyticsTrackingId;
+	private Boolean googleAnalyticsEnabled;
+	private String googleAnalyticsTrackingId;
 	private Boolean crittercismEnabled;
 	private String crittercismAppId;
 	private Boolean crittercismPremium;
@@ -41,8 +41,8 @@ public class DefaultApplicationContext {
 		adsEnabled = PropertiesUtils.getBooleanProperty("ads.enabled", false);
 		adUnitId = PropertiesUtils.getStringProperty("ads.adUnitId");
 		testDevicesIds = PropertiesUtils.getStringSetProperty("ads.tests.devices.ids");
-		analyticsEnabled = PropertiesUtils.getBooleanProperty("analytics.enabled", false);
-		analyticsTrackingId = PropertiesUtils.getStringProperty("analytics.trackingId");
+		googleAnalyticsEnabled = PropertiesUtils.getBooleanProperty("google.analytics.enabled", false);
+		googleAnalyticsTrackingId = PropertiesUtils.getStringProperty("google.analytics.trackingId");
 		crittercismEnabled = PropertiesUtils.getBooleanProperty("crittercism.enabled", false);
 		crittercismAppId = PropertiesUtils.getStringProperty("crittercism.appId");
 		crittercismPremium = PropertiesUtils.getBooleanProperty("crittercism.premium", false);
@@ -115,15 +115,15 @@ public class DefaultApplicationContext {
 	/**
 	 * @return Whether the application has Google Analytics enabled or not
 	 */
-	public Boolean isAnalyticsEnabled() {
-		return analyticsEnabled;
+	public Boolean isGoogleAnalyticsEnabled() {
+		return googleAnalyticsEnabled;
 	}
 	
 	/**
 	 * @return The Google Analytics Tracking ID
 	 */
-	public String getAnalyticsTrackingId() {
-		return analyticsTrackingId;
+	public String getGoogleAnalyticsTrackingId() {
+		return googleAnalyticsTrackingId;
 	}
 	
 	public Boolean isHttpMockEnabled() {

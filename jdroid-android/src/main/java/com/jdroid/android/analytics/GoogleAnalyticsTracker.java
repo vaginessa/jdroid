@@ -21,7 +21,7 @@ public class GoogleAnalyticsTracker extends DefaultAnalyticsTracker {
 	 */
 	@Override
 	public Boolean isEnabled() {
-		return AbstractApplication.get().getAndroidApplicationContext().isAnalyticsEnabled();
+		return AbstractApplication.get().getAndroidApplicationContext().isGoogleAnalyticsEnabled();
 	}
 	
 	/**
