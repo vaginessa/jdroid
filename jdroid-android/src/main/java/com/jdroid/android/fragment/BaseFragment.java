@@ -83,12 +83,15 @@ public class BaseFragment {
 	}
 	
 	public void onFinishFailedUseCase(RuntimeException runtimeException) {
-		if (getFragmentIf().goBackOnError()) {
-			DefaultExceptionHandler.markAsGoBackOnError(runtimeException);
-		} else {
-			DefaultExceptionHandler.markAsNotGoBackOnError(runtimeException);
+		FragmentIf fragmentIf = getFragmentIf();
+		if (fragmentIf != null) {
+			if (fragmentIf.goBackOnError()) {
+				DefaultExceptionHandler.markAsGoBackOnError(runtimeException);
+			} else {
+				DefaultExceptionHandler.markAsNotGoBackOnError(runtimeException);
+			}
+			fragmentIf.dismissLoadingOnUIThread();
 		}
-		getFragmentIf().dismissLoadingOnUIThread();
 		throw runtimeException;
 	}
 }

@@ -205,7 +205,10 @@ public abstract class AbstractFragment extends SherlockFragment implements Fragm
 	 */
 	@Override
 	public void executeOnUIThread(Runnable runnable) {
-		getFragmentIf().executeOnUIThread(runnable);
+		FragmentIf fragmentIf = getFragmentIf();
+		if (fragmentIf != null) {
+			fragmentIf.executeOnUIThread(new SafeExecuteWrapperRunnable(this, runnable));
+		}
 	}
 	
 	/**

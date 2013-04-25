@@ -10,6 +10,7 @@ import com.jdroid.android.context.DefaultApplicationContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.BaseFragment;
 import com.jdroid.android.fragment.FragmentIf;
+import com.jdroid.android.fragment.SafeExecuteWrapperRunnable;
 import com.jdroid.android.loading.LoadingDialogBuilder;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.DefaultUseCase;
@@ -156,7 +157,10 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	 */
 	@Override
 	public void executeOnUIThread(Runnable runnable) {
-		getFragmentIf().executeOnUIThread(runnable);
+		FragmentIf fragmentIf = getFragmentIf();
+		if (fragmentIf != null) {
+			fragmentIf.executeOnUIThread(new SafeExecuteWrapperRunnable(this, runnable));
+		}
 	}
 	
 	/**

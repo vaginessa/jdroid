@@ -36,7 +36,11 @@ public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 		} else {
 			DefaultExceptionHandler.markAsNotGoBackOnError(runtimeException);
 		}
-		getActivityIf().dismissLoadingOnUIThread();
+		ActivityIf activityIf = getActivityIf();
+		if (activityIf != null) {
+			activityIf.dismissLoadingOnUIThread();
+		}
+		
 		throw runtimeException;
 	}
 	

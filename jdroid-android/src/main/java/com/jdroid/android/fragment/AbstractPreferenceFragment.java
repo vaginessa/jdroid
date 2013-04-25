@@ -119,7 +119,10 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	 */
 	@Override
 	public void executeOnUIThread(Runnable runnable) {
-		getFragmentIf().executeOnUIThread(runnable);
+		FragmentIf fragmentIf = getFragmentIf();
+		if (fragmentIf != null) {
+			fragmentIf.executeOnUIThread(runnable);
+		}
 	}
 	
 	/**

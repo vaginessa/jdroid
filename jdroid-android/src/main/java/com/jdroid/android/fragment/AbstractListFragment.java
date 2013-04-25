@@ -256,7 +256,10 @@ public abstract class AbstractListFragment<T> extends SherlockListFragment imple
 	 */
 	@Override
 	public void executeOnUIThread(Runnable runnable) {
-		getFragmentIf().executeOnUIThread(runnable);
+		FragmentIf fragmentIf = getFragmentIf();
+		if (fragmentIf != null) {
+			fragmentIf.executeOnUIThread(new SafeExecuteWrapperRunnable(this, runnable));
+		}
 	}
 	
 	/**
