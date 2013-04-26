@@ -245,6 +245,13 @@ public class AndroidUtils {
 		return metrics.densityDpi == DisplayMetrics.DENSITY_TV;
 	}
 	
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+	public static Boolean isXXhdpiDensity() {
+		DisplayMetrics metrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(metrics);
+		return metrics.densityDpi == DisplayMetrics.DENSITY_XXHIGH;
+	}
+	
 	public static String getScreenDensity() {
 		String density = StringUtils.EMPTY;
 		if (AndroidUtils.isLdpiDensity()) {
@@ -257,6 +264,8 @@ public class AndroidUtils {
 			density = "xhdpi";
 		} else if (AndroidUtils.isTVdpiDensity()) {
 			density = "tvdpi";
+		} else if (AndroidUtils.isXXhdpiDensity()) {
+			density = "xxhdpi";
 		}
 		return density;
 	}
