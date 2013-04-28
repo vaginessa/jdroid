@@ -2,16 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
 	android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
 
-	<TextView android:id="@+id/appName" style="@style/normalTextView" android:text="@string/appName"
+	<TextView android:id="@+id/appName" style="@style/normalText" android:text="@string/appName"
 		android:textStyle="bold" />
-	<TextView android:id="@+id/version" style="@style/smallTextView" android:text="@string/version" />
+	<TextView android:id="@+id/version" style="@style/smallText" android:text="@string/version" />
 
-	<TextView android:id="@+id/contactUsLabel" style="@style/smallTextView" android:text="@string/contactUs"
+	<TextView android:id="@+id/contactUsLabel" style="@style/smallText" android:text="@string/contactUs"
 		android:textStyle="bold" android:layout_marginTop="12dp" />
-	<TextView android:id="@+id/contactUsEmail" style="@style/smallTextView" />
+	<TextView android:id="@+id/contactUsEmail" style="@style/smallText" />
 
-	<TextView android:id="@+id/copyright" style="@style/smallTextView" android:layout_marginTop="12dp"
-		android:text="@string/copyright" />
-	<TextView android:id="@+id/allRightsReservedLegend" style="@style/smallTextView" android:text="@string/allRightsReservedLegend" />
+	<TextView android:id="@+id/copyright" style="@style/smallText" android:layout_marginTop="12dp" android:text="@string/copyright" />
+	<TextView android:id="@+id/allRightsReservedLegend" style="@style/smallText" android:text="@string/allRightsReservedLegend" />
 
 </LinearLayout>
