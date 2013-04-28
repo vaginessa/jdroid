@@ -6,8 +6,7 @@
 	<dimen name="borderedCustomImageViewMargin">3dp</dimen>
 	<dimen name="borderedCustomImageViewPadding">2dp</dimen>
 
-	<!-- About Dialog -->
-	<dimen name="aboutDialogTitleTextSize">20sp</dimen>
-	<dimen name="aboutDialogTextSize">16sp</dimen>
+	<dimen name="smallTextSize">12sp</dimen>
+	<dimen name="normalTextSize">16sp</dimen>
 
 </resources>
