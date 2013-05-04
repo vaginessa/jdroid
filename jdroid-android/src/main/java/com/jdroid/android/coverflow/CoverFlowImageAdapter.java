@@ -47,6 +47,7 @@ public abstract class CoverFlowImageAdapter<T> extends BaseArrayAdapter<T> {
 		} else {
 			imageView = (CustomImageView)convertView;
 		}
+		imageView.setTag(position);
 		FileContent fileContent = getFileContent(getItem(position));
 		Uri uri = fileContent.getUri();
 		imageView.setImageContent(ReflectedRemoteImageResolver.getReflectedUri(uri), getDefaultDrawableId());

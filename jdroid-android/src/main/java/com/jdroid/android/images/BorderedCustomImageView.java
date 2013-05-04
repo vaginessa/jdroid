@@ -112,4 +112,12 @@ public class BorderedCustomImageView extends LinearLayout implements ImageHolder
 	public void setImageContent(Uri imageUri, int stubId, Integer maxWidth, Integer maxHeight) {
 		customImageView.setImageContent(imageUri, stubId, maxWidth, maxHeight);
 	}
+	
+	/**
+	 * @see com.jdroid.android.images.ImageHolder#getImageUri()
+	 */
+	@Override
+	public Uri getImageUri() {
+		return customImageView.getImageUri();
+	}
 }

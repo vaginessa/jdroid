@@ -114,7 +114,7 @@ public class ImageLoader {
 		@Override
 		public void run() {
 			ImageHolder imageHolder = getImageHolder();
-			if ((imageHolder != null) && imageHolder.getTag().equals(uri)) {
+			if ((imageHolder != null) && imageHolder.getImageUri().equals(uri)) {
 				if (bitmap != null) {
 					imageHolder.setImageBitmap(bitmap);
 				} else {

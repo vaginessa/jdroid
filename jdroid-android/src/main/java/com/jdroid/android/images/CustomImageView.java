@@ -11,6 +11,7 @@ public class CustomImageView extends ImageView implements ImageHolder {
 	private int stubId;
 	private Integer maxWidth;
 	private Integer maxHeight;
+	private Uri imageUri;
 	
 	public CustomImageView(Context context) {
 		super(context);
@@ -59,7 +60,7 @@ public class CustomImageView extends ImageView implements ImageHolder {
 		this.maxWidth = maxWidth;
 		this.maxHeight = maxHeight;
 		if (imageUri != null) {
-			this.setTag(imageUri);
+			this.imageUri = imageUri;
 			ImageLoader.get().displayImage(imageUri, this);
 		} else {
 			showStubImage();
@@ -88,5 +89,13 @@ public class CustomImageView extends ImageView implements ImageHolder {
 	@Override
 	public Integer getMaximumHeight() {
 		return maxHeight;
+	}
+	
+	/**
+	 * @return the imageUri
+	 */
+	@Override
+	public Uri getImageUri() {
+		return imageUri;
 	}
 }

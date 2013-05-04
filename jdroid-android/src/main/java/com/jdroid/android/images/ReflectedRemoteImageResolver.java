@@ -1,6 +1,5 @@
 package com.jdroid.android.images;
 
-import android.R.color;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -23,7 +22,7 @@ public class ReflectedRemoteImageResolver extends RemoteImageResolver {
 	/**
 	 * Gap between the image and its reflection.
 	 */
-	private float reflectionGap = 10;
+	private float reflectionGap = 5;
 	
 	/** The image reflection ratio. */
 	private float imageReflectionRatio = 0.35f;
@@ -62,26 +61,29 @@ public class ReflectedRemoteImageResolver extends RemoteImageResolver {
 		Bitmap originalBitmap = super.resolve(getOriginalUri(uri), maxWidth, maxHeight);
 		Bitmap bitmapWithReflection = null;
 		if (originalBitmap != null) {
-			// Creates the reflected images.
-			int width = originalBitmap.getWidth();
-			int height = originalBitmap.getHeight();
+			
+			int originalWidth = originalBitmap.getWidth();
+			int originalHeight = originalBitmap.getHeight();
+			
+			// Creates the reflection image
 			Matrix matrix = new Matrix();
 			matrix.preScale(1, -1);
-			Bitmap reflectionImage = Bitmap.createBitmap(originalBitmap, 0, (int)(height * imageReflectionRatio),
-				width, (int)(height - (height * imageReflectionRatio)), matrix, false);
-			bitmapWithReflection = Bitmap.createBitmap(width, (int)(height + (height * imageReflectionRatio)),
+			int reflectionHeight = (int)(originalHeight * imageReflectionRatio);
+			Bitmap reflectionImage = Bitmap.createBitmap(originalBitmap, 0, reflectionHeight, originalWidth,
+				originalHeight - reflectionHeight, matrix, false);
+			
+			// Creates the image with the reflection
+			bitmapWithReflection = Bitmap.createBitmap(originalWidth, originalHeight + reflectionHeight,
 				Config.ARGB_8888);
 			Canvas canvas = new Canvas(bitmapWithReflection);
 			canvas.drawBitmap(originalBitmap, 0, 0, null);
-			Paint deafaultPaint = new Paint();
-			deafaultPaint.setColor(color.transparent);
-			canvas.drawBitmap(reflectionImage, 0, height + reflectionGap, null);
+			canvas.drawBitmap(reflectionImage, 0, originalHeight + reflectionGap, null);
 			Paint paint = new Paint();
 			LinearGradient shader = new LinearGradient(0, originalBitmap.getHeight(), 0,
 					bitmapWithReflection.getHeight() + reflectionGap, 0x70ffffff, 0x00ffffff, TileMode.CLAMP);
 			paint.setShader(shader);
 			paint.setXfermode(new PorterDuffXfermode(Mode.DST_IN));
-			canvas.drawRect(0, height, width, bitmapWithReflection.getHeight() + reflectionGap, paint);
+			canvas.drawRect(0, originalHeight, originalWidth, bitmapWithReflection.getHeight() + reflectionGap, paint);
 		}
 		
 		return bitmapWithReflection;

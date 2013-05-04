@@ -19,7 +19,7 @@ public interface ImageHolder {
 	
 	public Integer getMaximumHeight();
 	
-	public Object getTag();
+	public Uri getImageUri();
 	
 	public Context getContext();
 	
