@@ -30,7 +30,7 @@ import com.jdroid.android.intent.ClearTaskIntent;
 import com.jdroid.android.loading.DefaultLoadingDialogBuilder;
 import com.jdroid.android.loading.LoadingDialogBuilder;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
-import com.jdroid.android.usecase.DefaultUseCase;
+import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.utils.ExecutorUtils;
@@ -436,19 +436,19 @@ public class BaseActivity implements ActivityIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeUseCase(com.jdroid.android.usecase.DefaultUseCase)
+	 * @see com.jdroid.android.fragment.FragmentIf#executeUseCase(com.jdroid.android.usecase.UseCase)
 	 */
 	@Override
-	public void executeUseCase(DefaultUseCase<?> useCase) {
+	public void executeUseCase(UseCase<?> useCase) {
 		ExecutorUtils.execute(useCase);
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeUseCase(com.jdroid.android.usecase.DefaultUseCase,
+	 * @see com.jdroid.android.fragment.FragmentIf#executeUseCase(com.jdroid.android.usecase.UseCase,
 	 *      java.lang.Long)
 	 */
 	@Override
-	public void executeUseCase(DefaultUseCase<?> useCase, Long delaySeconds) {
+	public void executeUseCase(UseCase<?> useCase, Long delaySeconds) {
 		ExecutorUtils.schedule(useCase, delaySeconds);
 	}
 	

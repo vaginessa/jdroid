@@ -10,7 +10,7 @@ import com.jdroid.java.collections.Lists;
  * 
  * @author Maxi Rosson
  */
-public abstract class AbstractUseCase<T> implements DefaultUseCase<T> {
+public abstract class AbstractUseCase<T> implements UseCase<T> {
 	
 	private static final String TAG = AbstractUseCase.class.getSimpleName();
 	

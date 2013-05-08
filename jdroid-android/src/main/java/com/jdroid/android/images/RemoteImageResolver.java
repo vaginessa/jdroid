@@ -59,7 +59,7 @@ public class RemoteImageResolver implements ImageResolver {
 			OutputStream os = null;
 			try {
 				// make client for http.
-				HttpClient client = DefaultHttpClientFactory.get().createDefaultHttpClient();
+				HttpClient client = DefaultHttpClientFactory.get().createHttpClient();
 				
 				// make request.
 				HttpUriRequest request = new HttpGet(url);
