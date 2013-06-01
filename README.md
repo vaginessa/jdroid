@@ -44,6 +44,7 @@ Support for Android 2.3 and higher versions
 * Proguard support
 * Lint support
 * Strict mode support
+* Debug settings support
 * Base Activity & Fragment implementations
 * Exception handling
 * HTTP Cookies storing.
