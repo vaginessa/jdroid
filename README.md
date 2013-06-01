@@ -63,6 +63,11 @@ jdroid Android Google Maps
 Support for Android 2.3 and higher versions
 * Google Maps v2 integration
 
+jdroid Android Left Nav Bar
+--------------
+Support for Android 3.0 and higher versions
+* Google TV Left Nav Bar implementation
+
 For more information, visit the [GitHub Wiki][1] or our [Site][2].
 
 [1]: https://github.com/maxirosson/jdroid/wiki
