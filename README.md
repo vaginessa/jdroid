@@ -31,6 +31,7 @@ jdroid Java Web
 jdroid Android
 --------------
 Support for Android 2.3 and higher versions
+* ActionBarSherlock integration
 * Google Maps v2 integration
 * In App Billing integration
 * Google Analytics integration
@@ -40,8 +41,10 @@ Support for Android 2.3 and higher versions
 * Facebook integration
 * Twitter integration
 * Crittercism integration
-* Base Activity & Fragment implementations
+* Proguard support
+* Lint support
 * Strict mode support
+* Base Activity & Fragment implementations
 * Exception handling
 * HTTP Cookies storing.
 * Remote image loading component
