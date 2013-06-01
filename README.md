@@ -6,6 +6,7 @@ jdroid is an application framework for Android and Java apps.
 jdroid Java
 -----------
 * HTTP Service Layer
+ * Apache HTTP Client implementation
  * GET, POST, PUT & DELETE methods
  * Headers appender
  * Response validator
