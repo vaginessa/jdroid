@@ -32,7 +32,6 @@ jdroid Android
 --------------
 Support for Android 2.3 and higher versions
 * ActionBarSherlock integration
-* Google Maps v2 integration
 * In App Billing integration
 * Google Analytics integration
 * Google Cloud Messaging integration
@@ -58,6 +57,11 @@ Support for Android 2.3 and higher versions
 * Animations
  * Fade in / Fade out
 * Utilities for Alarms, Bitmaps, Notifications, Shared Preferences, Toasts, Sounds, GPS, and more.
+
+jdroid Android Google Maps
+--------------
+Support for Android 2.3 and higher versions
+* Google Maps v2 integration
 
 For more information, visit the [GitHub Wiki][1] or our [Site][2].
 
