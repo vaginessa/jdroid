@@ -13,7 +13,6 @@ Dependency project for both Android & Java apps
  * Response validator
  * Response Mocks support
  * GZIP encoding
- * Cookies
 * JSON & Plain text parsers
 * JSON marshallers
 * Mail Service
