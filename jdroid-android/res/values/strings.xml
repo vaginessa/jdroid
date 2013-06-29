@@ -13,9 +13,6 @@
 	<string name="previous">Previous</string>
 	<string name="finish">Finish</string>
 
-	<!-- GCM -->
-	<string name="onMissingGoogleAccountError">You need to set up a Google account on your device to use push notifications</string>
-
 	<!-- Errors -->
 	<string name="internalError">Oops! We\'re having technical problems. Please try again later.</string>
 	<string name="serverError">Oops! We\'re having technical problems. Please try again later.</string>
