@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="@string/apiUrl">
+		<ListPreference android:key="apiUrl" android:title="@string/apiUrlTitle" android:entryValues="@array/apiUrlsEntries"
+			android:entries="@array/apiUrlsEntries" android:summary="@string/apiUrlDescription" />
+	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/httpMocks">
 		<CheckBoxPreference android:key="httpMockEnabled" android:title="@string/httpMockEnabledTitle"
 			android:summary="@string/httpMockEnabledDescription" android:defaultValue="false" />
 		<CheckBoxPreference android:key="httpMockSleep" android:title="@string/httpMockSleepTitle"
-			android:summary="@string/httpMockSleepDescription" android:defaultValue="false" />
+			android:summary="@string/httpMockSleepDescription" android:defaultValue="false" android:dependency="httpMockEnabled" />
 		<ListPreference android:key="httpMockCrashType" android:title="@string/httpMockCrashType"
 			android:summary="@string/httpMockCrashTypeDescription" android:entries="@array/httpMockCrashTypeEntries"
-			android:entryValues="@array/httpMockCrashTypeEntries" android:dialogTitle="@string/httpMockCrashType" />
+			android:entryValues="@array/httpMockCrashTypeEntries" android:dialogTitle="@string/httpMockCrashType"
+			android:dependency="httpMockEnabled" />
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/crashSettings">
 		<ListPreference android:key="crashType" android:title="@string/crashType" android:summary="@string/crashTypeDescription"

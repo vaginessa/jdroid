@@ -27,10 +27,12 @@ public class DebugInfoView extends LinearLayout {
 		
 		final DefaultApplicationContext applicationContext = AbstractApplication.get().getAndroidApplicationContext();
 		TextView environmentName = (TextView)findViewById(R.id.environmentName);
-		environmentName.setText(context.getString(R.string.environmentName, applicationContext.getEnvironmentName()));
+		environmentName.setText(context.getString(R.string.environmentName,
+			applicationContext.getEnvironment().toString()));
 		
 		TextView analyticsEnabled = (TextView)findViewById(R.id.analyticsEnabled);
-		analyticsEnabled.setText(context.getString(R.string.analyticsEnabled, applicationContext.isGoogleAnalyticsEnabled()));
+		analyticsEnabled.setText(context.getString(R.string.analyticsEnabled,
+			applicationContext.isGoogleAnalyticsEnabled()));
 		
 		TextView screenSize = (TextView)findViewById(R.id.screenSize);
 		screenSize.setText(context.getString(R.string.screenSize, AndroidUtils.getScreenSize()));

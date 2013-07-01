@@ -171,6 +171,22 @@ public class BaseActivity implements ActivityIf {
 		LOGGER.trace("Executing onResume on " + activity);
 		AbstractApplication.get().setInBackground(false);
 		AbstractApplication.get().setCurrentActivity(activity);
+		
+		ActionBar actionBar = getActivityIf().getSupportActionBar();
+		if (actionBar != null) {
+			DefaultApplicationContext context = AbstractApplication.get().getAndroidApplicationContext();
+			if (!context.isProductionEnvironment() && context.displayDebugSettings()) {
+				int actionbarBackground = getActionBarDrawableResource();
+				if (context.isHttpMockEnabled()) {
+					actionbarBackground = R.color.actionbarMockBackground;
+				}
+				actionBar.setBackgroundDrawable(getActivity().getResources().getDrawable(actionbarBackground));
+			}
+		}
+	}
+	
+	protected int getActionBarDrawableResource() {
+		return R.drawable.abs__ab_transparent_dark_holo;
 	}
 	
 	public void onPause() {

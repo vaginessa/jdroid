@@ -83,6 +83,9 @@
 
 	<!-- Debug Settings Activity -->
 	<string name="debugSettings">Debug Settings</string>
+	<string name="apiUrl">Api URL</string>
+	<string name="apiUrlTitle">Api Url</string>
+	<string name="apiUrlDescription">Pick url to use to comunicate with api</string>
 	<string name="httpMocks">HTTP Mocks</string>
 	<string name="httpMockEnabledTitle">Http Mocks</string>
 	<string name="httpMockEnabledDescription">Enable/disable http mocks</string>

@@ -14,7 +14,8 @@ public class DefaultApplicationContext {
 	private static final String PROPERTIES_RESOURCE_NAME = "settings.properties";
 	private static final String LOCAL_PROPERTIES_RESOURCE_NAME = "settings.local.properties";
 	
-	private String environmentName;
+	private String serverApiURL;
+	private Environment environment;
 	private String googleProjectId;
 	private String facebookAppId;
 	private Boolean debugSettings;
@@ -32,7 +33,8 @@ public class DefaultApplicationContext {
 		PropertiesUtils.loadProperties(LOCAL_PROPERTIES_RESOURCE_NAME);
 		PropertiesUtils.loadProperties(PROPERTIES_RESOURCE_NAME);
 		
-		environmentName = PropertiesUtils.getStringProperty("environment.name");
+		serverApiURL = PropertiesUtils.getStringProperty("server.url");
+		environment = Environment.valueOf(PropertiesUtils.getStringProperty("environment.name"));
 		googleProjectId = PropertiesUtils.getStringProperty("google.projectId");
 		facebookAppId = PropertiesUtils.getStringProperty("facebook.app.id");
 		debugSettings = PropertiesUtils.getBooleanProperty("debug.settings");
@@ -45,6 +47,23 @@ public class DefaultApplicationContext {
 		crittercismEnabled = PropertiesUtils.getBooleanProperty("crittercism.enabled", false);
 		crittercismAppId = PropertiesUtils.getStringProperty("crittercism.appId");
 		crittercismPremium = PropertiesUtils.getBooleanProperty("crittercism.premium", false);
+	}
+	
+	/**
+	 * @return The base URL of the API server
+	 */
+	public String getServerApiUrl() {
+		if (isProductionEnvironment() || !displayDebugSettings()) {
+			return serverApiURL;
+		} else {
+			Environment environment = Environment.valueOf(PreferenceManager.getDefaultSharedPreferences(
+				AbstractApplication.get()).getString("apiUrl", Environment.DEV.toString()));
+			return getServerApiUrlForDebug(environment);
+		}
+	}
+	
+	public String getServerApiUrlForDebug(Environment environment) {
+		return serverApiURL;
 	}
 	
 	/**
@@ -68,15 +87,15 @@ public class DefaultApplicationContext {
 		return debugSettings;
 	}
 	
-	public String getEnvironmentName() {
-		return environmentName;
+	public Environment getEnvironment() {
+		return environment;
 	}
 	
 	/**
 	 * @return Whether the application is running on a production environment
 	 */
 	public Boolean isProductionEnvironment() {
-		return environmentName.equals("PROD");
+		return environment.equals(Environment.PROD);
 	}
 	
 	/**

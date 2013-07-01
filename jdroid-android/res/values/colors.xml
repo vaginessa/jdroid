@@ -8,4 +8,6 @@
 	<color name="sectionTitleRight">#33B5E5</color>
 
 	<color name="finishWizard">#FF669900</color>
+
+	<color name="actionbarMockBackground">#FF489100</color>
 </resources>
