@@ -123,6 +123,14 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 			LocalizationUtils.getString(R.string.serverError), throwable);
 	}
 	
+	public void logWarningException(String errorMessage, Throwable throwable) {
+		logHandledException(errorMessage, new WarningException(errorMessage, throwable));
+	}
+	
+	public void logWarningException(String errorMessage) {
+		logHandledException(errorMessage, new WarningException(errorMessage));
+	}
+	
 	/**
 	 * @see com.jdroid.android.exception.ExceptionHandler#logHandledException(java.lang.Throwable)
 	 */

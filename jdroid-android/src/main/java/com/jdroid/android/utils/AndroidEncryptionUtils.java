@@ -1,0 +1,145 @@
+package com.jdroid.android.utils;
+
+import java.security.InvalidKeyException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import android.content.SharedPreferences;
+import android.util.Base64;
+import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.java.utils.EncryptionUtils;
+
+/**
+ * 
+ * @author Maxi Rosson
+ */
+public class AndroidEncryptionUtils {
+	
+	public static final String PREF_ENCODED_KEY = "pref_encoded_key";
+	
+	private static final String TRANSFORMATION = "AES/ECB/PKCS5Padding";
+	private static final String ALGORITHM = "AES";
+	private static final String SHA_ALGORITHM = "SHA-1";
+	private static final String UTF_8 = "UTF-8";
+	
+	private static String base64Key;
+	
+	/**
+	 * Loads on memory the encryption key stored on {@link SharedPreferences}. If the key is already on memory, it does
+	 * nothing. You shouldn't call this method in the UI thread.
+	 */
+	public static void init() {
+		base64Key = getBase64Key();
+	}
+	
+	private static String getBase64Key() {
+		if (base64Key == null) {
+			base64Key = SharedPreferencesUtils.loadPreference(PREF_ENCODED_KEY);
+			if (base64Key == null) {
+				base64Key = generateBase64Key();
+				SharedPreferencesUtils.savePreference(PREF_ENCODED_KEY, base64Key);
+			}
+		}
+		return base64Key;
+	}
+	
+	/**
+	 * Returns the data encrypted. Avoid calling this method on the UI thread if possible, since it may access to shared
+	 * preferences. If it has to be called from the UI thread, call {@link EncryptionUtils#init()} first.
+	 * 
+	 * @param cleartext
+	 * @return encrypted data
+	 */
+	public static String encrypt(String cleartext) {
+		if (cleartext != null) {
+			byte[] result = doFinal(Base64.decode(getBase64Key(), Base64.DEFAULT), Cipher.ENCRYPT_MODE,
+				cleartext.getBytes());
+			return Base64.encodeToString(result, Base64.DEFAULT);
+		}
+		return null;
+	}
+	
+	/**
+	 * Returns the original data. Avoid calling this method on the UI thread if possible, since it may access to shared
+	 * preferences. If it has to be called from the UI thread, call {@link #init()} first.
+	 * 
+	 * @param base64Encrypted
+	 * @return the original data
+	 */
+	public static String decrypt(String base64Encrypted) {
+		if (base64Encrypted != null) {
+			byte[] enc = Base64.decode(base64Encrypted, Base64.DEFAULT);
+			byte[] result = doFinal(Base64.decode(getBase64Key(), Base64.DEFAULT), Cipher.DECRYPT_MODE, enc);
+			return new String(result);
+		}
+		return null;
+	}
+	
+	private static byte[] doFinal(byte[] raw, int opMode, byte[] input) {
+		try {
+			Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+			SecretKeySpec skeySpec = new SecretKeySpec(raw, ALGORITHM);
+			cipher.init(opMode, skeySpec);
+			return cipher.doFinal(input);
+		} catch (NoSuchAlgorithmException e) {
+			throw new UnexpectedException(e);
+		} catch (NoSuchPaddingException e) {
+			throw new UnexpectedException(e);
+		} catch (InvalidKeyException e) {
+			throw new UnexpectedException(e);
+		} catch (IllegalBlockSizeException e) {
+			throw new UnexpectedException(e);
+		} catch (BadPaddingException e) {
+			throw new UnexpectedException(e);
+		}
+	}
+	
+	public static String generateBase64Key() {
+		final int outputKeyLength = 128;
+		try {
+			SecureRandom secureRandom = new SecureRandom();
+			KeyGenerator keyGenerator;
+			keyGenerator = KeyGenerator.getInstance(ALGORITHM);
+			keyGenerator.init(outputKeyLength, secureRandom);
+			SecretKey key = keyGenerator.generateKey();
+			return Base64.encodeToString(key.getEncoded(), Base64.DEFAULT);
+		} catch (NoSuchAlgorithmException e) {
+			throw new UnexpectedException(e);
+		}
+	}
+	
+	private static String toHexEncode(byte[] bytes) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < bytes.length; i++) {
+			int low = bytes[i] & 0xF;
+			int high = (bytes[i] >>> 4) & 0xF;
+			sb.append(Character.forDigit(high, 16));
+			sb.append(Character.forDigit(low, 16));
+		}
+		return sb.toString();
+	}
+	
+	/**
+	 * Generates the SHA hash for the input string.
+	 * 
+	 * @param text the input string to hash
+	 * @return the hash for the input string in hexadecimal encoding
+	 */
+	public static String generateShaHash(String text) {
+		try {
+			MessageDigest digest = MessageDigest.getInstance(SHA_ALGORITHM);
+			byte[] bytes = text.getBytes(UTF_8);
+			bytes = digest.digest(bytes);
+			return toHexEncode(bytes);
+		} catch (Exception e) {
+			throw new UnexpectedException(e);
+		}
+	}
+}
