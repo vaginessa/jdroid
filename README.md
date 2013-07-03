@@ -40,7 +40,7 @@ Library project for Android apps. Support for Android 2.3 and higher versions
 * AdMob integration
 * In App Billing integration
 * RoboGuice integration
-* Facebook integration
+* Facebook integration (Facebook SDK 3.0.1)
 * Twitter integration
 * Crittercism integration
 * Proguard support
