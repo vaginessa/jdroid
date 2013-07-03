@@ -40,8 +40,15 @@ public class BaseFragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		LOGGER.trace("Executing onViewCreated on " + fragment);
 		
-		AdLoader.loadAd(fragment.getActivity(), (ViewGroup)(fragment.getView().findViewById(R.id.adViewContainer)),
-			getFragmentIf().getAdSize());
+		AdLoader adLoader = createAdLoader();
+		if (adLoader != null) {
+			adLoader.loadAd(fragment.getActivity(), (ViewGroup)(fragment.getView().findViewById(R.id.adViewContainer)),
+				getFragmentIf().getAdSize());
+		}
+	}
+	
+	protected AdLoader createAdLoader() {
+		return new AdLoader();
 	}
 	
 	public void onActivityCreated(Bundle savedInstanceState) {

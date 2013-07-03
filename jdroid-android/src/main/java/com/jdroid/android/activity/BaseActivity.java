@@ -19,7 +19,6 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.ActivityLauncher;
 import com.jdroid.android.R;
 import com.jdroid.android.ad.AdLoader;
-import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.context.DefaultApplicationContext;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.debug.DebugSettingsActivity;
@@ -138,7 +137,15 @@ public class BaseActivity implements ActivityIf {
 			}
 		}
 		
-		AdLoader.loadAd(activity, (ViewGroup)(activity.findViewById(R.id.adViewContainer)), getActivityIf().getAdSize());
+		AdLoader adLoader = createAdLoader();
+		if (adLoader != null) {
+			adLoader.loadAd(activity, (ViewGroup)(activity.findViewById(R.id.adViewContainer)),
+				getActivityIf().getAdSize());
+		}
+	}
+	
+	protected AdLoader createAdLoader() {
+		return new AdLoader();
 	}
 	
 	/**
@@ -164,7 +171,7 @@ public class BaseActivity implements ActivityIf {
 	public void onStart() {
 		LOGGER.trace("Executing onStart on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
-		AnalyticsSender.get().onActivityStart(activity);
+		AbstractApplication.get().getAnalyticsSender().onActivityStart(activity);
 	}
 	
 	public void onResume() {
@@ -196,7 +203,7 @@ public class BaseActivity implements ActivityIf {
 	
 	public void onStop() {
 		LOGGER.trace("Executing onStop on " + activity);
-		AnalyticsSender.get().onActivityStop(activity);
+		AbstractApplication.get().getAnalyticsSender().onActivityStop(activity);
 	}
 	
 	public void onDestroy() {

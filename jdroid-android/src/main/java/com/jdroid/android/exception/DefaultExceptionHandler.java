@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentActivity;
 import com.crittercism.app.Crittercism;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
-import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.context.DefaultApplicationContext;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.LocalizationUtils;
@@ -146,7 +145,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	public void logHandledException(String message, Throwable throwable) {
 		if (throwable instanceof ConnectionException) {
 			LOGGER.warn(message, throwable);
-			AnalyticsSender.get().trackConnectionException((ConnectionException)throwable);
+			AbstractApplication.get().getAnalyticsSender().trackConnectionException((ConnectionException)throwable);
 		} else {
 			LOGGER.error(message, throwable);
 			DefaultApplicationContext appContext = AbstractApplication.get().getAndroidApplicationContext();

@@ -16,10 +16,10 @@ import com.jdroid.android.context.DefaultApplicationContext;
  */
 public class AdLoader {
 	
-	public static void loadAd(Activity activity, ViewGroup adViewContainer, AdSize adSize) {
+	public void loadAd(Activity activity, ViewGroup adViewContainer, AdSize adSize) {
 		// Ads Management
-		DefaultApplicationContext applicationContext = AbstractApplication.get().getAndroidApplicationContext();
 		if (adViewContainer != null) {
+			DefaultApplicationContext applicationContext = AbstractApplication.get().getAndroidApplicationContext();
 			if ((adSize == null) || !applicationContext.areAdsEnabled()) {
 				adViewContainer.setVisibility(View.GONE);
 			} else {
@@ -52,5 +52,4 @@ public class AdLoader {
 			}
 		}
 	}
-	
 }

@@ -16,14 +16,12 @@ public class AnalyticsSender implements AnalyticsTracker {
 	
 	private List<? extends AnalyticsTracker> trackers;
 	
-	private static final AnalyticsSender INSTANCE = new AnalyticsSender();
-	
-	private AnalyticsSender() {
-		trackers = Lists.newArrayList(GoogleAnalyticsTracker.get());
+	public AnalyticsSender(AnalyticsTracker... trackers) {
+		this(Lists.newArrayList(trackers));
 	}
 	
-	public static AnalyticsSender get() {
-		return INSTANCE;
+	public AnalyticsSender(List<? extends AnalyticsTracker> trackers) {
+		this.trackers = trackers;
 	}
 	
 	private abstract class TrackerRunnable implements Runnable {
@@ -45,6 +43,14 @@ public class AnalyticsSender implements AnalyticsTracker {
 		}
 		
 		protected abstract void track(AnalyticsTracker tracker);
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#isEnabled()
+	 */
+	@Override
+	public Boolean isEnabled() {
+		return null;
 	}
 	
 	/**
@@ -73,14 +79,6 @@ public class AnalyticsSender implements AnalyticsTracker {
 				tracker.onActivityStop(activity);
 			}
 		});
-	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#isEnabled()
-	 */
-	@Override
-	public Boolean isEnabled() {
-		return null;
 	}
 	
 	/**
