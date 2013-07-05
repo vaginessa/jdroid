@@ -221,4 +221,13 @@
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>jdroid-test</id>
+			<properties>
+				<environment.name>TEST</environment.name>
+			</properties>
+		</profile>
+	</profiles>
+
 </project>

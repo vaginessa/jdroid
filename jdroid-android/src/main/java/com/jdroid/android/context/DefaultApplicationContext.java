@@ -37,7 +37,7 @@ public class DefaultApplicationContext {
 		environment = Environment.valueOf(PropertiesUtils.getStringProperty("environment.name"));
 		googleProjectId = PropertiesUtils.getStringProperty("google.projectId");
 		facebookAppId = PropertiesUtils.getStringProperty("facebook.app.id");
-		debugSettings = PropertiesUtils.getBooleanProperty("debug.settings");
+		debugSettings = PropertiesUtils.getBooleanProperty("debug.settings", false);
 		isFreeApp = PropertiesUtils.getBooleanProperty("free.app");
 		adsEnabled = PropertiesUtils.getBooleanProperty("ads.enabled", false);
 		adUnitId = PropertiesUtils.getStringProperty("ads.adUnitId");

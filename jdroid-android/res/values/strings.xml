@@ -12,6 +12,7 @@
 	<string name="next">Next</string>
 	<string name="previous">Previous</string>
 	<string name="finish">Finish</string>
+	<string name="refresh">Refresh</string>
 
 	<!-- Errors -->
 	<string name="internalError">Oops! We\'re having technical problems. Please try again later.</string>

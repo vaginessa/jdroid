@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="src" path="src/test/resources" output="target/test-classes" excluding="**/*.java"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry exported="true" kind="src" path="/jdroid-java"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/android/compatibility/android-support-v4/r12/android-support-v4-r12.jar"/>
