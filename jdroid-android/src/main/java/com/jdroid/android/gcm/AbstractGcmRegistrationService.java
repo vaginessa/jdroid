@@ -32,7 +32,7 @@ public abstract class AbstractGcmRegistrationService extends WorkerService {
 			registrationId = googleCloudMessaging.register(googleProjectId);
 			GcmPreferences.setRegistrationId(getApplicationContext(), registrationId);
 		} catch (IOException e) {
-			LOGGER.warn("Failed to register the device on gcm. Will retry later.");
+			LOGGER.warn("Failed to register the device on gcm. Will retry later.", e);
 			IntentRetryUtils.retry(intent);
 			return;
 		}
@@ -41,7 +41,7 @@ public abstract class AbstractGcmRegistrationService extends WorkerService {
 			onRegisterOnServer(registrationId);
 			GcmPreferences.setRegisteredOnServer(getApplicationContext(), true);
 		} catch (ApplicationException e) {
-			LOGGER.warn("Failed to register the device on server. Will retry later.");
+			LOGGER.warn("Failed to register the device on server. Will retry later.", e);
 			IntentRetryUtils.retry(intent);
 		}
 	}
