@@ -1,7 +1,7 @@
 jdroid
 ======
 
-jdroid is an application framework for Android & Java apps.
+jdroid is an application framework for Android & Java apps. The project use [Semantic Versioning][3]
 
 jdroid Java
 -----------
@@ -70,3 +70,4 @@ For more information, visit the [GitHub Wiki][1] or our [Site][2].
 
 [1]: https://github.com/maxirosson/jdroid/wiki
 [2]: http://maxirosson.github.com/jdroid/
+[3]: http://semver.org/
