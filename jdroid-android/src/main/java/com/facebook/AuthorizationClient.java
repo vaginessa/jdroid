@@ -1,5 +1,5 @@
 /**
- * Copyright 2012 Facebook
+ * Copyright 2010-present Facebook.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -37,6 +38,9 @@ import com.jdroid.android.R;
 class AuthorizationClient implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	private static final String TAG = "Facebook-AuthorizationClient";
+	private static final String WEB_VIEW_AUTH_HANDLER_STORE = "com.facebook.AuthorizationClient.WebViewAuthHandler.TOKEN_STORE_KEY";
+	private static final String WEB_VIEW_AUTH_HANDLER_TOKEN_KEY = "TOKEN";
 	
 	List<AuthHandler> handlersToTry;
 	AuthHandler currentHandler;
@@ -448,8 +452,13 @@ class AuthorizationClient implements Serializable {
 				parameters.putString(ServerProtocol.DIALOG_PARAM_SCOPE, TextUtils.join(",", request.getPermissions()));
 			}
 			
-			// The call to clear cookies will create the first instance of CookieSyncManager if necessary
-			Utility.clearFacebookCookies(context);
+			String previousToken = request.getPreviousAccessToken();
+			if (!Utility.isNullOrEmpty(previousToken) && (previousToken.equals(loadCookieToken()))) {
+				parameters.putString(ServerProtocol.DIALOG_PARAM_ACCESS_TOKEN, previousToken);
+			} else {
+				// The call to clear cookies will create the first instance of CookieSyncManager if necessary
+				Utility.clearFacebookCookies(context);
+			}
 			
 			WebDialog.OnCompleteListener listener = new WebDialog.OnCompleteListener() {
 				
@@ -470,16 +479,16 @@ class AuthorizationClient implements Serializable {
 		void onWebDialogComplete(AuthorizationRequest request, Bundle values, FacebookException error) {
 			Result outcome;
 			if (values != null) {
+				AccessToken token = AccessToken.createFromWebBundle(request.getPermissions(), values,
+					AccessTokenSource.WEB_VIEW);
+				outcome = Result.createTokenResult(token);
+				
 				// Ensure any cookies set by the dialog are saved
 				// This is to work around a bug where CookieManager may fail to instantiate if CookieSyncManager
 				// has never been created.
 				CookieSyncManager syncManager = CookieSyncManager.createInstance(context);
 				syncManager.sync();
-				
-				AccessToken token = AccessToken.createFromWebBundle(request.getPermissions(), values,
-					AccessTokenSource.WEB_VIEW);
-				outcome = Result.createTokenResult(token);
-				
+				saveCookieToken(token.getToken());
 			} else {
 				if (error instanceof FacebookOperationCanceledException) {
 					outcome = Result.createCancelResult("User canceled log in.");
@@ -488,6 +497,24 @@ class AuthorizationClient implements Serializable {
 				}
 			}
 			completeAndValidate(outcome);
+		}
+		
+		private void saveCookieToken(String token) {
+			Context context = getStartActivityDelegate().getActivityContext();
+			SharedPreferences sharedPreferences = context.getSharedPreferences(WEB_VIEW_AUTH_HANDLER_STORE,
+				Context.MODE_PRIVATE);
+			SharedPreferences.Editor editor = sharedPreferences.edit();
+			editor.putString(WEB_VIEW_AUTH_HANDLER_TOKEN_KEY, token);
+			if (!editor.commit()) {
+				Utility.logd(TAG, "Could not update saved web view auth handler token.");
+			}
+		}
+		
+		private String loadCookieToken() {
+			Context context = getStartActivityDelegate().getActivityContext();
+			SharedPreferences sharedPreferences = context.getSharedPreferences(WEB_VIEW_AUTH_HANDLER_STORE,
+				Context.MODE_PRIVATE);
+			return sharedPreferences.getString(WEB_VIEW_AUTH_HANDLER_TOKEN_KEY, "");
 		}
 	}
 	
@@ -592,26 +619,27 @@ class AuthorizationClient implements Serializable {
 		
 		@Override
 		boolean onActivityResult(int requestCode, int resultCode, Intent data) {
-			if (NativeProtocol.isServiceDisabledResult20121101(data)) {
-				tryNextHandler();
+			Result outcome;
+			
+			if (data == null) {
+				// This happens if the user presses 'Back'.
+				outcome = Result.createCancelResult("Operation canceled");
+			} else if (NativeProtocol.isServiceDisabledResult20121101(data)) {
+				outcome = null;
+			} else if (resultCode == Activity.RESULT_CANCELED) {
+				outcome = Result.createCancelResult(data.getStringExtra(NativeProtocol.STATUS_ERROR_DESCRIPTION));
+			} else if (resultCode != Activity.RESULT_OK) {
+				outcome = Result.createErrorResult("Unexpected resultCode from authorization.", null);
 			} else {
-				// Handle stuff
-				Result outcome = null;
-				
-				if (resultCode == Activity.RESULT_CANCELED) {
-					outcome = Result.createCancelResult(data.getStringExtra(NativeProtocol.STATUS_ERROR_DESCRIPTION));
-				} else if (resultCode != Activity.RESULT_OK) {
-					outcome = Result.createErrorResult("Unexpected resultCode from authorization.", null);
-				} else {
-					outcome = handleResultOk(data);
-				}
-				
-				if (outcome != null) {
-					completeAndValidate(outcome);
-				} else {
-					tryNextHandler();
-				}
+				outcome = handleResultOk(data);
 			}
+			
+			if (outcome != null) {
+				completeAndValidate(outcome);
+			} else {
+				tryNextHandler();
+			}
+			
 			return true;
 		}
 		
@@ -646,9 +674,12 @@ class AuthorizationClient implements Serializable {
 		@Override
 		boolean onActivityResult(int requestCode, int resultCode, Intent data) {
 			// Handle stuff
-			Result outcome = null;
+			Result outcome;
 			
-			if (resultCode == Activity.RESULT_CANCELED) {
+			if (data == null) {
+				// This happens if the user presses 'Back'.
+				outcome = Result.createCancelResult("Operation canceled");
+			} else if (resultCode == Activity.RESULT_CANCELED) {
 				outcome = Result.createCancelResult(data.getStringExtra("error"));
 			} else if (resultCode != Activity.RESULT_OK) {
 				outcome = Result.createErrorResult("Unexpected resultCode from authorization.", null);

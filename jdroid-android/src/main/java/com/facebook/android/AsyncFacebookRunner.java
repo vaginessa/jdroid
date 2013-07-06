@@ -280,4 +280,5 @@ public class AsyncFacebookRunner {
 		public void onFacebookError(FacebookError e, Object state);
 		
 	}
+	
 }

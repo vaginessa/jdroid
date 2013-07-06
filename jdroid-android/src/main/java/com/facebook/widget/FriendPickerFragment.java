@@ -1,5 +1,5 @@
 /**
- * Copyright 2012 Facebook
+ * Copyright 2010-present Facebook.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,7 +32,6 @@ import com.jdroid.android.R;
 /**
  * Provides a Fragment that displays a list of a user's friends and allows one or more of the friends to be selected.
  */
-@SuppressLint("ValidFragment")
 public class FriendPickerFragment extends PickerFragment<GraphUser> {
 	
 	/**

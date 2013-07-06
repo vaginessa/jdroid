@@ -1,5 +1,5 @@
 /**
- * Copyright 2012 Facebook
+ * Copyright 2010-present Facebook.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -310,8 +310,8 @@ public class Request {
 	 * @param callback a callback that will be called when the request is completed to handle success or error
 	 *            conditions
 	 * @return a Request that is ready to execute
-	 * @throws FileNotFoundException
 	 */
+	@SuppressWarnings({ "javadoc", "resource" })
 	public static Request newUploadPhotoRequest(Session session, File file, Callback callback)
 			throws FileNotFoundException {
 		ParcelFileDescriptor descriptor = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY);
@@ -330,8 +330,8 @@ public class Request {
 	 * @param callback a callback that will be called when the request is completed to handle success or error
 	 *            conditions
 	 * @return a Request that is ready to execute
-	 * @throws FileNotFoundException
 	 */
+	@SuppressWarnings({ "javadoc", "resource" })
 	public static Request newUploadVideoRequest(Session session, File file, Callback callback)
 			throws FileNotFoundException {
 		ParcelFileDescriptor descriptor = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY);

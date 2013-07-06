@@ -1,5 +1,5 @@
 /**
- * Copyright 2012 Facebook
+ * Copyright 2010-present Facebook.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,7 +19,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -47,7 +46,6 @@ import com.facebook.internal.Utility;
 import com.facebook.model.GraphPlace;
 import com.jdroid.android.R;
 
-@SuppressLint("ValidFragment")
 public class PlacePickerFragment extends PickerFragment<GraphPlace> {
 	
 	/**
@@ -263,6 +261,7 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
 		a.recycle();
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onActivityCreated(final Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -530,5 +529,4 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
 		public void afterTextChanged(Editable s) {
 		}
 	}
-	
 }

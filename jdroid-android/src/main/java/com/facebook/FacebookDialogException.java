@@ -1,5 +1,5 @@
 /**
- * Copyright 2012 Facebook
+ * Copyright 2010-present Facebook.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,11 +25,8 @@ public class FacebookDialogException extends FacebookException {
 	
 	/**
 	 * Constructs a new FacebookException.
-	 * 
-	 * @param message
-	 * @param errorCode
-	 * @param failingUrl
 	 */
+	@SuppressWarnings("javadoc")
 	public FacebookDialogException(String message, int errorCode, String failingUrl) {
 		super(message);
 		this.errorCode = errorCode;

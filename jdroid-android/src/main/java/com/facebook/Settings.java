@@ -1,5 +1,5 @@
 /**
- * Copyright 2012 Facebook
+ * Copyright 2010-present Facebook.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,6 +14,7 @@
 package com.facebook;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,13 +26,15 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.json.JSONException;
+import org.json.JSONObject;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import com.facebook.internal.Utility;
 import com.facebook.internal.Validate;
 import com.facebook.model.GraphObject;
@@ -42,7 +45,8 @@ import com.jdroid.android.BuildConfig;
  */
 public final class Settings {
 	
-	private static final HashSet<LoggingBehavior> loggingBehaviors = new HashSet<LoggingBehavior>();
+	private static final HashSet<LoggingBehavior> loggingBehaviors = new HashSet<LoggingBehavior>(
+			Arrays.asList(LoggingBehavior.DEVELOPER_ERRORS));
 	private static volatile Executor executor;
 	private static volatile boolean shouldAutoPublishInstall;
 	
@@ -57,8 +61,6 @@ public final class Settings {
 	private static final String ATTRIBUTION_PREFERENCES = "com.facebook.sdk.attributionTracking";
 	private static final String PUBLISH_ACTIVITY_PATH = "%s/activities";
 	private static final String MOBILE_INSTALL_EVENT = "MOBILE_APP_INSTALL";
-	private static final String SUPPORTS_ATTRIBUTION = "supports_attribution";
-	private static final String APPLICATION_FIELDS = "fields";
 	private static final String ANALYTICS_EVENT = "event";
 	private static final String ATTRIBUTION_KEY = "attribution";
 	
@@ -202,14 +204,45 @@ public final class Settings {
 		return (Executor)executorObject;
 	}
 	
+	/**
+	 * Manually publish install attribution to the Facebook graph. Internally handles tracking repeat calls to prevent
+	 * multiple installs being published to the graph.
+	 * 
+	 * @param context the current Context
+	 * @param applicationId the fb application being published.
+	 */
 	public static void publishInstallAsync(final Context context, final String applicationId) {
+		publishInstallAsync(context, applicationId, null);
+	}
+	
+	/**
+	 * Manually publish install attribution to the Facebook graph. Internally handles tracking repeat calls to prevent
+	 * multiple installs being published to the graph.
+	 * 
+	 * @param context the current Context
+	 * @param applicationId the fb application being published.
+	 * @param callback a callback to invoke with a Response object, carrying the server response, or an error.
+	 */
+	public static void publishInstallAsync(final Context context, final String applicationId,
+			final Request.Callback callback) {
 		// grab the application context ahead of time, since we will return to the caller immediately.
 		final Context applicationContext = context.getApplicationContext();
 		Settings.getExecutor().execute(new Runnable() {
 			
 			@Override
 			public void run() {
-				Settings.publishInstallAndWait(applicationContext, applicationId);
+				final Response response = Settings.publishInstallAndWaitForResponse(applicationContext, applicationId);
+				if (callback != null) {
+					// invoke the callback on the main thread.
+					Handler handler = new Handler(Looper.getMainLooper());
+					handler.post(new Runnable() {
+						
+						@Override
+						public void run() {
+							callback.onCompleted(response);
+						}
+					});
+				}
 			}
 		});
 	}
@@ -237,58 +270,96 @@ public final class Settings {
 	 * multiple installs being published to the graph.
 	 * 
 	 * @param context the current Context
-	 * @param applicationId
+	 * @param applicationId the fb application being published.
 	 * @return returns false on error. Applications should retry until true is returned. Safe to call again after true
 	 *         is returned.
 	 */
 	public static boolean publishInstallAndWait(final Context context, final String applicationId) {
+		Response response = publishInstallAndWaitForResponse(context, applicationId);
+		return (response != null) && (response.getError() == null);
+	}
+	
+	/**
+	 * Manually publish install attribution to the Facebook graph. Internally handles caching repeat calls to prevent
+	 * multiple installs being published to the graph.
+	 * 
+	 * @param context the current Context
+	 * @param applicationId the fb application being published.
+	 * @return returns a Response object, carrying the server response, or an error.
+	 */
+	public static Response publishInstallAndWaitForResponse(final Context context, final String applicationId) {
 		try {
-			if (applicationId == null) {
-				return false;
+			if ((context == null) || (applicationId == null)) {
+				throw new IllegalArgumentException("Both context and applicationId must be non-null");
 			}
 			String attributionId = Settings.getAttributionId(context.getContentResolver());
 			SharedPreferences preferences = context.getSharedPreferences(ATTRIBUTION_PREFERENCES, Context.MODE_PRIVATE);
 			String pingKey = applicationId + "ping";
+			String jsonKey = applicationId + "json";
 			long lastPing = preferences.getLong(pingKey, 0);
-			if ((lastPing == 0) && (attributionId != null)) {
-				Bundle supportsAttributionParams = new Bundle();
-				supportsAttributionParams.putString(APPLICATION_FIELDS, SUPPORTS_ATTRIBUTION);
-				Request pingRequest = Request.newGraphPathRequest(null, applicationId, null);
-				pingRequest.setParameters(supportsAttributionParams);
+			String lastResponseJSON = preferences.getString(jsonKey, null);
+			
+			GraphObject publishParams = GraphObject.Factory.create();
+			publishParams.setProperty(ANALYTICS_EVENT, MOBILE_INSTALL_EVENT);
+			publishParams.setProperty(ATTRIBUTION_KEY, attributionId);
+			
+			String publishUrl = String.format(PUBLISH_ACTIVITY_PATH, applicationId);
+			Request publishRequest = Request.newPostRequest(null, publishUrl, publishParams, null);
+			
+			if (lastPing != 0) {
+				GraphObject graphObject = null;
+				try {
+					if (lastResponseJSON != null) {
+						graphObject = GraphObject.Factory.create(new JSONObject(lastResponseJSON));
+					}
+				} catch (JSONException je) {
+					// return the default graph object if there is any problem reading the data.
+				}
+				if (graphObject == null) {
+					return Response.createResponsesFromString("true", null, new RequestBatch(publishRequest), true).get(
+						0);
+				} else {
+					return new Response(null, null, graphObject, true);
+				}
+			} else if (attributionId == null) {
+				throw new FacebookException("No attribution id returned from the Facebook application");
+			} else {
 				
-				GraphObject supportResponse = pingRequest.executeAndWait().getGraphObject();
-				Object doesSupportAttribution = supportResponse.getProperty(SUPPORTS_ATTRIBUTION);
-				
-				if (!(doesSupportAttribution instanceof Boolean)) {
-					throw new JSONException(String.format("%s contains %s instead of a Boolean", SUPPORTS_ATTRIBUTION,
-						doesSupportAttribution));
+				if (!Utility.queryAppAttributionSupportAndWait(applicationId)) {
+					throw new FacebookException("Install attribution has been disabled on the server.");
 				}
 				
-				if ((Boolean)doesSupportAttribution) {
-					GraphObject publishParams = GraphObject.Factory.create();
-					publishParams.setProperty(ANALYTICS_EVENT, MOBILE_INSTALL_EVENT);
-					publishParams.setProperty(ATTRIBUTION_KEY, attributionId);
-					
-					String publishUrl = String.format(PUBLISH_ACTIVITY_PATH, applicationId);
-					
-					Request publishRequest = Request.newPostRequest(null, publishUrl, publishParams, null);
-					publishRequest.executeAndWait();
-					
-					// denote success since no error threw from the post.
-					SharedPreferences.Editor editor = preferences.edit();
-					lastPing = System.currentTimeMillis();
-					editor.putLong(pingKey, lastPing);
-					editor.commit();
+				Response publishResponse = publishRequest.executeAndWait();
+				
+				// denote success since no error threw from the post.
+				SharedPreferences.Editor editor = preferences.edit();
+				lastPing = System.currentTimeMillis();
+				editor.putLong(pingKey, lastPing);
+				
+				// if we got an object response back, cache the string of the JSON.
+				if ((publishResponse.getGraphObject() != null)
+						&& (publishResponse.getGraphObject().getInnerJSONObject() != null)) {
+					editor.putString(jsonKey, publishResponse.getGraphObject().getInnerJSONObject().toString());
 				}
+				editor.commit();
+				
+				return publishResponse;
 			}
-			return lastPing != 0;
 		} catch (Exception e) {
 			// if there was an error, fall through to the failure case.
-			Utility.logd("Facebook-publish", e.getMessage());
+			Utility.logd("Facebook-publish", e);
+			return new Response(null, null, new FacebookRequestError(null, e));
 		}
-		return false;
 	}
 	
+	/**
+	 * Acquire the current attribution id from the facebook app.
+	 * 
+	 * @param contentResolver
+	 * 
+	 * @return returns null if the facebook app is not present on the phone.
+	 */
+	@SuppressWarnings("resource")
 	public static String getAttributionId(ContentResolver contentResolver) {
 		String[] projection = { ATTRIBUTION_ID_COLUMN_NAME };
 		Cursor c = contentResolver.query(ATTRIBUTION_ID_CONTENT_URI, projection, null, null, null);
@@ -298,5 +369,25 @@ public final class Settings {
 		String attributionId = c.getString(c.getColumnIndex(ATTRIBUTION_ID_COLUMN_NAME));
 		c.close();
 		return attributionId;
+	}
+	
+	/**
+	 * Gets the current version of the Facebook SDK for Android as a string.
+	 * 
+	 * @return the current version of the SDK
+	 */
+	public static String getSdkVersion() {
+		return FacebookSdkVersion.BUILD;
+	}
+	
+	/**
+	 * Gets the current Facebook migration bundle string; this string can be passed to Graph API endpoints to specify a
+	 * set of platform migrations that are explicitly turned on or off for that call, in order to ensure compatibility
+	 * between a given version of the SDK and the Graph API.
+	 * 
+	 * @return the migration bundle supported by this version of the SDK
+	 */
+	public static String getMigrationBundle() {
+		return FacebookSdkVersion.MIGRATION_BUNDLE;
 	}
 }

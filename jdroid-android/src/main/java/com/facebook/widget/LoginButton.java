@@ -1,5 +1,5 @@
 /**
- * Copyright 2012 Facebook
+ * Copyright 2010-present Facebook.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -214,8 +214,6 @@ public class LoginButton extends Button {
 			this.setWidth(getResources().getDimensionPixelSize(R.dimen.com_facebook_loginview_width));
 			this.setHeight(getResources().getDimensionPixelSize(R.dimen.com_facebook_loginview_height));
 			this.setGravity(Gravity.CENTER);
-			
-			parseAttributes(attrs);
 			if (isInEditMode()) {
 				// cannot use a drawable in edit mode, so setting the background color instead
 				// of a background resource.
@@ -224,8 +222,11 @@ public class LoginButton extends Button {
 				loginText = "Log in";
 			} else {
 				this.setBackgroundResource(R.drawable.com_facebook_loginbutton_blue);
-				initializeActiveSessionWithCachedToken(context);
 			}
+		}
+		parseAttributes(attrs);
+		if (!isInEditMode()) {
+			initializeActiveSessionWithCachedToken(context);
 		}
 	}
 	
@@ -651,5 +652,4 @@ public class LoginButton extends Button {
 			}
 		}
 	}
-	
 }

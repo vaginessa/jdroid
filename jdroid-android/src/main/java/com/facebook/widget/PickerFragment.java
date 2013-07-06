@@ -1,5 +1,5 @@
 /**
- * Copyright 2012 Facebook
+ * Copyright 2010-present Facebook.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -776,10 +776,8 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 		
 		/**
 		 * Called when the set of data being displayed in the picker has changed.
-		 * 
-		 * @param fragment
 		 */
-		void onDataChanged(PickerFragment<?> fragment);
+		void onDataChanged(@SuppressWarnings("javadoc") PickerFragment<?> fragment);
 	}
 	
 	/**
@@ -873,10 +871,20 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 			this.adapter = adapter;
 			// Tell the adapter about any data we might already have.
 			this.adapter.changeCursor(loader.getCursor());
+			this.adapter.setOnErrorListener(new GraphObjectAdapter.OnErrorListener() {
+				
+				@Override
+				public void onError(GraphObjectAdapter<?> adapter, FacebookException error) {
+					if (onErrorListener != null) {
+						onErrorListener.onError(PickerFragment.this, error);
+					}
+				}
+			});
 		}
 		
 		public void detach() {
 			adapter.setDataNeededListener(null);
+			adapter.setOnErrorListener(null);
 			loader.setOnErrorListener(null);
 			
 			loader = null;

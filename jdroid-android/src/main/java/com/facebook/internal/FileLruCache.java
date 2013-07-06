@@ -1,5 +1,5 @@
 /**
- * Copyright 2012 Facebook
+ * Copyright 2010-present Facebook.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,7 +30,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import com.facebook.LoggingBehavior;
@@ -174,6 +173,7 @@ public final class FileLruCache {
 		return openPutStream(key, null);
 	}
 	
+	@SuppressWarnings("resource")
 	public OutputStream openPutStream(final String key, String contentTag) throws IOException {
 		final File buffer = BufferFile.newFile(directory);
 		buffer.delete();
@@ -242,6 +242,7 @@ public final class FileLruCache {
 	// Opens an output stream for the key, and creates an input stream wrapper to copy
 	// the contents of input into the new output stream. The effect is to store a
 	// copy of input, and associate that data with key.
+	@SuppressWarnings("resource")
 	public InputStream interceptAndPut(String key, InputStream input) throws IOException {
 		OutputStream output = openPutStream(key);
 		return new CopyingInputStream(input, output);
@@ -600,7 +601,6 @@ public final class FileLruCache {
 			return modified;
 		}
 		
-		@SuppressLint("FieldGetter")
 		@Override
 		public int compareTo(ModifiedFile another) {
 			if (getModified() < another.getModified()) {

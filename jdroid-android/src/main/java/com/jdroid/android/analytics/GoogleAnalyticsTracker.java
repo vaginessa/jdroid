@@ -49,15 +49,15 @@ public class GoogleAnalyticsTracker extends DefaultAnalyticsTracker {
 		// TODO Implement this
 	}
 	
-	public void trackEvent(String category, String action, String label, Integer value) {
+	protected void trackEvent(String category, String action, String label, Integer value) {
 		trackEvent(category, action, label, value.longValue());
 	}
 	
-	public void trackEvent(String category, String action, String label, Long value) {
+	protected void trackEvent(String category, String action, String label, Long value) {
 		EasyTracker.getTracker().trackEvent(category, action, label, value);
 	}
 	
-	public void trackEvent(String category, String action, String label) {
+	protected void trackEvent(String category, String action, String label) {
 		trackEvent(category, action, label, (Long)null);
 	}
 }
