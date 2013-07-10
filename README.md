@@ -37,6 +37,7 @@ Library project for Android apps. Support for Android 2.3 and higher versions
 * Google Play Services integration
  * Google Cloud Messaging integration
  * Google Maps v2 integration
+ * Google+ integration
 * AdMob integration
 * In App Billing integration
 * RoboGuice integration
