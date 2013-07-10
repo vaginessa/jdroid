@@ -41,7 +41,7 @@ Library project for Android apps. Support for Android 2.3 and higher versions
 * AdMob integration
 * In App Billing integration
 * RoboGuice integration
-* Facebook integration (Facebook SDK 3.0.1)
+* Facebook integration (Facebook SDK 3.0.2)
 * Twitter integration
 * Crittercism integration
 * Proguard support
@@ -57,6 +57,7 @@ Library project for Android apps. Support for Android 2.3 and higher versions
 * Coverflow component
 * Voice Recognizer component
 * Date & Time picker components
+* About dialog component
 * Animations
  * Fade in / Fade out
 * Utilities for Alarms, Bitmaps, Notifications, Shared Preferences, Toasts, Sounds, GPS, and more
