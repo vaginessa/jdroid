@@ -39,7 +39,7 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		
 		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-		View view = inflate(R.layout.about_dialog);
+		View view = inflate(R.layout.about_dialog_fragment);
 		dialogBuilder.setView(view);
 		
 		dialogBuilder.setTitle(R.string.about);
