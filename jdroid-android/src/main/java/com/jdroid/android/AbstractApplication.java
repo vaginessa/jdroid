@@ -32,6 +32,7 @@ import com.jdroid.android.images.BitmapLruCache;
 import com.jdroid.android.utils.SharedPreferencesUtils;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.java.parser.json.JsonObjectWrapper;
 import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.ExecutorUtils;
 import com.jdroid.java.utils.FileUtils;
@@ -124,6 +125,10 @@ public abstract class AbstractApplication extends Application {
 		}
 	}
 	
+	public Boolean hasAnalyticsSender() {
+		return getAnalyticsSender() != null;
+	}
+	
 	public <T extends AnalyticsTracker> AnalyticsSender<T> getAnalyticsSender() {
 		return null;
 	}
@@ -177,15 +182,19 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	public void initExceptionHandlers() {
+		initExceptionHandlers(null);
+	}
+	
+	public void initExceptionHandlers(JsonObjectWrapper metadata) {
 		UncaughtExceptionHandler currentExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
 		if ((currentExceptionHandler == null) || !currentExceptionHandler.getClass().equals(getExceptionHandlerClass())) {
-			initCrittercism();
+			initCrittercism(metadata);
 			Thread.setDefaultUncaughtExceptionHandler(ReflectionUtils.newInstance(getExceptionHandlerClass()));
 			LOGGER.debug("Custom exception handler initialized");
 		}
 	}
 	
-	private void initCrittercism() {
+	private void initCrittercism(JsonObjectWrapper metadata) {
 		
 		if (applicationContext.isCrittercismEnabled()) {
 			try {
@@ -197,6 +206,9 @@ public abstract class AbstractApplication extends Application {
 				
 				if (installationId != null) {
 					Crittercism.setUsername(installationId);
+				}
+				if (metadata != null) {
+					Crittercism.setMetadata(metadata.getJsonObject());
 				}
 				LOGGER.debug("Crittercism initialized");
 			} catch (Exception e) {

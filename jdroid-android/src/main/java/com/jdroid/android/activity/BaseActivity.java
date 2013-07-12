@@ -171,7 +171,9 @@ public class BaseActivity implements ActivityIf {
 	public void onStart() {
 		LOGGER.trace("Executing onStart on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
-		AbstractApplication.get().getAnalyticsSender().onActivityStart(activity);
+		if (AbstractApplication.get().hasAnalyticsSender()) {
+			AbstractApplication.get().getAnalyticsSender().onActivityStart(activity);
+		}
 	}
 	
 	public void onResume() {
@@ -203,7 +205,9 @@ public class BaseActivity implements ActivityIf {
 	
 	public void onStop() {
 		LOGGER.trace("Executing onStop on " + activity);
-		AbstractApplication.get().getAnalyticsSender().onActivityStop(activity);
+		if (AbstractApplication.get().hasAnalyticsSender()) {
+			AbstractApplication.get().getAnalyticsSender().onActivityStop(activity);
+		}
 	}
 	
 	public void onDestroy() {

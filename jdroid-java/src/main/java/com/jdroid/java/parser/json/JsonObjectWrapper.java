@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.jdroid.java.collections.Lists;
+import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.DateUtils;
 
 /**
@@ -410,66 +411,90 @@ public class JsonObjectWrapper {
 	 * @param key
 	 * @param value
 	 * @return the {@link JsonObjectWrapper}
-	 * @throws JSONException
 	 * @see org.json.JSONObject#put(java.lang.String, boolean)
 	 */
-	public JsonObjectWrapper put(String key, boolean value) throws JSONException {
-		return new JsonObjectWrapper(jsonObject.put(key, value));
+	public JsonObjectWrapper put(String key, boolean value) {
+		try {
+			jsonObject.put(key, value);
+		} catch (JSONException e) {
+			throw new UnexpectedException(e);
+		}
+		return this;
 	}
 	
 	/**
 	 * @param key
 	 * @param value
 	 * @return the {@link JsonObjectWrapper}
-	 * @throws JSONException
 	 * @see org.json.JSONObject#put(java.lang.String, double)
 	 */
-	public JsonObjectWrapper put(String key, double value) throws JSONException {
-		return new JsonObjectWrapper(jsonObject.put(key, value));
+	public JsonObjectWrapper put(String key, double value) {
+		try {
+			jsonObject.put(key, value);
+		} catch (JSONException e) {
+			throw new UnexpectedException(e);
+		}
+		return this;
 	}
 	
 	/**
 	 * @param key
 	 * @param value
 	 * @return the {@link JsonObjectWrapper}
-	 * @throws JSONException
 	 * @see org.json.JSONObject#put(java.lang.String, int)
 	 */
-	public JsonObjectWrapper put(String key, int value) throws JSONException {
-		return new JsonObjectWrapper(jsonObject.put(key, value));
+	public JsonObjectWrapper put(String key, int value) {
+		try {
+			jsonObject.put(key, value);
+		} catch (JSONException e) {
+			throw new UnexpectedException(e);
+		}
+		return this;
 	}
 	
 	/**
 	 * @param key
 	 * @param value
 	 * @return the {@link JsonObjectWrapper}
-	 * @throws JSONException
 	 * @see org.json.JSONObject#put(java.lang.String, long)
 	 */
-	public JsonObjectWrapper put(String key, long value) throws JSONException {
-		return new JsonObjectWrapper(jsonObject.put(key, value));
+	public JsonObjectWrapper put(String key, long value) {
+		try {
+			jsonObject.put(key, value);
+		} catch (JSONException e) {
+			throw new UnexpectedException(e);
+		}
+		return this;
 	}
 	
 	/**
 	 * @param key
 	 * @param value
 	 * @return the {@link JsonObjectWrapper}
-	 * @throws JSONException
 	 * @see org.json.JSONObject#put(java.lang.String, java.lang.Object)
 	 */
-	public JsonObjectWrapper put(String key, Object value) throws JSONException {
-		return new JsonObjectWrapper(jsonObject.put(key, value));
+	public JsonObjectWrapper put(String key, Object value) {
+		try {
+			jsonObject.put(key, value);
+		} catch (JSONException e) {
+			throw new UnexpectedException(e);
+		}
+		return this;
 	}
 	
 	/**
 	 * @param key
 	 * @param value
 	 * @return the {@link JsonObjectWrapper}
-	 * @throws JSONException
 	 * @see org.json.JSONObject#putOpt(java.lang.String, java.lang.Object)
 	 */
-	public JsonObjectWrapper putOpt(String key, Object value) throws JSONException {
-		return new JsonObjectWrapper(jsonObject.putOpt(key, value));
+	public JsonObjectWrapper putOpt(String key, Object value) {
+		try {
+			jsonObject.put(key, value);
+		} catch (JSONException e) {
+			throw new UnexpectedException(e);
+		}
+		return this;
 	}
 	
 	/**
@@ -507,6 +532,13 @@ public class JsonObjectWrapper {
 	 */
 	public String toString(int indentFactor) throws JSONException {
 		return jsonObject.toString(indentFactor);
+	}
+	
+	/**
+	 * @return the jsonObject
+	 */
+	public JSONObject getJsonObject() {
+		return jsonObject;
 	}
 	
 }
