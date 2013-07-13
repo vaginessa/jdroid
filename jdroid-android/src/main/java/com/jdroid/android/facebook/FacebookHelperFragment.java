@@ -72,7 +72,7 @@ public abstract class FacebookHelperFragment extends AbstractFragment implements
 		return logger;
 	}
 	
-	protected void startLoginProcess() {
+	public void startLoginProcess() {
 		facebookConnector.login();
 	}
 	

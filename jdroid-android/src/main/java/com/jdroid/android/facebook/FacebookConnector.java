@@ -18,7 +18,6 @@ import com.facebook.SharedPreferencesTokenCachingStrategy;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
-import com.jdroid.android.exception.CommonErrorCode;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -193,12 +192,8 @@ public class FacebookConnector {
 	 * @return GraphUser for the logged user
 	 */
 	public GraphUser executeMeRequest() {
-		try {
-			Response response = Request.executeAndWait(Request.newMeRequest(Session.getActiveSession(), null));
-			return response.getGraphObjectAs(GraphUser.class);
-		} catch (Exception e) {
-			throw CommonErrorCode.SERVER_ERROR.newApplicationException(e);
-		}
+		Response response = Request.executeAndWait(Request.newMeRequest(Session.getActiveSession(), null));
+		return response.getGraphObjectAs(GraphUser.class);
 	}
 	
 	private Session getCurrentSession() {
