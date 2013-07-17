@@ -14,6 +14,7 @@ public abstract class FacebookLoginUseCase extends DefaultAbstractUseCase {
 	
 	private FacebookConnector facebookConnector;
 	private BasicFacebookUserInfo facebookUserInfo;
+	private Boolean login = true;
 	
 	/**
 	 * @see com.despegar.commons.android.usecase.DefaultAbstractUseCase#doExecute()
@@ -21,30 +22,36 @@ public abstract class FacebookLoginUseCase extends DefaultAbstractUseCase {
 	@Override
 	protected void doExecute() {
 		
-		facebookUserInfo = getFacebookUserInfoFromCache();
-		if (facebookUserInfo == null) {
-			GraphUser fbUser = facebookConnector.executeMeRequest();
-			String accessToken = facebookConnector.getAccessToken();
-			
-			if (fbUser == null) {
-				throw new UnexpectedException("Failed to get GraphUser from Facebook");
+		if (login) {
+			facebookUserInfo = getFacebookUserInfoFromCache();
+			if (facebookUserInfo == null) {
+				GraphUser fbUser = facebookConnector.executeMeRequest();
+				String accessToken = facebookConnector.getAccessToken();
+				
+				if (fbUser == null) {
+					throw new UnexpectedException("Failed to get GraphUser from Facebook");
+				}
+				
+				facebookUserInfo = new BasicFacebookUserInfo();
+				facebookUserInfo.setFirstName(fbUser.getFirstName());
+				facebookUserInfo.setLastName(fbUser.getLastName());
+				facebookUserInfo.setEmail(fbUser.asMap().get("email").toString());
+				
+				SocialUtils.saveBasicFacebookUserInfo(accessToken, facebookUserInfo);
+				
+				sendFacebookLogin(fbUser.getId(), accessToken);
+				
+			} else {
+				LOGGER.debug("facebookUserInfo from cache facebookUserInfo= " + facebookUserInfo);
 			}
-			
-			facebookUserInfo = new BasicFacebookUserInfo();
-			facebookUserInfo.setFirstName(fbUser.getFirstName());
-			facebookUserInfo.setLastName(fbUser.getLastName());
-			facebookUserInfo.setEmail(fbUser.asMap().get("email").toString());
-			
-			SocialUtils.saveBasicFacebookUserInfo(accessToken, facebookUserInfo);
-			
-			sendFacebookLogin(fbUser.getId(), accessToken);
-			
 		} else {
-			LOGGER.debug("facebookUserInfo from cache facebookUserInfo= " + facebookUserInfo);
+			sendFacebookLogout();
 		}
 	}
 	
 	protected abstract void sendFacebookLogin(String facebookId, String token);
+	
+	protected abstract void sendFacebookLogout();
 	
 	public void setFacebookConnector(FacebookConnector facebookConnector) {
 		this.facebookConnector = facebookConnector;
@@ -66,6 +73,14 @@ public abstract class FacebookLoginUseCase extends DefaultAbstractUseCase {
 			}
 		}
 		return facebookUserInfo;
+	}
+	
+	public void setLogin(Boolean login) {
+		this.login = login;
+	}
+	
+	public Boolean isLogin() {
+		return login;
 	}
 	
 }

@@ -76,6 +76,10 @@ public abstract class FacebookHelperFragment extends AbstractFragment implements
 		facebookConnector.login();
 	}
 	
+	public void startLogoutProcess() {
+		facebookConnector.logout();
+	}
+	
 	/**
 	 * @see com.jdroid.android.facebook.FacebookLoginListener#onFacebookLoginCompleted(com.jdroid.android.facebook.FacebookConnector)
 	 */
@@ -102,13 +106,21 @@ public abstract class FacebookHelperFragment extends AbstractFragment implements
 		});
 	}
 	
+	/**
+	 * @see com.jdroid.android.fragment.AbstractFragment#onFinishUseCase()
+	 */
 	@Override
 	public void onFinishUseCase() {
 		executeOnUIThread(new Runnable() {
 			
 			@Override
 			public void run() {
-				onFacebookLoginUseCaseFinished(facebookLoginUseCase.getFacebookUserInfo());
+				if (facebookLoginUseCase.isLogin()) {
+					onFacebookLoginUseCaseFinished(facebookLoginUseCase.getFacebookUserInfo());
+				} else {
+					onFacebookLogoutUseCaseFinised();
+				}
+				dismissLoading();
 			}
 		});
 	}
@@ -120,7 +132,10 @@ public abstract class FacebookHelperFragment extends AbstractFragment implements
 	 */
 	protected abstract void onFacebookLoginUseCaseFinished(BasicFacebookUserInfo userInfo);
 	
+	protected abstract void onFacebookLogoutUseCaseFinised();
+	
 	private void executeFacebookLoginUseCase(FacebookConnector facebookConnector) {
+		facebookLoginUseCase.setLogin(true);
 		facebookLoginUseCase.setFacebookConnector(facebookConnector);
 		executeUseCase(facebookLoginUseCase);
 	}
