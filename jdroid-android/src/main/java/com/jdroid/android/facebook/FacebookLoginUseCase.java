@@ -35,7 +35,10 @@ public abstract class FacebookLoginUseCase extends DefaultAbstractUseCase {
 				facebookUserInfo = new BasicFacebookUserInfo();
 				facebookUserInfo.setFirstName(fbUser.getFirstName());
 				facebookUserInfo.setLastName(fbUser.getLastName());
-				facebookUserInfo.setEmail(fbUser.asMap().get("email").toString());
+				Object email = fbUser.asMap().get("email");
+				if (email != null) {
+					facebookUserInfo.setEmail(email.toString());
+				}
 				
 				SocialUtils.saveBasicFacebookUserInfo(accessToken, facebookUserInfo);
 				

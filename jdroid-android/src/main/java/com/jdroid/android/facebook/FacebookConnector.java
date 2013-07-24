@@ -30,6 +30,7 @@ import com.jdroid.java.utils.LoggerUtils;
 public class FacebookConnector {
 	
 	private static final List<String> PERMISSIONS = Arrays.asList("email");
+	private static final List<String> PUBLISH_PERMISSION = Arrays.asList("publish_stream");
 	private static final SessionLoginBehavior LOGIN_BEHAVIOR = SessionLoginBehavior.SSO_WITH_FALLBACK;
 	private SessionDefaultAudience DEFAULT_AUDIENCE = SessionDefaultAudience.FRIENDS;
 	
@@ -152,9 +153,9 @@ public class FacebookConnector {
 		Session currentSession = getCurrentSession();
 		
 		if (logger.isDebugEnabled()) {
-			logger.debug("Facebook currentSession currentSession.isOpened()=" + currentSession.isOpened());
-			logger.debug("Facebook currentSession currentSession.isClosed()=" + currentSession.isClosed());
-			logger.debug("Facebook currentSession currentSession state=" + currentSession.getState().name());
+			logger.debug("Facebook currentSession currentSession.isOpened() = " + currentSession.isOpened());
+			logger.debug("Facebook currentSession currentSession.isClosed() = " + currentSession.isClosed());
+			logger.debug("Facebook currentSession currentSession state = " + currentSession.getState().name());
 		}
 		
 		if (currentSession.isClosed()) {
@@ -173,6 +174,34 @@ public class FacebookConnector {
 			openRequest.setLoginBehavior(LOGIN_BEHAVIOR);
 			
 			currentSession.openForRead(openRequest);
+		}
+	}
+	
+	public void loginForPublish() {
+		Session currentSession = getCurrentSession();
+		
+		if (logger.isDebugEnabled()) {
+			logger.debug("Facebook currentSession currentSession.isOpened() = " + currentSession.isOpened());
+			logger.debug("Facebook currentSession currentSession.isClosed() = " + currentSession.isClosed());
+			logger.debug("Facebook currentSession currentSession state = " + currentSession.getState().name());
+		}
+		
+		if (currentSession.isClosed()) {
+			// Discard the current session and build a new one to avoid an exception
+			Session.setActiveSession(null);
+			currentSession = getCurrentSession();
+		}
+		
+		if (currentSession.isOpened()) {
+			notifyFacebookLoginListener();
+		} else {
+			Session.OpenRequest openRequest = new Session.OpenRequest(fragment);
+			
+			openRequest.setDefaultAudience(DEFAULT_AUDIENCE);
+			openRequest.setPermissions(PUBLISH_PERMISSION);
+			openRequest.setLoginBehavior(LOGIN_BEHAVIOR);
+			
+			currentSession.openForPublish(openRequest);
 		}
 	}
 	

@@ -76,6 +76,10 @@ public abstract class FacebookHelperFragment extends AbstractFragment implements
 		facebookConnector.login();
 	}
 	
+	public void startLoginForPublishProcess() {
+		facebookConnector.loginForPublish();
+	}
+	
 	public void startLogoutProcess() {
 		facebookConnector.logout();
 	}
@@ -130,9 +134,13 @@ public abstract class FacebookHelperFragment extends AbstractFragment implements
 	 * 
 	 * @param userInfo contains the basic info of the user.
 	 */
-	protected abstract void onFacebookLoginUseCaseFinished(BasicFacebookUserInfo userInfo);
+	protected void onFacebookLoginUseCaseFinished(BasicFacebookUserInfo userInfo) {
+		// Do nothing
+	}
 	
-	protected abstract void onFacebookLogoutUseCaseFinised();
+	protected void onFacebookLogoutUseCaseFinised() {
+		// Do nothing
+	}
 	
 	private void executeFacebookLoginUseCase(FacebookConnector facebookConnector) {
 		facebookLoginUseCase.setLogin(true);
