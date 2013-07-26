@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import com.facebook.FacebookRequestError.Category;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
@@ -18,7 +19,8 @@ import com.facebook.SharedPreferencesTokenCachingStrategy;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
-import com.jdroid.android.fragment.AbstractFragment;
+import com.jdroid.android.exception.CommonErrorCode;
+import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
 
 /**
@@ -29,6 +31,8 @@ import com.jdroid.java.utils.LoggerUtils;
  */
 public class FacebookConnector {
 	
+	private static final Logger LOGGER = LoggerUtils.getLogger(FacebookConnector.class);
+	
 	private static final List<String> PERMISSIONS = Arrays.asList("email");
 	private static final List<String> PUBLISH_PERMISSION = Arrays.asList("publish_stream");
 	private static final SessionLoginBehavior LOGIN_BEHAVIOR = SessionLoginBehavior.SSO_WITH_FALLBACK;
@@ -37,7 +41,7 @@ public class FacebookConnector {
 	private UiLifecycleHelper uiHelper;
 	private SessionStateListener sessionStateListener;
 	private String facebookAppId;
-	private AbstractFragment fragment;
+	private Fragment fragment;
 	private final Logger logger;
 	private FacebookLoginListener facebookLoginListener;
 	
@@ -59,13 +63,13 @@ public class FacebookConnector {
 	 * @param facebookLoginListener is a callback for Facebook login event.
 	 * @return an initialized {@link FacebookConnector}.
 	 */
-	public static FacebookConnector instance(AbstractFragment fragment, String facebookAppId,
+	public static FacebookConnector instance(Fragment fragment, String facebookAppId,
 			SessionStateListener sessionStateListener, FacebookLoginListener facebookLoginListener) {
 		buildSession(fragment, facebookAppId);
 		return new FacebookConnector(fragment, facebookAppId, sessionStateListener, facebookLoginListener);
 	}
 	
-	private static Session buildSession(AbstractFragment fragment, String facebookAppId) {
+	private static Session buildSession(Fragment fragment, String facebookAppId) {
 		SharedPreferencesTokenCachingStrategy tokenCachingStrategy = new SharedPreferencesTokenCachingStrategy(
 				fragment.getActivity());
 		Builder sessionBuilder = new Builder(fragment.getActivity());
@@ -77,8 +81,8 @@ public class FacebookConnector {
 		return session;
 	}
 	
-	private FacebookConnector(AbstractFragment fragment, String facebookAppId,
-			SessionStateListener sessionStateListener, FacebookLoginListener facebookLoginListener) {
+	private FacebookConnector(Fragment fragment, String facebookAppId, SessionStateListener sessionStateListener,
+			FacebookLoginListener facebookLoginListener) {
 		this.facebookAppId = facebookAppId;
 		this.sessionStateListener = sessionStateListener;
 		this.fragment = fragment;
@@ -208,10 +212,17 @@ public class FacebookConnector {
 	public void logout() {
 		Session currentSession = getCurrentSession();
 		currentSession.closeAndClearTokenInformation();
+		if (facebookLoginListener != null) {
+			facebookLoginListener.onFacebookLogoutCompleted();
+		}
 	}
 	
 	public String getAccessToken() {
 		return getCurrentSession().getAccessToken();
+	}
+	
+	public void verifyToken() {
+		executeMeRequest();
 	}
 	
 	/**
@@ -221,8 +232,38 @@ public class FacebookConnector {
 	 * @return GraphUser for the logged user
 	 */
 	public GraphUser executeMeRequest() {
-		Response response = Request.executeAndWait(Request.newMeRequest(Session.getActiveSession(), null));
-		return response.getGraphObjectAs(GraphUser.class);
+		
+		Response response = null;
+		try {
+			response = Request.executeAndWait(Request.newMeRequest(Session.getActiveSession(), null));
+		} catch (Exception e) {
+			throw CommonErrorCode.SERVER_ERROR.newApplicationException(e);
+		}
+		
+		if (response.getError() != null) {
+			if (Category.AUTHENTICATION_RETRY.equals(response.getError().getCategory())
+					|| Category.AUTHENTICATION_REOPEN_SESSION.equals(response.getError().getCategory())
+					|| Category.PERMISSION.equals(response.getError().getCategory())) {
+				throw new FacebookExpiredSessionException(response.getError().getErrorMessage());
+			} else if (Category.CLIENT.equals(response.getError().getCategory())) {
+				LOGGER.warn(response.getError().getErrorMessage());
+				throw CommonErrorCode.CONNECTION_ERROR.newApplicationException(response.getError().getErrorMessage());
+			} else {
+				throw CommonErrorCode.SERVER_ERROR.newApplicationException(response.getError().getErrorMessage());
+			}
+		}
+		
+		GraphUser fbUser = null;
+		try {
+			fbUser = response.getGraphObjectAs(GraphUser.class);
+		} catch (Exception e) {
+			throw CommonErrorCode.SERVER_ERROR.newApplicationException(e);
+		}
+		
+		if (fbUser == null) {
+			throw new UnexpectedException("Failed to get GraphUser from Facebook");
+		}
+		return fbUser;
 	}
 	
 	private Session getCurrentSession() {

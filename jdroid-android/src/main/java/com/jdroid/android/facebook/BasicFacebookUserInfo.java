@@ -5,6 +5,7 @@ public class BasicFacebookUserInfo {
 	private String firstName;
 	private String lastName;
 	private String email;
+	private String facebookId;
 	
 	public String getEmail() {
 		return email;
@@ -40,6 +41,14 @@ public class BasicFacebookUserInfo {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getFacebookId() {
+		return facebookId;
+	}
+	
+	public void setFacebookId(String facebookId) {
+		this.facebookId = facebookId;
 	}
 	
 	/**

@@ -12,12 +12,27 @@ import com.jdroid.android.utils.SharedPreferencesUtils;
 public class SocialUtils {
 	
 	private static final String PREFS_FACEBOOK_ACCESS_TOKEN = "facebook.accessToken";
+	private static final String PREFS_FACEBOOK_USER_ID = "facebook.userId";
 	private static final String PREFS_FIRST_NAME = "facebook.firstName";
 	private static final String PREFS_LAST_NAME = "facebook.lastName";
 	private static final String PREFS_USER_EMAIL = "facebook.userEmail";
 	
+	private static Boolean existsFacebookAccessToken = false;
+	
+	/**
+	 * @return Whether there is a Facebook Access Token stored or not
+	 */
+	public static Boolean existsFacebookAccessToken() {
+		return existsFacebookAccessToken;
+	}
+	
 	public static String loadFacebookAccessTokenHashFromPreferences() {
 		return SharedPreferencesUtils.loadPreference(PREFS_FACEBOOK_ACCESS_TOKEN);
+	}
+	
+	public static Boolean verifyFacebookAccesToken() {
+		existsFacebookAccessToken = SocialUtils.loadFacebookAccessTokenHashFromPreferences() != null;
+		return existsFacebookAccessToken;
 	}
 	
 	public static BasicFacebookUserInfo loadSavedFacebookUserInfo() {
@@ -25,13 +40,17 @@ public class SocialUtils {
 		String firstName = SharedPreferencesUtils.loadPreference(PREFS_FIRST_NAME);
 		String lastName = SharedPreferencesUtils.loadPreference(PREFS_LAST_NAME);
 		String email = SharedPreferencesUtils.loadPreference(PREFS_USER_EMAIL);
+		String facebookId = SharedPreferencesUtils.loadPreference(PREFS_FACEBOOK_USER_ID);
 		
-		if (StringUtils.isNotBlank(firstName) && StringUtils.isNotBlank(lastName) && StringUtils.isNotBlank(email)) {
+		if (StringUtils.isNotBlank(firstName) && StringUtils.isNotBlank(lastName) && StringUtils.isNotBlank(email)
+				&& StringUtils.isNotBlank(facebookId)) {
 			facebookUserInfo = new BasicFacebookUserInfo();
 			facebookUserInfo.setFirstName(firstName);
 			facebookUserInfo.setEmail(email);
 			facebookUserInfo.setLastName(lastName);
+			facebookUserInfo.setFacebookId(facebookId);
 		}
+		verifyFacebookAccesToken();
 		return facebookUserInfo;
 	}
 	
@@ -41,7 +60,14 @@ public class SocialUtils {
 		editor.putString(PREFS_FIRST_NAME, facebookUserInfo.getFirstName());
 		editor.putString(PREFS_LAST_NAME, facebookUserInfo.getLasttName());
 		editor.putString(PREFS_USER_EMAIL, facebookUserInfo.getEmail());
+		editor.putString(PREFS_FACEBOOK_USER_ID, facebookUserInfo.getFacebookId());
 		editor.commit();
+		SocialUtils.existsFacebookAccessToken = true;
+	}
+	
+	public static void cleanBasicFacebookUserInfo() {
+		SharedPreferencesUtils.removePreferences(PREFS_FACEBOOK_ACCESS_TOKEN, PREFS_FACEBOOK_USER_ID, PREFS_USER_EMAIL);
+		SocialUtils.existsFacebookAccessToken = false;
 	}
 	
 	public static Session openFacebookActiveSession(Context context, String applicationId) {

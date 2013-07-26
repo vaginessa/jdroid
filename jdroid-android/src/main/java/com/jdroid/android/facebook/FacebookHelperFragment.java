@@ -7,13 +7,13 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.java.utils.LoggerUtils;
 
-public abstract class FacebookHelperFragment extends AbstractFragment implements SessionStateListener,
-		FacebookLoginListener {
+public abstract class FacebookHelperFragment<T extends FacebookLoginUseCase> extends AbstractFragment implements
+		SessionStateListener, FacebookLoginListener {
 	
 	private final Logger logger = LoggerUtils.getLogger(getClass());
 	
 	private FacebookConnector facebookConnector;
-	private FacebookLoginUseCase facebookLoginUseCase;
+	private T facebookLoginUseCase;
 	
 	/**
 	 * @see com.jdroid.android.fragment.AbstractFragment#onCreate(android.os.Bundle)
@@ -28,7 +28,14 @@ public abstract class FacebookHelperFragment extends AbstractFragment implements
 		facebookConnector.onCreate(savedInstanceState);
 	}
 	
-	protected abstract FacebookLoginUseCase createFacebookLoginUseCase();
+	@SuppressWarnings("unchecked")
+	protected T createFacebookLoginUseCase() {
+		return (T)new FacebookLoginUseCase();
+	}
+	
+	public T getFacebookLoginUseCase() {
+		return facebookLoginUseCase;
+	}
 	
 	/**
 	 * @see com.jdroid.android.fragment.AbstractFragment#onResume()
@@ -89,7 +96,18 @@ public abstract class FacebookHelperFragment extends AbstractFragment implements
 	 */
 	@Override
 	public void onFacebookLoginCompleted(FacebookConnector facebookConnector) {
+		facebookLoginUseCase.setLoginMode(true);
+		facebookLoginUseCase.setFacebookConnector(facebookConnector);
 		executeFacebookLoginUseCase(facebookConnector);
+	}
+	
+	/**
+	 * @see com.jdroid.android.facebook.FacebookLoginListener#onFacebookLogoutCompleted()
+	 */
+	@Override
+	public void onFacebookLogoutCompleted() {
+		facebookLoginUseCase.setLoginMode(false);
+		executeUseCase(facebookLoginUseCase);
 	}
 	
 	// The onStartUseCase is overridden here to use the executeOnUIThread implementation
@@ -119,7 +137,7 @@ public abstract class FacebookHelperFragment extends AbstractFragment implements
 			
 			@Override
 			public void run() {
-				if (facebookLoginUseCase.isLogin()) {
+				if (facebookLoginUseCase.isLoginMode()) {
 					onFacebookLoginUseCaseFinished(facebookLoginUseCase.getFacebookUserInfo());
 				} else {
 					onFacebookLogoutUseCaseFinised();
@@ -143,7 +161,7 @@ public abstract class FacebookHelperFragment extends AbstractFragment implements
 	}
 	
 	private void executeFacebookLoginUseCase(FacebookConnector facebookConnector) {
-		facebookLoginUseCase.setLogin(true);
+		facebookLoginUseCase.setLoginMode(true);
 		facebookLoginUseCase.setFacebookConnector(facebookConnector);
 		executeUseCase(facebookLoginUseCase);
 	}

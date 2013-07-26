@@ -9,4 +9,6 @@ public interface FacebookLoginListener {
 	 */
 	public void onFacebookLoginCompleted(FacebookConnector facebookConnector);
 	
+	public void onFacebookLogoutCompleted();
+	
 }

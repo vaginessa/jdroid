@@ -8,13 +8,13 @@ import com.jdroid.android.utils.AndroidEncryptionUtils;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
 
-public abstract class FacebookLoginUseCase extends DefaultAbstractUseCase {
+public class FacebookLoginUseCase extends DefaultAbstractUseCase {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(FacebookLoginUseCase.class);
 	
 	private FacebookConnector facebookConnector;
 	private BasicFacebookUserInfo facebookUserInfo;
-	private Boolean login = true;
+	private Boolean loginMode = true;
 	
 	/**
 	 * @see com.despegar.commons.android.usecase.DefaultAbstractUseCase#doExecute()
@@ -22,15 +22,18 @@ public abstract class FacebookLoginUseCase extends DefaultAbstractUseCase {
 	@Override
 	protected void doExecute() {
 		
-		if (login) {
+		if (loginMode) {
 			facebookUserInfo = getFacebookUserInfoFromCache();
 			if (facebookUserInfo == null) {
+				
 				GraphUser fbUser = facebookConnector.executeMeRequest();
 				String accessToken = facebookConnector.getAccessToken();
 				
 				if (fbUser == null) {
 					throw new UnexpectedException("Failed to get GraphUser from Facebook");
 				}
+				
+				sendFacebookLogin(fbUser.getId(), accessToken);
 				
 				facebookUserInfo = new BasicFacebookUserInfo();
 				facebookUserInfo.setFirstName(fbUser.getFirstName());
@@ -41,20 +44,27 @@ public abstract class FacebookLoginUseCase extends DefaultAbstractUseCase {
 				}
 				
 				SocialUtils.saveBasicFacebookUserInfo(accessToken, facebookUserInfo);
-				
-				sendFacebookLogin(fbUser.getId(), accessToken);
-				
 			} else {
 				LOGGER.debug("facebookUserInfo from cache facebookUserInfo= " + facebookUserInfo);
 			}
+			afterFacebookLogin();
 		} else {
-			sendFacebookLogout();
+			SocialUtils.cleanBasicFacebookUserInfo();
+			afterFacebookLogout();
 		}
 	}
 	
-	protected abstract void sendFacebookLogin(String facebookId, String token);
+	protected void sendFacebookLogin(String facebookId, String token) {
+		// Do Nothing
+	}
 	
-	protected abstract void sendFacebookLogout();
+	protected void afterFacebookLogin() {
+		// Do Nothing
+	}
+	
+	protected void afterFacebookLogout() {
+		// Do Nothing
+	}
 	
 	public void setFacebookConnector(FacebookConnector facebookConnector) {
 		this.facebookConnector = facebookConnector;
@@ -78,12 +88,12 @@ public abstract class FacebookLoginUseCase extends DefaultAbstractUseCase {
 		return facebookUserInfo;
 	}
 	
-	public void setLogin(Boolean login) {
-		this.login = login;
+	public void setLoginMode(Boolean loginMode) {
+		this.loginMode = loginMode;
 	}
 	
-	public Boolean isLogin() {
-		return login;
+	public Boolean isLoginMode() {
+		return loginMode;
 	}
 	
 }
