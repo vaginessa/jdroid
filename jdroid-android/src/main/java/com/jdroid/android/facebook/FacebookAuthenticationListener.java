@@ -1,6 +1,6 @@
 package com.jdroid.android.facebook;
 
-public interface FacebookLoginListener {
+public interface FacebookAuthenticationListener {
 	
 	/**
 	 * Called when the login with facebook completes.

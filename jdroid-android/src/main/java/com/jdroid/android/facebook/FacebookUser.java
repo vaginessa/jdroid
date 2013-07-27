@@ -1,11 +1,11 @@
 package com.jdroid.android.facebook;
 
-public class BasicFacebookUserInfo {
+public class FacebookUser {
 	
+	private String facebookId;
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String facebookId;
 	
 	public String getEmail() {
 		return email;

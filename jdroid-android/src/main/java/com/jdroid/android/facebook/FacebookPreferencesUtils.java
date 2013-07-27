@@ -9,7 +9,7 @@ import com.facebook.SessionState;
 import com.jdroid.android.utils.AndroidEncryptionUtils;
 import com.jdroid.android.utils.SharedPreferencesUtils;
 
-public class SocialUtils {
+public class FacebookPreferencesUtils {
 	
 	private static final String PREFS_FACEBOOK_ACCESS_TOKEN = "facebook.accessToken";
 	private static final String PREFS_FACEBOOK_USER_ID = "facebook.userId";
@@ -31,12 +31,12 @@ public class SocialUtils {
 	}
 	
 	public static Boolean verifyFacebookAccesToken() {
-		existsFacebookAccessToken = SocialUtils.loadFacebookAccessTokenHashFromPreferences() != null;
+		existsFacebookAccessToken = FacebookPreferencesUtils.loadFacebookAccessTokenHashFromPreferences() != null;
 		return existsFacebookAccessToken;
 	}
 	
-	public static BasicFacebookUserInfo loadSavedFacebookUserInfo() {
-		BasicFacebookUserInfo facebookUserInfo = null;
+	public static FacebookUser loadFacebookUser() {
+		FacebookUser facebookUserInfo = null;
 		String firstName = SharedPreferencesUtils.loadPreference(PREFS_FIRST_NAME);
 		String lastName = SharedPreferencesUtils.loadPreference(PREFS_LAST_NAME);
 		String email = SharedPreferencesUtils.loadPreference(PREFS_USER_EMAIL);
@@ -44,7 +44,7 @@ public class SocialUtils {
 		
 		if (StringUtils.isNotBlank(firstName) && StringUtils.isNotBlank(lastName) && StringUtils.isNotBlank(email)
 				&& StringUtils.isNotBlank(facebookId)) {
-			facebookUserInfo = new BasicFacebookUserInfo();
+			facebookUserInfo = new FacebookUser();
 			facebookUserInfo.setFirstName(firstName);
 			facebookUserInfo.setEmail(email);
 			facebookUserInfo.setLastName(lastName);
@@ -54,20 +54,20 @@ public class SocialUtils {
 		return facebookUserInfo;
 	}
 	
-	public static void saveBasicFacebookUserInfo(String accessToken, BasicFacebookUserInfo facebookUserInfo) {
+	public static void saveFacebookUser(String accessToken, FacebookUser facebookUser) {
 		Editor editor = SharedPreferencesUtils.getEditor();
 		editor.putString(PREFS_FACEBOOK_ACCESS_TOKEN, AndroidEncryptionUtils.generateShaHash(accessToken));
-		editor.putString(PREFS_FIRST_NAME, facebookUserInfo.getFirstName());
-		editor.putString(PREFS_LAST_NAME, facebookUserInfo.getLasttName());
-		editor.putString(PREFS_USER_EMAIL, facebookUserInfo.getEmail());
-		editor.putString(PREFS_FACEBOOK_USER_ID, facebookUserInfo.getFacebookId());
+		editor.putString(PREFS_FIRST_NAME, facebookUser.getFirstName());
+		editor.putString(PREFS_LAST_NAME, facebookUser.getLasttName());
+		editor.putString(PREFS_USER_EMAIL, facebookUser.getEmail());
+		editor.putString(PREFS_FACEBOOK_USER_ID, facebookUser.getFacebookId());
 		editor.commit();
-		SocialUtils.existsFacebookAccessToken = true;
+		FacebookPreferencesUtils.existsFacebookAccessToken = true;
 	}
 	
-	public static void cleanBasicFacebookUserInfo() {
+	public static void cleanFacebookUser() {
 		SharedPreferencesUtils.removePreferences(PREFS_FACEBOOK_ACCESS_TOKEN, PREFS_FACEBOOK_USER_ID, PREFS_USER_EMAIL);
-		SocialUtils.existsFacebookAccessToken = false;
+		FacebookPreferencesUtils.existsFacebookAccessToken = false;
 	}
 	
 	public static Session openFacebookActiveSession(Context context, String applicationId) {

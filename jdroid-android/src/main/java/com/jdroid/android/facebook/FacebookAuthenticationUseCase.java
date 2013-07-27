@@ -8,12 +8,12 @@ import com.jdroid.android.utils.AndroidEncryptionUtils;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
 
-public class FacebookLoginUseCase extends DefaultAbstractUseCase {
+public class FacebookAuthenticationUseCase extends DefaultAbstractUseCase {
 	
-	private static final Logger LOGGER = LoggerUtils.getLogger(FacebookLoginUseCase.class);
+	private static final Logger LOGGER = LoggerUtils.getLogger(FacebookAuthenticationUseCase.class);
 	
 	private FacebookConnector facebookConnector;
-	private BasicFacebookUserInfo facebookUserInfo;
+	private FacebookUser facebookUser;
 	private Boolean loginMode = true;
 	
 	/**
@@ -23,8 +23,8 @@ public class FacebookLoginUseCase extends DefaultAbstractUseCase {
 	protected void doExecute() {
 		
 		if (loginMode) {
-			facebookUserInfo = getFacebookUserInfoFromCache();
-			if (facebookUserInfo == null) {
+			facebookUser = getFacebookUserFromCache();
+			if (facebookUser == null) {
 				
 				GraphUser fbUser = facebookConnector.executeMeRequest();
 				String accessToken = facebookConnector.getAccessToken();
@@ -35,21 +35,21 @@ public class FacebookLoginUseCase extends DefaultAbstractUseCase {
 				
 				sendFacebookLogin(fbUser.getId(), accessToken);
 				
-				facebookUserInfo = new BasicFacebookUserInfo();
-				facebookUserInfo.setFirstName(fbUser.getFirstName());
-				facebookUserInfo.setLastName(fbUser.getLastName());
+				facebookUser = new FacebookUser();
+				facebookUser.setFirstName(fbUser.getFirstName());
+				facebookUser.setLastName(fbUser.getLastName());
 				Object email = fbUser.asMap().get("email");
 				if (email != null) {
-					facebookUserInfo.setEmail(email.toString());
+					facebookUser.setEmail(email.toString());
 				}
 				
-				SocialUtils.saveBasicFacebookUserInfo(accessToken, facebookUserInfo);
+				FacebookPreferencesUtils.saveFacebookUser(accessToken, facebookUser);
 			} else {
-				LOGGER.debug("facebookUserInfo from cache facebookUserInfo= " + facebookUserInfo);
+				LOGGER.debug("facebookUserInfo from cache facebookUserInfo= " + facebookUser);
 			}
 			afterFacebookLogin();
 		} else {
-			SocialUtils.cleanBasicFacebookUserInfo();
+			FacebookPreferencesUtils.cleanFacebookUser();
 			afterFacebookLogout();
 		}
 	}
@@ -70,22 +70,22 @@ public class FacebookLoginUseCase extends DefaultAbstractUseCase {
 		this.facebookConnector = facebookConnector;
 	}
 	
-	public BasicFacebookUserInfo getFacebookUserInfo() {
-		return facebookUserInfo;
+	public FacebookUser getFacebookUser() {
+		return facebookUser;
 	}
 	
-	private BasicFacebookUserInfo getFacebookUserInfoFromCache() {
-		BasicFacebookUserInfo facebookUserInfo = null;
+	private FacebookUser getFacebookUserFromCache() {
+		FacebookUser facebookUser = null;
 		String accessToken = facebookConnector.getAccessToken();
 		if ((accessToken != null) && StringUtils.isNotBlank(accessToken)) {
 			String accessTokenHash = AndroidEncryptionUtils.generateShaHash(accessToken);
 			LOGGER.debug(" accessTokenHash=" + accessTokenHash);
-			String savedAccessTokenHash = SocialUtils.loadFacebookAccessTokenHashFromPreferences();
+			String savedAccessTokenHash = FacebookPreferencesUtils.loadFacebookAccessTokenHashFromPreferences();
 			if (accessTokenHash.equals(savedAccessTokenHash)) {
-				facebookUserInfo = SocialUtils.loadSavedFacebookUserInfo();
+				facebookUser = FacebookPreferencesUtils.loadFacebookUser();
 			}
 		}
-		return facebookUserInfo;
+		return facebookUser;
 	}
 	
 	public void setLoginMode(Boolean loginMode) {

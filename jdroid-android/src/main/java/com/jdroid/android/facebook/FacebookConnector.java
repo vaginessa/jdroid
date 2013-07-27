@@ -43,7 +43,7 @@ public class FacebookConnector {
 	private String facebookAppId;
 	private Fragment fragment;
 	private final Logger logger;
-	private FacebookLoginListener facebookLoginListener;
+	private FacebookAuthenticationListener facebookAuthenticationListener;
 	
 	private Session.StatusCallback callback = new Session.StatusCallback() {
 		
@@ -64,7 +64,7 @@ public class FacebookConnector {
 	 * @return an initialized {@link FacebookConnector}.
 	 */
 	public static FacebookConnector instance(Fragment fragment, String facebookAppId,
-			SessionStateListener sessionStateListener, FacebookLoginListener facebookLoginListener) {
+			SessionStateListener sessionStateListener, FacebookAuthenticationListener facebookLoginListener) {
 		buildSession(fragment, facebookAppId);
 		return new FacebookConnector(fragment, facebookAppId, sessionStateListener, facebookLoginListener);
 	}
@@ -82,13 +82,13 @@ public class FacebookConnector {
 	}
 	
 	private FacebookConnector(Fragment fragment, String facebookAppId, SessionStateListener sessionStateListener,
-			FacebookLoginListener facebookLoginListener) {
+			FacebookAuthenticationListener facebookAuthenticationListener) {
 		this.facebookAppId = facebookAppId;
 		this.sessionStateListener = sessionStateListener;
 		this.fragment = fragment;
 		logger = LoggerUtils.getLogger(fragment.getClass());
 		uiHelper = new UiLifecycleHelper(fragment.getActivity(), callback);
-		this.facebookLoginListener = facebookLoginListener;
+		this.facebookAuthenticationListener = facebookAuthenticationListener;
 	}
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -114,7 +114,7 @@ public class FacebookConnector {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		uiHelper.onActivityResult(requestCode, resultCode, data);
 		if ((requestCode == Session.DEFAULT_AUTHORIZE_ACTIVITY_CODE) && (resultCode == Activity.RESULT_OK)) {
-			notifyFacebookLoginListener();
+			notifyFacebookAuthenticationListener();
 		}
 	}
 	
@@ -169,7 +169,7 @@ public class FacebookConnector {
 		}
 		
 		if (currentSession.isOpened()) {
-			notifyFacebookLoginListener();
+			notifyFacebookAuthenticationListener();
 		} else {
 			Session.OpenRequest openRequest = new Session.OpenRequest(fragment);
 			
@@ -197,7 +197,7 @@ public class FacebookConnector {
 		}
 		
 		if (currentSession.isOpened()) {
-			notifyFacebookLoginListener();
+			notifyFacebookAuthenticationListener();
 		} else {
 			Session.OpenRequest openRequest = new Session.OpenRequest(fragment);
 			
@@ -212,8 +212,8 @@ public class FacebookConnector {
 	public void logout() {
 		Session currentSession = getCurrentSession();
 		currentSession.closeAndClearTokenInformation();
-		if (facebookLoginListener != null) {
-			facebookLoginListener.onFacebookLogoutCompleted();
+		if (facebookAuthenticationListener != null) {
+			facebookAuthenticationListener.onFacebookLogoutCompleted();
 		}
 	}
 	
@@ -274,9 +274,9 @@ public class FacebookConnector {
 		return currentSession;
 	}
 	
-	private void notifyFacebookLoginListener() {
-		if (facebookLoginListener != null) {
-			facebookLoginListener.onFacebookLoginCompleted(this);
+	private void notifyFacebookAuthenticationListener() {
+		if (facebookAuthenticationListener != null) {
+			facebookAuthenticationListener.onFacebookLoginCompleted(this);
 		}
 	}
 }

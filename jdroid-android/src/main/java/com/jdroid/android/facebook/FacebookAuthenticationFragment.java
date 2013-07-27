@@ -7,13 +7,13 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.java.utils.LoggerUtils;
 
-public abstract class FacebookHelperFragment<T extends FacebookLoginUseCase> extends AbstractFragment implements
-		SessionStateListener, FacebookLoginListener {
+public abstract class FacebookAuthenticationFragment<T extends FacebookAuthenticationUseCase> extends AbstractFragment
+		implements SessionStateListener, FacebookAuthenticationListener {
 	
 	private final Logger logger = LoggerUtils.getLogger(getClass());
 	
 	private FacebookConnector facebookConnector;
-	private T facebookLoginUseCase;
+	private T facebookAuthenticationUseCase;
 	
 	/**
 	 * @see com.jdroid.android.fragment.AbstractFragment#onCreate(android.os.Bundle)
@@ -22,19 +22,19 @@ public abstract class FacebookHelperFragment<T extends FacebookLoginUseCase> ext
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		facebookLoginUseCase = createFacebookLoginUseCase();
+		facebookAuthenticationUseCase = createFacebookAuthenticationUseCase();
 		facebookConnector = FacebookConnector.instance(this,
 			AbstractApplication.get().getAndroidApplicationContext().getFacebookAppId(), this, this);
 		facebookConnector.onCreate(savedInstanceState);
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected T createFacebookLoginUseCase() {
-		return (T)new FacebookLoginUseCase();
+	protected T createFacebookAuthenticationUseCase() {
+		return (T)new FacebookAuthenticationUseCase();
 	}
 	
-	public T getFacebookLoginUseCase() {
-		return facebookLoginUseCase;
+	public T getFacebookAuthenticationUseCase() {
+		return facebookAuthenticationUseCase;
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public abstract class FacebookHelperFragment<T extends FacebookLoginUseCase> ext
 	@Override
 	public void onResume() {
 		super.onResume();
-		onResumeUseCase(facebookLoginUseCase, this);
+		onResumeUseCase(facebookAuthenticationUseCase, this);
 		facebookConnector.onResume();
 	}
 	
@@ -53,7 +53,7 @@ public abstract class FacebookHelperFragment<T extends FacebookLoginUseCase> ext
 	@Override
 	public void onPause() {
 		super.onPause();
-		onPauseUseCase(facebookLoginUseCase, this);
+		onPauseUseCase(facebookAuthenticationUseCase, this);
 		facebookConnector.onPause();
 	}
 	
@@ -92,22 +92,22 @@ public abstract class FacebookHelperFragment<T extends FacebookLoginUseCase> ext
 	}
 	
 	/**
-	 * @see com.jdroid.android.facebook.FacebookLoginListener#onFacebookLoginCompleted(com.jdroid.android.facebook.FacebookConnector)
+	 * @see com.jdroid.android.facebook.FacebookAuthenticationListener#onFacebookLoginCompleted(com.jdroid.android.facebook.FacebookConnector)
 	 */
 	@Override
 	public void onFacebookLoginCompleted(FacebookConnector facebookConnector) {
-		facebookLoginUseCase.setLoginMode(true);
-		facebookLoginUseCase.setFacebookConnector(facebookConnector);
+		facebookAuthenticationUseCase.setLoginMode(true);
+		facebookAuthenticationUseCase.setFacebookConnector(facebookConnector);
 		executeFacebookLoginUseCase(facebookConnector);
 	}
 	
 	/**
-	 * @see com.jdroid.android.facebook.FacebookLoginListener#onFacebookLogoutCompleted()
+	 * @see com.jdroid.android.facebook.FacebookAuthenticationListener#onFacebookLogoutCompleted()
 	 */
 	@Override
 	public void onFacebookLogoutCompleted() {
-		facebookLoginUseCase.setLoginMode(false);
-		executeUseCase(facebookLoginUseCase);
+		facebookAuthenticationUseCase.setLoginMode(false);
+		executeUseCase(facebookAuthenticationUseCase);
 	}
 	
 	// The onStartUseCase is overridden here to use the executeOnUIThread implementation
@@ -137,8 +137,8 @@ public abstract class FacebookHelperFragment<T extends FacebookLoginUseCase> ext
 			
 			@Override
 			public void run() {
-				if (facebookLoginUseCase.isLoginMode()) {
-					onFacebookLoginUseCaseFinished(facebookLoginUseCase.getFacebookUserInfo());
+				if (facebookAuthenticationUseCase.isLoginMode()) {
+					onFacebookLoginUseCaseFinished(facebookAuthenticationUseCase.getFacebookUser());
 				} else {
 					onFacebookLogoutUseCaseFinised();
 				}
@@ -148,11 +148,11 @@ public abstract class FacebookHelperFragment<T extends FacebookLoginUseCase> ext
 	}
 	
 	/**
-	 * Called when {@link FacebookLoginUseCase} finishes. This method is called from the UI thread.
+	 * Called when {@link FacebookAuthenticationUseCase} finishes. This method is called from the UI thread.
 	 * 
-	 * @param userInfo contains the basic info of the user.
+	 * @param facebookUser contains the basic info of the user.
 	 */
-	protected void onFacebookLoginUseCaseFinished(BasicFacebookUserInfo userInfo) {
+	protected void onFacebookLoginUseCaseFinished(FacebookUser facebookUser) {
 		// Do nothing
 	}
 	
@@ -161,9 +161,9 @@ public abstract class FacebookHelperFragment<T extends FacebookLoginUseCase> ext
 	}
 	
 	private void executeFacebookLoginUseCase(FacebookConnector facebookConnector) {
-		facebookLoginUseCase.setLoginMode(true);
-		facebookLoginUseCase.setFacebookConnector(facebookConnector);
-		executeUseCase(facebookLoginUseCase);
+		facebookAuthenticationUseCase.setLoginMode(true);
+		facebookAuthenticationUseCase.setFacebookConnector(facebookConnector);
+		executeUseCase(facebookAuthenticationUseCase);
 	}
 	
 	/**
