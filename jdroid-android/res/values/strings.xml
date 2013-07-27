@@ -74,6 +74,12 @@
 	<string name="barcodeScanner">Barcode Scanner</string>
 	<string name="voiceSearch">Voice Search</string>
 
+	<!-- Facebook -->
+	<string name="connectToFacebook">Connect to Facebook</string>
+	<string name="disconnectFromFacebook">Disconnect from Facebook</string>
+	<string name="accountConnected">Your account has been connected to Facebook successfully!</string>
+	<string name="accountDisconnected">Your account has been disconnected from Facebook.</string>
+
 	<!-- Twitter -->
 	<string name="twitterConnect">Connecting with Twitter…</string>
 	<string name="twitterNoAuth">Twitter was no authorized</string>
