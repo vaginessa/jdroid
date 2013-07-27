@@ -3,7 +3,6 @@ package com.jdroid.android.facebook;
 import org.slf4j.Logger;
 import android.content.Intent;
 import android.os.Bundle;
-import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -23,8 +22,7 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 		super.onCreate(savedInstanceState);
 		
 		facebookAuthenticationUseCase = createFacebookAuthenticationUseCase();
-		facebookConnector = FacebookConnector.instance(this,
-			AbstractApplication.get().getAndroidApplicationContext().getFacebookAppId(), this, this);
+		facebookConnector = new FacebookConnector(getActivity(), this, this);
 		facebookConnector.onCreate(savedInstanceState);
 	}
 	
@@ -80,11 +78,11 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 	}
 	
 	public void startLoginProcess() {
-		facebookConnector.login();
+		facebookConnector.login(this);
 	}
 	
 	public void startLoginForPublishProcess() {
-		facebookConnector.loginForPublish();
+		facebookConnector.loginForPublish(this);
 	}
 	
 	public void startLogoutProcess() {

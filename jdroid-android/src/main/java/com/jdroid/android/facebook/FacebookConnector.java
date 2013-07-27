@@ -19,6 +19,7 @@ import com.facebook.SharedPreferencesTokenCachingStrategy;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
+import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.exception.CommonErrorCode;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
@@ -41,8 +42,6 @@ public class FacebookConnector {
 	private UiLifecycleHelper uiHelper;
 	private SessionStateListener sessionStateListener;
 	private String facebookAppId;
-	private Fragment fragment;
-	private final Logger logger;
 	private FacebookAuthenticationListener facebookAuthenticationListener;
 	
 	private Session.StatusCallback callback = new Session.StatusCallback() {
@@ -53,26 +52,36 @@ public class FacebookConnector {
 		}
 	};
 	
+	public FacebookConnector() {
+		this(null, null, null);
+	}
+	
+	public FacebookConnector(Activity activity) {
+		this(activity, null, null);
+	}
+	
 	/**
 	 * Creates a new {@link FacebookConnector}, building and activating a {@link Session}.
 	 * 
-	 * @param fragment the target {@link Fragment}. It is used to pause and resume the {@link FacebookRequestMeUseCase}
-	 *            the {@link FacebookConnector} uses internally to get the {@link GraphUser}.
-	 * @param facebookAppId the id of the Facebook application.
+	 * @param activity The {@link Activity}
 	 * @param sessionStateListener is a callback for session events.
-	 * @param facebookLoginListener is a callback for Facebook login event.
-	 * @return an initialized {@link FacebookConnector}.
+	 * @param facebookAuthenticationListener is a callback for Facebook login/logout event.
 	 */
-	public static FacebookConnector instance(Fragment fragment, String facebookAppId,
-			SessionStateListener sessionStateListener, FacebookAuthenticationListener facebookLoginListener) {
-		buildSession(fragment, facebookAppId);
-		return new FacebookConnector(fragment, facebookAppId, sessionStateListener, facebookLoginListener);
+	public FacebookConnector(Activity activity, SessionStateListener sessionStateListener,
+			FacebookAuthenticationListener facebookAuthenticationListener) {
+		facebookAppId = AbstractApplication.get().getAndroidApplicationContext().getFacebookAppId();
+		buildSession(facebookAppId);
+		this.sessionStateListener = sessionStateListener;
+		if (activity != null) {
+			uiHelper = new UiLifecycleHelper(activity, callback);
+		}
+		this.facebookAuthenticationListener = facebookAuthenticationListener;
 	}
 	
-	private static Session buildSession(Fragment fragment, String facebookAppId) {
+	private Session buildSession(String facebookAppId) {
 		SharedPreferencesTokenCachingStrategy tokenCachingStrategy = new SharedPreferencesTokenCachingStrategy(
-				fragment.getActivity());
-		Builder sessionBuilder = new Builder(fragment.getActivity());
+				AbstractApplication.get());
+		Builder sessionBuilder = new Builder(AbstractApplication.get());
 		sessionBuilder.setTokenCachingStrategy(tokenCachingStrategy);
 		sessionBuilder.setApplicationId(facebookAppId);
 		Session session = sessionBuilder.build();
@@ -81,38 +90,40 @@ public class FacebookConnector {
 		return session;
 	}
 	
-	private FacebookConnector(Fragment fragment, String facebookAppId, SessionStateListener sessionStateListener,
-			FacebookAuthenticationListener facebookAuthenticationListener) {
-		this.facebookAppId = facebookAppId;
-		this.sessionStateListener = sessionStateListener;
-		this.fragment = fragment;
-		logger = LoggerUtils.getLogger(fragment.getClass());
-		uiHelper = new UiLifecycleHelper(fragment.getActivity(), callback);
-		this.facebookAuthenticationListener = facebookAuthenticationListener;
-	}
-	
 	public void onCreate(Bundle savedInstanceState) {
-		uiHelper.onCreate(savedInstanceState);
+		if (uiHelper != null) {
+			uiHelper.onCreate(savedInstanceState);
+		}
 	}
 	
 	public void onResume() {
-		uiHelper.onResume();
+		if (uiHelper != null) {
+			uiHelper.onResume();
+		}
 	}
 	
 	public void onPause() {
-		uiHelper.onPause();
+		if (uiHelper != null) {
+			uiHelper.onPause();
+		}
 	}
 	
 	public void onDestroy() {
-		uiHelper.onDestroy();
+		if (uiHelper != null) {
+			uiHelper.onDestroy();
+		}
 	}
 	
 	public void onSaveInstanceState(Bundle outState) {
-		uiHelper.onSaveInstanceState(outState);
+		if (uiHelper != null) {
+			uiHelper.onSaveInstanceState(outState);
+		}
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		uiHelper.onActivityResult(requestCode, resultCode, data);
+		if (uiHelper != null) {
+			uiHelper.onActivityResult(requestCode, resultCode, data);
+		}
 		if ((requestCode == Session.DEFAULT_AUTHORIZE_ACTIVITY_CODE) && (resultCode == Activity.RESULT_OK)) {
 			notifyFacebookAuthenticationListener();
 		}
@@ -137,7 +148,7 @@ public class FacebookConnector {
 	 * @param exception The exception that may have been thrown when trying to change the {@link Session}'s state.
 	 */
 	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
-		logger.debug("Facebook session state changed to " + state.name());
+		LOGGER.debug("Facebook session state changed to " + state.name());
 		
 		if (sessionStateListener != null) {
 			if (SessionState.OPENED_TOKEN_UPDATED.equals(state)) {
@@ -153,13 +164,13 @@ public class FacebookConnector {
 		
 	}
 	
-	public void login() {
+	public void login(Fragment fragment) {
 		Session currentSession = getCurrentSession();
 		
-		if (logger.isDebugEnabled()) {
-			logger.debug("Facebook currentSession currentSession.isOpened() = " + currentSession.isOpened());
-			logger.debug("Facebook currentSession currentSession.isClosed() = " + currentSession.isClosed());
-			logger.debug("Facebook currentSession currentSession state = " + currentSession.getState().name());
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("Facebook currentSession currentSession.isOpened() = " + currentSession.isOpened());
+			LOGGER.debug("Facebook currentSession currentSession.isClosed() = " + currentSession.isClosed());
+			LOGGER.debug("Facebook currentSession currentSession state = " + currentSession.getState().name());
 		}
 		
 		if (currentSession.isClosed()) {
@@ -181,13 +192,13 @@ public class FacebookConnector {
 		}
 	}
 	
-	public void loginForPublish() {
+	public void loginForPublish(Fragment fragment) {
 		Session currentSession = getCurrentSession();
 		
-		if (logger.isDebugEnabled()) {
-			logger.debug("Facebook currentSession currentSession.isOpened() = " + currentSession.isOpened());
-			logger.debug("Facebook currentSession currentSession.isClosed() = " + currentSession.isClosed());
-			logger.debug("Facebook currentSession currentSession state = " + currentSession.getState().name());
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("Facebook currentSession currentSession.isOpened() = " + currentSession.isOpened());
+			LOGGER.debug("Facebook currentSession currentSession.isClosed() = " + currentSession.isClosed());
+			LOGGER.debug("Facebook currentSession currentSession state = " + currentSession.getState().name());
 		}
 		
 		if (currentSession.isClosed()) {
@@ -269,7 +280,7 @@ public class FacebookConnector {
 	private Session getCurrentSession() {
 		Session currentSession = Session.getActiveSession();
 		if (currentSession == null) {
-			currentSession = buildSession(fragment, facebookAppId);
+			currentSession = buildSession(facebookAppId);
 		}
 		return currentSession;
 	}
