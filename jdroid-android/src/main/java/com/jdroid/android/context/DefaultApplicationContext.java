@@ -56,11 +56,12 @@ public class DefaultApplicationContext {
 		return null;
 	}
 	
-	public Server getServer() {
+	@SuppressWarnings("unchecked")
+	public <T extends Server> T getServer() {
 		if (isProductionEnvironment() || !displayDebugSettings()) {
-			return server;
+			return (T)server;
 		} else {
-			return createServer(PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
+			return (T)createServer(PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
 				"serverName", server.getName()).toUpperCase());
 		}
 	}
