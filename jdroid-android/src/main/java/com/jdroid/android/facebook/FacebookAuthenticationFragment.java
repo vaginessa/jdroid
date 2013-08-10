@@ -112,7 +112,7 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 	public void onFacebookLoginCompleted(FacebookConnector facebookConnector) {
 		facebookAuthenticationUseCase.setLoginMode(true);
 		facebookAuthenticationUseCase.setFacebookConnector(facebookConnector);
-		executeFacebookLoginUseCase(facebookConnector);
+		executeUseCase(facebookAuthenticationUseCase);
 	}
 	
 	/**
@@ -121,6 +121,7 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 	@Override
 	public void onFacebookLogoutCompleted() {
 		facebookAuthenticationUseCase.setLoginMode(false);
+		facebookAuthenticationUseCase.setFacebookConnector(facebookConnector);
 		executeUseCase(facebookAuthenticationUseCase);
 	}
 	
@@ -172,12 +173,6 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 	
 	protected void onFacebookLogoutUseCaseFinised() {
 		// Do nothing
-	}
-	
-	private void executeFacebookLoginUseCase(FacebookConnector facebookConnector) {
-		facebookAuthenticationUseCase.setLoginMode(true);
-		facebookAuthenticationUseCase.setFacebookConnector(facebookConnector);
-		executeUseCase(facebookAuthenticationUseCase);
 	}
 	
 	/**
