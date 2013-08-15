@@ -501,4 +501,12 @@ public abstract class AbstractFragmentActivity extends SherlockFragmentActivity 
 	public Boolean isLauncherActivity() {
 		return baseActivity.isLauncherActivity();
 	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#getLocationFrequency()
+	 */
+	@Override
+	public Long getLocationFrequency() {
+		return null;
+	}
 }
