@@ -179,7 +179,7 @@ public abstract class AbstractListActivity<T> extends SherlockListActivity imple
 	 * @see com.jdroid.android.activity.ActivityIf#getMenuResourceId()
 	 */
 	@Override
-	public int getMenuResourceId() {
+	public Integer getMenuResourceId() {
 		return baseActivity.getMenuResourceId();
 	}
 	

@@ -152,7 +152,7 @@ public abstract class AbstractPreferenceActivity extends SherlockPreferenceActiv
 	 * @see com.jdroid.android.activity.ActivityIf#getMenuResourceId()
 	 */
 	@Override
-	public int getMenuResourceId() {
+	public Integer getMenuResourceId() {
 		return baseActivity.getMenuResourceId();
 	}
 	

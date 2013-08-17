@@ -258,7 +258,7 @@ public class BaseActivity implements ActivityIf {
 	}
 	
 	public boolean onCreateOptionsMenu(Menu menu) {
-		if (getActivityIf().getMenuResourceId() != 0) {
+		if (getActivityIf().getMenuResourceId() != null) {
 			MenuInflater inflater = getActivityIf().getSupportMenuInflater();
 			inflater.inflate(getActivityIf().getMenuResourceId(), menu);
 			getActivityIf().doOnCreateOptionsMenu(menu);
@@ -267,7 +267,7 @@ public class BaseActivity implements ActivityIf {
 	}
 	
 	public boolean onCreateOptionsMenu(android.view.Menu menu) {
-		if (getActivityIf().getMenuResourceId() != 0) {
+		if (getActivityIf().getMenuResourceId() != null) {
 			android.view.MenuInflater inflater = activity.getMenuInflater();
 			inflater.inflate(getActivityIf().getMenuResourceId(), menu);
 			getActivityIf().doOnCreateOptionsMenu(menu);
@@ -279,8 +279,8 @@ public class BaseActivity implements ActivityIf {
 	 * @see com.jdroid.android.activity.ActivityIf#getMenuResourceId()
 	 */
 	@Override
-	public int getMenuResourceId() {
-		return 0;
+	public Integer getMenuResourceId() {
+		return null;
 	}
 	
 	/**
