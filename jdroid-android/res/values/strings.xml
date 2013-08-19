@@ -23,9 +23,8 @@
 	<string name="facebookError">There is a problem connecting to Facebook. Please try again later.</string>
 
 	<!-- Google Play Utils -->
-	<string name="updateAppTitle">%1$s outdated</string>
-	<string name="updateAppMessage">You have been signed out of %1$s because you
-		are using an outdated version. Please update the
+	<string name="updateAppTitle">Update required</string>
+	<string name="updateAppMessage">You are using an outdated app version. Please update the
 		application and try
 		again.
 	</string>

@@ -25,14 +25,12 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 	private static final String NEGATIVE_BUTTON_TEXT_EXTRA = "negativeButtonTextExtra";
 	private static final String NEUTRAL_BUTTON_TEXT_EXTRA = "neutralButtonTextExtra";
 	private static final String POSITIVE_BUTTON_TEXT_EXTRA = "positiveButtonTextExtra";
-	private static final String CANCELABLE_EXTRA = "cancelableExtra";
 	
 	private String title;
 	private String message;
 	private String negativeButtonText;
 	private String neutralButtonText;
 	private String positiveButtonText;
-	private Boolean cancelable;
 	private Map<String, Serializable> parameters = Maps.newHashMap();
 	
 	public static void show(Fragment fragment, String title, String message, String negativeButtonText,
@@ -58,11 +56,11 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 		bundle.putSerializable(NEGATIVE_BUTTON_TEXT_EXTRA, negativeButtonText);
 		bundle.putSerializable(NEUTRAL_BUTTON_TEXT_EXTRA, neutralButtonText);
 		bundle.putSerializable(POSITIVE_BUTTON_TEXT_EXTRA, positiveButtonText);
-		bundle.putSerializable(CANCELABLE_EXTRA, cancelable);
 		for (Map.Entry<String, Serializable> entry : alertDialogFragment.parameters.entrySet()) {
 			bundle.putSerializable(entry.getKey(), entry.getValue());
 		}
 		alertDialogFragment.setArguments(bundle);
+		alertDialogFragment.setCancelable(cancelable);
 		
 		alertDialogFragment.show(fragmentManager, alertDialogFragment.getClass().getSimpleName());
 	}
@@ -79,7 +77,6 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 		positiveButtonText = getArgument(POSITIVE_BUTTON_TEXT_EXTRA);
 		neutralButtonText = getArgument(NEUTRAL_BUTTON_TEXT_EXTRA);
 		negativeButtonText = getArgument(NEGATIVE_BUTTON_TEXT_EXTRA);
-		cancelable = getArgument(CANCELABLE_EXTRA);
 	}
 	
 	@Override
@@ -87,7 +84,6 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 		
 		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
 		dialogBuilder.setTitle(title);
-		dialogBuilder.setCancelable(cancelable);
 		
 		View contentView = createContentView();
 		if (contentView != null) {
