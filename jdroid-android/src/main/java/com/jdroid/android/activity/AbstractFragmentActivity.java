@@ -191,7 +191,6 @@ public abstract class AbstractFragmentActivity extends SherlockFragmentActivity 
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// REVIEW See if this is the correct approach
 		return baseActivity.onOptionsItemSelected(item) ? true : super.onOptionsItemSelected(item);
 	}
 	

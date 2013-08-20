@@ -186,7 +186,6 @@ public abstract class AbstractActivity extends SherlockActivity implements Activ
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// REVIEW See if this is the correct approach
 		return baseActivity.onOptionsItemSelected(item) ? true : super.onOptionsItemSelected(item);
 	}
 	
