@@ -33,6 +33,8 @@ import com.jdroid.android.R;
 public final class PlusClientFragment extends Fragment implements ConnectionCallbacks, OnConnectionFailedListener,
 		OnAccessRevokedListener {
 	
+	private static final int REQUEST_CODE_PLUS_CLIENT_FRAGMENT = 0;
+	
 	/**
 	 * Tag to refer to this fragment.
 	 */
@@ -70,13 +72,13 @@ public final class PlusClientFragment extends Fragment implements ConnectionCall
 	private static final int INVALID_REQUEST_CODE = -1;
 	
 	// The PlusClient to connect.
-	private PlusClient mPlusClient;
+	private PlusClient plusClient;
 	
 	// The last result from onConnectionFailed.
-	private ConnectionResult mLastConnectionResult;
+	private ConnectionResult lastConnectionResult;
 	
 	// The request specified in signIn or INVALID_REQUEST_CODE if not signing in.
-	private int mRequestCode;
+	private int requestCode;
 	
 	// A handler to post callbacks (rather than call them in a potentially reentrant way.)
 	private Handler mHandler;
@@ -98,8 +100,8 @@ public final class PlusClientFragment extends Fragment implements ConnectionCall
 				return;
 			}
 			
-			if (mPlusClient.isConnected()) {
-				getOnSignedInListener().onSignedIn(mPlusClient);
+			if (plusClient.isConnected()) {
+				getOnSignedInListener().onSignedIn(plusClient);
 			}
 		}
 	}
@@ -182,12 +184,12 @@ public final class PlusClientFragment extends Fragment implements ConnectionCall
 		if ((visibleActivities != null) && (visibleActivities.length > 0)) {
 			plusClientBuilder.setVisibleActivities(visibleActivities);
 		}
-		mPlusClient = plusClientBuilder.build();
+		plusClient = plusClientBuilder.build();
 		
 		if (savedInstanceState == null) {
-			mRequestCode = INVALID_REQUEST_CODE;
+			requestCode = INVALID_REQUEST_CODE;
 		} else {
-			mRequestCode = savedInstanceState.getInt(STATE_REQUEST_CODE, INVALID_REQUEST_CODE);
+			requestCode = savedInstanceState.getInt(STATE_REQUEST_CODE, INVALID_REQUEST_CODE);
 		}
 	}
 	
@@ -197,25 +199,25 @@ public final class PlusClientFragment extends Fragment implements ConnectionCall
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		if (mPlusClient.isConnecting() || mPlusClient.isConnected()) {
-			mPlusClient.disconnect();
+		if (plusClient.isConnecting() || plusClient.isConnected()) {
+			plusClient.disconnect();
 		}
 	}
 	
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		outState.putInt(STATE_REQUEST_CODE, mRequestCode);
+		outState.putInt(STATE_REQUEST_CODE, requestCode);
 	}
 	
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (mRequestCode == INVALID_REQUEST_CODE) {
+		if (requestCode == INVALID_REQUEST_CODE) {
 			// No user interaction, hide the progress dialog.
 			hideProgressDialog();
 			hideErrorDialog();
-		} else if ((mLastConnectionResult != null) && !mLastConnectionResult.isSuccess() && !isShowingErrorDialog()) {
+		} else if ((lastConnectionResult != null) && !lastConnectionResult.isSuccess() && !isShowingErrorDialog()) {
 			showProgressDialog();
 		}
 	}
@@ -223,8 +225,8 @@ public final class PlusClientFragment extends Fragment implements ConnectionCall
 	@Override
 	public void onStart() {
 		super.onStart();
-		if (mRequestCode == INVALID_REQUEST_CODE) {
-			mLastConnectionResult = null;
+		if (requestCode == INVALID_REQUEST_CODE) {
+			lastConnectionResult = null;
 			connectPlusClient();
 		}
 	}
@@ -232,21 +234,21 @@ public final class PlusClientFragment extends Fragment implements ConnectionCall
 	@Override
 	public void onConnected(Bundle connectionHint) {
 		// Successful connection!
-		mLastConnectionResult = CONNECTION_RESULT_SUCCESS;
-		mRequestCode = INVALID_REQUEST_CODE;
+		lastConnectionResult = CONNECTION_RESULT_SUCCESS;
+		requestCode = INVALID_REQUEST_CODE;
 		
 		if (isResumed()) {
 			hideProgressDialog();
 		}
 		
-		getOnSignedInListener().onSignedIn(mPlusClient);
+		getOnSignedInListener().onSignedIn(plusClient);
 	}
 	
 	@Override
 	public void onConnectionFailed(ConnectionResult connectionResult) {
-		mLastConnectionResult = connectionResult;
+		lastConnectionResult = connectionResult;
 		// On a failed connection try again.
-		if (isResumed() && (mRequestCode != INVALID_REQUEST_CODE)) {
+		if (isResumed() && (requestCode != INVALID_REQUEST_CODE)) {
 			resolveLastResult();
 		}
 	}
@@ -254,9 +256,9 @@ public final class PlusClientFragment extends Fragment implements ConnectionCall
 	@Override
 	public void onAccessRevoked(ConnectionResult status) {
 		// Reconnect to get a new mPlusClient.
-		mLastConnectionResult = null;
+		lastConnectionResult = null;
 		// Cancel sign in.
-		mRequestCode = INVALID_REQUEST_CODE;
+		requestCode = INVALID_REQUEST_CODE;
 		
 		// Reconnect to fetch the sign-in (account chooser) intent from the plus client.
 		connectPlusClient();
@@ -266,7 +268,7 @@ public final class PlusClientFragment extends Fragment implements ConnectionCall
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		// Let new activities know the signed-in state.
-		if (mPlusClient.isConnected()) {
+		if (plusClient.isConnected()) {
 			mHandler.sendEmptyMessage(PlusClientFragmentHandler.WHAT_SIGNED_IN);
 		}
 	}
@@ -279,26 +281,25 @@ public final class PlusClientFragment extends Fragment implements ConnectionCall
 	/**
 	 * Shows any UI required to resolve the error connecting.
 	 * 
-	 * @param requestCode
 	 */
-	public void signIn(int requestCode) {
+	public void signIn() {
 		if (requestCode < 0) {
 			throw new IllegalArgumentException("A non-negative request code is required.");
 		}
 		
-		if (mPlusClient.isConnected()) {
+		if (plusClient.isConnected()) {
 			// Already connected! Schedule callback.
 			mHandler.sendEmptyMessage(PlusClientFragmentHandler.WHAT_SIGNED_IN);
 			return;
 		}
 		
-		if (mRequestCode != INVALID_REQUEST_CODE) {
+		if (requestCode != INVALID_REQUEST_CODE) {
 			// We're already signing in.
 			return;
 		}
 		
-		mRequestCode = requestCode;
-		if (mLastConnectionResult == null) {
+		requestCode = REQUEST_CODE_PLUS_CLIENT_FRAGMENT;
+		if (lastConnectionResult == null) {
 			// We're starting up, show progress.
 			showProgressDialog();
 			return;
@@ -311,13 +312,13 @@ public final class PlusClientFragment extends Fragment implements ConnectionCall
 	 * Perform resolution given a non-null result.
 	 */
 	private void resolveLastResult() {
-		if (GooglePlayServicesUtil.isUserRecoverableError(mLastConnectionResult.getErrorCode())) {
+		if (GooglePlayServicesUtil.isUserRecoverableError(lastConnectionResult.getErrorCode())) {
 			// Show a dialog to install or enable Google Play services.
-			showErrorDialog(ErrorDialogFragment.create(mLastConnectionResult.getErrorCode(), mRequestCode));
+			showErrorDialog(ErrorDialogFragment.create(lastConnectionResult.getErrorCode(), requestCode));
 			return;
 		}
 		
-		if (mLastConnectionResult.hasResolution()) {
+		if (lastConnectionResult.hasResolution()) {
 			startResolution();
 		}
 	}
@@ -360,13 +361,13 @@ public final class PlusClientFragment extends Fragment implements ConnectionCall
 	}
 	
 	private void onDialogCanceled(String tag) {
-		mRequestCode = INVALID_REQUEST_CODE;
+		requestCode = INVALID_REQUEST_CODE;
 		hideProgressDialog();
 	}
 	
 	private void onDialogDismissed(String tag) {
 		if (TAG_PROGRESS_DIALOG.equals(tag)) {
-			mRequestCode = INVALID_REQUEST_CODE;
+			requestCode = INVALID_REQUEST_CODE;
 			hideProgressDialog();
 		}
 	}
@@ -465,30 +466,30 @@ public final class PlusClientFragment extends Fragment implements ConnectionCall
 	
 	private void startResolution() {
 		try {
-			mLastConnectionResult.startResolutionForResult(getActivity(), mRequestCode);
+			lastConnectionResult.startResolutionForResult(getActivity(), requestCode);
 			hideProgressDialog();
 		} catch (SendIntentException e) {
 			// The intent we had is not valid right now, perhaps the remote process died.
 			// Try to reconnect to get a new resolution intent.
-			mLastConnectionResult = null;
+			lastConnectionResult = null;
 			showProgressDialog();
 			connectPlusClient();
 		}
 	}
 	
 	public boolean handleOnActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode != mRequestCode) {
+		if (this.requestCode != requestCode) {
 			return false;
 		}
 		
 		switch (resultCode) {
 			case Activity.RESULT_OK:
-				mLastConnectionResult = null;
+				lastConnectionResult = null;
 				connectPlusClient();
 				break;
 			case Activity.RESULT_CANCELED:
 				// User canceled sign in, clear the request code.
-				mRequestCode = INVALID_REQUEST_CODE;
+				requestCode = INVALID_REQUEST_CODE;
 				
 				// Attempt to connect again.
 				connectPlusClient();
@@ -501,16 +502,16 @@ public final class PlusClientFragment extends Fragment implements ConnectionCall
 	 * Sign out of the app.
 	 */
 	public void signOut() {
-		if (mPlusClient.isConnected()) {
-			mPlusClient.clearDefaultAccount();
+		if (plusClient.isConnected()) {
+			plusClient.clearDefaultAccount();
 		}
 		
-		if (mPlusClient.isConnecting() || mPlusClient.isConnected()) {
-			mPlusClient.disconnect();
+		if (plusClient.isConnecting() || plusClient.isConnected()) {
+			plusClient.disconnect();
 			// Reconnect to get a new mPlusClient.
-			mLastConnectionResult = null;
+			lastConnectionResult = null;
 			// Cancel sign in.
-			mRequestCode = INVALID_REQUEST_CODE;
+			requestCode = INVALID_REQUEST_CODE;
 			
 			// Reconnect to fetch the sign-in (account chooser) intent from the plus client.
 			connectPlusClient();
@@ -521,8 +522,8 @@ public final class PlusClientFragment extends Fragment implements ConnectionCall
 	 * Revoke access to the current app.
 	 */
 	public void revokeAccessAndDisconnect() {
-		if (mPlusClient.isConnected()) {
-			mPlusClient.revokeAccessAndDisconnect(this);
+		if (plusClient.isConnected()) {
+			plusClient.revokeAccessAndDisconnect(this);
 		}
 	}
 	
@@ -531,8 +532,8 @@ public final class PlusClientFragment extends Fragment implements ConnectionCall
 	 * process of being connected.
 	 */
 	private void connectPlusClient() {
-		if (!mPlusClient.isConnecting() && !mPlusClient.isConnected()) {
-			mPlusClient.connect();
+		if (!plusClient.isConnecting() && !plusClient.isConnected()) {
+			plusClient.connect();
 		}
 	}
 }

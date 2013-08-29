@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.fragment.AbstractFragment;
@@ -17,8 +18,10 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 	private FacebookConnector facebookConnector;
 	private T facebookAuthenticationUseCase;
 	
-	public static void add(Activity activity, FacebookAuthenticationFragment<?> facebookAuthenticationFragment) {
+	public static void add(Activity activity, FacebookAuthenticationFragment<?> facebookAuthenticationFragment,
+			Fragment targetFragment) {
 		if (get(activity) == null) {
+			facebookAuthenticationFragment.setTargetFragment(targetFragment, 0);
 			FragmentTransaction fragmentTransaction = ((AbstractFragmentActivity)activity).getSupportFragmentManager().beginTransaction();
 			fragmentTransaction.add(0, facebookAuthenticationFragment,
 				FacebookAuthenticationFragment.class.getSimpleName());
