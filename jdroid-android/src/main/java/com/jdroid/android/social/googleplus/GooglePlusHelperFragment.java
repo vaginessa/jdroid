@@ -185,7 +185,6 @@ public class GooglePlusHelperFragment extends Fragment implements ConnectionCall
 	}
 	
 	public void loadPeople() {
-		// TODO See these parameters
-		plusClient.loadPeople(this, Person.Collection.VISIBLE, Person.OrderBy.ALPHABETICAL, 100, null);
+		plusClient.loadVisiblePeople(this, Person.Collection.VISIBLE, null);
 	}
 }
