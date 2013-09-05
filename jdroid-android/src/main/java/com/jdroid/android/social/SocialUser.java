@@ -1,4 +1,4 @@
-package com.jdroid.android.social.googleplus;
+package com.jdroid.android.social;
 
 import com.jdroid.android.R;
 import com.jdroid.android.domain.Entity;
@@ -26,13 +26,16 @@ public class SocialUser extends Entity {
 		}
 	}
 	
+	private String socialId;
 	private SocialNetwork socialNetwork;
 	private String firstName;
 	private String lastName;
 	private FileContent image;
 	
-	public SocialUser(Long id, SocialNetwork socialNetwork, String firstName, String lastName, String imageURL) {
+	public SocialUser(Long id, String socialId, SocialNetwork socialNetwork, String firstName, String lastName,
+			String imageURL) {
 		super(id);
+		this.socialId = socialId;
 		this.socialNetwork = socialNetwork;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -66,5 +69,12 @@ public class SocialUser extends Entity {
 	 */
 	public SocialNetwork getSocialNetwork() {
 		return socialNetwork;
+	}
+	
+	/**
+	 * @return the socialId
+	 */
+	public String getSocialId() {
+		return socialId;
 	}
 }

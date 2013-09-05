@@ -17,7 +17,8 @@ import com.google.android.gms.plus.PlusClient.OnAccessRevokedListener;
 import com.google.android.gms.plus.PlusClient.OnPeopleLoadedListener;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.android.gms.plus.model.people.PersonBuffer;
-import com.jdroid.android.social.googleplus.SocialUser.SocialNetwork;
+import com.jdroid.android.social.SocialUser;
+import com.jdroid.android.social.SocialUser.SocialNetwork;
 import com.jdroid.android.utils.GooglePlayUtils;
 import com.jdroid.java.collections.Lists;
 
@@ -149,10 +150,8 @@ public class GooglePlusHelperFragment extends Fragment implements ConnectionCall
 				int count = personBuffer.getCount();
 				for (int i = 0; i < count; i++) {
 					Person person = personBuffer.get(i);
-					// if (person.isHasApp()) {
-					googlePlusUsers.add(new SocialUser(null, SocialNetwork.GOOGLE_PLUS, person.getDisplayName(), "",
-							person.getImage().getUrl()));
-					// }
+					googlePlusUsers.add(new SocialUser(null, person.getId(), SocialNetwork.GOOGLE_PLUS,
+							person.getDisplayName(), "", person.getImage().getUrl()));
 				}
 				getGooglePlusListener().onPeopleLoaded(googlePlusUsers);
 			} finally {

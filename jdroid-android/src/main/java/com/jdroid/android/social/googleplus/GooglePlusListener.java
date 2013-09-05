@@ -1,6 +1,7 @@
 package com.jdroid.android.social.googleplus;
 
 import java.util.List;
+import com.jdroid.android.social.SocialUser;
 
 /**
  * 
