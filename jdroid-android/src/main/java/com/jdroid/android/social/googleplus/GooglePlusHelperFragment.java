@@ -2,6 +2,7 @@ package com.jdroid.android.social.googleplus;
 
 import java.util.List;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
@@ -149,7 +150,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	}
 	
 	private Boolean shouldConnectOnServer(Person me) {
-		if (me == null) {
+		if ((me == null) || (googlePlusAuthenticationUseCase == null)) {
 			return false;
 		} else {
 			// If the last authentication was successful for the same uer id, we avoid the request
@@ -160,7 +161,8 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	}
 	
 	private Boolean shouldDisconnectOnServer() {
-		return !(googlePlusAuthenticationUseCase.isFinishSuccessful() && !googlePlusAuthenticationUseCase.isLoginMode());
+		return (googlePlusAuthenticationUseCase != null)
+				&& !(googlePlusAuthenticationUseCase.isFinishSuccessful() && !googlePlusAuthenticationUseCase.isLoginMode());
 	}
 	
 	/**
@@ -252,5 +254,41 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	
 	public void loadPeople() {
 		plusClient.loadVisiblePeople(this, Person.Collection.VISIBLE, null);
+	}
+	
+	public static void revokeAccess(Context context) {
+		if (GooglePlayUtils.isGooglePlayServicesAvailable(context)) {
+			LogoutListener logoutListener = new LogoutListener();
+			PlusClient plusClient = new PlusClient.Builder(context, logoutListener, logoutListener).build();
+			logoutListener.setPlusClient(plusClient);
+			plusClient.connect();
+		}
+	}
+	
+	public static class LogoutListener implements ConnectionCallbacks, OnConnectionFailedListener,
+			OnAccessRevokedListener {
+		
+		private PlusClient plusClient;
+		
+		@Override
+		public void onAccessRevoked(ConnectionResult arg0) {
+		}
+		
+		@Override
+		public void onConnectionFailed(ConnectionResult arg0) {
+		}
+		
+		@Override
+		public void onConnected(Bundle arg0) {
+			plusClient.revokeAccessAndDisconnect(this);
+		}
+		
+		@Override
+		public void onDisconnected() {
+		}
+		
+		public void setPlusClient(PlusClient plusClient) {
+			this.plusClient = plusClient;
+		}
 	}
 }
