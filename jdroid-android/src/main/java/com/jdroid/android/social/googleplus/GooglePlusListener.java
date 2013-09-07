@@ -1,6 +1,7 @@
 package com.jdroid.android.social.googleplus;
 
 import java.util.List;
+import com.google.android.gms.plus.model.people.Person;
 import com.jdroid.android.social.SocialUser;
 
 /**
@@ -9,11 +10,13 @@ import com.jdroid.android.social.SocialUser;
  */
 public interface GooglePlusListener {
 	
+	public void onSignInCanceled();
+	
 	public void onAccessRevoked();
 	
 	public void onConnectionFailed();
 	
-	public void onConnected();
+	public void onConnected(Person me);
 	
 	public void onDisconnected();
 	

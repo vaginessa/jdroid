@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
@@ -17,45 +15,38 @@ import com.google.android.gms.plus.PlusClient.OnAccessRevokedListener;
 import com.google.android.gms.plus.PlusClient.OnPeopleLoadedListener;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.android.gms.plus.model.people.PersonBuffer;
+import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.activity.AbstractFragmentActivity;
+import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.social.SocialUser;
 import com.jdroid.android.social.SocialUser.SocialNetwork;
 import com.jdroid.android.utils.GooglePlayUtils;
 import com.jdroid.java.collections.Lists;
 
 /**
- * 
  * @author Maxi Rosson
  */
-public class GooglePlusHelperFragment extends Fragment implements ConnectionCallbacks, OnConnectionFailedListener,
-		OnAccessRevokedListener, OnPeopleLoadedListener {
+public class GooglePlusHelperFragment extends AbstractFragment implements ConnectionCallbacks,
+		OnConnectionFailedListener, OnAccessRevokedListener, OnPeopleLoadedListener {
 	
-	private static final String GOOGLE_PLUS_TAG = "googlePlusTag";
 	private static final int REQUEST_CODE_SIGN_IN = 1;
 	
-	public static GooglePlusHelperFragment start(FragmentActivity activity, Fragment targetFragment) {
-		
-		GooglePlusHelperFragment fragment = null;
-		if (GooglePlayUtils.isGooglePlayServicesAvailable(activity)) {
-			// Check if the fragment is already attached.
-			FragmentManager fragmentManager = activity.getSupportFragmentManager();
-			fragment = (GooglePlusHelperFragment)fragmentManager.findFragmentByTag(GOOGLE_PLUS_TAG);
-			// The fragment is attached. If it has the right visible activities, return it.
-			if (fragment == null) {
-				
-				FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-				
-				// Create a new fragment and attach it to the fragment manager.
-				fragment = new GooglePlusHelperFragment();
-				fragment.setTargetFragment(targetFragment, 0);
-				fragmentTransaction.add(fragment, GOOGLE_PLUS_TAG);
-				fragmentTransaction.commit();
-			}
+	public static void add(Activity activity, GooglePlusHelperFragment googlePlusHelperFragment, Fragment targetFragment) {
+		if ((get(activity) == null) && GooglePlayUtils.isGooglePlayServicesAvailable(activity)) {
+			googlePlusHelperFragment.setTargetFragment(targetFragment, 0);
+			FragmentTransaction fragmentTransaction = ((AbstractFragmentActivity)activity).getSupportFragmentManager().beginTransaction();
+			fragmentTransaction.add(0, googlePlusHelperFragment, GooglePlusHelperFragment.class.getSimpleName());
+			fragmentTransaction.commit();
 		}
-		return fragment;
+	}
+	
+	public static GooglePlusHelperFragment get(Activity activity) {
+		return ((AbstractFragmentActivity)activity).getFragment(GooglePlusHelperFragment.class);
 	}
 	
 	private PlusClient plusClient;
 	private ConnectionResult connectionResult;
+	private GooglePlusAuthenticationUseCase googlePlusAuthenticationUseCase;
 	
 	/**
 	 * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
@@ -64,7 +55,16 @@ public class GooglePlusHelperFragment extends Fragment implements ConnectionCall
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		googlePlusAuthenticationUseCase = createGooglePlusAuthenticationUseCase();
 		plusClient = new PlusClient.Builder(getActivity(), this, this).build();
+	}
+	
+	protected GooglePlusAuthenticationUseCase createGooglePlusAuthenticationUseCase() {
+		return null;
+	}
+	
+	public GooglePlusAuthenticationUseCase getGooglePlusAuthenticationUseCase() {
+		return googlePlusAuthenticationUseCase;
 	}
 	
 	/**
@@ -74,6 +74,24 @@ public class GooglePlusHelperFragment extends Fragment implements ConnectionCall
 	public void onStart() {
 		super.onStart();
 		plusClient.connect();
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.AbstractFragment#onResume()
+	 */
+	@Override
+	public void onResume() {
+		super.onResume();
+		onResumeUseCase(googlePlusAuthenticationUseCase, this);
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.AbstractFragment#onPause()
+	 */
+	@Override
+	public void onPause() {
+		super.onPause();
+		onPauseUseCase(googlePlusAuthenticationUseCase, this);
 	}
 	
 	/**
@@ -104,6 +122,12 @@ public class GooglePlusHelperFragment extends Fragment implements ConnectionCall
 	@Override
 	public void onConnectionFailed(ConnectionResult connectionResult) {
 		this.connectionResult = connectionResult;
+		
+		if (shouldDisconnectOnServer()) {
+			googlePlusAuthenticationUseCase.setLoginMode(false);
+			executeUseCase(googlePlusAuthenticationUseCase);
+		}
+		
 		getGooglePlusListener().onConnectionFailed();
 	}
 	
@@ -112,7 +136,31 @@ public class GooglePlusHelperFragment extends Fragment implements ConnectionCall
 	 */
 	@Override
 	public void onConnected(Bundle bundle) {
-		getGooglePlusListener().onConnected();
+		
+		Person me = plusClient.getCurrentPerson();
+		
+		if (shouldConnectOnServer(me)) {
+			googlePlusAuthenticationUseCase.setGoogleUserId(me.getId());
+			googlePlusAuthenticationUseCase.setLoginMode(true);
+			executeUseCase(googlePlusAuthenticationUseCase);
+		}
+		
+		getGooglePlusListener().onConnected(me);
+	}
+	
+	private Boolean shouldConnectOnServer(Person me) {
+		if (me == null) {
+			return false;
+		} else {
+			// If the last authentication was successful for the same uer id, we avoid the request
+			return !(googlePlusAuthenticationUseCase.isFinishSuccessful()
+					&& googlePlusAuthenticationUseCase.isLoginMode() && googlePlusAuthenticationUseCase.getGoogleUserId().equals(
+				me.getId()));
+		}
+	}
+	
+	private Boolean shouldDisconnectOnServer() {
+		return !(googlePlusAuthenticationUseCase.isFinishSuccessful() && !googlePlusAuthenticationUseCase.isLoginMode());
 	}
 	
 	/**
@@ -125,14 +173,33 @@ public class GooglePlusHelperFragment extends Fragment implements ConnectionCall
 	}
 	
 	/**
+	 * @see com.jdroid.android.fragment.AbstractFragment#onStartUseCase()
+	 */
+	@Override
+	public void onStartUseCase() {
+		// Do Nothing
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.AbstractFragment#onFinishFailedUseCase(java.lang.RuntimeException)
+	 */
+	@Override
+	public void onFinishFailedUseCase(RuntimeException runtimeException) {
+		AbstractApplication.get().getExceptionHandler().logHandledException(runtimeException);
+	}
+	
+	/**
 	 * @see android.support.v4.app.Fragment#onActivityResult(int, int, android.content.Intent)
 	 */
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_CODE_SIGN_IN) {
-			if ((resultCode == Activity.RESULT_OK) && !plusClient.isConnected() && !plusClient.isConnecting()) {
-				// This time, connect should succeed.
-				plusClient.connect();
+			if (resultCode == Activity.RESULT_OK) {
+				if (!plusClient.isConnected() && !plusClient.isConnecting()) {
+					plusClient.connect();
+				}
+			} else {
+				getGooglePlusListener().onSignInCanceled();
 			}
 		}
 	}
