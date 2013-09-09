@@ -1,4 +1,4 @@
-package com.jdroid.android.googleplus;
+package com.jdroid.android.social.googleplus;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import com.google.android.gms.plus.PlusClient;
 import com.google.android.gms.plus.PlusOneButton;
 import com.google.android.gms.plus.PlusOneButton.OnPlusOneClickListener;
 
-public class PlusOneButtonConnector implements ConnectionCallbacks, OnConnectionFailedListener {
+public class GooglePlusOneButtonHelper implements ConnectionCallbacks, OnConnectionFailedListener {
 	
 	private static final int PLUS_ONE_REQUEST_CODE = 100;
 	private static final int PLUS_ONE_UNDO_REQUEST_CODE = 101;
@@ -21,11 +21,11 @@ public class PlusOneButtonConnector implements ConnectionCallbacks, OnConnection
 	protected PlusOneButton plusOneButton;
 	private Fragment context;
 	
-	public PlusOneButtonConnector(Fragment context, int plusOneButton) {
+	public GooglePlusOneButtonHelper(Fragment context, int plusOneButton) {
 		this(context, (PlusOneButton)context.getView().findViewById(plusOneButton));
 	}
 	
-	public PlusOneButtonConnector(Fragment context, PlusOneButton plusOneButton) {
+	public GooglePlusOneButtonHelper(Fragment context, PlusOneButton plusOneButton) {
 		this.context = context;
 		plusClient = new PlusClient.Builder(context.getActivity(), this, this).clearScopes().build();
 		this.plusOneButton = plusOneButton;
