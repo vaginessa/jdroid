@@ -37,11 +37,11 @@ Library project for Android apps. Support for Android 2.3 and higher versions
 * Google Play Services integration
  * Google Cloud Messaging integration
  * Google Maps v2 integration
- * Google+ integration
+ * Google+ integration: +1 button, friends, sign in, sign out, revoke access
 * AdMob integration
 * In App Billing integration
 * RoboGuice integration
-* Facebook integration (Facebook SDK 3.0.2)
+* Facebook integration
 * Twitter integration
 * Crittercism integration
 * Proguard support
