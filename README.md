@@ -31,8 +31,7 @@ Dependency project for Java Web apps
 
 jdroid Android
 --------------
-Library project for Android apps. Support for Android 2.3 and higher versions
-* ActionBarSherlock integration
+Library project for Android apps. Support for Android 3.2 and higher versions
 * Google Analytics integration
 * Google Play Services integration
  * Google Cloud Messaging integration
@@ -64,7 +63,7 @@ Library project for Android apps. Support for Android 2.3 and higher versions
 
 jdroid Android Left Nav Bar
 --------------
-Library project for android apps. Support for Android 3.0 and higher versions
+Library project for android apps. Support for Android 3.2 and higher versions
 * Google TV Left Nav Bar implementation
 
 --------------
