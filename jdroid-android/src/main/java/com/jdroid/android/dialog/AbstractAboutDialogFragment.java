@@ -1,11 +1,9 @@
 package com.jdroid.android.dialog;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -34,7 +32,6 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 	/**
 	 * @see android.support.v4.app.DialogFragment#onCreateDialog(android.os.Bundle)
 	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		
