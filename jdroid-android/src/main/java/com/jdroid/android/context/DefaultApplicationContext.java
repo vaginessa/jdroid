@@ -26,6 +26,7 @@ public class DefaultApplicationContext {
 	private String adUnitId;
 	private Set<String> testDevicesIds;
 	private Boolean googleAnalyticsEnabled;
+	private Boolean googleAnalyticsDebugEnabled;
 	private String googleAnalyticsTrackingId;
 	private Boolean crittercismEnabled;
 	private String crittercismAppId;
@@ -46,6 +47,7 @@ public class DefaultApplicationContext {
 		adUnitId = PropertiesUtils.getStringProperty("ads.adUnitId");
 		testDevicesIds = PropertiesUtils.getStringSetProperty("ads.tests.devices.ids");
 		googleAnalyticsEnabled = PropertiesUtils.getBooleanProperty("google.analytics.enabled", false);
+		googleAnalyticsDebugEnabled = PropertiesUtils.getBooleanProperty("google.analytics.debug.enabled", false);
 		googleAnalyticsTrackingId = PropertiesUtils.getStringProperty("google.analytics.trackingId");
 		crittercismEnabled = PropertiesUtils.getBooleanProperty("crittercism.enabled", false);
 		crittercismAppId = PropertiesUtils.getStringProperty("crittercism.appId");
@@ -174,5 +176,9 @@ public class DefaultApplicationContext {
 	
 	public String getLocalIp() {
 		return localIp;
+	}
+	
+	public Boolean isGoogleAnalyticsDebugEnabled() {
+		return googleAnalyticsDebugEnabled;
 	}
 }
