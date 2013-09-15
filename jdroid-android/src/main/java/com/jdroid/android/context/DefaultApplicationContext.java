@@ -28,6 +28,9 @@ public class DefaultApplicationContext {
 	private Boolean googleAnalyticsEnabled;
 	private Boolean googleAnalyticsDebugEnabled;
 	private String googleAnalyticsTrackingId;
+	private Boolean flurryEnabled;
+	private String flurryApiKey;
+	private Boolean flurryDebugEnabled;
 	private Boolean crittercismEnabled;
 	private String crittercismAppId;
 	private Boolean crittercismPremium;
@@ -49,6 +52,9 @@ public class DefaultApplicationContext {
 		googleAnalyticsEnabled = PropertiesUtils.getBooleanProperty("google.analytics.enabled", false);
 		googleAnalyticsDebugEnabled = PropertiesUtils.getBooleanProperty("google.analytics.debug.enabled", false);
 		googleAnalyticsTrackingId = PropertiesUtils.getStringProperty("google.analytics.trackingId");
+		flurryEnabled = PropertiesUtils.getBooleanProperty("flurry.enabled", false);
+		flurryApiKey = PropertiesUtils.getStringProperty("flurry.apikey");
+		flurryDebugEnabled = PropertiesUtils.getBooleanProperty("flurry.debug.enabled", false);
 		crittercismEnabled = PropertiesUtils.getBooleanProperty("crittercism.enabled", false);
 		crittercismAppId = PropertiesUtils.getStringProperty("crittercism.appId");
 		crittercismPremium = PropertiesUtils.getBooleanProperty("crittercism.premium", false);
@@ -142,6 +148,22 @@ public class DefaultApplicationContext {
 		return googleAnalyticsTrackingId;
 	}
 	
+	public Boolean isGoogleAnalyticsDebugEnabled() {
+		return googleAnalyticsDebugEnabled;
+	}
+	
+	public Boolean isFlurryEnabled() {
+		return flurryEnabled;
+	}
+	
+	public String getFlurryApiKey() {
+		return flurryApiKey;
+	}
+	
+	public Boolean isFlurryDebugEnabled() {
+		return flurryDebugEnabled;
+	}
+	
 	public Boolean isHttpMockEnabled() {
 		return !isProductionEnvironment()
 				&& PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(
@@ -176,9 +198,5 @@ public class DefaultApplicationContext {
 	
 	public String getLocalIp() {
 		return localIp;
-	}
-	
-	public Boolean isGoogleAnalyticsDebugEnabled() {
-		return googleAnalyticsDebugEnabled;
 	}
 }
