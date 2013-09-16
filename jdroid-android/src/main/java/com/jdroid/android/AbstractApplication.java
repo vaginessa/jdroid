@@ -106,9 +106,6 @@ public abstract class AbstractApplication extends Application {
 		initInAppBilling();
 		
 		initRoboGuice();
-		
-		// TODO This is not working on the analytics beta3
-		// initAnalytics();
 	}
 	
 	/**
@@ -242,15 +239,6 @@ public abstract class AbstractApplication extends Application {
 				Modules.override(RoboGuice.newDefaultRoboModule(this)).with(androidModule));
 		}
 	}
-	
-	// private void initAnalytics() {
-	// if (applicationContext.isAnalyticsEnabled()) {
-	// GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(getApplicationContext());
-	// Tracker defaultTracker = googleAnalytics.getTracker(applicationContext.getAnalyticsTrackingId());
-	// googleAnalytics.setDefaultTracker(defaultTracker);
-	// // googleAnalytics.setDebug(true);
-	// }
-	// }
 	
 	/**
 	 * @return the bitmapLruCache
