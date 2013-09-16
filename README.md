@@ -33,6 +33,7 @@ jdroid Android
 --------------
 Library project for Android apps. Support for Android 3.2 and higher versions
 * Google Analytics integration
+* Flurry Analytics integration
 * Google Play Services integration
  * Google Cloud Messaging integration
  * Google Maps v2 integration
