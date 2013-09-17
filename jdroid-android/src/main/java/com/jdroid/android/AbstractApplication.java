@@ -39,6 +39,7 @@ import com.jdroid.java.utils.ExecutorUtils;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.ReflectionUtils;
+import com.jdroid.java.utils.StringUtils;
 
 /**
  * 
@@ -49,6 +50,7 @@ public abstract class AbstractApplication extends Application {
 	private final static Logger LOGGER = LoggerUtils.getLogger(AbstractApplication.class);
 	
 	private static final String INSTALLATION_ID_KEY = "installationId";
+	public static final String INSTALLATION_SOURCE = "installationSource";
 	
 	/** Maximum size (in MB) of the images cache */
 	private static final int IMAGES_CACHE_SIZE = 5;
@@ -94,6 +96,8 @@ public abstract class AbstractApplication extends Application {
 		}
 		initStrictMode();
 		
+		initAnalytics();
+		
 		// This is required to initialize the statics fields of the utils classes.
 		ToastUtils.init();
 		DateUtils.init();
@@ -118,6 +122,12 @@ public abstract class AbstractApplication extends Application {
 		
 		if (level >= TRIM_MEMORY_MODERATE) {
 			bitmapLruCache.evictAll();
+		}
+	}
+	
+	protected void initAnalytics() {
+		if (hasAnalyticsSender()) {
+			getAnalyticsSender().init();
 		}
 	}
 	
@@ -230,6 +240,15 @@ public abstract class AbstractApplication extends Application {
 	
 	public Class<? extends ExceptionHandler> getExceptionHandlerClass() {
 		return DefaultExceptionHandler.class;
+	}
+	
+	public void saveInstallationSource() {
+		String installationSource = SharedPreferencesUtils.loadPreference(INSTALLATION_SOURCE);
+		if (StringUtils.isBlank(installationSource)) {
+			installationSource = applicationContext.getInstallationSource();
+			SharedPreferencesUtils.savePreference(INSTALLATION_SOURCE, installationSource);
+			LOGGER.debug("Saved installation source: " + installationSource);
+		}
 	}
 	
 	private void initRoboGuice() {

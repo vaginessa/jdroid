@@ -123,6 +123,7 @@ public class BaseActivity implements ActivityIf {
 		
 		AbstractApplication.get().initExceptionHandlers();
 		
+		// Action bar
 		ActionBar actionBar = getActivityIf().getActionBar();
 		if (actionBar != null) {
 			
@@ -155,11 +156,24 @@ public class BaseActivity implements ActivityIf {
 			activity.registerReceiver(clearTaskBroadcastReceiver, ClearTaskIntent.newIntentFilter());
 		}
 		
+		// Ads
 		AdLoader adLoader = createAdLoader();
 		if (adLoader != null) {
 			adLoader.loadAd(activity, (ViewGroup)(activity.findViewById(R.id.adViewContainer)),
 				getActivityIf().getAdSize());
 		}
+		
+		// Analytics
+		ExecutorUtils.execute(new Runnable() {
+			
+			@Override
+			public void run() {
+				AbstractApplication.get().saveInstallationSource();
+				if (AbstractApplication.get().hasAnalyticsSender()) {
+					AbstractApplication.get().getAnalyticsSender().trackAppInstallation();
+				}
+			}
+		});
 	}
 	
 	protected AdLoader createAdLoader() {
