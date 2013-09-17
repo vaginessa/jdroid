@@ -19,14 +19,14 @@ import android.support.v4.app.Fragment;
 import com.crittercism.app.Crittercism;
 import com.google.inject.AbstractModule;
 import com.google.inject.util.Modules;
-import com.jdroid.android.activity.BaseActivity;
+import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.billing.BillingContext;
 import com.jdroid.android.context.DefaultApplicationContext;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.ExceptionHandler;
-import com.jdroid.android.fragment.BaseFragment;
+import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.gcm.GcmMessageResolver;
 import com.jdroid.android.images.BitmapLruCache;
 import com.jdroid.android.utils.AndroidEncryptionUtils;
@@ -280,12 +280,12 @@ public abstract class AbstractApplication extends Application {
 		return applicationContext;
 	}
 	
-	public BaseActivity createBaseActivity(Activity activity) {
-		return new BaseActivity(activity);
+	public ActivityHelper createActivityHelper(Activity activity) {
+		return new ActivityHelper(activity);
 	}
 	
-	public BaseFragment createBaseFragment(Fragment fragment) {
-		return new BaseFragment(fragment);
+	public FragmentHelper createFragmentHelper(Fragment fragment) {
+		return new FragmentHelper(fragment);
 	}
 	
 	public Boolean isInAppBillingEnabled() {
