@@ -67,6 +67,10 @@ jdroid Android Left Nav Bar
 Library project for android apps. Support for Android 3.2 and higher versions
 * Google TV Left Nav Bar implementation
 
+jdroid sample server
+--------------
+Sample server app using jdroid Java Web & jdroid Java
+
 --------------
 For more information, visit the [GitHub Wiki][1] or our [Site][2].
 
