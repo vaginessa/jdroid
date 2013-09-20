@@ -36,7 +36,6 @@
 
 	<context:annotation-config />
 	<context:component-scan base-package="com.jdroid.sample.server.controller" />
-	<context:component-scan base-package="com.mediafever.core.service" />
 	<context:component-scan base-package="com.jdroid.javaweb.push" />
 
 </beans>
