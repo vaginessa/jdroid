@@ -35,11 +35,12 @@ public class GcmController {
 			}
 		};
 		
-		for (String param : StringUtils.splitToCollection(params.replace("[", "").replace("]", ""))) {
-			String[] vec = param.split(":");
-			pushMessage.addParameter(vec[0], vec[1]);
+		if (params != null) {
+			for (String param : StringUtils.splitToCollection(params.replace("[", "").replace("]", ""))) {
+				String[] vec = param.split(":");
+				pushMessage.addParameter(vec[0], vec[1]);
+			}
 		}
-		
 		Device device = new Device(null, registrationId, DeviceType.ANDROID);
 		
 		pushService.send(pushMessage, device);

@@ -14,6 +14,7 @@
 	</parent>
 
 	<properties>
+		<jdroid.version>0.2.0-SNAPSHOT</jdroid.version>
 		<resteasy.version>2.3.4.Final</resteasy.version>
 		<spring.version>3.0.6.RELEASE</spring.version>
 	</properties>
@@ -199,13 +200,12 @@
 
 		<!-- Development Profile -->
 		<profile>
-			<id>jdroid-sample-dev</id>
+			<id>jdroid-sample</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<environment.name>DEV</environment.name>
-				<git.properties.enabled>true</git.properties.enabled>
+				<environment.name>PROD</environment.name>
 			</properties>
 		</profile>
 
