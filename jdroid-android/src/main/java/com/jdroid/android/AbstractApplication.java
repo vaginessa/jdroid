@@ -3,7 +3,6 @@ package com.jdroid.android;
 import java.io.File;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.UUID;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import roboguice.RoboGuice;
 import android.annotation.TargetApi;
@@ -17,6 +16,7 @@ import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import com.crittercism.app.Crittercism;
+import com.crittercism.app.CrittercismConfig;
 import com.google.inject.AbstractModule;
 import com.google.inject.util.Modules;
 import com.jdroid.android.activity.ActivityHelper;
@@ -47,7 +47,11 @@ import com.jdroid.java.utils.StringUtils;
  */
 public abstract class AbstractApplication extends Application {
 	
-	private final static Logger LOGGER = LoggerUtils.getLogger(AbstractApplication.class);
+	/**
+	 * The LOGGER variable is initialized in the "OnCreate" method, after that "LoggerUtils" has been properly
+	 * configured by the superclass.
+	 */
+	private static Logger LOGGER;
 	
 	private static final String INSTALLATION_ID_KEY = "installationId";
 	public static final String INSTALLATION_SOURCE = "installationSource";
@@ -86,6 +90,7 @@ public abstract class AbstractApplication extends Application {
 		super.onCreate();
 		
 		LoggerUtils.setRelease(isDebuggable());
+		LOGGER = LoggerUtils.getLogger(AbstractApplication.class);
 		
 		loadInstallationId();
 		
@@ -205,10 +210,11 @@ public abstract class AbstractApplication extends Application {
 		if (applicationContext.isCrittercismEnabled()) {
 			try {
 				// send logcat data for devices with API Level 16 and higher
-				JSONObject crittercismConfig = new JSONObject();
-				crittercismConfig.put("shouldCollectLogcat", true);
+				CrittercismConfig crittercismConfig = new CrittercismConfig();
+				crittercismConfig.setLogcatReportingEnabled(true);
 				
-				Crittercism.init(getApplicationContext(), applicationContext.getCrittercismAppId(), crittercismConfig);
+				Crittercism.initialize(getApplicationContext(), applicationContext.getCrittercismAppId(),
+					crittercismConfig);
 				
 				if (installationId != null) {
 					Crittercism.setUsername(installationId);

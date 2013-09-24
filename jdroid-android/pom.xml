@@ -55,7 +55,7 @@
 		<dependency>
 			<groupId>android</groupId>
 			<artifactId>google-play-services</artifactId>
-			<version>r10</version>
+			<version>r12</version>
 		</dependency>
 
 		<!-- Google Analytics -->
@@ -123,7 +123,7 @@
 		<dependency>
 			<groupId>android.crittercism</groupId>
 			<artifactId>crittercism-sdk</artifactId>
-			<version>3.0.11</version>
+			<version>4.0.2</version>
 		</dependency>
 
 		<!-- Robolectric -->
