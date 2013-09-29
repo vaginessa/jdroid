@@ -168,7 +168,7 @@ public class JsonObjectWrapper {
 	}
 	
 	public Date optDate(String key, String dateFormat, Date defaultDate) throws JSONException {
-		if (has(key) && !jsonObject.isNull(key)) {
+		if (hasNotNull(key)) {
 			String value = jsonObject.getString(key);
 			return DateUtils.parse(value, dateFormat);
 		}
@@ -182,6 +182,10 @@ public class JsonObjectWrapper {
 	 */
 	public boolean has(String key) {
 		return jsonObject.has(key);
+	}
+	
+	public boolean hasNotNull(String key) {
+		return jsonObject.has(key) && !jsonObject.isNull(key);
 	}
 	
 	/**
@@ -224,7 +228,7 @@ public class JsonObjectWrapper {
 	 * @see org.json.JSONObject#opt(java.lang.String)
 	 */
 	public Object opt(String key) throws JSONException {
-		if (has(key) && !jsonObject.isNull(key)) {
+		if (hasNotNull(key)) {
 			return jsonObject.get(key);
 		}
 		return null;
@@ -248,7 +252,7 @@ public class JsonObjectWrapper {
 	 * @see org.json.JSONObject#optBoolean(java.lang.String, boolean)
 	 */
 	public Boolean optBoolean(String key, Boolean defaultValue) throws JSONException {
-		if (has(key) && !jsonObject.isNull(key)) {
+		if (hasNotNull(key)) {
 			return jsonObject.getBoolean(key);
 		}
 		return defaultValue;
@@ -272,7 +276,7 @@ public class JsonObjectWrapper {
 	 * @see org.json.JSONObject#optDouble(java.lang.String, double)
 	 */
 	public Double optDouble(String key, Double defaultValue) throws JSONException {
-		if (has(key) && !jsonObject.isNull(key)) {
+		if (hasNotNull(key)) {
 			return jsonObject.getDouble(key);
 		}
 		return defaultValue;
@@ -296,7 +300,7 @@ public class JsonObjectWrapper {
 	 * @see org.json.JSONObject#optDouble(java.lang.String, double)
 	 */
 	public Float optFloat(String key, Float defaultValue) throws JSONException {
-		if (has(key) && !jsonObject.isNull(key)) {
+		if (hasNotNull(key)) {
 			return (float)jsonObject.getDouble(key);
 		}
 		return defaultValue;
@@ -320,7 +324,7 @@ public class JsonObjectWrapper {
 	 * @see org.json.JSONObject#optInt(java.lang.String, int)
 	 */
 	public Integer optInt(String key, Integer defaultValue) throws JSONException {
-		if (has(key) && !jsonObject.isNull(key)) {
+		if (hasNotNull(key)) {
 			return jsonObject.getInt(key);
 		}
 		return defaultValue;
@@ -377,7 +381,7 @@ public class JsonObjectWrapper {
 	 * @see org.json.JSONObject#optLong(java.lang.String, long)
 	 */
 	public Long optLong(String key, Long defaultValue) throws JSONException {
-		if (has(key) && !jsonObject.isNull(key)) {
+		if (hasNotNull(key)) {
 			return jsonObject.getLong(key);
 		}
 		return defaultValue;
@@ -401,7 +405,7 @@ public class JsonObjectWrapper {
 	 * @see org.json.JSONObject#optString(java.lang.String, java.lang.String)
 	 */
 	public String optString(String key, String defaultValue) throws JSONException {
-		if (has(key) && !jsonObject.isNull(key)) {
+		if (hasNotNull(key)) {
 			return jsonObject.getString(key);
 		}
 		return defaultValue;
