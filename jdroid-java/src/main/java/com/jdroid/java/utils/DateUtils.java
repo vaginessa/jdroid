@@ -487,6 +487,11 @@ public abstract class DateUtils {
 		return org.apache.commons.lang.time.DateUtils.addDays(calendar.getTime(), 1);
 	}
 	
+	public static Date today() {
+		Calendar calendar = DateUtils.todayCalendar();
+		return calendar.getTime();
+	}
+	
 	/**
 	 * @return a day before today
 	 */
