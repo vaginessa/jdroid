@@ -10,6 +10,7 @@
 
 		url += "registrationId="
 				+ document.getElementById("registrationId").value;
+		url += "&messageKeyExtraName=" + document.getElementById("messageKeyExtraName").value;
 		url += "&messageKey=" + document.getElementById("messageKey").value;
 
 		var params;
@@ -56,6 +57,7 @@
 	Registration id
 	<input id="registrationId" type="text" />
 	<br /> Message key
+	<input id="messageKeyExtraName" type="text" value="messageKey" />
 	<input id="messageKey" type="text" />
 	<br />
 	<br /> Key 1

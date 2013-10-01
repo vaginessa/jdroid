@@ -25,9 +25,15 @@ public class GcmController {
 	@GET
 	@Path("/send")
 	public void send(@QueryParam("registrationId") String registrationId,
+			final @QueryParam("messageKeyExtraName") String messageKeyExtraName,
 			final @QueryParam("messageKey") String messageKey, @QueryParam("params") String params) {
 		
 		PushMessage pushMessage = new DefaultGcmMessage() {
+			
+			@Override
+			protected String getMessageKeyExtraName() {
+				return messageKeyExtraName;
+			}
 			
 			@Override
 			public String getMessageKey() {

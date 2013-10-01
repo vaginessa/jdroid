@@ -18,13 +18,13 @@ import com.jdroid.android.images.ReflectedRemoteImageResolver;
  */
 public abstract class CoverFlowImageAdapter<T> extends BaseArrayAdapter<T> {
 	
-	private float width;
-	private float height;
+	private int width;
+	private int height;
 	
-	public CoverFlowImageAdapter(Context context, List<T> objects, float width, float height) {
+	public CoverFlowImageAdapter(Context context, List<T> objects, int width, int height) {
 		super(context, objects);
 		this.width = width;
-		this.height = height * (1 + ReflectedRemoteImageResolver.get().getImageReflectionRatio());
+		this.height = (int)(height * (1 + ReflectedRemoteImageResolver.get().getImageReflectionRatio()));
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public abstract class CoverFlowImageAdapter<T> extends BaseArrayAdapter<T> {
 		CustomImageView imageView;
 		if (convertView == null) {
 			imageView = new CustomImageView(parent.getContext());
-			imageView.setLayoutParams(new CoverFlow.LayoutParams((int)width, (int)height));
+			imageView.setLayoutParams(new CoverFlow.LayoutParams(width, height));
 		} else {
 			imageView = (CustomImageView)convertView;
 		}

@@ -38,7 +38,7 @@ public abstract class DefaultGcmMessageResolver implements GcmMessageResolver {
 		String messageKey = intent.getStringExtra(MESSAGE_KEY_EXTRA);
 		LOGGER.debug("GCM message received. / Message Key: " + messageKey);
 		for (GcmMessage each : gcmMessages) {
-			if (each.getMessageKey().equalsIgnoreCase(messageKey)) {
+			if (each.getMessageKey().equalsIgnoreCase(getMessageKeyExtraName())) {
 				
 				Boolean requiresAuthenticationKey = NumberUtils.getBoolean(
 					intent.getStringExtra(REQUIRES_AUTHENTICATION_KEY_EXTRA), false);
@@ -55,6 +55,10 @@ public abstract class DefaultGcmMessageResolver implements GcmMessageResolver {
 		AbstractApplication.get().getExceptionHandler().logWarningException(
 			"The GCM message key [" + messageKey + "] is unknown");
 		return null;
+	}
+	
+	protected String getMessageKeyExtraName() {
+		return MESSAGE_KEY_EXTRA;
 	}
 	
 	protected abstract void onAuthenticationRequired();

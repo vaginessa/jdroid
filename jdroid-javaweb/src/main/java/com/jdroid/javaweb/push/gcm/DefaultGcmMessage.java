@@ -14,7 +14,11 @@ public abstract class DefaultGcmMessage implements GcmMessage {
 	private Map<String, String> parameters = Maps.<String, String>newHashMap();
 	
 	public DefaultGcmMessage() {
-		addParameter(MESSAGE_KEY_EXTRA, getMessageKey());
+		addParameter(getMessageKeyExtraName(), getMessageKey());
+	}
+	
+	protected String getMessageKeyExtraName() {
+		return MESSAGE_KEY_EXTRA;
 	}
 	
 	/**
