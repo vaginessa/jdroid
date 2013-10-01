@@ -40,7 +40,6 @@ Library project for Android apps. Support for Android 3.2 and higher versions
  * Google+ integration: +1 button, friends, sign in, sign out, revoke access
 * AdMob integration
 * In App Billing integration
-* RoboGuice integration
 * Facebook integration
 * Twitter integration
 * Crittercism integration
