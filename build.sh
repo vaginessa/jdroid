@@ -6,6 +6,9 @@ DEPLOY=$3
 BRANCH=$4
 PROJECT_NAME=jdroid
 
+BUILD_SAMPLES=$5
+PROFILE=$6
+
 # Help
 # ****
 if [ $# -eq 1 ] && [ $1 = -h ]
@@ -60,6 +63,11 @@ then
 	BRANCH=master
 fi
 
+if [ -z "$BUILD_SAMPLES" ]
+then
+	BUILD_SAMPLES="false"
+fi
+
 SOURCE_DIRECTORY=$BUILD_DIRECTORY/$PROJECT_NAME/source
 ASSEMBLIES_DIRECTORY=$BUILD_DIRECTORY/$PROJECT_NAME/assemblies
 
@@ -97,4 +105,13 @@ then
 	cp ./target/*.zip $ASSEMBLIES_DIRECTORY/
 fi
 
+
+# Samples Assemblies Generation
+# ************************
+if [ "$BUILD_SAMPLES" = "true" ]
+then
+	cd $SOURCE_DIRECTORY/$PROJECT_NAME/jdroid-sample-server
+	mvn dependency:resolve -P $PROFILE assembly:assembly -Dmaven.test.skip=true
+	cp ./target/*.war $ASSEMBLIES_DIRECTORY/
+fi
 
