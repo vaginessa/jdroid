@@ -25,25 +25,35 @@ public abstract class AbstractGcmRegistrationService extends WorkerService {
 	 */
 	@Override
 	protected void doExecute(Intent intent) {
-		String registrationId = null;
-		try {
-			GoogleCloudMessaging googleCloudMessaging = GoogleCloudMessaging.getInstance(this);
-			
-			String googleProjectId = AbstractApplication.get().getAndroidApplicationContext().getGoogleProjectId();
-			registrationId = googleCloudMessaging.register(googleProjectId);
-			GcmPreferences.setRegistrationId(getApplicationContext(), registrationId);
-		} catch (IOException e) {
-			LOGGER.warn("Failed to register the device on gcm. Will retry later.", e);
-			IntentRetryUtils.retry(intent);
-			return;
-		}
 		
-		try {
-			onRegisterOnServer(registrationId);
-			GcmPreferences.setRegisteredOnServer(getApplicationContext(), true);
-		} catch (ApplicationException e) {
-			LOGGER.warn("Failed to register the device on server. Will retry later.", e);
-			IntentRetryUtils.retry(intent);
+		if (GooglePlayUtils.isGooglePlayServicesAvailable(this)) {
+			if (!GcmPreferences.isRegistered(this) || !GcmPreferences.isRegisteredOnServer(this)) {
+				String registrationId = null;
+				try {
+					GoogleCloudMessaging googleCloudMessaging = GoogleCloudMessaging.getInstance(this);
+					
+					String googleProjectId = AbstractApplication.get().getAndroidApplicationContext().getGoogleProjectId();
+					registrationId = googleCloudMessaging.register(googleProjectId);
+					GcmPreferences.setRegistrationId(getApplicationContext(), registrationId);
+				} catch (IOException e) {
+					LOGGER.warn("Failed to register the device on gcm. Will retry later.", e);
+					IntentRetryUtils.retry(intent);
+					return;
+				}
+				
+				try {
+					onRegisterOnServer(registrationId);
+					GcmPreferences.setRegisteredOnServer(getApplicationContext(), true);
+				} catch (ApplicationException e) {
+					LOGGER.warn("Failed to register the device on server. Will retry later.", e);
+					IntentRetryUtils.retry(intent);
+				}
+			} else {
+				LOGGER.info("Device already registered on GCM. Registration id: "
+						+ GcmPreferences.getRegistrationId(this));
+			}
+		} else {
+			LOGGER.warn("GCM not initialized because Google Play Services is not available");
 		}
 	}
 	
@@ -51,9 +61,6 @@ public abstract class AbstractGcmRegistrationService extends WorkerService {
 	
 	public static void runRegistrationService(Context context,
 			Class<? extends AbstractGcmRegistrationService> serviceClass) {
-		if (GooglePlayUtils.isGooglePlayServicesAvailable(context)
-				&& (!GcmPreferences.isRegistered(context) || !GcmPreferences.isRegisteredOnServer(context))) {
-			WorkerService.runIntentInService(context, new Intent(), serviceClass);
-		}
+		WorkerService.runIntentInService(context, new Intent(), serviceClass);
 	}
 }
