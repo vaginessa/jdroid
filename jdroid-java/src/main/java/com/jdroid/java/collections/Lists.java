@@ -89,4 +89,9 @@ public class Lists {
 		}
 		return list;
 	}
+	
+	public static Boolean isNullOrEmpty(List<?> list) {
+		return (list == null) || list.isEmpty();
+	}
+	
 }
