@@ -5,6 +5,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -110,6 +112,24 @@ public class NotificationBuilder {
 		remoteViews.setProgressBar(R.id.progressBar, 100, progress, false);
 		remoteViews.setImageViewResource(R.id.icon, notificationIcon);
 		builder.setContent(remoteViews);
+	}
+	
+	public void setBlueLight() {
+		builder.setLights(Color.parseColor("blue"), 1000, 5000);
+	}
+	
+	public void setSound(int soundResId) {
+		Uri notificationSound = Uri.parse("android.resource://" + AndroidUtils.getPackageName() + "/" + soundResId);
+		if (notificationSound != null) {
+			builder.setSound(notificationSound);
+		}
+	}
+	
+	public void setDefaultSound() {
+		Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+		if (notificationSound != null) {
+			builder.setSound(notificationSound);
+		}
 	}
 	
 	private Bitmap createLargeIconBitmap(String largeIconUrl) {

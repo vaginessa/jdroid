@@ -10,6 +10,7 @@ import com.jdroid.android.R;
 import com.jdroid.android.context.DefaultApplicationContext;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.context.GitContext;
+import com.jdroid.java.utils.StringUtils;
 
 /**
  * 
@@ -63,6 +64,13 @@ public class DebugInfoView extends LinearLayout {
 			buildTime.setText(context.getString(R.string.buildTime, GitContext.get().getBuildTime()));
 		} else {
 			buildTime.setVisibility(View.GONE);
+		}
+		
+		TextView carrier = (TextView)findViewById(R.id.carrier);
+		if (StringUtils.isNotBlank(AndroidUtils.getCarrier())) {
+			carrier.setText(context.getString(R.string.carrier, AndroidUtils.getCarrier()));
+		} else {
+			carrier.setVisibility(View.GONE);
 		}
 		
 		findViewById(R.id.crash).setOnClickListener(new OnClickListener() {

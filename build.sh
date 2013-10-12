@@ -111,7 +111,7 @@ fi
 if [ "$BUILD_SAMPLES" = "true" ]
 then
 	cd $SOURCE_DIRECTORY/$PROJECT_NAME/jdroid-sample-server
-	mvn dependency:resolve -P $PROFILE assembly:assembly -Dmaven.test.skip=true
+	mvn clean dependency:resolve -P $PROFILE assembly:assembly -Dmaven.test.skip=true
 	cp ./target/*.war $ASSEMBLIES_DIRECTORY/
 fi
 

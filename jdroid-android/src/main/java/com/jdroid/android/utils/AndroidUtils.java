@@ -15,6 +15,7 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.provider.MediaStore;
 import android.provider.Settings.Secure;
+import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
@@ -93,6 +94,12 @@ public class AndroidUtils {
 	public static void hideSoftInput(View view) {
 		((InputMethodManager)AbstractApplication.get().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
 			view.getWindowToken(), 0);
+	}
+	
+	public static String getCarrier() {
+		TelephonyManager manager = (TelephonyManager)AbstractApplication.get().getSystemService(
+			Context.TELEPHONY_SERVICE);
+		return manager.getNetworkOperatorName();
 	}
 	
 	/**
