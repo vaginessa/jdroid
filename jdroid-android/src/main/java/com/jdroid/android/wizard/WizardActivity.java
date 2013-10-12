@@ -39,11 +39,16 @@ public abstract class WizardActivity extends AbstractFragmentActivity {
 		
 		pager = findView(R.id.pager);
 		pager.setAdapter(pagerAdapter);
+		if (getOffscreenPageLimit() != null) {
+			pager.setOffscreenPageLimit(getOffscreenPageLimit());
+		}
 		pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			
 			@Override
 			public void onPageSelected(int position) {
 				updateBottomBar();
+				WizardStep wizardStep = getWizardSteps().get(position);
+				wizardStep.onStepSelected();
 			}
 		});
 		
@@ -74,6 +79,10 @@ public abstract class WizardActivity extends AbstractFragmentActivity {
 	}
 	
 	public abstract List<? extends WizardStep> getWizardSteps();
+	
+	protected Integer getOffscreenPageLimit() {
+		return null;
+	};
 	
 	protected int getLeftStringResId() {
 		return R.string.previous;

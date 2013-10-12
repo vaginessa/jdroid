@@ -10,4 +10,6 @@ import android.support.v4.app.Fragment;
 public interface WizardStep {
 	
 	public Fragment createFragment(Bundle bundle);
+	
+	public void onStepSelected();
 }

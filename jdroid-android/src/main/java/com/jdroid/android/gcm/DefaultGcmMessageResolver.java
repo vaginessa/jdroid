@@ -35,10 +35,10 @@ public abstract class DefaultGcmMessageResolver implements GcmMessageResolver {
 	 */
 	@Override
 	public GcmMessage resolve(Intent intent) {
-		String messageKey = intent.getStringExtra(MESSAGE_KEY_EXTRA);
+		String messageKey = intent.getStringExtra(getMessageKeyExtraName());
 		LOGGER.debug("GCM message received. / Message Key: " + messageKey);
 		for (GcmMessage each : gcmMessages) {
-			if (each.getMessageKey().equalsIgnoreCase(getMessageKeyExtraName())) {
+			if (each.getMessageKey().equalsIgnoreCase(messageKey)) {
 				
 				Boolean requiresAuthenticationKey = NumberUtils.getBoolean(
 					intent.getStringExtra(REQUIRES_AUTHENTICATION_KEY_EXTRA), false);
