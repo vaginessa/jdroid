@@ -30,6 +30,7 @@ import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.utils.AndroidEncryptionUtils;
 import com.jdroid.android.utils.SharedPreferencesUtils;
 import com.jdroid.android.utils.ToastUtils;
+import com.jdroid.java.context.GitContext;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.parser.json.JsonObjectWrapper;
 import com.jdroid.java.utils.DateUtils;
@@ -93,6 +94,10 @@ public abstract class AbstractApplication extends Application {
 		loadInstallationId();
 		
 		applicationContext = createApplicationContext();
+		
+		if (isDebuggable()) {
+			GitContext.init();
+		}
 		
 		if (applicationContext.displayDebugSettings()) {
 			PreferenceManager.setDefaultValues(this, R.xml.debug_preferences, false);

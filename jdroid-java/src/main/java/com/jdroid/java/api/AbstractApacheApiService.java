@@ -11,6 +11,7 @@ import com.jdroid.java.http.apache.delete.ApacheHttpDeleteWebService;
 import com.jdroid.java.http.apache.get.ApacheHttpGetWebService;
 import com.jdroid.java.http.apache.post.ApacheFormHttpPostWebService;
 import com.jdroid.java.http.apache.post.ApacheHttpPostWebService;
+import com.jdroid.java.http.apache.post.ApacheMultipartHttpPostWebService;
 import com.jdroid.java.http.apache.put.ApacheHttpPutWebService;
 import com.jdroid.java.http.apache.put.ApacheMultipartHttpPutWebService;
 import com.jdroid.java.http.post.EntityEnclosingWebService;
@@ -62,6 +63,17 @@ public abstract class AbstractApacheApiService extends AbstractApiService {
 	protected MultipartWebService newMultipartPutServiceImpl(Server server, List<Object> urlSegments,
 			HttpWebServiceProcessor... httpWebServiceProcessors) {
 		return new ApacheMultipartHttpPutWebService(getHttpClientFactoryInstance(), server, urlSegments,
+				toArray(getHttpWebServiceProcessors()));
+	}
+	
+	/**
+	 * @see com.jdroid.java.api.AbstractApiService#newMultipartPostServiceImpl(com.jdroid.java.http.Server,
+	 *      java.util.List, com.jdroid.java.http.HttpWebServiceProcessor[])
+	 */
+	@Override
+	protected MultipartWebService newMultipartPostServiceImpl(Server server, List<Object> urlSegments,
+			HttpWebServiceProcessor... httpWebServiceProcessors) {
+		return new ApacheMultipartHttpPostWebService(getHttpClientFactoryInstance(), server, urlSegments,
 				toArray(getHttpWebServiceProcessors()));
 	}
 	

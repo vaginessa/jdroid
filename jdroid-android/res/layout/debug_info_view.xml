@@ -3,6 +3,9 @@
 	<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
 		android:paddingLeft="10dp" android:paddingTop="10dp" android:paddingBottom="10dp" android:orientation="vertical">
 
+		<Button android:id="@+id/crash" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/crashSettings" />
+
 		<TextView android:id="@+id/packageName" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/packageName" />
 		<TextView android:id="@+id/environmentName" android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -25,9 +28,6 @@
 			android:text="@string/commitTime" />
 		<TextView android:id="@+id/buildTime" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/buildTime" />
-
-		<Button android:id="@+id/crash" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="@string/crashSettings" />
 
 	</LinearLayout>
 </merge>

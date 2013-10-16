@@ -82,6 +82,22 @@ public abstract class AbstractApiService {
 	protected abstract MultipartWebService newMultipartPutServiceImpl(Server server, List<Object> urlSegments,
 			HttpWebServiceProcessor... httpWebServiceProcessors);
 	
+	protected MultipartWebService newMultipartPostService(Object... urlSegments) {
+		return newMultipartPostService(false, urlSegments);
+	}
+	
+	protected MultipartWebService newMultipartPostService(Boolean mocked, Object... urlSegments) {
+		if (isHttpMockEnabled() || mocked) {
+			return getAbstractMockWebServiceInstance(urlSegments);
+		} else {
+			return newMultipartPostServiceImpl(getServer(), Lists.newArrayList(urlSegments),
+				toArray(getHttpWebServiceProcessors()));
+		}
+	}
+	
+	protected abstract MultipartWebService newMultipartPostServiceImpl(Server server, List<Object> urlSegments,
+			HttpWebServiceProcessor... httpWebServiceProcessors);
+	
 	protected WebService newDeleteService(Object... urlSegments) {
 		return newDeleteService(false, urlSegments);
 	}

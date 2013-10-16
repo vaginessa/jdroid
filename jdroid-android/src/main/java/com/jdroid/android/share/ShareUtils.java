@@ -25,7 +25,7 @@ public class ShareUtils {
 	
 	public static Intent createShareTextContentIntent(String shareSubject, String shareText) {
 		Intent intent = new Intent(Intent.ACTION_SEND);
-		intent.setType(MimeType.TEXT.toString());
+		intent.setType(MimeType.TEXT);
 		intent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
 		intent.putExtra(Intent.EXTRA_TEXT, shareText);
 		return intent;

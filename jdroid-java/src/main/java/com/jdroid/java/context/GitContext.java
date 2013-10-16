@@ -9,32 +9,44 @@ import com.jdroid.java.utils.PropertiesUtils;
 public class GitContext {
 	
 	private static final String GIT_PROPERTIES_RESOURCE_NAME = "git.properties";
-	private static final String COMMIT_TIME = PropertiesUtils.getStringProperty("git.commit.time");
-	private static final String BUILD_TIME = PropertiesUtils.getStringProperty("git.build.time");
-	private static final String COMMIT_ID = PropertiesUtils.getStringProperty("git.commit.id");
 	
-	private static final GitContext INSTANCE = new GitContext();
+	private String commitTime;
+	private String buildTime;
+	private String commitId;
+	
+	private static GitContext INSTANCE;
+	
+	public static void init() {
+		if (INSTANCE == null) {
+			INSTANCE = new GitContext();
+		}
+	}
 	
 	private GitContext() {
 		PropertiesUtils.loadProperties(GIT_PROPERTIES_RESOURCE_NAME);
+		
+		commitTime = PropertiesUtils.getStringProperty("git.commit.time");
+		buildTime = PropertiesUtils.getStringProperty("git.build.time");
+		commitId = PropertiesUtils.getStringProperty("git.commit.id");
 	}
 	
 	/**
 	 * @return The {@link GitContext} instance
 	 */
 	public static GitContext get() {
+		init();
 		return INSTANCE;
 	}
 	
 	public String getCommitTime() {
-		return COMMIT_TIME;
+		return commitTime;
 	}
 	
 	public String getBuildTime() {
-		return BUILD_TIME;
+		return buildTime;
 	}
 	
 	public String getCommitId() {
-		return COMMIT_ID;
+		return commitId;
 	}
 }

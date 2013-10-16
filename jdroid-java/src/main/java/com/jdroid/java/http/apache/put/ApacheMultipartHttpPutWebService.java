@@ -78,6 +78,6 @@ public class ApacheMultipartHttpPutWebService extends ApacheHttpPutWebService im
 	 */
 	@Override
 	public void addJsonPart(String name, Object value) {
-		addPart(name, MarshallerProvider.get().marshall(value, MarshallerMode.COMPLETE, null), MimeType.JSON.toString());
+		addPart(name, MarshallerProvider.get().marshall(value, MarshallerMode.COMPLETE, null), MimeType.JSON);
 	}
 }

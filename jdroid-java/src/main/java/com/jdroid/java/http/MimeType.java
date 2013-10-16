@@ -4,23 +4,11 @@ package com.jdroid.java.http;
  * 
  * @author Maxi Rosson
  */
-public enum MimeType {
+public class MimeType {
 	
-	JSON("application/json"),
-	PNG("image/png"),
-	TEXT("text/plain");
+	public static final String TEXT = "text/plain";
+	public static final String PNG = "image/png";
+	public static final String JSON = "application/json";
+	public static final String JSON_UTF8 = "application/json;charset=UTF-8";
 	
-	private String name;
-	
-	private MimeType(String name) {
-		this.name = name;
-	}
-	
-	/**
-	 * @see java.lang.Enum#toString()
-	 */
-	@Override
-	public String toString() {
-		return name;
-	}
 }
