@@ -6,7 +6,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.MDC;
+import org.slf4j.Logger;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.util.UrlPathHelper;
+import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.context.AbstractSecurityContext;
 import com.jdroid.javaweb.context.DefaultApplication;
 import com.jdroid.javaweb.context.DefaultApplicationContext;
@@ -17,6 +20,8 @@ import com.jdroid.javaweb.domain.Entity;
  * 
  */
 public class Log4jFilter extends OncePerRequestFilter {
+	
+	private static final Logger LOGGER = LoggerUtils.getLogger(Log4jFilter.class);
 	
 	private static final String APP_URL = "appURL";
 	private static final String USER_ID = "userId";
@@ -48,6 +53,9 @@ public class Log4jFilter extends OncePerRequestFilter {
 		
 		// Add the session id to the mapped diagnostic context. May be shown using %X{sessionId} in the layout pattern.
 		MDC.put(SESSION_ID, request.getSession().getId());
+		
+		String requestUri = new UrlPathHelper().getRequestUri(request);
+		LOGGER.info("Url: " + requestUri);
 		
 		try {
 			// Continue processing the rest of the filter chain.
