@@ -65,20 +65,20 @@ public class NotificationBuilder {
 		builder.setContentText(contentText);
 	}
 	
-	public void setContentIntent(Class<?> clazz) {
-		setContentIntent(clazz, null);
+	public void setContentIntentSingleTop(Class<?> clazz) {
+		setContentIntentSingleTop(clazz, null);
 	}
 	
-	public void setContentIntent(Class<?> clazz, Bundle notificationBundle) {
+	public void setContentIntentSingleTop(Class<?> clazz, Bundle notificationBundle) {
 		Intent notificationIntent = clazz != null ? new Intent(AbstractApplication.get(), clazz) : new Intent();
-		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 		if (notificationBundle != null) {
 			notificationIntent.replaceExtras(notificationBundle);
 		}
-		setContentIntent(notificationIntent);
+		setContentIntentSingleTop(notificationIntent);
 	}
 	
-	public void setContentIntent(Intent notificationIntent) {
+	public void setContentIntentSingleTop(Intent notificationIntent) {
+		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		builder.setContentIntent(PendingIntent.getActivity(AbstractApplication.get(), 0, notificationIntent, 0));
 	}
 	

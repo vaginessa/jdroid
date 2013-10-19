@@ -71,7 +71,7 @@ public class ExceptionReportActivity extends Activity {
 			builder.setContentTitle(notificationTitle);
 			builder.setContentText(R.string.exceptionReportNotificationText);
 			builder.setWhen(System.currentTimeMillis());
-			builder.setContentIntent(ExceptionReportActivity.class, bundle);
+			builder.setContentIntentSingleTop(ExceptionReportActivity.class, bundle);
 			
 			NotificationUtils.sendNotification(IdGenerator.getRandomIntId(), builder);
 			
