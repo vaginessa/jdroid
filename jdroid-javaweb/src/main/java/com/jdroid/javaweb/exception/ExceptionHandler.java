@@ -2,9 +2,6 @@ package com.jdroid.javaweb.exception;
 
 public class ExceptionHandler {
 	
-	public static final String STATUS_CODE_HEADER = "status-code";
-	public static final String OK_STATUS_CODE_HEADER_VALUE = "200";
-	
 }
 
 // /**

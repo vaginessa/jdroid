@@ -1,28 +1,29 @@
 package com.jdroid.javaweb.controller.exception;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.InitializingBean;
+import org.springframework.core.style.StylerUtils;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.HttpMessageNotWritableException;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.http.server.ServletServerHttpResponse;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
 import org.springframework.web.util.WebUtils;
+import com.jdroid.java.collections.Lists;
+import com.jdroid.java.exception.BusinessException;
 import com.jdroid.java.utils.LoggerUtils;
-import com.jdroid.javaweb.exception.ExceptionHandler;
+import com.jdroid.javaweb.exception.InvalidAuthenticationException;
 
 /**
  * Renders a response with a RESTful Error representation based on the error format discussed in <a
@@ -38,9 +39,8 @@ import com.jdroid.javaweb.exception.ExceptionHandler;
  * {@link com.jdroid.javaweb.controller.exception.RestError#getStatus() status} value.</li>
  * <li>The {@code RestError} instance is presented to a configured {@link RestErrorConverter} to allow transforming the
  * {@code RestError} instance into an object potentially more suitable for rendering as the HTTP response body.</li>
- * <li>The {@link #setMessageConverters(org.springframework.http.converter.HttpMessageConverter[])
- * HttpMessageConverters} are consulted (in iteration order) with this object result for rendering. The first
- * {@code HttpMessageConverter} instance that
+ * <li>The {@link #setMessageConverters(List) HttpMessageConverters} are consulted (in iteration order) with this object
+ * result for rendering. The first {@code HttpMessageConverter} instance that
  * {@link HttpMessageConverter#canWrite(Class, org.springframework.http.MediaType) canWrite} the object based on the
  * request's supported {@code MediaType}s will be used to render this result object as the HTTP response body.</li>
  * <li>If no {@code HttpMessageConverter}s {@code canWrite} the result object, nothing is done, and this handler returns
@@ -79,11 +79,7 @@ import com.jdroid.javaweb.exception.ExceptionHandler;
  * </table>
  * 
  * <h2>JSON Rendering</h2>
- * This implementation comes pre-configured with Spring's typical default {@link HttpMessageConverter} instances; JSON
- * will be enabled automatically if Jackson is in the classpath. If you want to match the JSON representation shown in
- * the article above (recommended) but do not want to use Jackson (or the Spring's default Jackson config), you will
- * need to {@link #setMessageConverters(org.springframework.http.converter.HttpMessageConverter[]) configure} a
- * different JSON-capable {@link HttpMessageConverter}.
+ * This implementation comes pre-configured with Spring's {@link MappingJackson2HttpMessageConverter}
  * 
  * @see DefaultRestErrorResolver
  * @see MapRestErrorConverter
@@ -92,47 +88,21 @@ import com.jdroid.javaweb.exception.ExceptionHandler;
  * 
  * @author Les Hazlewood
  */
-public class RestExceptionHandler extends AbstractHandlerExceptionResolver implements InitializingBean {
+public class ApiExceptionHandler extends AbstractHandlerExceptionResolver {
 	
-	private static final Logger LOGGER = LoggerUtils.getLogger(RestExceptionHandler.class);
+	public static final String STATUS_CODE_HEADER = "status-code";
+	public static final String OK_STATUS_CODE_HEADER_VALUE = "200";
 	
-	private HttpMessageConverter<?>[] messageConverters = null;
-	private List<HttpMessageConverter<?>> allMessageConverters = null;
+	private static final Logger LOGGER = LoggerUtils.getLogger(ApiExceptionHandler.class);
+	
+	private List<HttpMessageConverter<?>> messageConverters = Lists.newArrayList();
 	private RestErrorResolver errorResolver;
 	private RestErrorConverter<?> errorConverter;
 	
-	public RestExceptionHandler() {
+	public ApiExceptionHandler() {
 		errorResolver = new DefaultRestErrorResolver();
 		errorConverter = new MapRestErrorConverter();
-	}
-	
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		ensureMessageConverters();
-	}
-	
-	@SuppressWarnings("unchecked")
-	private void ensureMessageConverters() {
-		
-		List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>();
-		
-		// user configured values take precedence:
-		if ((messageConverters != null) && (messageConverters.length > 0)) {
-			converters.addAll(CollectionUtils.arrayToList(messageConverters));
-		}
-		
-		// defaults next:
-		new HttpMessageConverterHelper().addDefaults(converters);
-		
-		allMessageConverters = converters;
-	}
-	
-	// leverage Spring's existing default setup behavior:
-	private static final class HttpMessageConverterHelper extends WebMvcConfigurationSupport {
-		
-		public void addDefaults(List<HttpMessageConverter<?>> converters) {
-			addDefaultHttpMessageConverters(converters);
-		}
+		messageConverters.add(new MappingJackson2HttpMessageConverter());
 	}
 	
 	/**
@@ -149,60 +119,53 @@ public class RestExceptionHandler extends AbstractHandlerExceptionResolver imple
 	 *            example, if multipart resolution failed)
 	 * @param ex the exception that got thrown during handler execution
 	 * @return a corresponding ModelAndView to forward to, or <code>null</code> for default processing
+	 * 
+	 * @see org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver#doResolveException(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse, java.lang.Object, java.lang.Exception)
 	 */
 	@Override
 	protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
 			Exception ex) {
 		
-		ServletWebRequest webRequest = new ServletWebRequest(request, response);
-		
-		RestErrorResolver resolver = getErrorResolver();
-		
-		RestError error = resolver.resolveError(webRequest, handler, ex);
-		if (error == null) {
-			return null;
-		}
-		
-		ModelAndView mav = null;
-		
+		ModelAndView modelAndView = null;
+		ServletWebRequest webRequest = null;
+		RestError error = null;
 		try {
-			mav = getModelAndView(webRequest, handler, error);
+			
+			logException(ex);
+			
+			webRequest = new ServletWebRequest(request, response);
+			
+			error = errorResolver.resolveError(webRequest, handler, ex);
+			if (error == null) {
+				return new ModelAndView();
+			}
+			
+			modelAndView = getModelAndView(webRequest, error);
+			
 		} catch (Exception invocationEx) {
-			LOGGER.error("Acquiring ModelAndView for Exception [" + ex + "] resulted in an exception.", invocationEx);
+			LOGGER.error("Error resolving ModelAndView for Exception [" + ex + "]", invocationEx);
+			error = null;
+			modelAndView = new ModelAndView();
+		} finally {
+			setHeaderStatus(webRequest, error);
 		}
-		
-		// TODO Review logging
-		LOGGER.error("", ex);
-		
-		return mav;
+		return modelAndView;
 	}
 	
-	protected ModelAndView getModelAndView(ServletWebRequest webRequest, Object handler, RestError error)
-			throws Exception {
-		
-		applyStatusIfPossible(webRequest, error);
-		
-		Object body = error; // default the error instance in case they don't configure an error converter
-		
-		RestErrorConverter<?> converter = getErrorConverter();
-		if (converter != null) {
-			body = converter.convert(error);
-		}
-		
-		return handleResponseBody(body, webRequest);
-	}
-	
-	private void applyStatusIfPossible(ServletWebRequest webRequest, RestError error) {
+	protected void setHeaderStatus(ServletWebRequest webRequest, RestError error) {
 		if (!WebUtils.isIncludeRequest(webRequest.getRequest())) {
-			webRequest.getResponse().setStatus(error.getStatus().value());
-			webRequest.getResponse().setHeader(ExceptionHandler.STATUS_CODE_HEADER, error.getCode().toString());
+			webRequest.getResponse().setStatus(
+				error != null ? error.getStatus().value() : HttpStatus.INTERNAL_SERVER_ERROR.value());
+			webRequest.getResponse().setHeader(STATUS_CODE_HEADER, error != null ? error.getCode().toString() : "500");
 		}
-		// TODO support response.sendError ?
 	}
 	
-	@SuppressWarnings("unchecked")
-	private ModelAndView handleResponseBody(Object body, ServletWebRequest webRequest) throws ServletException,
-			IOException {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	protected ModelAndView getModelAndView(ServletWebRequest webRequest, RestError error)
+			throws HttpMessageNotWritableException, IOException {
+		
+		Object body = errorConverter.convert(error);
 		
 		HttpInputMessage inputMessage = new ServletServerHttpRequest(webRequest.getRequest());
 		
@@ -217,17 +180,13 @@ public class RestExceptionHandler extends AbstractHandlerExceptionResolver imple
 		
 		Class<?> bodyType = body.getClass();
 		
-		List<HttpMessageConverter<?>> converters = allMessageConverters;
-		
-		if (converters != null) {
-			for (MediaType acceptedMediaType : acceptedMediaTypes) {
-				for (HttpMessageConverter messageConverter : converters) {
-					if (messageConverter.canWrite(bodyType, acceptedMediaType)) {
-						messageConverter.write(body, acceptedMediaType, outputMessage);
-						// return empty model and view to short circuit the iteration and to let
-						// Spring know that we've rendered the view ourselves:
-						return new ModelAndView();
-					}
+		for (MediaType acceptedMediaType : acceptedMediaTypes) {
+			for (HttpMessageConverter messageConverter : messageConverters) {
+				if (messageConverter.canWrite(bodyType, acceptedMediaType)) {
+					messageConverter.write(body, acceptedMediaType, outputMessage);
+					// return empty model and view to short circuit the iteration and to let
+					// Spring know that we've rendered the view ourselves:
+					return new ModelAndView();
 				}
 			}
 		}
@@ -239,23 +198,47 @@ public class RestExceptionHandler extends AbstractHandlerExceptionResolver imple
 		return null;
 	}
 	
-	public void setMessageConverters(HttpMessageConverter<?>[] messageConverters) {
-		this.messageConverters = messageConverters;
+	protected void logException(Exception exception) {
+		
+		if (exception instanceof BusinessException) {
+			handleException((BusinessException)exception);
+		} else if (exception instanceof BadRequestException) {
+			handleException((BadRequestException)exception);
+		} else if (exception instanceof InvalidAuthenticationException) {
+			handleException((InvalidAuthenticationException)exception);
+		} else {
+			handleException(exception);
+		}
+	}
+	
+	protected void handleException(BusinessException businessException) {
+		LOGGER.info("Server Status code: " + businessException.getErrorCode().getStatusCode());
+	}
+	
+	protected void handleException(BadRequestException badRequestException) {
+		LOGGER.warn("No mapping found for HTTP request with [URI '" + badRequestException.getUri() + "', method '"
+				+ badRequestException.getRequestMethod() + "', parameters "
+				+ StylerUtils.style(badRequestException.getUriParameters()) + "] in DispatcherServlet with name '"
+				+ badRequestException.getServletName() + "'");
+	}
+	
+	protected void handleException(InvalidAuthenticationException invalidAuthentificationException) {
+		LOGGER.warn("User NOT authenticated.");
+	}
+	
+	protected void handleException(Exception exception) {
+		LOGGER.error("Unexpected error", exception);
 	}
 	
 	public void setErrorResolver(RestErrorResolver errorResolver) {
 		this.errorResolver = errorResolver;
 	}
 	
-	public RestErrorResolver getErrorResolver() {
-		return errorResolver;
-	}
-	
-	public RestErrorConverter<?> getErrorConverter() {
-		return errorConverter;
-	}
-	
 	public void setErrorConverter(RestErrorConverter<?> errorConverter) {
 		this.errorConverter = errorConverter;
+	}
+	
+	public void setMessageConverters(List<HttpMessageConverter<?>> messageConverters) {
+		this.messageConverters = messageConverters;
 	}
 }

@@ -20,6 +20,9 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
+import com.jdroid.java.exception.BusinessException;
+import com.jdroid.java.exception.ErrorCode;
+import com.jdroid.java.exception.ErrorCodeException;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.exception.InvalidAuthenticationException;
 
@@ -42,11 +45,9 @@ public class DefaultRestErrorResolver implements RestErrorResolver, MessageSourc
 	private MessageSource messageSource;
 	private LocaleResolver localeResolver;
 	
-	private boolean defaultEmptyCodeToStatus;
 	private String defaultDeveloperMessage;
 	
 	public DefaultRestErrorResolver() {
-		defaultEmptyCodeToStatus = true;
 		defaultDeveloperMessage = DEFAULT_EXCEPTION_MESSAGE_VALUE;
 	}
 	
@@ -61,10 +62,6 @@ public class DefaultRestErrorResolver implements RestErrorResolver, MessageSourc
 	
 	public void setExceptionMappingDefinitions(Map<String, String> exceptionMappingDefinitions) {
 		this.exceptionMappingDefinitions = exceptionMappingDefinitions;
-	}
-	
-	public void setDefaultEmptyCodeToStatus(boolean defaultEmptyCodeToStatus) {
-		this.defaultEmptyCodeToStatus = defaultEmptyCodeToStatus;
 	}
 	
 	public void setDefaultDeveloperMessage(String defaultDeveloperMessage) {
@@ -89,6 +86,9 @@ public class DefaultRestErrorResolver implements RestErrorResolver, MessageSourc
 		
 		Map<String, String> exceptionMappings = new LinkedHashMap<String, String>();
 		
+		// 200
+		applyDef(exceptionMappings, BusinessException.class, HttpStatus.OK);
+		
 		// 400
 		applyDef(exceptionMappings, HttpMessageNotReadableException.class, HttpStatus.BAD_REQUEST);
 		applyDef(exceptionMappings, MissingServletRequestParameterException.class, HttpStatus.BAD_REQUEST);
@@ -99,6 +99,7 @@ public class DefaultRestErrorResolver implements RestErrorResolver, MessageSourc
 		applyDef(exceptionMappings, InvalidAuthenticationException.class, HttpStatus.UNAUTHORIZED);
 		
 		// 404
+		applyDef(exceptionMappings, BadRequestException.class, HttpStatus.NOT_FOUND);
 		applyDef(exceptionMappings, NoSuchRequestHandlingMethodException.class, HttpStatus.NOT_FOUND);
 		applyDef(exceptionMappings, "org.hibernate.ObjectNotFoundException", HttpStatus.NOT_FOUND);
 		
@@ -159,10 +160,16 @@ public class DefaultRestErrorResolver implements RestErrorResolver, MessageSourc
 		return template.getStatus().value();
 	}
 	
-	protected int getCode(RestError template, ServletWebRequest request, Exception ex) {
-		int code = template.getCode();
-		if ((code <= 0) && defaultEmptyCodeToStatus) {
-			code = getStatusValue(template, request, ex);
+	protected String getCode(RestError template, ServletWebRequest request, Exception ex) {
+		
+		String code = null;
+		if (ex instanceof ErrorCodeException) {
+			ErrorCode errorCode = ((ErrorCodeException)ex).getErrorCode();
+			code = errorCode != null ? errorCode.getStatusCode() : null;
+		}
+		
+		if (code == null) {
+			code = "500";
 		}
 		return code;
 	}
@@ -316,8 +323,7 @@ public class DefaultRestErrorResolver implements RestErrorResolver, MessageSourc
 					builder.setStatus(statusCode);
 					statusSet = true;
 				} else if ("code".equalsIgnoreCase(pairKey)) {
-					int code = getRequiredInt(pairKey, pairValue);
-					builder.setCode(code);
+					builder.setCode(pairValue);
 					codeSet = true;
 				} else if ("msg".equalsIgnoreCase(pairKey)) {
 					builder.setMessage(pairValue);
@@ -338,12 +344,9 @@ public class DefaultRestErrorResolver implements RestErrorResolver, MessageSourc
 					}
 				}
 				if (!codeSet) {
-					val = getInt("code", trimmedVal);
-					if (val > 0) {
-						builder.setCode(val);
-						codeSet = true;
-						continue;
-					}
+					builder.setCode(trimmedVal);
+					codeSet = true;
+					continue;
 				}
 				if (!msgSet) {
 					builder.setMessage(trimmedVal);

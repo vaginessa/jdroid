@@ -44,11 +44,6 @@ import org.springframework.http.HttpStatus;
  * <td>restError.{@link RestError#getDeveloperMessage() getDeveloperMessage()}</td>
  * <td>Only set if {@code developerMessage != null}</td>
  * </tr>
- * <tr>
- * <td>moreInfo</td>
- * <td>restError.{@link RestError#getMoreInfoUrl() getMoreInfoUrl()}</td>
- * <td>Only set if {@code moreInfoUrl != null}</td>
- * </tr>
  * </table>
  * <p/>
  * The map key names are customizable via setter methods (setStatusKey, setMessageKey, etc).
@@ -67,14 +62,17 @@ public class MapRestErrorConverter implements RestErrorConverter<Map<String, Obj
 	private String messageKey = DEFAULT_MESSAGE_KEY;
 	private String developerMessageKey = DEFAULT_DEVELOPER_MESSAGE_KEY;
 	
+	/**
+	 * @see com.jdroid.javaweb.controller.exception.RestErrorConverter#convert(com.jdroid.javaweb.controller.exception.RestError)
+	 */
 	@Override
 	public Map<String, Object> convert(RestError re) {
 		Map<String, Object> m = createMap();
 		HttpStatus status = re.getStatus();
 		m.put(getStatusKey(), status.value());
 		
-		int code = re.getCode();
-		if (code > 0) {
+		String code = re.getCode();
+		if (code != null) {
 			m.put(getCodeKey(), code);
 		}
 		

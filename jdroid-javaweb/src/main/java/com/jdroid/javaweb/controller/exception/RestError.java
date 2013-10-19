@@ -9,12 +9,12 @@ import org.springframework.util.ObjectUtils;
 public class RestError {
 	
 	private HttpStatus status;
-	private Integer code;
+	private String code;
 	private String message;
 	private String developerMessage;
 	private Throwable throwable;
 	
-	public RestError(HttpStatus status, int code, String message, String developerMessage, Throwable throwable) {
+	public RestError(HttpStatus status, String code, String message, String developerMessage, Throwable throwable) {
 		if (status == null) {
 			throw new NullPointerException("HttpStatus argument cannot be null.");
 		}
@@ -29,7 +29,7 @@ public class RestError {
 		return status;
 	}
 	
-	public Integer getCode() {
+	public String getCode() {
 		return code;
 	}
 	
@@ -68,17 +68,19 @@ public class RestError {
 				getThrowable() });
 	}
 	
+	/**
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		// noinspection StringBufferReplaceableByString
-		return new StringBuilder().append(getStatus().value()).append(" (").append(getStatus().getReasonPhrase()).append(
-			" )").toString();
+		return "RestError [status=" + status + ", code=" + code + ", message=" + message + ", developerMessage="
+				+ developerMessage + ", throwable=" + throwable + "]";
 	}
 	
 	public static class Builder {
 		
 		private HttpStatus status;
-		private int code;
+		private String code;
 		private String message;
 		private String developerMessage;
 		private Throwable throwable;
@@ -93,7 +95,7 @@ public class RestError {
 			return this;
 		}
 		
-		public Builder setCode(int code) {
+		public Builder setCode(String code) {
 			this.code = code;
 			return this;
 		}
@@ -120,4 +122,5 @@ public class RestError {
 			return new RestError(status, code, message, developerMessage, throwable);
 		}
 	}
+	
 }
