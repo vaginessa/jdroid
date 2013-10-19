@@ -1,4 +1,4 @@
-package com.jdroid.javaweb.controller;
+package com.jdroid.javaweb.api;
 
 import java.util.Map;
 import com.jdroid.java.marshaller.MarshallerMode;

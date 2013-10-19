@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.util.UrlPathHelper;
-import com.jdroid.javaweb.controller.exception.BadRequestException;
+import com.jdroid.javaweb.api.BadRequestException;
 
 /**
  * 
