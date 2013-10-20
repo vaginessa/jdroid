@@ -1,4 +1,4 @@
-package com.jdroid.sample.server.controller.push;
+package com.jdroid.sample.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ import com.jdroid.javaweb.push.gcm.DefaultGcmMessage;
  * @author Maxi Rosson
  */
 @Controller
-@RequestMapping("/api/gcm")
+@RequestMapping("/gcm")
 public class GcmController {
 	
 	@Autowired

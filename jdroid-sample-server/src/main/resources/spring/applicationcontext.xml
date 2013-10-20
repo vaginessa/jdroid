@@ -35,7 +35,7 @@
 	</bean>
 
 	<context:annotation-config />
-	<context:component-scan base-package="com.jdroid.sample.server.controller" />
+	<context:component-scan base-package="com.jdroid.sample.api" />
 	<context:component-scan base-package="com.jdroid.javaweb.push" />
 
 </beans>

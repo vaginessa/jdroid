@@ -1,4 +1,4 @@
-package com.jdroid.sample.server.controller.push;
+package com.jdroid.sample.api.admin.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
