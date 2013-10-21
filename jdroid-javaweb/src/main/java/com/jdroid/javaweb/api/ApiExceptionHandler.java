@@ -6,25 +6,31 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.core.style.StylerUtils;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.http.server.ServletServerHttpResponse;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
+import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 import org.springframework.web.util.WebUtils;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.BusinessException;
 import com.jdroid.java.utils.LoggerUtils;
+import com.jdroid.javaweb.exception.CommonErrorCode;
 import com.jdroid.javaweb.exception.InvalidAuthenticationException;
 
 /**
@@ -123,6 +129,16 @@ public class ApiExceptionHandler extends AbstractHandlerExceptionResolver {
 				error = handleException((BadRequestException)exception);
 			} else if (exception instanceof InvalidAuthenticationException) {
 				error = handleException((InvalidAuthenticationException)exception);
+			} else if (exception instanceof TypeMismatchException) {
+				error = handleException((TypeMismatchException)exception);
+			} else if (exception instanceof HttpMessageNotReadableException) {
+				error = handleException((HttpMessageNotReadableException)exception);
+			} else if (exception instanceof MissingServletRequestParameterException) {
+				error = handleException((MissingServletRequestParameterException)exception);
+			} else if (exception instanceof NoSuchRequestHandlingMethodException) {
+				error = handleException((NoSuchRequestHandlingMethodException)exception);
+			} else if (exception instanceof HttpRequestMethodNotSupportedException) {
+				error = handleException((HttpRequestMethodNotSupportedException)exception);
 			} else {
 				error = handleException(exception);
 			}
@@ -137,23 +153,6 @@ public class ApiExceptionHandler extends AbstractHandlerExceptionResolver {
 		}
 		return modelAndView;
 	}
-	
-	// TODO Add support to handle these exceptions
-	// // 400
-	// applyDef(exceptionMappings, HttpMessageNotReadableException.class, HttpStatus.BAD_REQUEST);
-	// applyDef(exceptionMappings, MissingServletRequestParameterException.class, HttpStatus.BAD_REQUEST);
-	// applyDef(exceptionMappings, TypeMismatchException.class, HttpStatus.BAD_REQUEST);
-	// applyDef(exceptionMappings, "javax.validation.ValidationException", HttpStatus.BAD_REQUEST);
-	// // 404
-	// applyDef(exceptionMappings, BadRequestException.class, HttpStatus.NOT_FOUND);
-	// applyDef(exceptionMappings, NoSuchRequestHandlingMethodException.class, HttpStatus.NOT_FOUND);
-	// applyDef(exceptionMappings, "org.hibernate.ObjectNotFoundException", HttpStatus.NOT_FOUND);
-	// // 405
-	// applyDef(exceptionMappings, HttpRequestMethodNotSupportedException.class, HttpStatus.METHOD_NOT_ALLOWED);
-	// // 406
-	// applyDef(exceptionMappings, HttpMediaTypeNotAcceptableException.class, HttpStatus.NOT_ACCEPTABLE);
-	// // 415
-	// applyDef(exceptionMappings, HttpMediaTypeNotSupportedException.class, HttpStatus.UNSUPPORTED_MEDIA_TYPE);
 	
 	protected void setHeaderStatus(ServletWebRequest webRequest, ApiError error) {
 		if (!WebUtils.isIncludeRequest(webRequest.getRequest())) {
@@ -211,7 +210,35 @@ public class ApiExceptionHandler extends AbstractHandlerExceptionResolver {
 				+ badRequestException.getRequestMethod() + "', parameters "
 				+ StylerUtils.style(badRequestException.getUriParameters()) + "] in DispatcherServlet with name '"
 				+ badRequestException.getServletName() + "'");
-		return new ApiError(HttpStatus.BAD_REQUEST, badRequestException.getErrorCode().getStatusCode());
+		return new ApiError(HttpStatus.BAD_REQUEST, badRequestException.getErrorCode().getStatusCode(),
+				badRequestException.getMessage());
+	}
+	
+	protected ApiError handleException(TypeMismatchException typeMismatchException) {
+		LOGGER.warn(typeMismatchException.getMessage());
+		return new ApiError(HttpStatus.BAD_REQUEST, CommonErrorCode.BAD_REQUEST.getStatusCode(),
+				typeMismatchException.getMessage());
+	}
+	
+	protected ApiError handleException(HttpMessageNotReadableException httpMessageNotReadableException) {
+		return handleBadRequest(httpMessageNotReadableException);
+	}
+	
+	protected ApiError handleException(MissingServletRequestParameterException missingServletRequestParameterException) {
+		return handleBadRequest(missingServletRequestParameterException);
+	}
+	
+	protected ApiError handleException(NoSuchRequestHandlingMethodException noSuchRequestHandlingMethodException) {
+		return handleBadRequest(noSuchRequestHandlingMethodException);
+	}
+	
+	protected ApiError handleException(HttpRequestMethodNotSupportedException httpRequestMethodNotSupportedException) {
+		return handleBadRequest(httpRequestMethodNotSupportedException);
+	}
+	
+	private ApiError handleBadRequest(Exception exception) {
+		LOGGER.warn(exception.getMessage());
+		return new ApiError(HttpStatus.BAD_REQUEST, CommonErrorCode.BAD_REQUEST.getStatusCode(), exception.getMessage());
 	}
 	
 	protected ApiError handleException(InvalidAuthenticationException invalidAuthentificationException) {
