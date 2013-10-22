@@ -4,9 +4,9 @@ import org.slf4j.Logger;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import android.os.PowerManager;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.service.WorkerService;
 import com.jdroid.java.utils.LoggerUtils;
 
 /**
@@ -22,15 +22,9 @@ import com.jdroid.java.utils.LoggerUtils;
  * &lt;uses-permission android:name="android.permission.GET_ACCOUNTS" />
  * </pre>
  */
-public class GcmService extends IntentService {
+public class GcmService extends WorkerService {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(GcmService.class);
-	
-	// wakelock
-	private static PowerManager.WakeLock sWakeLock;
-	
-	// Java lock used to synchronize access to sWakelock
-	private static final Object LOCK = GcmService.class;
 	
 	/**
 	 * Constructor that does not set a sender id, useful when the sender id is context-specific.
@@ -58,6 +52,7 @@ public class GcmService extends IntentService {
 	 * @param context application's context.
 	 */
 	protected void onDeletedMessages(Context context, Intent intent) {
+		LOGGER.warn("onDeletedMessages");
 	}
 	
 	/**
@@ -65,42 +60,30 @@ public class GcmService extends IntentService {
 	 * @param context application's context.
 	 */
 	protected void onError(Context context, Intent intent) {
+		LOGGER.warn("onError");
 	}
 	
+	/**
+	 * @see com.despegar.commons.service.WorkerService#doExecute(android.content.Intent)
+	 */
 	@Override
-	public final void onHandleIntent(Intent intent) {
-		try {
-			Context context = getApplicationContext();
-			
-			GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(context);
-			String messageType = gcm.getMessageType(intent);
-			
-			if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
-				onError(context, intent);
-				LOGGER.trace("Send error");
-			} else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
-				LOGGER.trace("Received deleted messages");
-				onDeletedMessages(context, intent);
-			} else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
-				LOGGER.trace("Received message");
-				onMessage(context, intent);
-			}
-			
-		} finally {
-			// Release the power lock, so phone can get back to sleep.
-			// The lock is reference-counted by default, so multiple
-			// messages are ok.
-			
-			// If onMessage() needs to spawn a thread or do something else,
-			// it should use its own lock.
-			synchronized (LOCK) {
-				// sanity check for null as this is a public method
-				if (sWakeLock != null) {
-					LOGGER.trace("Releasing wakelock");
-					sWakeLock.release();
-				}
-			}
+	protected void doExecute(Intent intent) {
+		Context context = getApplicationContext();
+		
+		GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(context);
+		String messageType = gcm.getMessageType(intent);
+		
+		if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
+			onError(context, intent);
+			LOGGER.trace("Send error");
+		} else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
+			LOGGER.trace("Received deleted messages");
+			onDeletedMessages(context, intent);
+		} else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
+			LOGGER.trace("Received message");
+			onMessage(context, intent);
 		}
+		
 	}
 	
 	/**
@@ -108,19 +91,10 @@ public class GcmService extends IntentService {
 	 * <p>
 	 * Will process the received intent, call handleMessage(), registered(), etc. in background threads, with a wake
 	 * lock, while keeping the service alive.
+	 * 
+	 * @param intent
 	 */
-	static void runIntentInService(Context context, Intent intent, String className) {
-		synchronized (LOCK) {
-			if (sWakeLock == null) {
-				// This is called from BroadcastReceiver, there is no init.
-				PowerManager pm = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
-				sWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, GcmService.class.getSimpleName());
-			}
-		}
-		LOGGER.trace("Acquiring wakelock");
-		sWakeLock.acquire();
-		intent.setClassName(context, className);
-		context.startService(intent);
+	public static void start(Intent intent) {
+		WorkerService.runIntentInService(AbstractApplication.get(), intent, GcmService.class, true);
 	}
-	
 }

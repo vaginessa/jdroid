@@ -12,11 +12,6 @@
 		</param-value>
 	</context-param>
 
-	<context-param>
-		<param-name>resteasy.providers</param-name>
-		<param-value>com.jdroid.javaweb.exception.ExceptionHandler</param-value>
-	</context-param>
-
 	<filter>
 		<filter-name>Log4j Filter</filter-name>
 		<filter-class>com.jdroid.javaweb.filter.Log4jFilter</filter-class>
@@ -32,12 +27,7 @@
 	</listener>
 
 	<listener>
-		<listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
-	</listener>
-
-	<!-- Any beans annotated with JAX-RS are automatically loaded (@Path...) -->
-	<listener>
-		<listener-class>org.jboss.resteasy.plugins.spring.SpringContextLoaderListener</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
 	<listener>
@@ -45,12 +35,13 @@
 	</listener>
 
 	<servlet>
-		<servlet-name>Resteasy</servlet-name>
-		<servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
+		<servlet-name>api</servlet-name>
+		<servlet-class>com.jdroid.javaweb.spring.ApiDispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>Resteasy</servlet-name>
+		<servlet-name>api</servlet-name>
 		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
 

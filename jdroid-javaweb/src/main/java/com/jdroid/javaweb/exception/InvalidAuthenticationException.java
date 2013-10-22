@@ -1,21 +1,11 @@
 package com.jdroid.javaweb.exception;
 
-import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.exception.ErrorCode;
+import com.jdroid.java.exception.ErrorCodeException;
 
-public class InvalidAuthenticationException extends AbstractException {
-	
-	private ErrorCode errorCode;
+public class InvalidAuthenticationException extends ErrorCodeException {
 	
 	public InvalidAuthenticationException(ErrorCode errorCode) {
-		this.errorCode = errorCode;
+		super(errorCode);
 	}
-	
-	/**
-	 * @return the errorCode
-	 */
-	public ErrorCode getErrorCode() {
-		return errorCode;
-	}
-	
 }

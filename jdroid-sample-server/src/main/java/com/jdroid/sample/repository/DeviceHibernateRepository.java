@@ -1,4 +1,4 @@
-package com.jdroid.sample.server.repository;
+package com.jdroid.sample.repository;
 
 import com.jdroid.java.repository.InMemoryRepository;
 import com.jdroid.javaweb.push.Device;

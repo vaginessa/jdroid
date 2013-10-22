@@ -1,23 +1,22 @@
-package com.jdroid.sample.server.controller.push;
+package com.jdroid.sample.api.admin.controller;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import com.jdroid.java.context.GitContext;
+import com.jdroid.java.http.MimeType;
 import com.jdroid.javaweb.context.DefaultApplication;
 
 /**
  * @author Maxi Rosson
  */
-@Path("admin")
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 	
-	@GET
-	@Path("info")
-	@Produces(MediaType.TEXT_PLAIN)
+	@RequestMapping(value = "/info", method = RequestMethod.GET, produces = MimeType.TEXT)
+	@ResponseBody
 	public String getAppInfo() {
 		
 		StringBuilder builder = new StringBuilder();

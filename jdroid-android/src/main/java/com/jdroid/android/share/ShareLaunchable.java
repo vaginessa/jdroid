@@ -48,7 +48,7 @@ public class ShareLaunchable {
 	
 	public static Intent getShareIntent() {
 		Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-		intent.setType(MimeType.TEXT.toString());
+		intent.setType(MimeType.TEXT);
 		intent.addCategory(Intent.CATEGORY_DEFAULT);
 		return intent;
 	}

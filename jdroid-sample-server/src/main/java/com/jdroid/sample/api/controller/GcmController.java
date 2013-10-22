@@ -1,10 +1,10 @@
-package com.jdroid.sample.server.controller.push;
+package com.jdroid.sample.api.controller;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import com.jdroid.java.utils.StringUtils;
 import com.jdroid.javaweb.push.Device;
 import com.jdroid.javaweb.push.DeviceType;
@@ -15,18 +15,16 @@ import com.jdroid.javaweb.push.gcm.DefaultGcmMessage;
 /**
  * @author Maxi Rosson
  */
-@Path("api/gcm")
 @Controller
+@RequestMapping("/gcm")
 public class GcmController {
 	
 	@Autowired
 	private PushService pushService;
 	
-	@GET
-	@Path("/send")
-	public void send(@QueryParam("registrationId") String registrationId,
-			final @QueryParam("messageKeyExtraName") String messageKeyExtraName,
-			final @QueryParam("messageKey") String messageKey, @QueryParam("params") String params) {
+	@RequestMapping(value = "/send", method = RequestMethod.GET)
+	public void send(@RequestParam String registrationId, final @RequestParam String messageKeyExtraName,
+			final @RequestParam String messageKey, @RequestParam String params) {
 		
 		PushMessage pushMessage = new DefaultGcmMessage() {
 			
