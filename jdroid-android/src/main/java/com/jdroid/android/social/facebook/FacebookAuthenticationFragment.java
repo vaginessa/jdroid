@@ -105,10 +105,13 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 					
 					@Override
 					public void run() {
-						if (isConnected) {
-							getFacebookListener().onFacebookConnected(FacebookPreferencesUtils.loadFacebookUser());
-						} else {
-							getFacebookListener().onFacebookDisconnected();
+						FacebookListener facebookListener = getFacebookListener();
+						if (facebookListener != null) {
+							if (isConnected) {
+								facebookListener.onFacebookConnected(FacebookPreferencesUtils.loadFacebookUser());
+							} else {
+								facebookListener.onFacebookDisconnected();
+							}
 						}
 					}
 				});
@@ -207,10 +210,13 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 			
 			@Override
 			public void run() {
-				if (facebookAuthenticationUseCase.isLoginMode()) {
-					getFacebookListener().onFacebookConnected(facebookAuthenticationUseCase.getFacebookUser());
-				} else {
-					getFacebookListener().onFacebookDisconnected();
+				FacebookListener facebookListener = getFacebookListener();
+				if (facebookListener != null) {
+					if (facebookAuthenticationUseCase.isLoginMode()) {
+						getFacebookListener().onFacebookConnected(facebookAuthenticationUseCase.getFacebookUser());
+					} else {
+						getFacebookListener().onFacebookDisconnected();
+					}
 				}
 				dismissLoading();
 			}

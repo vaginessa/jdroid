@@ -19,20 +19,8 @@ public class GcmBroadcastReceiver extends BroadcastReceiver {
 	
 	@Override
 	public final void onReceive(Context context, Intent intent) {
-		
 		LOGGER.trace("onReceive: " + intent.getAction());
-		
-		// Delegates to the application-specific intent service.
-		String className = getGCMIntentServiceClassName(context);
-		GcmService.runIntentInService(context, intent, className);
-		
+		GcmService.start(intent);
 		setResult(Activity.RESULT_OK, null, null);
-	}
-	
-	/**
-	 * Gets the class name of the intent service that will handle GCM messages.
-	 */
-	protected String getGCMIntentServiceClassName(Context context) {
-		return GcmService.class.getName();
 	}
 }

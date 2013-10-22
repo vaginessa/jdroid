@@ -12,10 +12,15 @@ import com.jdroid.android.utils.WakeLockManager;
  */
 public abstract class WorkerService extends IntentService {
 	
+	private static String TAG = WorkerService.class.getSimpleName();
 	private static final String ENABLE_PARTIAL_WAKE_LOCK = "enablePartialWakeLock";
 	
 	public WorkerService() {
-		super(WorkerService.class.getSimpleName());
+		super(TAG);
+	}
+	
+	public WorkerService(String name) {
+		super(name);
 	}
 	
 	/**
