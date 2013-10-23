@@ -11,7 +11,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.context.AbstractSecurityContext;
 import com.jdroid.javaweb.context.DefaultApplication;
-import com.jdroid.javaweb.context.DefaultApplicationContext;
 import com.jdroid.javaweb.domain.Entity;
 
 /**
@@ -22,7 +21,6 @@ public class Log4jFilter extends OncePerRequestFilter {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(Log4jFilter.class);
 	
-	private static final String APP_URL = "appURL";
 	private static final String USER_ID = "userId";
 	private static final String SESSION_ID = "sessionId";
 	
@@ -41,15 +39,6 @@ public class Log4jFilter extends OncePerRequestFilter {
 			MDC.put(USER_ID, user.getId());
 		}
 		
-		DefaultApplicationContext applicationContext = DefaultApplication.get().getDefaultApplicationContext();
-		String appURL = applicationContext.getAppURL();
-		if (appURL == null) {
-			applicationContext.setApplicationURL(request.getRequestURL().toString());
-			appURL = applicationContext.getAppURL();
-		}
-		// Add the app URL to the mapped diagnostic context. May be shown using %X{appURL} in the layout pattern.
-		MDC.put(APP_URL, appURL);
-		
 		// Add the session id to the mapped diagnostic context. May be shown using %X{sessionId} in the layout pattern.
 		MDC.put(SESSION_ID, request.getSession().getId());
 		
@@ -61,7 +50,6 @@ public class Log4jFilter extends OncePerRequestFilter {
 		} finally {
 			// Remove the added elements - only if added.
 			MDC.remove(USER_ID);
-			MDC.remove(APP_URL);
 			MDC.remove(SESSION_ID);
 		}
 	}

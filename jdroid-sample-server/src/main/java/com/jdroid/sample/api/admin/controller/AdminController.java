@@ -24,8 +24,6 @@ public class AdminController {
 		builder.append(DefaultApplication.get().getDefaultApplicationContext().getAppName());
 		builder.append("\nApp Version: ");
 		builder.append(DefaultApplication.get().getDefaultApplicationContext().getAppVersion());
-		builder.append("\nApp URL: ");
-		builder.append(DefaultApplication.get().getDefaultApplicationContext().getAppURL());
 		builder.append("\nCommit Id: ");
 		builder.append(GitContext.get().getCommitId());
 		builder.append("\nCommit Time: ");
