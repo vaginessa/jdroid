@@ -58,6 +58,13 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 		return ((AbstractFragmentActivity)activity).getFragment(FacebookAuthenticationFragment.class);
 	}
 	
+	public static void removeTarget(FragmentActivity activity) {
+		FacebookAuthenticationFragment<?> facebookAuthenticationFragment = FacebookAuthenticationFragment.get(activity);
+		if (facebookAuthenticationFragment != null) {
+			facebookAuthenticationFragment.setTargetFragment(null, 0);
+		}
+	}
+	
 	private FacebookListener getFacebookListener() {
 		return (FacebookListener)getTargetFragment();
 	}
