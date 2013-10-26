@@ -77,6 +77,7 @@ public class FlurryTracker implements AnalyticsTracker {
 			params.put("screenDensity", AndroidUtils.getScreenDensity());
 			params.put("deviceType", AndroidUtils.getDeviceType());
 			params.put("deviceName", AndroidUtils.getDeviceName());
+			params.put("smallestWidthDp", AndroidUtils.getSmallestScreenWidthDp().toString());
 			trackEvent("appInstall", params);
 			SharedPreferencesUtils.savePreference(APP_INSTALL_SENT, true);
 		}

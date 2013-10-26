@@ -11,5 +11,4 @@ public interface WizardStep {
 	
 	public Fragment createFragment(Bundle bundle);
 	
-	public void onStepSelected();
 }
