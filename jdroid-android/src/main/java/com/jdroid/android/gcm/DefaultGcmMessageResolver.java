@@ -18,7 +18,7 @@ public abstract class DefaultGcmMessageResolver implements GcmMessageResolver {
 	private final static Logger LOGGER = LoggerUtils.getLogger(DefaultGcmMessageResolver.class);
 	
 	private static final String MESSAGE_KEY_EXTRA = "messageKey";
-	private static final String REQUIRES_AUTHENTICATION_KEY_EXTRA = "requiresAuthenticationKey";
+	private static final String USER_ID_KEY = "userIdKey";
 	
 	private List<GcmMessage> gcmMessages;
 	
@@ -40,13 +40,14 @@ public abstract class DefaultGcmMessageResolver implements GcmMessageResolver {
 		for (GcmMessage each : gcmMessages) {
 			if (each.getMessageKey().equalsIgnoreCase(messageKey)) {
 				
-				Boolean requiresAuthenticationKey = NumberUtils.getBoolean(
-					intent.getStringExtra(REQUIRES_AUTHENTICATION_KEY_EXTRA), false);
+				Long userId = NumberUtils.getLong(intent.getStringExtra(USER_ID_KEY));
 				
 				// We should ignore messages received for previously logged users
-				if (requiresAuthenticationKey && !SecurityContext.get().isAuthenticated()) {
-					LOGGER.warn("The GCM message is ignored because it requires to be authenticated");
-					onAuthenticationRequired();
+				if ((userId != null)
+						&& (!SecurityContext.get().isAuthenticated() || !SecurityContext.get().getUser().getId().equals(
+							userId))) {
+					LOGGER.warn("The GCM message is ignored because it was sent to another user: " + userId);
+					onNotAuthenticatedUser(userId);
 					return null;
 				}
 				return each;
@@ -61,5 +62,5 @@ public abstract class DefaultGcmMessageResolver implements GcmMessageResolver {
 		return MESSAGE_KEY_EXTRA;
 	}
 	
-	protected abstract void onAuthenticationRequired();
+	protected abstract void onNotAuthenticatedUser(Long userId);
 }

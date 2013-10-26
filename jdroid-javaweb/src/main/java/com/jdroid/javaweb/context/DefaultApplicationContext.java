@@ -1,6 +1,5 @@
 package com.jdroid.javaweb.context;
 
-import com.jdroid.java.utils.StringUtils;
 
 /**
  * The {@link DefaultApplicationContext}
@@ -8,25 +7,11 @@ import com.jdroid.java.utils.StringUtils;
 public class DefaultApplicationContext {
 	
 	private String appName;
-	private String appURL;
 	private String appVersion;
 	
 	private String googleServerApiKey;
 	private Boolean httpMockEnabled;
 	private Integer httpMockSleepDuration;
-	
-	/**
-	 * @param applicationUrl the application URL
-	 */
-	public void setApplicationURL(String applicationUrl) {
-		if (StringUtils.isNotEmpty(applicationUrl)) {
-			int pos = applicationUrl.indexOf(getAppName());
-			if (pos != -1) {
-				applicationUrl = applicationUrl.substring(0, pos + getAppName().length());
-				appURL = applicationUrl;
-			}
-		}
-	}
 	
 	public String getAppName() {
 		return appName;
@@ -34,20 +19,6 @@ public class DefaultApplicationContext {
 	
 	public void setAppName(String appName) {
 		this.appName = appName;
-	}
-	
-	/**
-	 * @return The application URL
-	 */
-	public String getAppURL() {
-		return appURL;
-	}
-	
-	/**
-	 * @param appURL the appURL to set
-	 */
-	public void setAppURL(String appURL) {
-		this.appURL = appURL;
 	}
 	
 	/**

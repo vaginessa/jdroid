@@ -74,6 +74,13 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 		return ((AbstractFragmentActivity)activity).getFragment(GooglePlusHelperFragment.class);
 	}
 	
+	public static void removeTarget(FragmentActivity activity) {
+		GooglePlusHelperFragment googlePlusHelperFragment = GooglePlusHelperFragment.get(activity);
+		if (googlePlusHelperFragment != null) {
+			googlePlusHelperFragment.setTargetFragment(null, 0);
+		}
+	}
+	
 	private PlusClient plusClient;
 	private ConnectionResult connectionResult;
 	private GooglePlusAuthenticationUseCase googlePlusAuthenticationUseCase;

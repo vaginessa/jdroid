@@ -10,6 +10,7 @@ import android.widget.Button;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.view.CustomViewPager;
 
 /**
  * 
@@ -17,7 +18,7 @@ import com.jdroid.android.utils.AndroidUtils;
  */
 public abstract class WizardActivity extends AbstractFragmentActivity {
 	
-	private ViewPager pager;
+	private CustomViewPager pager;
 	private Button leftButton;
 	private Button rightButton;
 	
@@ -47,8 +48,6 @@ public abstract class WizardActivity extends AbstractFragmentActivity {
 			@Override
 			public void onPageSelected(int position) {
 				updateBottomBar();
-				WizardStep wizardStep = getWizardSteps().get(position);
-				wizardStep.onStepSelected();
 			}
 		});
 		
@@ -94,6 +93,26 @@ public abstract class WizardActivity extends AbstractFragmentActivity {
 	
 	protected int getFinishStringResId() {
 		return R.string.finish;
+	}
+	
+	public void enableLeft() {
+		leftButton.setEnabled(true);
+		pager.setPagingEnabled(true);
+	}
+	
+	public void disableLeft() {
+		leftButton.setEnabled(false);
+		pager.setPagingEnabled(false);
+	}
+	
+	public void enableRight() {
+		rightButton.setEnabled(true);
+		pager.setPagingEnabled(true);
+	}
+	
+	public void disableRight() {
+		rightButton.setEnabled(false);
+		pager.setPagingEnabled(false);
 	}
 	
 	public WizardStep getCurrentWizardStep() {

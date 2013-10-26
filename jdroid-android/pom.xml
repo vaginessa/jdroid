@@ -116,7 +116,7 @@
 		<dependency>
 			<groupId>android.crittercism</groupId>
 			<artifactId>crittercism-sdk</artifactId>
-			<version>4.0.2</version>
+			<version>4.2.0</version>
 		</dependency>
 
 		<!-- Robolectric -->

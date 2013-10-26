@@ -237,40 +237,31 @@ public class AndroidUtils {
 			Configuration config = AbstractApplication.get().getResources().getConfiguration();
 			return config.smallestScreenWidthDp;
 		} else {
-			return null;
+			DisplayMetrics metrics = new DisplayMetrics();
+			getWindowManager().getDefaultDisplay().getMetrics(metrics);
+			
+			float dp = metrics.density;
+			float minpx = Math.min(metrics.heightPixels, metrics.widthPixels);
+			return (int)(minpx / dp);
 		}
 	}
 	
 	public static Boolean is10InchesOrBigger() {
-		Integer smallestScreenWidthDp = AndroidUtils.getSmallestScreenWidthDp();
-		if (smallestScreenWidthDp != null) {
-			return smallestScreenWidthDp >= 720;
-		}
-		return null;
+		return AndroidUtils.getSmallestScreenWidthDp() >= 720;
 	}
 	
 	public static Boolean isBetween7And10Inches() {
 		Integer smallestScreenWidthDp = AndroidUtils.getSmallestScreenWidthDp();
-		if (smallestScreenWidthDp != null) {
-			return (smallestScreenWidthDp >= 600) && (smallestScreenWidthDp < 720);
-		}
-		return null;
+		return (smallestScreenWidthDp >= 600) && (smallestScreenWidthDp < 720);
 	}
 	
 	public static String getDeviceType() {
-		Integer smallestScreenWidthDp = AndroidUtils.getSmallestScreenWidthDp();
-		if (smallestScreenWidthDp != null) {
-			if (AndroidUtils.is10InchesOrBigger()) {
-				return "10\" tablet";
-			} else if (AndroidUtils.isBetween7And10Inches()) {
-				return "7\" tablet";
-			} else {
-				return "phone";
-			}
-		} else if (AndroidUtils.isSmallScreen() || AndroidUtils.isNormalScreen()) {
-			return "phone";
+		if (AndroidUtils.is10InchesOrBigger()) {
+			return "10\" tablet";
+		} else if (AndroidUtils.isBetween7And10Inches()) {
+			return "7\" tablet";
 		} else {
-			return "unknown";
+			return "phone";
 		}
 	}
 	
