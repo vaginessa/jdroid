@@ -18,11 +18,6 @@ jdroid-android/target/
 jdroid-android/tmp/
 jdroid-android/.settings/org.maven.ide.eclipse.prefs
 
-jdroid-android-leftnavbar/bin/
-jdroid-android-leftnavbar/gen/
-jdroid-android-leftnavbar/target/
-jdroid-android-leftnavbar/.settings/org.maven.ide.eclipse.prefs
-
 jdroid-sample-server/bin/
 jdroid-sample-server/target/
 jdroid-sample-server/test-output/

@@ -61,11 +61,6 @@ Library project for Android apps. Support for Android 3.2 and higher versions
  * Fade in / Fade out
 * Utilities for Alarms, Bitmaps, Notifications, Shared Preferences, Toasts, Sounds, GPS, and more
 
-jdroid Android Left Nav Bar
---------------
-Library project for android apps. Support for Android 3.2 and higher versions
-* Google TV Left Nav Bar implementation
-
 jdroid sample server
 --------------
 Sample server app using jdroid Java Web & jdroid Java

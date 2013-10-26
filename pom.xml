@@ -12,7 +12,6 @@
 		<module>jdroid-java</module>
 		<module>jdroid-javaweb</module>
 		<module>jdroid-android</module>
-		<module>jdroid-android-leftnavbar</module>
     </modules>
 	
 	<properties>
