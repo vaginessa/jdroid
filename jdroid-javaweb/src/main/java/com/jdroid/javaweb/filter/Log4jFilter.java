@@ -43,8 +43,8 @@ public class Log4jFilter extends OncePerRequestFilter {
 		MDC.put(SESSION_ID, request.getSession().getId());
 		
 		String queryString = request.getQueryString();
-		LOGGER.info(request.getMethod()
-				+ (queryString != null ? " " + request.getRequestURI() + "?" + request.getQueryString() : ""));
+		LOGGER.info(request.getMethod() + " " + request.getRequestURI()
+				+ (queryString != null ? "?" + request.getQueryString() : ""));
 		
 		try {
 			// Continue processing the rest of the filter chain.
