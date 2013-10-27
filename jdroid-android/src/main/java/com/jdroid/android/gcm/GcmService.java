@@ -64,7 +64,7 @@ public class GcmService extends WorkerService {
 	}
 	
 	/**
-	 * @see com.despegar.commons.service.WorkerService#doExecute(android.content.Intent)
+	 * @see com.jdroid.android.service.WorkerService#doExecute(android.content.Intent)
 	 */
 	@Override
 	protected void doExecute(Intent intent) {
