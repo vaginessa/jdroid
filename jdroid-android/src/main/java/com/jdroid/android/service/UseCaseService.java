@@ -14,7 +14,7 @@ public class UseCaseService extends WorkerService {
 	private final static String USE_CASE = "useCase";
 	
 	/**
-	 * @see com.despegar.commons.service.WorkerService#doExecute(android.content.Intent)
+	 * @see com.jdroid.android.service.WorkerService#doExecute(android.content.Intent)
 	 */
 	@Override
 	protected void doExecute(Intent intent) {

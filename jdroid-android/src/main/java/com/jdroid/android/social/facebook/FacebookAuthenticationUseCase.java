@@ -17,7 +17,7 @@ public class FacebookAuthenticationUseCase extends DefaultAbstractUseCase {
 	private Boolean loginMode = true;
 	
 	/**
-	 * @see com.despegar.commons.android.usecase.DefaultAbstractUseCase#doExecute()
+	 * @see com.jdroid.android.usecase.AbstractUseCase#doExecute()
 	 */
 	@Override
 	protected void doExecute() {
