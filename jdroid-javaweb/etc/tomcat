@@ -71,6 +71,8 @@ if [ -z "$JAVA_OPTS" ]; then
         JAVA_OPTS="-Djava.awt.headless=true -XX:+UseConcMarkSweepGC -server -Xms628m -Xmx628m -Duser.timezone=GMT -XX:PermSize=128m -XX:MaxPermSize=256m -Duser.language=en"
 fi
 
+JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8"
+
 if [ ! -f "$CATALINA_HOME/bin/bootstrap.jar" ]; then
         log_failure_msg "$NAME is not installed"
         exit 1
@@ -117,6 +119,7 @@ catalina_sh() {
                 CATALINA_HOME=\"$CATALINA_HOME\"; \
                 CATALINA_BASE=\"$CATALINA_BASE\"; \
                 JAVA_OPTS=\"$JAVA_OPTS\"; \
+                JAVA_TOOL_OPTIONS=\"$JAVA_TOOL_OPTIONS\"; \
                 CATALINA_PID=\"$CATALINA_PID\"; \
                 CATALINA_TMPDIR=\"$CATALINA_TMPDIR\"; \
                 LANG=\"$LANG\"; JSSE_HOME=\"$JSSE_HOME\"; \
