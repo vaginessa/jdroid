@@ -194,7 +194,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 		}
 	}
 	
-	private Boolean shouldConnectOnServer(Person me) {
+	protected Boolean shouldConnectOnServer(Person me) {
 		if ((me == null) || (googlePlusAuthenticationUseCase == null)) {
 			return false;
 		} else {
@@ -205,7 +205,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 		}
 	}
 	
-	private Boolean shouldDisconnectOnServer() {
+	protected Boolean shouldDisconnectOnServer() {
 		return (googlePlusAuthenticationUseCase != null)
 				&& !(googlePlusAuthenticationUseCase.isFinishSuccessful() && !googlePlusAuthenticationUseCase.isLoginMode());
 	}
