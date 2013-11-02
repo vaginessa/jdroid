@@ -74,6 +74,8 @@ public interface Repository<T extends Identifiable> {
 	 */
 	public Boolean isEmpty();
 	
+	public Long getSize();
+	
 	/**
 	 * Replaces all the {@link Identifiable}s in the repository by new ones.
 	 * 

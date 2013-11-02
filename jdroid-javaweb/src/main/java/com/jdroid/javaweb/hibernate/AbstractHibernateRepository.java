@@ -314,6 +314,14 @@ public class AbstractHibernateRepository<T extends Entity> extends HibernateDaoS
 	 */
 	@Override
 	public Boolean isEmpty() {
-		return size(createDetachedCriteria()).equals(0);
+		return getSize().equals(0);
+	}
+	
+	/**
+	 * @see com.jdroid.java.repository.Repository#getSize()
+	 */
+	@Override
+	public Long getSize() {
+		return size(createDetachedCriteria());
 	}
 }
