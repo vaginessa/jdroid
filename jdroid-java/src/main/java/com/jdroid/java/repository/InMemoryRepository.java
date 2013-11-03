@@ -111,4 +111,12 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 	public Boolean isEmpty() {
 		return items.isEmpty();
 	}
+	
+	/**
+	 * @see com.jdroid.java.repository.Repository#getSize()
+	 */
+	@Override
+	public Long getSize() {
+		return (long)items.size();
+	}
 }

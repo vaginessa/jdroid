@@ -1,6 +1,5 @@
 package com.jdroid.javaweb.context;
 
-
 /**
  * The {@link DefaultApplicationContext}
  */
@@ -10,6 +9,8 @@ public class DefaultApplicationContext {
 	private String appVersion;
 	
 	private String googleServerApiKey;
+	private String adminToken;
+	
 	private Boolean httpMockEnabled;
 	private Integer httpMockSleepDuration;
 	
@@ -60,5 +61,19 @@ public class DefaultApplicationContext {
 	
 	public void setGoogleServerApiKey(String googleServerApiKey) {
 		this.googleServerApiKey = googleServerApiKey;
+	}
+	
+	/**
+	 * @return the adminToken
+	 */
+	public String getAdminToken() {
+		return adminToken;
+	}
+	
+	/**
+	 * @param adminToken the adminToken to set
+	 */
+	public void setAdminToken(String adminToken) {
+		this.adminToken = adminToken;
 	}
 }
