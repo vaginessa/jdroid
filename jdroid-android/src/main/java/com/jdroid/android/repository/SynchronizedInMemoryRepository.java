@@ -2,6 +2,7 @@ package com.jdroid.android.repository;
 
 import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.repository.InMemoryRepository;
+import com.jdroid.java.utils.DateUtils;
 
 /**
  * 
@@ -12,7 +13,7 @@ public class SynchronizedInMemoryRepository<T extends Identifiable> extends InMe
 		SynchronizedRepository<T> {
 	
 	// Default Refresh frequency (in milliseconds)
-	private static final Long DEFAULT_REFRESH_FREQUENCY = 5 * 60000L; // 5 min
+	private static final Long DEFAULT_REFRESH_FREQUENCY = 5 * DateUtils.MILLIS_PER_MINUTE; // 5 min
 	
 	private Long lastUpdateTimestamp;
 	

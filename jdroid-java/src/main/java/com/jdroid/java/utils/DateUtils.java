@@ -17,16 +17,16 @@ import com.jdroid.java.exception.UnexpectedException;
 public abstract class DateUtils {
 	
 	/** Seconds in a minute */
-	public static final int MINUTE = 60;
+	public static final int SECONDS_PER_MINUTE = 60;
 	
 	/** Seconds in an hour */
-	public static final int HOUR = MINUTE * 60;
+	public static final int SECONDS_PER_HOUR = SECONDS_PER_MINUTE * 60;
 	
 	/** Seconds in a day */
-	public static final int DAY = HOUR * 24;
+	public static final int SECONDS_PER_DAY = SECONDS_PER_HOUR * 24;
 	
 	/** Seconds in a week */
-	public static final int WEEK = DAY * 7;
+	public static final int WEEK = SECONDS_PER_DAY * 7;
 	
 	/** Number of milliseconds in a standard second. */
 	public static final long MILLIS_PER_SECOND = 1000;
