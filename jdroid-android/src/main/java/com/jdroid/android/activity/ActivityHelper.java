@@ -124,6 +124,14 @@ public class ActivityHelper implements ActivityIf {
 		
 		AbstractApplication.get().initExceptionHandlers();
 		
+		ExecutorUtils.execute(new Runnable() {
+			
+			@Override
+			public void run() {
+				AbstractApplication.get().saveInstallationSource();
+			}
+		});
+		
 		// Action bar
 		ActionBar actionBar = getActivityIf().getActionBar();
 		if (actionBar != null) {
@@ -163,18 +171,6 @@ public class ActivityHelper implements ActivityIf {
 			adLoader.loadAd(activity, (ViewGroup)(activity.findViewById(R.id.adViewContainer)),
 				getActivityIf().getAdSize());
 		}
-		
-		// Analytics
-		ExecutorUtils.execute(new Runnable() {
-			
-			@Override
-			public void run() {
-				AbstractApplication.get().saveInstallationSource();
-				if (AbstractApplication.get().hasAnalyticsSender()) {
-					AbstractApplication.get().getAnalyticsSender().trackAppInstallation();
-				}
-			}
-		});
 	}
 	
 	protected AdLoader createAdLoader() {
@@ -206,7 +202,7 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.trace("Executing onStart on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 		if (AbstractApplication.get().hasAnalyticsSender()) {
-			AbstractApplication.get().getAnalyticsSender().onActivityStart(activity);
+			AbstractApplication.get().getAnalyticsSender().onActivityStart(activity, getOnActivityStartData());
 		}
 		
 		final Long locationFrequency = getLocationFrequency();
@@ -222,6 +218,10 @@ public class ActivityHelper implements ActivityIf {
 			};
 			locationHandler.sendMessage(Message.obtain(locationHandler, LOCATION_UPDATE_TIMER_CODE));
 		}
+	}
+	
+	protected Object getOnActivityStartData() {
+		return null;
 	}
 	
 	/**

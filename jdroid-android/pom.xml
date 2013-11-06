@@ -68,8 +68,8 @@
 		<!-- Flurry Analytics -->
 		<dependency>
 			<groupId>android.analytics</groupId>
-			<artifactId>flurry-analytics-sdk</artifactId>
-			<version>3.2.0</version>
+			<artifactId>flurry-analytic-sdk</artifactId>
+			<version>3.3.0</version>
 		</dependency>
 		
 		<!-- Android Annotations -->

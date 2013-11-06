@@ -16,7 +16,8 @@ import com.jdroid.java.exception.ConnectionException;
  */
 public class FlurryTracker implements AnalyticsTracker {
 	
-	public static final String APP_INSTALL_SENT = "appInstallSent";
+	private static final String FIRST_APPLOAD_SENT = "firstAppLoadSent";
+	private static final String FIRST_APPLOAD = "firstAppLoad";
 	private static final String CONNECTION_EXCEPTION = "connectionException";
 	
 	/**
@@ -44,12 +45,13 @@ public class FlurryTracker implements AnalyticsTracker {
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStart(android.app.Activity)
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStart(android.app.Activity, java.lang.Object)
 	 */
 	@Override
-	public void onActivityStart(Activity activity) {
+	public void onActivityStart(Activity activity, Object data) {
 		FlurryAgent.onStartSession(activity, AbstractApplication.get().getAndroidApplicationContext().getFlurryApiKey());
 		FlurryAgent.setUserId(AbstractApplication.get().getInstallationId());
+		trackFirstAppLoad(data);
 	}
 	
 	/**
@@ -60,27 +62,32 @@ public class FlurryTracker implements AnalyticsTracker {
 		FlurryAgent.onEndSession(activity);
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackAppInstallation()
-	 */
-	@Override
-	public void trackAppInstallation() {
-		Boolean appLoadSent = SharedPreferencesUtils.loadPreferenceAsBoolean(APP_INSTALL_SENT, false);
-		if (!appLoadSent) {
+	protected void trackFirstAppLoad(Object data) {
+		Boolean dataUpdateSent = SharedPreferencesUtils.loadPreferenceAsBoolean(FIRST_APPLOAD_SENT, false);
+		if (!dataUpdateSent) {
 			String installationSource = SharedPreferencesUtils.loadPreference(AbstractApplication.INSTALLATION_SOURCE);
-			Map<String, String> params = Maps.newHashMap();
-			params.put("installationSource", installationSource);
-			Boolean installedOnSdCard = AndroidUtils.isInstalledOnSdCard();
-			params.put("installedOnSdCard", installedOnSdCard.toString());
-			params.put("apiLevel", AndroidUtils.getApiLevel().toString());
-			params.put("screenSize", AndroidUtils.getScreenSize());
-			params.put("screenDensity", AndroidUtils.getScreenDensity());
-			params.put("deviceType", AndroidUtils.getDeviceType());
-			params.put("deviceName", AndroidUtils.getDeviceName());
-			params.put("smallestWidthDp", AndroidUtils.getSmallestScreenWidthDp().toString());
-			trackEvent("appInstall", params);
-			SharedPreferencesUtils.savePreference(APP_INSTALL_SENT, true);
+			if (installationSource != null) {
+				Map<String, String> params = Maps.newHashMap();
+				params.put("installationSource", installationSource);
+				params.put("installedOnSdCard", AndroidUtils.isInstalledOnSdCard().toString());
+				params.put("apiLevel", AndroidUtils.getApiLevel().toString());
+				params.put("screenSize", AndroidUtils.getScreenSize());
+				params.put("screenDensity", AndroidUtils.getScreenDensity());
+				params.put("deviceName", AndroidUtils.getDeviceName());
+				params.put("deviceType", AndroidUtils.getDeviceType());
+				params.put("smallestWidthDp", AndroidUtils.getSmallestScreenWidthDp().toString());
+				Map<String, String> extraParams = getFirstAppLoadExtraParams(data);
+				if (extraParams != null) {
+					params.putAll(extraParams);
+				}
+				trackEvent(FIRST_APPLOAD, params);
+				SharedPreferencesUtils.savePreference(FIRST_APPLOAD_SENT, true);
+			}
 		}
+	}
+	
+	protected Map<String, String> getFirstAppLoadExtraParams(Object data) {
+		return Maps.newHashMap();
 	}
 	
 	protected void trackEvent(String eventId, Map<String, String> params) {

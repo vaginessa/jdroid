@@ -34,10 +34,10 @@ public class GoogleAnalyticsTracker extends DefaultAnalyticsTracker {
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.DefaultAnalyticsTracker#onActivityStart(android.app.Activity)
+	 * @see com.jdroid.android.analytics.DefaultAnalyticsTracker#onActivityStart(android.app.Activity, java.lang.Object)
 	 */
 	@Override
-	public void onActivityStart(Activity activity) {
+	public void onActivityStart(Activity activity, Object data) {
 		EasyTracker.getInstance(activity).activityStart(activity);
 	}
 	

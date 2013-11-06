@@ -16,6 +16,7 @@ import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import com.crittercism.app.Crittercism;
+import com.flurry.sdk.eq;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
@@ -196,6 +197,12 @@ public abstract class AbstractApplication extends Application {
 	public void initExceptionHandlers() {
 		UncaughtExceptionHandler currentExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
 		if ((currentExceptionHandler == null) || !currentExceptionHandler.getClass().equals(getExceptionHandlerClass())) {
+			
+			// If Flurry is enabled, we initialize its exception handler as the first custom exception handler
+			if (applicationContext.isFlurryEnabled()) {
+				eq.a();
+			}
+			
 			initCrittercism(getExceptionHandlerMetadata());
 			Thread.setDefaultUncaughtExceptionHandler(ReflectionUtils.newInstance(getExceptionHandlerClass()));
 			LOGGER.debug("Custom exception handler initialized");

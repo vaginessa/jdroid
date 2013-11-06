@@ -69,29 +69,15 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackAppInstallation()
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStart(android.app.Activity, java.lang.Object)
 	 */
 	@Override
-	public void trackAppInstallation() {
+	public void onActivityStart(final Activity activity, final Object data) {
 		ExecutorUtils.execute(new TrackerRunnable() {
 			
 			@Override
 			protected void track(T tracker) {
-				tracker.trackAppInstallation();
-			}
-		});
-	};
-	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStart(android.app.Activity)
-	 */
-	@Override
-	public void onActivityStart(final Activity activity) {
-		ExecutorUtils.execute(new TrackerRunnable() {
-			
-			@Override
-			protected void track(T tracker) {
-				tracker.onActivityStart(activity);
+				tracker.onActivityStart(activity, data);
 			}
 		});
 	}
