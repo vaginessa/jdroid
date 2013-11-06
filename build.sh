@@ -1,13 +1,11 @@
 #!/bin/sh
 
 BUILD_DIRECTORY=$1
-USER_NAME=$2
-DEPLOY=$3
-BRANCH=$4
-PROJECT_NAME=jdroid
+BRANCH=$2
+BUILD_SAMPLES=$3
+PROFILE=$4
 
-BUILD_SAMPLES=$5
-PROFILE=$6
+PROJECT_NAME=jdroid
 
 # Help
 # ****
@@ -21,11 +19,7 @@ then
         echo ""
         echo " 1) The path to a directory where the code will be checked out and the assemblies would be generated. For example: /home/user/build. Required."
         echo ""
-        echo " 2) The Git user name used to checkout the code. Required."
-        echo ""
-        echo " 3) Whether the assemblies should be deployed or not. Optional. Default value: false"
-        echo ""
-        echo " 4) The branch from where check out the code. Optional. Default value: master"
+        echo " 2) The branch from where check out the code. Optional. Default value: master"
         echo ""
         exit 0
 fi
@@ -44,18 +38,6 @@ then
 	echo "[ERROR] - The BUILD_DIRECTORY directory does not exist."
 	echo "Run the script with '-h' for help"
 	exit 1;
-fi
-
-if [ -z "$USER_NAME" ]
-then
-	echo "[ERROR] The USER_NAME parameter is required"
-        echo "Run the script with '-h' for help"
-        exit 1
-fi
-
-if [ -z "$DEPLOY" ]
-then
-	DEPLOY="false"
 fi
 
 if [ -z "$BRANCH" ]
@@ -97,14 +79,6 @@ fi
 cd $SOURCE_DIRECTORY/$PROJECT_NAME
 
 mvn dependency:resolve clean install -Dmaven.test.skip=true
-
-if [ "$DEPLOY" = "true" ]
-then
-    mvn javadoc:aggregate
-	mvn deploy assembly:single -Dmaven.test.skip=true
-	cp ./target/*.zip $ASSEMBLIES_DIRECTORY/
-fi
-
 
 # Samples Assemblies Generation
 # ************************

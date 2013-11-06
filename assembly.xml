@@ -40,19 +40,5 @@
             </includes>
             <outputDirectory/>
         </fileSet>
-		<fileSet>
-            <directory>jdroid-android-leftnavbar/target</directory>
-            <includes>
-                <include>*.apklib</include>
-            </includes>
-            <outputDirectory/>
-        </fileSet>
-		<fileSet>
-            <directory>jdroid-android-leftnavbar/target</directory>
-            <includes>
-                <include>*-sources.jar</include>
-            </includes>
-            <outputDirectory/>
-        </fileSet>
     </fileSets>
 </assembly>
