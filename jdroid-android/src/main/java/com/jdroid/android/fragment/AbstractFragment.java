@@ -4,7 +4,7 @@ import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import com.google.ads.AdSize;
+import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.activity.ActivityHelper.UseCaseTrigger;
 import com.jdroid.android.context.DefaultApplicationContext;
@@ -94,6 +94,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	 */
 	@Override
 	public void onPause() {
+		fragmentHelper.onBeforePause();
 		super.onPause();
 		fragmentHelper.onPause();
 	}
@@ -121,6 +122,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	 */
 	@Override
 	public void onDestroy() {
+		fragmentHelper.onBeforeDestroy();
 		super.onDestroy();
 		fragmentHelper.onDestroy();
 	}

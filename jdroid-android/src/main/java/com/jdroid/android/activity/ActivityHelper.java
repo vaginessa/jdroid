@@ -21,11 +21,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import com.google.ads.AdSize;
+import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.ActivityLauncher;
 import com.jdroid.android.R;
-import com.jdroid.android.ad.AdLoader;
+import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.context.DefaultApplicationContext;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.debug.DebugSettingsActivity;
@@ -58,6 +58,7 @@ public class ActivityHelper implements ActivityIf {
 	protected Dialog loadingDialog;
 	private Handler locationHandler;
 	private BroadcastReceiver clearTaskBroadcastReceiver;
+	private AdHelper adHelper;
 	
 	/**
 	 * @param activity
@@ -166,15 +167,15 @@ public class ActivityHelper implements ActivityIf {
 		}
 		
 		// Ads
-		AdLoader adLoader = createAdLoader();
-		if (adLoader != null) {
-			adLoader.loadAd(activity, (ViewGroup)(activity.findViewById(R.id.adViewContainer)),
+		adHelper = createAdHelper();
+		if (adHelper != null) {
+			adHelper.loadAd(activity, (ViewGroup)(activity.findViewById(R.id.adViewContainer)),
 				getActivityIf().getAdSize());
 		}
 	}
 	
-	protected AdLoader createAdLoader() {
-		return new AdLoader();
+	protected AdHelper createAdHelper() {
+		return new AdHelper();
 	}
 	
 	/**
@@ -247,6 +248,16 @@ public class ActivityHelper implements ActivityIf {
 				}
 			}
 		}
+		
+		if (adHelper != null) {
+			adHelper.onResume();
+		}
+	}
+	
+	public void onBeforePause() {
+		if (adHelper != null) {
+			adHelper.onPause();
+		}
 	}
 	
 	public void onPause() {
@@ -262,6 +273,12 @@ public class ActivityHelper implements ActivityIf {
 		
 		if (locationHandler != null) {
 			locationHandler.removeCallbacksAndMessages(null);
+		}
+	}
+	
+	public void onBeforeDestroy() {
+		if (adHelper != null) {
+			adHelper.onDestroy();
 		}
 	}
 	

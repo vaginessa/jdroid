@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import com.google.ads.AdSize;
+import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.activity.ActivityHelper.UseCaseTrigger;
 import com.jdroid.android.context.DefaultApplicationContext;
@@ -117,6 +117,7 @@ public abstract class AbstractActivity extends Activity implements ActivityIf {
 	 */
 	@Override
 	protected void onPause() {
+		activityHelper.onBeforePause();
 		super.onPause();
 		activityHelper.onPause();
 	}
@@ -135,6 +136,7 @@ public abstract class AbstractActivity extends Activity implements ActivityIf {
 	 */
 	@Override
 	protected void onDestroy() {
+		activityHelper.onBeforeDestroy();
 		super.onDestroy();
 		activityHelper.onDestroy();
 	}
