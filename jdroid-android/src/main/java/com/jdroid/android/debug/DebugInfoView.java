@@ -45,6 +45,13 @@ public class DebugInfoView extends LinearLayout {
 		TextView screenDensity = (TextView)findViewById(R.id.screenDensity);
 		screenDensity.setText(context.getString(R.string.screenDensity, AndroidUtils.getScreenDensity()));
 		
+		TextView branch = (TextView)findViewById(R.id.branch);
+		if (GitContext.get().getBranch() != null) {
+			branch.setText(context.getString(R.string.branch, GitContext.get().getBranch()));
+		} else {
+			branch.setVisibility(View.GONE);
+		}
+		
 		TextView commitId = (TextView)findViewById(R.id.commitId);
 		if (GitContext.get().getCommitId() != null) {
 			commitId.setText(context.getString(R.string.commitId, GitContext.get().getCommitId()));

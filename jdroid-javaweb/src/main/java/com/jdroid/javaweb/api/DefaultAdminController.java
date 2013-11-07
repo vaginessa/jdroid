@@ -23,9 +23,10 @@ public class DefaultAdminController {
 		Map<String, Object> infoMap = Maps.newLinkedHashMap();
 		infoMap.put("App Name", DefaultApplication.get().getDefaultApplicationContext().getAppName());
 		infoMap.put("App Version", DefaultApplication.get().getDefaultApplicationContext().getAppVersion());
-		infoMap.put("Commit Id", GitContext.get().getCommitId());
-		infoMap.put("Commit Time", GitContext.get().getCommitTime());
-		infoMap.put("Commit Build Time", GitContext.get().getBuildTime());
+		infoMap.put("Git Branch", GitContext.get().getBranch());
+		infoMap.put("Git Commit Id", GitContext.get().getCommitId());
+		infoMap.put("Git Commit Time", GitContext.get().getCommitTime());
+		infoMap.put("Git Commit Build Time", GitContext.get().getBuildTime());
 		infoMap.put("Http Mock Enabled", DefaultApplication.get().getDefaultApplicationContext().isHttpMockEnabled());
 		infoMap.put("Http Mock Sleep Duration",
 			DefaultApplication.get().getDefaultApplicationContext().getHttpMockSleepDuration());

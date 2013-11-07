@@ -22,6 +22,8 @@
 		<TextView android:id="@+id/carrier" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			style="@string/carrier" />
 
+		<TextView android:id="@+id/branch" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/branch" />
 		<TextView android:id="@+id/commitId" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/commitId" />
 		<TextView android:id="@+id/commitTime" android:layout_width="wrap_content" android:layout_height="wrap_content"

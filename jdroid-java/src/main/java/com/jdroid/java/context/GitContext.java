@@ -13,6 +13,7 @@ public class GitContext {
 	private String commitTime;
 	private String buildTime;
 	private String commitId;
+	private String branch;
 	
 	private static GitContext INSTANCE;
 	
@@ -28,6 +29,7 @@ public class GitContext {
 		commitTime = PropertiesUtils.getStringProperty("git.commit.time");
 		buildTime = PropertiesUtils.getStringProperty("git.build.time");
 		commitId = PropertiesUtils.getStringProperty("git.commit.id");
+		branch = PropertiesUtils.getStringProperty("git.branch");
 	}
 	
 	/**
@@ -48,5 +50,9 @@ public class GitContext {
 	
 	public String getCommitId() {
 		return commitId;
+	}
+	
+	public String getBranch() {
+		return branch;
 	}
 }
