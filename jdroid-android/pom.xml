@@ -55,7 +55,7 @@
 		<dependency>
 			<groupId>android</groupId>
 			<artifactId>google-play-services</artifactId>
-			<version>r12</version>
+			<version>r13</version>
 		</dependency>
 
 		<!-- Google Analytics -->
@@ -68,7 +68,7 @@
 		<!-- Flurry Analytics -->
 		<dependency>
 			<groupId>android.analytics</groupId>
-			<artifactId>flurry-analytic-sdk</artifactId>
+			<artifactId>flurry-analytics-sdk</artifactId>
 			<version>3.3.0</version>
 		</dependency>
 		
