@@ -62,7 +62,7 @@
 		<dependency>
 			<groupId>android.analytics</groupId>
 			<artifactId>google-analytics-sdk</artifactId>
-			<version>3.0.0</version>
+			<version>3.01</version>
 		</dependency>
 
 		<!-- Flurry Analytics -->
