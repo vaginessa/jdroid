@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import com.google.ads.AdSize;
+import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.ActivityHelper.UseCaseTrigger;
@@ -123,6 +123,7 @@ public abstract class AbstractFragmentActivity extends FragmentActivity implemen
 	 */
 	@Override
 	protected void onPause() {
+		activityHelper.onBeforePause();
 		super.onPause();
 		activityHelper.onPause();
 	}
@@ -141,6 +142,7 @@ public abstract class AbstractFragmentActivity extends FragmentActivity implemen
 	 */
 	@Override
 	protected void onDestroy() {
+		activityHelper.onBeforeDestroy();
 		super.onDestroy();
 		activityHelper.onDestroy();
 	}

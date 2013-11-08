@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 import com.jdroid.android.R;
-import com.jdroid.android.ad.AdLoader;
+import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -19,6 +19,7 @@ public class FragmentHelper {
 	private final static Logger LOGGER = LoggerUtils.getLogger(FragmentHelper.class);
 	
 	private Fragment fragment;
+	private AdHelper adHelper;
 	
 	public FragmentHelper(Fragment fragment) {
 		this.fragment = fragment;
@@ -40,15 +41,15 @@ public class FragmentHelper {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		LOGGER.trace("Executing onViewCreated on " + fragment);
 		
-		AdLoader adLoader = createAdLoader();
-		if (adLoader != null) {
-			adLoader.loadAd(fragment.getActivity(), (ViewGroup)(fragment.getView().findViewById(R.id.adViewContainer)),
+		adHelper = createAdLoader();
+		if (adHelper != null) {
+			adHelper.loadAd(fragment.getActivity(), (ViewGroup)(fragment.getView().findViewById(R.id.adViewContainer)),
 				getFragmentIf().getAdSize());
 		}
 	}
 	
-	protected AdLoader createAdLoader() {
-		return new AdLoader();
+	protected AdHelper createAdLoader() {
+		return new AdHelper();
 	}
 	
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -61,6 +62,15 @@ public class FragmentHelper {
 	
 	public void onResume() {
 		LOGGER.trace("Executing onResume on " + fragment);
+		if (adHelper != null) {
+			adHelper.onResume();
+		}
+	}
+	
+	public void onBeforePause() {
+		if (adHelper != null) {
+			adHelper.onPause();
+		}
 	}
 	
 	public void onPause() {
@@ -73,6 +83,12 @@ public class FragmentHelper {
 	
 	public void onDestroyView() {
 		LOGGER.trace("Executing onDestroyView on " + fragment);
+	}
+	
+	public void onBeforeDestroy() {
+		if (adHelper != null) {
+			adHelper.onDestroy();
+		}
 	}
 	
 	public void onDestroy() {

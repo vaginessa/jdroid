@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
-import com.google.ads.AdSize;
+import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.R;
 import com.jdroid.android.fragment.AbstractListFragment;
 import com.jdroid.android.fragment.OnItemSelectedListener;

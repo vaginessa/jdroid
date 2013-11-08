@@ -10,18 +10,10 @@ import com.jdroid.java.exception.ConnectionException;
 public abstract class DefaultAnalyticsTracker implements AnalyticsTracker {
 	
 	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackAppInstallation()
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStart(android.app.Activity, java.lang.Object)
 	 */
 	@Override
-	public void trackAppInstallation() {
-		// Do Nothing
-	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStart(android.app.Activity)
-	 */
-	@Override
-	public void onActivityStart(Activity activity) {
+	public void onActivityStart(Activity activity, Object data) {
 		// Do Nothing
 	}
 	

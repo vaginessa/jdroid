@@ -55,7 +55,7 @@
 		<dependency>
 			<groupId>android</groupId>
 			<artifactId>google-play-services</artifactId>
-			<version>r12</version>
+			<version>r13</version>
 		</dependency>
 
 		<!-- Google Analytics -->
@@ -69,7 +69,7 @@
 		<dependency>
 			<groupId>android.analytics</groupId>
 			<artifactId>flurry-analytics-sdk</artifactId>
-			<version>3.2.0</version>
+			<version>3.3.0</version>
 		</dependency>
 		
 		<!-- Android Annotations -->
@@ -77,13 +77,6 @@
 			<groupId>android.compatibility</groupId>
 			<artifactId>annotations</artifactId>
 			<version>1.0.0</version>
-		</dependency>
-
-		<!-- Google AdMob Ads Android SDK -->
-		<dependency>
-			<groupId>android.ads</groupId>
-			<artifactId>google-admob-ads-sdk</artifactId>
-			<version>6.4.1</version>
 		</dependency>
 
 		<!-- Merge Adapter -->
@@ -116,7 +109,7 @@
 		<dependency>
 			<groupId>android.crittercism</groupId>
 			<artifactId>crittercism-sdk</artifactId>
-			<version>4.2.0</version>
+			<version>3.0.11</version>
 		</dependency>
 
 		<!-- Robolectric -->

@@ -175,7 +175,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 			if (appContext.isCrittercismEnabled()) {
 				if (appContext.isCrittercismPremium()) {
 					Crittercism.logHandledException(throwable);
-				} else if (!appContext.isProductionEnvironment()) {
+				} else if (appContext.displayDebugSettings()) {
 					ExceptionReportActivity.reportException(throwable);
 				}
 			}

@@ -46,7 +46,7 @@
 	<distributionManagement>        
 		<repository>            
 			<id>dropbox</id>                        
-			<url>file:///C:/Users/maxi/Documents/My Dropbox/Public/maven-repository</url>                      
+			<url>file:///Users/maxirosson/Dropbox/Public/maven-repository</url>                      
 		</repository>           
 	</distributionManagement>
 	
@@ -57,7 +57,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
+				<version>3.1</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>

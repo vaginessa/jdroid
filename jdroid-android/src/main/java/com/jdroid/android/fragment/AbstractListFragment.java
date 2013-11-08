@@ -10,7 +10,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.google.ads.AdSize;
+import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.ActivityHelper.UseCaseTrigger;
@@ -113,6 +113,7 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 	 */
 	@Override
 	public void onPause() {
+		fragmentHelper.onBeforePause();
 		super.onPause();
 		fragmentHelper.onPause();
 	}
@@ -140,6 +141,7 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 	 */
 	@Override
 	public void onDestroy() {
+		fragmentHelper.onBeforeDestroy();
 		super.onDestroy();
 		fragmentHelper.onDestroy();
 	}

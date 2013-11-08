@@ -1,0 +1,58 @@
+#!/bin/sh
+
+BUILD_DIRECTORY=$1
+OAUTH_TOKEN=$2
+
+PROJECT_NAME=jdroid
+ASSEMBLIES_DIRECTORY=$BUILD_DIRECTORY/$PROJECT_NAME/assemblies
+
+# Build
+# ************************
+sh ./build.sh $BUILD_DIRECTORY
+if [ $? -ne 0 ]
+then
+	exit 1
+fi
+
+# Javadoc Generation
+# ************************
+mvn javadoc:aggregate
+if [ $? -ne 0 ]
+then
+	exit 1
+fi
+
+# Deploy to Maven repository
+# ************************
+mvn deploy assembly:single -Dmaven.test.skip=true
+if [ $? -ne 0 ]
+then
+	exit 1
+fi
+cp ./target/*.zip $ASSEMBLIES_DIRECTORY/
+if [ $? -ne 0 ]
+then
+	exit 1
+fi
+
+# Upload Release on GitHub
+# ************************
+
+REPO_OWNER=maxirosson
+BODY=`cat ./releaseNotes.txt`
+TAG_NAME=`mvn help:evaluate -Dexpression=project.version 2>/dev/null| grep -v "^\["`
+
+curl \
+    -X POST \
+    -H "Authorization: token $OAUTH_TOKEN" \
+    -d@- \
+    "https://api.github.com/repos/$REPO_OWNER/$PROJECT_NAME/releases" <<EOF
+{
+  "tag_name": "$TAG_NAME",
+  "target_commitish": "master",
+  "name": "$TAG_NAME",
+  "draft": false,
+  "prerelease": false,
+  "body": "$BODY"
+}
+EOF

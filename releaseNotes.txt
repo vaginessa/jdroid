@@ -1,0 +1,37 @@
+jdroid Java\n
+-----------\n
+* Utils improvements\n
+* Upgraded dependencies versions\n
+* Bug fixing\n
+\n
+jdroid Java Web\n
+---------------\n
+* GCM improvements\n
+* Migrated from RestEasy to Spring MVC\n
+* Improved api error handling messages\n
+* Added security filter to all admin api services\n
+* Upgraded dependencies versions\n
+* Bug fixing\n
+\n
+jdroid Android\n
+--------------\n
+* Google+ integration\n
+* Added Google +1 button to about dialog\n
+* Analytics sender improvements\n
+* Facebook integration improvements\n
+* Added Flurry Tracker\n
+* Added up navigation support\n
+* Added support to multiple server environments configuration\n
+* Location improvements\n
+* Wizard improvements\n
+* Added cards UI component\n
+* Removed RoboGuice integration\n
+* Removed jdroid-android-leftnavbar\n
+* Changed min api version to 13\n
+* Changed target api version to 19\n
+* Upgraded dependencies versions\n
+* Bug fixing\n
+\n
+jdroid sample server\n
+--------------\n
+* Added jdroid sample server\n

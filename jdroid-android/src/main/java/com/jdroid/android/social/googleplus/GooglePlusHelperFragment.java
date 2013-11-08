@@ -308,7 +308,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	}
 	
 	public void loadPeople() {
-		plusClient.loadVisiblePeople(this, Person.Collection.VISIBLE, null);
+		plusClient.loadVisiblePeople(this, null);
 	}
 	
 	public static void revokeAccess(Context context) {

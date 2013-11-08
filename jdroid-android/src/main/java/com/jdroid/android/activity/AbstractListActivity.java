@@ -13,7 +13,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import com.google.ads.AdSize;
+import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.ActivityHelper.UseCaseTrigger;
@@ -135,6 +135,7 @@ public abstract class AbstractListActivity<T> extends ListActivity implements So
 	 */
 	@Override
 	protected void onPause() {
+		activityHelper.onBeforePause();
 		super.onPause();
 		activityHelper.onPause();
 	}
@@ -153,6 +154,7 @@ public abstract class AbstractListActivity<T> extends ListActivity implements So
 	 */
 	@Override
 	protected void onDestroy() {
+		activityHelper.onBeforeDestroy();
 		super.onDestroy();
 		activityHelper.onDestroy();
 	}
