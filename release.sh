@@ -4,6 +4,7 @@ BUILD_DIRECTORY=$1
 OAUTH_TOKEN=$2
 
 PROJECT_NAME=jdroid
+SOURCE_DIRECTORY=$BUILD_DIRECTORY/$PROJECT_NAME/source
 ASSEMBLIES_DIRECTORY=$BUILD_DIRECTORY/$PROJECT_NAME/assemblies
 
 # Build
@@ -16,6 +17,7 @@ fi
 
 # Javadoc Generation
 # ************************
+cd $SOURCE_DIRECTORY/$PROJECT_NAME
 mvn javadoc:aggregate
 if [ $? -ne 0 ]
 then
