@@ -6,7 +6,7 @@
 	<string name="cancel">Cancel</string>
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
-	<string name="noResults">There are no available results</string>
+	<string name="noResults">There are no results available</string>
 	<string name="featureNotAvailable">This feature is not available yet</string>
 	<string name="zeroPercent">0%</string>
 	<string name="next">Next</string>
@@ -20,24 +20,20 @@
 	<!-- Errors -->
 	<string name="internalError">Oops! We\'re having technical problems. Please try again later.</string>
 	<string name="serverError">Oops! We\'re having technical problems. Please try again later.</string>
-	<string name="connectionError">Please check your internet connection and then try again.
-	</string>
+	<string name="connectionError">Please check your internet connection and try again.</string>
 	<string name="connectionErrorTitle">Connection Error</string>
-	<string name="facebookError">There is a problem connecting to Facebook. Please try again later.</string>
+	<string name="facebookError">There was a problem connecting to Facebook. Please try again later.</string>
 
 	<!-- Google Play Utils -->
 	<string name="updateAppTitle">Update required</string>
-	<string name="updateAppMessage">You are using an outdated app version. Please update the
-		application and try
-		again.
-	</string>
+	<string name="updateAppMessage">You are using an outdated version of this app. Please update it and try again.</string>
 	<string name="installAppTitle">Install %1$s?</string>
 	<string name="installAppMessage">This application requires %1$s. Would you like to install it?</string>
 
 	<!-- Abstract Search Activity -->
 	<string name="typeHere">Type Here</string>
-	<string name="noResultsSearch">There are no results for your search.</string>
-	<string name="requiredSearchTerm">The search term is required</string>
+	<string name="noResultsSearch">Your search did not match any result.</string>
+	<string name="requiredSearchTerm">Search term is required</string>
 
 	<!-- Time Picker Dialog Fragment -->
 	<string name="selectTime">Select Time</string>
@@ -49,12 +45,9 @@
 
 	<!-- ExceptionReportActivity -->
 	<string name="exceptionReportDialogTitle">%1$s crashed</string>
-	<string name="exceptionReportDialogText">%1$s crashed because of an unexpected error. Please help
-		fixing the error by sending an error report
-		to the developers.
-	</string>
+	<string name="exceptionReportDialogText">%1$s crashed. Please help fixing this error by sending a report to the developers.</string>
 	<string name="exceptionReportNotificationTitle">%1$s crashed</string>
-	<string name="exceptionReportNotificationText">Click here to help fixing the issue</string>
+	<string name="exceptionReportNotificationText">Click here to help fixing this issue</string>
 
 	<!-- About Dialog -->
 	<string name="about">About</string>
@@ -66,7 +59,7 @@
 
 	<!-- In-app Billing -->
 	<!-- <string name="inAppBillingNotSupported">In-app billing is not supported</string> -->
-	<string name="googlePlayConnectionError">There was an error connecting with the Google Play app</string>
+	<string name="googlePlayConnectionError">There was an error connecting to Google Play app</string>
 	<!-- <string name="requestPurchaseCanceledByUser">Your purchase was cancelled</string> -->
 	<!-- <string name="requestPurchaseServiceUnavailable">The purchase service is unavailable</string> -->
 	<!-- <string name="requestPurchaseError">Error when trying to purchase the product</string> -->
@@ -76,8 +69,8 @@
 	<string name="voiceSearch">Voice Search</string>
 
 	<!-- Twitter -->
-	<string name="twitterConnect">Connecting with Twitter…</string>
-	<string name="twitterNoAuth">Twitter was no authorized</string>
-	<string name="twitterError">Error connecting with Twitter</string>
+	<string name="twitterConnect">Connecting to Twitter…</string>
+	<string name="twitterNoAuth">Twitter was not authorized</string>
+	<string name="twitterError">Error connecting to Twitter</string>
 
 </resources>
