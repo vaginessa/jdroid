@@ -3,7 +3,6 @@ package com.jdroid.android;
 import java.io.File;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.UUID;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -16,6 +15,7 @@ import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import com.crittercism.app.Crittercism;
+import com.crittercism.app.CrittercismConfig;
 import com.flurry.sdk.eq;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
@@ -204,8 +204,11 @@ public abstract class AbstractApplication extends Application {
 			}
 			
 			initCrittercism(getExceptionHandlerMetadata());
-			Thread.setDefaultUncaughtExceptionHandler(ReflectionUtils.newInstance(getExceptionHandlerClass()));
-			LOGGER.debug("Custom exception handler initialized");
+			
+			ExceptionHandler exceptionHandler = ReflectionUtils.newInstance(getExceptionHandlerClass());
+			exceptionHandler.setDefaultExceptionHandler(currentExceptionHandler);
+			Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);
+			LOGGER.info("Custom exception handler initialized");
 		}
 	}
 	
@@ -218,10 +221,11 @@ public abstract class AbstractApplication extends Application {
 		if (applicationContext.isCrittercismEnabled()) {
 			try {
 				// send logcat data for devices with API Level 16 and higher
-				JSONObject crittercismConfig = new JSONObject();
-				crittercismConfig.put("shouldCollectLogcat", true);
+				CrittercismConfig crittercismConfig = new CrittercismConfig();
+				crittercismConfig.setLogcatReportingEnabled(true);
 				
-				Crittercism.init(getApplicationContext(), applicationContext.getCrittercismAppId(), crittercismConfig);
+				Crittercism.initialize(getApplicationContext(), applicationContext.getCrittercismAppId(),
+					crittercismConfig);
 				
 				if (installationId != null) {
 					Crittercism.setUsername(installationId);

@@ -67,4 +67,6 @@ public interface ExceptionHandler extends UncaughtExceptionHandler {
 	 */
 	public void logWarningException(String errorMessage);
 	
+	public void setDefaultExceptionHandler(UncaughtExceptionHandler uncaughtExceptionHandler);
+	
 }
