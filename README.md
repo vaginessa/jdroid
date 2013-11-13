@@ -22,7 +22,7 @@ Dependency project for both Android & Java apps
 jdroid Java Web
 ---------------
 Dependency project for Java Web apps 
-* RestEasy integration
+* Spring MVC integration
 * Hibernate integration
 * Facebook integration
 * Generic push framework. Google Cloud Messaging implementation
@@ -38,12 +38,11 @@ Library project for Android apps. Support for Android 3.2 and higher versions
  * Google Cloud Messaging integration
  * Google Maps v2 integration
  * Google+ integration: +1 button, friends, sign in, sign out, revoke access
-* AdMob integration
+ * AdMob integration
 * In App Billing integration
 * Facebook integration
 * Twitter integration
 * Crittercism integration
-* Proguard support
 * Lint support
 * Strict mode support
 * Debug settings support
