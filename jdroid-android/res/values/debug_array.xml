@@ -2,10 +2,10 @@
 <resources>
 
 	<string-array name="serverEntries">
-		<item>Dev</item>
-		<item>QA</item>
-		<item>UAT</item>
 		<item>Prod</item>
+		<item>UAT</item>
+		<item>QA</item>
+		<item>Dev</item>
 		<item>Mockey</item>
 		<item>Mockey_Local</item>
 	</string-array>

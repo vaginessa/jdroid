@@ -1,5 +1,7 @@
 package com.jdroid.java.http;
 
+import java.util.List;
+
 /**
  * 
  * @author Maxi Rosson
@@ -13,5 +15,9 @@ public interface Server {
 	public Boolean supportsSsl();
 	
 	public Boolean isProduction();
+	
+	public List<HttpWebServiceProcessor> getHttpWebServiceProcessors();
+	
+	public Server instance(String name);
 	
 }
