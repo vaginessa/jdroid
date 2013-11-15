@@ -1,5 +1,7 @@
 package com.jdroid.java.http;
 
+import java.util.List;
+
 /**
  * 
  * @author Maxi Rosson
@@ -50,6 +52,22 @@ public class DefaultServer implements Server {
 	@Override
 	public Boolean isProduction() {
 		return true;
+	}
+	
+	/**
+	 * @see com.jdroid.java.http.Server#getHttpWebServiceProcessors()
+	 */
+	@Override
+	public List<HttpWebServiceProcessor> getHttpWebServiceProcessors() {
+		return null;
+	}
+	
+	/**
+	 * @see com.jdroid.java.http.Server#instance(java.lang.String)
+	 */
+	@Override
+	public Server instance(String name) {
+		return null;
 	}
 	
 }

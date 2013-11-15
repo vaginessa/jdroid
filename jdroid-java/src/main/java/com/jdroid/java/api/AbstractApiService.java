@@ -140,7 +140,9 @@ public abstract class AbstractApiService {
 	
 	protected abstract Server getServer();
 	
-	protected abstract List<HttpWebServiceProcessor> getHttpWebServiceProcessors();
+	protected List<HttpWebServiceProcessor> getHttpWebServiceProcessors() {
+		return getServer().getHttpWebServiceProcessors();
+	}
 	
 	protected abstract AbstractMockWebService getAbstractMockWebServiceInstance(Object... urlSegments);
 	

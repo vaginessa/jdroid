@@ -15,7 +15,6 @@ public class DefaultApplicationContext {
 	private static final String PROPERTIES_RESOURCE_NAME = "settings.properties";
 	private static final String LOCAL_PROPERTIES_RESOURCE_NAME = "settings.local.properties";
 	
-	private Server server;
 	private String localIp;
 	private Environment environment;
 	private String googleProjectId;
@@ -40,7 +39,6 @@ public class DefaultApplicationContext {
 		PropertiesUtils.loadProperties(LOCAL_PROPERTIES_RESOURCE_NAME);
 		PropertiesUtils.loadProperties(PROPERTIES_RESOURCE_NAME);
 		
-		server = createServer(PropertiesUtils.getStringProperty("server.name"));
 		localIp = PropertiesUtils.getStringProperty("local.ip");
 		environment = Environment.valueOf(PropertiesUtils.getStringProperty("environment.name"));
 		googleProjectId = PropertiesUtils.getStringProperty("google.projectId");
@@ -62,17 +60,13 @@ public class DefaultApplicationContext {
 		installationSource = PropertiesUtils.getStringProperty("installation.source", "GooglePlay");
 	}
 	
-	protected Server createServer(String serverName) {
-		return null;
-	}
-	
 	@SuppressWarnings("unchecked")
-	public <T extends Server> T getServer() {
+	protected <T extends Server> T getServer(Server defaultServer) {
 		if (isProductionEnvironment() || !displayDebugSettings()) {
-			return (T)server;
+			return (T)defaultServer;
 		} else {
-			return (T)createServer(PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
-				"serverName", server.getName()).toUpperCase());
+			return (T)defaultServer.instance(PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
+				defaultServer.getClass().getSimpleName(), defaultServer.getName()).toUpperCase());
 		}
 	}
 	

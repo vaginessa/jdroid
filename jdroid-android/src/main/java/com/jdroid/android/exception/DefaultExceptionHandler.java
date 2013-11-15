@@ -30,7 +30,8 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	
 	private static final String GO_BACK_KEY = "goBack";
 	
-	private UncaughtExceptionHandler defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
+	private UncaughtExceptionHandler wrappedExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
+	private UncaughtExceptionHandler defautlExceptionHandler;
 	
 	/**
 	 * @see java.lang.Thread.UncaughtExceptionHandler#uncaughtException(java.lang.Thread, java.lang.Throwable)
@@ -65,7 +66,12 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	 */
 	@Override
 	public void handleMainThreadException(Thread thread, Throwable throwable) {
-		defaultExceptionHandler.uncaughtException(thread, throwable);
+		try {
+			wrappedExceptionHandler.uncaughtException(thread, throwable);
+		} catch (Exception e) {
+			LOGGER.error("Error when trying to handle an exception", e);
+			defautlExceptionHandler.uncaughtException(thread, throwable);
+		}
 	}
 	
 	/**
@@ -218,4 +224,13 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 			((AbstractException)runtimeException).addParameter(GO_BACK_KEY, false);
 		}
 	}
+	
+	/**
+	 * @see com.jdroid.android.exception.ExceptionHandler#setDefaultExceptionHandler(java.lang.Thread.UncaughtExceptionHandler)
+	 */
+	@Override
+	public void setDefaultExceptionHandler(UncaughtExceptionHandler uncaughtExceptionHandler) {
+		defautlExceptionHandler = uncaughtExceptionHandler;
+	}
+	
 }
