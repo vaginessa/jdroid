@@ -233,17 +233,8 @@ public class AndroidUtils {
 	}
 	
 	public static Integer getSmallestScreenWidthDp() {
-		if (AndroidUtils.getApiLevel() >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-			Configuration config = AbstractApplication.get().getResources().getConfiguration();
-			return config.smallestScreenWidthDp;
-		} else {
-			DisplayMetrics metrics = new DisplayMetrics();
-			getWindowManager().getDefaultDisplay().getMetrics(metrics);
-			
-			float dp = metrics.density;
-			float minpx = Math.min(metrics.heightPixels, metrics.widthPixels);
-			return (int)(minpx / dp);
-		}
+		Configuration config = AbstractApplication.get().getResources().getConfiguration();
+		return config.smallestScreenWidthDp;
 	}
 	
 	public static Boolean is10InchesOrBigger() {
