@@ -1,5 +1,6 @@
 package com.jdroid.java.api;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import com.jdroid.java.collections.Lists;
@@ -7,6 +8,8 @@ import com.jdroid.java.http.HttpWebServiceProcessor;
 import com.jdroid.java.http.MultipartWebService;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.http.WebService;
+import com.jdroid.java.http.cache.CachedWebService;
+import com.jdroid.java.http.cache.CachingStrategy;
 import com.jdroid.java.http.mock.AbstractMockWebService;
 import com.jdroid.java.http.post.EntityEnclosingWebService;
 import com.jdroid.java.marshaller.MarshallerMode;
@@ -29,6 +32,21 @@ public abstract class AbstractApiService {
 			return newGetServiceImpl(getServer(), Lists.newArrayList(urlSegments),
 				toArray(getHttpWebServiceProcessors()));
 		}
+	}
+	
+	protected WebService newCachedGetService(CachingStrategy cachingStrategy, Long timeToLive, Object... urlSegments) {
+		WebService webService = newGetService(urlSegments);
+		return new CachedWebService(webService, cachingStrategy, timeToLive) {
+			
+			@Override
+			protected File getHttpCacheDirectory() {
+				return AbstractApiService.this.getHttpCacheDirectory();
+			}
+		};
+	}
+	
+	protected File getHttpCacheDirectory() {
+		return null;
 	}
 	
 	protected abstract WebService newGetServiceImpl(Server server, List<Object> urlSegments,

@@ -233,4 +233,11 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 		return null;
 	}
 	
+	/**
+	 * @see com.jdroid.java.http.WebService#getUrl()
+	 */
+	@Override
+	public String getUrl() {
+		return null;
+	}
 }

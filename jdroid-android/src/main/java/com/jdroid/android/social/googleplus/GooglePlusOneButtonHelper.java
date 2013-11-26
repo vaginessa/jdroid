@@ -1,5 +1,6 @@
 package com.jdroid.android.social.googleplus;
 
+import java.util.Locale;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -43,7 +44,7 @@ public class GooglePlusOneButtonHelper implements ConnectionCallbacks, OnConnect
 			@Override
 			public void onPlusOneClick(Intent intent) {
 				if (intent != null) {
-					if (intent.getAction().toLowerCase().contains("undo")) {
+					if (intent.getAction().toLowerCase(Locale.US).contains("undo")) {
 						context.startActivityForResult(intent, PLUS_ONE_UNDO_REQUEST_CODE);
 					} else {
 						context.startActivityForResult(intent, PLUS_ONE_REQUEST_CODE);

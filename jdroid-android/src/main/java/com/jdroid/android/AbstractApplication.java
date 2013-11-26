@@ -60,6 +60,8 @@ public abstract class AbstractApplication extends Application {
 	private static final int IMAGES_CACHE_SIZE = 5;
 	
 	private static final String IMAGES_DIRECTORY = "images";
+	private static final String HTTP_CACHE_DIRECTORY = "http";
+	
 	protected static AbstractApplication INSTANCE;
 	
 	private DefaultApplicationContext applicationContext;
@@ -69,6 +71,7 @@ public abstract class AbstractApplication extends Application {
 	
 	private File cacheDirectory;
 	private File imagesCacheDirectory;
+	private File httpCacheDirectory;
 	private BitmapLruCache bitmapLruCache;
 	
 	private String installationId;
@@ -114,6 +117,7 @@ public abstract class AbstractApplication extends Application {
 		initEncryptionUtils();
 		initCacheDirectory();
 		initImagesCacheDirectory();
+		initHttpCacheDirectory();
 		initBitmapLruCache();
 		
 		initInAppBilling();
@@ -164,6 +168,10 @@ public abstract class AbstractApplication extends Application {
 			cacheDirectory = getCacheDir();
 		}
 		LOGGER.debug("Cache directory: " + cacheDirectory.getPath());
+	}
+	
+	protected void initHttpCacheDirectory() {
+		httpCacheDirectory = new File(getCacheDirectory(), HTTP_CACHE_DIRECTORY);
 	}
 	
 	protected void initImagesCacheDirectory() {
@@ -320,6 +328,13 @@ public abstract class AbstractApplication extends Application {
 			imagesCacheDirectory.mkdirs();
 		}
 		return imagesCacheDirectory;
+	}
+	
+	public File getHttpCacheDirectory() {
+		if (!httpCacheDirectory.exists()) {
+			httpCacheDirectory.mkdirs();
+		}
+		return httpCacheDirectory;
 	}
 	
 	/**

@@ -1,5 +1,6 @@
 package com.jdroid.android.context;
 
+import java.util.Locale;
 import java.util.Set;
 import android.preference.PreferenceManager;
 import com.jdroid.android.AbstractApplication;
@@ -66,7 +67,7 @@ public class DefaultApplicationContext {
 			return (T)defaultServer;
 		} else {
 			return (T)defaultServer.instance(PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
-				defaultServer.getClass().getSimpleName(), defaultServer.getName()).toUpperCase());
+				defaultServer.getClass().getSimpleName(), defaultServer.getName()).toUpperCase(Locale.US));
 		}
 	}
 	
