@@ -1,18 +1,17 @@
 package com.jdroid.java.parser.json;
 
-import com.jdroid.java.json.JsonArrayWrapper;
-import com.jdroid.java.json.JsonObjectWrapper;
-
+import com.jdroid.java.json.JSONArray;
+import com.jdroid.java.json.JSONObject;
 
 /**
  * 
  * @author Maxi Rosson
  */
-public class JsonArrayParser extends JsonParser<JsonArrayWrapper> {
+public class JsonArrayParser extends JsonParser<JSONArray> {
 	
-	private JsonParser<JsonObjectWrapper> parser;
+	private JsonParser<JSONObject> parser;
 	
-	public JsonArrayParser(JsonParser<JsonObjectWrapper> parser) {
+	public JsonArrayParser(JsonParser<JSONObject> parser) {
 		this.parser = parser;
 	}
 	
@@ -20,7 +19,7 @@ public class JsonArrayParser extends JsonParser<JsonArrayWrapper> {
 	 * @see com.jdroid.java.parser.json.JsonParser#parse(java.lang.Object)
 	 */
 	@Override
-	public Object parse(JsonArrayWrapper json) {
+	public Object parse(JSONArray json) {
 		return parseList(json, parser);
 	}
 }

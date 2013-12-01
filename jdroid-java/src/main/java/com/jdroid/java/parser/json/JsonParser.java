@@ -4,8 +4,8 @@ import java.io.InputStream;
 import java.util.List;
 import org.slf4j.Logger;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.json.JsonArrayWrapper;
-import com.jdroid.java.json.JsonObjectWrapper;
+import com.jdroid.java.json.JSONArray;
+import com.jdroid.java.json.JSONObject;
 import com.jdroid.java.parser.Parser;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
@@ -32,12 +32,12 @@ public abstract class JsonParser<T> implements Parser {
 		try {
 			LOGGER.trace(input);
 			
-			// Create a wrapped JsonObjectWrapper or JsonArrayWrapper
+			// Create a wrapped JsonObject or JsonArray
 			T json = null;
 			if (input.startsWith(ARRAY_PREFIX)) {
-				json = (T)new JsonArrayWrapper(input);
+				json = (T)new JSONArray(input);
 			} else {
-				json = (T)new JsonObjectWrapper(input);
+				json = (T)new JSONObject(input);
 			}
 			
 			// Parse the JSONObject
@@ -72,8 +72,7 @@ public abstract class JsonParser<T> implements Parser {
 	 * @param parser The {@link JsonParser} to parse each list item.
 	 * @return The parsed list.
 	 */
-	protected <ITEM> List<ITEM> parseList(JsonObjectWrapper jsonObject, String jsonKey,
-			JsonParser<JsonObjectWrapper> parser) {
+	protected <ITEM> List<ITEM> parseList(JSONObject jsonObject, String jsonKey, JsonParser<JSONObject> parser) {
 		return parseList(jsonObject.getJSONArray(jsonKey), parser);
 	}
 	
@@ -87,34 +86,12 @@ public abstract class JsonParser<T> implements Parser {
 	 * @return The parsed list.
 	 */
 	@SuppressWarnings("unchecked")
-	protected <ITEM> List<ITEM> parseList(JsonArrayWrapper jsonArray, JsonParser<JsonObjectWrapper> parser) {
+	protected <ITEM> List<ITEM> parseList(JSONArray jsonArray, JsonParser<JSONObject> parser) {
 		List<ITEM> list = Lists.newArrayList();
 		if (jsonArray != null) {
 			int length = jsonArray.length();
 			for (int i = 0; i < length; i++) {
 				list.add((ITEM)parser.parse(jsonArray.getJSONObject(i)));
-			}
-		}
-		return list;
-	}
-	
-	protected List<String> parseListString(JsonArrayWrapper jsonArray) {
-		List<String> list = Lists.newArrayList();
-		if (jsonArray != null) {
-			int length = jsonArray.length();
-			for (int i = 0; i < length; i++) {
-				list.add(jsonArray.getString(i));
-			}
-		}
-		return list;
-	}
-	
-	protected List<Long> parseListLong(JsonArrayWrapper jsonArray) {
-		List<Long> list = Lists.newArrayList();
-		if (jsonArray != null) {
-			int length = jsonArray.length();
-			for (int i = 0; i < length; i++) {
-				list.add(jsonArray.getLong(i));
 			}
 		}
 		return list;

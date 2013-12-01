@@ -20,7 +20,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import com.jdroid.java.collections.Lists;
 
 /**
  * A JSONArray is an ordered sequence of values. Its external text form is a string wrapped in square brackets with
@@ -790,4 +792,26 @@ public class JSONArray {
 			throw new JSONException(e);
 		}
 	}
+	
+	// ///////////////
+	// Custom methods
+	
+	public List<String> optList() {
+		List<String> list = Lists.newArrayList();
+		int length = length();
+		for (int i = 0; i < length; i++) {
+			list.add(getString(i));
+		}
+		return list;
+	}
+	
+	public List<Long> optLongList() {
+		List<Long> list = Lists.newArrayList();
+		int length = length();
+		for (int i = 0; i < length; i++) {
+			list.add(getLong(i));
+		}
+		return list;
+	}
+	
 }

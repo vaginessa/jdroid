@@ -20,13 +20,17 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
+import com.jdroid.java.collections.Lists;
+import com.jdroid.java.utils.DateUtils;
 
 /**
  * A JSONObject is an unordered collection of name/value pairs. Its external form is a string wrapped in curly braces
@@ -408,7 +412,7 @@ public class JSONObject {
 	 * @return The truth.
 	 * @throws JSONException if the value is not a Boolean or the String "true" or "false".
 	 */
-	public boolean getBoolean(String key) throws JSONException {
+	public Boolean getBoolean(String key) throws JSONException {
 		Object object = this.get(key);
 		if (object.equals(Boolean.FALSE) || ((object instanceof String) && ((String)object).equalsIgnoreCase("false"))) {
 			return false;
@@ -427,7 +431,7 @@ public class JSONObject {
 	 * @throws JSONException if the key is not found or if the value is not a Number object and cannot be converted to a
 	 *             number.
 	 */
-	public double getDouble(String key) throws JSONException {
+	public Double getDouble(String key) throws JSONException {
 		Object object = this.get(key);
 		try {
 			return object instanceof Number ? ((Number)object).doubleValue() : Double.parseDouble((String)object);
@@ -443,7 +447,7 @@ public class JSONObject {
 	 * @return The integer value.
 	 * @throws JSONException if the key is not found or if the value cannot be converted to an integer.
 	 */
-	public int getInt(String key) throws JSONException {
+	public Integer getInt(String key) throws JSONException {
 		Object object = this.get(key);
 		try {
 			return object instanceof Number ? ((Number)object).intValue() : Integer.parseInt((String)object);
@@ -489,7 +493,7 @@ public class JSONObject {
 	 * @return The long value.
 	 * @throws JSONException if the key is not found or if the value cannot be converted to a long.
 	 */
-	public long getLong(String key) throws JSONException {
+	public Long getLong(String key) throws JSONException {
 		Object object = this.get(key);
 		try {
 			return object instanceof Number ? ((Number)object).longValue() : Long.parseLong((String)object);
@@ -552,9 +556,11 @@ public class JSONObject {
 	 * @throws JSONException if there is no string value for the key.
 	 */
 	public String getString(String key) throws JSONException {
-		Object object = this.get(key);
-		if (object instanceof String) {
-			return (String)object;
+		if (!isNull(key)) {
+			Object object = this.get(key);
+			if (object instanceof String) {
+				return (String)object;
+			}
 		}
 		throw new JSONException("JSONObject[" + quote(key) + "] not a string.");
 	}
@@ -685,14 +691,14 @@ public class JSONObject {
 	}
 	
 	/**
-	 * Get an optional boolean associated with a key. It returns false if there is no such key, or if the value is not
+	 * Get an optional boolean associated with a key. It returns null if there is no such key, or if the value is not
 	 * Boolean.TRUE or the String "true".
 	 * 
 	 * @param key A key string.
 	 * @return The truth.
 	 */
-	public boolean optBoolean(String key) {
-		return this.optBoolean(key, false);
+	public Boolean optBoolean(String key) {
+		return this.optBoolean(key, null);
 	}
 	
 	/**
@@ -703,7 +709,7 @@ public class JSONObject {
 	 * @param defaultValue The default.
 	 * @return The truth.
 	 */
-	public boolean optBoolean(String key, boolean defaultValue) {
+	public Boolean optBoolean(String key, Boolean defaultValue) {
 		try {
 			return this.getBoolean(key);
 		} catch (Exception e) {
@@ -712,14 +718,14 @@ public class JSONObject {
 	}
 	
 	/**
-	 * Get an optional double associated with a key, or NaN if there is no such key or if its value is not a number. If
+	 * Get an optional double associated with a key, or null if there is no such key or if its value is not a number. If
 	 * the value is a string, an attempt will be made to evaluate it as a number.
 	 * 
 	 * @param key A string which is the key.
 	 * @return An object which is the value.
 	 */
-	public double optDouble(String key) {
-		return this.optDouble(key, Double.NaN);
+	public Double optDouble(String key) {
+		return this.optDouble(key, null);
 	}
 	
 	/**
@@ -730,7 +736,7 @@ public class JSONObject {
 	 * @param defaultValue The default.
 	 * @return An object which is the value.
 	 */
-	public double optDouble(String key, double defaultValue) {
+	public Double optDouble(String key, Double defaultValue) {
 		try {
 			return this.getDouble(key);
 		} catch (Exception e) {
@@ -739,14 +745,14 @@ public class JSONObject {
 	}
 	
 	/**
-	 * Get an optional int value associated with a key, or zero if there is no such key or if the value is not a number.
+	 * Get an optional int value associated with a key, or null if there is no such key or if the value is not a number.
 	 * If the value is a string, an attempt will be made to evaluate it as a number.
 	 * 
 	 * @param key A key string.
 	 * @return An object which is the value.
 	 */
-	public int optInt(String key) {
-		return this.optInt(key, 0);
+	public Integer optInt(String key) {
+		return this.optInt(key, null);
 	}
 	
 	/**
@@ -757,7 +763,7 @@ public class JSONObject {
 	 * @param defaultValue The default.
 	 * @return An object which is the value.
 	 */
-	public int optInt(String key, int defaultValue) {
+	public Integer optInt(String key, Integer defaultValue) {
 		try {
 			return this.getInt(key);
 		} catch (Exception e) {
@@ -790,14 +796,14 @@ public class JSONObject {
 	}
 	
 	/**
-	 * Get an optional long value associated with a key, or zero if there is no such key or if the value is not a
+	 * Get an optional long value associated with a key, or null if there is no such key or if the value is not a
 	 * number. If the value is a string, an attempt will be made to evaluate it as a number.
 	 * 
 	 * @param key A key string.
 	 * @return An object which is the value.
 	 */
-	public long optLong(String key) {
-		return this.optLong(key, 0);
+	public Long optLong(String key) {
+		return this.optLong(key, null);
 	}
 	
 	/**
@@ -808,7 +814,7 @@ public class JSONObject {
 	 * @param defaultValue The default.
 	 * @return An object which is the value.
 	 */
-	public long optLong(String key, long defaultValue) {
+	public Long optLong(String key, Long defaultValue) {
 		try {
 			return this.getLong(key);
 		} catch (Exception e) {
@@ -817,14 +823,14 @@ public class JSONObject {
 	}
 	
 	/**
-	 * Get an optional string associated with a key. It returns an empty string if there is no such key. If the value is
+	 * Get an optional string associated with a key. It returns a null string if there is no such key. If the value is
 	 * not a string and is not null, then it is converted to a string.
 	 * 
 	 * @param key A key string.
 	 * @return A string which is the value.
 	 */
 	public String optString(String key) {
-		return this.optString(key, "");
+		return this.optString(key, null);
 	}
 	
 	/**
@@ -1427,6 +1433,96 @@ public class JSONObject {
 			return writer;
 		} catch (IOException exception) {
 			throw new JSONException(exception);
+		}
+	}
+	
+	// ///////////////
+	// Custom methods
+	
+	/**
+	 * Get the float value associated with a key.
+	 * 
+	 * @param key A key string.
+	 * @return The numeric value.
+	 * @throws JSONException if the key is not found or if the value is not a Number object and cannot be converted to a
+	 *             number.
+	 */
+	public Float getFloat(String key) throws JSONException {
+		Object object = this.get(key);
+		try {
+			return object instanceof Number ? ((Number)object).floatValue() : Float.parseFloat((String)object);
+		} catch (Exception e) {
+			throw new JSONException("JSONObject[" + quote(key) + "] is not a number.");
+		}
+	}
+	
+	/**
+	 * Get an optional float associated with a key, or null if there is no such key or if its value is not a number. If
+	 * the value is a string, an attempt will be made to evaluate it as a number.
+	 * 
+	 * @param key A string which is the key.
+	 * @return An object which is the value.
+	 */
+	public Float optFloat(String key) {
+		return this.optFloat(key, null);
+	}
+	
+	/**
+	 * Get an optional float associated with a key, or the defaultValue if there is no such key or if its value is not a
+	 * number. If the value is a string, an attempt will be made to evaluate it as a number.
+	 * 
+	 * @param key A key string.
+	 * @param defaultValue The default.
+	 * @return An object which is the value.
+	 */
+	public Float optFloat(String key, Float defaultValue) {
+		try {
+			return this.getFloat(key);
+		} catch (Exception e) {
+			return defaultValue;
+		}
+	}
+	
+	public List<String> optList(String key) {
+		JSONArray jsonArray = optJSONArray(key);
+		List<String> list = Lists.newArrayList();
+		if (jsonArray != null) {
+			list = jsonArray.optList();
+		}
+		return list;
+	}
+	
+	public List<Long> optLongList(String key) {
+		JSONArray jsonArray = optJSONArray(key);
+		List<Long> list = Lists.newArrayList();
+		if (jsonArray != null) {
+			list = jsonArray.optLongList();
+		}
+		return list;
+	}
+	
+	public Date getDate(String key) {
+		return getDate(key, DateUtils.YYYYMMDDHHMMSSZ_DATE_FORMAT);
+	}
+	
+	public Date getDate(String key, String dateFormat) {
+		String value = getString(key);
+		return DateUtils.parse(value, dateFormat);
+	}
+	
+	public Date optDate(String key) {
+		return optDate(key, DateUtils.YYYYMMDDHHMMSSZ_DATE_FORMAT);
+	}
+	
+	public Date optDate(String key, String dateFormat) {
+		return optDate(key, dateFormat, null);
+	}
+	
+	public Date optDate(String key, String dateFormat, Date defaultValue) {
+		try {
+			return this.getDate(key);
+		} catch (Exception e) {
+			return defaultValue;
 		}
 	}
 }
