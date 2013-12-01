@@ -3,6 +3,7 @@ package com.jdroid.android;
 import java.io.File;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.UUID;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -33,7 +34,6 @@ import com.jdroid.android.utils.SharedPreferencesUtils;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.context.GitContext;
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.parser.json.JsonObjectWrapper;
 import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.ExecutorUtils;
 import com.jdroid.java.utils.FileUtils;
@@ -220,11 +220,11 @@ public abstract class AbstractApplication extends Application {
 		}
 	}
 	
-	protected JsonObjectWrapper getExceptionHandlerMetadata() {
+	protected JSONObject getExceptionHandlerMetadata() {
 		return null;
 	}
 	
-	private void initCrittercism(JsonObjectWrapper metadata) {
+	private void initCrittercism(JSONObject metadata) {
 		
 		if (applicationContext.isCrittercismEnabled()) {
 			try {
@@ -239,7 +239,7 @@ public abstract class AbstractApplication extends Application {
 					Crittercism.setUsername(installationId);
 				}
 				if (metadata != null) {
-					Crittercism.setMetadata(metadata.getJsonObject());
+					Crittercism.setMetadata(metadata);
 				}
 				LOGGER.debug("Crittercism initialized");
 			} catch (Exception e) {

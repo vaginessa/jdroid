@@ -1,8 +1,5 @@
 package com.jdroid.java.json;
 
-import org.json.JSONException;
-import org.json.JSONStringer;
-import com.jdroid.java.exception.UnexpectedException;
 
 /**
  * 
@@ -13,49 +10,29 @@ public class JSONBuilder {
 	private JSONStringer jsonStringer = new JSONStringer();
 	
 	public JSONBuilder startObject() {
-		try {
-			jsonStringer.object();
-			return this;
-		} catch (JSONException e) {
-			throw new UnexpectedException(e);
-		}
+		jsonStringer.object();
+		return this;
 	}
 	
 	public JSONBuilder endObject() {
-		try {
-			jsonStringer.endObject();
-			return this;
-		} catch (JSONException e) {
-			throw new UnexpectedException(e);
-		}
+		jsonStringer.endObject();
+		return this;
 	}
 	
 	public JSONBuilder startArray() {
-		try {
-			jsonStringer.array();
-			return this;
-		} catch (JSONException e) {
-			throw new UnexpectedException(e);
-		}
+		jsonStringer.array();
+		return this;
 	}
 	
 	public JSONBuilder startArray(String key) {
-		try {
-			jsonStringer.key(key);
-			jsonStringer.array();
-			return this;
-		} catch (JSONException e) {
-			throw new UnexpectedException(e);
-		}
+		jsonStringer.key(key);
+		jsonStringer.array();
+		return this;
 	}
 	
 	public JSONBuilder endArray() {
-		try {
-			jsonStringer.endArray();
-			return this;
-		} catch (JSONException e) {
-			throw new UnexpectedException(e);
-		}
+		jsonStringer.endArray();
+		return this;
 	}
 	
 	public JSONBuilder add(String key, int value) {
@@ -71,13 +48,9 @@ public class JSONBuilder {
 	}
 	
 	public JSONBuilder add(String key, Object value) {
-		try {
-			jsonStringer.key(key);
-			jsonStringer.value(value);
-			return this;
-		} catch (JSONException e) {
-			throw new UnexpectedException(e);
-		}
+		jsonStringer.key(key);
+		jsonStringer.value(value);
+		return this;
 	}
 	
 	public JSONBuilder addIfExists(String key, Object value) {

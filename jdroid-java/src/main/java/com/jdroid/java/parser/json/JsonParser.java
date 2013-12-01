@@ -2,10 +2,10 @@ package com.jdroid.java.parser.json;
 
 import java.io.InputStream;
 import java.util.List;
-import org.json.JSONException;
 import org.slf4j.Logger;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.java.json.JsonArrayWrapper;
+import com.jdroid.java.json.JsonObjectWrapper;
 import com.jdroid.java.parser.Parser;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
@@ -42,8 +42,6 @@ public abstract class JsonParser<T> implements Parser {
 			
 			// Parse the JSONObject
 			return parse(json);
-		} catch (JSONException e) {
-			throw new UnexpectedException(e);
 		} finally {
 			LOGGER.debug("Parsing finished.");
 		}
@@ -61,9 +59,8 @@ public abstract class JsonParser<T> implements Parser {
 	/**
 	 * @param json
 	 * @return The parsed object
-	 * @throws JSONException
 	 */
-	public abstract Object parse(T json) throws JSONException;
+	public abstract Object parse(T json);
 	
 	/**
 	 * Parses a list of items.
@@ -74,10 +71,9 @@ public abstract class JsonParser<T> implements Parser {
 	 * @param jsonKey The key for the Json array.
 	 * @param parser The {@link JsonParser} to parse each list item.
 	 * @return The parsed list.
-	 * @throws JSONException
 	 */
 	protected <ITEM> List<ITEM> parseList(JsonObjectWrapper jsonObject, String jsonKey,
-			JsonParser<JsonObjectWrapper> parser) throws JSONException {
+			JsonParser<JsonObjectWrapper> parser) {
 		return parseList(jsonObject.getJSONArray(jsonKey), parser);
 	}
 	
@@ -89,11 +85,9 @@ public abstract class JsonParser<T> implements Parser {
 	 * @param json The {@link JsonArrayWrapper} to parse.
 	 * @param parser The {@link JsonParser} to parse each list item.
 	 * @return The parsed list.
-	 * @throws JSONException
 	 */
 	@SuppressWarnings("unchecked")
-	protected <ITEM> List<ITEM> parseList(JsonArrayWrapper jsonArray, JsonParser<JsonObjectWrapper> parser)
-			throws JSONException {
+	protected <ITEM> List<ITEM> parseList(JsonArrayWrapper jsonArray, JsonParser<JsonObjectWrapper> parser) {
 		List<ITEM> list = Lists.newArrayList();
 		if (jsonArray != null) {
 			int length = jsonArray.length();
@@ -104,7 +98,7 @@ public abstract class JsonParser<T> implements Parser {
 		return list;
 	}
 	
-	protected List<String> parseListString(JsonArrayWrapper jsonArray) throws JSONException {
+	protected List<String> parseListString(JsonArrayWrapper jsonArray) {
 		List<String> list = Lists.newArrayList();
 		if (jsonArray != null) {
 			int length = jsonArray.length();
@@ -115,7 +109,7 @@ public abstract class JsonParser<T> implements Parser {
 		return list;
 	}
 	
-	protected List<Long> parseListLong(JsonArrayWrapper jsonArray) throws JSONException {
+	protected List<Long> parseListLong(JsonArrayWrapper jsonArray) {
 		List<Long> list = Lists.newArrayList();
 		if (jsonArray != null) {
 			int length = jsonArray.length();

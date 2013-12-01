@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
-import com.jdroid.java.parser.json.JsonArrayWrapper;
+import com.jdroid.java.json.JsonArrayWrapper;
 
 /**
  * 

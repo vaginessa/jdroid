@@ -1,8 +1,6 @@
-package com.jdroid.java.parser.json;
+package com.jdroid.java.json;
 
 import java.util.Collection;
-import org.json.JSONArray;
-import org.json.JSONException;
 
 /**
  * {@link JSONArray} Wrapper
@@ -20,7 +18,7 @@ public class JsonArrayWrapper {
 		this.jsonArray = jsonArray;
 	}
 	
-	public JsonArrayWrapper(String string) throws JSONException {
+	public JsonArrayWrapper(String string) {
 		this(new JSONArray(string));
 	}
 	
@@ -35,7 +33,7 @@ public class JsonArrayWrapper {
 	/**
 	 * @param object
 	 * @return the boolean
-	 * @see org.json.JSONArray#equals(java.lang.Object)
+	 * @see com.jdroid.java.json.JSONArray#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object object) {
@@ -45,20 +43,18 @@ public class JsonArrayWrapper {
 	/**
 	 * @param index
 	 * @return the {@link Object}
-	 * @throws JSONException
-	 * @see org.json.JSONArray#get(int)
+	 * @see com.jdroid.java.json.JSONArray#get(int)
 	 */
-	public Object get(int index) throws JSONException {
+	public Object get(int index) {
 		return jsonArray.get(index);
 	}
 	
 	/**
 	 * @param index
 	 * @return the boolean
-	 * @throws JSONException
-	 * @see org.json.JSONArray#getBoolean(int)
+	 * @see com.jdroid.java.json.JSONArray#getBoolean(int)
 	 */
-	public boolean getBoolean(int index) throws JSONException {
+	public boolean getBoolean(int index) {
 		return jsonArray.getBoolean(index);
 	}
 	
@@ -73,67 +69,61 @@ public class JsonArrayWrapper {
 	/**
 	 * @param index
 	 * @return the double
-	 * @throws JSONException
-	 * @see org.json.JSONArray#getDouble(int)
+	 * @see com.jdroid.java.json.JSONArray#getDouble(int)
 	 */
-	public double getDouble(int index) throws JSONException {
+	public double getDouble(int index) {
 		return jsonArray.getDouble(index);
 	}
 	
 	/**
 	 * @param index
 	 * @return the int
-	 * @throws JSONException
-	 * @see org.json.JSONArray#getInt(int)
+	 * @see com.jdroid.java.json.JSONArray#getInt(int)
 	 */
-	public int getInt(int index) throws JSONException {
+	public int getInt(int index) {
 		return jsonArray.getInt(index);
 	}
 	
 	/**
 	 * @param index
 	 * @return the {@link JsonArrayWrapper}
-	 * @throws JSONException
-	 * @see org.json.JSONArray#getJSONArray(int)
+	 * @see com.jdroid.java.json.JSONArray#getJSONArray(int)
 	 */
-	public JsonArrayWrapper getJSONArray(int index) throws JSONException {
+	public JsonArrayWrapper getJSONArray(int index) {
 		return new JsonArrayWrapper(jsonArray.getJSONArray(index));
 	}
 	
 	/**
 	 * @param index
 	 * @return the {@link JsonObjectWrapper}
-	 * @throws JSONException
-	 * @see org.json.JSONArray#getJSONObject(int)
+	 * @see com.jdroid.java.json.JSONArray#getJSONObject(int)
 	 */
-	public JsonObjectWrapper getJSONObject(int index) throws JSONException {
+	public JsonObjectWrapper getJSONObject(int index) {
 		return new JsonObjectWrapper(jsonArray.getJSONObject(index));
 	}
 	
 	/**
 	 * @param index
 	 * @return the long
-	 * @throws JSONException
-	 * @see org.json.JSONArray#getLong(int)
+	 * @see com.jdroid.java.json.JSONArray#getLong(int)
 	 */
-	public long getLong(int index) throws JSONException {
+	public long getLong(int index) {
 		return jsonArray.getLong(index);
 	}
 	
 	/**
 	 * @param index
 	 * @return the {@link String}
-	 * @throws JSONException
-	 * @see org.json.JSONArray#getString(int)
+	 * @see com.jdroid.java.json.JSONArray#getString(int)
 	 */
-	public String getString(int index) throws JSONException {
+	public String getString(int index) {
 		return jsonArray.getString(index);
 	}
 	
 	/**
 	 * @param index
 	 * @return the boolean
-	 * @see org.json.JSONArray#isNull(int)
+	 * @see com.jdroid.java.json.JSONArray#isNull(int)
 	 */
 	public boolean isNull(int index) {
 		return jsonArray.isNull(index);
@@ -142,16 +132,15 @@ public class JsonArrayWrapper {
 	/**
 	 * @param separator
 	 * @return the String
-	 * @throws JSONException
-	 * @see org.json.JSONArray#join(java.lang.String)
+	 * @see com.jdroid.java.json.JSONArray#join(java.lang.String)
 	 */
-	public String join(String separator) throws JSONException {
+	public String join(String separator) {
 		return jsonArray.join(separator);
 	}
 	
 	/**
 	 * @return the int
-	 * @see org.json.JSONArray#length()
+	 * @see com.jdroid.java.json.JSONArray#length()
 	 */
 	public int length() {
 		return jsonArray.length();
@@ -160,7 +149,7 @@ public class JsonArrayWrapper {
 	/**
 	 * @param index
 	 * @return the {@link Object}
-	 * @see org.json.JSONArray#opt(int)
+	 * @see com.jdroid.java.json.JSONArray#opt(int)
 	 */
 	public Object opt(int index) {
 		return jsonArray.opt(index);
@@ -169,7 +158,7 @@ public class JsonArrayWrapper {
 	/**
 	 * @param index
 	 * @return the boolean
-	 * @see org.json.JSONArray#optBoolean(int)
+	 * @see com.jdroid.java.json.JSONArray#optBoolean(int)
 	 */
 	public boolean optBoolean(int index) {
 		return jsonArray.optBoolean(index);
@@ -179,7 +168,7 @@ public class JsonArrayWrapper {
 	 * @param index
 	 * @param defaultValue
 	 * @return the boolean
-	 * @see org.json.JSONArray#optBoolean(int, boolean)
+	 * @see com.jdroid.java.json.JSONArray#optBoolean(int, boolean)
 	 */
 	public boolean optBoolean(int index, boolean defaultValue) {
 		return jsonArray.optBoolean(index, defaultValue);
@@ -188,7 +177,7 @@ public class JsonArrayWrapper {
 	/**
 	 * @param index
 	 * @return the double
-	 * @see org.json.JSONArray#optDouble(int)
+	 * @see com.jdroid.java.json.JSONArray#optDouble(int)
 	 */
 	public double optDouble(int index) {
 		return jsonArray.optDouble(index);
@@ -198,7 +187,7 @@ public class JsonArrayWrapper {
 	 * @param index
 	 * @param defaultValue
 	 * @return the double
-	 * @see org.json.JSONArray#optDouble(int, double)
+	 * @see com.jdroid.java.json.JSONArray#optDouble(int, double)
 	 */
 	public double optDouble(int index, double defaultValue) {
 		return jsonArray.optDouble(index, defaultValue);
@@ -207,7 +196,7 @@ public class JsonArrayWrapper {
 	/**
 	 * @param index
 	 * @return the int
-	 * @see org.json.JSONArray#optInt(int)
+	 * @see com.jdroid.java.json.JSONArray#optInt(int)
 	 */
 	public int optInt(int index) {
 		return jsonArray.optInt(index);
@@ -217,7 +206,7 @@ public class JsonArrayWrapper {
 	 * @param index
 	 * @param defaultValue
 	 * @return the int
-	 * @see org.json.JSONArray#optInt(int, int)
+	 * @see com.jdroid.java.json.JSONArray#optInt(int, int)
 	 */
 	public int optInt(int index, int defaultValue) {
 		return jsonArray.optInt(index, defaultValue);
@@ -226,7 +215,7 @@ public class JsonArrayWrapper {
 	/**
 	 * @param index
 	 * @return the {@link JsonArrayWrapper}
-	 * @see org.json.JSONArray#optJSONArray(int)
+	 * @see com.jdroid.java.json.JSONArray#optJSONArray(int)
 	 */
 	public JsonArrayWrapper optJSONArray(int index) {
 		return new JsonArrayWrapper(jsonArray.optJSONArray(index));
@@ -235,7 +224,7 @@ public class JsonArrayWrapper {
 	/**
 	 * @param index
 	 * @return the {@link JsonObjectWrapper}
-	 * @see org.json.JSONArray#optJSONObject(int)
+	 * @see com.jdroid.java.json.JSONArray#optJSONObject(int)
 	 */
 	public JsonObjectWrapper optJSONObject(int index) {
 		return new JsonObjectWrapper(jsonArray.optJSONObject(index));
@@ -244,7 +233,7 @@ public class JsonArrayWrapper {
 	/**
 	 * @param index
 	 * @return the long
-	 * @see org.json.JSONArray#optLong(int)
+	 * @see com.jdroid.java.json.JSONArray#optLong(int)
 	 */
 	public long optLong(int index) {
 		return jsonArray.optLong(index);
@@ -254,7 +243,7 @@ public class JsonArrayWrapper {
 	 * @param index
 	 * @param defaultValue
 	 * @return the long
-	 * @see org.json.JSONArray#optLong(int, long)
+	 * @see com.jdroid.java.json.JSONArray#optLong(int, long)
 	 */
 	public long optLong(int index, long defaultValue) {
 		return jsonArray.optLong(index, defaultValue);
@@ -263,7 +252,7 @@ public class JsonArrayWrapper {
 	/**
 	 * @param index
 	 * @return the String
-	 * @see org.json.JSONArray#optString(int)
+	 * @see com.jdroid.java.json.JSONArray#optString(int)
 	 */
 	public String optString(int index) {
 		return jsonArray.optString(index);
@@ -273,7 +262,7 @@ public class JsonArrayWrapper {
 	 * @param index
 	 * @param defaultValue
 	 * @return the {@link String}
-	 * @see org.json.JSONArray#optString(int, java.lang.String)
+	 * @see com.jdroid.java.json.JSONArray#optString(int, java.lang.String)
 	 */
 	public String optString(int index, String defaultValue) {
 		return jsonArray.optString(index, defaultValue);
@@ -282,7 +271,7 @@ public class JsonArrayWrapper {
 	/**
 	 * @param value
 	 * @return the {@link JsonArrayWrapper}
-	 * @see org.json.JSONArray#put(boolean)
+	 * @see com.jdroid.java.json.JSONArray#put(boolean)
 	 */
 	public JsonArrayWrapper put(boolean value) {
 		return new JsonArrayWrapper(jsonArray.put(value));
@@ -291,17 +280,16 @@ public class JsonArrayWrapper {
 	/**
 	 * @param value
 	 * @return the {@link JsonArrayWrapper}
-	 * @throws JSONException
-	 * @see org.json.JSONArray#put(double)
+	 * @see com.jdroid.java.json.JSONArray#put(double)
 	 */
-	public JsonArrayWrapper put(double value) throws JSONException {
+	public JsonArrayWrapper put(double value) {
 		return new JsonArrayWrapper(jsonArray.put(value));
 	}
 	
 	/**
 	 * @param value
 	 * @return the {@link JsonArrayWrapper}
-	 * @see org.json.JSONArray#put(int)
+	 * @see com.jdroid.java.json.JSONArray#put(int)
 	 */
 	public JsonArrayWrapper put(int value) {
 		return new JsonArrayWrapper(jsonArray.put(value));
@@ -310,7 +298,7 @@ public class JsonArrayWrapper {
 	/**
 	 * @param value
 	 * @return the {@link JsonArrayWrapper}
-	 * @see org.json.JSONArray#put(long)
+	 * @see com.jdroid.java.json.JSONArray#put(long)
 	 */
 	public JsonArrayWrapper put(long value) {
 		return new JsonArrayWrapper(jsonArray.put(value));
@@ -319,7 +307,7 @@ public class JsonArrayWrapper {
 	/**
 	 * @param value
 	 * @return the {@link JsonArrayWrapper}
-	 * @see org.json.JSONArray#put(java.lang.Object)
+	 * @see com.jdroid.java.json.JSONArray#put(java.lang.Object)
 	 */
 	public JsonArrayWrapper put(Object value) {
 		return new JsonArrayWrapper(jsonArray.put(value));
@@ -329,10 +317,9 @@ public class JsonArrayWrapper {
 	 * @param index
 	 * @param value
 	 * @return {@link JsonArrayWrapper}
-	 * @throws JSONException
-	 * @see org.json.JSONArray#put(int, boolean)
+	 * @see com.jdroid.java.json.JSONArray#put(int, boolean)
 	 */
-	public JsonArrayWrapper put(int index, boolean value) throws JSONException {
+	public JsonArrayWrapper put(int index, boolean value) {
 		return new JsonArrayWrapper(jsonArray.put(index, value));
 	}
 	
@@ -340,10 +327,9 @@ public class JsonArrayWrapper {
 	 * @param index
 	 * @param value
 	 * @return the {@link JsonArrayWrapper}
-	 * @throws JSONException
-	 * @see org.json.JSONArray#put(int, double)
+	 * @see com.jdroid.java.json.JSONArray#put(int, double)
 	 */
-	public JsonArrayWrapper put(int index, double value) throws JSONException {
+	public JsonArrayWrapper put(int index, double value) {
 		return new JsonArrayWrapper(jsonArray.put(index, value));
 	}
 	
@@ -351,10 +337,9 @@ public class JsonArrayWrapper {
 	 * @param index
 	 * @param value
 	 * @return the {@link JsonArrayWrapper}
-	 * @throws JSONException
-	 * @see org.json.JSONArray#put(int, int)
+	 * @see com.jdroid.java.json.JSONArray#put(int, int)
 	 */
-	public JsonArrayWrapper put(int index, int value) throws JSONException {
+	public JsonArrayWrapper put(int index, int value) {
 		return new JsonArrayWrapper(jsonArray.put(index, value));
 	}
 	
@@ -362,10 +347,9 @@ public class JsonArrayWrapper {
 	 * @param index
 	 * @param value
 	 * @return the {@link JsonArrayWrapper}
-	 * @throws JSONException
-	 * @see org.json.JSONArray#put(int, long)
+	 * @see com.jdroid.java.json.JSONArray#put(int, long)
 	 */
-	public JsonArrayWrapper put(int index, long value) throws JSONException {
+	public JsonArrayWrapper put(int index, long value) {
 		return new JsonArrayWrapper(jsonArray.put(index, value));
 	}
 	
@@ -373,20 +357,18 @@ public class JsonArrayWrapper {
 	 * @param index
 	 * @param value
 	 * @return the {@link JsonArrayWrapper}
-	 * @throws JSONException
-	 * @see org.json.JSONArray#put(int, java.lang.Object)
+	 * @see com.jdroid.java.json.JSONArray#put(int, java.lang.Object)
 	 */
-	public JsonArrayWrapper put(int index, Object value) throws JSONException {
+	public JsonArrayWrapper put(int index, Object value) {
 		return new JsonArrayWrapper(jsonArray.put(index, value));
 	}
 	
 	/**
 	 * @param names
 	 * @return the {@link JsonObjectWrapper}
-	 * @throws JSONException
-	 * @see org.json.JSONArray#toJSONObject(org.json.JSONArray)
+	 * @see com.jdroid.java.json.JSONArray#toJSONObject(com.jdroid.java.json.JSONArray)
 	 */
-	public JsonObjectWrapper toJSONObject(JSONArray names) throws JSONException {
+	public JsonObjectWrapper toJSONObject(JSONArray names) {
 		return new JsonObjectWrapper(jsonArray.toJSONObject(names));
 	}
 	
@@ -401,10 +383,9 @@ public class JsonArrayWrapper {
 	/**
 	 * @param indentFactor
 	 * @return the {@link String}
-	 * @throws JSONException
-	 * @see org.json.JSONArray#toString(int)
+	 * @see com.jdroid.java.json.JSONArray#toString(int)
 	 */
-	public String toString(int indentFactor) throws JSONException {
+	public String toString(int indentFactor) {
 		return jsonArray.toString(indentFactor);
 	}
 	

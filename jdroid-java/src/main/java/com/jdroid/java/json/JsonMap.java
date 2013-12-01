@@ -2,7 +2,6 @@ package com.jdroid.java.json;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import org.json.JSONObject;
 import com.jdroid.java.marshaller.MarshallerMode;
 import com.jdroid.java.marshaller.MarshallerProvider;
 import com.jdroid.java.utils.CollectionUtils;

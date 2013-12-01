@@ -1,6 +1,8 @@
 package com.jdroid.java.parser.json;
 
-import org.json.JSONException;
+import com.jdroid.java.json.JsonArrayWrapper;
+import com.jdroid.java.json.JsonObjectWrapper;
+
 
 /**
  * 
@@ -18,7 +20,7 @@ public class JsonArrayParser extends JsonParser<JsonArrayWrapper> {
 	 * @see com.jdroid.java.parser.json.JsonParser#parse(java.lang.Object)
 	 */
 	@Override
-	public Object parse(JsonArrayWrapper json) throws JSONException {
+	public Object parse(JsonArrayWrapper json) {
 		return parseList(json, parser);
 	}
 }

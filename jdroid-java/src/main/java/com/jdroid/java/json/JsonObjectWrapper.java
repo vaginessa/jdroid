@@ -1,13 +1,9 @@
-package com.jdroid.java.parser.json;
+package com.jdroid.java.json;
 
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.DateUtils;
 
 /**
@@ -23,7 +19,7 @@ public class JsonObjectWrapper {
 		this(new JSONObject());
 	}
 	
-	public JsonObjectWrapper(String string) throws JSONException {
+	public JsonObjectWrapper(String string) {
 		this(new JSONObject(string));
 	}
 	
@@ -51,94 +47,84 @@ public class JsonObjectWrapper {
 	 * @param key
 	 * @param value
 	 * @return the {@link JsonObjectWrapper}
-	 * @throws JSONException
-	 * @see org.json.JSONObject#accumulate(java.lang.String, java.lang.Object)
+	 * @see com.jdroid.java.json.JSONObject#accumulate(java.lang.String, java.lang.Object)
 	 */
-	public JsonObjectWrapper accumulate(String key, Object value) throws JSONException {
+	public JsonObjectWrapper accumulate(String key, Object value) {
 		return new JsonObjectWrapper(jsonObject.accumulate(key, value));
 	}
 	
 	/**
 	 * @param key
 	 * @return the {@link Object}
-	 * @throws JSONException
-	 * @see org.json.JSONObject#get(java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#get(java.lang.String)
 	 */
-	public Object get(String key) throws JSONException {
+	public Object get(String key) {
 		return jsonObject.get(key);
 	}
 	
 	/**
 	 * @param key
 	 * @return the boolean
-	 * @throws JSONException
-	 * @see org.json.JSONObject#getBoolean(java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#getBoolean(java.lang.String)
 	 */
-	public boolean getBoolean(String key) throws JSONException {
+	public boolean getBoolean(String key) {
 		return jsonObject.getBoolean(key);
 	}
 	
 	/**
 	 * @param key
 	 * @return the double
-	 * @throws JSONException
-	 * @see org.json.JSONObject#getDouble(java.lang.String)
 	 */
-	public double getDouble(String key) throws JSONException {
+	public double getDouble(String key) {
 		return jsonObject.getDouble(key);
 	}
 	
-	public float getFloat(String key) throws JSONException {
+	public float getFloat(String key) {
 		return (float)jsonObject.getDouble(key);
 	}
 	
 	/**
 	 * @param key
 	 * @return the int
-	 * @throws JSONException
-	 * @see org.json.JSONObject#getInt(java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#getInt(java.lang.String)
 	 */
-	public int getInt(String key) throws JSONException {
+	public int getInt(String key) {
 		return jsonObject.getInt(key);
 	}
 	
 	/**
 	 * @param key
 	 * @return the {@link JsonArrayWrapper}
-	 * @throws JSONException
-	 * @see org.json.JSONObject#getJSONArray(java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#getJSONArray(java.lang.String)
 	 */
-	public JsonArrayWrapper getJSONArray(String key) throws JSONException {
+	public JsonArrayWrapper getJSONArray(String key) {
 		return new JsonArrayWrapper(jsonObject.getJSONArray(key));
 	}
 	
 	/**
 	 * @param key
 	 * @return the {@link JsonObjectWrapper}
-	 * @throws JSONException
-	 * @see org.json.JSONObject#getJSONObject(java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#getJSONObject(java.lang.String)
 	 */
-	public JsonObjectWrapper getJSONObject(String key) throws JSONException {
+	public JsonObjectWrapper getJSONObject(String key) {
 		return new JsonObjectWrapper(jsonObject.getJSONObject(key));
 	}
 	
 	/**
 	 * @param key
 	 * @return the long
-	 * @throws JSONException
-	 * @see org.json.JSONObject#getLong(java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#getLong(java.lang.String)
 	 */
-	public long getLong(String key) throws JSONException {
+	public long getLong(String key) {
 		return jsonObject.getLong(key);
 	}
 	
 	/**
 	 * @param key
 	 * @return the {@link String}
-	 * @throws JSONException
-	 * @see org.json.JSONObject#getString(java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#getString(java.lang.String)
 	 */
-	public String getString(String key) throws JSONException {
+	public String getString(String key) {
 		String value = null;
 		if (!jsonObject.isNull(key)) {
 			value = jsonObject.getString(key);
@@ -146,11 +132,11 @@ public class JsonObjectWrapper {
 		return value;
 	}
 	
-	public Date getDate(String key) throws JSONException {
+	public Date getDate(String key) {
 		return getDate(key, DateUtils.YYYYMMDDHHMMSSZ_DATE_FORMAT);
 	}
 	
-	public Date getDate(String key, String dateFormat) throws JSONException {
+	public Date getDate(String key, String dateFormat) {
 		Date date = null;
 		if (!jsonObject.isNull(key)) {
 			String value = jsonObject.getString(key);
@@ -159,15 +145,15 @@ public class JsonObjectWrapper {
 		return date;
 	}
 	
-	public Date optDate(String key) throws JSONException {
+	public Date optDate(String key) {
 		return optDate(key, DateUtils.YYYYMMDDHHMMSSZ_DATE_FORMAT);
 	}
 	
-	public Date optDate(String key, String dateFormat) throws JSONException {
+	public Date optDate(String key, String dateFormat) {
 		return optDate(key, dateFormat, null);
 	}
 	
-	public Date optDate(String key, String dateFormat, Date defaultDate) throws JSONException {
+	public Date optDate(String key, String dateFormat, Date defaultDate) {
 		if (hasNotNull(key)) {
 			String value = jsonObject.getString(key);
 			return DateUtils.parse(value, dateFormat);
@@ -178,7 +164,7 @@ public class JsonObjectWrapper {
 	/**
 	 * @param key
 	 * @return the boolean
-	 * @see org.json.JSONObject#has(java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#has(java.lang.String)
 	 */
 	public boolean has(String key) {
 		return jsonObject.has(key);
@@ -191,7 +177,7 @@ public class JsonObjectWrapper {
 	/**
 	 * @param key
 	 * @return the boolean
-	 * @see org.json.JSONObject#isNull(java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#isNull(java.lang.String)
 	 */
 	public boolean isNull(String key) {
 		return jsonObject.isNull(key);
@@ -199,7 +185,7 @@ public class JsonObjectWrapper {
 	
 	/**
 	 * @return the {@link Iterator}
-	 * @see org.json.JSONObject#keys()
+	 * @see com.jdroid.java.json.JSONObject#keys()
 	 */
 	public Iterator<?> keys() {
 		return jsonObject.keys();
@@ -207,7 +193,7 @@ public class JsonObjectWrapper {
 	
 	/**
 	 * @return the int
-	 * @see org.json.JSONObject#length()
+	 * @see com.jdroid.java.json.JSONObject#length()
 	 */
 	public int length() {
 		return jsonObject.length();
@@ -215,7 +201,7 @@ public class JsonObjectWrapper {
 	
 	/**
 	 * @return the {@link JsonArrayWrapper}
-	 * @see org.json.JSONObject#names()
+	 * @see com.jdroid.java.json.JSONObject#names()
 	 */
 	public JsonArrayWrapper names() {
 		return new JsonArrayWrapper(jsonObject.names());
@@ -224,10 +210,9 @@ public class JsonObjectWrapper {
 	/**
 	 * @param key
 	 * @return the {@link Object}
-	 * @throws JSONException
-	 * @see org.json.JSONObject#opt(java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#opt(java.lang.String)
 	 */
-	public Object opt(String key) throws JSONException {
+	public Object opt(String key) {
 		if (hasNotNull(key)) {
 			return jsonObject.get(key);
 		}
@@ -237,10 +222,9 @@ public class JsonObjectWrapper {
 	/**
 	 * @param key
 	 * @return the boolean
-	 * @throws JSONException
-	 * @see org.json.JSONObject#optBoolean(java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#optBoolean(java.lang.String)
 	 */
-	public Boolean optBoolean(String key) throws JSONException {
+	public Boolean optBoolean(String key) {
 		return optBoolean(key, null);
 	}
 	
@@ -248,10 +232,9 @@ public class JsonObjectWrapper {
 	 * @param key
 	 * @param defaultValue
 	 * @return the boolean
-	 * @throws JSONException
-	 * @see org.json.JSONObject#optBoolean(java.lang.String, boolean)
+	 * @see com.jdroid.java.json.JSONObject#optBoolean(java.lang.String, boolean)
 	 */
-	public Boolean optBoolean(String key, Boolean defaultValue) throws JSONException {
+	public Boolean optBoolean(String key, Boolean defaultValue) {
 		if (hasNotNull(key)) {
 			return jsonObject.getBoolean(key);
 		}
@@ -261,10 +244,9 @@ public class JsonObjectWrapper {
 	/**
 	 * @param key
 	 * @return the double
-	 * @throws JSONException
-	 * @see org.json.JSONObject#optDouble(java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#optDouble(java.lang.String)
 	 */
-	public Double optDouble(String key) throws JSONException {
+	public Double optDouble(String key) {
 		return optDouble(key, null);
 	}
 	
@@ -272,10 +254,9 @@ public class JsonObjectWrapper {
 	 * @param key
 	 * @param defaultValue
 	 * @return the double
-	 * @throws JSONException
-	 * @see org.json.JSONObject#optDouble(java.lang.String, double)
+	 * @see com.jdroid.java.json.JSONObject#optDouble(java.lang.String, double)
 	 */
-	public Double optDouble(String key, Double defaultValue) throws JSONException {
+	public Double optDouble(String key, Double defaultValue) {
 		if (hasNotNull(key)) {
 			return jsonObject.getDouble(key);
 		}
@@ -285,10 +266,9 @@ public class JsonObjectWrapper {
 	/**
 	 * @param key
 	 * @return the float
-	 * @throws JSONException
-	 * @see org.json.JSONObject#optDouble(java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#optDouble(java.lang.String)
 	 */
-	public Float optFloat(String key) throws JSONException {
+	public Float optFloat(String key) {
 		return optFloat(key, null);
 	}
 	
@@ -296,10 +276,9 @@ public class JsonObjectWrapper {
 	 * @param key
 	 * @param defaultValue
 	 * @return the float
-	 * @throws JSONException
-	 * @see org.json.JSONObject#optDouble(java.lang.String, double)
+	 * @see com.jdroid.java.json.JSONObject#optDouble(java.lang.String, double)
 	 */
-	public Float optFloat(String key, Float defaultValue) throws JSONException {
+	public Float optFloat(String key, Float defaultValue) {
 		if (hasNotNull(key)) {
 			return (float)jsonObject.getDouble(key);
 		}
@@ -309,10 +288,9 @@ public class JsonObjectWrapper {
 	/**
 	 * @param key
 	 * @return the int
-	 * @throws JSONException
-	 * @see org.json.JSONObject#optInt(java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#optInt(java.lang.String)
 	 */
-	public Integer optInt(String key) throws JSONException {
+	public Integer optInt(String key) {
 		return optInt(key, null);
 	}
 	
@@ -320,10 +298,9 @@ public class JsonObjectWrapper {
 	 * @param key
 	 * @param defaultValue
 	 * @return the int
-	 * @throws JSONException
-	 * @see org.json.JSONObject#optInt(java.lang.String, int)
+	 * @see com.jdroid.java.json.JSONObject#optInt(java.lang.String, int)
 	 */
-	public Integer optInt(String key, Integer defaultValue) throws JSONException {
+	public Integer optInt(String key, Integer defaultValue) {
 		if (hasNotNull(key)) {
 			return jsonObject.getInt(key);
 		}
@@ -333,14 +310,14 @@ public class JsonObjectWrapper {
 	/**
 	 * @param key
 	 * @return the {@link JsonArrayWrapper}
-	 * @see org.json.JSONObject#optJSONArray(java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#optJSONArray(java.lang.String)
 	 */
 	public JsonArrayWrapper optJSONArray(String key) {
 		JSONArray optJsonArray = jsonObject.optJSONArray(key);
 		return optJsonArray != null ? new JsonArrayWrapper(optJsonArray) : null;
 	}
 	
-	public List<String> optList(String key) throws JSONException {
+	public List<String> optList(String key) {
 		JsonArrayWrapper jsonArray = optJSONArray(key);
 		List<String> list = null;
 		if (jsonArray != null) {
@@ -356,7 +333,7 @@ public class JsonObjectWrapper {
 	/**
 	 * @param key
 	 * @return the {@link JsonObjectWrapper}
-	 * @see org.json.JSONObject#optJSONObject(java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#optJSONObject(java.lang.String)
 	 */
 	public JsonObjectWrapper optJSONObject(String key) {
 		JSONObject optJsonObject = jsonObject.optJSONObject(key);
@@ -366,10 +343,9 @@ public class JsonObjectWrapper {
 	/**
 	 * @param key
 	 * @return the long
-	 * @throws JSONException
-	 * @see org.json.JSONObject#optLong(java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#optLong(java.lang.String)
 	 */
-	public Long optLong(String key) throws JSONException {
+	public Long optLong(String key) {
 		return optLong(key, null);
 	}
 	
@@ -377,10 +353,9 @@ public class JsonObjectWrapper {
 	 * @param key
 	 * @param defaultValue
 	 * @return the long
-	 * @throws JSONException
-	 * @see org.json.JSONObject#optLong(java.lang.String, long)
+	 * @see com.jdroid.java.json.JSONObject#optLong(java.lang.String, long)
 	 */
-	public Long optLong(String key, Long defaultValue) throws JSONException {
+	public Long optLong(String key, Long defaultValue) {
 		if (hasNotNull(key)) {
 			return jsonObject.getLong(key);
 		}
@@ -390,10 +365,9 @@ public class JsonObjectWrapper {
 	/**
 	 * @param key
 	 * @return the {@link String}
-	 * @throws JSONException
-	 * @see org.json.JSONObject#optString(java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#optString(java.lang.String)
 	 */
-	public String optString(String key) throws JSONException {
+	public String optString(String key) {
 		return optString(key, null);
 	}
 	
@@ -401,10 +375,9 @@ public class JsonObjectWrapper {
 	 * @param key
 	 * @param defaultValue
 	 * @return the {@link String}
-	 * @throws JSONException
-	 * @see org.json.JSONObject#optString(java.lang.String, java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#optString(java.lang.String, java.lang.String)
 	 */
-	public String optString(String key, String defaultValue) throws JSONException {
+	public String optString(String key, String defaultValue) {
 		if (hasNotNull(key)) {
 			return jsonObject.getString(key);
 		}
@@ -415,14 +388,10 @@ public class JsonObjectWrapper {
 	 * @param key
 	 * @param value
 	 * @return the {@link JsonObjectWrapper}
-	 * @see org.json.JSONObject#put(java.lang.String, boolean)
+	 * @see com.jdroid.java.json.JSONObject#put(java.lang.String, boolean)
 	 */
 	public JsonObjectWrapper put(String key, boolean value) {
-		try {
-			jsonObject.put(key, value);
-		} catch (JSONException e) {
-			throw new UnexpectedException(e);
-		}
+		jsonObject.put(key, value);
 		return this;
 	}
 	
@@ -430,14 +399,10 @@ public class JsonObjectWrapper {
 	 * @param key
 	 * @param value
 	 * @return the {@link JsonObjectWrapper}
-	 * @see org.json.JSONObject#put(java.lang.String, double)
+	 * @see com.jdroid.java.json.JSONObject#put(java.lang.String, double)
 	 */
 	public JsonObjectWrapper put(String key, double value) {
-		try {
-			jsonObject.put(key, value);
-		} catch (JSONException e) {
-			throw new UnexpectedException(e);
-		}
+		jsonObject.put(key, value);
 		return this;
 	}
 	
@@ -445,14 +410,10 @@ public class JsonObjectWrapper {
 	 * @param key
 	 * @param value
 	 * @return the {@link JsonObjectWrapper}
-	 * @see org.json.JSONObject#put(java.lang.String, int)
+	 * @see com.jdroid.java.json.JSONObject#put(java.lang.String, int)
 	 */
 	public JsonObjectWrapper put(String key, int value) {
-		try {
-			jsonObject.put(key, value);
-		} catch (JSONException e) {
-			throw new UnexpectedException(e);
-		}
+		jsonObject.put(key, value);
 		return this;
 	}
 	
@@ -460,14 +421,10 @@ public class JsonObjectWrapper {
 	 * @param key
 	 * @param value
 	 * @return the {@link JsonObjectWrapper}
-	 * @see org.json.JSONObject#put(java.lang.String, long)
+	 * @see com.jdroid.java.json.JSONObject#put(java.lang.String, long)
 	 */
 	public JsonObjectWrapper put(String key, long value) {
-		try {
-			jsonObject.put(key, value);
-		} catch (JSONException e) {
-			throw new UnexpectedException(e);
-		}
+		jsonObject.put(key, value);
 		return this;
 	}
 	
@@ -475,14 +432,10 @@ public class JsonObjectWrapper {
 	 * @param key
 	 * @param value
 	 * @return the {@link JsonObjectWrapper}
-	 * @see org.json.JSONObject#put(java.lang.String, java.lang.Object)
+	 * @see com.jdroid.java.json.JSONObject#put(java.lang.String, java.lang.Object)
 	 */
 	public JsonObjectWrapper put(String key, Object value) {
-		try {
-			jsonObject.put(key, value);
-		} catch (JSONException e) {
-			throw new UnexpectedException(e);
-		}
+		jsonObject.put(key, value);
 		return this;
 	}
 	
@@ -490,21 +443,17 @@ public class JsonObjectWrapper {
 	 * @param key
 	 * @param value
 	 * @return the {@link JsonObjectWrapper}
-	 * @see org.json.JSONObject#putOpt(java.lang.String, java.lang.Object)
+	 * @see com.jdroid.java.json.JSONObject#putOpt(java.lang.String, java.lang.Object)
 	 */
 	public JsonObjectWrapper putOpt(String key, Object value) {
-		try {
-			jsonObject.put(key, value);
-		} catch (JSONException e) {
-			throw new UnexpectedException(e);
-		}
+		jsonObject.put(key, value);
 		return this;
 	}
 	
 	/**
 	 * @param key
 	 * @return the {@link Object}
-	 * @see org.json.JSONObject#remove(java.lang.String)
+	 * @see com.jdroid.java.json.JSONObject#remove(java.lang.String)
 	 */
 	public Object remove(String key) {
 		return jsonObject.remove(key);
@@ -513,10 +462,9 @@ public class JsonObjectWrapper {
 	/**
 	 * @param names
 	 * @return the {@link JsonArrayWrapper}
-	 * @throws JSONException
-	 * @see org.json.JSONObject#toJSONArray(org.json.JSONArray)
+	 * @see com.jdroid.java.json.JSONObject#toJSONArray(com.jdroid.java.json.JSONArray)
 	 */
-	public JsonArrayWrapper toJSONArray(JSONArray names) throws JSONException {
+	public JsonArrayWrapper toJSONArray(JSONArray names) {
 		return new JsonArrayWrapper(jsonObject.toJSONArray(names));
 	}
 	
@@ -531,10 +479,9 @@ public class JsonObjectWrapper {
 	/**
 	 * @param indentFactor
 	 * @return the {@link String}
-	 * @throws JSONException
-	 * @see org.json.JSONObject#toString(int)
+	 * @see com.jdroid.java.json.JSONObject#toString(int)
 	 */
-	public String toString(int indentFactor) throws JSONException {
+	public String toString(int indentFactor) {
 		return jsonObject.toString(indentFactor);
 	}
 	
