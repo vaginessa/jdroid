@@ -96,10 +96,16 @@ public class AndroidUtils {
 			view.getWindowToken(), 0);
 	}
 	
-	public static String getCarrier() {
+	public static String getNetworkOperatorName() {
 		TelephonyManager manager = (TelephonyManager)AbstractApplication.get().getSystemService(
 			Context.TELEPHONY_SERVICE);
 		return manager.getNetworkOperatorName();
+	}
+	
+	public static String getSimOperatorName() {
+		TelephonyManager manager = (TelephonyManager)AbstractApplication.get().getSystemService(
+			Context.TELEPHONY_SERVICE);
+		return manager.getSimOperatorName();
 	}
 	
 	/**

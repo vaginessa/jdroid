@@ -19,7 +19,8 @@
 	<string name="screenSize">Screen Size: %1$s</string>
 	<string name="smallestScreenWidthDp">Smallest Screen Width: %1$sdp</string>
 	<string name="screenDensity">Screen Density: %1$s</string>
-	<string name="carrier">Carrier: %1$s</string>
+	<string name="networkOperatorName">Network Operator Name: %1$s</string>
+	<string name="simOperatorName">SIM Operator Name: %1$s</string>
 
 	<string name="branch">Branch: %1$s</string>
 	<string name="commitId">Commit Id: %1$s</string>

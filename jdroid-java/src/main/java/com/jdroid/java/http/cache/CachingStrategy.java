@@ -47,7 +47,7 @@ public enum CachingStrategy {
 		public <T> T execute(CachedWebService cachedWebService, Parser parser) {
 			T response = null;
 			try {
-				cachedWebService.executeRequest(parser);
+				response = cachedWebService.executeRequest(parser);
 			} catch (Exception e) {
 				LOGGER.warn("Error when executing request. Cached response will be returned", e);
 			}

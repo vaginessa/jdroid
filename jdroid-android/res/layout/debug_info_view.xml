@@ -19,8 +19,10 @@
 			android:text="@string/screenSize" />
 		<TextView android:id="@+id/smallestScreenWidthDp" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/smallestScreenWidthDp" />
-		<TextView android:id="@+id/carrier" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			style="@string/carrier" />
+		<TextView android:id="@+id/networkOperatorName" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			style="@string/networkOperatorName" />
+		<TextView android:id="@+id/simOperatorName" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			style="@string/simOperatorName" />
 
 		<TextView android:id="@+id/branch" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/branch" />

@@ -9,6 +9,7 @@ import com.jdroid.java.http.HttpWebServiceProcessor;
 import com.jdroid.java.http.WebService;
 import com.jdroid.java.parser.Parser;
 import com.jdroid.java.utils.FileUtils;
+import com.jdroid.java.utils.Hasher;
 import com.jdroid.java.utils.LoggerUtils;
 
 /**
@@ -42,7 +43,7 @@ public abstract class CachedWebService implements WebService {
 	 */
 	@Override
 	public <T> T execute(Parser parser) {
-		LOGGER.debug("Executing cache strategy: " + cachingStrategy);
+		LOGGER.debug("Executing cache strategy: " + cachingStrategy + " for url: " + getUrl());
 		return cachingStrategy.execute(this, parser);
 	}
 	
@@ -62,7 +63,8 @@ public abstract class CachedWebService implements WebService {
 		File cacheFile = new File(getHttpCacheDirectory(), generateCacheFileName());
 		if (cacheFile.exists()) {
 			
-			if ((timeToLive == null) || ((System.currentTimeMillis() - cacheFile.lastModified()) < timeToLive)) {
+			long diff = System.currentTimeMillis() - cacheFile.lastModified();
+			if ((timeToLive == null) || ((diff >= 0) && (diff < timeToLive))) {
 				FileInputStream fileInputStream = null;
 				try {
 					fileInputStream = new FileInputStream(cacheFile);
@@ -83,12 +85,17 @@ public abstract class CachedWebService implements WebService {
 	public <T> T executeRequest(Parser parser) {
 		String cacheFileName = generateCacheFileName();
 		File cacheFile = new File(getHttpCacheDirectory(), cacheFileName);
+		
+		// TODO Se if we should save the cache when the request fails
 		return webService.execute(new CacheParser(parser, cacheFile));
 	}
 	
-	private String generateCacheFileName() {
-		// TODO See the hashing implementation
-		return getUrl().hashCode() + ".cache";
+	protected String generateCacheFileName() {
+		return generateCacheFileName(getUrl());
+	}
+	
+	public static String generateCacheFileName(String key) {
+		return Hasher.SHA_1.hash(key) + ".cache";
 	}
 	
 	/**
