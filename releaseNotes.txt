@@ -1,5 +1,6 @@
 jdroid Java\n
 -----------\n
+* Added http cache implementation\n
 * Upgraded dependencies versions\n
 * Bug fixing\n
 \n
@@ -10,6 +11,8 @@ jdroid Java Web\n
 \n
 jdroid Android\n
 --------------\n
+* Changed min api level supported to 14\n
+* Added EmailAutoCompleteTextView component\n
 * Upgraded dependencies versions\n
 * Bug fixing\n
 \n
