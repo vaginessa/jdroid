@@ -32,7 +32,7 @@ Dependency project for Java Web apps
 
 jdroid Android
 --------------
-Library project for Android apps. Support for Android 3.2 and higher versions
+Library project for Android apps. Support for Android 4.0 (api level 14) and higher versions
 * Google Analytics integration
 * Flurry Analytics integration
 * Google Play Services integration
