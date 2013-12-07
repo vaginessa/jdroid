@@ -3,6 +3,7 @@ package com.jdroid.android;
 import java.io.File;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.UUID;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -33,7 +34,6 @@ import com.jdroid.android.utils.SharedPreferencesUtils;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.context.GitContext;
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.parser.json.JsonObjectWrapper;
 import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.ExecutorUtils;
 import com.jdroid.java.utils.FileUtils;
@@ -60,6 +60,8 @@ public abstract class AbstractApplication extends Application {
 	private static final int IMAGES_CACHE_SIZE = 5;
 	
 	private static final String IMAGES_DIRECTORY = "images";
+	private static final String HTTP_CACHE_DIRECTORY = "http";
+	
 	protected static AbstractApplication INSTANCE;
 	
 	private DefaultApplicationContext applicationContext;
@@ -69,6 +71,7 @@ public abstract class AbstractApplication extends Application {
 	
 	private File cacheDirectory;
 	private File imagesCacheDirectory;
+	private File httpCacheDirectory;
 	private BitmapLruCache bitmapLruCache;
 	
 	private String installationId;
@@ -114,6 +117,7 @@ public abstract class AbstractApplication extends Application {
 		initEncryptionUtils();
 		initCacheDirectory();
 		initImagesCacheDirectory();
+		initHttpCacheDirectory();
 		initBitmapLruCache();
 		
 		initInAppBilling();
@@ -166,6 +170,10 @@ public abstract class AbstractApplication extends Application {
 		LOGGER.debug("Cache directory: " + cacheDirectory.getPath());
 	}
 	
+	protected void initHttpCacheDirectory() {
+		httpCacheDirectory = new File(getCacheDirectory(), HTTP_CACHE_DIRECTORY);
+	}
+	
 	protected void initImagesCacheDirectory() {
 		imagesCacheDirectory = new File(getCacheDirectory(), IMAGES_DIRECTORY);
 		LOGGER.debug("Images cache directory: " + imagesCacheDirectory.getPath());
@@ -212,11 +220,11 @@ public abstract class AbstractApplication extends Application {
 		}
 	}
 	
-	protected JsonObjectWrapper getExceptionHandlerMetadata() {
+	protected JSONObject getExceptionHandlerMetadata() {
 		return null;
 	}
 	
-	private void initCrittercism(JsonObjectWrapper metadata) {
+	private void initCrittercism(JSONObject metadata) {
 		
 		if (applicationContext.isCrittercismEnabled()) {
 			try {
@@ -231,7 +239,7 @@ public abstract class AbstractApplication extends Application {
 					Crittercism.setUsername(installationId);
 				}
 				if (metadata != null) {
-					Crittercism.setMetadata(metadata.getJsonObject());
+					Crittercism.setMetadata(metadata);
 				}
 				LOGGER.debug("Crittercism initialized");
 			} catch (Exception e) {
@@ -320,6 +328,13 @@ public abstract class AbstractApplication extends Application {
 			imagesCacheDirectory.mkdirs();
 		}
 		return imagesCacheDirectory;
+	}
+	
+	public File getHttpCacheDirectory() {
+		if (!httpCacheDirectory.exists()) {
+			httpCacheDirectory.mkdirs();
+		}
+		return httpCacheDirectory;
 	}
 	
 	/**

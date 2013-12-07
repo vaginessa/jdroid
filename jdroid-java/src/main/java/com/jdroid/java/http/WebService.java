@@ -71,4 +71,6 @@ public interface WebService {
 	 */
 	public void setSsl(Boolean ssl);
 	
+	public String getUrl();
+	
 }

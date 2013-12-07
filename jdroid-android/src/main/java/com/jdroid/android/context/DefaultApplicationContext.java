@@ -1,5 +1,6 @@
 package com.jdroid.android.context;
 
+import java.util.Locale;
 import java.util.Set;
 import android.preference.PreferenceManager;
 import com.jdroid.android.AbstractApplication;
@@ -20,6 +21,7 @@ public class DefaultApplicationContext {
 	private String googleProjectId;
 	private String facebookAppId;
 	private Boolean debugSettings;
+	private Boolean crashReportsEnabled;
 	private Boolean isFreeApp;
 	private Boolean adsEnabled;
 	private String adUnitId;
@@ -44,6 +46,7 @@ public class DefaultApplicationContext {
 		googleProjectId = PropertiesUtils.getStringProperty("google.projectId");
 		facebookAppId = PropertiesUtils.getStringProperty("facebook.app.id");
 		debugSettings = PropertiesUtils.getBooleanProperty("debug.settings", false);
+		crashReportsEnabled = PropertiesUtils.getBooleanProperty("crash.reporting.enabled", false);
 		isFreeApp = PropertiesUtils.getBooleanProperty("free.app");
 		adsEnabled = PropertiesUtils.getBooleanProperty("ads.enabled", false);
 		adUnitId = PropertiesUtils.getStringProperty("ads.adUnitId");
@@ -66,7 +69,7 @@ public class DefaultApplicationContext {
 			return (T)defaultServer;
 		} else {
 			return (T)defaultServer.instance(PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
-				defaultServer.getClass().getSimpleName(), defaultServer.getName()).toUpperCase());
+				defaultServer.getClass().getSimpleName(), defaultServer.getName()).toUpperCase(Locale.US));
 		}
 	}
 	
@@ -198,5 +201,9 @@ public class DefaultApplicationContext {
 	
 	public String getInstallationSource() {
 		return installationSource;
+	}
+	
+	public Boolean isCrashReportsEnabled() {
+		return crashReportsEnabled;
 	}
 }

@@ -113,7 +113,7 @@ public abstract class ApacheHttpWebService implements WebService {
 			addCookies(client);
 			
 			// make request.
-			HttpUriRequest request = createHttpUriRequest(createUrl());
+			HttpUriRequest request = createHttpUriRequest(getUrl());
 			
 			// Log request
 			LOGGER.debug(getMethodName() + ": " + request.getRequestLine().getUri());
@@ -158,7 +158,11 @@ public abstract class ApacheHttpWebService implements WebService {
 		}
 	}
 	
-	private String createUrl() {
+	/**
+	 * @see com.jdroid.java.http.WebService#getUrl()
+	 */
+	@Override
+	public String getUrl() {
 		StringBuilder builder = new StringBuilder();
 		builder.append(ssl && server.supportsSsl() ? HTTPS_PROTOCOL : HTTP_PROTOCOL);
 		builder.append("://");

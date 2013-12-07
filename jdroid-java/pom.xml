@@ -87,13 +87,6 @@
 			</exclusions>
 		</dependency>
 
-		<!-- Json -->
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20090211</version>
-		</dependency>
-
 		<!-- Required to send mails -->
 		<dependency>
 			<groupId>android.mail</groupId>
@@ -110,7 +103,6 @@
 			<artifactId>additionnal</artifactId>
 			<version>1.0</version>
 		</dependency>
-
 
 		<!-- Logging -->
 		<dependency>

@@ -73,11 +73,19 @@ public class DebugInfoView extends LinearLayout {
 			buildTime.setVisibility(View.GONE);
 		}
 		
-		TextView carrier = (TextView)findViewById(R.id.carrier);
-		if (StringUtils.isNotBlank(AndroidUtils.getCarrier())) {
-			carrier.setText(context.getString(R.string.carrier, AndroidUtils.getCarrier()));
+		TextView networkOperatorName = (TextView)findViewById(R.id.networkOperatorName);
+		if (StringUtils.isNotBlank(AndroidUtils.getNetworkOperatorName())) {
+			networkOperatorName.setText(context.getString(R.string.networkOperatorName,
+				AndroidUtils.getNetworkOperatorName()));
 		} else {
-			carrier.setVisibility(View.GONE);
+			networkOperatorName.setVisibility(View.GONE);
+		}
+		
+		TextView simOperatorName = (TextView)findViewById(R.id.simOperatorName);
+		if (StringUtils.isNotBlank(AndroidUtils.getSimOperatorName())) {
+			simOperatorName.setText(context.getString(R.string.simOperatorName, AndroidUtils.getSimOperatorName()));
+		} else {
+			simOperatorName.setVisibility(View.GONE);
 		}
 		
 		findViewById(R.id.crash).setOnClickListener(new OnClickListener() {

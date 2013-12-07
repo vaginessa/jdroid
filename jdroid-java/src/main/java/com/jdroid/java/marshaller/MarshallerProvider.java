@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
-import com.jdroid.java.parser.json.JsonArrayWrapper;
+import com.jdroid.java.json.JSONArray;
 
 /**
  * 
@@ -39,7 +39,7 @@ public class MarshallerProvider {
 				for (Object each : collection) {
 					list.add(innerMarshall(each, mode, extras));
 				}
-				return new JsonArrayWrapper(list);
+				return new JSONArray(list);
 			} else {
 				return innerMarshall(object, mode, extras);
 			}

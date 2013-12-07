@@ -1,5 +1,8 @@
 package com.jdroid.android.utils;
 
+import java.util.List;
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -21,8 +24,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.StringUtils;
+import com.jdroid.java.utils.ValidationUtils;
 
 /**
  * 
@@ -96,10 +101,16 @@ public class AndroidUtils {
 			view.getWindowToken(), 0);
 	}
 	
-	public static String getCarrier() {
+	public static String getNetworkOperatorName() {
 		TelephonyManager manager = (TelephonyManager)AbstractApplication.get().getSystemService(
 			Context.TELEPHONY_SERVICE);
 		return manager.getNetworkOperatorName();
+	}
+	
+	public static String getSimOperatorName() {
+		TelephonyManager manager = (TelephonyManager)AbstractApplication.get().getSystemService(
+			Context.TELEPHONY_SERVICE);
+		return manager.getSimOperatorName();
 	}
 	
 	/**
@@ -331,5 +342,15 @@ public class AndroidUtils {
 		Intent skypeIntent = new Intent("android.intent.action.VIEW");
 		skypeIntent.setData(Uri.parse("skype:" + username));
 		AbstractApplication.get().startActivity(skypeIntent);
+	}
+	
+	public static List<String> getAccountsEmails() {
+		List<String> emails = Lists.newArrayList();
+		for (Account account : AccountManager.get(AbstractApplication.get()).getAccounts()) {
+			if (ValidationUtils.isValidEmail(account.name)) {
+				emails.add(account.name);
+			}
+		}
+		return emails;
 	}
 }
