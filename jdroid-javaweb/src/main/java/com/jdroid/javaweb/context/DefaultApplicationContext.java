@@ -7,6 +7,7 @@ public class DefaultApplicationContext {
 	
 	private String appName;
 	private String appVersion;
+	private String appHomePath;
 	
 	private String googleServerApiKey;
 	private String adminToken;
@@ -75,5 +76,19 @@ public class DefaultApplicationContext {
 	 */
 	public void setAdminToken(String adminToken) {
 		this.adminToken = adminToken;
+	}
+	
+	/**
+	 * @return the appHomePath
+	 */
+	public String getAppHomePath() {
+		return appHomePath;
+	}
+	
+	/**
+	 * @param appHomePath the appHomePath to set
+	 */
+	public void setAppHomePath(String appHomePath) {
+		this.appHomePath = appHomePath;
 	}
 }
