@@ -1,7 +1,7 @@
 package com.jdroid.android.fragment;
 
 import android.os.Bundle;
-import com.jdroid.android.activity.ActivityHelper.UseCaseTrigger;
+import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 
 /**

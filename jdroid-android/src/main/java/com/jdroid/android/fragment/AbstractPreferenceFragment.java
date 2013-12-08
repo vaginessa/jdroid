@@ -1,11 +1,13 @@
 package com.jdroid.android.fragment;
 
+import android.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.view.View;
 import com.google.android.gms.ads.AdSize;
-import com.jdroid.android.activity.ActivityHelper.UseCaseTrigger;
+import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.context.DefaultApplicationContext;
 import com.jdroid.android.domain.User;
+import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.LoadingDialogBuilder;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
@@ -123,11 +125,11 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
+	 * @see com.jdroid.android.fragment.FragmentIf#showBlockingLoading()
 	 */
 	@Override
-	public void showLoading() {
-		getFragmentIf().showLoading();
+	public void showBlockingLoading() {
+		getFragmentIf().showBlockingLoading();
 	}
 	
 	/**
@@ -139,35 +141,11 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoadingOnUIThread()
+	 * @see com.jdroid.android.fragment.FragmentIf#dismissBlockingLoading()
 	 */
 	@Override
-	public void showLoadingOnUIThread() {
-		getFragmentIf().showLoadingOnUIThread();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoadingOnUIThread(com.jdroid.android.loading.LoadingDialogBuilder)
-	 */
-	@Override
-	public void showLoadingOnUIThread(LoadingDialogBuilder builder) {
-		getFragmentIf().showLoadingOnUIThread(builder);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissLoading()
-	 */
-	@Override
-	public void dismissLoading() {
-		getFragmentIf().dismissLoading();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissLoadingOnUIThread()
-	 */
-	@Override
-	public void dismissLoadingOnUIThread() {
-		getFragmentIf().dismissLoadingOnUIThread();
+	public void dismissBlockingLoading() {
+		getFragmentIf().dismissBlockingLoading();
 	}
 	
 	/**
@@ -214,7 +192,7 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#onResumeUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
 	 *      com.jdroid.android.usecase.listener.DefaultUseCaseListener,
-	 *      com.jdroid.android.activity.ActivityHelper.UseCaseTrigger)
+	 *      com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger)
 	 */
 	@Override
 	public void onResumeUseCase(DefaultAbstractUseCase useCase, DefaultUseCaseListener listener,
@@ -264,10 +242,34 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getLocationFrequency()
+	 * @see com.jdroid.android.fragment.FragmentIf#isBlockingLoadingEnabled()
 	 */
 	@Override
-	public Long getLocationFrequency() {
-		return getFragmentIf().getLocationFrequency();
+	public Boolean isBlockingLoadingEnabled() {
+		return true;
 	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#dismissNonBlockingLoading()
+	 */
+	@Override
+	public void dismissNonBlockingLoading() {
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#getActivityIf()
+	 */
+	@Override
+	public ActivityIf getActivityIf() {
+		return (ActivityIf)getActivity();
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#getActionBar()
+	 */
+	@Override
+	public ActionBar getActionBar() {
+		return getActivity().getActionBar();
+	}
+	
 }

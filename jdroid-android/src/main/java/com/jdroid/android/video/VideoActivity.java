@@ -56,7 +56,7 @@ public class VideoActivity extends AbstractActivity {
 		super.onCreate(savedInstanceState);
 		
 		video = findView(R.id.video);
-		showLoading();
+		showBlockingLoading();
 		
 		String path = null;
 		if (getIntent().getExtras().containsKey(LOCAL)) {
@@ -73,7 +73,7 @@ public class VideoActivity extends AbstractActivity {
 			
 			@Override
 			public void onPrepared(MediaPlayer mp) {
-				dismissLoading();
+				dismissBlockingLoading();
 				video.start();
 				video.requestFocus();
 			}

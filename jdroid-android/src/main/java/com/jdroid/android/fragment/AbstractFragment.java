@@ -6,9 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.activity.ActivityHelper.UseCaseTrigger;
+import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.context.DefaultApplicationContext;
 import com.jdroid.android.domain.User;
+import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.LoadingDialogBuilder;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
@@ -23,16 +24,12 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	
 	private FragmentHelper fragmentHelper;
 	
-	protected FragmentIf getFragmentIf() {
-		return (FragmentIf)this.getActivity();
-	}
-	
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getAndroidApplicationContext()
 	 */
 	@Override
 	public DefaultApplicationContext getAndroidApplicationContext() {
-		return getFragmentIf().getAndroidApplicationContext();
+		return fragmentHelper.getAndroidApplicationContext();
 	}
 	
 	/**
@@ -131,18 +128,16 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	 * @see com.jdroid.android.fragment.FragmentIf#findView(int)
 	 */
 	@Override
-	@SuppressWarnings("unchecked")
 	public <V extends View> V findView(int id) {
-		return (V)getView().findViewById(id);
+		return fragmentHelper.findView(id);
 	}
 	
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#findViewOnActivity(int)
 	 */
 	@Override
-	@SuppressWarnings("unchecked")
 	public <V extends View> V findViewOnActivity(int id) {
-		return (V)getActivity().findViewById(id);
+		return fragmentHelper.findViewOnActivity(id);
 	}
 	
 	/**
@@ -150,7 +145,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	 */
 	@Override
 	public View inflate(int resource) {
-		return getFragmentIf().inflate(resource);
+		return fragmentHelper.inflate(resource);
 	}
 	
 	/**
@@ -158,7 +153,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	 */
 	@Override
 	public void onStartUseCase() {
-		getFragmentIf().onStartUseCase();
+		fragmentHelper.onStartUseCase();
 	}
 	
 	/**
@@ -166,7 +161,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	 */
 	@Override
 	public void onUpdateUseCase() {
-		getFragmentIf().onUpdateUseCase();
+		fragmentHelper.onUpdateUseCase();
 	}
 	
 	/**
@@ -182,7 +177,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	 */
 	@Override
 	public void onFinishUseCase() {
-		getFragmentIf().onFinishUseCase();
+		fragmentHelper.onFinishUseCase();
 	}
 	
 	/**
@@ -190,7 +185,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	 */
 	@Override
 	public void onFinishCanceledUseCase() {
-		getFragmentIf().onFinishCanceledUseCase();
+		fragmentHelper.onFinishCanceledUseCase();
 	}
 	
 	/**
@@ -198,7 +193,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	 */
 	@Override
 	public Boolean goBackOnError(RuntimeException runtimeException) {
-		return getFragmentIf().goBackOnError(runtimeException);
+		return fragmentHelper.goBackOnError(runtimeException);
 	}
 	
 	/**
@@ -206,18 +201,15 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	 */
 	@Override
 	public void executeOnUIThread(Runnable runnable) {
-		FragmentIf fragmentIf = getFragmentIf();
-		if (fragmentIf != null) {
-			fragmentIf.executeOnUIThread(new SafeExecuteWrapperRunnable(this, runnable));
-		}
+		fragmentHelper.executeOnUIThread(runnable);
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
+	 * @see com.jdroid.android.fragment.FragmentIf#showBlockingLoading()
 	 */
 	@Override
-	public void showLoading() {
-		getFragmentIf().showLoading();
+	public void showBlockingLoading() {
+		fragmentHelper.showBlockingLoading();
 	}
 	
 	/**
@@ -225,39 +217,15 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	 */
 	@Override
 	public void showLoading(LoadingDialogBuilder builder) {
-		getFragmentIf().showLoading(builder);
+		fragmentHelper.showLoading(builder);
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoadingOnUIThread()
+	 * @see com.jdroid.android.fragment.FragmentIf#dismissBlockingLoading()
 	 */
 	@Override
-	public void showLoadingOnUIThread() {
-		getFragmentIf().showLoadingOnUIThread();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoadingOnUIThread(com.jdroid.android.loading.LoadingDialogBuilder)
-	 */
-	@Override
-	public void showLoadingOnUIThread(LoadingDialogBuilder builder) {
-		getFragmentIf().showLoadingOnUIThread(builder);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissLoading()
-	 */
-	@Override
-	public void dismissLoading() {
-		getFragmentIf().dismissLoading();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissLoadingOnUIThread()
-	 */
-	@Override
-	public void dismissLoadingOnUIThread() {
-		getFragmentIf().dismissLoadingOnUIThread();
+	public void dismissBlockingLoading() {
+		fragmentHelper.dismissBlockingLoading();
 	}
 	
 	/**
@@ -265,7 +233,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	 */
 	@Override
 	public <I> I getInstance(Class<I> clazz) {
-		return getFragmentIf().<I>getInstance(clazz);
+		return fragmentHelper.<I>getInstance(clazz);
 	}
 	
 	/**
@@ -273,7 +241,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	 */
 	@Override
 	public <E> E getExtra(String key) {
-		return getFragmentIf().<E>getExtra(key);
+		return fragmentHelper.<E>getExtra(key);
 	}
 	
 	/**
@@ -297,7 +265,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	 */
 	@Override
 	public void executeUseCase(UseCase<?> useCase) {
-		getFragmentIf().executeUseCase(useCase);
+		fragmentHelper.executeUseCase(useCase);
 	}
 	
 	/**
@@ -305,7 +273,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	 */
 	@Override
 	public void executeUseCase(UseCase<?> useCase, Long delaySeconds) {
-		getFragmentIf().executeUseCase(useCase, delaySeconds);
+		fragmentHelper.executeUseCase(useCase, delaySeconds);
 	}
 	
 	/**
@@ -313,11 +281,15 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	 */
 	@Override
 	public User getUser() {
-		return getFragmentIf().getUser();
+		return fragmentHelper.getUser();
 	}
 	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#getActionBar()
+	 */
+	@Override
 	public ActionBar getActionBar() {
-		return getActivity().getActionBar();
+		return fragmentHelper.getActionBar();
 	}
 	
 	/**
@@ -325,7 +297,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	 */
 	@Override
 	public AdSize getAdSize() {
-		return AdSize.SMART_BANNER;
+		return fragmentHelper.getAdSize();
 	}
 	
 	/**
@@ -334,18 +306,18 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	 */
 	@Override
 	public void onResumeUseCase(DefaultAbstractUseCase useCase, DefaultUseCaseListener listener) {
-		getFragmentIf().onResumeUseCase(useCase, listener);
+		fragmentHelper.onResumeUseCase(useCase, listener);
 	}
 	
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#onResumeUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
 	 *      com.jdroid.android.usecase.listener.DefaultUseCaseListener,
-	 *      com.jdroid.android.activity.ActivityHelper.UseCaseTrigger)
+	 *      com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger)
 	 */
 	@Override
 	public void onResumeUseCase(DefaultAbstractUseCase useCase, DefaultUseCaseListener listener,
 			UseCaseTrigger useCaseTrigger) {
-		getFragmentIf().onResumeUseCase(useCase, listener, useCaseTrigger);
+		fragmentHelper.onResumeUseCase(useCase, listener, useCaseTrigger);
 	}
 	
 	/**
@@ -354,15 +326,30 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	 */
 	@Override
 	public void onPauseUseCase(DefaultAbstractUseCase useCase, DefaultUseCaseListener listener) {
-		getFragmentIf().onPauseUseCase(useCase, listener);
+		fragmentHelper.onPauseUseCase(useCase, listener);
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getLocationFrequency()
+	 * @see com.jdroid.android.fragment.FragmentIf#isBlockingLoadingEnabled()
 	 */
 	@Override
-	public Long getLocationFrequency() {
-		return getFragmentIf().getLocationFrequency();
+	public Boolean isBlockingLoadingEnabled() {
+		return fragmentHelper.isBlockingLoadingEnabled();
 	}
 	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#dismissNonBlockingLoading()
+	 */
+	@Override
+	public void dismissNonBlockingLoading() {
+		fragmentHelper.dismissNonBlockingLoading();
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#getActivityIf()
+	 */
+	@Override
+	public ActivityIf getActivityIf() {
+		return fragmentHelper.getActivityIf();
+	}
 }

@@ -16,7 +16,6 @@ import android.widget.ListView;
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
-import com.jdroid.android.activity.ActivityHelper.UseCaseTrigger;
 import com.jdroid.android.adapter.BaseArrayAdapter;
 import com.jdroid.android.context.DefaultApplicationContext;
 import com.jdroid.android.domain.User;
@@ -24,9 +23,6 @@ import com.jdroid.android.loading.LoadingDialogBuilder;
 import com.jdroid.android.search.SearchResult;
 import com.jdroid.android.search.SearchResult.PaginationListener;
 import com.jdroid.android.search.SearchResult.SortingListener;
-import com.jdroid.android.usecase.DefaultAbstractUseCase;
-import com.jdroid.android.usecase.UseCase;
-import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 import com.jdroid.android.view.PaginationFooter;
 import com.jdroid.java.exception.AbstractException;
 
@@ -48,14 +44,6 @@ public abstract class AbstractListActivity<T> extends ListActivity implements So
 	@Override
 	public DefaultApplicationContext getAndroidApplicationContext() {
 		return activityHelper.getAndroidApplicationContext();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#shouldRetainInstance()
-	 */
-	@Override
-	public Boolean shouldRetainInstance() {
-		throw new IllegalArgumentException();
 	}
 	
 	/**
@@ -204,26 +192,16 @@ public abstract class AbstractListActivity<T> extends ListActivity implements So
 	 * @see com.jdroid.android.fragment.FragmentIf#findView(int)
 	 */
 	@Override
-	@SuppressWarnings("unchecked")
 	public <V extends View> V findView(int id) {
-		return (V)findViewById(id);
+		return activityHelper.findView(id);
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#findViewOnActivity(int)
+	 * @see com.jdroid.android.fragment.FragmentIf#showBlockingLoading()
 	 */
 	@Override
-	@SuppressWarnings("unchecked")
-	public <V extends View> V findViewOnActivity(int id) {
-		return (V)findViewById(id);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
-	 */
-	@Override
-	public void showLoading() {
-		activityHelper.showLoading();
+	public void showBlockingLoading() {
+		activityHelper.showBlockingLoading();
 	}
 	
 	/**
@@ -235,43 +213,11 @@ public abstract class AbstractListActivity<T> extends ListActivity implements So
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoadingOnUIThread()
+	 * @see com.jdroid.android.fragment.FragmentIf#dismissBlockingLoading()
 	 */
 	@Override
-	public void showLoadingOnUIThread() {
-		activityHelper.showLoadingOnUIThread();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoadingOnUIThread(com.jdroid.android.loading.LoadingDialogBuilder)
-	 */
-	@Override
-	public void showLoadingOnUIThread(LoadingDialogBuilder builder) {
-		activityHelper.showLoadingOnUIThread(builder);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissLoading()
-	 */
-	@Override
-	public void dismissLoading() {
-		activityHelper.dismissLoading();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissLoadingOnUIThread()
-	 */
-	@Override
-	public void dismissLoadingOnUIThread() {
-		activityHelper.dismissLoadingOnUIThread();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeOnUIThread(java.lang.Runnable)
-	 */
-	@Override
-	public void executeOnUIThread(Runnable runnable) {
-		activityHelper.executeOnUIThread(runnable);
+	public void dismissBlockingLoading() {
+		activityHelper.dismissBlockingLoading();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -345,14 +291,14 @@ public abstract class AbstractListActivity<T> extends ListActivity implements So
 	 */
 	@Override
 	public void onStartSorting() {
-		executeOnUIThread(new Runnable() {
+		runOnUiThread(new Runnable() {
 			
 			@Override
 			public void run() {
 				if (hasPagination()) {
 					paginationFooter.hide();
 				}
-				showLoading();
+				showBlockingLoading();
 			}
 		});
 	}
@@ -363,7 +309,7 @@ public abstract class AbstractListActivity<T> extends ListActivity implements So
 	@SuppressWarnings("unchecked")
 	@Override
 	public void onFinishSuccessfulSorting(final List<T> items) {
-		executeOnUIThread(new Runnable() {
+		runOnUiThread(new Runnable() {
 			
 			@Override
 			public void run() {
@@ -373,7 +319,7 @@ public abstract class AbstractListActivity<T> extends ListActivity implements So
 				if (hasPagination()) {
 					paginationFooter.refresh();
 				}
-				showLoading();
+				showBlockingLoading();
 			}
 		});
 	}
@@ -383,7 +329,7 @@ public abstract class AbstractListActivity<T> extends ListActivity implements So
 	 */
 	@Override
 	public void onFinishInvalidSorting(AbstractException androidException) {
-		dismissLoadingOnUIThread();
+		dismissBlockingLoading();
 		throw androidException;
 	}
 	
@@ -417,115 +363,6 @@ public abstract class AbstractListActivity<T> extends ListActivity implements So
 	@Override
 	public <E> E getExtra(String key) {
 		return activityHelper.<E>getExtra(key);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getArgument(java.lang.String)
-	 */
-	@Override
-	public <E> E getArgument(String key) {
-		return activityHelper.<E>getArgument(key);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getArgument(java.lang.String, java.lang.Object)
-	 */
-	@Override
-	public <E> E getArgument(String key, E defaultValue) {
-		return activityHelper.<E>getArgument(key, defaultValue);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#onResumeUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
-	 *      com.jdroid.android.usecase.listener.DefaultUseCaseListener)
-	 */
-	@Override
-	public void onResumeUseCase(DefaultAbstractUseCase useCase, DefaultUseCaseListener listener) {
-		activityHelper.onResumeUseCase(useCase, listener);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#onResumeUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
-	 *      com.jdroid.android.usecase.listener.DefaultUseCaseListener,
-	 *      com.jdroid.android.activity.ActivityHelper.UseCaseTrigger)
-	 */
-	@Override
-	public void onResumeUseCase(DefaultAbstractUseCase useCase, DefaultUseCaseListener listener,
-			UseCaseTrigger useCaseTrigger) {
-		activityHelper.onResumeUseCase(useCase, listener, useCaseTrigger);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#onPauseUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
-	 *      com.jdroid.android.usecase.listener.DefaultUseCaseListener)
-	 */
-	@Override
-	public void onPauseUseCase(DefaultAbstractUseCase useCase, DefaultUseCaseListener listener) {
-		activityHelper.onPauseUseCase(useCase, listener);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeUseCase(com.jdroid.android.usecase.UseCase)
-	 */
-	@Override
-	public void executeUseCase(UseCase<?> useCase) {
-		activityHelper.executeUseCase(useCase);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeUseCase(com.jdroid.android.usecase.UseCase, java.lang.Long)
-	 */
-	@Override
-	public void executeUseCase(UseCase<?> useCase, Long delaySeconds) {
-		activityHelper.executeUseCase(useCase, delaySeconds);
-	}
-	
-	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onStartUseCase()
-	 */
-	@Override
-	public void onStartUseCase() {
-		activityHelper.onStartUseCase();
-	}
-	
-	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onUpdateUseCase()
-	 */
-	@Override
-	public void onUpdateUseCase() {
-		activityHelper.onUpdateUseCase();
-	}
-	
-	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishUseCase()
-	 */
-	@Override
-	public void onFinishUseCase() {
-		activityHelper.onFinishUseCase();
-	}
-	
-	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishFailedUseCase(java.lang.RuntimeException)
-	 */
-	@Override
-	public void onFinishFailedUseCase(RuntimeException runtimeException) {
-		activityHelper.onFinishFailedUseCase(runtimeException);
-	}
-	
-	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishCanceledUseCase()
-	 */
-	@Override
-	public void onFinishCanceledUseCase() {
-		activityHelper.onFinishCanceledUseCase();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError(java.lang.RuntimeException)
-	 */
-	@Override
-	public Boolean goBackOnError(RuntimeException runtimeException) {
-		return activityHelper.goBackOnError(runtimeException);
 	}
 	
 	/**
@@ -565,10 +402,11 @@ public abstract class AbstractListActivity<T> extends ListActivity implements So
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getLocationFrequency()
+	 * @see com.jdroid.android.activity.ActivityIf#getLocationFrequency()
 	 */
 	@Override
 	public Long getLocationFrequency() {
 		return null;
 	}
+	
 }

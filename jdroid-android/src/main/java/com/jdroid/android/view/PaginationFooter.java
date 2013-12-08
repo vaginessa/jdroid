@@ -68,7 +68,7 @@ public class PaginationFooter extends LinearLayout implements PaginationListener
 	}
 	
 	public void refresh() {
-		abstractListActivity.executeOnUIThread(new Runnable() {
+		abstractListActivity.runOnUiThread(new Runnable() {
 			
 			@Override
 			public void run() {

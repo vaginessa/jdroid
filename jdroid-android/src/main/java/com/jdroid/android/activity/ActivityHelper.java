@@ -30,14 +30,10 @@ import com.jdroid.android.context.DefaultApplicationContext;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.debug.DebugSettingsActivity;
 import com.jdroid.android.domain.User;
-import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.gps.LocalizationManager;
 import com.jdroid.android.intent.ClearTaskIntent;
 import com.jdroid.android.loading.DefaultLoadingDialogBuilder;
 import com.jdroid.android.loading.LoadingDialogBuilder;
-import com.jdroid.android.usecase.DefaultAbstractUseCase;
-import com.jdroid.android.usecase.UseCase;
-import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.utils.ExecutorUtils;
 import com.jdroid.java.utils.IdGenerator;
@@ -84,14 +80,6 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#shouldRetainInstance()
-	 */
-	@Override
-	public Boolean shouldRetainInstance() {
-		throw new IllegalArgumentException();
-	}
-	
-	/**
 	 * @see com.jdroid.android.activity.ActivityIf#getContentView()
 	 */
 	@Override
@@ -134,7 +122,7 @@ public class ActivityHelper implements ActivityIf {
 		});
 		
 		// Action bar
-		ActionBar actionBar = getActivityIf().getActionBar();
+		ActionBar actionBar = activity.getActionBar();
 		if (actionBar != null) {
 			
 			if (AndroidUtils.getApiLevel() >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
@@ -191,7 +179,7 @@ public class ActivityHelper implements ActivityIf {
 	
 	public void onSaveInstanceState(Bundle outState) {
 		LOGGER.trace("Executing onSaveInstanceState on " + activity);
-		dismissLoading();
+		dismissBlockingLoading();
 	}
 	
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -226,7 +214,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getLocationFrequency()
+	 * @see com.jdroid.android.activity.ActivityIf#getLocationFrequency()
 	 */
 	@Override
 	public Long getLocationFrequency() {
@@ -238,7 +226,7 @@ public class ActivityHelper implements ActivityIf {
 		AbstractApplication.get().setInBackground(false);
 		AbstractApplication.get().setCurrentActivity(activity);
 		
-		ActionBar actionBar = getActivityIf().getActionBar();
+		ActionBar actionBar = activity.getActionBar();
 		if (actionBar != null) {
 			DefaultApplicationContext context = AbstractApplication.get().getAndroidApplicationContext();
 			if (!context.isProductionEnvironment() && context.displayDebugSettings()) {
@@ -287,7 +275,7 @@ public class ActivityHelper implements ActivityIf {
 		if (clearTaskBroadcastReceiver != null) {
 			activity.unregisterReceiver(clearTaskBroadcastReceiver);
 		}
-		dismissLoading();
+		dismissBlockingLoading();
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -360,18 +348,10 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoadingOnUIThread()
+	 * @see com.jdroid.android.fragment.FragmentIf#showBlockingLoading()
 	 */
 	@Override
-	public void showLoadingOnUIThread() {
-		showLoadingOnUIThread(new DefaultLoadingDialogBuilder());
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
-	 */
-	@Override
-	public void showLoading() {
+	public void showBlockingLoading() {
 		showLoading(new DefaultLoadingDialogBuilder());
 	}
 	
@@ -379,59 +359,27 @@ public class ActivityHelper implements ActivityIf {
 	 * @see com.jdroid.android.fragment.FragmentIf#showLoading(com.jdroid.android.loading.LoadingDialogBuilder)
 	 */
 	@Override
-	public void showLoading(LoadingDialogBuilder builder) {
-		if ((loadingDialog == null) || (!loadingDialog.isShowing())) {
-			loadingDialog = builder.build(activity);
-			loadingDialog.show();
-		}
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoadingOnUIThread(com.jdroid.android.loading.LoadingDialogBuilder)
-	 */
-	@Override
-	public void showLoadingOnUIThread(final LoadingDialogBuilder builder) {
+	public void showLoading(final LoadingDialogBuilder builder) {
 		activity.runOnUiThread(new Runnable() {
 			
 			@Override
 			public void run() {
-				showLoading(builder);
+				if ((loadingDialog == null) || (!loadingDialog.isShowing())) {
+					loadingDialog = builder.build(activity);
+					loadingDialog.show();
+				}
 			}
 		});
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissLoading()
+	 * @see com.jdroid.android.fragment.FragmentIf#dismissBlockingLoading()
 	 */
 	@Override
-	public void dismissLoading() {
+	public void dismissBlockingLoading() {
 		if (loadingDialog != null) {
 			loadingDialog.dismiss();
 			loadingDialog = null;
-		}
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissLoadingOnUIThread()
-	 */
-	@Override
-	public void dismissLoadingOnUIThread() {
-		activity.runOnUiThread(new Runnable() {
-			
-			@Override
-			public void run() {
-				dismissLoading();
-			}
-		});
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeOnUIThread(java.lang.Runnable)
-	 */
-	@Override
-	public void executeOnUIThread(Runnable runnable) {
-		if (activity.equals(AbstractApplication.get().getCurrentActivity())) {
-			activity.runOnUiThread(runnable);
 		}
 	}
 	
@@ -454,156 +402,11 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#onResumeUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
-	 *      com.jdroid.android.usecase.listener.DefaultUseCaseListener)
-	 */
-	@Override
-	public void onResumeUseCase(DefaultAbstractUseCase useCase, DefaultUseCaseListener listener) {
-		onResumeUseCase(useCase, listener, UseCaseTrigger.MANUAL);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#onResumeUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
-	 *      com.jdroid.android.usecase.listener.DefaultUseCaseListener,
-	 *      com.jdroid.android.activity.ActivityHelper.UseCaseTrigger)
-	 */
-	@Override
-	public void onResumeUseCase(final DefaultAbstractUseCase useCase, final DefaultUseCaseListener listener,
-			final UseCaseTrigger useCaseTrigger) {
-		if (useCase != null) {
-			ExecutorUtils.execute(new Runnable() {
-				
-				@Override
-				public void run() {
-					useCase.addListener(listener);
-					if (useCase.isNotified()) {
-						if (useCaseTrigger.equals(UseCaseTrigger.ALWAYS)) {
-							useCase.run();
-						}
-					} else {
-						if (useCase.isInProgress()) {
-							listener.onStartUseCase();
-						} else if (useCase.isFinishSuccessful()) {
-							listener.onFinishUseCase();
-							useCase.markAsNotified();
-						} else if (useCase.isFinishFailed()) {
-							try {
-								listener.onFinishFailedUseCase(useCase.getRuntimeException());
-							} finally {
-								useCase.markAsNotified();
-							}
-						} else if (useCase.isNotInvoked()
-								&& (useCaseTrigger.equals(UseCaseTrigger.ONCE) || useCaseTrigger.equals(UseCaseTrigger.ALWAYS))) {
-							useCase.run();
-						}
-					}
-				}
-			});
-		}
-	}
-	
-	public enum UseCaseTrigger {
-		MANUAL,
-		ONCE,
-		ALWAYS;
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#onPauseUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
-	 *      com.jdroid.android.usecase.listener.DefaultUseCaseListener)
-	 */
-	@Override
-	public void onPauseUseCase(final DefaultAbstractUseCase userCase, final DefaultUseCaseListener listener) {
-		if (userCase != null) {
-			userCase.removeListener(listener);
-		}
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeUseCase(com.jdroid.android.usecase.UseCase)
-	 */
-	@Override
-	public void executeUseCase(UseCase<?> useCase) {
-		ExecutorUtils.execute(useCase);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeUseCase(com.jdroid.android.usecase.UseCase, java.lang.Long)
-	 */
-	@Override
-	public void executeUseCase(UseCase<?> useCase, Long delaySeconds) {
-		ExecutorUtils.schedule(useCase, delaySeconds);
-	}
-	
-	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onStartUseCase()
-	 */
-	@Override
-	public void onStartUseCase() {
-		getActivityIf().showLoadingOnUIThread();
-	}
-	
-	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onUpdateUseCase()
-	 */
-	@Override
-	public void onUpdateUseCase() {
-		// Do nothing by default
-	}
-	
-	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishUseCase()
-	 */
-	@Override
-	public void onFinishUseCase() {
-		// Do nothing by default
-	}
-	
-	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishFailedUseCase(java.lang.RuntimeException)
-	 */
-	@Override
-	public void onFinishFailedUseCase(RuntimeException runtimeException) {
-		if (getActivityIf().goBackOnError(runtimeException)) {
-			DefaultExceptionHandler.markAsGoBackOnError(runtimeException);
-		} else {
-			DefaultExceptionHandler.markAsNotGoBackOnError(runtimeException);
-		}
-		getActivityIf().dismissLoadingOnUIThread();
-		throw runtimeException;
-	}
-	
-	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishCanceledUseCase()
-	 */
-	@Override
-	public void onFinishCanceledUseCase() {
-		// Do nothing by default
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError(java.lang.RuntimeException)
-	 */
-	@Override
-	public Boolean goBackOnError(RuntimeException runtimeException) {
-		return true;
-	}
-	
-	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#findView(int)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <V extends View> V findView(int id) {
-		return (V)activity.findViewById(id);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#findViewOnActivity(int)
-	 */
-	@Override
-	@SuppressWarnings("unchecked")
-	public <V extends View> V findViewOnActivity(int id) {
 		return (V)activity.findViewById(id);
 	}
 	
@@ -644,34 +447,11 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.activity.ActivityIf#getActionBar()
-	 */
-	@Override
-	public ActionBar getActionBar() {
-		return null;
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getArgument(java.lang.String)
-	 */
-	@Override
-	public <E> E getArgument(String key) {
-		return null;
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getArgument(java.lang.String, java.lang.Object)
-	 */
-	@Override
-	public <E> E getArgument(String key, E defaultValue) {
-		return null;
-	}
-	
-	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getAdSize()
 	 */
 	@Override
 	public AdSize getAdSize() {
 		return AdSize.SMART_BANNER;
 	}
+	
 }
