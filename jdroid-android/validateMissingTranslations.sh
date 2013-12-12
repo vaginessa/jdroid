@@ -3,23 +3,27 @@
 ANDROID_APP_DIR=$1
 FILE=$2
 
-cd $ANDROID_APP_DIR
-todo=`cat "$FILE" | grep "TODO"`
-
-exitCode=0
-if [ -n "$todo" ]
+if [ -f "$FILE" ]
 then
+	cd $ANDROID_APP_DIR
+	todo=`cat "$FILE" | grep "TODO"`
+
+	exitCode=0
+	if [ -n "$todo" ]
+	then
 	
-	echo "**************************************************************"
-	echo "* Status: ERROR. Missing translations on $FILE"
-	echo "**************************************************************"
-	cat "$FILE" | grep "TODO"
+		echo "**************************************************************"
+		echo "* Status: ERROR. Missing translations on $FILE"
+		echo "**************************************************************"
+		cat "$FILE" | grep "TODO"
 	
-	exit 1
-fi
+		exit 1
+	fi
 
 echo "**************************************************************"
 echo "* Status: OK. Not Missing translations on $FILE"
 echo "**************************************************************"
+
+fi
 exit 0
 	

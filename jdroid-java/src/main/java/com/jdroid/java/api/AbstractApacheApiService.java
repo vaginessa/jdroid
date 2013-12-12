@@ -28,9 +28,9 @@ public abstract class AbstractApacheApiService extends AbstractApiService {
 	 */
 	@Override
 	protected WebService newGetServiceImpl(Server server, List<Object> urlSegments,
-			HttpWebServiceProcessor... httpWebServiceProcessors) {
+			List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		return new ApacheHttpGetWebService(getHttpClientFactoryInstance(), server, urlSegments,
-				toArray(getHttpWebServiceProcessors()));
+				httpWebServiceProcessors);
 	}
 	
 	/**
@@ -39,9 +39,9 @@ public abstract class AbstractApacheApiService extends AbstractApiService {
 	 */
 	@Override
 	protected EntityEnclosingWebService newPostServiceImpl(Server server, List<Object> urlSegments,
-			HttpWebServiceProcessor... httpWebServiceProcessors) {
+			List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		return new ApacheHttpPostWebService(getHttpClientFactoryInstance(), server, urlSegments,
-				toArray(getHttpWebServiceProcessors()));
+				httpWebServiceProcessors);
 	}
 	
 	/**
@@ -50,9 +50,9 @@ public abstract class AbstractApacheApiService extends AbstractApiService {
 	 */
 	@Override
 	protected EntityEnclosingWebService newPutServiceImpl(Server server, List<Object> urlSegments,
-			HttpWebServiceProcessor... httpWebServiceProcessors) {
+			List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		return new ApacheHttpPutWebService(getHttpClientFactoryInstance(), server, urlSegments,
-				toArray(getHttpWebServiceProcessors()));
+				httpWebServiceProcessors);
 	}
 	
 	/**
@@ -61,9 +61,9 @@ public abstract class AbstractApacheApiService extends AbstractApiService {
 	 */
 	@Override
 	protected MultipartWebService newMultipartPutServiceImpl(Server server, List<Object> urlSegments,
-			HttpWebServiceProcessor... httpWebServiceProcessors) {
+			List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		return new ApacheMultipartHttpPutWebService(getHttpClientFactoryInstance(), server, urlSegments,
-				toArray(getHttpWebServiceProcessors()));
+				httpWebServiceProcessors);
 	}
 	
 	/**
@@ -72,9 +72,9 @@ public abstract class AbstractApacheApiService extends AbstractApiService {
 	 */
 	@Override
 	protected MultipartWebService newMultipartPostServiceImpl(Server server, List<Object> urlSegments,
-			HttpWebServiceProcessor... httpWebServiceProcessors) {
+			List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		return new ApacheMultipartHttpPostWebService(getHttpClientFactoryInstance(), server, urlSegments,
-				toArray(getHttpWebServiceProcessors()));
+				httpWebServiceProcessors);
 	}
 	
 	/**
@@ -83,9 +83,9 @@ public abstract class AbstractApacheApiService extends AbstractApiService {
 	 */
 	@Override
 	protected WebService newDeleteServiceImpl(Server server, List<Object> urlSegments,
-			HttpWebServiceProcessor... httpWebServiceProcessors) {
+			List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		return new ApacheHttpDeleteWebService(getHttpClientFactoryInstance(), server, urlSegments,
-				toArray(getHttpWebServiceProcessors()));
+				httpWebServiceProcessors);
 	}
 	
 	/**
@@ -94,9 +94,9 @@ public abstract class AbstractApacheApiService extends AbstractApiService {
 	 */
 	@Override
 	protected EntityEnclosingWebService newFormPostServiceImpl(Server server, List<Object> urlSegments,
-			HttpWebServiceProcessor... httpWebServiceProcessors) {
+			List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		return new ApacheFormHttpPostWebService(getHttpClientFactoryInstance(), server, urlSegments,
-				toArray(getHttpWebServiceProcessors()));
+				httpWebServiceProcessors);
 	}
 	
 	protected HttpClientFactory getHttpClientFactoryInstance() {

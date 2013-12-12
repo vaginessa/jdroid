@@ -22,7 +22,7 @@ public abstract class ApacheHttpEntityEnclosingWebService extends ApacheHttpWebS
 	private HttpEntity entity;
 	
 	public ApacheHttpEntityEnclosingWebService(HttpClientFactory httpClientFactory, Server server,
-			List<Object> urlSegments, HttpWebServiceProcessor... httpWebServiceProcessors) {
+			List<Object> urlSegments, List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		super(httpClientFactory, server, urlSegments, httpWebServiceProcessors);
 	}
 	

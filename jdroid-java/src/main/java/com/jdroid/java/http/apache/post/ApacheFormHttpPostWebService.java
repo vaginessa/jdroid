@@ -17,7 +17,7 @@ import com.jdroid.java.utils.EncodingUtils;
 public class ApacheFormHttpPostWebService extends ApacheHttpPostWebService {
 	
 	public ApacheFormHttpPostWebService(HttpClientFactory httpClientFactory, Server server, List<Object> urlSegments,
-			HttpWebServiceProcessor... httpWebServiceProcessors) {
+			List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		super(httpClientFactory, server, urlSegments, httpWebServiceProcessors);
 	}
 	

@@ -27,7 +27,7 @@ public class ApacheMultipartHttpPutWebService extends ApacheHttpPutWebService im
 	private MultipartEntity multipartEntity = new MultipartEntity();
 	
 	public ApacheMultipartHttpPutWebService(HttpClientFactory httpClientFactory, Server server,
-			List<Object> urlSegments, HttpWebServiceProcessor... httpWebServiceProcessors) {
+			List<Object> urlSegments, List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		super(httpClientFactory, server, urlSegments, httpWebServiceProcessors);
 	}
 	

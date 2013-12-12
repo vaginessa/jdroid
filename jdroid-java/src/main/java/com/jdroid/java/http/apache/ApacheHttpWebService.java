@@ -65,7 +65,7 @@ public abstract class ApacheHttpWebService implements WebService {
 	 * @param server The {@link Server} where execute the request
 	 */
 	public ApacheHttpWebService(HttpClientFactory httpClientFactory, Server server, List<Object> urlSegments,
-			HttpWebServiceProcessor... httpWebServiceProcessors) {
+			List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		
 		this.urlSegments = Lists.newArrayList();
 		if (urlSegments != null) {
@@ -76,8 +76,7 @@ public abstract class ApacheHttpWebService implements WebService {
 		this.httpClientFactory = httpClientFactory;
 		this.server = server;
 		this.urlSegments = urlSegments;
-		this.httpWebServiceProcessors = httpWebServiceProcessors != null ? Lists.newArrayList(httpWebServiceProcessors)
-				: null;
+		this.httpWebServiceProcessors = httpWebServiceProcessors;
 	}
 	
 	public abstract String getMethodName();

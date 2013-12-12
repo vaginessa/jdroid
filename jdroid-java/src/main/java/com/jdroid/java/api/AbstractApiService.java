@@ -29,8 +29,7 @@ public abstract class AbstractApiService {
 		if (isHttpMockEnabled() || mocked) {
 			return getAbstractMockWebServiceInstance(urlSegments);
 		} else {
-			return newGetServiceImpl(getServer(), Lists.newArrayList(urlSegments),
-				toArray(getHttpWebServiceProcessors()));
+			return newGetServiceImpl(getServer(), Lists.newArrayList(urlSegments), getHttpWebServiceProcessors());
 		}
 	}
 	
@@ -50,7 +49,7 @@ public abstract class AbstractApiService {
 	}
 	
 	protected abstract WebService newGetServiceImpl(Server server, List<Object> urlSegments,
-			HttpWebServiceProcessor... httpWebServiceProcessors);
+			List<HttpWebServiceProcessor> httpWebServiceProcessors);
 	
 	protected EntityEnclosingWebService newPostService(Object... urlSegments) {
 		return newPostService(false, urlSegments);
@@ -60,13 +59,12 @@ public abstract class AbstractApiService {
 		if (isHttpMockEnabled() || mocked) {
 			return getAbstractMockWebServiceInstance(urlSegments);
 		} else {
-			return newPostServiceImpl(getServer(), Lists.newArrayList(urlSegments),
-				toArray(getHttpWebServiceProcessors()));
+			return newPostServiceImpl(getServer(), Lists.newArrayList(urlSegments), getHttpWebServiceProcessors());
 		}
 	}
 	
 	protected abstract EntityEnclosingWebService newPostServiceImpl(Server server, List<Object> urlSegments,
-			HttpWebServiceProcessor... httpWebServiceProcessors);
+			List<HttpWebServiceProcessor> httpWebServiceProcessors);
 	
 	protected EntityEnclosingWebService newPutService(Object... urlSegments) {
 		return newPutService(false, urlSegments);
@@ -76,13 +74,12 @@ public abstract class AbstractApiService {
 		if (isHttpMockEnabled() || mocked) {
 			return getAbstractMockWebServiceInstance(urlSegments);
 		} else {
-			return newPutServiceImpl(getServer(), Lists.newArrayList(urlSegments),
-				toArray(getHttpWebServiceProcessors()));
+			return newPutServiceImpl(getServer(), Lists.newArrayList(urlSegments), getHttpWebServiceProcessors());
 		}
 	}
 	
 	protected abstract EntityEnclosingWebService newPutServiceImpl(Server server, List<Object> urlSegments,
-			HttpWebServiceProcessor... httpWebServiceProcessors);
+			List<HttpWebServiceProcessor> httpWebServiceProcessors);
 	
 	protected MultipartWebService newMultipartPutService(Object... urlSegments) {
 		return newMultipartPutService(false, urlSegments);
@@ -93,12 +90,12 @@ public abstract class AbstractApiService {
 			return getAbstractMockWebServiceInstance(urlSegments);
 		} else {
 			return newMultipartPutServiceImpl(getServer(), Lists.newArrayList(urlSegments),
-				toArray(getHttpWebServiceProcessors()));
+				getHttpWebServiceProcessors());
 		}
 	}
 	
 	protected abstract MultipartWebService newMultipartPutServiceImpl(Server server, List<Object> urlSegments,
-			HttpWebServiceProcessor... httpWebServiceProcessors);
+			List<HttpWebServiceProcessor> httpWebServiceProcessors);
 	
 	protected MultipartWebService newMultipartPostService(Object... urlSegments) {
 		return newMultipartPostService(false, urlSegments);
@@ -109,12 +106,12 @@ public abstract class AbstractApiService {
 			return getAbstractMockWebServiceInstance(urlSegments);
 		} else {
 			return newMultipartPostServiceImpl(getServer(), Lists.newArrayList(urlSegments),
-				toArray(getHttpWebServiceProcessors()));
+				getHttpWebServiceProcessors());
 		}
 	}
 	
 	protected abstract MultipartWebService newMultipartPostServiceImpl(Server server, List<Object> urlSegments,
-			HttpWebServiceProcessor... httpWebServiceProcessors);
+			List<HttpWebServiceProcessor> httpWebServiceProcessors);
 	
 	protected WebService newDeleteService(Object... urlSegments) {
 		return newDeleteService(false, urlSegments);
@@ -124,13 +121,12 @@ public abstract class AbstractApiService {
 		if (isHttpMockEnabled() || mocked) {
 			return getAbstractMockWebServiceInstance(urlSegments);
 		} else {
-			return newDeleteServiceImpl(getServer(), Lists.newArrayList(urlSegments),
-				toArray(getHttpWebServiceProcessors()));
+			return newDeleteServiceImpl(getServer(), Lists.newArrayList(urlSegments), getHttpWebServiceProcessors());
 		}
 	}
 	
 	protected abstract WebService newDeleteServiceImpl(Server server, List<Object> urlSegments,
-			HttpWebServiceProcessor... httpWebServiceProcessors);
+			List<HttpWebServiceProcessor> httpWebServiceProcessors);
 	
 	protected EntityEnclosingWebService newFormPostService(Object... urlSegments) {
 		return newFormPostService(false, urlSegments);
@@ -140,21 +136,12 @@ public abstract class AbstractApiService {
 		if (isHttpMockEnabled() || mocked) {
 			return getAbstractMockWebServiceInstance(urlSegments);
 		} else {
-			return newFormPostServiceImpl(getServer(), Lists.newArrayList(urlSegments),
-				toArray(getHttpWebServiceProcessors()));
+			return newFormPostServiceImpl(getServer(), Lists.newArrayList(urlSegments), getHttpWebServiceProcessors());
 		}
 	}
 	
 	protected abstract EntityEnclosingWebService newFormPostServiceImpl(Server server, List<Object> urlSegments,
-			HttpWebServiceProcessor... httpWebServiceProcessors);
-	
-	protected HttpWebServiceProcessor[] toArray(List<HttpWebServiceProcessor> httpWebServiceProcessors) {
-		if (httpWebServiceProcessors != null) {
-			return httpWebServiceProcessors.toArray(new HttpWebServiceProcessor[] {});
-		} else {
-			return new HttpWebServiceProcessor[] {};
-		}
-	}
+			List<HttpWebServiceProcessor> httpWebServiceProcessors);
 	
 	protected abstract Server getServer();
 	

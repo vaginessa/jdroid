@@ -11,7 +11,7 @@ import com.jdroid.java.http.apache.HttpClientFactory;
 public class ApacheHttpDeleteWebService extends ApacheHttpWebService {
 	
 	public ApacheHttpDeleteWebService(HttpClientFactory httpClientFactory, Server server, List<Object> urlSegments,
-			HttpWebServiceProcessor... httpWebServiceProcessors) {
+			List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		super(httpClientFactory, server, urlSegments, httpWebServiceProcessors);
 	}
 	
