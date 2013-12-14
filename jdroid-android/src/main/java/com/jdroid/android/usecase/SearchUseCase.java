@@ -46,4 +46,11 @@ public abstract class SearchUseCase<T> extends DefaultAbstractUseCase {
 	public void setSelectedItems(Set<T> selectedItems) {
 		this.selectedItems = selectedItems;
 	}
+	
+	/**
+	 * @return the searchValue
+	 */
+	public String getSearchValue() {
+		return searchValue;
+	}
 }
