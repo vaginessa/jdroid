@@ -348,7 +348,9 @@ public class AndroidUtils {
 		List<String> emails = Lists.newArrayList();
 		for (Account account : AccountManager.get(AbstractApplication.get()).getAccounts()) {
 			if (ValidationUtils.isValidEmail(account.name)) {
-				emails.add(account.name);
+				if (!emails.contains(account.name)) {
+					emails.add(account.name);
+				}
 			}
 		}
 		return emails;
