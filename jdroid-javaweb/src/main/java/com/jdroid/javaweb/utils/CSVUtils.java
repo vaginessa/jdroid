@@ -176,9 +176,13 @@ public class CSVUtils {
 	}
 	
 	public static <T> String toCSV(Collection<T> values, ValueConverter<T> valueConverter, char separator) {
-		StringWriter writer = new StringWriter();
-		CSVUtils.writeCSV(writer, values, valueConverter, separator);
-		return writer.toString();
+		if (values != null) {
+			StringWriter writer = new StringWriter();
+			CSVUtils.writeCSV(writer, values, valueConverter, separator);
+			return writer.toString();
+		} else {
+			return null;
+		}
 	}
 	
 	/**

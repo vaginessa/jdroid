@@ -42,7 +42,8 @@ public class DefaultApplicationContext {
 		PropertiesUtils.loadProperties(PROPERTIES_RESOURCE_NAME);
 		
 		localIp = PropertiesUtils.getStringProperty("local.ip");
-		environment = Environment.valueOf(PropertiesUtils.getStringProperty("environment.name"));
+		environment = Environment.valueOf(PropertiesUtils.getStringProperty("environment.name",
+			Environment.DEV.toString()));
 		googleProjectId = PropertiesUtils.getStringProperty("google.projectId");
 		facebookAppId = PropertiesUtils.getStringProperty("facebook.app.id");
 		debugSettings = PropertiesUtils.getBooleanProperty("debug.settings", false);
