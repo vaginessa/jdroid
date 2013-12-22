@@ -233,14 +233,7 @@ public class FragmentHelper implements FragmentIf {
 	 */
 	@Override
 	public void onStartUseCase() {
-		FragmentIf fragmentIf = getFragmentIf();
-		if (fragmentIf != null) {
-			if (fragmentIf.isBlockingLoadingEnabled()) {
-				fragmentIf.showBlockingLoading();
-			} else {
-				container.showLoading(getFragmentIf());
-			}
-		}
+		showLoading();
 	}
 	
 	/**
@@ -256,7 +249,7 @@ public class FragmentHelper implements FragmentIf {
 	 */
 	@Override
 	public void onFinishUseCase() {
-		// Do nothing by default
+		dismissLoading();
 	}
 	
 	/**
@@ -271,11 +264,7 @@ public class FragmentHelper implements FragmentIf {
 			} else {
 				DefaultExceptionHandler.markAsNotGoBackOnError(runtimeException);
 			}
-			if (fragmentIf.isBlockingLoadingEnabled()) {
-				fragmentIf.dismissBlockingLoading();
-			} else {
-				container.dismissLoading(fragmentIf);
-			}
+			dismissLoading();
 		}
 		throw runtimeException;
 	}
@@ -356,11 +345,11 @@ public class FragmentHelper implements FragmentIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.activity.ComponentIf#showLoading(com.jdroid.android.loading.LoadingDialogBuilder)
+	 * @see com.jdroid.android.activity.ComponentIf#showBlockingLoading(com.jdroid.android.loading.LoadingDialogBuilder)
 	 */
 	@Override
-	public void showLoading(LoadingDialogBuilder builder) {
-		getActivityIf().showLoading(builder);
+	public void showBlockingLoading(LoadingDialogBuilder builder) {
+		getActivityIf().showBlockingLoading(builder);
 	}
 	
 	/**
@@ -372,11 +361,49 @@ public class FragmentHelper implements FragmentIf {
 	}
 	
 	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#showNonBlockingLoading()
+	 */
+	@Override
+	public void showNonBlockingLoading() {
+		container.showLoading(getFragmentIf());
+	}
+	
+	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#dismissNonBlockingLoading()
 	 */
 	@Override
 	public void dismissNonBlockingLoading() {
 		container.dismissLoading(getFragmentIf());
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
+	 */
+	@Override
+	public void showLoading() {
+		FragmentIf fragmentIf = getFragmentIf();
+		if (fragmentIf != null) {
+			if (fragmentIf.isBlockingLoadingEnabled()) {
+				fragmentIf.showBlockingLoading();
+			} else {
+				fragmentIf.showNonBlockingLoading();
+			}
+		}
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#dismissLoading()
+	 */
+	@Override
+	public void dismissLoading() {
+		FragmentIf fragmentIf = getFragmentIf();
+		if (fragmentIf != null) {
+			if (fragmentIf.isBlockingLoadingEnabled()) {
+				fragmentIf.dismissBlockingLoading();
+			} else {
+				fragmentIf.dismissNonBlockingLoading();
+			}
+		}
 	}
 	
 	/**

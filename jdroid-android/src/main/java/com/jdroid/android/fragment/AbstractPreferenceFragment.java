@@ -133,11 +133,11 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoading(com.jdroid.android.loading.LoadingDialogBuilder)
+	 * @see com.jdroid.android.fragment.FragmentIf#showBlockingLoading(com.jdroid.android.loading.LoadingDialogBuilder)
 	 */
 	@Override
-	public void showLoading(LoadingDialogBuilder builder) {
-		getFragmentIf().showLoading(builder);
+	public void showBlockingLoading(LoadingDialogBuilder builder) {
+		getFragmentIf().showBlockingLoading(builder);
 	}
 	
 	/**
@@ -247,6 +247,27 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	@Override
 	public Boolean isBlockingLoadingEnabled() {
 		return true;
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
+	 */
+	@Override
+	public void showLoading() {
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#dismissLoading()
+	 */
+	@Override
+	public void dismissLoading() {
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#showNonBlockingLoading()
+	 */
+	@Override
+	public void showNonBlockingLoading() {
 	}
 	
 	/**

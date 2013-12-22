@@ -193,11 +193,11 @@ public abstract class AbstractFragmentActivity extends FragmentActivity implemen
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoading(com.jdroid.android.loading.LoadingDialogBuilder)
+	 * @see com.jdroid.android.fragment.FragmentIf#showBlockingLoading(com.jdroid.android.loading.LoadingDialogBuilder)
 	 */
 	@Override
-	public void showLoading(LoadingDialogBuilder builder) {
-		activityHelper.showLoading(builder);
+	public void showBlockingLoading(LoadingDialogBuilder builder) {
+		activityHelper.showBlockingLoading(builder);
 	}
 	
 	/**

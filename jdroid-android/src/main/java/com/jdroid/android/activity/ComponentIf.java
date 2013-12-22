@@ -52,7 +52,7 @@ public interface ComponentIf {
 	 */
 	public void showBlockingLoading();
 	
-	public void showLoading(LoadingDialogBuilder builder);
+	public void showBlockingLoading(LoadingDialogBuilder builder);
 	
 	/**
 	 * Dismiss the {@link LoadingDialog} in the current Thread

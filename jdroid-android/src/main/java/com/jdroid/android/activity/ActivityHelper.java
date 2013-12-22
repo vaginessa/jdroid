@@ -352,14 +352,14 @@ public class ActivityHelper implements ActivityIf {
 	 */
 	@Override
 	public void showBlockingLoading() {
-		showLoading(new DefaultLoadingDialogBuilder());
+		showBlockingLoading(new DefaultLoadingDialogBuilder());
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoading(com.jdroid.android.loading.LoadingDialogBuilder)
+	 * @see com.jdroid.android.fragment.FragmentIf#showBlockingLoading(com.jdroid.android.loading.LoadingDialogBuilder)
 	 */
 	@Override
-	public void showLoading(final LoadingDialogBuilder builder) {
+	public void showBlockingLoading(final LoadingDialogBuilder builder) {
 		activity.runOnUiThread(new Runnable() {
 			
 			@Override

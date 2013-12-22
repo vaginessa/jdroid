@@ -220,11 +220,11 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoading(com.jdroid.android.loading.LoadingDialogBuilder)
+	 * @see com.jdroid.android.fragment.FragmentIf#showBlockingLoading(com.jdroid.android.loading.LoadingDialogBuilder)
 	 */
 	@Override
-	public void showLoading(LoadingDialogBuilder builder) {
-		fragmentHelper.showLoading(builder);
+	public void showBlockingLoading(LoadingDialogBuilder builder) {
+		fragmentHelper.showBlockingLoading(builder);
 	}
 	
 	/**
@@ -342,6 +342,30 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	@Override
 	public Boolean isBlockingLoadingEnabled() {
 		return fragmentHelper.isBlockingLoadingEnabled();
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
+	 */
+	@Override
+	public void showLoading() {
+		fragmentHelper.showLoading();
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#dismissLoading()
+	 */
+	@Override
+	public void dismissLoading() {
+		fragmentHelper.dismissLoading();
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#showNonBlockingLoading()
+	 */
+	@Override
+	public void showNonBlockingLoading() {
+		fragmentHelper.showNonBlockingLoading();
 	}
 	
 	/**
