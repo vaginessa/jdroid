@@ -203,7 +203,7 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 			
 			@Override
 			public void run() {
-				showLoading();
+				showBlockingLoading();
 			}
 		});
 	}
@@ -225,7 +225,7 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 						getFacebookListener().onFacebookDisconnected();
 					}
 				}
-				dismissLoading();
+				dismissBlockingLoading();
 			}
 		});
 	}

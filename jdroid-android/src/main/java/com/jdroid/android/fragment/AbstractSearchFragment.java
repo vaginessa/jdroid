@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.jdroid.android.R;
-import com.jdroid.android.activity.ActivityHelper.UseCaseTrigger;
 import com.jdroid.android.adapter.BaseArrayAdapter;
+import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.listener.OnEnterKeyListener;
 import com.jdroid.android.search.SearchResult;
 import com.jdroid.android.usecase.SearchUseCase;
@@ -227,7 +227,7 @@ public abstract class AbstractSearchFragment<T> extends AbstractListFragment<T> 
 	}
 	
 	/**
-	 * @see com.jdroid.android.activity.AbstractListActivity#onFinishUseCase()
+	 * @see com.jdroid.android.fragment.AbstractListFragment#onFinishUseCase()
 	 */
 	@Override
 	public void onFinishUseCase() {
