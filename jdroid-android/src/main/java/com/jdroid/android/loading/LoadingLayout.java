@@ -1,11 +1,14 @@
 package com.jdroid.android.loading;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.DatePicker;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import com.jdroid.android.R;
@@ -14,6 +17,7 @@ import com.jdroid.android.fragment.FragmentIf;
 public class LoadingLayout extends FrameLayout {
 	
 	private ProgressBar progressLoading;
+	private Boolean isLoading = true;
 	
 	public LoadingLayout(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -34,10 +38,38 @@ public class LoadingLayout extends FrameLayout {
 		LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.non_blocking_loading, this, true);
 		progressLoading = (ProgressBar)this.findViewById(R.id.loadingProgressBar);
-		
+	}
+	
+	/**
+	 * @see android.view.View#onFinishInflate()
+	 */
+	@Override
+	protected void onFinishInflate() {
+		super.onFinishInflate();
+		updateViewState();
+	}
+	
+	private void updateViewState() {
+		for (int i = 0; i < getChildCount(); i++) {
+			View child = getChildAt(i);
+			if (child == progressLoading) {
+				child.setVisibility(isLoading ? VISIBLE : GONE);
+			} else {
+				child.setVisibility(isLoading ? GONE : VISIBLE);
+			}
+		}
+	}
+	
+	public void setLoading(boolean loading) {
+		isLoading = loading;
+		updateViewState();
 	}
 	
 	public void showLoading(FragmentIf fragmentIf) {
+		if (isLoading) {
+			return;
+		}
+		isLoading = true;
 		if (fragmentIf != null) {
 			fragmentIf.executeOnUIThread(new Runnable() {
 				
@@ -57,6 +89,9 @@ public class LoadingLayout extends FrameLayout {
 	}
 	
 	public void dismissLoading(FragmentIf fragmentIf) {
+		if (!isLoading) {
+			return;
+		}
 		if (fragmentIf != null) {
 			fragmentIf.executeOnUIThread(new Runnable() {
 				
@@ -73,7 +108,7 @@ public class LoadingLayout extends FrameLayout {
 				}
 			});
 		}
-		
+		isLoading = false;
 	}
 	
 	public boolean isLoadingVisible() {
@@ -96,4 +131,61 @@ public class LoadingLayout extends FrameLayout {
 		}
 	}
 	
+	@Override
+	public Parcelable onSaveInstanceState() {
+		Parcelable superState = super.onSaveInstanceState();
+		return new SavedState(superState, isLoading);
+	}
+	
+	@Override
+	public void onRestoreInstanceState(Parcelable state) {
+		SavedState ss = (SavedState)state;
+		super.onRestoreInstanceState(ss.getSuperState());
+		isLoading = ss.isLoading;
+		updateViewState();
+	}
+	
+	/**
+	 * Class for managing state storing/restoring.
+	 */
+	private static class SavedState extends BaseSavedState {
+		
+		private Boolean isLoading;
+		
+		/**
+		 * Constructor called from {@link DatePicker#onSaveInstanceState()}
+		 */
+		private SavedState(Parcelable superState, Boolean isLoading) {
+			super(superState);
+			this.isLoading = isLoading;
+		}
+		
+		/**
+		 * Constructor called from {@link #CREATOR}
+		 */
+		private SavedState(Parcel in) {
+			super(in);
+			isLoading = in.readInt() == 1 ? true : false;
+		}
+		
+		@Override
+		public void writeToParcel(Parcel dest, int flags) {
+			super.writeToParcel(dest, flags);
+			dest.writeInt(isLoading ? 1 : 0);
+		}
+		
+		@SuppressWarnings({ "hiding", "unused" })
+		public static final Parcelable.Creator<SavedState> CREATOR = new Creator<SavedState>() {
+			
+			@Override
+			public SavedState createFromParcel(Parcel in) {
+				return new SavedState(in);
+			}
+			
+			@Override
+			public SavedState[] newArray(int size) {
+				return new SavedState[size];
+			}
+		};
+	}
 }
