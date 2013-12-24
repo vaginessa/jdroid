@@ -33,7 +33,6 @@ import com.jdroid.android.utils.AndroidEncryptionUtils;
 import com.jdroid.android.utils.SharedPreferencesUtils;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.context.GitContext;
-import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.ExecutorUtils;
 import com.jdroid.java.utils.FileUtils;
@@ -53,7 +52,7 @@ public abstract class AbstractApplication extends Application {
 	 */
 	private static Logger LOGGER;
 	
-	private static final String INSTALLATION_ID_KEY = "installationId";
+	private static final String INSTALLATION_ID = "installationId";
 	public static final String INSTALLATION_SOURCE = "installationSource";
 	
 	/** Maximum size (in MB) of the images cache */
@@ -364,17 +363,13 @@ public abstract class AbstractApplication extends Application {
 			
 			@Override
 			public void run() {
-				try {
-					if (SharedPreferencesUtils.hasPreference(INSTALLATION_ID_KEY)) {
-						installationId = SharedPreferencesUtils.loadPreference(INSTALLATION_ID_KEY);
-					} else {
-						installationId = UUID.randomUUID().toString();
-						SharedPreferencesUtils.savePreference(INSTALLATION_ID_KEY, installationId);
-					}
-					LOGGER.debug("Installation id: " + installationId);
-				} catch (Exception e) {
-					throw new UnexpectedException(e);
+				if (SharedPreferencesUtils.hasPreference(INSTALLATION_ID)) {
+					installationId = SharedPreferencesUtils.loadPreference(INSTALLATION_ID);
+				} else {
+					installationId = UUID.randomUUID().toString();
+					SharedPreferencesUtils.savePreference(INSTALLATION_ID, installationId);
 				}
+				LOGGER.debug("Installation id: " + installationId);
 			}
 		});
 	}
