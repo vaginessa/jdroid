@@ -1,12 +1,12 @@
 package com.jdroid.android.images;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.domain.FileContent;
 
 public class CustomImageView extends ImageView implements ImageHolder {
@@ -163,7 +163,7 @@ public class CustomImageView extends ImageView implements ImageHolder {
 	 */
 	@Override
 	public void runOnUiThread(Runnable runnable) {
-		((Activity)getContext()).runOnUiThread(runnable);
+		AbstractApplication.get().getCurrentActivity().runOnUiThread(runnable);
 	}
 	
 	public static interface ImageLoadingListener {

@@ -225,7 +225,7 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 						getFacebookListener().onFacebookDisconnected();
 					}
 				}
-				dismissBlockingLoading();
+				dismissLoading();
 			}
 		});
 	}
