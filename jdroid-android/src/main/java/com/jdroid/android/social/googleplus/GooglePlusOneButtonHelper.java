@@ -4,6 +4,7 @@ import java.util.Locale;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.View;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
@@ -83,7 +84,7 @@ public class GooglePlusOneButtonHelper implements ConnectionCallbacks, OnConnect
 	 */
 	@Override
 	public void onConnectionFailed(ConnectionResult arg0) {
-		// Do Nothing
+		plusOneButton.setVisibility(View.GONE);
 	}
 	
 	/**
@@ -91,7 +92,7 @@ public class GooglePlusOneButtonHelper implements ConnectionCallbacks, OnConnect
 	 */
 	@Override
 	public void onConnected(Bundle arg0) {
-		// Do Nothing
+		plusOneButton.setVisibility(View.VISIBLE);
 	}
 	
 	/**
@@ -99,6 +100,6 @@ public class GooglePlusOneButtonHelper implements ConnectionCallbacks, OnConnect
 	 */
 	@Override
 	public void onDisconnected() {
-		// Do Nothing
+		plusOneButton.setVisibility(View.GONE);
 	}
 }

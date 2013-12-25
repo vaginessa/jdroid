@@ -1,7 +1,7 @@
 package com.jdroid.android;
 
-import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.exception.DefaultExceptionHandler;
+import com.jdroid.android.fragment.FragmentIf;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 
 /**
@@ -15,7 +15,7 @@ public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 	 */
 	@Override
 	public void onStartUseCase() {
-		getActivityIf().onStartUseCase();
+		getFragmentIf().onStartUseCase();
 	}
 	
 	/**
@@ -23,7 +23,7 @@ public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 	 */
 	@Override
 	public void onUpdateUseCase() {
-		getActivityIf().onUpdateUseCase();
+		getFragmentIf().onUpdateUseCase();
 	}
 	
 	/**
@@ -31,23 +31,26 @@ public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 	 */
 	@Override
 	public void onFinishFailedUseCase(RuntimeException runtimeException) {
+		getFragmentIf().onFinishFailedUseCase(runtimeException);
 		if (goBackOnError(runtimeException)) {
 			DefaultExceptionHandler.markAsGoBackOnError(runtimeException);
 		} else {
 			DefaultExceptionHandler.markAsNotGoBackOnError(runtimeException);
 		}
-		ActivityIf activityIf = getActivityIf();
-		if (activityIf != null) {
-			activityIf.dismissLoadingOnUIThread();
+		FragmentIf fragmentIf = getFragmentIf();
+		if (fragmentIf.isBlockingLoadingEnabled()) {
+			fragmentIf.dismissBlockingLoading();
+		} else {
+			fragmentIf.dismissNonBlockingLoading();
 		}
 		
 		throw runtimeException;
 	}
 	
 	public Boolean goBackOnError(RuntimeException runtimeException) {
-		ActivityIf activityIf = getActivityIf();
-		if (activityIf != null) {
-			return activityIf.goBackOnError(runtimeException);
+		FragmentIf fragmentIf = getFragmentIf();
+		if (fragmentIf != null) {
+			return fragmentIf.goBackOnError(runtimeException);
 		} else {
 			return true;
 		}
@@ -58,7 +61,7 @@ public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 	 */
 	@Override
 	public void onFinishUseCase() {
-		getActivityIf().onFinishUseCase();
+		getFragmentIf().onFinishUseCase();
 	}
 	
 	/**
@@ -66,8 +69,8 @@ public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 	 */
 	@Override
 	public void onFinishCanceledUseCase() {
-		getActivityIf().onFinishCanceledUseCase();
+		getFragmentIf().onFinishCanceledUseCase();
 	}
 	
-	protected abstract ActivityIf getActivityIf();
+	protected abstract FragmentIf getFragmentIf();
 }

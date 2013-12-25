@@ -5,8 +5,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import com.jdroid.android.R;
-import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.exception.DefaultExceptionHandler;
+import com.jdroid.android.fragment.FragmentIf;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 
 /**
@@ -31,7 +31,7 @@ public abstract class RefreshActionConnector implements RefreshActionProvider.On
 	}
 	
 	public void startLoadingOnUIThread() {
-		getActivityIf().executeOnUIThread(new Runnable() {
+		getFragmentIf().executeOnUIThread(new Runnable() {
 			
 			@Override
 			public void run() {
@@ -47,7 +47,7 @@ public abstract class RefreshActionConnector implements RefreshActionProvider.On
 	}
 	
 	public void stopLoadingOnUIThread() {
-		getActivityIf().executeOnUIThread(new Runnable() {
+		getFragmentIf().executeOnUIThread(new Runnable() {
 			
 			@Override
 			public void run() {
@@ -69,7 +69,7 @@ public abstract class RefreshActionConnector implements RefreshActionProvider.On
 	 */
 	@Override
 	public void onUpdateUseCase() {
-		getActivityIf().onUpdateUseCase();
+		getFragmentIf().onUpdateUseCase();
 	}
 	
 	/**
@@ -87,7 +87,7 @@ public abstract class RefreshActionConnector implements RefreshActionProvider.On
 	}
 	
 	public Boolean goBackOnError(RuntimeException runtimeException) {
-		return getActivityIf().goBackOnError(runtimeException);
+		return getFragmentIf().goBackOnError(runtimeException);
 	}
 	
 	/**
@@ -103,8 +103,8 @@ public abstract class RefreshActionConnector implements RefreshActionProvider.On
 	 */
 	@Override
 	public void onFinishCanceledUseCase() {
-		getActivityIf().onFinishCanceledUseCase();
+		getFragmentIf().onFinishCanceledUseCase();
 	}
 	
-	protected abstract ActivityIf getActivityIf();
+	protected abstract FragmentIf getFragmentIf();
 }

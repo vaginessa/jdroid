@@ -712,7 +712,7 @@ public class JSONObject {
 	public Boolean optBoolean(String key, Boolean defaultValue) {
 		try {
 			return this.getBoolean(key);
-		} catch (Exception e) {
+		} catch (JSONException e) {
 			return defaultValue;
 		}
 	}
@@ -739,7 +739,7 @@ public class JSONObject {
 	public Double optDouble(String key, Double defaultValue) {
 		try {
 			return this.getDouble(key);
-		} catch (Exception e) {
+		} catch (JSONException e) {
 			return defaultValue;
 		}
 	}
@@ -766,7 +766,7 @@ public class JSONObject {
 	public Integer optInt(String key, Integer defaultValue) {
 		try {
 			return this.getInt(key);
-		} catch (Exception e) {
+		} catch (JSONException e) {
 			return defaultValue;
 		}
 	}
@@ -817,7 +817,7 @@ public class JSONObject {
 	public Long optLong(String key, Long defaultValue) {
 		try {
 			return this.getLong(key);
-		} catch (Exception e) {
+		} catch (JSONException e) {
 			return defaultValue;
 		}
 	}
@@ -1478,7 +1478,7 @@ public class JSONObject {
 	public Float optFloat(String key, Float defaultValue) {
 		try {
 			return this.getFloat(key);
-		} catch (Exception e) {
+		} catch (JSONException e) {
 			return defaultValue;
 		}
 	}
@@ -1520,8 +1520,8 @@ public class JSONObject {
 	
 	public Date optDate(String key, String dateFormat, Date defaultValue) {
 		try {
-			return this.getDate(key);
-		} catch (Exception e) {
+			return this.getDate(key, dateFormat);
+		} catch (JSONException e) {
 			return defaultValue;
 		}
 	}
