@@ -36,6 +36,12 @@ public class IntentRetryUtils {
 	
 	public static Boolean retry(Intent intent, Integer maximumRetryCount, Long startBackoff) {
 		
+		if (intent == null) {
+			// Discard retry
+			LOGGER.warn("The retry intent is null and will be discarded.");
+			return false;
+		}
+		
 		int count = intent.getIntExtra(EXTRA_CURRENT_RETRY_COUNT, 0);
 		long backoff = intent.getLongExtra(EXTRA_CURRENT_BACKOFF, startBackoff);
 		

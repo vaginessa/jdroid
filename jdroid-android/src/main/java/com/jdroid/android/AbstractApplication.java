@@ -70,7 +70,6 @@ public abstract class AbstractApplication extends Application {
 	
 	private File cacheDirectory;
 	private File imagesCacheDirectory;
-	private File httpCacheDirectory;
 	private BitmapLruCache bitmapLruCache;
 	
 	private String installationId;
@@ -116,7 +115,6 @@ public abstract class AbstractApplication extends Application {
 		initEncryptionUtils();
 		initCacheDirectory();
 		initImagesCacheDirectory();
-		initHttpCacheDirectory();
 		initBitmapLruCache();
 		
 		initInAppBilling();
@@ -169,10 +167,6 @@ public abstract class AbstractApplication extends Application {
 		LOGGER.debug("Cache directory: " + cacheDirectory.getPath());
 	}
 	
-	protected void initHttpCacheDirectory() {
-		httpCacheDirectory = new File(getCacheDirectory(), HTTP_CACHE_DIRECTORY);
-	}
-	
 	protected void initImagesCacheDirectory() {
 		imagesCacheDirectory = new File(getCacheDirectory(), IMAGES_DIRECTORY);
 		LOGGER.debug("Images cache directory: " + imagesCacheDirectory.getPath());
@@ -180,7 +174,8 @@ public abstract class AbstractApplication extends Application {
 			
 			@Override
 			public void run() {
-				if ((FileUtils.getDirectorySize(getImagesCacheDirectory()) / FileUtils.BYTES_TO_MB) > IMAGES_CACHE_SIZE) {
+				File dir = getImagesCacheDirectory();
+				if ((dir != null) && ((FileUtils.getDirectorySize(dir) / FileUtils.BYTES_TO_MB) > IMAGES_CACHE_SIZE)) {
 					FileUtils.forceDelete(imagesCacheDirectory);
 				}
 			}
@@ -326,14 +321,11 @@ public abstract class AbstractApplication extends Application {
 		if (!imagesCacheDirectory.exists()) {
 			imagesCacheDirectory.mkdirs();
 		}
-		return imagesCacheDirectory;
+		return imagesCacheDirectory.exists() && imagesCacheDirectory.isDirectory() ? imagesCacheDirectory : null;
 	}
 	
 	public File getHttpCacheDirectory() {
-		if (!httpCacheDirectory.exists()) {
-			httpCacheDirectory.mkdirs();
-		}
-		return httpCacheDirectory;
+		return getApplicationContext().getDir(HTTP_CACHE_DIRECTORY, Context.MODE_PRIVATE);
 	}
 	
 	/**

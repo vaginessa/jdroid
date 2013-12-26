@@ -51,43 +51,49 @@ public class RemoteImageResolver implements ImageResolver {
 		String url = uri.toString();
 		
 		// REVIEW Identify images by hashcode. Find a better way to do this
-		File file = new File(AbstractApplication.get().getImagesCacheDirectory(), String.valueOf(url.hashCode()));
-		
-		// If the file doesn't exists on the SD cache directory, it is retrieved from the web
-		if (!file.exists()) {
+		File directory = AbstractApplication.get().getImagesCacheDirectory();
+		if (directory != null) {
+			File file = new File(directory, String.valueOf(url.hashCode()));
 			
-			InputStream is = null;
-			OutputStream os = null;
-			try {
-				// make client for http.
-				HttpClient client = DefaultHttpClientFactory.get().createHttpClient();
+			// If the file doesn't exists on the SD cache directory, it is retrieved from the web
+			if (!file.exists()) {
 				
-				// make request.
-				HttpUriRequest request = new HttpGet(url);
-				
-				// execute request.
-				HttpResponse httpResponse = client.execute(request);
-				
-				if (httpResponse.getStatusLine().getStatusCode() != 404) {
-					// Process response
-					is = httpResponse.getEntity().getContent();
-					os = new FileOutputStream(file);
-					FileUtils.copyStream(is, os);
-					LOGGER.debug("Image [" + url + "] downloaded.");
-				} else {
-					LOGGER.debug("Image [" + url + "] not found.");
+				InputStream is = null;
+				OutputStream os = null;
+				try {
+					// make client for http.
+					HttpClient client = DefaultHttpClientFactory.get().createHttpClient();
+					
+					// make request.
+					HttpUriRequest request = new HttpGet(url);
+					
+					// execute request.
+					HttpResponse httpResponse = client.execute(request);
+					
+					if (httpResponse.getStatusLine().getStatusCode() != 404) {
+						// Process response
+						is = httpResponse.getEntity().getContent();
+						os = new FileOutputStream(file);
+						FileUtils.copyStream(is, os);
+						LOGGER.debug("Image [" + url + "] downloaded.");
+					} else {
+						LOGGER.debug("Image [" + url + "] not found.");
+						return null;
+					}
+					
+				} catch (Exception ex) {
+					LOGGER.error("Error when downloading image [" + url + "]", ex);
 					return null;
+				} finally {
+					FileUtils.safeClose(os);
+					FileUtils.safeClose(is);
 				}
-				
-			} catch (Exception ex) {
-				LOGGER.error("Error when downloading image [" + url + "]", ex);
-				return null;
-			} finally {
-				FileUtils.safeClose(os);
-				FileUtils.safeClose(is);
+			} else {
+				LOGGER.debug("Loading image from [" + file.getAbsolutePath() + "].");
 			}
+			return BitmapUtils.toBitmap(Uri.fromFile(file), maxWidth, maxHeight);
 		}
-		return BitmapUtils.toBitmap(Uri.fromFile(file), maxWidth, maxHeight);
+		return null;
 	}
 	
 }
