@@ -250,6 +250,14 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	}
 	
 	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#isNonBlockingLoadingDisplayedByDefault()
+	 */
+	@Override
+	public Boolean isNonBlockingLoadingDisplayedByDefault() {
+		return true;
+	}
+	
+	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
 	 */
 	@Override

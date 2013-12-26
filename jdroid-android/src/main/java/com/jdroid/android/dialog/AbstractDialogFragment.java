@@ -345,6 +345,14 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	}
 	
 	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#isNonBlockingLoadingDisplayedByDefault()
+	 */
+	@Override
+	public Boolean isNonBlockingLoadingDisplayedByDefault() {
+		return fragmentHelper.isNonBlockingLoadingDisplayedByDefault();
+	}
+	
+	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
 	 */
 	@Override

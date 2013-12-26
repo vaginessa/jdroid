@@ -69,6 +69,8 @@ public interface FragmentIf extends ComponentIf, DefaultUseCaseListener {
 	
 	public Boolean isBlockingLoadingEnabled();
 	
+	public Boolean isNonBlockingLoadingDisplayedByDefault();
+	
 	public void showNonBlockingLoading();
 	
 	public void dismissNonBlockingLoading();

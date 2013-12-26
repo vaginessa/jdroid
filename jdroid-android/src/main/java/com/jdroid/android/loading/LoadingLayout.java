@@ -40,15 +40,6 @@ public class LoadingLayout extends FrameLayout {
 		progressLoading = (ProgressBar)this.findViewById(R.id.loadingProgressBar);
 	}
 	
-	/**
-	 * @see android.view.View#onFinishInflate()
-	 */
-	@Override
-	protected void onFinishInflate() {
-		super.onFinishInflate();
-		updateViewState();
-	}
-	
 	private void updateViewState() {
 		for (int i = 0; i < getChildCount(); i++) {
 			View child = getChildAt(i);

@@ -338,6 +338,14 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	}
 	
 	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#isNonBlockingLoadingDisplayedByDefault()
+	 */
+	@Override
+	public Boolean isNonBlockingLoadingDisplayedByDefault() {
+		return fragmentHelper.isNonBlockingLoadingDisplayedByDefault();
+	}
+	
+	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
 	 */
 	@Override

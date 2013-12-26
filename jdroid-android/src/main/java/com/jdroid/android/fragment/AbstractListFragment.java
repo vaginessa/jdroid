@@ -353,6 +353,14 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 	}
 	
 	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#isNonBlockingLoadingDisplayedByDefault()
+	 */
+	@Override
+	public Boolean isNonBlockingLoadingDisplayedByDefault() {
+		return fragmentHelper.isNonBlockingLoadingDisplayedByDefault();
+	}
+	
+	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
 	 */
 	@Override

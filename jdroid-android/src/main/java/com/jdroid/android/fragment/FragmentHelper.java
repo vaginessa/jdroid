@@ -33,7 +33,7 @@ public class FragmentHelper implements FragmentIf {
 	
 	private Fragment fragment;
 	private AdHelper adHelper;
-	private LoadingLayout container;
+	private LoadingLayout loadingLayout;
 	
 	public FragmentHelper(Fragment fragment) {
 		this.fragment = fragment;
@@ -70,7 +70,10 @@ public class FragmentHelper implements FragmentIf {
 				getFragmentIf().getAdSize());
 		}
 		
-		container = findView(R.id.container);
+		loadingLayout = findView(R.id.container);
+		if (loadingLayout != null) {
+			loadingLayout.setLoading(getFragmentIf().isNonBlockingLoadingDisplayedByDefault());
+		}
 	}
 	
 	protected AdHelper createAdLoader() {
@@ -294,6 +297,14 @@ public class FragmentHelper implements FragmentIf {
 	}
 	
 	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#isNonBlockingLoadingDisplayedByDefault()
+	 */
+	@Override
+	public Boolean isNonBlockingLoadingDisplayedByDefault() {
+		return true;
+	}
+	
+	/**
 	 * @see com.jdroid.android.activity.ComponentIf#findView(int)
 	 */
 	@SuppressWarnings("unchecked")
@@ -365,7 +376,7 @@ public class FragmentHelper implements FragmentIf {
 	 */
 	@Override
 	public void showNonBlockingLoading() {
-		container.showLoading(getFragmentIf());
+		loadingLayout.showLoading(getFragmentIf());
 	}
 	
 	/**
@@ -373,7 +384,7 @@ public class FragmentHelper implements FragmentIf {
 	 */
 	@Override
 	public void dismissNonBlockingLoading() {
-		container.dismissLoading(getFragmentIf());
+		loadingLayout.dismissLoading(getFragmentIf());
 	}
 	
 	/**
