@@ -20,7 +20,7 @@ public class CrashGenerator {
 				if (crashType.startsWith("BusinessException")) {
 					throw CommonErrorCode.INTERNAL_ERROR.newBusinessException(CRASH_MESSAGE);
 				} else if (crashType.startsWith("ConnectionException")) {
-					throw new ConnectionException(null, CRASH_MESSAGE);
+					throw new ConnectionException(CRASH_MESSAGE);
 				} else if (crashType.startsWith("ApplicationException")) {
 					throw CommonErrorCode.SERVER_ERROR.newApplicationException(CRASH_MESSAGE);
 				} else if (crashType.startsWith("RuntimeException")) {

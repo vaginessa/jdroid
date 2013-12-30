@@ -113,13 +113,15 @@
 
 	<!-- Lists & Grids -->
 
-	<style name="list" parent="android:Widget.ListView">
+	<style name="parentList" parent="android:Widget.ListView">
 		<item name="android:cacheColorHint">@android:color/transparent</item>
 		<!-- <item name="android:divider">@android:color/black</item> -->
 		<item name="android:listSelector">@android:color/transparent</item>
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">match_parent</item>
 	</style>
+
+	<style name="list" parent="@style/parentList" />
 
 	<style name="contextualList">
 		<item name="android:scrollbars">none</item>
@@ -135,10 +137,12 @@
 		<item name="android:ellipsize">end</item>
 	</style>
 
-	<style name="grid">
+	<style name="parentGrid">
 		<item name="android:cacheColorHint">@android:color/transparent</item>
 		<item name="android:listSelector">@android:color/transparent</item>
 	</style>
+
+	<style name="grid" parent="@style/parentGrid" />
 
 	<!-- Dialogs -->
 

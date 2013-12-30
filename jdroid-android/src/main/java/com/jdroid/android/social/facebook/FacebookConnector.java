@@ -21,6 +21,7 @@ import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.exception.CommonErrorCode;
+import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -264,7 +265,7 @@ public class FacebookConnector {
 				throw new FacebookExpiredSessionException(response.getError().getErrorMessage());
 			} else if (Category.CLIENT.equals(response.getError().getCategory())) {
 				LOGGER.warn(response.getError().getErrorMessage());
-				throw CommonErrorCode.CONNECTION_ERROR.newApplicationException(response.getError().getErrorMessage());
+				throw new ConnectionException(response.getError().getErrorMessage());
 			} else {
 				throw CommonErrorCode.SERVER_ERROR.newApplicationException(response.getError().getErrorMessage());
 			}
