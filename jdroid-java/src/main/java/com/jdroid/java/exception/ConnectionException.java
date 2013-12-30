@@ -11,12 +11,8 @@ public class ConnectionException extends ApplicationException {
 		super(throwable);
 	}
 	
-	public ConnectionException(ErrorCode errorCode, Throwable throwable) {
-		super(errorCode, throwable);
-	}
-	
-	public ConnectionException(ErrorCode errorCode, String message) {
-		super(errorCode, message);
+	public ConnectionException(String message) {
+		super(message);
 	}
 	
 }

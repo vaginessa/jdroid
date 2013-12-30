@@ -1,5 +1,6 @@
 package com.jdroid.android.fragment;
 
+import java.util.List;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -99,8 +100,6 @@ public abstract class AbstractSearchFragment<T> extends AbstractListFragment<T> 
 		emptyLegend.setText(getNoResultsResId());
 		emptyLegend.setVisibility(View.GONE);
 		
-		setListAdapter(createBaseArrayAdapter());
-		
 		loading = findView(R.id.loading);
 	}
 	
@@ -183,7 +182,10 @@ public abstract class AbstractSearchFragment<T> extends AbstractListFragment<T> 
 	protected void doCancel() {
 		searchText.setText(null);
 		getSearchUseCase().setSearchValue(null);
-		getBaseArrayAdapter().clear();
+		
+		if (getBaseArrayAdapter() != null) {
+			getBaseArrayAdapter().clear();
+		}
 	}
 	
 	protected void doSearch() {
@@ -220,10 +222,10 @@ public abstract class AbstractSearchFragment<T> extends AbstractListFragment<T> 
 	 */
 	@Override
 	public void onFinishFailedUseCase(RuntimeException runtimeException) {
-		super.onFinishFailedUseCase(runtimeException);
 		if (loading != null) {
 			loading.setVisibility(View.INVISIBLE);
 		}
+		super.onFinishFailedUseCase(runtimeException);
 	}
 	
 	/**
@@ -242,12 +244,13 @@ public abstract class AbstractSearchFragment<T> extends AbstractListFragment<T> 
 				SearchResult<T> searchResult = getSearchUseCase().getSearchResult();
 				PagedResult<T> pagedResult = searchResult != null ? searchResult.getPagedResult()
 						: new PagedResult<T>();
-				getBaseArrayAdapter().replaceAll(pagedResult.getResults());
+				
+				setListAdapter(createBaseArrayAdapter(pagedResult.getResults()));
 			}
 		});
 	}
 	
-	protected abstract BaseArrayAdapter<T> createBaseArrayAdapter();
+	protected abstract BaseArrayAdapter<T> createBaseArrayAdapter(List<T> items);
 	
 	@SuppressWarnings("unchecked")
 	private BaseArrayAdapter<T> getBaseArrayAdapter() {

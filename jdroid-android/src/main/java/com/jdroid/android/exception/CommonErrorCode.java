@@ -4,7 +4,6 @@ import java.util.Collection;
 import com.jdroid.android.R;
 import com.jdroid.java.exception.ApplicationException;
 import com.jdroid.java.exception.BusinessException;
-import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.ErrorCode;
 import com.jdroid.java.exception.ServerHttpResponseException;
 import com.jdroid.java.utils.StringUtils;
@@ -31,18 +30,6 @@ public enum CommonErrorCode implements ErrorCode {
 		}
 	},
 	INTERNAL_ERROR(R.string.internalError),
-	CONNECTION_ERROR(R.string.connectionError) {
-		
-		@Override
-		public ApplicationException newApplicationException(String message) {
-			return new ConnectionException(this, message);
-		}
-		
-		@Override
-		public ApplicationException newApplicationException(Throwable throwable) {
-			return new ConnectionException(this, throwable);
-		}
-	},
 	FACEBOOK_ERROR(R.string.facebookError),
 	TWITTER_ERROR(R.string.twitterError);
 	

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
-	android:layout_width="match_parent" android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+	android:layout_height="match_parent">
 
-	<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-		android:orientation="horizontal">
-		<RelativeLayout android:id="@+id/searchBox" android:layout_width="0dp" android:layout_height="wrap_content"
-			android:paddingLeft="5dp" android:paddingTop="5dp" android:paddingRight="5dp" android:paddingBottom="1dp"
-			android:layout_weight="1">
+	<LinearLayout android:id="@+id/searchBox" android:layout_width="match_parent" android:layout_height="wrap_content"
+		android:orientation="horizontal" android:padding="4dp">
+		<RelativeLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1">
 			<EditText android:id="@+id/searchText" android:layout_width="match_parent" android:layout_height="wrap_content"
 				android:inputType="text" android:hint="@string/typeHere" android:imeOptions="actionSearch" android:paddingRight="64dp" />
 			<ProgressBar android:id="@+id/loading" android:layout_width="24dp" android:layout_height="24dp"
@@ -18,12 +16,16 @@
 		</RelativeLayout>
 
 		<ImageView android:id="@+id/searchButton" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:src="@drawable/search" android:layout_gravity="center_vertical" android:layout_marginBottom="2dp"
-			android:layout_marginLeft="3dp" android:layout_marginRight="3dp" />
+			android:src="@drawable/search_selector" android:layout_gravity="center_vertical" android:layout_marginLeft="4dp"
+			android:layout_marginRight="4dp" />
 	</LinearLayout>
 
-	<ListView android:id="@+id/android:list" style="@style/list" android:fastScrollEnabled="true" />
+	<ListView android:id="@+id/android:list" style="@style/list" android:layout_below="@+id/searchBox"
+		android:layout_above="@+id/adViewContainer" />
 
-	<TextView android:id="@id/android:empty" android:text="@string/noResultsSearch" style="@style/noResultsText" />
+	<TextView android:id="@id/android:empty" android:text="@string/noResultsSearch" style="@style/noResultsText"
+		android:layout_below="@+id/android:list" />
 
-</LinearLayout>
+	<include layout="@layout/ad_view_container" />
+
+</RelativeLayout>
