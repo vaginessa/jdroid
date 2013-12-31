@@ -61,6 +61,12 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
  * Fade in / Fade out
 * Utilities for Alarms, Bitmaps, Notifications, Shared Preferences, Toasts, Sounds, GPS, and more
 
+ jdroid scripts
+--------------
+A set of useful shell scripts to
+ * Increment the pom & android manifest versions according to [Semantic Versioning][3]
+ * Create a pull request on Github
+
 jdroid sample server
 --------------
 Sample server app using jdroid Java Web & jdroid Java
