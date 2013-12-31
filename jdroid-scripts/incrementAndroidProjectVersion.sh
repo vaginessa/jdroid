@@ -6,7 +6,7 @@ VERSION_TYPE=$3
 
 # Change POM version
 
-sh $JDROID_HOME/jdroid-scripts/changePomVersion.sh $JDROID_HOME $ANDROID_PROJECT_PATH $VERSION_TYPE
+sh $JDROID_HOME/jdroid-scripts/incrementPomVersion.sh $JDROID_HOME $ANDROID_PROJECT_PATH $VERSION_TYPE
 
 # Change Android Manifest version
 
