@@ -19,7 +19,6 @@
           <webClassPathEntry>M2_REPO/android/mail/mail/1.0/mail-1.0.jar</webClassPathEntry>
           <webClassPathEntry>M2_REPO/antlr/antlr/2.7.6/antlr-2.7.6.jar</webClassPathEntry>
           <webClassPathEntry>M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar</webClassPathEntry>
-          <webClassPathEntry>M2_REPO/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2.jar</webClassPathEntry>
           <webClassPathEntry>M2_REPO/com/fasterxml/jackson/core/jackson-annotations/2.2.3/jackson-annotations-2.2.3.jar</webClassPathEntry>
           <webClassPathEntry>M2_REPO/com/fasterxml/jackson/core/jackson-core/2.2.3/jackson-core-2.2.3.jar</webClassPathEntry>
 		  <webClassPathEntry>M2_REPO/com/fasterxml/jackson/core/jackson-databind/2.2.3/jackson-databind-2.2.3.jar</webClassPathEntry>
