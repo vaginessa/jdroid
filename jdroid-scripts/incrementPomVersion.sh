@@ -4,6 +4,12 @@ JDROID_HOME=$1
 PROJECT_PATH=$2
 VERSION_TYPE=$3
 
+if [ -z "$VERSION_TYPE" ]
+then
+	echo "[ERROR] The VERSION_TYPE parameter is required"
+	exit 1;
+fi
+
 POM_PATH=$PROJECT_PATH/pom.xml
 
 currentVersion=`grep -m 1 "<version>.*<.version>" $POM_PATH | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<"`

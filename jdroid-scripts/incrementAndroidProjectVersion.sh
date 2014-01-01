@@ -4,6 +4,12 @@ JDROID_HOME=$1
 ANDROID_PROJECT_PATH=$2
 VERSION_TYPE=$3
 
+if [ -z "$VERSION_TYPE" ]
+then
+	echo "[ERROR] The VERSION_TYPE parameter is required"
+	exit 1;
+fi
+
 # Change POM version
 
 sh $JDROID_HOME/jdroid-scripts/incrementPomVersion.sh $JDROID_HOME $ANDROID_PROJECT_PATH $VERSION_TYPE
