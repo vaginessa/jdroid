@@ -29,3 +29,4 @@ A set of useful shell scripts to\n
 \n
 * Increment the pom & android manifest versions according to Semantic Versioning\n
 * Create a pull request on Github\n
+* Count the methods in android dex files\n
