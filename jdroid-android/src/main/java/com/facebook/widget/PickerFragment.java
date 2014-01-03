@@ -59,6 +59,7 @@ import com.jdroid.android.R;
  * PickerFragments support callbacks that will be called in the event of an error, when the underlying data has been
  * changed, or when the set of selected graph objects changes.
  */
+@SuppressWarnings("javadoc")
 public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	
 	/**
@@ -632,6 +633,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void inflateTitleBar(ViewGroup view) {
 		ViewStub stub = (ViewStub)view.findViewById(R.id.com_facebook_picker_title_bar_stub);
 		if (stub != null) {
@@ -847,6 +849,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 		protected final static int CACHED_RESULT_REFRESH_DELAY = 2 * 1000;
 		
 		protected GraphObjectPagingLoader<T> loader;
+		@SuppressWarnings("hiding")
 		protected GraphObjectAdapter<T> adapter;
 		
 		public void attach(GraphObjectAdapter<T> adapter) {

@@ -338,6 +338,7 @@ public class WebDialog extends Dialog {
 		crossImageView.setVisibility(View.INVISIBLE);
 	}
 	
+	@SuppressWarnings("deprecation")
 	@SuppressLint("SetJavaScriptEnabled")
 	private void setUpWebView(int margin) {
 		LinearLayout webViewContainer = new LinearLayout(getContext());

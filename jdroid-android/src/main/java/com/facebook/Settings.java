@@ -44,6 +44,7 @@ import com.jdroid.android.BuildConfig;
 /**
  * Allows some customization of sdk behavior.
  */
+@SuppressWarnings({ "javadoc", "resource" })
 public final class Settings {
 	
 	private static final String TAG = Settings.class.getCanonicalName();

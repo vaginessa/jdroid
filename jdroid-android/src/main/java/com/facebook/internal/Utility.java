@@ -260,6 +260,7 @@ public final class Utility {
 		
 	}
 	
+	@SuppressWarnings("resource")
 	public static String readStreamToString(InputStream inputStream) throws IOException {
 		BufferedInputStream bufferedInputStream = null;
 		InputStreamReader reader = null;

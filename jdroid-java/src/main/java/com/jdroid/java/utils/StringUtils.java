@@ -125,7 +125,7 @@ public abstract class StringUtils {
 	/**
 	 * <p>
 	 * Capitalizes all the whitespace separated words in a String. Only the first letter of each word is changed. To
-	 * convert the rest of each word to lowercase at the same time, use {@link #capitalizeFully(String)}.
+	 * convert the rest of each word to lowercase at the same time, use {@link #capitalize(String)}.
 	 * </p>
 	 * 
 	 * <p>
