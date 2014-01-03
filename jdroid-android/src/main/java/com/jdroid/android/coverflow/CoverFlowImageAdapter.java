@@ -38,6 +38,7 @@ public abstract class CoverFlowImageAdapter<T> extends BaseArrayAdapter<T> {
 	/**
 	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
 	public CustomImageView getView(int position, View convertView, ViewGroup parent) {
 		CustomImageView imageView;

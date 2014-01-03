@@ -20,11 +20,13 @@ import com.jdroid.android.domain.FileContent;
  */
 public class ContactsCursor extends CursorWrapper {
 	
+	@SuppressWarnings("deprecation")
 	public static Cursor getContactCursor(Activity activity) {
 		Uri uri = ContactsContract.CommonDataKinds.Email.CONTENT_URI;
 		String[] projection = new String[] { BaseColumns._ID, ContactsContract.CommonDataKinds.Photo.CONTACT_ID,
 				Contacts.DISPLAY_NAME, CommonDataKinds.Email.DATA };
 		String sortOrder = ContactsContract.Contacts.DISPLAY_NAME + " ASC";
+		// TODO See this deprecated method
 		return activity.managedQuery(uri, projection, null, null, sortOrder);
 	}
 	
@@ -52,6 +54,7 @@ public class ContactsCursor extends CursorWrapper {
 		return new ContactFileContent(getPhotoContactId());
 	}
 	
+	@SuppressWarnings("resource")
 	public Bitmap getPhoto(Activity activity) {
 		Uri contactPhotoUri = ContentUris.withAppendedId(Contacts.CONTENT_URI, getPhotoContactId());
 		InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(activity.getContentResolver(),

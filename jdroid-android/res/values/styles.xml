@@ -125,7 +125,7 @@
 
 	<style name="contextualList">
 		<item name="android:scrollbars">none</item>
-		<item name="android:divider">@drawable/leftnav_bar_tab_separator_dark</item>
+		<item name="android:divider">@drawable/default_bar_tab_separator_dark</item>
 		<item name="android:cacheColorHint">@android:color/transparent</item>
 		<item name="android:listSelector">@android:color/transparent</item>
 	</style>

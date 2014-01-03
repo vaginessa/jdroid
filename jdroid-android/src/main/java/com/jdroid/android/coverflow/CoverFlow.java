@@ -14,6 +14,7 @@ import com.jdroid.java.utils.ReflectionUtils;
  * 
  * http://code.google.com/p/android-coverflow/
  */
+@SuppressWarnings("deprecation")
 public class CoverFlow extends Gallery {
 	
 	/**

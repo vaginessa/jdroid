@@ -36,6 +36,7 @@ public class ContactImageResolver implements ImageResolver {
 	/**
 	 * @see com.jdroid.android.images.ImageResolver#resolve(android.net.Uri, java.lang.Integer, java.lang.Integer)
 	 */
+	@SuppressWarnings("resource")
 	@Override
 	public Bitmap resolve(Uri uri, Integer maxWidth, Integer maxHeight) {
 		InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(
