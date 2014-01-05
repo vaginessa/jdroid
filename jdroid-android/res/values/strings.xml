@@ -68,6 +68,12 @@
 	<string name="barcodeScanner">Barcode Scanner</string>
 	<string name="voiceSearch">Voice Search</string>
 
+	<!-- Facebook -->
+	<string name="facebook">Facebook</string>
+
+	<!-- Google+ -->
+	<string name="googlePlus">Google+</string>
+
 	<!-- Twitter -->
 	<string name="twitterConnect">Connecting to Twitter…</string>
 	<string name="twitterNoAuth">Twitter was not authorized</string>
