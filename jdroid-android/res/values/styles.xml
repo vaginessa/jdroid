@@ -71,12 +71,10 @@
 	</style>
 
 	<style name="sectionTitle" parent="h1Text">
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:background">@drawable/section_title_background</item>
-		<item name="android:paddingLeft">10dp</item>
-		<item name="android:paddingRight">10dp</item>
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:paddingLeft">8dp</item>
+		<item name="android:paddingRight">8dp</item>
 		<item name="android:paddingTop">4dp</item>
-		<item name="android:paddingBottom">4dp</item>
 	</style>
 
 	<!-- Buttons -->
@@ -186,6 +184,12 @@
 	<style name="blackBorder1dp">
 		<item name="android:background">@drawable/border</item>
 		<item name="android:padding">1dp</item>
+	</style>
+
+	<style name="line">
+		<item name="android:layout_height">1dp</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:background">@android:color/white</item>
 	</style>
 
 	<!-- Wizard -->
