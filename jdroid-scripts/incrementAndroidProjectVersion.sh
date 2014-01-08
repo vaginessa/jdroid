@@ -12,7 +12,7 @@ fi
 
 # Change POM version
 
-sh $JDROID_HOME/jdroid-scripts/incrementPomVersion.sh $JDROID_HOME $ANDROID_PROJECT_PATH $VERSION_TYPE
+sh $JDROID_HOME/jdroid-scripts/incrementPomVersion.sh $JDROID_HOME $ANDROID_PROJECT_PATH $VERSION_TYPE false
 
 # Change Android Manifest version
 

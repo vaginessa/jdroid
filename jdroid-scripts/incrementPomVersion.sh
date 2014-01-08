@@ -3,11 +3,17 @@
 JDROID_HOME=$1
 PROJECT_PATH=$2
 VERSION_TYPE=$3
+COMMIT=$4
 
 if [ -z "$VERSION_TYPE" ]
 then
 	echo "[ERROR] The VERSION_TYPE parameter is required"
 	exit 1;
+fi
+
+if [ -z "$COMMIT" ]
+then
+	COMMIT="true"
 fi
 
 POM_PATH=$PROJECT_PATH/pom.xml
@@ -47,6 +53,9 @@ echo "The new version is $VERSION"
 
 sh $JDROID_HOME/jdroid-scripts/replaceXmlTag.sh $POM_PATH 'version' $VERSION
 
-git diff HEAD
-git add -A
-git commit -m "Changed app version to v$VERSION"
+if [ "$COMMIT" = "true" ]
+then
+	git diff HEAD
+	git add -A
+	git commit -m "Changed app version to v$VERSION"
+fi

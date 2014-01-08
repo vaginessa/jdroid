@@ -348,7 +348,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showBlockingLoading()
+	 * @see com.jdroid.android.activity.ComponentIf#showBlockingLoading()
 	 */
 	@Override
 	public void showBlockingLoading() {
@@ -356,7 +356,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showBlockingLoading(com.jdroid.android.loading.LoadingDialogBuilder)
+	 * @see com.jdroid.android.activity.ComponentIf#showBlockingLoading(com.jdroid.android.loading.LoadingDialogBuilder)
 	 */
 	@Override
 	public void showBlockingLoading(final LoadingDialogBuilder builder) {
@@ -373,7 +373,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissBlockingLoading()
+	 * @see com.jdroid.android.activity.ComponentIf#dismissBlockingLoading()
 	 */
 	@Override
 	public void dismissBlockingLoading() {
@@ -384,7 +384,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getInstance(java.lang.Class)
+	 * @see com.jdroid.android.activity.ComponentIf#getInstance(java.lang.Class)
 	 */
 	@Override
 	public <I> I getInstance(Class<I> clazz) {
@@ -392,7 +392,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getExtra(java.lang.String)
+	 * @see com.jdroid.android.activity.ComponentIf#getExtra(java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -402,7 +402,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#findView(int)
+	 * @see com.jdroid.android.activity.ComponentIf#findView(int)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -411,7 +411,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#inflate(int)
+	 * @see com.jdroid.android.activity.ComponentIf#inflate(int)
 	 */
 	@Override
 	public View inflate(int resource) {
@@ -427,7 +427,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getUser()
+	 * @see com.jdroid.android.activity.ComponentIf#getUser()
 	 */
 	@Override
 	public User getUser() {
@@ -447,7 +447,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getAdSize()
+	 * @see com.jdroid.android.activity.ComponentIf#getAdSize()
 	 */
 	@Override
 	public AdSize getAdSize() {
