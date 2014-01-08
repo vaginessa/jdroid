@@ -66,6 +66,7 @@ jdroid scripts
 A set of useful shell scripts to
  * Increment the pom & android manifest versions according to [Semantic Versioning][3]
  * Create a pull request on Github
+ * Create a merge request on Gitlab
  * Count the methods in android dex files
 
 jdroid sample server
