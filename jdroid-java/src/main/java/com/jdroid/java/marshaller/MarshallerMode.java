@@ -6,8 +6,9 @@ package com.jdroid.java.marshaller;
  */
 public enum MarshallerMode {
 	
-	TINY,
+	COMPLETE,
 	SIMPLE,
-	COMPLETE;
+	TINY,
+	EXTRA_TINY;
 	
 }
