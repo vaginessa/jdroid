@@ -2,6 +2,7 @@ package com.jdroid.android.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.TextView;
 import com.jdroid.android.R;
 
@@ -11,10 +12,15 @@ import com.jdroid.android.R;
  */
 public class ViewBuilder {
 	
-	public static TextView buildSectionTitle(Context context, int titleId, Object... args) {
-		TextView textView = (TextView)LayoutInflater.from(context).inflate(R.layout.section_title, null);
-		textView.setText(context.getString(titleId, args));
-		return textView;
+	public static View buildSectionTitle(Context context, int titleId, Object... args) {
+		return buildSectionTitle(context, context.getString(titleId, args));
+	}
+	
+	public static View buildSectionTitle(Context context, String title) {
+		View sectionTitle = LayoutInflater.from(context).inflate(R.layout.section_title, null);
+		TextView textView = (TextView)sectionTitle.findViewById(R.id.title);
+		textView.setText(title);
+		return sectionTitle;
 	}
 	
 }
