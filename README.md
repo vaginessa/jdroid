@@ -40,6 +40,7 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
  * Google Maps v2 integration
  * Google+ integration: +1 button, friends, sign in, sign out, revoke access
  * AdMob integration
+* Sqlite integration 
 * In App Billing integration
 * Facebook integration
 * Twitter integration
