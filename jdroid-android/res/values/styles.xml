@@ -198,32 +198,49 @@
 		<item name="android:textColor">#fff</item>
 	</style>
 
-	<!-- Facebook -->
+	<!-- Social -->
 
-	<style name="facebookLoginButton">
+	<style name="socialButton">
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">wrap_content</item>
-		<item name="android:background">@drawable/com_facebook_button_blue</item>
-		<item name="android:drawableLeft">@drawable/com_facebook_inverse_icon</item>
-		<item name="android:drawablePadding">@dimen/com_facebook_loginview_compound_drawable_padding</item>
-		<item name="android:paddingBottom">@dimen/com_facebook_loginview_padding_bottom</item>
-		<item name="android:paddingLeft">@dimen/com_facebook_loginview_padding_left</item>
-		<item name="android:paddingRight">@dimen/com_facebook_loginview_padding_right</item>
-		<item name="android:paddingTop">@dimen/com_facebook_loginview_padding_top</item>
-		<item name="android:textColor">@color/com_facebook_loginview_text_color</item>
-		<item name="android:textSize">@dimen/com_facebook_loginview_text_size</item>
+		<item name="android:typeface">normal</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:textSize">16sp</item>
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:singleLine">true</item>
+		<item name="android:gravity">center</item>
+	</style>
+
+	<!-- Facebook -->
+
+	<style name="facebookButton" parent="@style/socialButton">
+		<item name="android:background">@drawable/facebook_button_selector</item>
+	</style>
+
+	<style name="facebookLoginButton" parent="@style/facebookButton">
+		<item name="android:text">@string/signIn</item>
+	</style>
+
+	<style name="facebookLogoutButton" parent="@style/facebookButton">
+		<item name="android:text">@string/logout</item>
 	</style>
 
 	<!-- Google+ -->
 
-	<style name="googlePlusButton">
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:layout_gravity">center_vertical</item>
-		<item name="android:gravity">center_vertical</item>
+	<style name="googlePlusButton" parent="@style/socialButton">
 		<item name="android:background">@drawable/common_signin_btn_text_dark</item>
-		<item name="android:textColor">@color/common_signin_btn_dark_text_default</item>
-		<item name="android:textStyle">bold</item>
+	</style>
+
+	<style name="googlePlusLoginButton" parent="@style/googlePlusButton">
+		<item name="android:text">@string/common_signin_button_text</item>
+	</style>
+
+	<style name="googlePlusLogoutButton" parent="@style/googlePlusButton">
+		<item name="android:text">@string/logout</item>
+	</style>
+
+	<style name="googlePlusRevokeButton" parent="@style/googlePlusButton">
+		<item name="android:text">@string/revokeAccess</item>
 	</style>
 
 </resources>
