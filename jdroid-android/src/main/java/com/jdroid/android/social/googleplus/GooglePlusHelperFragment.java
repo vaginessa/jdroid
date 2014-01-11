@@ -44,20 +44,12 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 		
 		AbstractFragmentActivity abstractFragmentActivity = (AbstractFragmentActivity)activity;
 		if (GooglePlayUtils.isGooglePlayServicesAvailable(activity)) {
-			GooglePlusHelperFragment googlePlusHelperFragment = get(activity);
-			if (googlePlusHelperFragment == null) {
-				googlePlusHelperFragment = abstractFragmentActivity.instanceFragment(googlePlusHelperFragmentClass,
-					bundle);
-				googlePlusHelperFragment.setTargetFragment(targetFragment, 0);
-				FragmentTransaction fragmentTransaction = abstractFragmentActivity.getSupportFragmentManager().beginTransaction();
-				fragmentTransaction.add(0, googlePlusHelperFragment, GooglePlusHelperFragment.class.getSimpleName());
-				fragmentTransaction.commit();
-			} else {
-				googlePlusHelperFragment.setTargetFragment(targetFragment, 0);
-				if (googlePlusHelperFragment.plusClient != null) {
-					googlePlusHelperFragment.plusClient.connect();
-				}
-			}
+			GooglePlusHelperFragment googlePlusHelperFragment = abstractFragmentActivity.instanceFragment(
+				googlePlusHelperFragmentClass, bundle);
+			googlePlusHelperFragment.setTargetFragment(targetFragment, 0);
+			FragmentTransaction fragmentTransaction = abstractFragmentActivity.getSupportFragmentManager().beginTransaction();
+			fragmentTransaction.add(0, googlePlusHelperFragment, GooglePlusHelperFragment.class.getSimpleName());
+			fragmentTransaction.commit();
 		}
 	}
 	

@@ -30,19 +30,12 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 			Fragment targetFragment) {
 		
 		AbstractFragmentActivity abstractFragmentActivity = (AbstractFragmentActivity)activity;
-		FacebookAuthenticationFragment<?> facebookAuthenticationFragment = get(activity);
-		if (facebookAuthenticationFragment == null) {
-			facebookAuthenticationFragment = abstractFragmentActivity.instanceFragment(
-				facebookAuthenticationFragmentClass, bundle);
-			facebookAuthenticationFragment.setTargetFragment(targetFragment, 0);
-			FragmentTransaction fragmentTransaction = abstractFragmentActivity.getSupportFragmentManager().beginTransaction();
-			fragmentTransaction.add(0, facebookAuthenticationFragment,
-				FacebookAuthenticationFragment.class.getSimpleName());
-			fragmentTransaction.commit();
-		} else {
-			facebookAuthenticationFragment.setTargetFragment(targetFragment, 0);
-			facebookAuthenticationFragment.verifyFacebookConnection();
-		}
+		FacebookAuthenticationFragment<?> facebookAuthenticationFragment = abstractFragmentActivity.instanceFragment(
+			facebookAuthenticationFragmentClass, bundle);
+		facebookAuthenticationFragment.setTargetFragment(targetFragment, 0);
+		FragmentTransaction fragmentTransaction = abstractFragmentActivity.getSupportFragmentManager().beginTransaction();
+		fragmentTransaction.add(0, facebookAuthenticationFragment, FacebookAuthenticationFragment.class.getSimpleName());
+		fragmentTransaction.commit();
 	}
 	
 	public static void remove(FragmentActivity activity) {
