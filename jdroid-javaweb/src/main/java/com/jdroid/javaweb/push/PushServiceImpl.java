@@ -16,44 +16,105 @@ import com.jdroid.java.utils.LoggerUtils;
  * 
  * @author Maxi Rosson
  */
-// TODO We should add a batch process to remove all the devices disabled and the ones with the
-// same registration id but different installation id
 @Service
 public class PushServiceImpl implements PushService {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(PushServiceImpl.class);
 	
 	@Autowired
+	private DeviceGroupRepository deviceGroupRepository;
+	
+	@Autowired
 	private DeviceRepository deviceRepository;
 	
 	/**
-	 * @see com.jdroid.javaweb.push.PushService#enableDevice(java.lang.String, com.jdroid.javaweb.push.DeviceType,
-	 *      java.lang.String)
+	 * @see com.jdroid.javaweb.push.PushService#enableDevice(java.lang.Long, java.lang.String,
+	 *      com.jdroid.javaweb.push.DeviceType, java.lang.String)
 	 */
 	@Transactional
 	@Override
-	public void enableDevice(String installationId, DeviceType deviceType, String registrationId) {
-		Device device = deviceRepository.find(installationId, deviceType);
-		if (device != null) {
-			device.updateRegistrationId(registrationId);
-			LOGGER.info("Updated " + device);
+	public void enableDevice(Long deviceGroupId, String deviceId, DeviceType deviceType, String registrationId) {
+		
+		if (deviceGroupId == null) {
+			Device device = deviceRepository.find(deviceId, deviceType);
+			if (device != null) {
+				device.updateRegistrationId(registrationId);
+				LOGGER.info("Updated anonymous " + device);
+				
+				// If the user removed the app data or reinstalled the app while it was logged, we unassign the device
+				device.unassignDeviceGroup();
+			} else {
+				device = new Device(deviceId, registrationId, deviceType);
+				deviceRepository.add(device);
+				LOGGER.info("Created anonymous " + device);
+			}
 		} else {
-			device = new Device(installationId, registrationId, deviceType);
-			deviceRepository.add(device);
-			LOGGER.info("Enabled " + device);
+			
+			DeviceGroup deviceGroup = deviceGroupRepository.get(deviceGroupId);
+			Device device = deviceGroup.find(deviceId, deviceType);
+			if (device != null) {
+				device.updateRegistrationId(registrationId);
+				LOGGER.info("Updated " + device);
+			} else {
+				device = deviceRepository.find(deviceId, deviceType);
+				if (device == null) {
+					device = new Device(deviceId, registrationId, deviceType);
+					LOGGER.info("Created " + device);
+				} else {
+					device.updateRegistrationId(registrationId);
+					LOGGER.info("Updated " + device);
+					device.unassignDeviceGroup();
+				}
+				deviceGroup.addDevice(device);
+			}
 		}
 	}
 	
 	/**
-	 * @see com.jdroid.javaweb.push.PushService#disableDevice(java.lang.String, com.jdroid.javaweb.push.DeviceType)
+	 * @see com.jdroid.javaweb.push.PushService#assignDevice(java.lang.Long, java.lang.String,
+	 *      com.jdroid.javaweb.push.DeviceType)
+	 */
+	@Override
+	@Transactional
+	public void assignDevice(Long deviceGroupId, String deviceId, DeviceType deviceType) {
+		DeviceGroup deviceGroup = deviceGroupRepository.get(deviceGroupId);
+		Device device = deviceGroup.find(deviceId, deviceType);
+		if (device == null) {
+			device = deviceRepository.find(deviceId, deviceType);
+			if (device != null) {
+				device.unassignDeviceGroup();
+				deviceGroup.addDevice(device);
+				LOGGER.info("Assigned " + device);
+			}
+		}
+	}
+	
+	/**
+	 * @see com.jdroid.javaweb.push.PushService#unassignDevice(java.lang.Long, java.lang.String,
+	 *      com.jdroid.javaweb.push.DeviceType)
 	 */
 	@Transactional
 	@Override
-	public void disableDevice(String installationId, DeviceType deviceType) {
-		Device device = deviceRepository.find(installationId, deviceType);
+	public void unassignDevice(Long deviceGroupId, String deviceId, DeviceType deviceType) {
+		DeviceGroup deviceGroup = deviceGroupRepository.get(deviceGroupId);
+		Device device = deviceGroup.find(deviceId, deviceType);
 		if (device != null) {
-			device.setDisabled(true);
-			LOGGER.info("Disabled " + device);
+			deviceGroup.removeDevice(device);
+			LOGGER.info("Unassigned " + device);
+		}
+	}
+	
+	/**
+	 * @see com.jdroid.javaweb.push.PushService#removeDevice(java.lang.String, com.jdroid.javaweb.push.DeviceType,
+	 *      java.lang.String)
+	 */
+	@Override
+	@Transactional
+	public void removeDevice(String deviceId, DeviceType deviceType, String registrationId) {
+		Device device = deviceRepository.find(deviceId, deviceType, registrationId);
+		if (device != null) {
+			device.unassignDeviceGroup();
+			deviceRepository.remove(device);
 		}
 	}
 	
@@ -73,7 +134,7 @@ public class PushServiceImpl implements PushService {
 	public void send(final PushMessage pushMessage, List<Device> devices) {
 		Map<DeviceType, List<Device>> devicesMap = Maps.newHashMap();
 		for (Device device : devices) {
-			if (!device.isDisabled() && (device.getRegistrationId() != null)) {
+			if (device.getRegistrationId() != null) {
 				List<Device> devicesByType = devicesMap.get(device.getDeviceType());
 				if (devicesByType == null) {
 					devicesByType = Lists.newArrayList();
@@ -109,10 +170,11 @@ public class PushServiceImpl implements PushService {
 		public void run() {
 			PushResponse pushResponse = deviceType.send(devices, pushMessage);
 			for (Device device : pushResponse.getDevicesToRemove()) {
-				pushService.disableDevice(device.getInstallationId(), device.getDeviceType());
+				pushService.removeDevice(device.getDeviceId(), device.getDeviceType(), device.getRegistrationId());
 			}
 			for (Device device : pushResponse.getDevicesToUpdate()) {
-				pushService.enableDevice(device.getInstallationId(), device.getDeviceType(), device.getRegistrationId());
+				pushService.enableDevice(device.getDeviceGroup() != null ? device.getDeviceGroup().getId() : null,
+					device.getDeviceId(), device.getDeviceType(), device.getRegistrationId());
 			}
 		}
 	}

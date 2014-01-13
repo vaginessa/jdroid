@@ -8,12 +8,16 @@ import java.util.List;
  */
 public interface PushService {
 	
-	public void enableDevice(String installationId, DeviceType deviceType, String registrationId);
+	public void enableDevice(Long deviceGroupId, String deviceId, DeviceType deviceType, String registrationId);
 	
-	public void disableDevice(String installationId, DeviceType deviceType);
+	public void assignDevice(Long deviceGroupId, String deviceId, DeviceType deviceType);
+	
+	public void unassignDevice(Long deviceGroupId, String deviceId, DeviceType deviceType);
 	
 	public void send(PushMessage pushMessage, Device... devices);
 	
 	public void send(PushMessage pushMessage, List<Device> devices);
+	
+	public void removeDevice(String deviceId, DeviceType deviceType, String registrationId);
 	
 }
