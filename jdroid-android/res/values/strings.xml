@@ -14,7 +14,7 @@
 	<string name="finish">Finish</string>
 	<string name="refresh">Refresh</string>
 	<string name="logout">Logout</string>
-	<string name="revokeAccess">Revoke Access</string>
+	<string name="revokeAccess">Revoke</string>
 	<string name="signIn">Sign in</string>
 
 	<!-- Errors -->

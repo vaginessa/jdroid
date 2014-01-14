@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.domain.FileContent;
+import com.jdroid.android.domain.UriFileContent;
 
 public class CustomImageView extends ImageView implements ImageHolder {
 	
@@ -60,6 +61,14 @@ public class CustomImageView extends ImageView implements ImageHolder {
 	@Override
 	public void setImageContent(Uri imageUri, int stubId) {
 		setImageContent(imageUri, stubId, null, null);
+	}
+	
+	public void setImageContent(String url, int stubId) {
+		setImageContent(url, stubId, null, null);
+	}
+	
+	public void setImageContent(String url, int stubId, Integer maxWidth, Integer maxHeight) {
+		setImageContent(new UriFileContent(url), stubId, maxWidth, maxHeight);
 	}
 	
 	/**

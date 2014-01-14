@@ -55,6 +55,10 @@ public class FacebookUser {
 		return firstName + " " + lastName;
 	}
 	
+	public String getProfilePictureURL(int height, int width) {
+		return "https://graph.facebook.com/" + facebookId + "/picture?height=" + height + "&width=" + width;
+	}
+	
 	/**
 	 * @see java.lang.Object#toString()
 	 */
