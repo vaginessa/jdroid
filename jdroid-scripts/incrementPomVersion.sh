@@ -35,11 +35,14 @@ patch="${versionItems[2]}"
 if [ "$VERSION_TYPE" = "major" ]
 then
 	major=$((major+1))
+	minor='0'
+	patch='0'
 fi
 
 if [ "$VERSION_TYPE" = "minor" ]
 then
 	minor=$((minor+1))
+	patch='0'
 fi
 
 if [ "$VERSION_TYPE" = "patch" ]

@@ -38,20 +38,26 @@ VERSION_CODE=$currentVersionCode
 
 if [ "$VERSION_TYPE" = "major" ]
 then
+    VERSION_CODE=$((VERSION_CODE+10000))
+    VERSION_CODE=$((VERSION_CODE-($minor*100)))
+    VERSION_CODE=$((VERSION_CODE-$patch))
 	major=$((major+1))
-	VERSION_CODE=$((VERSION_CODE+10000))
+	minor='0'
+	patch='0'
 fi
 
 if [ "$VERSION_TYPE" = "minor" ]
 then
+    VERSION_CODE=$((VERSION_CODE+100))
+    VERSION_CODE=$((VERSION_CODE-$patch))
 	minor=$((minor+1))
-	VERSION_CODE=$((VERSION_CODE+100))
+	patch='0'
 fi
 
 if [ "$VERSION_TYPE" = "patch" ]
 then
-	patch=$((patch+1))
 	VERSION_CODE=$((VERSION_CODE+1))
+	patch=$((patch+1))
 fi
 
 VERSION_NAME=$major.$minor.$patch
