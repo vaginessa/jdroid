@@ -2,6 +2,8 @@ package com.jdroid.javaweb.push;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.javaweb.domain.Entity;
 
@@ -12,13 +14,15 @@ import com.jdroid.javaweb.domain.Entity;
 @javax.persistence.Entity
 public class Device extends Entity {
 	
-	private String installationId;
+	@ManyToOne
+	@JoinColumn(name = "deviceGroupId", nullable = true)
+	private DeviceGroup deviceGroup;
+	
+	private String deviceId;
 	private String registrationId;
 	
 	@Enumerated(value = EnumType.STRING)
 	private DeviceType deviceType;
-	
-	private Boolean disabled;
 	
 	/**
 	 * Default constructor.
@@ -28,20 +32,15 @@ public class Device extends Entity {
 		// Do nothing, is required by hibernate
 	}
 	
-	public Device(String installationId, DeviceType deviceType) {
-		this(installationId, null, deviceType);
-	}
-	
-	public Device(String installationId, String registrationId, DeviceType deviceType) {
+	public Device(String deviceId, String registrationId, DeviceType deviceType) {
 		
 		if (deviceType == null) {
 			throw new UnexpectedException("The device type is required");
 		}
 		this.deviceType = deviceType;
 		
-		this.installationId = installationId;
+		this.deviceId = deviceId;
 		this.registrationId = registrationId;
-		disabled = false;
 	}
 	
 	public void updateRegistrationId(String registrationId) {
@@ -49,10 +48,10 @@ public class Device extends Entity {
 	}
 	
 	/**
-	 * @return the installationId
+	 * @return the deviceId
 	 */
-	public String getInstallationId() {
-		return installationId;
+	public String getDeviceId() {
+		return deviceId;
 	}
 	
 	/**
@@ -70,26 +69,32 @@ public class Device extends Entity {
 	}
 	
 	/**
-	 * @return the disabled
-	 */
-	public Boolean isDisabled() {
-		return disabled;
-	}
-	
-	/**
-	 * @param disabled the disabled to set
-	 */
-	public void setDisabled(Boolean disabled) {
-		this.disabled = disabled;
-	}
-	
-	/**
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Device [installationId=" + installationId + ", registrationId=" + registrationId + ", deviceType="
-				+ deviceType + ", disabled=" + disabled + "]";
+		return "Device [deviceId=" + deviceId + ", registrationId=" + registrationId + ", deviceType=" + deviceType
+				+ "]";
+	}
+	
+	public void unassignDeviceGroup() {
+		if (deviceGroup != null) {
+			deviceGroup.removeDevice(this);
+		}
+	}
+	
+	/**
+	 * @param deviceGroup the deviceGroup to set
+	 */
+	void setDeviceGroup(DeviceGroup deviceGroup) {
+		this.deviceGroup = deviceGroup;
+	}
+	
+	/**
+	 * @return the deviceGroup
+	 */
+	public DeviceGroup getDeviceGroup() {
+		return deviceGroup;
 	}
 	
 }

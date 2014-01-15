@@ -550,9 +550,33 @@ public abstract class DateUtils {
 		return calendar.getTime();
 	}
 	
-	public static String formatSecondsAndMilli(long duration) {
-		long seconds = TimeUnit.MILLISECONDS.toSeconds(duration);
-		return seconds + "s, " + (duration - (seconds * 1000)) + "ms";
+	public static String formatDuration(long duration) {
+		
+		long hours = TimeUnit.MILLISECONDS.toHours(duration);
+		long minutes = TimeUnit.MILLISECONDS.toMinutes(duration) - (hours * 60);
+		long seconds = TimeUnit.MILLISECONDS.toSeconds(duration) - (hours * 60 * 60) - (minutes * 60);
+		long milliseconds = TimeUnit.MILLISECONDS.toMillis(duration) - (hours * 60 * 60 * 1000) - (minutes * 60 * 1000)
+				- (seconds * 1000);
+		
+		StringBuilder builder = new StringBuilder();
+		if (hours > 0) {
+			builder.append(hours);
+			builder.append("h, ");
+		}
+		if ((minutes > 0) || (builder.length() > 0)) {
+			builder.append(minutes);
+			builder.append("m, ");
+		}
+		if ((seconds > 0) || (builder.length() > 0)) {
+			builder.append(seconds);
+			builder.append("s, ");
+		}
+		if ((milliseconds > 0) || (builder.length() > 0)) {
+			builder.append(milliseconds);
+			builder.append("ms");
+		}
+		
+		return builder.toString();
 	}
 	
 }

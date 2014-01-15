@@ -14,4 +14,13 @@ public class DeviceHibernateRepository extends InMemoryRepository<Device> implem
 	public Device find(String installationId, DeviceType deviceType) {
 		return null;
 	}
+	
+	/**
+	 * @see com.jdroid.javaweb.push.DeviceRepository#find(java.lang.String, com.jdroid.javaweb.push.DeviceType,
+	 *      java.lang.String)
+	 */
+	@Override
+	public Device find(String deviceId, DeviceType deviceType, String registrationId) {
+		return null;
+	}
 }

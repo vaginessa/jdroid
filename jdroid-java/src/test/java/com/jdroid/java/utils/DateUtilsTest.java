@@ -319,4 +319,29 @@ public class DateUtilsTest {
 		
 		return cases.iterator();
 	}
+	
+	/**
+	 * @return the data to tests the formatDuration method
+	 */
+	@DataProvider
+	protected Iterator<Object[]> getDurationData() {
+		List<Object[]> cases = Lists.newArrayList();
+		
+		cases.add(new Object[] { 500, "500ms" });
+		cases.add(new Object[] { 1000, "1s, 0ms" });
+		cases.add(new Object[] { 1500, "1s, 500ms" });
+		cases.add(new Object[] { 1000 * 60, "1m, 0s, 0ms" });
+		cases.add(new Object[] { (1000 * 60) + 1500, "1m, 1s, 500ms" });
+		cases.add(new Object[] { 1000 * 60 * 60, "1h, 0m, 0s, 0ms" });
+		cases.add(new Object[] { (1000 * 60 * 60) + (1000 * 60) + 1500, "1h, 1m, 1s, 500ms" });
+		
+		return cases.iterator();
+	}
+	
+	@Test(dataProvider = "getDurationData")
+	public void formatDuration(long duration, String expectedResult) {
+		String result = DateUtils.formatDuration(duration);
+		Assert.assertEquals(result, expectedResult);
+	}
+	
 }
