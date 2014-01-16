@@ -3,9 +3,9 @@ package com.jdroid.android.search;
 import java.util.Collection;
 import java.util.List;
 import org.slf4j.Logger;
+import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.search.PagedResult;
-import com.jdroid.java.utils.ExecutorUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
 /**

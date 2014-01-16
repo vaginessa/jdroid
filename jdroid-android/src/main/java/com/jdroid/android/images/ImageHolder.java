@@ -24,19 +24,34 @@ public interface ImageHolder {
 	
 	public Context getContext();
 	
-	public void setImageContent(Uri imageUri, int stubId);
+	public void setImageContent(String url, int stubId);
+	
+	public void setImageContent(String url, int stubId, Integer maxWidth, Integer maxHeight);
+	
+	public void setImageContent(String url, int stubId, Integer maxWidth, Integer maxHeight,
+			Boolean memoryCacheEnabled, Boolean fileSystemCacheEnabled);
+	
+	public void setImageContent(FileContent fileContent, int stubId);
 	
 	public void setImageContent(FileContent fileContent, int stubId, Integer maxWidth, Integer maxHeight);
 	
-	public void setImageContent(FileContent fileContent, int stubId);
+	public void setImageContent(FileContent fileContent, int stubId, Integer maxWidth, Integer maxHeight,
+			Boolean memoryCacheEnabled, Boolean fileSystemCacheEnabled);
+	
+	public void setImageContent(Uri imageUri, int stubId);
+	
+	public void setImageContent(Uri imageUri, int stubId, Integer maxWidth, Integer maxHeight);
 	
 	/**
 	 * @param imageUri The image Uri
 	 * @param stubId The id of the resource stub to display while the image is been downloaded
 	 * @param maxWidth The maximum width of the image used to scale it. If null, the image won't be scaled
 	 * @param maxHeight The maximum height of the image used to scale it. If null, the image won't be scaled
+	 * @param memoryCacheEnabled
+	 * @param fileSystemCacheEnabled
 	 */
-	public void setImageContent(Uri imageUri, int stubId, Integer maxWidth, Integer maxHeight);
+	public void setImageContent(Uri imageUri, int stubId, Integer maxWidth, Integer maxHeight,
+			Boolean memoryCacheEnabled, Boolean fileSystemCacheEnabled);
 	
 	public ImageLoadingListener getImageLoadingListener();
 	

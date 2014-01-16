@@ -5,7 +5,7 @@ import java.util.concurrent.BlockingQueue;
 import org.slf4j.Logger;
 import android.text.Editable;
 import android.text.TextWatcher;
-import com.jdroid.java.utils.ExecutorUtils;
+import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
 public abstract class RemoteSearchTextWatcher implements TextWatcher {

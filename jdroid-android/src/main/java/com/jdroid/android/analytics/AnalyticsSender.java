@@ -5,8 +5,8 @@ import android.app.Activity;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.java.collections.Lists;
+import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.ConnectionException;
-import com.jdroid.java.utils.ExecutorUtils;
 
 /**
  * 

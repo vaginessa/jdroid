@@ -1,21 +1,27 @@
-package com.jdroid.java.utils;
+package com.jdroid.java.concurrent;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
+import com.jdroid.java.utils.LoggerUtils;
 
 public final class ExecutorUtils {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(ExecutorUtils.class);
 	
 	// Default amount of thread inside the pool
-	private static final int DEFAULT_THREAD_POOL_SIZE = 10;
+	private static final int DEFAULT_THREAD_POOL_SIZE = 5;
 	
-	private static final Executor fixedExecutor = Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE);
+	private static final Executor fixedExecutor = Executors.newCachedThreadPool(new NormalPriorityThreadFactory());
 	
-	private static final ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(1);
+	private static final Executor fixedLowPriorityExecutor = Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE,
+		new LowPriorityThreadFactory());
+	
+	private static final ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(1,
+		new NormalPriorityThreadFactory("schedule"));
 	
 	/**
 	 * @param runnable The {@link Runnable} task
@@ -24,8 +30,16 @@ public final class ExecutorUtils {
 		fixedExecutor.execute(runnable);
 	}
 	
+	public static void executeWithLowPriority(Runnable runnable) {
+		fixedLowPriorityExecutor.execute(runnable);
+	}
+	
 	public static void schedule(Runnable runnable, Long delaySeconds) {
 		scheduledExecutor.schedule(runnable, delaySeconds, TimeUnit.SECONDS);
+	}
+	
+	public static ScheduledFuture<?> schedule(Runnable runnable, Long delaySeconds, Long period) {
+		return scheduledExecutor.scheduleAtFixedRate(runnable, delaySeconds, period, TimeUnit.SECONDS);
 	}
 	
 	public static void scheduleInMillis(Runnable runnable, Long delayMilliSeconds) {

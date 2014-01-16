@@ -35,7 +35,7 @@ import com.jdroid.android.intent.ClearTaskIntent;
 import com.jdroid.android.loading.DefaultLoadingDialogBuilder;
 import com.jdroid.android.loading.LoadingDialogBuilder;
 import com.jdroid.android.utils.AndroidUtils;
-import com.jdroid.java.utils.ExecutorUtils;
+import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.ReflectionUtils;

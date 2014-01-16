@@ -20,7 +20,7 @@ import com.jdroid.android.loading.LoadingLayout;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
-import com.jdroid.java.utils.ExecutorUtils;
+import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
 /**

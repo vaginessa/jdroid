@@ -3,7 +3,7 @@ package com.jdroid.android.service;
 import android.content.Intent;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
-import com.jdroid.java.utils.ExecutorUtils;
+import com.jdroid.java.concurrent.ExecutorUtils;
 
 /**
  * 

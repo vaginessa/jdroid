@@ -3,7 +3,7 @@ package com.jdroid.android.listener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import com.jdroid.android.usecase.UseCase;
-import com.jdroid.java.utils.ExecutorUtils;
+import com.jdroid.java.concurrent.ExecutorUtils;
 
 /**
  * {@link OnClickListener} that execute a {@link UseCase}

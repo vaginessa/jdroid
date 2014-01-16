@@ -137,4 +137,53 @@ public class BorderedCustomImageView extends LinearLayout implements ImageHolder
 	public void runOnUiThread(Runnable runnable) {
 		customImageView.runOnUiThread(runnable);
 	}
+	
+	/**
+	 * @see com.jdroid.android.images.ImageHolder#setImageContent(java.lang.String, int)
+	 */
+	@Override
+	public void setImageContent(String url, int stubId) {
+		customImageView.setImageContent(url, stubId);
+	}
+	
+	/**
+	 * @see com.jdroid.android.images.ImageHolder#setImageContent(java.lang.String, int, java.lang.Integer,
+	 *      java.lang.Integer)
+	 */
+	@Override
+	public void setImageContent(String url, int stubId, Integer maxWidth, Integer maxHeight) {
+		customImageView.setImageContent(url, stubId, maxWidth, maxHeight);
+	}
+	
+	/**
+	 * @see com.jdroid.android.images.ImageHolder#setImageContent(java.lang.String, int, java.lang.Integer,
+	 *      java.lang.Integer, java.lang.Boolean, java.lang.Boolean)
+	 */
+	@Override
+	public void setImageContent(String url, int stubId, Integer maxWidth, Integer maxHeight,
+			Boolean memoryCacheEnabled, Boolean fileSystemCacheEnabled) {
+		customImageView.setImageContent(url, stubId, maxWidth, maxHeight, memoryCacheEnabled, fileSystemCacheEnabled);
+	}
+	
+	/**
+	 * @see com.jdroid.android.images.ImageHolder#setImageContent(com.jdroid.android.domain.FileContent, int,
+	 *      java.lang.Integer, java.lang.Integer, java.lang.Boolean, java.lang.Boolean)
+	 */
+	@Override
+	public void setImageContent(FileContent fileContent, int stubId, Integer maxWidth, Integer maxHeight,
+			Boolean memoryCacheEnabled, Boolean fileSystemCacheEnabled) {
+		customImageView.setImageContent(fileContent, stubId, maxWidth, maxHeight, memoryCacheEnabled,
+			fileSystemCacheEnabled);
+	}
+	
+	/**
+	 * @see com.jdroid.android.images.ImageHolder#setImageContent(android.net.Uri, int, java.lang.Integer,
+	 *      java.lang.Integer, java.lang.Boolean, java.lang.Boolean)
+	 */
+	@Override
+	public void setImageContent(Uri imageUri, int stubId, Integer maxWidth, Integer maxHeight,
+			Boolean memoryCacheEnabled, Boolean fileSystemCacheEnabled) {
+		customImageView.setImageContent(imageUri, stubId, maxWidth, maxHeight, memoryCacheEnabled,
+			fileSystemCacheEnabled);
+	}
 }

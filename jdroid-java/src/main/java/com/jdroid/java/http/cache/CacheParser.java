@@ -3,8 +3,8 @@ package com.jdroid.java.http.cache;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.parser.Parser;
-import com.jdroid.java.utils.ExecutorUtils;
 import com.jdroid.java.utils.FileUtils;
 
 /**

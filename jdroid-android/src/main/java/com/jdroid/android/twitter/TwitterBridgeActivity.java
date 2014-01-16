@@ -14,7 +14,7 @@ import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractActivity;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.ToastUtils;
-import com.jdroid.java.utils.ExecutorUtils;
+import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
 /**

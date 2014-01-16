@@ -1,8 +1,8 @@
 package com.jdroid.android.debug;
 
 import com.jdroid.android.exception.CommonErrorCode;
+import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.ConnectionException;
-import com.jdroid.java.utils.ExecutorUtils;
 
 /**
  * 
