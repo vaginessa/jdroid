@@ -3,6 +3,7 @@ package com.jdroid.javaweb.hibernate;
 import java.util.List;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import com.jdroid.java.repository.RandomRepository;
 import com.jdroid.javaweb.domain.Entity;
@@ -30,6 +31,18 @@ public abstract class MySQLHibernateRepository<T extends Entity> extends Abstrac
 	@Override
 	public List<T> getRandomList(Integer maxResults) {
 		return findRandomList(createDetachedCriteria(), maxResults);
+	}
+	
+	/**
+	 * @see com.jdroid.java.repository.RandomRepository#getRandomIds(java.lang.Integer)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Long> getRandomIds(Integer maxResults) {
+		DetachedCriteria criteria = this.createDetachedCriteria();
+		criteria.setProjection(Projections.id());
+		criteria.add(getRandomRestriction());
+		return this.getHibernateTemplate().findByCriteria(criteria, 0, maxResults);
 	}
 	
 	/**
