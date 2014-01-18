@@ -13,8 +13,7 @@ public class FileEntity extends Entity {
 	/**
 	 * Default constructor.
 	 */
-	@SuppressWarnings("unused")
-	private FileEntity() {
+	protected FileEntity() {
 		// Do nothing, is required by hibernate
 	}
 	
