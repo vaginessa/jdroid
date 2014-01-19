@@ -6,7 +6,7 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry exported="true" kind="src" path="/jdroid-java"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/android/compatibility/android-support-v4/r18/android-support-v4-r18.jar"/>
-	<classpathentry exported="true" kind="var" path="M2_REPO/android/google-play-services/r13/google-play-services-r13.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/android/google-play-services/r14/google-play-services-r14.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/apache/james/apache-mime4j/0.6/apache-mime4j-0.6.jar" sourcepath="M2_REPO/org/apache/james/apache-mime4j/0.6/apache-mime4j-0.6-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/apache/httpcomponents/httpmime/4.0.1/httpmime-4.0.1.jar" sourcepath="M2_REPO/org/apache/httpcomponents/httpmime/4.0.1/httpmime-4.0.1-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/android/commonsware/mergeadapter/0.3.0/mergeadapter-0.3.0.jar"/>
