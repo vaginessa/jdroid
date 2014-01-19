@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.lang.ref.SoftReference;
 import java.util.List;
-import java.util.Map;
 import org.slf4j.Logger;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -12,7 +11,6 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.contacts.ContactImageResolver;
 import com.jdroid.android.utils.BitmapUtils;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.collections.Maps;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
@@ -23,10 +21,6 @@ public class ImageLoader {
 	
 	private static final ImageLoader INSTANCE = new ImageLoader();
 	
-	// Retry Interval in milliseconds
-	private static final int RETRY_INTERVAL = 100000;
-	
-	private Map<String, Long> failedToResolve = Maps.newHashMap();
 	private List<ImageResolver> imageResolvers = Lists.newArrayList();
 	
 	public static ImageLoader get() {
@@ -52,17 +46,9 @@ public class ImageLoader {
 		} else {
 			
 			setStubImage(imageHolder);
-			
-			// If the image failed to be downloaded previously, try again after the RETRY_INTERVAL
-			String uriString = uri.toString();
-			if (failedToResolve.containsKey(uriString)) {
-				if ((System.currentTimeMillis() - failedToResolve.get(uriString)) > RETRY_INTERVAL) {
-					failedToResolve.remove(uriString);
-					queueImage(uri, imageHolder, memoryCacheEnabled, fileSystemCacheEnabled);
-				}
-			} else {
-				queueImage(uri, imageHolder, memoryCacheEnabled, fileSystemCacheEnabled);
-			}
+			// Make the background threads low priority. This way it will not affect the UI performance.
+			ExecutorUtils.execute(new ImageLoaderRunnable(uri, imageHolder, memoryCacheEnabled, fileSystemCacheEnabled,
+					true));
 		}
 	}
 	
@@ -97,12 +83,6 @@ public class ImageLoader {
 		File file = new File(directory, String.valueOf(uri.toString().hashCode()));
 		FileUtils.copyStream(byteArrayInputStream, file);
 		LOGGER.debug("Saved image [" + uri.toString() + "] on [" + file.getAbsolutePath() + "].");
-	}
-	
-	private void queueImage(Uri uri, ImageHolder imageHolder, Boolean memoryCacheEnabled, Boolean fileSystemCacheEnabled) {
-		// Make the background threads low priority. This way it will not affect the UI performance.
-		ExecutorUtils.execute(new ImageLoaderRunnable(uri, imageHolder, memoryCacheEnabled, fileSystemCacheEnabled,
-				true));
 	}
 	
 	private class ImageLoaderRunnable implements Runnable {
@@ -189,9 +169,6 @@ public class ImageLoader {
 				if (resolveFromFileSystem) {
 					ExecutorUtils.executeWithLowPriority(new ImageLoaderRunnable(uri, imageHolder, memoryCacheEnabled,
 							fileSystemCacheEnabled, false));
-				} else {
-					// Save the the image URL to retry the download in the future
-					failedToResolve.put(uri.toString(), System.currentTimeMillis());
 				}
 			}
 		}
