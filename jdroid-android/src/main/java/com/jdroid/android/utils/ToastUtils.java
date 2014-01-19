@@ -1,5 +1,6 @@
 package com.jdroid.android.utils;
 
+import java.lang.ref.WeakReference;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -7,8 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.jdroid.android.R;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.R;
 
 /**
  * @author Maxi Rosson
@@ -19,6 +20,8 @@ public final class ToastUtils {
 	private static final int DEFAULT_GRAVITY = Gravity.CENTER;
 	private static final int DEFAULT_X_OFFSET = 0;
 	private static final int DEFAULT_Y_OFFSET = 0;
+	
+	private static WeakReference<Toast> currentToast;
 	
 	private static final Handler HANDLER = new Handler() {
 		
@@ -38,6 +41,7 @@ public final class ToastUtils {
 	 * @param message The text to show. Can be formatted text.
 	 */
 	public static void showToastOnUIThread(String message) {
+		HANDLER.removeMessages(1);
 		HANDLER.sendMessage(HANDLER.obtainMessage(1, message));
 	}
 	
@@ -241,11 +245,22 @@ public final class ToastUtils {
 			TextView textView = (TextView)view.findViewById(R.id.toastMessage);
 			textView.setText(message);
 			
+			cancelCurrentToast();
+			
 			Toast toast = new Toast(androidApplication);
 			toast.setGravity(gravity, xOffset, yOffset);
 			toast.setDuration(duration);
 			toast.setView(view);
 			toast.show();
+			
+			currentToast = new WeakReference<Toast>(toast);
+		}
+	}
+	
+	public static void cancelCurrentToast() {
+		Toast toast = currentToast != null ? currentToast.get() : null;
+		if (toast != null) {
+			toast.cancel();
 		}
 	}
 	

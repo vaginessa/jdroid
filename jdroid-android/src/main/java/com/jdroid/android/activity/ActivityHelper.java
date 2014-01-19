@@ -35,6 +35,7 @@ import com.jdroid.android.intent.ClearTaskIntent;
 import com.jdroid.android.loading.DefaultLoadingDialogBuilder;
 import com.jdroid.android.loading.LoadingDialogBuilder;
 import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.LoggerUtils;
@@ -255,6 +256,7 @@ public class ActivityHelper implements ActivityIf {
 	
 	public void onStop() {
 		LOGGER.trace("Executing onStop on " + activity);
+		ToastUtils.cancelCurrentToast();
 		if (AbstractApplication.get().hasAnalyticsSender()) {
 			AbstractApplication.get().getAnalyticsSender().onActivityStop(activity);
 		}
