@@ -161,8 +161,8 @@ public class CustomImageView extends ImageView implements ImageHolder {
 		if (state instanceof Bundle) {
 			Bundle bundle = (Bundle)state;
 			imageUri = bundle.getParcelable(IMAGE_URI_EXTRA);
-			memoryCacheEnabled = bundle.getParcelable(MEMORY_CACHE_ENABLE_EXTRA);
-			fileSystemCacheEnable = bundle.getParcelable(FILESYSTEM_CACHE_ENABLED_EXTRA);
+			memoryCacheEnabled = bundle.getBoolean(MEMORY_CACHE_ENABLE_EXTRA);
+			fileSystemCacheEnable = bundle.getBoolean(FILESYSTEM_CACHE_ENABLED_EXTRA);
 			if (imageUri != null) {
 				ImageLoader.get().displayImage(imageUri, this, memoryCacheEnabled, fileSystemCacheEnable);
 			}
