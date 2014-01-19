@@ -7,8 +7,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 import com.jdroid.android.R;
-import com.jdroid.android.activity.AbstractListActivity;
 import com.jdroid.android.adapter.BaseArrayAdapter;
+import com.jdroid.android.fragment.AbstractListFragment;
 import com.jdroid.android.search.SearchResult.PaginationListener;
 import com.jdroid.java.exception.AbstractException;
 
@@ -18,7 +18,7 @@ import com.jdroid.java.exception.AbstractException;
  */
 public class PaginationFooter extends LinearLayout implements PaginationListener<Object> {
 	
-	private AbstractListActivity<?> abstractListActivity;
+	private AbstractListFragment<?> abstractListFragment;
 	private Boolean loading = false;
 	
 	/**
@@ -35,9 +35,9 @@ public class PaginationFooter extends LinearLayout implements PaginationListener
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		if (!loading && !abstractListActivity.getSearchResult().isLastPage()) {
+		if (!loading && !abstractListFragment.getSearchResult().isLastPage()) {
 			loading = true;
-			abstractListActivity.getSearchResult().nextPage();
+			abstractListFragment.getSearchResult().nextPage();
 		}
 	}
 	
@@ -56,11 +56,11 @@ public class PaginationFooter extends LinearLayout implements PaginationListener
 	@Override
 	public void onFinishSuccessfulPagination(final List<Object> items) {
 		refresh();
-		abstractListActivity.runOnUiThread(new Runnable() {
+		abstractListFragment.executeOnUIThread(new Runnable() {
 			
 			@Override
 			public void run() {
-				BaseArrayAdapter<Object> baseArrayAdapter = (BaseArrayAdapter<Object>)abstractListActivity.getListAdapter();
+				BaseArrayAdapter<Object> baseArrayAdapter = (BaseArrayAdapter<Object>)abstractListFragment.getListAdapter();
 				baseArrayAdapter.add(items);
 			}
 		});
@@ -68,11 +68,11 @@ public class PaginationFooter extends LinearLayout implements PaginationListener
 	}
 	
 	public void refresh() {
-		abstractListActivity.runOnUiThread(new Runnable() {
+		abstractListFragment.executeOnUIThread(new Runnable() {
 			
 			@Override
 			public void run() {
-				if (abstractListActivity.getSearchResult().isLastPage()) {
+				if (abstractListFragment.getSearchResult().isLastPage()) {
 					hide();
 				} else {
 					show();
@@ -101,9 +101,10 @@ public class PaginationFooter extends LinearLayout implements PaginationListener
 	}
 	
 	/**
-	 * @param abstractListActivity the abstractListActivity to set
+	 * @param abstractListFragment the abstractListFragment to set
 	 */
-	public void setAbstractListActivity(AbstractListActivity<?> abstractListActivity) {
-		this.abstractListActivity = abstractListActivity;
+	public void setAbstractListFragment(AbstractListFragment<?> abstractListFragment) {
+		this.abstractListFragment = abstractListFragment;
 	}
+	
 }
