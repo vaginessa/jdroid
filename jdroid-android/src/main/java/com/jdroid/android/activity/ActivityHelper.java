@@ -377,10 +377,16 @@ public class ActivityHelper implements ActivityIf {
 	 */
 	@Override
 	public void dismissBlockingLoading() {
-		if (loadingDialog != null) {
-			loadingDialog.dismiss();
-			loadingDialog = null;
-		}
+		activity.runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				if (loadingDialog != null) {
+					loadingDialog.dismiss();
+					loadingDialog = null;
+				}
+			}
+		});
 	}
 	
 	/**
