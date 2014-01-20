@@ -21,7 +21,7 @@ public class ClasspathLog4jServletContextListener implements ServletContextListe
 	 */
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
-		LoggerUtils.setMute(false);
+		LoggerUtils.setEnabled(true);
 		try {
 			// If the file log4j.deployment.xml is present in the classpath, it is used
 			// else the file log4j.xml is used

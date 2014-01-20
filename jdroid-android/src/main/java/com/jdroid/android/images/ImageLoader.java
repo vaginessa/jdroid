@@ -4,14 +4,17 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.lang.ref.SoftReference;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import org.slf4j.Logger;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.concurrent.SafeRunnable;
 import com.jdroid.android.contacts.ContactImageResolver;
 import com.jdroid.android.utils.BitmapUtils;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.concurrent.ExecutorUtils;
+import com.jdroid.java.concurrent.LowPriorityThreadFactory;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -22,6 +25,9 @@ public class ImageLoader {
 	private static final ImageLoader INSTANCE = new ImageLoader();
 	
 	private List<ImageResolver> imageResolvers = Lists.newArrayList();
+	
+	private Executor firstLevelExecutor = Executors.newFixedThreadPool(5, new LowPriorityThreadFactory());
+	private Executor secondLevelExecutor = Executors.newFixedThreadPool(5, new LowPriorityThreadFactory());
 	
 	public static ImageLoader get() {
 		return INSTANCE;
@@ -47,14 +53,14 @@ public class ImageLoader {
 			
 			setStubImage(imageHolder);
 			// Make the background threads low priority. This way it will not affect the UI performance.
-			ExecutorUtils.execute(new ImageLoaderRunnable(uri, imageHolder, memoryCacheEnabled, fileSystemCacheEnabled,
-					true));
+			firstLevelExecutor.execute(new ImageLoaderRunnable(uri, imageHolder, memoryCacheEnabled,
+					fileSystemCacheEnabled, true));
 		}
 	}
 	
 	protected Bitmap loadFromMemoryCache(Uri uri) {
 		Bitmap bitmap = AbstractApplication.get().getBitmapLruCache().get(uri.toString());
-		if (bitmap != null) {
+		if ((bitmap != null) && LoggerUtils.isEnabled()) {
 			LOGGER.debug("Loaded image [" + uri.toString() + "] from memory");
 		}
 		return bitmap;
@@ -62,7 +68,9 @@ public class ImageLoader {
 	
 	protected void saveToMemoryCache(Bitmap bitmap, Uri uri) {
 		AbstractApplication.get().getBitmapLruCache().put(uri.toString(), bitmap);
-		LOGGER.debug("Saved image [" + uri.toString() + "] on memory cache");
+		if (LoggerUtils.isEnabled()) {
+			LOGGER.debug("Saved image [" + uri.toString() + "] on memory cache");
+		}
 	}
 	
 	protected Bitmap loadFromFileSystemCache(Uri uri, Integer maxWidth, Integer maxHeight) {
@@ -71,7 +79,9 @@ public class ImageLoader {
 		Bitmap bitmap = null;
 		if (file.exists()) {
 			bitmap = BitmapUtils.toBitmap(Uri.fromFile(file), maxWidth, maxHeight);
-			LOGGER.debug("Loaded image [" + uri.toString() + "] from [" + file.getAbsolutePath() + "].");
+			if (LoggerUtils.isEnabled()) {
+				LOGGER.debug("Loaded image [" + uri.toString() + "] from [" + file.getAbsolutePath() + "].");
+			}
 		}
 		return bitmap;
 	}
@@ -82,10 +92,13 @@ public class ImageLoader {
 		File directory = AbstractApplication.get().getImagesCacheDirectory();
 		File file = new File(directory, String.valueOf(uri.toString().hashCode()));
 		FileUtils.copyStream(byteArrayInputStream, file);
-		LOGGER.debug("Saved image [" + uri.toString() + "] on [" + file.getAbsolutePath() + "].");
+		
+		if (LoggerUtils.isEnabled()) {
+			LOGGER.debug("Saved image [" + uri.toString() + "] on [" + file.getAbsolutePath() + "].");
+		}
 	}
 	
-	private class ImageLoaderRunnable implements Runnable {
+	private class ImageLoaderRunnable extends SafeRunnable {
 		
 		private Uri uri;
 		private SoftReference<ImageHolder> imageHolderReference;
@@ -133,15 +146,15 @@ public class ImageLoader {
 		}
 		
 		/**
-		 * @see java.lang.Runnable#run()
+		 * @see com.jdroid.android.concurrent.SafeRunnable#doRun()
 		 */
 		@Override
-		public void run() {
+		public void doRun() {
 			
 			final Bitmap bitmap = resolveBitmap();
 			
 			final ImageHolder imageHolder = getImageHolder();
-			if (imageHolder != null) {
+			if ((imageHolder != null) && !isExpired()) {
 				imageHolder.runOnUiThread(new Runnable() {
 					
 					@Override
@@ -167,7 +180,7 @@ public class ImageLoader {
 				}
 			} else {
 				if (resolveFromFileSystem) {
-					ExecutorUtils.executeWithLowPriority(new ImageLoaderRunnable(uri, imageHolder, memoryCacheEnabled,
+					secondLevelExecutor.execute(new ImageLoaderRunnable(uri, imageHolder, memoryCacheEnabled,
 							fileSystemCacheEnabled, false));
 				}
 			}

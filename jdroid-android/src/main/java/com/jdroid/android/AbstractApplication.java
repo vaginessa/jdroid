@@ -90,7 +90,7 @@ public abstract class AbstractApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		
-		LoggerUtils.setMute(!isDebuggable());
+		LoggerUtils.setEnabled(isDebuggable());
 		LOGGER = LoggerUtils.getLogger(AbstractApplication.class);
 		
 		loadInstallationId();

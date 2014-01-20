@@ -10,7 +10,7 @@ import com.jdroid.java.logger.MuteLogger;
  */
 public class LoggerUtils {
 	
-	private static boolean mute = true;
+	private static boolean enabled = false;
 	
 	private static final Logger MUTE_LOGGER = new MuteLogger();
 	
@@ -19,10 +19,10 @@ public class LoggerUtils {
 	}
 	
 	public static Logger getLogger(Class<?> clazz) {
-		if (mute) {
-			return MUTE_LOGGER;
-		} else {
+		if (enabled) {
 			return LoggerFactory.getLogger(getLmitedName(clazz.getSimpleName()));
+		} else {
+			return MUTE_LOGGER;
 		}
 	}
 	
@@ -31,7 +31,11 @@ public class LoggerUtils {
 		return name.substring(0, Math.min(name.length(), 23));
 	}
 	
-	public static void setMute(boolean mute) {
-		LoggerUtils.mute = mute;
+	public static void setEnabled(boolean enabled) {
+		LoggerUtils.enabled = enabled;
+	}
+	
+	public static boolean isEnabled() {
+		return enabled;
 	}
 }
