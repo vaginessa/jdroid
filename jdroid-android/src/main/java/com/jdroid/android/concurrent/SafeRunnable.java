@@ -12,7 +12,7 @@ public abstract class SafeRunnable implements Runnable {
 	 * @see java.lang.Runnable#run()
 	 */
 	@Override
-	public void run() {
+	public final void run() {
 		try {
 			doRun();
 		} catch (RuntimeException e) {

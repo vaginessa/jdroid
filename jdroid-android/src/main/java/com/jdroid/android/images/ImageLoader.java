@@ -197,16 +197,28 @@ public class ImageLoader {
 	}
 	
 	private void setImageBitmap(final Bitmap bitmap, final ImageHolder imageHolder) {
-		imageHolder.setImageBitmap(bitmap);
-		if (imageHolder.getImageLoadingListener() != null) {
-			imageHolder.getImageLoadingListener().onImageLoaded();
-		}
+		imageHolder.runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				imageHolder.setImageBitmap(bitmap);
+				if (imageHolder.getImageLoadingListener() != null) {
+					imageHolder.getImageLoadingListener().onImageLoaded();
+				}
+			}
+		});
 	}
 	
 	private void setStubImage(final ImageHolder imageHolder) {
-		imageHolder.showStubImage();
-		if (imageHolder.getImageLoadingListener() != null) {
-			imageHolder.getImageLoadingListener().onStubImageLoaded();
-		}
+		imageHolder.runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				imageHolder.showStubImage();
+				if (imageHolder.getImageLoadingListener() != null) {
+					imageHolder.getImageLoadingListener().onStubImageLoaded();
+				}
+			}
+		});
 	}
 }

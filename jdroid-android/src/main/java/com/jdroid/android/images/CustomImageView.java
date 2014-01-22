@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
-import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.domain.FileContent;
 import com.jdroid.android.domain.UriFileContent;
 
@@ -224,7 +223,7 @@ public class CustomImageView extends ImageView implements ImageHolder {
 	 */
 	@Override
 	public void runOnUiThread(Runnable runnable) {
-		AbstractApplication.get().getCurrentActivity().runOnUiThread(runnable);
+		post(runnable);
 	}
 	
 	public static interface ImageLoadingListener {
