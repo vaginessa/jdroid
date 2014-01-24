@@ -6,7 +6,10 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import com.jdroid.java.repository.RandomRepository;
+import com.jdroid.java.search.PagedResult;
 import com.jdroid.javaweb.domain.Entity;
+import com.jdroid.javaweb.search.Pager;
+import com.jdroid.javaweb.search.Sorting;
 
 /**
  * Hibernate Repository with additional implementation that works on MySQL engine only.
@@ -55,6 +58,11 @@ public abstract class MySQLHibernateRepository<T extends Entity> extends Abstrac
 	protected List<T> findRandomList(DetachedCriteria criteria, Integer maxResults) {
 		criteria.add(getRandomRestriction());
 		return find(criteria, maxResults);
+	}
+	
+	protected PagedResult<T> findRandom(DetachedCriteria detachedCriteria, Pager pager, Sorting sorting) {
+		detachedCriteria.add(getRandomRestriction());
+		return find(detachedCriteria, pager, sorting);
 	}
 	
 	/**
