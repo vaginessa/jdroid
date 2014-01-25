@@ -17,7 +17,7 @@ import com.jdroid.android.tabs.TabAction;
 public class ContextualItemsAdapter extends BaseHolderArrayAdapter<TabAction, ContextualItemHolder> {
 	
 	public ContextualItemsAdapter(Activity context, List<TabAction> actions) {
-		super(context, actions, R.layout.contextual_list_item);
+		super(context, R.layout.contextual_list_item, actions);
 	}
 	
 	@Override

@@ -14,19 +14,12 @@ import com.jdroid.java.collections.Lists;
  */
 public class BaseArrayAdapter<T> extends ArrayAdapter<T> {
 	
-	/**
-	 * @param context
-	 * @param objects
-	 */
-	public BaseArrayAdapter(Context context, List<T> objects) {
-		super(context, 0, Lists.safeArrayList(objects));
+	public BaseArrayAdapter(Context context) {
+		this(context, null);
 	}
 	
-	/**
-	 * @param context
-	 */
-	public BaseArrayAdapter(Context context) {
-		super(context, 0, Lists.<T>newArrayList());
+	public BaseArrayAdapter(Context context, List<T> objects) {
+		super(context, 0, Lists.safeArrayList(objects));
 	}
 	
 	public void replaceAll(Collection<? extends T> items) {

@@ -1,12 +1,11 @@
 package com.jdroid.android.adapter;
 
 import java.util.List;
-import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import com.jdroid.java.collections.Lists;
 
 /**
  * {@link BaseArrayAdapter} for lists that takes care of reusing the items' views.
@@ -31,13 +30,13 @@ public abstract class BaseHolderArrayAdapter<ITEM, VIEWHOLDER> extends BaseArray
 	 */
 	private int dropDownResource;
 	
-	public BaseHolderArrayAdapter(Activity context, int resource) {
-		this(context, Lists.<ITEM>newArrayList(), resource);
+	public BaseHolderArrayAdapter(Context context, int resource) {
+		this(context, resource, null);
 	}
 	
-	public BaseHolderArrayAdapter(Activity context, List<ITEM> items, int resource) {
+	public BaseHolderArrayAdapter(Context context, int resource, List<ITEM> items) {
 		super(context, items);
-		layoutInflater = context.getLayoutInflater();
+		layoutInflater = LayoutInflater.from(context);
 		this.resource = resource;
 		this.dropDownResource = resource;
 	}
