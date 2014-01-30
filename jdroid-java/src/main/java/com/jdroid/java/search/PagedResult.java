@@ -1,6 +1,8 @@
 package com.jdroid.java.search;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import com.jdroid.java.collections.Lists;
 
@@ -58,6 +60,10 @@ public class PagedResult<T> {
 	 */
 	public List<T> getResults() {
 		return results;
+	}
+	
+	public void sortResults(Comparator<T> comparator) {
+		Collections.sort(results, comparator);
 	}
 	
 	/**
