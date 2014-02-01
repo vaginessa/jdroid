@@ -69,8 +69,10 @@ public class DefaultApplicationContext {
 		if (isProductionEnvironment() || !displayDebugSettings()) {
 			return (T)defaultServer;
 		} else {
+			Class<?> clazz = defaultServer.getClass().getDeclaringClass() != null ? defaultServer.getClass().getDeclaringClass()
+					: defaultServer.getClass();
 			return (T)defaultServer.instance(PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
-				defaultServer.getClass().getSimpleName(), defaultServer.getName()).toUpperCase(Locale.US));
+				clazz.getSimpleName(), defaultServer.getName()).toUpperCase(Locale.US));
 		}
 	}
 	

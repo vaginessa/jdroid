@@ -73,7 +73,7 @@ public class GcmSender implements PushMessageSender {
 				Result result = multicastResult.getResults().get(i);
 				Device device = devices.get(i);
 				if (result.getMessageId() != null) {
-					LOGGER.info("Succesfully sent GCM message to device " + device);
+					LOGGER.info("Sent GCM message to " + device);
 					String canonicalRegId = result.getCanonicalRegistrationId();
 					if (canonicalRegId != null) {
 						// same device has more than on registration id: update it
