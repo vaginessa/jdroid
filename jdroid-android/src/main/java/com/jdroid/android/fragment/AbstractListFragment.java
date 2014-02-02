@@ -1,6 +1,5 @@
 package com.jdroid.android.fragment;
 
-import java.util.List;
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -9,26 +8,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.ActivityIf;
-import com.jdroid.android.adapter.BaseArrayAdapter;
 import com.jdroid.android.context.DefaultApplicationContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.LoadingDialogBuilder;
-import com.jdroid.android.search.SearchResult;
-import com.jdroid.android.search.SearchResult.PaginationListener;
-import com.jdroid.android.search.SearchResult.SortingListener;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
-import com.jdroid.android.view.PaginationFooter;
-import com.jdroid.java.exception.AbstractException;
 
 /**
  * Base {@link ListFragment}
@@ -36,11 +28,10 @@ import com.jdroid.java.exception.AbstractException;
  * @param <T>
  * @author Maxi Rosson
  */
-public abstract class AbstractListFragment<T> extends ListFragment implements FragmentIf, SortingListener<T>,
-		OnItemClickListener, OnItemSelectedListener<T> {
+public abstract class AbstractListFragment<T> extends ListFragment implements FragmentIf, OnItemClickListener,
+		OnItemSelectedListener<T> {
 	
 	private FragmentHelper fragmentHelper;
-	private PaginationFooter paginationFooter;
 	
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getAndroidApplicationContext()
@@ -456,85 +447,19 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 		return (T)getListView().getItemAtPosition(info.position);
 	}
 	
-	protected boolean hasPagination() {
-		return false;
-	}
-	
-	public SearchResult<T> getSearchResult() {
-		return null;
-	}
-	
-	/**
-	 * @see android.app.ListActivity#setListAdapter(android.widget.ListAdapter)
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public void setListAdapter(ListAdapter adapter) {
-		
-		if (hasPagination()) {
-			if (paginationFooter == null) {
-				paginationFooter = (PaginationFooter)inflate(R.layout.pagination_footer);
-				paginationFooter.setAbstractListFragment(this);
-				getListView().addFooterView(paginationFooter, null, false);
-			}
-			getSearchResult().setPaginationListener((PaginationListener<T>)paginationFooter);
-			paginationFooter.refresh();
-		}
-		super.setListAdapter(adapter);
-	}
-	
-	/**
-	 * @see com.jdroid.android.search.SearchResult.SortingListener#onStartSorting()
-	 */
-	@Override
-	public void onStartSorting() {
-		executeOnUIThread(new Runnable() {
-			
-			@Override
-			public void run() {
-				if (hasPagination()) {
-					paginationFooter.hide();
-				}
-				showBlockingLoading();
-			}
-		});
-	}
-	
-	/**
-	 * @see com.jdroid.android.search.SearchResult.SortingListener#onFinishSuccessfulSorting(java.util.List)
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public void onFinishSuccessfulSorting(final List<T> items) {
-		executeOnUIThread(new Runnable() {
-			
-			@Override
-			public void run() {
-				BaseArrayAdapter<T> baseArrayAdapter = (BaseArrayAdapter<T>)getListAdapter();
-				baseArrayAdapter.replaceAll(items);
-				getListView().setSelectionAfterHeaderView();
-				if (hasPagination()) {
-					paginationFooter.refresh();
-				}
-				showBlockingLoading();
-			}
-		});
-	}
-	
-	/**
-	 * @see com.jdroid.android.search.SearchResult.SortingListener#onFinishInvalidSorting(com.jdroid.java.exception.AbstractException)
-	 */
-	@Override
-	public void onFinishInvalidSorting(AbstractException androidException) {
-		dismissBlockingLoading();
-		throw androidException;
-	}
-	
 	protected void addHeaderView(int resource) {
 		getListView().addHeaderView(inflate(resource));
 	}
 	
+	protected void removeHeaderView(int resource) {
+		getListView().removeHeaderView(inflate(resource));
+	}
+	
 	protected void addFooterView(int resource) {
 		getListView().addFooterView(inflate(resource));
+	}
+	
+	protected void removeFooterView(int resource) {
+		getListView().removeFooterView(inflate(resource));
 	}
 }

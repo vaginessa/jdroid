@@ -1,36 +1,29 @@
 package com.jdroid.android.usecase;
 
 import java.util.Set;
-import com.jdroid.android.search.SearchResult;
+import com.jdroid.android.search.SortingType;
 import com.jdroid.java.collections.Sets;
+import com.jdroid.java.search.PagedResult;
 
 /**
  * 
  * @author Maxi Rosson
  * @param <T> item to search for
  */
-public abstract class SearchUseCase<T> extends DefaultAbstractUseCase {
+public abstract class SearchUseCase<T> extends PaginatedUseCase<T> {
 	
 	private String searchValue;
-	private SearchResult<T> searchResult;
 	private Set<T> selectedItems = Sets.newHashSet();
 	
 	/**
-	 * @see com.jdroid.android.usecase.DefaultAbstractUseCase#doExecute()
+	 * @see com.jdroid.android.usecase.PaginatedUseCase#doPopulate(int, int, com.jdroid.android.search.SortingType)
 	 */
 	@Override
-	protected void doExecute() {
-		searchResult = doSearch(searchValue);
+	protected final PagedResult<T> doPopulate(int page, int pageSize, SortingType sortingType) {
+		return doSearch(searchValue, page, pageSize, sortingType);
 	}
 	
-	protected abstract SearchResult<T> doSearch(String searchValue);
-	
-	/**
-	 * @return the searchResult
-	 */
-	public SearchResult<T> getSearchResult() {
-		return searchResult;
-	}
+	protected abstract PagedResult<T> doSearch(String searchValue, int page, int pageSize, SortingType sortingType);
 	
 	/**
 	 * @param searchValue the searchValue to set

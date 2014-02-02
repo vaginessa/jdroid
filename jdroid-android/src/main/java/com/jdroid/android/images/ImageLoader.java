@@ -41,6 +41,10 @@ public class ImageLoader {
 		imageResolvers.add(ContactImageResolver.get());
 	}
 	
+	protected Boolean isLoggingEnabled() {
+		return false;
+	}
+	
 	public void displayImage(final Uri uri, final ImageHolder imageHolder, final Boolean memoryCacheEnabled,
 			final Boolean fileSystemCacheEnabled) {
 		
@@ -60,7 +64,7 @@ public class ImageLoader {
 	
 	protected Bitmap loadFromMemoryCache(Uri uri) {
 		Bitmap bitmap = AbstractApplication.get().getBitmapLruCache().get(uri.toString());
-		if ((bitmap != null) && LoggerUtils.isEnabled()) {
+		if ((bitmap != null) && isLoggingEnabled()) {
 			LOGGER.debug("Loaded image [" + uri.toString() + "] from memory");
 		}
 		return bitmap;
@@ -68,7 +72,7 @@ public class ImageLoader {
 	
 	protected void saveToMemoryCache(Bitmap bitmap, Uri uri) {
 		AbstractApplication.get().getBitmapLruCache().put(uri.toString(), bitmap);
-		if (LoggerUtils.isEnabled()) {
+		if (isLoggingEnabled()) {
 			LOGGER.debug("Saved image [" + uri.toString() + "] on memory cache");
 		}
 	}
@@ -79,7 +83,7 @@ public class ImageLoader {
 		Bitmap bitmap = null;
 		if (file.exists()) {
 			bitmap = BitmapUtils.toBitmap(Uri.fromFile(file), maxWidth, maxHeight);
-			if (LoggerUtils.isEnabled()) {
+			if (isLoggingEnabled()) {
 				LOGGER.debug("Loaded image [" + uri.toString() + "] from [" + file.getAbsolutePath() + "].");
 			}
 		}
@@ -93,7 +97,7 @@ public class ImageLoader {
 		File file = new File(directory, String.valueOf(uri.toString().hashCode()));
 		FileUtils.copyStream(byteArrayInputStream, file);
 		
-		if (LoggerUtils.isEnabled()) {
+		if (isLoggingEnabled()) {
 			LOGGER.debug("Saved image [" + uri.toString() + "] on [" + file.getAbsolutePath() + "].");
 		}
 	}

@@ -20,11 +20,12 @@
 			android:layout_marginRight="4dp" />
 	</LinearLayout>
 
-	<ListView android:id="@+id/android:list" style="@style/list" android:layout_below="@+id/searchBox"
-		android:layout_above="@+id/adViewContainer" />
+	<GridView android:id="@+id/grid" android:layout_width="match_parent" android:layout_height="match_parent"
+		android:gravity="center" android:columnWidth="150dp" android:stretchMode="columnWidth" style="@style/gridList"
+		android:layout_margin="4dp" android:layout_below="@+id/searchBox" android:layout_above="@+id/adViewContainer" />
 
 	<TextView android:id="@id/android:empty" android:text="@string/noResultsSearch" style="@style/noResultsText"
-		android:layout_below="@+id/android:list" />
+		android:layout_below="@+id/grid" />
 
 	<include layout="@layout/ad_view_container" />
 

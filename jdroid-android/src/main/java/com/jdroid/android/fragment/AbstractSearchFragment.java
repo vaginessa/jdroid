@@ -1,6 +1,5 @@
 package com.jdroid.android.fragment;
 
-import java.util.List;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,10 +13,9 @@ import com.jdroid.android.R;
 import com.jdroid.android.adapter.BaseArrayAdapter;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.listener.OnEnterKeyListener;
-import com.jdroid.android.search.SearchResult;
+import com.jdroid.android.usecase.PaginatedUseCase;
 import com.jdroid.android.usecase.SearchUseCase;
 import com.jdroid.android.utils.ToastUtils;
-import com.jdroid.java.search.PagedResult;
 import com.jdroid.java.utils.StringUtils;
 
 /**
@@ -27,7 +25,7 @@ import com.jdroid.java.utils.StringUtils;
  * 
  * @author Maxi Rosson
  */
-public abstract class AbstractSearchFragment<T> extends AbstractListFragment<T> {
+public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFragment<T> {
 	
 	private int threshold = 1;
 	private EditText searchText;
@@ -51,7 +49,7 @@ public abstract class AbstractSearchFragment<T> extends AbstractListFragment<T> 
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		
-		getListView().getEmptyView().setVisibility(View.GONE);
+		getGridView().getEmptyView().setVisibility(View.GONE);
 		
 		searchText = findView(R.id.searchText);
 		searchText.setHint(getSearchEditTextHintResId());
@@ -149,26 +147,12 @@ public abstract class AbstractSearchFragment<T> extends AbstractListFragment<T> 
 		return R.string.typeHere;
 	}
 	
+	/**
+	 * @see com.jdroid.android.fragment.AbstractPaginatedListFragment#getUseCaseTrigger()
+	 */
+	@Override
 	protected UseCaseTrigger getUseCaseTrigger() {
 		return UseCaseTrigger.MANUAL;
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractListFragment#onResume()
-	 */
-	@Override
-	public void onResume() {
-		super.onResume();
-		onResumeUseCase(getSearchUseCase(), this, getUseCaseTrigger());
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractListFragment#onPause()
-	 */
-	@Override
-	public void onPause() {
-		super.onPause();
-		onPauseUseCase(getSearchUseCase(), this);
 	}
 	
 	private void search() {
@@ -182,6 +166,9 @@ public abstract class AbstractSearchFragment<T> extends AbstractListFragment<T> 
 	protected void doCancel() {
 		searchText.setText(null);
 		getSearchUseCase().setSearchValue(null);
+		getSearchUseCase().reset();
+		getSearchUseCase().cancel();
+		dismissBlockingLoading();
 		
 		if (getBaseArrayAdapter() != null) {
 			getBaseArrayAdapter().clear();
@@ -190,14 +177,21 @@ public abstract class AbstractSearchFragment<T> extends AbstractListFragment<T> 
 	
 	protected void doSearch() {
 		getSearchUseCase().setSearchValue(searchText.getText().toString());
+		getSearchUseCase().reset();
+		getSearchUseCase().cancel();
+		
+		if (getBaseArrayAdapter() != null) {
+			getBaseArrayAdapter().clear();
+		}
 		executeUseCase(getSearchUseCase());
+		
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.AbstractListFragment#onStartUseCase()
+	 * @see com.jdroid.android.fragment.AbstractListFragment#showBlockingLoading()
 	 */
 	@Override
-	public void onStartUseCase() {
+	public void showBlockingLoading() {
 		executeOnUIThread(new Runnable() {
 			
 			@Override
@@ -210,6 +204,14 @@ public abstract class AbstractSearchFragment<T> extends AbstractListFragment<T> 
 	}
 	
 	/**
+	 * @see com.jdroid.android.fragment.AbstractListFragment#showNonBlockingLoading()
+	 */
+	@Override
+	public void showNonBlockingLoading() {
+		showBlockingLoading();
+	}
+	
+	/**
 	 * @see com.jdroid.android.fragment.AbstractListFragment#goBackOnError(java.lang.RuntimeException)
 	 */
 	@Override
@@ -218,21 +220,10 @@ public abstract class AbstractSearchFragment<T> extends AbstractListFragment<T> 
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.AbstractListFragment#onFinishFailedUseCase(java.lang.RuntimeException)
+	 * @see com.jdroid.android.fragment.AbstractListFragment#dismissBlockingLoading()
 	 */
 	@Override
-	public void onFinishFailedUseCase(RuntimeException runtimeException) {
-		if (loading != null) {
-			loading.setVisibility(View.INVISIBLE);
-		}
-		super.onFinishFailedUseCase(runtimeException);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractListFragment#onFinishUseCase()
-	 */
-	@Override
-	public void onFinishUseCase() {
+	public void dismissBlockingLoading() {
 		executeOnUIThread(new Runnable() {
 			
 			@Override
@@ -240,17 +231,17 @@ public abstract class AbstractSearchFragment<T> extends AbstractListFragment<T> 
 				if (loading != null) {
 					loading.setVisibility(View.INVISIBLE);
 				}
-				
-				SearchResult<T> searchResult = getSearchUseCase().getSearchResult();
-				PagedResult<T> pagedResult = searchResult != null ? searchResult.getPagedResult()
-						: new PagedResult<T>();
-				
-				setListAdapter(createBaseArrayAdapter(pagedResult.getResults()));
 			}
 		});
 	}
 	
-	protected abstract BaseArrayAdapter<T> createBaseArrayAdapter(List<T> items);
+	/**
+	 * @see com.jdroid.android.fragment.AbstractListFragment#dismissNonBlockingLoading()
+	 */
+	@Override
+	public void dismissNonBlockingLoading() {
+		dismissBlockingLoading();
+	}
 	
 	@SuppressWarnings("unchecked")
 	private BaseArrayAdapter<T> getBaseArrayAdapter() {
@@ -295,5 +286,13 @@ public abstract class AbstractSearchFragment<T> extends AbstractListFragment<T> 
 	 */
 	public EditText getSearchText() {
 		return searchText;
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.AbstractPaginatedListFragment#getPaginatedUseCase()
+	 */
+	@Override
+	protected PaginatedUseCase<T> getPaginatedUseCase() {
+		return getSearchUseCase();
 	}
 }
