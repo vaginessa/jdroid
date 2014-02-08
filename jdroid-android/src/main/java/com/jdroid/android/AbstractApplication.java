@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -42,8 +43,10 @@ import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.context.GitContext;
+import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.http.cache.Cache;
 import com.jdroid.java.http.cache.CachedWebService;
+import com.jdroid.java.repository.Repository;
 import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
@@ -87,6 +90,8 @@ public abstract class AbstractApplication extends Application {
 	private boolean inBackground = false;
 	
 	private AppLaunchStatus appLaunchStatus;
+	
+	private Map<Class<? extends Identifiable>, Repository<? extends Identifiable>> repositories;
 	
 	public AbstractApplication() {
 		INSTANCE = this;
@@ -134,6 +139,8 @@ public abstract class AbstractApplication extends Application {
 				initBitmapLruCache();
 			}
 		});
+		
+		initRepositories();
 		
 		initAnalytics();
 		initInAppBilling();
@@ -490,5 +497,18 @@ public abstract class AbstractApplication extends Application {
 	
 	public UserRepository getUserRepository() {
 		return null;
+	}
+	
+	private void initRepositories() {
+		repositories = new HashMap<Class<? extends Identifiable>, Repository<? extends Identifiable>>();
+		initRepositories(repositories);
+	}
+	
+	protected void initRepositories(Map<Class<? extends Identifiable>, Repository<? extends Identifiable>> repositories) {
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <M extends Identifiable> Repository<M> getRepositoryInstance(Class<M> persistentClass) {
+		return (Repository<M>)repositories.get(persistentClass);
 	}
 }

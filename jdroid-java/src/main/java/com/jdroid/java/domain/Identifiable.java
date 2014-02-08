@@ -6,6 +6,8 @@ package com.jdroid.java.domain;
  */
 public interface Identifiable {
 	
+	public static final String ID_FIELD = "id";
+	
 	/**
 	 * Gets the identification for this {@link Identifiable}
 	 * 

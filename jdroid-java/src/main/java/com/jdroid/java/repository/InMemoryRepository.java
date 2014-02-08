@@ -119,4 +119,31 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 	public Long getSize() {
 		return (long)items.size();
 	}
+	
+	/**
+	 * @see com.jdroid.java.repository.Repository#findByField(java.lang.String, java.lang.Object[])
+	 */
+	@Override
+	public List<T> findByField(String fieldName, Object... values) {
+		// TODO Implement this
+		return null;
+	}
+	
+	/**
+	 * @see com.jdroid.java.repository.Repository#getAll(java.util.List)
+	 */
+	@Override
+	public List<T> getAll(List<Long> ids) {
+		// TODO Implement this
+		return null;
+	}
+	
+	/**
+	 * @see com.jdroid.java.repository.Repository#getUniqueInstance()
+	 */
+	@Override
+	public T getUniqueInstance() {
+		// TODO Implement this
+		return null;
+	}
 }

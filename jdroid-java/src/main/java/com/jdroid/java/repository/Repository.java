@@ -56,11 +56,24 @@ public interface Repository<T extends Identifiable> {
 	public void removeAll(Collection<T> items);
 	
 	/**
+	 * @param fieldName
+	 * @param values
+	 * @return items the items with the fieldName that match with values.
+	 */
+	public List<T> findByField(String fieldName, Object... values);
+	
+	/**
 	 * Obtains a list containing all the {@link Identifiable}s in the repository
 	 * 
 	 * @return the list of {@link Identifiable}s
 	 */
 	public List<T> getAll();
+	
+	/**
+	 * @param ids
+	 * @return All the items with the ids
+	 */
+	public List<T> getAll(List<Long> ids);
 	
 	/**
 	 * Removes the {@link Identifiable} with the id
@@ -82,4 +95,9 @@ public interface Repository<T extends Identifiable> {
 	 * @param items The new {@link Identifiable}s to replace the old ones.
 	 */
 	public void replaceAll(Collection<T> items);
+	
+	/**
+	 * @return The unique instance
+	 */
+	public T getUniqueInstance();
 }

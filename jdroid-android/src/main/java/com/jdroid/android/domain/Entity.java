@@ -10,6 +10,7 @@ import com.jdroid.java.domain.Identifiable;
 public class Entity extends BusinessObject implements Identifiable {
 	
 	private Long id;
+	private String parentId;
 	
 	/**
 	 * @param id
@@ -27,6 +28,20 @@ public class Entity extends BusinessObject implements Identifiable {
 	@Override
 	public Long getId() {
 		return id;
+	}
+	
+	/**
+	 * @return the parentId
+	 */
+	public String getParentId() {
+		return parentId;
+	}
+	
+	/**
+	 * @param parentId the parentId to set
+	 */
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
 	}
 	
 	/**

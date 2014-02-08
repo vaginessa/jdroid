@@ -17,6 +17,7 @@ import org.hibernate.impl.CriteriaImpl;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import com.google.common.base.Function;
+import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.repository.Repository;
 import com.jdroid.java.search.PagedResult;
 import com.jdroid.javaweb.domain.Entity;
@@ -130,6 +131,14 @@ public class AbstractHibernateRepository<T extends Entity> extends HibernateDaoS
 	}
 	
 	/**
+	 * @see com.jdroid.java.repository.Repository#getAll(java.util.List)
+	 */
+	@Override
+	public List<T> getAll(List<Long> ids) {
+		return find(Identifiable.ID_FIELD, ids);
+	}
+	
+	/**
 	 * @see com.jdroid.java.repository.Repository#replaceAll(java.util.Collection)
 	 */
 	@Override
@@ -146,12 +155,28 @@ public class AbstractHibernateRepository<T extends Entity> extends HibernateDaoS
 	}
 	
 	/**
+	 * @see com.jdroid.java.repository.Repository#getUniqueInstance()
+	 */
+	@Override
+	public T getUniqueInstance() {
+		return findUnique(createDetachedCriteria());
+	}
+	
+	/**
 	 * @param propertyName The property name
 	 * @param value The property value
 	 * @return The object which matches the property with the value
 	 */
 	protected T findUnique(String propertyName, Object value) {
 		return this.findUnique(this.createDetachedCriteria().add(Restrictions.eq(propertyName, value)));
+	}
+	
+	/**
+	 * @see com.jdroid.java.repository.Repository#findByField(java.lang.String, java.lang.Object[])
+	 */
+	@Override
+	public List<T> findByField(String fieldName, Object... values) {
+		return this.find(this.createDetachedCriteria().add(Restrictions.in(fieldName, values)));
 	}
 	
 	/**
