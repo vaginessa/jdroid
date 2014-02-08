@@ -1,7 +1,13 @@
 package com.jdroid.android;
 
 import java.io.File;
+import java.io.InputStream;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -30,10 +36,14 @@ import com.jdroid.android.gcm.GcmMessageResolver;
 import com.jdroid.android.images.BitmapLruCache;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.utils.AndroidEncryptionUtils;
+import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.SharedPreferencesUtils;
 import com.jdroid.android.utils.ToastUtils;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.context.GitContext;
+import com.jdroid.java.http.cache.Cache;
+import com.jdroid.java.http.cache.CachedWebService;
 import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
@@ -50,16 +60,17 @@ public abstract class AbstractApplication extends Application {
 	 * The LOGGER variable is initialized in the "OnCreate" method, after that "LoggerUtils" has been properly
 	 * configured by the superclass.
 	 */
-	private static Logger LOGGER;
+	protected static Logger LOGGER;
 	
 	private static final String INSTALLATION_ID = "installationId";
 	public static final String INSTALLATION_SOURCE = "installationSource";
+	private static final String VERSION_CODE_KEY = "versionCodeKey";
 	
 	/** Maximum size (in MB) of the images cache */
 	private static final int IMAGES_CACHE_SIZE = 5;
 	
 	private static final String IMAGES_DIRECTORY = "images";
-	private static final String HTTP_CACHE_DIRECTORY = "http";
+	private static final String HTTP_CACHE_DIRECTORY_PREFFIX = "http_";
 	
 	protected static AbstractApplication INSTANCE;
 	
@@ -74,6 +85,8 @@ public abstract class AbstractApplication extends Application {
 	
 	private String installationId;
 	private boolean inBackground = false;
+	
+	private AppLaunchStatus appLaunchStatus;
 	
 	public AbstractApplication() {
 		INSTANCE = this;
@@ -93,8 +106,6 @@ public abstract class AbstractApplication extends Application {
 		LoggerUtils.setEnabled(isDebuggable());
 		LOGGER = LoggerUtils.getLogger(AbstractApplication.class);
 		
-		loadInstallationId();
-		
 		applicationContext = createApplicationContext();
 		
 		if (isDebuggable()) {
@@ -106,17 +117,25 @@ public abstract class AbstractApplication extends Application {
 		}
 		initStrictMode();
 		
-		initAnalytics();
-		
 		// This is required to initialize the statics fields of the utils classes.
 		ToastUtils.init();
 		DateUtils.init();
 		
-		initEncryptionUtils();
-		initCacheDirectory();
-		initImagesCacheDirectory();
-		initBitmapLruCache();
+		ExecutorUtils.execute(new Runnable() {
+			
+			@Override
+			public void run() {
+				loadInstallationId();
+				verifyAppLaunchStatus();
+				initHttpCache();
+				initEncryptionUtils();
+				initCacheDirectory();
+				initImagesCacheDirectory();
+				initBitmapLruCache();
+			}
+		});
 		
+		initAnalytics();
 		initInAppBilling();
 	}
 	
@@ -131,6 +150,22 @@ public abstract class AbstractApplication extends Application {
 		if (level >= TRIM_MEMORY_MODERATE) {
 			bitmapLruCache.evictAll();
 		}
+	}
+	
+	protected void verifyAppLaunchStatus() {
+		Integer fromVersionCode = SharedPreferencesUtils.loadPreferenceAsInteger(VERSION_CODE_KEY);
+		if (fromVersionCode == null) {
+			appLaunchStatus = AppLaunchStatus.NEW_INSTALATTION;
+			fromVersionCode = 0;
+		} else {
+			if (AndroidUtils.getVersionCode().equals(fromVersionCode)) {
+				appLaunchStatus = AppLaunchStatus.NORMAL;
+			} else {
+				appLaunchStatus = AppLaunchStatus.VERSION_UPGRADE;
+			}
+		}
+		LOGGER.debug("App launch status: " + appLaunchStatus);
+		SharedPreferencesUtils.savePreference(VERSION_CODE_KEY, AndroidUtils.getVersionCode());
 	}
 	
 	protected void initAnalytics() {
@@ -190,6 +225,97 @@ public abstract class AbstractApplication extends Application {
 		bitmapLruCache = new BitmapLruCache(cacheSize);
 	}
 	
+	protected void initHttpCache() {
+		try {
+			
+			// Sort the caches by priority
+			List<Cache> httpCaches = getHttpCaches();
+			Collections.sort(httpCaches, new Comparator<Cache>() {
+				
+				@Override
+				public int compare(Cache cache1, Cache cache2) {
+					return cache2.getPriority().compareTo(cache1.getPriority());
+				}
+			});
+			
+			for (Cache cache : httpCaches) {
+				populateHttpCache(cache);
+				reduceHttpCache(cache);
+			}
+		} catch (Exception e) {
+			getExceptionHandler().logHandledException(e);
+		}
+	}
+	
+	@SuppressWarnings("resource")
+	protected void populateHttpCache(Cache cache) {
+		
+		if (!appLaunchStatus.equals(AppLaunchStatus.NORMAL)) {
+			
+			Map<String, String> defaultContent = cache.getDefaultContent();
+			
+			if ((defaultContent != null) && !defaultContent.isEmpty()) {
+				for (Entry<String, String> entry : defaultContent.entrySet()) {
+					InputStream source = AbstractApplication.class.getClassLoader().getResourceAsStream(
+						"cache/" + entry.getKey());
+					if (source != null) {
+						File cacheFile = new File(AbstractApplication.get().getHttpCacheDirectory(cache),
+								CachedWebService.generateCacheFileName(entry.getValue()));
+						FileUtils.copyStream(source, cacheFile);
+						LOGGER.debug("Populated " + entry.toString() + " to " + cacheFile.getAbsolutePath());
+						FileUtils.safeClose(source);
+					}
+				}
+				LOGGER.debug(cache.getName() + " cache populated");
+			}
+		}
+	}
+	
+	protected void reduceHttpCache(Cache cache) {
+		if (cache.getMaximumSize() != null) {
+			File dir = getHttpCacheDirectory(cache);
+			
+			// Verify if the cache should be clean
+			if (dir != null) {
+				float dirSize = FileUtils.getDirectorySizeInMB(dir);
+				LOGGER.info("Cache " + cache.getName() + " size: " + dirSize + " MB");
+				if (dirSize > cache.getMaximumSize()) {
+					// Sort the files by modification date, so we remove the not used files first
+					List<File> files = Lists.newArrayList(dir.listFiles());
+					Collections.sort(files, new Comparator<File>() {
+						
+						@Override
+						public int compare(File file1, File file2) {
+							return Long.valueOf(file1.lastModified()).compareTo(file2.lastModified());
+						}
+					});
+					
+					// Remove the file until the minumum size is achieved
+					for (File file : files) {
+						if (dirSize > cache.getMinimumSize()) {
+							dirSize -= FileUtils.getFileSizeInMB(file);
+							FileUtils.forceDelete(file);
+						} else {
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	protected List<Cache> getHttpCaches() {
+		return Lists.newArrayList();
+	}
+	
+	public void cleanHttpCache(Cache cache) {
+		FileUtils.forceDelete(getHttpCacheDirectory(cache));
+	}
+	
+	public File getHttpCacheDirectory(Cache cache) {
+		return getApplicationContext().getDir(HTTP_CACHE_DIRECTORY_PREFFIX + cache.getName(), Context.MODE_PRIVATE);
+	}
+	
 	private void initInAppBilling() {
 		if (isInAppBillingEnabled()) {
 			BillingContext.get().initialize();
@@ -243,14 +369,7 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	protected void initEncryptionUtils() {
-		// Init EncryptationUtils outside the UI thread
-		ExecutorUtils.execute(new Runnable() {
-			
-			@Override
-			public void run() {
-				AndroidEncryptionUtils.init();
-			}
-		});
+		AndroidEncryptionUtils.init();
 	}
 	
 	public ExceptionHandler getExceptionHandler() {
@@ -324,10 +443,6 @@ public abstract class AbstractApplication extends Application {
 		return imagesCacheDirectory.exists() && imagesCacheDirectory.isDirectory() ? imagesCacheDirectory : null;
 	}
 	
-	public File getHttpCacheDirectory() {
-		return getApplicationContext().getDir(HTTP_CACHE_DIRECTORY, Context.MODE_PRIVATE);
-	}
-	
 	/**
 	 * @return the inBackground
 	 */
@@ -351,19 +466,13 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	private void loadInstallationId() {
-		ExecutorUtils.execute(new Runnable() {
-			
-			@Override
-			public void run() {
-				if (SharedPreferencesUtils.hasPreference(INSTALLATION_ID)) {
-					installationId = SharedPreferencesUtils.loadPreference(INSTALLATION_ID);
-				} else {
-					installationId = UUID.randomUUID().toString();
-					SharedPreferencesUtils.savePreference(INSTALLATION_ID, installationId);
-				}
-				LOGGER.debug("Installation id: " + installationId);
-			}
-		});
+		if (SharedPreferencesUtils.hasPreference(INSTALLATION_ID)) {
+			installationId = SharedPreferencesUtils.loadPreference(INSTALLATION_ID);
+		} else {
+			installationId = UUID.randomUUID().toString();
+			SharedPreferencesUtils.savePreference(INSTALLATION_ID, installationId);
+		}
+		LOGGER.debug("Installation id: " + installationId);
 	}
 	
 	public String getAppName() {

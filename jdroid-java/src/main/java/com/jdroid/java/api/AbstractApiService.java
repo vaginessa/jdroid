@@ -8,6 +8,7 @@ import com.jdroid.java.http.HttpWebServiceProcessor;
 import com.jdroid.java.http.MultipartWebService;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.http.WebService;
+import com.jdroid.java.http.cache.Cache;
 import com.jdroid.java.http.cache.CachedWebService;
 import com.jdroid.java.http.cache.CachingStrategy;
 import com.jdroid.java.http.mock.AbstractMockWebService;
@@ -33,18 +34,19 @@ public abstract class AbstractApiService {
 		}
 	}
 	
-	protected WebService newCachedGetService(CachingStrategy cachingStrategy, Long timeToLive, Object... urlSegments) {
+	protected WebService newCachedGetService(Cache cache, CachingStrategy cachingStrategy, Long timeToLive,
+			Object... urlSegments) {
 		WebService webService = newGetService(urlSegments);
-		return new CachedWebService(webService, cachingStrategy, timeToLive) {
+		return new CachedWebService(webService, cache, cachingStrategy, timeToLive) {
 			
 			@Override
-			protected File getHttpCacheDirectory() {
-				return AbstractApiService.this.getHttpCacheDirectory();
+			protected File getHttpCacheDirectory(Cache cache) {
+				return AbstractApiService.this.getHttpCacheDirectory(cache);
 			}
 		};
 	}
 	
-	protected File getHttpCacheDirectory() {
+	protected File getHttpCacheDirectory(Cache cache) {
 		return null;
 	}
 	

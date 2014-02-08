@@ -73,4 +73,6 @@ public interface WebService {
 	
 	public String getUrl();
 	
+	public String getUrlSuffix();
+	
 }

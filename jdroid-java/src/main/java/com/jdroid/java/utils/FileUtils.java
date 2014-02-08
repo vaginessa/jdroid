@@ -382,4 +382,19 @@ public abstract class FileUtils {
 		}
 		return size;
 	}
+	
+	public static long getFileSize(File file) {
+		if (!file.exists()) {
+			throw new IllegalArgumentException(file + " does not exist");
+		}
+		return file.length();
+	}
+	
+	public static float getDirectorySizeInMB(File directory) {
+		return getDirectorySize(directory) / (float)FileUtils.BYTES_TO_MB;
+	}
+	
+	public static float getFileSizeInMB(File file) {
+		return getFileSize(file) / (float)FileUtils.BYTES_TO_MB;
+	}
 }

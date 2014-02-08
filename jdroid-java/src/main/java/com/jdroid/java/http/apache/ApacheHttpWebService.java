@@ -166,6 +166,16 @@ public abstract class ApacheHttpWebService implements WebService {
 		builder.append(ssl && server.supportsSsl() ? HTTPS_PROTOCOL : HTTP_PROTOCOL);
 		builder.append("://");
 		builder.append(server.getBaseUrl());
+		builder.append(getUrlSuffix());
+		return builder.toString();
+	}
+	
+	/**
+	 * @see com.jdroid.java.http.WebService#getUrlSuffix()
+	 */
+	@Override
+	public String getUrlSuffix() {
+		StringBuilder builder = new StringBuilder();
 		builder.append(getUrlSegments());
 		builder.append(makeStringParameters());
 		return builder.toString();

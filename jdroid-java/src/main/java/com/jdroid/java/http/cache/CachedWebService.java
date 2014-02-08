@@ -23,17 +23,19 @@ public abstract class CachedWebService implements WebService {
 	private WebService webService;
 	private CachingStrategy cachingStrategy;
 	private Long timeToLive;
+	private Cache cache;
 	
-	public CachedWebService(WebService webService) {
-		this(webService, null, null);
+	public CachedWebService(WebService webService, Cache cache) {
+		this(webService, cache, null, null);
 	}
 	
-	public CachedWebService(WebService webService, CachingStrategy cachingStrategy) {
-		this(webService, cachingStrategy, null);
+	public CachedWebService(WebService webService, Cache cache, CachingStrategy cachingStrategy) {
+		this(webService, cache, cachingStrategy, null);
 	}
 	
-	public CachedWebService(WebService webService, CachingStrategy cachingStrategy, Long timeToLive) {
+	public CachedWebService(WebService webService, Cache cache, CachingStrategy cachingStrategy, Long timeToLive) {
 		this.webService = webService;
+		this.cache = cache;
 		this.cachingStrategy = cachingStrategy != null ? cachingStrategy : CachingStrategy.NO_CACHE;
 		this.timeToLive = timeToLive;
 	}
@@ -47,7 +49,7 @@ public abstract class CachedWebService implements WebService {
 		return cachingStrategy.execute(this, parser);
 	}
 	
-	protected abstract File getHttpCacheDirectory();
+	protected abstract File getHttpCacheDirectory(Cache cache);
 	
 	/**
 	 * @see com.jdroid.java.http.WebService#execute()
@@ -60,7 +62,7 @@ public abstract class CachedWebService implements WebService {
 	@SuppressWarnings({ "resource", "unchecked" })
 	public <T> T readFromCache(Parser parser) {
 		T response = null;
-		File cacheFile = new File(getHttpCacheDirectory(), generateCacheFileName());
+		File cacheFile = new File(getHttpCacheDirectory(cache), generateCacheFileName());
 		if (cacheFile.exists()) {
 			
 			long diff = System.currentTimeMillis() - cacheFile.lastModified();
@@ -84,14 +86,14 @@ public abstract class CachedWebService implements WebService {
 	
 	public <T> T executeRequest(Parser parser) {
 		String cacheFileName = generateCacheFileName();
-		File cacheFile = new File(getHttpCacheDirectory(), cacheFileName);
+		File cacheFile = new File(getHttpCacheDirectory(cache), cacheFileName);
 		
 		// TODO Se if we should save the cache when the request fails
 		return webService.execute(new CacheParser(parser, cacheFile));
 	}
 	
 	protected String generateCacheFileName() {
-		return generateCacheFileName(getUrl());
+		return generateCacheFileName(getUrlSuffix());
 	}
 	
 	public static String generateCacheFileName(String key) {
@@ -168,5 +170,13 @@ public abstract class CachedWebService implements WebService {
 	@Override
 	public String getUrl() {
 		return webService.getUrl();
+	}
+	
+	/**
+	 * @see com.jdroid.java.http.WebService#getUrlSuffix()
+	 */
+	@Override
+	public String getUrlSuffix() {
+		return webService.getUrlSuffix();
 	}
 }
