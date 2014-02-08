@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import com.jdroid.android.adapter.BaseArrayAdapter;
 import com.jdroid.android.domain.FileContent;
 import com.jdroid.android.images.ReflectedBitmapDisplayer;
-import com.jdroid.android.images.ReflectedRemoteImageResolver;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -22,11 +21,23 @@ public abstract class CoverFlowImageAdapter<T> extends BaseArrayAdapter<T> {
 	
 	private int width;
 	private int height;
+	private DisplayImageOptions displayImageOptions;
 	
 	public CoverFlowImageAdapter(Context context, List<T> objects, int width, int height) {
 		super(context, objects);
+		
+		ReflectedBitmapDisplayer reflectedBitmapDisplayer = new ReflectedBitmapDisplayer();
+		DisplayImageOptions.Builder optionsBuilder = new DisplayImageOptions.Builder();
+		optionsBuilder.cacheInMemory(true);
+		optionsBuilder.cacheOnDisc(true);
+		optionsBuilder.showImageOnLoading(getDefaultDrawableId());
+		optionsBuilder.showImageForEmptyUri(getDefaultDrawableId());
+		optionsBuilder.showImageOnFail(getDefaultDrawableId());
+		optionsBuilder.displayer(reflectedBitmapDisplayer);
+		displayImageOptions = optionsBuilder.build();
+		
 		this.width = width;
-		this.height = (int)(height * (1 + ReflectedRemoteImageResolver.get().getImageReflectionRatio()));
+		this.height = (int)(height * (1 + reflectedBitmapDisplayer.getImageReflectionRatio()));
 	}
 	
 	/**
@@ -52,17 +63,7 @@ public abstract class CoverFlowImageAdapter<T> extends BaseArrayAdapter<T> {
 		}
 		imageView.setTag(position);
 		FileContent fileContent = getFileContent(getItem(position));
-		
-		DisplayImageOptions.Builder optionsBuilder = new DisplayImageOptions.Builder();
-		optionsBuilder.cacheInMemory(true);
-		optionsBuilder.cacheOnDisc(true);
-		optionsBuilder.showImageOnLoading(getDefaultDrawableId());
-		optionsBuilder.showImageForEmptyUri(getDefaultDrawableId());
-		optionsBuilder.showImageOnFail(getDefaultDrawableId());
-		optionsBuilder.displayer(new ReflectedBitmapDisplayer());
-		optionsBuilder.build();
-		
-		ImageLoader.getInstance().displayImage(fileContent.getUriAsString(), imageView, optionsBuilder.build());
+		ImageLoader.getInstance().displayImage(fileContent.getUriAsString(), imageView, displayImageOptions);
 		
 		return imageView;
 	}

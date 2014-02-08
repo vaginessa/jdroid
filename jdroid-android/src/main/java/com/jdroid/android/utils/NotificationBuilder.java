@@ -13,7 +13,6 @@ import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
-import com.jdroid.android.images.RemoteImageResolver;
 import com.jdroid.java.utils.StringUtils;
 
 /**
@@ -135,8 +134,7 @@ public class NotificationBuilder {
 	private Bitmap createLargeIconBitmap(String largeIconUrl) {
 		Bitmap largeIconBitmap = null;
 		if (StringUtils.isNotEmpty(largeIconUrl)) {
-			largeIconBitmap = RemoteImageResolver.get().resolve(Uri.parse(largeIconUrl), LARGE_ICON_WIDHT,
-				LARGE_ICON_HEIGHT);
+			largeIconBitmap = ImageLoaderUtils.loadBitmap(largeIconUrl, LARGE_ICON_WIDHT, LARGE_ICON_HEIGHT);
 		}
 		return largeIconBitmap;
 	}

@@ -65,4 +65,18 @@ public class ReflectedBitmapDisplayer implements BitmapDisplayer {
 		imageAware.setImageBitmap(bitmapWithReflection);
 	}
 	
+	/**
+	 * @return the reflectionGap
+	 */
+	public float getReflectionGap() {
+		return reflectionGap;
+	}
+	
+	/**
+	 * @return the imageReflectionRatio
+	 */
+	public float getImageReflectionRatio() {
+		return imageReflectionRatio;
+	}
+	
 }
