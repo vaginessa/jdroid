@@ -23,6 +23,19 @@ public abstract class AbstractPaginatedListFragment<T> extends AbstractListFragm
 	private View paginationFooter;
 	
 	/**
+	 * @see com.jdroid.android.fragment.AbstractListFragment#onViewCreated(android.view.View, android.os.Bundle)
+	 */
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		
+		// FIXME When rotating the loading is missed
+		paginationFooter = inflate(R.layout.pagination_footer);
+		paginationFooter.setVisibility(View.GONE);
+		getListView().addFooterView(paginationFooter, null, false);
+	}
+	
+	/**
 	 * @see com.jdroid.android.fragment.AbstractFragment#onResume()
 	 */
 	@Override
@@ -42,19 +55,6 @@ public abstract class AbstractPaginatedListFragment<T> extends AbstractListFragm
 	public void onPause() {
 		super.onPause();
 		onPauseUseCase(getPaginatedUseCase(), this);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractListFragment#onViewCreated(android.view.View, android.os.Bundle)
-	 */
-	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
-		
-		// FIXME When rotating the loading is missed
-		paginationFooter = inflate(R.layout.pagination_footer);
-		paginationFooter.setVisibility(View.GONE);
-		getListView().addFooterView(paginationFooter, null, false);
 	}
 	
 	/**

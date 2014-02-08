@@ -1,14 +1,18 @@
 package com.jdroid.android.fragment;
 
 import java.util.List;
+import android.os.Bundle;
+import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.GridView;
 import android.widget.ListAdapter;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.R;
 import com.jdroid.android.adapter.BaseArrayAdapter;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.usecase.PaginatedUseCase;
+import com.jdroid.java.utils.LoggerUtils;
 
 /**
  * 
@@ -16,6 +20,20 @@ import com.jdroid.android.usecase.PaginatedUseCase;
  * @author Maxi Rosson
  */
 public abstract class AbstractPaginatedGridFragment<T> extends AbstractGridFragment<T> {
+	
+	private View paginationFooter;
+	
+	/**
+	 * @see com.jdroid.android.fragment.AbstractListFragment#onViewCreated(android.view.View, android.os.Bundle)
+	 */
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		
+		// FIXME When rotating the loading is missed
+		paginationFooter = findView(R.id.progressBar);
+		paginationFooter.setVisibility(View.GONE);
+	}
 	
 	/**
 	 * @see com.jdroid.android.fragment.AbstractFragment#onResume()
@@ -64,6 +82,17 @@ public abstract class AbstractPaginatedGridFragment<T> extends AbstractGridFragm
 							&& !getPaginatedUseCase().isInProgress() && !getPaginatedUseCase().isLastPage()) {
 						getPaginatedUseCase().markAsPaginating();
 						executeUseCase(getPaginatedUseCase());
+					}
+					
+					LoggerUtils.getDefaultLogger().warn(
+						"firstVisibleItem: " + firstVisibleItem + ", visibleItemCount: " + visibleItemCount
+								+ ", totalItemCount: " + totalItemCount);
+					
+					if (((firstVisibleItem + visibleItemCount) == totalItemCount)
+							&& getPaginatedUseCase().isInProgress()) {
+						paginationFooter.setVisibility(View.VISIBLE);
+					} else {
+						paginationFooter.setVisibility(View.GONE);
 					}
 				}
 			});
@@ -122,11 +151,23 @@ public abstract class AbstractPaginatedGridFragment<T> extends AbstractGridFragm
 	}
 	
 	private void startPaginationLoading() {
-		// TODO
+		executeOnUIThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				paginationFooter.setVisibility(View.VISIBLE);
+			}
+		});
 	}
 	
 	private void dismissPaginationLoading() {
-		// TODO
+		executeOnUIThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				paginationFooter.setVisibility(View.GONE);
+			}
+		});
 	}
 	
 }

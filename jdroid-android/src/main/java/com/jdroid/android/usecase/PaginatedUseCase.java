@@ -63,6 +63,10 @@ public abstract class PaginatedUseCase<T> extends DefaultAbstractUseCase {
 		paginatedUseCaseMode = PaginatedUseCaseMode.INITIAL_LOAD;
 	}
 	
+	public Boolean isInitialLoad() {
+		return paginatedUseCaseMode.equals(PaginatedUseCaseMode.INITIAL_LOAD);
+	}
+	
 	public Boolean isPaginating() {
 		return paginatedUseCaseMode.equals(PaginatedUseCaseMode.PAGINATION);
 	}

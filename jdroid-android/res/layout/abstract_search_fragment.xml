@@ -20,12 +20,17 @@
 			android:layout_marginRight="4dp" />
 	</LinearLayout>
 
-	<GridView android:id="@+id/grid" android:layout_width="match_parent" android:layout_height="match_parent"
-		android:gravity="center" android:columnWidth="150dp" android:stretchMode="columnWidth" style="@style/gridList"
-		android:layout_margin="4dp" android:layout_below="@+id/searchBox" android:layout_above="@+id/adViewContainer" />
+	<LinearLayout android:layout_height="match_parent" android:layout_width="match_parent"
+		android:orientation="vertical" android:layout_below="@+id/searchBox" android:layout_above="@+id/adViewContainer">
+		<GridView android:id="@+id/grid" android:layout_width="match_parent" android:layout_height="0dp"
+			android:layout_weight="1" android:gravity="center" android:columnWidth="150dp" android:stretchMode="columnWidth"
+			style="@style/gridList" android:layout_margin="4dp" />
 
-	<TextView android:id="@id/android:empty" android:text="@string/noResultsSearch" style="@style/noResultsText"
-		android:layout_below="@+id/grid" />
+		<ProgressBar android:id="@+id/progressBar" android:layout_width="24dp" android:layout_height="24dp"
+			android:layout_gravity="center" android:layout_margin="4dp" android:indeterminate="true" />
+
+		<TextView android:id="@id/android:empty" android:text="@string/noResultsSearch" style="@style/noResultsText" />
+	</LinearLayout>
 
 	<include layout="@layout/ad_view_container" />
 
