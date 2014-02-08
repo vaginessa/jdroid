@@ -50,6 +50,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.nostra13.universalimageloader</groupId>
+			<artifactId>universal-image-loader</artifactId>
+			<version>1.9.1</version>
+		</dependency> 
 
 		<!-- Google Play Services -->
 		<dependency>

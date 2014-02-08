@@ -2,13 +2,15 @@ package com.jdroid.android.coverflow;
 
 import java.util.List;
 import android.content.Context;
-import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import com.jdroid.android.adapter.BaseArrayAdapter;
 import com.jdroid.android.domain.FileContent;
-import com.jdroid.android.images.CustomImageView;
+import com.jdroid.android.images.ReflectedBitmapDisplayer;
 import com.jdroid.android.images.ReflectedRemoteImageResolver;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * This class is an adapter that provides base, abstract class for images adapter.
@@ -40,18 +42,28 @@ public abstract class CoverFlowImageAdapter<T> extends BaseArrayAdapter<T> {
 	 */
 	@SuppressWarnings("deprecation")
 	@Override
-	public CustomImageView getView(int position, View convertView, ViewGroup parent) {
-		CustomImageView imageView;
+	public View getView(int position, View convertView, ViewGroup parent) {
+		ImageView imageView;
 		if (convertView == null) {
-			imageView = new CustomImageView(parent.getContext());
+			imageView = new ImageView(parent.getContext());
 			imageView.setLayoutParams(new CoverFlow.LayoutParams(width, height));
 		} else {
-			imageView = (CustomImageView)convertView;
+			imageView = (ImageView)convertView;
 		}
 		imageView.setTag(position);
 		FileContent fileContent = getFileContent(getItem(position));
-		Uri uri = fileContent.getUri();
-		imageView.setImageContent(ReflectedRemoteImageResolver.getReflectedUri(uri), getDefaultDrawableId());
+		
+		DisplayImageOptions.Builder optionsBuilder = new DisplayImageOptions.Builder();
+		optionsBuilder.cacheInMemory(true);
+		optionsBuilder.cacheOnDisc(true);
+		optionsBuilder.showImageOnLoading(getDefaultDrawableId());
+		optionsBuilder.showImageForEmptyUri(getDefaultDrawableId());
+		optionsBuilder.showImageOnFail(getDefaultDrawableId());
+		optionsBuilder.displayer(new ReflectedBitmapDisplayer());
+		optionsBuilder.build();
+		
+		ImageLoader.getInstance().displayImage(fileContent.getUriAsString(), imageView, optionsBuilder.build());
+		
 		return imageView;
 	}
 	

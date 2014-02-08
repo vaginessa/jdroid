@@ -52,6 +52,10 @@ import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.ReflectionUtils;
 import com.jdroid.java.utils.StringUtils;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 /**
  * 
@@ -144,6 +148,18 @@ public abstract class AbstractApplication extends Application {
 		
 		initAnalytics();
 		initInAppBilling();
+		
+		// Create global configuration and initialize ImageLoader with this configuration
+		
+		DisplayImageOptions.Builder defaultOptiBuilder = new DisplayImageOptions.Builder();
+		defaultOptiBuilder.cacheInMemory(true);
+		defaultOptiBuilder.cacheOnDisc(true);
+		
+		ImageLoaderConfiguration.Builder configBuilder = new ImageLoaderConfiguration.Builder(getApplicationContext());
+		configBuilder.tasksProcessingOrder(QueueProcessingType.LIFO);
+		configBuilder.defaultDisplayImageOptions(defaultOptiBuilder.build());
+		
+		ImageLoader.getInstance().init(configBuilder.build());
 	}
 	
 	/**

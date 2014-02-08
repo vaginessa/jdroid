@@ -18,7 +18,7 @@
 
 	<!-- Images -->
 
-	<dimen name="borderedCustomImageViewMargin">3dp</dimen>
-	<dimen name="borderedCustomImageViewPadding">2dp</dimen>
+	<dimen name="borderedImageViewMargin">3dp</dimen>
+	<dimen name="borderedImageViewPadding">2dp</dimen>
 
 </resources>
