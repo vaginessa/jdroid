@@ -14,7 +14,8 @@ jdroid Android\n
 * Changed min api level supported to 14\n
 * Added EmailAutoCompleteTextView component\n
 * Added non blocking loading support\n
-* Added Sqlite integration 
+* Added Sqlite integration\n
+* Added http cache implementation\n
 * Search fragment improvements\n
 * Upgraded dependencies versions\n
 * Bug fixing\n
