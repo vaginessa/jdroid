@@ -43,18 +43,6 @@ public class AndroidTestRunner extends RobolectricTestRunner {
 		return new AbstractApplication() {
 			
 			@Override
-			protected void initBitmapLruCache() {
-			}
-			
-			@Override
-			protected void initCacheDirectory() {
-			}
-			
-			@Override
-			protected void initImagesCacheDirectory() {
-			}
-			
-			@Override
 			public Class<? extends Activity> getHomeActivityClass() {
 				return null;
 			}

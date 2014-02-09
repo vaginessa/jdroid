@@ -12,13 +12,10 @@ import java.util.Map.Entry;
 import java.util.UUID;
 import org.json.JSONObject;
 import org.slf4j.Logger;
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
-import android.os.Build;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -34,7 +31,6 @@ import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.gcm.GcmMessageResolver;
-import com.jdroid.android.images.BitmapLruCache;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.utils.AndroidEncryptionUtils;
 import com.jdroid.android.utils.AndroidUtils;
@@ -73,11 +69,7 @@ public abstract class AbstractApplication extends Application {
 	public static final String INSTALLATION_SOURCE = "installationSource";
 	private static final String VERSION_CODE_KEY = "versionCodeKey";
 	
-	/** Maximum size (in MB) of the images cache */
-	private static final int IMAGES_CACHE_SIZE = 5;
-	
-	private static final String IMAGES_DIRECTORY = "images";
-	private static final String HTTP_CACHE_DIRECTORY_PREFFIX = "http_";
+	private static final String CACHE_DIRECTORY_PREFFIX = "cache_";
 	
 	protected static AbstractApplication INSTANCE;
 	
@@ -85,10 +77,6 @@ public abstract class AbstractApplication extends Application {
 	
 	/** Current activity in the top stack. */
 	private Activity currentActivity;
-	
-	private File cacheDirectory;
-	private File imagesCacheDirectory;
-	private BitmapLruCache bitmapLruCache;
 	
 	private String installationId;
 	private boolean inBackground = false;
@@ -136,11 +124,8 @@ public abstract class AbstractApplication extends Application {
 			public void run() {
 				loadInstallationId();
 				verifyAppLaunchStatus();
-				initHttpCache();
+				initFileSystemCache();
 				initEncryptionUtils();
-				initCacheDirectory();
-				initImagesCacheDirectory();
-				initBitmapLruCache();
 			}
 		});
 		
@@ -160,19 +145,6 @@ public abstract class AbstractApplication extends Application {
 		configBuilder.defaultDisplayImageOptions(defaultOptiBuilder.build());
 		
 		ImageLoader.getInstance().init(configBuilder.build());
-	}
-	
-	/**
-	 * @see android.app.Application#onTrimMemory(int)
-	 */
-	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-	@Override
-	public void onTrimMemory(int level) {
-		super.onTrimMemory(level);
-		
-		if (level >= TRIM_MEMORY_MODERATE) {
-			bitmapLruCache.evictAll();
-		}
 	}
 	
 	protected void verifyAppLaunchStatus() {
@@ -215,45 +187,12 @@ public abstract class AbstractApplication extends Application {
 		}
 	}
 	
-	protected void initCacheDirectory() {
-		// Configure the cache dir for the whole application
-		cacheDirectory = getExternalCacheDir();
-		if (cacheDirectory == null) {
-			// TODO We could listen the Intent.ACTION_DEVICE_STORAGE_LOW and clear the cache
-			cacheDirectory = getCacheDir();
-		}
-		LOGGER.debug("Cache directory: " + cacheDirectory.getPath());
-	}
-	
-	protected void initImagesCacheDirectory() {
-		imagesCacheDirectory = new File(getCacheDirectory(), IMAGES_DIRECTORY);
-		LOGGER.debug("Images cache directory: " + imagesCacheDirectory.getPath());
-		ExecutorUtils.execute(new Runnable() {
-			
-			@Override
-			public void run() {
-				File dir = getImagesCacheDirectory();
-				if ((dir != null) && ((FileUtils.getDirectorySize(dir) / FileUtils.BYTES_TO_MB) > IMAGES_CACHE_SIZE)) {
-					FileUtils.forceDelete(imagesCacheDirectory);
-				}
-			}
-		});
-	}
-	
-	protected void initBitmapLruCache() {
-		// Get memory class of this device, exceeding this amount will throw an OutOfMemory exception.
-		int memClass = ((ActivityManager)getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass();
-		// Use 1/8th of the available memory for this memory cache.
-		int cacheSize = (1024 * 1024 * memClass) / 8;
-		bitmapLruCache = new BitmapLruCache(cacheSize);
-	}
-	
-	protected void initHttpCache() {
+	protected void initFileSystemCache() {
 		try {
 			
 			// Sort the caches by priority
-			List<Cache> httpCaches = getHttpCaches();
-			Collections.sort(httpCaches, new Comparator<Cache>() {
+			List<Cache> caches = getFileSystemCaches();
+			Collections.sort(caches, new Comparator<Cache>() {
 				
 				@Override
 				public int compare(Cache cache1, Cache cache2) {
@@ -261,9 +200,9 @@ public abstract class AbstractApplication extends Application {
 				}
 			});
 			
-			for (Cache cache : httpCaches) {
-				populateHttpCache(cache);
-				reduceHttpCache(cache);
+			for (Cache cache : caches) {
+				populateFileSystemCache(cache);
+				reduceFileSystemCache(cache);
 			}
 		} catch (Exception e) {
 			getExceptionHandler().logHandledException(e);
@@ -271,7 +210,7 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	@SuppressWarnings("resource")
-	protected void populateHttpCache(Cache cache) {
+	protected void populateFileSystemCache(Cache cache) {
 		
 		if (!appLaunchStatus.equals(AppLaunchStatus.NORMAL)) {
 			
@@ -282,7 +221,7 @@ public abstract class AbstractApplication extends Application {
 					InputStream source = AbstractApplication.class.getClassLoader().getResourceAsStream(
 						"cache/" + entry.getKey());
 					if (source != null) {
-						File cacheFile = new File(AbstractApplication.get().getHttpCacheDirectory(cache),
+						File cacheFile = new File(AbstractApplication.get().getFileSystemCacheDirectory(cache),
 								CachedWebService.generateCacheFileName(entry.getValue()));
 						FileUtils.copyStream(source, cacheFile);
 						LOGGER.debug("Populated " + entry.toString() + " to " + cacheFile.getAbsolutePath());
@@ -294,9 +233,9 @@ public abstract class AbstractApplication extends Application {
 		}
 	}
 	
-	protected void reduceHttpCache(Cache cache) {
+	protected void reduceFileSystemCache(Cache cache) {
 		if (cache.getMaximumSize() != null) {
-			File dir = getHttpCacheDirectory(cache);
+			File dir = getFileSystemCacheDirectory(cache);
 			
 			// Verify if the cache should be clean
 			if (dir != null) {
@@ -327,16 +266,16 @@ public abstract class AbstractApplication extends Application {
 		}
 	}
 	
-	protected List<Cache> getHttpCaches() {
+	protected List<Cache> getFileSystemCaches() {
 		return Lists.newArrayList();
 	}
 	
-	public void cleanHttpCache(Cache cache) {
-		FileUtils.forceDelete(getHttpCacheDirectory(cache));
+	public void cleanFileSystemCache(Cache cache) {
+		FileUtils.forceDelete(getFileSystemCacheDirectory(cache));
 	}
 	
-	public File getHttpCacheDirectory(Cache cache) {
-		return getApplicationContext().getDir(HTTP_CACHE_DIRECTORY_PREFFIX + cache.getName(), Context.MODE_PRIVATE);
+	public File getFileSystemCacheDirectory(Cache cache) {
+		return getApplicationContext().getDir(CACHE_DIRECTORY_PREFFIX + cache.getName(), Context.MODE_PRIVATE);
 	}
 	
 	private void initInAppBilling() {
@@ -412,13 +351,6 @@ public abstract class AbstractApplication extends Application {
 		}
 	}
 	
-	/**
-	 * @return the bitmapLruCache
-	 */
-	public BitmapLruCache getBitmapLruCache() {
-		return bitmapLruCache;
-	}
-	
 	public abstract Class<? extends Activity> getHomeActivityClass();
 	
 	protected DefaultApplicationContext createApplicationContext() {
@@ -447,23 +379,6 @@ public abstract class AbstractApplication extends Application {
 	
 	public Activity getCurrentActivity() {
 		return currentActivity;
-	}
-	
-	/**
-	 * @return the cacheDirectory
-	 */
-	public File getCacheDirectory() {
-		if (!cacheDirectory.exists()) {
-			cacheDirectory.mkdirs();
-		}
-		return cacheDirectory;
-	}
-	
-	public File getImagesCacheDirectory() {
-		if (!imagesCacheDirectory.exists()) {
-			imagesCacheDirectory.mkdirs();
-		}
-		return imagesCacheDirectory.exists() && imagesCacheDirectory.isDirectory() ? imagesCacheDirectory : null;
 	}
 	
 	/**

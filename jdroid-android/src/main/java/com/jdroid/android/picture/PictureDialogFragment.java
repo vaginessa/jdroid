@@ -1,10 +1,12 @@
 package com.jdroid.android.picture;
 
 import java.io.File;
+import java.util.Date;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,11 +15,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.dialog.AbstractDialogFragment;
 import com.jdroid.android.domain.UriFileContent;
 import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.java.utils.DateUtils;
 
 /**
  * 
@@ -82,9 +84,8 @@ public class PictureDialogFragment extends AbstractDialogFragment {
 				
 				@Override
 				public void onClick(View v) {
-					File file = new File(AbstractApplication.get().getImagesCacheDirectory(),
-							System.currentTimeMillis() + ".png");
-					outputFileUri = Uri.fromFile(file);
+					outputFileUri = getOutputMediaFileUri();
+					
 					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 					intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
 					startActivityForResult(intent, CAMERA_REQUEST_CODE);
@@ -144,6 +145,31 @@ public class PictureDialogFragment extends AbstractDialogFragment {
 	public void onSaveInstanceState(Bundle bundle) {
 		super.onSaveInstanceState(bundle);
 		bundle.putParcelable(OUTPUT_FILE_URI_EXTRA, outputFileUri);
+	}
+	
+	private Uri getOutputMediaFileUri() {
+		
+		// TODO To be safe, you should check that the SDCard is mounted using Environment.getExternalStorageState()
+		// before doing this.
+		
+		// This location works best if you want the created images to be shared between applications and persist after
+		// your app has been uninstalled.
+		String appName = AndroidUtils.getApplicationName().trim().replace(" ", "_");
+		File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+				appName);
+		
+		// Create the storage directory if it does not exist
+		if (!mediaStorageDir.exists()) {
+			if (!mediaStorageDir.mkdirs()) {
+				return null;
+			}
+		}
+		
+		// Create a media file name
+		String timeStamp = DateUtils.format(new Date(), "yyyyMMdd_HHmmss");
+		File mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".png");
+		
+		return Uri.fromFile(mediaFile);
 	}
 	
 }
