@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.jdroid.android.adapter.BaseArrayAdapter;
-import com.jdroid.android.domain.FileContent;
 import com.jdroid.android.images.ReflectedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -62,13 +61,13 @@ public abstract class CoverFlowImageAdapter<T> extends BaseArrayAdapter<T> {
 			imageView = (ImageView)convertView;
 		}
 		imageView.setTag(position);
-		FileContent fileContent = getFileContent(getItem(position));
-		ImageLoader.getInstance().displayImage(fileContent.getUriAsString(), imageView, displayImageOptions);
+		String imageUrl = getImageUrl(getItem(position));
+		ImageLoader.getInstance().displayImage(imageUrl, imageView, displayImageOptions);
 		
 		return imageView;
 	}
 	
-	protected abstract FileContent getFileContent(T item);
+	protected abstract String getImageUrl(T item);
 	
 	protected abstract int getDefaultDrawableId();
 	

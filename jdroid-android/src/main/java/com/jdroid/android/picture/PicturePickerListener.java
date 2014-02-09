@@ -1,6 +1,5 @@
 package com.jdroid.android.picture;
 
-import com.jdroid.android.domain.FileContent;
 
 /**
  * 
@@ -8,6 +7,6 @@ import com.jdroid.android.domain.FileContent;
  */
 public interface PicturePickerListener {
 	
-	public void onPicturePicked(FileContent fileContent);
+	public void onPicturePicked(String pictureUrl);
 	
 }

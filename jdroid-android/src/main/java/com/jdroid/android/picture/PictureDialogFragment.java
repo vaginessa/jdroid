@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import com.jdroid.android.R;
 import com.jdroid.android.dialog.AbstractDialogFragment;
-import com.jdroid.android.domain.UriFileContent;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.utils.DateUtils;
 
@@ -133,7 +132,7 @@ public class PictureDialogFragment extends AbstractDialogFragment {
 					break;
 			}
 			PicturePickerListener listener = (PicturePickerListener)getTargetFragment();
-			listener.onPicturePicked(new UriFileContent(path));
+			listener.onPicturePicked(path.toString());
 			dismissAllowingStateLoss();
 		}
 	}

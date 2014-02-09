@@ -12,7 +12,6 @@ import android.provider.BaseColumns;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds;
 import android.provider.ContactsContract.Contacts;
-import com.jdroid.android.domain.FileContent;
 
 /**
  * 
@@ -50,8 +49,8 @@ public class ContactsCursor extends CursorWrapper {
 		return getString(3);
 	}
 	
-	public FileContent getContactFileContent() {
-		return new ContactFileContent(getPhotoContactId());
+	public Uri getContactUri() {
+		return ContentUris.withAppendedId(Contacts.CONTENT_URI, getPhotoContactId());
 	}
 	
 	@SuppressWarnings("resource")

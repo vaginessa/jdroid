@@ -2,8 +2,6 @@ package com.jdroid.android.social;
 
 import com.jdroid.android.R;
 import com.jdroid.android.domain.Entity;
-import com.jdroid.android.domain.FileContent;
-import com.jdroid.android.domain.UriFileContent;
 
 /**
  * 
@@ -30,7 +28,7 @@ public class SocialUser extends Entity {
 	private SocialNetwork socialNetwork;
 	private String firstName;
 	private String lastName;
-	private FileContent image;
+	private String imageURL;
 	
 	public SocialUser(Long id, String socialId, SocialNetwork socialNetwork, String firstName, String lastName,
 			String imageURL) {
@@ -39,7 +37,7 @@ public class SocialUser extends Entity {
 		this.socialNetwork = socialNetwork;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		image = new UriFileContent(imageURL);
+		this.imageURL = imageURL;
 	}
 	
 	public String getFullname() {
@@ -60,8 +58,8 @@ public class SocialUser extends Entity {
 		return lastName;
 	}
 	
-	public FileContent getImage() {
-		return image;
+	public String getImageUrl() {
+		return imageURL;
 	}
 	
 	/**

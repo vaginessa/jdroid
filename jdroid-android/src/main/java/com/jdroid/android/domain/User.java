@@ -20,6 +20,6 @@ public interface User {
 	
 	public String getUserToken();
 	
-	public FileContent getImage();
+	public String getImageUrl();
 	
 }
