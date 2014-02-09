@@ -71,7 +71,6 @@ public class FlurryTracker implements AnalyticsTracker {
 				params.put("installationSource", installationSource);
 				params.put("installedOnSdCard", AndroidUtils.isInstalledOnSdCard().toString());
 				params.put("apiLevel", AndroidUtils.getApiLevel().toString());
-				params.put("screenSize", AndroidUtils.getScreenSize());
 				params.put("screenDensity", AndroidUtils.getScreenDensity());
 				params.put("deviceName", AndroidUtils.getDeviceName());
 				params.put("deviceType", AndroidUtils.getDeviceType());

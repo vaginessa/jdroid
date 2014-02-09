@@ -27,8 +27,7 @@ public abstract class ContextualActivity<T extends TabAction> extends AbstractFr
 	 */
 	@Override
 	public int getContentView() {
-		return AndroidUtils.isLargeScreenOrBigger() ? R.layout.contextual_activity
-				: R.layout.fragment_container_activity;
+		return AndroidUtils.is7InchesOrBigger() ? R.layout.contextual_activity : R.layout.fragment_container_activity;
 	}
 	
 	/**
@@ -49,7 +48,7 @@ public abstract class ContextualActivity<T extends TabAction> extends AbstractFr
 			fragmentTransaction.add(R.id.fragmentContainer,
 				newContextualListFragment(getContextualItems(), defaultContextualItem));
 			
-			if (AndroidUtils.isLargeScreenOrBigger()) {
+			if (AndroidUtils.is7InchesOrBigger()) {
 				fragmentTransaction.add(R.id.detailsFragmentContainer,
 					defaultContextualItem.createFragment(getExtra(DEFAULT_CONTEXTUAL_ITEM_BUNDLE_EXTRA)),
 					defaultContextualItem.getName());
@@ -108,7 +107,7 @@ public abstract class ContextualActivity<T extends TabAction> extends AbstractFr
 		
 		T contextualItem = (T)intent.getExtras().getSerializable(DEFAULT_CONTEXTUAL_ITEM_EXTRA);
 		
-		if (AndroidUtils.isLargeScreenOrBigger()) {
+		if (AndroidUtils.is7InchesOrBigger()) {
 			
 			// Refresh the detail
 			replaceDetailsFragment(contextualItem);

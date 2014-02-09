@@ -67,7 +67,7 @@ public class ContextualListFragment extends AbstractListFragment<TabAction> {
 		super.onViewCreated(view, savedInstanceState);
 		setListAdapter(new ContextualItemsAdapter(this.getActivity(), actions));
 		
-		if (AndroidUtils.isLargeScreenOrBigger()) {
+		if (AndroidUtils.is7InchesOrBigger()) {
 			getListView().setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 			getListView().setItemChecked(defaultIndex, true);
 		} else {
@@ -95,6 +95,6 @@ public class ContextualListFragment extends AbstractListFragment<TabAction> {
 	 */
 	@Override
 	public AdSize getAdSize() {
-		return AndroidUtils.isLargeScreenOrBigger() ? null : AdSize.SMART_BANNER;
+		return AndroidUtils.is7InchesOrBigger() ? null : AdSize.SMART_BANNER;
 	}
 }

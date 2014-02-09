@@ -35,9 +35,6 @@ public class DebugInfoView extends LinearLayout {
 		analyticsEnabled.setText(context.getString(R.string.analyticsEnabled,
 			applicationContext.isGoogleAnalyticsEnabled()));
 		
-		TextView screenSize = (TextView)findViewById(R.id.screenSize);
-		screenSize.setText(context.getString(R.string.screenSize, AndroidUtils.getScreenSize()));
-		
 		TextView smallestScreenWidthDp = (TextView)findViewById(R.id.smallestScreenWidthDp);
 		smallestScreenWidthDp.setText(context.getString(R.string.smallestScreenWidthDp,
 			AndroidUtils.getSmallestScreenWidthDp()));
