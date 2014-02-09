@@ -54,6 +54,7 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * ListView & GridView pagination support
 * Picture import (From camera or gallery) component
 * Barcode reading component
+* Refresh action provider component
 * Coverflow component
 * Voice Recognizer component
 * Date & Time picker components
