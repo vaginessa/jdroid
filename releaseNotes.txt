@@ -15,8 +15,12 @@ jdroid Android\n
 * Added EmailAutoCompleteTextView component\n
 * Added non blocking loading support\n
 * Added Sqlite integration\n
+* Added Universal Image Loader integration\n
+* Added ListView & GridView pagination support\n
 * Added http cache implementation\n
+* Added refresh action provider component\n
 * Search fragment improvements\n
+* ToastUtils improvements\n
 * Upgraded dependencies versions\n
 * Bug fixing\n
 \n
