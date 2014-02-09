@@ -19,6 +19,7 @@ jdroid Android\n
 * Added ListView & GridView pagination support\n
 * Added http cache implementation\n
 * Added refresh action provider component\n
+* Removed large & xlarge supported and replaced by sw600 & sw720\n
 * Search fragment improvements\n
 * ToastUtils improvements\n
 * Upgraded dependencies versions\n
