@@ -40,7 +40,8 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
  * Google Maps v2 integration
  * Google+ integration: +1 button, friends, sign in, sign out, revoke access
  * AdMob integration
-* Sqlite integration 
+* Sqlite integration
+* Android Universal Image Loader integration
 * In App Billing integration
 * Facebook integration
 * Twitter integration
@@ -50,8 +51,7 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * Debug settings support
 * Base Activity & Fragment implementations
 * Exception handling
-* Remote image loading component
-* Disk & Memory Images Cache
+* ListView & GridView pagination support
 * Picture import (From camera or gallery) component
 * Barcode reading component
 * Coverflow component
