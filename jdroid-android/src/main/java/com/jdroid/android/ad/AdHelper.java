@@ -37,7 +37,6 @@ public class AdHelper {
 					}
 				}
 				
-				adView.setAdListener(new ZoomAdListener(adView));
 				adView.loadAd(builder.build());
 				adViewContainer.addView(adView);
 			}
