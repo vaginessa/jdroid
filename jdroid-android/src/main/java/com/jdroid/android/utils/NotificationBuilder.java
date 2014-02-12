@@ -75,7 +75,7 @@ public class NotificationBuilder {
 	}
 	
 	public void setContentIntentSingleTop(Intent notificationIntent) {
-		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 		builder.setContentIntent(PendingIntent.getActivity(AbstractApplication.get(), 0, notificationIntent, 0));
 	}
 	
