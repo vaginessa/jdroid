@@ -12,6 +12,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -327,5 +328,22 @@ public class AndroidUtils {
 			uuid = StringUtils.isNotBlank(deviceId) ? deviceId : AbstractApplication.get().getInstallationId();
 		}
 		return uuid;
+	}
+	
+	/**
+	 * This method converts dp unit to equivalent pixels, depending on device density.
+	 * 
+	 * @param dp A value in dp (density independent pixels) unit. Which we need to convert into pixels
+	 * @param context Context to get resources and device specific display metrics
+	 * @return An int value to represent px equivalent to dp depending on device density
+	 */
+	public static int convertDpToPixel(float dp, Context context) {
+		Resources resources = context.getResources();
+		DisplayMetrics metrics = resources.getDisplayMetrics();
+		return (int)(dp * (metrics.densityDpi / 160f));
+	}
+	
+	public static int convertDimenToPixel(int dimenResId) {
+		return (int)AbstractApplication.get().getResources().getDimension(dimenResId);
 	}
 }

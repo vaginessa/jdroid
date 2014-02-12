@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 
 /**
@@ -30,11 +31,12 @@ public class ImageLoaderUtils {
 		displayImage(url, imageView, defaultImage, null);
 	}
 	
-	public static Bitmap loadBitmap(String url, int width, int height) {
+	public static Bitmap loadBitmap(String url, ImageScaleType imageScaleType, int width, int height) {
 		
 		DisplayImageOptions.Builder optionsBuilder = new DisplayImageOptions.Builder();
 		optionsBuilder.cacheInMemory(true);
 		optionsBuilder.cacheOnDisc(true);
+		optionsBuilder.imageScaleType(imageScaleType);
 		
 		ImageSize imageSize = new ImageSize(width, height);
 		
