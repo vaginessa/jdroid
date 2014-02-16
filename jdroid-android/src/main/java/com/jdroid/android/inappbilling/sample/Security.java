@@ -35,12 +35,12 @@ public class Security {
 	
 	/**
 	 * Verifies that the data was signed with the given signature, and returns the verified purchase. The data is in
-	 * JSON format and signed with a private key. The data also contains the {@link PurchaseState} and product ID of the
-	 * purchase.
+	 * JSON format and signed with a private key.
 	 * 
 	 * @param base64PublicKey the base64-encoded public key to use for verifying.
 	 * @param signedData the signed JSON string (signed, not encrypted)
 	 * @param signature the signature for the data, signed with the private key
+	 * @return Whether the verification was successful or not
 	 */
 	public static boolean verifyPurchase(String base64PublicKey, String signedData, String signature) {
 		if (TextUtils.isEmpty(signedData) || TextUtils.isEmpty(base64PublicKey) || TextUtils.isEmpty(signature)) {
@@ -56,6 +56,7 @@ public class Security {
 	 * Generates a PublicKey instance from a string containing the Base64-encoded public key.
 	 * 
 	 * @param encodedPublicKey Base64-encoded public key
+	 * @return The {@link PublicKey}
 	 * @throws IllegalArgumentException if encodedPublicKey is invalid
 	 */
 	public static PublicKey generatePublicKey(String encodedPublicKey) {

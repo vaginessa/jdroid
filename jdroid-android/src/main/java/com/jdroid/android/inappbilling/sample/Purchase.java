@@ -17,21 +17,19 @@ import org.json.JSONObject;
  */
 public class Purchase {
 	
-	String mItemType; // ITEM_TYPE_INAPP or ITEM_TYPE_SUBS
-	String mOrderId;
-	String mPackageName;
-	String mSku;
-	long mPurchaseTime;
-	int mPurchaseState;
-	String mDeveloperPayload;
-	String mToken;
-	String mOriginalJson;
-	String mSignature;
+	private String mItemType; // ITEM_TYPE_INAPP or ITEM_TYPE_SUBS
+	private String mOrderId;
+	private String mPackageName;
+	private String mSku;
+	private long mPurchaseTime;
+	private int mPurchaseState;
+	private String mDeveloperPayload;
+	private String mToken;
+	private String mSignature;
 	
 	public Purchase(String itemType, String jsonPurchaseInfo, String signature) throws JSONException {
 		mItemType = itemType;
-		mOriginalJson = jsonPurchaseInfo;
-		JSONObject o = new JSONObject(mOriginalJson);
+		JSONObject o = new JSONObject(jsonPurchaseInfo);
 		mOrderId = o.optString("orderId");
 		mPackageName = o.optString("packageName");
 		mSku = o.optString("productId");
@@ -74,16 +72,19 @@ public class Purchase {
 		return mToken;
 	}
 	
-	public String getOriginalJson() {
-		return mOriginalJson;
-	}
-	
 	public String getSignature() {
 		return mSignature;
 	}
 	
+	/**
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return "PurchaseInfo(type:" + mItemType + "):" + mOriginalJson;
+		return "Purchase [mItemType=" + mItemType + ", mOrderId=" + mOrderId + ", mPackageName=" + mPackageName
+				+ ", mSku=" + mSku + ", mPurchaseTime=" + mPurchaseTime + ", mPurchaseState=" + mPurchaseState
+				+ ", mDeveloperPayload=" + mDeveloperPayload + ", mToken=" + mToken + ", mSignature=" + mSignature
+				+ "]";
 	}
+	
 }

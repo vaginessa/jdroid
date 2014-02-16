@@ -52,7 +52,7 @@ import com.android.vending.billing.IInAppBillingService;
  * @author Bruno Oliveira (Google)
  * 
  */
-public class IabHelper {
+public class InAppBillingClient {
 	
 	// Is debug logging enabled?
 	boolean mDebugLog = false;
@@ -143,7 +143,7 @@ public class IabHelper {
 	 *            purchase signatures. You can find your app's base64-encoded public key in your application's page on
 	 *            Google Play Developer Console. Note that this is NOT your "developer public key".
 	 */
-	public IabHelper(Context ctx, String base64PublicKey) {
+	public InAppBillingClient(Context ctx, String base64PublicKey) {
 		mContext = ctx.getApplicationContext();
 		mSignatureBase64 = base64PublicKey;
 		logDebug("IAB helper created.");
@@ -151,6 +151,9 @@ public class IabHelper {
 	
 	/**
 	 * Enables or disable debug logging through LogCat.
+	 * 
+	 * @param enable
+	 * @param tag
 	 */
 	public void enableDebugLogging(boolean enable, String tag) {
 		checkNotDisposed();
@@ -175,6 +178,7 @@ public class IabHelper {
 		 * @param result The result of the setup process.
 		 */
 		public void onIabSetupFinished(IabResult result);
+		
 	}
 	
 	/**
@@ -291,7 +295,9 @@ public class IabHelper {
 		}
 	}
 	
-	/** Returns whether subscriptions are supported. */
+	/**
+	 * @return whether subscriptions are supported.
+	 */
 	public boolean subscriptionsSupported() {
 		checkNotDisposed();
 		return mSubscriptionsSupported;
@@ -411,10 +417,10 @@ public class IabHelper {
 		}
 	}
 	
-/**
+	/**
 	 * Handles an activity result that's part of the purchase flow in in-app billing. If you are calling
-	 * {@link #launchPurchaseFlow}, then you must call this method from your Activity's {@link android.app.Activity
-	 * @onActivityResult} method. This method MUST be called from the UI thread of the Activity.
+	 * {@link #launchPurchaseFlow}, then you must call this method from your Activity's onActivityResult method. This
+	 * method MUST be called from the UI thread of the Activity.
 	 * 
 	 * @param requestCode The requestCode as you received it.
 	 * @param resultCode The resultCode as you received it.
@@ -524,7 +530,7 @@ public class IabHelper {
 	/**
 	 * Queries the inventory. This will query all owned items from the server, as well as information on additional
 	 * skus, if specified. This method may block or take long to execute. Do not call from a UI thread. For that, use
-	 * the non-blocking version {@link #refreshInventoryAsync}.
+	 * the non-blocking version refreshInventoryAsync.
 	 * 
 	 * @param querySkuDetails if true, SKU details (price, description, etc) will be queried as well as purchase
 	 *            information.
@@ -532,6 +538,7 @@ public class IabHelper {
 	 *            if querySkuDetails is false.
 	 * @param moreSubsSkus additional SUBSCRIPTIONS skus to query information on, regardless of ownership. Ignored if
 	 *            null or if querySkuDetails is false.
+	 * @return The {@link Inventory}
 	 * @throws IabException if a problem occurs while refreshing the inventory.
 	 */
 	public Inventory queryInventory(boolean querySkuDetails, List<String> moreItemSkus, List<String> moreSubsSkus)
@@ -645,8 +652,8 @@ public class IabHelper {
 		checkNotDisposed();
 		checkSetupDone("consume");
 		
-		if (!itemInfo.mItemType.equals(ITEM_TYPE_INAPP)) {
-			throw new IabException(IABHELPER_INVALID_CONSUMPTION, "Items of type '" + itemInfo.mItemType
+		if (!itemInfo.getItemType().equals(ITEM_TYPE_INAPP)) {
+			throw new IabException(IABHELPER_INVALID_CONSUMPTION, "Items of type '" + itemInfo.getItemType()
 					+ "' can't be consumed.");
 		}
 		
@@ -717,7 +724,7 @@ public class IabHelper {
 	}
 	
 	/**
-	 * Same as {@link consumeAsync}, but for multiple items at once.
+	 * Same as consumeAsync, but for multiple items at once.
 	 * 
 	 * @param purchases The list of PurchaseInfo objects representing the purchases to consume.
 	 * @param listener The listener to notify when the consumption operation finishes.

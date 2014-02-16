@@ -10,4 +10,10 @@ public interface ProductType {
 	
 	public Boolean isConsumable();
 	
+	public Integer getLayoutId();
+	
+	public Integer getTitleId();
+	
+	public Integer getDescriptionId();
+	
 }

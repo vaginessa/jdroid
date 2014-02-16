@@ -23,9 +23,9 @@ public class IabResult {
 	public IabResult(int response, String message) {
 		mResponse = response;
 		if ((message == null) || (message.trim().length() == 0)) {
-			mMessage = IabHelper.getResponseDesc(response);
+			mMessage = InAppBillingClient.getResponseDesc(response);
 		} else {
-			mMessage = message + " (response: " + IabHelper.getResponseDesc(response) + ")";
+			mMessage = message + " (response: " + InAppBillingClient.getResponseDesc(response) + ")";
 		}
 	}
 	
@@ -38,7 +38,7 @@ public class IabResult {
 	}
 	
 	public boolean isSuccess() {
-		return mResponse == IabHelper.BILLING_RESPONSE_RESULT_OK;
+		return mResponse == InAppBillingClient.BILLING_RESPONSE_RESULT_OK;
 	}
 	
 	public boolean isFailure() {

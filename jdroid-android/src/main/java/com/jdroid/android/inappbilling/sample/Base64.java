@@ -29,9 +29,6 @@ package com.jdroid.android.inappbilling.sample;
 /**
  * Base64 converter class. This code is not a complete MIME encoder; it simply converts binary data to base64 data and
  * back.
- * 
- * <p>
- * Note {@link CharBase64} is a GWT-compatible implementation of this class.
  */
 public class Base64 {
 	
@@ -212,7 +209,7 @@ public class Base64 {
 	 * Encodes a byte array into Base64 notation. Equivalent to calling {@code encodeBytes(source, 0, source.length)}
 	 * 
 	 * @param source The data to convert
-	 * @since 1.4
+	 * @return The encoded byte array
 	 */
 	public static String encode(byte[] source) {
 		return encode(source, 0, source.length, ALPHABET, true);
@@ -223,6 +220,7 @@ public class Base64 {
 	 * 
 	 * @param source The data to convert
 	 * @param doPadding is {@code true} to pad result with '=' chars if it does not fall on 3 byte boundaries
+	 * @return The encoded byte array
 	 */
 	public static String encodeWebSafe(byte[] source, boolean doPadding) {
 		return encode(source, 0, source.length, WEBSAFE_ALPHABET, doPadding);
@@ -236,7 +234,7 @@ public class Base64 {
 	 * @param len length of data to convert
 	 * @param alphabet the encoding alphabet
 	 * @param doPadding is {@code true} to pad result with '=' chars if it does not fall on 3 byte boundaries
-	 * @since 1.4
+	 * @return The encoded byte array
 	 */
 	public static String encode(byte[] source, int off, int len, byte[] alphabet, boolean doPadding) {
 		byte[] outBuff = encode(source, off, len, alphabet, Integer.MAX_VALUE);
@@ -365,7 +363,7 @@ public class Base64 {
 	 * 
 	 * @param s the string to decode (decoded in default encoding)
 	 * @return the decoded data
-	 * @since 1.4
+	 * @throws Base64DecoderException
 	 */
 	public static byte[] decode(String s) throws Base64DecoderException {
 		byte[] bytes = s.getBytes();
@@ -377,6 +375,7 @@ public class Base64 {
 	 * 
 	 * @param s the string to decode (decoded in default encoding)
 	 * @return the decoded data
+	 * @throws Base64DecoderException
 	 */
 	public static byte[] decodeWebSafe(String s) throws Base64DecoderException {
 		byte[] bytes = s.getBytes();
@@ -401,6 +400,7 @@ public class Base64 {
 	 * 
 	 * @param source the string to decode (decoded in default encoding)
 	 * @return the decoded data
+	 * @throws Base64DecoderException
 	 */
 	public static byte[] decodeWebSafe(byte[] source) throws Base64DecoderException {
 		return decodeWebSafe(source, 0, source.length);
@@ -428,6 +428,7 @@ public class Base64 {
 	 * @param off the offset of where to begin decoding
 	 * @param len the length of characters to decode
 	 * @return decoded data
+	 * @throws Base64DecoderException
 	 */
 	public static byte[] decodeWebSafe(byte[] source, int off, int len) throws Base64DecoderException {
 		return decode(source, off, len, WEBSAFE_DECODABET);
@@ -441,6 +442,7 @@ public class Base64 {
 	 * @param len the length of characters to decode
 	 * @param decodabet the decodabet for decoding Base64 content
 	 * @return decoded data
+	 * @throws Base64DecoderException
 	 */
 	public static byte[] decode(byte[] source, int off, int len, byte[] decodabet) throws Base64DecoderException {
 		int len34 = (len * 3) / 4;

@@ -50,4 +50,28 @@ public enum TestProductType implements ProductType {
 	public Boolean isConsumable() {
 		return false;
 	}
+	
+	/**
+	 * @see com.jdroid.android.inappbilling.ProductType#getDescriptionId()
+	 */
+	@Override
+	public Integer getDescriptionId() {
+		return null;
+	}
+	
+	/**
+	 * @see com.jdroid.android.inappbilling.ProductType#getLayoutId()
+	 */
+	@Override
+	public Integer getLayoutId() {
+		return null;
+	}
+	
+	/**
+	 * @see com.jdroid.android.inappbilling.ProductType#getTitleId()
+	 */
+	@Override
+	public Integer getTitleId() {
+		return null;
+	}
 }
