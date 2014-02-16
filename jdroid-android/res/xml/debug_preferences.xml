@@ -18,4 +18,11 @@
 		<ListPreference android:key="crashType" android:title="@string/crashType" android:summary="@string/crashTypeDescription"
 			android:entries="@array/crashTypeEntries" android:entryValues="@array/crashTypeEntries" android:dialogTitle="@string/crashType" />
 	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/inAppBillingSettings">
+		<CheckBoxPreference android:key="inAppBillingMockEnabled" android:title="@string/inAppBillingMockEnabledTitle"
+			android:summary="@string/inAppBillingMockEnabledDescription" android:defaultValue="false" />
+		<ListPreference android:key="inAppBillingTestProductIds" android:title="@string/inAppBillingTestProductIdsTitle"
+			android:summary="@string/inAppBillingTestProductIdsDescription" android:entries="@array/inAppBillingTestProductIdsEntries"
+			android:entryValues="@array/inAppBillingTestProductIdsEntries" android:dialogTitle="@string/inAppBillingTestProductIdsTitle" />
+	</PreferenceCategory>
 </PreferenceScreen>

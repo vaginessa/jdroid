@@ -16,26 +16,39 @@ public class DefaultApplicationContext {
 	private static final String PROPERTIES_RESOURCE_NAME = "settings.properties";
 	private static final String LOCAL_PROPERTIES_RESOURCE_NAME = "settings.local.properties";
 	
+	// Environment
 	private String localIp;
 	private Environment environment;
+	private Boolean isFreeApp;
+	private String installationSource;
+	
+	// Social
 	private String googleProjectId;
 	private String facebookAppId;
+	
+	// Debug
 	private Boolean debugSettings;
 	private Boolean crashReportsEnabled;
-	private Boolean isFreeApp;
+	
+	// Ads
 	private Boolean adsEnabled;
 	private String adUnitId;
 	private Set<String> testDevicesIds;
+	
+	// Google Analytics
 	private Boolean googleAnalyticsEnabled;
 	private Boolean googleAnalyticsDebugEnabled;
 	private String googleAnalyticsTrackingId;
+	
+	// Flurry
 	private Boolean flurryEnabled;
 	private String flurryApiKey;
 	private Boolean flurryDebugEnabled;
+	
+	// Crittercism
 	private Boolean crittercismEnabled;
 	private String crittercismAppId;
 	private Boolean crittercismPremium;
-	private String installationSource;
 	
 	public DefaultApplicationContext() {
 		PropertiesUtils.loadProperties(LOCAL_PROPERTIES_RESOURCE_NAME);

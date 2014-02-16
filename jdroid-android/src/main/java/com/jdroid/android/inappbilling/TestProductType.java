@@ -1,10 +1,10 @@
-package com.jdroid.android.billing;
+package com.jdroid.android.inappbilling;
 
 /**
  * 
  * @author Maxi Rosson
  */
-public enum TestProduct implements Purchasable {
+public enum TestProductType implements ProductType {
 	
 	// When you make an in-app billing request with this product ID, the Google Play app responds as though you
 	// successfully purchased an item. The response includes a JSON string, which contains fake purchase information
@@ -31,12 +31,12 @@ public enum TestProduct implements Purchasable {
 	
 	private String productId;
 	
-	private TestProduct(String productId) {
+	private TestProductType(String productId) {
 		this.productId = productId;
 	}
 	
 	/**
-	 * @see com.jdroid.android.billing.Purchasable#getProductId()
+	 * @see com.jdroid.android.inappbilling.ProductType#getProductId()
 	 */
 	@Override
 	public String getProductId() {
@@ -44,19 +44,10 @@ public enum TestProduct implements Purchasable {
 	}
 	
 	/**
-	 * @see com.jdroid.android.billing.Purchasable#getPurchaseState()
+	 * @see com.jdroid.android.inappbilling.ProductType#isConsumable()
 	 */
 	@Override
-	public PurchaseState getPurchaseState() {
-		return PurchaseState.NOT_PURCHASED;
-	}
-	
-	/**
-	 * @see com.jdroid.android.billing.Purchasable#isAvailable()
-	 */
-	@Override
-	public Boolean isAvailable() {
+	public Boolean isConsumable() {
 		return false;
 	}
-	
 }
