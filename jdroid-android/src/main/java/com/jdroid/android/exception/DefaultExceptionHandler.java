@@ -145,7 +145,11 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	 */
 	@Override
 	public void logWarningException(String errorMessage, Throwable throwable) {
-		logHandledException(errorMessage, new WarningException(errorMessage, throwable));
+		if (throwable instanceof ConnectionException) {
+			logHandledException(errorMessage, throwable);
+		} else {
+			logHandledException(errorMessage, new WarningException(errorMessage, throwable));
+		}
 	}
 	
 	/**

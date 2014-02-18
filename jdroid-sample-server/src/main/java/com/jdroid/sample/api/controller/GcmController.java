@@ -41,7 +41,7 @@ public class GcmController {
 		
 		if (params != null) {
 			for (String param : StringUtils.splitToCollection(params.replace("[", "").replace("]", ""))) {
-				String[] vec = param.split(":");
+				String[] vec = param.split("\\|");
 				pushMessage.addParameter(vec[0], vec[1]);
 			}
 		}

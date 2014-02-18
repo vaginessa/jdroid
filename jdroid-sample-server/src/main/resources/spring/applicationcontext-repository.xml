@@ -5,6 +5,7 @@
 	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-	<bean id="deviceRepository" class="com.jdroid.sample.repository.DeviceHibernateRepository" />
+	<bean id="deviceRepository" class="com.jdroid.sample.repository.DeviceInMemoryRepository" />
+	<bean id="deviceGroupRepository" class="com.jdroid.sample.repository.DeviceGroupInMemoryRepository" />
 
 </beans>
