@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.jdroid</groupId>
 	<artifactId>jdroid-sample-server</artifactId>
-	<version>0.1.0</version>
+	<version>0.3.0</version>
 	<packaging>war</packaging>
 	<name>Jdroid Sample Server</name>
 	<parent>
