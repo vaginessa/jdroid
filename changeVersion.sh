@@ -11,6 +11,7 @@ sh $SOURCE_DIRECTORY/jdroid-scripts/replaceXmlTag.sh $SOURCE_DIRECTORY/jdroid-ja
 sh $SOURCE_DIRECTORY/jdroid-scripts/replaceXmlTag.sh $SOURCE_DIRECTORY/jdroid-android/pom.xml 'version' $VERSION
 sh $SOURCE_DIRECTORY/jdroid-scripts/replaceXmlTag.sh $SOURCE_DIRECTORY/jdroid-javaweb/pom.xml 'version' $VERSION
 sh $SOURCE_DIRECTORY/jdroid-scripts/replaceXmlTag.sh $SOURCE_DIRECTORY/jdroid-sample-server/pom.xml 'version' $VERSION
+sh $SOURCE_DIRECTORY/jdroid-scripts/replaceXmlTag.sh $SOURCE_DIRECTORY/jdroid-sample-server/pom.xml 'jdroid.version' $VERSION
 
 git diff HEAD
 git add -A
