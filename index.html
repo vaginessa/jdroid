@@ -42,10 +42,9 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <h1>
-<a name="jdroid" class="anchor" href="#jdroid"><span class="octicon octicon-link"></span></a>jdroid</h1>
+         <a name="jdroid" class="anchor" href="#jdroid"><span class="octicon octicon-link"></span></a>jdroid</h1>
 
-<p>jdroid is an application framework for Android &amp; Java apps.</p>
+<p>jdroid is an application framework for Android &amp; Java apps. The project use <a href="http://semver.org/">Semantic Versioning</a></p>
 
 <h2>
 <a name="jdroid-java" class="anchor" href="#jdroid-java"><span class="octicon octicon-link"></span></a>jdroid Java</h2>
@@ -62,6 +61,7 @@
 <li>Response validator</li>
 <li>Response Mocks support</li>
 <li>GZIP encoding</li>
+<li>Cache support</li>
 </ul>
 </li>
 <li>JSON &amp; Plain text parsers</li>
@@ -75,7 +75,7 @@
 <p>Dependency project for Java Web apps </p>
 
 <ul>
-<li>RestEasy integration</li>
+<li>Spring MVC integration</li>
 <li>Hibernate integration</li>
 <li>Facebook integration</li>
 <li>Generic push framework. Google Cloud Messaging implementation</li>
@@ -84,7 +84,7 @@
 </ul><h2>
 <a name="jdroid-android" class="anchor" href="#jdroid-android"><span class="octicon octicon-link"></span></a>jdroid Android</h2>
 
-<p>Library project for Android apps. Support for Android 3.2 and higher versions</p>
+<p>Library project for Android apps. Support for Android 4.0 (api level 14) and higher versions</p>
 
 <ul>
 <li>Google Analytics integration</li>
@@ -95,23 +95,24 @@
 <li>Google Cloud Messaging integration</li>
 <li>Google Maps v2 integration</li>
 <li>Google+ integration: +1 button, friends, sign in, sign out, revoke access</li>
+<li>AdMob integration</li>
 </ul>
 </li>
-<li>AdMob integration</li>
+<li>Sqlite integration</li>
+<li>Android Universal Image Loader integration</li>
 <li>In App Billing integration</li>
 <li>Facebook integration</li>
 <li>Twitter integration</li>
 <li>Crittercism integration</li>
-<li>Proguard support</li>
 <li>Lint support</li>
 <li>Strict mode support</li>
 <li>Debug settings support</li>
 <li>Base Activity &amp; Fragment implementations</li>
 <li>Exception handling</li>
-<li>Remote image loading component</li>
-<li>Disk &amp; Memory Images Cache</li>
+<li>ListView &amp; GridView pagination support</li>
 <li>Picture import (From camera or gallery) component</li>
 <li>Barcode reading component</li>
+<li>Refresh action provider component</li>
 <li>Coverflow component</li>
 <li>Voice Recognizer component</li>
 <li>Date &amp; Time picker components</li>
@@ -123,6 +124,17 @@
 </ul>
 </li>
 <li>Utilities for Alarms, Bitmaps, Notifications, Shared Preferences, Toasts, Sounds, GPS, and more</li>
+</ul><h2>
+<a name="jdroid-scripts" class="anchor" href="#jdroid-scripts"><span class="octicon octicon-link"></span></a>jdroid scripts</h2>
+
+<p>A set of useful shell scripts to</p>
+
+<ul>
+<li>Increment the pom &amp; android manifest versions according to <a href="http://semver.org/">Semantic Versioning</a>
+</li>
+<li>Create a pull request on Github</li>
+<li>Create a merge request on Gitlab</li>
+<li>Count the methods in android dex files</li>
 </ul><h2>
 <a name="jdroid-sample-server" class="anchor" href="#jdroid-sample-server"><span class="octicon octicon-link"></span></a>jdroid sample server</h2>
 
