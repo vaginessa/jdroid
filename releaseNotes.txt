@@ -1,6 +1,5 @@
 jdroid Java\n
 -----------\n
-* Added http cache implementation\n
 * Upgraded dependencies versions\n
 * Bug fixing\n
 \n
@@ -11,17 +10,6 @@ jdroid Java Web\n
 \n
 jdroid Android\n
 --------------\n
-* Changed min api level supported to 14\n
-* Added EmailAutoCompleteTextView component\n
-* Added non blocking loading support\n
-* Added Sqlite integration\n
-* Added Universal Image Loader integration\n
-* Added ListView & GridView pagination support\n
-* Added http cache implementation\n
-* Added refresh action provider component\n
-* Removed large & xlarge supported and replaced by sw600 & sw720\n
-* Search fragment improvements\n
-* ToastUtils improvements\n
 * Upgraded dependencies versions\n
 * Bug fixing\n
 \n
@@ -32,9 +20,3 @@ jdroid sample server\n
 \n
 jdroid scripts\n
 --------------\n
-A set of useful shell scripts to\n
-\n
-* Increment the pom & android manifest versions according to Semantic Versioning\n
-* Create a pull request on Github\n
-* Create a merge request on Gitlab\n
-* Count the methods in android dex files\n
