@@ -10,8 +10,10 @@ com.jdroid.android.ad
 com.jdroid.android.adapter
 com.jdroid.android.analytics
 com.jdroid.android.animation
+com.jdroid.android.api
 com.jdroid.android.barcode
 com.jdroid.android.billing
+com.jdroid.android.concurrent
 com.jdroid.android.contacts
 com.jdroid.android.contentprovider
 com.jdroid.android.context
@@ -23,7 +25,6 @@ com.jdroid.android.debug.mocks
 com.jdroid.android.dialog
 com.jdroid.android.domain
 com.jdroid.android.exception
-com.jdroid.android.filecontent
 com.jdroid.android.fragment
 com.jdroid.android.gcm
 com.jdroid.android.gps
@@ -34,8 +35,10 @@ com.jdroid.android.listener
 com.jdroid.android.loading
 com.jdroid.android.pager
 com.jdroid.android.picture
+com.jdroid.android.provider
 com.jdroid.android.refresh
 com.jdroid.android.repository
+com.jdroid.android.repository.sqlite
 com.jdroid.android.search
 com.jdroid.android.service
 com.jdroid.android.share
@@ -43,6 +46,7 @@ com.jdroid.android.social
 com.jdroid.android.social.facebook
 com.jdroid.android.social.googleplus
 com.jdroid.android.sound
+com.jdroid.android.sqlite
 com.jdroid.android.tabs
 com.jdroid.android.twitter
 com.jdroid.android.usecase
@@ -54,6 +58,7 @@ com.jdroid.android.voice
 com.jdroid.android.wizard
 com.jdroid.java.api
 com.jdroid.java.collections
+com.jdroid.java.concurrent
 com.jdroid.java.context
 com.jdroid.java.domain
 com.jdroid.java.exception
@@ -63,6 +68,7 @@ com.jdroid.java.http.apache.delete
 com.jdroid.java.http.apache.get
 com.jdroid.java.http.apache.post
 com.jdroid.java.http.apache.put
+com.jdroid.java.http.cache
 com.jdroid.java.http.mock
 com.jdroid.java.http.post
 com.jdroid.java.json
@@ -79,7 +85,6 @@ com.jdroid.java.search
 com.jdroid.java.utils
 com.jdroid.javaweb.api
 com.jdroid.javaweb.context
-com.jdroid.javaweb.datasource
 com.jdroid.javaweb.domain
 com.jdroid.javaweb.exception
 com.jdroid.javaweb.facebook
