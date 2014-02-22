@@ -18,6 +18,10 @@ jdroid-android/target/
 jdroid-android/tmp/
 jdroid-android/.settings/org.maven.ide.eclipse.prefs
 
+jdroid-google-play-services/bin/
+jdroid-google-play-services/gen/
+jdroid-google-play-services/target/
+
 jdroid-sample-server/bin/
 jdroid-sample-server/target/
 jdroid-sample-server/test-output/

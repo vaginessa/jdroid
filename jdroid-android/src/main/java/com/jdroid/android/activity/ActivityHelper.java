@@ -56,6 +56,7 @@ public class ActivityHelper implements ActivityIf {
 	private Handler locationHandler;
 	private BroadcastReceiver clearTaskBroadcastReceiver;
 	private AdHelper adHelper;
+	private boolean isDestoyed = false;
 	
 	/**
 	 * @param activity
@@ -273,6 +274,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	public void onDestroy() {
+		isDestoyed = true;
 		LOGGER.trace("Executing onDestroy on " + activity);
 		if (clearTaskBroadcastReceiver != null) {
 			activity.unregisterReceiver(clearTaskBroadcastReceiver);
@@ -366,7 +368,7 @@ public class ActivityHelper implements ActivityIf {
 			
 			@Override
 			public void run() {
-				if ((loadingDialog == null) || (!loadingDialog.isShowing())) {
+				if (!isDestoyed && ((loadingDialog == null) || (!loadingDialog.isShowing()))) {
 					loadingDialog = builder.build(activity);
 					loadingDialog.show();
 				}

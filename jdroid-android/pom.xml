@@ -61,7 +61,8 @@
 		<dependency>
 			<groupId>android</groupId>
 			<artifactId>google-play-services</artifactId>
-			<version>r14</version>
+			<version>${project.version}</version>
+			<type>apklib</type>
 		</dependency>
 
 		<!-- Google Analytics -->
