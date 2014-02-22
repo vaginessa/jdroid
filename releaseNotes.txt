@@ -20,3 +20,4 @@ jdroid sample server\n
 \n
 jdroid scripts\n
 --------------\n
+* Added Tomcat automatic start script\n
