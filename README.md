@@ -70,6 +70,7 @@ A set of useful shell scripts to
  * Create a pull request on Github
  * Create a merge request on Gitlab
  * Count the methods in android dex files
+ * Start/stop and deploy on Apache Tomcat
 
 jdroid sample server
 --------------
