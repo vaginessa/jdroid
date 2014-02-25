@@ -75,6 +75,14 @@ jdroid sample server
 --------------
 Sample server app using jdroid Java Web & jdroid Java
 
+Apps using jdroid
+--------------
+
+<a href="https://play.google.com/store/apps/details?id=com.mediafever">
+  <img alt="Get it on Google Play"
+       src="https://github.com/maxirosson/media-fever/blob/gh-pages/images/featureGraphic.png?raw=true" />
+</a>
+
 --------------
 For more information, visit the [GitHub Wiki][1] or our [Site][2].
 
