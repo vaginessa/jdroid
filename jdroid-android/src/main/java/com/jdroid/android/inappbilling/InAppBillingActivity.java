@@ -4,7 +4,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import android.content.Intent;
 import android.os.Bundle;
-import com.jdroid.android.activity.AbstractActivity;
+import com.jdroid.android.activity.AbstractFragmentActivity;
+import com.jdroid.android.exception.CommonErrorCode;
 import com.jdroid.android.inappbilling.sample.IabResult;
 import com.jdroid.android.inappbilling.sample.InAppBillingClient;
 import com.jdroid.android.inappbilling.sample.InAppBillingClient.OnConsumeFinishedListener;
@@ -14,20 +15,21 @@ import com.jdroid.android.inappbilling.sample.Inventory;
 import com.jdroid.android.inappbilling.sample.Purchase;
 import com.jdroid.android.inappbilling.sample.SkuDetails;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.utils.Hasher;
+import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
 /**
  * 
  * @author Maxi Rosson
  */
-public abstract class InAppBillingActivity extends AbstractActivity {
+public abstract class InAppBillingActivity extends AbstractFragmentActivity {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(InAppBillingActivity.class);
 	
 	public static final int PURCHASE_REQUEST_CODE = 10001;
 	
 	private InAppBillingClient inAppBillingClient;
+	private List<Product> products;
 	
 	/**
 	 * @see com.jdroid.android.activity.AbstractActivity#onCreate(android.os.Bundle)
@@ -38,7 +40,6 @@ public abstract class InAppBillingActivity extends AbstractActivity {
 		
 		// Create the client, passing it our context and the public key to verify signatures with
 		inAppBillingClient = new InAppBillingClient(this, BillingContext.get().getGooglePlayPublicKey());
-		inAppBillingClient.enableDebugLogging(LoggerUtils.isEnabled());
 		
 		// Start setup. This is asynchronous and the specified listener will be called once setup completes.
 		inAppBillingClient.startSetup(new InAppBillingClient.OnIabSetupFinishedListener() {
@@ -62,6 +63,8 @@ public abstract class InAppBillingActivity extends AbstractActivity {
 					}
 					inAppBillingClient.queryInventoryAsync(true, productsIds, queryInventoryListener);
 					
+				} else if (result.getResponseCode() == InAppBillingResponseCode.BILLING_UNAVAILABLE) {
+					onNotSupportedInAppBilling();
 				} else {
 					LOGGER.warn("Problem setting up in-app billing: " + result);
 				}
@@ -70,16 +73,6 @@ public abstract class InAppBillingActivity extends AbstractActivity {
 	}
 	
 	protected abstract List<? extends ProductType> getProductTypes();
-	
-	private List<String> getConsumableProductIds() {
-		List<String> consumableProductIds = Lists.newArrayList();
-		for (ProductType productType : getProductTypes()) {
-			if (productType.isConsumable()) {
-				consumableProductIds.add(productType.getProductId());
-			}
-		}
-		return consumableProductIds;
-	}
 	
 	protected abstract ProductType getProductType(String productId);
 	
@@ -97,32 +90,28 @@ public abstract class InAppBillingActivity extends AbstractActivity {
 			if (result.isSuccess()) {
 				LOGGER.debug("Query inventory was successful.");
 				
-				List<Product> availableProducts = Lists.newArrayList();
+				List<Product> productsToConsume = Lists.newArrayList();
+				
+				products = Lists.newArrayList();
 				for (ProductType each : getProductTypes()) {
 					SkuDetails skuDetails = inventory.getSkuDetails(each.getProductId());
 					if (skuDetails != null) {
-						
 						ProductType productType = BillingContext.get().isInAppBillingMockEnabled() ? BillingContext.get().getTestProductType()
 								: each;
-						availableProducts.add(new Product(productType, skuDetails.getPrice(),
-								getString(each.getTitleId()), getString(each.getDescriptionId()), each.getLayoutId()));
+						Product product = new Product(productType, skuDetails.getPrice(), getString(each.getTitleId()),
+								getString(each.getDescriptionId(), skuDetails.getPrice()), each.getLayoutId());
+						product.setPurchase(inventory.getPurchase(product.getProductType().getProductId()));
+						products.add(product);
+						
+						if (product.isPurchaseVerified() && product.getProductType().isConsumable()) {
+							productsToConsume.add(product);
+						}
 					}
 				}
-				onAvailableProducts(availableProducts);
+				onProductsLoaded(products);
 				
-				List<Purchase> verifiedPurchases = Lists.newArrayList();
-				for (Purchase each : inventory.getAllPurchases()) {
-					if (verifyDeveloperPayload(each)) {
-						verifiedPurchases.add(each);
-					}
-				}
-				onPurchases(verifiedPurchases);
-				
-				List<String> consumableProductIds = getConsumableProductIds();
-				for (Purchase purchase : verifiedPurchases) {
-					if (consumableProductIds.contains(purchase.getSku())) {
-						inAppBillingClient.consumeAsync(purchase, consumeListener);
-					}
+				for (Product each : productsToConsume) {
+					inAppBillingClient.consumeAsync(each.getPurchase(), consumeListener);
 				}
 				
 			} else {
@@ -131,54 +120,25 @@ public abstract class InAppBillingActivity extends AbstractActivity {
 		}
 	};
 	
-	protected abstract void onAvailableProducts(List<Product> availableProducts);
+	protected void onNotSupportedInAppBilling() {
+		ExecutorUtils.execute(new Runnable() {
+			
+			@Override
+			public void run() {
+				throw CommonErrorCode.NOT_SUPPORTED_INAPP_BILLING_ERROR.newApplicationException("Not supported in app billing");
+			}
+		});
+	}
 	
-	protected abstract void onPurchases(List<Purchase> purchases);
+	protected abstract void onProductsLoaded(List<Product> products);
 	
-	protected abstract void onPurchased(Purchase purchase);
+	protected abstract void onPurchased(Product product);
 	
-	protected abstract void onConsumed(Purchase purchase);
+	protected abstract void onConsumed(Product product);
 	
 	public void launchPurchaseFlow(Product product) {
-		
-		String payload = generatePayload(product);
-		
 		inAppBillingClient.launchPurchaseFlow(InAppBillingActivity.this, product.getProductType().getProductId(),
-			PURCHASE_REQUEST_CODE, purchaseListener, payload);
-	}
-	
-	protected String generatePayload(Product product) {
-		/*
-		 * TODO: for security, generate your payload here for verification. See the comments on verifyDeveloperPayload()
-		 * for more info. Since this is a SAMPLE, we just use an empty string, but on a production app you should
-		 * carefully generate this.
-		 */
-		return Hasher.SHA_512.hash(product.getProductType().getProductId());
-	}
-	
-	/**
-	 * Verifies the developer payload of a purchase.
-	 * 
-	 * @param purchase
-	 * @return
-	 */
-	protected boolean verifyDeveloperPayload(Purchase purchase) {
-		String payload = purchase.getDeveloperPayload();
-		
-		/*
-		 * TODO: verify that the developer payload of the purchase is correct. It will be the same one that you sent
-		 * when initiating the purchase. WARNING: Locally generating a random string when starting a purchase and
-		 * verifying it here might seem like a good approach, but this will fail in the case where the user purchases an
-		 * item on one device and then uses your app on a different device, because on the other device you will not
-		 * have access to the random string you originally generated. So a good developer payload has these
-		 * characteristics: 1. If two different users purchase an item, the payload is different between them, so that
-		 * one user's purchase can't be replayed to another user. 2. The payload must be such that you can verify it
-		 * even when the app wasn't the one who initiated the purchase flow (so that items purchased by the user on one
-		 * device work on other devices owned by the user). Using your own server to store and verify developer payloads
-		 * across app installations is recommended.
-		 */
-		
-		return Hasher.SHA_512.hash(purchase.getSku()).equals(payload);
+			PURCHASE_REQUEST_CODE, purchaseListener, product.generatePayload());
 	}
 	
 	// Callback for when a purchase is finished
@@ -195,14 +155,17 @@ public abstract class InAppBillingActivity extends AbstractActivity {
 			
 			if (result.isSuccess()) {
 				
-				if (!verifyDeveloperPayload(purchase)) {
+				Product product = findProduct(purchase);
+				
+				if (!product.verifyDeveloperPayload(purchase)) {
 					LOGGER.warn("Authenticity verification failed " + result);
 					return;
 				}
+				product.setPurchase(purchase);
 				
-				onPurchased(purchase);
+				onPurchased(product);
 				
-				if (getProductType(purchase.getSku()).isConsumable()) {
+				if (product.getProductType().isConsumable()) {
 					inAppBillingClient.consumeAsync(purchase, consumeListener);
 				}
 			} else {
@@ -210,7 +173,19 @@ public abstract class InAppBillingActivity extends AbstractActivity {
 			}
 			
 		}
+		
 	};
+	
+	private Product findProduct(Purchase purchase) {
+		Product product = null;
+		for (Product each : products) {
+			if (each.getProductType().getProductId().equals(purchase.getSku())) {
+				product = each;
+				break;
+			}
+		}
+		return product;
+	}
 	
 	// Called when consumption is complete
 	private OnConsumeFinishedListener consumeListener = new InAppBillingClient.OnConsumeFinishedListener() {
@@ -225,7 +200,11 @@ public abstract class InAppBillingActivity extends AbstractActivity {
 			}
 			
 			if (result.isSuccess()) {
-				onConsumed(purchase);
+				
+				Product product = findProduct(purchase);
+				product.setPurchase(null);
+				
+				onConsumed(product);
 			} else {
 				LOGGER.warn("Failed to consume item: " + result);
 			}

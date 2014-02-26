@@ -17,12 +17,34 @@ import org.json.JSONObject;
  */
 public class Purchase {
 	
+	public enum PurchaseState {
+		PURCHASED(0),
+		CANCELED(1),
+		REFUNDED(2);
+		
+		private int code;
+		
+		private PurchaseState(int code) {
+			this.code = code;
+		}
+		
+		public static PurchaseState valueOf(int code) {
+			PurchaseState state = PurchaseState.PURCHASED;
+			for (PurchaseState each : values()) {
+				if (each.code == code) {
+					return each;
+				}
+			}
+			return state;
+		}
+	}
+	
 	private String mItemType; // ITEM_TYPE_INAPP or ITEM_TYPE_SUBS
 	private String mOrderId;
 	private String mPackageName;
 	private String mSku;
 	private long mPurchaseTime;
-	private int mPurchaseState;
+	private PurchaseState state;
 	private String mDeveloperPayload;
 	private String mToken;
 	private String mSignature;
@@ -34,7 +56,7 @@ public class Purchase {
 		mPackageName = o.optString("packageName");
 		mSku = o.optString("productId");
 		mPurchaseTime = o.optLong("purchaseTime");
-		mPurchaseState = o.optInt("purchaseState");
+		state = PurchaseState.valueOf(o.optInt("purchaseState"));
 		mDeveloperPayload = o.optString("developerPayload");
 		mToken = o.optString("token", o.optString("purchaseToken"));
 		mSignature = signature;
@@ -60,8 +82,8 @@ public class Purchase {
 		return mPurchaseTime;
 	}
 	
-	public int getPurchaseState() {
-		return mPurchaseState;
+	public PurchaseState getState() {
+		return state;
 	}
 	
 	public String getDeveloperPayload() {
@@ -82,9 +104,8 @@ public class Purchase {
 	@Override
 	public String toString() {
 		return "Purchase [mItemType=" + mItemType + ", mOrderId=" + mOrderId + ", mPackageName=" + mPackageName
-				+ ", mSku=" + mSku + ", mPurchaseTime=" + mPurchaseTime + ", mPurchaseState=" + mPurchaseState
-				+ ", mDeveloperPayload=" + mDeveloperPayload + ", mToken=" + mToken + ", mSignature=" + mSignature
-				+ "]";
+				+ ", mSku=" + mSku + ", mPurchaseTime=" + mPurchaseTime + ", state=" + state + ", mDeveloperPayload="
+				+ mDeveloperPayload + ", mToken=" + mToken + ", mSignature=" + mSignature + "]";
 	}
 	
 }

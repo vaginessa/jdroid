@@ -9,29 +9,31 @@
 
 package com.jdroid.android.inappbilling.sample;
 
+import com.jdroid.android.inappbilling.InAppBillingResponseCode;
+
 /**
  * Exception thrown when something went wrong with in-app billing. An IabException has an associated IabResult (an
  * error). To get the IAB result that caused this exception to be thrown, call {@link #getResult()}.
  */
 public class IabException extends Exception {
 	
-	IabResult mResult;
+	private IabResult mResult;
 	
 	public IabException(IabResult r) {
 		this(r, null);
 	}
 	
-	public IabException(int response, String message) {
-		this(new IabResult(response, message));
+	public IabException(InAppBillingResponseCode responseCode, String message) {
+		this(new IabResult(responseCode, message));
 	}
 	
 	public IabException(IabResult r, Exception cause) {
-		super(r.getMessage(), cause);
+		super(r.getResponseCode().name(), cause);
 		mResult = r;
 	}
 	
-	public IabException(int response, String message, Exception cause) {
-		this(new IabResult(response, message), cause);
+	public IabException(InAppBillingResponseCode responseCode, String message, Exception cause) {
+		this(new IabResult(responseCode, message), cause);
 	}
 	
 	/**

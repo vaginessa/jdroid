@@ -263,11 +263,4 @@ public final class ToastUtils {
 			toast.cancel();
 		}
 	}
-	
-	/**
-	 * Show a "This feature is not available yet" message with a Toast on the current Thread.
-	 */
-	public static void showNotAvailableToast() {
-		showToast(LocalizationUtils.getString(R.string.featureNotAvailable), Toast.LENGTH_SHORT);
-	}
 }
