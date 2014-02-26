@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.jdroid.android.inappbilling.sample;
+package com.jdroid.android.inappbilling;
 
 // This code was converted from code at http://iharder.sourceforge.net/base64/
 // Lots of extraneous features were removed.
@@ -90,39 +90,6 @@ public class Base64 {
 			0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, // Letters 'A' through 'N'
 			14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, // Letters 'O' through 'Z'
 			-9, -9, -9, -9, -9, -9, // Decimal 91 - 96
-			26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, // Letters 'a' through 'm'
-			39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, // Letters 'n' through 'z'
-			-9, -9, -9, -9, -9 // Decimal 123 - 127
-	/*
-	 * ,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9, // Decimal 128 - 139 -9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9, // Decimal 140
-	 * - 152 -9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9, // Decimal 153 - 165 -9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9, //
-	 * Decimal 166 - 178 -9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9, // Decimal 179 - 191
-	 * -9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9, // Decimal 192 - 204 -9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9, // Decimal
-	 * 205 - 217 -9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9, // Decimal 218 - 230 -9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9, //
-	 * Decimal 231 - 243 -9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9 // Decimal 244 - 255
-	 */
-	};
-	
-	/** The web safe decodabet */
-	private final static byte[] WEBSAFE_DECODABET = { -9, -9, -9, -9, -9, -9, -9, -9, -9, // Decimal 0 - 8
-			-5, -5, // Whitespace: Tab and Linefeed
-			-9, -9, // Decimal 11 - 12
-			-5, // Whitespace: Carriage Return
-			-9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, // Decimal 14 - 26
-			-9, -9, -9, -9, -9, // Decimal 27 - 31
-			-5, // Whitespace: Space
-			-9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, // Decimal 33 - 44
-			62, // Dash '-' sign at decimal 45
-			-9, -9, // Decimal 46-47
-			52, 53, 54, 55, 56, 57, 58, 59, 60, 61, // Numbers zero through nine
-			-9, -9, -9, // Decimal 58 - 60
-			-1, // Equals sign at decimal 61
-			-9, -9, -9, // Decimal 62 - 64
-			0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, // Letters 'A' through 'N'
-			14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, // Letters 'O' through 'Z'
-			-9, -9, -9, -9, // Decimal 91-94
-			63, // Underscore '_' at decimal 95
-			-9, // Decimal 96
 			26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, // Letters 'a' through 'm'
 			39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, // Letters 'n' through 'z'
 			-9, -9, -9, -9, -9 // Decimal 123 - 127
@@ -371,42 +338,6 @@ public class Base64 {
 	}
 	
 	/**
-	 * Decodes data from web safe Base64 notation. Web safe encoding uses '-' instead of '+', '_' instead of '/'
-	 * 
-	 * @param s the string to decode (decoded in default encoding)
-	 * @return the decoded data
-	 * @throws Base64DecoderException
-	 */
-	public static byte[] decodeWebSafe(String s) throws Base64DecoderException {
-		byte[] bytes = s.getBytes();
-		return decodeWebSafe(bytes, 0, bytes.length);
-	}
-	
-	/**
-	 * Decodes Base64 content in byte array format and returns the decoded byte array.
-	 * 
-	 * @param source The Base64 encoded data
-	 * @return decoded data
-	 * @since 1.3
-	 * @throws Base64DecoderException
-	 */
-	public static byte[] decode(byte[] source) throws Base64DecoderException {
-		return decode(source, 0, source.length);
-	}
-	
-	/**
-	 * Decodes web safe Base64 content in byte array format and returns the decoded data. Web safe encoding uses '-'
-	 * instead of '+', '_' instead of '/'
-	 * 
-	 * @param source the string to decode (decoded in default encoding)
-	 * @return the decoded data
-	 * @throws Base64DecoderException
-	 */
-	public static byte[] decodeWebSafe(byte[] source) throws Base64DecoderException {
-		return decodeWebSafe(source, 0, source.length);
-	}
-	
-	/**
 	 * Decodes Base64 content in byte array format and returns the decoded byte array.
 	 * 
 	 * @param source the Base64 encoded data
@@ -418,20 +349,6 @@ public class Base64 {
 	 */
 	public static byte[] decode(byte[] source, int off, int len) throws Base64DecoderException {
 		return decode(source, off, len, DECODABET);
-	}
-	
-	/**
-	 * Decodes web safe Base64 content in byte array format and returns the decoded byte array. Web safe encoding uses
-	 * '-' instead of '+', '_' instead of '/'
-	 * 
-	 * @param source the Base64 encoded data
-	 * @param off the offset of where to begin decoding
-	 * @param len the length of characters to decode
-	 * @return decoded data
-	 * @throws Base64DecoderException
-	 */
-	public static byte[] decodeWebSafe(byte[] source, int off, int len) throws Base64DecoderException {
-		return decode(source, off, len, WEBSAFE_DECODABET);
 	}
 	
 	/**

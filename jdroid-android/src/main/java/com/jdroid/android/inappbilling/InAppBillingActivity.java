@@ -6,14 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.exception.CommonErrorCode;
-import com.jdroid.android.inappbilling.sample.IabResult;
-import com.jdroid.android.inappbilling.sample.InAppBillingClient;
-import com.jdroid.android.inappbilling.sample.InAppBillingClient.OnConsumeFinishedListener;
-import com.jdroid.android.inappbilling.sample.InAppBillingClient.OnIabPurchaseFinishedListener;
-import com.jdroid.android.inappbilling.sample.InAppBillingClient.QueryInventoryFinishedListener;
-import com.jdroid.android.inappbilling.sample.Inventory;
-import com.jdroid.android.inappbilling.sample.Purchase;
-import com.jdroid.android.inappbilling.sample.SkuDetails;
+import com.jdroid.android.inappbilling.InAppBillingClient.OnConsumeFinishedListener;
+import com.jdroid.android.inappbilling.InAppBillingClient.OnIabPurchaseFinishedListener;
+import com.jdroid.android.inappbilling.InAppBillingClient.QueryInventoryFinishedListener;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.LoggerUtils;
@@ -45,7 +40,7 @@ public abstract class InAppBillingActivity extends AbstractFragmentActivity {
 		inAppBillingClient.startSetup(new InAppBillingClient.OnIabSetupFinishedListener() {
 			
 			@Override
-			public void onIabSetupFinished(IabResult result) {
+			public void onIabSetupFinished(InAppBillingResponseCode result) {
 				
 				// Have we been disposed of in the meantime? If so, quit.
 				if (inAppBillingClient == null) {
@@ -63,7 +58,7 @@ public abstract class InAppBillingActivity extends AbstractFragmentActivity {
 					}
 					inAppBillingClient.queryInventoryAsync(true, productsIds, queryInventoryListener);
 					
-				} else if (result.getResponseCode() == InAppBillingResponseCode.BILLING_UNAVAILABLE) {
+				} else if (result == InAppBillingResponseCode.BILLING_UNAVAILABLE) {
 					onNotSupportedInAppBilling();
 				} else {
 					LOGGER.warn("Problem setting up in-app billing: " + result);
@@ -80,7 +75,7 @@ public abstract class InAppBillingActivity extends AbstractFragmentActivity {
 	private QueryInventoryFinishedListener queryInventoryListener = new InAppBillingClient.QueryInventoryFinishedListener() {
 		
 		@Override
-		public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
+		public void onQueryInventoryFinished(InAppBillingResponseCode result, Inventory inventory) {
 			
 			// Have we been disposed of in the meantime? If so, quit.
 			if (inAppBillingClient == null) {
@@ -145,7 +140,7 @@ public abstract class InAppBillingActivity extends AbstractFragmentActivity {
 	private OnIabPurchaseFinishedListener purchaseListener = new InAppBillingClient.OnIabPurchaseFinishedListener() {
 		
 		@Override
-		public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
+		public void onIabPurchaseFinished(InAppBillingResponseCode result, Purchase purchase) {
 			LOGGER.info("Purchase finished: " + result + ", purchase: " + purchase);
 			
 			// if we were disposed of in the meantime, quit.
@@ -191,7 +186,7 @@ public abstract class InAppBillingActivity extends AbstractFragmentActivity {
 	private OnConsumeFinishedListener consumeListener = new InAppBillingClient.OnConsumeFinishedListener() {
 		
 		@Override
-		public void onConsumeFinished(Purchase purchase, IabResult result) {
+		public void onConsumeFinished(Purchase purchase, InAppBillingResponseCode result) {
 			LOGGER.info("Consumption finished. Purchase: " + purchase + ", result: " + result);
 			
 			// if we were disposed of in the meantime, quit.

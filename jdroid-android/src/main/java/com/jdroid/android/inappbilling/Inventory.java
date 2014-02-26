@@ -7,7 +7,7 @@
  * License.
  */
 
-package com.jdroid.android.inappbilling.sample;
+package com.jdroid.android.inappbilling;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -7,7 +7,7 @@
  * License.
  */
 
-package com.jdroid.android.inappbilling.sample;
+package com.jdroid.android.inappbilling;
 
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;

@@ -7,7 +7,7 @@
  * License.
  */
 
-package com.jdroid.android.inappbilling.sample;
+package com.jdroid.android.inappbilling;
 
 import org.json.JSONException;
 import org.json.JSONObject;

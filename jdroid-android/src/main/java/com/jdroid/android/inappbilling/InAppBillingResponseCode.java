@@ -9,7 +9,13 @@ public enum InAppBillingResponseCode {
 	
 	// Indicates that the request was sent to the server successfully. When this code is returned in response to a
 	// CHECK_BILLING_SUPPORTED request, indicates that billing is supported.
-	OK(0),
+	OK(0) {
+		
+		@Override
+		public Boolean isSuccess() {
+			return true;
+		}
+	},
 	
 	// Indicates that the user pressed the back button on the checkout dialog instead of buying the item.
 	USER_CANCELED(1),
@@ -93,5 +99,9 @@ public enum InAppBillingResponseCode {
 			}
 		}
 		return responseCode;
+	}
+	
+	public Boolean isSuccess() {
+		return false;
 	}
 }

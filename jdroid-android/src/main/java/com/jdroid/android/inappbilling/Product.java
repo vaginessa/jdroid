@@ -1,7 +1,6 @@
 package com.jdroid.android.inappbilling;
 
-import com.jdroid.android.inappbilling.sample.Purchase;
-import com.jdroid.android.inappbilling.sample.Purchase.PurchaseState;
+import com.jdroid.android.inappbilling.Purchase.PurchaseState;
 import com.jdroid.java.utils.Hasher;
 
 /**
