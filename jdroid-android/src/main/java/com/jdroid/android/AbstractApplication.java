@@ -25,7 +25,6 @@ import com.flurry.sdk.eq;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
-import com.jdroid.android.billing.BillingContext;
 import com.jdroid.android.context.DefaultApplicationContext;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.ExceptionHandler;
@@ -280,7 +279,8 @@ public abstract class AbstractApplication extends Application {
 	
 	private void initInAppBilling() {
 		if (isInAppBillingEnabled()) {
-			BillingContext.get().initialize();
+			// TODO
+			// BillingContext.get().initialize();
 		}
 	}
 	

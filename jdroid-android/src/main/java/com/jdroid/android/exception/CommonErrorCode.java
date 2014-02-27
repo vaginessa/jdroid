@@ -29,6 +29,7 @@ public enum CommonErrorCode implements ErrorCode {
 			return new ServerHttpResponseException(this, throwable);
 		}
 	},
+	NOT_SUPPORTED_INAPP_BILLING_ERROR(R.string.notSupportedInAppBillingError),
 	INTERNAL_ERROR(R.string.internalError),
 	FACEBOOK_ERROR(R.string.facebookError),
 	TWITTER_ERROR(R.string.twitterError);

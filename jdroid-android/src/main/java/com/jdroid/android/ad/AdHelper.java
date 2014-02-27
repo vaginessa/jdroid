@@ -15,10 +15,12 @@ import com.jdroid.android.context.DefaultApplicationContext;
  */
 public class AdHelper {
 	
+	private ViewGroup adViewContainer;
 	private AdView adView;
 	
 	public void loadAd(Activity activity, ViewGroup adViewContainer, AdSize adSize) {
 		
+		this.adViewContainer = adViewContainer;
 		if (adViewContainer != null) {
 			DefaultApplicationContext applicationContext = AbstractApplication.get().getAndroidApplicationContext();
 			if ((adSize == null) || !applicationContext.areAdsEnabled()) {
@@ -51,13 +53,23 @@ public class AdHelper {
 	
 	public void onResume() {
 		if (adView != null) {
-			adView.resume();
+			if (AbstractApplication.get().getAndroidApplicationContext().areAdsEnabled()) {
+				adView.resume();
+			} else if (adViewContainer != null) {
+				adViewContainer.removeView(adView);
+				adViewContainer.setVisibility(View.GONE);
+				adView = null;
+				adViewContainer = null;
+			}
 		}
+		
 	}
 	
 	public void onDestroy() {
 		if (adView != null) {
 			adView.destroy();
+			adView = null;
+			adViewContainer = null;
 		}
 	}
 }

@@ -2,6 +2,8 @@ package com.jdroid.android.context;
 
 import java.util.Locale;
 import java.util.Set;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.java.http.Server;
@@ -16,26 +18,41 @@ public class DefaultApplicationContext {
 	private static final String PROPERTIES_RESOURCE_NAME = "settings.properties";
 	private static final String LOCAL_PROPERTIES_RESOURCE_NAME = "settings.local.properties";
 	
+	private static final String ADS_ENABLED = "adsEnabled";
+	
+	// Environment
 	private String localIp;
 	private Environment environment;
+	private Boolean isFreeApp;
+	private String installationSource;
+	
+	// Social
 	private String googleProjectId;
 	private String facebookAppId;
+	
+	// Debug
 	private Boolean debugSettings;
 	private Boolean crashReportsEnabled;
-	private Boolean isFreeApp;
+	
+	// Ads
 	private Boolean adsEnabled;
 	private String adUnitId;
 	private Set<String> testDevicesIds;
+	
+	// Google Analytics
 	private Boolean googleAnalyticsEnabled;
 	private Boolean googleAnalyticsDebugEnabled;
 	private String googleAnalyticsTrackingId;
+	
+	// Flurry
 	private Boolean flurryEnabled;
 	private String flurryApiKey;
 	private Boolean flurryDebugEnabled;
+	
+	// Crittercism
 	private Boolean crittercismEnabled;
 	private String crittercismAppId;
 	private Boolean crittercismPremium;
-	private String installationSource;
 	
 	public DefaultApplicationContext() {
 		PropertiesUtils.loadProperties(LOCAL_PROPERTIES_RESOURCE_NAME);
@@ -49,7 +66,15 @@ public class DefaultApplicationContext {
 		debugSettings = PropertiesUtils.getBooleanProperty("debug.settings", false);
 		crashReportsEnabled = PropertiesUtils.getBooleanProperty("crash.reporting.enabled", false);
 		isFreeApp = PropertiesUtils.getBooleanProperty("free.app");
+		
 		adsEnabled = PropertiesUtils.getBooleanProperty("ads.enabled", false);
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
+		if (!sharedPreferences.contains(ADS_ENABLED)) {
+			Editor editor = sharedPreferences.edit();
+			editor.putBoolean(ADS_ENABLED, adsEnabled);
+			editor.commit();
+		}
+		
 		adUnitId = PropertiesUtils.getStringProperty("ads.adUnitId");
 		testDevicesIds = PropertiesUtils.getStringSetProperty("ads.tests.devices.ids");
 		googleAnalyticsEnabled = PropertiesUtils.getBooleanProperty("google.analytics.enabled", false);
@@ -119,7 +144,15 @@ public class DefaultApplicationContext {
 	 * @return Whether the application has ads enabled or not
 	 */
 	public Boolean areAdsEnabled() {
-		return adsEnabled;
+		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(ADS_ENABLED,
+			adsEnabled);
+	}
+	
+	public void enableAds(Boolean enable) {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
+		Editor editor = sharedPreferences.edit();
+		editor.putBoolean(ADS_ENABLED, enable);
+		editor.commit();
 	}
 	
 	/**

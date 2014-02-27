@@ -7,7 +7,6 @@
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
 	<string name="noResults">There are no results available</string>
-	<string name="featureNotAvailable">This feature is not available yet</string>
 	<string name="zeroPercent">0%</string>
 	<string name="next">Next</string>
 	<string name="previous">Previous</string>
@@ -23,6 +22,7 @@
 	<string name="connectionError">Please check your internet connection and try again.</string>
 	<string name="connectionErrorTitle">Connection Error</string>
 	<string name="facebookError">There was a problem connecting to Facebook. Please try again later.</string>
+	<string name="notSupportedInAppBillingError">Your device doesn\'t support in app billing.</string>
 
 	<!-- Google Play Utils -->
 	<string name="updateAppTitle">Update required</string>

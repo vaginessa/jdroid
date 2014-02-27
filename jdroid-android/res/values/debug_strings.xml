@@ -30,4 +30,14 @@
 	<string name="crashType">Crash Type</string>
 	<string name="crashTypeDescription">Pick the crash type</string>
 
+	<string name="appSettings">App Settings</string>
+	<string name="adsEnabledTitle">Ads</string>
+	<string name="adsEnabledDescription">Enable/disable the ads</string>
+
+	<string name="inAppBillingSettings">In App Billing</string>
+	<string name="inAppBillingMockEnabledTitle">In App Billing Mocks</string>
+	<string name="inAppBillingMockEnabledDescription">Enable/disable In App Billing mocks</string>
+	<string name="inAppBillingTestProductIdsTitle">Test Product Id</string>
+	<string name="inAppBillingTestProductIdsDescription">Pick the Test Product Id</string>
+
 </resources>
