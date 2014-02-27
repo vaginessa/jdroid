@@ -13,6 +13,7 @@ import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
+import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.StringUtils;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
@@ -76,7 +77,8 @@ public class NotificationBuilder {
 	
 	public void setContentIntentSingleTop(Intent notificationIntent) {
 		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-		builder.setContentIntent(PendingIntent.getActivity(AbstractApplication.get(), 0, notificationIntent, 0));
+		builder.setContentIntent(PendingIntent.getActivity(AbstractApplication.get(), IdGenerator.getIntId(),
+			notificationIntent, 0));
 	}
 	
 	public void setWhen(Long when) {

@@ -5,6 +5,8 @@
 <title>GCM Push Sender</title>
 <script type="text/javascript">
 	function send() {
+		
+		var separator = "|";
 
 		var url = "api/gcm/send?";
 
@@ -16,31 +18,60 @@
 		var params = "";
 		var key1 = document.getElementById("key1").value;
 		if (key1 != "") {
-			params += key1 + ":" + document.getElementById("value1").value;
+			params += key1 + separator + document.getElementById("value1").value;
 		}
 
 		var key2 = document.getElementById("key2").value
 		if (key2 != "") {
-			params += "," + key2 + ":"
+			params += "," + key2 + separator
 					+ document.getElementById("value2").value;
 		}
 
 		var key3 = document.getElementById("key3").value
 		if (key3 != "") {
-			params += "," + key3 + ":"
+			params += "," + key3 + separator
 					+ document.getElementById("value3").value;
 		}
 
 		var key4 = document.getElementById("key4").value
 		if (key4 != "") {
-			params += "," + key4 + ":"
+			params += "," + key4 + separator
 					+ document.getElementById("value4").value;
 		}
 
 		var key5 = document.getElementById("key5").value
 		if (key5 != "") {
-			params += "," + key5 + ":"
+			params += "," + key5 + separator
 					+ document.getElementById("value5").value;
+		}
+		
+		var key6 = document.getElementById("key6").value;
+		if (key6 != "") {
+			params += key1 + separator + document.getElementById("value6").value;
+		}
+
+		var key7 = document.getElementById("key7").value
+		if (key7 != "") {
+			params += "," + key2 + separator
+					+ document.getElementById("value7").value;
+		}
+
+		var key8 = document.getElementById("key8").value
+		if (key8 != "") {
+			params += "," + key3 + separator
+					+ document.getElementById("value8").value;
+		}
+
+		var key9 = document.getElementById("key9").value
+		if (key9 != "") {
+			params += "," + key4 + separator
+					+ document.getElementById("value9").value;
+		}
+
+		var key10 = document.getElementById("key10").value
+		if (key10 != "") {
+			params += "," + key10 + separator
+					+ document.getElementById("value10").value;
 		}
 
 		if (params != null) {
@@ -75,6 +106,21 @@
 	<br /> Key 5
 	<input id="key5" type="text" /> Value 5
 	<input id="value5" type="text" />
+	<br /> Key 6
+	<input id="key6" type="text" /> Value 6
+	<input id="value6" type="text" />
+	<br /> Key 7
+	<input id="key7" type="text" /> Value 7
+	<input id="value7" type="text" />
+	<br /> Key 8
+	<input id="key8" type="text" /> Value 8
+	<input id="value8" type="text" />
+	<br /> Key 9
+	<input id="key9" type="text" /> Value 9
+	<input id="value9" type="text" />
+	<br /> Key 10
+	<input id="key10" type="text" /> Value 10
+	<input id="value10" type="text" />
 	<br />
 	<br />
 	<input type="button" value="Send" onclick="javascript:send();" />

@@ -29,13 +29,19 @@ public abstract class WorkerService extends IntentService {
 	@Override
 	protected final void onHandleIntent(Intent intent) {
 		try {
-			doExecute(intent);
+			if (intent != null) {
+				doExecute(intent);
+			}
 		} catch (Exception e) {
 			AbstractApplication.get().getExceptionHandler().logHandledException(e);
 		} finally {
-			if (intent.hasExtra(ENABLE_PARTIAL_WAKE_LOCK)) {
+			if ((intent == null) || intent.hasExtra(ENABLE_PARTIAL_WAKE_LOCK)) {
 				WakeLockManager.releasePartialWakeLock();
 			}
+		}
+		if (intent == null) {
+			AbstractApplication.get().getExceptionHandler().logWarningException(
+				"Null intent when starting the service: " + getClass().getName());
 		}
 	}
 	

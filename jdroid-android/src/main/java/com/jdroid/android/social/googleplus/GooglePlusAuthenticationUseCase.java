@@ -1,5 +1,6 @@
 package com.jdroid.android.social.googleplus;
 
+import com.google.android.gms.plus.model.people.Person;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 
 /**
@@ -8,8 +9,8 @@ import com.jdroid.android.usecase.DefaultAbstractUseCase;
  */
 public abstract class GooglePlusAuthenticationUseCase extends DefaultAbstractUseCase {
 	
-	private String googleUserId;
 	private Boolean loginMode = true;
+	private Person person;
 	
 	/**
 	 * @see com.jdroid.android.usecase.AbstractUseCase#doExecute()
@@ -17,7 +18,7 @@ public abstract class GooglePlusAuthenticationUseCase extends DefaultAbstractUse
 	@Override
 	protected void doExecute() {
 		if (loginMode) {
-			onConnectToGooglePlus(googleUserId);
+			onConnectToGooglePlus(person.getId());
 		} else {
 			onDisconnectFromGooglePlus();
 		}
@@ -34,21 +35,15 @@ public abstract class GooglePlusAuthenticationUseCase extends DefaultAbstractUse
 		this.loginMode = loginMode;
 	}
 	
-	/**
-	 * @param googleUserId the googleUserId to set
-	 */
-	public void setGoogleUserId(String googleUserId) {
-		this.googleUserId = googleUserId;
-	}
-	
 	public Boolean isLoginMode() {
 		return loginMode;
 	}
 	
-	/**
-	 * @return the googleUserId
-	 */
-	public String getGoogleUserId() {
-		return googleUserId;
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+	
+	public Person getPerson() {
+		return person;
 	}
 }

@@ -5,6 +5,7 @@ import com.google.android.gms.plus.model.people.Person;
 import com.jdroid.android.social.SocialUser;
 
 /**
+ * Google+ Listener. All the events are invoked on the UI thread
  * 
  * @author Maxi Rosson
  */
@@ -14,9 +15,13 @@ public interface GooglePlusListener {
 	
 	public void onGooglePlusAccessRevoked();
 	
+	public void onGooglePlusSignOut();
+	
 	public void onGooglePlusConnectionFailed();
 	
-	public void onGooglePlusConnected(Person me);
+	public void onGooglePlusSignIn(Person me, String accountName);
+	
+	public void onGooglePlusConnected(Person me, String accountName);
 	
 	public void onGooglePlusDisconnected();
 	
