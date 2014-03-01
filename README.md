@@ -3,6 +3,10 @@ jdroid
 
 jdroid is an application framework for Android & Java apps. The project use [Semantic Versioning][3]
 
+Help us to continue with this project:
+
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2UEBTRTSCYA9L)
+
 jdroid Java
 -----------
 Dependency project for both Android & Java apps
@@ -75,12 +79,6 @@ A set of useful shell scripts to
 jdroid sample server
 --------------
 Sample server app using jdroid Java Web & jdroid Java
-
-Donations
---------------
-[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2UEBTRTSCYA9L)
-          
-<p>We accept donation from Cryptsy at: 9df9f8ccc2372a149eeb1dfb9f0276d1d4de0d04</p>
 
 Apps using jdroid
 --------------
