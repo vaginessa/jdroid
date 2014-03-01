@@ -4,8 +4,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import android.content.Intent;
 import android.os.Bundle;
-import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.exception.CommonErrorCode;
+import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.inappbilling.InAppBillingClient.OnConsumeFinishedListener;
 import com.jdroid.android.inappbilling.InAppBillingClient.OnIabPurchaseFinishedListener;
 import com.jdroid.android.inappbilling.InAppBillingClient.QueryInventoryFinishedListener;
@@ -17,9 +17,9 @@ import com.jdroid.java.utils.LoggerUtils;
  * 
  * @author Maxi Rosson
  */
-public abstract class InAppBillingActivity extends AbstractFragmentActivity {
+public abstract class InAppBillingFragment extends AbstractFragment {
 	
-	private static final Logger LOGGER = LoggerUtils.getLogger(InAppBillingActivity.class);
+	private static final Logger LOGGER = LoggerUtils.getLogger(InAppBillingFragment.class);
 	
 	public static final int PURCHASE_REQUEST_CODE = 10001;
 	
@@ -30,11 +30,11 @@ public abstract class InAppBillingActivity extends AbstractFragmentActivity {
 	 * @see com.jdroid.android.activity.AbstractActivity#onCreate(android.os.Bundle)
 	 */
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		// Create the client, passing it our context and the public key to verify signatures with
-		inAppBillingClient = new InAppBillingClient(this, BillingContext.get().getGooglePlayPublicKey());
+		inAppBillingClient = new InAppBillingClient(getActivity(), BillingContext.get().getGooglePlayPublicKey());
 		
 		// Start setup. This is asynchronous and the specified listener will be called once setup completes.
 		inAppBillingClient.startSetup(new InAppBillingClient.OnIabSetupFinishedListener() {
@@ -132,7 +132,7 @@ public abstract class InAppBillingActivity extends AbstractFragmentActivity {
 	protected abstract void onConsumed(Product product);
 	
 	public void launchPurchaseFlow(Product product) {
-		inAppBillingClient.launchPurchaseFlow(InAppBillingActivity.this, product.getProductType().getProductId(),
+		inAppBillingClient.launchPurchaseFlow(getActivity(), product.getProductType().getProductId(),
 			PURCHASE_REQUEST_CODE, purchaseListener, product.generatePayload());
 	}
 	
@@ -210,7 +210,7 @@ public abstract class InAppBillingActivity extends AbstractFragmentActivity {
 	 * @see com.jdroid.android.activity.AbstractActivity#onActivityResult(int, int, android.content.Intent)
 	 */
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (inAppBillingClient != null) {
 			// Pass on the activity result to the helper for handling
 			if (!inAppBillingClient.handleActivityResult(requestCode, resultCode, data)) {
