@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>android</groupId>
+	<groupId>com.jdroid</groupId>
 	<artifactId>google-play-services</artifactId>
 	<packaging>apklib</packaging>
-	<name>Google Play Services</name>
+	<name>jdroid Google Play Services</name>
 	<parent>
 		<groupId>com.jdroid</groupId>
 		<artifactId>jdroid-parent</artifactId>

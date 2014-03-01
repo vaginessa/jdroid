@@ -59,7 +59,7 @@
 
 		<!-- Google Play Services -->
 		<dependency>
-			<groupId>android</groupId>
+			<groupId>com.jdroid</groupId>
 			<artifactId>google-play-services</artifactId>
 			<version>${project.version}</version>
 			<type>apklib</type>

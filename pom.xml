@@ -11,7 +11,7 @@
 	<modules>
 		<module>jdroid-java</module>
 		<module>jdroid-javaweb</module>
-		<module>google-play-services</module>
+		<module>jdroid-google-play-services</module>
 		<module>jdroid-android</module>
     </modules>
 	
