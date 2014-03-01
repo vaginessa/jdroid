@@ -111,6 +111,7 @@ public abstract class InAppBillingFragment extends AbstractFragment {
 				
 			} else {
 				LOGGER.warn("Failed to query inventory: " + result);
+				onFailedToLoadPurchases();
 			}
 		}
 	};
@@ -120,7 +121,17 @@ public abstract class InAppBillingFragment extends AbstractFragment {
 			
 			@Override
 			public void run() {
-				throw CommonErrorCode.NOT_SUPPORTED_INAPP_BILLING_ERROR.newApplicationException("Not supported in app billing");
+				throw CommonErrorCode.INAPP_BILLING_NOT_SUPPORTED.newApplicationException("Not supported in app billing");
+			}
+		});
+	}
+	
+	protected void onFailedToLoadPurchases() {
+		ExecutorUtils.execute(new Runnable() {
+			
+			@Override
+			public void run() {
+				throw CommonErrorCode.INAPP_BILLING_FAILED_TO_LOAD_PURCHASES.newApplicationException("Failed to query inventory");
 			}
 		});
 	}

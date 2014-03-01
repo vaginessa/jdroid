@@ -589,7 +589,7 @@ public class InAppBillingClient {
 				
 				final InAppBillingResponseCode result_f = result;
 				final Inventory inv_f = inv;
-				if (!mDisposed && (listener != null) && (inv != null)) {
+				if (!mDisposed && (listener != null)) {
 					handler.post(new Runnable() {
 						
 						@Override
