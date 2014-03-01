@@ -84,6 +84,11 @@ Apps using jdroid
        src="https://github.com/maxirosson/media-fever/blob/gh-pages/images/featureGraphic.png?raw=true" />
 </a>
 
+<a href="https://play.google.com/store/apps/details?id=com.codenumber.lite">
+  <img alt="Get it on Google Play"
+       src="https://github.com/maxirosson/code-number/blob/master/codenumber.png?raw=true" />
+</a>
+
 --------------
 For more information, visit the [GitHub Wiki][1] or our [Site][2].
 
