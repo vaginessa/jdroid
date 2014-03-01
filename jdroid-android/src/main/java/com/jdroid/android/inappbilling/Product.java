@@ -13,16 +13,14 @@ public class Product {
 	private String price;
 	private String title;
 	private String description;
-	private int layoutId;
 	private Purchase purchase;
 	private Boolean consumed;
 	
-	public Product(ProductType productType, String price, String title, String description, int layoutId) {
+	public Product(ProductType productType, String price, String title, String description) {
 		this.productType = productType;
 		this.price = price;
 		this.title = title;
 		this.description = description;
-		this.layoutId = layoutId;
 		consumed = false;
 	}
 	
@@ -54,20 +52,9 @@ public class Product {
 		return productType;
 	}
 	
-	/**
-	 * @return the layoutId
-	 */
-	public int getLayoutId() {
-		return layoutId;
-	}
-	
 	public void setPurchase(Purchase purchase) {
 		this.purchase = purchase;
 		consumed = isPurchaseVerified();
-	}
-	
-	public void setConsumed(Boolean consumed) {
-		this.consumed = consumed;
 	}
 	
 	public Boolean isPurchaseVerified() {
@@ -122,5 +109,12 @@ public class Product {
 	 */
 	public Purchase getPurchase() {
 		return purchase;
+	}
+	
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(String price) {
+		this.price = price;
 	}
 }

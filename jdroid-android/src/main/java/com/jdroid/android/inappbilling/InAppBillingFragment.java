@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import android.content.Intent;
 import android.os.Bundle;
 import com.jdroid.android.exception.CommonErrorCode;
-import com.jdroid.android.fragment.AbstractFragment;
+import com.jdroid.android.fragment.AbstractGridFragment;
 import com.jdroid.android.inappbilling.InAppBillingClient.OnConsumeFinishedListener;
 import com.jdroid.android.inappbilling.InAppBillingClient.OnIabPurchaseFinishedListener;
 import com.jdroid.android.inappbilling.InAppBillingClient.QueryInventoryFinishedListener;
@@ -17,7 +17,7 @@ import com.jdroid.java.utils.LoggerUtils;
  * 
  * @author Maxi Rosson
  */
-public abstract class InAppBillingFragment extends AbstractFragment {
+public abstract class InAppBillingFragment extends AbstractGridFragment<Product> {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(InAppBillingFragment.class);
 	
@@ -94,7 +94,7 @@ public abstract class InAppBillingFragment extends AbstractFragment {
 						ProductType productType = BillingContext.get().isInAppBillingMockEnabled() ? BillingContext.get().getTestProductType()
 								: each;
 						Product product = new Product(productType, skuDetails.getPrice(), getString(each.getTitleId()),
-								getString(each.getDescriptionId(), skuDetails.getPrice()), each.getLayoutId());
+								getString(each.getDescriptionId(), skuDetails.getPrice()));
 						product.setPurchase(inventory.getPurchase(product.getProductType().getProductId()));
 						products.add(product);
 						
@@ -111,6 +111,7 @@ public abstract class InAppBillingFragment extends AbstractFragment {
 				
 			} else {
 				LOGGER.warn("Failed to query inventory: " + result);
+				dismissLoading();
 				onFailedToLoadPurchases();
 			}
 		}
@@ -136,6 +137,11 @@ public abstract class InAppBillingFragment extends AbstractFragment {
 		});
 	}
 	
+	/**
+	 * This method is executed (on the UI thread) when the products are loaded
+	 * 
+	 * @param products The loaded products
+	 */
 	protected abstract void onProductsLoaded(List<Product> products);
 	
 	protected abstract void onPurchased(Product product);
@@ -248,4 +254,11 @@ public abstract class InAppBillingFragment extends AbstractFragment {
 		}
 	}
 	
+	/**
+	 * @see com.jdroid.android.fragment.AbstractFragment#isBlockingLoadingEnabled()
+	 */
+	@Override
+	public Boolean isBlockingLoadingEnabled() {
+		return false;
+	}
 }

@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 
 /**
  * Runnable implementation to wrap runnables to run them safely in the UI thread from a fragment. This class only call
- * the "run()" method of the wrapped runnable if the fragment is in the resumed state.
+ * the "run()" method of the wrapped runnable if the fragment is not detached.
  * 
  */
 public class SafeExecuteWrapperRunnable implements Runnable {
@@ -19,7 +19,7 @@ public class SafeExecuteWrapperRunnable implements Runnable {
 	
 	@Override
 	public void run() {
-		if (fragment.isResumed()) {
+		if (!fragment.isDetached()) {
 			runnable.run();
 		}
 	}

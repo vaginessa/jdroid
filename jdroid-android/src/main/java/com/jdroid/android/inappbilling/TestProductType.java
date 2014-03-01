@@ -60,14 +60,6 @@ public enum TestProductType implements ProductType {
 	}
 	
 	/**
-	 * @see com.jdroid.android.inappbilling.ProductType#getLayoutId()
-	 */
-	@Override
-	public Integer getLayoutId() {
-		return null;
-	}
-	
-	/**
 	 * @see com.jdroid.android.inappbilling.ProductType#getTitleId()
 	 */
 	@Override
