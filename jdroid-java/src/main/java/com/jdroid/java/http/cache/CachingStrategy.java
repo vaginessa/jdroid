@@ -60,6 +60,38 @@ public enum CachingStrategy {
 		}
 	},
 	
+	// First try with the cache. If it is a hit (doesn't matter if it is expired or not), return the cached response and
+	// then execute an asynchronous request. If
+	// is is not a hit, execute the request only if the cache doesn't exist or it is expired
+	CACHE_FORCED_FIRST_ASYNCH_REMOTE {
+		
+		@Override
+		public <T> T execute(final CachedWebService cachedWebService, final Parser parser) {
+			Long originalTimeToLive = cachedWebService.getTimeToLive();
+			cachedWebService.setTimeToLive(null);
+			T response = cachedWebService.readFromCache(parser);
+			if (response == null) {
+				response = cachedWebService.executeRequest(parser);
+			} else {
+				cachedWebService.setTimeToLive(originalTimeToLive);
+				ExecutorUtils.execute(new Runnable() {
+					
+					@Override
+					public void run() {
+						try {
+							CachingStrategy.CACHE_FIRST.execute(cachedWebService, parser);
+						} catch (Exception e) {
+							LOGGER.warn("Error when executing asynch request.", e);
+							// TODO We should logg the exception on the handler
+							// AbstractApplication.get().getExceptionHandler().logHandledException(e);
+						}
+					}
+				});
+			}
+			return response;
+		}
+	},
+	
 	// If it is a hit, return the cached response, else return null
 	CACHE_ONLY {
 		

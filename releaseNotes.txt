@@ -1,5 +1,6 @@
 jdroid Java\n
 -----------\n
+* Added new caching strategy\n
 * Upgraded dependencies versions\n
 * Bug fixing\n
 \n
@@ -10,6 +11,8 @@ jdroid Java Web\n
 \n
 jdroid Android\n
 --------------\n
+* Added In app billing v3 support\n
+* Added the new Google Play Services library as a separated project\n
 * Upgraded dependencies versions\n
 * Bug fixing\n
 \n

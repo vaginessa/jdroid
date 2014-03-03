@@ -179,4 +179,25 @@ public abstract class CachedWebService implements WebService {
 	public String getUrlSuffix() {
 		return webService.getUrlSuffix();
 	}
+	
+	/**
+	 * @param timeToLive the timeToLive to set
+	 */
+	public void setTimeToLive(Long timeToLive) {
+		this.timeToLive = timeToLive;
+	}
+	
+	/**
+	 * @return the timeToLive
+	 */
+	public Long getTimeToLive() {
+		return timeToLive;
+	}
+	
+	/**
+	 * @param cachingStrategy the cachingStrategy to set
+	 */
+	public void setCachingStrategy(CachingStrategy cachingStrategy) {
+		this.cachingStrategy = cachingStrategy;
+	}
 }

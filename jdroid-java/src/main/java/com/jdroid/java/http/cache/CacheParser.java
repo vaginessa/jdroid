@@ -3,15 +3,19 @@ package com.jdroid.java.http.cache;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import org.slf4j.Logger;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.parser.Parser;
 import com.jdroid.java.utils.FileUtils;
+import com.jdroid.java.utils.LoggerUtils;
 
 /**
  * 
  * @author Maxi Rosson
  */
 public class CacheParser implements Parser {
+	
+	private static final Logger LOGGER = LoggerUtils.getLogger(CacheParser.class);
 	
 	private Parser parser;
 	private File cacheFile;
@@ -41,6 +45,7 @@ public class CacheParser implements Parser {
 					// Do Nothing
 				}
 				FileUtils.copyStream(inputStreamCopy, cacheFile);
+				LOGGER.debug("Saved http request to cache file: " + cacheFile.getAbsolutePath());
 			}
 		});
 		return object;
