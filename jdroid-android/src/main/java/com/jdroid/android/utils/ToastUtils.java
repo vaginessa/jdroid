@@ -2,7 +2,6 @@ package com.jdroid.android.utils;
 
 import java.lang.ref.WeakReference;
 import android.os.Handler;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,9 +16,6 @@ import com.jdroid.android.R;
 public final class ToastUtils {
 	
 	private static final int DEFAULT_DURATION = Toast.LENGTH_LONG;
-	private static final int DEFAULT_GRAVITY = Gravity.CENTER;
-	private static final int DEFAULT_X_OFFSET = 0;
-	private static final int DEFAULT_Y_OFFSET = 0;
 	
 	private static WeakReference<Toast> currentToast;
 	
@@ -79,7 +75,7 @@ public final class ToastUtils {
 	 * @param duration How long to display the message. Either {@link Toast#LENGTH_SHORT} {@link Toast#LENGTH_LONG}
 	 */
 	public static void showToast(String message, int duration) {
-		showToast(message, duration, DEFAULT_GRAVITY, DEFAULT_X_OFFSET, DEFAULT_Y_OFFSET);
+		showToast(message, duration, null, null, null);
 	}
 	
 	/**
@@ -91,7 +87,7 @@ public final class ToastUtils {
 	 * @param xOffset The X offset in pixels to apply to the gravity's location.
 	 * @param yOffset The Y offset in pixels to apply to the gravity's location.
 	 */
-	public static void showToast(String message, int duration, int gravity, int xOffset, int yOffset) {
+	public static void showToast(String message, int duration, Integer gravity, Integer xOffset, Integer yOffset) {
 		showCustomToast(null, message, duration, gravity, xOffset, yOffset);
 	}
 	
@@ -120,7 +116,7 @@ public final class ToastUtils {
 	 * @param duration How long to display the message. Either {@link Toast#LENGTH_SHORT} {@link Toast#LENGTH_LONG}
 	 */
 	public static void showInfoToast(String message, int duration) {
-		showInfoToast(message, duration, DEFAULT_GRAVITY, DEFAULT_X_OFFSET, DEFAULT_Y_OFFSET);
+		showInfoToast(message, duration, null, null, null);
 	}
 	
 	/**
@@ -132,7 +128,7 @@ public final class ToastUtils {
 	 * @param xOffset The X offset in pixels to apply to the gravity's location.
 	 * @param yOffset The Y offset in pixels to apply to the gravity's location.
 	 */
-	public static void showInfoToast(String message, int duration, int gravity, int xOffset, int yOffset) {
+	public static void showInfoToast(String message, int duration, Integer gravity, Integer xOffset, Integer yOffset) {
 		showCustomToast(R.drawable.toast_info, message, duration, gravity, xOffset, yOffset);
 	}
 	
@@ -161,7 +157,7 @@ public final class ToastUtils {
 	 * @param duration How long to display the message. Either {@link Toast#LENGTH_SHORT} {@link Toast#LENGTH_LONG}
 	 */
 	public static void showWarningToast(String message, int duration) {
-		showWarningToast(message, duration, DEFAULT_GRAVITY, DEFAULT_X_OFFSET, DEFAULT_Y_OFFSET);
+		showWarningToast(message, duration, null, null, null);
 	}
 	
 	/**
@@ -173,7 +169,7 @@ public final class ToastUtils {
 	 * @param xOffset The X offset in pixels to apply to the gravity's location.
 	 * @param yOffset The Y offset in pixels to apply to the gravity's location.
 	 */
-	public static void showWarningToast(String message, int duration, int gravity, int xOffset, int yOffset) {
+	public static void showWarningToast(String message, int duration, Integer gravity, Integer xOffset, Integer yOffset) {
 		showCustomToast(R.drawable.toast_warning, message, duration, gravity, xOffset, yOffset);
 	}
 	
@@ -202,7 +198,7 @@ public final class ToastUtils {
 	 * @param duration How long to display the message. Either {@link Toast#LENGTH_SHORT} {@link Toast#LENGTH_LONG}
 	 */
 	public static void showErrorToast(String message, int duration) {
-		showErrorToast(message, duration, DEFAULT_GRAVITY, DEFAULT_X_OFFSET, DEFAULT_Y_OFFSET);
+		showErrorToast(message, duration, null, null, null);
 	}
 	
 	/**
@@ -214,7 +210,7 @@ public final class ToastUtils {
 	 * @param xOffset The X offset in pixels to apply to the gravity's location.
 	 * @param yOffset The Y offset in pixels to apply to the gravity's location.
 	 */
-	public static void showErrorToast(String message, int duration, int gravity, int xOffset, int yOffset) {
+	public static void showErrorToast(String message, int duration, Integer gravity, Integer xOffset, Integer yOffset) {
 		showCustomToast(R.drawable.toast_error, message, duration, gravity, xOffset, yOffset);
 	}
 	
@@ -228,8 +224,8 @@ public final class ToastUtils {
 	 * @param xOffset The X offset in pixels to apply to the gravity's location.
 	 * @param yOffset The Y offset in pixels to apply to the gravity's location.
 	 */
-	public static void showCustomToast(Integer imageId, String message, int duration, int gravity, int xOffset,
-			int yOffset) {
+	public static void showCustomToast(Integer imageId, String message, int duration, Integer gravity, Integer xOffset,
+			Integer yOffset) {
 		AbstractApplication androidApplication = AbstractApplication.get();
 		if (!androidApplication.isInBackground()) {
 			
@@ -248,7 +244,9 @@ public final class ToastUtils {
 			cancelCurrentToast();
 			
 			Toast toast = new Toast(androidApplication);
-			toast.setGravity(gravity, xOffset, yOffset);
+			if ((gravity != null) && (xOffset != null) && (yOffset != null)) {
+				toast.setGravity(gravity, xOffset, yOffset);
+			}
 			toast.setDuration(duration);
 			toast.setView(view);
 			toast.show();

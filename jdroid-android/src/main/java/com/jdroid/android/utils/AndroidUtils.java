@@ -283,10 +283,6 @@ public class AndroidUtils {
 		return density;
 	}
 	
-	public static Boolean supportsContextualActionBar() {
-		return !AndroidUtils.isGoogleTV();
-	}
-	
 	public static String getDeviceName() {
 		String manufacturer = getDeviceManufacturer();
 		String model = getDeviceModel();
