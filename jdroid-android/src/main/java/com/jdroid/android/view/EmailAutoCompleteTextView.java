@@ -3,6 +3,7 @@ package com.jdroid.android.view;
 import android.content.Context;
 import android.text.InputType;
 import android.util.AttributeSet;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import com.jdroid.android.utils.AndroidUtils;
@@ -34,6 +35,7 @@ public class EmailAutoCompleteTextView extends AutoCompleteTextView {
 		setAdapter(adapter);
 		setThreshold(1);
 		setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+		setImeOptions(EditorInfo.IME_ACTION_NEXT);
 	}
 	
 }
