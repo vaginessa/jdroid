@@ -10,6 +10,7 @@ import com.jdroid.android.usecase.DefaultAbstractUseCase;
 public abstract class GooglePlusAuthenticationUseCase extends DefaultAbstractUseCase {
 	
 	private Boolean loginMode = true;
+	private String account;
 	private Person person;
 	
 	/**
@@ -18,13 +19,13 @@ public abstract class GooglePlusAuthenticationUseCase extends DefaultAbstractUse
 	@Override
 	protected void doExecute() {
 		if (loginMode) {
-			onConnectToGooglePlus(person.getId());
+			onConnectToGooglePlus(person, account);
 		} else {
 			onDisconnectFromGooglePlus();
 		}
 	}
 	
-	protected abstract void onConnectToGooglePlus(String googleUserId);
+	protected abstract void onConnectToGooglePlus(Person person, String account);
 	
 	protected abstract void onDisconnectFromGooglePlus();
 	
@@ -45,5 +46,9 @@ public abstract class GooglePlusAuthenticationUseCase extends DefaultAbstractUse
 	
 	public Person getPerson() {
 		return person;
+	}
+	
+	public void setAccount(String account) {
+		this.account = account;
 	}
 }

@@ -30,12 +30,14 @@ public class EmailAutoCompleteTextView extends AutoCompleteTextView {
 	}
 	
 	private void init() {
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-				android.R.layout.simple_dropdown_item_1line, AndroidUtils.getAccountsEmails());
-		setAdapter(adapter);
-		setThreshold(1);
-		setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-		setImeOptions(EditorInfo.IME_ACTION_NEXT);
+		if (!isInEditMode()) {
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+					android.R.layout.simple_dropdown_item_1line, AndroidUtils.getAccountsEmails());
+			setAdapter(adapter);
+			setThreshold(1);
+			setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+			setImeOptions(EditorInfo.IME_ACTION_NEXT);
+		}
 	}
 	
 }
