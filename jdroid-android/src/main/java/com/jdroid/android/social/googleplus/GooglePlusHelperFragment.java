@@ -249,6 +249,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 				}
 			} else {
 				googlePlusAuthenticationUseCase.setPerson(me);
+				googlePlusAuthenticationUseCase.setAccount(Plus.AccountApi.getAccountName(googleApiClient));
 				googlePlusAuthenticationUseCase.setLoginMode(true);
 				executeUseCase(googlePlusAuthenticationUseCase);
 			}
