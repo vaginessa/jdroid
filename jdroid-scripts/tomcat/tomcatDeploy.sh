@@ -1,8 +1,10 @@
 #!/bin/bash
 TOMCAT_HOME="$1"
-WAR_PATH="$2"
+WAR_NAME="$2"
 PROJECT_NAME="$3"
-BACKUP_DIR="$4"
+PROJECT_HOME="$4"
+BACKUPS=true
+AUTO_RECOVERY=true
 
 # Help
 # ****
@@ -16,11 +18,11 @@ then
         echo ""
         echo " 1) The Apache Tomcat path. Required. For example: /home/user/apache-tomcat-6.0.29"
         echo ""
-        echo " 2) The path of the war file to deploy. Required."
+        echo " 2) The name of the war file to deploy. Required."
         echo ""
         echo " 3) The project name. Required."
         echo ""
-        echo " 4) The backup directory path. Optional."
+        echo " 4) The project home directory path. Required."
         echo ""
         exit 0
 fi
@@ -41,17 +43,18 @@ then
 	exit 1;
 fi
 
-if [ -z "$WAR_PATH" ]
+if [ -z "$WAR_NAME" ]
 then
-	echo "[ERROR] The WAR_PATH parameter is required"
+	echo "[ERROR] The WAR_NAME parameter is required"
         echo "Run the script with '-h' for help"
         exit 1
 fi
 
+WAR_PATH=$PROJECT_HOME/$WAR_NAME
 filename=`echo $WAR_PATH | grep 'war$'`
 if [ -z $filename ] || [ ! -e $WAR_PATH ]
 then
-        echo "[ERROR] The WAR_PATH parameter is not a war file"
+        echo "[ERROR] The WAR_NAME parameter is not a war file"
         exit 0
 fi
 
@@ -62,9 +65,16 @@ then
 	exit 1;
 fi
 
-if [ ! -z "$BACKUP_DIR" ] && [ ! -d "$BACKUP_DIR" ]
+if [ -z "$PROJECT_HOME" ]
 then
-	echo "[ERROR] The BACKUP_DIR directory does not exist."
+	echo "[ERROR] The PROJECT_HOME parameter is required"
+	echo "Run the script with '-h' for help"
+	exit 1;
+fi
+
+if [ ! -d "$PROJECT_HOME" ]
+then
+	echo "[ERROR] - The PROJECT_HOME directory does not exist."
 	echo "Run the script with '-h' for help"
 	exit 1;
 fi
@@ -82,6 +92,12 @@ echo "Starting deployment..."
 #	kill -9 "$TOMCAT_PID";
 #	echo "Apache Tomcat killed";
 #fi
+
+if [ "$AUTO_RECOVERY" = 'true' ] 
+then
+	echo "Disabling autorecovery..."
+	crontab -r
+fi
 
 echo "Shuting down tomcat..."
 #$TOMCAT_HOME/bin/shutdown.sh
@@ -102,19 +118,27 @@ echo "Restarting tomcat..."
 #$TOMCAT_HOME/bin/startup.sh
 /etc/init.d/tomcat start
 
-#Backups
-#*******
-if [ ! -z "$BACKUP_DIR" ]
+# Backups
+# *******************
+if [ "$BACKUPS" = 'true' ] 
 then
     echo "Creating a backup copy..."
 	timeStamp=`date +%F-%T`
 	warName=`basename $WAR_PATH .war`
     backupFileName=$warName-[$timeStamp].war
-    cp -p $WAR_PATH $BACKUP_DIR/${backupFileName}
+    cp -p $WAR_PATH $PROJECT_HOME/backups/${backupFileName}
 	rm $WAR_PATH
-	echo "Backup created at $BACKUP_DIR/${backupFileName}"
+	echo "Backup created at $PROJECT_HOME/backups/${backupFileName}"
+fi
+
+
+# Auto recovery
+# *******************
+if [ "$AUTO_RECOVERY" = 'true' ] 
+then
+	echo "Enabling autorecovery..."
+	echo "*/15 * * * * sudo sh $PROJECT_HOME/scripts/tomcatRecover.sh" | crontab
 fi
 
 echo "Deployment process finished successfully"
-
 exit 0;

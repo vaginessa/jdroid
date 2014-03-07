@@ -2,7 +2,7 @@
 
 # crontab -e
 # monitor tomcat every 15 minutes
-# */15 * * * * sh /path/to/recoverTomcat.sh
+# */15 * * * * sudo sh /path/to/tomcatRecover.sh
 
 LOG_PATH=$1
 SERVICE=/etc/init.d/tomcat

@@ -165,16 +165,22 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	@SuppressWarnings("resource")
 	public T get(Long id) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.query(getTableName(), null, getIdColumnName() + "=?", new String[] { id.toString() }, null,
-			null, null);
-		T item = null;
-		if (cursor.moveToNext()) {
-			item = createObjectFromCursor(cursor);
-			onLoaded(item);
+		Cursor cursor = null;
+		try {
+			cursor = db.query(getTableName(), null, getIdColumnName() + "=?", new String[] { id.toString() }, null,
+				null, null);
+			T item = null;
+			if (cursor.moveToNext()) {
+				item = createObjectFromCursor(cursor);
+				onLoaded(item);
+			}
+			LOGGER.info("Retrieved object from database of type: " + getTableName() + " id: " + id);
+			return item;
+		} finally {
+			if (cursor != null) {
+				cursor.close();
+			}
 		}
-		cursor.close();
-		LOGGER.info("Retrieved object from database of type: " + getTableName() + " id: " + id);
-		return item;
 	}
 	
 	/**
@@ -199,19 +205,26 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 			sb.append(")");
 			selection = sb.toString();
 		}
-		ArrayList<T> items = new ArrayList<T>();
-		Cursor cursor = db.query(getTableName(), null, selection, selectionArgs, null, null, getDefaultSort());
-		while (cursor.moveToNext()) {
-			T item = createObjectFromCursor(cursor);
-			onLoaded(item);
-			items.add(item);
+		Cursor cursor = null;
+		try {
+			ArrayList<T> items = new ArrayList<T>();
+			cursor = db.query(getTableName(), null, selection, selectionArgs, null, null, getDefaultSort());
+			while (cursor.moveToNext()) {
+				T item = createObjectFromCursor(cursor);
+				onLoaded(item);
+				items.add(item);
+			}
+			cursor.close();
+			
+			LOGGER.info("Retrieved objects from database of type: " + getTableName() + " field: " + fieldName
+					+ " values: " + values);
+			
+			return items;
+		} finally {
+			if (cursor != null) {
+				cursor.close();
+			}
 		}
-		cursor.close();
-		
-		LOGGER.info("Retrieved objects from database of type: " + getTableName() + " field: " + fieldName + " values: "
-				+ values);
-		
-		return items;
 	}
 	
 	/**
@@ -239,10 +252,16 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	@Override
 	public Boolean isEmpty() {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.query(getTableName(), new String[0], null, null, null, null, null);
-		int count = cursor.getCount();
-		cursor.close();
-		return count > 0;
+		Cursor cursor = null;
+		try {
+			cursor = db.query(getTableName(), new String[0], null, null, null, null, null);
+			int count = cursor.getCount();
+			return count > 0;
+		} finally {
+			if (cursor != null) {
+				cursor.close();
+			}
+		}
 	}
 	
 	/**

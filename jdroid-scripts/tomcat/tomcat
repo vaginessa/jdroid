@@ -224,7 +224,7 @@ case "$1" in
         if [ "$?" = "0" ]; then
 
                 if [ -f "$CATALINA_PID" ]; then
-                    log_success_msg "$DESC is not running, but pid file exists."
+                    log_success_msg "$DESC is not running.”
                         exit 1
                 else
                     log_success_msg "$DESC is not running."
