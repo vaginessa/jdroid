@@ -432,7 +432,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 			});
 	}
 	
-	public static void revokeAccess(Context context) {
+	public static void signOut(Context context) {
 		
 		if (GooglePlayUtils.isGooglePlayServicesAvailable(context)) {
 			
@@ -440,13 +440,10 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 			
 			Builder builder = new GoogleApiClient.Builder(context);
 			builder.addApi(Plus.API);
-			builder.addScope(Plus.SCOPE_PLUS_LOGIN);
-			builder.addScope(Plus.SCOPE_PLUS_PROFILE);
 			builder.addConnectionCallbacks(logoutListener);
 			GoogleApiClient googleApiClient = builder.build();
 			logoutListener.setGoogleApiClient(googleApiClient);
 			googleApiClient.connect();
-			
 		}
 	}
 	
@@ -457,7 +454,6 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 		@Override
 		public void onConnected(Bundle arg0) {
 			Plus.AccountApi.clearDefaultAccount(googleApiClient);
-			Plus.AccountApi.revokeAccessAndDisconnect(googleApiClient);
 		}
 		
 		@Override
