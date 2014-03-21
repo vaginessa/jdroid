@@ -18,6 +18,7 @@ import com.jdroid.android.dialog.AlertDialogFragment;
 public class GooglePlayUtils {
 	
 	private static final String GOOGLE_PLAY_SERVICES = "com.google.android.gms";
+	private static final String GOOGLE_PLAY_DETAILS_LINK = "http://play.google.com/store/apps/details?id=";
 	
 	public static class UpdateAppDialogFragment extends AlertDialogFragment {
 		
@@ -70,7 +71,7 @@ public class GooglePlayUtils {
 			context.startActivity(intent);
 		} else {
 			intent = new Intent(Intent.ACTION_VIEW);
-			intent.setData(Uri.parse("http://play.google.com/store/apps/details?id=" + packageName));
+			intent.setData(Uri.parse(getGooglePlayLink(packageName)));
 			context.startActivity(intent);
 		}
 	}
@@ -81,5 +82,24 @@ public class GooglePlayUtils {
 	
 	public static void launchGooglePlayServicesUpdate(Activity c) {
 		launchAppDetails(c, GOOGLE_PLAY_SERVICES);
+	}
+	
+	public static String getGooglePlayLink(String packageName, String referrer) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(GOOGLE_PLAY_DETAILS_LINK);
+		builder.append(packageName);
+		if (referrer != null) {
+			builder.append("&referrer=");
+			builder.append(referrer);
+		}
+		return builder.toString();
+	}
+	
+	public static String getGooglePlayLink(String packageName) {
+		return getGooglePlayLink(packageName, null);
+	}
+	
+	public static String getGooglePlayLink() {
+		return getGooglePlayLink(AndroidUtils.getPackageName());
 	}
 }

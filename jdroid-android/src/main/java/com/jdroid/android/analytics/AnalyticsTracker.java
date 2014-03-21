@@ -19,4 +19,6 @@ public interface AnalyticsTracker {
 	
 	public void trackConnectionException(ConnectionException connectionException);
 	
+	public void trackUriHandled(Boolean handled, String validUri, String invalidUri);
+	
 }

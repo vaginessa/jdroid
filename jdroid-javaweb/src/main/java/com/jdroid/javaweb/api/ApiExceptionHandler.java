@@ -29,6 +29,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.BusinessException;
+import com.jdroid.java.exception.InvalidArgumentException;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.exception.CommonErrorCode;
 import com.jdroid.javaweb.exception.InvalidAuthenticationException;
@@ -127,6 +128,8 @@ public class ApiExceptionHandler extends AbstractHandlerExceptionResolver {
 				error = handleException((BusinessException)exception);
 			} else if (exception instanceof BadRequestException) {
 				error = handleException((BadRequestException)exception);
+			} else if (exception instanceof InvalidArgumentException) {
+				error = handleException((InvalidArgumentException)exception);
 			} else if (exception instanceof InvalidAuthenticationException) {
 				error = handleException((InvalidAuthenticationException)exception);
 			} else if (exception instanceof TypeMismatchException) {
@@ -239,6 +242,10 @@ public class ApiExceptionHandler extends AbstractHandlerExceptionResolver {
 	private ApiError handleBadRequest(Exception exception) {
 		LOGGER.warn(exception.getMessage());
 		return new ApiError(HttpStatus.BAD_REQUEST, CommonErrorCode.BAD_REQUEST.getStatusCode(), exception.getMessage());
+	}
+	
+	protected ApiError handleException(InvalidArgumentException invalidArgumentException) {
+		return handleBadRequest(invalidArgumentException);
 	}
 	
 	protected ApiError handleException(InvalidAuthenticationException invalidAuthentificationException) {

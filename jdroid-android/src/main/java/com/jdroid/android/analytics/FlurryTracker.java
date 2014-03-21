@@ -19,6 +19,7 @@ public class FlurryTracker implements AnalyticsTracker {
 	private static final String FIRST_APPLOAD_SENT = "firstAppLoadSent";
 	private static final String FIRST_APPLOAD = "firstAppLoad";
 	private static final String CONNECTION_EXCEPTION = "connectionException";
+	private static final String URI_HANDLED = "uriHandled";
 	
 	/**
 	 * @see com.jdroid.android.analytics.AnalyticsTracker#isEnabled()
@@ -109,6 +110,15 @@ public class FlurryTracker implements AnalyticsTracker {
 		params.put("errorMessage", connectionException.getMessage());
 		
 		trackEvent(CONNECTION_EXCEPTION, params);
+	}
+	
+	@Override
+	public void trackUriHandled(Boolean handled, String validUri, String invalidUri) {
+		Map<String, String> params = Maps.newHashMap();
+		params.put("handled", handled.toString());
+		params.put("validUri", validUri);
+		params.put("invalidUri", invalidUri);
+		trackEvent(URI_HANDLED, params);
 	}
 	
 	protected String getDataRange(long dataSize) {

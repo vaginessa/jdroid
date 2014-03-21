@@ -110,4 +110,19 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 		});
 	}
 	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackUriHandled(java.lang.Boolean, java.lang.String,
+	 *      java.lang.String)
+	 */
+	@Override
+	public void trackUriHandled(final Boolean handled, final String validUri, final String invalidUri) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+			
+			@Override
+			protected void track(T tracker) {
+				tracker.trackUriHandled(handled, validUri, invalidUri);
+			}
+		});
+	}
+	
 }

@@ -33,4 +33,13 @@ public abstract class DefaultAnalyticsTracker implements AnalyticsTracker {
 		// Do Nothing
 	}
 	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackUriHandled(java.lang.Boolean, java.lang.String,
+	 *      java.lang.String)
+	 */
+	@Override
+	public void trackUriHandled(Boolean handled, String validUri, String invalidUri) {
+		// Do Nothing
+	}
+	
 }
