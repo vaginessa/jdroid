@@ -2,14 +2,12 @@ package com.jdroid.android.activity;
 
 import org.slf4j.Logger;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,7 +32,6 @@ import com.jdroid.android.gps.LocalizationManager;
 import com.jdroid.android.intent.ClearTaskIntent;
 import com.jdroid.android.loading.DefaultLoadingDialogBuilder;
 import com.jdroid.android.loading.LoadingDialogBuilder;
-import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.IdGenerator;
@@ -108,7 +105,6 @@ public class ActivityHelper implements ActivityIf {
 	public void beforeOnCreate() {
 	}
 	
-	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 	public void onCreate(Bundle savedInstanceState) {
 		LOGGER.trace("Executing onCreate on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
@@ -127,9 +123,7 @@ public class ActivityHelper implements ActivityIf {
 		ActionBar actionBar = activity.getActionBar();
 		if (actionBar != null) {
 			
-			if (AndroidUtils.getApiLevel() >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-				actionBar.setHomeButtonEnabled(true);
-			}
+			actionBar.setHomeButtonEnabled(true);
 			if (!getActivityIf().isLauncherActivity()) {
 				actionBar.setDisplayHomeAsUpEnabled(true);
 			}

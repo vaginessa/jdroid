@@ -1,9 +1,11 @@
 package com.jdroid.android.uri;
 
 import org.slf4j.Logger;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.webkit.URLUtil;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -12,6 +14,9 @@ import com.jdroid.java.utils.LoggerUtils;
  * 
  */
 public class UriMapper {
+	
+	private static final String GOOGLE_PLUS_DEEPLINK_PREFFIX = "vnd.google.deeplink://link/?deep_link_id=";
+	private static final String GOOGLE_PLUS_DEEPLINK_SUFFIX = "&gplus_source=stream";
 	
 	/**
 	 * In case of a valid Uri, we should send this value as invalidUri parameter.
@@ -40,6 +45,18 @@ public class UriMapper {
 	}
 	
 	/**
+	 * Check for an incoming deep link
+	 * 
+	 * @param activity
+	 */
+	public static void checkDeepLink(Activity activity) {
+		Uri targetUri = activity.getIntent().getData();
+		if (targetUri != null) {
+			UriMapper.startActivityFromUri(activity, targetUri);
+		}
+	}
+	
+	/**
 	 * Starts the activity associated with given Uri if it exists.
 	 * 
 	 * @param context context
@@ -57,6 +74,16 @@ public class UriMapper {
 		Intent intent = null;
 		try {
 			if (uri != null) {
+				
+				// Clean the uri if it is from a Google+ deeplink
+				String uriString = uri.toString();
+				if (uriString.startsWith(GOOGLE_PLUS_DEEPLINK_PREFFIX)) {
+					uriString = uriString.replace(GOOGLE_PLUS_DEEPLINK_PREFFIX, "");
+					uriString = uriString.replace(GOOGLE_PLUS_DEEPLINK_SUFFIX, "");
+					uriString = new String(URLUtil.decode(uriString.getBytes())).toString();
+					uri = Uri.parse(uriString);
+				}
+				
 				intent = getIntentFromUriInner(context, uri);
 			} else {
 				intent = createDefaultIntent(context, uri);

@@ -28,8 +28,8 @@
 	<!-- Google Play Utils -->
 	<string name="updateAppTitle">Update required</string>
 	<string name="updateAppMessage">You are using an outdated version of this app. Please update it and try again.</string>
-	<string name="installAppTitle">Install %1$s?</string>
-	<string name="installAppMessage">This application requires %1$s. Would you like to install it?</string>
+	<string name="installAppTitle">%1$s required</string>
+	<string name="installAppMessage">You need to install the %1$s application to continue. Would you like to download it?</string>
 
 	<!-- Abstract Search Activity -->
 	<string name="typeHere">Type Here</string>
@@ -68,6 +68,9 @@
 	<!-- External Apps -->
 	<string name="barcodeScanner">Barcode Scanner</string>
 	<string name="voiceSearch">Voice Search</string>
+
+	<!-- Sharing -->
+	<string name="sharingFailed">The sharing failed</string>
 
 	<!-- Facebook -->
 	<string name="facebook">Facebook</string>

@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -25,14 +26,18 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.People;
 import com.google.android.gms.plus.People.LoadPeopleResult;
 import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.PlusShare;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.android.gms.plus.model.people.PersonBuffer;
+import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.social.SocialUser;
 import com.jdroid.android.social.SocialUser.SocialNetwork;
 import com.jdroid.android.utils.GooglePlayUtils;
+import com.jdroid.android.utils.IntentUtils;
 import com.jdroid.java.collections.Lists;
+import com.jdroid.java.http.MimeType;
 import com.jdroid.java.utils.LoggerUtils;
 
 /**
@@ -430,6 +435,21 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 					}
 				}
 			});
+	}
+	
+	public static void share(Activity activity, String content, String link) {
+		PlusShare.Builder builder = new PlusShare.Builder(activity);
+		builder.setText(content);
+		builder.setType(MimeType.TEXT);
+		builder.setContentUrl(Uri.parse(link));
+		builder.setContentDeepLinkId(link);
+		
+		Intent intent = builder.getIntent();
+		if (IntentUtils.isIntentAvailable(intent)) {
+			activity.startActivityForResult(intent, 0);
+		} else {
+			GooglePlayUtils.showDownloadDialog(R.string.googlePlus, "com.google.android.apps.plus");
+		}
 	}
 	
 	public static void signOut(Context context) {

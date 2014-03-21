@@ -6,8 +6,16 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import com.facebook.FacebookException;
+import com.facebook.FacebookOperationCanceledException;
+import com.facebook.Session;
+import com.facebook.widget.WebDialog;
+import com.facebook.widget.WebDialog.FeedDialogBuilder;
+import com.facebook.widget.WebDialog.OnCompleteListener;
+import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.fragment.AbstractFragment;
+import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -163,6 +171,36 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 		facebookConnector.logout();
 	}
 	
+	public void share(String name, String caption, String description, String link, String picture) {
+		Session session = Session.getActiveSession();
+		if ((session != null) && session.isOpened()) {
+			
+			Bundle params = new Bundle();
+			params.putString("name", name);
+			params.putString("caption", caption);
+			params.putString("description", description);
+			params.putString("link", link);
+			params.putString("picture", picture);
+			
+			// Invoke the dialog
+			FeedDialogBuilder builder = new WebDialog.FeedDialogBuilder(getActivity(), Session.getActiveSession(),
+					params);
+			builder.setOnCompleteListener(new OnCompleteListener() {
+				
+				@Override
+				public void onComplete(Bundle values, FacebookException facebookException) {
+					if ((facebookException != null)
+							&& (facebookException.getClass() != FacebookOperationCanceledException.class)) {
+						ToastUtils.showToast(R.string.sharingFailed);
+					}
+				}
+			});
+			builder.build().show();
+		} else {
+			FacebookAuthenticationFragment.get(getActivity()).startLoginProcess();
+		}
+	}
+	
 	/**
 	 * @see com.jdroid.android.social.facebook.FacebookAuthenticationListener#onFacebookLoginCompleted(com.jdroid.android.social.facebook.FacebookConnector)
 	 */
@@ -213,7 +251,7 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 				FacebookListener facebookListener = getFacebookListener();
 				if (facebookListener != null) {
 					if (facebookAuthenticationUseCase.isLoginMode()) {
-						getFacebookListener().onFacebookConnected(facebookAuthenticationUseCase.getFacebookUser());
+						getFacebookListener().onFacebookSignIn(facebookAuthenticationUseCase.getFacebookUser());
 					} else {
 						getFacebookListener().onFacebookDisconnected();
 					}

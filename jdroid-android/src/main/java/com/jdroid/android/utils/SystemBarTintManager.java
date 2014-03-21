@@ -356,11 +356,9 @@ public class SystemBarTintManager {
 		@TargetApi(14)
 		private int getActionBarHeight(Context context) {
 			int result = 0;
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-				TypedValue tv = new TypedValue();
-				context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
-				result = context.getResources().getDimensionPixelSize(tv.resourceId);
-			}
+			TypedValue tv = new TypedValue();
+			context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
+			result = context.getResources().getDimensionPixelSize(tv.resourceId);
 			return result;
 		}
 		
@@ -368,16 +366,14 @@ public class SystemBarTintManager {
 		private int getNavigationBarHeight(Context context) {
 			Resources res = context.getResources();
 			int result = 0;
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-				if (!ViewConfiguration.get(context).hasPermanentMenuKey()) {
-					String key;
-					if (mInPortrait) {
-						key = NAV_BAR_HEIGHT_RES_NAME;
-					} else {
-						key = NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME;
-					}
-					return getInternalDimensionSize(res, key);
+			if (!ViewConfiguration.get(context).hasPermanentMenuKey()) {
+				String key;
+				if (mInPortrait) {
+					key = NAV_BAR_HEIGHT_RES_NAME;
+				} else {
+					key = NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME;
 				}
+				return getInternalDimensionSize(res, key);
 			}
 			return result;
 		}

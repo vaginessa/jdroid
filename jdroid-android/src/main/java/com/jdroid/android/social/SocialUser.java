@@ -10,7 +10,7 @@ import com.jdroid.android.domain.Entity;
 public class SocialUser extends Entity {
 	
 	public enum SocialNetwork {
-		FACEBOOK(R.drawable.facebook_icon),
+		FACEBOOK(R.drawable.ic_facebook),
 		GOOGLE_PLUS(R.drawable.common_signin_btn_icon_normal_light);
 		
 		private int iconResId;
