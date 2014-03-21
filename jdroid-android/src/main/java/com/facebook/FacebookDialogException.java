@@ -16,9 +16,10 @@ package com.facebook;
 /**
  * Represents an error condition relating to displaying a Facebook Web dialog.
  */
-@SuppressWarnings({ "javadoc", "hiding" })
+@SuppressWarnings("javadoc")
 public class FacebookDialogException extends FacebookException {
 	
+	@SuppressWarnings("hiding")
 	static final long serialVersionUID = 1;
 	private int errorCode;
 	private String failingUrl;

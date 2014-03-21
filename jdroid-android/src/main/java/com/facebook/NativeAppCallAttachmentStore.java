@@ -44,7 +44,7 @@ import com.facebook.internal.Validate;
  * attach them to the native dialog call, and add them to the content provider automatically.
  * </p>
  **/
-@SuppressWarnings({ "javadoc", "resource" })
+@SuppressWarnings("javadoc")
 public final class NativeAppCallAttachmentStore implements NativeAppCallContentProvider.AttachmentDataSource {
 	
 	private static final String TAG = NativeAppCallAttachmentStore.class.getName();
@@ -69,6 +69,7 @@ public final class NativeAppCallAttachmentStore implements NativeAppCallContentP
 		
 		addAttachments(context, callId, imageAttachments, new ProcessAttachment<Bitmap>() {
 			
+			@SuppressWarnings("resource")
 			@Override
 			public void processAttachment(Bitmap attachment, File outputFile) throws IOException {
 				FileOutputStream outputStream = new FileOutputStream(outputFile);
@@ -99,6 +100,7 @@ public final class NativeAppCallAttachmentStore implements NativeAppCallContentP
 		
 		addAttachments(context, callId, imageAttachmentFiles, new ProcessAttachment<File>() {
 			
+			@SuppressWarnings("resource")
 			@Override
 			public void processAttachment(File attachment, File outputFile) throws IOException {
 				FileOutputStream outputStream = new FileOutputStream(outputFile);

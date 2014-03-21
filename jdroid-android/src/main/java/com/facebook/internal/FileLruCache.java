@@ -60,7 +60,6 @@ import com.facebook.Settings;
  * com.facebook.internal is solely for the use of other packages within the Facebook SDK for Android. Use of any of the
  * classes in this package is unsupported, and they may be modified or removed without warning at any time.
  */
-@SuppressWarnings("resource")
 public final class FileLruCache {
 	
 	static final String TAG = FileLruCache.class.getSimpleName();
@@ -73,6 +72,7 @@ public final class FileLruCache {
 	private final Limits limits;
 	private final File directory;
 	private boolean isTrimPending;
+	private boolean isTrimInProgress;
 	private final Object lock;
 	private AtomicLong lastClearCacheTime = new AtomicLong(0);
 	
@@ -97,7 +97,7 @@ public final class FileLruCache {
 	// Also, since trim() runs asynchronously now, this blocks until any pending trim has completed.
 	long sizeInBytesForTest() {
 		synchronized (lock) {
-			while (isTrimPending) {
+			while (isTrimPending || isTrimInProgress) {
 				try {
 					lock.wait();
 				} catch (InterruptedException e) {
@@ -169,6 +169,7 @@ public final class FileLruCache {
 		return openPutStream(key, null);
 	}
 	
+	@SuppressWarnings("resource")
 	public OutputStream openPutStream(final String key, String contentTag) throws IOException {
 		final File buffer = BufferFile.newFile(directory);
 		buffer.delete();
@@ -261,6 +262,7 @@ public final class FileLruCache {
 	// Opens an output stream for the key, and creates an input stream wrapper to copy
 	// the contents of input into the new output stream. The effect is to store a
 	// copy of input, and associate that data with key.
+	@SuppressWarnings("resource")
 	public InputStream interceptAndPut(String key, InputStream input) throws IOException {
 		OutputStream output = openPutStream(key);
 		return new CopyingInputStream(input, output);
@@ -287,6 +289,10 @@ public final class FileLruCache {
 	}
 	
 	private void trim() {
+		synchronized (lock) {
+			isTrimPending = false;
+			isTrimInProgress = true;
+		}
 		try {
 			Logger.log(LoggingBehavior.CACHE, TAG, "trim started");
 			PriorityQueue<ModifiedFile> heap = new PriorityQueue<ModifiedFile>();
@@ -315,7 +321,7 @@ public final class FileLruCache {
 			}
 		} finally {
 			synchronized (lock) {
-				isTrimPending = false;
+				isTrimInProgress = false;
 				lock.notifyAll();
 			}
 		}

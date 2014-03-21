@@ -22,8 +22,8 @@ import com.facebook.internal.Logger;
 /**
  * This class is deprecated. Please use {@link AppEventsLogger} instead.
  */
-@Deprecated
 @SuppressWarnings("javadoc")
+@Deprecated
 public class InsightsLogger {
 	
 	private static final String EVENT_PARAMETER_PIXEL_ID = "fb_offsite_pixel_id";

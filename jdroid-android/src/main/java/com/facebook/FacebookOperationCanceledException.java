@@ -16,9 +16,9 @@ package com.facebook;
 /**
  * An Exception indicating that an operation was canceled before it completed.
  */
-@SuppressWarnings("hiding")
 public class FacebookOperationCanceledException extends FacebookException {
 	
+	@SuppressWarnings("hiding")
 	static final long serialVersionUID = 1;
 	
 	/**

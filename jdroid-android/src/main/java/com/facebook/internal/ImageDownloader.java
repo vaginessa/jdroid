@@ -29,7 +29,6 @@ import android.os.Handler;
 import android.os.Looper;
 import com.facebook.FacebookException;
 
-@SuppressWarnings("resource")
 public class ImageDownloader {
 	
 	private static final int DOWNLOAD_QUEUE_MAX_CONCURRENT = WorkQueue.DEFAULT_MAX_CONCURRENT;
@@ -155,6 +154,7 @@ public class ImageDownloader {
 		}
 	}
 	
+	@SuppressWarnings("resource")
 	private static void readFromCache(RequestKey key, Context context, boolean allowCachedRedirects) {
 		InputStream cachedStream = null;
 		boolean isCachedRedirect = false;

@@ -25,6 +25,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.ContentResolver;
@@ -44,7 +45,7 @@ import com.jdroid.android.BuildConfig;
 /**
  * Allows some customization of sdk behavior.
  */
-@SuppressWarnings({ "javadoc", "resource" })
+@SuppressWarnings("javadoc")
 public final class Settings {
 	
 	private static final String TAG = Settings.class.getCanonicalName();
@@ -55,6 +56,7 @@ public final class Settings {
 	private static volatile String appVersion;
 	private static final String FACEBOOK_COM = "facebook.com";
 	private static volatile String facebookDomain = FACEBOOK_COM;
+	private static AtomicLong onProgressThreshold = new AtomicLong(65536);
 	
 	private static final int DEFAULT_CORE_POOL_SIZE = 5;
 	private static final int DEFAULT_MAXIMUM_POOL_SIZE = 128;
@@ -418,6 +420,7 @@ public final class Settings {
 	 * 
 	 * @return returns null if the facebook app is not present on the phone.
 	 */
+	@SuppressWarnings("resource")
 	public static String getAttributionId(ContentResolver contentResolver) {
 		try {
 			String[] projection = { ATTRIBUTION_ID_COLUMN_NAME };
@@ -499,5 +502,22 @@ public final class Settings {
 		SharedPreferences.Editor editor = preferences.edit();
 		editor.putBoolean("limitEventUsage", limitEventUsage);
 		editor.commit();
+	}
+	
+	/**
+	 * Gets the threshold used to report progress on requests.
+	 */
+	public static long getOnProgressThreshold() {
+		return onProgressThreshold.get();
+	}
+	
+	/**
+	 * Sets the threshold used to report progress on requests. Note that the value will be read when the request is
+	 * started and can not be changed during a request (or batch) execution.
+	 * 
+	 * @param threshold The number of bytes progressed to force a callback.
+	 */
+	public static void setOnProgressThreshold(long threshold) {
+		onProgressThreshold.set(threshold);
 	}
 }

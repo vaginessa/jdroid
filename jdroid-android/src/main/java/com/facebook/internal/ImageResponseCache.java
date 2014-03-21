@@ -24,7 +24,6 @@ import android.content.Context;
 import android.util.Log;
 import com.facebook.LoggingBehavior;
 
-@SuppressWarnings("resource")
 class ImageResponseCache {
 	
 	static final String TAG = ImageResponseCache.class.getSimpleName();
@@ -56,6 +55,7 @@ class ImageResponseCache {
 		return imageStream;
 	}
 	
+	@SuppressWarnings("resource")
 	static InputStream interceptAndCacheImageStream(Context context, HttpURLConnection connection) throws IOException {
 		InputStream stream = null;
 		if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {

@@ -1265,14 +1265,14 @@ public class Session implements Serializable {
 			tokenInfo = AccessToken.createEmptyToken(Collections.<String>emptyList());
 		}
 		
-		synchronized (callbacks) {
-			// Need to schedule the callbacks inside the same queue to preserve ordering.
-			// Otherwise these callbacks could have been added to the queue before the SessionTracker
-			// gets the ACTIVE_SESSION_SET action.
-			Runnable runCallbacks = new Runnable() {
-				
-				@Override
-				public void run() {
+		// Need to schedule the callbacks inside the same queue to preserve ordering.
+		// Otherwise these callbacks could have been added to the queue before the SessionTracker
+		// gets the ACTIVE_SESSION_SET action.
+		Runnable runCallbacks = new Runnable() {
+			
+			@Override
+			public void run() {
+				synchronized (callbacks) {
 					for (final StatusCallback callback : callbacks) {
 						Runnable closure = new Runnable() {
 							
@@ -1286,9 +1286,9 @@ public class Session implements Serializable {
 						runWithHandlerOrExecutor(handler, closure);
 					}
 				}
-			};
-			runWithHandlerOrExecutor(handler, runCallbacks);
-		}
+			}
+		};
+		runWithHandlerOrExecutor(handler, runCallbacks);
 		
 		if (this == Session.activeSession) {
 			if (oldState.isOpened() != newState.isOpened()) {

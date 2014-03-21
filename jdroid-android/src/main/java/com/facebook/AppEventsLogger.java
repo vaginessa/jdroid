@@ -103,7 +103,7 @@ import com.facebook.model.GraphObject;
  * The length of each parameter value can be no more than on the order of 100 characters.</li>
  * </ul>
  */
-@SuppressWarnings({ "javadoc", "hiding" })
+@SuppressWarnings("javadoc")
 public class AppEventsLogger {
 	
 	// Enums
@@ -925,6 +925,7 @@ public class AppEventsLogger {
 		private int numSkippedEventsDueToFullBuffer;
 		private String attributionId;
 		private String packageName;
+		@SuppressWarnings("hiding")
 		private String hashedDeviceAndAppId;
 		
 		public static final String EVENT_COUNT_KEY = "event_count";
@@ -1196,6 +1197,7 @@ public class AppEventsLogger {
 		
 		static final String PERSISTED_EVENTS_FILENAME = "AppEventsLogger.persistedevents";
 		
+		@SuppressWarnings("hiding")
 		private static Object staticLock = new Object();
 		
 		private Context context;
