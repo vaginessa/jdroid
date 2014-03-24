@@ -90,6 +90,10 @@ public class FlurryTracker implements AnalyticsTracker {
 		return Maps.newHashMap();
 	}
 	
+	protected void trackEvent(String eventId) {
+		trackEvent(eventId, null);
+	}
+	
 	protected void trackEvent(String eventId, Map<String, String> params) {
 		if ((params != null) && !params.isEmpty()) {
 			FlurryAgent.logEvent(eventId, params);

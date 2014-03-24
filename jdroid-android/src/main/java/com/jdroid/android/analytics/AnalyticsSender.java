@@ -39,7 +39,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 		}
 	}
 	
-	private abstract class TrackerRunnable implements Runnable {
+	public abstract class TrackerRunnable implements Runnable {
 		
 		@Override
 		public void run() {
