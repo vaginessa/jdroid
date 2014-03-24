@@ -11,6 +11,8 @@ jdroid Java Web\n
 \n
 jdroid Android\n
 --------------\n
+* Added deeplinkning support to Facebook and Google+\n
+* Added support to handle urls\n
 * Added In app billing v3 support\n
 * Added the new Google Play Services library as a separated project\n
 * Upgraded dependencies versions\n

@@ -15,6 +15,7 @@ import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.listener.OnEnterKeyListener;
 import com.jdroid.android.usecase.PaginatedUseCase;
 import com.jdroid.android.usecase.SearchUseCase;
+import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.utils.StringUtils;
 
@@ -53,7 +54,19 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 		
 		searchText = findView(R.id.searchText);
 		searchText.setHint(getSearchEditTextHintResId());
+		searchText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (hasFocus) {
+					AndroidUtils.showSoftInput(getActivity());
+				} else {
+					AndroidUtils.hideSoftInput(v);
+				}
+			}
+		});
 		searchText.requestFocus();
+		
 		if (isInstantSearchEnabled()) {
 			searchText.addTextChangedListener(getTextWatcher());
 		} else {
@@ -158,6 +171,7 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 	private void search() {
 		if (StringUtils.isNotEmpty(searchText.getText().toString()) || !isSearchValueRequired()) {
 			doSearch();
+			searchText.clearFocus();
 		} else {
 			ToastUtils.showToast(R.string.requiredSearchTerm);
 		}

@@ -4,6 +4,7 @@ import java.util.List;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -95,6 +96,10 @@ public class AndroidUtils {
 			// Do Nothing
 		}
 		return info;
+	}
+	
+	public static void showSoftInput(Activity activity) {
+		activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 	}
 	
 	public static void hideSoftInput(View view) {
