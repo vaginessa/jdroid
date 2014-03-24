@@ -17,7 +17,7 @@ public class DebugSettingsActivity extends AbstractFragmentActivity {
 	 */
 	@Override
 	public int getContentView() {
-		return R.layout.fragment_container_activity;
+		return isNavDrawerEnabled() ? R.layout.nav_fragment_container_activity : R.layout.fragment_container_activity;
 	}
 	
 	/**

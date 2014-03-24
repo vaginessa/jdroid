@@ -16,6 +16,10 @@
 	<string name="revokeAccess">Revoke</string>
 	<string name="signIn">Sign in</string>
 
+	<!-- Navigation Drawer -->
+	<string name="drawerOpen">Open navigation drawer</string>
+	<string name="drawerClose">Close navigation drawer</string>
+
 	<!-- Errors -->
 	<string name="internalError">Oops! We\'re having technical problems. Please try again later.</string>
 	<string name="serverError">Oops! We\'re having technical problems. Please try again later.</string>

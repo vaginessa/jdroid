@@ -1,7 +1,9 @@
 package com.jdroid.android.activity;
 
+import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -150,6 +152,15 @@ public abstract class AbstractFragmentActivity extends FragmentActivity implemen
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		return activityHelper.onCreateOptionsMenu(menu);
+	}
+	
+	/**
+	 * @see android.app.Activity#onPrepareOptionsMenu(android.view.Menu)
+	 */
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		activityHelper.onPrepareOptionsMenu(menu);
+		return super.onPrepareOptionsMenu(menu);
 	}
 	
 	/**
@@ -338,6 +349,48 @@ public abstract class AbstractFragmentActivity extends FragmentActivity implemen
 	@Override
 	public Long getLocationFrequency() {
 		return null;
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#isNavDrawerEnabled()
+	 */
+	@Override
+	public Boolean isNavDrawerEnabled() {
+		return activityHelper.isNavDrawerEnabled();
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#isNavDrawerTopLevelView()
+	 */
+	@Override
+	public Boolean isNavDrawerTopLevelView() {
+		return activityHelper.isNavDrawerTopLevelView();
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#getContextualMenuItemsIds()
+	 */
+	@Override
+	public List<Integer> getContextualMenuItemsIds() {
+		return activityHelper.getContextualMenuItemsIds();
+	}
+	
+	/**
+	 * @see android.app.Activity#onPostCreate(android.os.Bundle)
+	 */
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		activityHelper.onPostCreate(savedInstanceState);
+	}
+	
+	/**
+	 * @see android.app.Activity#onConfigurationChanged(android.content.res.Configuration)
+	 */
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		activityHelper.onConfigurationChanged(newConfig);
 	}
 	
 }

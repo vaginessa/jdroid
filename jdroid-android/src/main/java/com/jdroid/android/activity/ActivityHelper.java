@@ -1,5 +1,6 @@
 package com.jdroid.android.activity;
 
+import java.util.List;
 import org.slf4j.Logger;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
@@ -8,17 +9,28 @@ import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.ActivityLauncher;
@@ -32,7 +44,11 @@ import com.jdroid.android.gps.LocalizationManager;
 import com.jdroid.android.intent.ClearTaskIntent;
 import com.jdroid.android.loading.DefaultLoadingDialogBuilder;
 import com.jdroid.android.loading.LoadingDialogBuilder;
+import com.jdroid.android.navdrawer.NavDrawerAdapter;
+import com.jdroid.android.navdrawer.NavDrawerItem;
+import com.jdroid.android.utils.ImageLoaderUtils;
 import com.jdroid.android.utils.ToastUtils;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.LoggerUtils;
@@ -47,6 +63,7 @@ public class ActivityHelper implements ActivityIf {
 	private final static Logger LOGGER = LoggerUtils.getLogger(ActivityHelper.class);
 	
 	private static final int LOCATION_UPDATE_TIMER_CODE = IdGenerator.getIntId();
+	private static final String TITLE_KEY = "title";
 	
 	private Activity activity;
 	protected Dialog loadingDialog;
@@ -54,6 +71,13 @@ public class ActivityHelper implements ActivityIf {
 	private BroadcastReceiver clearTaskBroadcastReceiver;
 	private AdHelper adHelper;
 	private boolean isDestoyed = false;
+	
+	private String title;
+	
+	// Navigation drawer
+	private DrawerLayout drawerLayout;
+	private ActionBarDrawerToggle drawerToggle;
+	private ListView drawerList;
 	
 	/**
 	 * @param activity
@@ -120,7 +144,7 @@ public class ActivityHelper implements ActivityIf {
 		});
 		
 		// Action bar
-		ActionBar actionBar = activity.getActionBar();
+		final ActionBar actionBar = activity.getActionBar();
 		if (actionBar != null) {
 			
 			actionBar.setHomeButtonEnabled(true);
@@ -156,6 +180,133 @@ public class ActivityHelper implements ActivityIf {
 			adHelper.loadAd(activity, (ViewGroup)(activity.findViewById(R.id.adViewContainer)),
 				getActivityIf().getAdSize());
 		}
+		
+		// Nav Drawer
+		
+		if (isNavDrawerEnabled()) {
+			
+			if (getActivityIf().isNavDrawerTopLevelView()) {
+				actionBar.setDisplayHomeAsUpEnabled(true);
+				actionBar.setHomeButtonEnabled(true);
+			}
+			
+			drawerLayout = findView(R.id.drawer_layout);
+			drawerList = findView(R.id.left_drawer);
+			
+			// Set the adapter for the list view
+			// set a custom shadow that overlays the main content when the drawer opens
+			drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+			
+			User user = SecurityContext.get().getUser();
+			if (user != null) {
+				View navDrawerHeader = inflate(R.layout.nav_drawer_header);
+				ImageLoaderUtils.displayImage(user.getImageUrl(),
+					((ImageView)navDrawerHeader.findViewById(R.id.photo)), R.drawable.profile_default);
+				
+				((TextView)navDrawerHeader.findViewById(R.id.fullName)).setText(user.getFullname());
+				((TextView)navDrawerHeader.findViewById(R.id.email)).setText(user.getEmail());
+				drawerList.addHeaderView(navDrawerHeader);
+			}
+			drawerList.setAdapter(new NavDrawerAdapter(activity, getVisibleNavDrawerItems()));
+			// Set the list's click listener
+			drawerList.setOnItemClickListener(new OnItemClickListener() {
+				
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					if (position < drawerList.getHeaderViewsCount()) {
+						onNavDrawerHeaderClick();
+						drawerLayout.closeDrawer(drawerList);
+					} else {
+						selectNavDrawerItem(position);
+					}
+				}
+				
+			});
+			
+			final DrawerListener drawerListener = new DrawerListener() {
+				
+				@Override
+				public void onDrawerStateChanged(int arg0) {
+					// Do nothing
+					
+				}
+				
+				@Override
+				public void onDrawerSlide(View arg0, float arg1) {
+					// Do nothing
+					
+				}
+				
+				@Override
+				public void onDrawerOpened(View view) {
+					if (actionBar != null) {
+						title = actionBar.getTitle() != null ? actionBar.getTitle().toString() : null;
+						actionBar.setTitle(R.string.appName);
+					}
+					activity.invalidateOptionsMenu();
+				}
+				
+				@Override
+				public void onDrawerClosed(View view) {
+					if (actionBar != null) {
+						actionBar.setTitle(title);
+					}
+					activity.invalidateOptionsMenu();
+				}
+			};
+			
+			if (getActivityIf().isNavDrawerTopLevelView()) {
+				drawerToggle = new ActionBarDrawerToggle(activity, drawerLayout, R.drawable.ic_drawer,
+						R.string.drawerOpen, R.string.drawerClose) {
+					
+					@Override
+					public void onDrawerClosed(View view) {
+						super.onDrawerClosed(view);
+						drawerListener.onDrawerClosed(view);
+					}
+					
+					@Override
+					public void onDrawerOpened(View drawerView) {
+						super.onDrawerOpened(drawerView);
+						drawerListener.onDrawerOpened(drawerView);
+					}
+				};
+				
+				// Set the drawer toggle as the DrawerListener
+				drawerLayout.setDrawerListener(drawerToggle);
+			} else {
+				drawerLayout.setDrawerListener(drawerListener);
+			}
+			
+		}
+	}
+	
+	protected void onNavDrawerHeaderClick() {
+		// Do nothing
+	}
+	
+	private void selectNavDrawerItem(int position) {
+		NavDrawerItem navDrawerItem = (NavDrawerItem)drawerList.getAdapter().getItem(position);
+		if (!navDrawerItem.matchesActivity((FragmentActivity)activity)) {
+			navDrawerItem.startActivity((FragmentActivity)activity);
+		}
+		
+		// update selected item and title, then close the drawer
+		drawerList.setItemChecked(position, true);
+		drawerLayout.closeDrawer(drawerList);
+	}
+	
+	public void onPostCreate(Bundle savedInstanceState) {
+		if (drawerToggle != null) {
+			// Sync the toggle state after onRestoreInstanceState has occurred.
+			drawerToggle.syncState();
+		}
+	}
+	
+	public void onConfigurationChanged(Configuration newConfig) {
+		if (drawerToggle != null) {
+			drawerToggle.onConfigurationChanged(newConfig);
+		}
 	}
 	
 	protected AdHelper createAdHelper() {
@@ -176,10 +327,12 @@ public class ActivityHelper implements ActivityIf {
 	public void onSaveInstanceState(Bundle outState) {
 		LOGGER.trace("Executing onSaveInstanceState on " + activity);
 		dismissBlockingLoading();
+		outState.putString(TITLE_KEY, title);
 	}
 	
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
 		LOGGER.trace("Executing onRestoreInstanceState on " + activity);
+		title = savedInstanceState.getString(TITLE_KEY);
 	}
 	
 	@SuppressLint("HandlerLeak")
@@ -235,6 +388,15 @@ public class ActivityHelper implements ActivityIf {
 		
 		if (adHelper != null) {
 			adHelper.onResume();
+		}
+		
+		if (isNavDrawerEnabled()) {
+			for (int i = 0; i < getVisibleNavDrawerItems().size(); i++) {
+				NavDrawerItem item = getVisibleNavDrawerItems().get(i);
+				if (item.isMainAction() && item.matchesActivity((FragmentActivity)activity)) {
+					drawerList.setItemChecked(i + drawerList.getHeaderViewsCount(), true);
+				}
+			}
 		}
 	}
 	
@@ -310,8 +472,24 @@ public class ActivityHelper implements ActivityIf {
 		}
 	}
 	
+	public void onPrepareOptionsMenu(Menu menu) {
+		if (isNavDrawerEnabled()) {
+			// If the nav drawer is open, hide action items related to the content view
+			boolean drawerOpen = drawerLayout.isDrawerOpen(drawerList);
+			for (Integer itemId : getActivityIf().getContextualMenuItemsIds()) {
+				menu.findItem(itemId).setVisible(!drawerOpen);
+			}
+		}
+	}
+	
 	public boolean onOptionsItemSelected(MenuItem item) {
-		return onOptionsItemSelected(item.getItemId());
+		// Pass the event to ActionBarDrawerToggle, if it returns
+		// true, then it has handled the app icon touch event
+		if (isNavDrawerEnabled() && (drawerToggle != null) && drawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		} else {
+			return onOptionsItemSelected(item.getItemId());
+		}
 	}
 	
 	private boolean onOptionsItemSelected(int itemId) {
@@ -458,4 +636,41 @@ public class ActivityHelper implements ActivityIf {
 		return AdSize.SMART_BANNER;
 	}
 	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#isNavDrawerEnabled()
+	 */
+	@Override
+	public Boolean isNavDrawerEnabled() {
+		return false;
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#isNavDrawerTopLevelView()
+	 */
+	@Override
+	public Boolean isNavDrawerTopLevelView() {
+		return false;
+	}
+	
+	public List<NavDrawerItem> getNavDrawerItems() {
+		return null;
+	}
+	
+	private List<NavDrawerItem> getVisibleNavDrawerItems() {
+		List<NavDrawerItem> visibleNavDrawerItems = Lists.newArrayList();
+		for (NavDrawerItem each : getNavDrawerItems()) {
+			if (each.isVisible()) {
+				visibleNavDrawerItems.add(each);
+			}
+		}
+		return visibleNavDrawerItems;
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#getContextualMenuItemsIds()
+	 */
+	@Override
+	public List<Integer> getContextualMenuItemsIds() {
+		return Lists.newArrayList();
+	}
 }

@@ -27,7 +27,13 @@ public abstract class ContextualActivity<T extends TabAction> extends AbstractFr
 	 */
 	@Override
 	public int getContentView() {
-		return AndroidUtils.is7InchesOrBigger() ? R.layout.contextual_activity : R.layout.fragment_container_activity;
+		if (isNavDrawerEnabled()) {
+			return AndroidUtils.is7InchesOrBigger() ? R.layout.nav_contextual_activity
+					: R.layout.nav_fragment_container_activity;
+		} else {
+			return AndroidUtils.is7InchesOrBigger() ? R.layout.contextual_activity
+					: R.layout.fragment_container_activity;
+		}
 	}
 	
 	/**

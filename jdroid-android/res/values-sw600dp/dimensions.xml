@@ -12,4 +12,7 @@
 	<dimen name="normalText">18sp</dimen>
 	<dimen name="smallText">16sp</dimen>
 
+	<!-- Nav Drawer -->
+	<dimen name="nav_drawer_profile_image_size">48dp</dimen>
+
 </resources>

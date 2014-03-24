@@ -113,7 +113,6 @@
 
 	<style name="parentList" parent="android:Widget.ListView">
 		<item name="android:cacheColorHint">@android:color/transparent</item>
-		<!-- <item name="android:divider">@android:color/black</item> -->
 		<item name="android:listSelector">@android:color/transparent</item>
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">match_parent</item>
@@ -129,7 +128,7 @@
 	</style>
 
 	<style name="contextualItemText" parent="title2Text">
-		<item name="android:textColor">@color/contextual_item_text_color</item>
+		<item name="android:textColor">@android:color/white</item>
 		<item name="android:textStyle">normal</item>
 		<item name="android:singleLine">true</item>
 		<item name="android:ellipsize">end</item>
@@ -248,4 +247,13 @@
 		<item name="android:text">@string/revokeAccess</item>
 	</style>
 
+	<!-- Nav Drawer -->
+
+	<style name="navDrawerItemText" parent="title2Text">
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:textStyle">normal</item>
+		<item name="android:singleLine">true</item>
+		<item name="android:ellipsize">end</item>
+		<item name="android:layout_marginLeft">10dp</item>
+	</style>
 </resources>

@@ -16,6 +16,8 @@ public interface TabAction extends Serializable {
 	
 	public int getNameResource();
 	
+	public Integer getDescriptionResource();
+	
 	public Fragment createFragment(Object args);
 	
 	public void startActivity(FragmentActivity fragmentActivity);

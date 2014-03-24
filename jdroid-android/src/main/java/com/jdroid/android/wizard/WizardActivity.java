@@ -27,7 +27,7 @@ public abstract class WizardActivity extends AbstractFragmentActivity {
 	 */
 	@Override
 	public int getContentView() {
-		return R.layout.wizard_activity;
+		return isNavDrawerEnabled() ? R.layout.nav_wizard_activity : R.layout.wizard_activity;
 	}
 	
 	protected void loadWizard() {
@@ -130,7 +130,7 @@ public abstract class WizardActivity extends AbstractFragmentActivity {
 		} else {
 			rightButton.setText(getRightStringResId());
 			if (AndroidUtils.getApiLevel() >= Build.VERSION_CODES.JELLY_BEAN) {
-				rightButton.setBackgroundResource(R.drawable.selectable_item_background);
+				rightButton.setBackgroundResource(R.drawable.default_item_selector);
 				TypedValue v = new TypedValue();
 				getTheme().resolveAttribute(android.R.attr.textAppearanceMedium, v, true);
 				rightButton.setTextAppearance(this, v.resourceId);

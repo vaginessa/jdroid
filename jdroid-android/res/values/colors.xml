@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<color name="finishWizard">#0099CC</color>
-
 	<color name="actionbarMockBackground">#FF489100</color>
+
+	<!-- Nav Drawer -->
+	<color name="navDrawerItemsBackground">#111</color>
+	<color name="navDrawerBackground">#222</color>
 </resources>
