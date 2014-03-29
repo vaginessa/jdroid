@@ -9,10 +9,13 @@ import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
@@ -63,6 +66,7 @@ public class ActivityHelper implements ActivityIf {
 	private final static Logger LOGGER = LoggerUtils.getLogger(ActivityHelper.class);
 	
 	private static final int LOCATION_UPDATE_TIMER_CODE = IdGenerator.getIntId();
+	private static final String NAV_DRAWER_MANUALLY_USED = "navDrawerManuallyUsed";
 	private static final String TITLE_KEY = "title";
 	
 	private Activity activity;
@@ -78,6 +82,7 @@ public class ActivityHelper implements ActivityIf {
 	private DrawerLayout drawerLayout;
 	private ActionBarDrawerToggle drawerToggle;
 	private ListView drawerList;
+	private static Boolean navDrawerManuallyUsed = false;
 	
 	/**
 	 * @param activity
@@ -226,15 +231,15 @@ public class ActivityHelper implements ActivityIf {
 			final DrawerListener drawerListener = new DrawerListener() {
 				
 				@Override
-				public void onDrawerStateChanged(int arg0) {
-					// Do nothing
-					
+				public void onDrawerStateChanged(int newState) {
+					if (newState == DrawerLayout.STATE_DRAGGING) {
+						saveNavDrawerManuallyUsed();
+					}
 				}
 				
 				@Override
 				public void onDrawerSlide(View arg0, float arg1) {
 					// Do nothing
-					
 				}
 				
 				@Override
@@ -260,6 +265,18 @@ public class ActivityHelper implements ActivityIf {
 						R.string.drawerOpen, R.string.drawerClose) {
 					
 					@Override
+					public void onDrawerStateChanged(int newState) {
+						super.onDrawerStateChanged(newState);
+						drawerListener.onDrawerStateChanged(newState);
+					}
+					
+					@Override
+					public void onDrawerSlide(View drawerView, float slideOffset) {
+						super.onDrawerSlide(drawerView, slideOffset);
+						drawerListener.onDrawerSlide(drawerView, slideOffset);
+					}
+					
+					@Override
 					public void onDrawerClosed(View view) {
 						super.onDrawerClosed(view);
 						drawerListener.onDrawerClosed(view);
@@ -278,6 +295,41 @@ public class ActivityHelper implements ActivityIf {
 				drawerLayout.setDrawerListener(drawerListener);
 			}
 			
+			ExecutorUtils.schedule(new Runnable() {
+				
+				@Override
+				public void run() {
+					navDrawerManuallyUsed = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(
+						NAV_DRAWER_MANUALLY_USED, false);
+					activity.runOnUiThread(new Runnable() {
+						
+						@Override
+						public void run() {
+							String action = activity.getIntent().getAction();
+							if (!navDrawerManuallyUsed && Intent.ACTION_MAIN.equals(action)) {
+								drawerLayout.openDrawer(drawerList);
+							}
+						}
+					});
+				}
+			}, 1L);
+			
+		}
+	}
+	
+	private void saveNavDrawerManuallyUsed() {
+		if ((navDrawerManuallyUsed == null) || !navDrawerManuallyUsed) {
+			ExecutorUtils.execute(new Runnable() {
+				
+				@Override
+				public void run() {
+					SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
+					Editor editor = sharedPreferences.edit();
+					editor.putBoolean(NAV_DRAWER_MANUALLY_USED, true);
+					editor.commit();
+					navDrawerManuallyUsed = true;
+				}
+			});
 		}
 	}
 	
@@ -483,9 +535,9 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Pass the event to ActionBarDrawerToggle, if it returns
-		// true, then it has handled the app icon touch event
+		// Pass the event to ActionBarDrawerToggle, if it returns true, then it has handled the app icon touch event
 		if (isNavDrawerEnabled() && (drawerToggle != null) && drawerToggle.onOptionsItemSelected(item)) {
+			saveNavDrawerManuallyUsed();
 			return true;
 		} else {
 			return onOptionsItemSelected(item.getItemId());

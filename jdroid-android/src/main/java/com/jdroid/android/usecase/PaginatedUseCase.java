@@ -21,10 +21,9 @@ public abstract class PaginatedUseCase<T> extends DefaultAbstractUseCase {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(PaginatedUseCase.class);
 	
-	private final static int DEFAULT_PAGE_SIZE = 50;
-	
 	private PaginatedUseCaseMode paginatedUseCaseMode = PaginatedUseCaseMode.INITIAL_LOAD;
 	private int page = 1;
+	private int pageSize = 50;
 	private SortingType sortingType;
 	
 	private PagedResult<T> pagedResult;
@@ -42,7 +41,7 @@ public abstract class PaginatedUseCase<T> extends DefaultAbstractUseCase {
 		}
 		
 		try {
-			pagedResult = doPopulate(page, getPageSize(), sortingType);
+			pagedResult = doPopulate(page, pageSize, sortingType);
 			LOGGER.debug("Results: " + pagedResult.getResults().size() + " / Page: " + page + " / Sorting: "
 					+ sortingType);
 		} catch (RuntimeException e) {
@@ -78,8 +77,12 @@ public abstract class PaginatedUseCase<T> extends DefaultAbstractUseCase {
 		return pagedResult.isLastPage();
 	}
 	
-	protected int getPageSize() {
-		return DEFAULT_PAGE_SIZE;
+	public int getPageSize() {
+		return pageSize;
+	}
+	
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
 	}
 	
 	/**

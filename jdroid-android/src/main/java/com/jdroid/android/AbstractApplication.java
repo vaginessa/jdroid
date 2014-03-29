@@ -269,6 +269,12 @@ public abstract class AbstractApplication extends Application {
 		return Lists.newArrayList();
 	}
 	
+	public void cleanFileSystemCache() {
+		for (Cache each : getFileSystemCaches()) {
+			cleanFileSystemCache(each);
+		}
+	}
+	
 	public void cleanFileSystemCache(Cache cache) {
 		FileUtils.forceDelete(getFileSystemCacheDirectory(cache));
 	}

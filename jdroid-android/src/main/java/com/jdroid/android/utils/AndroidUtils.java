@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -22,6 +23,7 @@ import android.provider.MediaStore;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -199,6 +201,20 @@ public class AndroidUtils {
 	public static Integer getSmallestScreenWidthDp() {
 		Configuration config = AbstractApplication.get().getResources().getConfiguration();
 		return config.smallestScreenWidthDp;
+	}
+	
+	public static Integer getBiggestScreenWidthPx() {
+		Display display = getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		return Math.max(size.x, size.y);
+	}
+	
+	public static Integer getScreenWidthPx() {
+		Display display = getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		return size.x;
 	}
 	
 	public static Boolean is10InchesOrBigger() {
