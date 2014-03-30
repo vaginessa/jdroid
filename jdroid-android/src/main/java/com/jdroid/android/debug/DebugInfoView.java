@@ -94,5 +94,13 @@ public class DebugInfoView extends LinearLayout {
 				CrashGenerator.crash(crashType, workerThread);
 			}
 		});
+		
+		findViewById(R.id.clearCache).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				AbstractApplication.get().cleanFileSystemCache();
+			}
+		});
 	}
 }

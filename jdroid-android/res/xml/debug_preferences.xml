@@ -21,6 +21,8 @@
 	<PreferenceCategory android:title="@string/appSettings">
 		<CheckBoxPreference android:key="adsEnabled" android:title="@string/adsEnabledTitle"
 			android:summary="@string/adsEnabledDescription" />
+		<CheckBoxPreference android:key="navDrawerManuallyUsed" android:title="@string/navDrawerManuallyUsedTitle"
+			android:summary="@string/navDrawerManuallyUsedDescription" />
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/inAppBillingSettings">
 		<CheckBoxPreference android:key="inAppBillingMockEnabled" android:title="@string/inAppBillingMockEnabledTitle"

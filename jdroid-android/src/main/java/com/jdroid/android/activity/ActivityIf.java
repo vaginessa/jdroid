@@ -1,5 +1,6 @@
 package com.jdroid.android.activity;
 
+import java.util.List;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -32,4 +33,9 @@ public interface ActivityIf extends ComponentIf {
 	
 	public Long getLocationFrequency();
 	
+	public Boolean isNavDrawerEnabled();
+	
+	public Boolean isNavDrawerTopLevelView();
+	
+	public List<Integer> getContextualMenuItemsIds();
 }

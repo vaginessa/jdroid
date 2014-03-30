@@ -15,10 +15,14 @@
 	<!-- Lists & Grids -->
 
 	<dimen name="contextual_list_item_icon_size">36dp</dimen>
+	<dimen name="contextual_list_item_icon_small_size">24dp</dimen>
 
 	<!-- Images -->
 
 	<dimen name="borderedImageViewMargin">3dp</dimen>
 	<dimen name="borderedImageViewPadding">2dp</dimen>
+
+	<!-- Nav Drawer -->
+	<dimen name="nav_drawer_profile_image_size">36dp</dimen>
 
 </resources>
