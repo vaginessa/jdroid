@@ -29,6 +29,19 @@ public abstract class GooglePlusAuthenticationUseCase extends DefaultAbstractUse
 	
 	protected abstract void onDisconnectFromGooglePlus();
 	
+	public String getProfilePictureUrl(int size) {
+		String profilePictureUrl = person.hasImage() ? person.getImage().getUrl() : null;
+		if (profilePictureUrl != null) {
+			profilePictureUrl = profilePictureUrl + "&sz=" + size;
+		}
+		return profilePictureUrl;
+	}
+	
+	public String getCoverPictureUrl() {
+		return person.hasCover() && person.getCover().hasCoverPhoto() ? person.getCover().getCoverPhoto().getUrl()
+				: null;
+	}
+	
 	/**
 	 * @param loginMode the loginMode to set
 	 */

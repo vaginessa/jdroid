@@ -20,6 +20,8 @@ public interface User {
 	
 	public String getUserToken();
 	
-	public String getImageUrl();
+	public String getProfilePictureUrl();
+	
+	public String getCoverPictureUrl();
 	
 }

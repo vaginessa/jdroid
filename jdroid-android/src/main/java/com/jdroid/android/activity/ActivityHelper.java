@@ -205,7 +205,9 @@ public class ActivityHelper implements ActivityIf {
 			User user = SecurityContext.get().getUser();
 			if (user != null) {
 				View navDrawerHeader = inflate(R.layout.nav_drawer_header);
-				ImageLoaderUtils.displayImage(user.getImageUrl(),
+				ImageLoaderUtils.displayImage(user.getCoverPictureUrl(),
+					((ImageView)navDrawerHeader.findViewById(R.id.cover)), null);
+				ImageLoaderUtils.displayImage(user.getProfilePictureUrl(),
 					((ImageView)navDrawerHeader.findViewById(R.id.photo)), R.drawable.profile_default);
 				
 				((TextView)navDrawerHeader.findViewById(R.id.fullName)).setText(user.getFullname());

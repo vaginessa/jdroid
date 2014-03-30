@@ -14,20 +14,22 @@ import com.nostra13.universalimageloader.core.assist.ImageSize;
  */
 public class ImageLoaderUtils {
 	
-	public static void displayImage(String url, ImageView imageView, int defaultImage,
+	public static void displayImage(String url, ImageView imageView, Integer defaultImage,
 			ImageLoadingListener imageLoadingListener) {
 		
 		DisplayImageOptions.Builder optionsBuilder = new DisplayImageOptions.Builder();
 		optionsBuilder.cacheInMemory(true);
 		optionsBuilder.cacheOnDisc(true);
-		optionsBuilder.showImageOnLoading(defaultImage);
-		optionsBuilder.showImageForEmptyUri(defaultImage);
-		optionsBuilder.showImageOnFail(defaultImage);
+		if (defaultImage != null) {
+			optionsBuilder.showImageOnLoading(defaultImage);
+			optionsBuilder.showImageForEmptyUri(defaultImage);
+			optionsBuilder.showImageOnFail(defaultImage);
+		}
 		
 		ImageLoader.getInstance().displayImage(url, imageView, optionsBuilder.build(), imageLoadingListener);
 	}
 	
-	public static void displayImage(String url, ImageView imageView, int defaultImage) {
+	public static void displayImage(String url, ImageView imageView, Integer defaultImage) {
 		displayImage(url, imageView, defaultImage, null);
 	}
 	

@@ -16,53 +16,43 @@ public class SharedPreferencesUtils {
 	private static final String DEFAULT_NAME = AbstractApplication.get().getPackageName();
 	
 	public static void savePreference(String key, String value) {
-		if (value != null) {
-			Editor editor = getEditor();
-			editor.putString(key, value);
-			
-			// Commit the edits!
-			editor.commit();
-		}
+		Editor editor = getEditor();
+		editor.putString(key, value);
+		
+		// Commit the edits!
+		editor.commit();
 	}
 	
 	public static void savePreference(String key, Boolean value) {
-		if (value != null) {
-			Editor editor = getEditor();
-			editor.putBoolean(key, value);
-			
-			// Commit the edits!
-			editor.commit();
-		}
+		Editor editor = getEditor();
+		editor.putBoolean(key, value);
+		
+		// Commit the edits!
+		editor.commit();
 	}
 	
 	public static void savePreference(String key, Integer value) {
-		if (value != null) {
-			Editor editor = getEditor();
-			editor.putInt(key, value);
-			
-			// Commit the edits!
-			editor.commit();
-		}
+		Editor editor = getEditor();
+		editor.putInt(key, value);
+		
+		// Commit the edits!
+		editor.commit();
 	}
 	
 	public static void savePreference(String key, Long value) {
-		if (value != null) {
-			Editor editor = getEditor();
-			editor.putLong(key, value);
-			
-			// Commit the edits!
-			editor.commit();
-		}
+		Editor editor = getEditor();
+		editor.putLong(key, value);
+		
+		// Commit the edits!
+		editor.commit();
 	}
 	
 	public static void savePreference(String key, Float value) {
-		if (value != null) {
-			Editor editor = getEditor();
-			editor.putFloat(key, value);
-			
-			// Commit the edits!
-			editor.commit();
-		}
+		Editor editor = getEditor();
+		editor.putFloat(key, value);
+		
+		// Commit the edits!
+		editor.commit();
 	}
 	
 	public static Editor getEditor() {
