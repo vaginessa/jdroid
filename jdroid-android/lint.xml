@@ -97,6 +97,7 @@
         <ignore path="res/layout/com_facebook_friendpickerfragment.xml" />
         <ignore path="res/layout/com_facebook_friendpickerfragment.xml" />
         <ignore path="res/layout/com_facebook_friendpickerfragment.xml" />
+        <ignore path="res/layout/com_facebook_friendpickerfragment.xml" />
         <ignore path="res/layout/com_facebook_placepickerfragment.xml" />
         <ignore path="res/layout/com_facebook_placepickerfragment.xml" />
         <ignore path="res/layout/com_facebook_placepickerfragment.xml" />

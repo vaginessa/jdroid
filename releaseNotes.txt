@@ -11,6 +11,7 @@ jdroid Java Web\n
 \n
 jdroid Android\n
 --------------\n
+* Added navigation drawer support\n
 * Added deeplinkning support to Facebook and Google+\n
 * Added support to handle urls\n
 * Added In app billing v3 support\n
