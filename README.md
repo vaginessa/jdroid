@@ -37,22 +37,24 @@ Dependency project for Java Web apps
 jdroid Android
 --------------
 Library project for Android apps. Support for Android 4.0 (api level 14) and higher versions
+* Navigation Drawer support
 * Google Analytics integration
 * Flurry Analytics integration
 * Google Play Services integration
  * Google Cloud Messaging integration
  * Google Maps v2 integration
- * Google+ integration: +1 button, friends, sign in, sign out, revoke access
+ * Google+ integration: +1 button, friends, sign in, sign out, revoke access, share
  * AdMob integration
 * Sqlite integration
 * Android Universal Image Loader integration
 * In App Billing integration
-* Facebook integration
+* Facebook integration: sign in, sign out, share with deep link
 * Twitter integration
 * Crittercism integration
 * Lint support
 * Strict mode support
 * Debug settings support
+* Url handling support
 * Base Activity & Fragment implementations
 * Exception handling
 * ListView & GridView pagination support
@@ -75,6 +77,7 @@ A set of useful shell scripts to
  * Create a merge request on Gitlab
  * Count the methods in android dex files
  * Start/stop and deploy on Apache Tomcat
+ * Automatically restart Apache Tomcat
 
 jdroid sample server
 --------------
