@@ -11,6 +11,7 @@ import com.jdroid.android.context.DefaultApplicationContext;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.context.GitContext;
 import com.jdroid.java.utils.StringUtils;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 
@@ -95,11 +96,25 @@ public class DebugInfoView extends LinearLayout {
 			}
 		});
 		
-		findViewById(R.id.clearCache).setOnClickListener(new OnClickListener() {
+		findViewById(R.id.clearHttpCache).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				AbstractApplication.get().cleanFileSystemCache();
+			}
+		});
+		findViewById(R.id.clearImagesDiscCache).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				ImageLoader.getInstance().clearDiscCache();
+			}
+		});
+		findViewById(R.id.clearImagesMemoryCache).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				ImageLoader.getInstance().clearMemoryCache();
 			}
 		});
 	}

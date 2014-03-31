@@ -26,7 +26,9 @@
 	<string name="commitTime">Commit Time: %1$s</string>
 	<string name="buildTime">Build Time: %1$s</string>
 
-	<string name="clearCache">Clear cache</string>
+	<string name="clearHttpCache">Clear http cache</string>
+	<string name="clearImagesDiscCache">Clear images disc cache</string>
+	<string name="clearImagesMemoryCache">Clear images memory cache</string>
 
 	<string name="crashSettings">Crash</string>
 	<string name="crashType">Crash Type</string>
