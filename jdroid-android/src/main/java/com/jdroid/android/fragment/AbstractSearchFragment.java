@@ -114,6 +114,15 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 		loading = findView(R.id.loading);
 	}
 	
+	/**
+	 * @see com.jdroid.android.fragment.AbstractPaginatedGridFragment#onPause()
+	 */
+	@Override
+	public void onPause() {
+		super.onPause();
+		AndroidUtils.hideSoftInput(getView());
+	}
+	
 	public Boolean isInstantSearchEnabled() {
 		return true;
 	}
