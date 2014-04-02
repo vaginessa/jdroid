@@ -12,7 +12,6 @@ import com.jdroid.android.R;
 import com.jdroid.android.adapter.BaseArrayAdapter;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.usecase.PaginatedUseCase;
-import com.jdroid.java.utils.LoggerUtils;
 
 /**
  * 
@@ -83,10 +82,6 @@ public abstract class AbstractPaginatedGridFragment<T> extends AbstractGridFragm
 						getPaginatedUseCase().markAsPaginating();
 						executeUseCase(getPaginatedUseCase());
 					}
-					
-					LoggerUtils.getDefaultLogger().warn(
-						"firstVisibleItem: " + firstVisibleItem + ", visibleItemCount: " + visibleItemCount
-								+ ", totalItemCount: " + totalItemCount);
 					
 					if (((firstVisibleItem + visibleItemCount) == totalItemCount)
 							&& getPaginatedUseCase().isInProgress()) {

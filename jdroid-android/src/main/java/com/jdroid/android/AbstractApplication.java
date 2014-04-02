@@ -142,6 +142,7 @@ public abstract class AbstractApplication extends Application {
 		ImageLoaderConfiguration.Builder configBuilder = new ImageLoaderConfiguration.Builder(getApplicationContext());
 		configBuilder.tasksProcessingOrder(QueueProcessingType.LIFO);
 		configBuilder.defaultDisplayImageOptions(defaultOptiBuilder.build());
+		configBuilder.discCacheSize(10 * 1024 * 1024);
 		
 		ImageLoader.getInstance().init(configBuilder.build());
 	}
