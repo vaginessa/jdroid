@@ -256,7 +256,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		try {
 			cursor = db.query(getTableName(), new String[0], null, null, null, null, null);
 			int count = cursor.getCount();
-			return count > 0;
+			return count == 0;
 		} finally {
 			if (cursor != null) {
 				cursor.close();

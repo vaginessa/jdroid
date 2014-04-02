@@ -92,18 +92,6 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 	}
 	
 	/**
-	 * @see android.support.v4.app.DialogFragment#onStart()
-	 */
-	@Override
-	public void onStart() {
-		super.onStart();
-		
-		if (googlePlusOneButtonHelper != null) {
-			googlePlusOneButtonHelper.onStart();
-		}
-	}
-	
-	/**
 	 * @see android.support.v4.app.Fragment#onResume()
 	 */
 	@Override
@@ -126,17 +114,4 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 			googlePlusOneButtonHelper.onActivityResult(requestCode, resultCode, data);
 		}
 	}
-	
-	/**
-	 * @see android.support.v4.app.DialogFragment#onStop()
-	 */
-	@Override
-	public void onStop() {
-		super.onStop();
-		
-		if (googlePlusOneButtonHelper != null) {
-			googlePlusOneButtonHelper.onStop();
-		}
-	}
-	
 }

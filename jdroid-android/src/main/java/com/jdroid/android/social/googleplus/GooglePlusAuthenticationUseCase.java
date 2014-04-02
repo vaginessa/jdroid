@@ -64,4 +64,8 @@ public abstract class GooglePlusAuthenticationUseCase extends DefaultAbstractUse
 	public void setAccount(String account) {
 		this.account = account;
 	}
+	
+	public String getAccount() {
+		return account;
+	}
 }

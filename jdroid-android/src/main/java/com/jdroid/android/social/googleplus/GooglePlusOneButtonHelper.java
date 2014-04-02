@@ -2,24 +2,19 @@ package com.jdroid.android.social.googleplus;
 
 import java.util.Locale;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
-import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
-import com.google.android.gms.plus.PlusClient;
 import com.google.android.gms.plus.PlusOneButton;
 import com.google.android.gms.plus.PlusOneButton.OnPlusOneClickListener;
+import com.jdroid.android.utils.GooglePlayUtils;
 
-public class GooglePlusOneButtonHelper implements ConnectionCallbacks, OnConnectionFailedListener {
+public class GooglePlusOneButtonHelper {
 	
 	private static final int PLUS_ONE_REQUEST_CODE = 100;
 	private static final int PLUS_ONE_UNDO_REQUEST_CODE = 101;
 	private static final String PLAY_STORE_BASE_URL = "https://play.google.com/store/apps/details?id=";
 	
 	private String url;
-	private PlusClient plusClient;
 	protected PlusOneButton plusOneButton;
 	private Fragment context;
 	
@@ -29,30 +24,30 @@ public class GooglePlusOneButtonHelper implements ConnectionCallbacks, OnConnect
 	
 	public GooglePlusOneButtonHelper(Fragment context, PlusOneButton plusOneButton) {
 		this.context = context;
-		plusClient = new PlusClient.Builder(context.getActivity(), this, this).clearScopes().build();
 		this.plusOneButton = plusOneButton;
 		url = getUrl();
 	}
 	
-	public void onStart() {
-		plusClient.connect();
-	}
-	
 	public void onResume() {
 		
-		plusOneButton.initialize(url, new OnPlusOneClickListener() {
-			
-			@Override
-			public void onPlusOneClick(Intent intent) {
-				if (intent != null) {
-					if (intent.getAction().toLowerCase(Locale.US).contains("undo")) {
-						context.startActivityForResult(intent, PLUS_ONE_UNDO_REQUEST_CODE);
-					} else {
-						context.startActivityForResult(intent, PLUS_ONE_REQUEST_CODE);
+		if (GooglePlayUtils.isGooglePlayServicesAvailable(context.getActivity())) {
+			plusOneButton.initialize(url, new OnPlusOneClickListener() {
+				
+				@Override
+				public void onPlusOneClick(Intent intent) {
+					if (intent != null) {
+						if (intent.getAction().toLowerCase(Locale.US).contains("undo")) {
+							context.startActivityForResult(intent, PLUS_ONE_UNDO_REQUEST_CODE);
+						} else {
+							context.startActivityForResult(intent, PLUS_ONE_REQUEST_CODE);
+						}
 					}
 				}
-			}
-		});
+			});
+			plusOneButton.setVisibility(View.VISIBLE);
+		} else {
+			plusOneButton.setVisibility(View.GONE);
+		}
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -61,10 +56,6 @@ public class GooglePlusOneButtonHelper implements ConnectionCallbacks, OnConnect
 		} else if ((requestCode == PLUS_ONE_REQUEST_CODE) && (resultCode != 0)) {
 			onPlusOne();
 		}
-	}
-	
-	public void onStop() {
-		plusClient.disconnect();
 	}
 	
 	protected void onPlusOne() {
@@ -77,29 +68,5 @@ public class GooglePlusOneButtonHelper implements ConnectionCallbacks, OnConnect
 	
 	protected String getUrl() {
 		return PLAY_STORE_BASE_URL + context.getActivity().getPackageName();
-	}
-	
-	/**
-	 * @see com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener#onConnectionFailed(com.google.android.gms.common.ConnectionResult)
-	 */
-	@Override
-	public void onConnectionFailed(ConnectionResult arg0) {
-		plusOneButton.setVisibility(View.GONE);
-	}
-	
-	/**
-	 * @see com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks#onConnected(android.os.Bundle)
-	 */
-	@Override
-	public void onConnected(Bundle arg0) {
-		plusOneButton.setVisibility(View.VISIBLE);
-	}
-	
-	/**
-	 * @see com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks#onDisconnected()
-	 */
-	@Override
-	public void onDisconnected() {
-		plusOneButton.setVisibility(View.GONE);
 	}
 }

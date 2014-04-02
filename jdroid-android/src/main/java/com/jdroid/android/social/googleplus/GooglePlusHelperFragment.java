@@ -325,7 +325,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 				if ((googlePlusListener != null) && googlePlusAuthenticationUseCase.isLoginMode()) {
 					LOGGER.debug("Executing onGooglePlusSignIn");
 					googlePlusListener.onGooglePlusSignIn(googlePlusAuthenticationUseCase.getPerson(),
-						Plus.AccountApi.getAccountName(googleApiClient));
+						googlePlusAuthenticationUseCase.getAccount());
 				}
 			}
 		});
