@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import com.jdroid.android.intent.ClearTaskIntent;
 
 /**
  * Launcher for all the activities of the application
@@ -30,8 +29,7 @@ public class ActivityLauncher {
 			Boolean requiresAuthentication) {
 		Activity currentActivity = AbstractApplication.get().getCurrentActivity();
 		Intent intent = new Intent(AbstractApplication.get(), targetActivityClass);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		ClearTaskIntent.execute(requiresAuthentication);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 		currentActivity.startActivity(intent);
 	}
 	

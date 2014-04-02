@@ -6,8 +6,6 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -44,7 +42,6 @@ import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.debug.DebugSettingsActivity;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.gps.LocalizationManager;
-import com.jdroid.android.intent.ClearTaskIntent;
 import com.jdroid.android.loading.DefaultLoadingDialogBuilder;
 import com.jdroid.android.loading.LoadingDialogBuilder;
 import com.jdroid.android.navdrawer.NavDrawerAdapter;
@@ -72,7 +69,6 @@ public class ActivityHelper implements ActivityIf {
 	private Activity activity;
 	protected Dialog loadingDialog;
 	private Handler locationHandler;
-	private BroadcastReceiver clearTaskBroadcastReceiver;
 	private AdHelper adHelper;
 	private boolean isDestoyed = false;
 	
@@ -163,20 +159,6 @@ public class ActivityHelper implements ActivityIf {
 				activity.setContentView(getContentView());
 				getActivityIf().onAfterSetContentView(savedInstanceState);
 			}
-			clearTaskBroadcastReceiver = new BroadcastReceiver() {
-				
-				@Override
-				public void onReceive(Context context, Intent intent) {
-					Boolean requiresAuthentication = intent.getBooleanExtra(
-						ClearTaskIntent.REQUIRES_AUTHENTICATION_EXTRA, true);
-					if (requiresAuthentication.equals(getActivityIf().requiresAuthentication())) {
-						LOGGER.debug("Finishing activity [" + activity + "] with requiresAuthentication = "
-								+ requiresAuthentication);
-						activity.finish();
-					}
-				}
-			};
-			activity.registerReceiver(clearTaskBroadcastReceiver, ClearTaskIntent.newIntentFilter());
 		}
 		
 		// Ads
@@ -486,9 +468,6 @@ public class ActivityHelper implements ActivityIf {
 	public void onDestroy() {
 		isDestoyed = true;
 		LOGGER.trace("Executing onDestroy on " + activity);
-		if (clearTaskBroadcastReceiver != null) {
-			activity.unregisterReceiver(clearTaskBroadcastReceiver);
-		}
 		dismissBlockingLoading();
 	}
 	
