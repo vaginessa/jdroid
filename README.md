@@ -22,7 +22,7 @@ Dependency project for both Android & Java apps
 * JSON marshallers
 * Mail Service
 * Exception handling
-* Utilities for Collections, Strings, Dates, Files, Encryption, Threads, Logging, Validations, Reflections and more
+* Utilities for Collections, Strings, Dates, Files, Encryption, Threads, Logging, Validations, Reflection and more
 
 jdroid Java Web
 ---------------
