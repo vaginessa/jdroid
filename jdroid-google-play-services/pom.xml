@@ -18,7 +18,7 @@
 		<dependency>
 			<groupId>android</groupId>
 			<artifactId>google-play-services</artifactId>
-			<version>r15</version>
+			<version>r16</version>
 		</dependency>
 
 	</dependencies>
