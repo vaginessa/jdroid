@@ -18,7 +18,9 @@ Dependency project for both Android & Java apps
  * Response Mocks support
  * GZIP encoding
  * Cache support
-* JSON & Plain text parsers
+* Parsers
+ * [Jackson JSON parser][29]
+ * Plain text parser
 * JSON marshallers
 * Mail Service
 * Exception handling
@@ -128,3 +130,4 @@ For more information, visit the [GitHub Wiki][1] or our [Site][2].
 [26]: http://developer.android.com/guide/topics/ui/notifiers/toasts.html
 [27]: http://www.slf4j.org/
 [28]: https://hc.apache.org/
+[29]: https://github.com/FasterXML/jackson
