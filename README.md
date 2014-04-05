@@ -27,10 +27,10 @@ Dependency project for both Android & Java apps
 jdroid Java Web
 ---------------
 Dependency project for Java Web apps 
-* Spring MVC integration
-* Hibernate integration
+* [Spring MVC integration][7]
+* [Hibernate ORM integration][6]
 * Facebook integration
-* Generic push framework. Google Cloud Messaging implementation
+* Generic push framework. [Google Cloud Messaging implementation][8]
 * Pagination and filtering support
 * Utilities for Collections, CSV, Files, Reflection, Guava, Logging and more
 
@@ -41,16 +41,16 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * Google Analytics integration
 * Flurry Analytics integration
 * Google Play Services integration
- * Google Cloud Messaging integration
- * Google Maps v2 integration
- * Google+ integration: +1 button, friends, sign in, sign out, revoke access, share
- * AdMob integration
+ * [Google Cloud Messaging integration][8]
+ * [Google Maps v2 integration][9]
+ * [Google+ integration][11]: +1 button, friends, sign in, sign out, revoke access, share
+ * [AdMob integration][10]
 * Sqlite integration
-* Android Universal Image Loader integration
+* [Android Universal Image Loader][4]
 * In App Billing integration
 * Facebook integration: sign in, sign out, share with deep link
 * Twitter integration
-* Crittercism integration
+* [Crittercism integration][5]
 * Lint support
 * Strict mode support
 * Debug settings support
@@ -102,3 +102,11 @@ For more information, visit the [GitHub Wiki][1] or our [Site][2].
 [1]: https://github.com/maxirosson/jdroid/wiki
 [2]: http://maxirosson.github.com/jdroid/
 [3]: http://semver.org/
+[4]: https://github.com/nostra13/Android-Universal-Image-Loader
+[5]: https://www.crittercism.com/
+[6]: http://hibernate.org/orm/
+[7]: http://projects.spring.io/spring-framework/
+[8]: http://developer.android.com/google/gcm/index.html
+[9]: http://developer.android.com/google/play-services/maps.html
+[10]: http://developer.android.com/google/play-services/ads.html
+[11]: http://developer.android.com/google/play-services/plus.html
