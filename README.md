@@ -11,7 +11,7 @@ jdroid Java
 -----------
 Dependency project for both Android & Java apps
 * HTTP Service Layer
- * Apache HTTP Client implementation
+ * [Apache HTTP Client implementation][28]
  * GET, POST, PUT & DELETE methods
  * Headers appender
  * Response validator
@@ -22,7 +22,7 @@ Dependency project for both Android & Java apps
 * JSON marshallers
 * Mail Service
 * Exception handling
-* Utilities for Collections, Strings, Dates, Files, Encryption, Threads, Logging, Validations, Reflection and more
+* Utilities for Collections, Strings, Dates, Files, Encryption, Threads, [Logging][27], Validations, Reflection and more
 
 jdroid Java Web
 ---------------
@@ -52,8 +52,8 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * [Facebook integration][14]: sign in, sign out, share with deep link
 * [Twitter integration][18]
 * [Crittercism integration][5]
-* Lint support
-* Strict mode support
+* [Lint support][23]
+* [Strict mode support][24]
 * Debug settings support
 * Url handling support
 * Base Activity & Fragment implementations
@@ -68,7 +68,7 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * About dialog component
 * Animations
  * Fade in / Fade out
-* Utilities for Alarms, Bitmaps, Notifications, Shared Preferences, Toasts, Sounds, GPS, and more
+* Utilities for Alarms, Bitmaps, [Notifications][25], Shared Preferences, [Toasts][26], Sounds, GPS, and more
 
 jdroid scripts
 --------------
@@ -122,3 +122,9 @@ For more information, visit the [GitHub Wiki][1] or our [Site][2].
 [20]: http://tomcat.apache.org/
 [21]: https://www.gitlab.com/
 [22]: https://github.com
+[23]: http://developer.android.com/tools/help/lint.html
+[24]: http://developer.android.com/reference/android/os/StrictMode.html
+[25]: http://developer.android.com/design/patterns/notifications.html
+[26]: http://developer.android.com/guide/topics/ui/notifiers/toasts.html
+[27]: http://www.slf4j.org/
+[28]: https://hc.apache.org/
