@@ -29,7 +29,7 @@ jdroid Java Web
 Dependency project for Java Web apps 
 * [Spring MVC integration][7]
 * [Hibernate ORM integration][6]
-* Facebook integration
+* [Restfb Facebook integration][19]
 * Generic push framework. [Google Cloud Messaging implementation][8]
 * Pagination and filtering support
 * [Log4j logging support][17]
@@ -74,11 +74,11 @@ jdroid scripts
 --------------
 A set of useful shell scripts to
  * Increment the pom & android manifest versions according to [Semantic Versioning][3]
- * Create a pull request on Github
- * Create a merge request on Gitlab
+ * Create a pull request on [Github][22]
+ * Create a merge request on [Gitlab][21]
  * Count the methods in android dex files
- * Start/stop and deploy on Apache Tomcat
- * Automatically restart Apache Tomcat
+ * Start/stop and deploy on [Apache Tomcat][20]
+ * Automatically restart [Apache Tomcat][20]
 
 jdroid sample server
 --------------
@@ -118,3 +118,7 @@ For more information, visit the [GitHub Wiki][1] or our [Site][2].
 [16]: https://code.google.com/p/guava-libraries/
 [17]: http://logging.apache.org/log4j/1.2/
 [18]: http://twitter4j.org/
+[19]: http://restfb.com/
+[20]: http://tomcat.apache.org/
+[21]: https://www.gitlab.com/
+[22]: https://github.com
