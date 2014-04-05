@@ -60,9 +60,9 @@ public enum CachingStrategy {
 		}
 	},
 	
-	// First try with the cache. If it is a hit (doesn't matter if it is expired or not), return the cached response and
-	// then execute an asynchronous request. If
-	// is is not a hit, execute the request only if the cache doesn't exist or it is expired
+	// If there isn't anything on the cache, then execute the request caching the response.
+	// If there is something in the cache (doesn't matter if it is expired or not) return the cache content. Then
+	// execute an asynchronous request (only if the cache is expired) caching the response.
 	CACHE_FORCED_FIRST_ASYNCH_REMOTE {
 		
 		@Override
