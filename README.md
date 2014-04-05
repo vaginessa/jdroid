@@ -32,12 +32,13 @@ Dependency project for Java Web apps
 * Facebook integration
 * Generic push framework. [Google Cloud Messaging implementation][8]
 * Pagination and filtering support
-* Utilities for Collections, CSV, Files, Reflection, Guava, Logging and more
+* [Log4j logging support][17]
+* Utilities for Collections, CSV, Files, Reflection, [Guava][16] and more
 
 jdroid Android
 --------------
 Library project for Android apps. Support for Android 4.0 (api level 14) and higher versions
-* Navigation Drawer support
+* [Navigation Drawer support][15]
 * Google Analytics integration
 * Flurry Analytics integration
 * Google Play Services integration
@@ -45,11 +46,11 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
  * [Google Maps v2 integration][9]
  * [Google+ integration][11]: +1 button, friends, sign in, sign out, revoke access, share
  * [AdMob integration][10]
-* Sqlite integration
+* [Sqlite integration][12]
 * [Android Universal Image Loader][4]
-* In App Billing integration
-* Facebook integration: sign in, sign out, share with deep link
-* Twitter integration
+* [In App Billing integration][13]
+* [Facebook integration][14]: sign in, sign out, share with deep link
+* [Twitter integration][18]
 * [Crittercism integration][5]
 * Lint support
 * Strict mode support
@@ -110,3 +111,10 @@ For more information, visit the [GitHub Wiki][1] or our [Site][2].
 [9]: http://developer.android.com/google/play-services/maps.html
 [10]: http://developer.android.com/google/play-services/ads.html
 [11]: http://developer.android.com/google/play-services/plus.html
+[12]: https://sqlite.org/
+[13]: http://developer.android.com/google/play/billing/index.html
+[14]: https://developers.facebook.com/docs/android/
+[15]: https://developer.android.com/design/patterns/navigation-drawer.html
+[16]: https://code.google.com/p/guava-libraries/
+[17]: http://logging.apache.org/log4j/1.2/
+[18]: http://twitter4j.org/
