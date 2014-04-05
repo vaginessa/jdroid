@@ -54,6 +54,7 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * [Facebook integration][14]: sign in, sign out, share with deep link
 * [Twitter integration][18]
 * [Crittercism integration][5]
+* [Merge adapter integration][30]
 * [Lint support][23]
 * [Strict mode support][24]
 * Debug settings support
@@ -131,3 +132,4 @@ For more information, visit the [GitHub Wiki][1] or our [Site][2].
 [27]: http://www.slf4j.org/
 [28]: https://hc.apache.org/
 [29]: https://github.com/FasterXML/jackson
+[30]: https://github.com/commonsguy/cwac-merge
