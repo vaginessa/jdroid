@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -17,6 +18,7 @@ import com.jdroid.android.fragment.FragmentIf;
 public class LoadingLayout extends FrameLayout {
 	
 	private ProgressBar progressLoading;
+	private Button retryButton;
 	private Boolean isLoading = true;
 	
 	public LoadingLayout(Context context, AttributeSet attrs, int defStyle) {
@@ -54,6 +56,17 @@ public class LoadingLayout extends FrameLayout {
 	public void setLoading(boolean loading) {
 		isLoading = loading;
 		updateViewState();
+	}
+	
+	// TODO WIP
+	@SuppressWarnings("unused")
+	private void setRetry() {
+		if (retryButton != null) {
+			LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			inflater.inflate(R.layout.retry, this, true);
+			retryButton = (Button)this.findViewById(R.id.retry);
+		}
+		retryButton.setVisibility(View.VISIBLE);
 	}
 	
 	public void showLoading(FragmentIf fragmentIf) {
