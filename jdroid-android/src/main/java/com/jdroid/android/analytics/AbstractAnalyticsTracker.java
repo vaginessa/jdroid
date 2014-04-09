@@ -7,7 +7,7 @@ import com.jdroid.java.exception.ConnectionException;
  * 
  * @author Maxi Rosson
  */
-public abstract class DefaultAnalyticsTracker implements AnalyticsTracker {
+public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	
 	/**
 	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStart(android.app.Activity, java.lang.Object)

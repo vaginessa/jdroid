@@ -9,27 +9,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.common.collect.Maps;
 import com.jdroid.java.context.GitContext;
 import com.jdroid.java.http.MimeType;
-import com.jdroid.javaweb.context.DefaultApplication;
+import com.jdroid.javaweb.context.Application;
 
 /**
  * @author Maxi Rosson
  */
-public class DefaultAdminController {
+public class AdminController {
 	
 	@RequestMapping(value = "/info", method = RequestMethod.GET, produces = MimeType.TEXT)
 	@ResponseBody
 	public String getAppInfo() {
 		
 		Map<String, Object> infoMap = Maps.newLinkedHashMap();
-		infoMap.put("App Name", DefaultApplication.get().getDefaultApplicationContext().getAppName());
-		infoMap.put("App Version", DefaultApplication.get().getDefaultApplicationContext().getAppVersion());
+		infoMap.put("App Name", Application.get().getAppContext().getAppName());
+		infoMap.put("App Version", Application.get().getAppContext().getAppVersion());
 		infoMap.put("Git Branch", GitContext.get().getBranch());
 		infoMap.put("Git Commit Id", GitContext.get().getCommitId());
 		infoMap.put("Git Commit Time", GitContext.get().getCommitTime());
 		infoMap.put("Git Commit Build Time", GitContext.get().getBuildTime());
-		infoMap.put("Http Mock Enabled", DefaultApplication.get().getDefaultApplicationContext().isHttpMockEnabled());
+		infoMap.put("Http Mock Enabled", Application.get().getAppContext().isHttpMockEnabled());
 		infoMap.put("Http Mock Sleep Duration",
-			DefaultApplication.get().getDefaultApplicationContext().getHttpMockSleepDuration());
+			Application.get().getAppContext().getHttpMockSleepDuration());
 		infoMap.put("Default Charset", Charset.defaultCharset());
 		infoMap.put("File Encoding", System.getProperty("file.encoding"));
 		

@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import com.crittercism.app.Crittercism;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
-import com.jdroid.android.context.DefaultApplicationContext;
+import com.jdroid.android.context.AppContext;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.GooglePlayUtils;
 import com.jdroid.android.utils.LocalizationUtils;
@@ -181,7 +181,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 			handleException(Thread.currentThread(), (InvalidApiVersionException)throwable);
 		} else {
 			LOGGER.error(message, throwable);
-			DefaultApplicationContext appContext = AbstractApplication.get().getAndroidApplicationContext();
+			AppContext appContext = AbstractApplication.get().getAppContext();
 			if (appContext.isCrittercismEnabled()) {
 				if (appContext.isCrittercismPremium()) {
 					Crittercism.logHandledException(throwable);

@@ -32,7 +32,7 @@ public abstract class AbstractGcmRegistrationService extends WorkerService {
 				try {
 					GoogleCloudMessaging googleCloudMessaging = GoogleCloudMessaging.getInstance(this);
 					
-					String googleProjectId = AbstractApplication.get().getAndroidApplicationContext().getGoogleProjectId();
+					String googleProjectId = AbstractApplication.get().getAppContext().getGoogleProjectId();
 					registrationId = googleCloudMessaging.register(googleProjectId);
 					GcmPreferences.setRegistrationId(getApplicationContext(), registrationId);
 				} catch (IOException e) {

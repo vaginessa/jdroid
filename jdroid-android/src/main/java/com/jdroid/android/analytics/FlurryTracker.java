@@ -26,7 +26,7 @@ public class FlurryTracker implements AnalyticsTracker {
 	 */
 	@Override
 	public Boolean isEnabled() {
-		return AbstractApplication.get().getAndroidApplicationContext().isFlurryEnabled();
+		return AbstractApplication.get().getAppContext().isFlurryEnabled();
 	}
 	
 	/**
@@ -34,7 +34,7 @@ public class FlurryTracker implements AnalyticsTracker {
 	 */
 	@Override
 	public void init() {
-		if (AbstractApplication.get().getAndroidApplicationContext().isFlurryDebugEnabled()) {
+		if (AbstractApplication.get().getAppContext().isFlurryDebugEnabled()) {
 			FlurryAgent.setLogEnabled(true);
 			FlurryAgent.setLogLevel(Log.VERBOSE);
 		} else {
@@ -50,7 +50,7 @@ public class FlurryTracker implements AnalyticsTracker {
 	 */
 	@Override
 	public void onActivityStart(Activity activity, Object data) {
-		FlurryAgent.onStartSession(activity, AbstractApplication.get().getAndroidApplicationContext().getFlurryApiKey());
+		FlurryAgent.onStartSession(activity, AbstractApplication.get().getAppContext().getFlurryApiKey());
 		FlurryAgent.setUserId(AbstractApplication.get().getInstallationId());
 		trackFirstAppLoad(data);
 	}

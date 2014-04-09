@@ -1,9 +1,9 @@
 package com.jdroid.javaweb.context;
 
 /**
- * The {@link DefaultApplicationContext}
+ * The {@link AppContext}
  */
-public class DefaultApplicationContext {
+public class AppContext {
 	
 	private String appName;
 	private String appVersion;

@@ -36,7 +36,7 @@ public class BillingContext {
 	}
 	
 	public Boolean isInAppBillingMockEnabled() {
-		return !AbstractApplication.get().getAndroidApplicationContext().isProductionEnvironment()
+		return !AbstractApplication.get().getAppContext().isProductionEnvironment()
 				&& PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(
 					"inAppBillingMockEnabled", false);
 	}

@@ -1,6 +1,7 @@
 package com.jdroid.javaweb.context;
 
 import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import com.jdroid.javaweb.domain.Entity;
 
@@ -9,24 +10,24 @@ import com.jdroid.javaweb.domain.Entity;
  * @param <T>
  * @author Maxi Rosson
  */
-public class DefaultApplication<T extends Entity> implements ApplicationContextAware {
+public class Application<T extends Entity> implements ApplicationContextAware {
 	
-	private static DefaultApplication<?> INSTANCE;
+	private static Application<?> INSTANCE;
 	
-	public DefaultApplication() {
+	public Application() {
 		INSTANCE = this;
 	}
 	
-	public static DefaultApplication<?> get() {
+	public static Application<?> get() {
 		return INSTANCE;
 	}
 	
-	private DefaultApplicationContext applicationContext;
+	private AppContext appContext;
 	private SecurityContextHolder<T> securityContextHolder;
-	private org.springframework.context.ApplicationContext springApplicationContext;
+	private ApplicationContext springApplicationContext;
 	
-	public DefaultApplicationContext getDefaultApplicationContext() {
-		return applicationContext;
+	public AppContext getAppContext() {
+		return appContext;
 	}
 	
 	/**
@@ -45,11 +46,10 @@ public class DefaultApplication<T extends Entity> implements ApplicationContextA
 	}
 	
 	/**
-	 * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+	 * @see org.springframework.context.ApplicationContextAware#setApplicationContext(ApplicationContext)
 	 */
 	@Override
-	public void setApplicationContext(org.springframework.context.ApplicationContext applicationContext)
-			throws BeansException {
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.springApplicationContext = applicationContext;
 	}
 	
@@ -61,9 +61,9 @@ public class DefaultApplication<T extends Entity> implements ApplicationContextA
 	}
 	
 	/**
-	 * @param applicationContext the applicationContext to set
+	 * @param appContext the appContext to set
 	 */
-	public void setApplicationContext(DefaultApplicationContext applicationContext) {
-		this.applicationContext = applicationContext;
+	public void setAppContext(AppContext appContext) {
+		this.appContext = appContext;
 	}
 }

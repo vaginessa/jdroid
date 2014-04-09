@@ -14,7 +14,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.StringUtils;
-import com.jdroid.javaweb.context.DefaultApplication;
+import com.jdroid.javaweb.context.Application;
 import com.jdroid.javaweb.push.Device;
 import com.jdroid.javaweb.push.PushMessage;
 import com.jdroid.javaweb.push.PushMessageSender;
@@ -47,7 +47,7 @@ public class GcmSender implements PushMessageSender {
 		}
 		GcmMessage gcmMessage = (GcmMessage)pushMessage;
 		
-		Sender sender = new Sender(DefaultApplication.get().getDefaultApplicationContext().getGoogleServerApiKey());
+		Sender sender = new Sender(Application.get().getAppContext().getGoogleServerApiKey());
 		Message.Builder messageBuilder = new Message.Builder();
 		if (StringUtils.isNotEmpty(gcmMessage.getCollapseKey())) {
 			messageBuilder.collapseKey(gcmMessage.getCollapseKey());

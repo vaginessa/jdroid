@@ -7,7 +7,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.context.DefaultApplicationContext;
+import com.jdroid.android.context.AppContext;
 
 /**
  * 
@@ -22,7 +22,7 @@ public class AdHelper {
 		
 		this.adViewContainer = adViewContainer;
 		if (adViewContainer != null) {
-			DefaultApplicationContext applicationContext = AbstractApplication.get().getAndroidApplicationContext();
+			AppContext applicationContext = AbstractApplication.get().getAppContext();
 			if ((adSize == null) || !applicationContext.areAdsEnabled()) {
 				adViewContainer.setVisibility(View.GONE);
 			} else {
@@ -53,7 +53,7 @@ public class AdHelper {
 	
 	public void onResume() {
 		if (adView != null) {
-			if (AbstractApplication.get().getAndroidApplicationContext().areAdsEnabled()) {
+			if (AbstractApplication.get().getAppContext().areAdsEnabled()) {
 				adView.resume();
 			} else if (adViewContainer != null) {
 				adViewContainer.removeView(adView);

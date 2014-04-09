@@ -37,7 +37,7 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.ActivityLauncher;
 import com.jdroid.android.R;
 import com.jdroid.android.ad.AdHelper;
-import com.jdroid.android.context.DefaultApplicationContext;
+import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.debug.DebugSettingsActivity;
 import com.jdroid.android.domain.User;
@@ -96,11 +96,11 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getAndroidApplicationContext()
+	 * @see com.jdroid.android.fragment.FragmentIf#getAppContext()
 	 */
 	@Override
-	public DefaultApplicationContext getAndroidApplicationContext() {
-		return AbstractApplication.get().getAndroidApplicationContext();
+	public AppContext getAppContext() {
+		return AbstractApplication.get().getAppContext();
 	}
 	
 	/**
@@ -413,7 +413,7 @@ public class ActivityHelper implements ActivityIf {
 		
 		ActionBar actionBar = activity.getActionBar();
 		if (actionBar != null) {
-			DefaultApplicationContext context = AbstractApplication.get().getAndroidApplicationContext();
+			AppContext context = AbstractApplication.get().getAppContext();
 			if (!context.isProductionEnvironment() && context.displayDebugSettings()) {
 				if (context.isHttpMockEnabled()) {
 					actionBar.setBackgroundDrawable(getActivity().getResources().getDrawable(
@@ -497,7 +497,7 @@ public class ActivityHelper implements ActivityIf {
 	 */
 	@Override
 	public void doOnCreateOptionsMenu(Menu menu) {
-		if (!getAndroidApplicationContext().displayDebugSettings()) {
+		if (!getAppContext().displayDebugSettings()) {
 			MenuItem menuItem = menu.findItem(R.id.debugSettingsItem);
 			if (menuItem != null) {
 				menuItem.setVisible(false);

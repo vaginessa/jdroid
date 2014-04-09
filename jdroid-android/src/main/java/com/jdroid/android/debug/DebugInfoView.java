@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
-import com.jdroid.android.context.DefaultApplicationContext;
+import com.jdroid.android.context.AppContext;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.context.GitContext;
 import com.jdroid.java.utils.StringUtils;
@@ -27,7 +27,7 @@ public class DebugInfoView extends LinearLayout {
 		TextView packageName = (TextView)findViewById(R.id.packageName);
 		packageName.setText(context.getString(R.string.packageName, AndroidUtils.getPackageName()));
 		
-		final DefaultApplicationContext applicationContext = AbstractApplication.get().getAndroidApplicationContext();
+		final AppContext applicationContext = AbstractApplication.get().getAppContext();
 		TextView environmentName = (TextView)findViewById(R.id.environmentName);
 		environmentName.setText(context.getString(R.string.environmentName,
 			applicationContext.getEnvironment().toString()));

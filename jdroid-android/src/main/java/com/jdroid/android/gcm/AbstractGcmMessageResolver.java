@@ -13,20 +13,20 @@ import com.jdroid.java.utils.NumberUtils;
  * 
  * @author Maxi Rosson
  */
-public abstract class DefaultGcmMessageResolver implements GcmMessageResolver {
+public abstract class AbstractGcmMessageResolver implements GcmMessageResolver {
 	
-	private final static Logger LOGGER = LoggerUtils.getLogger(DefaultGcmMessageResolver.class);
+	private final static Logger LOGGER = LoggerUtils.getLogger(AbstractGcmMessageResolver.class);
 	
 	private static final String MESSAGE_KEY_EXTRA = "messageKey";
 	private static final String USER_ID_KEY = "userIdKey";
 	
 	private List<GcmMessage> gcmMessages;
 	
-	public DefaultGcmMessageResolver(List<GcmMessage> gcmMessages) {
+	public AbstractGcmMessageResolver(List<GcmMessage> gcmMessages) {
 		this.gcmMessages = gcmMessages;
 	}
 	
-	public DefaultGcmMessageResolver(GcmMessage... gcmMessages) {
+	public AbstractGcmMessageResolver(GcmMessage... gcmMessages) {
 		this(Lists.newArrayList(gcmMessages));
 	}
 	

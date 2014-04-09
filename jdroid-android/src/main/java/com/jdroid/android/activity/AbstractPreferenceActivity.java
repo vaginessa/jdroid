@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.context.DefaultApplicationContext;
+import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.loading.LoadingDialogBuilder;
 
@@ -24,11 +24,11 @@ public abstract class AbstractPreferenceActivity extends PreferenceActivity impl
 	private ActivityHelper activityHelper;
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getAndroidApplicationContext()
+	 * @see com.jdroid.android.fragment.FragmentIf#getAppContext()
 	 */
 	@Override
-	public DefaultApplicationContext getAndroidApplicationContext() {
-		return activityHelper.getAndroidApplicationContext();
+	public AppContext getAppContext() {
+		return activityHelper.getAppContext();
 	}
 	
 	/**

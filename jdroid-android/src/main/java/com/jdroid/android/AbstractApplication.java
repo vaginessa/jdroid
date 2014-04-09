@@ -25,7 +25,7 @@ import com.flurry.sdk.eq;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
-import com.jdroid.android.context.DefaultApplicationContext;
+import com.jdroid.android.context.AppContext;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.fragment.FragmentHelper;
@@ -72,7 +72,7 @@ public abstract class AbstractApplication extends Application {
 	
 	protected static AbstractApplication INSTANCE;
 	
-	private DefaultApplicationContext applicationContext;
+	private AppContext appContext;
 	
 	/** Current activity in the top stack. */
 	private Activity currentActivity;
@@ -102,13 +102,13 @@ public abstract class AbstractApplication extends Application {
 		LoggerUtils.setEnabled(isDebuggable());
 		LOGGER = LoggerUtils.getLogger(AbstractApplication.class);
 		
-		applicationContext = createApplicationContext();
+		appContext = createAppContext();
 		
 		if (isDebuggable()) {
 			GitContext.init();
 		}
 		
-		if (applicationContext.displayDebugSettings()) {
+		if (appContext.displayDebugSettings()) {
 			PreferenceManager.setDefaultValues(this, R.xml.debug_preferences, false);
 		}
 		initStrictMode();
@@ -182,7 +182,7 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	private void initStrictMode() {
-		if (!applicationContext.isProductionEnvironment() && isStrictModeEnabled()) {
+		if (!appContext.isProductionEnvironment() && isStrictModeEnabled()) {
 			StrictMode.enableDefaults();
 		}
 	}
@@ -296,7 +296,7 @@ public abstract class AbstractApplication extends Application {
 		if ((currentExceptionHandler == null) || !currentExceptionHandler.getClass().equals(getExceptionHandlerClass())) {
 			
 			// If Flurry is enabled, we initialize its exception handler as the first custom exception handler
-			if (applicationContext.isFlurryEnabled()) {
+			if (appContext.isFlurryEnabled()) {
 				eq.a();
 			}
 			
@@ -315,13 +315,13 @@ public abstract class AbstractApplication extends Application {
 	
 	private void initCrittercism(JSONObject metadata) {
 		
-		if (applicationContext.isCrittercismEnabled()) {
+		if (appContext.isCrittercismEnabled()) {
 			try {
 				// send logcat data for devices with API Level 16 and higher
 				CrittercismConfig crittercismConfig = new CrittercismConfig();
 				crittercismConfig.setLogcatReportingEnabled(true);
 				
-				Crittercism.initialize(getApplicationContext(), applicationContext.getCrittercismAppId(),
+				Crittercism.initialize(getApplicationContext(), appContext.getCrittercismAppId(),
 					crittercismConfig);
 				
 				if (installationId != null) {
@@ -352,7 +352,7 @@ public abstract class AbstractApplication extends Application {
 	public void saveInstallationSource() {
 		String installationSource = SharedPreferencesUtils.loadPreference(INSTALLATION_SOURCE);
 		if (StringUtils.isBlank(installationSource)) {
-			installationSource = applicationContext.getInstallationSource();
+			installationSource = appContext.getInstallationSource();
 			SharedPreferencesUtils.savePreference(INSTALLATION_SOURCE, installationSource);
 			LOGGER.debug("Saved installation source: " + installationSource);
 		}
@@ -360,12 +360,12 @@ public abstract class AbstractApplication extends Application {
 	
 	public abstract Class<? extends Activity> getHomeActivityClass();
 	
-	protected DefaultApplicationContext createApplicationContext() {
-		return new DefaultApplicationContext();
+	protected AppContext createAppContext() {
+		return new AppContext();
 	}
 	
-	public DefaultApplicationContext getAndroidApplicationContext() {
-		return applicationContext;
+	public AppContext getAppContext() {
+		return appContext;
 	}
 	
 	public ActivityHelper createActivityHelper(Activity activity) {

@@ -3,7 +3,7 @@ package com.jdroid.android.activity;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import com.google.android.gms.ads.AdSize;
-import com.jdroid.android.context.DefaultApplicationContext;
+import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.loading.LoadingDialog;
 import com.jdroid.android.loading.LoadingDialogBuilder;
@@ -59,7 +59,7 @@ public interface ComponentIf {
 	 */
 	public void dismissBlockingLoading();
 	
-	public DefaultApplicationContext getAndroidApplicationContext();
+	public AppContext getAppContext();
 	
 	public AdSize getAdSize();
 	

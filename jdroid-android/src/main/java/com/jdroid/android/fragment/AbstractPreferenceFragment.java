@@ -5,7 +5,7 @@ import android.preference.PreferenceFragment;
 import android.view.View;
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.activity.ActivityIf;
-import com.jdroid.android.context.DefaultApplicationContext;
+import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.LoadingDialogBuilder;
@@ -24,11 +24,11 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getAndroidApplicationContext()
+	 * @see com.jdroid.android.fragment.FragmentIf#getAppContext()
 	 */
 	@Override
-	public DefaultApplicationContext getAndroidApplicationContext() {
-		return getFragmentIf().getAndroidApplicationContext();
+	public AppContext getAppContext() {
+		return getFragmentIf().getAppContext();
 	}
 	
 	/**

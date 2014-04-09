@@ -10,14 +10,14 @@ import com.jdroid.android.AbstractApplication;
  * 
  * @author Maxi Rosson
  */
-public class GoogleAnalyticsTracker extends DefaultAnalyticsTracker {
+public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	
 	/**
 	 * @see com.jdroid.android.analytics.AnalyticsTracker#isEnabled()
 	 */
 	@Override
 	public Boolean isEnabled() {
-		return AbstractApplication.get().getAndroidApplicationContext().isGoogleAnalyticsEnabled();
+		return AbstractApplication.get().getAppContext().isGoogleAnalyticsEnabled();
 	}
 	
 	/**
@@ -27,14 +27,14 @@ public class GoogleAnalyticsTracker extends DefaultAnalyticsTracker {
 	public void init() {
 		GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(AbstractApplication.get());
 		
-		if (AbstractApplication.get().getAndroidApplicationContext().isGoogleAnalyticsDebugEnabled()) {
+		if (AbstractApplication.get().getAppContext().isGoogleAnalyticsDebugEnabled()) {
 			googleAnalytics.getLogger().setLogLevel(LogLevel.VERBOSE);
 		}
-		googleAnalytics.getTracker(AbstractApplication.get().getAndroidApplicationContext().getGoogleAnalyticsTrackingId());
+		googleAnalytics.getTracker(AbstractApplication.get().getAppContext().getGoogleAnalyticsTrackingId());
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.DefaultAnalyticsTracker#onActivityStart(android.app.Activity, java.lang.Object)
+	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#onActivityStart(android.app.Activity, java.lang.Object)
 	 */
 	@Override
 	public void onActivityStart(Activity activity, Object data) {
@@ -42,7 +42,7 @@ public class GoogleAnalyticsTracker extends DefaultAnalyticsTracker {
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.DefaultAnalyticsTracker#onActivityStop(android.app.Activity)
+	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#onActivityStop(android.app.Activity)
 	 */
 	@Override
 	public void onActivityStop(Activity activity) {

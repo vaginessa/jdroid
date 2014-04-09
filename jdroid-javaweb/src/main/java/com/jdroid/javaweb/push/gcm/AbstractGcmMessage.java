@@ -7,13 +7,13 @@ import com.google.common.collect.Maps;
  * 
  * @author Maxi Rosson
  */
-public abstract class DefaultGcmMessage implements GcmMessage {
+public abstract class AbstractGcmMessage implements GcmMessage {
 	
 	private static final String MESSAGE_KEY_EXTRA = "messageKey";
 	
 	private Map<String, String> parameters = Maps.<String, String>newHashMap();
 	
-	public DefaultGcmMessage() {
+	public AbstractGcmMessage() {
 		addParameter(getMessageKeyExtraName(), getMessageKey());
 	}
 	

@@ -70,7 +70,7 @@ public class FacebookConnector {
 	 */
 	public FacebookConnector(Activity activity, SessionStateListener sessionStateListener,
 			FacebookAuthenticationListener facebookAuthenticationListener) {
-		facebookAppId = AbstractApplication.get().getAndroidApplicationContext().getFacebookAppId();
+		facebookAppId = AbstractApplication.get().getAppContext().getFacebookAppId();
 		buildSession(facebookAppId);
 		this.sessionStateListener = sessionStateListener;
 		if (activity != null) {

@@ -13,7 +13,7 @@ import com.jdroid.java.utils.PropertiesUtils;
  * 
  * @author Maxi Rosson
  */
-public class DefaultApplicationContext {
+public class AppContext {
 	
 	private static final String PROPERTIES_RESOURCE_NAME = "settings.properties";
 	private static final String LOCAL_PROPERTIES_RESOURCE_NAME = "settings.local.properties";
@@ -54,7 +54,7 @@ public class DefaultApplicationContext {
 	private String crittercismAppId;
 	private Boolean crittercismPremium;
 	
-	public DefaultApplicationContext() {
+	public AppContext() {
 		PropertiesUtils.loadProperties(LOCAL_PROPERTIES_RESOURCE_NAME);
 		PropertiesUtils.loadProperties(PROPERTIES_RESOURCE_NAME);
 		

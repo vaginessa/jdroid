@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.springframework.web.filter.OncePerRequestFilter;
 import com.jdroid.java.utils.LoggerUtils;
-import com.jdroid.javaweb.context.DefaultApplication;
+import com.jdroid.javaweb.context.Application;
 
 /**
  * 
@@ -38,6 +38,6 @@ public class AdminSecurityFilter extends OncePerRequestFilter {
 	}
 	
 	protected String getAdminToken() {
-		return DefaultApplication.get().getDefaultApplicationContext().getAdminToken();
+		return Application.get().getAppContext().getAdminToken();
 	}
 }

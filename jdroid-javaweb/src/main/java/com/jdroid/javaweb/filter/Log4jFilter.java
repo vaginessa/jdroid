@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.springframework.web.filter.OncePerRequestFilter;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.context.AbstractSecurityContext;
-import com.jdroid.javaweb.context.DefaultApplication;
+import com.jdroid.javaweb.context.Application;
 import com.jdroid.javaweb.domain.Entity;
 
 /**
@@ -32,7 +32,7 @@ public class Log4jFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		
-		AbstractSecurityContext<?> securityContext = DefaultApplication.get().getSecurityContext();
+		AbstractSecurityContext<?> securityContext = Application.get().getSecurityContext();
 		Entity user = securityContext != null ? securityContext.getUser() : null;
 		if (user != null) {
 			// Add the user id to the mapped diagnostic context. May be shown using %X{userId} in the layout pattern.

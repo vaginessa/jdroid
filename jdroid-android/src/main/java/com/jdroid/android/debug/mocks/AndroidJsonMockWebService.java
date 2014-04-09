@@ -16,7 +16,7 @@ public class AndroidJsonMockWebService extends JsonMockWebService {
 	
 	@Override
 	protected void simulateCrash() {
-		String crashType = AbstractApplication.get().getAndroidApplicationContext().getHttpMockCrashType();
+		String crashType = AbstractApplication.get().getAppContext().getHttpMockCrashType();
 		if ((crashType != null) && !crashType.equals("None")) {
 			CrashGenerator.crash(crashType, false);
 		}
@@ -24,7 +24,7 @@ public class AndroidJsonMockWebService extends JsonMockWebService {
 	
 	@Override
 	protected Integer getHttpMockSleepDuration(Object... urlSegments) {
-		return AbstractApplication.get().getAndroidApplicationContext().getHttpMockSleepDuration();
+		return AbstractApplication.get().getAppContext().getHttpMockSleepDuration();
 	}
 	
 }

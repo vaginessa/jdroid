@@ -14,7 +14,7 @@ import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.ActivityIf;
-import com.jdroid.android.context.DefaultApplicationContext;
+import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.LoadingDialogBuilder;
@@ -34,11 +34,11 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 	private FragmentHelper fragmentHelper;
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getAndroidApplicationContext()
+	 * @see com.jdroid.android.fragment.FragmentIf#getAppContext()
 	 */
 	@Override
-	public DefaultApplicationContext getAndroidApplicationContext() {
-		return fragmentHelper.getAndroidApplicationContext();
+	public AppContext getAppContext() {
+		return fragmentHelper.getAppContext();
 	}
 	
 	/**

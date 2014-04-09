@@ -12,7 +12,7 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.ad.AdHelper;
-import com.jdroid.android.context.DefaultApplicationContext;
+import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.loading.LoadingDialogBuilder;
@@ -418,11 +418,11 @@ public class FragmentHelper implements FragmentIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.activity.ComponentIf#getAndroidApplicationContext()
+	 * @see com.jdroid.android.activity.ComponentIf#getAppContext()
 	 */
 	@Override
-	public DefaultApplicationContext getAndroidApplicationContext() {
-		return getActivityIf().getAndroidApplicationContext();
+	public AppContext getAppContext() {
+		return getActivityIf().getAppContext();
 	}
 	
 	/**
