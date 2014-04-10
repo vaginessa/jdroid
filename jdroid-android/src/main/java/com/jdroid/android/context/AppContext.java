@@ -32,6 +32,7 @@ public class AppContext {
 	
 	// Debug
 	private Boolean debugSettings;
+	private Boolean debugScreenshots;
 	private Boolean crashReportsEnabled;
 	
 	// Ads
@@ -64,6 +65,7 @@ public class AppContext {
 		googleProjectId = PropertiesUtils.getStringProperty("google.projectId");
 		facebookAppId = PropertiesUtils.getStringProperty("facebook.app.id");
 		debugSettings = PropertiesUtils.getBooleanProperty("debug.settings", false);
+		debugScreenshots = PropertiesUtils.getBooleanProperty("debug.screenshots", false);
 		crashReportsEnabled = PropertiesUtils.getBooleanProperty("crash.reporting.enabled", false);
 		isFreeApp = PropertiesUtils.getBooleanProperty("free.app");
 		
@@ -120,6 +122,10 @@ public class AppContext {
 	 */
 	public Boolean displayDebugSettings() {
 		return debugSettings;
+	}
+	
+	public Boolean isDebugScreenshots() {
+		return debugScreenshots;
 	}
 	
 	public Environment getEnvironment() {

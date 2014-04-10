@@ -192,8 +192,14 @@ public class ActivityHelper implements ActivityIf {
 				ImageLoaderUtils.displayImage(user.getProfilePictureUrl(),
 					((ImageView)navDrawerHeader.findViewById(R.id.photo)), R.drawable.profile_default);
 				
-				((TextView)navDrawerHeader.findViewById(R.id.fullName)).setText(user.getFullname());
-				((TextView)navDrawerHeader.findViewById(R.id.email)).setText(user.getEmail());
+				String fullname = user.getFullname();
+				String email = user.getEmail();
+				if (AbstractApplication.get().getAppContext().isDebugScreenshots()) {
+					fullname = getFullnameForScreenshots();
+					email = getEmailForScreenshots();
+				}
+				((TextView)navDrawerHeader.findViewById(R.id.fullName)).setText(fullname);
+				((TextView)navDrawerHeader.findViewById(R.id.email)).setText(email);
 				drawerList.addHeaderView(navDrawerHeader);
 			}
 			drawerList.setAdapter(new NavDrawerAdapter(activity, getVisibleNavDrawerItems()));
@@ -299,6 +305,14 @@ public class ActivityHelper implements ActivityIf {
 			}, 1L);
 			
 		}
+	}
+	
+	private String getEmailForScreenshots() {
+		return "tonystark@ironmail.com";
+	}
+	
+	private String getFullnameForScreenshots() {
+		return "Tony Stark";
 	}
 	
 	private void saveNavDrawerManuallyUsed() {
@@ -497,7 +511,7 @@ public class ActivityHelper implements ActivityIf {
 	 */
 	@Override
 	public void doOnCreateOptionsMenu(Menu menu) {
-		if (!getAppContext().displayDebugSettings()) {
+		if (!getAppContext().displayDebugSettings() || getAppContext().isDebugScreenshots()) {
 			MenuItem menuItem = menu.findItem(R.id.debugSettingsItem);
 			if (menuItem != null) {
 				menuItem.setVisible(false);
