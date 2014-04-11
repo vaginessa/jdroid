@@ -39,7 +39,6 @@ import com.jdroid.android.R;
 import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.SecurityContext;
-import com.jdroid.android.debug.DebugSettingsActivity;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.gps.LocalizationManager;
 import com.jdroid.android.loading.DefaultLoadingDialogBuilder;
@@ -194,9 +193,9 @@ public class ActivityHelper implements ActivityIf {
 				
 				String fullname = user.getFullname();
 				String email = user.getEmail();
-				if (AbstractApplication.get().getAppContext().isDebugScreenshots()) {
-					fullname = getFullnameForScreenshots();
-					email = getEmailForScreenshots();
+				if (AbstractApplication.get().getAppContext().isUserDataMocked()) {
+					fullname = getMockedFullname();
+					email = getMockedEmail();
 				}
 				((TextView)navDrawerHeader.findViewById(R.id.fullName)).setText(fullname);
 				((TextView)navDrawerHeader.findViewById(R.id.email)).setText(email);
@@ -307,11 +306,11 @@ public class ActivityHelper implements ActivityIf {
 		}
 	}
 	
-	private String getEmailForScreenshots() {
+	private String getMockedEmail() {
 		return "tonystark@ironmail.com";
 	}
 	
-	private String getFullnameForScreenshots() {
+	private String getMockedFullname() {
 		return "Tony Stark";
 	}
 	
@@ -511,12 +510,7 @@ public class ActivityHelper implements ActivityIf {
 	 */
 	@Override
 	public void doOnCreateOptionsMenu(Menu menu) {
-		if (!getAppContext().displayDebugSettings() || getAppContext().isDebugScreenshots()) {
-			MenuItem menuItem = menu.findItem(R.id.debugSettingsItem);
-			if (menuItem != null) {
-				menuItem.setVisible(false);
-			}
-		}
+		// Do nothing
 	}
 	
 	public void onPrepareOptionsMenu(Menu menu) {
@@ -562,9 +556,6 @@ public class ActivityHelper implements ActivityIf {
 					ActivityLauncher.launchHomeActivity();
 				}
 			}
-			return true;
-		} else if (itemId == R.id.debugSettingsItem) {
-			ActivityLauncher.launchActivity(DebugSettingsActivity.class);
 			return true;
 		}
 		return false;

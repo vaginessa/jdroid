@@ -8,10 +8,13 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 import com.google.android.gms.plus.PlusOneButton;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.ActivityLauncher;
 import com.jdroid.android.R;
+import com.jdroid.android.debug.DebugSettingsActivity;
 import com.jdroid.android.social.googleplus.GooglePlusOneButtonHelper;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.utils.DateUtils;
@@ -70,6 +73,17 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 			googlePlusOneButtonHelper = new GooglePlusOneButtonHelper(this, plusOneButton);
 		} else {
 			plusOneButton.setVisibility(View.GONE);
+		}
+		
+		if (getAppContext().displayDebugSettings()) {
+			View debugSettings = view.findViewById(R.id.icon);
+			debugSettings.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					ActivityLauncher.launchActivity(DebugSettingsActivity.class);
+				}
+			});
 		}
 		
 		return dialogBuilder.create();

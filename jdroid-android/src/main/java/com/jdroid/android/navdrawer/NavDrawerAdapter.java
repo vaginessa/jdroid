@@ -24,8 +24,12 @@ public class NavDrawerAdapter extends BaseHolderArrayAdapter<NavDrawerItem, NavD
 	 */
 	@Override
 	protected void fillHolderFromItem(NavDrawerItem item, NavDrawerAdapterHolder holder) {
-		holder.image.setImageResource(item.getIconResource());
-		holder.name.setText(item.getNameResource());
+		if (item.getIconResource() != null) {
+			holder.image.setImageResource(item.getIconResource());
+		}
+		if (item.getNameResource() != null) {
+			holder.name.setText(item.getNameResource());
+		}
 		if (item.isMainAction()) {
 			holder.name.setTextSize(18);
 			holder.convertView.setBackgroundResource(R.drawable.nav_drawer_main_item_selector);

@@ -12,9 +12,9 @@ public interface TabAction extends Serializable {
 	
 	public String getName();
 	
-	public int getIconResource();
+	public Integer getIconResource();
 	
-	public int getNameResource();
+	public Integer getNameResource();
 	
 	public Integer getDescriptionResource();
 	

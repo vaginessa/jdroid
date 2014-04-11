@@ -23,6 +23,8 @@
 			android:summary="@string/adsEnabledDescription" />
 		<CheckBoxPreference android:key="navDrawerManuallyUsed" android:title="@string/navDrawerManuallyUsedTitle"
 			android:summary="@string/navDrawerManuallyUsedDescription" />
+		<CheckBoxPreference android:key="userDataMocked" android:title="@string/userDataMockedTitle"
+			android:summary="@string/userDataMockedDescription" />
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/inAppBillingSettings">
 		<CheckBoxPreference android:key="inAppBillingMockEnabled" android:title="@string/inAppBillingMockEnabledTitle"

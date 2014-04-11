@@ -39,6 +39,8 @@
 	<string name="adsEnabledDescription">Enable/disable the ads</string>
 	<string name="navDrawerManuallyUsedTitle">Nav drawer manually used</string>
 	<string name="navDrawerManuallyUsedDescription">Whether the user actively expanded or closed the navigation drawer manually</string>
+	<string name="userDataMockedTitle">Mock the user data</string>
+	<string name="userDataMockedDescription">Whether to mock the user name and email on the nav drawer</string>
 
 	<string name="inAppBillingSettings">In App Billing</string>
 	<string name="inAppBillingMockEnabledTitle">In App Billing Mocks</string>
