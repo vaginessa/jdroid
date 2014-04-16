@@ -48,4 +48,8 @@
 	<string name="inAppBillingTestProductIdsTitle">Test Product Id</string>
 	<string name="inAppBillingTestProductIdsDescription">Pick the Test Product Id</string>
 
+	<string name="experimentsSettings">Experiments</string>
+	<string name="experimentTitle">Experiment id: %1$s</string>
+	<string name="experimentDescription">Pick the experiment variant</string>
+
 </resources>

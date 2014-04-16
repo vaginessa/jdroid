@@ -37,6 +37,7 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.ActivityLauncher;
 import com.jdroid.android.R;
 import com.jdroid.android.ad.AdHelper;
+import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
@@ -134,14 +135,6 @@ public class ActivityHelper implements ActivityIf {
 		AbstractApplication.get().setCurrentActivity(activity);
 		
 		AbstractApplication.get().initExceptionHandlers();
-		
-		ExecutorUtils.execute(new Runnable() {
-			
-			@Override
-			public void run() {
-				AbstractApplication.get().saveInstallationSource();
-			}
-		});
 		
 		// Action bar
 		final ActionBar actionBar = activity.getActionBar();
@@ -302,7 +295,6 @@ public class ActivityHelper implements ActivityIf {
 					});
 				}
 			}, 1L);
-			
 		}
 	}
 	
@@ -388,9 +380,19 @@ public class ActivityHelper implements ActivityIf {
 	public void onStart() {
 		LOGGER.trace("Executing onStart on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
-		if (AbstractApplication.get().hasAnalyticsSender()) {
-			AbstractApplication.get().getAnalyticsSender().onActivityStart(activity, getOnActivityStartData());
-		}
+		
+		ExecutorUtils.execute(new Runnable() {
+			
+			@Override
+			public void run() {
+				AbstractApplication.get().saveInstallationSource();
+				if (AbstractApplication.get().hasAnalyticsSender()) {
+					AppLoadingSource appLoadingSource = AppLoadingSource.getAppLoadingSource(activity.getIntent());
+					AbstractApplication.get().getAnalyticsSender().onActivityStart(activity, appLoadingSource,
+						getOnActivityStartData());
+				}
+			}
+		});
 		
 		final Long locationFrequency = getLocationFrequency();
 		if (locationFrequency != null) {

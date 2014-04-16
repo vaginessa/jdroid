@@ -4,6 +4,9 @@ import java.util.List;
 import android.app.Activity;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.exception.ExceptionHandler;
+import com.jdroid.android.inappbilling.Product;
+import com.jdroid.android.social.AccountType;
+import com.jdroid.android.social.SocialAction;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.ConnectionException;
@@ -26,16 +29,6 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 			if (tracker.isEnabled()) {
 				this.trackers.add(tracker);
 			}
-		}
-	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#init()
-	 */
-	@Override
-	public void init() {
-		for (T tracker : trackers) {
-			tracker.init();
 		}
 	}
 	
@@ -69,15 +62,16 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStart(android.app.Activity, java.lang.Object)
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStart(android.app.Activity,
+	 *      com.jdroid.android.analytics.AppLoadingSource, java.lang.Object)
 	 */
 	@Override
-	public void onActivityStart(final Activity activity, final Object data) {
+	public void onActivityStart(final Activity activity, final AppLoadingSource appLoadingSource, final Object data) {
 		ExecutorUtils.execute(new TrackerRunnable() {
 			
 			@Override
 			protected void track(T tracker) {
-				tracker.onActivityStart(activity, data);
+				tracker.onActivityStart(activity, appLoadingSource, data);
 			}
 		});
 	}
@@ -111,6 +105,20 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 	}
 	
 	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackHandledException(java.lang.Throwable)
+	 */
+	@Override
+	public void trackHandledException(final Throwable throwable) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+			
+			@Override
+			protected void track(T tracker) {
+				tracker.trackHandledException(throwable);
+			}
+		});
+	}
+	
+	/**
 	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackUriHandled(java.lang.Boolean, java.lang.String,
 	 *      java.lang.String)
 	 */
@@ -121,6 +129,35 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 			@Override
 			protected void track(T tracker) {
 				tracker.trackUriHandled(handled, validUri, invalidUri);
+			}
+		});
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackInAppBillingPurchase(com.jdroid.android.inappbilling.Product)
+	 */
+	@Override
+	public void trackInAppBillingPurchase(final Product product) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+			
+			@Override
+			protected void track(T tracker) {
+				tracker.trackInAppBillingPurchase(product);
+			}
+		});
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackSocialInteraction(com.jdroid.android.social.AccountType,
+	 *      com.jdroid.android.social.SocialAction, java.lang.String)
+	 */
+	@Override
+	public void trackSocialInteraction(final AccountType accountType, final SocialAction socialAction, final String socialTarget) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+			
+			@Override
+			protected void track(T tracker) {
+				tracker.trackSocialInteraction(accountType, socialAction, socialTarget);
 			}
 		});
 	}

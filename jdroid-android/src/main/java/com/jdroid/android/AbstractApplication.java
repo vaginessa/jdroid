@@ -21,7 +21,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import com.crittercism.app.Crittercism;
 import com.crittercism.app.CrittercismConfig;
-import com.flurry.sdk.eq;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
@@ -130,9 +129,6 @@ public abstract class AbstractApplication extends Application {
 		
 		initRepositories();
 		
-		initAnalytics();
-		initInAppBilling();
-		
 		// Create global configuration and initialize ImageLoader with this configuration
 		
 		DisplayImageOptions.Builder defaultOptiBuilder = new DisplayImageOptions.Builder();
@@ -161,12 +157,6 @@ public abstract class AbstractApplication extends Application {
 		}
 		LOGGER.debug("App launch status: " + appLaunchStatus);
 		SharedPreferencesUtils.savePreference(VERSION_CODE_KEY, AndroidUtils.getVersionCode());
-	}
-	
-	protected void initAnalytics() {
-		if (hasAnalyticsSender()) {
-			getAnalyticsSender().init();
-		}
 	}
 	
 	public Boolean hasAnalyticsSender() {
@@ -284,21 +274,9 @@ public abstract class AbstractApplication extends Application {
 		return getApplicationContext().getDir(CACHE_DIRECTORY_PREFFIX + cache.getName(), Context.MODE_PRIVATE);
 	}
 	
-	private void initInAppBilling() {
-		if (isInAppBillingEnabled()) {
-			// TODO
-			// BillingContext.get().initialize();
-		}
-	}
-	
 	public void initExceptionHandlers() {
 		UncaughtExceptionHandler currentExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
 		if ((currentExceptionHandler == null) || !currentExceptionHandler.getClass().equals(getExceptionHandlerClass())) {
-			
-			// If Flurry is enabled, we initialize its exception handler as the first custom exception handler
-			if (appContext.isFlurryEnabled()) {
-				eq.a();
-			}
 			
 			initCrittercism(getExceptionHandlerMetadata());
 			
@@ -321,8 +299,7 @@ public abstract class AbstractApplication extends Application {
 				CrittercismConfig crittercismConfig = new CrittercismConfig();
 				crittercismConfig.setLogcatReportingEnabled(true);
 				
-				Crittercism.initialize(getApplicationContext(), appContext.getCrittercismAppId(),
-					crittercismConfig);
+				Crittercism.initialize(getApplicationContext(), appContext.getCrittercismAppId(), crittercismConfig);
 				
 				if (installationId != null) {
 					Crittercism.setUsername(installationId);
@@ -448,5 +425,9 @@ public abstract class AbstractApplication extends Application {
 	@SuppressWarnings("unchecked")
 	public <M extends Identifiable> Repository<M> getRepositoryInstance(Class<M> persistentClass) {
 		return (Repository<M>)repositories.get(persistentClass);
+	}
+	
+	public Integer getDebugPreferences() {
+		return R.xml.debug_preferences;
 	}
 }

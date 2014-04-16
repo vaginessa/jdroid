@@ -10,24 +10,34 @@ import com.jdroid.java.utils.Hasher;
 public class Product {
 	
 	private ProductType productType;
-	private String price;
 	private String title;
 	private String description;
 	private Purchase purchase;
 	private Boolean consumed;
 	
-	public Product(ProductType productType, String price, String title, String description) {
+	private String formattedPrice;
+	private Double price;
+	private String currencyCode;
+	
+	public Product(ProductType productType, String formattedPrice, Double price, String currencyCode, String title,
+			String description) {
 		this.productType = productType;
-		this.price = price;
 		this.title = title;
 		this.description = description;
+		this.formattedPrice = formattedPrice;
+		this.price = price;
+		this.currencyCode = currencyCode;
 		consumed = false;
 	}
 	
 	/**
-	 * @return the price
+	 * @return the Formatted price of the item, including its currency sign. The price does not include tax.
 	 */
-	public String getPrice() {
+	public String getFormattedPrice() {
+		return formattedPrice;
+	}
+	
+	public Double getPrice() {
 		return price;
 	}
 	
@@ -111,10 +121,7 @@ public class Product {
 		return purchase;
 	}
 	
-	/**
-	 * @param price the price to set
-	 */
-	public void setPrice(String price) {
-		this.price = price;
+	public String getCurrencyCode() {
+		return currencyCode;
 	}
 }

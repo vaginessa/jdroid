@@ -4,7 +4,6 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import org.slf4j.Logger;
 import android.app.Activity;
 import android.support.v4.app.FragmentActivity;
-import com.crittercism.app.Crittercism;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.context.AppContext;
@@ -182,12 +181,9 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 		} else {
 			LOGGER.error(message, throwable);
 			AppContext appContext = AbstractApplication.get().getAppContext();
-			if (appContext.isCrittercismEnabled()) {
-				if (appContext.isCrittercismPremium()) {
-					Crittercism.logHandledException(throwable);
-				} else if (appContext.isCrashReportsEnabled()) {
-					ExceptionReportActivity.reportException(throwable);
-				}
+			AbstractApplication.get().getAnalyticsSender().trackHandledException(throwable);
+			if (appContext.isCrashReportsEnabled()) {
+				ExceptionReportActivity.reportException(throwable);
 			}
 		}
 	}

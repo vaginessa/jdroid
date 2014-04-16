@@ -1,6 +1,5 @@
 package com.jdroid.android.social;
 
-import com.jdroid.android.R;
 import com.jdroid.android.domain.Entity;
 
 /**
@@ -9,34 +8,13 @@ import com.jdroid.android.domain.Entity;
  */
 public class SocialUser extends Entity {
 	
-	public enum SocialNetwork {
-		FACEBOOK("facebook", R.drawable.ic_facebook),
-		GOOGLE_PLUS("googlePlus", R.drawable.common_signin_btn_icon_normal_light);
-		
-		private String name;
-		private int iconResId;
-		
-		private SocialNetwork(String name, int iconResId) {
-			this.name = name;
-			this.iconResId = iconResId;
-		}
-		
-		public int getIconResId() {
-			return iconResId;
-		}
-		
-		public String getName() {
-			return name;
-		}
-	}
-	
 	private String socialId;
-	private SocialNetwork socialNetwork;
+	private AccountType socialNetwork;
 	private String firstName;
 	private String lastName;
 	private String imageURL;
 	
-	public SocialUser(Long id, String socialId, SocialNetwork socialNetwork, String firstName, String lastName,
+	public SocialUser(Long id, String socialId, AccountType socialNetwork, String firstName, String lastName,
 			String imageURL) {
 		super(id);
 		this.socialId = socialId;
@@ -71,7 +49,7 @@ public class SocialUser extends Entity {
 	/**
 	 * @return the socialNetwork
 	 */
-	public SocialNetwork getSocialNetwork() {
+	public AccountType getSocialNetwork() {
 		return socialNetwork;
 	}
 	

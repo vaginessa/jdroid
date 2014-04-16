@@ -6,13 +6,15 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import com.google.android.gms.plus.PlusOneButton;
 import com.google.android.gms.plus.PlusOneButton.OnPlusOneClickListener;
+import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.social.AccountType;
+import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.utils.GooglePlayUtils;
 
 public class GooglePlusOneButtonHelper {
 	
 	private static final int PLUS_ONE_REQUEST_CODE = 100;
 	private static final int PLUS_ONE_UNDO_REQUEST_CODE = 101;
-	private static final String PLAY_STORE_BASE_URL = "https://play.google.com/store/apps/details?id=";
 	
 	private String url;
 	protected PlusOneButton plusOneButton;
@@ -52,8 +54,12 @@ public class GooglePlusOneButtonHelper {
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if ((requestCode == PLUS_ONE_UNDO_REQUEST_CODE) && (resultCode != 0)) {
+			AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(AccountType.GOOGLE_PLUS,
+				SocialAction.PLUS_ONE_UNDO, getUrl());
 			onUndoPlusOne();
 		} else if ((requestCode == PLUS_ONE_REQUEST_CODE) && (resultCode != 0)) {
+			AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(AccountType.GOOGLE_PLUS,
+				SocialAction.PLUS_ONE, getUrl());
 			onPlusOne();
 		}
 	}
@@ -67,6 +73,6 @@ public class GooglePlusOneButtonHelper {
 	}
 	
 	protected String getUrl() {
-		return PLAY_STORE_BASE_URL + context.getActivity().getPackageName();
+		return GooglePlayUtils.getGooglePlayLink();
 	}
 }

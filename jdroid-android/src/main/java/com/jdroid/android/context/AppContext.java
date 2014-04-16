@@ -44,11 +44,6 @@ public class AppContext {
 	private Boolean googleAnalyticsDebugEnabled;
 	private String googleAnalyticsTrackingId;
 	
-	// Flurry
-	private Boolean flurryEnabled;
-	private String flurryApiKey;
-	private Boolean flurryDebugEnabled;
-	
 	// Crittercism
 	private Boolean crittercismEnabled;
 	private String crittercismAppId;
@@ -80,9 +75,6 @@ public class AppContext {
 		googleAnalyticsEnabled = PropertiesUtils.getBooleanProperty("google.analytics.enabled", false);
 		googleAnalyticsDebugEnabled = PropertiesUtils.getBooleanProperty("google.analytics.debug.enabled", false);
 		googleAnalyticsTrackingId = PropertiesUtils.getStringProperty("google.analytics.trackingId");
-		flurryEnabled = PropertiesUtils.getBooleanProperty("flurry.enabled", false);
-		flurryApiKey = PropertiesUtils.getStringProperty("flurry.apikey");
-		flurryDebugEnabled = PropertiesUtils.getBooleanProperty("flurry.debug.enabled", false);
 		crittercismEnabled = PropertiesUtils.getBooleanProperty("crittercism.enabled", false);
 		crittercismAppId = PropertiesUtils.getStringProperty("crittercism.appId");
 		crittercismPremium = PropertiesUtils.getBooleanProperty("crittercism.premium", false);
@@ -185,18 +177,6 @@ public class AppContext {
 	
 	public Boolean isGoogleAnalyticsDebugEnabled() {
 		return googleAnalyticsDebugEnabled;
-	}
-	
-	public Boolean isFlurryEnabled() {
-		return flurryEnabled;
-	}
-	
-	public String getFlurryApiKey() {
-		return flurryApiKey;
-	}
-	
-	public Boolean isFlurryDebugEnabled() {
-		return flurryDebugEnabled;
 	}
 	
 	public Boolean isHttpMockEnabled() {

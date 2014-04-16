@@ -32,8 +32,8 @@ import com.google.android.gms.plus.model.people.PersonBuffer;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.fragment.AbstractFragment;
+import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialUser;
-import com.jdroid.android.social.SocialUser.SocialNetwork;
 import com.jdroid.android.utils.GooglePlayUtils;
 import com.jdroid.android.utils.IntentUtils;
 import com.jdroid.java.collections.Lists;
@@ -420,7 +420,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 							int count = personBuffer.getCount();
 							for (int i = 0; i < count; i++) {
 								Person person = personBuffer.get(i);
-								googlePlusUsers.add(new SocialUser(null, person.getId(), SocialNetwork.GOOGLE_PLUS,
+								googlePlusUsers.add(new SocialUser(null, person.getId(), AccountType.GOOGLE_PLUS,
 										person.getDisplayName(), "", person.getImage().getUrl()));
 							}
 							GooglePlusListener googlePlusListener = getGooglePlusListener();

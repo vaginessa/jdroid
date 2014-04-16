@@ -14,8 +14,6 @@
 	<classpathentry exported="true" kind="var" path="M2_REPO/net/sf/opencsv/opencsv/2.3/opencsv-2.3.jar" sourcepath="M2_REPO/net/sf/opencsv/opencsv/2.3/opencsv-2.3-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/slf4j/slf4j-android/1.6.1-RC1/slf4j-android-1.6.1-RC1.jar" sourcepath="M2_REPO/org/slf4j/slf4j-android/1.6.1-RC1/slf4j-android-1.6.1-RC1-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/android/twitter/twitter4j-core-android/2.2.6/twitter4j-core-android-2.2.6.jar"/>
-	<classpathentry exported="true" kind="var" path="M2_REPO/android/analytics/google-analytics-sdk/3.01/google-analytics-sdk-3.01.jar"/>
-	<classpathentry exported="true" kind="var" path="M2_REPO/android/analytics/flurry-analytics-sdk/3.3.0/flurry-analytics-sdk-3.3.0.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/android/crittercism/crittercism-sdk/4.4.0/crittercism-sdk-4.4.0.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/com/nostra13/universalimageloader/universal-image-loader/1.9.1/universal-image-loader-1.9.1.jar" sourcepath="/M2_REPO/com/nostra13/universalimageloader/universal-image-loader/1.9.1/universal-image-loader-1.9.1-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/pivotallabs/robolectric/1.2/robolectric-1.2-jar-with-dependencies.jar"/>

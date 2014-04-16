@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.webkit.URLUtil;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.java.utils.LoggerUtils;
 
 /**
@@ -53,6 +54,8 @@ public class UriMapper {
 		Uri targetUri = activity.getIntent().getData();
 		if (targetUri != null) {
 			UriMapper.startActivityFromUri(activity, targetUri);
+		} else {
+			AppLoadingSource.NORMAL.flagIntent(activity.getIntent());
 		}
 	}
 	
@@ -63,11 +66,15 @@ public class UriMapper {
 	 * @param uri uri to evaluate
 	 */
 	public static void startActivityFromUri(Context context, Uri uri) {
-		context.startActivity(getIntentFromUri(context, uri));
+		Intent intent = getIntentFromUri(context, uri);
+		AppLoadingSource.URL.flagIntent(intent);
+		context.startActivity(intent);
 	}
 	
 	public static void startActivityFromUri(Context context, String uriString) {
-		context.startActivity(getIntentFromUri(context, uriString));
+		Intent intent = getIntentFromUri(context, uriString);
+		AppLoadingSource.URL.flagIntent(intent);
+		context.startActivity(intent);
 	}
 	
 	public static Intent getIntentFromUri(Context context, Uri uri) {

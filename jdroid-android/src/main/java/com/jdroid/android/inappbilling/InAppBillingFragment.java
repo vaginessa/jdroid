@@ -4,6 +4,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import android.content.Intent;
 import android.os.Bundle;
+import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.exception.CommonErrorCode;
 import com.jdroid.android.fragment.AbstractGridFragment;
 import com.jdroid.android.inappbilling.InAppBillingClient.OnConsumeFinishedListener;
@@ -93,8 +94,9 @@ public abstract class InAppBillingFragment extends AbstractGridFragment<Product>
 					if (skuDetails != null) {
 						ProductType productType = BillingContext.get().isInAppBillingMockEnabled() ? BillingContext.get().getTestProductType()
 								: each;
-						Product product = new Product(productType, skuDetails.getPrice(), getString(each.getTitleId()),
-								getString(each.getDescriptionId(), skuDetails.getPrice()));
+						Product product = new Product(productType, skuDetails.getFormattedPrice(),
+								skuDetails.getPrice(), skuDetails.getCurrencyCode(), getString(each.getTitleId()),
+								getString(each.getDescriptionId(), skuDetails.getFormattedPrice()));
 						product.setPurchase(inventory.getPurchase(product.getProductType().getProductId()));
 						products.add(product);
 						
@@ -175,6 +177,7 @@ public abstract class InAppBillingFragment extends AbstractGridFragment<Product>
 				}
 				product.setPurchase(purchase);
 				
+				AbstractApplication.get().getAnalyticsSender().trackInAppBillingPurchase(product);
 				onPurchased(product);
 				
 				if (product.getProductType().isConsumable()) {
