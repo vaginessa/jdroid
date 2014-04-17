@@ -197,7 +197,7 @@ public abstract class DateUtils {
 			try {
 				date = dateFormat.parse(dateFormatted);
 			} catch (ParseException e) {
-				throw new UnexpectedException("Error parsing the dateFormatted: " + dateFormatted + " pattern: "
+				throw new UnexpectedException("Error parsing the date: '" + dateFormatted + "' with pattern: "
 						+ dateFormat.toPattern(), e);
 			}
 		}

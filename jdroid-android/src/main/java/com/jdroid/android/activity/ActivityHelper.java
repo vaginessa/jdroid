@@ -514,7 +514,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	public void onPrepareOptionsMenu(Menu menu) {
-		if (isNavDrawerEnabled()) {
+		if (isNavDrawerEnabled() && (drawerLayout != null)) {
 			// If the nav drawer is open, hide action items related to the content view
 			boolean drawerOpen = drawerLayout.isDrawerOpen(drawerList);
 			for (Integer itemId : getActivityIf().getContextualMenuItemsIds()) {
