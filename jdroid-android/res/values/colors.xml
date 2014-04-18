@@ -3,6 +3,8 @@
 
 	<color name="actionbarMockBackground">#FF489100</color>
 
+	<color name="buttonBarBackground">#222</color>
+
 	<!-- Nav Drawer -->
 	<color name="navDrawerItemsBackground">#111</color>
 	<color name="navDrawerBackground">#222</color>

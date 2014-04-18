@@ -11,6 +11,7 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.domain.Entity;
 import com.jdroid.android.sqlite.Column;
 import com.jdroid.android.sqlite.SQLiteHelper;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.repository.Repository;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -184,23 +185,25 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	}
 	
 	/**
-	 * @see com.jdroid.java.repository.Repository#findByField(java.lang.String, java.lang.Object[])
+	 * @see com.jdroid.java.repository.Repository#findByField(java.lang.String, java.util.Collection)
 	 */
 	@SuppressWarnings("resource")
 	@Override
-	public List<T> findByField(String fieldName, Object... values) {
+	public List<T> findByField(String fieldName, Collection<? extends Object> values) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		String selection = null;
 		String[] selectionArgs = null;
-		if ((values != null) && (values.length > 0)) {
-			selectionArgs = new String[values.length];
+		if ((values != null) && (values.size() > 0)) {
+			selectionArgs = new String[values.size()];
 			StringBuilder sb = new StringBuilder(fieldName + " IN (");
-			for (int i = 0; i < values.length; i++) {
-				selectionArgs[i] = values[i].toString();
+			int i = 0;
+			for (Object each : values) {
+				selectionArgs[i] = each.toString();
 				if (i > 0) {
 					sb.append(",");
 				}
 				sb.append("?");
+				i++;
 			}
 			sb.append(")");
 			selection = sb.toString();
@@ -240,7 +243,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	 */
 	@Override
 	public List<T> getAll() {
-		List<T> results = findByField(null, new Object[0]);
+		List<T> results = findByField(null, Lists.newArrayList());
 		LOGGER.info("Retrieved all objects [" + results.size() + "] from database of type: " + getTableName());
 		return results;
 	}

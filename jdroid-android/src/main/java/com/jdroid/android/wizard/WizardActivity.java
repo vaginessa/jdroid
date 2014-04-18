@@ -1,15 +1,12 @@
 package com.jdroid.android.wizard;
 
 import java.util.List;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.TypedValue;
 import android.view.View;
-import android.widget.Button;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
-import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.view.ButtonBarView;
 import com.jdroid.android.view.CustomViewPager;
 
 /**
@@ -19,8 +16,7 @@ import com.jdroid.android.view.CustomViewPager;
 public abstract class WizardActivity extends AbstractFragmentActivity {
 	
 	private CustomViewPager pager;
-	private Button leftButton;
-	private Button rightButton;
+	private ButtonBarView buttonBarView;
 	
 	/**
 	 * @see com.jdroid.android.activity.ActivityIf#getContentView()
@@ -51,18 +47,20 @@ public abstract class WizardActivity extends AbstractFragmentActivity {
 			}
 		});
 		
-		leftButton = findView(R.id.leftButton);
-		leftButton.setText(getLeftStringResId());
-		leftButton.setOnClickListener(new View.OnClickListener() {
+		buttonBarView = findView(R.id.buttonBar);
+		buttonBarView.findViewById(R.id.topDivider).setVisibility(View.VISIBLE);
+		
+		buttonBarView.setNegativeTextId(getNegativeStringResId());
+		buttonBarView.setNegativeOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View view) {
 				pager.setCurrentItem(pager.getCurrentItem() - 1);
 			}
 		});
+		buttonBarView.setNegativeDrawableId(0);
 		
-		rightButton = findView(R.id.rightButton);
-		rightButton.setOnClickListener(new View.OnClickListener() {
+		buttonBarView.setPositiveOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View view) {
@@ -73,6 +71,7 @@ public abstract class WizardActivity extends AbstractFragmentActivity {
 				}
 			}
 		});
+		buttonBarView.setNegativeDrawableId(0);
 		
 		updateBottomBar();
 	}
@@ -83,11 +82,11 @@ public abstract class WizardActivity extends AbstractFragmentActivity {
 		return null;
 	};
 	
-	protected int getLeftStringResId() {
+	protected int getNegativeStringResId() {
 		return R.string.previous;
 	}
 	
-	protected int getRightStringResId() {
+	protected int getPositiveStringResId() {
 		return R.string.next;
 	}
 	
@@ -95,23 +94,23 @@ public abstract class WizardActivity extends AbstractFragmentActivity {
 		return R.string.finish;
 	}
 	
-	public void enableLeft() {
-		leftButton.setEnabled(true);
+	public void enableNegativeButton() {
+		buttonBarView.getNegativeButton().setEnabled(true);
 		pager.setPagingEnabled(true);
 	}
 	
-	public void disableLeft() {
-		leftButton.setEnabled(false);
+	public void disableNegativeButton() {
+		buttonBarView.getNegativeButton().setEnabled(false);
 		pager.setPagingEnabled(false);
 	}
 	
-	public void enableRight() {
-		rightButton.setEnabled(true);
+	public void enablePositiveButton() {
+		buttonBarView.getPositiveButton().setEnabled(true);
 		pager.setPagingEnabled(true);
 	}
 	
-	public void disableRight() {
-		rightButton.setEnabled(false);
+	public void disablePositiveButton() {
+		buttonBarView.getPositiveButton().setEnabled(false);
 		pager.setPagingEnabled(false);
 	}
 	
@@ -122,22 +121,14 @@ public abstract class WizardActivity extends AbstractFragmentActivity {
 	private void updateBottomBar() {
 		int position = pager.getCurrentItem();
 		if (isOnFinishStep()) {
-			rightButton.setText(getFinishStringResId());
-			if (AndroidUtils.getApiLevel() >= Build.VERSION_CODES.JELLY_BEAN) {
-				rightButton.setBackgroundResource(R.drawable.finish_background);
-				rightButton.setTextAppearance(this, R.style.finishWizardText);
-			}
+			buttonBarView.setPositiveTextId(getFinishStringResId());
+			buttonBarView.getPositiveButton().setBackgroundResource(R.drawable.finish_background);
 		} else {
-			rightButton.setText(getRightStringResId());
-			if (AndroidUtils.getApiLevel() >= Build.VERSION_CODES.JELLY_BEAN) {
-				rightButton.setBackgroundResource(R.drawable.default_item_selector);
-				TypedValue v = new TypedValue();
-				getTheme().resolveAttribute(android.R.attr.textAppearanceMedium, v, true);
-				rightButton.setTextAppearance(this, v.resourceId);
-			}
+			buttonBarView.setPositiveTextId(getPositiveStringResId());
+			buttonBarView.getPositiveButton().setBackgroundResource(R.drawable.default_item_selector);
 		}
 		
-		leftButton.setVisibility(position <= 0 ? View.INVISIBLE : View.VISIBLE);
+		buttonBarView.getNegativeButton().setVisibility(position <= 0 ? View.INVISIBLE : View.VISIBLE);
 	}
 	
 	private Boolean isOnFinishStep() {

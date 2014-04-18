@@ -32,4 +32,12 @@ public class NotificationUtils {
 	public static void cancelAllNotifications() {
 		NOTIFICATION_MANAGER.cancelAll();
 	}
+	
+	public static int getNotificationLargeIconWidthPx() {
+		return AndroidUtils.convertDimenToPixel(android.R.dimen.notification_large_icon_width);
+	}
+	
+	public static int getNotificationLargeIconHeightPx() {
+		return AndroidUtils.convertDimenToPixel(android.R.dimen.notification_large_icon_height);
+	}
 }

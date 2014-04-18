@@ -197,10 +197,14 @@
 		<item name="android:background">@android:color/white</item>
 	</style>
 
-	<!-- Wizard -->
+	<!--Button Bar -->
 
-	<style name="finishWizardText" parent="android:TextAppearance.Holo.Medium">
-		<item name="android:textColor">#fff</item>
+	<style name="buttonBarText" parent="android:TextAppearance.Holo.Medium">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:gravity">center_vertical</item>
+		<item name="android:drawablePadding">8dp</item>
+		<item name="android:layout_centerInParent">true</item>
 	</style>
 
 	<!-- Social -->

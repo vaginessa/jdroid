@@ -135,10 +135,9 @@ public class NotificationBuilder {
 		Bitmap largeIconBitmap = null;
 		if (StringUtils.isNotEmpty(largeIconUrl)) {
 			
-			int height = AndroidUtils.convertDimenToPixel(android.R.dimen.notification_large_icon_height);
-			int width = AndroidUtils.convertDimenToPixel(android.R.dimen.notification_large_icon_width);
-			
-			largeIconBitmap = ImageLoaderUtils.loadBitmap(largeIconUrl, ImageScaleType.EXACTLY, width, height);
+			largeIconBitmap = ImageLoaderUtils.loadBitmap(largeIconUrl, ImageScaleType.EXACTLY,
+				NotificationUtils.getNotificationLargeIconWidthPx(),
+				NotificationUtils.getNotificationLargeIconHeightPx());
 		}
 		return largeIconBitmap;
 	}

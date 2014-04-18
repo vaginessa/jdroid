@@ -135,7 +135,7 @@ public class AbstractHibernateRepository<T extends Entity> extends HibernateDaoS
 	 */
 	@Override
 	public List<T> getAll(List<Long> ids) {
-		return find(Identifiable.ID_FIELD, ids);
+		return findByField(Identifiable.ID_FIELD, ids);
 	}
 	
 	/**
@@ -172,10 +172,10 @@ public class AbstractHibernateRepository<T extends Entity> extends HibernateDaoS
 	}
 	
 	/**
-	 * @see com.jdroid.java.repository.Repository#findByField(java.lang.String, java.lang.Object[])
+	 * @see com.jdroid.java.repository.Repository#findByField(java.lang.String, java.util.Collection)
 	 */
 	@Override
-	public List<T> findByField(String fieldName, Object... values) {
+	public List<T> findByField(String fieldName, Collection<? extends Object> values) {
 		return this.find(this.createDetachedCriteria().add(Restrictions.in(fieldName, values)));
 	}
 	

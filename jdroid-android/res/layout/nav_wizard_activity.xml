@@ -8,7 +8,8 @@
 		<com.jdroid.android.view.CustomViewPager android:id="@+id/pager"
 			android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
 
-		<include layout="@layout/left_right_buttons" />
+		<com.jdroid.android.view.ButtonBarView android:id="@+id/buttonBar"
+			android:layout_width="match_parent" android:layout_height="?android:attr/actionBarSize" />
 
 	</LinearLayout>
 

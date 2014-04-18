@@ -15,7 +15,14 @@ public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 	 */
 	@Override
 	public void onStartUseCase() {
-		getFragmentIf().onStartUseCase();
+		FragmentIf fragmentIf = getFragmentIf();
+		if (fragmentIf != null) {
+			if (isBlockingLoadingEnabled()) {
+				fragmentIf.showBlockingLoading();
+			} else {
+				fragmentIf.showNonBlockingLoading();
+			}
+		}
 	}
 	
 	/**
@@ -31,14 +38,13 @@ public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 	 */
 	@Override
 	public void onFinishFailedUseCase(RuntimeException runtimeException) {
-		getFragmentIf().onFinishFailedUseCase(runtimeException);
 		if (goBackOnError(runtimeException)) {
 			DefaultExceptionHandler.markAsGoBackOnError(runtimeException);
 		} else {
 			DefaultExceptionHandler.markAsNotGoBackOnError(runtimeException);
 		}
 		FragmentIf fragmentIf = getFragmentIf();
-		if (fragmentIf.isBlockingLoadingEnabled()) {
+		if (isBlockingLoadingEnabled()) {
 			fragmentIf.dismissBlockingLoading();
 		} else {
 			fragmentIf.dismissNonBlockingLoading();
@@ -70,6 +76,10 @@ public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 	@Override
 	public void onFinishCanceledUseCase() {
 		getFragmentIf().onFinishCanceledUseCase();
+	}
+	
+	public Boolean isBlockingLoadingEnabled() {
+		return getFragmentIf().isBlockingLoadingEnabled();
 	}
 	
 	protected abstract FragmentIf getFragmentIf();
