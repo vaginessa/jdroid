@@ -37,6 +37,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import com.facebook.internal.AttributionIdentifiers;
 import com.facebook.internal.Utility;
 import com.facebook.internal.Validate;
 import com.facebook.model.GraphObject;
@@ -346,7 +347,7 @@ public final class Settings {
 			if ((context == null) || (applicationId == null)) {
 				throw new IllegalArgumentException("Both context and applicationId must be non-null");
 			}
-			String attributionId = Settings.getAttributionId(context.getContentResolver());
+			AttributionIdentifiers identifiers = AttributionIdentifiers.getAttributionIdentifiers(context);
 			SharedPreferences preferences = context.getSharedPreferences(ATTRIBUTION_PREFERENCES, Context.MODE_PRIVATE);
 			String pingKey = applicationId + "ping";
 			String jsonKey = applicationId + "json";
@@ -361,8 +362,8 @@ public final class Settings {
 			GraphObject publishParams = GraphObject.Factory.create();
 			publishParams.setProperty(ANALYTICS_EVENT, MOBILE_INSTALL_EVENT);
 			
-			Utility.setAppEventAttributionParameters(publishParams, attributionId,
-				Utility.getHashedDeviceAndAppID(context, applicationId), !getLimitEventAndDataUsage(context));
+			Utility.setAppEventAttributionParameters(publishParams, identifiers,
+				Utility.getHashedDeviceAndAppID(context, applicationId), getLimitEventAndDataUsage(context));
 			publishParams.setProperty(AUTO_PUBLISH, isAutoPublish);
 			publishParams.setProperty("application_package_name", context.getPackageName());
 			
@@ -384,10 +385,9 @@ public final class Settings {
 				} else {
 					return new Response(null, null, graphObject, true);
 				}
-			} else if (attributionId == null) {
-				throw new FacebookException("No attribution id returned from the Facebook application");
+			} else if ((identifiers.getAndroidAdvertiserId() == null) && (identifiers.getAttributionId() == null)) {
+				throw new FacebookException("No attribution id available to send to server.");
 			} else {
-				
 				if (!Utility.queryAppSettings(applicationId, false).supportsAttribution()) {
 					throw new FacebookException("Install attribution has been disabled on the server.");
 				}

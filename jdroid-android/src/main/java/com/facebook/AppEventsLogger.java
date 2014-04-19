@@ -40,6 +40,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import com.facebook.internal.AttributionIdentifiers;
 import com.facebook.internal.Logger;
 import com.facebook.internal.Utility;
 import com.facebook.internal.Validate;
@@ -705,9 +706,9 @@ public class AppEventsLogger {
 			SessionEventsState state = stateMap.get(accessTokenAppId);
 			if (state == null) {
 				// Retrieve attributionId, but we will only send it if attribution is supported for the app.
-				String attributionId = Settings.getAttributionId(context.getContentResolver());
+				AttributionIdentifiers attributionIdentifiers = AttributionIdentifiers.getAttributionIdentifiers(context);
 				
-				state = new SessionEventsState(attributionId, context.getPackageName(), hashedDeviceAndAppId);
+				state = new SessionEventsState(attributionIdentifiers, context.getPackageName(), hashedDeviceAndAppId);
 				stateMap.put(accessTokenAppId, state);
 			}
 			return state;
@@ -923,7 +924,7 @@ public class AppEventsLogger {
 		private List<AppEvent> accumulatedEvents = new ArrayList<AppEvent>();
 		private List<AppEvent> inFlightEvents = new ArrayList<AppEvent>();
 		private int numSkippedEventsDueToFullBuffer;
-		private String attributionId;
+		private AttributionIdentifiers attributionIdentifiers;
 		private String packageName;
 		@SuppressWarnings("hiding")
 		private String hashedDeviceAndAppId;
@@ -934,8 +935,8 @@ public class AppEventsLogger {
 		
 		private final int MAX_ACCUMULATED_LOG_EVENTS = 1000;
 		
-		public SessionEventsState(String attributionId, String packageName, String hashedDeviceAndAppId) {
-			this.attributionId = attributionId;
+		public SessionEventsState(AttributionIdentifiers identifiers, String packageName, String hashedDeviceAndAppId) {
+			attributionIdentifiers = identifiers;
 			this.packageName = packageName;
 			this.hashedDeviceAndAppId = hashedDeviceAndAppId;
 		}
@@ -1015,7 +1016,7 @@ public class AppEventsLogger {
 			}
 			
 			if (includeAttribution) {
-				Utility.setAppEventAttributionParameters(publishParams, attributionId, hashedDeviceAndAppId,
+				Utility.setAppEventAttributionParameters(publishParams, attributionIdentifiers, hashedDeviceAndAppId,
 					limitEventUsage);
 			}
 			
