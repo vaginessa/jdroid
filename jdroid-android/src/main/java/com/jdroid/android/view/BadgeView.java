@@ -38,7 +38,8 @@ public class BadgeView extends TextView {
 		}
 		
 		// Adding styles
-		setBackgroundResource(R.drawable.badge);
+		setBackgroundResource(R.drawable.item_activated);
+		setPadding(8, 4, 8, 4);
 		setTextColor(Color.WHITE);
 		setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
 		setTypeface(Typeface.DEFAULT_BOLD);
