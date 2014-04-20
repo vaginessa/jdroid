@@ -33,8 +33,6 @@ public class FacebookAuthenticationUseCase extends DefaultAbstractUseCase {
 					throw new UnexpectedException("Failed to get GraphUser from Facebook");
 				}
 				
-				sendFacebookLogin(fbUser.getId(), accessToken);
-				
 				facebookUser = new FacebookUser();
 				facebookUser.setFirstName(fbUser.getFirstName());
 				facebookUser.setLastName(fbUser.getLastName());
@@ -43,7 +41,7 @@ public class FacebookAuthenticationUseCase extends DefaultAbstractUseCase {
 				if (email != null) {
 					facebookUser.setEmail(email.toString());
 				}
-				
+				sendFacebookLogin(facebookUser, accessToken);
 				FacebookPreferencesUtils.saveFacebookUser(accessToken, facebookUser);
 			} else {
 				LOGGER.debug("facebookUserInfo from cache facebookUserInfo= " + facebookUser);
@@ -55,7 +53,7 @@ public class FacebookAuthenticationUseCase extends DefaultAbstractUseCase {
 		}
 	}
 	
-	protected void sendFacebookLogin(String facebookId, String token) {
+	protected void sendFacebookLogin(FacebookUser facebookUser, String token) {
 		// Do Nothing
 	}
 	

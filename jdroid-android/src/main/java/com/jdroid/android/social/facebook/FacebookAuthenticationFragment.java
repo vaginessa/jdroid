@@ -262,6 +262,25 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 	}
 	
 	/**
+	 * @see com.jdroid.android.fragment.AbstractFragment#onFinishFailedUseCase(java.lang.RuntimeException)
+	 */
+	@Override
+	public void onFinishFailedUseCase(RuntimeException runtimeException) {
+		facebookConnector.localLogout();
+		executeOnUIThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				FacebookListener facebookListener = getFacebookListener();
+				if (facebookListener != null) {
+					facebookListener.onFacebookSignInFailed();
+				}
+			}
+		});
+		super.onFinishFailedUseCase(runtimeException);
+	}
+	
+	/**
 	 * @see com.jdroid.android.fragment.AbstractFragment#goBackOnError(java.lang.RuntimeException)
 	 */
 	@Override
