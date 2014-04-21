@@ -305,7 +305,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 				GooglePlusListener googlePlusListener = getGooglePlusListener();
 				if (googlePlusListener != null) {
 					LOGGER.debug("Executing onGooglePlusSignInCanceled");
-					googlePlusListener.onGooglePlusSignInCanceled();
+					googlePlusListener.onGooglePlusSignInFailed();
 				}
 			}
 		});
@@ -347,9 +347,8 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 				signInClicked = false;
 				GooglePlusListener googlePlusListener = getGooglePlusListener();
 				if (googlePlusListener != null) {
-					// TODO Change method name
-					LOGGER.debug("Executing onGooglePlusSignInCanceled");
-					googlePlusListener.onGooglePlusSignInCanceled();
+					LOGGER.debug("Executing onGooglePlusSignInFailed");
+					googlePlusListener.onGooglePlusSignInFailed();
 				}
 			}
 		}

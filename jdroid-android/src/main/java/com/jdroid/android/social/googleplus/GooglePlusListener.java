@@ -11,7 +11,7 @@ import com.jdroid.android.social.SocialUser;
  */
 public interface GooglePlusListener {
 	
-	public void onGooglePlusSignInCanceled();
+	public void onGooglePlusSignInFailed();
 	
 	public void onGooglePlusAccessRevoked();
 	
