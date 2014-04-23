@@ -41,16 +41,15 @@ jdroid Android
 --------------
 Library project for Android apps. Support for Android 4.0 (api level 14) and higher versions
 * [Navigation Drawer support][15]
-* Google Analytics integration
-* Flurry Analytics integration
 * Google Play Services integration
+ * [Google Analytics v4 integration][31]. A/B testing support
  * [Google Cloud Messaging integration][8]
  * [Google Maps v2 integration][9]
  * [Google+ integration][11]: +1 button, friends, sign in, sign out, revoke access, share
- * [AdMob integration][10]
+ * [Google Mobile Ads (AdMob) integration][10]
+ * [Google Play In App Billing v3 integration][13]
 * [Sqlite integration][12]
 * [Android Universal Image Loader][4]
-* [In App Billing integration][13]
 * [Facebook integration][14]: sign in, sign out, share with deep link
 * [Twitter integration][18]
 * [Crittercism integration][5]
@@ -133,3 +132,4 @@ For more information, visit the [GitHub Wiki][1] or our [Site][2].
 [28]: https://hc.apache.org/
 [29]: https://github.com/FasterXML/jackson
 [30]: https://github.com/commonsguy/cwac-merge
+[31]: https://developers.google.com/analytics/devguides/collection/android/v4/
