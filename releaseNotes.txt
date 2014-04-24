@@ -15,8 +15,10 @@ jdroid Android\n
 * Added deeplinkning support to Facebook and Google+\n
 * Added support to handle urls\n
 * Added In app billing v3 support\n
-* Added the new Google Play Services library as a separated project\n
+* Added Google Play Services library as a separated project\n
+* Added Google Analytics v4 integration with A/B testing support\n
 * Upgraded dependencies versions\n
+* Improved debug settings\n
 * Bug fixing\n
 \n
 jdroid sample server\n
