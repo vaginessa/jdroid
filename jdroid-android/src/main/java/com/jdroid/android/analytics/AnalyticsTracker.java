@@ -1,5 +1,6 @@
 package com.jdroid.android.analytics;
 
+import java.util.Map;
 import android.app.Activity;
 import com.jdroid.android.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
@@ -13,6 +14,8 @@ import com.jdroid.java.exception.ConnectionException;
 public interface AnalyticsTracker {
 	
 	public Boolean isEnabled();
+	
+	public void onInitExceptionHandler(Map<String, String> metadata);
 	
 	public void onActivityStart(Activity activity, AppLoadingSource appLoadingSource, Object data);
 	

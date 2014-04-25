@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import android.app.Activity;
 import android.app.Application;
@@ -19,8 +18,6 @@ import android.content.pm.ApplicationInfo;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import com.crittercism.app.Crittercism;
-import com.crittercism.app.CrittercismConfig;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
@@ -278,7 +275,7 @@ public abstract class AbstractApplication extends Application {
 		UncaughtExceptionHandler currentExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
 		if ((currentExceptionHandler == null) || !currentExceptionHandler.getClass().equals(getExceptionHandlerClass())) {
 			
-			initCrittercism(getExceptionHandlerMetadata());
+			getAnalyticsSender().onInitExceptionHandler(getExceptionHandlerMetadata());
 			
 			ExceptionHandler exceptionHandler = ReflectionUtils.newInstance(getExceptionHandlerClass());
 			exceptionHandler.setDefaultExceptionHandler(currentExceptionHandler);
@@ -287,31 +284,8 @@ public abstract class AbstractApplication extends Application {
 		}
 	}
 	
-	protected JSONObject getExceptionHandlerMetadata() {
+	protected Map<String, String> getExceptionHandlerMetadata() {
 		return null;
-	}
-	
-	private void initCrittercism(JSONObject metadata) {
-		
-		if (appContext.isCrittercismEnabled()) {
-			try {
-				// send logcat data for devices with API Level 16 and higher
-				CrittercismConfig crittercismConfig = new CrittercismConfig();
-				crittercismConfig.setLogcatReportingEnabled(true);
-				
-				Crittercism.initialize(getApplicationContext(), appContext.getCrittercismAppId(), crittercismConfig);
-				
-				if (installationId != null) {
-					Crittercism.setUsername(installationId);
-				}
-				if (metadata != null) {
-					Crittercism.setMetadata(metadata);
-				}
-				LOGGER.debug("Crittercism initialized");
-			} catch (Exception e) {
-				LOGGER.error("Error when initializing Crittercism");
-			}
-		}
 	}
 	
 	protected void initEncryptionUtils() {

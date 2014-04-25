@@ -1,6 +1,8 @@
 package com.jdroid.android.analytics;
 
 import java.util.List;
+import java.util.Map;
+import org.slf4j.Logger;
 import android.app.Activity;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.exception.ExceptionHandler;
@@ -10,6 +12,7 @@ import com.jdroid.android.social.SocialAction;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.ConnectionException;
+import com.jdroid.java.utils.LoggerUtils;
 
 /**
  * 
@@ -17,6 +20,8 @@ import com.jdroid.java.exception.ConnectionException;
  * @author Maxi Rosson
  */
 public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTracker {
+	
+	private static final Logger LOGGER = LoggerUtils.getLogger(AnalyticsSender.class);
 	
 	private List<T> trackers = Lists.newArrayList();
 	
@@ -59,6 +64,22 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 	@Override
 	public Boolean isEnabled() {
 		return null;
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#onInitExceptionHandler(java.util.Map)
+	 */
+	@Override
+	public void onInitExceptionHandler(Map<String, String> metadata) {
+		try {
+			for (T tracker : trackers) {
+				if (tracker.isEnabled()) {
+					tracker.onInitExceptionHandler(metadata);
+				}
+			}
+		} catch (Exception e) {
+			LOGGER.error("Error when initializing the exception handler", e);
+		}
 	}
 	
 	/**
@@ -109,13 +130,11 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 	 */
 	@Override
 	public void trackHandledException(final Throwable throwable) {
-		ExecutorUtils.execute(new TrackerRunnable() {
-			
-			@Override
-			protected void track(T tracker) {
+		for (T tracker : trackers) {
+			if (tracker.isEnabled()) {
 				tracker.trackHandledException(throwable);
 			}
-		});
+		}
 	}
 	
 	/**
@@ -152,7 +171,8 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 	 *      com.jdroid.android.social.SocialAction, java.lang.String)
 	 */
 	@Override
-	public void trackSocialInteraction(final AccountType accountType, final SocialAction socialAction, final String socialTarget) {
+	public void trackSocialInteraction(final AccountType accountType, final SocialAction socialAction,
+			final String socialTarget) {
 		ExecutorUtils.execute(new TrackerRunnable() {
 			
 			@Override

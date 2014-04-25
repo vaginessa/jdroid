@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.support.v4.app.FragmentActivity;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
-import com.jdroid.android.context.AppContext;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.GooglePlayUtils;
 import com.jdroid.android.utils.LocalizationUtils;
@@ -180,11 +179,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 			handleException(Thread.currentThread(), (InvalidApiVersionException)throwable);
 		} else {
 			LOGGER.error(message, throwable);
-			AppContext appContext = AbstractApplication.get().getAppContext();
 			AbstractApplication.get().getAnalyticsSender().trackHandledException(throwable);
-			if (appContext.isCrashReportsEnabled()) {
-				ExceptionReportActivity.reportException(throwable);
-			}
 		}
 	}
 	

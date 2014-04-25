@@ -10,7 +10,7 @@ import com.jdroid.javaweb.push.Device;
 import com.jdroid.javaweb.push.DeviceType;
 import com.jdroid.javaweb.push.PushMessage;
 import com.jdroid.javaweb.push.PushService;
-import com.jdroid.javaweb.push.gcm.DefaultGcmMessage;
+import com.jdroid.javaweb.push.gcm.AbstractGcmMessage;
 
 /**
  * @author Maxi Rosson
@@ -26,7 +26,7 @@ public class GcmController {
 	public void send(@RequestParam String registrationId, final @RequestParam String messageKeyExtraName,
 			final @RequestParam String messageKey, @RequestParam String params) {
 		
-		PushMessage pushMessage = new DefaultGcmMessage() {
+		PushMessage pushMessage = new AbstractGcmMessage() {
 			
 			@Override
 			protected String getMessageKeyExtraName() {

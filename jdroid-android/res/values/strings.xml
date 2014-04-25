@@ -29,6 +29,7 @@
 	<string name="facebookError">There was a problem connecting to Facebook. Please try again later.</string>
 	<string name="notSupportedInAppBillingError">Your device doesn\'t support in app billing.</string>
 	<string name="failedToLoadPurchases">We could\'t load the items to purchase. Please try again later.</string>
+	<string name="exceptionReportDialogTitle">%1$s crashed</string>
 
 	<!-- Google Play Utils -->
 	<string name="updateAppTitle">Update required</string>
@@ -48,12 +49,6 @@
 	<string name="selectPhoto">Photo Source</string>
 	<string name="camera">Camera</string>
 	<string name="gallery">Gallery</string>
-
-	<!-- ExceptionReportActivity -->
-	<string name="exceptionReportDialogTitle">%1$s crashed</string>
-	<string name="exceptionReportDialogText">%1$s crashed. Please help fixing this error by sending a report to the developers.</string>
-	<string name="exceptionReportNotificationTitle">%1$s crashed</string>
-	<string name="exceptionReportNotificationText">Click here to help fixing this issue</string>
 
 	<!-- About Dialog -->
 	<string name="about">About</string>

@@ -10,7 +10,6 @@ import com.google.android.gms.analytics.HitBuilders.AppViewBuilder;
 import com.google.android.gms.analytics.HitBuilders.EventBuilder;
 import com.google.android.gms.analytics.HitBuilders.TransactionBuilder;
 import com.google.android.gms.analytics.Logger.LogLevel;
-import com.google.android.gms.analytics.StandardExceptionParser;
 import com.google.android.gms.analytics.Tracker;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.analytics.ExperimentHelper.Experiment;
@@ -21,7 +20,6 @@ import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.SharedPreferencesUtils;
 import com.jdroid.java.collections.Maps;
-import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.utils.LoggerUtils;
 
 /**
@@ -88,8 +86,11 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 				for (Entry<Experiment, ExperimentVariant> entry : ExperimentHelper.getExperimentsMap().entrySet()) {
 					Experiment experiment = entry.getKey();
 					ExperimentVariant experimentVariant = entry.getValue();
-					addCustomDimension(appViewBuilder, experiment.getCustomDimensionIndex(), experiment.getId() + "-"
-							+ experimentVariant.getId());
+					Integer customDimensionIndex = experiment.getCustomDimensionIndex();
+					if (customDimensionIndex != null) {
+						addCustomDimension(appViewBuilder, customDimensionIndex, experiment.getId() + "-"
+								+ experimentVariant.getId());
+					}
 				}
 				
 				String installationSource = SharedPreferencesUtils.loadPreference(AbstractApplication.INSTALLATION_SOURCE);
@@ -112,30 +113,6 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	
 	protected void onActivityStartTrack(AppViewBuilder appViewBuilder) {
 		// Do nothing
-	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#onActivityStop(android.app.Activity)
-	 */
-	@Override
-	public void onActivityStop(Activity activity) {
-		
-	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackConnectionException(com.jdroid.java.exception.ConnectionException)
-	 */
-	@Override
-	public void trackConnectionException(ConnectionException connectionException) {
-		
-	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackHandledException(java.lang.Throwable)
-	 */
-	@Override
-	public void trackHandledException(Throwable throwable) {
-		sendException(throwable);
 	}
 	
 	/**
@@ -270,12 +247,6 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget) {
 		tracker.send(new HitBuilders.SocialBuilder().setNetwork(accountType.getFriendlyName()).setAction(
 			socialAction.getName()).setTarget(socialTarget).build());
-	}
-	
-	public void sendException(Throwable throwable) {
-		tracker.send(new HitBuilders.ExceptionBuilder().setDescription(
-			new StandardExceptionParser(AbstractApplication.get(), null).getDescription(null, throwable)).setFatal(
-			false).build());
 	}
 	
 	public void dispatchLocalHits() {

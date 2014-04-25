@@ -32,7 +32,6 @@ public class AppContext {
 	
 	// Debug
 	private Boolean debugSettings;
-	private Boolean crashReportsEnabled;
 	
 	// Ads
 	private Boolean adsEnabled;
@@ -44,10 +43,9 @@ public class AppContext {
 	private Boolean googleAnalyticsDebugEnabled;
 	private String googleAnalyticsTrackingId;
 	
-	// Crittercism
-	private Boolean crittercismEnabled;
-	private String crittercismAppId;
-	private Boolean crittercismPremium;
+	// CrashlyticsEnabled
+	private Boolean crashlyticsEnabled;
+	private Boolean crashlyticsDebugEnabled;
 	
 	public AppContext() {
 		PropertiesUtils.loadProperties(LOCAL_PROPERTIES_RESOURCE_NAME);
@@ -59,7 +57,6 @@ public class AppContext {
 		googleProjectId = PropertiesUtils.getStringProperty("google.projectId");
 		facebookAppId = PropertiesUtils.getStringProperty("facebook.app.id");
 		debugSettings = PropertiesUtils.getBooleanProperty("debug.settings", false);
-		crashReportsEnabled = PropertiesUtils.getBooleanProperty("crash.reporting.enabled", false);
 		isFreeApp = PropertiesUtils.getBooleanProperty("free.app");
 		
 		adsEnabled = PropertiesUtils.getBooleanProperty("ads.enabled", false);
@@ -72,12 +69,14 @@ public class AppContext {
 		
 		adUnitId = PropertiesUtils.getStringProperty("ads.adUnitId");
 		testDevicesIds = PropertiesUtils.getStringSetProperty("ads.tests.devices.ids");
+		
 		googleAnalyticsEnabled = PropertiesUtils.getBooleanProperty("google.analytics.enabled", false);
 		googleAnalyticsDebugEnabled = PropertiesUtils.getBooleanProperty("google.analytics.debug.enabled", false);
 		googleAnalyticsTrackingId = PropertiesUtils.getStringProperty("google.analytics.trackingId");
-		crittercismEnabled = PropertiesUtils.getBooleanProperty("crittercism.enabled", false);
-		crittercismAppId = PropertiesUtils.getStringProperty("crittercism.appId");
-		crittercismPremium = PropertiesUtils.getBooleanProperty("crittercism.premium", false);
+		
+		crashlyticsEnabled = PropertiesUtils.getBooleanProperty("crashlytics.enabled", false);
+		crashlyticsDebugEnabled = PropertiesUtils.getBooleanProperty("crashlytics.debug.enabled", false);
+		
 		installationSource = PropertiesUtils.getStringProperty("installation.source", "GooglePlay");
 	}
 	
@@ -204,18 +203,6 @@ public class AppContext {
 			false);
 	}
 	
-	public Boolean isCrittercismEnabled() {
-		return crittercismEnabled;
-	}
-	
-	public String getCrittercismAppId() {
-		return crittercismAppId;
-	}
-	
-	public Boolean isCrittercismPremium() {
-		return crittercismPremium;
-	}
-	
 	public String getLocalIp() {
 		return localIp;
 	}
@@ -224,7 +211,11 @@ public class AppContext {
 		return installationSource;
 	}
 	
-	public Boolean isCrashReportsEnabled() {
-		return crashReportsEnabled;
+	public Boolean isCrashlyticsEnabled() {
+		return crashlyticsEnabled;
+	}
+	
+	public Boolean isCrashlyticsDebugEnabled() {
+		return crashlyticsDebugEnabled;
 	}
 }
