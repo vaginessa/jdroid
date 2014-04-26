@@ -17,6 +17,8 @@ jdroid Android\n
 * Added In app billing v3 support\n
 * Added Google Play Services library as a separated project\n
 * Added Google Analytics v4 integration with A/B testing support\n
+* Added support to change the defaul crash reporting tool
+* Replaced Crittercism by Crashlytics as the default crash reporting tool
 * Upgraded dependencies versions\n
 * Improved debug settings\n
 * Bug fixing\n
