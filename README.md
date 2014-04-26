@@ -52,7 +52,7 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * [Android Universal Image Loader][4]
 * [Facebook integration][14]: sign in, sign out, share with deep link
 * [Twitter integration][18]
-* [Crittercism integration][5]
+* [Crashlytics integration][5]
 * [Merge adapter integration][30]
 * [Lint support][23]
 * [Strict mode support][24]
@@ -106,7 +106,7 @@ For more information, visit the [GitHub Wiki][1] or our [Site][2].
 [2]: http://maxirosson.github.com/jdroid/
 [3]: http://semver.org/
 [4]: https://github.com/nostra13/Android-Universal-Image-Loader
-[5]: https://www.crittercism.com/
+[5]: https://crashlytics.com/
 [6]: http://hibernate.org/orm/
 [7]: http://projects.spring.io/spring-framework/
 [8]: http://developer.android.com/google/gcm/index.html
