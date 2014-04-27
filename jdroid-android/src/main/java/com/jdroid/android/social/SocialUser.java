@@ -25,7 +25,13 @@ public class SocialUser extends Entity {
 	}
 	
 	public String getFullname() {
-		return firstName + " " + lastName;
+		StringBuilder builder = new StringBuilder();
+		builder.append(firstName);
+		if (lastName != null) {
+			builder.append(" ");
+			builder.append(lastName);
+		}
+		return builder.toString();
 	}
 	
 	/**
