@@ -80,4 +80,20 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 		// Do Nothing
 	}
 	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackNotificationDisplayed(java.lang.String)
+	 */
+	@Override
+	public void trackNotificationDisplayed(String notificationName) {
+		// Do Nothing
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackNotificationOpened(java.lang.String)
+	 */
+	@Override
+	public void trackNotificationOpened(String notificationName) {
+		// Do Nothing
+	}
+	
 }

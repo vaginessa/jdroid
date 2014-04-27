@@ -71,7 +71,7 @@ public abstract class WizardActivity extends AbstractFragmentActivity {
 				}
 			}
 		});
-		buttonBarView.setNegativeDrawableId(0);
+		buttonBarView.setPositiveDrawableId(0);
 		
 		updateBottomBar();
 	}

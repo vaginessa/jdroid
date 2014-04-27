@@ -30,6 +30,8 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(GoogleAnalyticsTracker.class);
 	
+	private static final String NOTIFICATION_CATEGORY = "notification";
+	
 	private Map<String, Integer> customDimensionsMap = Maps.newHashMap();
 	private Map<String, Integer> customMetricsMap = Maps.newHashMap();
 	private Tracker tracker;
@@ -136,6 +138,22 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		itemBuilder.setPrice(product.getPrice());
 		itemBuilder.setCurrencyCode(product.getCurrencyCode());
 		sendTransaction(itemBuilder.build());
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackNotificationDisplayed(java.lang.String)
+	 */
+	@Override
+	public void trackNotificationDisplayed(String notificationName) {
+		sendEvent(NOTIFICATION_CATEGORY, "display", notificationName);
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackNotificationOpened(java.lang.String)
+	 */
+	@Override
+	public void trackNotificationOpened(String notificationName) {
+		sendEvent(NOTIFICATION_CATEGORY, "open", notificationName);
 	}
 	
 	protected void addCustomDimension(AppViewBuilder appViewBuilder, CustomDimension customDimension, String dimension) {

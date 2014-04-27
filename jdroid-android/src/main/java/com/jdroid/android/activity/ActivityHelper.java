@@ -47,6 +47,7 @@ import com.jdroid.android.loading.LoadingDialogBuilder;
 import com.jdroid.android.navdrawer.NavDrawerAdapter;
 import com.jdroid.android.navdrawer.NavDrawerItem;
 import com.jdroid.android.utils.ImageLoaderUtils;
+import com.jdroid.android.utils.NotificationBuilder;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
@@ -295,6 +296,16 @@ public class ActivityHelper implements ActivityIf {
 					});
 				}
 			}, 1L);
+		}
+		
+		if (savedInstanceState == null) {
+			AppLoadingSource appLoadingSource = AppLoadingSource.getAppLoadingSource(activity.getIntent());
+			if (AppLoadingSource.NOTIFICATION.equals(appLoadingSource)) {
+				String notificationName = activity.getIntent().getStringExtra(NotificationBuilder.NOTIFICATION_NAME);
+				if (notificationName != null) {
+					AbstractApplication.get().getAnalyticsSender().trackNotificationOpened(notificationName);
+				}
+			}
 		}
 	}
 	

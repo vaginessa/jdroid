@@ -31,4 +31,8 @@ public interface AnalyticsTracker {
 	
 	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget);
 	
+	public void trackNotificationDisplayed(String notificationName);
+	
+	public void trackNotificationOpened(String notificationName);
+	
 }

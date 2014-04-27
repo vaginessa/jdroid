@@ -182,4 +182,32 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 		});
 	}
 	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackNotificationDisplayed(java.lang.String)
+	 */
+	@Override
+	public void trackNotificationDisplayed(final String notificationName) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+			
+			@Override
+			protected void track(T tracker) {
+				tracker.trackNotificationDisplayed(notificationName);
+			}
+		});
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackNotificationOpened(java.lang.String)
+	 */
+	@Override
+	public void trackNotificationOpened(final String notificationName) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+			
+			@Override
+			protected void track(T tracker) {
+				tracker.trackNotificationOpened(notificationName);
+			}
+		});
+	}
+	
 }
