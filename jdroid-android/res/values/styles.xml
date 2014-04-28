@@ -260,4 +260,8 @@
 		<item name="android:ellipsize">end</item>
 		<item name="android:layout_marginLeft">10dp</item>
 	</style>
+
+	<style name="TextAppearanceToast">
+		<item name="android:fontFamily" tools:targetApi="16">sans-serif-condensed</item>
+	</style>
 </resources>
