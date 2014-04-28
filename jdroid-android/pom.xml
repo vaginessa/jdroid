@@ -98,13 +98,6 @@
 			<version>1.6.1-RC1</version>
 		</dependency>
 
-		<!-- Twitter4J -->
-		<dependency>
-			<groupId>android.twitter</groupId>
-			<artifactId>twitter4j-core-android</artifactId>
-			<version>2.2.6</version>
-		</dependency>
-
 		<!-- Crashlytics -->
 		<dependency>
             <groupId>com.crashlytics.android</groupId>

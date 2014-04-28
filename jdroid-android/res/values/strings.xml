@@ -58,13 +58,6 @@
 	<string name="copyright">© %1$s %2$s.</string>
 	<string name="allRightsReservedLegend">All Rights Reserved.</string>
 
-	<!-- In-app Billing -->
-	<!-- <string name="inAppBillingNotSupported">In-app billing is not supported</string> -->
-	<string name="googlePlayConnectionError">There was an error connecting to Google Play app</string>
-	<!-- <string name="requestPurchaseCanceledByUser">Your purchase was cancelled</string> -->
-	<!-- <string name="requestPurchaseServiceUnavailable">The purchase service is unavailable</string> -->
-	<!-- <string name="requestPurchaseError">Error when trying to purchase the product</string> -->
-
 	<!-- External Apps -->
 	<string name="barcodeScanner">Barcode Scanner</string>
 	<string name="voiceSearch">Voice Search</string>

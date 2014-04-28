@@ -92,7 +92,7 @@
     <issue id="Orientation">
         <ignore path="res/layout/com_facebook_picker_title_bar.xml" />
     </issue>
-    <issue id="Overdraw">
+    <issue id="Overdraw" severity="ignore">
         <ignore path="res/layout/com_facebook_friendpickerfragment.xml" />
         <ignore path="res/layout/com_facebook_friendpickerfragment.xml" />
         <ignore path="res/layout/com_facebook_friendpickerfragment.xml" />
@@ -102,6 +102,8 @@
         <ignore path="res/layout/com_facebook_placepickerfragment.xml" />
         <ignore path="res/layout/com_facebook_placepickerfragment.xml" />
         <ignore path="res/layout/com_facebook_placepickerfragment.xml" />
+        <ignore path="res/layout/com_facebook_placepickerfragment.xml" />
+        <ignore path="res/layout/com_facebook_search_bar_layout.xml" />
         <ignore path="res/layout/com_facebook_search_bar_layout.xml" />
         <ignore path="res/layout/com_facebook_search_bar_layout.xml" />
     </issue>
@@ -144,6 +146,7 @@
         <ignore path="res/drawable/common_signin_btn_text_light.xml" />
         <ignore path="res/menu/example_menu.xml" />
         <ignore path="res/values/analytics.xml" />
+        <ignore path="res/values/fb_strings.xml" />
         <ignore path="res/values/fb_strings.xml" />
         <ignore path="res/values/fb_strings.xml" />
         <ignore path="res/values/gps_colors.xml" />

@@ -15,7 +15,6 @@
 	<!-- Lists & Grids -->
 
 	<dimen name="contextual_list_item_icon_size">36dp</dimen>
-	<dimen name="contextual_list_item_icon_small_size">24dp</dimen>
 
 	<!-- Images -->
 
