@@ -51,7 +51,6 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * [Sqlite integration][12]
 * [Android Universal Image Loader][4]
 * [Facebook integration][14]: sign in, sign out, share with deep link
-* [Twitter integration][18]
 * [Crashlytics integration][5]
 * [Merge adapter integration][30]
 * [Lint support][23]
@@ -119,7 +118,6 @@ For more information, visit the [GitHub Wiki][1] or our [Site][2].
 [15]: https://developer.android.com/design/patterns/navigation-drawer.html
 [16]: https://code.google.com/p/guava-libraries/
 [17]: http://logging.apache.org/log4j/1.2/
-[18]: http://twitter4j.org/
 [19]: http://restfb.com/
 [20]: http://tomcat.apache.org/
 [21]: https://www.gitlab.com/
