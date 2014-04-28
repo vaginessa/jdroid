@@ -15,8 +15,8 @@
     limitations under the License.
 -->
 
-<resources>
-    <string name="com_facebook_dialogloginactivity_ok_button">OK</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="com_facebook_dialogloginactivity_ok_button" tools:ignore="UnusedResources">OK</string>
     <string name="com_facebook_loginview_log_out_button">Log out</string>
     <string name="com_facebook_loginview_log_in_button">Log in with Facebook</string>
     <string name="com_facebook_loginview_logged_in_as">Logged in as: %1$s</string>

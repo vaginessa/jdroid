@@ -32,8 +32,7 @@ public enum CommonErrorCode implements ErrorCode {
 	INAPP_BILLING_NOT_SUPPORTED(R.string.notSupportedInAppBillingError),
 	INAPP_BILLING_FAILED_TO_LOAD_PURCHASES(R.string.failedToLoadPurchases),
 	INTERNAL_ERROR(R.string.internalError),
-	FACEBOOK_ERROR(R.string.facebookError),
-	TWITTER_ERROR(R.string.twitterError);
+	FACEBOOK_ERROR(R.string.facebookError);
 	
 	private Integer resourceId;
 	private Integer statusCode;

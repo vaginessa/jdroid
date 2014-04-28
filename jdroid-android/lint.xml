@@ -144,6 +144,9 @@
         <ignore path="res/drawable/common_signin_btn_text_dark.xml" />
         <ignore path="res/drawable/common_signin_btn_text_light.xml" />
         <ignore path="res/drawable/common_signin_btn_text_light.xml" />
+        <ignore path="res/layout/fragment_container_centered_activity.xml" />
+        <ignore path="res/layout/time_layout.xml" />
+        <ignore path="res/menu/example_menu.xml" />
         <ignore path="res/menu/example_menu.xml" />
         <ignore path="res/values/analytics.xml" />
         <ignore path="res/values/fb_strings.xml" />

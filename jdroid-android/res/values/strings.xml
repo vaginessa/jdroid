@@ -71,9 +71,4 @@
 	<!-- Google+ -->
 	<string name="googlePlus">Google+</string>
 
-	<!-- Twitter -->
-	<string name="twitterConnect">Connecting to Twitter…</string>
-	<string name="twitterNoAuth">Twitter was not authorized</string>
-	<string name="twitterError">Error connecting to Twitter</string>
-
 </resources>
