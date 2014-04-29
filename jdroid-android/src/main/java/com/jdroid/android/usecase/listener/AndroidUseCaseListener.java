@@ -1,8 +1,7 @@
-package com.jdroid.android;
+package com.jdroid.android.usecase.listener;
 
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.fragment.FragmentIf;
-import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 
 /**
  * 

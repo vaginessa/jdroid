@@ -134,8 +134,14 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 	 */
 	@Override
 	public List<T> getAll(List<Long> ids) {
-		// TODO Implement this
-		return null;
+		List<T> itemsList = Lists.newArrayList();
+		for (Long each : ids) {
+			T item = items.get(each);
+			if (item != null) {
+				itemsList.add(item);
+			}
+		}
+		return itemsList;
 	}
 	
 	/**
@@ -143,7 +149,6 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 	 */
 	@Override
 	public T getUniqueInstance() {
-		// TODO Implement this
-		return null;
+		return items.isEmpty() ? null : items.values().iterator().next();
 	}
 }

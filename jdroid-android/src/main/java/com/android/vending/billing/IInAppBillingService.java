@@ -269,8 +269,7 @@ public interface IInAppBillingService extends android.os.IInterface {
 			 *         '{"orderId":"12999763169054705758.1371079406387615", "packageName":"com.example.app",
 			 *         "productId":"exampleSku", "purchaseTime":1345678900000, "purchaseToken" : "122333444455555",
 			 *         "developerPayload":"example developer payload" }' "INAPP_DATA_SIGNATURE" - String containing the
-			 *         signature of the purchase data that was signed with the private key of the developer TODO: change
-			 *         this to app-specific keys.
+			 *         signature of the purchase data that was signed with the private key of the developer
 			 */
 			@Override
 			public android.os.Bundle getBuyIntent(int apiVersion, java.lang.String packageName, java.lang.String sku,
@@ -433,8 +432,7 @@ public interface IInAppBillingService extends android.os.IInterface {
 	 *         similar to '{"orderId":"12999763169054705758.1371079406387615", "packageName":"com.example.app",
 	 *         "productId":"exampleSku", "purchaseTime":1345678900000, "purchaseToken" : "122333444455555",
 	 *         "developerPayload":"example developer payload" }' "INAPP_DATA_SIGNATURE" - String containing the
-	 *         signature of the purchase data that was signed with the private key of the developer TODO: change this to
-	 *         app-specific keys.
+	 *         signature of the purchase data that was signed with the private key of the developer
 	 * @throws android.os.RemoteException
 	 */
 	public android.os.Bundle getBuyIntent(int apiVersion, java.lang.String packageName, java.lang.String sku,
