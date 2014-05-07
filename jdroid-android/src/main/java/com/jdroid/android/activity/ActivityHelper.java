@@ -26,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -158,7 +159,7 @@ public class ActivityHelper implements ActivityIf {
 		adHelper = createAdHelper();
 		if (adHelper != null) {
 			adHelper.loadAd(activity, (ViewGroup)(activity.findViewById(R.id.adViewContainer)),
-				getActivityIf().getAdSize());
+				getActivityIf().getAdSize(), getRemoveAdsClickListener());
 		}
 		
 		// Nav Drawer
@@ -685,6 +686,10 @@ public class ActivityHelper implements ActivityIf {
 	@Override
 	public AdSize getAdSize() {
 		return AdSize.SMART_BANNER;
+	}
+	
+	public OnClickListener getRemoveAdsClickListener() {
+		return null;
 	}
 	
 	/**

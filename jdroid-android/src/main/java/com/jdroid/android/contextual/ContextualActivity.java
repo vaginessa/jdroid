@@ -1,6 +1,7 @@
 package com.jdroid.android.contextual;
 
 import java.util.List;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,8 +20,15 @@ import com.jdroid.android.utils.AndroidUtils;
 public abstract class ContextualActivity<T extends TabAction> extends AbstractFragmentActivity implements
 		OnItemSelectedListener<T> {
 	
-	public static final String DEFAULT_CONTEXTUAL_ITEM_EXTRA = "defaultContextualItem";
+	private static final String DEFAULT_CONTEXTUAL_ITEM_EXTRA = "defaultContextualItem";
 	public static final String DEFAULT_CONTEXTUAL_ITEM_BUNDLE_EXTRA = "defaultContextualItemBundle";
+	
+	public static Intent getStartIntent(Context context,
+			Class<? extends ContextualActivity<?>> contextualActivityClass, TabAction defaultContextualItem) {
+		Intent intent = new Intent(context, contextualActivityClass);
+		intent.putExtra(ContextualActivity.DEFAULT_CONTEXTUAL_ITEM_EXTRA, defaultContextualItem);
+		return intent;
+	}
 	
 	/**
 	 * @see com.jdroid.android.activity.ActivityIf#getContentView()
