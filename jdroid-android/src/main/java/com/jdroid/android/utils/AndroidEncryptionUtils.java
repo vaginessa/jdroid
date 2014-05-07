@@ -40,10 +40,10 @@ public class AndroidEncryptionUtils {
 	
 	private static String getBase64Key() {
 		if (base64Key == null) {
-			base64Key = SharedPreferencesUtils.loadPreference(PREF_ENCODED_KEY);
+			base64Key = SharedPreferencesHelper.getOldDefault().loadPreference(PREF_ENCODED_KEY);
 			if (base64Key == null) {
 				base64Key = generateBase64Key();
-				SharedPreferencesUtils.savePreference(PREF_ENCODED_KEY, base64Key);
+				SharedPreferencesHelper.getOldDefault().savePreference(PREF_ENCODED_KEY, base64Key);
 			}
 		}
 		return base64Key;

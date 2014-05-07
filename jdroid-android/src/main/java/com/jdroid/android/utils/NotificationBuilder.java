@@ -148,7 +148,7 @@ public class NotificationBuilder {
 			
 			largeIconBitmap = ImageLoaderUtils.loadBitmap(largeIconUrl, ImageScaleType.EXACTLY,
 				NotificationUtils.getNotificationLargeIconWidthPx(),
-				NotificationUtils.getNotificationLargeIconHeightPx());
+				NotificationUtils.getNotificationLargeIconHeightPx(), null);
 		}
 		return largeIconBitmap;
 	}

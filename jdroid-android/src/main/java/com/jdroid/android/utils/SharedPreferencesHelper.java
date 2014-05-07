@@ -4,18 +4,49 @@ import java.util.Map;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
 import com.jdroid.android.AbstractApplication;
 
 /**
- * Utils to work with the shared preferences
+ * Helper to work with the shared preferences
  * 
  * @author Maxi Rosson
  */
-public class SharedPreferencesUtils {
+public class SharedPreferencesHelper {
 	
-	private static final String DEFAULT_NAME = AbstractApplication.get().getPackageName();
+	private static SharedPreferencesHelper defaultSharedPreferencesHelper = new SharedPreferencesHelper(null);
 	
-	public static void savePreference(String key, String value) {
+	private String name;
+	
+	public static SharedPreferencesHelper get(String name) {
+		return new SharedPreferencesHelper(name);
+	}
+	
+	public static SharedPreferencesHelper get() {
+		return defaultSharedPreferencesHelper;
+	}
+	
+	public static SharedPreferencesHelper getOldDefault() {
+		return new SharedPreferencesHelper(AbstractApplication.get().getPackageName());
+	}
+	
+	public SharedPreferencesHelper(String name) {
+		this.name = name;
+	}
+	
+	public Editor getEditor() {
+		return getSharedPreferences().edit();
+	}
+	
+	public SharedPreferences getSharedPreferences() {
+		if (name != null) {
+			return AbstractApplication.get().getSharedPreferences(name, Context.MODE_PRIVATE);
+		} else {
+			return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
+		}
+	}
+	
+	public void savePreference(String key, String value) {
 		Editor editor = getEditor();
 		editor.putString(key, value);
 		
@@ -23,7 +54,7 @@ public class SharedPreferencesUtils {
 		editor.commit();
 	}
 	
-	public static void savePreference(String key, Boolean value) {
+	public void savePreference(String key, Boolean value) {
 		Editor editor = getEditor();
 		editor.putBoolean(key, value);
 		
@@ -31,7 +62,7 @@ public class SharedPreferencesUtils {
 		editor.commit();
 	}
 	
-	public static void savePreference(String key, Integer value) {
+	public void savePreference(String key, Integer value) {
 		Editor editor = getEditor();
 		editor.putInt(key, value);
 		
@@ -39,7 +70,7 @@ public class SharedPreferencesUtils {
 		editor.commit();
 	}
 	
-	public static void savePreference(String key, Long value) {
+	public void savePreference(String key, Long value) {
 		Editor editor = getEditor();
 		editor.putLong(key, value);
 		
@@ -47,7 +78,7 @@ public class SharedPreferencesUtils {
 		editor.commit();
 	}
 	
-	public static void savePreference(String key, Float value) {
+	public void savePreference(String key, Float value) {
 		Editor editor = getEditor();
 		editor.putFloat(key, value);
 		
@@ -55,28 +86,12 @@ public class SharedPreferencesUtils {
 		editor.commit();
 	}
 	
-	public static Editor getEditor() {
-		return getSharedPreferences().edit();
-	}
-	
-	public static Editor getEditor(String name) {
-		return getSharedPreferences(name).edit();
-	}
-	
-	private static SharedPreferences getSharedPreferences(String name) {
-		return AbstractApplication.get().getSharedPreferences(name, Context.MODE_PRIVATE);
-	}
-	
-	private static SharedPreferences getSharedPreferences() {
-		return getSharedPreferences(DEFAULT_NAME);
-	}
-	
 	/**
 	 * Retrieves all the existent shared preferences.
 	 * 
 	 * @return The shared preferences.
 	 */
-	public static Map<String, ?> loadAllPreferences() {
+	public Map<String, ?> loadAllPreferences() {
 		return getSharedPreferences().getAll();
 	}
 	
@@ -87,7 +102,7 @@ public class SharedPreferencesUtils {
 	 * @param defaultValue Value to return if this preference does not exist
 	 * @return the preference value if it exists, or defaultValue.
 	 */
-	public static String loadPreference(String key, String defaultValue) {
+	public String loadPreference(String key, String defaultValue) {
 		return getSharedPreferences().getString(key, defaultValue);
 	}
 	
@@ -97,7 +112,7 @@ public class SharedPreferencesUtils {
 	 * @param key The name of the preference to retrieve
 	 * @return the preference value if it exists, or null.
 	 */
-	public static String loadPreference(String key) {
+	public String loadPreference(String key) {
 		return getSharedPreferences().getString(key, (String)null);
 	}
 	
@@ -108,7 +123,7 @@ public class SharedPreferencesUtils {
 	 * @param defaultValue Value to return if this preference does not exist
 	 * @return the preference value if it exists, or defaultValue.
 	 */
-	public static Boolean loadPreferenceAsBoolean(String key, Boolean defaultValue) {
+	public Boolean loadPreferenceAsBoolean(String key, Boolean defaultValue) {
 		Boolean value = defaultValue;
 		if (hasPreference(key)) {
 			value = getSharedPreferences().getBoolean(key, false);
@@ -122,7 +137,7 @@ public class SharedPreferencesUtils {
 	 * @param key The name of the preference to retrieve
 	 * @return the preference value if it exists, or null.
 	 */
-	public static Boolean loadPreferenceAsBoolean(String key) {
+	public Boolean loadPreferenceAsBoolean(String key) {
 		return loadPreferenceAsBoolean(key, null);
 	}
 	
@@ -133,7 +148,7 @@ public class SharedPreferencesUtils {
 	 * @param defaultValue Value to return if this preference does not exist
 	 * @return the preference value if it exists, or defaultValue.
 	 */
-	public static Long loadPreferenceAsLong(String key, Long defaultValue) {
+	public Long loadPreferenceAsLong(String key, Long defaultValue) {
 		Long value = defaultValue;
 		if (hasPreference(key)) {
 			value = getSharedPreferences().getLong(key, 0L);
@@ -148,7 +163,7 @@ public class SharedPreferencesUtils {
 	 * @param key The name of the preference to retrieve
 	 * @return the preference value if it exists, or null.
 	 */
-	public static Long loadPreferenceAsLong(String key) {
+	public Long loadPreferenceAsLong(String key) {
 		return loadPreferenceAsLong(key, null);
 	}
 	
@@ -159,7 +174,7 @@ public class SharedPreferencesUtils {
 	 * @param defaultValue Value to return if this preference does not exist
 	 * @return the preference value if it exists, or defaultValue.
 	 */
-	public static Integer loadPreferenceAsInteger(String key, Integer defaultValue) {
+	public Integer loadPreferenceAsInteger(String key, Integer defaultValue) {
 		Integer value = defaultValue;
 		if (hasPreference(key)) {
 			value = getSharedPreferences().getInt(key, 0);
@@ -173,7 +188,7 @@ public class SharedPreferencesUtils {
 	 * @param key The name of the preference to retrieve
 	 * @return the preference value if it exists, or null.
 	 */
-	public static Integer loadPreferenceAsInteger(String key) {
+	public Integer loadPreferenceAsInteger(String key) {
 		return loadPreferenceAsInteger(key, null);
 	}
 	
@@ -184,7 +199,7 @@ public class SharedPreferencesUtils {
 	 * @param defaultValue Value to return if this preference does not exist
 	 * @return the preference value if it exists, or defaultValue.
 	 */
-	public static Float loadPreferenceAsFloat(String key, Float defaultValue) {
+	public Float loadPreferenceAsFloat(String key, Float defaultValue) {
 		Float value = defaultValue;
 		if (hasPreference(key)) {
 			value = getSharedPreferences().getFloat(key, 0);
@@ -198,15 +213,15 @@ public class SharedPreferencesUtils {
 	 * @param key The name of the preference to retrieve
 	 * @return the preference value if it exists, or null.
 	 */
-	public static Float loadPreferenceAsFloat(String key) {
+	public Float loadPreferenceAsFloat(String key) {
 		return loadPreferenceAsFloat(key, null);
 	}
 	
-	public static boolean hasPreference(String key) {
+	public boolean hasPreference(String key) {
 		return getSharedPreferences().contains(key);
 	}
 	
-	public static void removePreferences(String... keys) {
+	public void removePreferences(String... keys) {
 		Editor editor = getEditor();
 		for (String key : keys) {
 			editor.remove(key);
@@ -215,15 +230,12 @@ public class SharedPreferencesUtils {
 		editor.commit();
 	}
 	
-	public static void removeAllPreferences(String name) {
-		Editor editor = getEditor(name);
+	public void removeAllPreferences() {
+		Editor editor = getEditor();
 		editor.clear();
 		
 		// Commit the edits!
 		editor.commit();
 	}
 	
-	public static void removeAllPreferences() {
-		removeAllPreferences(DEFAULT_NAME);
-	}
 }

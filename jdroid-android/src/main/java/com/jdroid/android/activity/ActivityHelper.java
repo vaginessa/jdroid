@@ -184,7 +184,8 @@ public class ActivityHelper implements ActivityIf {
 				ImageLoaderUtils.displayImage(user.getCoverPictureUrl(),
 					((ImageView)navDrawerHeader.findViewById(R.id.cover)), null);
 				ImageLoaderUtils.displayImage(user.getProfilePictureUrl(),
-					((ImageView)navDrawerHeader.findViewById(R.id.photo)), R.drawable.profile_default);
+					((ImageView)navDrawerHeader.findViewById(R.id.photo)), R.drawable.profile_default, null,
+					User.PROFILE_PICTURE_TTL);
 				
 				String fullname = user.getFullname();
 				String email = user.getEmail();

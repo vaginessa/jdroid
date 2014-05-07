@@ -29,7 +29,8 @@ import com.jdroid.android.gcm.GcmMessageResolver;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.utils.AndroidEncryptionUtils;
 import com.jdroid.android.utils.AndroidUtils;
-import com.jdroid.android.utils.SharedPreferencesUtils;
+import com.jdroid.android.utils.ImageLoaderUtils;
+import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
@@ -138,10 +139,12 @@ public abstract class AbstractApplication extends Application {
 		configBuilder.discCacheSize(10 * 1024 * 1024);
 		
 		ImageLoader.getInstance().init(configBuilder.build());
+		
+		ImageLoaderUtils.clearImagesCache();
 	}
 	
 	protected void verifyAppLaunchStatus() {
-		Integer fromVersionCode = SharedPreferencesUtils.loadPreferenceAsInteger(VERSION_CODE_KEY);
+		Integer fromVersionCode = SharedPreferencesHelper.getOldDefault().loadPreferenceAsInteger(VERSION_CODE_KEY);
 		if (fromVersionCode == null) {
 			appLaunchStatus = AppLaunchStatus.NEW_INSTALATTION;
 			fromVersionCode = 0;
@@ -153,7 +156,7 @@ public abstract class AbstractApplication extends Application {
 			}
 		}
 		LOGGER.debug("App launch status: " + appLaunchStatus);
-		SharedPreferencesUtils.savePreference(VERSION_CODE_KEY, AndroidUtils.getVersionCode());
+		SharedPreferencesHelper.getOldDefault().savePreference(VERSION_CODE_KEY, AndroidUtils.getVersionCode());
 	}
 	
 	public Boolean hasAnalyticsSender() {
@@ -301,10 +304,10 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	public void saveInstallationSource() {
-		String installationSource = SharedPreferencesUtils.loadPreference(INSTALLATION_SOURCE);
+		String installationSource = SharedPreferencesHelper.getOldDefault().loadPreference(INSTALLATION_SOURCE);
 		if (StringUtils.isBlank(installationSource)) {
 			installationSource = appContext.getInstallationSource();
-			SharedPreferencesUtils.savePreference(INSTALLATION_SOURCE, installationSource);
+			SharedPreferencesHelper.getOldDefault().savePreference(INSTALLATION_SOURCE, installationSource);
 			LOGGER.debug("Saved installation source: " + installationSource);
 		}
 	}
@@ -362,11 +365,11 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	private void loadInstallationId() {
-		if (SharedPreferencesUtils.hasPreference(INSTALLATION_ID)) {
-			installationId = SharedPreferencesUtils.loadPreference(INSTALLATION_ID);
+		if (SharedPreferencesHelper.getOldDefault().hasPreference(INSTALLATION_ID)) {
+			installationId = SharedPreferencesHelper.getOldDefault().loadPreference(INSTALLATION_ID);
 		} else {
 			installationId = UUID.randomUUID().toString();
-			SharedPreferencesUtils.savePreference(INSTALLATION_ID, installationId);
+			SharedPreferencesHelper.getOldDefault().savePreference(INSTALLATION_ID, installationId);
 		}
 		LOGGER.debug("Installation id: " + installationId);
 	}

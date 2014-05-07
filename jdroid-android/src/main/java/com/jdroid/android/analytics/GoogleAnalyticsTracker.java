@@ -18,7 +18,7 @@ import com.jdroid.android.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.utils.AndroidUtils;
-import com.jdroid.android.utils.SharedPreferencesUtils;
+import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -95,7 +95,8 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 					}
 				}
 				
-				String installationSource = SharedPreferencesUtils.loadPreference(AbstractApplication.INSTALLATION_SOURCE);
+				String installationSource = SharedPreferencesHelper.getOldDefault().loadPreference(
+					AbstractApplication.INSTALLATION_SOURCE);
 				if (installationSource != null) {
 					addCustomDimension(appViewBuilder, CustomDimension.INSTALLATION_SOURCE, installationSource);
 					
