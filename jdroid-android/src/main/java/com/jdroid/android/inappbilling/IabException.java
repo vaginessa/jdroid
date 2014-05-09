@@ -9,13 +9,14 @@
 
 package com.jdroid.android.inappbilling;
 
-
 /**
  * Exception thrown when something went wrong with in-app billing. An IabException has an associated
  * InAppBillingResponseCode (an error). To get the result that caused this exception to be thrown, call
  * {@link #getInAppBillingResponseCode()}.
  */
 public class IabException extends Exception {
+	
+	private static final long serialVersionUID = -3295962443642566921L;
 	
 	private InAppBillingResponseCode inAppBillingResponseCode;
 	

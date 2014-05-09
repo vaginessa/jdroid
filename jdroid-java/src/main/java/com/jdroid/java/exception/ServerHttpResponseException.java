@@ -1,7 +1,5 @@
 package com.jdroid.java.exception;
 
-import com.jdroid.java.exception.ErrorCode;
-import com.jdroid.java.exception.HttpResponseException;
 
 /**
  * Exception thrown when there are http errors communicating with the server.
@@ -9,6 +7,8 @@ import com.jdroid.java.exception.HttpResponseException;
  * @author Estefania Caravatti
  */
 public class ServerHttpResponseException extends HttpResponseException {
+	
+	private static final long serialVersionUID = 7532460690433661042L;
 	
 	public ServerHttpResponseException(ErrorCode errorCode, Throwable throwable) {
 		super(errorCode, throwable);

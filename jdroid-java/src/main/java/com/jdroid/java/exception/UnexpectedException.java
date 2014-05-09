@@ -2,6 +2,8 @@ package com.jdroid.java.exception;
 
 public class UnexpectedException extends AbstractException {
 	
+	private static final long serialVersionUID = -7051268210410092107L;
+	
 	/**
 	 * @param message
 	 * @param cause

@@ -12,6 +12,8 @@ import com.jdroid.java.search.PagedResult;
  */
 public abstract class SearchUseCase<T> extends PaginatedUseCase<T> {
 	
+	private static final long serialVersionUID = -6921635595717987983L;
+	
 	private String searchValue;
 	private Set<T> selectedItems = Sets.newHashSet();
 	

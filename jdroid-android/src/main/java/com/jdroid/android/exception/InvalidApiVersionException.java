@@ -9,4 +9,6 @@ import com.jdroid.java.exception.AbstractException;
  */
 public class InvalidApiVersionException extends AbstractException {
 	
+	private static final long serialVersionUID = 2283672469011072526L;
+	
 }

@@ -11,6 +11,8 @@ import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
  */
 public abstract class DefaultAbstractUseCase extends AbstractUseCase<DefaultUseCaseListener> {
 	
+	private static final long serialVersionUID = -6915799187802671145L;
+	
 	/**
 	 * @see com.jdroid.android.usecase.AbstractUseCase#notifyFailedUseCase(java.lang.RuntimeException, java.lang.Object)
 	 */

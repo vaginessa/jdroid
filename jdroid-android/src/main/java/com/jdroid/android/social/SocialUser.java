@@ -8,6 +8,8 @@ import com.jdroid.android.domain.Entity;
  */
 public class SocialUser extends Entity {
 	
+	private static final long serialVersionUID = -2589221155169586304L;
+	
 	private String socialId;
 	private AccountType socialNetwork;
 	private String firstName;

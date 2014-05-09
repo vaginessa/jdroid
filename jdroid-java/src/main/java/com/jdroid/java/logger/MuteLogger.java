@@ -8,6 +8,8 @@ import org.slf4j.helpers.MarkerIgnoringBase;
  */
 public class MuteLogger extends MarkerIgnoringBase {
 	
+	private static final long serialVersionUID = -6526350853255198576L;
+	
 	public MuteLogger() {
 		
 	}

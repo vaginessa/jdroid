@@ -144,8 +144,9 @@ public class Session implements Serializable {
 	private static final String PUBLISH_PERMISSION_PREFIX = "publish";
 	private static final String MANAGE_PERMISSION_PREFIX = "manage";
 	
-	@SuppressWarnings("serial")
 	private static final Set<String> OTHER_PUBLISH_PERMISSIONS = new HashSet<String>() {
+		
+		private static final long serialVersionUID = 1L;
 		
 		{
 			add("ads_management");

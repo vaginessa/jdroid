@@ -10,6 +10,8 @@ import com.jdroid.java.utils.StringUtils;
 
 public class FacebookAuthenticationUseCase extends DefaultAbstractUseCase {
 	
+	private static final long serialVersionUID = -2087611650376005398L;
+	
 	private static final Logger LOGGER = LoggerUtils.getLogger(FacebookAuthenticationUseCase.class);
 	
 	private FacebookConnector facebookConnector;

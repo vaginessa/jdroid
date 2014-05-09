@@ -9,6 +9,8 @@ import com.jdroid.java.domain.Identifiable;
  */
 public class Entity extends BusinessObject implements Identifiable {
 	
+	private static final long serialVersionUID = 907671509045298947L;
+	
 	private Long id;
 	private String parentId;
 	

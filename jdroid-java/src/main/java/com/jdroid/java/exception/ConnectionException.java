@@ -7,6 +7,8 @@ package com.jdroid.java.exception;
  */
 public class ConnectionException extends ApplicationException {
 	
+	private static final long serialVersionUID = 1136199464840653811L;
+	
 	public ConnectionException(Throwable throwable) {
 		super(throwable);
 	}

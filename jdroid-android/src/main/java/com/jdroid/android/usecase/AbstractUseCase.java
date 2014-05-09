@@ -16,6 +16,8 @@ import com.jdroid.java.utils.LoggerUtils;
  */
 public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 	
+	private static final long serialVersionUID = 3732327346852606739L;
+	
 	private final static Logger LOGGER = LoggerUtils.getLogger(AbstractUseCase.class);
 	
 	public enum UseCaseStatus {

@@ -9,6 +9,8 @@ import com.jdroid.android.usecase.DefaultAbstractUseCase;
  */
 public abstract class GooglePlusAuthenticationUseCase extends DefaultAbstractUseCase {
 	
+	private static final long serialVersionUID = -6947436509726048083L;
+	
 	private Boolean loginMode = true;
 	private String account;
 	private Person person;

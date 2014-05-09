@@ -6,6 +6,8 @@ package com.jdroid.java.exception;
  */
 public class HttpResponseException extends ApplicationException {
 	
+	private static final long serialVersionUID = 3969454310912271279L;
+	
 	protected HttpResponseException() {
 		// Nothing by default.
 	}

@@ -13,6 +13,8 @@ import com.jdroid.java.utils.LoggerUtils;
  */
 public abstract class PaginatedUseCase<T> extends DefaultAbstractUseCase {
 	
+	private static final long serialVersionUID = 4321782756459414981L;
+	
 	public enum PaginatedUseCaseMode {
 		INITIAL_LOAD,
 		PAGINATION,

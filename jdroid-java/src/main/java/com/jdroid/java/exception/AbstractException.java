@@ -5,6 +5,8 @@ import com.jdroid.java.collections.Maps;
 
 public abstract class AbstractException extends RuntimeException {
 	
+	private static final long serialVersionUID = 7063914690303952076L;
+	
 	private Map<String, Object> parameters = Maps.newHashMap();
 	
 	/**

@@ -7,6 +7,8 @@ package com.jdroid.java.exception;
  */
 public class ApplicationException extends ErrorCodeException {
 	
+	private static final long serialVersionUID = 3863432823691016134L;
+	
 	protected ApplicationException() {
 		// Nothing by default.
 	}

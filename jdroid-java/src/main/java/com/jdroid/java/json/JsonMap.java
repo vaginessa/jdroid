@@ -12,6 +12,8 @@ import com.jdroid.java.utils.CollectionUtils;
  */
 public class JsonMap extends LinkedHashMap<String, Object> {
 	
+	private static final long serialVersionUID = -3869527445658873602L;
+	
 	private MarshallerMode mode;
 	private Map<String, String> extras;
 	

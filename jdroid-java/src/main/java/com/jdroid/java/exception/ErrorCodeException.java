@@ -6,6 +6,8 @@ package com.jdroid.java.exception;
  */
 public class ErrorCodeException extends AbstractException {
 	
+	private static final long serialVersionUID = -7477869088363031784L;
+	
 	private ErrorCode errorCode;
 	private Object[] errorCodeParameters;
 	

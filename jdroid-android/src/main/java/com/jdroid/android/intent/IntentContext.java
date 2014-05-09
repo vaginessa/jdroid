@@ -11,6 +11,8 @@ import com.jdroid.java.collections.Maps;
  */
 public class IntentContext implements Serializable {
 	
+	private static final long serialVersionUID = -2507978438800400512L;
+	
 	private static final String DEFAULT_KEY = "defaultKey";
 	
 	private static Map<String, WeakReference<Object>> data = Maps.newHashMap();

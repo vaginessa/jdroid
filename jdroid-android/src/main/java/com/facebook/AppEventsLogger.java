@@ -175,8 +175,9 @@ public class AppEventsLogger {
 	private static Object staticLock = new Object();
 	private static String hashedDeviceAndAppId;
 	private static Map<String, Date> mapEventsToSuppressionTime = new HashMap<String, Date>();
-	@SuppressWarnings("serial")
 	private static Map<String, EventSuppression> mapEventNameToSuppress = new HashMap<String, EventSuppression>() {
+		
+		private static final long serialVersionUID = 1L;
 		
 		{
 			put(AppEventsConstants.EVENT_NAME_ACTIVATED_APP, new EventSuppression(
