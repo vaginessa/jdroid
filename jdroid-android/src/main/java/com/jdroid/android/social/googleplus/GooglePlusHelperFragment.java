@@ -213,13 +213,23 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	 */
 	private void startResolution(ConnectionResult connectionResult) {
 		
+		Boolean error = false;
 		try {
-			// Don't start another resolution now until we have a result from the activity we're about to start.
-			resolvingError = true;
-			// If we can resolve the error, then call start resolution and pass it an integer tag we can use to track.
-			// This means that when we get the onActivityResult callback we'll know its from being started here.
-			connectionResult.startResolutionForResult(getActivity(), REQUEST_RESOLVE_ERROR);
+			if (connectionResult != null) {
+				// Don't start another resolution now until we have a result from the activity we're about to start.
+				resolvingError = true;
+				// If we can resolve the error, then call start resolution and pass it an integer tag we can use to
+				// track. This means that when we get the onActivityResult callback we'll know its from being started
+				// here.
+				connectionResult.startResolutionForResult(getActivity(), REQUEST_RESOLVE_ERROR);
+			} else {
+				error = true;
+			}
 		} catch (SendIntentException e) {
+			error = true;
+		}
+		
+		if (error) {
 			// Any problems, just try to connect() again so we get a new ConnectionResult.
 			resolvingError = false;
 			googleApiClient.connect();
