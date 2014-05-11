@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
-import com.jdroid.java.collections.Maps;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -20,12 +19,8 @@ import com.nostra13.universalimageloader.core.assist.ImageSize;
 public class ImageLoaderUtils {
 	
 	private static SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.get("imageLoader");
-	private static Map<String, Long> imagesExpirationMap = Maps.newHashMap();
-	
 	@SuppressWarnings("unchecked")
-	private ImageLoaderUtils() {
-		imagesExpirationMap = (Map<String, Long>)sharedPreferencesHelper.loadAllPreferences();
-	}
+	private static Map<String, Long> imagesExpirationMap = (Map<String, Long>)sharedPreferencesHelper.loadAllPreferences();
 	
 	public static void displayImage(String url, ImageView imageView, Integer defaultImage,
 			ImageLoadingListener imageLoadingListener, Long timeToLive) {

@@ -126,7 +126,10 @@ public abstract class AbstractApplication extends Application {
 		});
 		
 		initRepositories();
-		
+		initImageLoader();
+	}
+	
+	protected void initImageLoader() {
 		// Create global configuration and initialize ImageLoader with this configuration
 		
 		DisplayImageOptions.Builder defaultOptiBuilder = new DisplayImageOptions.Builder();
@@ -137,6 +140,7 @@ public abstract class AbstractApplication extends Application {
 		configBuilder.tasksProcessingOrder(QueueProcessingType.LIFO);
 		configBuilder.defaultDisplayImageOptions(defaultOptiBuilder.build());
 		configBuilder.discCacheSize(10 * 1024 * 1024);
+		// configBuilder.writeDebugLogs();
 		
 		ImageLoader.getInstance().init(configBuilder.build());
 		
