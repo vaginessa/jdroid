@@ -98,6 +98,34 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 	}
 	
 	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityResume(android.app.Activity)
+	 */
+	@Override
+	public void onActivityResume(final Activity activity) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+			
+			@Override
+			protected void track(T tracker) {
+				tracker.onActivityResume(activity);
+			}
+		});
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityPause(android.app.Activity)
+	 */
+	@Override
+	public void onActivityPause(final Activity activity) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+			
+			@Override
+			protected void track(T tracker) {
+				tracker.onActivityPause(activity);
+			}
+		});
+	}
+	
+	/**
 	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStop(android.app.Activity)
 	 */
 	@Override
@@ -107,6 +135,20 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 			@Override
 			protected void track(T tracker) {
 				tracker.onActivityStop(activity);
+			}
+		});
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityDestroy(android.app.Activity)
+	 */
+	@Override
+	public void onActivityDestroy(final Activity activity) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+			
+			@Override
+			protected void track(T tracker) {
+				tracker.onActivityDestroy(activity);
 			}
 		});
 	}

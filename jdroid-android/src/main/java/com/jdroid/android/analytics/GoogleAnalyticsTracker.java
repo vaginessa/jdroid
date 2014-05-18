@@ -45,15 +45,17 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 	
 	public GoogleAnalyticsTracker() {
-		GoogleAnalytics analytics = GoogleAnalytics.getInstance(AbstractApplication.get());
-		if (AbstractApplication.get().getAppContext().isGoogleAnalyticsDebugEnabled()) {
-			analytics.getLogger().setLogLevel(LogLevel.VERBOSE);
-		} else {
-			analytics.getLogger().setLogLevel(LogLevel.ERROR);
+		if (isEnabled()) {
+			GoogleAnalytics analytics = GoogleAnalytics.getInstance(AbstractApplication.get());
+			if (AbstractApplication.get().getAppContext().isGoogleAnalyticsDebugEnabled()) {
+				analytics.getLogger().setLogLevel(LogLevel.VERBOSE);
+			} else {
+				analytics.getLogger().setLogLevel(LogLevel.ERROR);
+			}
+			tracker = analytics.newTracker(AbstractApplication.get().getAppContext().getGoogleAnalyticsTrackingId());
+			tracker.setSessionTimeout(300);
+			init(customDimensionsMap, customMetricsMap);
 		}
-		tracker = analytics.newTracker(AbstractApplication.get().getAppContext().getGoogleAnalyticsTrackingId());
-		tracker.setSessionTimeout(300);
-		init(customDimensionsMap, customMetricsMap);
 	}
 	
 	protected void init(Map<String, Integer> customDimensionsMap, Map<String, Integer> customMetricsMap) {

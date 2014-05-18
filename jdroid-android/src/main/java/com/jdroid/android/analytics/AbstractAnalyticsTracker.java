@@ -31,10 +31,34 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	}
 	
 	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityResume(android.app.Activity)
+	 */
+	@Override
+	public void onActivityResume(Activity activity) {
+		// Do Nothing
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityPause(android.app.Activity)
+	 */
+	@Override
+	public void onActivityPause(Activity activity) {
+		// Do Nothing
+	}
+	
+	/**
 	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStop(android.app.Activity)
 	 */
 	@Override
 	public void onActivityStop(Activity activity) {
+		// Do Nothing
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityDestroy(android.app.Activity)
+	 */
+	@Override
+	public void onActivityDestroy(Activity activity) {
 		// Do Nothing
 	}
 	

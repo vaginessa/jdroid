@@ -19,7 +19,13 @@ public interface AnalyticsTracker {
 	
 	public void onActivityStart(Activity activity, AppLoadingSource appLoadingSource, Object data);
 	
+	public void onActivityResume(Activity activity);
+	
+	public void onActivityPause(Activity activity);
+	
 	public void onActivityStop(Activity activity);
+	
+	public void onActivityDestroy(Activity activity);
 	
 	public void trackConnectionException(ConnectionException connectionException);
 	
