@@ -41,4 +41,8 @@ public interface AnalyticsTracker {
 	
 	public void trackNotificationOpened(String notificationName);
 	
+	public void trackRemoveAdsBannerClicked();
+	
+	public void trackRateMeBannerClicked();
+	
 }

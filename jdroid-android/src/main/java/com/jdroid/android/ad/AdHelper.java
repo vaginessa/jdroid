@@ -1,6 +1,8 @@
 package com.jdroid.android.ad;
 
+import java.util.Random;
 import android.app.Activity;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,10 +22,12 @@ import com.jdroid.android.context.AppContext;
 public class AdHelper {
 	
 	private ViewGroup adViewContainer;
+	private View customView;
 	private AdView adView;
+	private Boolean displayAds = false;
 	
-	public void loadAd(Activity activity, ViewGroup adViewContainer, AdSize adSize,
-			OnClickListener removeAdsClickListener) {
+	public void loadAd(final Activity activity, ViewGroup adViewContainer, AdSize adSize,
+			final OnClickListener removeAdsClickListener) {
 		
 		this.adViewContainer = adViewContainer;
 		if (adViewContainer != null) {
@@ -36,38 +40,63 @@ public class AdHelper {
 				adView.setAdUnitId(applicationContext.getAdUnitId());
 				adView.setAdSize(adSize);
 				
-				if (removeAdsClickListener != null) {
-					final View removeAdsView = LayoutInflater.from(activity).inflate(R.layout.remove_ads_view,
-						adViewContainer, false);
-					removeAdsView.setOnClickListener(removeAdsClickListener);
-					adViewContainer.addView(removeAdsView);
+				if (displayRateMe()) {
+					customView = new RateAppView(activity);
+				} else if (removeAdsClickListener != null) {
+					customView = LayoutInflater.from(activity).inflate(R.layout.remove_ads_view, adViewContainer, false);
+					customView.setOnClickListener(new OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							removeAdsClickListener.onClick(v);
+							AbstractApplication.get().getAnalyticsSender().trackRemoveAdsBannerClicked();
+						}
+					});
+				}
+				
+				if (customView != null) {
+					
+					adViewContainer.addView(customView);
 					
 					adView.setAdListener(new AdListener() {
 						
 						@Override
 						public void onAdLoaded() {
 							super.onAdLoaded();
-							adView.setVisibility(View.VISIBLE);
-							removeAdsView.setVisibility(View.GONE);
+							
+							if (displayAds) {
+								adView.setVisibility(View.VISIBLE);
+								customView.setVisibility(View.GONE);
+							} else {
+								adView.postDelayed(new Runnable() {
+									
+									@Override
+									public void run() {
+										displayAds = true;
+										adView.setVisibility(View.VISIBLE);
+										customView.setVisibility(View.GONE);
+									}
+								}, DateUtils.SECOND_IN_MILLIS * 5);
+							}
 						}
 						
 						@Override
 						public void onAdClosed() {
 							super.onAdClosed();
 							adView.setVisibility(View.GONE);
-							removeAdsView.setVisibility(View.VISIBLE);
+							customView.setVisibility(View.VISIBLE);
 						}
 						
 						@Override
 						public void onAdFailedToLoad(int errorCode) {
 							super.onAdFailedToLoad(errorCode);
 							adView.setVisibility(View.GONE);
-							removeAdsView.setVisibility(View.VISIBLE);
+							customView.setVisibility(View.VISIBLE);
 						}
 					});
 				}
 				
-				AdRequest.Builder builder = new AdRequest.Builder();
+				final AdRequest.Builder builder = new AdRequest.Builder();
 				if (!applicationContext.isProductionEnvironment()) {
 					builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
 					for (String deviceId : applicationContext.getTestDevicesIds()) {
@@ -79,6 +108,10 @@ public class AdHelper {
 				adViewContainer.addView(adView);
 			}
 		}
+	}
+	
+	private Boolean displayRateMe() {
+		return new Random().nextBoolean();
 	}
 	
 	public void onPause() {

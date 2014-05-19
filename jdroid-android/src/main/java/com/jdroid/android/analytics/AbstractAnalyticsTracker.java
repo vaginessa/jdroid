@@ -120,4 +120,20 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 		// Do Nothing
 	}
 	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackRemoveAdsBannerClicked()
+	 */
+	@Override
+	public void trackRemoveAdsBannerClicked() {
+		// Do Nothing
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackRateMeBannerClicked()
+	 */
+	@Override
+	public void trackRateMeBannerClicked() {
+		// Do Nothing
+	}
+	
 }

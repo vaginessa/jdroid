@@ -64,6 +64,10 @@ public class GooglePlayUtils {
 			null, fragmentActivity.getString(R.string.yes), true);
 	}
 	
+	public static void launchAppDetails(Context context) {
+		launchAppDetails(context, AndroidUtils.getPackageName());
+	}
+	
 	public static void launchAppDetails(Context context, String packageName) {
 		Uri uri = Uri.parse("market://details?id=" + packageName);
 		Intent intent = new Intent(Intent.ACTION_VIEW, uri);

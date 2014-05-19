@@ -31,6 +31,8 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	private static final Logger LOGGER = LoggerUtils.getLogger(GoogleAnalyticsTracker.class);
 	
 	private static final String NOTIFICATION_CATEGORY = "notification";
+	private static final String ADS_CATEGORY = "ads";
+	private static final String CLICK_ACTION = "click";
 	
 	private Map<String, Integer> customDimensionsMap = Maps.newHashMap();
 	private Map<String, Integer> customMetricsMap = Maps.newHashMap();
@@ -159,6 +161,32 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		sendEvent(NOTIFICATION_CATEGORY, "open", notificationName);
 	}
 	
+	/**
+	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackRemoveAdsBannerClicked()
+	 */
+	@Override
+	public void trackRemoveAdsBannerClicked() {
+		sendEvent(ADS_CATEGORY, CLICK_ACTION, "removeAds");
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackRateMeBannerClicked()
+	 */
+	@Override
+	public void trackRateMeBannerClicked() {
+		sendEvent(ADS_CATEGORY, CLICK_ACTION, "rateMe");
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackSocialInteraction(com.jdroid.android.social.AccountType,
+	 *      com.jdroid.android.social.SocialAction, java.lang.String)
+	 */
+	@Override
+	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget) {
+		tracker.send(new HitBuilders.SocialBuilder().setNetwork(accountType.getFriendlyName()).setAction(
+			socialAction.getName()).setTarget(socialTarget).build());
+	}
+	
 	protected void addCustomDimension(AppViewBuilder appViewBuilder, CustomDimension customDimension, String dimension) {
 		addCustomDimension(appViewBuilder, customDimension.name(), dimension);
 	}
@@ -258,16 +286,6 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	
 	public void sendTransaction(Map<String, String> params) {
 		tracker.send(params);
-	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackSocialInteraction(com.jdroid.android.social.AccountType,
-	 *      com.jdroid.android.social.SocialAction, java.lang.String)
-	 */
-	@Override
-	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget) {
-		tracker.send(new HitBuilders.SocialBuilder().setNetwork(accountType.getFriendlyName()).setAction(
-			socialAction.getName()).setTarget(socialTarget).build());
 	}
 	
 	public void dispatchLocalHits() {
