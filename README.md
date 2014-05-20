@@ -60,6 +60,7 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * Base Activity & Fragment implementations
 * Exception handling
 * ListView & GridView pagination support
+* Rate me component
 * Picture import (From camera or gallery) component
 * Barcode reading component
 * Refresh action provider component
@@ -88,7 +89,7 @@ Sample server app using jdroid Java Web & jdroid Java
 Apps using jdroid
 --------------
 
-<a href="https://play.google.com/store/apps/details?id=com.mediafever">
+<a href="https://play.google.com/store/apps/details?id=com.mediafever&referrer=utm_source%3Djdroid">
   <img alt="Get it on Google Play"
        src="https://github.com/maxirosson/media-fever/blob/gh-pages/images/featureGraphic.png?raw=true" />
 </a>
