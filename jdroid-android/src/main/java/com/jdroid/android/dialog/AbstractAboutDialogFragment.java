@@ -16,6 +16,7 @@ import com.jdroid.android.ActivityLauncher;
 import com.jdroid.android.R;
 import com.jdroid.android.debug.DebugSettingsActivity;
 import com.jdroid.android.social.googleplus.GooglePlusOneButtonHelper;
+import com.jdroid.android.social.twitter.TwitterConnector;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.utils.DateUtils;
 
@@ -86,6 +87,17 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 			});
 		}
 		
+		if (getTwitterAccount() != null) {
+			View twitter = view.findViewById(R.id.twitter);
+			twitter.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					TwitterConnector.openProfile(getTwitterAccount());
+				}
+			});
+		}
+		
 		return dialogBuilder.create();
 	}
 	
@@ -98,6 +110,10 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 	}
 	
 	protected String getContactUsEmail() {
+		return null;
+	}
+	
+	protected String getTwitterAccount() {
 		return null;
 	}
 	

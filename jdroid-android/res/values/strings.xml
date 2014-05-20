@@ -64,6 +64,7 @@
 	<string name="allRightsReservedLegend">All Rights Reserved.</string>
 
 	<!-- External Apps -->
+	<string name="twitter">Twitter</string>
 	<string name="barcodeScanner">Barcode Scanner</string>
 	<string name="voiceSearch">Voice Search</string>
 
