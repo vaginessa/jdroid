@@ -29,6 +29,7 @@ import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.PlusShare;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.android.gms.plus.model.people.PersonBuffer;
+import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.fragment.AbstractFragment;
@@ -474,6 +475,11 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 			logoutListener.setGoogleApiClient(googleApiClient);
 			googleApiClient.connect();
 		}
+	}
+	
+	public static void openCommunity(String community) {
+		AbstractApplication.get().getCurrentActivity().startActivity(
+			new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/u/0/communities/" + community)));
 	}
 	
 	public static class LogoutListener implements ConnectionCallbacks {

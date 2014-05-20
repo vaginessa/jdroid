@@ -1,7 +1,9 @@
 package com.jdroid.android.social.facebook;
 
 import org.slf4j.Logger;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,6 +14,7 @@ import com.facebook.Session;
 import com.facebook.widget.WebDialog;
 import com.facebook.widget.WebDialog.FeedDialogBuilder;
 import com.facebook.widget.WebDialog.OnCompleteListener;
+import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.fragment.AbstractFragment;
@@ -198,6 +201,16 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 			builder.build().show();
 		} else {
 			FacebookAuthenticationFragment.get(getActivity()).startLoginProcess();
+		}
+	}
+	
+	public static void openPage(String pageId) {
+		try {
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/" + pageId));
+			AbstractApplication.get().getCurrentActivity().startActivity(intent);
+		} catch (ActivityNotFoundException e) {
+			AbstractApplication.get().getCurrentActivity().startActivity(
+				new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/" + pageId)));
 		}
 	}
 	

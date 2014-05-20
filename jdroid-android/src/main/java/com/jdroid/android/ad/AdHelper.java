@@ -73,8 +73,10 @@ public class AdHelper {
 									@Override
 									public void run() {
 										displayAds = true;
-										adView.setVisibility(View.VISIBLE);
-										customView.setVisibility(View.GONE);
+										if ((adView != null) && (customView != null)) {
+											adView.setVisibility(View.VISIBLE);
+											customView.setVisibility(View.GONE);
+										}
 									}
 								}, DateUtils.SECOND_IN_MILLIS * 5);
 							}

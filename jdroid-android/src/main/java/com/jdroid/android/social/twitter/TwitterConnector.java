@@ -2,9 +2,8 @@ package com.jdroid.android.social.twitter;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.R;
-import com.jdroid.android.utils.GooglePlayUtils;
 
 /**
  * 
@@ -19,7 +18,8 @@ public class TwitterConnector {
 			intent.putExtra("screen_name", account);
 			AbstractApplication.get().getCurrentActivity().startActivity(intent);
 		} catch (ActivityNotFoundException e) {
-			GooglePlayUtils.showDownloadDialog(R.string.twitter, "com.twitter.android");
+			AbstractApplication.get().getCurrentActivity().startActivity(
+				new Intent(Intent.ACTION_VIEW, Uri.parse("http://twitter.com/" + account)));
 		}
 	}
 }

@@ -15,6 +15,8 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.ActivityLauncher;
 import com.jdroid.android.R;
 import com.jdroid.android.debug.DebugSettingsActivity;
+import com.jdroid.android.social.facebook.FacebookAuthenticationFragment;
+import com.jdroid.android.social.googleplus.GooglePlusHelperFragment;
 import com.jdroid.android.social.googleplus.GooglePlusOneButtonHelper;
 import com.jdroid.android.social.twitter.TwitterConnector;
 import com.jdroid.android.utils.AndroidUtils;
@@ -87,6 +89,27 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 			});
 		}
 		
+		if (getFacebookPageId() != null) {
+			View facebook = view.findViewById(R.id.facebook);
+			facebook.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					FacebookAuthenticationFragment.openPage(getFacebookPageId());
+				}
+			});
+		}
+		if (getGooglePlusCommunityId() != null) {
+			View googlePlus = view.findViewById(R.id.googlePlus);
+			googlePlus.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					GooglePlusHelperFragment.openCommunity(getGooglePlusCommunityId());
+				}
+			});
+		}
+		
 		if (getTwitterAccount() != null) {
 			View twitter = view.findViewById(R.id.twitter);
 			twitter.setOnClickListener(new OnClickListener() {
@@ -97,7 +120,6 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 				}
 			});
 		}
-		
 		return dialogBuilder.create();
 	}
 	
@@ -110,6 +132,14 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 	}
 	
 	protected String getContactUsEmail() {
+		return null;
+	}
+	
+	protected String getFacebookPageId() {
+		return null;
+	}
+	
+	protected String getGooglePlusCommunityId() {
 		return null;
 	}
 	
