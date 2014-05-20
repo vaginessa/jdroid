@@ -19,6 +19,7 @@ jdroid Android\n
 * Added Google Analytics v4 integration with A/B testing support\n
 * Added support to change the defaul crash reporting tool\n
 * Added rate me component\n
+* Added social buttons on about dialog.\n
 * Replaced Crittercism by Crashlytics as the default crash reporting tool\n
 * Upgraded dependencies versions\n
 * Upgraded Toasts UI to kitkat style\n
