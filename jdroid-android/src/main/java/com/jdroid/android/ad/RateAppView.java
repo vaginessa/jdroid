@@ -1,5 +1,6 @@
 package com.jdroid.android.ad;
 
+import java.util.Random;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -9,12 +10,15 @@ import android.widget.TextView;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.utils.GooglePlayUtils;
+import com.jdroid.android.utils.SharedPreferencesHelper;
 
 /**
  * 
  * @author Maxi Rosson
  */
 public class RateAppView extends RelativeLayout {
+	
+	private static final String RATE_ME_CLICK_TIMESTAMP = "rateMeClickTimestamp";
 	
 	public RateAppView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -42,10 +46,14 @@ public class RateAppView extends RelativeLayout {
 			
 			@Override
 			public void onClick(View v) {
+				SharedPreferencesHelper.get().savePreference(RATE_ME_CLICK_TIMESTAMP, System.currentTimeMillis());
 				GooglePlayUtils.launchAppDetails(context);
 				AbstractApplication.get().getAnalyticsSender().trackRateMeBannerClicked();
 			}
 		});
-		
+	}
+	
+	public static Boolean displayRateMe() {
+		return new Random().nextBoolean() && !SharedPreferencesHelper.get().hasPreference(RATE_ME_CLICK_TIMESTAMP);
 	}
 }

@@ -1,6 +1,5 @@
 package com.jdroid.android.ad;
 
-import java.util.Random;
 import android.app.Activity;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -40,7 +39,7 @@ public class AdHelper {
 				adView.setAdUnitId(applicationContext.getAdUnitId());
 				adView.setAdSize(adSize);
 				
-				if (displayRateMe()) {
+				if (RateAppView.displayRateMe()) {
 					customView = new RateAppView(activity);
 				} else if (removeAdsClickListener != null) {
 					customView = LayoutInflater.from(activity).inflate(R.layout.remove_ads_view, adViewContainer, false);
@@ -110,10 +109,6 @@ public class AdHelper {
 				adViewContainer.addView(adView);
 			}
 		}
-	}
-	
-	private Boolean displayRateMe() {
-		return new Random().nextBoolean();
 	}
 	
 	public void onPause() {
