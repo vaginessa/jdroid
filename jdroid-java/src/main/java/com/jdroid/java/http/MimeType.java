@@ -10,6 +10,7 @@ public class MimeType {
 	public static final String HTML = "text/html";
 	public static final String PNG = "image/png";
 	public static final String JSON = "application/json";
+	public static final String XML = "application/xml";
 	public static final String JSON_UTF8 = "application/json;charset=UTF-8";
 	
 }

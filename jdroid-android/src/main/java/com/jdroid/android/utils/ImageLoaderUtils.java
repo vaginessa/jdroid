@@ -61,10 +61,12 @@ public class ImageLoaderUtils {
 				
 				@Override
 				public void run() {
-					if (!imagesExpirationMap.containsKey(url)) {
-						Long timestamp = System.currentTimeMillis() + timeToLive;
-						sharedPreferencesHelper.savePreference(url, timestamp);
-						imagesExpirationMap.put(url, timestamp);
+					synchronized (ImageLoaderUtils.class) {
+						if (!imagesExpirationMap.containsKey(url)) {
+							Long timestamp = System.currentTimeMillis() + timeToLive;
+							sharedPreferencesHelper.savePreference(url, timestamp);
+							imagesExpirationMap.put(url, timestamp);
+						}
 					}
 				}
 			});
@@ -76,11 +78,13 @@ public class ImageLoaderUtils {
 			
 			@Override
 			public void run() {
-				for (Entry<String, Long> entry : imagesExpirationMap.entrySet()) {
-					if (System.currentTimeMillis() > entry.getValue()) {
-						DiscCacheUtil.removeFromCache(entry.getKey(), ImageLoader.getInstance().getDiscCache());
-						sharedPreferencesHelper.removePreferences(entry.getKey());
-						imagesExpirationMap.remove(entry.getKey());
+				synchronized (ImageLoaderUtils.class) {
+					for (Entry<String, Long> entry : imagesExpirationMap.entrySet()) {
+						if (System.currentTimeMillis() > entry.getValue()) {
+							DiscCacheUtil.removeFromCache(entry.getKey(), ImageLoader.getInstance().getDiscCache());
+							sharedPreferencesHelper.removePreferences(entry.getKey());
+							imagesExpirationMap.remove(entry.getKey());
+						}
 					}
 				}
 			}
