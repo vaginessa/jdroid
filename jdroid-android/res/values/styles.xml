@@ -264,4 +264,14 @@
 	<style name="TextAppearanceToast">
 		<item name="android:fontFamily" tools:targetApi="16">sans-serif-condensed</item>
 	</style>
+
+	<style name="aboutSeparator">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">1dp</item>
+		<item name="android:background">#44FFFFFF</item>
+		<item name="android:layout_marginBottom">8dp</item>
+		<item name="android:layout_marginLeft">16dp</item>
+		<item name="android:layout_marginRight">16dp</item>
+		<item name="android:layout_marginTop">8dp</item>
+	</style>
 </resources>

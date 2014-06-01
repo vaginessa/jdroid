@@ -9,12 +9,14 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import com.google.android.gms.plus.PlusOneButton;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.ActivityLauncher;
 import com.jdroid.android.R;
 import com.jdroid.android.debug.DebugSettingsActivity;
+import com.jdroid.android.share.ShareUtils;
 import com.jdroid.android.social.facebook.FacebookAuthenticationFragment;
 import com.jdroid.android.social.googleplus.GooglePlusHelperFragment;
 import com.jdroid.android.social.googleplus.GooglePlusOneButtonHelper;
@@ -60,6 +62,15 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 		final String contactUsEmailAddress = getContactUsEmail();
 		if (contactUsEmailAddress != null) {
 			contactUsEmail.setText(contactUsEmailAddress);
+			contactUsEmail.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent = ShareUtils.createOpenMail(contactUsEmailAddress,
+						AbstractApplication.get().getAppName());
+					startActivity(intent);
+				}
+			});
 		} else {
 			contactUsLabel.setVisibility(View.GONE);
 			contactUsEmail.setVisibility(View.GONE);
@@ -120,6 +131,15 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 				}
 			});
 		}
+		
+		View customView = getCustomView();
+		ViewGroup customViewContainer = (ViewGroup)view.findViewById(R.id.customViewContainer);
+		if (customView != null) {
+			customViewContainer.addView(customView);
+		} else {
+			customViewContainer.setVisibility(View.GONE);
+		}
+		
 		return dialogBuilder.create();
 	}
 	
@@ -149,6 +169,10 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 	
 	protected Boolean displayGooglePlusOneButton() {
 		return true;
+	}
+	
+	protected View getCustomView() {
+		return null;
 	}
 	
 	/**
