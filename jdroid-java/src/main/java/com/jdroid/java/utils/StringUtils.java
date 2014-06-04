@@ -112,7 +112,11 @@ public abstract class StringUtils {
 	 * @return the passed in String, or the empty String if it was <code>null</code>
 	 */
 	public static String defaultString(String str) {
-		return str == null ? EMPTY : str;
+		return defaultString(str, EMPTY);
+	}
+	
+	public static String defaultString(String str, String defaultString) {
+		return str == null ? defaultString : str;
 	}
 	
 	public static String capitalize(String text) {

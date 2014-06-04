@@ -22,7 +22,7 @@
 		</property>
 	</bean>
 
-	<bean id="applicationContext" class="com.jdroid.javaweb.context.DefaultApplicationContext">
+	<bean id="appContext" class="com.jdroid.javaweb.context.AppContext">
 		<property name="appName" value="${app.name}" />
 		<property name="appVersion" value="${app.version}" />
 		<property name="googleServerApiKey" value="${google.server.api.key}" />
@@ -30,8 +30,8 @@
 		<property name="httpMockSleepDuration" value="${http.mock.sleep.duration}" />
 	</bean>
 
-	<bean id="application" class="com.jdroid.javaweb.context.DefaultApplication">
-		<property name="applicationContext" ref="applicationContext" />
+	<bean id="application" class="com.jdroid.javaweb.context.Application">
+		<property name="appContext" ref="appContext" />
 	</bean>
 
 	<context:annotation-config />

@@ -157,4 +157,19 @@ public class NotificationBuilder {
 		this.notificationName = notificationName;
 	}
 	
+	public void setBigTextStyle(String title, String text) {
+		if (StringUtils.isNotBlank(title) && StringUtils.isNotBlank(text)) {
+			NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+			bigTextStyle.setBigContentTitle(title);
+			bigTextStyle.bigText(text);
+			builder.setStyle(bigTextStyle);
+		}
+	}
+	
+	public void addAction(int icon, String title, Intent intent) {
+		PendingIntent pendingIntent = PendingIntent.getActivity(AbstractApplication.get(), IdGenerator.getIntId(),
+			intent, 0);
+		builder.addAction(icon, title, pendingIntent);
+	}
+	
 }
