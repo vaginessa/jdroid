@@ -31,6 +31,10 @@ jdroid sample server\n
 * Upgraded dependencies versions\n
 * Bug fixing\n
 \n
+jdroid sample android\n
+--------------\n
+* Created a basic android sample app\n
+\n
 jdroid scripts\n
 --------------\n
 * Added Tomcat automatic start script\n

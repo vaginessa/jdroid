@@ -282,7 +282,9 @@ public abstract class AbstractApplication extends Application {
 		UncaughtExceptionHandler currentExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
 		if ((currentExceptionHandler == null) || !currentExceptionHandler.getClass().equals(getExceptionHandlerClass())) {
 			
-			getAnalyticsSender().onInitExceptionHandler(getExceptionHandlerMetadata());
+			if (hasAnalyticsSender()) {
+				getAnalyticsSender().onInitExceptionHandler(getExceptionHandlerMetadata());
+			}
 			
 			ExceptionHandler exceptionHandler = ReflectionUtils.newInstance(getExceptionHandlerClass());
 			exceptionHandler.setDefaultExceptionHandler(currentExceptionHandler);

@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.jdroid</groupId>
+	<artifactId>jdroid-sample-android</artifactId>
+	<version>0.4.0-SNAPSHOT</version>
+	<packaging>apk</packaging>
+	<name>Jdroid Sample Android</name>
+	<parent>
+		<groupId>com.jdroid</groupId>
+		<artifactId>jdroid-parent</artifactId>
+		<version>0.4.0-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<android.sdk.platform>19</android.sdk.platform>
+		<app.alias>androiddebugkey</app.alias>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>android</groupId>
+			<artifactId>android</artifactId>
+			<version>${android.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- jdroid Android -->
+		<dependency>
+			<groupId>com.jdroid</groupId>
+			<artifactId>jdroid-android</artifactId>
+			<version>${jdroid.version}</version>
+			<type>apklib</type>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}-v${project.version}-${environment.name}-${apk.suffix}</finalName>
+		<plugins>
+
+			<!-- Eclipse Plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>${eclipse.plugin.version}</version>
+				<configuration>
+					<ajdtVersion>none</ajdtVersion>
+					<additionalBuildcommands>
+						<buildcommand>com.android.ide.eclipse.adt.ResourceManagerBuilder</buildcommand>
+						<buildcommand>com.android.ide.eclipse.adt.PreCompilerBuilder</buildcommand>
+						<buildcommand>org.eclipse.jdt.core.javabuilder</buildcommand>
+						<buildcommand>com.android.ide.eclipse.adt.ApkBuilder</buildcommand>
+					</additionalBuildcommands>
+					<additionalProjectnatures>
+						<projectnature>com.android.ide.eclipse.adt.AndroidNature</projectnature>
+					</additionalProjectnatures>
+					<classpathContainers>
+						<classpathContainer>com.android.ide.eclipse.adt.ANDROID_FRAMEWORK</classpathContainer>
+						<classpathContainer>com.android.ide.eclipse.adt.LIBRARIES</classpathContainer>
+					</classpathContainers>
+					<outputDirectory>bin</outputDirectory>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>false</downloadJavadocs>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.gmaven</groupId>
+				<artifactId>gmaven-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<source>
+								def manifestFile = new File("./AndroidManifest.xml")
+								def ns = new groovy.xml.Namespace("http://schemas.android.com/apk/res/android", "ns")
+								def parser = new groovy.util.XmlParser(false, true)
+								def rootNode = parser.parse(manifestFile)
+								def childrensIterator =	rootNode.children().iterator()
+								
+								while(childrensIterator.hasNext()) {
+									def children = childrensIterator.next();
+									if(children.name() == 'application') {
+										def applicationIterator = children.iterator()
+										while(applicationIterator.hasNext()) {
+											def applicationChildren = applicationIterator.next()
+											if (applicationChildren.name() == 'meta-data') {
+													def metaDataAttributes = applicationChildren.attributes()
+													if (metaDataAttributes[ns.name] == "com.crashlytics.ApiKey") {
+														metaDataAttributes[ns.value] = "${crashlytics.apikey}"
+													}
+											} else if(applicationChildren.name() == 'receiver') {
+
+												def receiverAttributes = applicationChildren.attributes()
+												if (receiverAttributes[ns.name] == 'com.jdroid.android.gcm.GcmBroadcastReceiver') {
+													def intentFilter = applicationChildren.'intent-filter'[0]
+													def category = intentFilter.'category'[0]
+													category.attributes()[ns.name] = "${manifest.package}"
+												}
+											}
+										}
+									} else if (children.name() == 'permission') {
+										def childrenAttributes = children.attributes()
+										if (childrenAttributes[ns.name].contains(".permission.C2D_MESSAGE")) {
+											childrenAttributes[ns.name] = "${manifest.package}" + ".permission.C2D_MESSAGE"
+										}
+									} else if (children.name() == 'uses-permission') {
+										def childrenAttributes = children.attributes()
+										if (childrenAttributes[ns.name].contains(".permission.C2D_MESSAGE")) {
+											childrenAttributes[ns.name] = "${manifest.package}" + ".permission.C2D_MESSAGE"
+										}
+									}
+								}
+								def writer = new groovy.io.GroovyPrintWriter(manifestFile)
+								writer.println('&lt;?xml version="1.0" encoding="UTF-8"?&gt;')
+								def xmlWriter = new groovy.util.XmlNodePrinter(writer)
+								xmlWriter.setPreserveWhitespace(false)
+								xmlWriter.setNamespaceAware(true)
+								xmlWriter.print(rootNode)
+							</source>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Android Maven Plugin -->
+			<plugin>
+				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+				<artifactId>android-maven-plugin</artifactId>
+				<version>3.6.1</version>
+				<configuration>
+					<sdk>
+						<path>${android.sdk.path}</path>
+						<platform>${android.sdk.platform}</platform>
+					</sdk>
+					<deleteConflictingFiles>true</deleteConflictingFiles>
+					<proguard>
+						<config>proguard.cfg</config>
+						<skip>${android.proguard.skip}</skip>
+					</proguard>
+					<sign>
+						<debug>${android.sign.debug}</debug>
+					</sign>
+					<zipalign>
+						<skip>${android.zipalign.skip}</skip>
+						<verbose>false</verbose>
+						<outputApk>${project.build.directory}/${project.artifactId}-v${project.version}-${environment.name}-${apk.suffix}.apk</outputApk>
+					</zipalign>
+					<renameManifestPackage>${manifest.package}</renameManifestPackage>
+				</configuration>
+				<extensions>true</extensions>
+				<executions>
+					<execution>
+						<id>update-manifest</id>
+						<goals>
+							<goal>manifest-update</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>alignApk</id>
+						<phase>install</phase>
+						<goals>
+							<goal>zipalign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Maven Jarsigner Plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jarsigner-plugin</artifactId>
+				<version>1.2</version>
+				<executions>
+					<execution>
+						<id>signing</id>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+						<phase>package</phase>
+						<inherited>true</inherited>
+						<configuration>
+							<skip>${android.sign.debug}</skip>
+							<archiveDirectory></archiveDirectory>
+							<includes>
+								<include>${project.build.directory}/*.apk</include>
+							</includes>
+							<keystore>${app.keystore}</keystore>
+							<storepass>${app.store.password}</storepass>
+							<keypass>${app.key.password}</keypass>
+							<alias>${app.alias}</alias>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+	
+		<!-- Free App Profile -->
+		<profile>
+			<id>jdroid-sample-androidr-free</id>
+			<properties>
+				<android.manifest.applicationLabel>@string/appName</android.manifest.applicationLabel>
+				<manifest.package>com.jdroid.sample.android</manifest.package>
+				<apk.suffix>free</apk.suffix>
+				<free.app>true</free.app>
+				<ads.enabled>true</ads.enabled>
+			</properties>
+		</profile>
+
+		<!-- Development Profile -->
+		<profile>
+			<id>jdroid-sample-android-dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<environment.name>DEV</environment.name>
+				<server.name>DEV</server.name>
+				<debug.settings>true</debug.settings>
+				<google.analytics.enabled>false</google.analytics.enabled>
+				<google.analytics.debug.enabled>false</google.analytics.debug.enabled>
+				<crashlytics.enabled>true</crashlytics.enabled>
+				<crashlytics.debug.enabled>false</crashlytics.debug.enabled>
+				<android.manifest.debuggable>true</android.manifest.debuggable>
+				<android.sign.debug>true</android.sign.debug>
+				<android.zipalign.skip>true</android.zipalign.skip>
+				<android.proguard.skip>true</android.proguard.skip>
+				<git.properties.enabled>true</git.properties.enabled>
+			</properties>
+		</profile>
+		<!-- QA Profile -->
+		<profile>
+			<id>jdroid-sample-android-qa</id>
+			<properties>
+				<environment.name>QA</environment.name>
+				<server.name>QA</server.name>
+				<debug.settings>true</debug.settings>
+				<google.analytics.enabled>false</google.analytics.enabled>
+				<google.analytics.debug.enabled>false</google.analytics.debug.enabled>
+				<crashlytics.enabled>true</crashlytics.enabled>
+				<crashlytics.debug.enabled>false</crashlytics.debug.enabled>
+				<android.manifest.debuggable>true</android.manifest.debuggable>
+				<android.sign.debug>true</android.sign.debug>
+				<android.zipalign.skip>true</android.zipalign.skip>
+				<android.proguard.skip>true</android.proguard.skip>
+				<git.properties.enabled>true</git.properties.enabled>
+			</properties>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<filtering>true</filtering>
+						<excludes>
+							<exclude>settings.local.properties</exclude>
+						</excludes>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<!-- UAT Profile -->
+		<profile>
+			<id>jdroid-sample-android-uat</id>
+			<properties>
+				<environment.name>UAT</environment.name>
+				<server.name>UAT</server.name>
+				<debug.settings>true</debug.settings>
+				<google.analytics.enabled>true</google.analytics.enabled>
+				<google.analytics.debug.enabled>false</google.analytics.debug.enabled>
+				<crashlytics.enabled>true</crashlytics.enabled>
+				<crashlytics.debug.enabled>false</crashlytics.debug.enabled>
+				<android.manifest.debuggable>true</android.manifest.debuggable>
+				<android.sign.debug>false</android.sign.debug>
+				<android.zipalign.skip>false</android.zipalign.skip>
+				<android.proguard.skip>true</android.proguard.skip>
+				<git.properties.enabled>false</git.properties.enabled>
+			</properties>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<filtering>true</filtering>
+						<excludes>
+							<exclude>settings.local.properties</exclude>
+							<exclude>git.properties</exclude>
+							<exclude>mocks/**</exclude>
+						</excludes>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<!-- Production Profile -->
+		<profile>
+			<id>jdroid-sample-android-prod</id>
+			<properties>
+				<environment.name>PROD</environment.name>
+				<server.name>PROD</server.name>
+				<debug.settings>false</debug.settings>
+				<google.analytics.enabled>true</google.analytics.enabled>
+				<google.analytics.debug.enabled>false</google.analytics.debug.enabled>
+				<crashlytics.enabled>true</crashlytics.enabled>
+				<crashlytics.debug.enabled>false</crashlytics.debug.enabled>
+				<android.manifest.debuggable>false</android.manifest.debuggable>
+				<android.sign.debug>false</android.sign.debug>
+				<android.zipalign.skip>false</android.zipalign.skip>
+				<android.proguard.skip>true</android.proguard.skip>
+				<git.properties.enabled>false</git.properties.enabled>
+			</properties>
+			<build>
+				<finalName>${project.artifactId}-v${project.version}-${environment.name}-notaligned</finalName>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<filtering>true</filtering>
+						<excludes>
+							<exclude>settings.local.properties</exclude>
+							<exclude>git.properties</exclude>
+							<exclude>mocks/**</exclude>
+						</excludes>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+	</profiles>
+</project>

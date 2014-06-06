@@ -84,8 +84,17 @@ mvn dependency:resolve clean install -Dmaven.test.skip=true
 # ************************
 if [ "$BUILD_SAMPLES" = "true" ]
 then
+
+	# Generate the jdroid sample server war
 	cd $SOURCE_DIRECTORY/$PROJECT_NAME/jdroid-sample-server
 	mvn clean dependency:resolve -P $PROFILE assembly:assembly -Dmaven.test.skip=true
 	cp ./target/*.war $ASSEMBLIES_DIRECTORY/
+
+	# Generate the jdroid sample android apk
+	ANDROID_APP_DIR=$SOURCE_DIRECTORY/$PROJECT_NAME/jdroid-sample-android
+	cd $ANDROID_APP_DIR
+	mvn dependency:resolve -P $PROFILE,media-fever-free clean install -Dmaven.test.skip=true
+	cp ./target/*.apk $ASSEMBLIES_DIRECTORY/
+	sh $JDROID_HOME/jdroid-scripts/android/validateDex.sh $ANDROID_APP_DIR/target/classes.dex
 fi
 

@@ -1,7 +1,8 @@
 <projectDescription>
-  <name>jdroid-android</name>
+  <name>jdroid-sample-android</name>
   <comment></comment>
   <projects>
+    <project>jdroid-sample-android</project>
   </projects>
   <buildSpec>
     <buildCommand>

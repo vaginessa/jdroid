@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.jdroid.sample.android"
+	android:versionCode="190010401" android:versionName="1.4.1" xmlns:tools="http://schemas.android.com/tools">
+
+	<!-- Google Cloud Messaging permissions -->
+	<permission android:name="com.jdroid.sample.android.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+	<uses-permission android:name="com.jdroid.sample.android.permission.C2D_MESSAGE" />
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+	<uses-permission android:name="com.android.vending.BILLING" />
+
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+	<uses-feature android:name="com.google.android.tv" android:required="false" />
+	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+	<uses-feature android:name="android.hardware.location.gps" android:required="false" />
+	<uses-feature android:name="android.hardware.telephony" android:required="false" />
+
+	<supports-screens android:largeScreens="true" android:xlargeScreens="true" />
+
+	<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19" />
+
+	<application android:icon="@drawable/ic_launcher" android:logo="@drawable/ic_launcher" android:label="@string/appName"
+		android:allowBackup="true" android:name="com.jdroid.sample.android.AndroidApplication" android:hardwareAccelerated="true"
+		android:theme="@style/appTheme">
+
+		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+
+		<activity android:name="com.jdroid.sample.android.ui.HomeActivity" android:windowSoftInputMode="stateHidden">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+
+		<activity android:name="com.jdroid.android.debug.DebugSettingsActivity" android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity"
+			android:label="@string/debugSettings" />
+
+		<activity android:name="com.google.android.gms.ads.AdActivity"
+			android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+
+		<!-- Google Cloud Messaging Configuration -->
+		<service android:name="com.jdroid.android.gcm.GcmService" />
+		<receiver android:name="com.jdroid.android.gcm.GcmBroadcastReceiver" android:exported="true"
+			android:permission="com.google.android.c2dm.permission.SEND">
+			<intent-filter>
+				<!-- Receive actual messages -->
+				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
+				<category android:name="com.jdroid.sample.android" />
+			</intent-filter>
+		</receiver>
+
+		<!-- Used for install referral measurement -->
+		<service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
+		<receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver" android:exported="true"
+			tools:ignore="ExportedReceiver">
+			<intent-filter>
+				<action android:name="com.android.vending.INSTALL_REFERRER" />
+			</intent-filter>
+		</receiver>
+
+	</application>
+
+</manifest>
