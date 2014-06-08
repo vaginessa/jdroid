@@ -47,18 +47,23 @@ public abstract class WorkerService extends IntentService {
 	
 	protected abstract void doExecute(Intent intent);
 	
+	protected static void runIntentInService(Context context, Intent intent, Class<? extends WorkerService> serviceClass) {
+		WorkerService.runIntentInService(context, intent, serviceClass, true);
+	}
+	
 	protected static void runIntentInService(Context context, Intent intent,
+			Class<? extends WorkerService> serviceClass, Boolean enablePartialWakeLock) {
+		context.startService(getServiceIntent(context, intent, serviceClass, enablePartialWakeLock));
+	}
+	
+	protected static Intent getServiceIntent(Context context, Intent intent,
 			Class<? extends WorkerService> serviceClass, Boolean enablePartialWakeLock) {
 		if (enablePartialWakeLock) {
 			WakeLockManager.acquirePartialWakeLock(context);
 			intent.putExtra(ENABLE_PARTIAL_WAKE_LOCK, true);
 		}
 		intent.setClass(context, serviceClass);
-		context.startService(intent);
-	}
-	
-	protected static void runIntentInService(Context context, Intent intent, Class<? extends WorkerService> serviceClass) {
-		WorkerService.runIntentInService(context, intent, serviceClass, true);
+		return intent;
 	}
 	
 }

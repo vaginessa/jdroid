@@ -166,8 +166,22 @@ public class NotificationBuilder {
 		}
 	}
 	
-	public void addAction(int icon, String title, Intent intent) {
+	public void addStartActivityAction(int icon, int titleId, Intent intent) {
+		addStartActivityAction(icon, LocalizationUtils.getString(titleId), intent);
+	}
+	
+	public void addStartActivityAction(int icon, String title, Intent intent) {
 		PendingIntent pendingIntent = PendingIntent.getActivity(AbstractApplication.get(), IdGenerator.getIntId(),
+			intent, 0);
+		builder.addAction(icon, title, pendingIntent);
+	}
+	
+	public void addStartServiceAction(int icon, int titleId, Intent intent) {
+		addStartServiceAction(icon, LocalizationUtils.getString(titleId), intent);
+	}
+	
+	public void addStartServiceAction(int icon, String title, Intent intent) {
+		PendingIntent pendingIntent = PendingIntent.getService(AbstractApplication.get(), IdGenerator.getIntId(),
 			intent, 0);
 		builder.addAction(icon, title, pendingIntent);
 	}
