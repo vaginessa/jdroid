@@ -86,6 +86,10 @@ jdroid sample server
 --------------
 Sample server app using jdroid Java Web & jdroid Java
 
+jdroid sample android
+--------------
+Sample android app using jdroid Android & jdroid Java
+
 Apps using jdroid
 --------------
 
