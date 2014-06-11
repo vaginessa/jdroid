@@ -66,5 +66,6 @@ public class CrashlyticsTracker extends AbstractAnalyticsTracker {
 		
 		Crashlytics.setString("UserId",
 			SecurityContext.get().isAuthenticated() ? SecurityContext.get().getUser().getId().toString() : null);
+		Crashlytics.log("Started " + activity.getClass().getSimpleName());
 	}
 }
