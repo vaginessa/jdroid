@@ -1,6 +1,7 @@
 package com.jdroid.android.exception;
 
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.net.UnknownHostException;
 import org.slf4j.Logger;
 import android.app.Activity;
 import android.support.v4.app.FragmentActivity;
@@ -172,8 +173,24 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	@Override
 	public void logHandledException(String message, Throwable throwable) {
 		if (throwable instanceof ConnectionException) {
+			
+			ConnectionException connectionException = (ConnectionException)throwable;
+			
+			// Added to log at least the exception message, because Logcat does not show the stackTrace when it
+			// includes a UnknownHostException
+			Throwable cause = connectionException.getCause();
+			while (cause != null) {
+				if (cause instanceof UnknownHostException) {
+					message += ": " + cause.getMessage();
+					break;
+				}
+				cause = cause.getCause();
+			}
+			
 			LOGGER.warn(message, throwable);
-			AbstractApplication.get().getAnalyticsSender().trackConnectionException((ConnectionException)throwable);
+			
+			AbstractApplication.get().getAnalyticsSender().trackConnectionException(connectionException);
+			
 		} else if (throwable instanceof InvalidApiVersionException) {
 			LOGGER.warn(message, throwable);
 			handleException(Thread.currentThread(), (InvalidApiVersionException)throwable);
