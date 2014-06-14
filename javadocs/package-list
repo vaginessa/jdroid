@@ -4,6 +4,7 @@ com.facebook.android
 com.facebook.internal
 com.facebook.model
 com.facebook.widget
+com.google.android.gms
 com.jdroid.android
 com.jdroid.android.activity
 com.jdroid.android.ad
@@ -12,7 +13,6 @@ com.jdroid.android.analytics
 com.jdroid.android.animation
 com.jdroid.android.api
 com.jdroid.android.barcode
-com.jdroid.android.billing
 com.jdroid.android.concurrent
 com.jdroid.android.contacts
 com.jdroid.android.contentprovider
@@ -30,9 +30,11 @@ com.jdroid.android.gcm
 com.jdroid.android.gps
 com.jdroid.android.http
 com.jdroid.android.images
+com.jdroid.android.inappbilling
 com.jdroid.android.intent
 com.jdroid.android.listener
 com.jdroid.android.loading
+com.jdroid.android.navdrawer
 com.jdroid.android.pager
 com.jdroid.android.picture
 com.jdroid.android.provider
@@ -45,10 +47,11 @@ com.jdroid.android.share
 com.jdroid.android.social
 com.jdroid.android.social.facebook
 com.jdroid.android.social.googleplus
+com.jdroid.android.social.twitter
 com.jdroid.android.sound
 com.jdroid.android.sqlite
 com.jdroid.android.tabs
-com.jdroid.android.twitter
+com.jdroid.android.uri
 com.jdroid.android.usecase
 com.jdroid.android.usecase.listener
 com.jdroid.android.utils
@@ -84,6 +87,7 @@ com.jdroid.java.repository
 com.jdroid.java.search
 com.jdroid.java.utils
 com.jdroid.javaweb.api
+com.jdroid.javaweb.cache
 com.jdroid.javaweb.context
 com.jdroid.javaweb.domain
 com.jdroid.javaweb.exception
