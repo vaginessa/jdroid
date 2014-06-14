@@ -15,6 +15,13 @@ then
 	exit 1
 fi
 
+for filename in $ASSEMBLIES_DIRECTORY/*jdroid.zip
+do
+	newname=`echo $filename | sed 's/jdroid-parent/jdroid/g' | sed 's/-jdroid\.zip/\.zip/g'`
+	mv $filename $newname
+done
+
+
 # Javadoc Generation
 # ************************
 cd $SOURCE_DIRECTORY/$PROJECT_NAME
