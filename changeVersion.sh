@@ -9,6 +9,7 @@ VERSION=$2
 sh $SOURCE_DIRECTORY/jdroid-scripts/replaceXmlTag.sh $SOURCE_DIRECTORY/pom.xml 'version' $VERSION
 sh $SOURCE_DIRECTORY/jdroid-scripts/replaceXmlTag.sh $SOURCE_DIRECTORY/jdroid-java/pom.xml 'version' $VERSION
 sh $SOURCE_DIRECTORY/jdroid-scripts/replaceXmlTag.sh $SOURCE_DIRECTORY/jdroid-android/pom.xml 'version' $VERSION
+sh $SOURCE_DIRECTORY/jdroid-scripts/replaceXmlTag.sh $SOURCE_DIRECTORY/jdroid-google-play-services/pom.xml 'version' $VERSION
 sh $SOURCE_DIRECTORY/jdroid-scripts/replaceXmlTag.sh $SOURCE_DIRECTORY/jdroid-javaweb/pom.xml 'version' $VERSION
 sh $SOURCE_DIRECTORY/jdroid-scripts/replaceXmlTag.sh $SOURCE_DIRECTORY/jdroid-sample-server/pom.xml 'version' $VERSION
 sh $SOURCE_DIRECTORY/jdroid-scripts/replaceXmlTag.sh $SOURCE_DIRECTORY/jdroid-sample-server/pom.xml 'jdroid.version' $VERSION
