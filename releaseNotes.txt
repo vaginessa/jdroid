@@ -1,6 +1,5 @@
 jdroid Java\n
 -----------\n
-* Added new caching strategy\n
 * Upgraded dependencies versions\n
 * Bug fixing\n
 \n
@@ -11,20 +10,7 @@ jdroid Java Web\n
 \n
 jdroid Android\n
 --------------\n
-* Added navigation drawer support\n
-* Added deeplinkning support to Facebook and Google+\n
-* Added support to handle urls\n
-* Added In app billing v3 support\n
-* Added Google Play Services library as a separated project\n
-* Added Google Analytics v4 integration with A/B testing support\n
-* Added support to change the defaul crash reporting tool\n
-* Added rate me component\n
-* Added social buttons on about dialog.\n
-* Added support for notifications with big text style and actions\n
-* Replaced Crittercism by Crashlytics as the default crash reporting tool\n
 * Upgraded dependencies versions\n
-* Upgraded Toasts UI to kitkat style\n
-* Improved debug settings\n
 * Bug fixing\n
 \n
 jdroid sample server\n
@@ -34,8 +20,6 @@ jdroid sample server\n
 \n
 jdroid sample android\n
 --------------\n
-* Created a basic android sample app\n
+* Upgraded dependencies versions\n
+* Bug fixing\n
 \n
-jdroid scripts\n
---------------\n
-* Added Tomcat automatic start script\n

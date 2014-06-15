@@ -2,6 +2,7 @@ package com.jdroid.android.utils;
 
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
 import com.jdroid.java.concurrent.ExecutorUtils;
@@ -20,7 +21,8 @@ public class ImageLoaderUtils {
 	
 	private static SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.get("imageLoader");
 	@SuppressWarnings("unchecked")
-	private static Map<String, Long> imagesExpirationMap = (Map<String, Long>)sharedPreferencesHelper.loadAllPreferences();
+	private static Map<String, Long> imagesExpirationMap = new ConcurrentHashMap<String, Long>(
+			(Map<String, Long>)sharedPreferencesHelper.loadAllPreferences());
 	
 	public static void displayImage(String url, ImageView imageView, Integer defaultImage,
 			ImageLoadingListener imageLoadingListener, Long timeToLive) {
