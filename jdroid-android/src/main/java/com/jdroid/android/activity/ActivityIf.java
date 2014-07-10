@@ -2,6 +2,7 @@ package com.jdroid.android.activity;
 
 import java.util.List;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,4 +39,6 @@ public interface ActivityIf extends ComponentIf {
 	public Boolean isNavDrawerTopLevelView();
 	
 	public List<Integer> getContextualMenuItemsIds();
+	
+	public Intent getUpIntent();
 }

@@ -7,6 +7,7 @@ import java.util.Collection;
 import org.slf4j.Logger;
 import com.jdroid.java.http.HttpWebServiceProcessor;
 import com.jdroid.java.http.WebService;
+import com.jdroid.java.http.post.EntityEnclosingWebService;
 import com.jdroid.java.parser.Parser;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.Hasher;
@@ -16,7 +17,7 @@ import com.jdroid.java.utils.LoggerUtils;
  * 
  * @author Maxi Rosson
  */
-public abstract class CachedWebService implements WebService {
+public abstract class CachedWebService implements WebService, EntityEnclosingWebService {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(CachedWebService.class);
 	
@@ -178,6 +179,14 @@ public abstract class CachedWebService implements WebService {
 	@Override
 	public String getUrlSuffix() {
 		return webService.getUrlSuffix();
+	}
+	
+	/**
+	 * @see com.jdroid.java.http.post.EntityEnclosingWebService#setEntity(java.lang.String)
+	 */
+	@Override
+	public void setEntity(String content) {
+		((EntityEnclosingWebService)webService).setEntity(content);
 	}
 	
 	/**

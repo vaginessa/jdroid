@@ -393,4 +393,12 @@ public abstract class AbstractFragmentActivity extends FragmentActivity implemen
 		activityHelper.onConfigurationChanged(newConfig);
 	}
 	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#getUpIntent()
+	 */
+	@Override
+	public Intent getUpIntent() {
+		return activityHelper.getUpIntent();
+	}
+	
 }

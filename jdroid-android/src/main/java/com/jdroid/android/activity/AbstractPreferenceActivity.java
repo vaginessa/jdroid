@@ -314,4 +314,12 @@ public abstract class AbstractPreferenceActivity extends PreferenceActivity impl
 		activityHelper.onConfigurationChanged(newConfig);
 	}
 	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#getUpIntent()
+	 */
+	@Override
+	public Intent getUpIntent() {
+		return activityHelper.getUpIntent();
+	}
+	
 }

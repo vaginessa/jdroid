@@ -323,4 +323,12 @@ public abstract class AbstractActivity extends Activity implements ActivityIf {
 		activityHelper.onConfigurationChanged(newConfig);
 	}
 	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#getUpIntent()
+	 */
+	@Override
+	public Intent getUpIntent() {
+		return activityHelper.getUpIntent();
+	}
+	
 }
