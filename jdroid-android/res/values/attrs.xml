@@ -3,4 +3,11 @@
 	<declare-styleable name="switchButton">
 		<attr name="label" format="string" />
 	</declare-styleable>
+
+	<declare-styleable name="quickReturnLayout">
+		<!-- Identifier for the child that represents the header. -->
+		<attr name="header" format="reference" />
+		<!-- Identifier for the child that represents the list. -->
+		<attr name="list" format="reference" />
+	</declare-styleable>
 </resources>
