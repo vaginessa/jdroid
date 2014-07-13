@@ -30,7 +30,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(GoogleAnalyticsTracker.class);
 	
-	private static final String NOTIFICATION_CATEGORY = "notification";
+	public static final String NOTIFICATION_CATEGORY = "notification";
 	private static final String ADS_CATEGORY = "ads";
 	private static final String CLICK_ACTION = "click";
 	
@@ -282,6 +282,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		HitBuilders.EventBuilder eventBuilder = new HitBuilders.EventBuilder();
 		addCustomDimension(eventBuilder, customDimensions);
 		tracker.send(eventBuilder.setCategory(category).setAction(action).setLabel(label).build());
+		LOGGER.debug("Sent event. Category [" + category + "] Action [" + action + "] Label [" + label + "]");
 	}
 	
 	public void sendTransaction(Map<String, String> params) {
