@@ -272,6 +272,8 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	public void sendEvent(String category, String action, String label, Long value) {
 		tracker.send(new HitBuilders.EventBuilder().setCategory(category).setAction(action).setLabel(label).setValue(
 			value).build());
+		LOGGER.debug("Event sent. Category [" + category + "] Action [" + action + "] Label [" + label + "] Value"
+				+ value + "]");
 	}
 	
 	public void sendEvent(String category, String action, String label) {
@@ -282,7 +284,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		HitBuilders.EventBuilder eventBuilder = new HitBuilders.EventBuilder();
 		addCustomDimension(eventBuilder, customDimensions);
 		tracker.send(eventBuilder.setCategory(category).setAction(action).setLabel(label).build());
-		LOGGER.debug("Sent event. Category [" + category + "] Action [" + action + "] Label [" + label + "]");
+		LOGGER.debug("Event sent. Category [" + category + "] Action [" + action + "] Label [" + label + "]");
 	}
 	
 	public void sendTransaction(Map<String, String> params) {
