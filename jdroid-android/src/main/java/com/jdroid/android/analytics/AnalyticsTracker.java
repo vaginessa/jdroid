@@ -33,6 +33,8 @@ public interface AnalyticsTracker {
 	
 	public void trackUriHandled(Boolean handled, String validUri, String invalidUri);
 	
+	public void trackInAppBillingPurchaseTry(Product product);
+	
 	public void trackInAppBillingPurchase(Product product);
 	
 	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget);

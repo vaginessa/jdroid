@@ -195,6 +195,20 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 	}
 	
 	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackInAppBillingPurchaseTry(com.jdroid.android.inappbilling.Product)
+	 */
+	@Override
+	public void trackInAppBillingPurchaseTry(final Product product) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+			
+			@Override
+			protected void track(T tracker) {
+				tracker.trackInAppBillingPurchaseTry(product);
+			}
+		});
+	}
+	
+	/**
 	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackInAppBillingPurchase(com.jdroid.android.inappbilling.Product)
 	 */
 	@Override

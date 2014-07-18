@@ -88,6 +88,14 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	}
 	
 	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackInAppBillingPurchaseTry(com.jdroid.android.inappbilling.Product)
+	 */
+	@Override
+	public void trackInAppBillingPurchaseTry(Product product) {
+		// Do Nothing
+	}
+	
+	/**
 	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackInAppBillingPurchase(com.jdroid.android.inappbilling.Product)
 	 */
 	@Override

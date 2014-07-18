@@ -42,13 +42,20 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 	public static void show(FragmentActivity fragmentActivity, AlertDialogFragment alertDialogFragment, String title,
 			String message, String negativeButtonText, String neutralButtonText, String positiveButtonText,
 			Boolean cancelable) {
-		show(fragmentActivity.getSupportFragmentManager(), alertDialogFragment, title, message, negativeButtonText,
-			neutralButtonText, positiveButtonText, cancelable);
+		show(fragmentActivity.getSupportFragmentManager(), alertDialogFragment, null, title, message,
+			negativeButtonText, neutralButtonText, positiveButtonText, cancelable);
 	}
 	
-	public static void show(FragmentManager fragmentManager, AlertDialogFragment alertDialogFragment, String title,
-			String message, String negativeButtonText, String neutralButtonText, String positiveButtonText,
-			Boolean cancelable) {
+	public static void show(FragmentActivity fragmentActivity, AlertDialogFragment alertDialogFragment,
+			Fragment targetFragment, String title, String message, String negativeButtonText, String neutralButtonText,
+			String positiveButtonText, Boolean cancelable) {
+		show(fragmentActivity.getSupportFragmentManager(), alertDialogFragment, targetFragment, title, message,
+			negativeButtonText, neutralButtonText, positiveButtonText, cancelable);
+	}
+	
+	public static void show(FragmentManager fragmentManager, AlertDialogFragment alertDialogFragment,
+			Fragment targetFragment, String title, String message, String negativeButtonText, String neutralButtonText,
+			String positiveButtonText, Boolean cancelable) {
 		
 		Bundle bundle = new Bundle();
 		bundle.putSerializable(TITLE_EXTRA, title);
@@ -61,6 +68,9 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 		}
 		alertDialogFragment.setArguments(bundle);
 		alertDialogFragment.setCancelable(cancelable);
+		if (targetFragment != null) {
+			alertDialogFragment.setTargetFragment(targetFragment, 0);
+		}
 		
 		alertDialogFragment.show(fragmentManager, alertDialogFragment.getClass().getSimpleName());
 	}

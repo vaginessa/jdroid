@@ -153,6 +153,7 @@ public abstract class InAppBillingFragment extends AbstractGridFragment<Product>
 	public void launchPurchaseFlow(Product product) {
 		inAppBillingClient.launchPurchaseFlow(getActivity(), product.getProductType().getProductId(),
 			PURCHASE_REQUEST_CODE, purchaseListener, product.generatePayload());
+		AbstractApplication.get().getAnalyticsSender().trackInAppBillingPurchaseTry(product);
 	}
 	
 	// Callback for when a purchase is finished

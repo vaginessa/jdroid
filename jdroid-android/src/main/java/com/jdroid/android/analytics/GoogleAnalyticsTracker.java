@@ -123,6 +123,14 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 	
 	/**
+	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackInAppBillingPurchaseTry(com.jdroid.android.inappbilling.Product)
+	 */
+	@Override
+	public void trackInAppBillingPurchaseTry(Product product) {
+		sendEvent("inAppBiling", "purchaseTry", product.getProductType().getProductId());
+	}
+	
+	/**
 	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackInAppBillingPurchase(com.jdroid.android.inappbilling.Product)
 	 */
 	@Override

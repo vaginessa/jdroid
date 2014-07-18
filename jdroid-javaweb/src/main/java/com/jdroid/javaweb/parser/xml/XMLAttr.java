@@ -1,4 +1,4 @@
-package com.jdroid.java.parser.xml;
+package com.jdroid.javaweb.parser.xml;
 
 /**
  * XML Element attribute
