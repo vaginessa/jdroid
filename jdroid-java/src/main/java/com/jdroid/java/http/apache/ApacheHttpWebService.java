@@ -75,7 +75,6 @@ public abstract class ApacheHttpWebService implements WebService {
 		}
 		this.httpClientFactory = httpClientFactory;
 		this.server = server;
-		this.urlSegments = urlSegments;
 		this.httpWebServiceProcessors = httpWebServiceProcessors;
 	}
 	
