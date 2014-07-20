@@ -8,10 +8,10 @@ import android.widget.ImageView;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.DiscCacheUtil;
-import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.utils.DiskCacheUtils;
 
 /**
  * 
@@ -29,7 +29,7 @@ public class ImageLoaderUtils {
 		
 		DisplayImageOptions.Builder optionsBuilder = new DisplayImageOptions.Builder();
 		optionsBuilder.cacheInMemory(true);
-		optionsBuilder.cacheOnDisc(true);
+		optionsBuilder.cacheOnDisk(true);
 		if (defaultImage != null) {
 			optionsBuilder.showImageOnLoading(defaultImage);
 			optionsBuilder.showImageForEmptyUri(defaultImage);
@@ -48,7 +48,7 @@ public class ImageLoaderUtils {
 		
 		DisplayImageOptions.Builder optionsBuilder = new DisplayImageOptions.Builder();
 		optionsBuilder.cacheInMemory(true);
-		optionsBuilder.cacheOnDisc(true);
+		optionsBuilder.cacheOnDisk(true);
 		optionsBuilder.imageScaleType(imageScaleType);
 		
 		ImageSize imageSize = new ImageSize(width, height);
@@ -83,7 +83,7 @@ public class ImageLoaderUtils {
 				synchronized (ImageLoaderUtils.class) {
 					for (Entry<String, Long> entry : imagesExpirationMap.entrySet()) {
 						if (System.currentTimeMillis() > entry.getValue()) {
-							DiscCacheUtil.removeFromCache(entry.getKey(), ImageLoader.getInstance().getDiscCache());
+							DiskCacheUtils.removeFromCache(entry.getKey(), ImageLoader.getInstance().getDiskCache());
 							sharedPreferencesHelper.removePreferences(entry.getKey());
 							imagesExpirationMap.remove(entry.getKey());
 						}

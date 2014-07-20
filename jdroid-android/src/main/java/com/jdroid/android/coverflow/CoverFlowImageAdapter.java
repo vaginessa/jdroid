@@ -28,7 +28,7 @@ public abstract class CoverFlowImageAdapter<T> extends BaseArrayAdapter<T> {
 		ReflectedBitmapDisplayer reflectedBitmapDisplayer = new ReflectedBitmapDisplayer();
 		DisplayImageOptions.Builder optionsBuilder = new DisplayImageOptions.Builder();
 		optionsBuilder.cacheInMemory(true);
-		optionsBuilder.cacheOnDisc(true);
+		optionsBuilder.cacheOnDisk(true);
 		optionsBuilder.showImageOnLoading(getDefaultDrawableId());
 		optionsBuilder.showImageForEmptyUri(getDefaultDrawableId());
 		optionsBuilder.showImageOnFail(getDefaultDrawableId());

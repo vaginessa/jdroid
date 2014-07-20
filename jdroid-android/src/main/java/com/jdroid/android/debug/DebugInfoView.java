@@ -107,7 +107,7 @@ public class DebugInfoView extends LinearLayout {
 			
 			@Override
 			public void onClick(View v) {
-				ImageLoader.getInstance().clearDiscCache();
+				ImageLoader.getInstance().clearDiskCache();
 			}
 		});
 		findViewById(R.id.clearImagesMemoryCache).setOnClickListener(new OnClickListener() {

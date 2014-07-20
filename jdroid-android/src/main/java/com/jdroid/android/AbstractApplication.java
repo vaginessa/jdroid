@@ -134,12 +134,12 @@ public abstract class AbstractApplication extends Application {
 		
 		DisplayImageOptions.Builder defaultOptiBuilder = new DisplayImageOptions.Builder();
 		defaultOptiBuilder.cacheInMemory(true);
-		defaultOptiBuilder.cacheOnDisc(true);
+		defaultOptiBuilder.cacheOnDisk(true);
 		
 		ImageLoaderConfiguration.Builder configBuilder = new ImageLoaderConfiguration.Builder(getApplicationContext());
 		configBuilder.tasksProcessingOrder(QueueProcessingType.LIFO);
 		configBuilder.defaultDisplayImageOptions(defaultOptiBuilder.build());
-		configBuilder.discCacheSize(10 * 1024 * 1024);
+		configBuilder.diskCacheSize(10 * 1024 * 1024);
 		// configBuilder.writeDebugLogs();
 		
 		ImageLoader.getInstance().init(configBuilder.build());

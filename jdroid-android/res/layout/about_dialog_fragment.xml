@@ -62,6 +62,10 @@
 
 		<View style="@style/aboutSeparator" />
 
+		<TextView style="@style/normalText" android:text="@string/universalImageLoaderLegend" />
+
+		<View style="@style/aboutSeparator" />
+
 		<TextView android:id="@+id/copyright" style="@style/normalText" android:text="@string/copyright" />
 		<TextView android:id="@+id/allRightsReservedLegend" style="@style/normalText" android:text="@string/allRightsReservedLegend" />
 
