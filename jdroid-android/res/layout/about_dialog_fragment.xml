@@ -62,7 +62,8 @@
 
 		<View style="@style/aboutSeparator" />
 
-		<TextView style="@style/normalText" android:text="@string/universalImageLoaderLegend" />
+		<TextView style="@style/smallText" android:layout_gravity="center_horizontal" android:gravity="center_horizontal"
+			android:text="@string/universalImageLoaderLegend" />
 
 		<View style="@style/aboutSeparator" />
 

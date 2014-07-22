@@ -18,6 +18,9 @@ jdroid-android/target/
 jdroid-android/tmp/
 jdroid-android/.settings/org.maven.ide.eclipse.prefs
 
+jdroid-android-tools/dex-method-counts/bin/
+jdroid-android-tools/dex-method-counts/build/
+
 jdroid-google-play-services/bin/
 jdroid-google-play-services/gen/
 jdroid-google-play-services/target/
