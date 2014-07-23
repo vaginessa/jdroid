@@ -34,7 +34,7 @@ public abstract class AbstractGcmMessage implements GcmMessage {
 	 */
 	@Override
 	public void addParameter(String key, Boolean value) {
-		parameters.put(key, value.toString());
+		parameters.put(key, value != null ? value.toString() : null);
 	}
 	
 	/**
@@ -42,7 +42,7 @@ public abstract class AbstractGcmMessage implements GcmMessage {
 	 */
 	@Override
 	public void addParameter(String key, Integer value) {
-		parameters.put(key, value.toString());
+		parameters.put(key, value != null ? value.toString() : null);
 	}
 	
 	/**
@@ -50,7 +50,7 @@ public abstract class AbstractGcmMessage implements GcmMessage {
 	 */
 	@Override
 	public void addParameter(String key, Long value) {
-		parameters.put(key, value.toString());
+		parameters.put(key, value != null ? value.toString() : null);
 	}
 	
 	/**
