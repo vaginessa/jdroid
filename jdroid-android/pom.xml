@@ -30,7 +30,7 @@
 		<dependency>
 			<groupId>android.compatibility</groupId>
 			<artifactId>android-support-v4</artifactId>
-			<version>${android.compatibility.support.version}</version>
+			<version>r20</version>
 		</dependency>
 
 		<!-- jdroid Java -->
