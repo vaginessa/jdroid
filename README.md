@@ -75,7 +75,7 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 
 jdroid Android Tools
 --------------
-Tools projects for Android apps
+Useful tools for Android apps
 * Report the methods invocations in android dex files, package by package
 
 jdroid Scripts
