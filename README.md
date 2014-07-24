@@ -68,25 +68,32 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * Voice Recognizer component
 * Date & Time picker components
 * About dialog component
+* QuickReturnLayout component
 * Animations
  * Fade in / Fade out
 * Utilities for Alarms, Bitmaps, [Notifications][25], Shared Preferences, [Toasts][26], Sounds, GPS, and more
 
-jdroid scripts
+jdroid Android Tools
+--------------
+Tools projects for Android apps
+* Report the methods invocations in android dex files, package by package
+
+jdroid Scripts
 --------------
 A set of useful shell scripts to
  * Increment the pom & android manifest versions according to [Semantic Versioning][3]
  * Create a pull request on [Github][22]
  * Create a merge request on [Gitlab][21]
- * Count the methods in android dex files
+ * Count the methods invocations in android dex files
+ * Strip Google Play Services jar
  * Start/stop and deploy on [Apache Tomcat][20]
  * Automatically restart [Apache Tomcat][20]
 
-jdroid sample server
+jdroid Sample Server
 --------------
 Sample server app using jdroid Java Web & jdroid Java
 
-jdroid sample android
+jdroid Sample Android
 --------------
 Sample android app using jdroid Android & jdroid Java
 
