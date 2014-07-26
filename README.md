@@ -57,6 +57,7 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * [Strict mode support][24]
 * Debug settings support
 * Url handling support
+* House ads support
 * Base Activity & Fragment implementations
 * Exception handling
 * ListView & GridView pagination support
