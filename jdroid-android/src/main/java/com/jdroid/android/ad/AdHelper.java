@@ -2,16 +2,13 @@ package com.jdroid.android.ad;
 
 import android.app.Activity;
 import android.text.format.DateUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.R;
 import com.jdroid.android.context.AppContext;
 
 /**
@@ -25,8 +22,7 @@ public class AdHelper {
 	private AdView adView;
 	private Boolean displayAds = false;
 	
-	public void loadAd(final Activity activity, ViewGroup adViewContainer, AdSize adSize,
-			final OnClickListener removeAdsClickListener) {
+	public void loadAd(final Activity activity, ViewGroup adViewContainer, AdSize adSize, HouseAdBuilder houseAdBuilder) {
 		
 		this.adViewContainer = adViewContainer;
 		if (adViewContainer != null) {
@@ -38,21 +34,7 @@ public class AdHelper {
 				adView = new AdView(activity);
 				adView.setAdUnitId(applicationContext.getAdUnitId());
 				adView.setAdSize(adSize);
-				
-				if (RateAppView.displayRateMe()) {
-					customView = new RateAppView(activity);
-				} else if (removeAdsClickListener != null) {
-					customView = LayoutInflater.from(activity).inflate(R.layout.remove_ads_view, adViewContainer, false);
-					customView.setOnClickListener(new OnClickListener() {
-						
-						@Override
-						public void onClick(View v) {
-							removeAdsClickListener.onClick(v);
-							AbstractApplication.get().getAnalyticsSender().trackRemoveAdsBannerClicked();
-						}
-					});
-				}
-				
+				customView = houseAdBuilder != null ? houseAdBuilder.build(activity) : null;
 				if (customView != null) {
 					
 					adViewContainer.addView(customView);

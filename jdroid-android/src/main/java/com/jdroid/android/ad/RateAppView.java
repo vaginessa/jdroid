@@ -54,6 +54,8 @@ public class RateAppView extends RelativeLayout {
 	}
 	
 	public static Boolean displayRateMe() {
-		return new Random().nextBoolean() && !SharedPreferencesHelper.get().hasPreference(RATE_ME_CLICK_TIMESTAMP);
+		Boolean enoughDaysSinceFirstSession = AbstractApplication.get().getAppContext().getDaysSinceFirstSession() > 7;
+		return new Random().nextBoolean() && !SharedPreferencesHelper.get().hasPreference(RATE_ME_CLICK_TIMESTAMP)
+				&& enoughDaysSinceFirstSession;
 	}
 }

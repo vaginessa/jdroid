@@ -6,13 +6,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.ad.AdHelper;
+import com.jdroid.android.ad.HouseAdBuilder;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
@@ -73,7 +73,7 @@ public class FragmentHelper implements FragmentIf {
 		adHelper = createAdLoader();
 		if (adHelper != null) {
 			adHelper.loadAd(fragment.getActivity(), (ViewGroup)(fragment.getView().findViewById(R.id.adViewContainer)),
-				getFragmentIf().getAdSize(), getRemoveAdsClickListener());
+				getFragmentIf().getAdSize(), getHouseAdBuilder());
 		}
 		
 		loadingLayout = findView(R.id.container);
@@ -439,7 +439,7 @@ public class FragmentHelper implements FragmentIf {
 		return getActivityIf().getAdSize();
 	}
 	
-	public OnClickListener getRemoveAdsClickListener() {
+	public HouseAdBuilder getHouseAdBuilder() {
 		return null;
 	}
 	

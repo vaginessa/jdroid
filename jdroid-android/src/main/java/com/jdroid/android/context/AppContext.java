@@ -5,7 +5,9 @@ import java.util.Set;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
+import android.text.format.DateUtils;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.utils.PropertiesUtils;
 
@@ -19,6 +21,7 @@ public class AppContext {
 	private static final String LOCAL_PROPERTIES_RESOURCE_NAME = "settings.local.properties";
 	
 	private static final String ADS_ENABLED = "adsEnabled";
+	private static final String FIRST_SESSION_TIMESTAMP = "firstSessionTimestamp";
 	
 	// Environment
 	private String localIp;
@@ -217,5 +220,25 @@ public class AppContext {
 	
 	public Boolean isCrashlyticsDebugEnabled() {
 		return crashlyticsDebugEnabled;
+	}
+	
+	public void saveFirstSessionTimestamp() {
+		Long firstSessionTimestamp = getFirstSessionTimestamp();
+		if (firstSessionTimestamp == null) {
+			SharedPreferencesHelper.get().savePreference(FIRST_SESSION_TIMESTAMP, System.currentTimeMillis());
+		}
+	}
+	
+	public Long getFirstSessionTimestamp() {
+		return SharedPreferencesHelper.get().loadPreferenceAsLong(FIRST_SESSION_TIMESTAMP);
+	}
+	
+	public Long getDaysSinceFirstSession() {
+		Long firstSessionTimestamp = getFirstSessionTimestamp();
+		if (firstSessionTimestamp != null) {
+			return (System.currentTimeMillis() - getFirstSessionTimestamp()) / DateUtils.DAY_IN_MILLIS;
+		} else {
+			return 0L;
+		}
 	}
 }
