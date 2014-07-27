@@ -2,8 +2,11 @@ package com.jdroid.android.debug;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
+import com.jdroid.android.fragment.AbstractPreferenceFragment;
+import com.jdroid.java.exception.UnexpectedException;
 
 /**
  * Debug Settings Activity just for debug purposes. These settings are disabled on the production environment
@@ -29,10 +32,29 @@ public class DebugSettingsActivity extends AbstractFragmentActivity {
 		
 		if (savedInstanceState == null) {
 			FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-			fragmentTransaction.add(R.id.fragmentContainer, new DebugSettingsFragment());
+			fragmentTransaction.add(R.id.fragmentContainer, createNewFragment());
 			fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 			fragmentTransaction.commit();
 		}
+	}
+	
+	protected AbstractPreferenceFragment createNewFragment() {
+		return instanceAbstractPreferenceFragment(AbstractApplication.get().getDebugSettingsFragmentClass(),
+			getIntent().getExtras());
+	}
+	
+	private <E extends AbstractPreferenceFragment> E instanceAbstractPreferenceFragment(Class<E> fragmentClass,
+			Bundle bundle) {
+		E fragment = null;
+		try {
+			fragment = fragmentClass.newInstance();
+		} catch (InstantiationException e) {
+			throw new UnexpectedException(e);
+		} catch (IllegalAccessException e) {
+			throw new UnexpectedException(e);
+		}
+		fragment.setArguments(bundle);
+		return fragment;
 	}
 	
 	/**

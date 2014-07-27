@@ -22,8 +22,10 @@ import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.context.AppContext;
+import com.jdroid.android.debug.DebugSettingsFragment;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.ExceptionHandler;
+import com.jdroid.android.fragment.AbstractPreferenceFragment;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.gcm.GcmMessageResolver;
 import com.jdroid.android.repository.UserRepository;
@@ -410,7 +412,7 @@ public abstract class AbstractApplication extends Application {
 		return (Repository<M>)repositories.get(persistentClass);
 	}
 	
-	public Integer getDebugPreferences() {
-		return R.xml.debug_preferences;
+	public Class<? extends AbstractPreferenceFragment> getDebugSettingsFragmentClass() {
+		return DebugSettingsFragment.class;
 	}
 }

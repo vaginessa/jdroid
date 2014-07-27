@@ -90,7 +90,7 @@ public class DebugInfoView extends LinearLayout {
 			
 			@Override
 			public void onClick(View v) {
-				final String crashType = applicationContext.getCrashType();
+				String crashType = applicationContext.getCrashType();
 				Boolean workerThread = crashType.endsWith("Worker Thread");
 				CrashGenerator.crash(crashType, workerThread);
 			}

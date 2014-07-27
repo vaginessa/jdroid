@@ -2,6 +2,7 @@ package com.jdroid.android.debug;
 
 import java.util.List;
 import java.util.Map.Entry;
+import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -17,7 +18,9 @@ import com.jdroid.android.analytics.ExperimentHelper;
 import com.jdroid.android.analytics.ExperimentHelper.Experiment;
 import com.jdroid.android.analytics.ExperimentHelper.ExperimentVariant;
 import com.jdroid.android.fragment.AbstractPreferenceFragment;
+import com.jdroid.android.gcm.GcmMessage;
 import com.jdroid.java.collections.Lists;
+import com.jdroid.java.utils.CollectionUtils;
 
 /**
  * 
@@ -31,7 +34,7 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(AbstractApplication.get().getDebugPreferences());
+		addPreferencesFromResource(getDebugPreferences());
 	}
 	
 	/**
@@ -41,6 +44,20 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		
+		initExperiments();
+		initDebugGcmMessages();
+		
+		ListView listView = ((ListView)findView(android.R.id.list));
+		View debugInfoView = new DebugInfoView(getActivity());
+		listView.addFooterView(debugInfoView);
+		
+		View customDebugInfoView = getCustomDebugInfoView();
+		if (customDebugInfoView != null) {
+			listView.addFooterView(debugInfoView);
+		}
+	}
+	
+	protected void initExperiments() {
 		if (!ExperimentHelper.getExperimentsMap().isEmpty()) {
 			
 			PreferenceCategory preferenceCategory = new PreferenceCategory(getActivity());
@@ -90,9 +107,66 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 				preferenceCategory.addPreference(preference);
 			}
 		}
+	}
+	
+	protected void initDebugGcmMessages() {
 		
-		ListView listView = ((ListView)findView(android.R.id.list));
-		View debugInfoView = new DebugInfoView(getActivity());
-		listView.addFooterView(debugInfoView);
+		final List<? extends GcmMessage> gcmMessages = getGcmMessages();
+		if (CollectionUtils.isNotEmpty(gcmMessages)) {
+			PreferenceCategory preferenceCategory = new PreferenceCategory(getActivity());
+			preferenceCategory.setTitle(R.string.gcmSettings);
+			getPreferenceScreen().addPreference(preferenceCategory);
+			
+			ListPreference preference = new ListPreference(getActivity());
+			preference.setTitle(R.string.emulateGcmMessageTitle);
+			preference.setDialogTitle(R.string.emulateGcmMessageTitle);
+			preference.setSummary(R.string.emulateGcmMessageDescription);
+			List<CharSequence> entries = Lists.newArrayList();
+			for (GcmMessage entry : gcmMessages) {
+				entries.add(entry.getMessageKey());
+			}
+			preference.setEntries(entries.toArray(new CharSequence[0]));
+			preference.setEntryValues(entries.toArray(new CharSequence[0]));
+			preference.setPersistent(false);
+			preference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				
+				@Override
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					
+					GcmMessage gcmMessage = null;
+					for (GcmMessage each : gcmMessages) {
+						if (each.getMessageKey().equals(newValue.toString())) {
+							gcmMessage = each;
+							break;
+						}
+					}
+					
+					Intent intent = getEmulatedGcmMessageIntent(gcmMessage);
+					if (intent != null) {
+						gcmMessage.handle(intent);
+					}
+					
+					return false;
+				}
+			});
+			preferenceCategory.addPreference(preference);
+		}
+		
+	}
+	
+	protected Intent getEmulatedGcmMessageIntent(GcmMessage gcmMessage) {
+		return null;
+	}
+	
+	protected List<? extends GcmMessage> getGcmMessages() {
+		return null;
+	}
+	
+	protected Integer getDebugPreferences() {
+		return R.xml.debug_preferences;
+	}
+	
+	protected View getCustomDebugInfoView() {
+		return null;
 	}
 }
