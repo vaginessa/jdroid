@@ -22,6 +22,7 @@ import com.jdroid.android.social.googleplus.GooglePlusHelperFragment;
 import com.jdroid.android.social.googleplus.GooglePlusOneButtonHelper;
 import com.jdroid.android.social.twitter.TwitterConnector;
 import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.IntentUtils;
 import com.jdroid.java.utils.DateUtils;
 
 /**
@@ -81,6 +82,22 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 		
 		TextView allRightsReservedLegend = (TextView)view.findViewById(R.id.allRightsReservedLegend);
 		allRightsReservedLegend.setText(getAllRightsReservedLegend());
+		
+		view.findViewById(R.id.jdroidLegend).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				IntentUtils.startUrl(getActivity(), "https://github.com/maxirosson/jdroid");
+			}
+		});
+		
+		view.findViewById(R.id.universalImageLoaderLegend).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				IntentUtils.startUrl(getActivity(), "https://github.com/nostra13/Android-Universal-Image-Loader");
+			}
+		});
 		
 		PlusOneButton plusOneButton = (PlusOneButton)view.findViewById(R.id.plusOneButton);
 		if (displayGooglePlusOneButton()) {

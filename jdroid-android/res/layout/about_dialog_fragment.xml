@@ -62,8 +62,14 @@
 
 		<View style="@style/aboutSeparator" />
 
-		<TextView style="@style/smallText" android:layout_gravity="center_horizontal" android:gravity="center_horizontal"
-			android:text="@string/universalImageLoaderLegend" />
+		<TextView android:id="@+id/jdroidLegend" style="@style/smallText" android:layout_gravity="center_horizontal"
+			android:gravity="center_horizontal" android:text="@string/jdroidLegend" android:padding="4dp"
+			android:background="@drawable/default_item_selector" />
+
+		<View style="@style/aboutSeparator" />
+
+		<TextView android:id="@+id/universalImageLoaderLegend" style="@style/smallText" android:layout_gravity="center_horizontal"
+			android:gravity="center_horizontal" android:text="@string/universalImageLoaderLegend" />
 
 		<View style="@style/aboutSeparator" />
 

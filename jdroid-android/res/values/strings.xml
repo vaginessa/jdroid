@@ -63,6 +63,7 @@
 	<string name="copyright">© %1$s %2$s</string>
 	<string name="allRightsReservedLegend">All Rights Reserved</string>
 	<string name="followUs">Follow us</string>
+	<string name="jdroidLegend">Using Jdroid - Application Framework for Android and Java apps</string>
 	<string name="universalImageLoaderLegend">Using Universal Image Loader (c) 2011-2014, Sergey Tarasevich</string>
 
 	<!-- External Apps -->

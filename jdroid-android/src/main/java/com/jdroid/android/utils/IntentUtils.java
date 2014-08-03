@@ -1,9 +1,11 @@
 package com.jdroid.android.utils;
 
 import java.util.List;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import com.jdroid.android.AbstractApplication;
 
 /**
@@ -37,5 +39,11 @@ public class IntentUtils {
 		List<ResolveInfo> list = AbstractApplication.get().getPackageManager().queryIntentActivities(intent,
 			PackageManager.MATCH_DEFAULT_ONLY);
 		return !list.isEmpty();
+	}
+	
+	public static void startUrl(Activity activity, String url) {
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setData(Uri.parse(url));
+		activity.startActivity(intent);
 	}
 }
