@@ -31,7 +31,7 @@ public interface AnalyticsTracker {
 	
 	public void trackHandledException(Throwable throwable);
 	
-	public void trackUriHandled(Boolean handled, String validUri, String invalidUri);
+	public void trackUriOpened(String uriType, String screenName);
 	
 	public void trackInAppBillingPurchaseTry(Product product);
 	

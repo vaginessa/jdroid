@@ -8,6 +8,8 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.HitBuilders.AppViewBuilder;
 import com.google.android.gms.analytics.HitBuilders.EventBuilder;
+import com.google.android.gms.analytics.HitBuilders.ItemBuilder;
+import com.google.android.gms.analytics.HitBuilders.SocialBuilder;
 import com.google.android.gms.analytics.HitBuilders.TransactionBuilder;
 import com.google.android.gms.analytics.Logger.LogLevel;
 import com.google.android.gms.analytics.Tracker;
@@ -20,6 +22,7 @@ import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.collections.Maps;
+import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
 /**
@@ -34,13 +37,20 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	private static final String ADS_CATEGORY = "ads";
 	private static final String CLICK_ACTION = "click";
 	
+	// 30 minutes
+	private static final int SESSION_TIMEOUT = 1800;
+	
 	private Map<String, Integer> customDimensionsMap = Maps.newHashMap();
 	private Map<String, Integer> customMetricsMap = Maps.newHashMap();
 	private Tracker tracker;
 	private Boolean firstTrackingSent = false;
+	private Long lastStopTime = System.currentTimeMillis();
+	
+	private Map<String, String> commonCustomDimensionsValues = Maps.newHashMap();
 	
 	public enum CustomDimension {
 		LOGIN_SOURCE,
+		IS_LOGGED,
 		INSTALLATION_SOURCE,
 		APP_LOADING_SOURCE,
 		DEVICE_TYPE;
@@ -55,7 +65,8 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 				analytics.getLogger().setLogLevel(LogLevel.ERROR);
 			}
 			tracker = analytics.newTracker(AbstractApplication.get().getAppContext().getGoogleAnalyticsTrackingId());
-			tracker.setSessionTimeout(300);
+			tracker.setSessionTimeout(SESSION_TIMEOUT);
+			
 			init(customDimensionsMap, customMetricsMap);
 		}
 	}
@@ -83,7 +94,11 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 			
 			AppViewBuilder appViewBuilder = new HitBuilders.AppViewBuilder();
 			if (appLoadingSource != null) {
-				addCustomDimension(appViewBuilder, CustomDimension.APP_LOADING_SOURCE, appLoadingSource.getName());
+				if (!hasCommonCustomDimension(CustomDimension.APP_LOADING_SOURCE.name()) || isSessionExpired()) {
+					addCommonCustomDimension(CustomDimension.APP_LOADING_SOURCE.name(), appLoadingSource.getName());
+				}
+			} else if (!hasCommonCustomDimension(CustomDimension.APP_LOADING_SOURCE.name())) {
+				addCommonCustomDimension(CustomDimension.APP_LOADING_SOURCE.name(), AppLoadingSource.NORMAL.getName());
 			}
 			
 			if (!firstTrackingSent) {
@@ -104,21 +119,28 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 				if (installationSource != null) {
 					addCustomDimension(appViewBuilder, CustomDimension.INSTALLATION_SOURCE, installationSource);
 					
-					onAppLoadTrack(appViewBuilder);
+					onAppLoadTrack(appViewBuilder, data);
 					firstTrackingSent = true;
 				}
 			}
-			onActivityStartTrack(appViewBuilder);
+			onActivityStartTrack(appViewBuilder, data);
 			sendScreenView(appViewBuilder, activity.getClass().getSimpleName());
 		}
-		
 	}
 	
-	protected void onAppLoadTrack(AppViewBuilder appViewBuilder) {
+	/**
+	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#onActivityStop(android.app.Activity)
+	 */
+	@Override
+	public void onActivityStop(Activity activity) {
+		lastStopTime = System.currentTimeMillis();
+	}
+	
+	protected void onAppLoadTrack(AppViewBuilder appViewBuilder, Object data) {
 		// Do nothing
 	}
 	
-	protected void onActivityStartTrack(AppViewBuilder appViewBuilder) {
+	protected void onActivityStartTrack(AppViewBuilder appViewBuilder, Object data) {
 		// Do nothing
 	}
 	
@@ -140,7 +162,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		transactionBuilder.setAffiliation("Google Play");
 		transactionBuilder.setRevenue(product.getPrice());
 		transactionBuilder.setCurrencyCode(product.getCurrencyCode());
-		sendTransaction(transactionBuilder.build());
+		sendTransaction(transactionBuilder);
 		
 		HitBuilders.ItemBuilder itemBuilder = new HitBuilders.ItemBuilder();
 		itemBuilder.setTransactionId(product.getPurchase().getOrderId());
@@ -150,7 +172,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		itemBuilder.setQuantity(1);
 		itemBuilder.setPrice(product.getPrice());
 		itemBuilder.setCurrencyCode(product.getCurrencyCode());
-		sendTransaction(itemBuilder.build());
+		sendTransactionItem(itemBuilder);
 	}
 	
 	/**
@@ -186,6 +208,14 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 	
 	/**
+	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackUriOpened(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void trackUriOpened(String uriType, String screenName) {
+		sendEvent(uriType, "open", screenName);
+	}
+	
+	/**
 	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackSocialInteraction(com.jdroid.android.social.AccountType,
 	 *      com.jdroid.android.social.SocialAction, java.lang.String)
 	 */
@@ -208,6 +238,14 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		if (index != null) {
 			LOGGER.debug("Added custom dimension: " + index + " - " + dimension);
 			appViewBuilder.setCustomDimension(index, dimension);
+		}
+	}
+	
+	protected void addCustomDimension(AppViewBuilder appViewBuilder, Map<String, String> customDimensions) {
+		if (customDimensions != null) {
+			for (Entry<String, String> entry : customDimensions.entrySet()) {
+				addCustomDimension(appViewBuilder, entry.getKey(), entry.getValue());
+			}
 		}
 	}
 	
@@ -267,39 +305,88 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		}
 	}
 	
+	public void sendScreenView(String screenName) {
+		sendScreenView(new AppViewBuilder(), screenName);
+	}
+	
 	public void sendScreenView(AppViewBuilder appViewBuilder, String screenName) {
+		
+		addCustomDimension(appViewBuilder, commonCustomDimensionsValues);
+		
 		tracker.setScreenName(screenName);
 		tracker.send(appViewBuilder.build());
-	}
-	
-	public void sendScreenView(String screenName) {
-		tracker.setScreenName(screenName);
-		tracker.send(new HitBuilders.AppViewBuilder().build());
-	}
-	
-	public void sendEvent(String category, String action, String label, Long value) {
-		tracker.send(new HitBuilders.EventBuilder().setCategory(category).setAction(action).setLabel(label).setValue(
-			value).build());
-		LOGGER.debug("Event sent. Category [" + category + "] Action [" + action + "] Label [" + label + "] Value"
-				+ value + "]");
+		LOGGER.debug("Screen view sent. Screen name [" + screenName + "]");
 	}
 	
 	public void sendEvent(String category, String action, String label) {
-		sendEvent(category, action, label, (Map<String, String>)null);
+		sendEvent(category, action, label, null, (Map<String, String>)null);
 	}
 	
 	public void sendEvent(String category, String action, String label, Map<String, String> customDimensions) {
-		HitBuilders.EventBuilder eventBuilder = new HitBuilders.EventBuilder();
-		addCustomDimension(eventBuilder, customDimensions);
-		tracker.send(eventBuilder.setCategory(category).setAction(action).setLabel(label).build());
-		LOGGER.debug("Event sent. Category [" + category + "] Action [" + action + "] Label [" + label + "]");
+		sendEvent(category, action, label, null, customDimensions);
 	}
 	
-	public void sendTransaction(Map<String, String> params) {
-		tracker.send(params);
+	public void sendEvent(String category, String action, String label, Long value, Map<String, String> customDimensions) {
+		HitBuilders.EventBuilder eventBuilder = new HitBuilders.EventBuilder();
+		
+		addCustomDimension(eventBuilder, commonCustomDimensionsValues);
+		addCustomDimension(eventBuilder, customDimensions);
+		
+		eventBuilder.setCategory(category);
+		eventBuilder.setAction(action);
+		eventBuilder.setLabel(label);
+		if (value != null) {
+			eventBuilder.setValue(value);
+		}
+		
+		tracker.send(eventBuilder.build());
+		LOGGER.debug("Event sent. Category [" + category + "] Action [" + action + "] Label [" + label + "]"
+				+ (value != null ? " Value" + value + "]" : ""));
+	}
+	
+	public void sendTransaction(TransactionBuilder transactionBuilder) {
+		sendTransaction(transactionBuilder, null);
+	}
+	
+	public void sendTransaction(TransactionBuilder transactionBuilder, Map<String, String> customDimensions) {
+		
+		addCustomDimension(transactionBuilder, commonCustomDimensionsValues);
+		addCustomDimension(transactionBuilder, customDimensions);
+		
+		tracker.send(transactionBuilder.build());
+		LOGGER.debug("Transaction sent. " + transactionBuilder.build());
+	}
+	
+	public void sendTransactionItem(ItemBuilder itemBuilder) {
+		tracker.send(itemBuilder.build());
+		LOGGER.debug("Transaction item sent. " + itemBuilder.build());
+	}
+	
+	public void sendSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget) {
+		
+		SocialBuilder socialBuilder = new SocialBuilder();
+		socialBuilder.setNetwork(accountType.getFriendlyName());
+		socialBuilder.setAction(socialAction.getName());
+		socialBuilder.setTarget(socialTarget);
+		
+		tracker.send(socialBuilder.build());
+		LOGGER.debug("Social interaction sent. Network [" + accountType.getFriendlyName() + "] Action ["
+				+ socialAction.getName() + "] Target [" + socialTarget + "]");
 	}
 	
 	public void dispatchLocalHits() {
 		GoogleAnalytics.getInstance(AbstractApplication.get()).dispatchLocalHits();
+	}
+	
+	public void addCommonCustomDimension(String key, String value) {
+		commonCustomDimensionsValues.put(key, value);
+	}
+	
+	public Boolean hasCommonCustomDimension(String key) {
+		return commonCustomDimensionsValues.containsKey(key);
+	}
+	
+	public Boolean isSessionExpired() {
+		return (System.currentTimeMillis() - lastStopTime) > (4 * SESSION_TIMEOUT * DateUtils.MILLIS_PER_SECOND);
 	}
 }

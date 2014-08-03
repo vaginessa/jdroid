@@ -79,11 +79,10 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackUriHandled(java.lang.Boolean, java.lang.String,
-	 *      java.lang.String)
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackUriOpened(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void trackUriHandled(Boolean handled, String validUri, String invalidUri) {
+	public void trackUriOpened(String uriType, String screenName) {
 		// Do Nothing
 	}
 	

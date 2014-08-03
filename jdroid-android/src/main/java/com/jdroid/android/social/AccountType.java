@@ -10,7 +10,8 @@ public enum AccountType {
 	
 	GOOGLE_PLUS("googlePlus", "Google+", R.drawable.common_signin_btn_icon_normal_light),
 	FACEBOOK("facebook", "Facebook", R.drawable.ic_facebook),
-	INTERNAL("internal", "Internal", null);
+	INTERNAL("internal", "Internal", null),
+	ANONYMOUS("anonymous", "Anonymous", null);
 	
 	private String name;
 	private String friendlyName;

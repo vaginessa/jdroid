@@ -14,24 +14,6 @@ import com.jdroid.android.AbstractApplication;
 public abstract class UriHandler<T> {
 	
 	/**
-	 * Creates a tracking parameter using the path prefix to be used for analytics purposes.
-	 * 
-	 * @param uri to evaluate.
-	 * @return the tracking parameter.
-	 */
-	public String createTrackingParam(Uri uri) {
-		String[] pathPrefixes = getPathPrefixes();
-		String uriString = uri.toString();
-		for (String pathPrefix : pathPrefixes) {
-			if (uriString.contains(pathPrefix)) {
-				// Return the first path prefix to unify the tracking
-				return pathPrefixes[0];
-			}
-		}
-		return uri.toString();
-	}
-	
-	/**
 	 * Return the path prefixes associated with this handler.
 	 * 
 	 * @return the path prefix

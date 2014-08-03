@@ -301,13 +301,7 @@ public class ActivityHelper implements ActivityIf {
 		}
 		
 		if (savedInstanceState == null) {
-			AppLoadingSource appLoadingSource = AppLoadingSource.getAppLoadingSource(activity.getIntent());
-			if (AppLoadingSource.NOTIFICATION.equals(appLoadingSource)) {
-				String notificationName = activity.getIntent().getStringExtra(NotificationBuilder.NOTIFICATION_NAME);
-				if (notificationName != null) {
-					AbstractApplication.get().getAnalyticsSender().trackNotificationOpened(notificationName);
-				}
-			}
+			trackNotificationOpened(activity.getIntent());
 		}
 	}
 	
@@ -738,5 +732,23 @@ public class ActivityHelper implements ActivityIf {
 	@Override
 	public List<Integer> getContextualMenuItemsIds() {
 		return Lists.newArrayList();
+	}
+	
+	public void onNewIntent(Intent intent) {
+		LOGGER.trace("Executing onNewIntent on " + activity);
+		
+		trackNotificationOpened(intent);
+	}
+	
+	private void trackNotificationOpened(Intent intent) {
+		AppLoadingSource appLoadingSource = AppLoadingSource.getAppLoadingSource(intent);
+		if (appLoadingSource != null) {
+			if (AppLoadingSource.NOTIFICATION.equals(appLoadingSource)) {
+				String notificationName = intent.getStringExtra(NotificationBuilder.NOTIFICATION_NAME);
+				if (notificationName != null) {
+					AbstractApplication.get().getAnalyticsSender().trackNotificationOpened(notificationName);
+				}
+			}
+		}
 	}
 }

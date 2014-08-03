@@ -322,4 +322,12 @@ public abstract class AbstractPreferenceActivity extends PreferenceActivity impl
 		return activityHelper.getUpIntent();
 	}
 	
+	/**
+	 * @see android.app.Activity#onNewIntent(android.content.Intent)
+	 */
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		activityHelper.onNewIntent(intent);
+	}
 }

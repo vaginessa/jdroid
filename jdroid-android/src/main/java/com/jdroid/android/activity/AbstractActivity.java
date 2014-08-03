@@ -331,4 +331,13 @@ public abstract class AbstractActivity extends Activity implements ActivityIf {
 		return activityHelper.getUpIntent();
 	}
 	
+	/**
+	 * @see android.app.Activity#onNewIntent(android.content.Intent)
+	 */
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		activityHelper.onNewIntent(intent);
+	}
+	
 }

@@ -19,14 +19,6 @@ public class UriMapper {
 	private static final String GOOGLE_PLUS_DEEPLINK_PREFFIX = "vnd.google.deeplink://link/?deep_link_id=";
 	private static final String GOOGLE_PLUS_DEEPLINK_SUFFIX = "&gplus_source=stream";
 	
-	/**
-	 * In case of a valid Uri, we should send this value as invalidUri parameter.
-	 */
-	private static final String TRACKING_PARAM_VALID = "valid";
-	/**
-	 * In case of an invalid Uri, we should send this value as validUri parameter.
-	 */
-	private static final String TRACKING_PARAM_INVALID = "invalid";
 	private static final Logger LOG = LoggerUtils.getLogger(UriMapper.class);
 	private static final PathPrefixMatcher PATH_PREFIX_MATCHER = buildPathMatcher();
 	
@@ -62,19 +54,28 @@ public class UriMapper {
 	/**
 	 * Starts the activity associated with given Uri if it exists.
 	 * 
-	 * @param context context
+	 * @param activity The {@link Activity}
 	 * @param uri uri to evaluate
 	 */
-	public static void startActivityFromUri(Context context, Uri uri) {
-		Intent intent = getIntentFromUri(context, uri);
-		AppLoadingSource.URL.flagIntent(intent);
-		context.startActivity(intent);
-	}
-	
-	public static void startActivityFromUri(Context context, String uriString) {
-		Intent intent = getIntentFromUri(context, uriString);
-		AppLoadingSource.URL.flagIntent(intent);
-		context.startActivity(intent);
+	private static void startActivityFromUri(Activity activity, Uri uri) {
+		Intent intent = getIntentFromUri(activity, uri);
+		
+		AppLoadingSource appLoadingSource = null;
+		if (uri.getScheme().startsWith("http")) {
+			appLoadingSource = AppLoadingSource.URL;
+		} else {
+			appLoadingSource = AppLoadingSource.DEEPLINK;
+		}
+		appLoadingSource.flagIntent(activity.getIntent());
+		
+		String className = intent.getComponent().getShortClassName();
+		int dot = className.lastIndexOf('.');
+		if (dot != -1) {
+			className = className.substring(dot + 1);
+		}
+		AbstractApplication.get().getAnalyticsSender().trackUriOpened(appLoadingSource.getName(), className);
+		
+		activity.startActivity(intent);
 	}
 	
 	public static Intent getIntentFromUri(Context context, Uri uri) {
@@ -125,17 +126,13 @@ public class UriMapper {
 	private static Intent getIntentFromUriInner(Context context, Uri uri) {
 		UriHandler<?> uriHandler = PATH_PREFIX_MATCHER.match(uri);
 		Intent intent = uriHandler.getStartIntent(context, uri);
-		boolean handled = !PATH_PREFIX_MATCHER.isNoMatchObject(uriHandler);
-		String trackingParam = uriHandler.createTrackingParam(uri);
 		
 		// Track the event.
-		if (handled) {
-			AbstractApplication.get().getAnalyticsSender().trackUriHandled(handled, trackingParam, TRACKING_PARAM_VALID);
+		if (PATH_PREFIX_MATCHER.isNoMatchObject(uriHandler)) {
+			AbstractApplication.get().getExceptionHandler().logWarningException("Error parsing Uri: " + uri.toString());
 		} else {
-			AbstractApplication.get().getAnalyticsSender().trackUriHandled(handled, TRACKING_PARAM_INVALID,
-				trackingParam);
+			LOG.debug("Handled Uri: " + uri.toString());
 		}
-		LOG.debug("handled: " + handled + " - trackingParam: " + trackingParam + " - uri: " + uri.toString());
 		return intent;
 	}
 	
@@ -149,11 +146,9 @@ public class UriMapper {
 	private static Intent createDefaultIntent(Context context, Uri uri) {
 		Intent intent = new Intent(context, AbstractApplication.get().getHomeActivityClass());
 		if (uri != null) {
-			String uriString = uri.toString();
-			// Track the event.
-			AbstractApplication.get().getAnalyticsSender().trackUriHandled(false, TRACKING_PARAM_INVALID, uriString);
-			LOG.debug("handled: " + false + " - uri: " + uriString);
+			AbstractApplication.get().getExceptionHandler().logWarningException("Error parsing Uri: " + uri.toString());
 		}
+		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		return intent;
 	}
 }
