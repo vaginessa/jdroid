@@ -17,7 +17,6 @@ import com.jdroid.java.utils.LoggerUtils;
 /**
  * 
  * @param <T>
- * @author Maxi Rosson
  */
 public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTracker {
 	
@@ -41,16 +40,16 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 		
 		@Override
 		public void run() {
-			try {
-				for (T tracker : trackers) {
+			for (T tracker : trackers) {
+				try {
 					if (tracker.isEnabled()) {
 						track(tracker);
 					}
-				}
-			} catch (Exception e) {
-				ExceptionHandler exceptionHandler = AbstractApplication.get().getExceptionHandler();
-				if (exceptionHandler != null) {
-					exceptionHandler.logHandledException(e);
+				} catch (Exception e) {
+					ExceptionHandler exceptionHandler = AbstractApplication.get().getExceptionHandler();
+					if (exceptionHandler != null) {
+						exceptionHandler.logHandledException(e);
+					}
 				}
 			}
 		}
