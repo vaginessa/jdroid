@@ -8,10 +8,6 @@ import android.os.SystemClock;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.java.utils.LoggerUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class IntentRetryUtils {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(IntentRetryUtils.class);

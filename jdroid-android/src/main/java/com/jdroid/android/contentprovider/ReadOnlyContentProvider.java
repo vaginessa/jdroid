@@ -4,10 +4,6 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.net.Uri;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class ReadOnlyContentProvider extends ContentProvider {
 	
 	/**

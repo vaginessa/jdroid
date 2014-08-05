@@ -10,10 +10,6 @@ import com.jdroid.java.http.Server;
 import com.jdroid.java.http.apache.HttpClientFactory;
 import com.jdroid.java.utils.EncodingUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class ApacheFormHttpPostWebService extends ApacheHttpPostWebService {
 	
 	public ApacheFormHttpPostWebService(HttpClientFactory httpClientFactory, Server server, List<Object> urlSegments,

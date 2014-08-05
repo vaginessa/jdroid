@@ -13,10 +13,6 @@ import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class AbstractPreferenceFragment extends PreferenceFragment implements FragmentIf {
 	
 	protected FragmentIf getFragmentIf() {

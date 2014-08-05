@@ -3,10 +3,6 @@ package com.jdroid.java.http;
 import org.slf4j.Logger;
 import com.jdroid.java.utils.LoggerUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class HttpResponseWrapper {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(HttpResponseWrapper.class);

@@ -7,8 +7,6 @@ import com.jdroid.java.domain.Identifiable;
  * {@link Repository} with the capability of getting random objects.
  * 
  * @param <T> Type of object this repository deals with.
- * 
- * @author Estefanía Caravatti
  */
 public interface RandomRepository<T extends Identifiable> extends Repository<T> {
 	

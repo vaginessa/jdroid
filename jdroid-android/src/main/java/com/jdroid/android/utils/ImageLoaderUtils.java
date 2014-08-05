@@ -13,10 +13,6 @@ import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.utils.DiskCacheUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class ImageLoaderUtils {
 	
 	private static SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.get("imageLoader");

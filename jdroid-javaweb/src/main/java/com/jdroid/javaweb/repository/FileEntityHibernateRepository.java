@@ -3,10 +3,6 @@ package com.jdroid.javaweb.repository;
 import com.jdroid.javaweb.domain.FileEntity;
 import com.jdroid.javaweb.hibernate.AbstractHibernateRepository;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class FileEntityHibernateRepository extends AbstractHibernateRepository<FileEntity> implements
 		FileEntityRepository {
 	

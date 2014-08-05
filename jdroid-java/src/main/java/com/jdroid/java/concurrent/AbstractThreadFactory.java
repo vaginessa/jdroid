@@ -3,10 +3,6 @@ package com.jdroid.java.concurrent;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class AbstractThreadFactory implements ThreadFactory {
 	
 	private static final AtomicInteger poolNumber = new AtomicInteger(1);

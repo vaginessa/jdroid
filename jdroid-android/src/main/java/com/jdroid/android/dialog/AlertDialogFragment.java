@@ -14,10 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import com.jdroid.java.collections.Maps;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class AlertDialogFragment extends AbstractDialogFragment {
 	
 	private static final String TITLE_EXTRA = "titleExtra";

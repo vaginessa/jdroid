@@ -1,10 +1,7 @@
 package com.jdroid.java.exception;
 
-
 /**
  * Exception thrown when there are http errors communicating with the server.
- * 
- * @author Estefania Caravatti
  */
 public class ServerHttpResponseException extends HttpResponseException {
 	

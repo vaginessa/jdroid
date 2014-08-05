@@ -12,9 +12,6 @@ import com.jdroid.javaweb.push.PushMessage;
 import com.jdroid.javaweb.push.PushService;
 import com.jdroid.javaweb.push.gcm.AbstractGcmMessage;
 
-/**
- * @author Maxi Rosson
- */
 @Controller
 @RequestMapping("/gcm")
 public class GcmController {

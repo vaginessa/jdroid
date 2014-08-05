@@ -4,8 +4,6 @@ import com.jdroid.android.AbstractApplication;
 
 /**
  * Empty Default Use Case Listener
- * 
- * @author Maxi Rosson
  */
 public class EmptyDefaultUseCaseListener implements DefaultUseCaseListener {
 	

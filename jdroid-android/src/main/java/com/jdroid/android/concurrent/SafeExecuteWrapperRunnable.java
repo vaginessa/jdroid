@@ -1,4 +1,4 @@
-package com.jdroid.android.fragment;
+package com.jdroid.android.concurrent;
 
 import android.support.v4.app.Fragment;
 
@@ -23,5 +23,4 @@ public class SafeExecuteWrapperRunnable implements Runnable {
 			runnable.run();
 		}
 	}
-	
 }

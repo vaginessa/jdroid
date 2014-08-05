@@ -8,10 +8,6 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.utils.EncodingUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class ShareUtils {
 	
 	public static void shareTextContent(int shareTitle, int shareSubject, int shareText) {

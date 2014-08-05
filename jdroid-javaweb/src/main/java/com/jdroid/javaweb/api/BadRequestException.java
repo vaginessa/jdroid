@@ -4,10 +4,6 @@ import java.util.Map;
 import com.jdroid.java.exception.ErrorCodeException;
 import com.jdroid.javaweb.exception.CommonErrorCode;
 
-/**
- * 
- * @author Maxi Rosson
- */
 @SuppressWarnings("rawtypes")
 public class BadRequestException extends ErrorCodeException {
 	

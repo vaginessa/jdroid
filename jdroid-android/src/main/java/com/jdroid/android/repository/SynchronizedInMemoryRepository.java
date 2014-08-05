@@ -7,7 +7,6 @@ import com.jdroid.java.utils.DateUtils;
 /**
  * 
  * @param <T>
- * @author Maxi Rosson
  */
 public class SynchronizedInMemoryRepository<T extends Identifiable> extends InMemoryRepository<T> implements
 		SynchronizedRepository<T> {

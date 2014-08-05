@@ -11,7 +11,6 @@ import com.jdroid.java.utils.ReflectionUtils;
 /**
  * 
  * @param <T>
- * @author Maxi Rosson
  */
 public class InMemoryRepository<T extends Identifiable> implements Repository<T> {
 	

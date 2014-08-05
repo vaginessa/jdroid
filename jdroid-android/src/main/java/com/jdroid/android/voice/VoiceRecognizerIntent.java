@@ -20,8 +20,6 @@ import com.jdroid.java.utils.IdGenerator;
  * It does require that the Google Voice Search application is installed. The {@link #initiateRecord()} method will
  * prompt the user to download the application, if needed.
  * </p>
- * 
- * @author Maxi Rosson
  */
 public class VoiceRecognizerIntent {
 	

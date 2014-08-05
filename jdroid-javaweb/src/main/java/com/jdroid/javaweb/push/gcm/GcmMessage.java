@@ -2,10 +2,6 @@ package com.jdroid.javaweb.push.gcm;
 
 import com.jdroid.javaweb.push.PushMessage;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public interface GcmMessage extends PushMessage {
 	
 	/**

@@ -5,10 +5,6 @@ public class Sorting {
 	private SortingKey sortingKey;
 	private Boolean ascending;
 	
-	/**
-	 * @param sortingKey
-	 * @param ascending
-	 */
 	public Sorting(SortingKey sortingKey, Boolean ascending) {
 		this.sortingKey = sortingKey;
 		this.ascending = ascending;

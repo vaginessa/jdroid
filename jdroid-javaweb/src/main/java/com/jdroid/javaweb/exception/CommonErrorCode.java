@@ -6,10 +6,6 @@ import com.jdroid.java.exception.BusinessException;
 import com.jdroid.java.exception.ErrorCode;
 import com.jdroid.java.utils.StringUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public enum CommonErrorCode implements ErrorCode {
 	
 	BAD_REQUEST(400),

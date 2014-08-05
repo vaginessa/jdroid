@@ -11,9 +11,6 @@ import com.jdroid.java.context.GitContext;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.javaweb.context.Application;
 
-/**
- * @author Maxi Rosson
- */
 public class AdminController {
 	
 	@RequestMapping(value = "/info", method = RequestMethod.GET, produces = MimeType.TEXT)
@@ -28,8 +25,7 @@ public class AdminController {
 		infoMap.put("Git Commit Time", GitContext.get().getCommitTime());
 		infoMap.put("Git Commit Build Time", GitContext.get().getBuildTime());
 		infoMap.put("Http Mock Enabled", Application.get().getAppContext().isHttpMockEnabled());
-		infoMap.put("Http Mock Sleep Duration",
-			Application.get().getAppContext().getHttpMockSleepDuration());
+		infoMap.put("Http Mock Sleep Duration", Application.get().getAppContext().getHttpMockSleepDuration());
 		infoMap.put("Default Charset", Charset.defaultCharset());
 		infoMap.put("File Encoding", System.getProperty("file.encoding"));
 		

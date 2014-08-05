@@ -1,12 +1,8 @@
 package com.jdroid.android.navdrawer;
 
-import com.jdroid.android.tabs.TabAction;
+import com.jdroid.android.ActionItem;
 
-/**
- * 
- * @author Maxi Rosson
- */
-public interface NavDrawerItem extends TabAction {
+public interface NavDrawerItem extends ActionItem {
 	
 	public Boolean isMainAction();
 	

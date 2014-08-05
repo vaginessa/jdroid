@@ -9,10 +9,6 @@ import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.NumberUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class AbstractGcmMessageResolver implements GcmMessageResolver {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(AbstractGcmMessageResolver.class);

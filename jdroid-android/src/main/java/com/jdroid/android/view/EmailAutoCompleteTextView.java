@@ -10,10 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import com.jdroid.android.utils.AndroidUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class EmailAutoCompleteTextView extends AutoCompleteTextView {
 	
 	public EmailAutoCompleteTextView(Context context, AttributeSet attrs, int defStyle) {

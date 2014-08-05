@@ -7,8 +7,6 @@ import com.jdroid.android.utils.ToastUtils;
 
 /**
  * GCM Message types
- * 
- * @author Maxi Rosson
  */
 public enum AndroidGcmMessage implements GcmMessage {
 	

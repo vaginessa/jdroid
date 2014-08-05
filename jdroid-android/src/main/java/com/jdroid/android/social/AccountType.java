@@ -2,10 +2,6 @@ package com.jdroid.android.social;
 
 import com.jdroid.android.R;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public enum AccountType {
 	
 	GOOGLE_PLUS("googlePlus", "Google+", R.drawable.common_signin_btn_icon_normal_light),

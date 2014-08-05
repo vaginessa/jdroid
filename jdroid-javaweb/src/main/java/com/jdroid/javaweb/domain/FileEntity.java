@@ -1,9 +1,5 @@
 package com.jdroid.javaweb.domain;
 
-/**
- * 
- * @author Maxi Rosson
- */
 @javax.persistence.Entity
 public class FileEntity extends Entity {
 	

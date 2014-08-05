@@ -22,8 +22,6 @@ import com.jdroid.java.exception.UnexpectedException;
 
 /**
  * This class contains functions for working with files within the application.
- * 
- * @author Maxi Rosson
  */
 public abstract class FileUtils {
 	

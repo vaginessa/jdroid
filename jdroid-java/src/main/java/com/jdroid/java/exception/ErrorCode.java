@@ -2,8 +2,6 @@ package com.jdroid.java.exception;
 
 /**
  * Common interface for all the possible errors of the application
- * 
- * @author Maxi Rosson
  */
 public interface ErrorCode {
 	

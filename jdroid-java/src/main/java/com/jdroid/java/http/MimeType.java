@@ -1,9 +1,5 @@
 package com.jdroid.java.http;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class MimeType {
 	
 	public static final String TEXT = "text/plain";

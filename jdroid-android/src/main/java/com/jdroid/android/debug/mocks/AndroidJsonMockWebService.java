@@ -4,10 +4,6 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.debug.CrashGenerator;
 import com.jdroid.java.http.mock.JsonMockWebService;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class AndroidJsonMockWebService extends JsonMockWebService {
 	
 	public AndroidJsonMockWebService(Object... urlSegments) {

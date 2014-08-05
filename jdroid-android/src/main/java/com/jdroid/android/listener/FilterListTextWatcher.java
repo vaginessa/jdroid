@@ -8,8 +8,6 @@ import android.widget.ArrayAdapter;
  * Listener used to filter a list based on a text input.
  * 
  * @param <T> The type of items in the list.
- * 
- * @author Estefania Caravatti
  */
 public abstract class FilterListTextWatcher<T> implements TextWatcher {
 	

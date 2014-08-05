@@ -1,9 +1,5 @@
 package com.jdroid.java.concurrent;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class NormalPriorityThreadFactory extends AbstractThreadFactory {
 	
 	public NormalPriorityThreadFactory(String namePrefix) {

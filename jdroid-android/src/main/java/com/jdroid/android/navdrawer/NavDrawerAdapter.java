@@ -9,10 +9,6 @@ import com.jdroid.android.R;
 import com.jdroid.android.adapter.BaseHolderArrayAdapter;
 import com.jdroid.android.navdrawer.NavDrawerAdapter.NavDrawerAdapterHolder;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class NavDrawerAdapter extends BaseHolderArrayAdapter<NavDrawerItem, NavDrawerAdapterHolder> {
 	
 	public NavDrawerAdapter(Context context, List<NavDrawerItem> items) {

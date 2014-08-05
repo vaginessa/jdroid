@@ -9,10 +9,6 @@ import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.fragment.FragmentIf;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class RefreshActionConnector implements RefreshActionProvider.OnRefreshListener, DefaultUseCaseListener {
 	
 	private RefreshActionProvider refreshActionProvider;

@@ -11,10 +11,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import com.jdroid.java.utils.DateUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class DateButton extends Button {
 	
 	private Date date;

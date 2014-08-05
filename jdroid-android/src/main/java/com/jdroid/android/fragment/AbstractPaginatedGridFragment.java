@@ -16,7 +16,6 @@ import com.jdroid.android.usecase.PaginatedUseCase;
 /**
  * 
  * @param <T>
- * @author Maxi Rosson
  */
 public abstract class AbstractPaginatedGridFragment<T> extends AbstractGridFragment<T> {
 	

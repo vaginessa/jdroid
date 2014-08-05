@@ -18,10 +18,6 @@ import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.StringUtils;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class NotificationBuilder {
 	
 	public static final String NOTIFICATION_NAME = "notificationName";

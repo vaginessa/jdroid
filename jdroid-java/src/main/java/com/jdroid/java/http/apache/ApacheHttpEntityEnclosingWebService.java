@@ -12,10 +12,6 @@ import com.jdroid.java.http.HttpWebServiceProcessor;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.http.post.EntityEnclosingWebService;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class ApacheHttpEntityEnclosingWebService extends ApacheHttpWebService implements
 		EntityEnclosingWebService {
 	

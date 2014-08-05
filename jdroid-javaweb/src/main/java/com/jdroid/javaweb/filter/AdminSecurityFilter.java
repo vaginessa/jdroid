@@ -10,10 +10,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.context.Application;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class AdminSecurityFilter extends OncePerRequestFilter {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(AdminSecurityFilter.class);

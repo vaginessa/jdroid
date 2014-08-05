@@ -11,8 +11,6 @@ import com.jdroid.java.exception.UnexpectedException;
 
 /**
  * Utilities for Dates and Calendars
- * 
- * @author Maxi Rosson
  */
 public abstract class DateUtils {
 	

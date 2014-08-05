@@ -2,10 +2,6 @@ package com.jdroid.android.social;
 
 import com.jdroid.android.domain.Entity;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class SocialUser extends Entity {
 	
 	private static final long serialVersionUID = -2589221155169586304L;

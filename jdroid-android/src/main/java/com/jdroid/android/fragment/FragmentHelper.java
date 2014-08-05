@@ -13,6 +13,7 @@ import com.jdroid.android.R;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.ad.HouseAdBuilder;
+import com.jdroid.android.concurrent.SafeExecuteWrapperRunnable;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
@@ -25,10 +26,6 @@ import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class FragmentHelper implements FragmentIf {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(FragmentHelper.class);

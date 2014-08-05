@@ -14,8 +14,6 @@ import com.jdroid.android.R;
  * 
  * To use the jdroid:label attribute from an xml file, you need to add the following xmlns:
  * xmlns:jdroid="http://schemas.android.com/apk/res/${Your app's package as declared in your manifest file}".
- * 
- * @author Estefanía Caravatti
  */
 public class SwitchButton extends FrameLayout {
 	

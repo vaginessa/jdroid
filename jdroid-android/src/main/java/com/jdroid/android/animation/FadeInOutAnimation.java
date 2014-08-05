@@ -3,10 +3,6 @@ package com.jdroid.android.animation;
 import android.view.View;
 import android.view.animation.Animation;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class FadeInOutAnimation extends FadeInAnimation {
 	
 	public FadeInOutAnimation(final View view, final long fadeDurationMillis, final long standByDurationMillis) {

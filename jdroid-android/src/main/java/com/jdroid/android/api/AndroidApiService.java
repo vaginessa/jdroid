@@ -5,10 +5,6 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.java.api.AbstractApacheApiService;
 import com.jdroid.java.http.cache.Cache;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class AndroidApiService extends AbstractApacheApiService {
 	
 	/**

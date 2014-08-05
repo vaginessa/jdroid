@@ -10,7 +10,6 @@ import com.jdroid.java.collections.Lists;
  * Represents a list result in a paginated API call.
  * 
  * @param <T> The list item.
- * @author Estefania Caravatti
  */
 public class PagedResult<T> {
 	

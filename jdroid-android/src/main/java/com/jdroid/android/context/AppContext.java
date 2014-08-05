@@ -11,10 +11,6 @@ import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.utils.PropertiesUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class AppContext {
 	
 	private static final String PROPERTIES_RESOURCE_NAME = "settings.properties";

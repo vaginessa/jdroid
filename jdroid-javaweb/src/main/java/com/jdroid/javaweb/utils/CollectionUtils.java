@@ -10,8 +10,6 @@ import com.google.common.collect.Iterables;
 
 /**
  * A set of useful functions used against a Collection
- * 
- * @author Maxi Rosson
  */
 public abstract class CollectionUtils extends com.jdroid.java.utils.CollectionUtils {
 	

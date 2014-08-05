@@ -3,10 +3,6 @@ package com.jdroid.javaweb.push;
 import java.util.List;
 import com.google.common.collect.Lists;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class PushResponse {
 	
 	private List<Device> devicesToRemove;

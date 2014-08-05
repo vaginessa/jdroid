@@ -8,8 +8,6 @@ import com.jdroid.java.utils.LoggerUtils;
 
 /**
  * Manager that control the acquire and release of the different kinds of {@link WakeLock}s
- * 
- * @author Maxi Rosson
  */
 public class WakeLockManager {
 	

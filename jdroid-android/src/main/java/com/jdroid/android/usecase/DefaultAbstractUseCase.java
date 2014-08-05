@@ -6,8 +6,6 @@ import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
  * Abstract use case that handles the calls to {@link DefaultUseCaseListener#onStartUseCase()},
  * {@link DefaultUseCaseListener#onFinishUseCase()}, {@link DefaultUseCaseListener#onFinishCanceledUseCase()} and
  * {@link DefaultUseCaseListener#onFinishFailedUseCase(RuntimeException)} when executing.
- * 
- * @author Maxi Rosson
  */
 public abstract class DefaultAbstractUseCase extends AbstractUseCase<DefaultUseCaseListener> {
 	

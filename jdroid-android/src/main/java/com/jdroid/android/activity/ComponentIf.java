@@ -8,10 +8,6 @@ import com.jdroid.android.domain.User;
 import com.jdroid.android.loading.LoadingDialog;
 import com.jdroid.android.loading.LoadingDialogBuilder;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public interface ComponentIf {
 	
 	/**

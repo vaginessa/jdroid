@@ -11,8 +11,6 @@ import com.jdroid.java.utils.LoggerUtils;
 
 /**
  * Parser used to handle a file contained inside a zip.
- * 
- * @author Maxi Rosson
  */
 public class ZipFileParser implements Parser {
 	

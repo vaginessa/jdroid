@@ -6,10 +6,6 @@ import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.utils.NotificationUtils;
 import com.jdroid.java.concurrent.ExecutorUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class UseCaseService extends WorkerService {
 	
 	private final static String USE_CASE = "useCase";

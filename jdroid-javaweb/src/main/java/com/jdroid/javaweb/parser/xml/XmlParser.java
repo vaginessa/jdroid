@@ -20,8 +20,6 @@ import com.sun.org.apache.xerces.internal.parsers.SAXParser;
 
 /**
  * XML input streams parser
- * 
- * @author Maxi Rosson
  */
 public abstract class XmlParser extends DefaultHandler implements Parser {
 	

@@ -5,8 +5,6 @@ import java.util.Map;
 /**
  * @param <T>
  * @param <R>
- * 
- * @author Maxi Rosson
  */
 public interface Marshaller<T, R> {
 	

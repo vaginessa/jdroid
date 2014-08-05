@@ -9,7 +9,6 @@ import com.jdroid.java.utils.LoggerUtils;
 /**
  * 
  * @param <T>
- * @author Maxi Rosson
  */
 public abstract class PaginatedUseCase<T> extends DefaultAbstractUseCase {
 	

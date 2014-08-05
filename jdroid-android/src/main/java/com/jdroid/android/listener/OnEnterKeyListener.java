@@ -6,10 +6,6 @@ import android.view.View.OnKeyListener;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.concurrent.ExecutorUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class OnEnterKeyListener implements OnKeyListener {
 	
 	private Boolean async;

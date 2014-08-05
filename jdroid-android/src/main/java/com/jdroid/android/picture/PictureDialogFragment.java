@@ -20,10 +20,6 @@ import com.jdroid.android.dialog.AbstractDialogFragment;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.utils.DateUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class PictureDialogFragment extends AbstractDialogFragment {
 	
 	private static final String OUTPUT_FILE_URI_EXTRA = "outputFileUriExtra";

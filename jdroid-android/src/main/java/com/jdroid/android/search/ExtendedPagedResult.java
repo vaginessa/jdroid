@@ -8,7 +8,6 @@ import com.jdroid.java.search.PagedResult;
 /**
  * 
  * @param <T> The list item.
- * @author Maxi Rosson
  */
 public class ExtendedPagedResult<T> extends PagedResult<T> {
 	

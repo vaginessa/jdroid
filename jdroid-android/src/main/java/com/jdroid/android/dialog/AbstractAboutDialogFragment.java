@@ -25,10 +25,6 @@ import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.IntentUtils;
 import com.jdroid.java.utils.DateUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment {
 	
 	private GooglePlusOneButtonHelper googlePlusOneButtonHelper;

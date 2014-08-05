@@ -13,10 +13,6 @@ import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds;
 import android.provider.ContactsContract.Contacts;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class ContactsCursor extends CursorWrapper {
 	
 	@SuppressWarnings("deprecation")

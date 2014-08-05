@@ -17,7 +17,6 @@ import com.jdroid.android.loading.LoadingDialogBuilder;
 /**
  * Base {@link PreferenceActivity}
  * 
- * @author Maxi Rosson
  */
 public abstract class AbstractPreferenceActivity extends PreferenceActivity implements ActivityIf {
 	

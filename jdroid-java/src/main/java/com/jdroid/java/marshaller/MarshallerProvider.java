@@ -7,10 +7,6 @@ import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.json.JSONArray;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class MarshallerProvider {
 	
 	private Map<Class<?>, Marshaller<Object, Object>> marshallers = Maps.newHashMap();

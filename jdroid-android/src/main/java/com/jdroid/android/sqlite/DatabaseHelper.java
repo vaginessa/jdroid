@@ -7,10 +7,6 @@ import android.util.Log;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.java.collections.Sets;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	private static final String TAG = DatabaseHelper.class.getSimpleName();

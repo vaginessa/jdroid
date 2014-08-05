@@ -4,10 +4,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import com.jdroid.java.exception.UnexpectedException;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public enum Hasher {
 	
 	SHA_1("SHA-1"),

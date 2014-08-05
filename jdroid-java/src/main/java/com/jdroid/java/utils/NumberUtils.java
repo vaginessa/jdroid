@@ -1,9 +1,5 @@
 package com.jdroid.java.utils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class NumberUtils {
 	
 	public static Float getFloat(String value) {

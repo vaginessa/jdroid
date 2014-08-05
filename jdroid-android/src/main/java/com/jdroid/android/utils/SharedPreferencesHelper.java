@@ -9,8 +9,6 @@ import com.jdroid.android.AbstractApplication;
 
 /**
  * Helper to work with the shared preferences
- * 
- * @author Maxi Rosson
  */
 public class SharedPreferencesHelper {
 	

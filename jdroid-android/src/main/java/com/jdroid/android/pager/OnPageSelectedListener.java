@@ -1,13 +1,9 @@
 package com.jdroid.android.pager;
 
-import com.jdroid.android.tabs.TabAction;
+import com.jdroid.android.ActionItem;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public interface OnPageSelectedListener {
 	
-	public void onPageSelected(TabAction action);
+	public void onPageSelected(ActionItem action);
 	
 }

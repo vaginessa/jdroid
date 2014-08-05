@@ -16,10 +16,6 @@ import com.jdroid.java.http.post.EntityEnclosingWebService;
 import com.jdroid.java.marshaller.MarshallerMode;
 import com.jdroid.java.marshaller.MarshallerProvider;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class AbstractApiService {
 	
 	protected WebService newGetService(Object... urlSegments) {

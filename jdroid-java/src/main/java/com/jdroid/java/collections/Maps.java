@@ -3,10 +3,6 @@ package com.jdroid.java.collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class Maps {
 	
 	/**

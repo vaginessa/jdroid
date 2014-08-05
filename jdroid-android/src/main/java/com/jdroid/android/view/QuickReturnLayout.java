@@ -17,8 +17,6 @@ import com.jdroid.android.R;
  * Layout which allows to implement Quick Return pattern for a ListView. QuickReturnLayout set its own OnScrollListener
  * to the list, is you change it directly QuickReturnLayout will not work. If you need to add an OnScrollListener to the
  * list use the {@link QuickReturnLayout#setOnScrollListener(OnScrollListener)} method.
- * 
- * @author Javier Nonis
  */
 public class QuickReturnLayout extends FrameLayout {
 	

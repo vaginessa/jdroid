@@ -5,10 +5,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class PingServlet extends HttpServlet {
 	
 	/**

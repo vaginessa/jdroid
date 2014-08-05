@@ -14,10 +14,6 @@ import android.widget.ViewFlipper;
 import com.jdroid.android.R;
 import com.jdroid.android.utils.LocalizationUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class TwoStateActionProvider extends ActionProvider {
 	
 	private static final int FIRST_STATE = 0;

@@ -10,10 +10,6 @@ import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public interface FragmentIf extends ComponentIf, DefaultUseCaseListener {
 	
 	public ActivityIf getActivityIf();

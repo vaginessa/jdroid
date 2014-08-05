@@ -8,10 +8,6 @@ import android.widget.RelativeLayout;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class RemoveAdsView extends RelativeLayout {
 	
 	public RemoveAdsView(Context context, AttributeSet attrs, int defStyle) {

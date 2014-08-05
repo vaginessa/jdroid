@@ -16,7 +16,6 @@ import com.jdroid.android.R;
 /**
  * 
  * @param <T>
- * @author Maxi Rosson
  */
 public class AbstractGridFragment<T> extends AbstractFragment implements OnItemSelectedListener<T> {
 	

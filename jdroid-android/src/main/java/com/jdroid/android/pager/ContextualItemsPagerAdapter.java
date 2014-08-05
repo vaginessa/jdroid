@@ -4,19 +4,15 @@ import java.util.List;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import com.jdroid.android.tabs.TabAction;
+import com.jdroid.android.ActionItem;
 import com.jdroid.android.utils.LocalizationUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class ContextualItemsPagerAdapter extends FragmentPagerAdapter {
 	
-	private List<? extends TabAction> tabActions;
+	private List<? extends ActionItem> tabActions;
 	private Object fragmentArgs;
 	
-	public ContextualItemsPagerAdapter(FragmentManager fm, List<? extends TabAction> tabActions, Object fragmentArgs) {
+	public ContextualItemsPagerAdapter(FragmentManager fm, List<? extends ActionItem> tabActions, Object fragmentArgs) {
 		super(fm);
 		this.tabActions = tabActions;
 		this.fragmentArgs = fragmentArgs;

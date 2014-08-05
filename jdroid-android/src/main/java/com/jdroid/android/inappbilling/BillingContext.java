@@ -4,10 +4,6 @@ import android.preference.PreferenceManager;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.java.utils.PropertiesUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class BillingContext {
 	
 	private String googlePlayPublicKey;

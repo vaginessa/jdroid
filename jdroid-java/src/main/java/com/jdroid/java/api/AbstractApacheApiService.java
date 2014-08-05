@@ -16,10 +16,6 @@ import com.jdroid.java.http.apache.put.ApacheHttpPutWebService;
 import com.jdroid.java.http.apache.put.ApacheMultipartHttpPutWebService;
 import com.jdroid.java.http.post.EntityEnclosingWebService;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class AbstractApacheApiService extends AbstractApiService {
 	
 	/**

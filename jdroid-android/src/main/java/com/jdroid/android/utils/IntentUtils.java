@@ -8,10 +8,6 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import com.jdroid.android.AbstractApplication;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class IntentUtils {
 	
 	/**

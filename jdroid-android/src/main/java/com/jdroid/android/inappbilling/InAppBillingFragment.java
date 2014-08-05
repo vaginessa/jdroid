@@ -14,10 +14,6 @@ import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class InAppBillingFragment extends AbstractGridFragment<Product> {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(InAppBillingFragment.class);

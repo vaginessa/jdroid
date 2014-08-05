@@ -11,8 +11,6 @@ import com.jdroid.android.R;
 /**
  * Text view used to show a badge with a number of notifications. If the notifications are less than zero, the badge
  * isn't visible.
- * 
- * @author Estefania Caravatti
  */
 public class BadgeView extends TextView {
 	

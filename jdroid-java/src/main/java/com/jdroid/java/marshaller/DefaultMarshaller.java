@@ -5,10 +5,6 @@ import java.util.Map;
 import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.StringUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class DefaultMarshaller implements Marshaller<Object, Object> {
 	
 	/**

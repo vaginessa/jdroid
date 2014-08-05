@@ -5,10 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import com.jdroid.android.AbstractApplication;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class TwitterConnector {
 	
 	public static void openProfile(String account) {

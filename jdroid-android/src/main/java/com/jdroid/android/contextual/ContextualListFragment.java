@@ -9,30 +9,26 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
 import com.google.android.gms.ads.AdSize;
+import com.jdroid.android.ActionItem;
 import com.jdroid.android.R;
 import com.jdroid.android.fragment.AbstractListFragment;
 import com.jdroid.android.fragment.OnItemSelectedListener;
-import com.jdroid.android.tabs.TabAction;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.collections.Lists;
 
-/**
- * 
- * @author Maxi Rosson
- */
 @SuppressLint("ValidFragment")
-public class ContextualListFragment extends AbstractListFragment<TabAction> {
+public class ContextualListFragment extends AbstractListFragment<ActionItem> {
 	
 	private static final String ACTIONS_EXTRA = "actions";
 	private static final String DEFAULT_INDEX_EXTRA = "defaultIndex";
 	
-	private List<TabAction> actions;
+	private List<ActionItem> actions;
 	private Integer defaultIndex;
 	
 	public ContextualListFragment() {
 	}
 	
-	public ContextualListFragment(List<? extends TabAction> actions, TabAction defaultContextualItem) {
+	public ContextualListFragment(List<? extends ActionItem> actions, ActionItem defaultContextualItem) {
 		Bundle bundle = new Bundle();
 		bundle.putSerializable(ACTIONS_EXTRA, Lists.newArrayList(actions));
 		bundle.putInt(DEFAULT_INDEX_EXTRA, actions.indexOf(defaultContextualItem));
@@ -86,8 +82,8 @@ public class ContextualListFragment extends AbstractListFragment<TabAction> {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public void onItemSelected(TabAction action) {
-		((OnItemSelectedListener<TabAction>)getActivity()).onItemSelected(action);
+	public void onItemSelected(ActionItem action) {
+		((OnItemSelectedListener<ActionItem>)getActivity()).onItemSelected(action);
 	}
 	
 	/**

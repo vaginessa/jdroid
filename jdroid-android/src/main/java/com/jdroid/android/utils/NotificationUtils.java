@@ -5,10 +5,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 import com.jdroid.android.AbstractApplication;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class NotificationUtils {
 	
 	private final static NotificationManager NOTIFICATION_MANAGER = (NotificationManager)AbstractApplication.get().getSystemService(

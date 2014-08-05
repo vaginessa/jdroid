@@ -18,10 +18,6 @@ import com.jdroid.java.http.apache.post.ByteArrayInputStreamBody;
 import com.jdroid.java.marshaller.MarshallerMode;
 import com.jdroid.java.marshaller.MarshallerProvider;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class ApacheMultipartHttpPutWebService extends ApacheHttpPutWebService implements MultipartWebService {
 	
 	private MultipartEntity multipartEntity = new MultipartEntity();

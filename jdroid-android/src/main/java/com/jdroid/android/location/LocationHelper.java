@@ -1,4 +1,4 @@
-package com.jdroid.android.gps;
+package com.jdroid.android.location;
 
 import java.util.List;
 import org.slf4j.Logger;
@@ -17,13 +17,9 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.utils.AlarmManagerUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
-public class LocalizationManager implements LocationListener {
+public class LocationHelper implements LocationListener {
 	
-	private static final Logger LOGGER = LoggerUtils.getLogger(LocalizationManager.class);
+	private static final Logger LOGGER = LoggerUtils.getLogger(LocationHelper.class);
 	private static final String GPS_TIMEOUT_ACTION = "ACTION_GPS_TIMEOUT";
 	
 	// 5 minutes
@@ -32,7 +28,7 @@ public class LocalizationManager implements LocationListener {
 	// 2 minutes
 	private static final int MAXIMUM_TIME_DELTA = 120000;
 	
-	private static final LocalizationManager INSTANCE = new LocalizationManager();
+	private static final LocationHelper INSTANCE = new LocationHelper();
 	private static final int LOCATION_MIN_TIME = 10000;
 	private static final int LOCATION_MAX_TIME = 30000;
 	
@@ -42,11 +38,11 @@ public class LocalizationManager implements LocationListener {
 	
 	private LocationManager locationManager;
 	
-	public static LocalizationManager get() {
+	public static LocationHelper get() {
 		return INSTANCE;
 	}
 	
-	public LocalizationManager() {
+	public LocationHelper() {
 		
 		// Acquire a reference to the system Location Manager
 		locationManager = (LocationManager)AbstractApplication.get().getSystemService(Context.LOCATION_SERVICE);

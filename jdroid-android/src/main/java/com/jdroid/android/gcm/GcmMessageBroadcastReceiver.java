@@ -9,10 +9,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.java.collections.Lists;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class GcmMessageBroadcastReceiver extends BroadcastReceiver {
 	
 	/**

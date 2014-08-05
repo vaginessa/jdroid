@@ -5,10 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import com.jdroid.android.R;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class FragmentContainerActivity extends AbstractFragmentActivity {
 	
 	/**

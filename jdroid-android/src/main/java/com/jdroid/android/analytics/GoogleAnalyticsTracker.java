@@ -25,10 +25,6 @@ import com.jdroid.java.collections.Maps;
 import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(GoogleAnalyticsTracker.class);

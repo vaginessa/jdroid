@@ -6,8 +6,6 @@ import com.jdroid.java.concurrent.ExecutorUtils;
 
 /**
  * Asynchronous {@link OnClickListener}
- * 
- * @author Maxi Rosson
  */
 public abstract class AsyncOnClickListener implements OnClickListener {
 	

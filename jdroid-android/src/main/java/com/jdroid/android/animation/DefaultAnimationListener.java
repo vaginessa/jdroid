@@ -6,7 +6,6 @@ import android.view.animation.Animation.AnimationListener;
 /**
  * {@link AnimationListener} that does nothing by default.
  * 
- * @author Estefania Caravatti
  */
 public class DefaultAnimationListener implements AnimationListener {
 	

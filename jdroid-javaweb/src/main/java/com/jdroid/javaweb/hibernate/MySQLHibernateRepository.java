@@ -15,8 +15,6 @@ import com.jdroid.javaweb.search.Sorting;
  * Hibernate Repository with additional implementation that works on MySQL engine only.
  * 
  * @param <T> The {@link Entity}
- * 
- * @author Estefanía Caravatti
  */
 public abstract class MySQLHibernateRepository<T extends Entity> extends AbstractHibernateRepository<T> implements
 		RandomRepository<T> {

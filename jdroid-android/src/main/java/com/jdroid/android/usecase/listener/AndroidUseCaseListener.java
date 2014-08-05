@@ -3,10 +3,6 @@ package com.jdroid.android.usecase.listener;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.fragment.FragmentIf;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 	
 	/**

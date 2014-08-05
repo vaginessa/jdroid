@@ -5,10 +5,6 @@ import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.params.CoreProtocolPNames;
 import com.jdroid.java.utils.StringUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class DefaultHttpClientFactory implements HttpClientFactory {
 	
 	// 10 seconds

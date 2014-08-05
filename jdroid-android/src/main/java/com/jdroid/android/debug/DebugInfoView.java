@@ -13,10 +13,6 @@ import com.jdroid.java.context.GitContext;
 import com.jdroid.java.utils.StringUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class DebugInfoView extends LinearLayout {
 	
 	public DebugInfoView(Context context) {

@@ -5,7 +5,6 @@ import com.jdroid.java.domain.Identifiable;
 /**
  * Domain Entity
  * 
- * @author Maxi Rosson
  */
 public class Entity extends BusinessObject implements Identifiable {
 	

@@ -5,10 +5,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import com.jdroid.android.AbstractApplication;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class AlarmManagerUtils {
 	
 	public static void scheduleAlarm(int type, long triggerAtTime, PendingIntent operation) {

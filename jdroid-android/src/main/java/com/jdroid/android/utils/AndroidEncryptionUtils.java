@@ -15,10 +15,6 @@ import android.content.SharedPreferences;
 import android.util.Base64;
 import com.jdroid.java.exception.UnexpectedException;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class AndroidEncryptionUtils {
 	
 	public static final String PREF_ENCODED_KEY = "pref_encoded_key";

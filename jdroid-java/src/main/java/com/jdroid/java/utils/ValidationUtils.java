@@ -6,8 +6,6 @@ import java.util.regex.Pattern;
 
 /**
  * Validation Utils
- * 
- * @author Maxi Rosson
  */
 public class ValidationUtils {
 	

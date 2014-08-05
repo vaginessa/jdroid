@@ -23,8 +23,6 @@ import com.jdroid.java.utils.StringUtils;
  * Base search Fragment. It has a search text and a list with the results.
  * 
  * @param <T> An item in the list.
- * 
- * @author Maxi Rosson
  */
 public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFragment<T> {
 	

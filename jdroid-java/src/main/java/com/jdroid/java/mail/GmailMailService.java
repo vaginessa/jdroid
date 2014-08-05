@@ -15,8 +15,6 @@ import com.jdroid.java.utils.PropertiesUtils;
 
 /**
  * {@link MailService} that works fine with Gmail as smtp
- * 
- * @author Maxi Rosson
  */
 // TODO Unify this implementation with MailServiceImpl
 public class GmailMailService extends javax.mail.Authenticator implements MailService {

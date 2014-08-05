@@ -5,8 +5,6 @@ import android.database.Cursor;
 
 /**
  * Represents a column definition.
- * 
- * @author Maxi Rosson
  */
 public interface Column {
 	

@@ -11,7 +11,6 @@ import com.jdroid.android.utils.AndroidUtils;
  * 	android:authorities="[PackageName].TwoLinesSuggestionsProvider" />
  * </pre>
  * 
- * @author Maxi Rosson
  */
 public class TwoLinesSuggestionsProvider extends SearchRecentSuggestionsProvider {
 	

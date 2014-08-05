@@ -6,10 +6,6 @@ import android.content.Intent;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.utils.WakeLockManager;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class WorkerService extends IntentService {
 	
 	private static String TAG = WorkerService.class.getSimpleName();

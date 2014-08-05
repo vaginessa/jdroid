@@ -20,7 +20,7 @@ import com.jdroid.java.utils.IdGenerator;
  * </p>
  * 
  */
-public final class BarcodeIntent {
+public final class BarcodeUtils {
 	
 	private static final int REQUEST_CODE = IdGenerator.getIntId();
 	

@@ -26,7 +26,6 @@ import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
  * Base {@link ListFragment}
  * 
  * @param <T>
- * @author Maxi Rosson
  */
 public abstract class AbstractListFragment<T> extends ListFragment implements FragmentIf, OnItemClickListener,
 		OnItemSelectedListener<T> {

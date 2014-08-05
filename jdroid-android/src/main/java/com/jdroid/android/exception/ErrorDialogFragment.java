@@ -7,10 +7,6 @@ import android.support.v4.app.FragmentActivity;
 import com.jdroid.android.R;
 import com.jdroid.android.dialog.AlertDialogFragment;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class ErrorDialogFragment extends AlertDialogFragment {
 	
 	private static final String SHOULD_GO_BACK_EXTRA = "shouldGoBackExtra";

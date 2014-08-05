@@ -18,7 +18,6 @@ import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 /**
  * Base {@link Fragment}
  * 
- * @author Maxi Rosson
  */
 public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	

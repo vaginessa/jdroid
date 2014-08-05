@@ -10,9 +10,6 @@ import android.widget.Toast;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 
-/**
- * @author Maxi Rosson
- */
 public final class ToastUtils {
 	
 	private static final int DEFAULT_DURATION = Toast.LENGTH_LONG;

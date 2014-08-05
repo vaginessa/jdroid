@@ -12,10 +12,6 @@ import com.jdroid.android.R;
 import com.jdroid.android.utils.GooglePlayUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class RateAppView extends RelativeLayout {
 	
 	private static final String RATE_ME_CLICK_TIMESTAMP = "rateMeClickTimestamp";

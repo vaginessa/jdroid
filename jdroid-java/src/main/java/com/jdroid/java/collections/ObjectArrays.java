@@ -2,10 +2,6 @@ package com.jdroid.java.collections;
 
 import java.lang.reflect.Array;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class ObjectArrays {
 	
 	/**

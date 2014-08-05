@@ -51,10 +51,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class AbstractApplication extends Application {
 	
 	/**

@@ -19,8 +19,6 @@ import com.jdroid.java.utils.StringUtils;
 
 /**
  * Mocked {@link WebService} and {@link EntityEnclosingWebService} implementation that returns mocked responses
- * 
- * @author Maxi Rosson
  */
 public abstract class AbstractMockWebService implements MultipartWebService {
 	

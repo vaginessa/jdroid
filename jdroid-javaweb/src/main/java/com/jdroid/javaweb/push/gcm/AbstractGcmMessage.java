@@ -3,10 +3,6 @@ package com.jdroid.javaweb.push.gcm;
 import java.util.Map;
 import com.google.common.collect.Maps;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class AbstractGcmMessage implements GcmMessage {
 	
 	private static final String MESSAGE_KEY_EXTRA = "messageKey";

@@ -2,10 +2,6 @@ package com.jdroid.java.collections;
 
 import java.util.Collection;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class Iterables {
 	
 	/**

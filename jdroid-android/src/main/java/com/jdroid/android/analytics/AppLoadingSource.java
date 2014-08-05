@@ -2,10 +2,6 @@ package com.jdroid.android.analytics;
 
 import android.content.Intent;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public enum AppLoadingSource {
 	
 	NORMAL("normal"),

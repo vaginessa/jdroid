@@ -6,10 +6,6 @@ import com.jdroid.java.marshaller.MarshallerMode;
 import com.jdroid.java.marshaller.MarshallerProvider;
 import com.jdroid.java.utils.CollectionUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class JsonMap extends LinkedHashMap<String, Object> {
 	
 	private static final long serialVersionUID = -3869527445658873602L;

@@ -3,10 +3,6 @@ package com.jdroid.android.social.googleplus;
 import com.google.android.gms.plus.model.people.Person;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class GooglePlusAuthenticationUseCase extends DefaultAbstractUseCase {
 	
 	private static final long serialVersionUID = -6947436509726048083L;

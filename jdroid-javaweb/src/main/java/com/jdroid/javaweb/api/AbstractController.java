@@ -6,10 +6,6 @@ import com.jdroid.java.marshaller.MarshallerProvider;
 import com.jdroid.java.utils.StringUtils;
 import com.jdroid.javaweb.context.Application;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class AbstractController {
 	
 	public String marshallSimple(Object object) {

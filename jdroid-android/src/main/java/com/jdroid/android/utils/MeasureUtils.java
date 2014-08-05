@@ -2,10 +2,6 @@ package com.jdroid.android.utils;
 
 import com.jdroid.android.AbstractApplication;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class MeasureUtils {
 	
 	public static int pxToDp(int px) {

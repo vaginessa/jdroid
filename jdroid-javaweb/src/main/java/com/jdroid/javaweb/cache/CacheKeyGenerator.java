@@ -3,9 +3,6 @@ package com.jdroid.javaweb.cache;
 import java.lang.reflect.Method;
 import org.springframework.cache.interceptor.DefaultKeyGenerator;
 
-/**
- * @author Maxi Rosson
- */
 public class CacheKeyGenerator extends DefaultKeyGenerator {
 	
 	/**

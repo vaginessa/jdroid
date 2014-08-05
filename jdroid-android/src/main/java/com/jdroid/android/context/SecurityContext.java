@@ -3,10 +3,6 @@ package com.jdroid.android.context;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.domain.User;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class SecurityContext {
 	
 	private static final SecurityContext INSTANCE = new SecurityContext();

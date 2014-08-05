@@ -2,8 +2,6 @@ package com.jdroid.android.usecase.listener;
 
 /**
  * Default Use Case Listener
- * 
- * @author Maxi Rosson
  */
 public interface DefaultUseCaseListener {
 	

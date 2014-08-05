@@ -6,10 +6,6 @@ import javax.persistence.OneToMany;
 import com.google.common.collect.Lists;
 import com.jdroid.javaweb.domain.Entity;
 
-/**
- * 
- * @author Maxi Rosson
- */
 @javax.persistence.Entity
 public class DeviceGroup extends Entity {
 	

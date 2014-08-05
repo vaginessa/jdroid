@@ -7,10 +7,6 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.TreeSet;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class Sets {
 	
 	// HashSet

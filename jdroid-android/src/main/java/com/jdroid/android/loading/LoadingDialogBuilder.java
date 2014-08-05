@@ -4,10 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import com.jdroid.android.AbstractApplication;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class LoadingDialogBuilder {
 	
 	private Boolean cancelable = AbstractApplication.get().isLoadingCancelable();

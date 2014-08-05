@@ -12,10 +12,6 @@ import com.google.common.collect.Maps;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 @Service
 public class PushServiceImpl implements PushService {
 	

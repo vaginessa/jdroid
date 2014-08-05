@@ -42,9 +42,9 @@ import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
-import com.jdroid.android.gps.LocalizationManager;
 import com.jdroid.android.loading.DefaultLoadingDialogBuilder;
 import com.jdroid.android.loading.LoadingDialogBuilder;
+import com.jdroid.android.location.LocationHelper;
 import com.jdroid.android.navdrawer.NavDrawerAdapter;
 import com.jdroid.android.navdrawer.NavDrawerItem;
 import com.jdroid.android.utils.ImageLoaderUtils;
@@ -56,10 +56,6 @@ import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.ReflectionUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class ActivityHelper implements ActivityIf {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(ActivityHelper.class);
@@ -407,7 +403,7 @@ public class ActivityHelper implements ActivityIf {
 				
 				@Override
 				public void handleMessage(Message m) {
-					LocalizationManager.get().startLocalization();
+					LocationHelper.get().startLocalization();
 					locationHandler.sendMessageDelayed(Message.obtain(locationHandler, LOCATION_UPDATE_TIMER_CODE),
 						locationFrequency);
 				}

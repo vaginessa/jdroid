@@ -2,10 +2,6 @@ package com.jdroid.java.utils;
 
 import java.util.Random;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class IdGenerator {
 	
 	private static int ID = 10000;

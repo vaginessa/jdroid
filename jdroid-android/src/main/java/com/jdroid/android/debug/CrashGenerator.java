@@ -4,10 +4,6 @@ import com.jdroid.android.exception.CommonErrorCode;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.ConnectionException;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class CrashGenerator {
 	
 	private static final String CRASH_MESSAGE = "This is a generated crash for testing";

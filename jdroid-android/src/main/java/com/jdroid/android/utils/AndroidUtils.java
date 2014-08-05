@@ -33,10 +33,6 @@ import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.StringUtils;
 import com.jdroid.java.utils.ValidationUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class AndroidUtils {
 	
 	public static Boolean isEmulator() {

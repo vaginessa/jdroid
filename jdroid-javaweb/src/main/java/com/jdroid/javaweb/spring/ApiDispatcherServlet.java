@@ -6,10 +6,6 @@ import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.util.UrlPathHelper;
 import com.jdroid.javaweb.api.BadRequestException;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class ApiDispatcherServlet extends DispatcherServlet {
 	
 	/**

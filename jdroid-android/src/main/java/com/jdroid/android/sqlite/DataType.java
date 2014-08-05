@@ -6,10 +6,6 @@ import android.database.Cursor;
 import com.jdroid.android.utils.AndroidEncryptionUtils;
 import com.jdroid.java.utils.DateUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public enum DataType {
 	TEXT("TEXT") {
 		

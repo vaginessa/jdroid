@@ -12,8 +12,6 @@ import com.jdroid.java.collections.Sets;
 
 /**
  * This class contains functions for managing Strings
- * 
- * @author Maxi Rosson
  */
 public abstract class StringUtils {
 	

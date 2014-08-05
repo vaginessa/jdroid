@@ -2,10 +2,6 @@ package com.jdroid.android.domain;
 
 import com.jdroid.java.utils.DateUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public interface User {
 	
 	public static final long PROFILE_PICTURE_TTL = DateUtils.MILLIS_PER_DAY;

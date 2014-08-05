@@ -2,10 +2,6 @@ package com.jdroid.java.utils;
 
 import java.io.UnsupportedEncodingException;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class EncodingUtils {
 	
 	public static final String UTF8 = "UTF-8";

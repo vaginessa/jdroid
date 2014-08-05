@@ -7,7 +7,6 @@ import com.jdroid.android.usecase.DefaultAbstractUseCase;
 /**
  * 
  * @param <T>
- * @author Maxi Rosson
  */
 public abstract class UseCaseFragment<T extends DefaultAbstractUseCase> extends AbstractFragment {
 	

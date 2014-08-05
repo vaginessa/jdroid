@@ -9,10 +9,6 @@ import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.view.ButtonBarView;
 import com.jdroid.android.view.CustomViewPager;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class WizardActivity extends AbstractFragmentActivity {
 	
 	private CustomViewPager pager;

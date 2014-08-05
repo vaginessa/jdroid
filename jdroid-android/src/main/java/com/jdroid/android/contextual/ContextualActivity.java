@@ -6,25 +6,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import com.jdroid.android.ActionItem;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.fragment.OnItemSelectedListener;
-import com.jdroid.android.tabs.TabAction;
 import com.jdroid.android.utils.AndroidUtils;
 
 /**
  * 
  * @param <T>
- * @author Maxi Rosson
  */
-public abstract class ContextualActivity<T extends TabAction> extends AbstractFragmentActivity implements
+public abstract class ContextualActivity<T extends ActionItem> extends AbstractFragmentActivity implements
 		OnItemSelectedListener<T> {
 	
 	private static final String DEFAULT_CONTEXTUAL_ITEM_EXTRA = "defaultContextualItem";
 	public static final String DEFAULT_CONTEXTUAL_ITEM_BUNDLE_EXTRA = "defaultContextualItemBundle";
 	
 	public static Intent getStartIntent(Context context,
-			Class<? extends ContextualActivity<?>> contextualActivityClass, TabAction defaultContextualItem) {
+			Class<? extends ContextualActivity<?>> contextualActivityClass, ActionItem defaultContextualItem) {
 		Intent intent = new Intent(context, contextualActivityClass);
 		intent.putExtra(ContextualActivity.DEFAULT_CONTEXTUAL_ITEM_EXTRA, defaultContextualItem);
 		return intent;

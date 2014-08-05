@@ -6,10 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class WizardStepFragmentAdapter extends FragmentPagerAdapter {
 	
 	private List<? extends WizardStep> wizardSteps;

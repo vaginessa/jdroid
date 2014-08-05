@@ -6,8 +6,6 @@ import com.jdroid.android.social.SocialUser;
 
 /**
  * Google+ Listener. All the events are invoked on the UI thread
- * 
- * @author Maxi Rosson
  */
 public interface GooglePlusListener {
 	

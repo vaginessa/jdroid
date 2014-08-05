@@ -9,10 +9,6 @@ import com.jdroid.java.parser.Parser;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class CacheParser implements Parser {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(CacheParser.class);

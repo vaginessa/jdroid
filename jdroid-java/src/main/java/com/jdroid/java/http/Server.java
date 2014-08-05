@@ -2,10 +2,6 @@ package com.jdroid.java.http;
 
 import java.util.List;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public interface Server {
 	
 	public String getName();

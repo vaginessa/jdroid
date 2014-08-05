@@ -11,8 +11,6 @@ import com.jdroid.java.utils.LoggerUtils;
 /**
  * 
  * @param <T> The Listener type
- * 
- * @author Maxi Rosson
  */
 public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 	

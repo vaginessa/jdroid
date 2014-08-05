@@ -11,7 +11,6 @@ import com.jdroid.java.exception.UnexpectedException;
 /**
  * Debug Settings Activity just for debug purposes. These settings are disabled on the production environment
  * 
- * @author Maxi Rosson
  */
 public class DebugSettingsActivity extends AbstractFragmentActivity {
 	

@@ -8,10 +8,6 @@ import android.preference.PreferenceManager;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.java.collections.Maps;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class ExperimentHelper {
 	
 	public interface Experiment {

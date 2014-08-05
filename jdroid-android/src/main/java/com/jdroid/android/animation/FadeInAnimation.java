@@ -4,10 +4,6 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class FadeInAnimation extends AlphaAnimation {
 	
 	public FadeInAnimation(final View view, long durationMillis) {

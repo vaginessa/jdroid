@@ -21,8 +21,6 @@ import com.jdroid.java.utils.CollectionUtils;
 
 /**
  * https://github.com/mattklein/event-consolidating-appender 2012-02-13
- * 
- * @author Maxi Rosson
  */
 public class EventConsolidatingAppender extends AppenderSkeleton implements AppenderAttachable {
 	

@@ -9,10 +9,6 @@ import com.jdroid.android.gcm.GcmMessageResolver;
 import com.jdroid.sample.android.gcm.AndroidGcmResolver;
 import com.jdroid.sample.android.ui.HomeActivity;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class AndroidApplication extends AbstractApplication {
 	
 	public static AndroidApplication get() {

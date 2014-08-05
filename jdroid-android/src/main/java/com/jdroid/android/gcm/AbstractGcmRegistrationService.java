@@ -12,10 +12,6 @@ import com.jdroid.android.utils.IntentRetryUtils;
 import com.jdroid.java.exception.ApplicationException;
 import com.jdroid.java.utils.LoggerUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class AbstractGcmRegistrationService extends WorkerService {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(AbstractGcmRegistrationService.class);

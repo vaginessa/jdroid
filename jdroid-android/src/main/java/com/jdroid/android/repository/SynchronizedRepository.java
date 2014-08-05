@@ -6,7 +6,6 @@ import com.jdroid.java.repository.Repository;
 /**
  * 
  * @param <T>
- * @author Maxi Rosson
  */
 public interface SynchronizedRepository<T extends Identifiable> extends Repository<T> {
 	

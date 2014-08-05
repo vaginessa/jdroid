@@ -12,7 +12,6 @@ import com.jdroid.android.context.SecurityContext;
  * information, using the user id from the {@link SecurityContext} as key in the SharedPreferences. This enables the
  * possibility to cache multiple users' tokens.
  * 
- * @author Estefanía Caravatti
  */
 public class MultipleUsersSharedPreferencesTokenCachingStrategy extends SharedPreferencesTokenCachingStrategy {
 	

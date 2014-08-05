@@ -2,10 +2,6 @@ package com.jdroid.java.context;
 
 import com.jdroid.java.utils.PropertiesUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class GitContext {
 	
 	private static final String GIT_PROPERTIES_RESOURCE_NAME = "git.properties";

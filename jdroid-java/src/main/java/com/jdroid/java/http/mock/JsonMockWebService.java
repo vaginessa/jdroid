@@ -1,9 +1,5 @@
 package com.jdroid.java.http.mock;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class JsonMockWebService extends AbstractMockWebService {
 	
 	private final static String MOCKS_BASE_PATH = "mocks/json/";

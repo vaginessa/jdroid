@@ -9,10 +9,6 @@ import com.jdroid.java.exception.ServerHttpResponseException;
 import com.jdroid.java.utils.StringUtils;
 import com.jdroid.java.utils.ValidationUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public enum CommonErrorCode implements ErrorCode {
 	
 	INVALID_USER_TOKEN(null, 402),

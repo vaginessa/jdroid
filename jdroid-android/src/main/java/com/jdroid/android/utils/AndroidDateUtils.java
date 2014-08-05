@@ -7,8 +7,6 @@ import com.jdroid.java.utils.DateUtils;
 
 /**
  * Date Utils that returns formatted times & dates according to the current locale and user preferences
- * 
- * @author Maxi Rosson
  */
 public class AndroidDateUtils {
 	

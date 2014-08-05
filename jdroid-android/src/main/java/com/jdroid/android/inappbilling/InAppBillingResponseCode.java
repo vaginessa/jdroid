@@ -2,8 +2,6 @@ package com.jdroid.android.inappbilling;
 
 /**
  * The response codes for a request, defined by the Google Play app.
- * 
- * @author Maxi Rosson
  */
 public enum InAppBillingResponseCode {
 	

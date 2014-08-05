@@ -7,10 +7,6 @@ import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.java.exception.ConnectionException;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	
 	/**

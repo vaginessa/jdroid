@@ -7,10 +7,6 @@ import javax.persistence.ManyToOne;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.javaweb.domain.Entity;
 
-/**
- * 
- * @author Maxi Rosson
- */
 @javax.persistence.Entity
 public class Device extends Entity {
 	

@@ -1,14 +1,10 @@
-package com.jdroid.android.tabs;
+package com.jdroid.android;
 
 import java.io.Serializable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
-/**
- * 
- * @author Maxi Rosson
- */
-public interface TabAction extends Serializable {
+public interface ActionItem extends Serializable {
 	
 	public String getName();
 	

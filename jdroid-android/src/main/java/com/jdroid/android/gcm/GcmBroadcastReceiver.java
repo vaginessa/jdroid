@@ -10,8 +10,6 @@ import com.jdroid.java.utils.LoggerUtils;
 /**
  * {@link BroadcastReceiver} that receives GCM messages and delivers them to an application-specific {@link GcmService}
  * subclass.
- * 
- * @author Maxi Rosson
  */
 public class GcmBroadcastReceiver extends BroadcastReceiver {
 	

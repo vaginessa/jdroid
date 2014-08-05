@@ -1,9 +1,5 @@
 package com.jdroid.android.social;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public enum SocialAction {
 	
 	LIKE("like"),

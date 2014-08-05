@@ -5,23 +5,19 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.jdroid.android.ActionItem;
 import com.jdroid.android.R;
 import com.jdroid.android.adapter.BaseHolderArrayAdapter;
 import com.jdroid.android.contextual.ContextualItemsAdapter.ContextualItemHolder;
-import com.jdroid.android.tabs.TabAction;
 
-/**
- * 
- * @author Maxi Rosson
- */
-public class ContextualItemsAdapter extends BaseHolderArrayAdapter<TabAction, ContextualItemHolder> {
+public class ContextualItemsAdapter extends BaseHolderArrayAdapter<ActionItem, ContextualItemHolder> {
 	
-	public ContextualItemsAdapter(Activity context, List<TabAction> actions) {
+	public ContextualItemsAdapter(Activity context, List<ActionItem> actions) {
 		super(context, R.layout.contextual_list_item, actions);
 	}
 	
 	@Override
-	protected void fillHolderFromItem(TabAction action, ContextualItemHolder holder) {
+	protected void fillHolderFromItem(ActionItem action, ContextualItemHolder holder) {
 		holder.image.setImageResource(action.getIconResource());
 		holder.name.setText(action.getNameResource());
 	}

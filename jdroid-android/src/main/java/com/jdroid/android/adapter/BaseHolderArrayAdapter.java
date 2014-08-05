@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter;
  * @param <ITEM> An item in the list.
  * @param <VIEWHOLDER> A view holder containing all the necessary {@link View}s for an item's layout.
  * 
- * @author Estefania Caravatti
  */
 public abstract class BaseHolderArrayAdapter<ITEM, VIEWHOLDER> extends BaseArrayAdapter<ITEM> {
 	

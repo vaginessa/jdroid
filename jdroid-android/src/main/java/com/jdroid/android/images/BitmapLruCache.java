@@ -3,10 +3,6 @@ package com.jdroid.android.images;
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class BitmapLruCache extends LruCache<String, Bitmap> {
 	
 	public BitmapLruCache(int maxSizeBytes) {

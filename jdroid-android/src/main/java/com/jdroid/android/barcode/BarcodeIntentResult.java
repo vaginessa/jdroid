@@ -2,7 +2,7 @@ package com.jdroid.android.barcode;
 
 /**
  * <p>
- * Encapsulates the result of a barcode scan invoked through {@link BarcodeIntent}.
+ * Encapsulates the result of a barcode scan invoked through {@link BarcodeUtils}.
  * </p>
  * 
  */

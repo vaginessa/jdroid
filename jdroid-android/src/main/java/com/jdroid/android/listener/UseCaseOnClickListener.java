@@ -7,8 +7,6 @@ import com.jdroid.java.concurrent.ExecutorUtils;
 
 /**
  * {@link OnClickListener} that execute a {@link UseCase}
- * 
- * @author Maxi Rosson
  */
 public class UseCaseOnClickListener implements OnClickListener {
 	

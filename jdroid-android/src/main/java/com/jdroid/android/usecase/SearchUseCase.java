@@ -6,8 +6,6 @@ import com.jdroid.java.collections.Sets;
 import com.jdroid.java.search.PagedResult;
 
 /**
- * 
- * @author Maxi Rosson
  * @param <T> item to search for
  */
 public abstract class SearchUseCase<T> extends PaginatedUseCase<T> {

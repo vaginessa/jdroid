@@ -15,8 +15,6 @@ import com.jdroid.android.listener.FilterListTextWatcher;
  * thereafter.
  * 
  * @param <T> An item in the list. The filtering will be done based on {@link T#toString()}.
- * 
- * @author Estefania Caravatti
  */
 public abstract class AbstractLocalSearchFragment<T> extends AbstractListFragment<T> {
 	

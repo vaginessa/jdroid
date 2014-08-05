@@ -17,10 +17,6 @@ import com.jdroid.java.http.apache.HttpClientFactory;
 import com.jdroid.java.marshaller.MarshallerMode;
 import com.jdroid.java.marshaller.MarshallerProvider;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class ApacheMultipartHttpPostWebService extends ApacheHttpPostWebService implements MultipartWebService {
 	
 	private MultipartEntity multipartEntity = new MultipartEntity();

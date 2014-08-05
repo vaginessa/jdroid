@@ -7,10 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public interface ActivityIf extends ComponentIf {
 	
 	public Boolean onBeforeSetContentView();

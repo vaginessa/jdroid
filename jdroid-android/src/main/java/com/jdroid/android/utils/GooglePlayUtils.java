@@ -11,10 +11,6 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.dialog.AlertDialogFragment;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class GooglePlayUtils {
 	
 	private static final String GOOGLE_PLAY_SERVICES = "com.google.android.gms";

@@ -17,10 +17,6 @@ import com.jdroid.java.exception.BusinessException;
 import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.utils.LoggerUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class DefaultExceptionHandler implements ExceptionHandler {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(DefaultExceptionHandler.class);

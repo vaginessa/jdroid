@@ -4,8 +4,6 @@ import com.jdroid.android.domain.User;
 
 /**
  * {@link User} repository
- * 
- * @author Maxi Rosson
  */
 public interface UserRepository {
 	

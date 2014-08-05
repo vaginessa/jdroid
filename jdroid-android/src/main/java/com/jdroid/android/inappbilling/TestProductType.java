@@ -1,9 +1,5 @@
 package com.jdroid.android.inappbilling;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public enum TestProductType implements ProductType {
 	
 	// When you make an in-app billing request with this product ID, the Google Play app responds as though you

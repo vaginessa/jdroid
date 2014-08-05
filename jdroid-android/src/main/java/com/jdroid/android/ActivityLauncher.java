@@ -8,8 +8,6 @@ import android.os.Bundle;
 
 /**
  * Launcher for all the activities of the application
- * 
- * @author Maxi Rosson
  */
 public class ActivityLauncher {
 	

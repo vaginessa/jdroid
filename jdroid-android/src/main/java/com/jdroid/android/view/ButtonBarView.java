@@ -11,10 +11,6 @@ import android.widget.TextView;
 import com.jdroid.android.R;
 import com.jdroid.android.utils.AndroidUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class ButtonBarView extends FrameLayout {
 	
 	private View negativeButton;

@@ -6,10 +6,6 @@ import android.view.View;
 import android.widget.TextView;
 import com.jdroid.android.R;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class ViewBuilder {
 	
 	public static View buildSectionTitle(Context context, int titleId, Object... args) {

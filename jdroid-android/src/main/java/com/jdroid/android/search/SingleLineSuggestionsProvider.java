@@ -11,7 +11,6 @@ import com.jdroid.android.utils.AndroidUtils;
  * 	android:authorities="[PackageName].SingleLineSuggestionsProvider" />
  * </pre>
  * 
- * @author Maxi Rosson
  */
 public class SingleLineSuggestionsProvider extends SearchRecentSuggestionsProvider {
 	

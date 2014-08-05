@@ -1,10 +1,5 @@
 package com.jdroid.java.json;
 
-
-/**
- * 
- * @author Maxi Rosson
- */
 public class JSONBuilder {
 	
 	private JSONStringer jsonStringer = new JSONStringer();

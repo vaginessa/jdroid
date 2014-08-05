@@ -3,10 +3,6 @@ package com.jdroid.java.parser.json;
 import com.jdroid.java.json.JSONArray;
 import com.jdroid.java.json.JSONObject;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class JsonArrayParser extends JsonParser<JSONArray> {
 	
 	private JsonParser<JSONObject> parser;

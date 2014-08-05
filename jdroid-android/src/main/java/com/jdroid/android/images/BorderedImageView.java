@@ -9,10 +9,6 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import com.jdroid.android.R;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class BorderedImageView extends LinearLayout {
 	
 	private ImageView imageView;

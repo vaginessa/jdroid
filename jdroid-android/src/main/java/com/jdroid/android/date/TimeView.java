@@ -12,7 +12,6 @@ import com.jdroid.java.utils.IdGenerator;
 /**
  * A {@link TextView} that displays the current time
  * 
- * @author Maxi Rosson
  */
 public class TimeView extends TextView implements Callback {
 	

@@ -3,10 +3,6 @@ package com.jdroid.android.loading;
 import android.app.Activity;
 import android.app.Dialog;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class DefaultLoadingDialogBuilder extends LoadingDialogBuilder {
 	
 	@Override

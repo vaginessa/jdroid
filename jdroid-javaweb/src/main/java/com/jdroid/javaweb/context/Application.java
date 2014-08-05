@@ -8,7 +8,6 @@ import com.jdroid.javaweb.domain.Entity;
 /**
  * 
  * @param <T>
- * @author Maxi Rosson
  */
 public class Application<T extends Entity> implements ApplicationContextAware {
 	

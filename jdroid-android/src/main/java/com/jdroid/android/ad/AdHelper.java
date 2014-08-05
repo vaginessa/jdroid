@@ -11,10 +11,6 @@ import com.google.android.gms.ads.AdView;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class AdHelper {
 	
 	private ViewGroup adViewContainer;

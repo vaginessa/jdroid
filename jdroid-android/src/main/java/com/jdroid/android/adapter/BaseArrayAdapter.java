@@ -8,8 +8,6 @@ import android.widget.ArrayAdapter;
 import com.jdroid.java.collections.Lists;
 
 /**
- * 
- * @author Maxi Rosson
  * @param <T>
  */
 public class BaseArrayAdapter<T> extends ArrayAdapter<T> {

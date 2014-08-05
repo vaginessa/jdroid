@@ -7,10 +7,6 @@ import com.jdroid.java.marshaller.MarshallerMode;
 import com.jdroid.java.search.PagedResult;
 import com.jdroid.java.utils.CollectionUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class PagedResultJsonMarshaller implements Marshaller<PagedResult<?>, JsonMap> {
 	
 	private static final String LAST_PAGE = "lastPage";

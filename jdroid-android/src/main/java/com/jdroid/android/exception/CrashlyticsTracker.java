@@ -9,10 +9,6 @@ import com.jdroid.android.analytics.AbstractAnalyticsTracker;
 import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.context.SecurityContext;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class CrashlyticsTracker extends AbstractAnalyticsTracker {
 	
 	private static final CrashlyticsTracker INSTANCE = new CrashlyticsTracker();

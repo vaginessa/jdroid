@@ -22,10 +22,6 @@ import com.jdroid.android.gcm.GcmMessage;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.CollectionUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class DebugSettingsFragment extends AbstractPreferenceFragment {
 	
 	/**

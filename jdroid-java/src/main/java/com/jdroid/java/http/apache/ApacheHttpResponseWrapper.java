@@ -4,10 +4,6 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import com.jdroid.java.http.HttpResponseWrapper;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class ApacheHttpResponseWrapper extends HttpResponseWrapper {
 	
 	private HttpResponse httpResponse;

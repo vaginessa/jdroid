@@ -8,10 +8,6 @@ import android.content.Intent;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.LoggerUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class InstallReferrerReceiver extends BroadcastReceiver {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(InstallReferrerReceiver.class);

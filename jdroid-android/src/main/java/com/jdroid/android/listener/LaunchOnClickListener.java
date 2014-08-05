@@ -9,8 +9,6 @@ import com.jdroid.android.ActivityLauncher;
 
 /**
  * {@link OnClickListener} that launches an {@link Activity} on the onClick event
- * 
- * @author Maxi Rosson
  */
 public class LaunchOnClickListener implements OnClickListener {
 	

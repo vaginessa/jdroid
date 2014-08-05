@@ -9,10 +9,6 @@ import org.testng.annotations.Test;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.json.JsonMap;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class MarshallerProviderTest {
 	
 	private MarshallerProvider marshallerProvider;

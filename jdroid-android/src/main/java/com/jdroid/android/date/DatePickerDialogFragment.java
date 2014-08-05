@@ -17,10 +17,6 @@ import com.jdroid.android.R;
 import com.jdroid.android.dialog.AbstractDialogFragment;
 import com.jdroid.android.utils.AndroidUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class DatePickerDialogFragment extends AbstractDialogFragment implements OnDateChangedListener {
 	
 	private static final String DEFAULT_DATE_EXTRA = "defaultDate";

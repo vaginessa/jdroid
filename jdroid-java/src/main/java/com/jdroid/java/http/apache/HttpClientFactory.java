@@ -4,8 +4,6 @@ import org.apache.http.client.HttpClient;
 
 /**
  * Factory interface to create {@link HttpClient}s.
- * 
- * @author Maxi Rosson
  */
 public interface HttpClientFactory {
 	

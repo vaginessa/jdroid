@@ -15,10 +15,6 @@ import com.jdroid.android.R;
 import com.jdroid.android.dialog.AbstractDialogFragment;
 import com.jdroid.java.utils.DateUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class TimePickerDialogFragment extends AbstractDialogFragment {
 	
 	private static final String DEFAULT_TIME_EXTRA = "defaultTime";

@@ -18,10 +18,6 @@ import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 import com.jdroid.android.utils.AndroidUtils;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public class AbstractDialogFragment extends DialogFragment implements FragmentIf {
 	
 	private FragmentHelper fragmentHelper;

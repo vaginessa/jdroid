@@ -41,9 +41,6 @@ import com.jdroid.java.collections.Lists;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.utils.LoggerUtils;
 
-/**
- * @author Maxi Rosson
- */
 public class GooglePlusHelperFragment extends AbstractFragment implements ConnectionCallbacks,
 		OnConnectionFailedListener {
 	

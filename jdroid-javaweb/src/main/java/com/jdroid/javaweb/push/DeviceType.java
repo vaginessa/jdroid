@@ -3,10 +3,6 @@ package com.jdroid.javaweb.push;
 import java.util.List;
 import com.jdroid.javaweb.push.gcm.GcmSender;
 
-/**
- * 
- * @author Maxi Rosson
- */
 public enum DeviceType {
 	ANDROID("android", GcmSender.get()),
 	IPHONE("iphone", null),
