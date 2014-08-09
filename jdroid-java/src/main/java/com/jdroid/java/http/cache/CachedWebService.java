@@ -13,7 +13,7 @@ import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.Hasher;
 import com.jdroid.java.utils.LoggerUtils;
 
-public abstract class CachedWebService implements WebService, EntityEnclosingWebService {
+public abstract class CachedWebService implements EntityEnclosingWebService {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(CachedWebService.class);
 	

@@ -43,24 +43,7 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	@SuppressWarnings({ "unchecked", "resource" })
 	@Override
 	public <T> T execute(Parser parser) {
-		
-		StringBuilder sb = new StringBuilder(getMocksBasePath());
-		if (urlSegments != null) {
-			for (int i = 0; i < urlSegments.length; i++) {
-				sb.append(urlSegments[i].toString().replaceAll(URL_SEPARATOR, MOCK_SEPARATOR));
-				sb.append(MOCK_SEPARATOR);
-			}
-		}
-		sb.deleteCharAt(sb.length() - 1);
-		
-		String suffix = getSuffix(sb.toString());
-		if (StringUtils.isNotBlank(suffix)) {
-			sb.append(SUFFIX_SEPARATOR);
-			sb.append(suffix);
-		}
-		
-		sb.append(getMocksExtension());
-		String filePath = sb.toString();
+		String filePath = generateMockFilePath(urlSegments);
 		
 		LOGGER.warn("Request: " + filePath);
 		if (!parameters.isEmpty()) {
@@ -236,7 +219,7 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	 */
 	@Override
 	public String getUrl() {
-		return null;
+		return generateMockFilePath(urlSegments);
 	}
 	
 	/**
@@ -245,5 +228,25 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	@Override
 	public String getUrlSuffix() {
 		return null;
+	}
+	
+	protected String generateMockFilePath(Object... urlSegments) {
+		StringBuilder sb = new StringBuilder(getMocksBasePath());
+		if (urlSegments != null) {
+			for (int i = 0; i < urlSegments.length; i++) {
+				sb.append(urlSegments[i].toString().replaceAll(URL_SEPARATOR, MOCK_SEPARATOR));
+				sb.append(MOCK_SEPARATOR);
+			}
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		
+		String suffix = getSuffix(sb.toString());
+		if (StringUtils.isNotBlank(suffix)) {
+			sb.append(SUFFIX_SEPARATOR);
+			sb.append(suffix);
+		}
+		
+		sb.append(getMocksExtension());
+		return sb.toString();
 	}
 }
