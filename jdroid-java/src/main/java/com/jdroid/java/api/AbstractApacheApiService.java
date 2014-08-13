@@ -96,8 +96,6 @@ public abstract class AbstractApacheApiService extends AbstractApiService {
 	}
 	
 	protected HttpClientFactory getHttpClientFactoryInstance() {
-		// TODO See how the AndroidHttpClient works
-		// return AndroidHttpClientFactory.get();
 		return DefaultHttpClientFactory.get();
 	}
 }

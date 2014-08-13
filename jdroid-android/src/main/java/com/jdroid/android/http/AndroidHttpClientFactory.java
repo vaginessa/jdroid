@@ -1,19 +1,18 @@
 package com.jdroid.android.http;
 
-import org.apache.http.client.HttpClient;
-import android.net.http.AndroidHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import com.jdroid.java.http.apache.DefaultHttpClientFactory;
 import com.jdroid.java.http.apache.HttpClientFactory;
 
-public class AndroidHttpClientFactory implements HttpClientFactory {
+public class AndroidHttpClientFactory extends DefaultHttpClientFactory {
 	
-	private final static String DEFAULT_USER_AGENT = "android";
+	private static HttpClientFactory INSTANCE;
 	
-	/**
-	 * @see com.jdroid.java.http.apache.HttpClientFactory#createHttpClient()
-	 */
-	@Override
-	public HttpClient createHttpClient() {
-		return AndroidHttpClient.newInstance(DEFAULT_USER_AGENT);
+	public static HttpClientFactory get() {
+		if (INSTANCE == null) {
+			INSTANCE = new AndroidHttpClientFactory();
+		}
+		return INSTANCE;
 	}
 	
 	/**
@@ -21,8 +20,10 @@ public class AndroidHttpClientFactory implements HttpClientFactory {
 	 *      java.lang.String)
 	 */
 	@Override
-	public HttpClient createHttpClient(Boolean ssl, Integer timeout, String userAgent) {
-		return AndroidHttpClient.newInstance(userAgent);
+	public DefaultHttpClient createHttpClient(Boolean ssl, Integer timeout, String userAgent) {
+		DefaultHttpClient httpClient = super.createHttpClient(ssl, timeout, userAgent);
+		httpClient.setRedirectHandler(new AndroidDefaultRedirectHandler());
+		return httpClient;
 	}
 	
 }
