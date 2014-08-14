@@ -24,6 +24,7 @@ public class AppContext {
 	private Environment environment;
 	private Boolean isFreeApp;
 	private String installationSource;
+	private String serverApiVersion;
 	
 	// Social
 	private String googleProjectId;
@@ -57,6 +58,7 @@ public class AppContext {
 		facebookAppId = PropertiesUtils.getStringProperty("facebook.app.id");
 		debugSettings = PropertiesUtils.getBooleanProperty("debug.settings", false);
 		isFreeApp = PropertiesUtils.getBooleanProperty("free.app");
+		serverApiVersion = PropertiesUtils.getStringProperty("server.api.version");
 		
 		adsEnabled = PropertiesUtils.getBooleanProperty("ads.enabled", false);
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
@@ -236,5 +238,9 @@ public class AppContext {
 		} else {
 			return 0L;
 		}
+	}
+	
+	public String getServerApiVersion() {
+		return serverApiVersion;
 	}
 }

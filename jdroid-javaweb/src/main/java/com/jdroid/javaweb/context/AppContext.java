@@ -9,6 +9,9 @@ public class AppContext {
 	private String appVersion;
 	private String appHomePath;
 	
+	private String apiVersion;
+	private String minApiVersion;
+	
 	private String googleServerApiKey;
 	private String adminToken;
 	
@@ -35,6 +38,34 @@ public class AppContext {
 	 */
 	public void setAppVersion(String appVersion) {
 		this.appVersion = appVersion;
+	}
+	
+	/**
+	 * @return the apiVersion
+	 */
+	public String getApiVersion() {
+		return apiVersion;
+	}
+	
+	/**
+	 * @param apiVersion the apiVersion to set
+	 */
+	public void setApiVersion(String apiVersion) {
+		this.apiVersion = apiVersion;
+	}
+	
+	/**
+	 * @return the minApiVersion
+	 */
+	public String getMinApiVersion() {
+		return minApiVersion;
+	}
+	
+	/**
+	 * @param minApiVersion the minApiVersion to set
+	 */
+	public void setMinApiVersion(String minApiVersion) {
+		this.minApiVersion = minApiVersion;
 	}
 	
 	public void setHttpMockSleepDuration(Integer httpMockSleepDuration) {
