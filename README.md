@@ -29,6 +29,9 @@ Dependency project for both Android & Java apps
 jdroid Java Web
 ---------------
 Dependency project for Java Web apps 
+* Http Filters
+ * Authentication filter
+ * API version filter
 * [Spring MVC integration][7]
 * [Hibernate ORM integration][6]
 * [Restfb Facebook integration][19]
