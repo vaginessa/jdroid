@@ -2,8 +2,6 @@ package com.jdroid.android.http;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.http.Header;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
@@ -17,10 +15,12 @@ import org.apache.http.impl.client.RedirectLocations;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.ExecutionContext;
 import org.apache.http.protocol.HttpContext;
+import org.slf4j.Logger;
+import com.jdroid.java.utils.LoggerUtils;
 
 public class AndroidDefaultRedirectHandler extends DefaultRedirectHandler {
 	
-	private final Log log = LogFactory.getLog(getClass());
+	private final Logger LOGGER = LoggerUtils.getLogger(AndroidDefaultRedirectHandler.class);
 	
 	private static final String REDIRECT_LOCATIONS = "http.protocol.redirect-locations";
 	
@@ -37,9 +37,7 @@ public class AndroidDefaultRedirectHandler extends DefaultRedirectHandler {
 					+ " but no location header");
 		}
 		String location = locationHeader.getValue().replaceAll(" ", "%20");
-		if (log.isDebugEnabled()) {
-			log.debug("Redirect requested to location '" + location + "'");
-		}
+		LOGGER.debug("Redirect requested to location '" + location + "'");
 		
 		URI uri;
 		try {
