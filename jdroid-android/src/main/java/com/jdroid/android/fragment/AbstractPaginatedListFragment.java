@@ -82,6 +82,13 @@ public abstract class AbstractPaginatedListFragment<T> extends AbstractListFragm
 						getPaginatedUseCase().markAsPaginating();
 						executeUseCase(getPaginatedUseCase());
 					}
+					
+					if (((firstVisibleItem + visibleItemCount) == totalItemCount)
+							&& getPaginatedUseCase().isInProgress()) {
+						paginationFooter.setVisibility(View.VISIBLE);
+					} else {
+						paginationFooter.setVisibility(View.GONE);
+					}
 				}
 			});
 		}
@@ -131,10 +138,20 @@ public abstract class AbstractPaginatedListFragment<T> extends AbstractListFragm
 				} else {
 					setListAdapter(createBaseArrayAdapter(getPaginatedUseCase().getResults()));
 					dismissLoading();
+					
+					if ((getItemsToAutoPaginate() != null)
+							&& (getPaginatedUseCase().getResults().size() <= getItemsToAutoPaginate())) {
+						getPaginatedUseCase().markAsPaginating();
+						executeUseCase(getPaginatedUseCase());
+					}
 				}
 				dismissPaginationLoading();
 			}
 		});
+	}
+	
+	protected Integer getItemsToAutoPaginate() {
+		return null;
 	}
 	
 	private void startPaginationLoading() {

@@ -138,10 +138,20 @@ public abstract class AbstractPaginatedGridFragment<T> extends AbstractGridFragm
 				} else {
 					setListAdapter(createBaseArrayAdapter(getPaginatedUseCase().getResults()));
 					dismissLoading();
+					
+					if ((getItemsToAutoPaginate() != null)
+							&& (getPaginatedUseCase().getResults().size() <= getItemsToAutoPaginate())) {
+						getPaginatedUseCase().markAsPaginating();
+						executeUseCase(getPaginatedUseCase());
+					}
 				}
 				dismissPaginationLoading();
 			}
 		});
+	}
+	
+	protected Integer getItemsToAutoPaginate() {
+		return null;
 	}
 	
 	private void startPaginationLoading() {
