@@ -11,6 +11,7 @@ import com.jdroid.java.utils.ValidationUtils;
 
 public enum CommonErrorCode implements ErrorCode {
 	
+	INVALID_CREDENTIALS(R.string.invalidCredentials, 401),
 	INVALID_USER_TOKEN(null, 402),
 	INVALID_API_VERSION(null, 403),
 	SERVER_ERROR(R.string.serverError) {

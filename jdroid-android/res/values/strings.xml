@@ -31,6 +31,7 @@
 	<string name="notSupportedInAppBillingError">Your device doesn\'t support in app billing.</string>
 	<string name="failedToLoadPurchases">We could\'t load the items to purchase. Please try again later.</string>
 	<string name="exceptionReportDialogTitle">%1$s crashed</string>
+	<string name="invalidCredentials">Invalid Credentials</string>
 
 	<!-- Google Play Utils -->
 	<string name="updateAppTitle">Update required</string>
