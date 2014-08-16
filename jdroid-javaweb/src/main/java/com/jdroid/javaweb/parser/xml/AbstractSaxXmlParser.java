@@ -21,9 +21,9 @@ import com.sun.org.apache.xerces.internal.parsers.SAXParser;
 /**
  * XML input streams parser
  */
-public abstract class XmlParser extends DefaultHandler implements Parser {
+public abstract class AbstractSaxXmlParser extends DefaultHandler implements Parser {
 	
-	private static final Logger LOGGER = LoggerUtils.getLogger(XmlParser.class);
+	private static final Logger LOGGER = LoggerUtils.getLogger(AbstractSaxXmlParser.class);
 	
 	private StringBuilder builder = new StringBuilder();
 	

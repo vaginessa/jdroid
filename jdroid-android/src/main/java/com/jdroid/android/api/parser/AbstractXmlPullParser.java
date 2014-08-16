@@ -1,4 +1,4 @@
-package com.jdroid.android.api;
+package com.jdroid.android.api.parser;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import com.jdroid.java.parser.Parser;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.NumberUtils;
 
-public abstract class AbstractXmlParser implements Parser {
+public abstract class AbstractXmlPullParser implements Parser {
 	
 	/**
 	 * @see com.jdroid.java.parser.Parser#parse(java.lang.String)
