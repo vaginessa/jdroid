@@ -32,6 +32,8 @@ Dependency project for Java Web apps
 * Http Filters
  * Authentication filter
  * API version filter
+* Parsers
+ * Sax XML Parser
 * [Spring MVC integration][7]
 * [Hibernate ORM integration][6]
 * [Restfb Facebook integration][19]
@@ -58,6 +60,8 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * [Merge adapter integration][30]
 * [Lint support][23]
 * [Strict mode support][24]
+* Parsers
+ * XML Pull Parser
 * Debug settings support
 * Url handling support
 * House ads support
