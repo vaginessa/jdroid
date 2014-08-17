@@ -90,4 +90,14 @@ public class Lists {
 		return (list == null) || list.isEmpty();
 	}
 	
+	public static <T> List<T> filter(List<T> unfilteredList, Predicate<T> predicate) {
+		List<T> filteredList = Lists.newArrayList();
+		for (T each : unfilteredList) {
+			if (predicate.apply(each)) {
+				filteredList.add(each);
+			}
+		}
+		return filteredList;
+	}
+	
 }
