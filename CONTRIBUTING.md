@@ -143,10 +143,10 @@ included in the project:
    * All the tests are running
    * Your local code is updated to the latest version
 * Commit your changes in logical chunks. 
+* Use Git's [interactive rebase](https://help.github.com/articles/interactive-rebase)
+feature to tidy up your commits before making them public.
 * Please adhere to these [git commit message guidelines](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
 or your code is unlikely be merged into the main project. 
-* Use Git's [interactive rebase](https://help.github.com/articles/interactive-rebase)
-feature to tidy up your commits before making them public. 
 * If your commit closes an issue, add `Close #{ISSUE NUMBER}` to your commit message.
 
 ## Code guidelines
