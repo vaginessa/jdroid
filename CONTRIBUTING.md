@@ -115,12 +115,7 @@ included in the project:
    git checkout -b <topic-branch-name>
    ```
 
-4. Commit your changes in logical chunks. Please adhere to these [git commit
-   message guidelines](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
-   or your code is unlikely be merged into the main project. Use Git's
-   [interactive rebase](https://help.github.com/articles/interactive-rebase)
-   feature to tidy up your commits before making them public. If your commit closes an issue, 
-   add `Close #{ISSUE NUMBER}` to your commit message.
+4. Please adhere to the [commit guidelines](#commit-guidelines)
 
 5. Locally merge (or rebase) the upstream development branch into your topic branch:
 
@@ -137,6 +132,22 @@ included in the project:
 7. [Open a Pull Request](https://help.github.com/articles/using-pull-requests/)
     with a clear title and description against the `master` branch.
 
+
+## Commit guidelines
+
+Commit your changes in logical chunks. Please adhere to these [git commit message guidelines](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
+or your code is unlikely be merged into the main project. Use Git's
+[interactive rebase](https://help.github.com/articles/interactive-rebase)
+feature to tidy up your commits before making them public. If your commit closes an issue, 
+add `Close #{ISSUE NUMBER}` to your commit message.
+Before sending a code review, you should check all items in the list below:
+
+* The code compile
+* There aren't warnings
+* The code is appropriately commented
+* The code is appropriately tested
+* All the tests are running
+* Your local code is updated to the latest version
 
 ## Code guidelines
 
