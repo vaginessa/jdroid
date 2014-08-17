@@ -136,14 +136,12 @@ included in the project:
 ## Commit guidelines
 
 * Before sending a code review, you should check all items in the list below:
-
 * * The code compile
 * * There aren't warnings
 * * The code is appropriately commented
 * * The code is appropriately tested
 * * All the tests are running
 * * Your local code is updated to the latest version
-
 * Commit your changes in logical chunks. 
 * Please adhere to these [git commit message guidelines](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
 or your code is unlikely be merged into the main project. 
