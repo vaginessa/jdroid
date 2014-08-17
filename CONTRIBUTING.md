@@ -119,7 +119,8 @@ included in the project:
    message guidelines](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
    or your code is unlikely be merged into the main project. Use Git's
    [interactive rebase](https://help.github.com/articles/interactive-rebase)
-   feature to tidy up your commits before making them public.
+   feature to tidy up your commits before making them public. If your commit closes an issue, 
+   add `Close #{ISSUE NUMBER}` to your commit message.
 
 5. Locally merge (or rebase) the upstream development branch into your topic branch:
 
