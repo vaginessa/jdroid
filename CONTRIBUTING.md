@@ -140,4 +140,5 @@ included in the project:
 
 ## Code guidelines
 
+[Follow these code guidelines](https://docs.google.com/document/d/1XfkrzP9qLWweChHOknyH4AlCkprrntydJXV8nkhJ6FI/edit)
 
