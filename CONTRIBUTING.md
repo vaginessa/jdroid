@@ -20,7 +20,7 @@ and [submitting pull requests](#pull-requests), but please respect the following
 restrictions:
 
 * Please **do not** use the issue tracker for personal support requests.
-* Assign the **Backlog** milestone
+* Assign the **Backlog** milestone to issue
 
 
 ## Bug reports
@@ -33,8 +33,7 @@ Guidelines for bug reports:
 1. **Use the GitHub issue search** &mdash; check if the issue has already been
    reported.
 
-2. **Check if the issue has been fixed** &mdash; try to reproduce it using the
-   latest `master` or development branch in the repository.
+2. **Check if the issue has been fixed** &mdash; try to reproduce it using the `master` branch in the repository.
 
 3. **Isolate the problem** &mdash; ideally create a reduced test
    case and a live example.
