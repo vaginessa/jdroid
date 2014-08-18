@@ -11,7 +11,7 @@ jdroid Java
 -----------
 Dependency project for both Android & Java apps
 * HTTP Service Layer
- * [Apache HTTP Client implementation][28]
+ * [Apache HTTP Client implementation](https://hc.apache.org/)
  * GET, POST, PUT & DELETE methods
  * Headers appender
  * Response validator
@@ -19,12 +19,12 @@ Dependency project for both Android & Java apps
  * GZIP encoding
  * Cache support
 * Parsers
- * [Jackson JSON parser][29]
+ * [Jackson JSON parser](https://github.com/FasterXML/jackson)
  * Plain text parser
 * JSON marshallers
 * Mail Service
 * Exception handling
-* Utilities for Collections, Strings, Dates, Files, Encryption, Threads, [Logging][27], Validations, Reflection and more
+* Utilities for Collections, Strings, Dates, Files, Encryption, Threads, [Logging](http://www.slf4j.org/), Validations, Reflection and more
 
 jdroid Java Web
 ---------------
@@ -34,32 +34,32 @@ Dependency project for Java Web apps
  * API version filter
 * Parsers
  * Sax XML Parser
-* [Spring MVC integration][7]
-* [Hibernate ORM integration][6]
-* [Restfb Facebook integration][19]
-* Generic push framework. [Google Cloud Messaging implementation][8]
+* [Spring MVC integration](http://projects.spring.io/spring-framework/)
+* [Hibernate ORM integration](http://hibernate.org/orm/)
+* [Restfb Facebook integration](http://restfb.com/)
+* Generic push framework. [Google Cloud Messaging implementation](http://developer.android.com/google/gcm/index.html)
 * Pagination and filtering support
-* [Log4j logging support][17]
-* Utilities for Collections, CSV, Files, Reflection, [Guava][16] and more
+* [Log4j logging support](http://logging.apache.org/log4j/1.2/)
+* Utilities for Collections, CSV, Files, Reflection, [Guava](https://code.google.com/p/guava-libraries/) and more
 
 jdroid Android
 --------------
 Library project for Android apps. Support for Android 4.0 (api level 14) and higher versions
-* [Navigation Drawer support][15]
+* [Navigation Drawer support](https://developer.android.com/design/patterns/navigation-drawer.html)
 * Google Play Services integration
- * [Google Analytics v4 integration][31]. A/B testing support
- * [Google Cloud Messaging integration][8]
- * [Google Maps v2 integration][9]
- * [Google+ integration][11]: +1 button, friends, sign in, sign out, revoke access, share
- * [Google Mobile Ads (AdMob) integration][10]
- * [Google Play In App Billing v3 integration][13]
-* [Sqlite integration][12]
-* [Android Universal Image Loader][4]
-* [Facebook integration][14]: sign in, sign out, share with deep link
-* [Crashlytics integration][5]
-* [Merge adapter integration][30]
-* [Lint support][23]
-* [Strict mode support][24]
+ * [Google Analytics v4 integration](https://developers.google.com/analytics/devguides/collection/android/v4/). A/B testing support
+ * [Google Cloud Messaging integration](http://developer.android.com/google/gcm/index.html)
+ * [Google Maps v2 integration](http://developer.android.com/google/play-services/maps.html)
+ * [Google+ integration](http://developer.android.com/google/play-services/plus.html): +1 button, friends, sign in, sign out, revoke access, share
+ * [Google Mobile Ads (AdMob) integration](http://developer.android.com/google/play-services/ads.html)
+ * [Google Play In App Billing v3 integration](http://developer.android.com/google/play/billing/index.html)
+* [Sqlite integration](https://sqlite.org/)
+* [Android Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader)
+* [Facebook integration](https://developers.facebook.com/docs/android/): sign in, sign out, share with deep link
+* [Crashlytics integration](https://crashlytics.com/)
+* [Merge adapter integration](https://github.com/commonsguy/cwac-merge)
+* [Lint support](http://developer.android.com/tools/help/lint.html)
+* [Strict mode support](http://developer.android.com/reference/android/os/StrictMode.html)
 * Parsers
  * XML Pull Parser
 * Debug settings support
@@ -79,7 +79,7 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * QuickReturnLayout component
 * Animations
  * Fade in / Fade out
-* Utilities for Alarms, Bitmaps, [Notifications][25], Shared Preferences, [Toasts][26], Sounds, GPS, and more
+* Utilities for Alarms, Bitmaps, [Notifications](http://developer.android.com/design/patterns/notifications.html), Shared Preferences, [Toasts](http://developer.android.com/guide/topics/ui/notifiers/toasts.html), Sounds, GPS, and more
 
 jdroid Android Tools
 --------------
@@ -90,12 +90,12 @@ jdroid Scripts
 --------------
 A set of useful shell scripts to
  * Increment the pom & android manifest versions according to [Semantic Versioning](http://semver.org/)
- * Create a pull request on [Github][22]
- * Create a merge request on [Gitlab][21]
+ * Create a pull request on [Github](https://github.com)
+ * Create a merge request on [Gitlab](https://www.gitlab.com/)
  * Count the methods invocations in android dex files
  * Strip Google Play Services jar
- * Start/stop and deploy on [Apache Tomcat][20]
- * Automatically restart [Apache Tomcat][20]
+ * Start/stop and deploy on [Apache Tomcat](http://tomcat.apache.org/)
+ * Automatically restart [Apache Tomcat](http://tomcat.apache.org/)
 
 jdroid Sample Server
 --------------
@@ -119,34 +119,4 @@ Apps using jdroid
 </a>
 
 --------------
-For more information, visit the [GitHub Wiki](https://github.com/maxirosson/jdroid/wiki) or our [Site][2].
-
-[1]: https://github.com/maxirosson/jdroid/wiki
-[2]: http://maxirosson.github.com/jdroid/
-[4]: https://github.com/nostra13/Android-Universal-Image-Loader
-[5]: https://crashlytics.com/
-[6]: http://hibernate.org/orm/
-[7]: http://projects.spring.io/spring-framework/
-[8]: http://developer.android.com/google/gcm/index.html
-[9]: http://developer.android.com/google/play-services/maps.html
-[10]: http://developer.android.com/google/play-services/ads.html
-[11]: http://developer.android.com/google/play-services/plus.html
-[12]: https://sqlite.org/
-[13]: http://developer.android.com/google/play/billing/index.html
-[14]: https://developers.facebook.com/docs/android/
-[15]: https://developer.android.com/design/patterns/navigation-drawer.html
-[16]: https://code.google.com/p/guava-libraries/
-[17]: http://logging.apache.org/log4j/1.2/
-[19]: http://restfb.com/
-[20]: http://tomcat.apache.org/
-[21]: https://www.gitlab.com/
-[22]: https://github.com
-[23]: http://developer.android.com/tools/help/lint.html
-[24]: http://developer.android.com/reference/android/os/StrictMode.html
-[25]: http://developer.android.com/design/patterns/notifications.html
-[26]: http://developer.android.com/guide/topics/ui/notifiers/toasts.html
-[27]: http://www.slf4j.org/
-[28]: https://hc.apache.org/
-[29]: https://github.com/FasterXML/jackson
-[30]: https://github.com/commonsguy/cwac-merge
-[31]: https://developers.google.com/analytics/devguides/collection/android/v4/
+For more information, visit the [GitHub Wiki](https://github.com/maxirosson/jdroid/wiki) or our [Site](http://maxirosson.github.com/jdroid/).
