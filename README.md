@@ -1,7 +1,7 @@
 jdroid
 ======
 
-jdroid is an application framework for Android & Java apps. The project use [Semantic Versioning][3]
+jdroid is an application framework for Android & Java apps.
 
 Help us to continue with this project:
 
@@ -89,7 +89,7 @@ Useful tools for Android apps
 jdroid Scripts
 --------------
 A set of useful shell scripts to
- * Increment the pom & android manifest versions according to [Semantic Versioning][3]
+ * Increment the pom & android manifest versions according to [Semantic Versioning](http://semver.org/)
  * Create a pull request on [Github][22]
  * Create a merge request on [Gitlab][21]
  * Count the methods invocations in android dex files
@@ -119,11 +119,10 @@ Apps using jdroid
 </a>
 
 --------------
-For more information, visit the [GitHub Wiki][1] or our [Site][2].
+For more information, visit the [GitHub Wiki](https://github.com/maxirosson/jdroid/wiki) or our [Site][2].
 
 [1]: https://github.com/maxirosson/jdroid/wiki
 [2]: http://maxirosson.github.com/jdroid/
-[3]: http://semver.org/
 [4]: https://github.com/nostra13/Android-Universal-Image-Loader
 [5]: https://crashlytics.com/
 [6]: http://hibernate.org/orm/
