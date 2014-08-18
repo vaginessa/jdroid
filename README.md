@@ -97,14 +97,6 @@ A set of useful shell scripts to
  * Start/stop and deploy on [Apache Tomcat](http://tomcat.apache.org/)
  * Automatically restart [Apache Tomcat](http://tomcat.apache.org/)
 
-jdroid Sample Server
---------------
-Sample server app using jdroid Java Web & jdroid Java
-
-jdroid Sample Android
---------------
-Sample android app using jdroid Android & jdroid Java
-
 Apps using jdroid
 --------------
 
