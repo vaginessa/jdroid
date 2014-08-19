@@ -8,7 +8,6 @@ import org.testng.annotations.Test;
 import com.jdroid.java.Assert;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Sets;
-import com.jdroid.java.utils.StringUtils;
 
 /**
  * StringUtils Test
@@ -107,5 +106,24 @@ public class StringUtilsTest {
 	public void extractPlaceholders(String string, Set<String> placeholderNames) {
 		Set<String> result = StringUtils.extractPlaceHolders(string);
 		Assert.assertEqualsNoOrder(result, placeholderNames);
+	}
+	
+	@Test
+	public void wordWrapToTwoLinesTests() {
+		// Word wrap with two words of the same size
+		org.testng.Assert.assertEquals(StringUtils.wordWrapToTwoLines("Aerolineas Argentinas", 10),
+			"Aerolineas\nArgentinas");
+		// Word wrap with the first word longer than the second
+		org.testng.Assert.assertEquals(StringUtils.wordWrapToTwoLines("Southern Winds", 10), "Southern\nWinds");
+		// Word wrap with the first word shorter than the second
+		org.testng.Assert.assertEquals(StringUtils.wordWrapToTwoLines("Virgin Airlines", 10), "Virgin\nAirlines");
+		// Without Word wrap, text length less than the minimum
+		org.testng.Assert.assertEquals(StringUtils.wordWrapToTwoLines("Swiss Air", 10), "Swiss Air");
+		// Without Word wrap, text length less than minimun and one word
+		org.testng.Assert.assertEquals(StringUtils.wordWrapToTwoLines("Tam", 10), "Tam");
+		// Without Word wrap, text length greater than minimun and one word
+		org.testng.Assert.assertEquals(StringUtils.wordWrapToTwoLines("LargeNameAirline", 10), "LargeNameAirline");
+		// Word wrap with more than two words
+		org.testng.Assert.assertEquals(StringUtils.wordWrapToTwoLines("Large Name Airline", 10), "Large Name\nAirline");
 	}
 }

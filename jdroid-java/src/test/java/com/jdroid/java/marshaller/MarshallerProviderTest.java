@@ -30,7 +30,7 @@ public class MarshallerProviderTest {
 		cases.add(new Object[] { Lists.newArrayList("1", "2", "3"), "[\"1\",\"2\",\"3\"]" });
 		
 		DummyClass dummyClass = new DummyClass("1", 2L, Lists.newArrayList("3", "4"), Lists.newArrayList(5L, 6L));
-		String dummyJson = "{\"stringProperty\":\"1\",\"longProperty\":2,\"listStringProperty\":[\"3\",\"4\"],\"listLongProperty\":[5,6]}";
+		String dummyJson = "{\"listLongProperty\":[5,6],\"listStringProperty\":[\"3\",\"4\"],\"stringProperty\":\"1\",\"longProperty\":2}";
 		cases.add(new Object[] { dummyClass, dummyJson });
 		cases.add(new Object[] { Lists.newArrayList(dummyClass, dummyClass), "[" + dummyJson + "," + dummyJson + "]" });
 		
