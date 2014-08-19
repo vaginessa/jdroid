@@ -1,11 +1,11 @@
-language: java
-jdk: oraclejdk7
+language: android
+jdk:
+  - oraclejdk7
+android:
+  components:
 
-before_install:
-  - sudo apt-get update -qq
-  - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch > /dev/null; fi
-  - wget http://dl.google.com/android/android-sdk_r23.0.2-linux.tgz
-  - tar -zxf android-sdk_r23.0.2-linux.tgz
-  - export ANDROID_HOME=$PWD/android-sdk-linux
-  - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
-  - android update sdk --filter platform-tools,android-19 --no-ui --force > /dev/null
+    # The BuildTools version used by your project
+    - build-tools-19.1.0
+
+    # The SDK version used to compile your project
+    - android-19
