@@ -9,6 +9,7 @@ import com.jdroid.java.http.apache.DefaultHttpClientFactory;
 import com.jdroid.java.http.apache.HttpClientFactory;
 import com.jdroid.java.http.apache.delete.ApacheHttpDeleteWebService;
 import com.jdroid.java.http.apache.get.ApacheHttpGetWebService;
+import com.jdroid.java.http.apache.patch.ApacheHttpPatchWebService;
 import com.jdroid.java.http.apache.post.ApacheFormHttpPostWebService;
 import com.jdroid.java.http.apache.post.ApacheHttpPostWebService;
 import com.jdroid.java.http.apache.post.ApacheMultipartHttpPostWebService;
@@ -92,6 +93,17 @@ public abstract class AbstractApacheApiService extends AbstractApiService {
 	protected EntityEnclosingWebService newFormPostServiceImpl(Server server, List<Object> urlSegments,
 			List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		return new ApacheFormHttpPostWebService(getHttpClientFactoryInstance(), server, urlSegments,
+				httpWebServiceProcessors);
+	}
+	
+	/**
+	 * @see com.jdroid.java.api.AbstractApiService#newPatchServiceImpl(com.jdroid.java.http.Server, java.util.List,
+	 *      java.util.List)
+	 */
+	@Override
+	protected EntityEnclosingWebService newPatchServiceImpl(Server baseURL, List<Object> urlSegments,
+			List<HttpWebServiceProcessor> httpWebServiceProcessors) {
+		return new ApacheHttpPatchWebService(getHttpClientFactoryInstance(), baseURL, urlSegments,
 				httpWebServiceProcessors);
 	}
 	

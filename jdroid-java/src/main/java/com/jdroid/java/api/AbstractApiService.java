@@ -18,6 +18,8 @@ import com.jdroid.java.marshaller.MarshallerProvider;
 
 public abstract class AbstractApiService {
 	
+	// GET
+	
 	protected WebService newGetService(Object... urlSegments) {
 		return newGetService(false, urlSegments);
 	}
@@ -42,12 +44,10 @@ public abstract class AbstractApiService {
 		};
 	}
 	
-	protected File getHttpCacheDirectory(Cache cache) {
-		return null;
-	}
-	
 	protected abstract WebService newGetServiceImpl(Server server, List<Object> urlSegments,
 			List<HttpWebServiceProcessor> httpWebServiceProcessors);
+	
+	// POST
 	
 	protected EntityEnclosingWebService newPostService(Object... urlSegments) {
 		return newPostService(false, urlSegments);
@@ -63,6 +63,39 @@ public abstract class AbstractApiService {
 	
 	protected abstract EntityEnclosingWebService newPostServiceImpl(Server server, List<Object> urlSegments,
 			List<HttpWebServiceProcessor> httpWebServiceProcessors);
+	
+	protected MultipartWebService newMultipartPostService(Object... urlSegments) {
+		return newMultipartPostService(false, urlSegments);
+	}
+	
+	protected MultipartWebService newMultipartPostService(Boolean mocked, Object... urlSegments) {
+		if (isHttpMockEnabled() || mocked) {
+			return getAbstractMockWebServiceInstance(urlSegments);
+		} else {
+			return newMultipartPostServiceImpl(getServer(), Lists.newArrayList(urlSegments),
+				getHttpWebServiceProcessors());
+		}
+	}
+	
+	protected abstract MultipartWebService newMultipartPostServiceImpl(Server server, List<Object> urlSegments,
+			List<HttpWebServiceProcessor> httpWebServiceProcessors);
+	
+	protected EntityEnclosingWebService newFormPostService(Object... urlSegments) {
+		return newFormPostService(false, urlSegments);
+	}
+	
+	protected EntityEnclosingWebService newFormPostService(Boolean mocked, Object... urlSegments) {
+		if (isHttpMockEnabled() || mocked) {
+			return getAbstractMockWebServiceInstance(urlSegments);
+		} else {
+			return newFormPostServiceImpl(getServer(), Lists.newArrayList(urlSegments), getHttpWebServiceProcessors());
+		}
+	}
+	
+	protected abstract EntityEnclosingWebService newFormPostServiceImpl(Server server, List<Object> urlSegments,
+			List<HttpWebServiceProcessor> httpWebServiceProcessors);
+	
+	// PUT
 	
 	protected EntityEnclosingWebService newPutService(Object... urlSegments) {
 		return newPutService(false, urlSegments);
@@ -95,21 +128,7 @@ public abstract class AbstractApiService {
 	protected abstract MultipartWebService newMultipartPutServiceImpl(Server server, List<Object> urlSegments,
 			List<HttpWebServiceProcessor> httpWebServiceProcessors);
 	
-	protected MultipartWebService newMultipartPostService(Object... urlSegments) {
-		return newMultipartPostService(false, urlSegments);
-	}
-	
-	protected MultipartWebService newMultipartPostService(Boolean mocked, Object... urlSegments) {
-		if (isHttpMockEnabled() || mocked) {
-			return getAbstractMockWebServiceInstance(urlSegments);
-		} else {
-			return newMultipartPostServiceImpl(getServer(), Lists.newArrayList(urlSegments),
-				getHttpWebServiceProcessors());
-		}
-	}
-	
-	protected abstract MultipartWebService newMultipartPostServiceImpl(Server server, List<Object> urlSegments,
-			List<HttpWebServiceProcessor> httpWebServiceProcessors);
+	// DELETE
 	
 	protected WebService newDeleteService(Object... urlSegments) {
 		return newDeleteService(false, urlSegments);
@@ -126,19 +145,33 @@ public abstract class AbstractApiService {
 	protected abstract WebService newDeleteServiceImpl(Server server, List<Object> urlSegments,
 			List<HttpWebServiceProcessor> httpWebServiceProcessors);
 	
-	protected EntityEnclosingWebService newFormPostService(Object... urlSegments) {
-		return newFormPostService(false, urlSegments);
+	// PATCH
+	
+	protected EntityEnclosingWebService newPatchService(Object... urlSegments) {
+		return newPatchService(false, urlSegments);
 	}
 	
-	protected EntityEnclosingWebService newFormPostService(Boolean mocked, Object... urlSegments) {
+	protected EntityEnclosingWebService newPatchService(Boolean mocked, Object... urlSegments) {
 		if (isHttpMockEnabled() || mocked) {
 			return getAbstractMockWebServiceInstance(urlSegments);
 		} else {
-			return newFormPostServiceImpl(getServer(), Lists.newArrayList(urlSegments), getHttpWebServiceProcessors());
+			return newPatchServiceImpl(getServer(), Lists.newArrayList(urlSegments), getHttpWebServiceProcessors());
 		}
 	}
 	
-	protected abstract EntityEnclosingWebService newFormPostServiceImpl(Server server, List<Object> urlSegments,
+	protected EntityEnclosingWebService newCachedPatchService(Cache cache, CachingStrategy cachingStrategy,
+			Long timeToLive, Object... urlSegments) {
+		WebService webService = newPutService(urlSegments);
+		return new CachedWebService(webService, cache, cachingStrategy, timeToLive) {
+			
+			@Override
+			protected File getHttpCacheDirectory(Cache cache) {
+				return AbstractApiService.this.getHttpCacheDirectory(cache);
+			}
+		};
+	}
+	
+	protected abstract EntityEnclosingWebService newPatchServiceImpl(Server baseURL, List<Object> urlSegments,
 			List<HttpWebServiceProcessor> httpWebServiceProcessors);
 	
 	protected abstract Server getServer();
@@ -150,6 +183,10 @@ public abstract class AbstractApiService {
 	protected abstract AbstractMockWebService getAbstractMockWebServiceInstance(Object... urlSegments);
 	
 	protected abstract Boolean isHttpMockEnabled();
+	
+	protected File getHttpCacheDirectory(Cache cache) {
+		return null;
+	}
 	
 	public void marshallSimple(EntityEnclosingWebService webservice, Object object) {
 		marshall(webservice, object, MarshallerMode.SIMPLE);
