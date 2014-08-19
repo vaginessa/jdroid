@@ -1,4 +1,4 @@
-jdroid              [![Build Status](https://api.travis-ci.org/maxirosson/jdroid.svg)](https://travis-ci.org/maxirosson/jdroid)
+jdroid [![Build Status](https://api.travis-ci.org/maxirosson/jdroid.svg)](https://travis-ci.org/maxirosson/jdroid)
 ======
 
 jdroid is an application framework for Android & Java apps.
