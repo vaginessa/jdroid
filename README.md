@@ -12,7 +12,7 @@ jdroid Java
 Dependency project for both Android & Java apps
 * HTTP Service Layer
  * [Apache HTTP Client implementation](https://hc.apache.org/)
- * GET, POST, PUT & DELETE methods
+ * GET, POST, PUT, PATCH & DELETE methods
  * Headers appender
  * Response validator
  * Response Mocks support
