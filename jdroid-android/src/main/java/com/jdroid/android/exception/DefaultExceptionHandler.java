@@ -24,6 +24,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	private static final String MAIN_THREAD_NAME = "main";
 	
 	private static final String GO_BACK_KEY = "goBack";
+	private static final String CONNECTION_EXCEPTION_MESSAGE_KEY = "connectionExceptionMessage";
 	
 	private UncaughtExceptionHandler wrappedExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
 	private UncaughtExceptionHandler defautlExceptionHandler;
@@ -98,8 +99,13 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	@Override
 	public void handleException(Thread thread, ConnectionException connectionException) {
 		logHandledException("Connection error", connectionException);
-		displayError(LocalizationUtils.getString(R.string.connectionErrorTitle),
-			LocalizationUtils.getString(R.string.connectionError), connectionException);
+		String errorMessage = null;
+		if (connectionException.hasParameter(CONNECTION_EXCEPTION_MESSAGE_KEY)) {
+			errorMessage = (String)connectionException.getParameter(CONNECTION_EXCEPTION_MESSAGE_KEY);
+		} else {
+			errorMessage = LocalizationUtils.getString(R.string.connectionError);
+		}
+		displayError(LocalizationUtils.getString(R.string.connectionErrorTitle), errorMessage, connectionException);
 	}
 	
 	/**
@@ -231,6 +237,16 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 		if (runtimeException instanceof AbstractException) {
 			((AbstractException)runtimeException).addParameter(GO_BACK_KEY, false);
 		}
+	}
+	
+	public static void setMessageOnConnectionException(RuntimeException runtimeException, String message) {
+		if (runtimeException instanceof ConnectionException) {
+			((ConnectionException)runtimeException).addParameter(CONNECTION_EXCEPTION_MESSAGE_KEY, message);
+		}
+	}
+	
+	public static void setMessageOnConnectionException(RuntimeException runtimeException, int resId) {
+		setMessageOnConnectionException(runtimeException, LocalizationUtils.getString(resId));
 	}
 	
 	/**

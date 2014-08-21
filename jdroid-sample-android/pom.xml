@@ -208,7 +208,7 @@
 	
 		<!-- Free App Profile -->
 		<profile>
-			<id>jdroid-sample-androidr-free</id>
+			<id>jdroid-sample-android-free</id>
 			<properties>
 				<android.manifest.applicationLabel>@string/appName</android.manifest.applicationLabel>
 				<manifest.package>com.jdroid.sample.android</manifest.package>

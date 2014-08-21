@@ -15,18 +15,10 @@ then
 	exit 1
 fi
 
-# Javadoc Generation
+# Javadoc & zip Generation
 # ************************
 cd $SOURCE_DIRECTORY/$PROJECT_NAME
-mvn javadoc:aggregate
-if [ $? -ne 0 ]
-then
-	exit 1
-fi
-
-# Deploy to Maven repository
-# ************************
-mvn deploy assembly:single -Dmaven.test.skip=true
+mvn clean install javadoc:aggregate assembly:single -P jdroid-release -Dmaven.test.skip=true
 if [ $? -ne 0 ]
 then
 	exit 1
@@ -36,12 +28,19 @@ if [ $? -ne 0 ]
 then
 	exit 1
 fi
-
 for filename in $ASSEMBLIES_DIRECTORY/*jdroid.zip
 do
 	newname=`echo $filename | sed 's/jdroid-parent/jdroid/g' | sed 's/-jdroid\.zip/\.zip/g'`
 	mv $filename $newname
 done
+
+# Deploy to Maven repository
+# ************************
+mvn deploy -P jdroid-release -Dmaven.test.skip=true
+if [ $? -ne 0 ]
+then
+	exit 1
+fi
 
 # Upload Release on GitHub
 # ************************

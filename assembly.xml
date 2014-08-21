@@ -17,6 +17,9 @@
             <includes>
                 <include>*.jar</include>
             </includes>
+            <excludes>
+                <exclude>*-javadoc.jar</exclude>
+            </excludes>
             <outputDirectory/>
         </fileSet>
 		<fileSet>
@@ -24,18 +27,15 @@
             <includes>
                 <include>*.jar</include>
             </includes>
+            <excludes>
+                <exclude>*-javadoc.jar</exclude>
+            </excludes>
             <outputDirectory/>
         </fileSet>
 		<fileSet>
             <directory>jdroid-android/target</directory>
             <includes>
                 <include>*.apklib</include>
-            </includes>
-            <outputDirectory/>
-        </fileSet>
-		<fileSet>
-            <directory>jdroid-android/target</directory>
-            <includes>
                 <include>*-sources.jar</include>
             </includes>
             <outputDirectory/>
