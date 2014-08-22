@@ -16,12 +16,11 @@ public class AndroidHttpClientFactory extends DefaultHttpClientFactory {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.apache.HttpClientFactory#createHttpClient(java.lang.Boolean, java.lang.Integer,
-	 *      java.lang.String)
+	 * @see com.jdroid.java.http.apache.HttpClientFactory#createHttpClient(java.lang.Integer, java.lang.String)
 	 */
 	@Override
-	public DefaultHttpClient createHttpClient(Boolean ssl, Integer timeout, String userAgent) {
-		DefaultHttpClient httpClient = super.createHttpClient(ssl, timeout, userAgent);
+	public DefaultHttpClient createHttpClient(Integer timeout, String userAgent) {
+		DefaultHttpClient httpClient = super.createHttpClient(timeout, userAgent);
 		httpClient.setRedirectHandler(new AndroidDefaultRedirectHandler());
 		return httpClient;
 	}

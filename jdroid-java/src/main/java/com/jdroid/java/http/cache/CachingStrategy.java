@@ -46,7 +46,7 @@ public enum CachingStrategy {
 							cachedWebService.executeRequest(parser);
 						} catch (Exception e) {
 							LOGGER.warn("Error when executing asynch request.", e);
-							// TODO We should logg the exception on the handler
+							// TODO We should log the exception on the handler
 							// AbstractApplication.get().getExceptionHandler().logHandledException(e);
 						}
 					}
@@ -78,7 +78,7 @@ public enum CachingStrategy {
 							CachingStrategy.CACHE_FIRST.execute(cachedWebService, parser);
 						} catch (Exception e) {
 							LOGGER.warn("Error when executing asynch request.", e);
-							// TODO We should logg the exception on the handler
+							// TODO We should log the exception on the handler
 							// AbstractApplication.get().getExceptionHandler().logHandledException(e);
 						}
 					}
@@ -107,7 +107,7 @@ public enum CachingStrategy {
 				response = cachedWebService.executeRequest(parser);
 			} catch (Exception e) {
 				LOGGER.warn("Error when executing request. Cached response will be returned", e);
-				// TODO We should logg the exception on the handler
+				// TODO We should log the exception on the handler
 				// AbstractApplication.get().getExceptionHandler().logHandledException(e);
 			}
 			if (response == null) {

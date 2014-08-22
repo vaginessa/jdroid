@@ -1,27 +1,26 @@
 package com.jdroid.java.http.apache;
 
-import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 /**
- * Factory interface to create {@link HttpClient}s.
+ * Factory interface to create {@link DefaultHttpClient}s.
  */
 public interface HttpClientFactory {
 	
 	/**
-	 * Creates a {@link HttpClient} and sets a default timeout and user agent for it.
+	 * Creates a {@link DefaultHttpClient} and sets a default timeout and user agent for it.
 	 * 
-	 * @return {@link HttpClient} The created client.
+	 * @return {@link DefaultHttpClient} The created client.
 	 */
-	public HttpClient createHttpClient();
+	public DefaultHttpClient createHttpClient();
 	
 	/**
-	 * Creates a {@link HttpClient} and sets a timeout for it.
+	 * Creates a {@link DefaultHttpClient} and sets a timeout for it.
 	 * 
-	 * @param ssl Whether the connection needs ssl or not
 	 * @param timeout The connection timeout in milliseconds. If null a default timeout of 10 seconds will be used.
 	 * @param userAgent The user agent
 	 * 
-	 * @return {@link HttpClient} The created client.
+	 * @return {@link DefaultHttpClient} The created client.
 	 */
-	public HttpClient createHttpClient(Boolean ssl, Integer timeout, String userAgent);
+	public DefaultHttpClient createHttpClient(Integer timeout, String userAgent);
 }

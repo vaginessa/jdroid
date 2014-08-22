@@ -43,6 +43,7 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	@SuppressWarnings({ "unchecked", "resource" })
 	@Override
 	public <T> T execute(Parser parser) {
+		
 		String filePath = generateMockFilePath(urlSegments);
 		
 		LOGGER.warn("Request: " + filePath);
@@ -198,23 +199,6 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	protected abstract Integer getHttpMockSleepDuration(Object... urlSegments);
 	
 	/**
-	 * @return The mocks base path
-	 */
-	protected abstract String getMocksBasePath();
-	
-	/**
-	 * @return The mocks extension
-	 */
-	protected abstract String getMocksExtension();
-	
-	/**
-	 * @return The suffix to add to the mock file
-	 */
-	protected String getSuffix(String path) {
-		return null;
-	}
-	
-	/**
 	 * @see com.jdroid.java.http.WebService#getUrl()
 	 */
 	@Override
@@ -245,8 +229,25 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 			sb.append(SUFFIX_SEPARATOR);
 			sb.append(suffix);
 		}
-		
 		sb.append(getMocksExtension());
 		return sb.toString();
 	}
+	
+	/**
+	 * @return The mocks base path
+	 */
+	protected abstract String getMocksBasePath();
+	
+	/**
+	 * @return The mocks extension
+	 */
+	protected abstract String getMocksExtension();
+	
+	/**
+	 * @return The suffix to add to the mock file
+	 */
+	protected String getSuffix(String path) {
+		return null;
+	}
+	
 }

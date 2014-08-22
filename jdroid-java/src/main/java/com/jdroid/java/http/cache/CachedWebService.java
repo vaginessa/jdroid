@@ -198,11 +198,4 @@ public abstract class CachedWebService implements EntityEnclosingWebService {
 	public Long getTimeToLive() {
 		return timeToLive;
 	}
-	
-	/**
-	 * @param cachingStrategy the cachingStrategy to set
-	 */
-	public void setCachingStrategy(CachingStrategy cachingStrategy) {
-		this.cachingStrategy = cachingStrategy;
-	}
 }

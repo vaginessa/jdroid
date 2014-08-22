@@ -86,6 +86,18 @@ public class Lists {
 		return list;
 	}
 	
+	/**
+	 * @param list
+	 * @param maxCount
+	 * @return same list if size doesn't exceeds maxCount, new list with trimmed element otherwise
+	 */
+	public static <T> List<T> trim(List<T> list, int maxCount) {
+		if (list.size() > maxCount) {
+			return Lists.newArrayList(list.subList(0, maxCount));
+		}
+		return list;
+	}
+	
 	public static Boolean isNullOrEmpty(List<?> list) {
 		return (list == null) || list.isEmpty();
 	}

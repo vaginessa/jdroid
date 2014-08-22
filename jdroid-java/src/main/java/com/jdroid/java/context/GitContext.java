@@ -13,12 +13,6 @@ public class GitContext {
 	
 	private static GitContext INSTANCE;
 	
-	public static void init() {
-		if (INSTANCE == null) {
-			INSTANCE = new GitContext();
-		}
-	}
-	
 	private GitContext() {
 		PropertiesUtils.loadProperties(GIT_PROPERTIES_RESOURCE_NAME);
 		
@@ -32,7 +26,9 @@ public class GitContext {
 	 * @return The {@link GitContext} instance
 	 */
 	public static GitContext get() {
-		init();
+		if (INSTANCE == null) {
+			INSTANCE = new GitContext();
+		}
 		return INSTANCE;
 	}
 	

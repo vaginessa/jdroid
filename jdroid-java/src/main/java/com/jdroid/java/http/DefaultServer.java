@@ -65,5 +65,4 @@ public class DefaultServer implements Server {
 	public Server instance(String name) {
 		return null;
 	}
-	
 }

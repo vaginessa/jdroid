@@ -44,9 +44,6 @@ public abstract class ApacheHttpWebService implements WebService {
 	/** Query Parameter values of the request. */
 	private List<NameValuePair> queryParameters = Lists.newArrayList();
 	
-	/** Base URL of the request to execute */
-	private String baseURL;
-	
 	/** Header values of the request. */
 	private List<NameValuePair> headers = Lists.newArrayList();
 	
@@ -105,7 +102,7 @@ public abstract class ApacheHttpWebService implements WebService {
 			}
 			
 			// make client for http.
-			client = httpClientFactory.createHttpClient(ssl, connectionTimeout, userAgent);
+			client = httpClientFactory.createHttpClient(connectionTimeout, userAgent);
 			
 			// Add Cookies
 			addCookies(client);
@@ -270,18 +267,11 @@ public abstract class ApacheHttpWebService implements WebService {
 	}
 	
 	/**
-	 * @return the baseURL
-	 */
-	public String getBaseURL() {
-		return baseURL;
-	}
-	
-	/**
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + " - " + baseURL;
+		return getClass().getSimpleName() + " - " + server.getBaseUrl();
 	}
 	
 	/**

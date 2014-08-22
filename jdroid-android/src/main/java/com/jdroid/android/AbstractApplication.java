@@ -36,7 +36,6 @@ import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
-import com.jdroid.java.context.GitContext;
 import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.http.cache.Cache;
 import com.jdroid.java.http.cache.CachedWebService;
@@ -98,10 +97,6 @@ public abstract class AbstractApplication extends Application {
 		LOGGER = LoggerUtils.getLogger(AbstractApplication.class);
 		
 		appContext = createAppContext();
-		
-		if (isDebuggable()) {
-			GitContext.init();
-		}
 		
 		if (appContext.displayDebugSettings()) {
 			PreferenceManager.setDefaultValues(this, R.xml.debug_preferences, false);

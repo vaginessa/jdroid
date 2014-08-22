@@ -10,10 +10,6 @@ public class LoggerUtils {
 	
 	private static final Logger MUTE_LOGGER = new MuteLogger();
 	
-	public static Logger getDefaultLogger() {
-		return LoggerUtils.getLogger(LoggerUtils.class);
-	}
-	
 	public static Logger getLogger(Object name) {
 		return LoggerUtils.getLogger(name.getClass());
 	}
