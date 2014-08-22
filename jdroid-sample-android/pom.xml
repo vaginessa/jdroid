@@ -135,7 +135,7 @@
 			<plugin>
 				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 				<artifactId>android-maven-plugin</artifactId>
-				<version>3.6.1</version>
+				<version>${android.maven.plugin.version}</version>
 				<configuration>
 					<sdk>
 						<path>${android.sdk.path}</path>
@@ -206,15 +206,23 @@
 
 	<profiles>
 	
-		<!-- Free App Profile -->
 		<profile>
-			<id>jdroid-sample-android-free</id>
+			<id>jdroid-test</id>
 			<properties>
 				<android.manifest.applicationLabel>@string/appName</android.manifest.applicationLabel>
 				<manifest.package>com.jdroid.sample.android</manifest.package>
 				<apk.suffix>free</apk.suffix>
 				<free.app>true</free.app>
-				<ads.enabled>true</ads.enabled>
+				<ads.enabled>false</ads.enabled>
+				<environment.name>TEST</environment.name>
+				<server.name>DEV</server.name>
+				<google.analytics.enabled>false</google.analytics.enabled>
+				<crashlytics.enabled>false</crashlytics.enabled>
+				<android.manifest.debuggable>true</android.manifest.debuggable>
+				<android.sign.debug>true</android.sign.debug>
+				<android.zipalign.skip>true</android.zipalign.skip>
+				<android.proguard.skip>true</android.proguard.skip>
+				<git.properties.enabled>false</git.properties.enabled>
 			</properties>
 		</profile>
 
@@ -226,6 +234,11 @@
 			</activation>
 			<properties>
 				<environment.name>DEV</environment.name>
+				<android.manifest.applicationLabel>@string/appName</android.manifest.applicationLabel>
+				<manifest.package>com.jdroid.sample.android</manifest.package>
+				<apk.suffix>free</apk.suffix>
+				<free.app>true</free.app>
+				<ads.enabled>false</ads.enabled>
 				<server.name>DEV</server.name>
 				<debug.settings>true</debug.settings>
 				<google.analytics.enabled>false</google.analytics.enabled>
@@ -244,6 +257,11 @@
 			<id>jdroid-sample-android-qa</id>
 			<properties>
 				<environment.name>QA</environment.name>
+				<android.manifest.applicationLabel>@string/appName</android.manifest.applicationLabel>
+				<manifest.package>com.jdroid.sample.android</manifest.package>
+				<apk.suffix>free</apk.suffix>
+				<free.app>true</free.app>
+				<ads.enabled>false</ads.enabled>
 				<server.name>QA</server.name>
 				<debug.settings>true</debug.settings>
 				<google.analytics.enabled>false</google.analytics.enabled>
@@ -273,6 +291,11 @@
 			<id>jdroid-sample-android-uat</id>
 			<properties>
 				<environment.name>UAT</environment.name>
+				<android.manifest.applicationLabel>@string/appName</android.manifest.applicationLabel>
+				<manifest.package>com.jdroid.sample.android</manifest.package>
+				<apk.suffix>free</apk.suffix>
+				<free.app>true</free.app>
+				<ads.enabled>false</ads.enabled>
 				<server.name>UAT</server.name>
 				<debug.settings>true</debug.settings>
 				<google.analytics.enabled>true</google.analytics.enabled>
@@ -280,7 +303,7 @@
 				<crashlytics.enabled>true</crashlytics.enabled>
 				<crashlytics.debug.enabled>false</crashlytics.debug.enabled>
 				<android.manifest.debuggable>true</android.manifest.debuggable>
-				<android.sign.debug>false</android.sign.debug>
+				<android.sign.debug>true</android.sign.debug>
 				<android.zipalign.skip>false</android.zipalign.skip>
 				<android.proguard.skip>true</android.proguard.skip>
 				<git.properties.enabled>false</git.properties.enabled>
@@ -304,6 +327,11 @@
 			<id>jdroid-sample-android-prod</id>
 			<properties>
 				<environment.name>PROD</environment.name>
+				<android.manifest.applicationLabel>@string/appName</android.manifest.applicationLabel>
+				<manifest.package>com.jdroid.sample.android</manifest.package>
+				<apk.suffix>free</apk.suffix>
+				<free.app>true</free.app>
+				<ads.enabled>false</ads.enabled>
 				<server.name>PROD</server.name>
 				<debug.settings>false</debug.settings>
 				<google.analytics.enabled>true</google.analytics.enabled>

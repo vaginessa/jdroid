@@ -118,12 +118,32 @@
 
 	<profiles>
 
+		<profile>
+			<id>jdroid-test</id>
+			<properties>
+				<environment.name>TEST</environment.name>
+			</properties>
+		</profile>
+
 		<!-- Development Profile -->
 		<profile>
-			<id>jdroid-sample</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
+			<id>jdroid-sample-server-dev</id>
+			<properties>
+				<environment.name>DEV</environment.name>
+			</properties>
+		</profile>
+
+		<!-- UAT Profile -->
+		<profile>
+			<id>jdroid-sample-server-uat</id>
+			<properties>
+				<environment.name>UAT</environment.name>
+			</properties>
+		</profile>
+
+		<!-- Production Profile -->
+		<profile>
+			<id>jdroid-sample-server-prod</id>
 			<properties>
 				<environment.name>PROD</environment.name>
 			</properties>
