@@ -35,4 +35,3 @@ mvn clean install -P jdroid-sample-android-uat -Dmaven.test.skip=true
 cd ../jdroid-sample-server
 mvn clean test -P jdroid-test
 mvn clean assembly:assembly -P jdroid-sample-server-uat -Dmaven.test.skip=true
-### Deploy on Heroku Staging

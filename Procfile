@@ -1,1 +1,1 @@
-web: java -jar ./jdroid-sample-server/target/jdroid-sample-server-v0.5.0-SNAPSHOT-UAT.war --httpPort=8080
+web: java $JAVA_OPTS -jar target/dependency/jetty-runner.jar --port $PORT target/*.war
