@@ -9,5 +9,9 @@ android:
 
     # The SDK version used to compile your project
     - android-19
+    
+env:
+  global:
+  - secure: "jhvatgwODE6G9VNwJRIC8QKmMZhkkq+C+NRNDstwjn2lpc2S6g3NVTqWrFCxyC5me18q4D9ZG6zuFKww/6eOt7iqtWTNFE7Ww79hIXMi7Gys2/yCrQ1R1qmQrwGzSMVmXfiAXB8jlJc3hk8uu1VDteVQe5WM9vcsfnLBsOilNFM="
 
 script: sh ./ci.sh
