@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/dependency/jetty-runner.jar --port $PORT target/*.war
+web: java $JAVA_OPTS -jar jdroid-sample-server/etc/jetty-runner.jar --port $PORT jdroid-sample-server/target/*.war
