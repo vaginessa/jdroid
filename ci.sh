@@ -15,7 +15,7 @@ mvn clean install -P jdroid-test
 # Install
 # ************************
 
-mvn clean install -P jdroid-release -Dmaven.test.skip=true -Dgpg.executable=gpg -Dgpg.passphrase="${GPG_PASSPHRASE}"
+mvn clean install -P jdroid-release -Dmaven.test.skip=true -Dgpg.skip=true
 ### Replace with this
 #mvn clean deploy -P jdroid-release -Dmaven.test.skip=true
 
