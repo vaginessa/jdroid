@@ -304,7 +304,7 @@
 				<crashlytics.debug.enabled>false</crashlytics.debug.enabled>
 				<android.manifest.debuggable>true</android.manifest.debuggable>
 				<android.sign.debug>true</android.sign.debug>
-				<android.zipalign.skip>false</android.zipalign.skip>
+				<android.zipalign.skip>true</android.zipalign.skip>
 				<android.proguard.skip>true</android.proguard.skip>
 				<git.properties.enabled>false</git.properties.enabled>
 			</properties>
