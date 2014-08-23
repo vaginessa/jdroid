@@ -1,52 +1,39 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE log4j:configuration SYSTEM "http://logging.apache.org/log4j/docs/api/org/apache/log4j/xml/doc-files/log4j.dtd">
-<!--===================================================================== -->
+
+<!-- ===================================================================== -->
 <!-- Log4j Configuration -->
-<!--===================================================================== -->
+<!-- ===================================================================== -->
+
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
 
-	<!-- ================ -->
-	<!-- Appenders -->
-	<!-- ================ -->
-
-	<appender name="dailyDefaultAppender" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="file" value="${app.homePath}/logs/server.log" />
-		<param name="append" value="true" />
-		<param name="immediateFlush" value="true" />
-		<param name="datePattern" value="'.'yyyy-MM-dd'.log'" />
-		<param name="encoding" value="UTF-8" />
+	<!-- ============================== -->
+	<!-- Append messages to the console -->
+	<!-- ============================== -->
+	<appender name="consoleAppender" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="conversionPattern" value="%d{ABSOLUTE} %-5p [%c] %m%n" />
+			<param name="ConversionPattern" value="%d{ABSOLUTE} - %5p - [%c] - %m%n" />
 		</layout>
-		<filter class="org.apache.log4j.varia.LevelRangeFilter">
-			<param name="LevelMin" value="TRACE" />
-			<param name="LevelMax" value="WARN" />
-		</filter>
 	</appender>
 
-	<!-- Appender necessary to log exceptions and errors generated in normal operations -->
-	<appender name="dailyErrorAppender" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="file" value="${app.homePath}/logs/error.log" />
-		<param name="append" value="true" />
-		<param name="immediateFlush" value="true" />
-		<param name="datePattern" value="'.'yyyy-MM-dd'.log'" />
-		<param name="encoding" value="UTF-8" />
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="conversionPattern" value="%d{ABSOLUTE} %-5p [%c] %m%n" />
-		</layout>
-		<filter class="org.apache.log4j.varia.LevelRangeFilter">
-			<param name="LevelMin" value="ERROR" />
-			<param name="LevelMax" value="FATAL" />
-		</filter>
-	</appender>
 
-	<!-- ======================= -->
-	<!-- Setup the Root category -->
-	<!-- ======================= -->
+	<!-- ================ -->
+	<!-- Limit categories -->
+	<!-- ================ -->
+	<logger name="JsonParser">
+		<level value="DEBUG" />
+	</logger>
+	<logger name="XmlParser">
+		<level value="DEBUG" />
+	</logger>
+	<logger name="HttpWebService">
+		<level value="DEBUG" />
+	</logger>
+
 	<root>
-		<priority value="INFO" />
-		<appender-ref ref="dailyDefaultAppender" />
-		<appender-ref ref="dailyErrorAppender" />
+		<level value="INFO" />
+		<appender-ref ref="consoleAppender" />
 	</root>
 
 </log4j:configuration>
