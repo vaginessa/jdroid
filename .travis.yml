@@ -3,7 +3,7 @@ jdk:
   - oraclejdk7
 android:
   components:
-
+  
     # The BuildTools version used by your project
     - build-tools-19.1.0
 
@@ -11,3 +11,11 @@ android:
     - android-19
 
 script: sh ./ci.sh
+deploy:
+  provider: heroku
+  strategy: git
+  app: 
+    master: jdroid-sample-server-staging
+    production: jdroid-sample-server-production
+  api_key:
+    secure: Q8uusS6U/LmuOkCQN/j88g0OpV/E5os0ZSo2XdhD0U6Lij554F9aem54hjoxVgLilJhSv6GkD6hoBmNR1vwc2Azfh+mftBRd/x2FiikRSTf6p9l4p5c3/kvNX/c0fy6+Dcfe9NXogIFY3dhCCVTbQCTD05IZ9my4eAp629jWyFw=
