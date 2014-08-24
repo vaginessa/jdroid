@@ -17,10 +17,10 @@ android:
 script: sh ./ci.sh
 
 after_success:
-    - git clone https://${GH_USER}:${GH_TOKEN}@github.com/maxirosson/jdroid.git
+    - git clone https://$GH_USER:$GH_TOKEN@github.com/maxirosson/jdroid.git
     - cd jdroid
-    - git config user.name '${GIT_NAME}'
-    - git config user.email '${GIT_EMAIL}'
+    - git config user.name '$GIT_NAME'
+    - git config user.email '$GIT_EMAIL'
     - git checkout artifacts
     - cp ../jdroid-sample-android/target/*  ./artifacts/master/
     - git add -A
