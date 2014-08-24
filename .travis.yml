@@ -24,7 +24,7 @@ after_success:
     - git config user.name "$GIT_NAME"
     - git config user.email "$GIT_EMAIL"
     - git checkout artifacts
-    - cp ../jdroid-sample-android/target/*  ./master/
+    - cp ../jdroid-sample-android/target/*.apk  ./master/
     - git add *.apk
     - git commit -m 'Adding jdroid sample android apk'
     - git push origin HEAD:artifacts > /dev/null
