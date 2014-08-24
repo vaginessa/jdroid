@@ -2,8 +2,6 @@ language: android
 
 jdk:
   - oraclejdk7
-  
-secure: "B4mRQoqoy2ilA10NsNf76Esw05iAyrvX74uNxk7L/S7OZVSTTMsxF8dlsKYfztj4tXPiUKjBEQtdY2fnpsU6mQLLzXE45Wpn+WAIteSFvXNW6pbpZsEDrC2iCXbf5gU1YBxqOKtxNuydA1RJ8sy5Jv4wCcRp40L7aRv+uSdP6gc="
 
 android:
   components:
@@ -17,10 +15,10 @@ android:
 script: sh ./ci.sh
 
 after_success:
-    - git clone https://$GH_USER:$GH_TOKEN@github.com/maxirosson/jdroid.git
+    - git clone git@github.com:maxirosson/jdroid.git
     - cd jdroid
-    - git config user.name '$GIT_NAME'
-    - git config user.email '$GIT_EMAIL'
+    - git config user.name 'Jdroid CI'
+    - git config user.email 'jdroidsoft@gmail.com'
     - git checkout artifacts
     - cp ../jdroid-sample-android/target/*  ./artifacts/master/
     - git add -A
