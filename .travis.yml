@@ -5,8 +5,8 @@ jdk:
   
 env:
   global:
-   - secure: "NWyynu6Yqqap5GumW+saZi0goE5oxInSBnxLykFthSUuVCfVUqZEConSAJTvS16gOxFgNJKGoEeRedotKsEVkMSlzOGC2qL1QlU+4nUzIshy+qFqZn+NjLgaHpP/uyDp+eIGBbPkj2uCnj8TP4AcbaEfF2KpYbJGofNT76SbMUE="
-   
+   - secure: "JzIWrSPF0idQ6ga0jLXnkTVQCjWML+uoEKa/IZKfJ9GvDL7KTnurhm2xRb6GIzUyrnyLAB25ag4XgPiUVDUyodbL2GXp/OxuAcDRHMOYiouH6HxxLbvoUBsqzSpRZN1miylhZWofzdZe/tPR4Avu2Dat8MQwqoRR+ceHFQqFaq4="
+
 android:
   components:
   
@@ -27,7 +27,7 @@ after_success:
     - cp ../jdroid-sample-android/target/*.apk  ./master/
     - git add *.apk
     - git commit -m 'Adding jdroid sample android apk'
-    - git push origin HEAD:artifacts > /dev/null
+    - git push origin HEAD:artifacts &> /dev/null
     - cd ..
 
 deploy:
