@@ -3,7 +3,7 @@ language: android
 jdk:
   - oraclejdk7
   
-secure: "SRRfxYntvJbHO8WZ5xhtky0+QpR/1FeGOi6mMI/IQ1We/tb0lmMU2gdJw82a9ItnEWRWFcia45OHPFWOsSwGmoovvLYLiUGbu5qJjzjvGmYQNGr57/JTe7FtUE75ypFJGuB3h+ZyU/kwVE9Z6UCh3uM3wR6Ql3EOrMl4kJvs7ec="
+secure: "iLvBeaW8vga100Nj0nM0TaazS5M/gezTr54UBYPVJ39gwekEjtfl5fxKqWnmfDjXkcLDEPqjMGj0wUV+fmn9utWKNCppke9ltQbTxPBfqSfn8KDrhsuJs5XAJWkBknOIrAso923DD6i8zQRX/ATTX2laY4PPmeauxt5RHNNZEsk="
 
 android:
   components:
@@ -17,8 +17,10 @@ android:
 script: sh ./ci.sh
 
 after_success:
-    - git clone https://${GH_USER}:${GH_EMAIL}@github.com/maxirosson/jdroid.git
+    - git clone https://${GH_USER}:${GH_TOKEN}@github.com/maxirosson/jdroid.git
     - cd jdroid
+    - git config user.name '${GIT_NAME}'
+    - git config user.email '${GIT_EMAIL}'
     - git checkout artifacts
     - cp ../jdroid-sample-android/target/*  ./artifacts/master/
     - git add -A
