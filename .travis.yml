@@ -3,7 +3,7 @@ language: android
 jdk:
   - oraclejdk7
   
-secure: "iLvBeaW8vga100Nj0nM0TaazS5M/gezTr54UBYPVJ39gwekEjtfl5fxKqWnmfDjXkcLDEPqjMGj0wUV+fmn9utWKNCppke9ltQbTxPBfqSfn8KDrhsuJs5XAJWkBknOIrAso923DD6i8zQRX/ATTX2laY4PPmeauxt5RHNNZEsk="
+secure: "B4mRQoqoy2ilA10NsNf76Esw05iAyrvX74uNxk7L/S7OZVSTTMsxF8dlsKYfztj4tXPiUKjBEQtdY2fnpsU6mQLLzXE45Wpn+WAIteSFvXNW6pbpZsEDrC2iCXbf5gU1YBxqOKtxNuydA1RJ8sy5Jv4wCcRp40L7aRv+uSdP6gc="
 
 android:
   components:
