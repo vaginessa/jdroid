@@ -11,6 +11,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -143,8 +144,10 @@ public abstract class ApacheHttpWebService implements WebService {
 			return (T)((parser != null) && (inputStream != null) ? parser.parse(inputStream) : null);
 		} catch (ClientProtocolException e) {
 			throw new UnexpectedException(e);
+		} catch (ConnectTimeoutException e) {
+			throw new ConnectionException(e, true);
 		} catch (IOException e) {
-			throw new ConnectionException(e);
+			throw new ConnectionException(e, false);
 		} finally {
 			FileUtils.safeClose(inputStream);
 			if (client != null) {

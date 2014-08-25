@@ -92,10 +92,4 @@ public class ChoiceItemDialogFragment extends AbstractDialogFragment {
 		}
 		return availableModes;
 	}
-	
-	public interface ChoiceItem extends Serializable {
-		
-		public int getResourceTitleId();
-	}
-	
 }

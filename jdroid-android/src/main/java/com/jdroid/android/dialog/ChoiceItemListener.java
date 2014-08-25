@@ -1,7 +1,5 @@
 package com.jdroid.android.dialog;
 
-import com.jdroid.android.dialog.ChoiceItemDialogFragment.ChoiceItem;
-
 public interface ChoiceItemListener<T extends ChoiceItem> {
 	
 	/**

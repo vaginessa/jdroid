@@ -239,14 +239,17 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 		}
 	}
 	
-	public static void setMessageOnConnectionException(RuntimeException runtimeException, String message) {
+	public static void setMessageOnConnectionTimeout(RuntimeException runtimeException, String message) {
 		if (runtimeException instanceof ConnectionException) {
-			((ConnectionException)runtimeException).addParameter(CONNECTION_EXCEPTION_MESSAGE_KEY, message);
+			ConnectionException connectionException = (ConnectionException)runtimeException;
+			if (connectionException.isTimeout()) {
+				connectionException.addParameter(CONNECTION_EXCEPTION_MESSAGE_KEY, message);
+			}
 		}
 	}
 	
-	public static void setMessageOnConnectionException(RuntimeException runtimeException, int resId) {
-		setMessageOnConnectionException(runtimeException, LocalizationUtils.getString(resId));
+	public static void setMessageOnConnectionTimeout(RuntimeException runtimeException, int resId) {
+		setMessageOnConnectionTimeout(runtimeException, LocalizationUtils.getString(resId));
 	}
 	
 	/**

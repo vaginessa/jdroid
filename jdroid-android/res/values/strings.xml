@@ -80,4 +80,8 @@
 	<!-- Google+ -->
 	<string name="googlePlus">Google+</string>
 
+	<!-- Map -->
+	<string name="driving">Driving</string>
+	<string name="walking">Walking</string>
+
 </resources>

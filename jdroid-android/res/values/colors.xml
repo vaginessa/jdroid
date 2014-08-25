@@ -6,4 +6,9 @@
 	<!-- Nav Drawer -->
 	<color name="navDrawerItemsBackground">#111</color>
 	<color name="navDrawerBackground">#222</color>
+
+	<!-- Maps -->
+	<color name="walkingColor">#888888</color>
+	<color name="drivingColor">#319FDA</color>
+
 </resources>
