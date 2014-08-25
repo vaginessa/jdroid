@@ -46,7 +46,7 @@ fi
 # ************************
 
 REPO_OWNER=maxirosson
-BODY=`cat ./releaseNotes.txt`
+BODY=`cat ./etc/releaseNotes.txt`
 TAG_NAME=v`mvn help:evaluate -Dexpression=project.version 2>/dev/null| grep -v "^\["`
 
 curl \

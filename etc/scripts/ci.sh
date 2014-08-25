@@ -8,7 +8,7 @@ set -ev
 # ************************
 # Tests Execution
 # ************************
-
+cd ../..
 mvn clean install -P jdroid-test
 
 # ************************

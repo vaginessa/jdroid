@@ -16,7 +16,7 @@ android:
     # The SDK version used to compile your project
     - android-19
 
-script: sh ./ci.sh
+script: sh ./etc/scripts/ci.sh
 
 after_success:
     - git clone https://$GH_USER:$GH_TOKEN@github.com/maxirosson/jdroid.git
