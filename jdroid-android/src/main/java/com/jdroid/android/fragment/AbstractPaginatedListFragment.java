@@ -135,14 +135,24 @@ public abstract class AbstractPaginatedListFragment<T> extends AbstractListFragm
 			public void run() {
 				if (getPaginatedUseCase().isPaginating()) {
 					((BaseArrayAdapter<T>)getListAdapter()).addAll(getPaginatedUseCase().getResults());
-				} else {
-					setListAdapter(createBaseArrayAdapter(getPaginatedUseCase().getResults()));
 					dismissLoading();
+				} else {
 					
 					if ((getItemsToAutoPaginate() != null)
 							&& (getPaginatedUseCase().getResults().size() <= getItemsToAutoPaginate())) {
+						
+						if (getPaginatedUseCase().getResults().isEmpty()) {
+							setListAdapter(createBaseArrayAdapter(getPaginatedUseCase().getResults()));
+						} else {
+							setListAdapter(createBaseArrayAdapter(getPaginatedUseCase().getResults()));
+							dismissLoading();
+						}
+						
 						getPaginatedUseCase().markAsPaginating();
 						executeUseCase(getPaginatedUseCase());
+					} else {
+						setListAdapter(createBaseArrayAdapter(getPaginatedUseCase().getResults()));
+						dismissLoading();
 					}
 				}
 				dismissPaginationLoading();
@@ -154,7 +164,7 @@ public abstract class AbstractPaginatedListFragment<T> extends AbstractListFragm
 		return null;
 	}
 	
-	private void startPaginationLoading() {
+	protected void startPaginationLoading() {
 		executeOnUIThread(new Runnable() {
 			
 			@Override
@@ -164,7 +174,7 @@ public abstract class AbstractPaginatedListFragment<T> extends AbstractListFragm
 		});
 	}
 	
-	private void dismissPaginationLoading() {
+	protected void dismissPaginationLoading() {
 		executeOnUIThread(new Runnable() {
 			
 			@Override
