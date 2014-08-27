@@ -111,4 +111,4 @@ Apps using jdroid
 </a>
 
 --------------
-For more information, visit the [GitHub Wiki](https://github.com/maxirosson/jdroid/wiki) or our [Site](http://maxirosson.github.com/jdroid/).
+For more information, visit the [GitHub Wiki](https://github.com/maxirosson/jdroid/wiki) or our [Site](http://jdroidframework.com/).
