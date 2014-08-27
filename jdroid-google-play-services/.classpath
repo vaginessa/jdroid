@@ -6,5 +6,5 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="output" path="bin/classes"/>
-	<classpathentry exported="true" kind="var" path="M2_REPO/android/google-play-services/r18/google-play-services-r18.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/android/google-play-services/r19/google-play-services-r19.jar"/>
 </classpath>
