@@ -14,7 +14,7 @@ mvn clean install -P jdroid-test
 # ************************
 # Deploy Snapshot
 # ************************
-mvn clean deploy -P jdroid-release -Dmaven.test.skip=true --settings ./settings.xml
+mvn clean deploy -P jdroid-release -Dmaven.test.skip=true -Dgpg.skip=true --settings ./settings.xml
 
 # ************************
 # jdroid sample android
