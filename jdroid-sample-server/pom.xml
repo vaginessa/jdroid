@@ -138,7 +138,6 @@
 			<id>jdroid-sample-server-uat</id>
 			<properties>
 				<environment.name>UAT</environment.name>
-				<google.server.api.key>AIzaSyD4LSE9PglznRHSrnWM9lbXcJbRnbyI-Jc</google.server.api.key>
 			</properties>
 		</profile>
 

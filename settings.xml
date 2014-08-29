@@ -19,9 +19,15 @@
     	</profile>
 	
 		 <profile>
-			<id>jdroid-sample-server</id>
+			<id>jdroid-sample-server-uat</id>
 			<properties>
 				<google.server.api.key>${GOOGLE_SERVER_API_KEY}</google.server.api.key>
+			</properties>
+		 </profile>
+		 	
+		 <profile>
+			<id>jdroid-sample-android-uat</id>
+			<properties>
 			</properties>
 		 </profile>
 	

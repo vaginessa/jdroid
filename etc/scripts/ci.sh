@@ -12,9 +12,10 @@ set -ev
 mvn clean install -P jdroid-test
 
 # ************************
-# Deploy Snapshot
+# Install Snapshot
 # ************************
-mvn clean deploy -P jdroid-release -Dmaven.test.skip=true -Dgpg.skip=true --settings ./settings.xml
+mvn clean install -P jdroid-release -Dmaven.test.skip=true -Dgpg.skip=true
+#mvn clean deploy -P jdroid-release -Dmaven.test.skip=true -Dgpg.skip=true --settings ./settings.xml
 
 # ************************
 # jdroid sample android
@@ -22,7 +23,7 @@ mvn clean deploy -P jdroid-release -Dmaven.test.skip=true -Dgpg.skip=true --sett
 
 cd jdroid-sample-android
 mvn clean test -P jdroid-test
-mvn clean install -P jdroid-sample-android-uat -Dmaven.test.skip=true
+mvn clean install -P jdroid-sample-android-uat -Dmaven.test.skip=true --settings ./settings.xml
 
 # ************************
 # jdroid sample server
@@ -30,4 +31,4 @@ mvn clean install -P jdroid-sample-android-uat -Dmaven.test.skip=true
 
 cd ../jdroid-sample-server
 mvn clean test -P jdroid-test
-mvn clean assembly:assembly -P jdroid-sample-server-uat -Dmaven.test.skip=true
+mvn clean assembly:assembly -P jdroid-sample-server-uat -Dmaven.test.skip=true --settings ./settings.xml

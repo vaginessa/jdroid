@@ -13,6 +13,8 @@ env:
    - secure: "QDzrGn4biaNM756EIXEWBKDNf7tZ3aoxNsuktU5qLOSc8KMfuCUAFrEv/HHW1MjX76/P11f6v2PlDL6VWCMjA9tqo890aVwfwuHEimkvT1qYSdw8UcNwhmYA6lPFn1ZwBPzvduby4S3YOZs2OJ4804BRgLBQ8NaESoN8S7vCcow="
    # GPG_PASSPHRASE
    - secure: "Pl/uM6KsbZbi4eBYEGcBtBV/INHSyrRZbS+P4sjqGhRzFephvSDIRLSqnjcpEfC6vs0wK3ckDgEnwo9roQ3xGzyGzq8MTm/RSIAWtaeNa8jt+SHDo97ievK6xnJdYG9VM2xZZXouENGccWsRQ+1N3eYuvhcUJIw8M6tcrHKpKt4="
+   # GOOGLE_SERVER_API_KEY
+   - secure: "eO8VzfFjeGySdLpN5Tqsovwj8SwVWtCt1hWcZrYcm7eK54a20fxTcgoU0p439EVxCftQruoy+ndZTRhLVxwqIEGP0pefz40JqxmmV8lp0FY7GKq29FrNxY4aS/1W9wJDijhX7H9F+vCHQD04/8RFvjqD89zOl0I6FvzVxchPx6A="
 android:
   components:
   
