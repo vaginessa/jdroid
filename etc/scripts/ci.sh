@@ -23,7 +23,7 @@ mvn clean install -P jdroid-release -Dmaven.test.skip=true -Dgpg.skip=true
 
 cd jdroid-sample-android
 mvn clean test -P jdroid-test
-mvn clean install -P jdroid-sample-android-uat -Dmaven.test.skip=true --settings ./settings.xml
+mvn clean install -P jdroid-sample-android-uat -Dmaven.test.skip=true --settings ../settings.xml
 
 # ************************
 # jdroid sample server
@@ -31,4 +31,4 @@ mvn clean install -P jdroid-sample-android-uat -Dmaven.test.skip=true --settings
 
 cd ../jdroid-sample-server
 mvn clean test -P jdroid-test
-mvn clean assembly:assembly -P jdroid-sample-server-uat -Dmaven.test.skip=true --settings ./settings.xml
+mvn clean assembly:assembly -P jdroid-sample-server-uat -Dmaven.test.skip=true --settings ../settings.xml
