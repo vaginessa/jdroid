@@ -1,25 +1,32 @@
+Changed the Maven groupId to com.jdroidframework\n
+Added Travis Continuous Integration\n
+Created jdroid-android-tools\n
+\n
 jdroid Java\n
 -----------\n
+* Added PATCH method support to Http Layer\n
 * Upgraded dependencies versions\n
 * Bug fixing\n
 \n
 jdroid Java Web\n
 ---------------\n
+* Added default filter\n
 * Upgraded dependencies versions\n
 * Bug fixing\n
 \n
 jdroid Android\n
 --------------\n
+* Added XML Pull Parser\n
+* Added Jdroid reference to about dialog\n
+* Added GCM messages emualation support to Debug settings\n
+* Added support to house ads\n
+* Added custom up intent support\n
+* Added QuickReturnLayout component\n
+* Added default headers appender\n
 * Upgraded dependencies versions\n
 * Bug fixing\n
 \n
-jdroid sample server\n
+jdroid scripts\n
 --------------\n
-* Upgraded dependencies versions\n
-* Bug fixing\n
-\n
-jdroid sample android\n
---------------\n
-* Upgraded dependencies versions\n
-* Bug fixing\n
+* Added Strip Google Play Services jar script\n
 \n
