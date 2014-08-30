@@ -58,19 +58,20 @@
 			</exclusions>
 		</dependency>
 		
+		<!-- Google Play Services -->
+		<dependency>
+			<groupId>com.jdroidframework</groupId>
+			<artifactId>google-play-services</artifactId>
+			<version>${project.version}</version>
+			<type>apklib</type>
+		</dependency>
+		
+		<!-- Android Universal Image Loader-->
 		<dependency>
 			<groupId>com.nostra13.universalimageloader</groupId>
 			<artifactId>universal-image-loader</artifactId>
 			<version>1.9.2</version>
 		</dependency> 
-
-		<!-- Google Play Services -->
-		<dependency>
-			<groupId>com.jdroid</groupId>
-			<artifactId>google-play-services</artifactId>
-			<version>${project.version}</version>
-			<type>apklib</type>
-		</dependency>
 
 		<!-- Android Annotations -->
 		<dependency>
