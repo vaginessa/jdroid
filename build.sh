@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 BUILD_DIRECTORY=$1
 BRANCH=$2
