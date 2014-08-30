@@ -4,7 +4,6 @@ com.facebook.android
 com.facebook.internal
 com.facebook.model
 com.facebook.widget
-com.google.android.gms
 com.jdroid.android
 com.jdroid.android.activity
 com.jdroid.android.ad
@@ -12,6 +11,7 @@ com.jdroid.android.adapter
 com.jdroid.android.analytics
 com.jdroid.android.animation
 com.jdroid.android.api
+com.jdroid.android.api.parser
 com.jdroid.android.barcode
 com.jdroid.android.concurrent
 com.jdroid.android.contacts
@@ -27,13 +27,14 @@ com.jdroid.android.domain
 com.jdroid.android.exception
 com.jdroid.android.fragment
 com.jdroid.android.gcm
-com.jdroid.android.gps
 com.jdroid.android.http
 com.jdroid.android.images
 com.jdroid.android.inappbilling
 com.jdroid.android.intent
 com.jdroid.android.listener
 com.jdroid.android.loading
+com.jdroid.android.location
+com.jdroid.android.maps
 com.jdroid.android.navdrawer
 com.jdroid.android.pager
 com.jdroid.android.picture
@@ -50,7 +51,6 @@ com.jdroid.android.social.googleplus
 com.jdroid.android.social.twitter
 com.jdroid.android.sound
 com.jdroid.android.sqlite
-com.jdroid.android.tabs
 com.jdroid.android.uri
 com.jdroid.android.usecase
 com.jdroid.android.usecase.listener
@@ -69,6 +69,7 @@ com.jdroid.java.http
 com.jdroid.java.http.apache
 com.jdroid.java.http.apache.delete
 com.jdroid.java.http.apache.get
+com.jdroid.java.http.apache.patch
 com.jdroid.java.http.apache.post
 com.jdroid.java.http.apache.put
 com.jdroid.java.http.cache
@@ -81,7 +82,6 @@ com.jdroid.java.marshaller
 com.jdroid.java.parser
 com.jdroid.java.parser.json
 com.jdroid.java.parser.plain
-com.jdroid.java.parser.xml
 com.jdroid.java.parser.zip
 com.jdroid.java.repository
 com.jdroid.java.search
@@ -99,6 +99,7 @@ com.jdroid.javaweb.guava.predicate
 com.jdroid.javaweb.hibernate
 com.jdroid.javaweb.log
 com.jdroid.javaweb.marshaller
+com.jdroid.javaweb.parser.xml
 com.jdroid.javaweb.ping
 com.jdroid.javaweb.push
 com.jdroid.javaweb.push.gcm
