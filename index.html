@@ -47,6 +47,9 @@
 
 <p>jdroid is an application framework for Android &amp; Java apps. The project use <a href="http://semver.org/">Semantic Versioning</a></p>
 
+
+<!-- Replace from here -->
+
 <h2>
 <a name="user-content-jdroid-java" class="anchor" href="#jdroid-java" aria-hidden="true"><span class="octicon octicon-link"></span></a>jdroid Java</h2>
 
@@ -57,7 +60,7 @@
 
 <ul class="task-list">
 <li><a href="https://hc.apache.org/">Apache HTTP Client implementation</a></li>
-<li>GET, POST, PUT &amp; DELETE methods</li>
+<li>GET, POST, PUT, PATCH &amp; DELETE methods</li>
 <li>Headers appender</li>
 <li>Response validator</li>
 <li>Response Mocks support</li>
@@ -82,6 +85,19 @@
 <p>Dependency project for Java Web apps </p>
 
 <ul class="task-list">
+<li>Http Filters
+
+<ul class="task-list">
+<li>Authentication filter</li>
+<li>API version filter</li>
+</ul>
+</li>
+<li>Parsers
+
+<ul class="task-list">
+<li>Sax XML Parser</li>
+</ul>
+</li>
 <li><a href="http://projects.spring.io/spring-framework/">Spring MVC integration</a></li>
 <li><a href="http://hibernate.org/orm/">Hibernate ORM integration</a></li>
 <li><a href="http://restfb.com/">Restfb Facebook integration</a></li>
@@ -118,8 +134,15 @@
 <li><a href="https://github.com/commonsguy/cwac-merge">Merge adapter integration</a></li>
 <li><a href="http://developer.android.com/tools/help/lint.html">Lint support</a></li>
 <li><a href="http://developer.android.com/reference/android/os/StrictMode.html">Strict mode support</a></li>
+<li>Parsers
+
+<ul class="task-list">
+<li>XML Pull Parser</li>
+</ul>
+</li>
 <li>Debug settings support</li>
 <li>Url handling support</li>
+<li>House ads support</li>
 <li>Base Activity &amp; Fragment implementations</li>
 <li>Exception handling</li>
 <li>ListView &amp; GridView pagination support</li>
@@ -131,6 +154,7 @@
 <li>Voice Recognizer component</li>
 <li>Date &amp; Time picker components</li>
 <li>About dialog component</li>
+<li>QuickReturnLayout component</li>
 <li>Animations
 
 <ul class="task-list">
@@ -139,7 +163,14 @@
 </li>
 <li>Utilities for Alarms, Bitmaps, <a href="http://developer.android.com/design/patterns/notifications.html">Notifications</a>, Shared Preferences, <a href="http://developer.android.com/guide/topics/ui/notifiers/toasts.html">Toasts</a>, Sounds, GPS, and more</li>
 </ul><h2>
-<a name="user-content-jdroid-scripts" class="anchor" href="#jdroid-scripts" aria-hidden="true"><span class="octicon octicon-link"></span></a>jdroid scripts</h2>
+<a name="user-content-jdroid-android-tools" class="anchor" href="#jdroid-android-tools" aria-hidden="true"><span class="octicon octicon-link"></span></a>jdroid Android Tools</h2>
+
+<p>Useful tools for Android apps</p>
+
+<ul class="task-list">
+<li>Report the methods invocations in android dex files, package by package</li>
+</ul><h2>
+<a name="user-content-jdroid-scripts" class="anchor" href="#jdroid-scripts" aria-hidden="true"><span class="octicon octicon-link"></span></a>jdroid Scripts</h2>
 
 <p>A set of useful shell scripts to</p>
 
@@ -150,26 +181,23 @@
 </li>
 <li>Create a merge request on <a href="https://www.gitlab.com/">Gitlab</a>
 </li>
-<li>Count the methods in android dex files</li>
+<li>Count the methods invocations in android dex files</li>
+<li>Strip Google Play Services jar</li>
 <li>Start/stop and deploy on <a href="http://tomcat.apache.org/">Apache Tomcat</a>
 </li>
 <li>Automatically restart <a href="http://tomcat.apache.org/">Apache Tomcat</a>
 </li>
-</ul><h2>
-<a name="user-content-jdroid-sample-server" class="anchor" href="#jdroid-sample-server" aria-hidden="true"><span class="octicon octicon-link"></span></a>jdroid sample server</h2>
+</ul>
 
-<p>Sample server app using jdroid Java Web &amp; jdroid Java</p>
-
-<h2>
-<a name="user-content-jdroid-sample-android" class="anchor" href="#jdroid-sample-android" aria-hidden="true"><span class="octicon octicon-link"></span></a>jdroid sample android</h2>
+<!-- To here -->
 
 <p>Sample android app using jdroid Android &amp; jdroid Java</p>
         </section>
 
         <aside id="sidebar">
-          <a href="https://github.com/maxirosson/jdroid/releases/download/v0.4.0/jdroid-v0.4.0.zip" class="button">
+          <a href="https://github.com/maxirosson/jdroid/releases/download/v0.5.0/jdroid-v0.5.0.zip" class="button">
             <small>Download</small>
-            v0.4.0
+            v0.5.0
           </a>
 
           <form action="https://www.paypal.com/cgi-bin/webscr" method="post" style="background: 000000; margin-bottom: 20px">
