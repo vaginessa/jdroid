@@ -340,4 +340,12 @@ public abstract class AbstractActivity extends Activity implements ActivityIf {
 		activityHelper.onNewIntent(intent);
 	}
 	
+	/**
+	 * @see com.jdroid.android.activity.ComponentIf#shouldTrackOnFragmentStart()
+	 */
+	@Override
+	public Boolean shouldTrackOnFragmentStart() {
+		return activityHelper.shouldTrackOnFragmentStart();
+	}
+	
 }

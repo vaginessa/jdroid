@@ -32,7 +32,7 @@ public class PictureDialogFragment extends AbstractDialogFragment {
 	private Uri outputFileUri;
 	
 	public static Boolean display() {
-		return AndroidUtils.hasCamera() || AndroidUtils.hasGallery();
+		return AndroidUtils.hasCamera();
 	}
 	
 	public static void show(Fragment targetFragment) {
@@ -92,19 +92,15 @@ public class PictureDialogFragment extends AbstractDialogFragment {
 		
 		// Configure the choose from library button.
 		Button gallery = findView(R.id.gallery);
-		if (AndroidUtils.hasGallery()) {
-			gallery.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					Intent imagePickerIntent = new Intent(Intent.ACTION_PICK);
-					imagePickerIntent.setType(IMAGE_TYPE);
-					startActivityForResult(imagePickerIntent, GALLERY_REQUEST_CODE);
-				}
-			});
-		} else {
-			gallery.setVisibility(View.GONE);
-		}
+		gallery.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent imagePickerIntent = new Intent(Intent.ACTION_PICK);
+				imagePickerIntent.setType(IMAGE_TYPE);
+				startActivityForResult(imagePickerIntent, GALLERY_REQUEST_CODE);
+			}
+		});
 	}
 	
 	/**

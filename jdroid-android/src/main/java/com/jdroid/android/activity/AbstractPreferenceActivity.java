@@ -329,4 +329,12 @@ public abstract class AbstractPreferenceActivity extends PreferenceActivity impl
 		super.onNewIntent(intent);
 		activityHelper.onNewIntent(intent);
 	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ComponentIf#shouldTrackOnFragmentStart()
+	 */
+	@Override
+	public Boolean shouldTrackOnFragmentStart() {
+		return activityHelper.shouldTrackOnFragmentStart();
+	}
 }

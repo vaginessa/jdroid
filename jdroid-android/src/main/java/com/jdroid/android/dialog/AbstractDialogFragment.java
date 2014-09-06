@@ -16,7 +16,6 @@ import com.jdroid.android.loading.LoadingDialogBuilder;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
-import com.jdroid.android.utils.AndroidUtils;
 
 public class AbstractDialogFragment extends DialogFragment implements FragmentIf {
 	
@@ -46,11 +45,6 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 		super.onCreate(savedInstanceState);
 		fragmentHelper = AbstractApplication.get().createFragmentHelper(this);
 		fragmentHelper.onCreate(savedInstanceState);
-		
-		// Google TV is not displaying the title of the dialog.
-		if (AndroidUtils.isGoogleTV()) {
-			setStyle(STYLE_NO_TITLE, 0);
-		}
 	}
 	
 	/**
@@ -386,5 +380,13 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	@Override
 	public ActivityIf getActivityIf() {
 		return fragmentHelper.getActivityIf();
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ComponentIf#shouldTrackOnFragmentStart()
+	 */
+	@Override
+	public Boolean shouldTrackOnFragmentStart() {
+		return fragmentHelper.shouldTrackOnFragmentStart();
 	}
 }

@@ -60,4 +60,6 @@ public interface ComponentIf {
 	public AdSize getAdSize();
 	
 	public User getUser();
+	
+	public Boolean shouldTrackOnFragmentStart();
 }

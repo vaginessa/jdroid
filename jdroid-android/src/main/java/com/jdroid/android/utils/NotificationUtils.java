@@ -30,10 +30,10 @@ public class NotificationUtils {
 	}
 	
 	public static int getNotificationLargeIconWidthPx() {
-		return AndroidUtils.convertDimenToPixel(android.R.dimen.notification_large_icon_width);
+		return ScreenUtils.convertDimenToPixel(android.R.dimen.notification_large_icon_width);
 	}
 	
 	public static int getNotificationLargeIconHeightPx() {
-		return AndroidUtils.convertDimenToPixel(android.R.dimen.notification_large_icon_height);
+		return ScreenUtils.convertDimenToPixel(android.R.dimen.notification_large_icon_height);
 	}
 }

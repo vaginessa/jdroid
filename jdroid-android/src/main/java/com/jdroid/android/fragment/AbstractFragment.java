@@ -383,4 +383,12 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	public ActivityIf getActivityIf() {
 		return fragmentHelper.getActivityIf();
 	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ComponentIf#shouldTrackOnFragmentStart()
+	 */
+	@Override
+	public Boolean shouldTrackOnFragmentStart() {
+		return fragmentHelper.shouldTrackOnFragmentStart();
+	}
 }

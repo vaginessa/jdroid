@@ -89,6 +89,10 @@ public class FragmentHelper implements FragmentIf {
 	
 	public void onStart() {
 		LOGGER.trace("Executing onStart on " + fragment);
+		FragmentIf fragmentIf = getFragmentIf();
+		if ((fragmentIf != null) && fragmentIf.shouldTrackOnFragmentStart()) {
+			AbstractApplication.get().getAnalyticsSender().onFragmentStart(fragment);
+		}
 	}
 	
 	public void onResume() {
@@ -458,5 +462,13 @@ public class FragmentHelper implements FragmentIf {
 	@Override
 	public ActionBar getActionBar() {
 		return fragment.getActivity().getActionBar();
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ComponentIf#shouldTrackOnFragmentStart()
+	 */
+	@Override
+	public Boolean shouldTrackOnFragmentStart() {
+		return false;
 	}
 }

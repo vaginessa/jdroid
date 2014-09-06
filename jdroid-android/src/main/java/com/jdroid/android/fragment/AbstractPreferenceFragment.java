@@ -297,4 +297,12 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 		return getActivity().getActionBar();
 	}
 	
+	/**
+	 * @see com.jdroid.android.activity.ComponentIf#shouldTrackOnFragmentStart()
+	 */
+	@Override
+	public Boolean shouldTrackOnFragmentStart() {
+		return false;
+	}
+	
 }

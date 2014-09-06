@@ -9,6 +9,7 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.ScreenUtils;
 import com.jdroid.java.context.GitContext;
 import com.jdroid.java.utils.StringUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -34,10 +35,10 @@ public class DebugInfoView extends LinearLayout {
 		
 		TextView smallestScreenWidthDp = (TextView)findViewById(R.id.smallestScreenWidthDp);
 		smallestScreenWidthDp.setText(context.getString(R.string.smallestScreenWidthDp,
-			AndroidUtils.getSmallestScreenWidthDp()));
+			ScreenUtils.getSmallestScreenWidthDp()));
 		
 		TextView screenDensity = (TextView)findViewById(R.id.screenDensity);
-		screenDensity.setText(context.getString(R.string.screenDensity, AndroidUtils.getScreenDensity()));
+		screenDensity.setText(context.getString(R.string.screenDensity, ScreenUtils.getScreenDensity()));
 		
 		TextView branch = (TextView)findViewById(R.id.branch);
 		if (GitContext.get().getBranch() != null) {

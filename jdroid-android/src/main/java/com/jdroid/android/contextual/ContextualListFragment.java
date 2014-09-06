@@ -13,7 +13,7 @@ import com.jdroid.android.ActionItem;
 import com.jdroid.android.R;
 import com.jdroid.android.fragment.AbstractListFragment;
 import com.jdroid.android.fragment.OnItemSelectedListener;
-import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.ScreenUtils;
 import com.jdroid.java.collections.Lists;
 
 @SuppressLint("ValidFragment")
@@ -63,7 +63,7 @@ public class ContextualListFragment extends AbstractListFragment<ActionItem> {
 		super.onViewCreated(view, savedInstanceState);
 		setListAdapter(new ContextualItemsAdapter(this.getActivity(), actions));
 		
-		if (AndroidUtils.is7InchesOrBigger()) {
+		if (ScreenUtils.is7InchesOrLarger()) {
 			getListView().setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 			getListView().setItemChecked(defaultIndex, true);
 		} else {
@@ -91,6 +91,6 @@ public class ContextualListFragment extends AbstractListFragment<ActionItem> {
 	 */
 	@Override
 	public AdSize getAdSize() {
-		return AndroidUtils.is7InchesOrBigger() ? null : AdSize.SMART_BANNER;
+		return ScreenUtils.is7InchesOrLarger() ? null : AdSize.SMART_BANNER;
 	}
 }

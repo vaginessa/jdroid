@@ -10,7 +10,7 @@ import com.jdroid.android.ActionItem;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.fragment.OnItemSelectedListener;
-import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.ScreenUtils;
 
 /**
  * 
@@ -35,10 +35,10 @@ public abstract class ContextualActivity<T extends ActionItem> extends AbstractF
 	@Override
 	public int getContentView() {
 		if (isNavDrawerEnabled()) {
-			return AndroidUtils.is7InchesOrBigger() ? R.layout.nav_contextual_activity
+			return ScreenUtils.is7InchesOrLarger() ? R.layout.nav_contextual_activity
 					: R.layout.nav_fragment_container_activity;
 		} else {
-			return AndroidUtils.is7InchesOrBigger() ? R.layout.contextual_activity
+			return ScreenUtils.is7InchesOrLarger() ? R.layout.contextual_activity
 					: R.layout.fragment_container_activity;
 		}
 	}
@@ -61,7 +61,7 @@ public abstract class ContextualActivity<T extends ActionItem> extends AbstractF
 			fragmentTransaction.add(R.id.fragmentContainer,
 				newContextualListFragment(getContextualItems(), defaultContextualItem));
 			
-			if (AndroidUtils.is7InchesOrBigger()) {
+			if (ScreenUtils.is7InchesOrLarger()) {
 				fragmentTransaction.add(R.id.detailsFragmentContainer,
 					defaultContextualItem.createFragment(getExtra(DEFAULT_CONTEXTUAL_ITEM_BUNDLE_EXTRA)),
 					defaultContextualItem.getName());
@@ -120,7 +120,7 @@ public abstract class ContextualActivity<T extends ActionItem> extends AbstractF
 		
 		T contextualItem = (T)intent.getExtras().getSerializable(DEFAULT_CONTEXTUAL_ITEM_EXTRA);
 		
-		if (AndroidUtils.is7InchesOrBigger()) {
+		if (ScreenUtils.is7InchesOrLarger()) {
 			
 			// Refresh the detail
 			replaceDetailsFragment(contextualItem);

@@ -2,8 +2,12 @@ package com.jdroid.java.http.apache.post;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map.Entry;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
+import org.apache.http.message.BasicNameValuePair;
+import com.beust.jcommander.internal.Lists;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.http.HttpWebServiceProcessor;
 import com.jdroid.java.http.Server;
@@ -23,7 +27,11 @@ public class ApacheFormHttpPostWebService extends ApacheHttpPostWebService {
 	@Override
 	protected void addEntity(HttpEntityEnclosingRequestBase httpEntityEnclosingRequestBase) {
 		try {
-			httpEntityEnclosingRequestBase.setEntity(new UrlEncodedFormEntity(getQueryParameters(), EncodingUtils.UTF8));
+			List<NameValuePair> nameValuePairs = Lists.newArrayList();
+			for (Entry<String, String> entry : getQueryParameters().entrySet()) {
+				nameValuePairs.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+			}
+			httpEntityEnclosingRequestBase.setEntity(new UrlEncodedFormEntity(nameValuePairs, EncodingUtils.UTF8));
 		} catch (UnsupportedEncodingException e) {
 			throw new UnexpectedException(e);
 		}

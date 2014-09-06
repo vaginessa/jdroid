@@ -4,19 +4,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.zip.GZIPInputStream;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
+import org.apache.http.client.CircularRedirectException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import com.jdroid.java.collections.Lists;
+import com.jdroid.java.collections.Maps;
 import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.http.HttpResponseWrapper;
@@ -43,10 +45,10 @@ public abstract class ApacheHttpWebService implements WebService {
 	private List<Object> urlSegments;
 	
 	/** Query Parameter values of the request. */
-	private List<NameValuePair> queryParameters = Lists.newArrayList();
+	private Map<String, String> queryParameters = Maps.newLinkedHashMap();
 	
 	/** Header values of the request. */
-	private List<NameValuePair> headers = Lists.newArrayList();
+	private Map<String, String> headers = Maps.newHashMap();
 	
 	private List<Cookie> cookies = Lists.newArrayList();
 	
@@ -143,7 +145,12 @@ public abstract class ApacheHttpWebService implements WebService {
 			// parse and return response.
 			return (T)((parser != null) && (inputStream != null) ? parser.parse(inputStream) : null);
 		} catch (ClientProtocolException e) {
-			throw new UnexpectedException(e);
+			Throwable cause = e.getCause();
+			if ((cause != null) && (cause instanceof CircularRedirectException)) {
+				throw new ConnectionException(e, false);
+			} else {
+				throw new UnexpectedException(e);
+			}
 		} catch (ConnectTimeoutException e) {
 			throw new ConnectionException(e, true);
 		} catch (IOException e) {
@@ -184,16 +191,16 @@ public abstract class ApacheHttpWebService implements WebService {
 		StringBuilder params = new StringBuilder();
 		boolean isFirst = true;
 		
-		for (NameValuePair pair : getQueryParameters()) {
+		for (Entry<String, String> entry : getQueryParameters().entrySet()) {
 			if (isFirst) {
 				params.append(QUESTION_MARK);
 				isFirst = false;
 			} else {
 				params.append(AMPERSAND);
 			}
-			params.append(pair.getName());
+			params.append(entry.getKey());
 			params.append(EQUALS);
-			params.append(pair.getValue());
+			params.append(entry.getValue());
 		}
 		
 		return params.toString();
@@ -221,7 +228,7 @@ public abstract class ApacheHttpWebService implements WebService {
 	@Override
 	public void addHeader(String name, String value) {
 		if (value != null) {
-			headers.add(new BasicNameValuePair(name, value));
+			headers.put(name, value);
 		}
 	}
 	
@@ -235,7 +242,7 @@ public abstract class ApacheHttpWebService implements WebService {
 	@Override
 	public void addQueryParameter(String name, Object value) {
 		if (value != null) {
-			queryParameters.add(new BasicNameValuePair(name, EncodingUtils.encodeURL(value.toString())));
+			queryParameters.put(name, EncodingUtils.encodeURL(value.toString()));
 		}
 	}
 	
@@ -248,8 +255,8 @@ public abstract class ApacheHttpWebService implements WebService {
 	}
 	
 	protected void addHeaders(HttpUriRequest httpUriRequest) {
-		for (NameValuePair pair : headers) {
-			httpUriRequest.addHeader(pair.getName(), pair.getValue());
+		for (Entry<String, String> entry : headers.entrySet()) {
+			httpUriRequest.addHeader(entry.getKey(), entry.getValue());
 		}
 	}
 	
@@ -278,9 +285,9 @@ public abstract class ApacheHttpWebService implements WebService {
 	}
 	
 	/**
-	 * @return the parameters
+	 * @return the Query parameters
 	 */
-	protected List<NameValuePair> getQueryParameters() {
+	protected Map<String, String> getQueryParameters() {
 		return queryParameters;
 	}
 	
