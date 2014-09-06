@@ -525,7 +525,7 @@ body.home.blog #top-area,body.et_default_homepage #top-area {
   font-size:30px;
   text-transform:uppercase;
   padding-bottom:16px;
-	margin-right: 5px;
+  margin-right:5px
 }
 
 #content {
@@ -658,12 +658,12 @@ body.home.blog #top-area,body.et_default_homepage #top-area {
   color:#454545
 }
 
-.recent-update p.meta-info a {
+p.meta-info a {
   color:#454545;
   text-decoration:none
 }
 
-.recent-update p.meta-info a:hover {
+p.meta-info a:hover {
   color:#000
 }
 
@@ -1336,7 +1336,7 @@ linear-gradient(to bottom,#2a3f4a 0%,#1e2f37 100%)
   font-family:Georgia,serif;
   font-style:italic;
   font-size:16px;
-  color:black;
+  color:#000;
   margin-bottom:-5px
 }
 
@@ -2362,7 +2362,7 @@ h1,h2,h3,h4,h5,h6,.testimonial h2,#recent-updates h2,.recent-update h3 a,.footer
 }
 
 .googlePlayLink {
-  margin-top: 10px;
+  margin-top:10px
 }
 
 /* cyrillic-ext */
