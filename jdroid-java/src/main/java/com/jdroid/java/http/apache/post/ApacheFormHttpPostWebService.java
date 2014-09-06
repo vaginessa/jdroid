@@ -7,7 +7,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.message.BasicNameValuePair;
-import com.beust.jcommander.internal.Lists;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.http.HttpWebServiceProcessor;
 import com.jdroid.java.http.Server;
