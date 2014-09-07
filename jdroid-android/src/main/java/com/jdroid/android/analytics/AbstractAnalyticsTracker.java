@@ -19,11 +19,11 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStart(android.app.Activity,
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStart(java.lang.Class,
 	 *      com.jdroid.android.analytics.AppLoadingSource, java.lang.Object)
 	 */
 	@Override
-	public void onActivityStart(Activity activity, AppLoadingSource appLoadingSource, Object data) {
+	public void onActivityStart(Class<? extends Activity> activityClass, AppLoadingSource appLoadingSource, Object data) {
 		// Do Nothing
 	}
 	

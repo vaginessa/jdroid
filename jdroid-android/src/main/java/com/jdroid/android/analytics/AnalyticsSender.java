@@ -83,16 +83,17 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStart(android.app.Activity,
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStart(java.lang.Class,
 	 *      com.jdroid.android.analytics.AppLoadingSource, java.lang.Object)
 	 */
 	@Override
-	public void onActivityStart(final Activity activity, final AppLoadingSource appLoadingSource, final Object data) {
+	public void onActivityStart(final Class<? extends Activity> activityClass, final AppLoadingSource appLoadingSource,
+			final Object data) {
 		ExecutorUtils.execute(new TrackerRunnable() {
 			
 			@Override
 			protected void track(T tracker) {
-				tracker.onActivityStart(activity, appLoadingSource, data);
+				tracker.onActivityStart(activityClass, appLoadingSource, data);
 			}
 		});
 	}

@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import com.google.android.gms.ads.AdActivity;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 
@@ -18,7 +20,15 @@ public class AdHelper {
 	private AdView adView;
 	private Boolean displayAds = false;
 	
-	public void loadAd(final Activity activity, ViewGroup adViewContainer, AdSize adSize, HouseAdBuilder houseAdBuilder) {
+	private InterstitialAd interstitial;
+	private Boolean displayInterstitial = false;
+	
+	public void loadAd(final Activity activity, ViewGroup adViewContainer, AdSize adSize,
+			HouseAdBuilder houseAdBuilder, Boolean isInterstitialEnabled) {
+		
+		if (isInterstitialEnabled) {
+			loadInterstitial(activity);
+		}
 		
 		this.adViewContainer = adViewContainer;
 		if (adViewContainer != null) {
@@ -75,17 +85,55 @@ public class AdHelper {
 					});
 				}
 				
-				final AdRequest.Builder builder = new AdRequest.Builder();
-				if (!applicationContext.isProductionEnvironment()) {
-					builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
-					for (String deviceId : applicationContext.getTestDevicesIds()) {
-						builder.addTestDevice(deviceId);
-					}
-				}
-				
+				AdRequest.Builder builder = createBuilder(applicationContext);
 				adView.loadAd(builder.build());
 				adViewContainer.addView(adView);
 			}
+		}
+	}
+	
+	private AdRequest.Builder createBuilder(AppContext applicationContext) {
+		final AdRequest.Builder builder = new AdRequest.Builder();
+		if (!applicationContext.isProductionEnvironment()) {
+			builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
+			for (String deviceId : applicationContext.getTestDevicesIds()) {
+				builder.addTestDevice(deviceId);
+			}
+		}
+		return builder;
+	}
+	
+	private void loadInterstitial(Activity activity) {
+		interstitial = new InterstitialAd(activity);
+		AppContext applicationContext = AbstractApplication.get().getAppContext();
+		interstitial.setAdUnitId(applicationContext.getAdUnitId());
+		
+		AdRequest.Builder builder = createBuilder(applicationContext);
+		interstitial.loadAd(builder.build());
+		interstitial.setAdListener(new AdListener() {
+			
+			@Override
+			public void onAdLoaded() {
+				super.onAdLoaded();
+				if (displayInterstitial) {
+					displayInterstitial(false);
+				}
+			}
+			
+			@Override
+			public void onAdOpened() {
+				super.onAdOpened();
+				AbstractApplication.get().getAnalyticsSender().onActivityStart(AdActivity.class, null, null);
+			}
+			
+		});
+	}
+	
+	public void displayInterstitial(Boolean retryIfNotLoaded) {
+		displayInterstitial = retryIfNotLoaded;
+		if ((interstitial != null) && interstitial.isLoaded()) {
+			interstitial.show();
+			displayInterstitial = false;
 		}
 	}
 	

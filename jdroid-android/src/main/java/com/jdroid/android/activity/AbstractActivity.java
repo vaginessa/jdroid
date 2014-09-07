@@ -278,7 +278,7 @@ public abstract class AbstractActivity extends Activity implements ActivityIf {
 	 */
 	@Override
 	public Long getLocationFrequency() {
-		return null;
+		return activityHelper.getLocationFrequency();
 	}
 	
 	/**
@@ -346,6 +346,22 @@ public abstract class AbstractActivity extends Activity implements ActivityIf {
 	@Override
 	public Boolean shouldTrackOnFragmentStart() {
 		return activityHelper.shouldTrackOnFragmentStart();
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#isInterstitialEnabled()
+	 */
+	@Override
+	public Boolean isInterstitialEnabled() {
+		return activityHelper.isInterstitialEnabled();
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#displayInterstitial(java.lang.Boolean)
+	 */
+	@Override
+	public void displayInterstitial(Boolean retryIfNotLoaded) {
+		activityHelper.displayInterstitial(retryIfNotLoaded);
 	}
 	
 }

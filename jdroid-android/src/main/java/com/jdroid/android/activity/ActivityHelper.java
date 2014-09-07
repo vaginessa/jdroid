@@ -155,7 +155,7 @@ public class ActivityHelper implements ActivityIf {
 		adHelper = createAdHelper();
 		if (adHelper != null) {
 			adHelper.loadAd(activity, (ViewGroup)(activity.findViewById(R.id.adViewContainer)),
-				getActivityIf().getAdSize(), getHouseAdBuilder());
+				getActivityIf().getAdSize(), getHouseAdBuilder(), getActivityIf().isInterstitialEnabled());
 		}
 		
 		// Nav Drawer
@@ -389,15 +389,13 @@ public class ActivityHelper implements ActivityIf {
 			@Override
 			public void run() {
 				AbstractApplication.get().saveInstallationSource();
-				if (AbstractApplication.get().hasAnalyticsSender()) {
-					AppLoadingSource appLoadingSource = AppLoadingSource.getAppLoadingSource(activity.getIntent());
-					AbstractApplication.get().getAnalyticsSender().onActivityStart(activity, appLoadingSource,
-						getOnActivityStartData());
-				}
+				AppLoadingSource appLoadingSource = AppLoadingSource.getAppLoadingSource(activity.getIntent());
+				AbstractApplication.get().getAnalyticsSender().onActivityStart(activity.getClass(), appLoadingSource,
+					getOnActivityStartData());
 			}
 		});
 		
-		final Long locationFrequency = getLocationFrequency();
+		final Long locationFrequency = getActivityIf().getLocationFrequency();
 		if (locationFrequency != null) {
 			locationHandler = new Handler() {
 				
@@ -421,10 +419,27 @@ public class ActivityHelper implements ActivityIf {
 	 */
 	@Override
 	public Long getLocationFrequency() {
-		return getActivityIf().getLocationFrequency();
+		return null;
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#isInterstitialEnabled()
+	 */
+	@Override
+	public Boolean isInterstitialEnabled() {
+		return false;
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#displayInterstitial(java.lang.Boolean)
+	 */
+	@Override
+	public void displayInterstitial(Boolean retryIfNotLoaded) {
+		adHelper.displayInterstitial(retryIfNotLoaded);
 	}
 	
 	public void onResume() {
+		
 		LOGGER.trace("Executing onResume on " + activity);
 		AbstractApplication.get().setInBackground(false);
 		AbstractApplication.get().setCurrentActivity(activity);
@@ -468,9 +483,7 @@ public class ActivityHelper implements ActivityIf {
 	public void onStop() {
 		LOGGER.trace("Executing onStop on " + activity);
 		ToastUtils.cancelCurrentToast();
-		if (AbstractApplication.get().hasAnalyticsSender()) {
-			AbstractApplication.get().getAnalyticsSender().onActivityStop(activity);
-		}
+		AbstractApplication.get().getAnalyticsSender().onActivityStop(activity);
 		
 		if (locationHandler != null) {
 			locationHandler.removeCallbacksAndMessages(null);

@@ -70,7 +70,7 @@ public class FragmentHelper implements FragmentIf {
 		adHelper = createAdLoader();
 		if (adHelper != null) {
 			adHelper.loadAd(fragment.getActivity(), (ViewGroup)(fragment.getView().findViewById(R.id.adViewContainer)),
-				getFragmentIf().getAdSize(), getHouseAdBuilder());
+				getFragmentIf().getAdSize(), getHouseAdBuilder(), false);
 		}
 		
 		loadingLayout = findView(R.id.container);

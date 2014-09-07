@@ -37,4 +37,8 @@ public interface ActivityIf extends ComponentIf {
 	public List<Integer> getContextualMenuItemsIds();
 	
 	public Intent getUpIntent();
+	
+	public Boolean isInterstitialEnabled();
+	
+	public void displayInterstitial(Boolean retryIfNotLoaded);
 }

@@ -67,6 +67,7 @@ public abstract class AbstractApplication extends Application {
 	protected static AbstractApplication INSTANCE;
 	
 	private AppContext appContext;
+	private AnalyticsSender<? extends AnalyticsTracker> analyticsSender;
 	
 	/** Current activity in the top stack. */
 	private Activity currentActivity;
@@ -97,6 +98,7 @@ public abstract class AbstractApplication extends Application {
 		LOGGER = LoggerUtils.getLogger(AbstractApplication.class);
 		
 		appContext = createAppContext();
+		analyticsSender = createAnalyticsSender();
 		
 		if (appContext.displayDebugSettings()) {
 			PreferenceManager.setDefaultValues(this, R.xml.debug_preferences, false);
@@ -156,12 +158,13 @@ public abstract class AbstractApplication extends Application {
 		SharedPreferencesHelper.getOldDefault().savePreference(VERSION_CODE_KEY, AndroidUtils.getVersionCode());
 	}
 	
-	public Boolean hasAnalyticsSender() {
-		return getAnalyticsSender() != null;
+	protected AnalyticsSender<? extends AnalyticsTracker> createAnalyticsSender() {
+		return new AnalyticsSender<AnalyticsTracker>();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public <T extends AnalyticsTracker> AnalyticsSender<T> getAnalyticsSender() {
-		return null;
+		return (AnalyticsSender<T>)analyticsSender;
 	}
 	
 	public Boolean isStrictModeEnabled() {
@@ -275,9 +278,7 @@ public abstract class AbstractApplication extends Application {
 		UncaughtExceptionHandler currentExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
 		if ((currentExceptionHandler == null) || !currentExceptionHandler.getClass().equals(getExceptionHandlerClass())) {
 			
-			if (hasAnalyticsSender()) {
-				getAnalyticsSender().onInitExceptionHandler(getExceptionHandlerMetadata());
-			}
+			getAnalyticsSender().onInitExceptionHandler(getExceptionHandlerMetadata());
 			
 			ExceptionHandler exceptionHandler = ReflectionUtils.newInstance(getExceptionHandlerClass());
 			exceptionHandler.setDefaultExceptionHandler(currentExceptionHandler);

@@ -14,7 +14,7 @@ public interface AnalyticsTracker {
 	
 	public void onInitExceptionHandler(Map<String, String> metadata);
 	
-	public void onActivityStart(Activity activity, AppLoadingSource appLoadingSource, Object data);
+	public void onActivityStart(Class<? extends Activity> activityClass, AppLoadingSource appLoadingSource, Object data);
 	
 	public void onActivityResume(Activity activity);
 	

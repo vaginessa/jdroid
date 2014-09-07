@@ -12,4 +12,12 @@ public class HomeActivity extends FragmentContainerActivity {
 	protected Class<? extends Fragment> getFragmentClass() {
 		return HomeFragment.class;
 	}
+	
+	/**
+	 * @see com.jdroid.android.activity.AbstractFragmentActivity#isInterstitialEnabled()
+	 */
+	@Override
+	public Boolean isInterstitialEnabled() {
+		return true;
+	}
 }

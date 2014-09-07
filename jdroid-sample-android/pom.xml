@@ -238,7 +238,6 @@
 				<manifest.package>com.jdroid.sample.android</manifest.package>
 				<apk.suffix>free</apk.suffix>
 				<free.app>true</free.app>
-				<ads.enabled>false</ads.enabled>
 				<server.name>DEV</server.name>
 				<debug.settings>true</debug.settings>
 				<google.analytics.enabled>false</google.analytics.enabled>
@@ -261,7 +260,6 @@
 				<manifest.package>com.jdroid.sample.android</manifest.package>
 				<apk.suffix>free</apk.suffix>
 				<free.app>true</free.app>
-				<ads.enabled>false</ads.enabled>
 				<server.name>QA</server.name>
 				<debug.settings>true</debug.settings>
 				<google.analytics.enabled>false</google.analytics.enabled>
@@ -295,7 +293,6 @@
 				<manifest.package>com.jdroid.sample.android</manifest.package>
 				<apk.suffix>free</apk.suffix>
 				<free.app>true</free.app>
-				<ads.enabled>false</ads.enabled>
 				<server.name>UAT</server.name>
 				<debug.settings>true</debug.settings>
 				<google.analytics.enabled>true</google.analytics.enabled>
@@ -331,7 +328,6 @@
 				<manifest.package>com.jdroid.sample.android</manifest.package>
 				<apk.suffix>free</apk.suffix>
 				<free.app>true</free.app>
-				<ads.enabled>false</ads.enabled>
 				<server.name>PROD</server.name>
 				<debug.settings>false</debug.settings>
 				<google.analytics.enabled>true</google.analytics.enabled>

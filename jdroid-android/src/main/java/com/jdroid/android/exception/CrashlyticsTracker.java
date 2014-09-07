@@ -51,17 +51,17 @@ public class CrashlyticsTracker extends AbstractAnalyticsTracker {
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#onActivityStart(android.app.Activity,
+	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#onActivityStart(java.lang.Class,
 	 *      com.jdroid.android.analytics.AppLoadingSource, java.lang.Object)
 	 */
 	@Override
-	public void onActivityStart(Activity activity, AppLoadingSource appLoadingSource, Object data) {
+	public void onActivityStart(Class<? extends Activity> activityClass, AppLoadingSource appLoadingSource, Object data) {
 		if (appLoadingSource != null) {
 			Crashlytics.setString(AppLoadingSource.class.getSimpleName(), appLoadingSource.getName());
 		}
 		
 		Crashlytics.setString("UserId",
 			SecurityContext.get().isAuthenticated() ? SecurityContext.get().getUser().getId().toString() : null);
-		Crashlytics.log("Started " + activity.getClass().getSimpleName());
+		Crashlytics.log("Started " + activityClass.getSimpleName());
 	}
 }

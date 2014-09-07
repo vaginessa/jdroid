@@ -81,11 +81,11 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#onActivityStart(android.app.Activity,
+	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#onActivityStart(java.lang.Class,
 	 *      com.jdroid.android.analytics.AppLoadingSource, java.lang.Object)
 	 */
 	@Override
-	public void onActivityStart(Activity activity, AppLoadingSource appLoadingSource, Object data) {
+	public void onActivityStart(Class<? extends Activity> activityClass, AppLoadingSource appLoadingSource, Object data) {
 		
 		synchronized (GoogleAnalyticsTracker.class) {
 			
@@ -121,7 +121,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 				}
 			}
 			onActivityStartTrack(appViewBuilder, data);
-			sendScreenView(appViewBuilder, activity.getClass().getSimpleName());
+			sendScreenView(appViewBuilder, activityClass.getSimpleName());
 		}
 	}
 	
