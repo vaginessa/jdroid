@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/logoDark.png"/>
+[![JDROID](https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/logoDark.png)](http://jdroidframework.com/)
 [![Build Status](https://api.travis-ci.org/maxirosson/jdroid.svg)](https://travis-ci.org/maxirosson/jdroid)
 ======
 
