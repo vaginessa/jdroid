@@ -8,7 +8,7 @@ Help us to continue with this project:
 
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2UEBTRTSCYA9L)
 
-jdroid Java
+[![jdroid Java](https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png)](https://github.com/maxirosson/jdroid/wiki/jdroid-Java) jdroid Java
 -----------
 Dependency project for both Android & Java apps
 * HTTP Service Layer
