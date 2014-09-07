@@ -27,7 +27,8 @@ Dependency project for both Android & Java apps
 * Exception handling
 * Utilities for Collections, Strings, Dates, Files, Encryption, Threads, [Logging](http://www.slf4j.org/), Validations, Reflection and more
 
-jdroid Java Web
+
+[![jdroid Java Web](https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png)](https://github.com/maxirosson/jdroid/wiki/jdroid-Java-Web) jdroid Java Web
 ---------------
 Dependency project for Java Web apps 
 * Http Filters
@@ -43,7 +44,7 @@ Dependency project for Java Web apps
 * [Log4j logging support](http://logging.apache.org/log4j/1.2/)
 * Utilities for Collections, CSV, Files, Reflection, [Guava](https://code.google.com/p/guava-libraries/) and more
 
-jdroid Android
+[![jdroid Android](https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png)](https://github.com/maxirosson/jdroid/wiki/jdroid-Android) jdroid Android
 --------------
 Library project for Android apps. Support for Android 4.0 (api level 14) and higher versions
 * [Navigation Drawer support](https://developer.android.com/design/patterns/navigation-drawer.html)
