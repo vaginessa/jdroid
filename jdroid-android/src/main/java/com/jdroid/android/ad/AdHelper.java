@@ -26,13 +26,13 @@ public class AdHelper {
 	public void loadAd(final Activity activity, ViewGroup adViewContainer, AdSize adSize,
 			HouseAdBuilder houseAdBuilder, Boolean isInterstitialEnabled) {
 		
-		if (isInterstitialEnabled) {
+		AppContext applicationContext = AbstractApplication.get().getAppContext();
+		if (isInterstitialEnabled && applicationContext.areAdsEnabled()) {
 			loadInterstitial(activity);
 		}
 		
 		this.adViewContainer = adViewContainer;
 		if (adViewContainer != null) {
-			AppContext applicationContext = AbstractApplication.get().getAppContext();
 			if ((adSize == null) || !applicationContext.areAdsEnabled()) {
 				adViewContainer.setVisibility(View.GONE);
 			} else {
