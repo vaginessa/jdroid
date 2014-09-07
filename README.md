@@ -1,7 +1,8 @@
-jdroid [![Build Status](https://api.travis-ci.org/maxirosson/jdroid.svg)](https://travis-ci.org/maxirosson/jdroid)
+<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/logoDark.png"/>
+[![Build Status](https://api.travis-ci.org/maxirosson/jdroid.svg)](https://travis-ci.org/maxirosson/jdroid)
 ======
 
-jdroid is an application framework for Android & Java apps.
+The JDROID Framework provides a programming and architectural model for modern Java-based enterprise and android applications.
 
 Help us to continue with this project:
 
