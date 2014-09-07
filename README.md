@@ -83,12 +83,12 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
  * Fade in / Fade out
 * Utilities for Alarms, Bitmaps, [Notifications](http://developer.android.com/design/patterns/notifications.html), Shared Preferences, [Toasts](http://developer.android.com/guide/topics/ui/notifiers/toasts.html), Sounds, GPS, and more
 
-jdroid Android Tools
+[![jdroid Android Tools](https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png)](https://github.com/maxirosson/jdroid/wiki/jdroid-Android-Tools) jdroid Android Tools
 --------------
 Useful tools for Android apps
 * Report the methods invocations in android dex files, package by package
 
-jdroid Scripts
+[![jdroid Scripts](https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/genericNews.png)](https://github.com/maxirosson/jdroid/wiki/jdroid-Scripts) jdroid Scripts
 --------------
 A set of useful shell scripts to
  * Increment the pom & android manifest versions according to [Semantic Versioning](http://semver.org/)
