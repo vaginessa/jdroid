@@ -8,7 +8,7 @@ Help us to continue with this project:
 
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2UEBTRTSCYA9L)
 
-<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="30" height="30"/>jdroid Java
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="30" height="30"/>jdroid Java](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
 -----------
 Dependency project for both Android & Java apps
 * HTTP Service Layer
@@ -27,8 +27,7 @@ Dependency project for both Android & Java apps
 * Exception handling
 * Utilities for Collections, Strings, Dates, Files, Encryption, Threads, [Logging](http://www.slf4j.org/), Validations, Reflection and more
 
-
-[![jdroid Java Web](https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png)](https://github.com/maxirosson/jdroid/wiki/jdroid-Java-Web) jdroid Java Web
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="30" height="30"/>jdroid Java Web](https://github.com/maxirosson/jdroid/wiki/jdroid-Java-Web)
 ---------------
 Dependency project for Java Web apps 
 * Http Filters
@@ -44,7 +43,7 @@ Dependency project for Java Web apps
 * [Log4j logging support](http://logging.apache.org/log4j/1.2/)
 * Utilities for Collections, CSV, Files, Reflection, [Guava](https://code.google.com/p/guava-libraries/) and more
 
-[![jdroid Android](https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png)](https://github.com/maxirosson/jdroid/wiki/jdroid-Android) jdroid Android
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="30" height="30"/>jdroid Android](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
 Library project for Android apps. Support for Android 4.0 (api level 14) and higher versions
 * [Navigation Drawer support](https://developer.android.com/design/patterns/navigation-drawer.html)
@@ -83,12 +82,12 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
  * Fade in / Fade out
 * Utilities for Alarms, Bitmaps, [Notifications](http://developer.android.com/design/patterns/notifications.html), Shared Preferences, [Toasts](http://developer.android.com/guide/topics/ui/notifiers/toasts.html), Sounds, GPS, and more
 
-[![jdroid Android Tools](https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png)](https://github.com/maxirosson/jdroid/wiki/jdroid-Android-Tools) jdroid Android Tools
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="30" height="30"/> jdroid Android Tools](https://github.com/maxirosson/jdroid/wiki/jdroid-Android-Tools)
 --------------
 Useful tools for Android apps
 * Report the methods invocations in android dex files, package by package
 
-[![jdroid Scripts](https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/genericNews.png)](https://github.com/maxirosson/jdroid/wiki/jdroid-Scripts) jdroid Scripts
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/genericNews.png" width="30" height="30"/> jdroid Scripts](https://github.com/maxirosson/jdroid/wiki/jdroid-Scripts)
 --------------
 A set of useful shell scripts to
  * Increment the pom & android manifest versions according to [Semantic Versioning](http://semver.org/)
