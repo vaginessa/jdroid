@@ -9,8 +9,13 @@ import com.jdroid.android.ActionItem;
 import com.jdroid.android.R;
 import com.jdroid.android.adapter.BaseHolderArrayAdapter;
 import com.jdroid.android.contextual.ContextualItemsAdapter.ContextualItemHolder;
+import com.jdroid.java.collections.Lists;
 
 public class ContextualItemsAdapter extends BaseHolderArrayAdapter<ActionItem, ContextualItemHolder> {
+	
+	public ContextualItemsAdapter(Activity context, ActionItem... actions) {
+		super(context, R.layout.contextual_list_item, Lists.newArrayList(actions));
+	}
 	
 	public ContextualItemsAdapter(Activity context, List<ActionItem> actions) {
 		super(context, R.layout.contextual_list_item, actions);

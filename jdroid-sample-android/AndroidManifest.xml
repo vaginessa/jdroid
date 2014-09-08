@@ -36,6 +36,8 @@
 			</intent-filter>
 		</activity>
 
+		<activity android:name="com.jdroid.sample.android.ui.ads.AdsActivity" android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" />
+
 		<activity android:name="com.jdroid.android.debug.DebugSettingsActivity" android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity"
 			android:label="@string/debugSettings" />
 

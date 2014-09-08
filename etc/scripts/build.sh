@@ -85,10 +85,7 @@ else
 fi
 
 cd $SOURCE_DIRECTORY/$PROJECT_NAME
-if [ "$BRANCH" != 'master' ]
-then
-	git checkout -b $BRANCH origin/$BRANCH --track
-fi
+git checkout $BRANCH
 
 if [ "$CLEAN" = "false" ]
 then
