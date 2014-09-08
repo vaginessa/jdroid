@@ -2,9 +2,10 @@
 set -e
 
 BUILD_DIRECTORY=$1
-BRANCH=$2
-BUILD_SAMPLES=$3
-PROFILE=$4
+CLEAN=$2
+BRANCH=$3
+BUILD_SAMPLES=$4
+PROFILE=$5
 
 PROJECT_NAME=jdroid
 
@@ -20,7 +21,9 @@ then
         echo ""
         echo " 1) The path to a directory where the code will be checked out and the assemblies would be generated. For example: /home/user/build. Required."
         echo ""
-        echo " 2) The branch from where check out the code. Optional. Default value: master"
+        echo " 2) Whether the source code and assemblies on the build directory should be cleaned or not. Required. Default value: true"
+        echo ""
+        echo " 3) The branch from where check out the code. Optional. Default value: master"
         echo ""
         exit 0
 fi
@@ -51,28 +54,45 @@ then
 	BUILD_SAMPLES="false"
 fi
 
+if [ -z "$CLEAN" ]
+then
+	CLEAN="true"
+fi
+
 SOURCE_DIRECTORY=$BUILD_DIRECTORY/$PROJECT_NAME/source
 ASSEMBLIES_DIRECTORY=$BUILD_DIRECTORY/$PROJECT_NAME/assemblies
 
 # Checking out
 # ************************
 
-# Clean the directories
-rm -r -f $SOURCE_DIRECTORY
-mkdir -p $SOURCE_DIRECTORY
+if [ "$CLEAN" = "true" ]
+then
+	# Clean the directories
+	rm -r -f $SOURCE_DIRECTORY
+	mkdir -p $SOURCE_DIRECTORY
 
-rm -r -f $ASSEMBLIES_DIRECTORY
-mkdir -p $ASSEMBLIES_DIRECTORY
+	rm -r -f $ASSEMBLIES_DIRECTORY
+	mkdir -p $ASSEMBLIES_DIRECTORY
 
-# Checkout the project
-cd $SOURCE_DIRECTORY
-echo Cloning git@github.com:maxirosson/jdroid.git
-git clone git@github.com:maxirosson/jdroid.git $PROJECT_NAME
+	# Checkout the project
+	cd $SOURCE_DIRECTORY
+	echo Cloning git@github.com:maxirosson/jdroid.git
+	git clone git@github.com:maxirosson/jdroid.git $PROJECT_NAME
+else
+	cd $SOURCE_DIRECTORY/$PROJECT_NAME
+	git add -A
+	git stash
+fi
 
 cd $SOURCE_DIRECTORY/$PROJECT_NAME
-if [ "$BRANCH" != 'master' ] 
+if [ "$BRANCH" != 'master' ]
 then
 	git checkout -b $BRANCH origin/$BRANCH --track
+fi
+
+if [ "$CLEAN" = "false" ]
+then
+	git pull
 fi
 
 # Assemblies Generation
@@ -98,4 +118,3 @@ then
 	cp ./target/*.apk $ASSEMBLIES_DIRECTORY/
 	sh $JDROID_HOME/jdroid-scripts/android/validateDex.sh $ANDROID_APP_DIR/target/classes.dex
 fi
-
