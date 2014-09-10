@@ -335,6 +335,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 					googlePlusListener.onGooglePlusSignIn(googlePlusAuthenticationUseCase.getPerson(),
 						googlePlusAuthenticationUseCase.getAccount());
 				}
+				dismissLoading();
 			}
 		});
 	}

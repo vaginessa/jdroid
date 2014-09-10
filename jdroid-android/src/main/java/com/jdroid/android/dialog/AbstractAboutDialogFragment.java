@@ -83,7 +83,7 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 			
 			@Override
 			public void onClick(View v) {
-				IntentUtils.startUrl(getActivity(), "https://github.com/maxirosson/jdroid");
+				IntentUtils.startUrl(getActivity(), "http://jdroidframework.com");
 			}
 		});
 		
