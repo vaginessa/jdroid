@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="appName">Jdroid Sample Android</string>
+
+	<!-- Ads -->
 	<string name="ads">Ads</string>
+	<string name="display_interstitial">Display Interstitial</string>
+
+	<!-- Image Loader -->
+	<string name="imageLoader">Image Loader</string>
 </resources>

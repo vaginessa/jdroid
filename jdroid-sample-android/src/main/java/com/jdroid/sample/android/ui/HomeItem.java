@@ -5,11 +5,13 @@ import android.support.v4.app.FragmentActivity;
 import com.jdroid.android.ActionItem;
 import com.jdroid.android.ActivityLauncher;
 import com.jdroid.sample.android.R;
+import com.jdroid.sample.android.imageloader.ImageLoaderActivity;
 import com.jdroid.sample.android.ui.ads.AdsActivity;
 
 public enum HomeItem implements ActionItem {
 	
-	SEARCH_USERS(R.string.ads, R.drawable.default_item_selector, AdsActivity.class);
+	ADS(R.string.ads, R.drawable.default_item_selector, AdsActivity.class),
+	IMAGE_LOADER(R.string.imageLoader, R.drawable.default_item_selector, ImageLoaderActivity.class);
 	
 	private Integer resourceId;
 	private Integer iconId;
