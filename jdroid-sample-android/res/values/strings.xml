@@ -3,9 +3,41 @@
 	<string name="appName">Jdroid Sample Android</string>
 
 	<!-- Ads -->
-	<string name="ads">Ads</string>
+	<string name="adMob">AdMob</string>
 	<string name="display_interstitial">Display Interstitial</string>
 
 	<!-- Image Loader -->
-	<string name="imageLoader">Image Loader</string>
+	<string name="universalImageLoader">Android Universal Image Loader</string>
+
+	<!-- Exception Handling -->
+	<string name="exceptionHandling">Exception Handling</string>
+
+	<!-- Google Analytics -->
+	<string name="googleAnalytics">Google Analytics</string>
+
+	<!-- Google Cloud Messaging -->
+	<string name="gcm">Google Cloud Messaging</string>
+
+	<!-- Google Maps -->
+	<string name="googleMaps">Google Maps</string>
+
+	<!-- In App Billing -->
+	<string name="inAppBilling">In App Billing</string>
+
+	<!-- Merge Adapter -->
+	<string name="mergeAdapter">Merge Adapter</string>
+
+	<!-- Notifications -->
+	<string name="notifications">Notifications</string>
+
+	<!-- Toasts -->
+	<string name="toasts">Toasts</string>
+	<string name="displayNormalToast">Display Normal Toast</string>
+	<string name="displayInfoToast">Display Info Toast</string>
+	<string name="displayWarningToast">Display Warning Toast</string>
+	<string name="displayErrorToast">Display Error Toast</string>
+	<string name="normalToastMessage">This is a normal Toast</string>
+	<string name="infoToastMessage">This is an info Toast</string>
+	<string name="warningToastMessage">This is a warning Toast</string>
+	<string name="errorToastMessage">This is an error Toast</string>
 </resources>

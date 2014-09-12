@@ -7,11 +7,22 @@ import com.jdroid.android.ActivityLauncher;
 import com.jdroid.sample.android.R;
 import com.jdroid.sample.android.imageloader.ImageLoaderActivity;
 import com.jdroid.sample.android.ui.ads.AdsActivity;
+import com.jdroid.sample.android.ui.toasts.ToastsActivity;
 
 public enum HomeItem implements ActionItem {
 	
-	ADS(R.string.ads, R.drawable.default_item_selector, AdsActivity.class),
-	IMAGE_LOADER(R.string.imageLoader, R.drawable.default_item_selector, ImageLoaderActivity.class);
+	ADMOB(R.string.adMob, R.drawable.default_item_selector, AdsActivity.class),
+	ANDROID_UNVERSAL_IMAGE_LOADER(R.string.universalImageLoader, R.drawable.default_item_selector,
+			ImageLoaderActivity.class),
+	EXCEPTION_HANDLING(R.string.exceptionHandling, R.drawable.default_item_selector, AdsActivity.class),
+	GOOGLE_ANALYTCS(R.string.googleAnalytics, R.drawable.default_item_selector, ImageLoaderActivity.class),
+	GCM(R.string.gcm, R.drawable.default_item_selector, ImageLoaderActivity.class),
+	GOOGLE_MAPS(R.string.googleMaps, R.drawable.default_item_selector, ImageLoaderActivity.class),
+	GOOGLE_PLUS(R.string.googlePlus, R.drawable.default_item_selector, ImageLoaderActivity.class),
+	IN_APP_BILLING(R.string.inAppBilling, R.drawable.default_item_selector, ImageLoaderActivity.class),
+	MERGE_ADAPTER(R.string.mergeAdapter, R.drawable.default_item_selector, ImageLoaderActivity.class),
+	NOTIFICATIONS(R.string.notifications, R.drawable.default_item_selector, ImageLoaderActivity.class),
+	TOASTS(R.string.toasts, R.drawable.default_item_selector, ToastsActivity.class);
 	
 	private Integer resourceId;
 	private Integer iconId;
