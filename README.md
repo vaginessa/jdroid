@@ -57,7 +57,8 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * [Sqlite integration](https://sqlite.org/)
 * [Android Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader)
 * [Facebook integration](https://developers.facebook.com/docs/android/): sign in, sign out, share with deep link
-* [Crashlytics integration](https://crashlytics.com/)
+* Exception handling
+ * [Crashlytics integration](https://crashlytics.com/)
 * [Merge adapter integration](https://github.com/commonsguy/cwac-merge)
 * [Lint support](http://developer.android.com/tools/help/lint.html)
 * [Strict mode support](http://developer.android.com/reference/android/os/StrictMode.html)
@@ -67,7 +68,6 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * Url handling support
 * House ads support
 * Base Activity & Fragment implementations
-* Exception handling
 * ListView & GridView pagination support
 * Rate me component
 * Picture import (From camera or gallery) component
