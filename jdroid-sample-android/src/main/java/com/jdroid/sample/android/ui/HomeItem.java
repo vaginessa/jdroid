@@ -7,6 +7,7 @@ import com.jdroid.android.ActivityLauncher;
 import com.jdroid.sample.android.R;
 import com.jdroid.sample.android.imageloader.ImageLoaderActivity;
 import com.jdroid.sample.android.ui.ads.AdsActivity;
+import com.jdroid.sample.android.ui.notifications.NotificationsActivity;
 import com.jdroid.sample.android.ui.toasts.ToastsActivity;
 
 public enum HomeItem implements ActionItem {
@@ -21,7 +22,7 @@ public enum HomeItem implements ActionItem {
 	GOOGLE_PLUS(R.string.googlePlus, R.drawable.default_item_selector, ImageLoaderActivity.class),
 	IN_APP_BILLING(R.string.inAppBilling, R.drawable.default_item_selector, ImageLoaderActivity.class),
 	MERGE_ADAPTER(R.string.mergeAdapter, R.drawable.default_item_selector, ImageLoaderActivity.class),
-	NOTIFICATIONS(R.string.notifications, R.drawable.default_item_selector, ImageLoaderActivity.class),
+	NOTIFICATIONS(R.string.notifications, R.drawable.default_item_selector, NotificationsActivity.class),
 	TOASTS(R.string.toasts, R.drawable.default_item_selector, ToastsActivity.class);
 	
 	private Integer resourceId;
