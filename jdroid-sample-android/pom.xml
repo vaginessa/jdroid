@@ -298,6 +298,7 @@
 				<google.analytics.trackingId>UA-9898638-5</google.analytics.trackingId>
 				<google.analytics.enabled>true</google.analytics.enabled>
 				<google.analytics.debug.enabled>false</google.analytics.debug.enabled>
+				<crashlytics.apikey>478dae49374362f33bc054fc44d1f4242c574ccb</crashlytics.apikey>
 				<crashlytics.enabled>true</crashlytics.enabled>
 				<crashlytics.debug.enabled>false</crashlytics.debug.enabled>
 				<android.manifest.debuggable>true</android.manifest.debuggable>
