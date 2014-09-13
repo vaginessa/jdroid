@@ -6,6 +6,7 @@ import com.jdroid.android.ActivityLauncher;
 import com.jdroid.android.navdrawer.NavDrawerItem;
 import com.jdroid.sample.android.R;
 import com.jdroid.sample.android.ui.HomeActivity;
+import com.jdroid.sample.android.ui.about.AboutDialogFragment;
 
 public enum AndroidNavDrawerItem implements NavDrawerItem {
 	
@@ -14,7 +15,7 @@ public enum AndroidNavDrawerItem implements NavDrawerItem {
 		
 		@Override
 		public void startActivity(FragmentActivity fragmentActivity) {
-			// new AboutDialogFragment().show(fragmentActivity);
+			new AboutDialogFragment().show(fragmentActivity);
 		}
 	};
 	;

@@ -71,6 +71,7 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 		} else {
 			contactUsLabel.setVisibility(View.GONE);
 			contactUsEmail.setVisibility(View.GONE);
+			view.findViewById(R.id.contactUsSeparator).setVisibility(View.GONE);
 		}
 		
 		TextView copyright = (TextView)view.findViewById(R.id.copyright);
@@ -113,8 +114,9 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 			});
 		}
 		
+		Boolean socialEnabled = false;
+		View facebook = view.findViewById(R.id.facebook);
 		if (getFacebookPageId() != null) {
-			View facebook = view.findViewById(R.id.facebook);
 			facebook.setOnClickListener(new OnClickListener() {
 				
 				@Override
@@ -122,9 +124,13 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 					FacebookAuthenticationFragment.openPage(getFacebookPageId());
 				}
 			});
+			socialEnabled = true;
+		} else {
+			facebook.setVisibility(View.GONE);
 		}
+		
+		View googlePlus = view.findViewById(R.id.googlePlus);
 		if (getGooglePlusCommunityId() != null) {
-			View googlePlus = view.findViewById(R.id.googlePlus);
 			googlePlus.setOnClickListener(new OnClickListener() {
 				
 				@Override
@@ -132,10 +138,13 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 					GooglePlusHelperFragment.openCommunity(getGooglePlusCommunityId());
 				}
 			});
+			socialEnabled = true;
+		} else {
+			googlePlus.setVisibility(View.GONE);
 		}
 		
+		View twitter = view.findViewById(R.id.twitter);
 		if (getTwitterAccount() != null) {
-			View twitter = view.findViewById(R.id.twitter);
 			twitter.setOnClickListener(new OnClickListener() {
 				
 				@Override
@@ -143,6 +152,13 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 					TwitterConnector.openProfile(getTwitterAccount());
 				}
 			});
+			socialEnabled = true;
+		} else {
+			twitter.setVisibility(View.GONE);
+		}
+		
+		if (!socialEnabled) {
+			view.findViewById(R.id.followUs).setVisibility(View.GONE);
 		}
 		
 		View customView = getCustomView();

@@ -21,10 +21,10 @@
 		<TextView android:id="@+id/contactUsEmail" style="@style/normalText" android:padding="4dp"
 			android:background="@drawable/default_item_selector" />
 
-		<View style="@style/aboutSeparator" />
+		<View android:id="@+id/contactUsSeparator" style="@style/aboutSeparator" />
 
-		<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/h1Text"
-			android:text="@string/followUs" />
+		<TextView android:id="@+id/followUs" android:layout_height="wrap_content" android:layout_width="wrap_content"
+			style="@style/h1Text" android:text="@string/followUs" />
 
 		<LinearLayout android:layout_height="wrap_content" android:layout_width="wrap_content"
 			android:orientation="horizontal" android:gravity="center_vertical">
@@ -51,7 +51,7 @@
 
 		<com.google.android.gms.plus.PlusOneButton xmlns:plus="http://schemas.android.com/apk/lib/com.google.android.gms.plus"
 			android:id="@+id/plusOneButton" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:layout_marginTop="4dp" plus:size="standard" plus:annotation="inline" />
+			android:layout_marginTop="4dp" android:layout_marginBottom="4dp" plus:size="standard" plus:annotation="inline" />
 
 		<LinearLayout android:id="@+id/customViewContainer" android:layout_height="wrap_content"
 			android:layout_width="match_parent" android:orientation="vertical">
