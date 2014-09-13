@@ -17,7 +17,9 @@ public class SecurityContext {
 	}
 	
 	private SecurityContext() {
-		user = AbstractApplication.get().getUserRepository().getUser();
+		if (AbstractApplication.get().getUserRepository() != null) {
+			user = AbstractApplication.get().getUserRepository().getUser();
+		}
 	}
 	
 	public void attach(User user) {

@@ -12,4 +12,12 @@ public class HomeActivity extends FragmentContainerActivity {
 	protected Class<? extends Fragment> getFragmentClass() {
 		return HomeFragment.class;
 	}
+	
+	/**
+	 * @see com.jdroid.android.activity.AbstractFragmentActivity#isNavDrawerTopLevelView()
+	 */
+	@Override
+	public Boolean isNavDrawerTopLevelView() {
+		return true;
+	}
 }
