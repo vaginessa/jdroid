@@ -95,7 +95,9 @@
 											if (applicationChildren.name() == 'meta-data') {
 													def metaDataAttributes = applicationChildren.attributes()
 													if (metaDataAttributes[ns.name] == "com.crashlytics.ApiKey") {
-														metaDataAttributes[ns.value] = "${crashlytics.apikey}"
+														if ("${crashlytics.enabled}" == "true") {
+															metaDataAttributes[ns.value] = "${crashlytics.apikey}"
+														}
 													}
 											} else if(applicationChildren.name() == 'receiver') {
 
@@ -224,23 +226,6 @@
 				<android.proguard.skip>true</android.proguard.skip>
 				<git.properties.enabled>false</git.properties.enabled>
 			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.gmaven</groupId>
-						<artifactId>gmaven-plugin</artifactId>
-						<version>1.4</version>
-						<executions>
-							<execution>
-								<phase>generate-resources</phase>
-								<goals>
-									<goal>execute</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
 		</profile>
 
 		<!-- Development Profile -->
