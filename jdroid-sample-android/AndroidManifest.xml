@@ -27,6 +27,7 @@
 		android:allowBackup="true" android:name="com.jdroid.sample.android.AndroidApplication" android:hardwareAccelerated="true"
 		android:theme="@style/appTheme">
 
+		<meta-data android:name="com.crashlytics.ApiKey" android:value="478dae49374362f33bc054fc44d1f4242c574ccb" />
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 
 		<activity android:name="com.jdroid.sample.android.ui.HomeActivity" android:windowSoftInputMode="stateHidden">
@@ -42,6 +43,7 @@
 		<activity android:name="com.jdroid.sample.android.ui.notifications.NotificationsActivity"
 			android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" />
 		<activity android:name="com.jdroid.sample.android.ui.toasts.ToastsActivity" android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" />
+		<activity android:name="com.jdroid.sample.android.ui.analytics.AnalyticsActivity" android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" />
 
 		<activity android:name="com.jdroid.android.debug.DebugSettingsActivity" android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity"
 			android:label="@string/debugSettings" />

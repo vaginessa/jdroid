@@ -295,6 +295,7 @@
 				<free.app>true</free.app>
 				<server.name>UAT</server.name>
 				<debug.settings>true</debug.settings>
+				<google.analytics.trackingId>UA-9898638-5</google.analytics.trackingId>
 				<google.analytics.enabled>true</google.analytics.enabled>
 				<google.analytics.debug.enabled>false</google.analytics.debug.enabled>
 				<crashlytics.enabled>true</crashlytics.enabled>

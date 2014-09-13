@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.activity.ActivityHelper;
+import com.jdroid.android.analytics.AnalyticsSender;
+import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.gcm.GcmMessageResolver;
+import com.jdroid.sample.android.analytics.AndroidAnalyticsSender;
 import com.jdroid.sample.android.gcm.AndroidGcmResolver;
 import com.jdroid.sample.android.ui.HomeActivity;
 
@@ -45,5 +48,13 @@ public class AndroidApplication extends AbstractApplication {
 	@Override
 	public GcmMessageResolver getGcmResolver() {
 		return AndroidGcmResolver.get();
+	}
+	
+	/**
+	 * @see com.jdroid.android.AbstractApplication#createAnalyticsSender()
+	 */
+	@Override
+	protected AnalyticsSender<? extends AnalyticsTracker> createAnalyticsSender() {
+		return AndroidAnalyticsSender.get();
 	}
 }
