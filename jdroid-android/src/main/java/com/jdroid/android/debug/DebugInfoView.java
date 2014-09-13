@@ -83,16 +83,6 @@ public class DebugInfoView extends LinearLayout {
 			simOperatorName.setVisibility(View.GONE);
 		}
 		
-		findViewById(R.id.crash).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				String crashType = applicationContext.getCrashType();
-				Boolean workerThread = crashType.endsWith("Worker Thread");
-				CrashGenerator.crash(crashType, workerThread);
-			}
-		});
-		
 		findViewById(R.id.clearHttpCache).setOnClickListener(new OnClickListener() {
 			
 			@Override

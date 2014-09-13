@@ -30,9 +30,14 @@
 	<string name="clearImagesDiscCache">Clear images disc cache</string>
 	<string name="clearImagesMemoryCache">Clear images memory cache</string>
 
-	<string name="crashSettings">Crash</string>
-	<string name="crashType">Crash Type</string>
-	<string name="crashTypeDescription">Pick the crash type</string>
+	<string name="businessExceptionOnMainThread">BusinessException - Main Thread</string>
+	<string name="businessExceptionOnWorkerThread">BusinessException - Worker Thread</string>
+	<string name="connectionExceptionOnMainThread">ConnectionException - Main Thread</string>
+	<string name="connectionExceptionOnWorkerThread">ConnectionException - Worker Thread</string>
+	<string name="applicationExceptionOnMainThread">ApplicationException - Main Thread</string>
+	<string name="applicationExceptionOnWorkerThread">ApplicationException - Worker Thread</string>
+	<string name="runtimeExceptionOnMainThread">RuntimeException - Main Thread</string>
+	<string name="runtimeExceptionOnWorkerThread">RuntimeException - Worker Thread</string>
 
 	<string name="appSettings">App Settings</string>
 	<string name="adsEnabledTitle">Ads</string>

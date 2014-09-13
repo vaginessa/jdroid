@@ -44,6 +44,10 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		initDebugGcmMessages();
 		
 		ListView listView = ((ListView)findView(android.R.id.list));
+		
+		View debugCrashView = new DebugCrashView(getActivity());
+		listView.addFooterView(debugCrashView);
+		
 		View debugInfoView = new DebugInfoView(getActivity());
 		listView.addFooterView(debugInfoView);
 		
@@ -147,7 +151,6 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 			});
 			preferenceCategory.addPreference(preference);
 		}
-		
 	}
 	
 	protected Intent getEmulatedGcmMessageIntent(GcmMessage gcmMessage) {

@@ -14,10 +14,6 @@
 			android:entryValues="@array/httpMockCrashTypeEntries" android:dialogTitle="@string/httpMockCrashType"
 			android:dependency="httpMockEnabled" />
 	</PreferenceCategory>
-	<PreferenceCategory android:title="@string/crashSettings">
-		<ListPreference android:key="crashType" android:title="@string/crashType" android:summary="@string/crashTypeDescription"
-			android:entries="@array/crashTypeEntries" android:entryValues="@array/crashTypeEntries" android:dialogTitle="@string/crashType" />
-	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/appSettings">
 		<CheckBoxPreference android:key="adsEnabled" android:title="@string/adsEnabledTitle"
 			android:summary="@string/adsEnabledDescription" />

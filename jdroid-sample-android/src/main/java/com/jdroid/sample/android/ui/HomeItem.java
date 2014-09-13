@@ -8,6 +8,7 @@ import com.jdroid.sample.android.R;
 import com.jdroid.sample.android.imageloader.ImageLoaderActivity;
 import com.jdroid.sample.android.ui.ads.AdsActivity;
 import com.jdroid.sample.android.ui.analytics.AnalyticsActivity;
+import com.jdroid.sample.android.ui.exceptions.ExceptionHandlingActivity;
 import com.jdroid.sample.android.ui.notifications.NotificationsActivity;
 import com.jdroid.sample.android.ui.toasts.ToastsActivity;
 
@@ -16,7 +17,7 @@ public enum HomeItem implements ActionItem {
 	ADMOB(R.string.adMob, R.drawable.default_item_selector, AdsActivity.class),
 	ANDROID_UNVERSAL_IMAGE_LOADER(R.string.universalImageLoader, R.drawable.default_item_selector,
 			ImageLoaderActivity.class),
-	EXCEPTION_HANDLING(R.string.exceptionHandling, R.drawable.default_item_selector, AdsActivity.class),
+	EXCEPTION_HANDLING(R.string.exceptionHandling, R.drawable.default_item_selector, ExceptionHandlingActivity.class),
 	GOOGLE_ANALYTCS(R.string.googleAnalytics, R.drawable.default_item_selector, AnalyticsActivity.class),
 	GCM(R.string.gcm, R.drawable.default_item_selector, ImageLoaderActivity.class),
 	GOOGLE_MAPS(R.string.googleMaps, R.drawable.default_item_selector, ImageLoaderActivity.class),

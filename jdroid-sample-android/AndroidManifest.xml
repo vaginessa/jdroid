@@ -44,6 +44,8 @@
 			android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" />
 		<activity android:name="com.jdroid.sample.android.ui.toasts.ToastsActivity" android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" />
 		<activity android:name="com.jdroid.sample.android.ui.analytics.AnalyticsActivity" android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" />
+		<activity android:name="com.jdroid.sample.android.ui.exceptions.ExceptionHandlingActivity"
+			android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" />
 
 		<activity android:name="com.jdroid.android.debug.DebugSettingsActivity" android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity"
 			android:label="@string/debugSettings" />

@@ -190,10 +190,6 @@ public class AppContext {
 			false) ? 10 : null;
 	}
 	
-	public String getCrashType() {
-		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString("crashType", null);
-	}
-	
 	public String getHttpMockCrashType() {
 		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString("httpMockCrashType",
 			null);

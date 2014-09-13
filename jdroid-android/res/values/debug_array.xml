@@ -18,17 +18,6 @@
 		<item>RuntimeException</item>
 	</string-array>
 
-	<string-array name="crashTypeEntries">
-		<item>BusinessException - Main Thread</item>
-		<item>BusinessException - Worker Thread</item>
-		<item>ConnectionException - Main Thread</item>
-		<item>ConnectionException - Worker Thread</item>
-		<item>ApplicationException - Main Thread</item>
-		<item>ApplicationException - Worker Thread</item>
-		<item>RuntimeException - Main Thread</item>
-		<item>RuntimeException - Worker Thread</item>
-	</string-array>
-
 	<string-array name="inAppBillingTestProductIdsEntries">
 		<item>PURCHASED</item>
 		<item>CANCELED</item>
