@@ -1,7 +1,7 @@
 #!/bin/sh
 
 JDROID_HOME=$1
-ANDROID_PROJECT_PATH=$2
+PROJECT_PATH=$2
 VERSION_TYPE=$3
 
 if [ -z "$VERSION_TYPE" ]
@@ -10,13 +10,14 @@ then
 	exit 1;
 fi
 
-# Change POM version
-
-sh $JDROID_HOME/jdroid-scripts/incrementPomVersion.sh $JDROID_HOME $ANDROID_PROJECT_PATH $VERSION_TYPE false
+if [ -z "$COMMIT" ]
+then
+	COMMIT="true"
+fi
 
 # Change Android Manifest version
 
-MANIFEST_PATH=$ANDROID_PROJECT_PATH/AndroidManifest.xml
+MANIFEST_PATH=$PROJECT_PATH/AndroidManifest.xml
 
 currentVersionName=`grep -m 1 "android:versionName=" $MANIFEST_PATH | sed 's/.*android:versionName=\"//g' | sed 's/\" .*//g'`
 echo "The current version name is $currentVersionName"
@@ -74,7 +75,3 @@ sed -e "s/android:versionCode=\"$currentVersionCode\"/android:versionCode=\"$VER
 # Writing our changes back to the original file
 chmod 666 $MANIFEST_PATH
 mv $temp_file $MANIFEST_PATH
-
-git diff HEAD
-git add -A
-git commit -m "Changed android app version to v$VERSION_NAME"
