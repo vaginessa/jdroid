@@ -49,6 +49,27 @@ public enum DataType {
 			return Integer.valueOf(cursor.getInt(columnIndex));
 		}
 	},
+	LONG("INTEGER") {
+		
+		@Override
+		public <T> void writeValue(ContentValues values, String columnName, T value) {
+			if (value != null) {
+				values.put(columnName, Long.valueOf(((Number)value).longValue()));
+			} else {
+				values.putNull(columnName);
+			}
+		}
+		
+		@SuppressWarnings("unchecked")
+		@Override
+		public Long readValue(Cursor cursor, String columnName) {
+			int columnIndex = cursor.getColumnIndex(columnName);
+			if (cursor.isNull(columnIndex)) {
+				return null;
+			}
+			return Long.valueOf(cursor.getLong(columnIndex));
+		}
+	},
 	REAL("REAL") {
 		
 		@Override
@@ -68,6 +89,27 @@ public enum DataType {
 				return null;
 			}
 			return Double.valueOf(cursor.getDouble(columnIndex));
+		}
+	},
+	FLOAT("REAL") {
+		
+		@Override
+		public <T> void writeValue(ContentValues values, String columnName, T value) {
+			if (value != null) {
+				values.put(columnName, Float.valueOf(((Number)value).floatValue()));
+			} else {
+				values.putNull(columnName);
+			}
+		}
+		
+		@SuppressWarnings("unchecked")
+		@Override
+		public Float readValue(Cursor cursor, String columnName) {
+			int columnIndex = cursor.getColumnIndex(columnName);
+			if (cursor.isNull(columnIndex)) {
+				return null;
+			}
+			return Float.valueOf(cursor.getFloat(columnIndex));
 		}
 	},
 	BLOB("BLOB") {

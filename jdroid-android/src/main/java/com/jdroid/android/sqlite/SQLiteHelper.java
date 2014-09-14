@@ -1,17 +1,21 @@
 package com.jdroid.android.sqlite;
 
+import java.io.File;
 import java.util.List;
 import java.util.Set;
+import org.slf4j.Logger;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Sets;
+import com.jdroid.java.utils.LoggerUtils;
 
 public class SQLiteHelper extends SQLiteOpenHelper {
 	
-	private static final String DB_NAME = "application.db";
+	private final static Logger LOGGER = LoggerUtils.getLogger(SQLiteHelper.class);
+	private final static String DB_NAME = "application.db";
 	
 	private Set<String> createSQLs = Sets.newHashSet();
 	private List<SQLiteUpgradeStep> upgradeSteps = Lists.newArrayList();
@@ -32,13 +36,13 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * Add a list of {@link SQLiteUpgradeStep} to be executed in
-	 * {@link SQLiteHelper#onUpgrade(SQLiteDatabase, int, int)} method.
+	 * Add a {@link SQLiteUpgradeStep} to be executed in {@link SQLiteHelper#onUpgrade(SQLiteDatabase, int, int)}
+	 * method.
 	 * 
-	 * @param upgradeSteps list of upgrade steps to add.
+	 * @param upgradeStep upgrade steps to add.
 	 */
-	public void addUpgradeSteps(List<SQLiteUpgradeStep> upgradeSteps) {
-		this.upgradeSteps.addAll(upgradeSteps);
+	public void addUpgradeStep(SQLiteUpgradeStep upgradeStep) {
+		upgradeSteps.add(upgradeStep);
 	}
 	
 	/**
@@ -56,9 +60,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		LOGGER.debug("Upgrading DB from version " + oldVersion + " to " + newVersion);
 		for (SQLiteUpgradeStep upgradeStep : upgradeSteps) {
 			if (upgradeStep.getVersion() > oldVersion) {
-				upgradeStep.upgrade(db);
+				upgradeStep.upgrade(db, oldVersion, newVersion);
 			}
 		}
 	}
@@ -73,5 +78,16 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 			// Enable foreign key constraints support
 			db.execSQL("PRAGMA foreign_keys=ON;");
 		}
+	}
+	
+	/**
+	 * Verify if database file exits.
+	 * 
+	 * @param context context
+	 * @return true if the file exits
+	 */
+	public static boolean existDatabase(Context context) {
+		File databaseFile = context.getApplicationContext().getDatabasePath(DB_NAME);
+		return databaseFile.exists();
 	}
 }

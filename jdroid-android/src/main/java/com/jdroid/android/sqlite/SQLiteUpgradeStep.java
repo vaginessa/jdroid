@@ -12,8 +12,10 @@ public interface SQLiteUpgradeStep {
 	 * Execute the process to upgrade the database.
 	 * 
 	 * @param db database
+	 * @param newVersion new database version
+	 * @param oldVersion old database version
 	 */
-	public void upgrade(SQLiteDatabase db);
+	public void upgrade(SQLiteDatabase db, int oldVersion, int newVersion);
 	
 	/**
 	 * Return the db version from this upgrade step should be executed. Example: If oldVersion is 2 and newVersion is 5:

@@ -85,6 +85,14 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	protected abstract ContentValues createContentValuesFromObject(T item);
 	
 	/**
+	 * Called before an entity is stored, allows to store/update entity children.
+	 * 
+	 * @param item stored entity.
+	 */
+	protected void onPreStored(T item) {
+	}
+	
+	/**
 	 * Called after an entity is stored, allows to store/update entity children.
 	 * 
 	 * @param item stored entity.
@@ -123,12 +131,12 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	 * @param db Database.
 	 * @return true if a transaction has been started.
 	 */
-	private boolean beginTransaction(SQLiteDatabase db) {
+	protected boolean beginTransaction(SQLiteDatabase db) {
 		boolean endTransaction = false;
 		if (!db.inTransaction()) {
 			db.beginTransaction();
 			endTransaction = true;
-			LOGGER.debug("Begin transaction");
+			LOGGER.trace("Begin transaction");
 		}
 		return endTransaction;
 	}
@@ -139,10 +147,10 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	 * @param db Database.
 	 * @param endTransaction Indicates if the transaction should be closed for the current operation.
 	 */
-	private void successTransaction(SQLiteDatabase db, boolean endTransaction) {
+	protected void successTransaction(SQLiteDatabase db, boolean endTransaction) {
 		if (endTransaction) {
 			db.setTransactionSuccessful();
-			LOGGER.debug("Success transaction");
+			LOGGER.trace("Success transaction");
 		}
 	}
 	
@@ -152,10 +160,10 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	 * @param db Database.
 	 * @param endTransaction Indicates if the transaction should be closed for the current operation.
 	 */
-	private void endTransaction(SQLiteDatabase db, boolean endTransaction) {
+	protected void endTransaction(SQLiteDatabase db, boolean endTransaction) {
 		if (endTransaction) {
 			db.endTransaction();
-			LOGGER.debug("End transaction");
+			LOGGER.trace("End transaction");
 		}
 	}
 	
@@ -168,8 +176,8 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		Cursor cursor = null;
 		try {
-			cursor = db.query(getTableName(), null, getIdColumnName() + "=?", new String[] { id.toString() }, null,
-				null, null);
+			cursor = db.query(getTableName(), getProjection(), getIdColumnName() + "=?",
+				new String[] { id.toString() }, null, null, null);
 			T item = null;
 			if (cursor.moveToNext()) {
 				item = createObjectFromCursor(cursor);
@@ -298,7 +306,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 			for (T item : items) {
 				add(item);
 			}
-			LOGGER.info("Stored objects in database:\n" + items);
+			LOGGER.trace("Stored objects in database:\n" + items);
 			successTransaction(db, endTransaction);
 		} finally {
 			endTransaction(db, endTransaction);
@@ -323,11 +331,11 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		boolean endTransaction = beginTransaction(db);
 		try {
 			removeAll();
-			LOGGER.info("Deleted from database all objects of type: " + getTableName());
+			LOGGER.trace("Deleted from database all objects of type: " + getTableName());
 			for (T item : items) {
 				add(item);
 			}
-			LOGGER.info("Stored objects in database:\n" + items);
+			LOGGER.trace("Stored objects in database:\n" + items);
 			successTransaction(db, endTransaction);
 		} finally {
 			endTransaction(db, endTransaction);
@@ -354,7 +362,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 			T item = get(id);
 			db.delete(getTableName(), getIdColumnName() + "=?", new String[] { id.toString() });
 			onRemoved(item);
-			LOGGER.info("Deleted object in database: " + item);
+			LOGGER.trace("Deleted object in database: " + item);
 			successTransaction(db, endTransaction);
 		} finally {
 			endTransaction(db, endTransaction);
@@ -375,7 +383,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 			for (T item : all) {
 				onRemoved(item);
 			}
-			LOGGER.info("Deleted from database all objects of type: " + getTableName());
+			LOGGER.trace("Deleted from database all objects of type: " + getTableName());
 			successTransaction(db, endTransaction);
 		} finally {
 			endTransaction(db, endTransaction);
@@ -394,7 +402,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 			for (T item : items) {
 				remove(item);
 			}
-			LOGGER.info("Deleted objects in database: " + items);
+			LOGGER.trace("Deleted objects in database: " + items);
 			successTransaction(db, endTransaction);
 		} finally {
 			endTransaction(db, endTransaction);
@@ -410,7 +418,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		if (all.isEmpty()) {
 			return null;
 		}
-		LOGGER.info("Retrieved single instance of type: " + getTableName());
+		LOGGER.trace("Retrieved single instance of type: " + getTableName());
 		return all.get(0);
 	}
 	
@@ -431,7 +439,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		try {
 			db.delete(getTableName(), getParentIdColumnName() + "=?", new String[] { parentId });
 			addAll(list);
-			LOGGER.info("Replaced childs of parent " + parentId + " and type " + getTableName());
+			LOGGER.trace("Replaced childs of parent " + parentId + " and type " + getTableName());
 			successTransaction(db, endTransaction);
 		} finally {
 			endTransaction(db, endTransaction);
@@ -456,7 +464,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	 * 
 	 * @return SQL statement.
 	 */
-	protected String getCreateTableSQL() {
+	public String getCreateTableSQL() {
 		StringBuilder builder = new StringBuilder();
 		// Add columns
 		for (Column column : getColumns()) {
@@ -525,5 +533,27 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 			builder.append(extraQualifier);
 			builder.append(" ");
 		}
+	}
+	
+	/**
+	 * Returns a list of statements to upgrade the SQL scheme.
+	 * 
+	 * @return a list of statements.
+	 */
+	public String[] getDefaultUpgradeSQL() {
+		return new String[] { getCreateTableSQL() };
+	}
+	
+	/**
+	 * Returns the default projection which includes all the columns defined by {@link #getColumns()}
+	 * 
+	 * @return the projection.
+	 */
+	protected String[] getProjection() {
+		String[] projection = new String[getColumns().length];
+		for (int i = 0; i < projection.length; i++) {
+			projection[i] = getColumns()[i].getColumnName();
+		}
+		return projection;
 	}
 }

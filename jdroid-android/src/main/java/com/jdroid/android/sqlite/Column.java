@@ -19,9 +19,24 @@ public interface Column {
 	public final String PARENT_ID = "parentId";
 	
 	/**
+	 * Default dtype column name.
+	 */
+	public final String DTYPE = "dtype";
+	
+	/**
+	 * Default value column name.
+	 */
+	public final String VALUE = "value";
+	
+	/**
 	 * Primary key constraint
 	 */
 	public final String PRIMARY_KEY = "PRIMARY KEY";
+	
+	/**
+	 * Primary key constraint with autoincrement
+	 */
+	public final String PRIMARY_KEY_AUTOINCREMENT = "PRIMARY KEY ON CONFLICT REPLACE AUTOINCREMENT";
 	
 	/**
 	 * Adds a the value given value to {@link ContentValues} according column definition.
