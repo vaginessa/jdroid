@@ -11,6 +11,10 @@ public class AlarmManagerUtils {
 		getAlarmManager().set(type, triggerAtTime, operation);
 	}
 	
+	public static void scheduleRtcWakeUpAlarm(long triggerAtTime, PendingIntent operation) {
+		getAlarmManager().set(AlarmManager.RTC_WAKEUP, triggerAtTime, operation);
+	}
+	
 	public static void cancelAlarm(PendingIntent operation) {
 		getAlarmManager().cancel(operation);
 	}
@@ -19,5 +23,4 @@ public class AlarmManagerUtils {
 		Context context = AbstractApplication.get();
 		return (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 	}
-	
 }

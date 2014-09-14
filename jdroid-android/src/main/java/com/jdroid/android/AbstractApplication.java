@@ -100,6 +100,8 @@ public abstract class AbstractApplication extends Application {
 		appContext = createAppContext();
 		analyticsSender = createAnalyticsSender();
 		
+		initExceptionHandlers();
+		
 		if (appContext.displayDebugSettings()) {
 			PreferenceManager.setDefaultValues(this, R.xml.debug_preferences, false);
 		}

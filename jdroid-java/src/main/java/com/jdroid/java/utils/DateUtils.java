@@ -262,16 +262,21 @@ public abstract class DateUtils {
 		return calendar.getTime();
 	}
 	
-	public static Date getDate(Date date, Date time) {
+	public static Date getDate(Date date, Date time, Boolean is24Hour) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		if (time != null) {
-			calendar.set(Calendar.HOUR_OF_DAY, DateUtils.getHour(time, true));
+			calendar.set(Calendar.HOUR_OF_DAY, DateUtils.getHour(time, is24Hour));
 			calendar.set(Calendar.MINUTE, DateUtils.getMinute(time));
+			calendar.set(Calendar.SECOND, 0);
 		} else {
 			truncate(calendar);
 		}
 		return calendar.getTime();
+	}
+	
+	public static Date getDate(Date date, Date time) {
+		return getDate(date, time, true);
 	}
 	
 	public static Date getDate(long milliseconds) {
@@ -288,6 +293,7 @@ public abstract class DateUtils {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(is24Hour ? Calendar.HOUR_OF_DAY : Calendar.HOUR, hour);
 		calendar.set(Calendar.MINUTE, minutes);
+		calendar.set(Calendar.SECOND, 0);
 		return calendar.getTime();
 	}
 	

@@ -10,7 +10,7 @@ import com.jdroid.sample.android.ui.about.AboutDialogFragment;
 
 public enum AndroidNavDrawerItem implements NavDrawerItem {
 	
-	WATCH_TO_WATCH(android.R.drawable.ic_menu_slideshow, R.string.home, HomeActivity.class, true),
+	HOME(android.R.drawable.ic_menu_slideshow, R.string.home, HomeActivity.class, true),
 	ABOUT(android.R.drawable.ic_menu_info_details, R.string.about, null, false) {
 		
 		@Override
