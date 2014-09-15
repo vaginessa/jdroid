@@ -259,15 +259,22 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	/**
 	 * @see com.jdroid.java.repository.Repository#isEmpty()
 	 */
-	@SuppressWarnings("resource")
 	@Override
 	public Boolean isEmpty() {
+		return getSize() == 0;
+	}
+	
+	/**
+	 * @see com.jdroid.java.repository.Repository#getSize()
+	 */
+	@SuppressWarnings("resource")
+	@Override
+	public Long getSize() {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		Cursor cursor = null;
 		try {
 			cursor = db.query(getTableName(), new String[0], null, null, null, null, null);
-			int count = cursor.getCount();
-			return count == 0;
+			return (long)cursor.getCount();
 		} finally {
 			if (cursor != null) {
 				cursor.close();
@@ -285,7 +292,10 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		boolean endTransaction = beginTransaction(db);
 		try {
 			ContentValues values = createContentValuesFromObject(item);
-			db.insertOrThrow(getTableName(), null, values);
+			long id = db.insertOrThrow(getTableName(), null, values);
+			if (item.getId() == null) {
+				item.setId(id);
+			}
 			onStored(item);
 			LOGGER.info("Stored object in database: " + item);
 			successTransaction(db, endTransaction);
