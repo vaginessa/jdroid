@@ -91,7 +91,10 @@ public abstract class JsonParser<T> implements Parser {
 		if (jsonArray != null) {
 			int length = jsonArray.length();
 			for (int i = 0; i < length; i++) {
-				list.add((ITEM)parser.parse(jsonArray.getJSONObject(i)));
+				ITEM parse = (ITEM)parser.parse(jsonArray.getJSONObject(i));
+				if (parse != null) {
+					list.add(parse);
+				}
 			}
 		}
 		return list;

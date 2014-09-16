@@ -1,10 +1,13 @@
 package com.jdroid.android.sqlite;
 
 import java.util.Date;
+import java.util.List;
 import android.content.ContentValues;
 import android.database.Cursor;
 import com.jdroid.android.utils.AndroidEncryptionUtils;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.utils.StringUtils;
 
 public enum DataType {
 	TEXT("TEXT") {
@@ -182,7 +185,6 @@ public enum DataType {
 		@Override
 		public <T> void writeValue(ContentValues values, String columnName, T value) {
 			if (value != null) {
-				
 				values.put(columnName, DateUtils.format((Date)value, DateUtils.YYYYMMDDHHMMSSZ_DATE_FORMAT));
 			} else {
 				values.putNull(columnName);
@@ -220,6 +222,27 @@ public enum DataType {
 				return null;
 			}
 			return AndroidEncryptionUtils.decrypt(cursor.getString(columnIndex));
+		}
+	},
+	CSV_TEXT("TEXT") {
+		
+		@Override
+		public <T> void writeValue(ContentValues values, String columnName, T value) {
+			if (value != null) {
+				values.put(columnName, StringUtils.join((List<?>)value));
+			} else {
+				values.putNull(columnName);
+			}
+		}
+		
+		@SuppressWarnings("unchecked")
+		@Override
+		public List<String> readValue(Cursor cursor, String columnName) {
+			int columnIndex = cursor.getColumnIndex(columnName);
+			if (cursor.isNull(columnIndex)) {
+				return null;
+			}
+			return Lists.newArrayList(StringUtils.splitToCollection(cursor.getString(columnIndex)));
 		}
 	};
 	
