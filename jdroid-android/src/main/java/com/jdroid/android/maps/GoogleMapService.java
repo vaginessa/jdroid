@@ -5,7 +5,6 @@ import com.jdroid.android.domain.GeoLocation;
 import com.jdroid.java.http.DefaultServer;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.http.WebService;
-import com.jdroid.java.http.mock.AbstractMockWebService;
 
 public class GoogleMapService extends AndroidApiService {
 	
@@ -41,21 +40,5 @@ public class GoogleMapService extends AndroidApiService {
 	@Override
 	protected Server getServer() {
 		return GMAPS_API;
-	}
-	
-	/**
-	 * @see com.jdroid.java.api.AbstractApiService#getAbstractMockWebServiceInstance(java.lang.Object[])
-	 */
-	@Override
-	protected AbstractMockWebService getAbstractMockWebServiceInstance(Object... urlSegments) {
-		return null;
-	}
-	
-	/**
-	 * @see com.jdroid.java.api.AbstractApiService#isHttpMockEnabled()
-	 */
-	@Override
-	protected Boolean isHttpMockEnabled() {
-		return false;
 	}
 }
