@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="appName">android-commons</string>
+	<string name="appName">jdroid</string>
 
 	<string name="ok">OK</string>
 	<string name="cancel">Cancel</string>
@@ -65,7 +65,7 @@
 	<string name="allRightsReservedLegend">All Rights Reserved</string>
 	<string name="followUs">Follow us</string>
 	<string name="jdroidLegend">Using Jdroid - Application Framework for Android and Java apps</string>
-	<string name="universalImageLoaderLegend">Using Universal Image Loader (c) 2011-2014, Sergey Tarasevich</string>
+	<string name="universalImageLoaderLegend">Using Universal Image Loader © 2011-2014, Sergey Tarasevich</string>
 
 	<!-- External Apps -->
 	<string name="barcodeScanner">Barcode Scanner</string>

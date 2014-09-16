@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="appName">jdroid</string>
+
+	<string name="ok">Aceptar</string>
+	<string name="cancel">Cancelar</string>
+	<string name="yes">Si</string>
+	<string name="no">No</string>
+	<string name="noResults">No hay resultados disponibles</string>
+	<string name="zeroPercent">0%</string>
+	<string name="next">Siguiente</string>
+	<string name="previous">Anterior</string>
+	<string name="finish">Terminar</string>
+	<string name="refresh">Actualizar</string>
+	<string name="logout">Cerrar sesión</string>
+	<string name="revokeAccess">Revocar</string>
+	<string name="signIn">Iniciar sesión</string>
+	<string name="retry">Reintentar</string>
+	<string name="removeAdsNow">Ocultar publicidad!</string>
+
+	<!-- Navigation Drawer -->
+	<string name="drawerOpen">Abrir navigation drawer</string>
+	<string name="drawerClose">Cerrar navigation drawer</string>
+
+	<!-- Errors -->
+	<string name="internalError">Estamos teniendo problemas tecnicos. Por favor vuelva a intentar más tarde.</string>
+	<string name="serverError">Estamos teniendo problemas tecnicos. Por favor vuelva a intentar más tarde.</string>
+	<string name="connectionError">Por favor verifique su conexión a internet y vuelva a intentar.</string>
+	<string name="connectionErrorTitle">Error de conexión</string>
+	<string name="facebookError">Estamos teniendo problemas tecnicos. Por favor vuelva a intentar más tarde.</string>
+	<string name="notSupportedInAppBillingError">Su dispositivo no soporta in app billing.</string>
+	<string name="failedToLoadPurchases">No pudimos cargar los items a comprar. Por favor vuelva a intentar más tarde.</string>
+	<string name="exceptionReportDialogTitle">Error en %1$s</string>
+	<string name="invalidCredentials">Credenciales inválidas</string>
+
+	<!-- Google Play Utils -->
+	<string name="updateAppTitle">Actualización requerida</string>
+	<string name="updateAppMessage">Está utilizando una version desactualizada de la aplicación. Por favor actualicela y vuela a
+		intentar.
+	</string>
+	<string name="installAppTitle">%1$s requerido</string>
+	<string name="installAppMessage">Necesita instalar la aplicación %1$s para continuar. Le gustaría descargarla?</string>
+
+	<!-- Abstract Search Activity -->
+	<string name="typeHere">Tipee aquí</string>
+	<string name="noResultsSearch">Su búsqueda devolvió ningún resultado.</string>
+	<string name="requiredSearchTerm">El campo a buscar es requerido</string>
+
+	<!-- Time Picker Dialog Fragment -->
+	<string name="selectTime">Seleccione una hora</string>
+
+	<!-- Picture Dialog Fragment -->
+	<string name="selectPhoto">Origen de la imágen</string>
+	<string name="camera">Cámara</string>
+	<string name="gallery">Galeria</string>
+
+	<!-- Rate me -->
+	<string name="rateMeTitle">Le gustó %1$s?</string>
+	<string name="rateMeDescription">Califiquenos ahora !</string>
+
+	<!-- About Dialog -->
+	<string name="about">Acerca de</string>
+	<string name="version">Versión %1$s</string>
+	<string name="contactUs">Contáctenos</string>
+	<string name="share">Compartir</string>
+	<string name="copyright">© %1$s %2$s</string>
+	<string name="allRightsReservedLegend">Todos los derechos reservados</string>
+	<string name="followUs">Siganos</string>
+	<string name="jdroidLegend">Usando Jdroid - Application Framework for Android and Java apps</string>
+	<string name="universalImageLoaderLegend">Usando Universal Image Loader (c) 2011-2014, Sergey Tarasevich</string>
+
+	<!-- External Apps -->
+	<string name="barcodeScanner">Barcode Scanner</string>
+	<string name="voiceSearch">Voice Search</string>
+
+	<!-- Sharing -->
+	<string name="sharingFailed">Ha fallado la acción de compartir</string>
+
+	<!-- Facebook -->
+	<string name="facebook">Facebook</string>
+
+	<!-- Google+ -->
+	<string name="googlePlus">Google+</string>
+
+	<!-- Map -->
+	<string name="driving">Conduciendo</string>
+	<string name="walking">Caminando</string>
+
+</resources>

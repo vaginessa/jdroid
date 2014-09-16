@@ -1,11 +1,9 @@
 #!/bin/sh
 
-ANDROID_APP_DIR=$1
-FILE=$2
+FILE=$1
 
 if [ -f "$FILE" ]
 then
-	cd $ANDROID_APP_DIR
 	todo=`cat "$FILE" | grep "TODO"`
 
 	exitCode=0

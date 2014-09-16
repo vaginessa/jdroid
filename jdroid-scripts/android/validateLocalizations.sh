@@ -1,11 +1,8 @@
 #!/bin/sh
 
-ANDROID_APP_DIR=$1
-PREFIX=$2
-FILE_1=$3
-FILE_2=$4
-
-cd $ANDROID_APP_DIR
+PREFIX=$1
+FILE_1=$2
+FILE_2=$3
 
 cat "$FILE_1" | grep "$PREFIX" | sed s/\>.*//g > temp_FILE_1
 cat "$FILE_2" | grep "$PREFIX" | sed s/\>.*//g > temp_FILE_2
