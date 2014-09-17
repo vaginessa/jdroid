@@ -26,12 +26,11 @@ sh $VALIDATE_LOCALIZATIONS 'string name=' './jdroid-android/res/values/strings.x
 
 # Missing translations validation
 VALIDATE_MISSING=./jdroid-scripts/android/validateMissingTranslations.sh
-prefixes = ( '' '-es')
-for i in "${prefixes[@]}"
-do
-   sh $VALIDATE_MISSING './jdroid-android/res/values'$i'/strings.xml'
-   sh $VALIDATE_MISSING './jdroid-sample-android/res/values'$i'/strings.xml'
-done
+sh $VALIDATE_MISSING './jdroid-android/res/values/strings.xml'
+sh $VALIDATE_MISSING './jdroid-android/res/values-es/strings.xml'
+sh $VALIDATE_MISSING './jdroid-sample-android/res/values/strings.xml'
+sh $VALIDATE_MISSING './jdroid-sample-android/res/values-es/strings.xml'
+
 
 if [ "$INSTALL" = "true" ]
 then
