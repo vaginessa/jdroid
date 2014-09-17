@@ -172,10 +172,10 @@ public class AbstractHibernateRepository<T extends Entity> extends HibernateDaoS
 	}
 	
 	/**
-	 * @see com.jdroid.java.repository.Repository#findByField(java.lang.String, java.util.Collection)
+	 * @see com.jdroid.java.repository.Repository#findByField(java.lang.String, java.lang.Object[])
 	 */
 	@Override
-	public List<T> findByField(String fieldName, Collection<? extends Object> values) {
+	public List<T> findByField(String fieldName, Object... values) {
 		return this.find(this.createDetachedCriteria().add(Restrictions.in(fieldName, values)));
 	}
 	

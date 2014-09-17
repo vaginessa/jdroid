@@ -18,7 +18,7 @@ fi
 # jdroid
 # ************************
 
-#mvn clean install -P jdroid-test
+mvn clean install -P jdroid-test
 
 # Validate localizations
 VALIDATE_LOCALIZATIONS=./jdroid-scripts/android/validateLocalizations.sh
