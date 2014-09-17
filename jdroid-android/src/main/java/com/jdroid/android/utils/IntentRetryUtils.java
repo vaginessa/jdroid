@@ -1,7 +1,6 @@
 package com.jdroid.android.utils;
 
 import org.slf4j.Logger;
-import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.SystemClock;
@@ -52,8 +51,7 @@ public class IntentRetryUtils {
 			return false;
 		}
 		// Retry using an exponential backoff
-		AlarmManagerUtils.scheduleAlarm(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + backoff,
-			operation);
+		AlarmUtils.scheduleElapsedRealtimeAlarm(SystemClock.elapsedRealtime() + backoff, operation);
 		return true;
 	}
 	
@@ -62,8 +60,7 @@ public class IntentRetryUtils {
 		PendingIntent operation = PendingIntent.getService(AbstractApplication.get(), 0, intent,
 			PendingIntent.FLAG_CANCEL_CURRENT);
 		
-		AlarmManagerUtils.scheduleAlarm(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + frequency,
-			operation);
+		AlarmUtils.scheduleElapsedRealtimeAlarm(SystemClock.elapsedRealtime() + frequency, operation);
 	}
 	
 }

@@ -96,8 +96,8 @@ public class DatePickerDialogFragment extends AbstractDialogFragment implements 
 		
 		final DatePicker datePicker = (DatePicker)view.findViewById(R.id.datePicker);
 		datePicker.init(com.jdroid.java.utils.DateUtils.getYear(defaultDate),
-			com.jdroid.java.utils.DateUtils.getMonth(defaultDate), com.jdroid.java.utils.DateUtils.getDay(defaultDate),
-			this);
+			com.jdroid.java.utils.DateUtils.getMonth(defaultDate),
+			com.jdroid.java.utils.DateUtils.getDayOfMonth(defaultDate), this);
 		
 		if (titleResId != null) {
 			dialogBuilder.setTitle(titleResId);

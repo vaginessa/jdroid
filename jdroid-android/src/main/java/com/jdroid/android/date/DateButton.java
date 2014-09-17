@@ -100,7 +100,7 @@ public class DateButton extends Button {
 			super.writeToParcel(dest, flags);
 			dest.writeInt(DateUtils.getYear(date));
 			dest.writeInt(DateUtils.getMonth(date));
-			dest.writeInt(DateUtils.getDay(date));
+			dest.writeInt(DateUtils.getDayOfMonth(date));
 		}
 		
 		@SuppressWarnings({ "hiding", "unused" })

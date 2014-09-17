@@ -2,7 +2,6 @@ package com.jdroid.android.location;
 
 import java.util.List;
 import org.slf4j.Logger;
-import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -14,7 +13,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.SystemClock;
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.utils.AlarmManagerUtils;
+import com.jdroid.android.utils.AlarmUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
 public class LocationHelper implements LocationListener {
@@ -87,8 +86,8 @@ public class LocationHelper implements LocationListener {
 					locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_MIN_TIME, 0, this);
 				}
 				
-				AlarmManagerUtils.scheduleAlarm(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime()
-						+ LOCATION_MAX_TIME, getCancelPendingIntent());
+				AlarmUtils.scheduleElapsedRealtimeAlarm(SystemClock.elapsedRealtime() + LOCATION_MAX_TIME,
+					getCancelPendingIntent());
 				
 				LOGGER.info("Localization started");
 			} else {
@@ -110,7 +109,7 @@ public class LocationHelper implements LocationListener {
 	 */
 	public synchronized void stopLocalization() {
 		if (started) {
-			AlarmManagerUtils.cancelAlarm(getCancelPendingIntent());
+			AlarmUtils.cancelAlarm(getCancelPendingIntent());
 			locationManager.removeUpdates(this);
 			if (location == null) {
 				location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);

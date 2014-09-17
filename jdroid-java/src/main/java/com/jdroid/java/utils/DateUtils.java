@@ -209,7 +209,7 @@ public abstract class DateUtils {
 	 * @return A String that represent the date with the pattern
 	 */
 	public static String formatToCardinal(Date date) {
-		int day = DateUtils.getDay(date);
+		int day = DateUtils.getDayOfMonth(date);
 		String ordinalSuffix = NumberUtils.getOrdinalSuffix(day);
 		StringBuilder builder = new StringBuilder();
 		builder.append(format(date, EEEEMMMM_DATE_FORMAT));
@@ -313,10 +313,16 @@ public abstract class DateUtils {
 		return calendar.get(Calendar.MONTH);
 	}
 	
-	public static int getDay(Date date) {
+	public static int getDayOfMonth(Date date) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		return calendar.get(Calendar.DAY_OF_MONTH);
+	}
+	
+	public static int getDayOfWeek(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		return calendar.get(Calendar.DAY_OF_WEEK);
 	}
 	
 	public static int getHour(Date date, Boolean is24Hour) {
