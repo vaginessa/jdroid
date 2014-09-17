@@ -60,7 +60,7 @@ public interface Repository<T extends Identifiable> {
 	 * @param values
 	 * @return items the items with the fieldName that match with values.
 	 */
-	public List<T> findByField(String fieldName, Collection<? extends Object> values);
+	public List<T> findByField(String fieldName, Object... values);
 	
 	/**
 	 * Obtains a list containing all the {@link Identifiable}s in the repository

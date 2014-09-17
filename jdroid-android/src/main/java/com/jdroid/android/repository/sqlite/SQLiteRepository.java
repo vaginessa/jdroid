@@ -11,7 +11,6 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.domain.Entity;
 import com.jdroid.android.sqlite.Column;
 import com.jdroid.android.sqlite.SQLiteHelper;
-import com.jdroid.java.collections.Lists;
 import com.jdroid.java.repository.Repository;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -193,25 +192,23 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	}
 	
 	/**
-	 * @see com.jdroid.java.repository.Repository#findByField(java.lang.String, java.util.Collection)
+	 * @see com.jdroid.java.repository.Repository#findByField(java.lang.String, java.lang.Object[])
 	 */
 	@SuppressWarnings("resource")
 	@Override
-	public List<T> findByField(String fieldName, Collection<? extends Object> values) {
+	public List<T> findByField(String fieldName, Object... values) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		String selection = null;
 		String[] selectionArgs = null;
-		if ((values != null) && (values.size() > 0)) {
-			selectionArgs = new String[values.size()];
+		if ((values != null) && (values.length > 0)) {
+			selectionArgs = new String[values.length];
 			StringBuilder sb = new StringBuilder(fieldName + " IN (");
-			int i = 0;
-			for (Object each : values) {
-				selectionArgs[i] = each.toString();
+			for (int i = 0; i < values.length; i++) {
+				selectionArgs[i] = values[i].toString();
 				if (i > 0) {
 					sb.append(",");
 				}
 				sb.append("?");
-				i++;
 			}
 			sb.append(")");
 			selection = sb.toString();
@@ -219,7 +216,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		Cursor cursor = null;
 		try {
 			ArrayList<T> items = new ArrayList<T>();
-			cursor = db.query(getTableName(), null, selection, selectionArgs, null, null, getDefaultSort());
+			cursor = db.query(getTableName(), getProjection(), selection, selectionArgs, null, null, getDefaultSort());
 			while (cursor.moveToNext()) {
 				T item = createObjectFromCursor(cursor);
 				onLoaded(item);
@@ -227,7 +224,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 			}
 			cursor.close();
 			
-			LOGGER.info("Retrieved objects from database of type: " + getTableName() + " field: " + fieldName
+			LOGGER.trace("Retrieved objects from database of type: " + getTableName() + " field: " + fieldName
 					+ " values: " + values);
 			
 			return items;
@@ -251,8 +248,8 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	 */
 	@Override
 	public List<T> getAll() {
-		List<T> results = findByField(null, Lists.newArrayList());
-		LOGGER.info("Retrieved all objects [" + results.size() + "] from database of type: " + getTableName());
+		List<T> results = findByField(null, new Object[0]);
+		LOGGER.trace("Retrieved all objects [" + results.size() + "] from database of type: " + getTableName());
 		return results;
 	}
 	

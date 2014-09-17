@@ -120,11 +120,11 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 	}
 	
 	/**
-	 * @see com.jdroid.java.repository.Repository#findByField(java.lang.String, java.util.Collection)
+	 * @see com.jdroid.java.repository.Repository#findByField(java.lang.String, java.lang.Object[])
 	 */
 	@Override
-	public List<T> findByField(String fieldName, Collection<? extends Object> values) {
-		// TODO Implement this
+	public List<T> findByField(String fieldName, Object... values) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 	
