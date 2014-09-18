@@ -11,7 +11,7 @@ public class Entity extends BusinessObject implements Identifiable {
 	private static final long serialVersionUID = 907671509045298947L;
 	
 	private Long id;
-	private String parentId;
+	private Long parentId;
 	
 	/**
 	 * @param id
@@ -34,14 +34,14 @@ public class Entity extends BusinessObject implements Identifiable {
 	/**
 	 * @return the parentId
 	 */
-	public String getParentId() {
+	public Long getParentId() {
 		return parentId;
 	}
 	
 	/**
 	 * @param parentId the parentId to set
 	 */
-	public void setParentId(String parentId) {
+	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
 	

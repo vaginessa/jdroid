@@ -23,7 +23,7 @@ public abstract class MapRepository extends StringEntityRepository {
 	 * @param parentId of parent entity.
 	 * @return map of children
 	 */
-	public Map<Long, String> getChildrenMap(String parentId) {
+	public Map<Long, String> getChildrenMap(Long parentId) {
 		Map<Long, String> map = new HashMap<Long, String>();
 		List<StringEntity> children = findByField(Column.PARENT_ID, parentId);
 		for (StringEntity stringEntity : children) {
@@ -39,7 +39,7 @@ public abstract class MapRepository extends StringEntityRepository {
 	 * @param map map of list to replace.
 	 * @param parentId id of parent entity.
 	 */
-	public void replaceMapChildren(Map<Long, String> map, String parentId) {
+	public void replaceMapChildren(Map<Long, String> map, Long parentId) {
 		ArrayList<StringEntity> entities = new ArrayList<StringEntity>();
 		for (Long key : map.keySet()) {
 			StringEntity entity = new StringEntity();

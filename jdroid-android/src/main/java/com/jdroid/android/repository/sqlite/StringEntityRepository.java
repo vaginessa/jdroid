@@ -25,7 +25,7 @@ public abstract class StringEntityRepository extends SQLiteRepository<StringEnti
 		StringEntity entity = new StringEntity();
 		entity.setId((Long)getColumn(Column.ID).readValue(cursor));
 		if (cursor.getColumnIndex(Column.PARENT_ID) >= 0) {
-			entity.setParentId((String)getColumn(Column.PARENT_ID).readValue(cursor));
+			entity.setParentId((Long)getColumn(Column.PARENT_ID).readValue(cursor));
 		}
 		entity.setValue((String)getColumn(Column.VALUE).readValue(cursor));
 		return entity;
@@ -67,7 +67,7 @@ public abstract class StringEntityRepository extends SQLiteRepository<StringEnti
 	 * @param strings string children list to replace.
 	 * @param parentId id of parent entity.
 	 */
-	public void replaceStringChildren(List<String> strings, String parentId) {
+	public void replaceStringChildren(List<String> strings, Long parentId) {
 		ArrayList<StringEntity> entities = new ArrayList<StringEntity>();
 		for (String string : strings) {
 			if (string != null) {

@@ -436,7 +436,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	 * @param list of children to replace.
 	 * @param parentId id of parent entity.
 	 */
-	public void replaceChildren(List<T> list, String parentId) {
+	public void replaceChildren(List<T> list, Long parentId) {
 		for (T item : list) {
 			item.setParentId(parentId);
 		}
@@ -444,7 +444,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		boolean endTransaction = beginTransaction(db);
 		try {
-			db.delete(getTableName(), getParentIdColumnName() + "=?", new String[] { parentId });
+			db.delete(getTableName(), getParentIdColumnName() + "=?", new String[] { parentId.toString() });
 			addAll(list);
 			LOGGER.trace("Replaced childs of parent " + parentId + " and type " + getTableName());
 			successTransaction(db, endTransaction);
@@ -461,7 +461,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	 * @param parentId id of parent entity.
 	 * @param clazz entity class.
 	 */
-	public static <T extends Entity> void replaceChildren(List<T> list, String parentId, Class<T> clazz) {
+	public static <T extends Entity> void replaceChildren(List<T> list, Long parentId, Class<T> clazz) {
 		SQLiteRepository<T> repository = (SQLiteRepository<T>)AbstractApplication.get().getRepositoryInstance(clazz);
 		repository.replaceChildren(list, parentId);
 	}

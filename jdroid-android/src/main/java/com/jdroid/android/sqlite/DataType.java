@@ -2,10 +2,13 @@ package com.jdroid.android.sqlite;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import android.content.ContentValues;
 import android.database.Cursor;
 import com.jdroid.android.utils.AndroidEncryptionUtils;
 import com.jdroid.java.collections.Lists;
+import com.jdroid.java.json.JSONObject;
+import com.jdroid.java.parser.json.JsonParser;
 import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.StringUtils;
 
@@ -243,6 +246,36 @@ public enum DataType {
 				return null;
 			}
 			return Lists.newArrayList(StringUtils.splitToCollection(cursor.getString(columnIndex)));
+		}
+	},
+	MAP("TEXT") {
+		
+		@Override
+		public <T> void writeValue(ContentValues values, String columnName, T value) {
+			if (value != null) {
+				values.put(columnName, new JSONObject((Map<?, ?>)value).toString());
+			} else {
+				values.putNull(columnName);
+			}
+		}
+		
+		@SuppressWarnings("unchecked")
+		@Override
+		public JSONObject readValue(Cursor cursor, String columnName) {
+			int columnIndex = cursor.getColumnIndex(columnName);
+			if (cursor.isNull(columnIndex)) {
+				return null;
+			}
+			String value = cursor.getString(columnIndex);
+			JsonParser<JSONObject> parser = new JsonParser<JSONObject>() {
+				
+				@Override
+				public Object parse(JSONObject json) {
+					return json;
+				};
+			};
+			
+			return (JSONObject)parser.parse(value);
 		}
 	};
 	
