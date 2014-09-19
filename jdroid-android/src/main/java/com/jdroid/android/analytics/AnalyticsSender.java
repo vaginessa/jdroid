@@ -25,6 +25,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 	
 	private List<T> trackers = Lists.newArrayList();
 	
+	@SafeVarargs
 	public AnalyticsSender(T... trackers) {
 		this(Lists.newArrayList(trackers));
 	}

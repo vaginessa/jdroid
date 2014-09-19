@@ -120,10 +120,12 @@ public final class Utility {
 		return (s == null) || (s.length() == 0);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static <T> Collection<T> unmodifiableCollection(T... ts) {
 		return Collections.unmodifiableCollection(Arrays.asList(ts));
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static <T> ArrayList<T> arrayList(T... ts) {
 		ArrayList<T> arrayList = new ArrayList<T>(ts.length);
 		for (T t : ts) {
@@ -404,6 +406,7 @@ public final class Utility {
 		directoryOrFile.delete();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static <T> List<T> asListNoNulls(T... array) {
 		ArrayList<T> result = new ArrayList<T>();
 		for (T t : array) {

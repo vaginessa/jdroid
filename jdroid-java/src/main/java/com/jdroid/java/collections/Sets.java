@@ -26,6 +26,7 @@ public class Sets {
 	 * @param elements the elements that the set should contain
 	 * @return a new {@code HashSet} containing those elements (minus duplicates)
 	 */
+	@SafeVarargs
 	public static <E> HashSet<E> newHashSet(E... elements) {
 		HashSet<E> set = new HashSet<E>();
 		Collections.addAll(set, elements);

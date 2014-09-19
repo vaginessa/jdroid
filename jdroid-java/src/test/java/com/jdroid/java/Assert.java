@@ -104,6 +104,7 @@ public class Assert extends org.testng.Assert {
 	 * @param container The {@link Collection} that is tested.
 	 * @param contents The series of contents to be tested if they are present in the collection.
 	 */
+	@SafeVarargs
 	public static <T> void assertContentsNotPresent(Collection<T> container, T... contents) {
 		Assert.assertContentsNotPresent(container, Lists.newArrayList(contents));
 	}
