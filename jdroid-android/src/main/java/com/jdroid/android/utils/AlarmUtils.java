@@ -5,6 +5,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
 public class AlarmUtils {
@@ -13,22 +14,27 @@ public class AlarmUtils {
 	
 	public static void scheduleRtcWakeUpAlarm(long triggerAtTime, PendingIntent operation) {
 		getAlarmManager().set(AlarmManager.RTC_WAKEUP, triggerAtTime, operation);
-		LOGGER.debug("Created RTC_WAKEUP alarm for " + triggerAtTime);
+		log("RTC_WAKEUP", triggerAtTime);
 	}
 	
 	public static void scheduleRtcAlarm(long triggerAtTime, PendingIntent operation) {
 		getAlarmManager().set(AlarmManager.RTC, triggerAtTime, operation);
-		LOGGER.debug("Created RTC_WAKEUP alarm for " + triggerAtTime);
+		log("RTC", triggerAtTime);
 	}
 	
 	public static void scheduleElapsedRealtimeWakeUpAlarm(long triggerAtTime, PendingIntent operation) {
 		getAlarmManager().set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, operation);
-		LOGGER.debug("Created ELAPSED_REALTIME_WAKEUP alarm for " + triggerAtTime);
+		log("ELAPSED_REALTIME_WAKEUP", triggerAtTime);
 	}
 	
 	public static void scheduleElapsedRealtimeAlarm(long triggerAtTime, PendingIntent operation) {
 		getAlarmManager().set(AlarmManager.ELAPSED_REALTIME, triggerAtTime, operation);
-		LOGGER.debug("Created ELAPSED_REALTIME alarm for " + triggerAtTime);
+		log("ELAPSED_REALTIME", triggerAtTime);
+	}
+	
+	private static void log(String alarmType, long triggerAtTime) {
+		LOGGER.debug("Created " + alarmType + " alarm for "
+				+ DateUtils.formatDateTime(DateUtils.getDate(triggerAtTime)));
 	}
 	
 	public static void cancelAlarm(PendingIntent operation) {
