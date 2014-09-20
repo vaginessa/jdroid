@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.utils.AndroidUtils;
 
@@ -39,6 +40,13 @@ public class ButtonBarView extends FrameLayout {
 		
 		negativeButton = findViewById(R.id.negativeButton);
 		negativeText = (TextView)findViewById(R.id.negativeButtonText);
+		setNegativeOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				AbstractApplication.get().getCurrentActivity().finish();
+			}
+		});
 		
 		positiveButton = findViewById(R.id.positiveButton);
 		positiveText = (TextView)findViewById(R.id.positiveButtonText);

@@ -23,15 +23,19 @@ public class TimeButton extends Button {
 		}
 	}
 	
-	public void init(final Fragment fragment, final Date defaultTime) {
+	public void init(final Fragment fragment, final Date defaultTime, final int requestCode) {
 		setTime(defaultTime);
 		setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				TimePickerDialogFragment.show(fragment, time);
+				TimePickerDialogFragment.show(fragment, time, requestCode);
 			}
 		});
+	}
+	
+	public void init(Fragment fragment, Date defaultTime) {
+		init(fragment, defaultTime, 1);
 	}
 	
 	public void setTime(Date time) {
