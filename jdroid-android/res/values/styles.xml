@@ -254,7 +254,7 @@
 	<!-- Nav Drawer -->
 
 	<style name="navDrawerItemText" parent="title2Text">
-		<item name="android:textColor">@android:color/white</item>
+		<item name="android:textColor">@color/navDrawerItemColor</item>
 		<item name="android:textStyle">normal</item>
 		<item name="android:singleLine">true</item>
 		<item name="android:ellipsize">end</item>

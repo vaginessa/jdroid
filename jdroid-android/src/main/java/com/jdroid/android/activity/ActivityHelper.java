@@ -172,7 +172,8 @@ public class ActivityHelper implements ActivityIf {
 			
 			// Set the adapter for the list view
 			// set a custom shadow that overlays the main content when the drawer opens
-			drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+			drawerLayout.setDrawerShadow(isDarkTheme() ? R.drawable.drawer_shadow_dark : R.drawable.drawer_shadow,
+				GravityCompat.START);
 			
 			User user = SecurityContext.get().getUser();
 			if (user != null) {
@@ -242,8 +243,9 @@ public class ActivityHelper implements ActivityIf {
 			};
 			
 			if (getActivityIf().isNavDrawerTopLevelView()) {
-				drawerToggle = new ActionBarDrawerToggle(activity, drawerLayout, R.drawable.ic_drawer,
-						R.string.drawerOpen, R.string.drawerClose) {
+				drawerToggle = new ActionBarDrawerToggle(activity, drawerLayout,
+						isDarkTheme() ? R.drawable.ic_drawer_dark : R.drawable.ic_drawer, R.string.drawerOpen,
+						R.string.drawerClose) {
 					
 					@Override
 					public void onDrawerStateChanged(int newState) {
@@ -299,6 +301,10 @@ public class ActivityHelper implements ActivityIf {
 		if (savedInstanceState == null) {
 			trackNotificationOpened(activity.getIntent());
 		}
+	}
+	
+	public Boolean isDarkTheme() {
+		return true;
 	}
 	
 	private String getMockedEmail() {

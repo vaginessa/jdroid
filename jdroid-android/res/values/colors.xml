@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+	<!-- Action Bar -->
+	<color name="actionBarBackground">#009688</color>
+	<color name="actionBarText">@android:color/white</color>
 	<color name="actionbarMockBackground">#FF489100</color>
 
 	<!-- Nav Drawer -->
 	<color name="navDrawerItemsBackground">#111</color>
 	<color name="navDrawerBackground">#222</color>
+	<color name="navDrawerItemColor">@android:color/white</color>
 
 	<!-- Maps -->
 	<color name="walkingColor">#888888</color>
