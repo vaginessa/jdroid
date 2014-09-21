@@ -88,13 +88,18 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 			}
 		});
 		
-		view.findViewById(R.id.universalImageLoaderLegend).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				IntentUtils.startUrl(getActivity(), "https://github.com/nostra13/Android-Universal-Image-Loader");
-			}
-		});
+		View universalImageLoaderLegend = view.findViewById(R.id.universalImageLoaderLegend);
+		if (displayUniversalImageLoaderLegend()) {
+			universalImageLoaderLegend.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					IntentUtils.startUrl(getActivity(), "https://github.com/nostra13/Android-Universal-Image-Loader");
+				}
+			});
+		} else {
+			universalImageLoaderLegend.setVisibility(View.GONE);
+		}
 		
 		PlusOneButton plusOneButton = (PlusOneButton)view.findViewById(R.id.plusOneButton);
 		if (displayGooglePlusOneButton()) {
@@ -181,7 +186,7 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 	}
 	
 	protected String getContactUsEmail() {
-		return null;
+		return AbstractApplication.get().getAppContext().getContactUsEmail();
 	}
 	
 	protected String getFacebookPageId() {
@@ -197,6 +202,10 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 	}
 	
 	protected Boolean displayGooglePlusOneButton() {
+		return true;
+	}
+	
+	protected Boolean displayUniversalImageLoaderLegend() {
 		return true;
 	}
 	

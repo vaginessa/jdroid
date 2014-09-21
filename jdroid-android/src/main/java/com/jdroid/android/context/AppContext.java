@@ -10,6 +10,7 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.utils.PropertiesUtils;
+import com.jdroid.java.utils.ValidationUtils;
 
 public class AppContext {
 	
@@ -27,6 +28,7 @@ public class AppContext {
 	private String serverApiVersion;
 	
 	// Social
+	private String contactUsEmail;
 	private String googleProjectId;
 	private String facebookAppId;
 	
@@ -54,11 +56,18 @@ public class AppContext {
 		localIp = PropertiesUtils.getStringProperty("local.ip");
 		environment = Environment.valueOf(PropertiesUtils.getStringProperty("environment.name",
 			Environment.DEV.toString()));
-		googleProjectId = PropertiesUtils.getStringProperty("google.projectId");
-		facebookAppId = PropertiesUtils.getStringProperty("facebook.app.id");
+		
 		debugSettings = PropertiesUtils.getBooleanProperty("debug.settings", false);
 		isFreeApp = PropertiesUtils.getBooleanProperty("free.app");
 		serverApiVersion = PropertiesUtils.getStringProperty("server.api.version");
+		
+		contactUsEmail = PropertiesUtils.getStringProperty("mail.contact");
+		if (!ValidationUtils.isValidEmail(contactUsEmail)) {
+			contactUsEmail = null;
+		}
+		
+		googleProjectId = PropertiesUtils.getStringProperty("google.projectId");
+		facebookAppId = PropertiesUtils.getStringProperty("facebook.app.id");
 		
 		adsEnabled = PropertiesUtils.getBooleanProperty("ads.enabled", false);
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
@@ -238,5 +247,9 @@ public class AppContext {
 	
 	public String getServerApiVersion() {
 		return serverApiVersion;
+	}
+	
+	public String getContactUsEmail() {
+		return contactUsEmail;
 	}
 }
