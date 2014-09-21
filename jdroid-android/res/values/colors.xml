@@ -15,4 +15,12 @@
 	<color name="walkingColor">#888888</color>
 	<color name="drivingColor">#319FDA</color>
 
+	<!-- Buttons -->
+	<color name="grey">#DBDBDB</color>
+	<color name="lightBlue">#33B5E5</color>
+	<color name="blue">#357EC7</color>
+
+	<!-- About -->
+	<color name="aboutSeparator">#44FFFFFF</color>
+
 </resources>

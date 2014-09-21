@@ -108,6 +108,18 @@
 		<item name="android:layout_marginBottom">4dp</item>
 	</style>
 
+	<style name="textViewButton" parent="@style/h2Text">
+		<item name="android:paddingLeft">8dp</item>
+		<item name="android:paddingRight">8dp</item>
+		<item name="android:paddingTop">4dp</item>
+		<item name="android:paddingBottom">4dp</item>
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:background">@drawable/textview_button_selector</item>
+		<item name="android:minWidth">100dp</item>
+		<item name="android:minHeight">32dp</item>
+		<item name="android:gravity">center_horizontal|center_vertical</item>
+	</style>
+
 
 	<!-- Lists & Grids -->
 
@@ -191,10 +203,16 @@
 		<item name="android:padding">1dp</item>
 	</style>
 
-	<style name="line">
+	<style name="lineWhite">
 		<item name="android:layout_height">1dp</item>
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:background">@android:color/white</item>
+	</style>
+
+	<style name="lineGrey">
+		<item name="android:layout_height">1dp</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:background">@color/grey</item>
 	</style>
 
 	<!--Button Bar -->
@@ -269,7 +287,7 @@
 	<style name="aboutSeparator">
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">1dp</item>
-		<item name="android:background">#44FFFFFF</item>
+		<item name="android:background">@color/aboutSeparator</item>
 		<item name="android:layout_marginBottom">8dp</item>
 		<item name="android:layout_marginLeft">12dp</item>
 		<item name="android:layout_marginRight">12dp</item>

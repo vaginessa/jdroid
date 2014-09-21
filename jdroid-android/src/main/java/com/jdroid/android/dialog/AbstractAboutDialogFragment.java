@@ -99,6 +99,7 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 			});
 		} else {
 			universalImageLoaderLegend.setVisibility(View.GONE);
+			view.findViewById(R.id.universalImageLoaderLegendSeparator).setVisibility(View.GONE);
 		}
 		
 		PlusOneButton plusOneButton = (PlusOneButton)view.findViewById(R.id.plusOneButton);

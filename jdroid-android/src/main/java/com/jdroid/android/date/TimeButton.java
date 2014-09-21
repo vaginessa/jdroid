@@ -7,12 +7,12 @@ import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import com.jdroid.android.utils.AndroidDateUtils;
 import com.jdroid.java.utils.DateUtils;
 
-public class TimeButton extends Button {
+public class TimeButton extends TextView {
 	
 	private Date time;
 	
