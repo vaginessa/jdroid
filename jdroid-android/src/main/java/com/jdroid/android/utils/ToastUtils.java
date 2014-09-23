@@ -20,12 +20,34 @@ public final class ToastUtils {
 		
 		@Override
 		public void handleMessage(android.os.Message msg) {
-			showToast((String)msg.obj);
+			
+			String message = (String)msg.obj;
+			switch (msg.arg1) {
+				case 1:
+					showToast(message);
+					break;
+				case 2:
+					showInfoToast(message);
+					break;
+				case 3:
+					showWarningToast(message);
+					break;
+				case 4:
+					showErrorToast(message);
+					break;
+				default:
+					break;
+			}
 		};
 	};
 	
 	public static final void init() {
 		// nothing...
+	}
+	
+	private static void showToastOnUIThread(String message, int type) {
+		HANDLER.removeMessages(1);
+		HANDLER.sendMessage(HANDLER.obtainMessage(1, type, 0, message));
 	}
 	
 	/**
@@ -34,8 +56,7 @@ public final class ToastUtils {
 	 * @param message The text to show. Can be formatted text.
 	 */
 	public static void showToastOnUIThread(String message) {
-		HANDLER.removeMessages(1);
-		HANDLER.sendMessage(HANDLER.obtainMessage(1, message));
+		showToastOnUIThread(message, 1);
 	}
 	
 	/**
@@ -168,6 +189,15 @@ public final class ToastUtils {
 	 */
 	public static void showWarningToast(String message, int duration, Integer gravity, Integer xOffset, Integer yOffset) {
 		showCustomToast(R.drawable.toast_warning, message, duration, gravity, xOffset, yOffset);
+	}
+	
+	/**
+	 * Show the error {@link Toast} on the UI Thread.
+	 * 
+	 * @param message The text to show. Can be formatted text.
+	 */
+	public static void showErrorToastOnUIThread(String message) {
+		showToastOnUIThread(message, 4);
 	}
 	
 	/**
