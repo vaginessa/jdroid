@@ -10,6 +10,7 @@ import com.jdroid.android.fragment.AbstractGridFragment;
 import com.jdroid.android.inappbilling.InAppBillingClient.OnConsumeFinishedListener;
 import com.jdroid.android.inappbilling.InAppBillingClient.OnIabPurchaseFinishedListener;
 import com.jdroid.android.inappbilling.InAppBillingClient.QueryInventoryFinishedListener;
+import com.jdroid.android.loading.LoadingStrategy;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.LoggerUtils;
@@ -255,10 +256,10 @@ public abstract class InAppBillingFragment extends AbstractGridFragment<Product>
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#isBlockingLoadingEnabled()
+	 * @see com.jdroid.android.fragment.AbstractListFragment#getLoadingStrategy()
 	 */
 	@Override
-	public Boolean isBlockingLoadingEnabled() {
-		return false;
+	public LoadingStrategy getLoadingStrategy() {
+		return LoadingStrategy.NON_BLOCKING;
 	}
 }

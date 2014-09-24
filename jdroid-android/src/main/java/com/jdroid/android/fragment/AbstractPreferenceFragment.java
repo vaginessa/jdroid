@@ -9,6 +9,7 @@ import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.LoadingDialogBuilder;
+import com.jdroid.android.loading.LoadingStrategy;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
@@ -238,11 +239,11 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#isBlockingLoadingEnabled()
+	 * @see com.jdroid.android.fragment.FragmentIf#getLoadingStrategy()
 	 */
 	@Override
-	public Boolean isBlockingLoadingEnabled() {
-		return true;
+	public LoadingStrategy getLoadingStrategy() {
+		return LoadingStrategy.BLOCKING;
 	}
 	
 	/**
@@ -303,6 +304,27 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	@Override
 	public Boolean shouldTrackOnFragmentStart() {
 		return false;
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#showSwipeRefreshLoading()
+	 */
+	@Override
+	public void showSwipeRefreshLoading() {
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#dismisSwipeRefreshLoading()
+	 */
+	@Override
+	public void dismisSwipeRefreshLoading() {
+	}
+	
+	/**
+	 * @see android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener#onRefresh()
+	 */
+	@Override
+	public void onRefresh() {
 	}
 	
 }

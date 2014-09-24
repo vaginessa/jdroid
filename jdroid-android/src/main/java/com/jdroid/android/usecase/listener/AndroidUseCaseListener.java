@@ -2,6 +2,7 @@ package com.jdroid.android.usecase.listener;
 
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.fragment.FragmentIf;
+import com.jdroid.android.loading.LoadingStrategy;
 
 public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 	
@@ -12,11 +13,7 @@ public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 	public void onStartUseCase() {
 		FragmentIf fragmentIf = getFragmentIf();
 		if (fragmentIf != null) {
-			if (isBlockingLoadingEnabled()) {
-				fragmentIf.showBlockingLoading();
-			} else {
-				fragmentIf.showNonBlockingLoading();
-			}
+			fragmentIf.getLoadingStrategy().showLoading(fragmentIf);
 		}
 	}
 	
@@ -39,10 +36,8 @@ public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 			DefaultExceptionHandler.markAsNotGoBackOnError(runtimeException);
 		}
 		FragmentIf fragmentIf = getFragmentIf();
-		if (isBlockingLoadingEnabled()) {
-			fragmentIf.dismissBlockingLoading();
-		} else {
-			fragmentIf.dismissNonBlockingLoading();
+		if (fragmentIf != null) {
+			fragmentIf.getLoadingStrategy().dismissLoading(fragmentIf);
 		}
 		
 		throw runtimeException;
@@ -73,8 +68,8 @@ public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 		getFragmentIf().onFinishCanceledUseCase();
 	}
 	
-	public Boolean isBlockingLoadingEnabled() {
-		return getFragmentIf().isBlockingLoadingEnabled();
+	public LoadingStrategy getLoadingStrategy() {
+		return getFragmentIf().getLoadingStrategy();
 	}
 	
 	protected abstract FragmentIf getFragmentIf();

@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import com.google.android.gms.ads.AdSize;
@@ -20,6 +21,7 @@ import com.jdroid.android.domain.User;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.loading.LoadingDialogBuilder;
 import com.jdroid.android.loading.LoadingLayout;
+import com.jdroid.android.loading.LoadingStrategy;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
@@ -32,7 +34,10 @@ public class FragmentHelper implements FragmentIf {
 	
 	private Fragment fragment;
 	private AdHelper adHelper;
+	
+	// Loading Strategies
 	private LoadingLayout loadingLayout;
+	private SwipeRefreshLayout swipeRefreshLayout;
 	
 	public FragmentHelper(Fragment fragment) {
 		this.fragment = fragment;
@@ -76,6 +81,11 @@ public class FragmentHelper implements FragmentIf {
 		loadingLayout = findView(R.id.container);
 		if (loadingLayout != null) {
 			loadingLayout.setLoading(getFragmentIf().isNonBlockingLoadingDisplayedByDefault());
+		}
+		
+		swipeRefreshLayout = findView(R.id.swipeRefreshLayout);
+		if (swipeRefreshLayout != null) {
+			swipeRefreshLayout.setOnRefreshListener(getFragmentIf());
 		}
 	}
 	
@@ -296,11 +306,11 @@ public class FragmentHelper implements FragmentIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#isBlockingLoadingEnabled()
+	 * @see com.jdroid.android.fragment.FragmentIf#getLoadingStrategy()
 	 */
 	@Override
-	public Boolean isBlockingLoadingEnabled() {
-		return true;
+	public LoadingStrategy getLoadingStrategy() {
+		return LoadingStrategy.BLOCKING;
 	}
 	
 	/**
@@ -395,17 +405,29 @@ public class FragmentHelper implements FragmentIf {
 	}
 	
 	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#showSwipeRefreshLoading()
+	 */
+	@Override
+	public void showSwipeRefreshLoading() {
+		swipeRefreshLayout.setRefreshing(true);
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#dismisSwipeRefreshLoading()
+	 */
+	@Override
+	public void dismisSwipeRefreshLoading() {
+		swipeRefreshLayout.setRefreshing(false);
+	}
+	
+	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
 	 */
 	@Override
 	public void showLoading() {
 		FragmentIf fragmentIf = getFragmentIf();
 		if (fragmentIf != null) {
-			if (fragmentIf.isBlockingLoadingEnabled()) {
-				fragmentIf.showBlockingLoading();
-			} else {
-				fragmentIf.showNonBlockingLoading();
-			}
+			fragmentIf.getLoadingStrategy().showLoading(fragmentIf);
 		}
 	}
 	
@@ -416,11 +438,7 @@ public class FragmentHelper implements FragmentIf {
 	public void dismissLoading() {
 		FragmentIf fragmentIf = getFragmentIf();
 		if (fragmentIf != null) {
-			if (fragmentIf.isBlockingLoadingEnabled()) {
-				fragmentIf.dismissBlockingLoading();
-			} else {
-				fragmentIf.dismissNonBlockingLoading();
-			}
+			fragmentIf.getLoadingStrategy().dismissLoading(fragmentIf);
 		}
 	}
 	
@@ -470,5 +488,13 @@ public class FragmentHelper implements FragmentIf {
 	@Override
 	public Boolean shouldTrackOnFragmentStart() {
 		return false;
+	}
+	
+	/**
+	 * @see android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener#onRefresh()
+	 */
+	@Override
+	public void onRefresh() {
+		// Do nothing
 	}
 }
