@@ -8,8 +8,7 @@ import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
-import com.jdroid.android.loading.LoadingDialogBuilder;
-import com.jdroid.android.loading.LoadingStrategy;
+import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
@@ -122,30 +121,6 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showBlockingLoading()
-	 */
-	@Override
-	public void showBlockingLoading() {
-		getFragmentIf().showBlockingLoading();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showBlockingLoading(com.jdroid.android.loading.LoadingDialogBuilder)
-	 */
-	@Override
-	public void showBlockingLoading(LoadingDialogBuilder builder) {
-		getFragmentIf().showBlockingLoading(builder);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissBlockingLoading()
-	 */
-	@Override
-	public void dismissBlockingLoading() {
-		getFragmentIf().dismissBlockingLoading();
-	}
-	
-	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getInstance(java.lang.Class)
 	 */
 	@Override
@@ -239,50 +214,6 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getLoadingStrategy()
-	 */
-	@Override
-	public LoadingStrategy getLoadingStrategy() {
-		return LoadingStrategy.BLOCKING;
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#isNonBlockingLoadingDisplayedByDefault()
-	 */
-	@Override
-	public Boolean isNonBlockingLoadingDisplayedByDefault() {
-		return true;
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
-	 */
-	@Override
-	public void showLoading() {
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissLoading()
-	 */
-	@Override
-	public void dismissLoading() {
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showNonBlockingLoading()
-	 */
-	@Override
-	public void showNonBlockingLoading() {
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissNonBlockingLoading()
-	 */
-	@Override
-	public void dismissNonBlockingLoading() {
-	}
-	
-	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getActivityIf()
 	 */
 	@Override
@@ -306,18 +237,35 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 		return false;
 	}
 	
+	// //////////////////////// Loading //////////////////////// //
+	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showSwipeRefreshLoading()
+	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
 	 */
 	@Override
-	public void showSwipeRefreshLoading() {
+	public void showLoading() {
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismisSwipeRefreshLoading()
+	 * @see com.jdroid.android.fragment.FragmentIf#dismissLoading()
 	 */
 	@Override
-	public void dismisSwipeRefreshLoading() {
+	public void dismissLoading() {
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#getDefaultLoading()
+	 */
+	@Override
+	public FragmentLoading getDefaultLoading() {
+		return null;
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#setLoading(com.jdroid.android.loading.FragmentLoading)
+	 */
+	@Override
+	public void setLoading(FragmentLoading loading) {
 	}
 	
 	/**

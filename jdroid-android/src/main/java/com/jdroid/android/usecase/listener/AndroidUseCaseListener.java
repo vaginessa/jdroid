@@ -2,7 +2,6 @@ package com.jdroid.android.usecase.listener;
 
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.fragment.FragmentIf;
-import com.jdroid.android.loading.LoadingStrategy;
 
 public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 	
@@ -13,7 +12,7 @@ public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 	public void onStartUseCase() {
 		FragmentIf fragmentIf = getFragmentIf();
 		if (fragmentIf != null) {
-			fragmentIf.getLoadingStrategy().showLoading(fragmentIf);
+			fragmentIf.showLoading();
 		}
 	}
 	
@@ -37,7 +36,7 @@ public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 		}
 		FragmentIf fragmentIf = getFragmentIf();
 		if (fragmentIf != null) {
-			fragmentIf.getLoadingStrategy().dismissLoading(fragmentIf);
+			fragmentIf.dismissLoading();
 		}
 		
 		throw runtimeException;
@@ -66,10 +65,6 @@ public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 	@Override
 	public void onFinishCanceledUseCase() {
 		getFragmentIf().onFinishCanceledUseCase();
-	}
-	
-	public LoadingStrategy getLoadingStrategy() {
-		return getFragmentIf().getLoadingStrategy();
 	}
 	
 	protected abstract FragmentIf getFragmentIf();

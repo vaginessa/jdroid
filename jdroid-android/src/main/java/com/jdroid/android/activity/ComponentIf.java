@@ -1,14 +1,24 @@
 package com.jdroid.android.activity;
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
-import com.jdroid.android.loading.LoadingDialog;
-import com.jdroid.android.loading.LoadingDialogBuilder;
 
 public interface ComponentIf {
+	
+	/**
+	 * Runs the specified action on the UI thread. If the current thread is the UI thread, then the action is executed
+	 * immediately. If the current thread is not the UI thread, the action is posted to the event queue of the UI
+	 * thread.
+	 * 
+	 * If the current {@link Activity} is not equals to this, then no action is executed
+	 * 
+	 * @param runnable the action to run on the UI thread
+	 */
+	public void executeOnUIThread(Runnable runnable);
 	
 	/**
 	 * Finds a view that was identified by the id attribute from the XML that was processed in
@@ -43,18 +53,6 @@ public interface ComponentIf {
 	 */
 	public <E> E getExtra(String key);
 	
-	/**
-	 * Show a blocking {@link LoadingDialog} in the current Thread.
-	 */
-	public void showBlockingLoading();
-	
-	public void showBlockingLoading(LoadingDialogBuilder builder);
-	
-	/**
-	 * Dismiss the {@link LoadingDialog} in the current Thread
-	 */
-	public void dismissBlockingLoading();
-	
 	public AppContext getAppContext();
 	
 	public AdSize getAdSize();
@@ -62,4 +60,8 @@ public interface ComponentIf {
 	public User getUser();
 	
 	public Boolean shouldTrackOnFragmentStart();
+	
+	public void showLoading();
+	
+	public void dismissLoading();
 }

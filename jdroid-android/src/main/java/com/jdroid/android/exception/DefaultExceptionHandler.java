@@ -2,7 +2,7 @@ package com.jdroid.android.exception;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.net.UnknownHostException;
-import javax.net.ssl.SSLException;
+import javax.net.ssl.SSLPeerUnverifiedException;
 import org.slf4j.Logger;
 import android.app.Activity;
 import android.support.v4.app.FragmentActivity;
@@ -187,7 +187,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 				if (cause instanceof UnknownHostException) {
 					message += ": " + cause.getMessage();
 					break;
-				} else if (cause instanceof SSLException) {
+				} else if (cause instanceof SSLPeerUnverifiedException) {
 					isError = true;
 					break;
 				}

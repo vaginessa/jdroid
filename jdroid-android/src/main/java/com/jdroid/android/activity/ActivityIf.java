@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import com.jdroid.android.loading.ActivityLoading;
 
 public interface ActivityIf extends ComponentIf {
 	
@@ -41,4 +42,10 @@ public interface ActivityIf extends ComponentIf {
 	public Boolean isInterstitialEnabled();
 	
 	public void displayInterstitial(Boolean retryIfNotLoaded);
+	
+	public ActivityLoading getDefaultLoading();
+	
+	public void setLoading(ActivityLoading loading);
+	
+	public Boolean isActivityDestroyed();
 }

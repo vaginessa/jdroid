@@ -12,8 +12,7 @@ import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.fragment.FragmentIf;
-import com.jdroid.android.loading.LoadingDialogBuilder;
-import com.jdroid.android.loading.LoadingStrategy;
+import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
@@ -203,30 +202,6 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showBlockingLoading()
-	 */
-	@Override
-	public void showBlockingLoading() {
-		fragmentHelper.showBlockingLoading();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showBlockingLoading(com.jdroid.android.loading.LoadingDialogBuilder)
-	 */
-	@Override
-	public void showBlockingLoading(LoadingDialogBuilder builder) {
-		fragmentHelper.showBlockingLoading(builder);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissBlockingLoading()
-	 */
-	@Override
-	public void dismissBlockingLoading() {
-		fragmentHelper.dismissBlockingLoading();
-	}
-	
-	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getInstance(java.lang.Class)
 	 */
 	@Override
@@ -328,20 +303,22 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getLoadingStrategy()
+	 * @see com.jdroid.android.fragment.FragmentIf#getActivityIf()
 	 */
 	@Override
-	public LoadingStrategy getLoadingStrategy() {
-		return fragmentHelper.getLoadingStrategy();
+	public ActivityIf getActivityIf() {
+		return fragmentHelper.getActivityIf();
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#isNonBlockingLoadingDisplayedByDefault()
+	 * @see com.jdroid.android.activity.ComponentIf#shouldTrackOnFragmentStart()
 	 */
 	@Override
-	public Boolean isNonBlockingLoadingDisplayedByDefault() {
-		return fragmentHelper.isNonBlockingLoadingDisplayedByDefault();
+	public Boolean shouldTrackOnFragmentStart() {
+		return fragmentHelper.shouldTrackOnFragmentStart();
 	}
+	
+	// //////////////////////// Loading //////////////////////// //
 	
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
@@ -360,51 +337,19 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showNonBlockingLoading()
+	 * @see com.jdroid.android.fragment.FragmentIf#getDefaultLoading()
 	 */
 	@Override
-	public void showNonBlockingLoading() {
-		fragmentHelper.showNonBlockingLoading();
+	public FragmentLoading getDefaultLoading() {
+		return fragmentHelper.getDefaultLoading();
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissNonBlockingLoading()
+	 * @see com.jdroid.android.fragment.FragmentIf#setLoading(com.jdroid.android.loading.FragmentLoading)
 	 */
 	@Override
-	public void dismissNonBlockingLoading() {
-		fragmentHelper.dismissNonBlockingLoading();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getActivityIf()
-	 */
-	@Override
-	public ActivityIf getActivityIf() {
-		return fragmentHelper.getActivityIf();
-	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#shouldTrackOnFragmentStart()
-	 */
-	@Override
-	public Boolean shouldTrackOnFragmentStart() {
-		return fragmentHelper.shouldTrackOnFragmentStart();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showSwipeRefreshLoading()
-	 */
-	@Override
-	public void showSwipeRefreshLoading() {
-		fragmentHelper.showSwipeRefreshLoading();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismisSwipeRefreshLoading()
-	 */
-	@Override
-	public void dismisSwipeRefreshLoading() {
-		fragmentHelper.dismisSwipeRefreshLoading();
+	public void setLoading(FragmentLoading loading) {
+		fragmentHelper.setLoading(loading);
 	}
 	
 	/**

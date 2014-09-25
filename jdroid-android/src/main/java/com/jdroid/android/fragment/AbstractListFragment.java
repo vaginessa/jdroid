@@ -17,8 +17,7 @@ import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
-import com.jdroid.android.loading.LoadingDialogBuilder;
-import com.jdroid.android.loading.LoadingStrategy;
+import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
@@ -220,30 +219,6 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showBlockingLoading()
-	 */
-	@Override
-	public void showBlockingLoading() {
-		fragmentHelper.showBlockingLoading();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showBlockingLoading(com.jdroid.android.loading.LoadingDialogBuilder)
-	 */
-	@Override
-	public void showBlockingLoading(LoadingDialogBuilder builder) {
-		fragmentHelper.showBlockingLoading(builder);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissBlockingLoading()
-	 */
-	@Override
-	public void dismissBlockingLoading() {
-		fragmentHelper.dismissBlockingLoading();
-	}
-	
-	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getInstance(java.lang.Class)
 	 */
 	@Override
@@ -345,54 +320,6 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getLoadingStrategy()
-	 */
-	@Override
-	public LoadingStrategy getLoadingStrategy() {
-		return fragmentHelper.getLoadingStrategy();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#isNonBlockingLoadingDisplayedByDefault()
-	 */
-	@Override
-	public Boolean isNonBlockingLoadingDisplayedByDefault() {
-		return fragmentHelper.isNonBlockingLoadingDisplayedByDefault();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
-	 */
-	@Override
-	public void showLoading() {
-		fragmentHelper.showLoading();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissLoading()
-	 */
-	@Override
-	public void dismissLoading() {
-		fragmentHelper.dismissLoading();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showNonBlockingLoading()
-	 */
-	@Override
-	public void showNonBlockingLoading() {
-		fragmentHelper.showNonBlockingLoading();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissNonBlockingLoading()
-	 */
-	@Override
-	public void dismissNonBlockingLoading() {
-		fragmentHelper.dismissNonBlockingLoading();
-	}
-	
-	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getActivityIf()
 	 */
 	@Override
@@ -471,20 +398,38 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 		return fragmentHelper.shouldTrackOnFragmentStart();
 	}
 	
+	// //////////////////////// Loading //////////////////////// //
+	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showSwipeRefreshLoading()
+	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
 	 */
 	@Override
-	public void showSwipeRefreshLoading() {
-		fragmentHelper.showSwipeRefreshLoading();
+	public void showLoading() {
+		fragmentHelper.showLoading();
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismisSwipeRefreshLoading()
+	 * @see com.jdroid.android.fragment.FragmentIf#dismissLoading()
 	 */
 	@Override
-	public void dismisSwipeRefreshLoading() {
-		fragmentHelper.dismisSwipeRefreshLoading();
+	public void dismissLoading() {
+		fragmentHelper.dismissLoading();
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#getDefaultLoading()
+	 */
+	@Override
+	public FragmentLoading getDefaultLoading() {
+		return fragmentHelper.getDefaultLoading();
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#setLoading(com.jdroid.android.loading.FragmentLoading)
+	 */
+	@Override
+	public void setLoading(FragmentLoading loading) {
+		fragmentHelper.setLoading(loading);
 	}
 	
 	/**

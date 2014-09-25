@@ -189,7 +189,7 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 		getSearchUseCase().setSearchValue(null);
 		getSearchUseCase().reset();
 		getSearchUseCase().cancel();
-		dismissBlockingLoading();
+		dismissLoading();
 		
 		if (getBaseArrayAdapter() != null) {
 			getBaseArrayAdapter().clear();
@@ -209,10 +209,10 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.AbstractListFragment#showBlockingLoading()
+	 * @see com.jdroid.android.fragment.AbstractFragment#showLoading()
 	 */
 	@Override
-	public void showBlockingLoading() {
+	public void showLoading() {
 		executeOnUIThread(new Runnable() {
 			
 			@Override
@@ -225,14 +225,6 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.AbstractListFragment#showNonBlockingLoading()
-	 */
-	@Override
-	public void showNonBlockingLoading() {
-		showBlockingLoading();
-	}
-	
-	/**
 	 * @see com.jdroid.android.fragment.AbstractListFragment#goBackOnError(java.lang.RuntimeException)
 	 */
 	@Override
@@ -241,10 +233,10 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.AbstractListFragment#dismissBlockingLoading()
+	 * @see com.jdroid.android.fragment.AbstractFragment#dismissLoading()
 	 */
 	@Override
-	public void dismissBlockingLoading() {
+	public void dismissLoading() {
 		executeOnUIThread(new Runnable() {
 			
 			@Override
@@ -254,14 +246,6 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 				}
 			}
 		});
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractListFragment#dismissNonBlockingLoading()
-	 */
-	@Override
-	public void dismissNonBlockingLoading() {
-		dismissBlockingLoading();
 	}
 	
 	@SuppressWarnings("unchecked")

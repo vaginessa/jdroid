@@ -247,7 +247,7 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 			
 			@Override
 			public void run() {
-				showBlockingLoading();
+				showLoading();
 			}
 		});
 	}

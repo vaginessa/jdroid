@@ -12,7 +12,7 @@ import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
-import com.jdroid.android.loading.LoadingDialogBuilder;
+import com.jdroid.android.loading.ActivityLoading;
 
 /**
  * Base {@link Activity}
@@ -190,30 +190,6 @@ public abstract class AbstractActivity extends Activity implements ActivityIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showBlockingLoading()
-	 */
-	@Override
-	public void showBlockingLoading() {
-		activityHelper.showBlockingLoading();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showBlockingLoading(com.jdroid.android.loading.LoadingDialogBuilder)
-	 */
-	@Override
-	public void showBlockingLoading(LoadingDialogBuilder builder) {
-		activityHelper.showBlockingLoading(builder);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissBlockingLoading()
-	 */
-	@Override
-	public void dismissBlockingLoading() {
-		activityHelper.dismissBlockingLoading();
-	}
-	
-	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#inflate(int)
 	 */
 	@Override
@@ -362,6 +338,56 @@ public abstract class AbstractActivity extends Activity implements ActivityIf {
 	@Override
 	public void displayInterstitial(Boolean retryIfNotLoaded) {
 		activityHelper.displayInterstitial(retryIfNotLoaded);
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ComponentIf#executeOnUIThread(java.lang.Runnable)
+	 */
+	@Override
+	public void executeOnUIThread(Runnable runnable) {
+		activityHelper.executeOnUIThread(runnable);
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#isActivityDestroyed()
+	 */
+	@Override
+	public Boolean isActivityDestroyed() {
+		return activityHelper.isActivityDestroyed();
+	}
+	
+	// //////////////////////// Loading //////////////////////// //
+	
+	/**
+	 * @see com.jdroid.android.activity.ComponentIf#showLoading()
+	 */
+	@Override
+	public void showLoading() {
+		activityHelper.showLoading();
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ComponentIf#dismissLoading()
+	 */
+	@Override
+	public void dismissLoading() {
+		activityHelper.dismissLoading();
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#getDefaultLoading()
+	 */
+	@Override
+	public ActivityLoading getDefaultLoading() {
+		return activityHelper.getDefaultLoading();
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#setLoading(com.jdroid.android.loading.ActivityLoading)
+	 */
+	@Override
+	public void setLoading(ActivityLoading loading) {
+		activityHelper.setLoading(loading);
 	}
 	
 }

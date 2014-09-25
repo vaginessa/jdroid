@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -42,8 +41,8 @@ import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
-import com.jdroid.android.loading.DefaultLoadingDialogBuilder;
-import com.jdroid.android.loading.LoadingDialogBuilder;
+import com.jdroid.android.loading.ActivityLoading;
+import com.jdroid.android.loading.DefaultBlockingLoading;
 import com.jdroid.android.location.LocationHelper;
 import com.jdroid.android.navdrawer.NavDrawerAdapter;
 import com.jdroid.android.navdrawer.NavDrawerItem;
@@ -65,10 +64,11 @@ public class ActivityHelper implements ActivityIf {
 	private static final String TITLE_KEY = "title";
 	
 	private Activity activity;
-	protected Dialog loadingDialog;
 	private Handler locationHandler;
 	private AdHelper adHelper;
 	private boolean isDestoyed = false;
+	
+	private ActivityLoading loading;
 	
 	private String title;
 	
@@ -376,7 +376,7 @@ public class ActivityHelper implements ActivityIf {
 	
 	public void onSaveInstanceState(Bundle outState) {
 		LOGGER.trace("Executing onSaveInstanceState on " + activity);
-		dismissBlockingLoading();
+		dismissLoading();
 		outState.putString(TITLE_KEY, title);
 	}
 	
@@ -505,7 +505,7 @@ public class ActivityHelper implements ActivityIf {
 	public void onDestroy() {
 		isDestoyed = true;
 		LOGGER.trace("Executing onDestroy on " + activity);
-		dismissBlockingLoading();
+		dismissLoading();
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -592,48 +592,6 @@ public class ActivityHelper implements ActivityIf {
 	@Override
 	public Intent getUpIntent() {
 		return null;
-	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#showBlockingLoading()
-	 */
-	@Override
-	public void showBlockingLoading() {
-		showBlockingLoading(new DefaultLoadingDialogBuilder());
-	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#showBlockingLoading(com.jdroid.android.loading.LoadingDialogBuilder)
-	 */
-	@Override
-	public void showBlockingLoading(final LoadingDialogBuilder builder) {
-		activity.runOnUiThread(new Runnable() {
-			
-			@Override
-			public void run() {
-				if (!isDestoyed && ((loadingDialog == null) || (!loadingDialog.isShowing()))) {
-					loadingDialog = builder.build(activity);
-					loadingDialog.show();
-				}
-			}
-		});
-	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#dismissBlockingLoading()
-	 */
-	@Override
-	public void dismissBlockingLoading() {
-		activity.runOnUiThread(new Runnable() {
-			
-			@Override
-			public void run() {
-				if (loadingDialog != null) {
-					loadingDialog.dismiss();
-					loadingDialog = null;
-				}
-			}
-		});
 	}
 	
 	/**
@@ -774,4 +732,68 @@ public class ActivityHelper implements ActivityIf {
 	public Boolean shouldTrackOnFragmentStart() {
 		return false;
 	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ComponentIf#executeOnUIThread(java.lang.Runnable)
+	 */
+	@Override
+	public void executeOnUIThread(Runnable runnable) {
+		if (activity.equals(AbstractApplication.get().getCurrentActivity())) {
+			activity.runOnUiThread(runnable);
+		}
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#isActivityDestroyed()
+	 */
+	@Override
+	public Boolean isActivityDestroyed() {
+		return isDestoyed;
+	}
+	
+	// //////////////////////// Loading //////////////////////// //
+	
+	/**
+	 * @see com.jdroid.android.activity.ComponentIf#showLoading()
+	 */
+	@Override
+	public void showLoading() {
+		executeOnUIThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				if (loading == null) {
+					loading = getActivityIf().getDefaultLoading();
+				}
+				loading.show(getActivityIf());
+			}
+		});
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ComponentIf#dismissLoading()
+	 */
+	@Override
+	public void dismissLoading() {
+		executeOnUIThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				if (loading != null) {
+					loading.dismiss(getActivityIf());
+				}
+			}
+		});
+	}
+	
+	@Override
+	public ActivityLoading getDefaultLoading() {
+		return new DefaultBlockingLoading();
+	}
+	
+	@Override
+	public void setLoading(ActivityLoading loading) {
+		this.loading = loading;
+	}
+	
 }
