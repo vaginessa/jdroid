@@ -72,7 +72,7 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * Loading & Refresh
  * Blocking loading dialog
  * Non blocking loading component
- * Swipe to refresh component
+ * [Swipe to refresh support] (http://developer.android.com/reference/android/support/v4/widget/SwipeRefreshLayout.html)
  * Refresh action provider component
 * Rate me component
 * Picture import (From camera or gallery) component
