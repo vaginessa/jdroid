@@ -69,11 +69,14 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * House ads support
 * Base Activity & Fragment implementations
 * ListView & GridView pagination support
+* Loading & Refresh
+ * Blocking loading dialog
+ * Non blocking loading component
+ * Swipe to refresh component
+ * Refresh action provider component
 * Rate me component
 * Picture import (From camera or gallery) component
 * Barcode reading component
-* Pull to refresh component
-* Refresh action provider component
 * Coverflow component
 * Voice Recognizer component
 * Date & Time picker components
