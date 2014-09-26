@@ -61,7 +61,10 @@ public class UriMapper {
 		Intent intent = getIntentFromUri(activity, uri);
 		
 		AppLoadingSource appLoadingSource = null;
-		if (uri.getScheme().startsWith("http")) {
+		if (uri.getScheme() == null) {
+			appLoadingSource = AppLoadingSource.NORMAL;
+			AbstractApplication.get().getExceptionHandler().logWarningException("Uri not supported: " + uri.toString());
+		} else if (uri.getScheme().startsWith("http")) {
 			appLoadingSource = AppLoadingSource.URL;
 		} else {
 			appLoadingSource = AppLoadingSource.DEEPLINK;
