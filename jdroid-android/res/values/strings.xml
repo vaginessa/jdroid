@@ -83,5 +83,6 @@
 	<!-- Map -->
 	<string name="driving">Driving</string>
 	<string name="walking">Walking</string>
+	<string name="updateGooglePlayServices">Por favor actualice la aplicación de Google Play Services para poder visualizar los mapas</string>
 
 </resources>

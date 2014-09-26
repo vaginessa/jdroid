@@ -47,4 +47,15 @@
 	<string name="infoToastMessage">This is an info Toast</string>
 	<string name="warningToastMessage">This is a warning Toast</string>
 	<string name="errorToastMessage">This is an error Toast</string>
+
+	<!-- Loading -->
+	<string name="loading">Loading</string>
+	<string name="blockingLoading">Blocking Loading</string>
+	<string name="defaultBlockingLoading">Default Blocking Loading</string>
+	<string name="customBlockingLoading">Custom Blocking Loading</string>
+	<string name="showLoading">Show Loading</string>
+	<string name="dismissLoading">Dismiss Loading</string>
+	<string name="nonBlockingLoading">Non Blocking Loading</string>
+	<string name="swipeRefresLoading">Swipe Refresh Loading</string>
+
 </resources>

@@ -93,8 +93,11 @@
 										while(applicationIterator.hasNext()) {
 											def applicationChildren = applicationIterator.next()
 											if (applicationChildren.name() == 'meta-data') {
+											
 													def metaDataAttributes = applicationChildren.attributes()
-													if (metaDataAttributes[ns.name] == "com.crashlytics.ApiKey") {
+													if (metaDataAttributes[ns.name] == "com.google.android.maps.v2.API_KEY") {
+														metaDataAttributes[ns.value] = "${maps.api.key}"
+													} else if (metaDataAttributes[ns.name] == "com.crashlytics.ApiKey") {
 														if ("${crashlytics.enabled}" == "true") {
 															metaDataAttributes[ns.value] = "${crashlytics.apikey}"
 														}
@@ -220,6 +223,7 @@
 				<server.name>DEV</server.name>
 				<google.analytics.enabled>false</google.analytics.enabled>
 				<crashlytics.enabled>false</crashlytics.enabled>
+				<maps.api.key>AIzaSyDhgOTyv5EqcYckAnPI1Cdms-1DxBYhjjA</maps.api.key>
 				<android.manifest.debuggable>true</android.manifest.debuggable>
 				<android.sign.debug>true</android.sign.debug>
 				<android.zipalign.skip>true</android.zipalign.skip>
@@ -246,6 +250,7 @@
 				<google.analytics.debug.enabled>false</google.analytics.debug.enabled>
 				<crashlytics.enabled>true</crashlytics.enabled>
 				<crashlytics.debug.enabled>false</crashlytics.debug.enabled>
+				<maps.api.key>AIzaSyDhgOTyv5EqcYckAnPI1Cdms-1DxBYhjjA</maps.api.key>
 				<android.manifest.debuggable>true</android.manifest.debuggable>
 				<android.sign.debug>true</android.sign.debug>
 				<android.zipalign.skip>true</android.zipalign.skip>
@@ -268,6 +273,7 @@
 				<google.analytics.debug.enabled>false</google.analytics.debug.enabled>
 				<crashlytics.enabled>true</crashlytics.enabled>
 				<crashlytics.debug.enabled>false</crashlytics.debug.enabled>
+				<maps.api.key>AIzaSyDhgOTyv5EqcYckAnPI1Cdms-1DxBYhjjA</maps.api.key>
 				<android.manifest.debuggable>true</android.manifest.debuggable>
 				<android.sign.debug>true</android.sign.debug>
 				<android.zipalign.skip>true</android.zipalign.skip>
@@ -303,6 +309,7 @@
 				<crashlytics.apikey>478dae49374362f33bc054fc44d1f4242c574ccb</crashlytics.apikey>
 				<crashlytics.enabled>true</crashlytics.enabled>
 				<crashlytics.debug.enabled>false</crashlytics.debug.enabled>
+				<maps.api.key>AIzaSyDhgOTyv5EqcYckAnPI1Cdms-1DxBYhjjA</maps.api.key>
 				<android.manifest.debuggable>true</android.manifest.debuggable>
 				<android.sign.debug>true</android.sign.debug>
 				<android.zipalign.skip>true</android.zipalign.skip>

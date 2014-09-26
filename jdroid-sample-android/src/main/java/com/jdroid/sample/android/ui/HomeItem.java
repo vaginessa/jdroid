@@ -9,6 +9,8 @@ import com.jdroid.sample.android.imageloader.ImageLoaderActivity;
 import com.jdroid.sample.android.ui.ads.AdsActivity;
 import com.jdroid.sample.android.ui.analytics.AnalyticsActivity;
 import com.jdroid.sample.android.ui.exceptions.ExceptionHandlingActivity;
+import com.jdroid.sample.android.ui.loading.LoadingActivity;
+import com.jdroid.sample.android.ui.maps.MapActivity;
 import com.jdroid.sample.android.ui.notifications.NotificationsActivity;
 import com.jdroid.sample.android.ui.toasts.ToastsActivity;
 
@@ -20,9 +22,10 @@ public enum HomeItem implements ActionItem {
 	EXCEPTION_HANDLING(R.string.exceptionHandling, R.drawable.default_item_selector, ExceptionHandlingActivity.class),
 	GOOGLE_ANALYTCS(R.string.googleAnalytics, R.drawable.default_item_selector, AnalyticsActivity.class),
 	GCM(R.string.gcm, R.drawable.default_item_selector, ImageLoaderActivity.class),
-	GOOGLE_MAPS(R.string.googleMaps, R.drawable.default_item_selector, ImageLoaderActivity.class),
+	GOOGLE_MAPS(R.string.googleMaps, R.drawable.default_item_selector, MapActivity.class),
 	GOOGLE_PLUS(R.string.googlePlus, R.drawable.default_item_selector, ImageLoaderActivity.class),
 	IN_APP_BILLING(R.string.inAppBilling, R.drawable.default_item_selector, ImageLoaderActivity.class),
+	LOADING(R.string.loading, R.drawable.default_item_selector, LoadingActivity.class),
 	MERGE_ADAPTER(R.string.mergeAdapter, R.drawable.default_item_selector, ImageLoaderActivity.class),
 	NOTIFICATIONS(R.string.notifications, R.drawable.default_item_selector, NotificationsActivity.class),
 	TOASTS(R.string.toasts, R.drawable.default_item_selector, ToastsActivity.class);
