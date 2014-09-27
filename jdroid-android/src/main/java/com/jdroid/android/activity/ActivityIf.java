@@ -31,10 +31,6 @@ public interface ActivityIf extends ComponentIf {
 	
 	public Long getLocationFrequency();
 	
-	public Boolean isNavDrawerEnabled();
-	
-	public Boolean isNavDrawerTopLevelView();
-	
 	public List<Integer> getContextualMenuItemsIds();
 	
 	public Intent getUpIntent();
@@ -43,9 +39,18 @@ public interface ActivityIf extends ComponentIf {
 	
 	public void displayInterstitial(Boolean retryIfNotLoaded);
 	
+	public Boolean isActivityDestroyed();
+	
+	// //////////////////////// Loading //////////////////////// //
+	
 	public ActivityLoading getDefaultLoading();
 	
 	public void setLoading(ActivityLoading loading);
 	
-	public Boolean isActivityDestroyed();
+	// //////////////////////// Navigation Drawer //////////////////////// //
+	
+	public Boolean isNavDrawerEnabled();
+	
+	public Boolean isNavDrawerTopLevelView();
+	
 }

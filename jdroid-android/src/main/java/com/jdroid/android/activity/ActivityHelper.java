@@ -278,24 +278,27 @@ public class ActivityHelper implements ActivityIf {
 				drawerLayout.setDrawerListener(drawerListener);
 			}
 			
-			ExecutorUtils.schedule(new Runnable() {
-				
-				@Override
-				public void run() {
-					navDrawerManuallyUsed = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(
-						NAV_DRAWER_MANUALLY_USED, false);
-					activity.runOnUiThread(new Runnable() {
-						
-						@Override
-						public void run() {
-							String action = activity.getIntent().getAction();
-							if (!navDrawerManuallyUsed && Intent.ACTION_MAIN.equals(action)) {
-								drawerLayout.openDrawer(drawerList);
+			if (isNavDrawerOpenedOnFirstSession()) {
+				ExecutorUtils.schedule(new Runnable() {
+					
+					@Override
+					public void run() {
+						navDrawerManuallyUsed = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(
+							NAV_DRAWER_MANUALLY_USED, false);
+						activity.runOnUiThread(new Runnable() {
+							
+							@Override
+							public void run() {
+								String action = activity.getIntent().getAction();
+								if (!navDrawerManuallyUsed && Intent.ACTION_MAIN.equals(action)) {
+									drawerLayout.openDrawer(drawerList);
+								}
 							}
-						}
-					});
-				}
-			}, 1L);
+						});
+					}
+				}, 1L);
+			}
+			
 		}
 		
 		if (savedInstanceState == null) {
@@ -313,37 +316,6 @@ public class ActivityHelper implements ActivityIf {
 	
 	private String getMockedFullname() {
 		return "Tony Stark";
-	}
-	
-	private void saveNavDrawerManuallyUsed() {
-		if ((navDrawerManuallyUsed == null) || !navDrawerManuallyUsed) {
-			ExecutorUtils.execute(new Runnable() {
-				
-				@Override
-				public void run() {
-					SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
-					Editor editor = sharedPreferences.edit();
-					editor.putBoolean(NAV_DRAWER_MANUALLY_USED, true);
-					editor.commit();
-					navDrawerManuallyUsed = true;
-				}
-			});
-		}
-	}
-	
-	protected void onNavDrawerHeaderClick() {
-		// Do nothing
-	}
-	
-	private void selectNavDrawerItem(int position) {
-		NavDrawerItem navDrawerItem = (NavDrawerItem)drawerList.getAdapter().getItem(position);
-		if (!navDrawerItem.matchesActivity((FragmentActivity)activity)) {
-			navDrawerItem.startActivity((FragmentActivity)activity);
-		}
-		
-		// update selected item and title, then close the drawer
-		drawerList.setItemChecked(position, true);
-		drawerLayout.closeDrawer(drawerList);
 	}
 	
 	public void onPostCreate(Bundle savedInstanceState) {
@@ -670,36 +642,6 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.activity.ActivityIf#isNavDrawerEnabled()
-	 */
-	@Override
-	public Boolean isNavDrawerEnabled() {
-		return false;
-	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#isNavDrawerTopLevelView()
-	 */
-	@Override
-	public Boolean isNavDrawerTopLevelView() {
-		return false;
-	}
-	
-	public List<NavDrawerItem> getNavDrawerItems() {
-		return null;
-	}
-	
-	private List<NavDrawerItem> getVisibleNavDrawerItems() {
-		List<NavDrawerItem> visibleNavDrawerItems = Lists.newArrayList();
-		for (NavDrawerItem each : getNavDrawerItems()) {
-			if (each.isVisible()) {
-				visibleNavDrawerItems.add(each);
-			}
-		}
-		return visibleNavDrawerItems;
-	}
-	
-	/**
 	 * @see com.jdroid.android.activity.ActivityIf#getContextualMenuItemsIds()
 	 */
 	@Override
@@ -786,14 +728,87 @@ public class ActivityHelper implements ActivityIf {
 		});
 	}
 	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#getDefaultLoading()
+	 */
 	@Override
 	public ActivityLoading getDefaultLoading() {
 		return new DefaultBlockingLoading();
 	}
 	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#setLoading(com.jdroid.android.loading.ActivityLoading)
+	 */
 	@Override
 	public void setLoading(ActivityLoading loading) {
 		this.loading = loading;
+	}
+	
+	// //////////////////////// Navigation Drawer //////////////////////// //
+	
+	private void saveNavDrawerManuallyUsed() {
+		if ((navDrawerManuallyUsed == null) || !navDrawerManuallyUsed) {
+			ExecutorUtils.execute(new Runnable() {
+				
+				@Override
+				public void run() {
+					SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
+					Editor editor = sharedPreferences.edit();
+					editor.putBoolean(NAV_DRAWER_MANUALLY_USED, true);
+					editor.commit();
+					navDrawerManuallyUsed = true;
+				}
+			});
+		}
+	}
+	
+	protected void onNavDrawerHeaderClick() {
+		// Do nothing
+	}
+	
+	private void selectNavDrawerItem(int position) {
+		NavDrawerItem navDrawerItem = (NavDrawerItem)drawerList.getAdapter().getItem(position);
+		if (!navDrawerItem.matchesActivity((FragmentActivity)activity)) {
+			navDrawerItem.startActivity((FragmentActivity)activity);
+		}
+		
+		// update selected item and title, then close the drawer
+		drawerList.setItemChecked(position, true);
+		drawerLayout.closeDrawer(drawerList);
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#isNavDrawerEnabled()
+	 */
+	@Override
+	public Boolean isNavDrawerEnabled() {
+		return false;
+	}
+	
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#isNavDrawerTopLevelView()
+	 */
+	@Override
+	public Boolean isNavDrawerTopLevelView() {
+		return false;
+	}
+	
+	public List<NavDrawerItem> getNavDrawerItems() {
+		return null;
+	}
+	
+	private List<NavDrawerItem> getVisibleNavDrawerItems() {
+		List<NavDrawerItem> visibleNavDrawerItems = Lists.newArrayList();
+		for (NavDrawerItem each : getNavDrawerItems()) {
+			if (each.isVisible()) {
+				visibleNavDrawerItems.add(each);
+			}
+		}
+		return visibleNavDrawerItems;
+	}
+	
+	public Boolean isNavDrawerOpenedOnFirstSession() {
+		return true;
 	}
 	
 }
