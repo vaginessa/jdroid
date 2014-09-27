@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+	<!-- Text -->
+	<color name="textColor">@android:color/white</color>
+
 	<!-- Action Bar -->
 	<color name="actionBarBackground">#009688</color>
 	<color name="actionBarText">@android:color/white</color>
