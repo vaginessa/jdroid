@@ -6,8 +6,6 @@ import com.jdroid.android.fragment.FragmentIf;
 
 public class SwipeRefreshLoading implements FragmentLoading {
 	
-	private SwipeRefreshLayout swipeRefreshLayout;
-	
 	private Integer colorRes1;
 	private Integer colorRes2;
 	private Integer colorRes3;
@@ -18,12 +16,10 @@ public class SwipeRefreshLoading implements FragmentLoading {
 	 */
 	@Override
 	public void show(FragmentIf fragmentIf) {
-		if (swipeRefreshLayout == null) {
-			swipeRefreshLayout = fragmentIf.findView(R.id.swipeRefreshLayout);
-			swipeRefreshLayout.setOnRefreshListener(fragmentIf);
-			if ((colorRes1 != null) && (colorRes2 != null) && (colorRes3 != null) && (colorRes4 != null)) {
-				swipeRefreshLayout.setColorSchemeResources(colorRes1, colorRes2, colorRes3, colorRes4);
-			}
+		SwipeRefreshLayout swipeRefreshLayout = fragmentIf.findView(R.id.swipeRefreshLayout);
+		swipeRefreshLayout.setOnRefreshListener(fragmentIf);
+		if ((colorRes1 != null) && (colorRes2 != null) && (colorRes3 != null) && (colorRes4 != null)) {
+			swipeRefreshLayout.setColorSchemeResources(colorRes1, colorRes2, colorRes3, colorRes4);
 		}
 		swipeRefreshLayout.setRefreshing(true);
 	}
@@ -33,6 +29,7 @@ public class SwipeRefreshLoading implements FragmentLoading {
 	 */
 	@Override
 	public void dismiss(FragmentIf fragmentIf) {
+		SwipeRefreshLayout swipeRefreshLayout = fragmentIf.findView(R.id.swipeRefreshLayout);
 		swipeRefreshLayout.setRefreshing(false);
 	}
 	

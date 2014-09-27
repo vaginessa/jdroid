@@ -13,17 +13,11 @@ public class DefaultBlockingLoading extends BlockingLoading {
 	 */
 	@Override
 	public void show(final ActivityIf activityIf) {
-		activityIf.executeOnUIThread(new Runnable() {
-			
-			@Override
-			public void run() {
-				if (!activityIf.isActivityDestroyed() && ((loadingDialog == null) || (!loadingDialog.isShowing()))) {
-					loadingDialog = new LoadingDialog((Context)activityIf);
-					loadingDialog.setCancelable(isCancelable());
-					loadingDialog.show();
-				}
-			}
-		});
+		if (!activityIf.isActivityDestroyed() && ((loadingDialog == null) || (!loadingDialog.isShowing()))) {
+			loadingDialog = new LoadingDialog((Context)activityIf);
+			loadingDialog.setCancelable(isCancelable());
+			loadingDialog.show();
+		}
 	}
 	
 	/**
@@ -31,15 +25,9 @@ public class DefaultBlockingLoading extends BlockingLoading {
 	 */
 	@Override
 	public void dismiss(ActivityIf activityIf) {
-		activityIf.executeOnUIThread(new Runnable() {
-			
-			@Override
-			public void run() {
-				if (loadingDialog != null) {
-					loadingDialog.dismiss();
-					loadingDialog = null;
-				}
-			}
-		});
+		if (loadingDialog != null) {
+			loadingDialog.dismiss();
+			loadingDialog = null;
+		}
 	}
 }

@@ -5,7 +5,6 @@ import com.jdroid.android.fragment.FragmentIf;
 
 public class NonBlockingLoading implements FragmentLoading {
 	
-	private LoadingLayout loadingLayout;
 	private Boolean isNonBlockingLoadingDisplayedByDefault = true;
 	
 	/**
@@ -13,10 +12,8 @@ public class NonBlockingLoading implements FragmentLoading {
 	 */
 	@Override
 	public void show(final FragmentIf fragmentIf) {
-		if (loadingLayout == null) {
-			loadingLayout = fragmentIf.findView(R.id.loadingLayout);
-			loadingLayout.setLoading(isNonBlockingLoadingDisplayedByDefault);
-		}
+		LoadingLayout loadingLayout = fragmentIf.findView(R.id.loadingLayout);
+		loadingLayout.setLoading(isNonBlockingLoadingDisplayedByDefault);
 		loadingLayout.showLoading(fragmentIf);
 	}
 	
@@ -25,6 +22,7 @@ public class NonBlockingLoading implements FragmentLoading {
 	 */
 	@Override
 	public void dismiss(final FragmentIf fragmentIf) {
+		LoadingLayout loadingLayout = fragmentIf.findView(R.id.loadingLayout);
 		loadingLayout.dismissLoading(fragmentIf);
 	}
 	
