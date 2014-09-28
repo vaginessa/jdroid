@@ -5,8 +5,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.UnexpectedException;
 
 /**
@@ -145,19 +147,21 @@ public abstract class DateUtils {
 	
 	public enum DayOfWeek {
 		
-		SUNDAY("Sunday", true),
-		MONDAY("Monday", false),
-		TUESDAY("Tuesday", false),
-		WEDNESDAY("Wednesday", false),
-		THURSDAY("Thursday", false),
-		FRIDAY("Friday", false),
-		SATURDAY("Saturday", true);
+		SUNDAY("Sunday", 1, true),
+		MONDAY("Monday", 2, false),
+		TUESDAY("Tuesday", 3, false),
+		WEDNESDAY("Wednesday", 4, false),
+		THURSDAY("Thursday", 5, false),
+		FRIDAY("Friday", 6, false),
+		SATURDAY("Saturday", 7, true);
 		
 		private String name;
+		private int number;
 		private Boolean weekend;
 		
-		private DayOfWeek(String name, Boolean weekend) {
+		private DayOfWeek(String name, int number, Boolean weekend) {
 			this.name = name;
+			this.number = number;
 			this.weekend = weekend;
 		}
 		
@@ -165,9 +169,36 @@ public abstract class DateUtils {
 			return weekend;
 		}
 		
+		public static DayOfWeek findByNumber(int number) {
+			for (DayOfWeek each : values()) {
+				if (each.getNumber() == number) {
+					return each;
+				}
+			}
+			return null;
+		}
+		
+		public DayOfWeek getNextDay() {
+			return findByNumber((number % 7) + 1);
+		}
+		
+		public static List<DayOfWeek> getWeekDays() {
+			List<DayOfWeek> weekDays = Lists.newArrayList();
+			for (DayOfWeek each : DayOfWeek.values()) {
+				if (!each.isWeekend()) {
+					weekDays.add(each);
+				}
+			}
+			return weekDays;
+		}
+		
 		@Override
 		public String toString() {
 			return name;
+		}
+		
+		public int getNumber() {
+			return number;
 		}
 	}
 	
@@ -351,11 +382,15 @@ public abstract class DateUtils {
 		return calendar.get(Calendar.MINUTE);
 	}
 	
+	public static DayOfWeek getWeekDay() {
+		return getWeekDay(DateUtils.now());
+	}
+	
 	public static DayOfWeek getWeekDay(Date date) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-		return DayOfWeek.values()[dayOfWeek - 1];
+		return DayOfWeek.findByNumber(dayOfWeek);
 	}
 	
 	public static Date addSeconds(Date date, int seconds) {
