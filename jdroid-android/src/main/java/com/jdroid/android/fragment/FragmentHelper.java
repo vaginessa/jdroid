@@ -72,6 +72,13 @@ public class FragmentHelper implements FragmentIf {
 			adHelper.loadAd(fragment.getActivity(), (ViewGroup)(fragment.getView().findViewById(R.id.adViewContainer)),
 				getFragmentIf().getAdSize(), getHouseAdBuilder(), false);
 		}
+		
+		if (loading == null) {
+			loading = getFragmentIf().getDefaultLoading();
+		}
+		if (loading != null) {
+			loading.onViewCreated(getFragmentIf());
+		}
 	}
 	
 	protected AdHelper createAdLoader() {
@@ -400,9 +407,6 @@ public class FragmentHelper implements FragmentIf {
 				
 				@Override
 				public void run() {
-					if (loading == null) {
-						loading = fragmentIf.getDefaultLoading();
-					}
 					if (loading != null) {
 						loading.show(fragmentIf);
 					} else {

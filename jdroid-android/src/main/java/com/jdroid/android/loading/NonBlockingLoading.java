@@ -8,6 +8,14 @@ public class NonBlockingLoading implements FragmentLoading {
 	private Boolean isNonBlockingLoadingDisplayedByDefault = true;
 	
 	/**
+	 * @see com.jdroid.android.loading.FragmentLoading#onViewCreated(com.jdroid.android.fragment.FragmentIf)
+	 */
+	@Override
+	public void onViewCreated(FragmentIf fragmentIf) {
+		// Do nothing
+	}
+	
+	/**
 	 * @see com.jdroid.android.loading.FragmentLoading#show(com.jdroid.android.fragment.FragmentIf)
 	 */
 	@Override
