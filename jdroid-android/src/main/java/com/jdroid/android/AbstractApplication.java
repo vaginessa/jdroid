@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
@@ -15,6 +16,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -93,6 +96,8 @@ public abstract class AbstractApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		
+		changeLocale();
 		
 		LoggerUtils.setEnabled(isDebuggable());
 		LOGGER = LoggerUtils.getLogger(AbstractApplication.class);
@@ -408,5 +413,32 @@ public abstract class AbstractApplication extends Application {
 	
 	public Class<? extends AbstractPreferenceFragment> getDebugSettingsFragmentClass() {
 		return DebugSettingsFragment.class;
+	}
+	
+	protected String getFixedLocaleCountryCode() {
+		return null;
+	}
+	
+	public void changeLocale() {
+		
+		String countryCode = getFixedLocaleCountryCode();
+		
+		if (countryCode != null) {
+			Locale locale = new Locale(countryCode);
+			Locale.setDefault(locale);
+			
+			Context baseContext = getBaseContext();
+			if (baseContext != null) {
+				Resources resources = baseContext.getResources();
+				if (resources != null) {
+					Configuration config = resources.getConfiguration();
+					if (config != null) {
+						config.locale = locale;
+						resources.updateConfiguration(config, getResources().getDisplayMetrics());
+					}
+				}
+			}
+		}
+		
 	}
 }

@@ -132,6 +132,8 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.trace("Executing onCreate on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 		
+		AbstractApplication.get().changeLocale();
+		
 		AbstractApplication.get().initExceptionHandlers();
 		
 		// Action bar
