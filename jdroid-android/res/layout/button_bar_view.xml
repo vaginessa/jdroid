@@ -10,7 +10,7 @@
 
 		<RelativeLayout android:id="@+id/negativeButton" android:layout_width="0dp" android:layout_height="match_parent"
 			android:background="@drawable/default_item_selector" android:layout_weight="1">
-			<TextView android:id="@+id/negativeButtonText" style="@style/buttonBarText" android:drawableLeft="@drawable/cancel"
+			<TextView android:id="@+id/negativeButtonText" style="@style/buttonBarText" android:drawableLeft="@drawable/ic_cancel"
 				android:text="@string/cancel" />
 		</RelativeLayout>
 
@@ -19,7 +19,7 @@
 
 		<RelativeLayout android:id="@+id/positiveButton" android:layout_width="0dp" android:layout_height="match_parent"
 			android:background="@drawable/default_item_selector" android:layout_weight="1">
-			<TextView android:id="@+id/positiveButtonText" style="@style/buttonBarText" android:drawableLeft="@drawable/ok"
+			<TextView android:id="@+id/positiveButtonText" style="@style/buttonBarText" android:drawableLeft="@drawable/ic_ok"
 				android:text="@string/ok" />
 		</RelativeLayout>
 
