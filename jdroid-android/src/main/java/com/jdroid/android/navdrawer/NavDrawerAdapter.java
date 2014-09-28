@@ -26,12 +26,17 @@ public class NavDrawerAdapter extends BaseHolderArrayAdapter<NavDrawerItem, NavD
 		if (item.getNameResource() != null) {
 			holder.name.setText(item.getNameResource());
 		}
+		
 		if (item.isMainAction()) {
 			holder.name.setTextSize(18);
 			holder.convertView.setBackgroundResource(R.drawable.nav_drawer_main_item_selector);
+			holder.convertView.setMinimumHeight(getContext().getResources().getDimensionPixelSize(
+				R.dimen.nav_drawer_main_min_height));
 		} else {
 			holder.name.setTextSize(16);
 			holder.convertView.setBackgroundResource(R.drawable.nav_drawer_secondary_item_selector);
+			holder.convertView.setMinimumHeight(getContext().getResources().getDimensionPixelSize(
+				R.dimen.nav_drawer_secondary_min_height));
 		}
 	}
 	
