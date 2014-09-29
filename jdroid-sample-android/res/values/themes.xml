@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<style name="appTheme" parent="@android:style/Theme.Holo">
+	<style name="appTheme" parent="jdroidAppTheme">
+		<item name="android:actionBarStyle">@style/appActionBar</item>
+	</style>
 
+	<style name="appActionBar" parent="@style/actionBar">
+	</style>
+
+	<style name="appThemeWithActionBarButtons" parent="appTheme">
 	</style>
 
 </resources>

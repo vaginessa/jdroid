@@ -16,19 +16,18 @@ import com.jdroid.sample.android.ui.toasts.ToastsActivity;
 
 public enum HomeItem implements ActionItem {
 	
-	ADMOB(R.string.adMob, R.drawable.default_item_selector, AdsActivity.class),
-	ANDROID_UNVERSAL_IMAGE_LOADER(R.string.universalImageLoader, R.drawable.default_item_selector,
-			ImageLoaderActivity.class),
-	EXCEPTION_HANDLING(R.string.exceptionHandling, R.drawable.default_item_selector, ExceptionHandlingActivity.class),
-	GOOGLE_ANALYTCS(R.string.googleAnalytics, R.drawable.default_item_selector, AnalyticsActivity.class),
-	GCM(R.string.gcm, R.drawable.default_item_selector, ImageLoaderActivity.class),
-	GOOGLE_MAPS(R.string.googleMaps, R.drawable.default_item_selector, MapActivity.class),
-	GOOGLE_PLUS(R.string.googlePlus, R.drawable.default_item_selector, ImageLoaderActivity.class),
-	IN_APP_BILLING(R.string.inAppBilling, R.drawable.default_item_selector, ImageLoaderActivity.class),
-	LOADING(R.string.loading, R.drawable.default_item_selector, LoadingActivity.class),
-	MERGE_ADAPTER(R.string.mergeAdapter, R.drawable.default_item_selector, ImageLoaderActivity.class),
-	NOTIFICATIONS(R.string.notifications, R.drawable.default_item_selector, NotificationsActivity.class),
-	TOASTS(R.string.toasts, R.drawable.default_item_selector, ToastsActivity.class);
+	ADMOB(R.string.adMob, R.drawable.apps, AdsActivity.class),
+	ANDROID_UNVERSAL_IMAGE_LOADER(R.string.universalImageLoader, R.drawable.photo, ImageLoaderActivity.class),
+	EXCEPTION_HANDLING(R.string.exceptionHandling, R.drawable.bug, ExceptionHandlingActivity.class),
+	GOOGLE_ANALYTCS(R.string.googleAnalytics, R.drawable.analytics, AnalyticsActivity.class),
+	GCM(R.string.gcm, R.drawable.cloud, ImageLoaderActivity.class),
+	GOOGLE_MAPS(R.string.googleMaps, R.drawable.map, MapActivity.class),
+	GOOGLE_PLUS(R.string.googlePlus, R.drawable.google_plus, ImageLoaderActivity.class),
+	IN_APP_BILLING(R.string.inAppBilling, R.drawable.shopping_cart, ImageLoaderActivity.class),
+	LOADING(R.string.loading, R.drawable.refresh, LoadingActivity.class),
+	MERGE_ADAPTER(R.string.mergeAdapter, R.drawable.list, ImageLoaderActivity.class),
+	NOTIFICATIONS(R.string.notifications, R.drawable.notifications, NotificationsActivity.class),
+	TOASTS(R.string.toasts, R.drawable.info, ToastsActivity.class);
 	
 	private Integer resourceId;
 	private Integer iconId;

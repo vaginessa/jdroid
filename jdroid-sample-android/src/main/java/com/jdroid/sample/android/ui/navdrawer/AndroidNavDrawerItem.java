@@ -10,8 +10,8 @@ import com.jdroid.sample.android.ui.about.AboutDialogFragment;
 
 public enum AndroidNavDrawerItem implements NavDrawerItem {
 	
-	HOME(android.R.drawable.ic_menu_slideshow, R.string.home, HomeActivity.class, true),
-	ABOUT(android.R.drawable.ic_menu_info_details, R.string.about, null, false) {
+	HOME(R.drawable.home, R.string.home, HomeActivity.class, true),
+	ABOUT(R.drawable.info, R.string.about, null, false) {
 		
 		@Override
 		public void startActivity(FragmentActivity fragmentActivity) {

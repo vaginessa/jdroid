@@ -29,4 +29,12 @@ public class AndroidActivityHelper extends ActivityHelper {
 		return Lists.<NavDrawerItem>newArrayList(AndroidNavDrawerItem.values());
 	}
 	
+	/**
+	 * @see com.jdroid.android.activity.ActivityHelper#isDarkTheme()
+	 */
+	@Override
+	public Boolean isDarkTheme() {
+		return false;
+	}
+	
 }
