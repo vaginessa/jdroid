@@ -194,6 +194,12 @@
 						<inherited>true</inherited>
 						<configuration>
 							<skip>${android.sign.debug}</skip>
+							<arguments>
+  								<argument>-sigalg</argument>
+  								<argument>MD5withRSA</argument>
+  								<argument>-digestalg</argument>
+  								<argument>SHA1</argument>
+							</arguments>
 							<archiveDirectory></archiveDirectory>
 							<includes>
 								<include>${project.build.directory}/*.apk</include>
