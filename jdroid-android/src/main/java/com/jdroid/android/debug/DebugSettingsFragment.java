@@ -48,6 +48,9 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		View debugCrashView = new DebugCrashView(getActivity());
 		listView.addFooterView(debugCrashView);
 		
+		View debugImageLoaderView = new DebugImageLoaderView(getActivity());
+		listView.addFooterView(debugImageLoaderView);
+		
 		View debugInfoView = new DebugInfoView(getActivity());
 		listView.addFooterView(debugInfoView);
 		

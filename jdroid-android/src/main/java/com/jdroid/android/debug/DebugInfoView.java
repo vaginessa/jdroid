@@ -12,7 +12,6 @@ import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.ScreenUtils;
 import com.jdroid.java.context.GitContext;
 import com.jdroid.java.utils.StringUtils;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class DebugInfoView extends LinearLayout {
 	
@@ -88,20 +87,6 @@ public class DebugInfoView extends LinearLayout {
 			@Override
 			public void onClick(View v) {
 				AbstractApplication.get().cleanFileSystemCache();
-			}
-		});
-		findViewById(R.id.clearImagesDiscCache).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				ImageLoader.getInstance().clearDiskCache();
-			}
-		});
-		findViewById(R.id.clearImagesMemoryCache).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				ImageLoader.getInstance().clearMemoryCache();
 			}
 		});
 	}

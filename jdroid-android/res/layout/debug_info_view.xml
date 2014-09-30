@@ -5,10 +5,6 @@
 
 		<Button android:id="@+id/clearHttpCache" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/clearHttpCache" />
-		<Button android:id="@+id/clearImagesDiscCache" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="@string/clearImagesDiscCache" />
-		<Button android:id="@+id/clearImagesMemoryCache" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="@string/clearImagesMemoryCache" />
 
 		<TextView android:id="@+id/packageName" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/packageName" />
