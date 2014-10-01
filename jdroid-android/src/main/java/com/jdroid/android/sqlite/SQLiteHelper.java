@@ -87,7 +87,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	 * @return true if the file exits
 	 */
 	public static boolean existDatabase(Context context) {
-		File databaseFile = context.getApplicationContext().getDatabasePath(DB_NAME);
-		return databaseFile.exists();
+		return getDatabaseFile(context).exists();
+	}
+	
+	public static File getDatabaseFile(Context context) {
+		return context.getApplicationContext().getDatabasePath(DB_NAME);
 	}
 }

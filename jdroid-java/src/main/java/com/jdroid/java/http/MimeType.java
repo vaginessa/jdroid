@@ -9,5 +9,6 @@ public class MimeType {
 	public static final String XML = "application/xml";
 	public static final String JSON_UTF8 = "application/json;charset=UTF-8";
 	public static final String TORRENT = "application/x-bittorrent";
+	public static final String OCTET_STREAM = "application/octet-stream";
 	
 }

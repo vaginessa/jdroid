@@ -61,4 +61,7 @@
 	<string name="emulateGcmMessageTitle">Emulate GCM Message</string>
 	<string name="emulateGcmMessageDescription">Pick the GCM Message type to emulate</string>
 
+	<!-- Database -->
+	<string name="downloadDatabase">Download database</string>
+
 </resources>
