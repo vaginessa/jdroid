@@ -18,6 +18,7 @@ public class SwipeRefreshLoading implements FragmentLoading {
 	 */
 	@Override
 	public void onViewCreated(final FragmentIf fragmentIf) {
+		final SwipeRefreshLayout swipeRefreshLayout = getSwiteRefreshLayout(fragmentIf);
 		// Fix to this behaviour: "everytime you scroll up in that view, the SwipeRefreshLayout fires and updates,
 		// making your app unable to scroll up in a list"
 		if (fragmentIf instanceof AbstractListFragment) {
@@ -33,10 +34,11 @@ public class SwipeRefreshLoading implements FragmentLoading {
 				public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 					int topRowVerticalPosition = (abstractListFragment.getListView().getChildCount() == 0) ? 0
 							: abstractListFragment.getListView().getChildAt(0).getTop();
-					getSwiteRefreshLayout(fragmentIf).setEnabled(topRowVerticalPosition >= 0);
+					swipeRefreshLayout.setEnabled(topRowVerticalPosition >= 0);
 				}
 			});
 		}
+		swipeRefreshLayout.setOnRefreshListener(fragmentIf);
 	}
 	
 	/**
@@ -45,7 +47,6 @@ public class SwipeRefreshLoading implements FragmentLoading {
 	@Override
 	public void show(FragmentIf fragmentIf) {
 		SwipeRefreshLayout swipeRefreshLayout = getSwiteRefreshLayout(fragmentIf);
-		swipeRefreshLayout.setOnRefreshListener(fragmentIf);
 		if ((colorRes1 != null) && (colorRes2 != null) && (colorRes3 != null) && (colorRes4 != null)) {
 			swipeRefreshLayout.setColorSchemeResources(colorRes1, colorRes2, colorRes3, colorRes4);
 		}
