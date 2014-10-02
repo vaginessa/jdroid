@@ -54,6 +54,10 @@ public abstract class DateUtils {
 	 * Date format like 2010-10-25 21:30:00
 	 */
 	public static final String YYYYMMDDHHMMSS_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	/**
+	 * Date format like 2010-10-25 21:30:00.123
+	 */
+	public static final String YYYYMMDDHHMMSSSSS_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
 	
 	/**
 	 * Date format like 10/25/2010 21:30

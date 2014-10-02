@@ -25,6 +25,8 @@ import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.context.AppContext;
+import com.jdroid.android.debug.DebugLog;
+import com.jdroid.android.debug.DebugLogsRepository;
 import com.jdroid.android.debug.DebugSettingsFragment;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.ExceptionHandler;
@@ -32,6 +34,7 @@ import com.jdroid.android.fragment.AbstractPreferenceFragment;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.gcm.GcmMessageResolver;
 import com.jdroid.android.repository.UserRepository;
+import com.jdroid.android.sqlite.SQLiteHelper;
 import com.jdroid.android.utils.AndroidEncryptionUtils;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.ImageLoaderUtils;
@@ -400,10 +403,31 @@ public abstract class AbstractApplication extends Application {
 	
 	private void initRepositories() {
 		repositories = new HashMap<Class<? extends Identifiable>, Repository<? extends Identifiable>>();
+		
 		initRepositories(repositories);
+		
+		if (isDatabaseEnabled()) {
+			SQLiteHelper dbHelper = new SQLiteHelper(this);
+			if (isDebugLogRepositoryEnabled() && !appContext.isProductionEnvironment()) {
+				repositories.put(DebugLog.class, new DebugLogsRepository(dbHelper));
+			}
+			initDatabaseRepositories(repositories, dbHelper);
+		}
 	}
 	
 	protected void initRepositories(Map<Class<? extends Identifiable>, Repository<? extends Identifiable>> repositories) {
+	}
+	
+	protected void initDatabaseRepositories(
+			Map<Class<? extends Identifiable>, Repository<? extends Identifiable>> repositories, SQLiteHelper dbHelper) {
+	}
+	
+	protected Boolean isDatabaseEnabled() {
+		return false;
+	}
+	
+	protected Boolean isDebugLogRepositoryEnabled() {
+		return false;
 	}
 	
 	@SuppressWarnings("unchecked")

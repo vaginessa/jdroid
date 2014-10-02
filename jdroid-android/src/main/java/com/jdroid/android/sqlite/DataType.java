@@ -183,6 +183,29 @@ public enum DataType {
 		}
 		
 	},
+	DATE_MILLISECONDS("TEXT") {
+		
+		@Override
+		public <T> void writeValue(ContentValues values, String columnName, T value) {
+			if (value != null) {
+				values.put(columnName, DateUtils.format((Date)value, DateUtils.YYYYMMDDHHMMSSSSS_DATE_FORMAT));
+			} else {
+				values.putNull(columnName);
+			}
+		}
+		
+		@SuppressWarnings("unchecked")
+		@Override
+		public Date readValue(Cursor cursor, String columnName) {
+			int columnIndex = cursor.getColumnIndex(columnName);
+			if (cursor.isNull(columnIndex)) {
+				return null;
+			}
+			String date = cursor.getString(columnIndex);
+			return DateUtils.parse(date, DateUtils.YYYYMMDDHHMMSSSSS_DATE_FORMAT);
+		}
+		
+	},
 	DATE_TZ("TEXT") {
 		
 		@Override
