@@ -63,5 +63,6 @@
 
 	<!-- Database -->
 	<string name="downloadDatabase">Download database</string>
+	<string name="cleanDebugData">Clean debug data</string>
 
 </resources>

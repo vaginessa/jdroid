@@ -56,5 +56,12 @@ public class DebugDatabaseView extends LinearLayout {
 				
 			}
 		});
+		findViewById(R.id.cleanDebugData).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				DebugLogHelper.clean();
+			}
+		});
 	}
 }

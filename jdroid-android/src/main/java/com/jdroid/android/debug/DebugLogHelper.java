@@ -25,4 +25,20 @@ public class DebugLogHelper {
 			});
 		}
 	}
+	
+	public static void clean() {
+		ExecutorUtils.execute(new Runnable() {
+			
+			@Override
+			public void run() {
+				
+				try {
+					Repository<DebugLog> repository = AbstractApplication.get().getRepositoryInstance(DebugLog.class);
+					repository.removeAll();
+				} catch (Exception e) {
+					AbstractApplication.get().getExceptionHandler().logHandledException(e);
+				}
+			}
+		});
+	}
 }
