@@ -44,6 +44,7 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		initDebugGcmMessages();
 		DebugLogHelper.initPreferences(getActivity(), getPreferenceScreen());
 		DebugImageLoaderHelper.initPreferences(getActivity(), getPreferenceScreen());
+		DebugHttpCacheHelper.initPreferences(getActivity(), getPreferenceScreen());
 		
 		ListView listView = ((ListView)findView(android.R.id.list));
 		

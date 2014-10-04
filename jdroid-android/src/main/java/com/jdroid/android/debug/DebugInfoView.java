@@ -81,13 +81,5 @@ public class DebugInfoView extends LinearLayout {
 		} else {
 			simOperatorName.setVisibility(View.GONE);
 		}
-		
-		findViewById(R.id.clearHttpCache).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				AbstractApplication.get().cleanFileSystemCache();
-			}
-		});
 	}
 }

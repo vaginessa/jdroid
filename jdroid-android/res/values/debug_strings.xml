@@ -26,6 +26,8 @@
 	<string name="commitTime">Commit Time: %1$s</string>
 	<string name="buildTime">Build Time: %1$s</string>
 
+	<!-- Http Cache -->
+	<string name="httpCache">Http cache</string>
 	<string name="clearHttpCache">Clear http cache</string>
 
 	<!-- Universal Image Loader -->
