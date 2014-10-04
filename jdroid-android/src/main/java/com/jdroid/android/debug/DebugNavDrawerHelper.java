@@ -8,9 +8,14 @@ import com.jdroid.android.R;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.context.AppContext;
 
-public class DebugNavDrawerHelper {
+public class DebugNavDrawerHelper implements PreferencesAppender {
 	
-	public static void initPreferences(final Activity activity, PreferenceScreen preferenceScreen) {
+	/**
+	 * @see com.jdroid.android.debug.PreferencesAppender#initPreferences(android.app.Activity,
+	 *      android.preference.PreferenceScreen)
+	 */
+	@Override
+	public void initPreferences(Activity activity, PreferenceScreen preferenceScreen) {
 		
 		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
 		preferenceCategory.setTitle(R.string.navDrawerSettings);

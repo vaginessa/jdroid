@@ -17,9 +17,14 @@ import com.jdroid.android.analytics.ExperimentHelper.Experiment;
 import com.jdroid.android.analytics.ExperimentHelper.ExperimentVariant;
 import com.jdroid.java.collections.Lists;
 
-public class DebugExperimentsHelper {
+public class DebugExperimentsHelper implements PreferencesAppender {
 	
-	public static void initPreferences(final Activity activity, PreferenceScreen preferenceScreen) {
+	/**
+	 * @see com.jdroid.android.debug.PreferencesAppender#initPreferences(android.app.Activity,
+	 *      android.preference.PreferenceScreen)
+	 */
+	@Override
+	public void initPreferences(Activity activity, PreferenceScreen preferenceScreen) {
 		
 		if (!ExperimentHelper.getExperimentsMap().isEmpty()) {
 			

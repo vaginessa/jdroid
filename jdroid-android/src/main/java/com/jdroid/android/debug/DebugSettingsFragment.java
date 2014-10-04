@@ -34,14 +34,20 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		super.onViewCreated(view, savedInstanceState);
 		
 		initDebugGcmMessages();
-		DebugNavDrawerHelper.initPreferences(getActivity(), getPreferenceScreen());
-		DebugAdsHelper.initPreferences(getActivity(), getPreferenceScreen());
-		DebugExperimentsHelper.initPreferences(getActivity(), getPreferenceScreen());
-		DebugLogHelper.initPreferences(getActivity(), getPreferenceScreen());
-		DebugImageLoaderHelper.initPreferences(getActivity(), getPreferenceScreen());
-		DebugHttpCacheHelper.initPreferences(getActivity(), getPreferenceScreen());
-		DebugCrashHelper.initPreferences(getActivity(), getPreferenceScreen());
-		DebugInAppBillingHelper.initPreferences(getActivity(), getPreferenceScreen());
+		
+		List<PreferencesAppender> appenders = Lists.newArrayList();
+		appenders.add(new DebugNavDrawerHelper());
+		appenders.add(new DebugAdsHelper());
+		appenders.add(new DebugExperimentsHelper());
+		appenders.add(new DebugLogHelper());
+		appenders.add(new DebugImageLoaderHelper());
+		appenders.add(new DebugHttpCacheHelper());
+		appenders.add(new DebugCrashHelper());
+		appenders.add(new DebugInAppBillingHelper());
+		appenders.addAll(getCustomPreferencesAppenders());
+		for (PreferencesAppender preferencesAppender : appenders) {
+			preferencesAppender.initPreferences(getActivity(), getPreferenceScreen());
+		}
 		
 		ListView listView = ((ListView)findView(android.R.id.list));
 		
@@ -52,6 +58,10 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		if (customDebugInfoView != null) {
 			listView.addFooterView(debugInfoView);
 		}
+	}
+	
+	protected List<PreferencesAppender> getCustomPreferencesAppenders() {
+		return Lists.newArrayList();
 	}
 	
 	protected void initDebugGcmMessages() {

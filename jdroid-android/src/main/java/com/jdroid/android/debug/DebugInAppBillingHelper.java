@@ -11,9 +11,14 @@ import com.jdroid.android.inappbilling.BillingContext;
 import com.jdroid.android.inappbilling.TestProductType;
 import com.jdroid.java.collections.Lists;
 
-public class DebugInAppBillingHelper {
+public class DebugInAppBillingHelper implements PreferencesAppender {
 	
-	public static void initPreferences(final Activity activity, PreferenceScreen preferenceScreen) {
+	/**
+	 * @see com.jdroid.android.debug.PreferencesAppender#initPreferences(android.app.Activity,
+	 *      android.preference.PreferenceScreen)
+	 */
+	@Override
+	public void initPreferences(Activity activity, PreferenceScreen preferenceScreen) {
 		
 		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
 		preferenceCategory.setTitle(R.string.inAppBillingSettings);

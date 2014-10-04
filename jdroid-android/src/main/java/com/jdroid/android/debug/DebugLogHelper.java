@@ -22,7 +22,7 @@ import com.jdroid.java.repository.Repository;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
-public class DebugLogHelper {
+public class DebugLogHelper implements PreferencesAppender {
 	
 	public static void log(final String text) {
 		if (LoggerUtils.isEnabled()) {
@@ -59,7 +59,12 @@ public class DebugLogHelper {
 		});
 	}
 	
-	public static void initPreferences(final Activity activity, PreferenceScreen preferenceScreen) {
+	/**
+	 * @see com.jdroid.android.debug.PreferencesAppender#initPreferences(android.app.Activity,
+	 *      android.preference.PreferenceScreen)
+	 */
+	@Override
+	public void initPreferences(final Activity activity, PreferenceScreen preferenceScreen) {
 		
 		if (AbstractApplication.get().isDebugLogRepositoryEnabled()) {
 			

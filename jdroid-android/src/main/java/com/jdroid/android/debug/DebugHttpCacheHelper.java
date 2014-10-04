@@ -8,9 +8,14 @@ import android.preference.PreferenceScreen;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 
-public class DebugHttpCacheHelper {
+public class DebugHttpCacheHelper implements PreferencesAppender {
 	
-	public static void initPreferences(final Activity activity, PreferenceScreen preferenceScreen) {
+	/**
+	 * @see com.jdroid.android.debug.PreferencesAppender#initPreferences(android.app.Activity,
+	 *      android.preference.PreferenceScreen)
+	 */
+	@Override
+	public void initPreferences(Activity activity, PreferenceScreen preferenceScreen) {
 		
 		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
 		preferenceCategory.setTitle(R.string.httpCache);

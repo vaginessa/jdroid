@@ -16,12 +16,17 @@ import com.jdroid.java.exception.ApplicationException;
 import com.jdroid.java.exception.BusinessException;
 import com.jdroid.java.exception.ConnectionException;
 
-public class DebugCrashHelper {
+public class DebugCrashHelper implements PreferencesAppender {
 	
 	private static final String UI_THREAD_KEY = "uiThread";
 	private static final String CRASH_TYPE_KEY = "crashType";
 	
-	public static void initPreferences(final Activity activity, PreferenceScreen preferenceScreen) {
+	/**
+	 * @see com.jdroid.android.debug.PreferencesAppender#initPreferences(android.app.Activity,
+	 *      android.preference.PreferenceScreen)
+	 */
+	@Override
+	public void initPreferences(Activity activity, PreferenceScreen preferenceScreen) {
 		
 		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
 		preferenceCategory.setTitle(R.string.exceptionHandling);

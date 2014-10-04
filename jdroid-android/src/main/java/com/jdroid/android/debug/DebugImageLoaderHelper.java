@@ -9,9 +9,14 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class DebugImageLoaderHelper {
+public class DebugImageLoaderHelper implements PreferencesAppender {
 	
-	public static void initPreferences(final Activity activity, PreferenceScreen preferenceScreen) {
+	/**
+	 * @see com.jdroid.android.debug.PreferencesAppender#initPreferences(android.app.Activity,
+	 *      android.preference.PreferenceScreen)
+	 */
+	@Override
+	public void initPreferences(Activity activity, PreferenceScreen preferenceScreen) {
 		
 		if (AbstractApplication.get().isImageLoaderEnabled()) {
 			
