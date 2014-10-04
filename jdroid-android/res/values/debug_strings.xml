@@ -35,6 +35,12 @@
 	<string name="clearImagesDiscCache">Clear images disc cache</string>
 	<string name="clearImagesMemoryCache">Clear images memory cache</string>
 
+	<!-- Exception Handling -->
+	<string name="exceptionHandling">Exception Handling</string>
+	<string name="exceptionType">Exception type</string>
+	<string name="uiThread">UI Thread</string>
+	<string name="crash">Crash</string>
+
 	<string name="businessExceptionOnMainThread">BusinessException - Main Thread</string>
 	<string name="businessExceptionOnWorkerThread">BusinessException - Worker Thread</string>
 	<string name="connectionExceptionOnMainThread">ConnectionException - Main Thread</string>
