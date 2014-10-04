@@ -165,6 +165,7 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 		
 		if (!socialEnabled) {
 			view.findViewById(R.id.followUs).setVisibility(View.GONE);
+			view.findViewById(R.id.socialSeparator).setVisibility(View.GONE);
 		}
 		
 		View customView = getCustomView();
@@ -173,6 +174,7 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 			customViewContainer.addView(customView);
 		} else {
 			customViewContainer.setVisibility(View.GONE);
+			view.findViewById(R.id.customViewSeparator).setVisibility(View.GONE);
 		}
 		
 		return dialogBuilder.create();

@@ -53,14 +53,13 @@
 			android:id="@+id/plusOneButton" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:layout_marginTop="4dp" android:layout_marginBottom="4dp" plus:size="standard" plus:annotation="inline" />
 
+		<View android:id="@+id/socialSeparator" style="@style/aboutSeparator" />
+
 		<LinearLayout android:id="@+id/customViewContainer" android:layout_height="wrap_content"
 			android:layout_width="match_parent" android:orientation="vertical">
-
-			<View style="@style/aboutSeparator" />
-
 		</LinearLayout>
 
-		<View style="@style/aboutSeparator" />
+		<View android:id="@+id/customViewSeparator" style="@style/aboutSeparator" />
 
 		<TextView android:id="@+id/jdroidLegend" style="@style/smallText" android:layout_gravity="center_horizontal"
 			android:gravity="center_horizontal" android:text="@string/jdroidLegend" android:padding="4dp"
