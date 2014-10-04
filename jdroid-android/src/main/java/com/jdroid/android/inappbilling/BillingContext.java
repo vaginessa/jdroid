@@ -6,6 +6,9 @@ import com.jdroid.java.utils.PropertiesUtils;
 
 public class BillingContext {
 	
+	public static final String IN_APP_BILLING_MOCK_ENABLED = "inAppBillingMockEnabled";
+	public static final String IN_APP_BILLING_TEST_PRODUCT_IDS = "inAppBillingTestProductIds";
+	
 	private String googlePlayPublicKey;
 	
 	private static final BillingContext INSTANCE = new BillingContext();
@@ -34,12 +37,12 @@ public class BillingContext {
 	public Boolean isInAppBillingMockEnabled() {
 		return !AbstractApplication.get().getAppContext().isProductionEnvironment()
 				&& PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(
-					"inAppBillingMockEnabled", false);
+					IN_APP_BILLING_MOCK_ENABLED, false);
 	}
 	
 	public TestProductType getTestProductType() {
 		return TestProductType.valueOf(PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
-			"inAppBillingTestProductIds", TestProductType.PURCHASED.name()));
+			IN_APP_BILLING_TEST_PRODUCT_IDS, TestProductType.PURCHASED.name()));
 	}
 	
 }

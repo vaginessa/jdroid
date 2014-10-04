@@ -18,11 +18,4 @@
 		<item>RuntimeException</item>
 	</string-array>
 
-	<string-array name="inAppBillingTestProductIdsEntries">
-		<item>PURCHASED</item>
-		<item>CANCELED</item>
-		<item>REFUNDED</item>
-		<item>UNAVAILABLE</item>
-	</string-array>
-
 </resources>

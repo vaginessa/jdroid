@@ -53,16 +53,19 @@
 	<string name="userDataMockedTitle">Mock the user data</string>
 	<string name="userDataMockedDescription">Whether to mock the user name and email on the nav drawer</string>
 
+	<!-- In App Billing -->
 	<string name="inAppBillingSettings">In App Billing</string>
 	<string name="inAppBillingMockEnabledTitle">In App Billing Mocks</string>
 	<string name="inAppBillingMockEnabledDescription">Enable/disable In App Billing mocks</string>
 	<string name="inAppBillingTestProductIdsTitle">Test Product Id</string>
 	<string name="inAppBillingTestProductIdsDescription">Pick the Test Product Id</string>
 
+	<!-- Experiments -->
 	<string name="experimentsSettings">Experiments</string>
 	<string name="experimentTitle">Experiment id: %1$s</string>
 	<string name="experimentDescription">Pick the experiment variant</string>
 
+	<!-- GCM -->
 	<string name="gcmSettings">GCM</string>
 	<string name="emulateGcmMessageTitle">Emulate GCM Message</string>
 	<string name="emulateGcmMessageDescription">Pick the GCM Message type to emulate</string>
