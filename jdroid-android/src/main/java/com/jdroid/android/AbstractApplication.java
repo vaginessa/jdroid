@@ -134,22 +134,30 @@ public abstract class AbstractApplication extends Application {
 		initImageLoader();
 	}
 	
+	public Boolean isImageLoaderEnabled() {
+		return true;
+	}
+	
 	protected void initImageLoader() {
-		// Create global configuration and initialize ImageLoader with this configuration
-		
-		DisplayImageOptions.Builder defaultOptiBuilder = new DisplayImageOptions.Builder();
-		defaultOptiBuilder.cacheInMemory(true);
-		defaultOptiBuilder.cacheOnDisk(true);
-		
-		ImageLoaderConfiguration.Builder configBuilder = new ImageLoaderConfiguration.Builder(getApplicationContext());
-		configBuilder.tasksProcessingOrder(QueueProcessingType.LIFO);
-		configBuilder.defaultDisplayImageOptions(defaultOptiBuilder.build());
-		configBuilder.diskCacheSize(10 * 1024 * 1024);
-		// configBuilder.writeDebugLogs();
-		
-		ImageLoader.getInstance().init(configBuilder.build());
-		
-		ImageLoaderUtils.clearImagesCache();
+		if (isImageLoaderEnabled()) {
+			
+			// Create global configuration and initialize ImageLoader with this configuration
+			
+			DisplayImageOptions.Builder defaultOptiBuilder = new DisplayImageOptions.Builder();
+			defaultOptiBuilder.cacheInMemory(true);
+			defaultOptiBuilder.cacheOnDisk(true);
+			
+			ImageLoaderConfiguration.Builder configBuilder = new ImageLoaderConfiguration.Builder(
+					getApplicationContext());
+			configBuilder.tasksProcessingOrder(QueueProcessingType.LIFO);
+			configBuilder.defaultDisplayImageOptions(defaultOptiBuilder.build());
+			configBuilder.diskCacheSize(10 * 1024 * 1024);
+			// configBuilder.writeDebugLogs();
+			
+			ImageLoader.getInstance().init(configBuilder.build());
+			
+			ImageLoaderUtils.clearImagesCache();
+		}
 	}
 	
 	protected void verifyAppLaunchStatus() {

@@ -43,14 +43,12 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		initExperiments();
 		initDebugGcmMessages();
 		DebugLogHelper.initPreferences(getActivity(), getPreferenceScreen());
+		DebugImageLoaderHelper.initPreferences(getActivity(), getPreferenceScreen());
 		
 		ListView listView = ((ListView)findView(android.R.id.list));
 		
 		View debugCrashView = new DebugCrashView(getActivity());
 		listView.addFooterView(debugCrashView);
-		
-		View debugImageLoaderView = new DebugImageLoaderView(getActivity());
-		listView.addFooterView(debugImageLoaderView);
 		
 		View debugInfoView = new DebugInfoView(getActivity());
 		listView.addFooterView(debugInfoView);

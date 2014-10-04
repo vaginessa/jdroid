@@ -89,7 +89,7 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 		});
 		
 		View universalImageLoaderLegend = view.findViewById(R.id.universalImageLoaderLegend);
-		if (displayUniversalImageLoaderLegend()) {
+		if (AbstractApplication.get().isImageLoaderEnabled()) {
 			universalImageLoaderLegend.setOnClickListener(new OnClickListener() {
 				
 				@Override
@@ -205,10 +205,6 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 	}
 	
 	protected Boolean displayGooglePlusOneButton() {
-		return true;
-	}
-	
-	protected Boolean displayUniversalImageLoaderLegend() {
 		return true;
 	}
 	

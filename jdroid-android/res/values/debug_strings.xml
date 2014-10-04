@@ -27,6 +27,9 @@
 	<string name="buildTime">Build Time: %1$s</string>
 
 	<string name="clearHttpCache">Clear http cache</string>
+
+	<!-- Universal Image Loader -->
+	<string name="universalImageLoader">Universal Image Loader</string>
 	<string name="clearImagesDiscCache">Clear images disc cache</string>
 	<string name="clearImagesMemoryCache">Clear images memory cache</string>
 
