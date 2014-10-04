@@ -426,7 +426,7 @@ public abstract class AbstractApplication extends Application {
 		return false;
 	}
 	
-	protected Boolean isDebugLogRepositoryEnabled() {
+	public Boolean isDebugLogRepositoryEnabled() {
 		return false;
 	}
 	
