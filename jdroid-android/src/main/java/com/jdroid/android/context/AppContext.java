@@ -17,6 +17,7 @@ public class AppContext {
 	private static final String PROPERTIES_RESOURCE_NAME = "settings.properties";
 	private static final String LOCAL_PROPERTIES_RESOURCE_NAME = "settings.local.properties";
 	
+	public static final String USER_DATA_MOCKED = "userDataMocked";
 	public static final String ADS_ENABLED = "adsEnabled";
 	private static final String FIRST_SESSION_TIMESTAMP = "firstSessionTimestamp";
 	
@@ -205,7 +206,7 @@ public class AppContext {
 	}
 	
 	public Boolean isUserDataMocked() {
-		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean("userDataMocked",
+		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(USER_DATA_MOCKED,
 			false);
 	}
 	

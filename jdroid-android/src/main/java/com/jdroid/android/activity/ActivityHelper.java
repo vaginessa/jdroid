@@ -60,7 +60,7 @@ public class ActivityHelper implements ActivityIf {
 	private final static Logger LOGGER = LoggerUtils.getLogger(ActivityHelper.class);
 	
 	private static final int LOCATION_UPDATE_TIMER_CODE = IdGenerator.getIntId();
-	private static final String NAV_DRAWER_MANUALLY_USED = "navDrawerManuallyUsed";
+	public static final String NAV_DRAWER_MANUALLY_USED = "navDrawerManuallyUsed";
 	private static final String TITLE_KEY = "title";
 	
 	private Activity activity;
