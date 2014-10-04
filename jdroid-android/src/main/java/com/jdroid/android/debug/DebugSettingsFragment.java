@@ -34,6 +34,7 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		super.onViewCreated(view, savedInstanceState);
 		
 		initDebugGcmMessages();
+		DebugAdsHelper.initPreferences(getActivity(), getPreferenceScreen());
 		DebugExperimentsHelper.initPreferences(getActivity(), getPreferenceScreen());
 		DebugLogHelper.initPreferences(getActivity(), getPreferenceScreen());
 		DebugImageLoaderHelper.initPreferences(getActivity(), getPreferenceScreen());

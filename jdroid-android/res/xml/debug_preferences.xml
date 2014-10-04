@@ -15,8 +15,6 @@
 			android:dependency="httpMockEnabled" />
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/appSettings">
-		<CheckBoxPreference android:key="adsEnabled" android:title="@string/adsEnabledTitle"
-			android:summary="@string/adsEnabledDescription" />
 		<CheckBoxPreference android:key="navDrawerManuallyUsed" android:title="@string/navDrawerManuallyUsedTitle"
 			android:summary="@string/navDrawerManuallyUsedDescription" />
 		<CheckBoxPreference android:key="userDataMocked" android:title="@string/userDataMockedTitle"

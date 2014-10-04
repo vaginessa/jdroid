@@ -40,19 +40,13 @@
 	<string name="exceptionType">Exception type</string>
 	<string name="uiThread">UI Thread</string>
 	<string name="crash">Crash</string>
-
-	<string name="businessExceptionOnMainThread">BusinessException - Main Thread</string>
-	<string name="businessExceptionOnWorkerThread">BusinessException - Worker Thread</string>
-	<string name="connectionExceptionOnMainThread">ConnectionException - Main Thread</string>
-	<string name="connectionExceptionOnWorkerThread">ConnectionException - Worker Thread</string>
-	<string name="applicationExceptionOnMainThread">ApplicationException - Main Thread</string>
-	<string name="applicationExceptionOnWorkerThread">ApplicationException - Worker Thread</string>
-	<string name="runtimeExceptionOnMainThread">RuntimeException - Main Thread</string>
-	<string name="runtimeExceptionOnWorkerThread">RuntimeException - Worker Thread</string>
-
-	<string name="appSettings">App Settings</string>
+	
+	<!-- Ads -->
+	<string name="ads">Ads</string>
 	<string name="adsEnabledTitle">Ads</string>
 	<string name="adsEnabledDescription">Enable/disable the ads</string>
+
+	<string name="appSettings">App Settings</string>
 	<string name="navDrawerManuallyUsedTitle">Nav drawer manually used</string>
 	<string name="navDrawerManuallyUsedDescription">Whether the user actively expanded or closed the navigation drawer manually</string>
 	<string name="userDataMockedTitle">Mock the user data</string>

@@ -17,7 +17,7 @@ public class AppContext {
 	private static final String PROPERTIES_RESOURCE_NAME = "settings.properties";
 	private static final String LOCAL_PROPERTIES_RESOURCE_NAME = "settings.local.properties";
 	
-	private static final String ADS_ENABLED = "adsEnabled";
+	public static final String ADS_ENABLED = "adsEnabled";
 	private static final String FIRST_SESSION_TIMESTAMP = "firstSessionTimestamp";
 	
 	// Environment
