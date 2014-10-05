@@ -7,4 +7,6 @@ public interface PreferencesAppender {
 	
 	public void initPreferences(Activity activity, PreferenceScreen preferenceScreen);
 	
+	public Boolean isEnabled();
+	
 }

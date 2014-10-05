@@ -36,18 +36,20 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		initDebugGcmMessages();
 		
 		List<PreferencesAppender> appenders = Lists.newArrayList();
-		appenders.add(new DebugHttpMocksHelper());
-		appenders.add(new DebugNavDrawerHelper());
-		appenders.add(new DebugAdsHelper());
-		appenders.add(new DebugExperimentsHelper());
-		appenders.add(new DebugLogHelper());
-		appenders.add(new DebugImageLoaderHelper());
-		appenders.add(new DebugHttpCacheHelper());
-		appenders.add(new DebugCrashHelper());
-		appenders.add(new DebugInAppBillingHelper());
+		addAppender(appenders, createHttpMocksDebugPrefsAppender());
+		addAppender(appenders, createNavDrawerDebugPrefsAppender());
+		addAppender(appenders, createAdsDebugPrefsAppender());
+		addAppender(appenders, createExperimentsDebugPrefsAppender());
+		addAppender(appenders, createLogsDebugPrefsAppender());
+		addAppender(appenders, createImageLoaderDebugPrefsAppender());
+		addAppender(appenders, createHttpCacheDebugPrefsAppender());
+		addAppender(appenders, createCrashDebugPrefsAppender());
+		addAppender(appenders, createInAppBillingDebugPrefsAppender());
 		appenders.addAll(getCustomPreferencesAppenders());
 		for (PreferencesAppender preferencesAppender : appenders) {
-			preferencesAppender.initPreferences(getActivity(), getPreferenceScreen());
+			if (preferencesAppender.isEnabled()) {
+				preferencesAppender.initPreferences(getActivity(), getPreferenceScreen());
+			}
 		}
 		
 		ListView listView = ((ListView)findView(android.R.id.list));
@@ -59,6 +61,48 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		if (customDebugInfoView != null) {
 			listView.addFooterView(debugInfoView);
 		}
+	}
+	
+	private void addAppender(List<PreferencesAppender> appenders, PreferencesAppender preferencesAppender) {
+		if (preferencesAppender != null) {
+			appenders.add(preferencesAppender);
+		}
+	}
+	
+	protected InAppBillingDebugPrefsAppender createInAppBillingDebugPrefsAppender() {
+		return new InAppBillingDebugPrefsAppender();
+	}
+	
+	protected CrashDebugPrefsAppender createCrashDebugPrefsAppender() {
+		return new CrashDebugPrefsAppender();
+	}
+	
+	protected HttpCacheDebugPrefsAppender createHttpCacheDebugPrefsAppender() {
+		return new HttpCacheDebugPrefsAppender();
+	}
+	
+	protected ImageLoaderDebugPrefsAppender createImageLoaderDebugPrefsAppender() {
+		return new ImageLoaderDebugPrefsAppender();
+	}
+	
+	protected LogsDebugPrefsAppender createLogsDebugPrefsAppender() {
+		return new LogsDebugPrefsAppender();
+	}
+	
+	protected ExperimentsDebugPrefsAppender createExperimentsDebugPrefsAppender() {
+		return new ExperimentsDebugPrefsAppender();
+	}
+	
+	protected AdsDebugPrefsAppender createAdsDebugPrefsAppender() {
+		return new AdsDebugPrefsAppender();
+	}
+	
+	protected NavDrawerDebugPrefsAppender createNavDrawerDebugPrefsAppender() {
+		return new NavDrawerDebugPrefsAppender();
+	}
+	
+	protected HttpMocksDebugPrefsAppender createHttpMocksDebugPrefsAppender() {
+		return new HttpMocksDebugPrefsAppender();
 	}
 	
 	protected List<PreferencesAppender> getCustomPreferencesAppenders() {

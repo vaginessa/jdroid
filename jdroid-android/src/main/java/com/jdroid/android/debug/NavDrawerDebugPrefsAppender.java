@@ -8,7 +8,7 @@ import com.jdroid.android.R;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.context.AppContext;
 
-public class DebugNavDrawerHelper implements PreferencesAppender {
+public class NavDrawerDebugPrefsAppender implements PreferencesAppender {
 	
 	/**
 	 * @see com.jdroid.android.debug.PreferencesAppender#initPreferences(android.app.Activity,
@@ -32,5 +32,13 @@ public class DebugNavDrawerHelper implements PreferencesAppender {
 		checkBoxPreference.setTitle(R.string.userDataMockedTitle);
 		checkBoxPreference.setSummary(R.string.userDataMockedDescription);
 		preferenceCategory.addPreference(checkBoxPreference);
+	}
+	
+	/**
+	 * @see com.jdroid.android.debug.PreferencesAppender#isEnabled()
+	 */
+	@Override
+	public Boolean isEnabled() {
+		return true;
 	}
 }

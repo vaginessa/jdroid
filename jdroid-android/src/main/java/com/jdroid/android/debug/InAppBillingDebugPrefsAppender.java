@@ -6,12 +6,13 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.inappbilling.BillingContext;
 import com.jdroid.android.inappbilling.TestProductType;
 import com.jdroid.java.collections.Lists;
 
-public class DebugInAppBillingHelper implements PreferencesAppender {
+public class InAppBillingDebugPrefsAppender implements PreferencesAppender {
 	
 	/**
 	 * @see com.jdroid.android.debug.PreferencesAppender#initPreferences(android.app.Activity,
@@ -42,5 +43,13 @@ public class DebugInAppBillingHelper implements PreferencesAppender {
 		preference.setEntries(entries.toArray(new CharSequence[0]));
 		preference.setEntryValues(entries.toArray(new CharSequence[0]));
 		preferenceCategory.addPreference(preference);
+	}
+	
+	/**
+	 * @see com.jdroid.android.debug.PreferencesAppender#isEnabled()
+	 */
+	@Override
+	public Boolean isEnabled() {
+		return AbstractApplication.get().isInAppBillingEnabled();
 	}
 }

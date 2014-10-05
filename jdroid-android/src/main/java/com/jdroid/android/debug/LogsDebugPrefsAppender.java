@@ -22,7 +22,7 @@ import com.jdroid.java.repository.Repository;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
-public class DebugLogHelper implements PreferencesAppender {
+public class LogsDebugPrefsAppender implements PreferencesAppender {
 	
 	public static void log(final String text) {
 		if (LoggerUtils.isEnabled()) {
@@ -66,50 +66,55 @@ public class DebugLogHelper implements PreferencesAppender {
 	@Override
 	public void initPreferences(final Activity activity, PreferenceScreen preferenceScreen) {
 		
-		if (AbstractApplication.get().isDebugLogRepositoryEnabled()) {
+		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
+		preferenceCategory.setTitle(R.string.debugDatabase);
+		preferenceScreen.addPreference(preferenceCategory);
+		
+		Preference preference = new Preference(activity);
+		preference.setTitle(R.string.downloadDatabase);
+		preference.setSummary(R.string.downloadDatabase);
+		preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			
-			PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
-			preferenceCategory.setTitle(R.string.debugDatabase);
-			preferenceScreen.addPreference(preferenceCategory);
-			
-			Preference preference = new Preference(activity);
-			preference.setTitle(R.string.downloadDatabase);
-			preference.setSummary(R.string.downloadDatabase);
-			preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			@SuppressWarnings("resource")
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+				dir.mkdirs();
 				
-				@SuppressWarnings("resource")
-				@Override
-				public boolean onPreferenceClick(Preference preference) {
-					File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-					dir.mkdirs();
-					
-					File file = new File(dir, AndroidUtils.getApplicationName() + ".sqlite");
-					try {
-						FileUtils.copyStream(new FileInputStream(SQLiteHelper.getDatabaseFile(activity)), file);
-						Intent intent = new Intent(Intent.ACTION_SEND);
-						intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-						intent.setType(MimeType.OCTET_STREAM);
-						activity.startActivity(intent);
-					} catch (FileNotFoundException e) {
-						throw new UnexpectedException(e);
-					}
-					return true;
+				File file = new File(dir, AndroidUtils.getApplicationName() + ".sqlite");
+				try {
+					FileUtils.copyStream(new FileInputStream(SQLiteHelper.getDatabaseFile(activity)), file);
+					Intent intent = new Intent(Intent.ACTION_SEND);
+					intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+					intent.setType(MimeType.OCTET_STREAM);
+					activity.startActivity(intent);
+				} catch (FileNotFoundException e) {
+					throw new UnexpectedException(e);
 				}
-			});
-			preferenceCategory.addPreference(preference);
+				return true;
+			}
+		});
+		preferenceCategory.addPreference(preference);
+		
+		preference = new Preference(activity);
+		preference.setTitle(R.string.cleanDebugData);
+		preference.setSummary(R.string.cleanDebugData);
+		preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			
-			preference = new Preference(activity);
-			preference.setTitle(R.string.cleanDebugData);
-			preference.setSummary(R.string.cleanDebugData);
-			preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-				
-				@Override
-				public boolean onPreferenceClick(Preference preference) {
-					DebugLogHelper.clean();
-					return true;
-				}
-			});
-			preferenceCategory.addPreference(preference);
-		}
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				LogsDebugPrefsAppender.clean();
+				return true;
+			}
+		});
+		preferenceCategory.addPreference(preference);
+	}
+	
+	/**
+	 * @see com.jdroid.android.debug.PreferencesAppender#isEnabled()
+	 */
+	@Override
+	public Boolean isEnabled() {
+		return AbstractApplication.get().isDebugLogRepositoryEnabled();
 	}
 }

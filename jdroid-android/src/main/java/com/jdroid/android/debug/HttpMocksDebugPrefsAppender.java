@@ -14,7 +14,7 @@ import com.jdroid.java.exception.ApplicationException;
 import com.jdroid.java.exception.BusinessException;
 import com.jdroid.java.exception.ConnectionException;
 
-public class DebugHttpMocksHelper implements PreferencesAppender {
+public class HttpMocksDebugPrefsAppender implements PreferencesAppender {
 	
 	/**
 	 * @see com.jdroid.android.debug.PreferencesAppender#initPreferences(android.app.Activity,
@@ -57,5 +57,13 @@ public class DebugHttpMocksHelper implements PreferencesAppender {
 		// FIXME this is not working
 		// preference.setDependency(AppContext.HTTP_MOCK_ENABLED);
 		preferenceCategory.addPreference(preference);
+	}
+	
+	/**
+	 * @see com.jdroid.android.debug.PreferencesAppender#isEnabled()
+	 */
+	@Override
+	public Boolean isEnabled() {
+		return true;
 	}
 }

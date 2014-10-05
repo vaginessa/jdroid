@@ -7,7 +7,7 @@ import android.preference.PreferenceScreen;
 import com.jdroid.android.R;
 import com.jdroid.android.context.AppContext;
 
-public class DebugAdsHelper implements PreferencesAppender {
+public class AdsDebugPrefsAppender implements PreferencesAppender {
 	
 	/**
 	 * @see com.jdroid.android.debug.PreferencesAppender#initPreferences(android.app.Activity,
@@ -25,5 +25,13 @@ public class DebugAdsHelper implements PreferencesAppender {
 		checkBoxPreference.setTitle(R.string.adsEnabledTitle);
 		checkBoxPreference.setSummary(R.string.adsEnabledDescription);
 		preferenceCategory.addPreference(checkBoxPreference);
+	}
+	
+	/**
+	 * @see com.jdroid.android.debug.PreferencesAppender#isEnabled()
+	 */
+	@Override
+	public Boolean isEnabled() {
+		return true;
 	}
 }

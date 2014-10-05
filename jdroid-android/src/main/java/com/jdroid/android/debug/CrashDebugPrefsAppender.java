@@ -16,7 +16,7 @@ import com.jdroid.java.exception.ApplicationException;
 import com.jdroid.java.exception.BusinessException;
 import com.jdroid.java.exception.ConnectionException;
 
-public class DebugCrashHelper implements PreferencesAppender {
+public class CrashDebugPrefsAppender implements PreferencesAppender {
 	
 	private static final String UI_THREAD_KEY = "uiThread";
 	private static final String CRASH_TYPE_KEY = "crashType";
@@ -69,5 +69,13 @@ public class DebugCrashHelper implements PreferencesAppender {
 			}
 		});
 		preferenceCategory.addPreference(crashPreference);
+	}
+	
+	/**
+	 * @see com.jdroid.android.debug.PreferencesAppender#isEnabled()
+	 */
+	@Override
+	public Boolean isEnabled() {
+		return true;
 	}
 }
