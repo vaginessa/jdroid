@@ -2,12 +2,7 @@ package com.jdroid.android.debug;
 
 import java.util.List;
 import java.util.Map;
-import android.content.Intent;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceCategory;
 import android.view.View;
 import android.widget.ListView;
 import com.jdroid.android.R;
@@ -16,11 +11,11 @@ import com.jdroid.android.gcm.GcmMessage;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.http.Server;
-import com.jdroid.java.utils.CollectionUtils;
 
 public class DebugSettingsFragment extends AbstractPreferenceFragment {
 	
 	private Map<Class<? extends Server>, List<? extends Server>> serversMap = Maps.newHashMap();
+	private Map<GcmMessage, EmulatedGcmMessageIntentBuilder> gcmMessagesMap = Maps.newHashMap();
 	
 	/**
 	 * @see android.preference.PreferenceActivity#onCreate(android.os.Bundle)
@@ -39,7 +34,7 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		super.onViewCreated(view, savedInstanceState);
 		
 		initServers(serversMap);
-		initDebugGcmMessages();
+		initGcmMessages(gcmMessagesMap);
 		
 		List<PreferencesAppender> appenders = Lists.newArrayList();
 		addAppender(appenders, createServerDebugPrefsAppender());
@@ -52,7 +47,10 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		addAppender(appenders, createHttpCacheDebugPrefsAppender());
 		addAppender(appenders, createCrashDebugPrefsAppender());
 		addAppender(appenders, createInAppBillingDebugPrefsAppender());
+		addAppender(appenders, createGcmDebugPrefsAppender());
+		
 		appenders.addAll(getCustomPreferencesAppenders());
+		
 		for (PreferencesAppender preferencesAppender : appenders) {
 			if (preferencesAppender.isEnabled()) {
 				preferencesAppender.initPreferences(getActivity(), getPreferenceScreen());
@@ -82,6 +80,14 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 	
 	protected ServerDebugPrefsAppender createServerDebugPrefsAppender() {
 		return new ServerDebugPrefsAppender(serversMap);
+	}
+	
+	protected void initGcmMessages(Map<GcmMessage, EmulatedGcmMessageIntentBuilder> gcmMessagesMap) {
+		// Do nothing
+	}
+	
+	protected GcmDebugPrefsAppender createGcmDebugPrefsAppender() {
+		return new GcmDebugPrefsAppender(gcmMessagesMap);
 	}
 	
 	protected InAppBillingDebugPrefsAppender createInAppBillingDebugPrefsAppender() {
@@ -122,58 +128,6 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 	
 	protected List<PreferencesAppender> getCustomPreferencesAppenders() {
 		return Lists.newArrayList();
-	}
-	
-	protected void initDebugGcmMessages() {
-		
-		final List<? extends GcmMessage> gcmMessages = getGcmMessages();
-		if (CollectionUtils.isNotEmpty(gcmMessages)) {
-			PreferenceCategory preferenceCategory = new PreferenceCategory(getActivity());
-			preferenceCategory.setTitle(R.string.gcmSettings);
-			getPreferenceScreen().addPreference(preferenceCategory);
-			
-			ListPreference preference = new ListPreference(getActivity());
-			preference.setTitle(R.string.emulateGcmMessageTitle);
-			preference.setDialogTitle(R.string.emulateGcmMessageTitle);
-			preference.setSummary(R.string.emulateGcmMessageDescription);
-			List<CharSequence> entries = Lists.newArrayList();
-			for (GcmMessage entry : gcmMessages) {
-				entries.add(entry.getMessageKey());
-			}
-			preference.setEntries(entries.toArray(new CharSequence[0]));
-			preference.setEntryValues(entries.toArray(new CharSequence[0]));
-			preference.setPersistent(false);
-			preference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-				
-				@Override
-				public boolean onPreferenceChange(Preference preference, Object newValue) {
-					
-					GcmMessage gcmMessage = null;
-					for (GcmMessage each : gcmMessages) {
-						if (each.getMessageKey().equals(newValue.toString())) {
-							gcmMessage = each;
-							break;
-						}
-					}
-					
-					Intent intent = getEmulatedGcmMessageIntent(gcmMessage);
-					if (intent != null) {
-						gcmMessage.handle(intent);
-					}
-					
-					return false;
-				}
-			});
-			preferenceCategory.addPreference(preference);
-		}
-	}
-	
-	protected Intent getEmulatedGcmMessageIntent(GcmMessage gcmMessage) {
-		return null;
-	}
-	
-	protected List<? extends GcmMessage> getGcmMessages() {
-		return null;
 	}
 	
 	protected View getCustomDebugInfoView() {
