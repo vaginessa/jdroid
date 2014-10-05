@@ -2,9 +2,11 @@
 <resources>
 
 	<string name="debugSettings">Debug Settings</string>
+
+	<!-- Server -->
 	<string name="server">Server</string>
-	<string name="serverNameTitle">Server Name</string>
-	<string name="serverNameDescription">Pick the server used to communicate with the api</string>
+
+	<!-- Http Mocks -->
 	<string name="httpMocks">HTTP Mocks</string>
 	<string name="httpMockEnabledTitle">Http Mocks</string>
 	<string name="httpMockEnabledDescription">Enable/disable http mocks</string>
@@ -12,19 +14,6 @@
 	<string name="httpMockSleepDescription">Enable/disable http mocks sleep</string>
 	<string name="httpMockCrashType">Http Mocks Crash Type</string>
 	<string name="httpMockCrashTypeDescription">Pick the crash type for your mocks calls</string>
-	<string name="packageName">Package Name: %1$s</string>
-	<string name="environmentName">Environment Name: %1$s</string>
-	<string name="analyticsEnabled">Analytics Enabled: %1$s</string>
-
-	<string name="smallestScreenWidthDp">Smallest Screen Width: %1$sdp</string>
-	<string name="screenDensity">Screen Density: %1$s</string>
-	<string name="networkOperatorName">Network Operator Name: %1$s</string>
-	<string name="simOperatorName">SIM Operator Name: %1$s</string>
-
-	<string name="branch">Branch: %1$s</string>
-	<string name="commitId">Commit Id: %1$s</string>
-	<string name="commitTime">Commit Time: %1$s</string>
-	<string name="buildTime">Build Time: %1$s</string>
 
 	<!-- Http Cache -->
 	<string name="httpCache">Http cache</string>
@@ -74,5 +63,18 @@
 	<string name="debugDatabase">Debug Database</string>
 	<string name="downloadDatabase">Download database</string>
 	<string name="cleanDebugData">Clean debug data</string>
+
+	<!-- Info View -->
+	<string name="packageName">Package Name: %1$s</string>
+	<string name="environmentName">Environment Name: %1$s</string>
+	<string name="analyticsEnabled">Analytics Enabled: %1$s</string>
+	<string name="smallestScreenWidthDp">Smallest Screen Width: %1$sdp</string>
+	<string name="screenDensity">Screen Density: %1$s</string>
+	<string name="networkOperatorName">Network Operator Name: %1$s</string>
+	<string name="simOperatorName">SIM Operator Name: %1$s</string>
+	<string name="branch">Branch: %1$s</string>
+	<string name="commitId">Commit Id: %1$s</string>
+	<string name="commitTime">Commit Time: %1$s</string>
+	<string name="buildTime">Build Time: %1$s</string>
 
 </resources>

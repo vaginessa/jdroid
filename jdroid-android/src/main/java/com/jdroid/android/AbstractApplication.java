@@ -19,7 +19,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.StrictMode;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
@@ -109,10 +108,6 @@ public abstract class AbstractApplication extends Application {
 		analyticsSender = createAnalyticsSender();
 		
 		initExceptionHandlers();
-		
-		if (appContext.displayDebugSettings()) {
-			PreferenceManager.setDefaultValues(this, R.xml.debug_preferences, false);
-		}
 		initStrictMode();
 		
 		// This is required to initialize the statics fields of the utils classes.

@@ -1,6 +1,7 @@
 package com.jdroid.android.debug;
 
 import java.util.List;
+import java.util.Map;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -13,9 +14,13 @@ import com.jdroid.android.R;
 import com.jdroid.android.fragment.AbstractPreferenceFragment;
 import com.jdroid.android.gcm.GcmMessage;
 import com.jdroid.java.collections.Lists;
+import com.jdroid.java.collections.Maps;
+import com.jdroid.java.http.Server;
 import com.jdroid.java.utils.CollectionUtils;
 
 public class DebugSettingsFragment extends AbstractPreferenceFragment {
+	
+	private Map<Class<? extends Server>, List<? extends Server>> serversMap = Maps.newHashMap();
 	
 	/**
 	 * @see android.preference.PreferenceActivity#onCreate(android.os.Bundle)
@@ -23,7 +28,7 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(getDebugPreferences());
+		addPreferencesFromResource(R.xml.debug_preferences);
 	}
 	
 	/**
@@ -33,9 +38,11 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		
+		initServers(serversMap);
 		initDebugGcmMessages();
 		
 		List<PreferencesAppender> appenders = Lists.newArrayList();
+		addAppender(appenders, createServerDebugPrefsAppender());
 		addAppender(appenders, createHttpMocksDebugPrefsAppender());
 		addAppender(appenders, createNavDrawerDebugPrefsAppender());
 		addAppender(appenders, createAdsDebugPrefsAppender());
@@ -67,6 +74,14 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		if (preferencesAppender != null) {
 			appenders.add(preferencesAppender);
 		}
+	}
+	
+	protected void initServers(Map<Class<? extends Server>, List<? extends Server>> serversMap) {
+		// Do nothing
+	}
+	
+	protected ServerDebugPrefsAppender createServerDebugPrefsAppender() {
+		return new ServerDebugPrefsAppender(serversMap);
 	}
 	
 	protected InAppBillingDebugPrefsAppender createInAppBillingDebugPrefsAppender() {
@@ -159,10 +174,6 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 	
 	protected List<? extends GcmMessage> getGcmMessages() {
 		return null;
-	}
-	
-	protected Integer getDebugPreferences() {
-		return R.xml.debug_preferences;
 	}
 	
 	protected View getCustomDebugInfoView() {
