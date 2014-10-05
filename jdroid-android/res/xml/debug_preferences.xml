@@ -4,14 +4,4 @@
 		<ListPreference android:key="ApiServer" android:title="@string/serverNameTitle" android:entryValues="@array/serverEntries"
 			android:entries="@array/serverEntries" android:summary="@string/serverNameDescription" />
 	</PreferenceCategory>
-	<PreferenceCategory android:title="@string/httpMocks">
-		<CheckBoxPreference android:key="httpMockEnabled" android:title="@string/httpMockEnabledTitle"
-			android:summary="@string/httpMockEnabledDescription" android:defaultValue="false" />
-		<CheckBoxPreference android:key="httpMockSleep" android:title="@string/httpMockSleepTitle"
-			android:summary="@string/httpMockSleepDescription" android:defaultValue="false" android:dependency="httpMockEnabled" />
-		<ListPreference android:key="httpMockCrashType" android:title="@string/httpMockCrashType"
-			android:summary="@string/httpMockCrashTypeDescription" android:entries="@array/httpMockCrashTypeEntries"
-			android:entryValues="@array/httpMockCrashTypeEntries" android:dialogTitle="@string/httpMockCrashType"
-			android:dependency="httpMockEnabled" />
-	</PreferenceCategory>
 </PreferenceScreen>

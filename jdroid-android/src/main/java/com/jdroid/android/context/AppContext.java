@@ -20,6 +20,9 @@ public class AppContext {
 	public static final String USER_DATA_MOCKED = "userDataMocked";
 	public static final String ADS_ENABLED = "adsEnabled";
 	private static final String FIRST_SESSION_TIMESTAMP = "firstSessionTimestamp";
+	public static final String HTTP_MOCK_ENABLED = "httpMockEnabled";
+	public static final String HTTP_MOCK_SLEEP = "httpMockSleep";
+	public static final String HTTP_MOCK_CRASH_TYPE = "httpMockCrashType";
 	
 	// Environment
 	private String localIp;
@@ -192,16 +195,16 @@ public class AppContext {
 	public Boolean isHttpMockEnabled() {
 		return !isProductionEnvironment()
 				&& PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(
-					"httpMockEnabled", false);
+					HTTP_MOCK_ENABLED, false);
 	}
 	
 	public Integer getHttpMockSleepDuration() {
-		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean("httpMockSleep",
+		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(HTTP_MOCK_SLEEP,
 			false) ? 10 : null;
 	}
 	
 	public String getHttpMockCrashType() {
-		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString("httpMockCrashType",
+		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(HTTP_MOCK_CRASH_TYPE,
 			null);
 	}
 	

@@ -36,6 +36,7 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		initDebugGcmMessages();
 		
 		List<PreferencesAppender> appenders = Lists.newArrayList();
+		appenders.add(new DebugHttpMocksHelper());
 		appenders.add(new DebugNavDrawerHelper());
 		appenders.add(new DebugAdsHelper());
 		appenders.add(new DebugExperimentsHelper());
