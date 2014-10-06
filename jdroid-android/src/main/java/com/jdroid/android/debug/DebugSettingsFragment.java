@@ -14,7 +14,7 @@ import com.jdroid.java.http.Server;
 
 public class DebugSettingsFragment extends AbstractPreferenceFragment {
 	
-	private Map<Class<? extends Server>, List<? extends Server>> serversMap = Maps.newHashMap();
+	private Map<Class<? extends Server>, List<? extends Server>> serversMap = Maps.newLinkedHashMap();
 	private Map<GcmMessage, EmulatedGcmMessageIntentBuilder> gcmMessagesMap = Maps.newHashMap();
 	
 	/**
