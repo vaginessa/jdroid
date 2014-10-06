@@ -37,7 +37,7 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		initGcmMessages(gcmMessagesMap);
 		
 		List<PreferencesAppender> appenders = Lists.newArrayList();
-		addAppender(appenders, createServerDebugPrefsAppender());
+		addAppender(appenders, createServersDebugPrefsAppender());
 		addAppender(appenders, createHttpMocksDebugPrefsAppender());
 		addAppender(appenders, createNavDrawerDebugPrefsAppender());
 		addAppender(appenders, createAdsDebugPrefsAppender());
@@ -45,7 +45,7 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		addAppender(appenders, createLogsDebugPrefsAppender());
 		addAppender(appenders, createImageLoaderDebugPrefsAppender());
 		addAppender(appenders, createHttpCacheDebugPrefsAppender());
-		addAppender(appenders, createCrashDebugPrefsAppender());
+		addAppender(appenders, createExceptionHandlingDebugPrefsAppender());
 		addAppender(appenders, createInAppBillingDebugPrefsAppender());
 		addAppender(appenders, createGcmDebugPrefsAppender());
 		
@@ -78,8 +78,8 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		// Do nothing
 	}
 	
-	protected ServerDebugPrefsAppender createServerDebugPrefsAppender() {
-		return new ServerDebugPrefsAppender(serversMap);
+	protected ServersDebugPrefsAppender createServersDebugPrefsAppender() {
+		return new ServersDebugPrefsAppender(serversMap);
 	}
 	
 	protected void initGcmMessages(Map<GcmMessage, EmulatedGcmMessageIntentBuilder> gcmMessagesMap) {
@@ -94,8 +94,8 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		return new InAppBillingDebugPrefsAppender();
 	}
 	
-	protected CrashDebugPrefsAppender createCrashDebugPrefsAppender() {
-		return new CrashDebugPrefsAppender();
+	protected ExceptionHandlingDebugPrefsAppender createExceptionHandlingDebugPrefsAppender() {
+		return new ExceptionHandlingDebugPrefsAppender();
 	}
 	
 	protected HttpCacheDebugPrefsAppender createHttpCacheDebugPrefsAppender() {

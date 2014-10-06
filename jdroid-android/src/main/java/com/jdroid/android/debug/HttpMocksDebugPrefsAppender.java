@@ -24,7 +24,7 @@ public class HttpMocksDebugPrefsAppender implements PreferencesAppender {
 	public void initPreferences(Activity activity, PreferenceScreen preferenceScreen) {
 		
 		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
-		preferenceCategory.setTitle(R.string.httpMocks);
+		preferenceCategory.setTitle(R.string.httpMocksSettings);
 		preferenceScreen.addPreference(preferenceCategory);
 		
 		CheckBoxPreference checkBoxPreference = new CheckBoxPreference(activity);

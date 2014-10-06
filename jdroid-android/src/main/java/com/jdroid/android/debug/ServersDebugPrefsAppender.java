@@ -12,11 +12,11 @@ import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.http.Server;
 
-public class ServerDebugPrefsAppender implements PreferencesAppender {
+public class ServersDebugPrefsAppender implements PreferencesAppender {
 	
 	private Map<Class<? extends Server>, List<? extends Server>> serversMap = Maps.newHashMap();
 	
-	public ServerDebugPrefsAppender(Map<Class<? extends Server>, List<? extends Server>> serversMap) {
+	public ServersDebugPrefsAppender(Map<Class<? extends Server>, List<? extends Server>> serversMap) {
 		this.serversMap = serversMap;
 	}
 	
@@ -28,7 +28,7 @@ public class ServerDebugPrefsAppender implements PreferencesAppender {
 	public void initPreferences(Activity activity, PreferenceScreen preferenceScreen) {
 		
 		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
-		preferenceCategory.setTitle(R.string.server);
+		preferenceCategory.setTitle(R.string.serversSettings);
 		preferenceScreen.addPreference(preferenceCategory);
 		
 		for (Entry<Class<? extends Server>, List<? extends Server>> entry : serversMap.entrySet()) {

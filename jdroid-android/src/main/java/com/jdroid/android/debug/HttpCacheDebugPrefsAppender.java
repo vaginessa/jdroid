@@ -18,7 +18,7 @@ public class HttpCacheDebugPrefsAppender implements PreferencesAppender {
 	public void initPreferences(Activity activity, PreferenceScreen preferenceScreen) {
 		
 		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
-		preferenceCategory.setTitle(R.string.httpCache);
+		preferenceCategory.setTitle(R.string.httpCacheSettings);
 		preferenceScreen.addPreference(preferenceCategory);
 		
 		Preference preference = new Preference(activity);

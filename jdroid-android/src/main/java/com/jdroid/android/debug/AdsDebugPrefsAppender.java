@@ -17,7 +17,7 @@ public class AdsDebugPrefsAppender implements PreferencesAppender {
 	public void initPreferences(Activity activity, PreferenceScreen preferenceScreen) {
 		
 		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
-		preferenceCategory.setTitle(R.string.ads);
+		preferenceCategory.setTitle(R.string.adsSettings);
 		preferenceScreen.addPreference(preferenceCategory);
 		
 		CheckBoxPreference checkBoxPreference = new CheckBoxPreference(activity);

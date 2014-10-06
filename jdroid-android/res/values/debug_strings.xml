@@ -4,10 +4,10 @@
 	<string name="debugSettings">Debug Settings</string>
 
 	<!-- Server -->
-	<string name="server">Server</string>
+	<string name="serversSettings">Servers</string>
 
 	<!-- Http Mocks -->
-	<string name="httpMocks">HTTP Mocks</string>
+	<string name="httpMocksSettings">HTTP Mocks</string>
 	<string name="httpMockEnabledTitle">Http Mocks</string>
 	<string name="httpMockEnabledDescription">Enable/disable http mocks</string>
 	<string name="httpMockSleepTitle">Http Mocks sleep</string>
@@ -16,23 +16,23 @@
 	<string name="httpMockCrashTypeDescription">Pick the crash type for your mocks calls</string>
 
 	<!-- Http Cache -->
-	<string name="httpCache">Http cache</string>
-	<string name="clearHttpCache">Clear http cache</string>
+	<string name="httpCacheSettings">Http cache</string>
+	<string name="clearHttpCache">Clear Http cache</string>
 
-	<!-- Universal Image Loader -->
-	<string name="universalImageLoader">Universal Image Loader</string>
-	<string name="clearImagesDiscCache">Clear images disc cache</string>
+	<!-- Image Loader -->
+	<string name="imageLoaderSettings">Image Loader</string>
+	<string name="clearImagesDiskCache">Clear images disk cache</string>
 	<string name="clearImagesMemoryCache">Clear images memory cache</string>
 
 	<!-- Exception Handling -->
-	<string name="exceptionHandling">Exception Handling</string>
+	<string name="exceptionHandlingSettings">Exception Handling</string>
 	<string name="exceptionType">Exception type</string>
 	<string name="uiThread">UI Thread</string>
 	<string name="crash">Crash</string>
 
 	<!-- Ads -->
-	<string name="ads">Ads</string>
-	<string name="adsEnabledTitle">Ads</string>
+	<string name="adsSettings">Ads</string>
+	<string name="adsEnabledTitle">Ads Enabled</string>
 	<string name="adsEnabledDescription">Enable/disable the ads</string>
 
 	<!-- Nav Drawer -->

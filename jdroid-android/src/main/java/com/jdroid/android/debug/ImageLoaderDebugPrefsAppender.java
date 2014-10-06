@@ -19,12 +19,12 @@ public class ImageLoaderDebugPrefsAppender implements PreferencesAppender {
 	public void initPreferences(Activity activity, PreferenceScreen preferenceScreen) {
 		
 		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
-		preferenceCategory.setTitle(R.string.universalImageLoader);
+		preferenceCategory.setTitle(R.string.imageLoaderSettings);
 		preferenceScreen.addPreference(preferenceCategory);
 		
 		Preference preference = new Preference(activity);
-		preference.setTitle(R.string.clearImagesDiscCache);
-		preference.setSummary(R.string.clearImagesDiscCache);
+		preference.setTitle(R.string.clearImagesDiskCache);
+		preference.setSummary(R.string.clearImagesDiskCache);
 		preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			
 			@Override

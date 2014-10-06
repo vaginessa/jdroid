@@ -16,7 +16,7 @@ import com.jdroid.java.exception.ApplicationException;
 import com.jdroid.java.exception.BusinessException;
 import com.jdroid.java.exception.ConnectionException;
 
-public class CrashDebugPrefsAppender implements PreferencesAppender {
+public class ExceptionHandlingDebugPrefsAppender implements PreferencesAppender {
 	
 	private static final String UI_THREAD_KEY = "uiThread";
 	private static final String CRASH_TYPE_KEY = "crashType";
@@ -29,7 +29,7 @@ public class CrashDebugPrefsAppender implements PreferencesAppender {
 	public void initPreferences(Activity activity, PreferenceScreen preferenceScreen) {
 		
 		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
-		preferenceCategory.setTitle(R.string.exceptionHandling);
+		preferenceCategory.setTitle(R.string.exceptionHandlingSettings);
 		preferenceScreen.addPreference(preferenceCategory);
 		
 		ListPreference preference = new ListPreference(activity);
