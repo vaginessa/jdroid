@@ -56,6 +56,7 @@
 	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-web/3.2.4.RELEASE/spring-web-3.2.4.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-web/3.2.4.RELEASE/spring-web-3.2.4.RELEASE-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-webmvc/3.2.4.RELEASE/spring-webmvc-3.2.4.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-webmvc/3.2.4.RELEASE/spring-webmvc-3.2.4.RELEASE-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/testng/testng/6.3/testng-6.3.jar" sourcepath="M2_REPO/org/testng/testng/6.3/testng-6.3-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/twitter4j/twitter4j-core/4.0.2/twitter4j-core-4.0.2.jar" sourcepath="M2_REPO/org/twitter4j/twitter4j-core/4.0.2/twitter4j-core-4.0.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/yaml/snakeyaml/1.6/snakeyaml-1.6.jar" sourcepath="M2_REPO/org/yaml/snakeyaml/1.6/snakeyaml-1.6-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/javax/transaction/jta/1.1/jta-1.1.jar" sourcepath="M2_REPO/javax/transaction/jta/1.1/jta-1.1-sources.jar"/>
 	<classpathentry kind="output" path="target/classes"/>

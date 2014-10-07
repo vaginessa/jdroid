@@ -18,6 +18,11 @@ public class AppContext {
 	private Boolean httpMockEnabled;
 	private Integer httpMockSleepDuration;
 	
+	private String twitterOAuthConsumerKey;
+	private String twitterOAuthConsumerSecret;
+	private String twitterOAuthAccessToken;
+	private String twitterOAuthAccessTokenSecret;
+	
 	public String getAppName() {
 		return appName;
 	}
@@ -121,5 +126,61 @@ public class AppContext {
 	 */
 	public void setAppHomePath(String appHomePath) {
 		this.appHomePath = appHomePath;
+	}
+	
+	/**
+	 * @return the twitterOAuthConsumerKey
+	 */
+	public String getTwitterOAuthConsumerKey() {
+		return twitterOAuthConsumerKey;
+	}
+	
+	/**
+	 * @param twitterOAuthConsumerKey the twitterOAuthConsumerKey to set
+	 */
+	public void setTwitterOAuthConsumerKey(String twitterOAuthConsumerKey) {
+		this.twitterOAuthConsumerKey = twitterOAuthConsumerKey;
+	}
+	
+	/**
+	 * @return the twitterOAuthConsumerSecret
+	 */
+	public String getTwitterOAuthConsumerSecret() {
+		return twitterOAuthConsumerSecret;
+	}
+	
+	/**
+	 * @param twitterOAuthConsumerSecret the twitterOAuthConsumerSecret to set
+	 */
+	public void setTwitterOAuthConsumerSecret(String twitterOAuthConsumerSecret) {
+		this.twitterOAuthConsumerSecret = twitterOAuthConsumerSecret;
+	}
+	
+	/**
+	 * @return the twitterOAuthAccessToken
+	 */
+	public String getTwitterOAuthAccessToken() {
+		return twitterOAuthAccessToken;
+	}
+	
+	/**
+	 * @param twitterOAuthAccessToken the twitterOAuthAccessToken to set
+	 */
+	public void setTwitterOAuthAccessToken(String twitterOAuthAccessToken) {
+		this.twitterOAuthAccessToken = twitterOAuthAccessToken;
+	}
+	
+	/**
+	 * @return the twitterOAuthAccessTokenSecret
+	 */
+	public String getTwitterOAuthAccessTokenSecret() {
+		return twitterOAuthAccessTokenSecret;
+	}
+	
+	/**
+	 * @param twitterOAuthAccessTokenSecret the twitterOAuthAccessTokenSecret to set
+	 */
+	public void setTwitterOAuthAccessTokenSecret(String twitterOAuthAccessTokenSecret) {
+		this.twitterOAuthAccessTokenSecret = twitterOAuthAccessTokenSecret;
 	}
 }
