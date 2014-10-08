@@ -22,6 +22,7 @@ public class AppContext {
 	private String twitterOAuthConsumerSecret;
 	private String twitterOAuthAccessToken;
 	private String twitterOAuthAccessTokenSecret;
+	private Boolean twitterEnabled = true;
 	
 	public String getAppName() {
 		return appName;
@@ -182,5 +183,19 @@ public class AppContext {
 	 */
 	public void setTwitterOAuthAccessTokenSecret(String twitterOAuthAccessTokenSecret) {
 		this.twitterOAuthAccessTokenSecret = twitterOAuthAccessTokenSecret;
+	}
+	
+	/**
+	 * @return the twitterEnabled
+	 */
+	public Boolean isTwitterEnabled() {
+		return twitterEnabled;
+	}
+	
+	/**
+	 * @param twitterEnabled the twitterEnabled to set
+	 */
+	public void setTwitterEnabled(Boolean twitterEnabled) {
+		this.twitterEnabled = twitterEnabled;
 	}
 }
