@@ -202,9 +202,6 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 				AbstractApplication.get().getAnalyticsSender().trackConnectionException(connectionException);
 			}
 			
-		} else if (throwable instanceof InvalidApiVersionException) {
-			LOGGER.warn(message, throwable);
-			handleException(Thread.currentThread(), (InvalidApiVersionException)throwable);
 		} else {
 			LOGGER.error(message, throwable);
 			AbstractApplication.get().getAnalyticsSender().trackHandledException(throwable);

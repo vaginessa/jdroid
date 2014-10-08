@@ -1,4 +1,6 @@
-package com.jdroid.java.exception;
+package com.jdroid.javaweb.exception;
+
+import com.jdroid.java.exception.AbstractException;
 
 public class InvalidArgumentException extends AbstractException {
 	
