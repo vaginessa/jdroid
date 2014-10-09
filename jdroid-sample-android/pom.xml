@@ -68,6 +68,28 @@
 				</configuration>
 			</plugin>
 
+			<!-- Git commit id Plugin -->
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<version>2.1.5</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>revision</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<prefix>git</prefix>
+					<dateFormat>dd.MM.yyyy HH:mm:ss z</dateFormat>
+					<dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+					<skipPomProjects>true</skipPomProjects>
+					<generateGitPropertiesFile>${git.properties.enabled}</generateGitPropertiesFile>
+					<generateGitPropertiesFilename>src/main/resources/git.properties</generateGitPropertiesFilename>
+				</configuration>
+			</plugin>
+			
 			<plugin>
 				<groupId>org.codehaus.gmaven</groupId>
 				<artifactId>gmaven-plugin</artifactId>
