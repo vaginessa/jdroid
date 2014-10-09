@@ -34,8 +34,8 @@ sh $VALIDATE_MISSING './jdroid-sample-android/res/values-es/strings.xml'
 
 if [ "$INSTALL" = "true" ]
 then
-	mvn clean install -P jdroid-release -Dmaven.test.skip=true -Dgpg.skip=true
-	#mvn clean deploy -P jdroid-release -Dmaven.test.skip=true -Dgpg.skip=true --settings ./settings.xml
+	#mvn clean install -P jdroid-release -Dmaven.test.skip=true -Dgpg.skip=true
+	mvn clean deploy -P jdroid-release -Dmaven.test.skip=true -Dgpg.skip=true --settings ./settings.xml
 fi
 
 # ************************
