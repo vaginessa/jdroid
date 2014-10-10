@@ -83,7 +83,7 @@
 				<configuration>
 					<prefix>git</prefix>
 					<dateFormat>dd.MM.yyyy HH:mm:ss z</dateFormat>
-					<dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+					<dotGitDirectory>${project.basedir}/jdroid-sample-android/.git</dotGitDirectory>
 					<skipPomProjects>true</skipPomProjects>
 					<generateGitPropertiesFile>${git.properties.enabled}</generateGitPropertiesFile>
 					<generateGitPropertiesFilename>src/main/resources/git.properties</generateGitPropertiesFilename>

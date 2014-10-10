@@ -2,7 +2,7 @@ language: android
 
 jdk:
   - oraclejdk7
-  
+
 env:
   global:
    # GH_USER GH_TOKEN GIT_NAME GIT_EMAIL
@@ -17,9 +17,9 @@ env:
    - secure: "eO8VzfFjeGySdLpN5Tqsovwj8SwVWtCt1hWcZrYcm7eK54a20fxTcgoU0p439EVxCftQruoy+ndZTRhLVxwqIEGP0pefz40JqxmmV8lp0FY7GKq29FrNxY4aS/1W9wJDijhX7H9F+vCHQD04/8RFvjqD89zOl0I6FvzVxchPx6A="
 android:
   components:
-  
+
     # The BuildTools version used by your project
-    - build-tools-19.1.0
+    - build-tools-20.0.0
 
     # The SDK version used to compile your project
     - android-19
@@ -41,7 +41,7 @@ after_success:
 deploy:
   provider: heroku
   strategy: git
-  app: 
+  app:
     master: jdroid-sample-server-staging
     production: jdroid-sample-server-production
   api_key:
