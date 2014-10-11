@@ -40,9 +40,20 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
+	<servlet>
+		<servlet-name>ping</servlet-name>
+		<servlet-class>com.jdroid.javaweb.ping.PingServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>api</servlet-name>
 		<url-pattern>/api/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ping</servlet-name>
+		<url-pattern>/ping</url-pattern>
 	</servlet-mapping>
 
 	<session-config>

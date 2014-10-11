@@ -5,6 +5,7 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.debug.mocks.AndroidJsonMockWebService;
 import com.jdroid.android.http.AndroidHttpClientFactory;
 import com.jdroid.java.api.AbstractApacheApiService;
+import com.jdroid.java.http.Server;
 import com.jdroid.java.http.apache.HttpClientFactory;
 import com.jdroid.java.http.cache.Cache;
 import com.jdroid.java.http.mock.AbstractMockWebService;
@@ -41,5 +42,13 @@ public abstract class AndroidApiService extends AbstractApacheApiService {
 	@Override
 	protected AbstractMockWebService getAbstractMockWebServiceInstance(Object... urlSegments) {
 		return new AndroidJsonMockWebService(urlSegments);
+	}
+	
+	/**
+	 * @see com.jdroid.java.api.AbstractApiService#getServer()
+	 */
+	@Override
+	protected Server getServer() {
+		return AbstractApplication.get().getAppContext().getServer();
 	}
 }

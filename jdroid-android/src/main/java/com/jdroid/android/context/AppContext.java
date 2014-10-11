@@ -29,6 +29,7 @@ public class AppContext {
 	private Environment environment;
 	private Boolean isFreeApp;
 	private String installationSource;
+	private Server server;
 	private String serverApiVersion;
 	
 	// Social
@@ -63,6 +64,7 @@ public class AppContext {
 		
 		debugSettings = PropertiesUtils.getBooleanProperty("debug.settings", false);
 		isFreeApp = PropertiesUtils.getBooleanProperty("free.app");
+		server = findServerByName(PropertiesUtils.getStringProperty("server.name"));
 		serverApiVersion = PropertiesUtils.getStringProperty("server.api.version");
 		
 		contactUsEmail = PropertiesUtils.getStringProperty("mail.contact");
@@ -92,6 +94,14 @@ public class AppContext {
 		crashlyticsDebugEnabled = PropertiesUtils.getBooleanProperty("crashlytics.debug.enabled", false);
 		
 		installationSource = PropertiesUtils.getStringProperty("installation.source", "GooglePlay");
+	}
+	
+	protected Server findServerByName(String name) {
+		return null;
+	}
+	
+	public Server getServer() {
+		return getServer(server);
 	}
 	
 	@SuppressWarnings("unchecked")
