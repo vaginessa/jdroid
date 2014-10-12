@@ -87,7 +87,7 @@
 			</exclusions>
 		</dependency>
 
-		<!-- Required to send mails -->
+		<!-- Email Sending -->
 		<dependency>
 			<groupId>android.mail</groupId>
 			<artifactId>mail</artifactId>

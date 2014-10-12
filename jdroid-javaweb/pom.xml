@@ -129,6 +129,13 @@
 			<artifactId>javassist</artifactId>
 			<version>3.12.1.GA</version>
 		</dependency>
+		
+		<!-- Database -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
 
 		<!-- Jackson -->
 		<dependency>
@@ -173,13 +180,6 @@
 			<version>1.8.3</version>
 		</dependency>
 
-		<!-- Database -->
-		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>1.4</version>
-		</dependency>
-
 		<!-- Guava -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -187,6 +187,7 @@
 			<version>11.0.1</version>
 		</dependency>
 
+		<!-- Open CSV-->
 		<dependency>
 			<groupId>net.sf.opencsv</groupId>
 			<artifactId>opencsv</artifactId>
@@ -198,14 +199,6 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
-		</dependency>
-
-		<!-- Email Sending -->
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4.4</version>
-			<scope>compile</scope>
 		</dependency>
 
 		<!-- TestNG -->
