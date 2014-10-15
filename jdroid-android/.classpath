@@ -13,7 +13,7 @@
 	<classpathentry exported="true" kind="var" path="M2_REPO/android/commonsware/sacklist/1.0.0/sacklist-1.0.0.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/net/sf/opencsv/opencsv/2.3/opencsv-2.3.jar" sourcepath="M2_REPO/net/sf/opencsv/opencsv/2.3/opencsv-2.3-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/slf4j/slf4j-android/1.6.1-RC1/slf4j-android-1.6.1-RC1.jar" sourcepath="M2_REPO/org/slf4j/slf4j-android/1.6.1-RC1/slf4j-android-1.6.1-RC1-sources.jar"/>
-	<classpathentry exported="true" kind="var" path="M2_REPO/com/crashlytics/android/crashlytics/1.1.11/crashlytics-1.1.11.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/com/crashlytics/android/crashlytics/1.1.13/crashlytics-1.1.13.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/com/nostra13/universalimageloader/universal-image-loader/1.9.2/universal-image-loader-1.9.2.jar" sourcepath="/M2_REPO/com/nostra13/universalimageloader/universal-image-loader/1.9.2/universal-image-loader-1.9.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/pivotallabs/robolectric/1.2/robolectric-1.2-jar-with-dependencies.jar"/>
 	<classpathentry kind="var" path="M2_REPO/junit/junit/4.8.2/junit-4.8.2.jar"/>
