@@ -18,13 +18,6 @@
             <url>http://download.crashlytics.com/maven</url>
         </repository>
     </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>crashlytics-plugin-repo</id>
-            <url>http://download.crashlytics.com/maven</url>
-        </pluginRepository>
-    </pluginRepositories>
     
 	<dependencies>
 
