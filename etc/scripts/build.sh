@@ -62,6 +62,11 @@ fi
 SOURCE_DIRECTORY=$BUILD_DIRECTORY/$PROJECT_NAME/source
 ASSEMBLIES_DIRECTORY=$BUILD_DIRECTORY/$PROJECT_NAME/assemblies
 
+# Cleaning the assemblies
+# ************************
+rm -r -f $ASSEMBLIES_DIRECTORY
+mkdir -p $ASSEMBLIES_DIRECTORY
+
 # Checking out
 # ************************
 
@@ -70,9 +75,6 @@ then
 	# Clean the directories
 	rm -r -f $SOURCE_DIRECTORY
 	mkdir -p $SOURCE_DIRECTORY
-
-	rm -r -f $ASSEMBLIES_DIRECTORY
-	mkdir -p $ASSEMBLIES_DIRECTORY
 
 	# Checkout the project
 	cd $SOURCE_DIRECTORY

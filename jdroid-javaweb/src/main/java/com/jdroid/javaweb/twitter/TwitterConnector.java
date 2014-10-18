@@ -33,7 +33,7 @@ public class TwitterConnector {
 				LOGGER.warn("Ignored tweet status [" + text + "].");
 			}
 		} catch (TwitterException e) {
-			LOGGER.error("Error when posting on Twitter", e);
+			LOGGER.error("Error when posting on Twitter: [" + text + "]", e);
 		}
 	}
 	
