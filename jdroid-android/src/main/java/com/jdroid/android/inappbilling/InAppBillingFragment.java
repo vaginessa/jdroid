@@ -5,13 +5,17 @@ import org.slf4j.Logger;
 import android.content.Intent;
 import android.os.Bundle;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.R;
 import com.jdroid.android.exception.CommonErrorCode;
+import com.jdroid.android.exception.ErrorDialogFragment;
 import com.jdroid.android.fragment.AbstractGridFragment;
 import com.jdroid.android.inappbilling.InAppBillingClient.OnConsumeFinishedListener;
 import com.jdroid.android.inappbilling.InAppBillingClient.OnIabPurchaseFinishedListener;
 import com.jdroid.android.inappbilling.InAppBillingClient.QueryInventoryFinishedListener;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.loading.NonBlockingLoading;
+import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.LoggerUtils;
@@ -118,13 +122,17 @@ public abstract class InAppBillingFragment extends AbstractGridFragment<Product>
 	};
 	
 	protected void onNotSupportedInAppBilling() {
-		ExecutorUtils.execute(new Runnable() {
-			
-			@Override
-			public void run() {
-				throw CommonErrorCode.INAPP_BILLING_NOT_SUPPORTED.newApplicationException("Not supported in app billing");
-			}
-		});
+		ErrorDialogFragment.show(getActivity(),
+			LocalizationUtils.getString(R.string.exceptionReportDialogTitle, AndroidUtils.getApplicationName()),
+			getString(R.string.notSupportedInAppBillingError), true);
+		// TODO Review this code when we refactor the exception handling
+		// ExecutorUtils.execute(new Runnable() {
+		//
+		// @Override
+		// public void run() {
+		// throw CommonErrorCode.INAPP_BILLING_NOT_SUPPORTED.newApplicationException("Not supported in app billing");
+		// }
+		// });
 	}
 	
 	protected void onFailedToLoadPurchases() {

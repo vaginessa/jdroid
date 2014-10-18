@@ -27,6 +27,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.text.TextUtils;
 import com.android.vending.billing.IInAppBillingService;
+import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.concurrent.SafeRunnable;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.CollectionUtils;
@@ -61,39 +62,6 @@ public class InAppBillingClient {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(InAppBillingClient.class);
 	
-	// Is setup done?
-	boolean mSetupDone = false;
-	
-	// Has this object been disposed of? (If so, we should ignore callbacks, etc)
-	boolean mDisposed = false;
-	
-	// Are subscriptions supported?
-	boolean mSubscriptionsSupported = false;
-	
-	// Is an asynchronous operation in progress?
-	// (only one at a time can be in progress)
-	boolean mAsyncInProgress = false;
-	
-	// (for logging/debugging)
-	// if mAsyncInProgress == true, what asynchronous operation is in progress?
-	String mAsyncOperation = "";
-	
-	// Context we were passed during initialization
-	Context mContext;
-	
-	// Connection to the service
-	IInAppBillingService mService;
-	ServiceConnection mServiceConn;
-	
-	// The request code used to launch purchase flow
-	int mRequestCode;
-	
-	// The item type of the current purchase flow
-	String mPurchasingItemType;
-	
-	// Public key for verifying signature, in base64 encoding
-	String mSignatureBase64 = null;
-	
 	// Keys for the responses from InAppBillingService
 	public static final String RESPONSE_CODE = "RESPONSE_CODE";
 	public static final String RESPONSE_GET_SKU_DETAILS_LIST = "DETAILS_LIST";
@@ -113,6 +81,37 @@ public class InAppBillingClient {
 	public static final String GET_SKU_DETAILS_ITEM_LIST = "ITEM_ID_LIST";
 	public static final String GET_SKU_DETAILS_ITEM_TYPE_LIST = "ITEM_TYPE_LIST";
 	
+	// Is setup done?
+	private boolean mSetupDone = false;
+	
+	// Has this object been disposed of? (If so, we should ignore callbacks, etc)
+	private boolean mDisposed = false;
+	
+	// Are subscriptions supported?
+	private boolean mSubscriptionsSupported = false;
+	
+	// Is an asynchronous operation in progress?
+	// (only one at a time can be in progress)
+	private boolean mAsyncInProgress = false;
+	
+	private String mAsyncOperation = "";
+	
+	// Context we were passed during initialization
+	private Context mContext;
+	
+	// Connection to the service
+	private IInAppBillingService mService;
+	private ServiceConnection mServiceConn;
+	
+	// The request code used to launch purchase flow
+	private int mRequestCode;
+	
+	// The item type of the current purchase flow
+	private String mPurchasingItemType;
+	
+	// Public key for verifying signature, in base64 encoding
+	private String mSignatureBase64 = null;
+	
 	/**
 	 * Creates an instance. After creation, it will not yet be ready to use. You must perform setup by calling
 	 * {@link #startSetup} and wait for setup to complete. This constructor does not block and is safe to call from a UI
@@ -126,7 +125,7 @@ public class InAppBillingClient {
 	public InAppBillingClient(Context ctx, String base64PublicKey) {
 		mContext = ctx.getApplicationContext();
 		mSignatureBase64 = base64PublicKey;
-		LOGGER.debug("IAB helper created.");
+		LOGGER.debug("InAppBillingClient created.");
 	}
 	
 	/**
@@ -154,7 +153,7 @@ public class InAppBillingClient {
 		// If already set up, can't do it again.
 		checkNotDisposed();
 		if (mSetupDone) {
-			throw new IllegalStateException("IAB helper is already set up.");
+			throw new IllegalStateException("InAppBillingClient is already set up.");
 		}
 		
 		// Connection to IAB service
@@ -330,51 +329,52 @@ public class InAppBillingClient {
 			OnIabPurchaseFinishedListener listener, String extraData) {
 		checkNotDisposed();
 		checkSetupDone("launchPurchaseFlow");
-		flagStartAsync("launchPurchaseFlow");
-		
-		if (itemType.equals(ITEM_TYPE_SUBS) && !mSubscriptionsSupported) {
-			flagEndAsync();
-			if (listener != null) {
-				listener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_SUBSCRIPTIONS_NOT_AVAILABLE, null);
-			}
-			return;
-		}
-		
-		try {
-			LOGGER.debug("Constructing buy intent for " + sku + ", item type: " + itemType);
-			Bundle buyIntentBundle = mService.getBuyIntent(3, mContext.getPackageName(), sku, itemType, extraData);
-			InAppBillingResponseCode responseCode = getResponseCodeFromBundle(buyIntentBundle);
-			if (responseCode != InAppBillingResponseCode.OK) {
-				LOGGER.error("Unable to buy item, Error response: " + responseCode.name());
+		if (flagStartAsync("launchPurchaseFlow")) {
+			
+			if (itemType.equals(ITEM_TYPE_SUBS) && !mSubscriptionsSupported) {
 				flagEndAsync();
 				if (listener != null) {
-					listener.onIabPurchaseFinished(responseCode, null);
+					listener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_SUBSCRIPTIONS_NOT_AVAILABLE, null);
 				}
 				return;
 			}
 			
-			PendingIntent pendingIntent = buyIntentBundle.getParcelable(RESPONSE_BUY_INTENT);
-			LOGGER.debug("Launching buy intent for " + sku + ". Request code: " + requestCode);
-			mRequestCode = requestCode;
-			mPurchaseListener = listener;
-			mPurchasingItemType = itemType;
-			act.startIntentSenderForResult(pendingIntent.getIntentSender(), requestCode, new Intent(),
-				Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
-		} catch (SendIntentException e) {
-			LOGGER.error("SendIntentException while launching purchase flow for sku " + sku);
-			e.printStackTrace();
-			flagEndAsync();
-			
-			if (listener != null) {
-				listener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_SEND_INTENT_FAILED, null);
-			}
-		} catch (RemoteException e) {
-			LOGGER.error("RemoteException while launching purchase flow for sku " + sku);
-			e.printStackTrace();
-			flagEndAsync();
-			
-			if (listener != null) {
-				listener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_REMOTE_EXCEPTION, null);
+			try {
+				LOGGER.debug("Constructing buy intent for " + sku + ", item type: " + itemType);
+				Bundle buyIntentBundle = mService.getBuyIntent(3, mContext.getPackageName(), sku, itemType, extraData);
+				InAppBillingResponseCode responseCode = getResponseCodeFromBundle(buyIntentBundle);
+				if (responseCode != InAppBillingResponseCode.OK) {
+					LOGGER.error("Unable to buy item, Error response: " + responseCode.name());
+					flagEndAsync();
+					if (listener != null) {
+						listener.onIabPurchaseFinished(responseCode, null);
+					}
+					return;
+				}
+				
+				PendingIntent pendingIntent = buyIntentBundle.getParcelable(RESPONSE_BUY_INTENT);
+				LOGGER.debug("Launching buy intent for " + sku + ". Request code: " + requestCode);
+				mRequestCode = requestCode;
+				mPurchaseListener = listener;
+				mPurchasingItemType = itemType;
+				act.startIntentSenderForResult(pendingIntent.getIntentSender(), requestCode, new Intent(),
+					Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
+			} catch (SendIntentException e) {
+				LOGGER.error("SendIntentException while launching purchase flow for sku " + sku);
+				e.printStackTrace();
+				flagEndAsync();
+				
+				if (listener != null) {
+					listener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_SEND_INTENT_FAILED, null);
+				}
+			} catch (RemoteException e) {
+				LOGGER.error("RemoteException while launching purchase flow for sku " + sku);
+				e.printStackTrace();
+				flagEndAsync();
+				
+				if (listener != null) {
+					listener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_REMOTE_EXCEPTION, null);
+				}
 			}
 		}
 	}
@@ -572,34 +572,39 @@ public class InAppBillingClient {
 	public void queryInventoryAsync(final boolean querySkuDetails, final List<String> moreSkus,
 			final QueryInventoryFinishedListener listener) {
 		final Handler handler = new Handler();
-		flagStartAsync("refresh inventory");
-		ExecutorUtils.execute(new SafeRunnable() {
-			
-			@Override
-			public void doRun() {
-				InAppBillingResponseCode result = InAppBillingResponseCode.OK;
-				Inventory inv = null;
-				try {
-					inv = queryInventory(querySkuDetails, moreSkus);
-				} catch (IabException ex) {
-					result = ex.getInAppBillingResponseCode();
-				}
+		if (flagStartAsync("queryInventoryAsync")) {
+			ExecutorUtils.execute(new SafeRunnable() {
 				
-				flagEndAsync();
-				
-				final InAppBillingResponseCode result_f = result;
-				final Inventory inv_f = inv;
-				if (!mDisposed && (listener != null)) {
-					handler.post(new Runnable() {
-						
-						@Override
-						public void run() {
-							listener.onQueryInventoryFinished(result_f, inv_f);
-						}
-					});
+				@Override
+				public void doRun() {
+					InAppBillingResponseCode result = InAppBillingResponseCode.OK;
+					Inventory inv = null;
+					try {
+						inv = queryInventory(querySkuDetails, moreSkus);
+					} catch (IabException ex) {
+						result = ex.getInAppBillingResponseCode();
+					}
+					
+					flagEndAsync();
+					
+					final InAppBillingResponseCode result_f = result;
+					final Inventory inv_f = inv;
+					if (!mDisposed && (listener != null)) {
+						handler.post(new Runnable() {
+							
+							@Override
+							public void run() {
+								listener.onQueryInventoryFinished(result_f, inv_f);
+							}
+						});
+					}
 				}
-			}
-		});
+			});
+		} else {
+			AbstractApplication.get().getExceptionHandler().logWarningException(
+				"Can't start async operation (queryInventoryAsync) because another async operation (" + mAsyncOperation
+						+ ") is in progress.");
+		}
 	}
 	
 	/**
@@ -728,19 +733,21 @@ public class InAppBillingClient {
 		return getResponseCodeFromBundle(i.getExtras());
 	}
 	
-	private void flagStartAsync(String operation) {
+	private Boolean flagStartAsync(String operation) {
 		if (mAsyncInProgress) {
-			throw new IllegalStateException("Can't start async operation (" + operation
-					+ ") because another async operation(" + mAsyncOperation + ") is in progress.");
+			LOGGER.warn("Can't start async operation (" + operation + ") because another async operation ("
+					+ mAsyncOperation + ") is in progress.");
+			return false;
 		}
 		mAsyncOperation = operation;
 		mAsyncInProgress = true;
 		LOGGER.debug("Starting async operation: " + operation);
+		return true;
 	}
 	
 	private void flagEndAsync() {
 		LOGGER.debug("Ending async operation: " + mAsyncOperation);
-		mAsyncOperation = "";
+		mAsyncOperation = null;
 		mAsyncInProgress = false;
 	}
 	
@@ -850,39 +857,44 @@ public class InAppBillingClient {
 	private void consumeAsyncInternal(final List<Purchase> purchases, final OnConsumeFinishedListener singleListener,
 			final OnConsumeMultiFinishedListener multiListener) {
 		final Handler handler = new Handler();
-		flagStartAsync("consume");
-		ExecutorUtils.execute(new SafeRunnable() {
-			
-			@Override
-			public void doRun() {
-				final List<InAppBillingResponseCode> results = new ArrayList<InAppBillingResponseCode>();
-				for (Purchase purchase : purchases) {
-					InAppBillingResponseCode response = consume(purchase);
-					if (response != null) {
-						results.add(response);
+		if (flagStartAsync("consumeAsyncInternal")) {
+			ExecutorUtils.execute(new SafeRunnable() {
+				
+				@Override
+				public void doRun() {
+					final List<InAppBillingResponseCode> results = new ArrayList<InAppBillingResponseCode>();
+					for (Purchase purchase : purchases) {
+						InAppBillingResponseCode response = consume(purchase);
+						if (response != null) {
+							results.add(response);
+						}
+					}
+					
+					flagEndAsync();
+					if (!mDisposed && (singleListener != null)) {
+						handler.post(new Runnable() {
+							
+							@Override
+							public void run() {
+								singleListener.onConsumeFinished(purchases.get(0), results.get(0));
+							}
+						});
+					}
+					if (!mDisposed && (multiListener != null)) {
+						handler.post(new Runnable() {
+							
+							@Override
+							public void run() {
+								multiListener.onConsumeMultiFinished(purchases, results);
+							}
+						});
 					}
 				}
-				
-				flagEndAsync();
-				if (!mDisposed && (singleListener != null)) {
-					handler.post(new Runnable() {
-						
-						@Override
-						public void run() {
-							singleListener.onConsumeFinished(purchases.get(0), results.get(0));
-						}
-					});
-				}
-				if (!mDisposed && (multiListener != null)) {
-					handler.post(new Runnable() {
-						
-						@Override
-						public void run() {
-							multiListener.onConsumeMultiFinished(purchases, results);
-						}
-					});
-				}
-			}
-		});
+			});
+		} else {
+			AbstractApplication.get().getExceptionHandler().logWarningException(
+				"Can't start async operation (consumeAsyncInternal) because another async operation ("
+						+ mAsyncOperation + ") is in progress.");
+		}
 	}
 }
