@@ -3,6 +3,7 @@ package com.jdroid.javaweb.api;
 import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TimeZone;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +29,7 @@ public class AdminController {
 		infoMap.put("Http Mock Sleep Duration", Application.get().getAppContext().getHttpMockSleepDuration());
 		infoMap.put("Default Charset", Charset.defaultCharset());
 		infoMap.put("File Encoding", System.getProperty("file.encoding"));
+		infoMap.put("Time Zone", TimeZone.getDefault().getID());
 		
 		infoMap.putAll(getCustomInfoMap());
 		
