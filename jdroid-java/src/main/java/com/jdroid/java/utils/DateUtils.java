@@ -135,6 +135,11 @@ public abstract class DateUtils {
 	public static final String HHMMAA_DATE_FORMAT = "hh:mm aa";
 	
 	/**
+	 * Date format like 21:45
+	 */
+	public static final String HHMM_DATE_FORMAT = "HH:mm";
+	
+	/**
 	 * Date format like Friday 5 November
 	 */
 	public static final String EEEEDMMMM_DATE_FORMAT = "EEEE d MMMM";
