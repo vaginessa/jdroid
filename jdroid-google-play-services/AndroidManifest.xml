@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.google.android.gms"
-    android:versionCode="5077000" android:versionName="5.0.77-000" >
-
-    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19" />
-
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="6111000"
+	android:versionName="6.1.11-000" package="com.google.android.gms">
+	<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19" />
+	<application />
 </manifest>

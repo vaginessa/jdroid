@@ -18,7 +18,7 @@
 		<dependency>
 			<groupId>android</groupId>
 			<artifactId>google-play-services</artifactId>
-			<version>r19</version>
+			<version>r20</version>
 		</dependency>
 
 	</dependencies>
