@@ -10,7 +10,7 @@
 	<string name="zeroPercent">0%</string>
 	<string name="next">Siguiente</string>
 	<string name="previous">Anterior</string>
-	<string name="finish">Terminar</string>
+	<string name="finish">Finalizar</string>
 	<string name="refresh">Actualizar</string>
 	<string name="logout">Cerrar sesión</string>
 	<string name="revokeAccess">Revocar</string>
@@ -43,19 +43,19 @@
 
 	<!-- Abstract Search Activity -->
 	<string name="typeHere">Tipee aquí</string>
-	<string name="noResultsSearch">Su búsqueda devolvió ningún resultado.</string>
+	<string name="noResultsSearch">Su búsqueda no devolvió resultados.</string>
 	<string name="requiredSearchTerm">El campo a buscar es requerido</string>
 
 	<!-- Time Picker Dialog Fragment -->
 	<string name="selectTime">Seleccione una hora</string>
 
 	<!-- Picture Dialog Fragment -->
-	<string name="selectPhoto">Origen de la imágen</string>
+	<string name="selectPhoto">Orígen de la imágen</string>
 	<string name="camera">Cámara</string>
-	<string name="gallery">Galeria</string>
+	<string name="gallery">Galería</string>
 
 	<!-- Rate me -->
-	<string name="rateMeTitle">Le gustó %1$s?</string>
+	<string name="rateMeTitle">¿Le gusta %1$s?</string>
 	<string name="rateMeDescription">Califiquenos ahora !</string>
 
 	<!-- About Dialog -->
