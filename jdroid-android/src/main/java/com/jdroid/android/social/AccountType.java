@@ -6,6 +6,7 @@ public enum AccountType {
 	
 	GOOGLE_PLUS("googlePlus", "Google+", R.drawable.common_signin_btn_icon_normal_light),
 	FACEBOOK("facebook", "Facebook", R.drawable.ic_facebook),
+	TWITTER("twitter", "Twitter", null),
 	INTERNAL("internal", "Internal", null),
 	ANONYMOUS("anonymous", "Anonymous", null);
 	

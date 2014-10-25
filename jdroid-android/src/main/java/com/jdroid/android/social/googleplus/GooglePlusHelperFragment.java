@@ -34,6 +34,7 @@ import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.social.AccountType;
+import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.social.SocialUser;
 import com.jdroid.android.utils.GooglePlayUtils;
 import com.jdroid.android.utils.IntentUtils;
@@ -479,6 +480,8 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	public static void openCommunity(String community) {
 		AbstractApplication.get().getCurrentActivity().startActivity(
 			new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/u/0/communities/" + community)));
+		AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(AccountType.GOOGLE_PLUS,
+			SocialAction.OPEN_PROFILE, community);
 	}
 	
 	public static class LogoutListener implements ConnectionCallbacks {

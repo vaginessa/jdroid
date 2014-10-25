@@ -4,6 +4,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.social.AccountType;
+import com.jdroid.android.social.SocialAction;
 
 public class TwitterConnector {
 	
@@ -16,6 +18,9 @@ public class TwitterConnector {
 		} catch (ActivityNotFoundException e) {
 			AbstractApplication.get().getCurrentActivity().startActivity(
 				new Intent(Intent.ACTION_VIEW, Uri.parse("http://twitter.com/" + account)));
+		} finally {
+			AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(AccountType.TWITTER,
+				SocialAction.OPEN_PROFILE, account);
 		}
 	}
 }

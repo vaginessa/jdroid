@@ -18,6 +18,8 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.fragment.AbstractFragment;
+import com.jdroid.android.social.AccountType;
+import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.LoggerUtils;
@@ -211,6 +213,9 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 		} catch (ActivityNotFoundException e) {
 			AbstractApplication.get().getCurrentActivity().startActivity(
 				new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/" + pageId)));
+		} finally {
+			AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(AccountType.FACEBOOK,
+				SocialAction.OPEN_PROFILE, pageId);
 		}
 	}
 	

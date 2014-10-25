@@ -224,11 +224,12 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackSocialInteraction(com.jdroid.android.social.AccountType,
+	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackSocialInteraction(com.jdroid.android.social.AccountType,
 	 *      com.jdroid.android.social.SocialAction, java.lang.String)
 	 */
 	@Override
 	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget) {
+		sendEvent("social" + accountType.getFriendlyName(), socialAction.getName(), socialTarget);
 		tracker.send(new HitBuilders.SocialBuilder().setNetwork(accountType.getFriendlyName()).setAction(
 			socialAction.getName()).setTarget(socialTarget).build());
 	}

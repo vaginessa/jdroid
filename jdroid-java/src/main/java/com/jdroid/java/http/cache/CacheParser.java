@@ -24,7 +24,6 @@ public class CacheParser implements Parser {
 	/**
 	 * @see com.jdroid.java.parser.Parser#parse(java.io.InputStream)
 	 */
-	@SuppressWarnings("resource")
 	@Override
 	public Object parse(InputStream inputStream) {
 		
