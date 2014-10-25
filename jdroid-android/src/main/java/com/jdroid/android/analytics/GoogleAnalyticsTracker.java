@@ -157,7 +157,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	 */
 	@Override
 	public void trackInAppBillingPurchaseTry(Product product) {
-		sendEvent("inAppBiling", "purchaseTry", product.getProductType().getProductId());
+		sendEvent("inAppBilling", "purchaseTry", product.getProductType().getProductId());
 	}
 	
 	/**
