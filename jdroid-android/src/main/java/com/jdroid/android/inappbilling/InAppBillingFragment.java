@@ -154,7 +154,9 @@ public abstract class InAppBillingFragment extends AbstractGridFragment<Product>
 	
 	protected abstract void onPurchased(Product product);
 	
-	protected abstract void onConsumed(Product product);
+	protected void onConsumed(Product product) {
+		// Do nothing
+	}
 	
 	public void launchPurchaseFlow(Product product) {
 		inAppBillingClient.launchPurchaseFlow(getActivity(), product.getProductType().getProductId(),

@@ -182,7 +182,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	}
 	
 	protected Boolean isLocationEnabled() {
-		return true;
+		return false;
 	}
 	
 	public void hideMap() {

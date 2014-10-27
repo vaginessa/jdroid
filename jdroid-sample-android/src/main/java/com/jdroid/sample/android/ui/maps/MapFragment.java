@@ -32,7 +32,7 @@ public class MapFragment extends AbstractMapFragment {
 	 */
 	@Override
 	protected Boolean isLocationEnabled() {
-		return false;
+		return true;
 	}
 	
 }
