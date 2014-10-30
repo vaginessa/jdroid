@@ -138,6 +138,11 @@ public class NotificationBuilder {
 		}
 	}
 	
+	public void setDefaultVibration() {
+		long[] defaultPattern = { 1000, 1000 };
+		builder.setVibrate(defaultPattern);
+	}
+	
 	private Bitmap createLargeIconBitmap(String largeIconUrl) {
 		Bitmap largeIconBitmap = null;
 		if (StringUtils.isNotEmpty(largeIconUrl)) {
