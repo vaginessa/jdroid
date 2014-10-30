@@ -12,7 +12,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.animation.Animation;
-import android.widget.FrameLayout;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
@@ -62,7 +61,8 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		FrameLayout view = (FrameLayout)inflater.inflate(R.layout.map_fragment, container, false);
+		map = null;
+		ViewGroup view = (ViewGroup)inflater.inflate(R.layout.map_fragment, container, false);
 		if (GooglePlayUtils.isGooglePlayServicesAvailable(getActivity())) {
 			TypedArray attributes = getActivity().getTheme().obtainStyledAttributes(
 				new int[] { android.R.attr.colorBackground });

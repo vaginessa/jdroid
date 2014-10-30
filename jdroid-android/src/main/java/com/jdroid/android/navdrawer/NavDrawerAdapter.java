@@ -2,6 +2,7 @@ package com.jdroid.android.navdrawer;
 
 import java.util.List;
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,12 +29,14 @@ public class NavDrawerAdapter extends BaseHolderArrayAdapter<NavDrawerItem, NavD
 		}
 		
 		if (item.isMainAction()) {
-			holder.name.setTextSize(18);
+			holder.name.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+				getContext().getResources().getDimension(R.dimen.nav_drawer_main_text_size));
 			holder.convertView.setBackgroundResource(R.drawable.nav_drawer_main_item_selector);
 			holder.convertView.setMinimumHeight(getContext().getResources().getDimensionPixelSize(
 				R.dimen.nav_drawer_main_min_height));
 		} else {
-			holder.name.setTextSize(16);
+			holder.name.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+				getContext().getResources().getDimension(R.dimen.nav_drawer_secondary_text_size));
 			holder.convertView.setBackgroundResource(R.drawable.nav_drawer_secondary_item_selector);
 			holder.convertView.setMinimumHeight(getContext().getResources().getDimensionPixelSize(
 				R.dimen.nav_drawer_secondary_min_height));
