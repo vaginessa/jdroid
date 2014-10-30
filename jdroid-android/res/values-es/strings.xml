@@ -16,7 +16,7 @@
 	<string name="revokeAccess">Revocar</string>
 	<string name="signIn">Iniciar sesión</string>
 	<string name="retry">Reintentar</string>
-	<string name="removeAdsNow">Ocultar publicidad!</string>
+	<string name="removeAdsNow">¡Ocultar publicidad!</string>
 
 	<!-- Navigation Drawer -->
 	<string name="drawerOpen">Abrir navigation drawer</string>
@@ -42,7 +42,7 @@
 	<string name="installAppMessage">Necesita instalar la aplicación %1$s para continuar. Le gustaría descargarla?</string>
 
 	<!-- Abstract Search Activity -->
-	<string name="typeHere">Tipee aquí</string>
+	<string name="typeHere">Escriba aquí</string>
 	<string name="noResultsSearch">Su búsqueda no devolvió resultados.</string>
 	<string name="requiredSearchTerm">El campo a buscar es requerido</string>
 
@@ -56,7 +56,7 @@
 
 	<!-- Rate me -->
 	<string name="rateMeTitle">¿Le gusta %1$s?</string>
-	<string name="rateMeDescription">Califiquenos ahora !</string>
+	<string name="rateMeDescription">¡Califiquenos ahora!</string>
 
 	<!-- About Dialog -->
 	<string name="about">Acerca de</string>
@@ -65,7 +65,7 @@
 	<string name="share">Compartir</string>
 	<string name="copyright">© %1$s %2$s</string>
 	<string name="allRightsReservedLegend">Todos los derechos reservados</string>
-	<string name="followUs">Siganos</string>
+	<string name="followUs">Síganos</string>
 	<string name="jdroidLegend">Usando Jdroid - Application Framework for Android and Java apps</string>
 	<string name="universalImageLoaderLegend">Usando Universal Image Loader (c) 2011-2014, Sergey Tarasevich</string>
 
