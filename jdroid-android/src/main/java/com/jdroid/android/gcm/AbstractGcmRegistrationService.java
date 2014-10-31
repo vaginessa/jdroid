@@ -9,7 +9,7 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.service.WorkerService;
 import com.jdroid.android.utils.GooglePlayUtils;
 import com.jdroid.android.utils.IntentRetryUtils;
-import com.jdroid.java.exception.ApplicationException;
+import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.utils.LoggerUtils;
 
 public abstract class AbstractGcmRegistrationService extends WorkerService {
@@ -40,7 +40,7 @@ public abstract class AbstractGcmRegistrationService extends WorkerService {
 				try {
 					onRegisterOnServer(registrationId);
 					GcmPreferences.setRegisteredOnServer(getApplicationContext(), true);
-				} catch (ApplicationException e) {
+				} catch (AbstractException e) {
 					LOGGER.warn("Failed to register the device on server. Will retry later.", e);
 					IntentRetryUtils.retry(intent);
 				}

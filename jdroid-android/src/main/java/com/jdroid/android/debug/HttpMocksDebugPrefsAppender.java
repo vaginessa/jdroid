@@ -8,11 +8,7 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import com.jdroid.android.R;
 import com.jdroid.android.context.AppContext;
-import com.jdroid.android.debug.mocks.AndroidJsonMockWebService;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.exception.ApplicationException;
-import com.jdroid.java.exception.BusinessException;
-import com.jdroid.java.exception.ConnectionException;
 
 public class HttpMocksDebugPrefsAppender implements PreferencesAppender {
 	
@@ -47,11 +43,10 @@ public class HttpMocksDebugPrefsAppender implements PreferencesAppender {
 		preference.setDialogTitle(R.string.httpMockCrashType);
 		preference.setSummary(R.string.httpMockCrashTypeDescription);
 		List<CharSequence> entries = Lists.newArrayList();
-		entries.add(AndroidJsonMockWebService.NONE);
-		entries.add(BusinessException.class.getSimpleName());
-		entries.add(ConnectionException.class.getSimpleName());
-		entries.add(ApplicationException.class.getSimpleName());
-		entries.add(RuntimeException.class.getSimpleName());
+		entries.add("None");
+		for (ExceptionType each : ExceptionType.values()) {
+			entries.add(each.name());
+		}
 		preference.setEntries(entries.toArray(new CharSequence[0]));
 		preference.setEntryValues(entries.toArray(new CharSequence[0]));
 		// FIXME this is not working

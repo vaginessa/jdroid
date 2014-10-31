@@ -23,14 +23,15 @@
 	<string name="drawerClose">Cerrar navigation drawer</string>
 
 	<!-- Errors -->
-	<string name="internalError">Estamos teniendo problemas tecnicos. Por favor vuelva a intentar más tarde.</string>
-	<string name="serverError">Estamos teniendo problemas tecnicos. Por favor vuelva a intentar más tarde.</string>
-	<string name="connectionError">Por favor verifique su conexión a internet y vuelva a intentar.</string>
+	<string name="defaultErrorTitle">Error en %1$s</string>
+	<string name="defaultErrorDescription">Estamos teniendo problemas tecnicos. Por favor vuelva a intentar más tarde.</string>
+
 	<string name="connectionErrorTitle">Error de conexión</string>
+	<string name="connectionErrorDescription">Por favor verifique su conexión a internet y vuelva a intentar.</string>
+
 	<string name="facebookError">Estamos teniendo problemas tecnicos. Por favor vuelva a intentar más tarde.</string>
 	<string name="notSupportedInAppBillingError">Su dispositivo no soporta in app billing.</string>
 	<string name="failedToLoadPurchases">No pudimos cargar los items a comprar. Por favor vuelva a intentar más tarde.</string>
-	<string name="exceptionReportDialogTitle">Error en %1$s</string>
 	<string name="invalidCredentials">Credenciales inválidas</string>
 
 	<!-- Google Play Utils -->

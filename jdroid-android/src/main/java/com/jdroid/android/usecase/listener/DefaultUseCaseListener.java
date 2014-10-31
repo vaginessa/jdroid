@@ -1,5 +1,7 @@
 package com.jdroid.android.usecase.listener;
 
+import com.jdroid.java.exception.AbstractException;
+
 /**
  * Default Use Case Listener
  */
@@ -18,18 +20,13 @@ public interface DefaultUseCaseListener {
 	/**
 	 * Called after the use case fails
 	 * 
-	 * @param runtimeException The {@link RuntimeException} with the error
+	 * @param abstractException The {@link AbstractException} with the error
 	 */
-	public void onFinishFailedUseCase(RuntimeException runtimeException);
+	public void onFinishFailedUseCase(AbstractException abstractException);
 	
 	/**
 	 * Called when the use case finishes successfully
 	 */
 	public void onFinishUseCase();
-	
-	/**
-	 * Called when the use case finishes successfully but was cancelled during its execution
-	 */
-	public void onFinishCanceledUseCase();
 	
 }

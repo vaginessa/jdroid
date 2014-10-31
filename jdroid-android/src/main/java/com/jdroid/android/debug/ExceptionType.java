@@ -1,0 +1,80 @@
+package com.jdroid.android.debug;
+
+import com.jdroid.java.exception.CommonErrorCode;
+import com.jdroid.java.exception.ConnectionException;
+import com.jdroid.java.exception.ErrorCodeException;
+import com.jdroid.java.exception.HttpResponseException;
+import com.jdroid.java.exception.UnexpectedException;
+
+public enum ExceptionType {
+	
+	CONNECTION_EXCEPTION {
+		
+		@Override
+		public void crash() {
+			throw new ConnectionException(CRASH_MESSAGE);
+		}
+	},
+	ERROR_CODE_EXCEPTION {
+		
+		@Override
+		public void crash() {
+			throw new ErrorCodeException(CommonErrorCode.UNEXPECTED_ERROR, CRASH_MESSAGE);
+		}
+	},
+	HTTP_RESPONSE_EXCEPTION {
+		
+		@Override
+		public void crash() {
+			throw new HttpResponseException(CRASH_MESSAGE);
+		}
+	},
+	UNEXPECTED_EXCEPTION {
+		
+		@Override
+		public void crash() {
+			throw new UnexpectedException(CRASH_MESSAGE);
+		}
+	},
+	UNEXPECTED_WRAPPED_EXCEPTION {
+		
+		@Override
+		public void crash() {
+			throw new UnexpectedException(CRASH_MESSAGE, new NullPointerException());
+		}
+	},
+	UNEXPECTED_NO_MESSAGE_WRAPPED_EXCEPTION {
+		
+		@Override
+		public void crash() {
+			throw new UnexpectedException(new NullPointerException());
+		}
+	},
+	RUNTIME_EXCEPTION {
+		
+		@Override
+		public void crash() {
+			throw new RuntimeException(CRASH_MESSAGE);
+		}
+	},
+	RUNTIME_NO_MESSAGE_EXCEPTION {
+		
+		@Override
+		public void crash() {
+			throw new RuntimeException();
+		}
+	};
+	
+	private static final String CRASH_MESSAGE = "This is a generated crash for testing";
+	
+	public abstract void crash();
+	
+	public static ExceptionType find(String name) {
+		try {
+			return ExceptionType.valueOf(name);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+}

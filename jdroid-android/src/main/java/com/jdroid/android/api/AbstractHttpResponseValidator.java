@@ -2,10 +2,9 @@ package com.jdroid.android.api;
 
 import org.slf4j.Logger;
 import com.jdroid.android.exception.CommonErrorCode;
-import com.jdroid.android.exception.InvalidApiVersionException;
-import com.jdroid.android.exception.InvalidUserTokenException;
 import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.ErrorCode;
+import com.jdroid.java.exception.HttpResponseException;
 import com.jdroid.java.http.HttpResponseWrapper;
 import com.jdroid.java.http.HttpWebServiceProcessor;
 import com.jdroid.java.http.WebService;
@@ -46,31 +45,26 @@ public abstract class AbstractHttpResponseValidator implements HttpWebServicePro
 		
 		String message = httpResponse.logStatusCode();
 		if (httpResponse.isSuccess()) {
-			ErrorCode errorCode = getErrorCode(httpResponse, CommonErrorCode.SERVER_ERROR);
+			ErrorCode errorCode = getErrorCode(httpResponse);
 			if (errorCode != null) {
-				throw errorCode.newBusinessException();
+				throw errorCode.newErrorCodeException();
 			}
-			
 		} else if (httpResponse.isClientError()) {
-			ErrorCode errorCode = getErrorCode(httpResponse, CommonErrorCode.INTERNAL_ERROR);
-			if (CommonErrorCode.INVALID_API_VERSION.equals(errorCode)) {
-				throw new InvalidApiVersionException();
-			} else if (CommonErrorCode.INVALID_USER_TOKEN.equals(errorCode)) {
-				throw new InvalidUserTokenException();
-			} else if (CommonErrorCode.INVALID_CREDENTIALS.equals(errorCode)) {
-				throw CommonErrorCode.INVALID_CREDENTIALS.newBusinessException();
-			}
+			ErrorCode errorCode = getErrorCode(httpResponse);
+			throw errorCode.newErrorCodeException();
 		} else if (httpResponse.isServerError()) {
 			// 504 - Gateway Timeout
 			if (httpResponse.getStatusCode() == 504) {
 				throw new ConnectionException(message);
 			} else {
-				throw CommonErrorCode.SERVER_ERROR.newApplicationException(message);
+				throw new HttpResponseException(message);
 			}
+		} else {
+			throw new HttpResponseException(message);
 		}
 	}
 	
-	private ErrorCode getErrorCode(HttpResponseWrapper httpResponse, ErrorCode defaultErrorCode) {
+	private ErrorCode getErrorCode(HttpResponseWrapper httpResponse) {
 		ErrorCode errorCode = null;
 		String statusCode = httpResponse.getHeader(STATUS_CODE_HEADER);
 		if (statusCode != null) {
@@ -81,12 +75,12 @@ public abstract class AbstractHttpResponseValidator implements HttpWebServicePro
 					errorCode = CommonErrorCode.findByStatusCode(statusCode);
 					if (errorCode == null) {
 						LOGGER.warn("Unknown Server Status code: " + statusCode);
-						throw defaultErrorCode.newApplicationException("Unknown Server Status code: " + statusCode);
+						throw new HttpResponseException("Unknown Server Status code: " + statusCode);
 					}
 				}
 			}
 		} else {
-			throw CommonErrorCode.SERVER_ERROR.newApplicationException("Missing " + STATUS_CODE_HEADER + " header.");
+			throw new HttpResponseException("Missing " + STATUS_CODE_HEADER + " header.");
 		}
 		return errorCode;
 	}

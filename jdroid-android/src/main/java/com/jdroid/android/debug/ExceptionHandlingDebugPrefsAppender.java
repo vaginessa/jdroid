@@ -12,9 +12,6 @@ import android.preference.PreferenceScreen;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.exception.ApplicationException;
-import com.jdroid.java.exception.BusinessException;
-import com.jdroid.java.exception.ConnectionException;
 
 public class ExceptionHandlingDebugPrefsAppender implements PreferencesAppender {
 	
@@ -38,10 +35,9 @@ public class ExceptionHandlingDebugPrefsAppender implements PreferencesAppender 
 		preference.setDialogTitle(R.string.exceptionType);
 		preference.setSummary(R.string.exceptionType);
 		List<CharSequence> entries = Lists.newArrayList();
-		entries.add(BusinessException.class.getSimpleName());
-		entries.add(ConnectionException.class.getSimpleName());
-		entries.add(ApplicationException.class.getSimpleName());
-		entries.add(RuntimeException.class.getSimpleName());
+		for (ExceptionType each : ExceptionType.values()) {
+			entries.add(each.name());
+		}
 		preference.setEntries(entries.toArray(new CharSequence[0]));
 		preference.setEntryValues(entries.toArray(new CharSequence[0]));
 		preferenceCategory.addPreference(preference);
@@ -62,9 +58,9 @@ public class ExceptionHandlingDebugPrefsAppender implements PreferencesAppender 
 				
 				Boolean uiThread = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(
 					UI_THREAD_KEY, false);
-				String crashType = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
-					CRASH_TYPE_KEY, BusinessException.class.getSimpleName());
-				CrashGenerator.crash(crashType, !uiThread);
+				ExceptionType exceptionType = ExceptionType.valueOf(PreferenceManager.getDefaultSharedPreferences(
+					AbstractApplication.get()).getString(CRASH_TYPE_KEY, ExceptionType.UNEXPECTED_EXCEPTION.name()));
+				CrashGenerator.crash(exceptionType, !uiThread);
 				return true;
 			}
 		});

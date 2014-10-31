@@ -11,7 +11,6 @@ import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
-import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.utils.LoggerUtils;
 
 /**
@@ -164,20 +163,6 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 			@Override
 			protected void track(T tracker) {
 				tracker.onFragmentStart(screenViewName);
-			}
-		});
-	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackConnectionException(com.jdroid.java.exception.ConnectionException)
-	 */
-	@Override
-	public void trackConnectionException(final ConnectionException connectionException) {
-		ExecutorUtils.execute(new TrackerRunnable() {
-			
-			@Override
-			protected void track(T tracker) {
-				tracker.trackConnectionException(connectionException);
 			}
 		});
 	}

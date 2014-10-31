@@ -39,6 +39,7 @@ import com.jdroid.android.social.SocialUser;
 import com.jdroid.android.utils.GooglePlayUtils;
 import com.jdroid.android.utils.IntentUtils;
 import com.jdroid.java.collections.Lists;
+import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -298,10 +299,10 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onFinishFailedUseCase(java.lang.RuntimeException)
+	 * @see com.jdroid.android.fragment.AbstractFragment#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
 	 */
 	@Override
-	public void onFinishFailedUseCase(RuntimeException runtimeException) {
+	public void onFinishFailedUseCase(AbstractException abstractException) {
 		if (googleApiClient.isConnected()) {
 			Plus.AccountApi.clearDefaultAccount(googleApiClient);
 			googleApiClient.disconnect();
@@ -319,7 +320,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 				}
 			}
 		});
-		super.onFinishFailedUseCase(runtimeException);
+		super.onFinishFailedUseCase(abstractException);
 	}
 	
 	/**

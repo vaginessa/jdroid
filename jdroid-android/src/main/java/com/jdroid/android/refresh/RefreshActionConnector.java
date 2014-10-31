@@ -8,6 +8,7 @@ import com.jdroid.android.R;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.fragment.FragmentIf;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
+import com.jdroid.java.exception.AbstractException;
 
 public abstract class RefreshActionConnector implements RefreshActionProvider.OnRefreshListener, DefaultUseCaseListener {
 	
@@ -69,21 +70,21 @@ public abstract class RefreshActionConnector implements RefreshActionProvider.On
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishFailedUseCase(java.lang.RuntimeException)
+	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
 	 */
 	@Override
-	public void onFinishFailedUseCase(RuntimeException runtimeException) {
-		if (goBackOnError(runtimeException)) {
-			DefaultExceptionHandler.markAsGoBackOnError(runtimeException);
+	public void onFinishFailedUseCase(AbstractException abstractException) {
+		if (goBackOnError(abstractException)) {
+			DefaultExceptionHandler.markAsGoBackOnError(abstractException);
 		} else {
-			DefaultExceptionHandler.markAsNotGoBackOnError(runtimeException);
+			DefaultExceptionHandler.markAsNotGoBackOnError(abstractException);
 		}
 		stopLoadingOnUIThread();
-		throw runtimeException;
+		throw abstractException;
 	}
 	
-	public Boolean goBackOnError(RuntimeException runtimeException) {
-		return getFragmentIf().goBackOnError(runtimeException);
+	public Boolean goBackOnError(AbstractException abstractException) {
+		return getFragmentIf().goBackOnError(abstractException);
 	}
 	
 	/**
@@ -92,14 +93,6 @@ public abstract class RefreshActionConnector implements RefreshActionProvider.On
 	@Override
 	public void onFinishUseCase() {
 		stopLoadingOnUIThread();
-	}
-	
-	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishCanceledUseCase()
-	 */
-	@Override
-	public void onFinishCanceledUseCase() {
-		getFragmentIf().onFinishCanceledUseCase();
 	}
 	
 	protected abstract FragmentIf getFragmentIf();

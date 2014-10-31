@@ -1,32 +1,34 @@
 package com.jdroid.java.exception;
 
+
 /**
  * Common interface for all the possible errors of the application
+ * 
  */
 public interface ErrorCode {
 	
 	/**
 	 * @param errorCodeParameters The parameters for this {@link ErrorCode}'s message.
-	 * @return A new {@link BusinessException} with this {@link ErrorCode}
+	 * @return A new {@link ErrorCodeException} with this {@link ErrorCode}
 	 */
-	public BusinessException newBusinessException(Object... errorCodeParameters);
+	public ErrorCodeException newErrorCodeException(Object... errorCodeParameters);
+	
+	public ErrorCodeException newErrorCodeException(Throwable throwable);
 	
 	/**
-	 * @param throwable
-	 * @return A new {@link ApplicationException} with this {@link ErrorCode}
+	 * @return A new {@link ErrorCodeException}
 	 */
-	public ApplicationException newApplicationException(Throwable throwable);
+	public ErrorCodeException newErrorCodeException();
 	
 	/**
-	 * @param message
-	 * @return A new {@link ApplicationException} with this message
+	 * @return The title resource id
 	 */
-	public ApplicationException newApplicationException(String message);
+	public Integer getTitleResId();
 	
 	/**
-	 * @return The resource id
+	 * @return The description resource id
 	 */
-	public Integer getResourceId();
+	public Integer getDescriptionResId();
 	
 	/**
 	 * @return The status code

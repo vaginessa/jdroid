@@ -1,29 +1,29 @@
 package com.jdroid.java.exception;
 
-public class UnexpectedException extends AbstractException {
+public class UnexpectedException extends ErrorCodeException {
 	
-	private static final long serialVersionUID = -7051268210410092107L;
+	private static final long serialVersionUID = 7653653326088130933L;
 	
-	/**
-	 * @param message
-	 * @param cause
-	 */
 	public UnexpectedException(String message, Throwable cause) {
-		super(message, cause);
+		super(CommonErrorCode.UNEXPECTED_ERROR, message, cause);
+		setTrackable(true);
 	}
 	
-	/**
-	 * @param message
-	 */
 	public UnexpectedException(String message) {
-		super(message);
+		super(CommonErrorCode.UNEXPECTED_ERROR, message);
+		setTrackable(true);
+	}
+	
+	public UnexpectedException(Throwable cause) {
+		super(CommonErrorCode.UNEXPECTED_ERROR, cause);
+		setTrackable(true);
 	}
 	
 	/**
-	 * @param cause
+	 * @see com.jdroid.java.exception.AbstractException#getThrowableToLog()
 	 */
-	public UnexpectedException(Throwable cause) {
-		super(cause);
+	@Override
+	public Throwable getThrowableToLog() {
+		return (getCause() != null) && (getMessage() == null) ? getCause() : super.getThrowableToLog();
 	}
-	
 }

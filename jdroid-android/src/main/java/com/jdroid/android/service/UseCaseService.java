@@ -26,7 +26,7 @@ public class UseCaseService extends WorkerService {
 		useCase.run();
 		
 		if (useCase.isFinishFailed()) {
-			AbstractApplication.get().getExceptionHandler().logHandledException(useCase.getRuntimeException());
+			AbstractApplication.get().getExceptionHandler().logHandledException(useCase.getAbstractException());
 		}
 	}
 	

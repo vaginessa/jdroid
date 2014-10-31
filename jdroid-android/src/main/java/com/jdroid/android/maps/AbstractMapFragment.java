@@ -32,6 +32,7 @@ import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 import com.jdroid.android.utils.GooglePlayUtils;
+import com.jdroid.java.exception.AbstractException;
 
 public abstract class AbstractMapFragment extends SupportMapFragment implements FragmentIf, OnMyLocationChangeListener {
 	
@@ -310,11 +311,11 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishFailedUseCase(java.lang.RuntimeException)
+	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
 	 */
 	@Override
-	public void onFinishFailedUseCase(RuntimeException runtimeException) {
-		fragmentHelper.onFinishFailedUseCase(runtimeException);
+	public void onFinishFailedUseCase(AbstractException abstractException) {
+		fragmentHelper.onFinishFailedUseCase(abstractException);
 	}
 	
 	/**
@@ -326,19 +327,11 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishCanceledUseCase()
+	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError(com.jdroid.java.exception.AbstractException)
 	 */
 	@Override
-	public void onFinishCanceledUseCase() {
-		fragmentHelper.onFinishCanceledUseCase();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError(java.lang.RuntimeException)
-	 */
-	@Override
-	public Boolean goBackOnError(RuntimeException runtimeException) {
-		return fragmentHelper.goBackOnError(runtimeException);
+	public Boolean goBackOnError(AbstractException abstractException) {
+		return fragmentHelper.goBackOnError(abstractException);
 	}
 	
 	/**

@@ -22,6 +22,7 @@ import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.concurrent.ExecutorUtils;
+import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.utils.LoggerUtils;
 
 public abstract class FacebookAuthenticationFragment<T extends FacebookAuthenticationUseCase> extends AbstractFragment
@@ -280,10 +281,10 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onFinishFailedUseCase(java.lang.RuntimeException)
+	 * @see com.jdroid.android.fragment.AbstractFragment#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
 	 */
 	@Override
-	public void onFinishFailedUseCase(RuntimeException runtimeException) {
+	public void onFinishFailedUseCase(AbstractException abstractException) {
 		facebookConnector.localLogout();
 		executeOnUIThread(new Runnable() {
 			
@@ -295,14 +296,14 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 				}
 			}
 		});
-		super.onFinishFailedUseCase(runtimeException);
+		super.onFinishFailedUseCase(abstractException);
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#goBackOnError(java.lang.RuntimeException)
+	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError(com.jdroid.java.exception.AbstractException)
 	 */
 	@Override
-	public Boolean goBackOnError(RuntimeException runtimeException) {
+	public Boolean goBackOnError(AbstractException abstractException) {
 		return false;
 	}
 	

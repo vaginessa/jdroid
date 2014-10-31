@@ -7,6 +7,7 @@ import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.debug.ExceptionType;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.utils.PropertiesUtils;
@@ -213,9 +214,9 @@ public class AppContext {
 			false) ? 10 : null;
 	}
 	
-	public String getHttpMockCrashType() {
-		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(HTTP_MOCK_CRASH_TYPE,
-			null);
+	public ExceptionType getHttpMockExceptionType() {
+		return ExceptionType.find(PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
+			HTTP_MOCK_CRASH_TYPE, null));
 	}
 	
 	public Boolean isUserDataMocked() {

@@ -11,6 +11,7 @@ import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
+import com.jdroid.java.exception.AbstractException;
 
 public interface FragmentIf extends ComponentIf, DefaultUseCaseListener, OnRefreshListener {
 	
@@ -46,7 +47,7 @@ public interface FragmentIf extends ComponentIf, DefaultUseCaseListener, OnRefre
 	
 	public void executeUseCase(UseCase<?> useCase, Long delaySeconds);
 	
-	public Boolean goBackOnError(RuntimeException runtimeException);
+	public Boolean goBackOnError(AbstractException abstractException);
 	
 	public Boolean shouldRetainInstance();
 	

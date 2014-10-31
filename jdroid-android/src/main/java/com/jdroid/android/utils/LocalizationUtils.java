@@ -16,11 +16,35 @@ public final class LocalizationUtils {
 		return AbstractApplication.get().getString(resId, args);
 	}
 	
-	public static String getMessageFor(ErrorCode errorCode) {
-		return LocalizationUtils.getString(errorCode.getResourceId());
+	public static String getTitle(ErrorCode errorCode) {
+		if ((errorCode != null) && (errorCode.getTitleResId() != null)) {
+			return LocalizationUtils.getString(errorCode.getTitleResId());
+		} else {
+			return null;
+		}
 	}
 	
-	public static String getMessageFor(ErrorCode errorCode, Object... args) {
-		return LocalizationUtils.getString(errorCode.getResourceId(), args);
+	public static String getTitle(ErrorCode errorCode, Object... args) {
+		if ((errorCode != null) && (errorCode.getTitleResId() != null)) {
+			return LocalizationUtils.getString(errorCode.getTitleResId(), args);
+		} else {
+			return null;
+		}
+	}
+	
+	public static String getDescription(ErrorCode errorCode) {
+		if ((errorCode != null) && (errorCode.getDescriptionResId() != null)) {
+			return LocalizationUtils.getString(errorCode.getDescriptionResId());
+		} else {
+			return null;
+		}
+	}
+	
+	public static String getDescription(ErrorCode errorCode, Object... args) {
+		if ((errorCode != null) && (errorCode.getDescriptionResId() != null)) {
+			return LocalizationUtils.getString(errorCode.getDescriptionResId(), args);
+		} else {
+			return null;
+		}
 	}
 }

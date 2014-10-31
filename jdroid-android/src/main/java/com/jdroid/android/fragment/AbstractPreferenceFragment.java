@@ -12,6 +12,7 @@ import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
+import com.jdroid.java.exception.AbstractException;
 
 public abstract class AbstractPreferenceFragment extends PreferenceFragment implements FragmentIf {
 	
@@ -78,11 +79,11 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishFailedUseCase(java.lang.RuntimeException)
+	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
 	 */
 	@Override
-	public void onFinishFailedUseCase(RuntimeException runtimeException) {
-		getFragmentIf().onFinishFailedUseCase(runtimeException);
+	public void onFinishFailedUseCase(AbstractException abstractException) {
+		getFragmentIf().onFinishFailedUseCase(abstractException);
 	}
 	
 	/**
@@ -94,19 +95,11 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishCanceledUseCase()
+	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError(com.jdroid.java.exception.AbstractException)
 	 */
 	@Override
-	public void onFinishCanceledUseCase() {
-		getFragmentIf().onFinishCanceledUseCase();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError(java.lang.RuntimeException)
-	 */
-	@Override
-	public Boolean goBackOnError(RuntimeException runtimeException) {
-		return getFragmentIf().goBackOnError(runtimeException);
+	public Boolean goBackOnError(AbstractException abstractException) {
+		return getFragmentIf().goBackOnError(abstractException);
 	}
 	
 	/**

@@ -17,6 +17,7 @@ import com.jdroid.android.usecase.PaginatedUseCase;
 import com.jdroid.android.usecase.SearchUseCase;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.ToastUtils;
+import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.utils.StringUtils;
 
 /**
@@ -188,7 +189,6 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 		searchText.setText(null);
 		getSearchUseCase().setSearchValue(null);
 		getSearchUseCase().reset();
-		getSearchUseCase().cancel();
 		dismissLoading();
 		
 		if (getBaseArrayAdapter() != null) {
@@ -199,7 +199,6 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 	protected void doSearch() {
 		getSearchUseCase().setSearchValue(searchText.getText().toString());
 		getSearchUseCase().reset();
-		getSearchUseCase().cancel();
 		
 		if (getBaseArrayAdapter() != null) {
 			getBaseArrayAdapter().clear();
@@ -225,10 +224,10 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.AbstractListFragment#goBackOnError(java.lang.RuntimeException)
+	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError(com.jdroid.java.exception.AbstractException)
 	 */
 	@Override
-	public Boolean goBackOnError(RuntimeException runtimeException) {
+	public Boolean goBackOnError(AbstractException abstractException) {
 		return false;
 	}
 	

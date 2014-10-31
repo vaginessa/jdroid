@@ -5,28 +5,21 @@ import com.jdroid.java.collections.Maps;
 
 public abstract class AbstractException extends RuntimeException {
 	
-	private static final long serialVersionUID = 7063914690303952076L;
+	private static final long serialVersionUID = 6296155655850331666L;
 	
 	private Map<String, Object> parameters = Maps.newHashMap();
+	private String title;
+	private String description;
+	private Boolean trackable = true;
 	
-	/**
-	 * Constructor
-	 */
 	public AbstractException() {
 		super();
 	}
 	
-	/**
-	 * @param message
-	 * @param cause
-	 */
 	public AbstractException(String message, Throwable cause) {
 		super(message, cause);
 	}
 	
-	/**
-	 * @param message
-	 */
 	public AbstractException(String message) {
 		super(message);
 	}
@@ -53,5 +46,45 @@ public abstract class AbstractException extends RuntimeException {
 	
 	public void addParameter(String key, Object value) {
 		parameters.put(key, value);
+	}
+	
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
+	}
+	
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+	
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public Boolean isTrackable() {
+		return trackable;
+	}
+	
+	public void setTrackable(Boolean trackable) {
+		this.trackable = trackable;
+	}
+	
+	public Throwable getThrowableToLog() {
+		return this;
 	}
 }

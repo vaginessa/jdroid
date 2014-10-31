@@ -1,10 +1,10 @@
 package com.jdroid.javaweb.exception;
 
-import java.util.List;
-import com.jdroid.java.exception.ApplicationException;
-import com.jdroid.java.exception.BusinessException;
+import java.util.Collection;
 import com.jdroid.java.exception.ErrorCode;
+import com.jdroid.java.exception.ErrorCodeException;
 import com.jdroid.java.utils.StringUtils;
+import com.jdroid.java.utils.ValidationUtils;
 
 public enum CommonErrorCode implements ErrorCode {
 	
@@ -12,38 +12,12 @@ public enum CommonErrorCode implements ErrorCode {
 	INVALID_CREDENTIALS(401),
 	INVALID_USER_TOKEN(402),
 	INVALID_API_VERSION(403),
-	INVALID_SECURITY_TOKEN(404),
-	INVALID_WATCHABLE_ID(405);
+	INVALID_SECURITY_TOKEN(404);
 	
 	private Integer statusCode;
 	
 	private CommonErrorCode(Integer statusCode) {
 		this.statusCode = statusCode;
-	}
-	
-	/**
-	 * @see com.jdroid.java.exception.ErrorCode#newBusinessException(java.lang.Object[])
-	 */
-	@Override
-	public BusinessException newBusinessException(Object... errorCodeParameters) {
-		return new BusinessException(this, errorCodeParameters);
-	}
-	
-	/**
-	 * @see com.jdroid.java.exception.ErrorCode#newApplicationException(java.lang.Throwable)
-	 */
-	@Override
-	public ApplicationException newApplicationException(Throwable throwable) {
-		return new ApplicationException(this, throwable);
-	}
-	
-	/**
-	 * @see com.jdroid.java.exception.ErrorCode#newApplicationException(java.lang.String)
-	 */
-	@Override
-	public ApplicationException newApplicationException(String message) {
-		return new ApplicationException(this, message);
-		
 	}
 	
 	/**
@@ -55,52 +29,119 @@ public enum CommonErrorCode implements ErrorCode {
 	}
 	
 	/**
-	 * @see com.jdroid.java.exception.ErrorCode#getResourceId()
+	 * @see com.jdroid.java.exception.ErrorCode#newErrorCodeException(java.lang.Object[])
 	 */
 	@Override
-	public Integer getResourceId() {
+	public ErrorCodeException newErrorCodeException(Object... errorCodeParameters) {
+		return new ErrorCodeException(this, errorCodeParameters);
+	}
+	
+	/**
+	 * @see com.jdroid.java.exception.ErrorCode#newErrorCodeException()
+	 */
+	@Override
+	public ErrorCodeException newErrorCodeException() {
+		return new ErrorCodeException(this);
+	}
+	
+	/**
+	 * @see com.jdroid.java.exception.ErrorCode#newErrorCodeException(java.lang.Throwable)
+	 */
+	@Override
+	public ErrorCodeException newErrorCodeException(Throwable throwable) {
+		return new ErrorCodeException(this, throwable);
+	}
+	
+	/**
+	 * @see com.jdroid.java.exception.ErrorCode#getTitleResId()
+	 */
+	@Override
+	public Integer getTitleResId() {
+		return null;
+	}
+	
+	/**
+	 * @see com.jdroid.java.exception.ErrorCode#getDescriptionResId()
+	 */
+	@Override
+	public Integer getDescriptionResId() {
 		return null;
 	}
 	
 	public void validateRequired(String value) {
 		if (StringUtils.isEmpty(value)) {
-			throw newBusinessException();
+			throw newErrorCodeException();
 		}
 	}
 	
 	public void validateRequired(Object value) {
 		if (value == null) {
-			throw newBusinessException();
+			throw newErrorCodeException();
 		}
 	}
 	
-	public void validateRequired(List<?> value) {
+	public void validateRequired(Collection<?> value) {
 		if ((value == null) || value.isEmpty()) {
-			throw newBusinessException();
+			throw newErrorCodeException();
 		}
 	}
 	
 	public void validatePositive(Integer value) {
 		if (value <= 0) {
-			throw newBusinessException();
+			throw newErrorCodeException();
 		}
 	}
 	
 	public void validatePositive(Float value) {
 		if (value <= 0) {
-			throw newBusinessException();
+			throw newErrorCodeException();
 		}
 	}
 	
 	public void validateMaximum(Integer value, Integer maximum) {
 		if (value > maximum) {
-			throw newBusinessException(maximum);
+			throw newErrorCodeException(maximum);
 		}
 	}
 	
 	public void validateMinimum(int value, int minimum) {
 		if (value < minimum) {
-			throw newBusinessException(minimum);
+			throw newErrorCodeException(minimum);
+		}
+	}
+	
+	public void validateMinimumLength(String value, int minimum) {
+		if (value.length() < minimum) {
+			throw newErrorCodeException(minimum);
+		}
+	}
+	
+	public void validateMaximumLength(String value, int maximum) {
+		if (value.length() > maximum) {
+			throw newErrorCodeException(maximum);
+		}
+	}
+	
+	/**
+	 * Validates that the two values are equals. Assumes that no value is null.
+	 * 
+	 * @param value
+	 * @param otherValue
+	 */
+	public void validateEquals(Object value, Object otherValue) {
+		if ((value != null) && !value.equals(otherValue)) {
+			throw newErrorCodeException();
+		}
+	}
+	
+	/**
+	 * Validate that the value is an email address
+	 * 
+	 * @param value
+	 */
+	public void validateEmail(String value) {
+		if (!ValidationUtils.isValidEmail(value)) {
+			throw newErrorCodeException();
 		}
 	}
 }

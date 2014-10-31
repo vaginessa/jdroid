@@ -5,7 +5,6 @@ import android.app.Activity;
 import com.jdroid.android.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
-import com.jdroid.java.exception.ConnectionException;
 
 public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	
@@ -63,14 +62,6 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	 */
 	@Override
 	public void onFragmentStart(String screenViewName) {
-		// Do Nothing
-	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackConnectionException(com.jdroid.java.exception.ConnectionException)
-	 */
-	@Override
-	public void trackConnectionException(ConnectionException connectionException) {
 		// Do Nothing
 	}
 	

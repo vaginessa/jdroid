@@ -5,7 +5,6 @@ import android.app.Activity;
 import com.jdroid.android.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
-import com.jdroid.java.exception.ConnectionException;
 
 public interface AnalyticsTracker {
 	
@@ -24,8 +23,6 @@ public interface AnalyticsTracker {
 	public void onActivityDestroy(Activity activity);
 	
 	public void onFragmentStart(String screenViewName);
-	
-	public void trackConnectionException(ConnectionException connectionException);
 	
 	public void trackHandledException(Throwable throwable);
 	

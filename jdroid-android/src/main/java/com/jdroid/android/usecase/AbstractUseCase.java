@@ -5,6 +5,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
+import com.jdroid.java.exception.AbstractException;
+import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -22,13 +24,12 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 		NOT_INVOKED,
 		IN_PROGRESS,
 		FINISHED_SUCCESSFUL,
-		FINISHED_FAILED,
-		CANCELED;
+		FINISHED_FAILED;
 	}
 	
 	private List<T> listeners = Lists.newArrayList();
 	private UseCaseStatus useCaseStatus = UseCaseStatus.NOT_INVOKED;
-	private RuntimeException runtimeException;
+	private AbstractException abstractException;
 	private Boolean notified = false;
 	
 	private Long executionTime = 0L;
@@ -59,20 +60,20 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 						+ "ms");
 			}
 			
-			if (isCanceled()) {
-				for (T listener : listeners) {
-					notifyFinishedCanceledUseCase(listener);
-				}
-			} else {
-				markAsSuccessful();
-				for (T listener : listeners) {
-					notifyFinishedUseCase(listener);
-				}
+			markAsSuccessful();
+			for (T listener : listeners) {
+				notifyFinishedUseCase(listener);
 			}
 		} catch (RuntimeException e) {
-			markAsFailed(e);
+			AbstractException abstractException = null;
+			if (e instanceof AbstractException) {
+				abstractException = (AbstractException)e;
+			} else {
+				abstractException = new UnexpectedException(e);
+			}
+			markAsFailed(abstractException);
 			for (T listener : listeners) {
-				notifyFailedUseCase(e, listener);
+				notifyFailedUseCase(abstractException, listener);
 			}
 		} finally {
 			if (!listeners.isEmpty()) {
@@ -111,15 +112,6 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 	protected abstract void notifyUseCaseStart(T listener);
 	
 	/**
-	 * Notifies the listener that a canceled use case has finished. <br/>
-	 * You can override this method for a custom notification when your listeners may be listening to multiple use cases
-	 * at a time.
-	 * 
-	 * @param listener The listener to notify.
-	 */
-	protected abstract void notifyFinishedCanceledUseCase(T listener);
-	
-	/**
 	 * Notifies the listener that the use case has finished successfully. <br/>
 	 * You can override this method for a custom notification when your listeners may be listening to multiple use cases
 	 * at a time.
@@ -135,7 +127,7 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 	 * 
 	 * @param listener The listener to notify.
 	 */
-	protected abstract void notifyFailedUseCase(RuntimeException e, T listener);
+	protected abstract void notifyFailedUseCase(AbstractException e, T listener);
 	
 	/**
 	 * @return the listeners
@@ -185,10 +177,6 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 		return (isFinishFailed() || isFinishSuccessful());
 	}
 	
-	public Boolean isCanceled() {
-		return UseCaseStatus.CANCELED.equals(useCaseStatus);
-	}
-	
 	public void markAsNotified() {
 		notified = true;
 	}
@@ -203,7 +191,7 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 	
 	protected void markAsInProgress() {
 		notified = false;
-		runtimeException = null;
+		abstractException = null;
 		this.useCaseStatus = UseCaseStatus.IN_PROGRESS;
 	}
 	
@@ -211,17 +199,13 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 		this.useCaseStatus = UseCaseStatus.FINISHED_SUCCESSFUL;
 	}
 	
-	protected void markAsFailed(RuntimeException runtimeException) {
+	protected void markAsFailed(AbstractException abstractException) {
 		this.useCaseStatus = UseCaseStatus.FINISHED_FAILED;
-		this.runtimeException = runtimeException;
+		this.abstractException = abstractException;
 	}
 	
-	public void cancel() {
-		this.useCaseStatus = UseCaseStatus.CANCELED;
-	}
-	
-	public RuntimeException getRuntimeException() {
-		return runtimeException;
+	public AbstractException getAbstractException() {
+		return abstractException;
 	}
 	
 	public Boolean isNotified() {

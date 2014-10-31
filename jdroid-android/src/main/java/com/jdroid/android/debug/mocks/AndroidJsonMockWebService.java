@@ -2,11 +2,10 @@ package com.jdroid.android.debug.mocks;
 
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.debug.CrashGenerator;
+import com.jdroid.android.debug.ExceptionType;
 import com.jdroid.java.http.mock.JsonMockWebService;
 
 public class AndroidJsonMockWebService extends JsonMockWebService {
-	
-	public static final String NONE = "None";
 	
 	public AndroidJsonMockWebService(Object... urlSegments) {
 		super(urlSegments);
@@ -17,9 +16,9 @@ public class AndroidJsonMockWebService extends JsonMockWebService {
 	 */
 	@Override
 	protected void simulateCrash() {
-		String crashType = AbstractApplication.get().getAppContext().getHttpMockCrashType();
-		if ((crashType != null) && !crashType.equals(NONE)) {
-			CrashGenerator.crash(crashType, false);
+		ExceptionType exceptionType = AbstractApplication.get().getAppContext().getHttpMockExceptionType();
+		if (exceptionType != null) {
+			CrashGenerator.crash(exceptionType, false);
 		}
 	}
 	

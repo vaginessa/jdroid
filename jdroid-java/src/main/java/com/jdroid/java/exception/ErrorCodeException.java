@@ -5,37 +5,30 @@ public class ErrorCodeException extends AbstractException {
 	private static final long serialVersionUID = -7477869088363031784L;
 	
 	private ErrorCode errorCode;
-	private Object[] errorCodeParameters;
+	private Object[] errorCodeDescriptionArgs;
 	
-	protected ErrorCodeException() {
-		// Nothing by default.
-	}
-	
-	protected ErrorCodeException(Throwable throwable) {
-		super(throwable);
-	}
-	
-	public ErrorCodeException(String errorMessage) {
-		super(errorMessage);
+	public ErrorCodeException(ErrorCode errorCode, String message, Throwable throwable,
+			Object... errorCodeDescriptionArgs) {
+		super(message != null ? message : errorCode.toString(), throwable);
+		setTrackable(false);
+		this.errorCode = errorCode;
+		this.errorCodeDescriptionArgs = errorCodeDescriptionArgs;
 	}
 	
 	public ErrorCodeException(ErrorCode errorCode, Throwable throwable) {
-		super(throwable);
-		this.errorCode = errorCode;
+		this(errorCode, null, throwable);
 	}
 	
 	public ErrorCodeException(ErrorCode errorCode, String message) {
-		super(message);
-		this.errorCode = errorCode;
+		this(errorCode, message, null);
 	}
 	
-	public ErrorCodeException(ErrorCode errorCode, Object... errorCodeParameters) {
-		this.errorCode = errorCode;
-		this.errorCodeParameters = errorCodeParameters;
+	public ErrorCodeException(ErrorCode errorCode, Object... errorCodeDescriptionArgs) {
+		this(errorCode, null, null, errorCodeDescriptionArgs);
 	}
 	
 	public ErrorCodeException(ErrorCode errorCode) {
-		this.errorCode = errorCode;
+		this(errorCode, null, null);
 	}
 	
 	/**
@@ -45,10 +38,7 @@ public class ErrorCodeException extends AbstractException {
 		return errorCode;
 	}
 	
-	/**
-	 * @return the errorCodeParameters
-	 */
-	public Object[] getErrorCodeParameters() {
-		return errorCodeParameters;
+	public Object[] getErrorCodeDescriptionArgs() {
+		return errorCodeDescriptionArgs;
 	}
 }

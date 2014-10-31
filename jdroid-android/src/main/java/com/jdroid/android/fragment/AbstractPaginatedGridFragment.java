@@ -12,6 +12,7 @@ import com.jdroid.android.R;
 import com.jdroid.android.adapter.BaseArrayAdapter;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.usecase.PaginatedUseCase;
+import com.jdroid.java.exception.AbstractException;
 
 /**
  * 
@@ -110,15 +111,15 @@ public abstract class AbstractPaginatedGridFragment<T> extends AbstractGridFragm
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onFinishFailedUseCase(java.lang.RuntimeException)
+	 * @see com.jdroid.android.fragment.AbstractFragment#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
 	 */
 	@Override
-	public void onFinishFailedUseCase(RuntimeException runtimeException) {
+	public void onFinishFailedUseCase(AbstractException abstractException) {
 		if (getPaginatedUseCase().isPaginating()) {
-			AbstractApplication.get().getExceptionHandler().logHandledException(runtimeException);
+			AbstractApplication.get().getExceptionHandler().logHandledException(abstractException);
 			dismissPaginationLoading();
 		} else {
-			super.onFinishFailedUseCase(runtimeException);
+			super.onFinishFailedUseCase(abstractException);
 		}
 	}
 	

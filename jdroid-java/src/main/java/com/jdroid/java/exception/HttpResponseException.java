@@ -1,19 +1,16 @@
 package com.jdroid.java.exception;
 
-public class HttpResponseException extends ApplicationException {
+
+/**
+ * Exception thrown when there are unknown HTTP errors while communicating with the server.
+ */
+public class HttpResponseException extends ErrorCodeException {
 	
-	private static final long serialVersionUID = 3969454310912271279L;
+	private static final long serialVersionUID = -1165226174367435109L;
 	
-	protected HttpResponseException() {
-		// Nothing by default.
-	}
-	
-	public HttpResponseException(ErrorCode errorCode, Throwable throwable) {
-		super(errorCode, throwable);
-	}
-	
-	public HttpResponseException(ErrorCode errorCode, String message) {
-		super(errorCode, message);
+	public HttpResponseException(String message) {
+		super(CommonErrorCode.HTTP_RESPONSE_ERROR, message);
+		setTrackable(true);
 	}
 	
 }

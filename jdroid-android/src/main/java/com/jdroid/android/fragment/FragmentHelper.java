@@ -23,6 +23,7 @@ import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 import com.jdroid.java.concurrent.ExecutorUtils;
+import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.utils.LoggerUtils;
 
 public class FragmentHelper implements FragmentIf {
@@ -193,7 +194,7 @@ public class FragmentHelper implements FragmentIf {
 							useCase.markAsNotified();
 						} else if (useCase.isFinishFailed()) {
 							try {
-								listener.onFinishFailedUseCase(useCase.getRuntimeException());
+								listener.onFinishFailedUseCase(useCase.getAbstractException());
 							} finally {
 								useCase.markAsNotified();
 							}
@@ -271,35 +272,27 @@ public class FragmentHelper implements FragmentIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishFailedUseCase(java.lang.RuntimeException)
+	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
 	 */
 	@Override
-	public void onFinishFailedUseCase(RuntimeException runtimeException) {
+	public void onFinishFailedUseCase(AbstractException abstractException) {
 		FragmentIf fragmentIf = getFragmentIf();
 		if (fragmentIf != null) {
-			if (fragmentIf.goBackOnError(runtimeException)) {
-				DefaultExceptionHandler.markAsGoBackOnError(runtimeException);
+			if (fragmentIf.goBackOnError(abstractException)) {
+				DefaultExceptionHandler.markAsGoBackOnError(abstractException);
 			} else {
-				DefaultExceptionHandler.markAsNotGoBackOnError(runtimeException);
+				DefaultExceptionHandler.markAsNotGoBackOnError(abstractException);
 			}
 			fragmentIf.dismissLoading();
 		}
-		throw runtimeException;
+		throw abstractException;
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishCanceledUseCase()
+	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError(com.jdroid.java.exception.AbstractException)
 	 */
 	@Override
-	public void onFinishCanceledUseCase() {
-		// Do nothing by default
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError(java.lang.RuntimeException)
-	 */
-	@Override
-	public Boolean goBackOnError(RuntimeException runtimeException) {
+	public Boolean goBackOnError(AbstractException abstractException) {
 		return true;
 	}
 	

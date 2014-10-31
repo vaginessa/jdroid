@@ -28,7 +28,7 @@ import org.springframework.web.util.WebUtils;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.exception.BusinessException;
+import com.jdroid.java.exception.ErrorCodeException;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.exception.CommonErrorCode;
 import com.jdroid.javaweb.exception.InvalidArgumentException;
@@ -123,11 +123,10 @@ public class ApiExceptionHandler extends AbstractHandlerExceptionResolver {
 		ApiError error = null;
 		try {
 			webRequest = new ServletWebRequest(request, response);
-			
-			if (exception instanceof BusinessException) {
-				error = handleException((BusinessException)exception);
-			} else if (exception instanceof BadRequestException) {
+			if (exception instanceof BadRequestException) {
 				error = handleException((BadRequestException)exception);
+			} else if (exception instanceof ErrorCodeException) {
+				error = handleException((ErrorCodeException)exception);
 			} else if (exception instanceof InvalidArgumentException) {
 				error = handleException((InvalidArgumentException)exception);
 			} else if (exception instanceof InvalidAuthenticationException) {
@@ -203,9 +202,9 @@ public class ApiExceptionHandler extends AbstractHandlerExceptionResolver {
 		}
 	}
 	
-	protected ApiError handleException(BusinessException businessException) {
-		LOGGER.info("Server Status code: " + businessException.getErrorCode().getStatusCode());
-		return new ApiError(HttpStatus.OK, businessException.getErrorCode().getStatusCode());
+	protected ApiError handleException(ErrorCodeException errorCodeException) {
+		LOGGER.info("Server Status code: " + errorCodeException.getErrorCode().getStatusCode());
+		return new ApiError(HttpStatus.OK, errorCodeException.getErrorCode().getStatusCode());
 	}
 	
 	protected ApiError handleException(BadRequestException badRequestException) {

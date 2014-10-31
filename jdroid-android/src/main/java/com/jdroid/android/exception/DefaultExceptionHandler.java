@@ -2,6 +2,7 @@ package com.jdroid.android.exception;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.net.UnknownHostException;
+import java.util.List;
 import javax.net.ssl.SSLPeerUnverifiedException;
 import org.slf4j.Logger;
 import android.app.Activity;
@@ -11,11 +12,12 @@ import com.jdroid.android.R;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.GooglePlayUtils;
 import com.jdroid.android.utils.LocalizationUtils;
-import com.jdroid.android.utils.ToastUtils;
+import com.jdroid.java.collections.Lists;
+import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.AbstractException;
-import com.jdroid.java.exception.ApplicationException;
-import com.jdroid.java.exception.BusinessException;
 import com.jdroid.java.exception.ConnectionException;
+import com.jdroid.java.exception.ErrorCode;
+import com.jdroid.java.exception.ErrorCodeException;
 import com.jdroid.java.utils.LoggerUtils;
 
 public class DefaultExceptionHandler implements ExceptionHandler {
@@ -23,9 +25,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	private final static Logger LOGGER = LoggerUtils.getLogger(DefaultExceptionHandler.class);
 	
 	private static final String MAIN_THREAD_NAME = "main";
-	
 	private static final String GO_BACK_KEY = "goBack";
-	private static final String CONNECTION_EXCEPTION_MESSAGE_KEY = "connectionExceptionMessage";
 	
 	private UncaughtExceptionHandler wrappedExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
 	private UncaughtExceptionHandler defautlExceptionHandler;
@@ -40,16 +40,14 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 		
 		if (mainThread) {
 			handleMainThreadException(thread, throwable);
-		} else if (throwable instanceof BusinessException) {
-			handleException(thread, (BusinessException)throwable);
-		} else if (throwable instanceof ConnectionException) {
-			handleException(thread, (ConnectionException)throwable);
-		} else if (throwable instanceof ApplicationException) {
-			handleException(thread, (ApplicationException)throwable);
-		} else if (throwable instanceof InvalidApiVersionException) {
-			handleException(thread, (InvalidApiVersionException)throwable);
+		} else if (DefaultExceptionHandler.matchAnyErrorCode(throwable, CommonErrorCode.INVALID_API_VERSION)) {
+			handleInvalidApiVersionError();
 		} else if (!doUncaughtException(thread, throwable)) {
-			handleException(thread, throwable);
+			try {
+				handleThrowable(thread, throwable);
+			} catch (Exception e) {
+				logHandledException("Error when trying to handle an exception", e);
+			}
 		}
 	}
 	
@@ -57,12 +55,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 		return false;
 	}
 	
-	/**
-	 * @see com.jdroid.android.exception.ExceptionHandler#handleMainThreadException(java.lang.Thread,
-	 *      java.lang.Throwable)
-	 */
-	@Override
-	public void handleMainThreadException(Thread thread, Throwable throwable) {
+	protected void handleMainThreadException(Thread thread, Throwable throwable) {
 		try {
 			wrappedExceptionHandler.uncaughtException(thread, throwable);
 		} catch (Exception e) {
@@ -71,74 +64,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.android.exception.ExceptionHandler#handleException(com.jdroid.java.exception.BusinessException)
-	 */
-	@Override
-	public void handleException(BusinessException businessException) {
-		handleException(Thread.currentThread(), businessException);
-	}
-	
-	/**
-	 * @see com.jdroid.android.exception.ExceptionHandler#handleException(java.lang.Thread,
-	 *      com.jdroid.java.exception.BusinessException)
-	 */
-	@Override
-	public void handleException(Thread thread, BusinessException businessException) {
-		String message = businessException.getMessage();
-		if (businessException.getErrorCode() != null) {
-			message = LocalizationUtils.getMessageFor(businessException.getErrorCode(),
-				businessException.getErrorCodeParameters());
-		}
-		ToastUtils.showToastOnUIThread(message);
-	}
-	
-	/**
-	 * @see com.jdroid.android.exception.ExceptionHandler#handleException(java.lang.Thread,
-	 *      com.jdroid.java.exception.ConnectionException)
-	 */
-	@Override
-	public void handleException(Thread thread, ConnectionException connectionException) {
-		logHandledException("Connection error", connectionException);
-		String errorMessage = null;
-		if (connectionException.hasParameter(CONNECTION_EXCEPTION_MESSAGE_KEY)) {
-			errorMessage = (String)connectionException.getParameter(CONNECTION_EXCEPTION_MESSAGE_KEY);
-		} else {
-			errorMessage = LocalizationUtils.getString(R.string.connectionError);
-		}
-		displayError(LocalizationUtils.getString(R.string.connectionErrorTitle), errorMessage, connectionException);
-	}
-	
-	/**
-	 * @see com.jdroid.android.exception.ExceptionHandler#handleException(java.lang.Thread,
-	 *      com.jdroid.java.exception.ApplicationException)
-	 */
-	@Override
-	public void handleException(Thread thread, ApplicationException applicationException) {
-		String message = LocalizationUtils.getMessageFor(applicationException.getErrorCode());
-		logHandledException(message, applicationException);
-		displayError(
-			LocalizationUtils.getString(R.string.exceptionReportDialogTitle, AndroidUtils.getApplicationName()),
-			message, applicationException);
-	}
-	
-	/**
-	 * @see com.jdroid.android.exception.ExceptionHandler#handleException(java.lang.Thread, java.lang.Throwable)
-	 */
-	@Override
-	public void handleException(Thread thread, Throwable throwable) {
-		logHandledException("Unexepected error", throwable);
-		displayError(
-			LocalizationUtils.getString(R.string.exceptionReportDialogTitle, AndroidUtils.getApplicationName()),
-			LocalizationUtils.getString(R.string.serverError), throwable);
-	}
-	
-	/**
-	 * @see com.jdroid.android.exception.ExceptionHandler#handleException(java.lang.Thread,
-	 *      com.jdroid.android.exception.InvalidApiVersionException)
-	 */
-	@Override
-	public void handleException(Thread thread, InvalidApiVersionException exception) {
+	protected void handleInvalidApiVersionError() {
 		GooglePlayUtils.showUpdateDialog();
 	}
 	
@@ -148,9 +74,9 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	@Override
 	public void logWarningException(String errorMessage, Throwable throwable) {
 		if (throwable instanceof ConnectionException) {
-			logHandledException(errorMessage, throwable);
+			logHandledException(throwable);
 		} else {
-			logHandledException(errorMessage, new WarningException(errorMessage, throwable));
+			logHandledException(new WarningException(errorMessage, throwable));
 		}
 	}
 	
@@ -159,7 +85,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	 */
 	@Override
 	public void logWarningException(String errorMessage) {
-		logHandledException(errorMessage, new WarningException(errorMessage));
+		logHandledException(new WarningException(errorMessage));
 	}
 	
 	/**
@@ -167,44 +93,76 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	 */
 	@Override
 	public void logHandledException(Throwable throwable) {
-		logHandledException("Handled Exception", throwable);
+		logHandledException(null, throwable);
 	}
 	
 	/**
 	 * @see com.jdroid.android.exception.ExceptionHandler#logHandledException(java.lang.String, java.lang.Throwable)
 	 */
 	@Override
-	public void logHandledException(String message, Throwable throwable) {
+	public void logHandledException(String errorMessage, Throwable throwable) {
+		
 		if (throwable instanceof ConnectionException) {
-			
 			ConnectionException connectionException = (ConnectionException)throwable;
 			
-			Boolean isError = false;
+			Boolean isSSLPeerUnverifiedError = false;
 			// Added to log at least the exception message, because Logcat does not show the stackTrace when it
 			// includes a UnknownHostException
+			errorMessage = throwable.getMessage();
 			Throwable cause = connectionException.getCause();
 			while (cause != null) {
 				if (cause instanceof UnknownHostException) {
-					message += ": " + cause.getMessage();
+					errorMessage += ": " + cause.getMessage();
 					break;
 				} else if (cause instanceof SSLPeerUnverifiedException) {
-					isError = true;
+					isSSLPeerUnverifiedError = true;
 					break;
 				}
 				cause = cause.getCause();
 			}
 			
-			if (isError) {
-				LOGGER.error(message, throwable);
-				AbstractApplication.get().getAnalyticsSender().trackHandledException(throwable);
+			if (isSSLPeerUnverifiedError) {
+				LOGGER.error(errorMessage, throwable);
+				final Throwable sslCause = cause;
+				// This exception is logged on a new thread to always generate the exactly same stack trace, so
+				// Crittercism can group all of them.
+				ExecutorUtils.execute(new Runnable() {
+					
+					@Override
+					public void run() {
+						AbstractApplication.get().getAnalyticsSender().trackHandledException(
+							new SSLPeerUnverifiedException(sslCause.getMessage()));
+					}
+				});
 			} else {
-				LOGGER.warn(message, throwable);
-				AbstractApplication.get().getAnalyticsSender().trackConnectionException(connectionException);
+				LOGGER.warn(errorMessage, throwable);
 			}
 			
 		} else {
-			LOGGER.error(message, throwable);
-			AbstractApplication.get().getAnalyticsSender().trackHandledException(throwable);
+			Boolean trackable = true;
+			Throwable throwableToLog = throwable;
+			if (throwable instanceof AbstractException) {
+				AbstractException abstractException = (AbstractException)throwable;
+				trackable = abstractException.isTrackable();
+				throwableToLog = abstractException.getThrowableToLog();
+			}
+			
+			if (errorMessage == null) {
+				errorMessage = throwable.getMessage();
+				if (errorMessage == null) {
+					errorMessage = throwableToLog.getMessage();
+					if (errorMessage == null) {
+						errorMessage = "Error";
+					}
+				}
+			}
+			
+			if (trackable) {
+				LOGGER.error(errorMessage, throwableToLog);
+				AbstractApplication.get().getAnalyticsSender().trackHandledException(throwable);
+			} else {
+				LOGGER.warn(errorMessage);
+			}
 		}
 	}
 	
@@ -229,33 +187,86 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 		return true;
 	}
 	
-	public static void markAsGoBackOnError(RuntimeException runtimeException) {
-		// FIXME The RuntimeException is not flagged. Possible fixes: wrap the RuntimeException or move the goBack logic
-		// to the use case listener
-		if (runtimeException instanceof AbstractException) {
-			((AbstractException)runtimeException).addParameter(GO_BACK_KEY, true);
-		}
+	public static void markAsGoBackOnError(AbstractException abstractException) {
+		abstractException.addParameter(GO_BACK_KEY, true);
 	}
 	
-	public static void markAsNotGoBackOnError(RuntimeException runtimeException) {
-		// FIXME The RuntimeException is not flagged. Possible fixes: wrap the RuntimeException or move the goBack logic
-		// to the use case listener
-		if (runtimeException instanceof AbstractException) {
-			((AbstractException)runtimeException).addParameter(GO_BACK_KEY, false);
-		}
+	public static void markAsNotGoBackOnError(AbstractException abstractException) {
+		abstractException.addParameter(GO_BACK_KEY, false);
 	}
 	
-	public static void setMessageOnConnectionTimeout(RuntimeException runtimeException, String message) {
+	public static void setMessageOnConnectionTimeout(RuntimeException runtimeException, String text) {
 		if (runtimeException instanceof ConnectionException) {
 			ConnectionException connectionException = (ConnectionException)runtimeException;
 			if (connectionException.isTimeout()) {
-				connectionException.addParameter(CONNECTION_EXCEPTION_MESSAGE_KEY, message);
+				connectionException.setDescription(text);
 			}
 		}
+		
 	}
 	
 	public static void setMessageOnConnectionTimeout(RuntimeException runtimeException, int resId) {
 		setMessageOnConnectionTimeout(runtimeException, LocalizationUtils.getString(resId));
+	}
+	
+	/**
+	 * @see com.jdroid.android.exception.ExceptionHandler#handleThrowable(java.lang.Throwable)
+	 */
+	@Override
+	public void handleThrowable(Throwable throwable) {
+		handleThrowable(Thread.currentThread(), throwable);
+	}
+	
+	private void handleThrowable(Thread thread, Throwable throwable) {
+		
+		String title = null;
+		String description = null;
+		if (throwable instanceof AbstractException) {
+			AbstractException abstractException = (AbstractException)throwable;
+			title = abstractException.getTitle();
+			description = abstractException.getDescription();
+			if (((title == null) || (description == null)) && (abstractException instanceof ErrorCodeException)) {
+				ErrorCodeException errorCodeException = (ErrorCodeException)abstractException;
+				if (title == null) {
+					title = LocalizationUtils.getTitle(errorCodeException.getErrorCode());
+					if ((title == null)
+							&& errorCodeException.getErrorCode().equals(
+								com.jdroid.java.exception.CommonErrorCode.CONNECTION_ERROR)) {
+						title = LocalizationUtils.getString(R.string.connectionErrorTitle);
+					}
+				}
+				if (description == null) {
+					description = LocalizationUtils.getDescription(errorCodeException.getErrorCode(),
+						errorCodeException.getErrorCodeDescriptionArgs());
+					if ((description == null)
+							&& errorCodeException.getErrorCode().equals(
+								com.jdroid.java.exception.CommonErrorCode.CONNECTION_ERROR)) {
+						description = LocalizationUtils.getString(R.string.connectionErrorDescription);
+					}
+				}
+			}
+		}
+		
+		if (title == null) {
+			title = LocalizationUtils.getString(R.string.defaultErrorTitle, AndroidUtils.getApplicationName());
+		}
+		
+		if (description == null) {
+			description = LocalizationUtils.getString(R.string.defaultErrorDescription);
+		}
+		
+		displayError(title, description, throwable);
+		
+		logHandledException(throwable);
+	}
+	
+	public static Boolean matchAnyErrorCode(Throwable throwable, ErrorCode... errorCodes) {
+		List<ErrorCode> errorCodesList = Lists.newArrayList(errorCodes);
+		if (throwable instanceof ErrorCodeException) {
+			ErrorCodeException errorCodeException = (ErrorCodeException)throwable;
+			return errorCodesList.contains(errorCodeException.getErrorCode());
+		}
+		return false;
 	}
 	
 	/**

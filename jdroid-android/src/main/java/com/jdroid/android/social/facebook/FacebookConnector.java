@@ -251,33 +251,22 @@ public class FacebookConnector {
 	 */
 	public GraphUser executeMeRequest() {
 		
-		Response response = null;
-		try {
-			response = Request.executeAndWait(Request.newMeRequest(Session.getActiveSession(), null));
-		} catch (Exception e) {
-			throw CommonErrorCode.SERVER_ERROR.newApplicationException(e);
-		}
-		
+		Response response = Request.executeAndWait(Request.newMeRequest(Session.getActiveSession(), null));
 		if (response.getError() != null) {
 			if (Category.AUTHENTICATION_RETRY.equals(response.getError().getCategory())
 					|| Category.AUTHENTICATION_REOPEN_SESSION.equals(response.getError().getCategory())
 					|| Category.PERMISSION.equals(response.getError().getCategory())) {
-				throw new FacebookExpiredSessionException(response.getError().getErrorMessage());
+				LOGGER.warn(response.getError().getErrorMessage());
+				throw CommonErrorCode.FACEBOOK_SESSION_EXPIRED_ERROR.newErrorCodeException();
 			} else if (Category.CLIENT.equals(response.getError().getCategory())) {
 				LOGGER.warn(response.getError().getErrorMessage());
 				throw new ConnectionException(response.getError().getErrorMessage());
 			} else {
-				throw CommonErrorCode.SERVER_ERROR.newApplicationException(response.getError().getErrorMessage());
+				throw new UnexpectedException(response.getError().getErrorMessage());
 			}
 		}
 		
-		GraphUser fbUser = null;
-		try {
-			fbUser = response.getGraphObjectAs(GraphUser.class);
-		} catch (Exception e) {
-			throw CommonErrorCode.SERVER_ERROR.newApplicationException(e);
-		}
-		
+		GraphUser fbUser = response.getGraphObjectAs(GraphUser.class);
 		if (fbUser == null) {
 			throw new UnexpectedException("Failed to get GraphUser from Facebook");
 		}

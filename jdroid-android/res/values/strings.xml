@@ -23,14 +23,15 @@
 	<string name="drawerClose">Close navigation drawer</string>
 
 	<!-- Errors -->
-	<string name="internalError">Oops! We\'re having technical problems. Please try again later.</string>
-	<string name="serverError">Oops! We\'re having technical problems. Please try again later.</string>
-	<string name="connectionError">Please check your internet connection and try again.</string>
+	<string name="defaultErrorTitle">%1$s error</string>
+	<string name="defaultErrorDescription">Oops! We\'re having technical problems. Please try again later.</string>
+
 	<string name="connectionErrorTitle">Connection Error</string>
+	<string name="connectionErrorDescription">Please check your internet connection and try again.</string>
+
 	<string name="facebookError">There was a problem connecting to Facebook. Please try again later.</string>
 	<string name="notSupportedInAppBillingError">Your device doesn\'t support in app billing.</string>
 	<string name="failedToLoadPurchases">We could\'t load the items to purchase. Please try again later.</string>
-	<string name="exceptionReportDialogTitle">%1$s error</string>
 	<string name="invalidCredentials">Invalid Credentials</string>
 
 	<!-- Google Play Utils -->
