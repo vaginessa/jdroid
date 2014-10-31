@@ -116,5 +116,11 @@ Apps using jdroid
        src="https://github.com/maxirosson/code-number/blob/master/codenumber.png?raw=true" />
 </a>
 
+Acknowledgements
+--------------
+
+* [Android Arsenal](https://android-arsenal.com/details/1/1062)
+* [Android Libs](http://android-libs.com/lib/jdroid)
+
 --------------
 For more information, visit the [GitHub Wiki](https://github.com/maxirosson/jdroid/wiki) or our [Site](http://jdroidframework.com/).
