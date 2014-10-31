@@ -122,6 +122,8 @@ public abstract class AbstractApplication extends Application {
 				verifyAppLaunchStatus();
 				initFileSystemCache();
 				initEncryptionUtils();
+				
+				appContext.saveFirstSessionTimestamp();
 			}
 		});
 		

@@ -61,17 +61,19 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		map = null;
 		ViewGroup view = (ViewGroup)inflater.inflate(R.layout.map_fragment, container, false);
 		if (GooglePlayUtils.isGooglePlayServicesAvailable(getActivity())) {
-			TypedArray attributes = getActivity().getTheme().obtainStyledAttributes(
-				new int[] { android.R.attr.colorBackground });
-			int colorBackground = attributes.getResourceId(0, android.R.color.white);
 			ViewGroup mapContainer = (ViewGroup)view.findViewById(R.id.mapContainer);
 			View mapView = super.onCreateView(inflater, mapContainer, savedInstanceState);
-			mapView.setBackgroundResource(android.R.color.white);
-			mapCover = view.findViewById(R.id.mapCover);
-			mapCover.setBackgroundResource(colorBackground);
+			
+			if (map == null) {
+				mapView.setBackgroundResource(android.R.color.white);
+				mapCover = view.findViewById(R.id.mapCover);
+				TypedArray attributes = getActivity().getTheme().obtainStyledAttributes(
+					new int[] { android.R.attr.colorBackground });
+				mapCover.setBackgroundResource(attributes.getResourceId(0, android.R.color.white));
+			}
+			
 			mapContainer.addView(mapView);
 		} else {
 			view.addView(inflate(R.layout.update_google_services));
