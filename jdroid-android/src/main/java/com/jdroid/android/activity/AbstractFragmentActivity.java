@@ -387,14 +387,6 @@ public abstract class AbstractFragmentActivity extends FragmentActivity implemen
 	}
 	
 	/**
-	 * @see com.jdroid.android.activity.ComponentIf#shouldTrackOnFragmentStart()
-	 */
-	@Override
-	public Boolean shouldTrackOnFragmentStart() {
-		return activityHelper.shouldTrackOnFragmentStart();
-	}
-	
-	/**
 	 * @see com.jdroid.android.activity.ActivityIf#isInterstitialEnabled()
 	 */
 	@Override

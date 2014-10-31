@@ -93,7 +93,7 @@ public class FragmentHelper implements FragmentIf {
 		LOGGER.trace("Executing onStart on " + fragment);
 		FragmentIf fragmentIf = getFragmentIf();
 		if ((fragmentIf != null) && fragmentIf.shouldTrackOnFragmentStart()) {
-			AbstractApplication.get().getAnalyticsSender().onFragmentStart(fragment);
+			AbstractApplication.get().getAnalyticsSender().onFragmentStart(fragmentIf.getScreenViewName());
 		}
 	}
 	
@@ -385,12 +385,22 @@ public class FragmentHelper implements FragmentIf {
 		return fragment.getActivity().getActionBar();
 	}
 	
+	// //////////////////////// Analytics //////////////////////// //
+	
 	/**
-	 * @see com.jdroid.android.activity.ComponentIf#shouldTrackOnFragmentStart()
+	 * @see com.jdroid.android.fragment.FragmentIf#shouldTrackOnFragmentStart()
 	 */
 	@Override
 	public Boolean shouldTrackOnFragmentStart() {
 		return false;
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#getScreenViewName()
+	 */
+	@Override
+	public String getScreenViewName() {
+		return fragment.getClass().getSimpleName();
 	}
 	
 	// //////////////////////// Loading //////////////////////// //

@@ -390,12 +390,22 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 		getListView().removeFooterView(inflate(resource));
 	}
 	
+	// //////////////////////// Analytics //////////////////////// //
+	
 	/**
-	 * @see com.jdroid.android.activity.ComponentIf#shouldTrackOnFragmentStart()
+	 * @see com.jdroid.android.fragment.FragmentIf#shouldTrackOnFragmentStart()
 	 */
 	@Override
 	public Boolean shouldTrackOnFragmentStart() {
 		return fragmentHelper.shouldTrackOnFragmentStart();
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#getScreenViewName()
+	 */
+	@Override
+	public String getScreenViewName() {
+		return fragmentHelper.getScreenViewName();
 	}
 	
 	// //////////////////////// Loading //////////////////////// //

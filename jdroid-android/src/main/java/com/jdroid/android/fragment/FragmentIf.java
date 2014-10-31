@@ -55,4 +55,8 @@ public interface FragmentIf extends ComponentIf, DefaultUseCaseListener, OnRefre
 	public FragmentLoading getDefaultLoading();
 	
 	public void setLoading(FragmentLoading loading);
+	
+	public Boolean shouldTrackOnFragmentStart();
+	
+	public String getScreenViewName();
 }

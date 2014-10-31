@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import org.slf4j.Logger;
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.HitBuilders.AppViewBuilder;
@@ -142,13 +141,13 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onFragmentStart(android.support.v4.app.Fragment)
+	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#onFragmentStart(java.lang.String)
 	 */
 	@Override
-	public void onFragmentStart(Fragment fragment) {
+	public void onFragmentStart(String screenViewName) {
 		synchronized (GoogleAnalyticsTracker.class) {
 			AppViewBuilder appViewBuilder = new HitBuilders.AppViewBuilder();
-			sendScreenView(appViewBuilder, fragment.getClass().getSimpleName());
+			sendScreenView(appViewBuilder, screenViewName);
 		}
 	}
 	

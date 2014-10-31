@@ -312,12 +312,22 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 		return fragmentHelper.getActivityIf();
 	}
 	
+	// //////////////////////// Analytics //////////////////////// //
+	
 	/**
-	 * @see com.jdroid.android.activity.ComponentIf#shouldTrackOnFragmentStart()
+	 * @see com.jdroid.android.fragment.FragmentIf#shouldTrackOnFragmentStart()
 	 */
 	@Override
 	public Boolean shouldTrackOnFragmentStart() {
 		return fragmentHelper.shouldTrackOnFragmentStart();
+	}
+	
+	/**
+	 * @see com.jdroid.android.fragment.FragmentIf#getScreenViewName()
+	 */
+	@Override
+	public String getScreenViewName() {
+		return fragmentHelper.getScreenViewName();
 	}
 	
 	// //////////////////////// Loading //////////////////////// //

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.inappbilling.Product;
@@ -156,15 +155,15 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onFragmentStart(android.support.v4.app.Fragment)
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#onFragmentStart(java.lang.String)
 	 */
 	@Override
-	public void onFragmentStart(final Fragment fragment) {
+	public void onFragmentStart(final String screenViewName) {
 		ExecutorUtils.execute(new TrackerRunnable() {
 			
 			@Override
 			protected void track(T tracker) {
-				tracker.onFragmentStart(fragment);
+				tracker.onFragmentStart(screenViewName);
 			}
 		});
 	}

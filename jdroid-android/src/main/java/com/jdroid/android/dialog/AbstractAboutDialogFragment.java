@@ -235,4 +235,12 @@ public abstract class AbstractAboutDialogFragment extends AbstractDialogFragment
 			googlePlusOneButtonHelper.onActivityResult(requestCode, resultCode, data);
 		}
 	}
+	
+	/**
+	 * @see com.jdroid.android.dialog.AbstractDialogFragment#shouldTrackOnFragmentStart()
+	 */
+	@Override
+	public Boolean shouldTrackOnFragmentStart() {
+		return true;
+	}
 }

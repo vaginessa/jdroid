@@ -307,14 +307,6 @@ public abstract class AbstractPreferenceActivity extends PreferenceActivity impl
 	}
 	
 	/**
-	 * @see com.jdroid.android.activity.ComponentIf#shouldTrackOnFragmentStart()
-	 */
-	@Override
-	public Boolean shouldTrackOnFragmentStart() {
-		return activityHelper.shouldTrackOnFragmentStart();
-	}
-	
-	/**
 	 * @see com.jdroid.android.activity.ActivityIf#isInterstitialEnabled()
 	 */
 	@Override

@@ -670,14 +670,6 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.activity.ComponentIf#shouldTrackOnFragmentStart()
-	 */
-	@Override
-	public Boolean shouldTrackOnFragmentStart() {
-		return false;
-	}
-	
-	/**
 	 * @see com.jdroid.android.activity.ComponentIf#executeOnUIThread(java.lang.Runnable)
 	 */
 	@Override

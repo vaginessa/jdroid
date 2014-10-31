@@ -2,7 +2,6 @@ package com.jdroid.android.analytics;
 
 import java.util.Map;
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import com.jdroid.android.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
@@ -24,7 +23,7 @@ public interface AnalyticsTracker {
 	
 	public void onActivityDestroy(Activity activity);
 	
-	public void onFragmentStart(Fragment fragment);
+	public void onFragmentStart(String screenViewName);
 	
 	public void trackConnectionException(ConnectionException connectionException);
 	

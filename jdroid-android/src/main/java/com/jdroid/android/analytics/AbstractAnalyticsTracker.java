@@ -2,7 +2,6 @@ package com.jdroid.android.analytics;
 
 import java.util.Map;
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import com.jdroid.android.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
@@ -60,10 +59,10 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onFragmentStart(android.support.v4.app.Fragment)
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#onFragmentStart(java.lang.String)
 	 */
 	@Override
-	public void onFragmentStart(Fragment fragment) {
+	public void onFragmentStart(String screenViewName) {
 		// Do Nothing
 	}
 	

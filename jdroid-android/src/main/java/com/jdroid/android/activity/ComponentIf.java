@@ -59,8 +59,6 @@ public interface ComponentIf {
 	
 	public User getUser();
 	
-	public Boolean shouldTrackOnFragmentStart();
-	
 	public void showLoading();
 	
 	public void dismissLoading();
