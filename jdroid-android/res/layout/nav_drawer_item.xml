@@ -5,7 +5,8 @@
 	android:minHeight="@dimen/nav_drawer_main_min_height">
 
 	<ImageView android:id="@+id/image" android:layout_width="@dimen/nav_drawer_icon_size" android:layout_height="@dimen/nav_drawer_icon_size"
-		android:layout_marginLeft="8dp" android:duplicateParentState="true" />
+		android:layout_marginLeft="@dimen/nav_drawer_icon_margin" android:layout_marginRight="@dimen/nav_drawer_icon_margin"
+		android:duplicateParentState="true" />
 
 	<TextView android:id="@+id/name" android:layout_height="wrap_content" android:layout_width="wrap_content"
 		style="@style/navDrawerItemText" android:duplicateParentState="true" />

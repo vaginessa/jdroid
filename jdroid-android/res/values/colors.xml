@@ -13,6 +13,7 @@
 	<color name="navDrawerItemsBackground">#111</color>
 	<color name="navDrawerBackground">#222</color>
 	<color name="navDrawerItemColor">@android:color/white</color>
+	<color name="navDrawerItemPressedColor">#44999999</color>
 
 	<!-- Maps -->
 	<color name="walkingColor">#888888</color>
