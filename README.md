@@ -27,26 +27,10 @@ Dependency project for both Android & Java apps
 * Exception handling
 * Utilities for Collections, Strings, Dates, Files, Encryption, Threads, [Logging](http://www.slf4j.org/), Validations, Reflection and more
 
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid Java Web](https://github.com/maxirosson/jdroid/wiki/jdroid-Java-Web)
----------------
-Dependency project for Java Web apps 
-* Http Filters
- * Authentication filter
- * API version filter
-* Parsers
- * Sax XML Parser
-* [Spring MVC integration](http://projects.spring.io/spring-framework/)
-* [Hibernate ORM integration](http://hibernate.org/orm/)
-* [Restfb Facebook integration](http://restfb.com/)
-* [Twitter 4j integration](http://twitter4j.org/)
-* Generic push framework. [Google Cloud Messaging implementation](http://developer.android.com/google/gcm/index.html)
-* Pagination and filtering support
-* [Log4j logging support](http://logging.apache.org/log4j/1.2/)
-* Utilities for Collections, CSV, Files, Reflection, [Guava](https://code.google.com/p/guava-libraries/) and more
-
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid Android](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
 Library project for Android apps. Support for Android 4.0 (api level 14) and higher versions
+* Languages supported: english & spanish
 * [Navigation Drawer support](https://developer.android.com/design/patterns/navigation-drawer.html)
 * Google Play Services integration
  * [Google Analytics v4 integration](https://developers.google.com/analytics/devguides/collection/android/v4/). A/B testing support
@@ -86,6 +70,23 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * Animations
  * Fade in / Fade out
 * Utilities for Alarms, Bitmaps, [Notifications](http://developer.android.com/design/patterns/notifications.html), Shared Preferences, [Toasts](http://developer.android.com/guide/topics/ui/notifiers/toasts.html), Sounds, GPS, and more
+
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid Java Web](https://github.com/maxirosson/jdroid/wiki/jdroid-Java-Web)
+---------------
+Dependency project for Java Web apps 
+* Http Filters
+ * Authentication filter
+ * API version filter
+* Parsers
+ * Sax XML Parser
+* [Spring MVC integration](http://projects.spring.io/spring-framework/)
+* [Hibernate ORM integration](http://hibernate.org/orm/)
+* [Restfb Facebook integration](http://restfb.com/)
+* [Twitter 4j integration](http://twitter4j.org/)
+* Generic push framework. [Google Cloud Messaging implementation](http://developer.android.com/google/gcm/index.html)
+* Pagination and filtering support
+* [Log4j logging support](http://logging.apache.org/log4j/1.2/)
+* Utilities for Collections, CSV, Files, Reflection, [Guava](https://code.google.com/p/guava-libraries/) and more
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid Android Tools](https://github.com/maxirosson/jdroid/wiki/jdroid-Android-Tools)
 --------------
