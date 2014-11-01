@@ -32,6 +32,16 @@
 			<artifactId>android-support-v4</artifactId>
 			<version>r20</version>
 		</dependency>
+		<dependency>
+			<groupId>android.compatibility</groupId>
+			<artifactId>android-support-multidex</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>android.compatibility</groupId>
+			<artifactId>annotations</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 
 		<!-- jdroid Java -->
 		<dependency>
@@ -73,12 +83,6 @@
 			<version>1.9.2</version>
 		</dependency> 
 
-		<!-- Android Annotations -->
-		<dependency>
-			<groupId>android.compatibility</groupId>
-			<artifactId>annotations</artifactId>
-			<version>1.0.0</version>
-		</dependency>
 
 		<!-- Merge Adapter -->
 		<dependency>
