@@ -45,6 +45,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 		upgradeSteps.add(upgradeStep);
 	}
 	
+	public void addUpgradeSteps(List<SQLiteUpgradeStep> upgradeSteps) {
+		this.upgradeSteps.addAll(upgradeSteps);
+	}
+	
 	/**
 	 * @see android.database.sqlite.SQLiteOpenHelper#onCreate(android.database.sqlite.SQLiteDatabase)
 	 */
@@ -63,6 +67,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 		LOGGER.debug("Upgrading DB from version " + oldVersion + " to " + newVersion);
 		for (SQLiteUpgradeStep upgradeStep : upgradeSteps) {
 			if (upgradeStep.getVersion() > oldVersion) {
+				LOGGER.debug("Executing upgrade step " + upgradeStep.getClass().getSimpleName());
 				upgradeStep.upgrade(db, oldVersion, newVersion);
 			}
 		}

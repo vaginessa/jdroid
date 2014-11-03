@@ -34,6 +34,7 @@ import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.gcm.GcmMessageResolver;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
+import com.jdroid.android.sqlite.SQLiteUpgradeStep;
 import com.jdroid.android.utils.AndroidEncryptionUtils;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.ImageLoaderUtils;
@@ -417,6 +418,7 @@ public abstract class AbstractApplication extends Application {
 				repositories.put(DebugLog.class, new DebugLogsRepository(dbHelper));
 			}
 			initDatabaseRepositories(repositories, dbHelper);
+			dbHelper.addUpgradeSteps(getSQLiteUpgradeSteps());
 		}
 	}
 	
@@ -429,6 +431,10 @@ public abstract class AbstractApplication extends Application {
 	
 	protected Boolean isDatabaseEnabled() {
 		return false;
+	}
+	
+	protected List<SQLiteUpgradeStep> getSQLiteUpgradeSteps() {
+		return Lists.newArrayList();
 	}
 	
 	public Boolean isDebugLogRepositoryEnabled() {
