@@ -349,7 +349,7 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 		int headersCount = listView.getHeaderViewsCount();
 		int pos = position - headersCount;
 		if ((pos >= 0) && (pos < listView.getAdapter().getCount())) {
-			T t = (T)listView.getAdapter().getItem(pos);
+			T t = (T)listView.getAdapter().getItem(position);
 			onItemSelected(t);
 		}
 	}
