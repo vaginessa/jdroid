@@ -229,8 +229,15 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	@Override
 	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget) {
 		sendEvent("social" + accountType.getFriendlyName(), socialAction.getName(), socialTarget);
-		tracker.send(new HitBuilders.SocialBuilder().setNetwork(accountType.getFriendlyName()).setAction(
-			socialAction.getName()).setTarget(socialTarget).build());
+		
+		SocialBuilder socialBuilder = new SocialBuilder();
+		socialBuilder.setNetwork(accountType.getFriendlyName());
+		socialBuilder.setAction(socialAction.getName());
+		socialBuilder.setTarget(socialTarget);
+		
+		tracker.send(socialBuilder.build());
+		LOGGER.debug("Social interaction sent. Network [" + accountType.getFriendlyName() + "] Action ["
+				+ socialAction.getName() + "] Target [" + socialTarget + "]");
 	}
 	
 	protected void addCustomDimension(AppViewBuilder appViewBuilder, CustomDimension customDimension, String dimension) {
