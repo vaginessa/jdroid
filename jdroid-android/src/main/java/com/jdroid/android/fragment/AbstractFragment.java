@@ -1,11 +1,15 @@
 package com.jdroid.android.fragment;
 
 import android.app.ActionBar;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.ScrollView;
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.R;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
@@ -14,6 +18,8 @@ import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
+import com.jdroid.android.view.NotifyingScrollView;
+import com.jdroid.android.view.ParallaxScrollView;
 
 /**
  * Base {@link Fragment}
@@ -22,6 +28,7 @@ import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	
 	private FragmentHelper fragmentHelper;
+	private Drawable actionBarBackgroundDrawable;
 	
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getAppContext()
@@ -47,6 +54,34 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 		super.onCreate(savedInstanceState);
 		fragmentHelper = AbstractApplication.get().createFragmentHelper(this);
 		fragmentHelper.onCreate(savedInstanceState);
+		
+		if (enableParallaxEffect()) {
+			actionBarBackgroundDrawable = getResources().getDrawable(R.drawable.actionbar_background);
+			actionBarBackgroundDrawable.setAlpha(0);
+			getActionBar().setBackgroundDrawable(actionBarBackgroundDrawable);
+			
+			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+				actionBarBackgroundDrawable.setCallback(new Drawable.Callback() {
+					
+					@Override
+					public void invalidateDrawable(Drawable who) {
+						getActionBar().setBackgroundDrawable(who);
+					}
+					
+					@Override
+					public void scheduleDrawable(Drawable who, Runnable what, long when) {
+					}
+					
+					@Override
+					public void unscheduleDrawable(Drawable who, Runnable what) {
+					}
+				});
+			}
+		}
+	}
+	
+	protected Boolean enableParallaxEffect() {
+		return false;
 	}
 	
 	/**
@@ -56,6 +91,33 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		fragmentHelper.onViewCreated(view, savedInstanceState);
+		
+		if (enableParallaxEffect()) {
+			ParallaxScrollView parallaxScrollView = findView(getParallaxScrollViewId());
+			parallaxScrollView.setOnScrollChangedListener(new NotifyingScrollView.OnScrollChangedListener() {
+				
+				@Override
+				public void onScrollChanged(ScrollView who, int l, int t, int oldl, int oldt) {
+					final int headerHeight = findView(getHeroImageId()).getHeight() - getActionBar().getHeight();
+					final float ratio = (float)Math.min(Math.max(t, 0), headerHeight) / headerHeight;
+					final int newAlpha = (int)(ratio * 255);
+					actionBarBackgroundDrawable.setAlpha(newAlpha);
+				}
+			});
+			parallaxScrollView.setParallaxViewContainer(findView(getHeroImageContainerId()));
+		}
+	}
+	
+	protected Integer getParallaxScrollViewId() {
+		return null;
+	}
+	
+	protected Integer getHeroImageContainerId() {
+		return null;
+	}
+	
+	protected Integer getHeroImageId() {
+		return null;
 	}
 	
 	/**
