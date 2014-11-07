@@ -35,7 +35,7 @@
 
 	<application android:icon="@drawable/ic_launcher" android:logo="@drawable/ic_launcher" android:label="@string/appName"
 		android:allowBackup="true" android:name="com.jdroid.sample.android.AndroidApplication" android:hardwareAccelerated="true"
-		android:theme="@style/appTheme">
+		android:theme="@style/App.Theme">
 
 		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyDhgOTyv5EqcYckAnPI1Cdms-1DxBYhjjA" />
 		<meta-data android:name="com.crashlytics.ApiKey" android:value="478dae49374362f33bc054fc44d1f4242c574ccb" />
