@@ -27,8 +27,11 @@ import com.jdroid.android.view.ParallaxScrollView;
  */
 public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	
+	private static final String ACTION_BAR_ALPHA = "actionBarAlpha";
+	
 	private FragmentHelper fragmentHelper;
 	private Drawable actionBarBackgroundDrawable;
+	private int actionBarAlpha = 0;
 	
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getAppContext()
@@ -54,10 +57,28 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 		super.onCreate(savedInstanceState);
 		fragmentHelper = AbstractApplication.get().createFragmentHelper(this);
 		fragmentHelper.onCreate(savedInstanceState);
+	}
+	
+	protected Boolean heroImageEnabled() {
+		return false;
+	}
+	
+	/**
+	 * @see android.support.v4.app.Fragment#onViewCreated(android.view.View, android.os.Bundle)
+	 */
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		fragmentHelper.onViewCreated(view, savedInstanceState);
 		
-		if (enableParallaxEffect()) {
+		if (heroImageEnabled()) {
+			
+			if (savedInstanceState != null) {
+				actionBarAlpha = savedInstanceState.getInt(ACTION_BAR_ALPHA);
+			}
+			
 			actionBarBackgroundDrawable = getResources().getDrawable(R.drawable.actionbar_background);
-			actionBarBackgroundDrawable.setAlpha(0);
+			actionBarBackgroundDrawable.setAlpha(actionBarAlpha);
 			getActionBar().setBackgroundDrawable(actionBarBackgroundDrawable);
 			
 			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -77,22 +98,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 					}
 				});
 			}
-		}
-	}
-	
-	protected Boolean enableParallaxEffect() {
-		return false;
-	}
-	
-	/**
-	 * @see android.support.v4.app.Fragment#onViewCreated(android.view.View, android.os.Bundle)
-	 */
-	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
-		fragmentHelper.onViewCreated(view, savedInstanceState);
-		
-		if (enableParallaxEffect()) {
+			
 			ParallaxScrollView parallaxScrollView = findView(getParallaxScrollViewId());
 			parallaxScrollView.setOnScrollChangedListener(new NotifyingScrollView.OnScrollChangedListener() {
 				
@@ -100,8 +106,8 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 				public void onScrollChanged(ScrollView who, int l, int t, int oldl, int oldt) {
 					final int headerHeight = findView(getHeroImageId()).getHeight() - getActionBar().getHeight();
 					final float ratio = (float)Math.min(Math.max(t, 0), headerHeight) / headerHeight;
-					final int newAlpha = (int)(ratio * 255);
-					actionBarBackgroundDrawable.setAlpha(newAlpha);
+					actionBarAlpha = (int)(ratio * 255);
+					actionBarBackgroundDrawable.setAlpha(actionBarAlpha);
 				}
 			});
 			parallaxScrollView.setParallaxViewContainer(findView(getHeroImageContainerId()));
@@ -118,6 +124,15 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	
 	protected Integer getHeroImageId() {
 		return null;
+	}
+	
+	/**
+	 * @see android.support.v4.app.Fragment#onSaveInstanceState(android.os.Bundle)
+	 */
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putInt(ACTION_BAR_ALPHA, actionBarAlpha);
 	}
 	
 	/**
