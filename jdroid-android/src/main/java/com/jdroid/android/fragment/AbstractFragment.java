@@ -32,6 +32,21 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	private FragmentHelper fragmentHelper;
 	private Drawable actionBarBackgroundDrawable;
 	private int actionBarAlpha = 0;
+	private Drawable.Callback drawableCallback = new Drawable.Callback() {
+		
+		@Override
+		public void invalidateDrawable(Drawable who) {
+			getActionBar().setBackgroundDrawable(who);
+		}
+		
+		@Override
+		public void scheduleDrawable(Drawable who, Runnable what, long when) {
+		}
+		
+		@Override
+		public void unscheduleDrawable(Drawable who, Runnable what) {
+		}
+	};
 	
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getAppContext()
@@ -82,21 +97,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 			getActionBar().setBackgroundDrawable(actionBarBackgroundDrawable);
 			
 			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-				actionBarBackgroundDrawable.setCallback(new Drawable.Callback() {
-					
-					@Override
-					public void invalidateDrawable(Drawable who) {
-						getActionBar().setBackgroundDrawable(who);
-					}
-					
-					@Override
-					public void scheduleDrawable(Drawable who, Runnable what, long when) {
-					}
-					
-					@Override
-					public void unscheduleDrawable(Drawable who, Runnable what) {
-					}
-				});
+				actionBarBackgroundDrawable.setCallback(drawableCallback);
 			}
 			
 			ParallaxScrollView parallaxScrollView = findView(getParallaxScrollViewId());
