@@ -282,7 +282,7 @@ public class FragmentHelper implements FragmentIf {
 			} else {
 				DefaultExceptionHandler.markAsNotGoBackOnError(runtimeException);
 			}
-			dismissLoading();
+			fragmentIf.dismissLoading();
 		}
 		throw runtimeException;
 	}
