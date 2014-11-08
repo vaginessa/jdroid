@@ -59,7 +59,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 		fragmentHelper.onCreate(savedInstanceState);
 	}
 	
-	protected Boolean heroImageEnabled() {
+	protected Boolean isHeroImageEnabled() {
 		return false;
 	}
 	
@@ -71,7 +71,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 		super.onViewCreated(view, savedInstanceState);
 		fragmentHelper.onViewCreated(view, savedInstanceState);
 		
-		if (heroImageEnabled()) {
+		if (isHeroImageEnabled()) {
 			
 			if (savedInstanceState != null) {
 				actionBarAlpha = savedInstanceState.getInt(ACTION_BAR_ALPHA);

@@ -222,7 +222,7 @@ public class ActivityHelper implements ActivityIf {
 				}
 				
 				@Override
-				public void onDrawerSlide(View arg0, float arg1) {
+				public void onDrawerSlide(View drawerView, float slideOffset) {
 					// Do nothing
 				}
 				

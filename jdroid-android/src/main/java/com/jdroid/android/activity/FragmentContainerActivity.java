@@ -12,7 +12,15 @@ public abstract class FragmentContainerActivity extends AbstractFragmentActivity
 	 */
 	@Override
 	public int getContentView() {
-		return isNavDrawerEnabled() ? R.layout.nav_fragment_container_activity : R.layout.fragment_container_activity;
+		if (isNavDrawerEnabled()) {
+			return isNavDrawerOverlayEnabled() ? R.layout.nav_overlay_fragment_container_activity
+					: R.layout.nav_fragment_container_activity;
+		}
+		return R.layout.fragment_container_activity;
+	}
+	
+	public Boolean isNavDrawerOverlayEnabled() {
+		return false;
 	}
 	
 	/**
