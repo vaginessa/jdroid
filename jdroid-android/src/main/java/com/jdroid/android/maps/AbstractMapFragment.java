@@ -62,8 +62,8 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		ViewGroup view = (ViewGroup)inflater.inflate(R.layout.map_fragment, container, false);
+		ViewGroup mapContainer = (ViewGroup)view.findViewById(R.id.mapContainer);
 		if (GooglePlayUtils.isGooglePlayServicesAvailable(getActivity())) {
-			ViewGroup mapContainer = (ViewGroup)view.findViewById(R.id.mapContainer);
 			View mapView = super.onCreateView(inflater, mapContainer, savedInstanceState);
 			
 			if (map == null) {
@@ -76,8 +76,8 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 			
 			mapContainer.addView(mapView);
 		} else {
-			view.addView(inflate(R.layout.update_google_services));
-			view.findViewById(R.id.updateGooglePlayServicesButton).setOnClickListener(new OnClickListener() {
+			mapContainer.addView(inflate(R.layout.update_google_services));
+			mapContainer.findViewById(R.id.updateGooglePlayServicesButton).setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
