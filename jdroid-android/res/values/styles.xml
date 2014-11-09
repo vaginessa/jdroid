@@ -14,6 +14,32 @@
 
 	<!-- Texts -->
 
+	<style name="baseText">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
+	</style>
+
+	<style name="textMicro" parent="baseText">
+		<item name="android:textAppearance">?android:textAppearanceSmall</item>
+		<item name="android:textSize">@dimen/textMicro</item>
+	</style>
+
+	<style name="textSmall" parent="baseText">
+		<item name="android:textAppearance">?android:textAppearanceSmall</item>
+		<item name="android:textSize">@dimen/textSmall</item>
+	</style>
+
+	<style name="textMedium" parent="baseText">
+		<item name="android:textAppearance">?android:textAppearanceMedium</item>
+		<item name="android:textSize">@dimen/textMedium</item>
+	</style>
+
+	<style name="textLarge" parent="baseText">
+		<item name="android:textAppearance">?android:textAppearanceLarge</item>
+		<item name="android:textSize">@dimen/textLarge</item>
+	</style>
+
 	<style name="whiteShadowText">
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:shadowColor">@android:color/black</item>
@@ -28,12 +54,6 @@
 		<item name="android:shadowRadius">1</item>
 		<item name="android:shadowDx">0</item>
 		<item name="android:shadowDy">1</item>
-	</style>
-
-	<style name="baseText">
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
 	</style>
 
 	<style name="title1Text" parent="baseText">
@@ -232,7 +252,7 @@
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:typeface">normal</item>
-		<item name="android:textSize">16sp</item>
+		<item name="android:textSize">@dimen/socialButtonText</item>
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:singleLine">true</item>
 		<item name="android:gravity">center</item>

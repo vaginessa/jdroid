@@ -3,6 +3,11 @@
 
 	<!-- Texts -->
 
+	<dimen name="textMicro">12sp</dimen>
+	<dimen name="textSmall">14sp</dimen>
+	<dimen name="textMedium">16sp</dimen>
+	<dimen name="textLarge">20sp</dimen>
+
 	<dimen name="title1Text">20sp</dimen>
 	<dimen name="title2Text">18sp</dimen>
 
@@ -20,6 +25,9 @@
 
 	<dimen name="borderedImageViewMargin">3dp</dimen>
 	<dimen name="borderedImageViewPadding">2dp</dimen>
+
+	<!-- Social -->
+	<dimen name="socialButtonText">16sp</dimen>
 
 	<!-- Nav Drawer -->
 
