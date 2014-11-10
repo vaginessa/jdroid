@@ -129,7 +129,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	public void onCreate(Bundle savedInstanceState) {
-		LOGGER.trace("Executing onCreate on " + activity);
+		LOGGER.debug("Executing onCreate on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 		
 		AbstractApplication.get().changeLocale();
@@ -349,19 +349,19 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	public void onSaveInstanceState(Bundle outState) {
-		LOGGER.trace("Executing onSaveInstanceState on " + activity);
+		LOGGER.debug("Executing onSaveInstanceState on " + activity);
 		dismissLoading();
 		outState.putString(TITLE_KEY, title);
 	}
 	
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
-		LOGGER.trace("Executing onRestoreInstanceState on " + activity);
+		LOGGER.debug("Executing onRestoreInstanceState on " + activity);
 		title = savedInstanceState.getString(TITLE_KEY);
 	}
 	
 	@SuppressLint("HandlerLeak")
 	public void onStart() {
-		LOGGER.trace("Executing onStart on " + activity);
+		LOGGER.debug("Executing onStart on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 		
 		ExecutorUtils.execute(new Runnable() {
@@ -420,7 +420,7 @@ public class ActivityHelper implements ActivityIf {
 	
 	public void onResume() {
 		
-		LOGGER.trace("Executing onResume on " + activity);
+		LOGGER.debug("Executing onResume on " + activity);
 		AbstractApplication.get().setInBackground(false);
 		AbstractApplication.get().setCurrentActivity(activity);
 		
@@ -456,12 +456,12 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	public void onPause() {
-		LOGGER.trace("Executing onPause on " + activity);
+		LOGGER.debug("Executing onPause on " + activity);
 		AbstractApplication.get().setInBackground(true);
 	}
 	
 	public void onStop() {
-		LOGGER.trace("Executing onStop on " + activity);
+		LOGGER.debug("Executing onStop on " + activity);
 		ToastUtils.cancelCurrentToast();
 		AbstractApplication.get().getAnalyticsSender().onActivityStop(activity);
 		
@@ -478,7 +478,7 @@ public class ActivityHelper implements ActivityIf {
 	
 	public void onDestroy() {
 		isDestoyed = true;
-		LOGGER.trace("Executing onDestroy on " + activity);
+		LOGGER.debug("Executing onDestroy on " + activity);
 		dismissLoading();
 	}
 	
@@ -652,7 +652,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	public void onNewIntent(Intent intent) {
-		LOGGER.trace("Executing onNewIntent on " + activity);
+		LOGGER.debug("Executing onNewIntent on " + activity);
 		
 		trackNotificationOpened(intent);
 	}

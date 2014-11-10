@@ -52,7 +52,7 @@ public class FragmentHelper implements FragmentIf {
 	}
 	
 	public void onCreate(Bundle savedInstanceState) {
-		LOGGER.trace("Executing onCreate on " + fragment);
+		LOGGER.debug("Executing onCreate on " + fragment);
 		fragment.setRetainInstance(getFragmentIf().shouldRetainInstance());
 	}
 	
@@ -65,7 +65,7 @@ public class FragmentHelper implements FragmentIf {
 	}
 	
 	public void onViewCreated(View view, Bundle savedInstanceState) {
-		LOGGER.trace("Executing onViewCreated on " + fragment);
+		LOGGER.debug("Executing onViewCreated on " + fragment);
 		
 		adHelper = createAdLoader();
 		if (adHelper != null) {
@@ -86,11 +86,11 @@ public class FragmentHelper implements FragmentIf {
 	}
 	
 	public void onActivityCreated(Bundle savedInstanceState) {
-		LOGGER.trace("Executing onActivityCreated on " + fragment);
+		LOGGER.debug("Executing onActivityCreated on " + fragment);
 	}
 	
 	public void onStart() {
-		LOGGER.trace("Executing onStart on " + fragment);
+		LOGGER.debug("Executing onStart on " + fragment);
 		FragmentIf fragmentIf = getFragmentIf();
 		if ((fragmentIf != null) && fragmentIf.shouldTrackOnFragmentStart()) {
 			AbstractApplication.get().getAnalyticsSender().onFragmentStart(fragmentIf.getScreenViewName());
@@ -98,7 +98,7 @@ public class FragmentHelper implements FragmentIf {
 	}
 	
 	public void onResume() {
-		LOGGER.trace("Executing onResume on " + fragment);
+		LOGGER.debug("Executing onResume on " + fragment);
 		if (adHelper != null) {
 			adHelper.onResume();
 		}
@@ -111,15 +111,15 @@ public class FragmentHelper implements FragmentIf {
 	}
 	
 	public void onPause() {
-		LOGGER.trace("Executing onPause on " + fragment);
+		LOGGER.debug("Executing onPause on " + fragment);
 	}
 	
 	public void onStop() {
-		LOGGER.trace("Executing onStop on " + fragment);
+		LOGGER.debug("Executing onStop on " + fragment);
 	}
 	
 	public void onDestroyView() {
-		LOGGER.trace("Executing onDestroyView on " + fragment);
+		LOGGER.debug("Executing onDestroyView on " + fragment);
 	}
 	
 	public void onBeforeDestroy() {
@@ -129,7 +129,7 @@ public class FragmentHelper implements FragmentIf {
 	}
 	
 	public void onDestroy() {
-		LOGGER.trace("Executing onDestroy on " + fragment);
+		LOGGER.debug("Executing onDestroy on " + fragment);
 	}
 	
 	@Override

@@ -75,12 +75,12 @@ public class GcmService extends WorkerService {
 		
 		if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
 			onError(context, intent);
-			LOGGER.trace("Send error");
+			LOGGER.debug("Send error");
 		} else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
-			LOGGER.trace("Received deleted messages");
+			LOGGER.debug("Received deleted messages");
 			onDeletedMessages(context, intent);
 		} else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
-			LOGGER.trace("Received message");
+			LOGGER.debug("Received message");
 			onMessage(context, intent);
 		}
 		

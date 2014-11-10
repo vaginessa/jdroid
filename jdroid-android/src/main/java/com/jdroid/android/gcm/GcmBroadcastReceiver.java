@@ -17,7 +17,7 @@ public class GcmBroadcastReceiver extends BroadcastReceiver {
 	
 	@Override
 	public final void onReceive(Context context, Intent intent) {
-		LOGGER.trace("onReceive: " + intent.getAction());
+		LOGGER.debug("onReceive: " + intent.getAction());
 		GcmService.start(intent);
 		setResult(Activity.RESULT_OK, null, null);
 	}

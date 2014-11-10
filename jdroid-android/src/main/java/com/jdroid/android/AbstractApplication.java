@@ -104,6 +104,7 @@ public abstract class AbstractApplication extends Application {
 		
 		LoggerUtils.setEnabled(isDebuggable());
 		LOGGER = LoggerUtils.getLogger(AbstractApplication.class);
+		LOGGER.debug("Executing onCreate on " + this);
 		
 		appContext = createAppContext();
 		analyticsSender = createAnalyticsSender();

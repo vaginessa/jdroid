@@ -42,7 +42,7 @@ public final class GcmPreferences {
 		int oldVersion = prefs.getInt(PROPERTY_APP_VERSION, Integer.MIN_VALUE);
 		int newVersion = AndroidUtils.getVersionCode();
 		if ((oldVersion != Integer.MIN_VALUE) && (oldVersion != newVersion)) {
-			LOGGER.trace("App version changed from " + oldVersion + " to " + newVersion + ". Clearing registration id");
+			LOGGER.debug("App version changed from " + oldVersion + " to " + newVersion + ". Clearing registration id");
 			clearRegistrationId(context);
 		}
 		return prefs.getString(PROPERTY_REG_ID, null);
@@ -82,7 +82,7 @@ public final class GcmPreferences {
 		editor.putInt(PROPERTY_APP_VERSION, appVersion);
 		editor.commit();
 		
-		LOGGER.trace("Saved the registrationId [" + registrationId + "] on app version " + appVersion);
+		LOGGER.debug("Saved the registrationId [" + registrationId + "] on app version " + appVersion);
 	}
 	
 	/**
@@ -99,7 +99,7 @@ public final class GcmPreferences {
 		editor.putLong(PROPERTY_ON_SERVER_EXPIRATION_TIME, System.currentTimeMillis()
 				+ getRegisterOnServerLifespan(context));
 		editor.commit();
-		LOGGER.trace("Setted registeredOnServer status as " + flag + " until " + new Timestamp(expirationTime));
+		LOGGER.debug("Setted registeredOnServer status as " + flag + " until " + new Timestamp(expirationTime));
 	}
 	
 	/**
@@ -117,12 +117,12 @@ public final class GcmPreferences {
 	public static boolean isRegisteredOnServer(Context context) {
 		SharedPreferences prefs = getGCMPreferences(context);
 		boolean isRegistered = prefs.getBoolean(PROPERTY_ON_SERVER, false);
-		LOGGER.trace("Is registered on server: " + isRegistered);
+		LOGGER.debug("Is registered on server: " + isRegistered);
 		if (isRegistered) {
 			// checks if the information is not stale
 			long expirationTime = prefs.getLong(PROPERTY_ON_SERVER_EXPIRATION_TIME, -1);
 			if (System.currentTimeMillis() > expirationTime) {
-				LOGGER.trace("registeredOnServer flag expired on: " + new Timestamp(expirationTime));
+				LOGGER.debug("registeredOnServer flag expired on: " + new Timestamp(expirationTime));
 				return false;
 			}
 		}
