@@ -29,7 +29,10 @@ import android.text.TextUtils;
 import com.android.vending.billing.IInAppBillingService;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.concurrent.SafeRunnable;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
+import com.jdroid.java.exception.ErrorCode;
+import com.jdroid.java.exception.ErrorCodeException;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.CollectionUtils;
 import com.jdroid.java.utils.LoggerUtils;
@@ -56,62 +59,67 @@ import com.jdroid.java.utils.LoggerUtils;
  * notice that you can only call one asynchronous operation at a time; attempting to start a second asynchronous
  * operation while the first one has not yet completed will result in an exception being thrown.
  * 
- * @author Bruno Oliveira (Google)
- * 
  */
 public class InAppBillingClient {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(InAppBillingClient.class);
 	
+	private static final int IN_APP_BILLING_API_VERSION = 3;
+	
 	// Keys for the responses from InAppBillingService
-	public static final String RESPONSE_CODE = "RESPONSE_CODE";
-	public static final String RESPONSE_GET_SKU_DETAILS_LIST = "DETAILS_LIST";
-	public static final String RESPONSE_BUY_INTENT = "BUY_INTENT";
-	public static final String RESPONSE_INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";
-	public static final String RESPONSE_INAPP_SIGNATURE = "INAPP_DATA_SIGNATURE";
-	public static final String RESPONSE_INAPP_ITEM_LIST = "INAPP_PURCHASE_ITEM_LIST";
-	public static final String RESPONSE_INAPP_PURCHASE_DATA_LIST = "INAPP_PURCHASE_DATA_LIST";
-	public static final String RESPONSE_INAPP_SIGNATURE_LIST = "INAPP_DATA_SIGNATURE_LIST";
-	public static final String INAPP_CONTINUATION_TOKEN = "INAPP_CONTINUATION_TOKEN";
+	private static final String RESPONSE_CODE = "RESPONSE_CODE";
+	private static final String RESPONSE_GET_SKU_DETAILS_LIST = "DETAILS_LIST";
+	private static final String RESPONSE_BUY_INTENT = "BUY_INTENT";
+	private static final String RESPONSE_INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";
+	private static final String RESPONSE_INAPP_SIGNATURE = "INAPP_DATA_SIGNATURE";
+	private static final String RESPONSE_INAPP_ITEM_LIST = "INAPP_PURCHASE_ITEM_LIST";
+	private static final String RESPONSE_INAPP_PURCHASE_DATA_LIST = "INAPP_PURCHASE_DATA_LIST";
+	private static final String RESPONSE_INAPP_SIGNATURE_LIST = "INAPP_DATA_SIGNATURE_LIST";
+	private static final String INAPP_CONTINUATION_TOKEN = "INAPP_CONTINUATION_TOKEN";
+	
+	public static final int PURCHASE_REQUEST_CODE = 10001;
 	
 	// Item types
-	public static final String ITEM_TYPE_INAPP = "inapp";
-	public static final String ITEM_TYPE_SUBS = "subs";
+	private static final String ITEM_TYPE_INAPP = "inapp";
+	private static final String ITEM_TYPE_SUBS = "subs";
 	
 	// some fields on the getSkuDetails response bundle
-	public static final String GET_SKU_DETAILS_ITEM_LIST = "ITEM_ID_LIST";
-	public static final String GET_SKU_DETAILS_ITEM_TYPE_LIST = "ITEM_TYPE_LIST";
+	private static final String GET_SKU_DETAILS_ITEM_LIST = "ITEM_ID_LIST";
 	
 	// Is setup done?
-	private boolean mSetupDone = false;
+	private boolean setupDone = false;
 	
 	// Has this object been disposed of? (If so, we should ignore callbacks, etc)
-	private boolean mDisposed = false;
+	private boolean disposed = false;
 	
 	// Are subscriptions supported?
-	private boolean mSubscriptionsSupported = false;
+	private boolean subscriptionsSupported = false;
 	
 	// Is an asynchronous operation in progress?
 	// (only one at a time can be in progress)
-	private boolean mAsyncInProgress = false;
+	private boolean asyncInProgress = false;
 	
-	private String mAsyncOperation = "";
+	private String asyncOperation = "";
 	
 	// Context we were passed during initialization
-	private Context mContext;
+	private Context context;
 	
 	// Connection to the service
-	private IInAppBillingService mService;
-	private ServiceConnection mServiceConn;
+	private IInAppBillingService service;
+	private ServiceConnection serviceConnection;
 	
 	// The request code used to launch purchase flow
-	private int mRequestCode;
+	private int requestCode;
 	
 	// The item type of the current purchase flow
-	private String mPurchasingItemType;
+	private String purchasingItemType;
 	
 	// Public key for verifying signature, in base64 encoding
-	private String mSignatureBase64 = null;
+	private String signatureBase64 = null;
+	
+	// The listener registered on launchPurchaseFlow, which we have to call back when
+	// the purchase finishes
+	private InAppBillingPurchaseFinishedListener purchaseListener;
 	
 	/**
 	 * Creates an instance. After creation, it will not yet be ready to use. You must perform setup by calling
@@ -124,23 +132,27 @@ public class InAppBillingClient {
 	 *            Google Play Developer Console. Note that this is NOT your "developer public key".
 	 */
 	public InAppBillingClient(Context ctx, String base64PublicKey) {
-		mContext = ctx.getApplicationContext();
-		mSignatureBase64 = base64PublicKey;
+		context = ctx.getApplicationContext();
+		signatureBase64 = base64PublicKey;
 		LOGGER.debug("InAppBillingClient created.");
 	}
 	
 	/**
-	 * Callback for setup process. This listener's {@link #onIabSetupFinished} method is called when the setup process
-	 * is complete.
+	 * Callback for setup process.
 	 */
-	public interface OnIabSetupFinishedListener {
+	public interface InAppBillingSetupListener {
 		
 		/**
 		 * Called to notify that setup is complete.
-		 * 
-		 * @param inAppBillingResponseCode The result of the setup process.
 		 */
-		public void onIabSetupFinished(InAppBillingResponseCode inAppBillingResponseCode);
+		public void onSetupFinished();
+		
+		/**
+		 * Called to notify that setup failed.
+		 * 
+		 * @param errorCodeException The result of the setup process.
+		 */
+		public void onSetupFailed(ErrorCodeException errorCodeException);
 		
 	}
 	
@@ -150,163 +162,115 @@ public class InAppBillingClient {
 	 * 
 	 * @param listener The listener to notify when the setup process is complete.
 	 */
-	public void startSetup(final OnIabSetupFinishedListener listener) {
+	public void startSetup(final InAppBillingSetupListener listener) {
 		// If already set up, can't do it again.
 		checkNotDisposed();
-		if (mSetupDone) {
-			throw new IllegalStateException("InAppBillingClient is already set up.");
+		if (setupDone) {
+			throw new UnexpectedException("InAppBillingClient is already set up.");
 		}
 		
 		// Connection to IAB service
 		LOGGER.debug("Starting in-app billing setup.");
-		mServiceConn = new ServiceConnection() {
+		serviceConnection = new ServiceConnection() {
 			
 			@Override
 			public void onServiceDisconnected(ComponentName name) {
 				LOGGER.debug("Billing service disconnected.");
-				mService = null;
+				service = null;
 			}
 			
 			@Override
-			public void onServiceConnected(ComponentName name, IBinder service) {
-				if (mDisposed) {
+			public void onServiceConnected(ComponentName name, IBinder binder) {
+				if (disposed) {
 					return;
 				}
 				LOGGER.debug("Billing service connected.");
-				mService = IInAppBillingService.Stub.asInterface(service);
-				String packageName = mContext.getPackageName();
+				service = IInAppBillingService.Stub.asInterface(binder);
+				String packageName = context.getPackageName();
 				try {
-					LOGGER.debug("Checking for in-app billing 3 support.");
-					
-					// check for in-app billing v3 support
-					int response = mService.isBillingSupported(3, packageName, ITEM_TYPE_INAPP);
-					InAppBillingResponseCode responseCode = InAppBillingResponseCode.valueOf(response);
-					if (responseCode != InAppBillingResponseCode.OK) {
-						if (listener != null) {
-							listener.onIabSetupFinished(responseCode);
+					LOGGER.debug("Checking in-app billing " + IN_APP_BILLING_API_VERSION + " support for item type "
+							+ ITEM_TYPE_INAPP);
+					int response = service.isBillingSupported(IN_APP_BILLING_API_VERSION, packageName, ITEM_TYPE_INAPP);
+					ErrorCode inAppBillingErrorCode = InAppBillingErrorCode.findByErrorResponseCode(response);
+					if (inAppBillingErrorCode == null) {
+						
+						LOGGER.debug("In-app billing supported for item type " + ITEM_TYPE_INAPP);
+						
+						LOGGER.debug("Checking in-app billing " + IN_APP_BILLING_API_VERSION
+								+ " support for item type " + ITEM_TYPE_SUBS);
+						response = service.isBillingSupported(IN_APP_BILLING_API_VERSION, packageName, ITEM_TYPE_SUBS);
+						inAppBillingErrorCode = InAppBillingErrorCode.findByErrorResponseCode(response);
+						if (inAppBillingErrorCode == null) {
+							LOGGER.debug("In-app billing supported for item type " + ITEM_TYPE_SUBS);
+							subscriptionsSupported = true;
+						} else {
+							LOGGER.warn("Subscriptions NOT AVAILABLE. InAppBillingErrorCode: " + inAppBillingErrorCode);
 						}
 						
-						// if in-app purchases aren't supported, neither are subscriptions.
-						mSubscriptionsSupported = false;
-						return;
-					}
-					LOGGER.debug("In-app billing version 3 supported for " + packageName);
-					
-					// check for v3 subscriptions support
-					response = mService.isBillingSupported(3, packageName, ITEM_TYPE_SUBS);
-					responseCode = InAppBillingResponseCode.valueOf(response);
-					if (responseCode == InAppBillingResponseCode.OK) {
-						LOGGER.debug("Subscriptions AVAILABLE.");
-						mSubscriptionsSupported = true;
+						setupDone = true;
+						if (listener != null) {
+							listener.onSetupFinished();
+						}
+						
 					} else {
-						LOGGER.debug("Subscriptions NOT AVAILABLE. Response: " + response);
+						if (listener != null) {
+							listener.onSetupFailed(inAppBillingErrorCode.newErrorCodeException());
+						}
+						// if in-app purchases aren't supported, neither are subscriptions.
+						subscriptionsSupported = false;
 					}
-					
-					mSetupDone = true;
 				} catch (RemoteException e) {
 					if (listener != null) {
-						listener.onIabSetupFinished(InAppBillingResponseCode.IABHELPER_REMOTE_EXCEPTION);
+						listener.onSetupFailed(InAppBillingErrorCode.REMOTE_EXCEPTION.newErrorCodeException(
+							"Remote exception while starting setup.", e));
 					}
-					e.printStackTrace();
 					return;
-				}
-				
-				if (listener != null) {
-					listener.onIabSetupFinished(InAppBillingResponseCode.OK);
 				}
 			}
 		};
 		
 		Intent serviceIntent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
 		serviceIntent.setPackage("com.android.vending");
-		List<ResolveInfo> resolveInfos = mContext.getPackageManager().queryIntentServices(serviceIntent, 0);
+		List<ResolveInfo> resolveInfos = context.getPackageManager().queryIntentServices(serviceIntent, 0);
 		if (CollectionUtils.isNotEmpty(resolveInfos)) {
 			// service available to handle that Intent
-			mContext.bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
+			context.bindService(serviceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
 		} else {
 			// no service available to handle that Intent
 			if (listener != null) {
-				listener.onIabSetupFinished(InAppBillingResponseCode.BILLING_UNAVAILABLE);
+				listener.onSetupFailed(InAppBillingErrorCode.BILLING_UNAVAILABLE.newErrorCodeException());
 			}
 		}
-	}
-	
-	/**
-	 * Dispose of object, releasing resources. It's very important to call this method when you are done with this
-	 * object. It will release any resources used by it such as service connections. Naturally, once the object is
-	 * disposed of, it can't be used again.
-	 */
-	public void dispose() {
-		LOGGER.debug("Disposing.");
-		mSetupDone = false;
-		if (mServiceConn != null) {
-			LOGGER.debug("Unbinding from service.");
-			if (mContext != null) {
-				try {
-					mContext.unbindService(mServiceConn);
-				} catch (RuntimeException e) {
-					LOGGER.warn("Error on unbinding", e);
-				}
-			}
-		}
-		mDisposed = true;
-		mContext = null;
-		mServiceConn = null;
-		mService = null;
-		mPurchaseListener = null;
-	}
-	
-	private void checkNotDisposed() {
-		if (mDisposed) {
-			throw new IllegalStateException("IabHelper was disposed of, so it cannot be used.");
-		}
-	}
-	
-	/**
-	 * @return whether subscriptions are supported.
-	 */
-	public boolean subscriptionsSupported() {
-		checkNotDisposed();
-		return mSubscriptionsSupported;
 	}
 	
 	/**
 	 * Callback that notifies when a purchase is finished.
 	 */
-	public interface OnIabPurchaseFinishedListener {
+	public interface InAppBillingPurchaseFinishedListener {
 		
 		/**
-		 * Called to notify that an in-app purchase finished. If the purchase was successful, then the sku parameter
-		 * specifies which item was purchased. If the purchase failed, the sku and extraData parameters may or may not
-		 * be null, depending on how far the purchase process went.
+		 * Called to notify that an in-app purchase finished.
 		 * 
-		 * @param result The result of the purchase.
-		 * @param info The purchase information (null if purchase failed)
+		 * @param purchase The purchase information (null if purchase failed)
 		 */
-		public void onIabPurchaseFinished(InAppBillingResponseCode result, Purchase info);
+		public void onIabPurchaseFinished(Purchase purchase);
+		
+		/**
+		 * Called to notify that an in-app purchase failed.
+		 * 
+		 * @param errorCodeException The result of the purchase.
+		 */
+		public void onIabPurchaseFailed(ErrorCodeException errorCodeException);
 	}
 	
-	// The listener registered on launchPurchaseFlow, which we have to call back when
-	// the purchase finishes
-	OnIabPurchaseFinishedListener mPurchaseListener;
-	
-	public void launchPurchaseFlow(Activity act, String sku, int requestCode, OnIabPurchaseFinishedListener listener) {
-		launchPurchaseFlow(act, sku, requestCode, listener, "");
-	}
-	
-	public void launchPurchaseFlow(Activity act, String sku, int requestCode, OnIabPurchaseFinishedListener listener,
+	public void launchInAppPurchaseFlow(Activity activity, String sku, InAppBillingPurchaseFinishedListener listener,
 			String extraData) {
-		launchPurchaseFlow(act, sku, ITEM_TYPE_INAPP, requestCode, listener, extraData);
+		launchPurchaseFlow(activity, sku, ITEM_TYPE_INAPP, PURCHASE_REQUEST_CODE, listener, extraData);
 	}
 	
 	public void launchSubscriptionPurchaseFlow(Activity act, String sku, int requestCode,
-			OnIabPurchaseFinishedListener listener) {
-		launchSubscriptionPurchaseFlow(act, sku, requestCode, listener, "");
-	}
-	
-	public void launchSubscriptionPurchaseFlow(Activity act, String sku, int requestCode,
-			OnIabPurchaseFinishedListener listener, String extraData) {
-		launchPurchaseFlow(act, sku, ITEM_TYPE_SUBS, requestCode, listener, extraData);
+			InAppBillingPurchaseFinishedListener listener, String extraData) {
+		launchPurchaseFlow(act, sku, ITEM_TYPE_SUBS, PURCHASE_REQUEST_CODE, listener, extraData);
 	}
 	
 	/**
@@ -316,7 +280,7 @@ public class InAppBillingClient {
 	 * at which point you must call this object's {@link #handleActivityResult} method to continue the purchase flow.
 	 * This method MUST be called from the UI thread of the Activity.
 	 * 
-	 * @param act The calling activity.
+	 * @param activity The calling activity.
 	 * @param sku The sku of the item to purchase.
 	 * @param itemType indicates if it's a product or a subscription (ITEM_TYPE_INAPP or ITEM_TYPE_SUBS)
 	 * @param requestCode A request code (to differentiate from other responses -- as in
@@ -326,56 +290,50 @@ public class InAppBillingClient {
 	 *            completes. This extra data will be permanently bound to that purchase and will always be returned when
 	 *            the purchase is queried.
 	 */
-	public void launchPurchaseFlow(Activity act, String sku, String itemType, int requestCode,
-			OnIabPurchaseFinishedListener listener, String extraData) {
+	private void launchPurchaseFlow(Activity activity, String sku, String itemType, int requestCode,
+			InAppBillingPurchaseFinishedListener listener, String extraData) {
 		checkNotDisposed();
 		checkSetupDone("launchPurchaseFlow");
 		if (flagStartAsync("launchPurchaseFlow")) {
 			
-			if (itemType.equals(ITEM_TYPE_SUBS) && !mSubscriptionsSupported) {
+			if (itemType.equals(ITEM_TYPE_SUBS) && !subscriptionsSupported) {
 				flagEndAsync();
 				if (listener != null) {
-					listener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_SUBSCRIPTIONS_NOT_AVAILABLE, null);
+					listener.onIabPurchaseFailed(InAppBillingErrorCode.SUBSCRIPTIONS_NOT_AVAILABLE.newErrorCodeException());
 				}
 				return;
 			}
 			
 			try {
 				LOGGER.debug("Constructing buy intent for " + sku + ", item type: " + itemType);
-				Bundle buyIntentBundle = mService.getBuyIntent(3, mContext.getPackageName(), sku, itemType, extraData);
-				InAppBillingResponseCode responseCode = getResponseCodeFromBundle(buyIntentBundle);
-				if (responseCode != InAppBillingResponseCode.OK) {
-					AbstractApplication.get().getExceptionHandler().logHandledException(
-						new UnexpectedException("Unable to buy item, Error response: " + responseCode.name()));
+				Bundle buyIntentBundle = service.getBuyIntent(IN_APP_BILLING_API_VERSION, context.getPackageName(),
+					sku, itemType, extraData);
+				InAppBillingErrorCode inAppBillingErrorCode = getResponseCode(buyIntentBundle);
+				if (inAppBillingErrorCode != null) {
 					flagEndAsync();
 					if (listener != null) {
-						listener.onIabPurchaseFinished(responseCode, null);
+						listener.onIabPurchaseFailed(inAppBillingErrorCode.newErrorCodeException());
 					}
 					return;
 				}
 				
 				PendingIntent pendingIntent = buyIntentBundle.getParcelable(RESPONSE_BUY_INTENT);
 				LOGGER.debug("Launching buy intent for " + sku + ". Request code: " + requestCode);
-				mRequestCode = requestCode;
-				mPurchaseListener = listener;
-				mPurchasingItemType = itemType;
-				act.startIntentSenderForResult(pendingIntent.getIntentSender(), requestCode, new Intent(),
-					Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
+				this.requestCode = requestCode;
+				purchaseListener = listener;
+				purchasingItemType = itemType;
+				activity.startIntentSenderForResult(pendingIntent.getIntentSender(), requestCode, new Intent(), 0, 0, 0);
 			} catch (SendIntentException e) {
-				AbstractApplication.get().getExceptionHandler().logHandledException(
-					"SendIntentException while launching purchase flow for sku " + sku, e);
 				flagEndAsync();
 				
 				if (listener != null) {
-					listener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_SEND_INTENT_FAILED, null);
+					listener.onIabPurchaseFailed(InAppBillingErrorCode.SEND_INTENT_FAILED.newErrorCodeException(e));
 				}
 			} catch (RemoteException e) {
-				AbstractApplication.get().getExceptionHandler().logHandledException(
-					"RemoteException while launching purchase flow for sku " + sku, e);
 				flagEndAsync();
 				
 				if (listener != null) {
-					listener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_REMOTE_EXCEPTION, null);
+					listener.onIabPurchaseFailed(InAppBillingErrorCode.REMOTE_EXCEPTION.newErrorCodeException(e));
 				}
 			}
 		}
@@ -393,7 +351,7 @@ public class InAppBillingClient {
 	 *         related to a purchase, in which case you should handle it normally.
 	 */
 	public boolean handleActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode != mRequestCode) {
+		if (this.requestCode != requestCode) {
 			return false;
 		}
 		
@@ -404,151 +362,88 @@ public class InAppBillingClient {
 		flagEndAsync();
 		
 		if (data == null) {
-			AbstractApplication.get().getExceptionHandler().logHandledException(
-				new UnexpectedException("Null data in IAB activity result."));
-			if (mPurchaseListener != null) {
-				mPurchaseListener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_BAD_RESPONSE, null);
+			if (purchaseListener != null) {
+				purchaseListener.onIabPurchaseFailed(InAppBillingErrorCode.BAD_RESPONSE.newErrorCodeException("Null data on activity result."));
 			}
 			return true;
 		}
 		
-		InAppBillingResponseCode responseCode = getResponseCodeFromIntent(data);
-		String purchaseData = data.getStringExtra(RESPONSE_INAPP_PURCHASE_DATA);
-		String dataSignature = data.getStringExtra(RESPONSE_INAPP_SIGNATURE);
-		
-		if ((resultCode == Activity.RESULT_OK) && (responseCode == InAppBillingResponseCode.OK)) {
+		InAppBillingErrorCode inAppBillingErrorCode = getResponseCode(data.getExtras());
+		if ((resultCode == Activity.RESULT_OK) && (inAppBillingErrorCode == null)) {
+			
+			String purchaseData = data.getStringExtra(RESPONSE_INAPP_PURCHASE_DATA);
+			if (purchaseData == null) {
+				if (purchaseListener != null) {
+					purchaseListener.onIabPurchaseFailed(InAppBillingErrorCode.MISSING_PURCHASE_DATA.newErrorCodeException("PurchaseData is null. Extras: "
+							+ data.getExtras().toString()));
+				}
+				return true;
+			}
+			
+			String dataSignature = data.getStringExtra(RESPONSE_INAPP_SIGNATURE);
+			if (dataSignature == null) {
+				if (purchaseListener != null) {
+					purchaseListener.onIabPurchaseFailed(InAppBillingErrorCode.MISSING_DATA_SIGNATURE.newErrorCodeException("DataSignature is null. Extras: "
+							+ data.getExtras().toString()));
+				}
+				return true;
+			}
+			
 			LOGGER.debug("Successful resultcode from purchase activity.");
 			LOGGER.debug("Purchase data: " + purchaseData);
 			LOGGER.debug("Data signature: " + dataSignature);
 			LOGGER.debug("Extras: " + data.getExtras());
-			LOGGER.debug("Expected item type: " + mPurchasingItemType);
-			
-			if ((purchaseData == null) || (dataSignature == null)) {
-				AbstractApplication.get().getExceptionHandler().logHandledException(
-					new UnexpectedException("PurchaseData or dataSignature is null. Extras: "
-							+ data.getExtras().toString()));
-				if (mPurchaseListener != null) {
-					mPurchaseListener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_UNKNOWN_ERROR, null);
-				}
-				return true;
-			}
+			LOGGER.debug("Expected item type: " + purchasingItemType);
 			
 			Purchase purchase = null;
 			try {
-				purchase = new Purchase(mPurchasingItemType, purchaseData, dataSignature);
-				String sku = purchase.getSku();
+				purchase = new Purchase(purchasingItemType, purchaseData, dataSignature);
 				
 				// Verify signature
-				if (!Security.verifyPurchase(mSignatureBase64, purchaseData, dataSignature)) {
-					AbstractApplication.get().getExceptionHandler().logHandledException(
-						new UnexpectedException("Purchase signature verification FAILED for sku " + sku));
-					if (mPurchaseListener != null) {
-						mPurchaseListener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_VERIFICATION_FAILED,
-							purchase);
+				if (Security.verifyPurchase(signatureBase64, purchaseData, dataSignature)) {
+					LOGGER.debug("Purchase signature successfully verified.");
+					if (purchaseListener != null) {
+						purchaseListener.onIabPurchaseFinished(purchase);
 					}
-					return true;
+				} else {
+					if (purchaseListener != null) {
+						purchaseListener.onIabPurchaseFailed(InAppBillingErrorCode.VERIFICATION_FAILED.newErrorCodeException("Purchase signature verification FAILED for sku "
+								+ purchase.getSku()));
+					}
 				}
-				LOGGER.debug("Purchase signature successfully verified.");
+				
 			} catch (JSONException e) {
-				AbstractApplication.get().getExceptionHandler().logHandledException("Failed to parse purchase data.", e);
-				if (mPurchaseListener != null) {
-					mPurchaseListener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_BAD_RESPONSE, null);
+				if (purchaseListener != null) {
+					purchaseListener.onIabPurchaseFailed(InAppBillingErrorCode.BAD_PURCHASE_DATA.newErrorCodeException(e));
 				}
-				return true;
 			}
 			
-			if (mPurchaseListener != null) {
-				mPurchaseListener.onIabPurchaseFinished(InAppBillingResponseCode.OK, purchase);
-			}
 		} else if (resultCode == Activity.RESULT_OK) {
-			// result code was OK, but in-app billing response was not OK.
-			LOGGER.debug("Result code was OK but in-app billing response was not OK: " + responseCode.name());
-			if (mPurchaseListener != null) {
-				mPurchaseListener.onIabPurchaseFinished(responseCode, null);
+			if (purchaseListener != null) {
+				purchaseListener.onIabPurchaseFailed(inAppBillingErrorCode.newErrorCodeException("Result code was OK but in-app billing response was not OK"));
 			}
 		} else if (resultCode == Activity.RESULT_CANCELED) {
-			LOGGER.debug("Purchase canceled - Response: " + responseCode.name());
-			if (mPurchaseListener != null) {
-				mPurchaseListener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_USER_CANCELLED, null);
+			if (purchaseListener != null) {
+				if (inAppBillingErrorCode != null) {
+					purchaseListener.onIabPurchaseFailed(inAppBillingErrorCode.newErrorCodeException("Purchase Failed. Result code: "
+							+ Integer.toString(resultCode)));
+				} else {
+					purchaseListener.onIabPurchaseFailed(InAppBillingErrorCode.USER_CANCELED.newErrorCodeException("Purchase canceled. Result code: "
+							+ Integer.toString(resultCode)));
+				}
 			}
 		} else {
-			AbstractApplication.get().getExceptionHandler().logHandledException(
-				new UnexpectedException("Purchase failed. Result code: " + Integer.toString(resultCode)
-						+ ". Response: " + responseCode.name()));
-			if (mPurchaseListener != null) {
-				mPurchaseListener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_UNKNOWN_PURCHASE_RESPONSE,
-					null);
+			if (purchaseListener != null) {
+				if (inAppBillingErrorCode != null) {
+					purchaseListener.onIabPurchaseFailed(inAppBillingErrorCode.newErrorCodeException("Purchase Failed. Result code: "
+							+ Integer.toString(resultCode)));
+				} else {
+					purchaseListener.onIabPurchaseFailed(InAppBillingErrorCode.UNKNOWN_PURCHASE_RESPONSE.newErrorCodeException("Purchase failed. Result code: "
+							+ Integer.toString(resultCode)));
+				}
 			}
 		}
 		return true;
-	}
-	
-	public Inventory queryInventory(boolean querySkuDetails, List<String> moreSkus) throws IabException {
-		return queryInventory(querySkuDetails, moreSkus, null);
-	}
-	
-	/**
-	 * Queries the inventory. This will query all owned items from the server, as well as information on additional
-	 * skus, if specified. This method may block or take long to execute. Do not call from a UI thread. For that, use
-	 * the non-blocking version refreshInventoryAsync.
-	 * 
-	 * @param querySkuDetails if true, SKU details (price, description, etc) will be queried as well as purchase
-	 *            information.
-	 * @param moreItemSkus additional PRODUCT skus to query information on, regardless of ownership. Ignored if null or
-	 *            if querySkuDetails is false.
-	 * @param moreSubsSkus additional SUBSCRIPTIONS skus to query information on, regardless of ownership. Ignored if
-	 *            null or if querySkuDetails is false.
-	 * @return The {@link Inventory}
-	 * @throws IabException if a problem occurs while refreshing the inventory.
-	 */
-	public Inventory queryInventory(boolean querySkuDetails, List<String> moreItemSkus, List<String> moreSubsSkus)
-			throws IabException {
-		try {
-			Inventory inv = null;
-			if (!mDisposed && mSetupDone) {
-				inv = new Inventory();
-				InAppBillingResponseCode responseCode = queryPurchases(inv, ITEM_TYPE_INAPP);
-				if (responseCode != InAppBillingResponseCode.OK) {
-					LOGGER.error("Error refreshing inventory (querying owned items).");
-					throw new IabException(responseCode);
-				}
-				
-				if (querySkuDetails) {
-					responseCode = querySkuDetails(ITEM_TYPE_INAPP, inv, moreItemSkus);
-					if (responseCode != InAppBillingResponseCode.OK) {
-						LOGGER.error("Error refreshing inventory (querying prices of items).");
-						throw new IabException(responseCode);
-					}
-				}
-				
-				// if subscriptions are supported, then also query for subscriptions
-				if (mSubscriptionsSupported) {
-					responseCode = queryPurchases(inv, ITEM_TYPE_SUBS);
-					if (responseCode != InAppBillingResponseCode.OK) {
-						LOGGER.error("Error refreshing inventory (querying owned subscriptions).");
-						throw new IabException(responseCode);
-					}
-					
-					if (querySkuDetails) {
-						responseCode = querySkuDetails(ITEM_TYPE_SUBS, inv, moreItemSkus);
-						if (responseCode != InAppBillingResponseCode.OK) {
-							LOGGER.error("Error refreshing inventory (querying prices of subscriptions).");
-							throw new IabException(responseCode);
-						}
-					}
-				}
-			} else {
-				LOGGER.warn("Client disposed. Not queried inventary");
-			}
-			
-			return inv;
-		} catch (RemoteException e) {
-			LOGGER.error("Remote exception while refreshing inventory.", e);
-			throw new IabException(InAppBillingResponseCode.IABHELPER_REMOTE_EXCEPTION);
-		} catch (JSONException e) {
-			LOGGER.error("Error parsing JSON response while refreshing inventory.", e);
-			throw new IabException(InAppBillingResponseCode.IABHELPER_BAD_RESPONSE);
-		}
 	}
 	
 	/**
@@ -559,10 +454,16 @@ public class InAppBillingClient {
 		/**
 		 * Called to notify that an inventory query operation completed.
 		 * 
-		 * @param result The result of the operation.
-		 * @param inv The inventory.
+		 * @param inventory The inventory.
 		 */
-		public void onQueryInventoryFinished(InAppBillingResponseCode result, Inventory inv);
+		public void onQueryInventoryFinished(Inventory inventory);
+		
+		/**
+		 * Called to notify that an inventory query operation failed.
+		 * 
+		 * @param errorCodeException The result of the operation.
+		 */
+		public void onQueryInventoryFailed(ErrorCodeException errorCodeException);
 	}
 	
 	/**
@@ -582,83 +483,188 @@ public class InAppBillingClient {
 				
 				@Override
 				public void doRun() {
-					InAppBillingResponseCode result = InAppBillingResponseCode.OK;
-					Inventory inv = null;
+					ErrorCodeException errorCodeException = null;
+					Inventory inventory = null;
 					try {
-						inv = queryInventory(querySkuDetails, moreSkus);
-					} catch (IabException ex) {
-						result = ex.getInAppBillingResponseCode();
+						inventory = queryInventory(querySkuDetails, moreSkus);
+					} catch (ErrorCodeException e) {
+						errorCodeException = e;
 					}
 					
 					flagEndAsync();
 					
-					final InAppBillingResponseCode result_f = result;
-					final Inventory inv_f = inv;
-					if (!mDisposed && (listener != null)) {
+					final ErrorCodeException errorCodeExceptionFinal = errorCodeException;
+					final Inventory inventoryFinal = inventory;
+					if (!disposed && (listener != null)) {
 						handler.post(new Runnable() {
 							
 							@Override
 							public void run() {
-								listener.onQueryInventoryFinished(result_f, inv_f);
+								if (errorCodeExceptionFinal == null) {
+									listener.onQueryInventoryFinished(inventoryFinal);
+								} else {
+									listener.onQueryInventoryFailed(errorCodeExceptionFinal);
+								}
+								
 							}
 						});
 					}
 				}
 			});
-		} else {
-			AbstractApplication.get().getExceptionHandler().logWarningException(
-				"Can't start async operation (queryInventoryAsync) because another async operation (" + mAsyncOperation
-						+ ") is in progress.");
 		}
 	}
 	
+	private Inventory queryInventory(boolean querySkuDetails, List<String> moreSkus) throws ErrorCodeException {
+		return queryInventory(querySkuDetails, moreSkus, null);
+	}
+	
 	/**
-	 * Consumes a given in-app product. Consuming can only be done on an item that's owned, and as a result of
-	 * consumption, the user will no longer own it. This method may block or take long to return. Do not call from the
-	 * UI thread. For that, see {@link #consumeAsync}.
+	 * Queries the inventory. This will query all owned items from the server, as well as information on additional
+	 * skus, if specified. This method may block or take long to execute. Do not call from a UI thread. For that, use
+	 * the non-blocking version refreshInventoryAsync.
 	 * 
-	 * @param itemInfo The PurchaseInfo that represents the item to consume.
+	 * @param querySkuDetails if true, SKU details (price, description, etc) will be queried as well as purchase
+	 *            information.
+	 * @param moreItemSkus additional PRODUCT skus to query information on, regardless of ownership. Ignored if null or
+	 *            if querySkuDetails is false.
+	 * @param moreSubsSkus additional SUBSCRIPTIONS skus to query information on, regardless of ownership. Ignored if
+	 *            null or if querySkuDetails is false.
+	 * @return The {@link Inventory}
+	 * @throws ErrorCodeException if a problem occurs while refreshing the inventory.
 	 */
-	private InAppBillingResponseCode consume(Purchase itemInfo) {
-		
-		InAppBillingResponseCode responseCode = null;
-		
-		if (itemInfo.getItemType().equals(ITEM_TYPE_INAPP)) {
-			responseCode = InAppBillingResponseCode.OK;
-		} else {
-			AbstractApplication.get().getExceptionHandler().logHandledException(
-				new UnexpectedException("Items of type '" + itemInfo.getItemType() + "' can't be consumed."));
-			responseCode = InAppBillingResponseCode.IABHELPER_INVALID_CONSUMPTION;
-		}
-		
-		try {
-			String token = itemInfo.getToken();
-			String sku = itemInfo.getSku();
-			if ((token == null) || token.equals("")) {
-				AbstractApplication.get().getExceptionHandler().logHandledException(
-					new UnexpectedException("Can't consume " + sku + ". No token."));
-				responseCode = InAppBillingResponseCode.IABHELPER_MISSING_TOKEN;
+	private Inventory queryInventory(boolean querySkuDetails, List<String> moreItemSkus, List<String> moreSubsSkus)
+			throws ErrorCodeException {
+		Inventory inventory = null;
+		if (!disposed && setupDone) {
+			inventory = new Inventory();
+			queryPurchases(inventory, ITEM_TYPE_INAPP);
+			
+			if (querySkuDetails) {
+				querySkuDetails(ITEM_TYPE_INAPP, inventory, moreItemSkus);
 			}
 			
-			if (!mDisposed) {
-				LOGGER.debug("Consuming sku: " + sku + ", token: " + token);
-				int response = mService.consumePurchase(3, mContext.getPackageName(), token);
-				responseCode = InAppBillingResponseCode.valueOf(response);
-				if (responseCode == InAppBillingResponseCode.OK) {
-					LOGGER.debug("Successfully consumed sku: " + sku);
-				} else {
-					AbstractApplication.get().getExceptionHandler().logHandledException(
-						new UnexpectedException("Error consuming consuming sku " + sku + ". " + responseCode.name()));
+			// if subscriptions are supported, then also query for subscriptions
+			if (subscriptionsSupported) {
+				queryPurchases(inventory, ITEM_TYPE_SUBS);
+				
+				if (querySkuDetails) {
+					querySkuDetails(ITEM_TYPE_SUBS, inventory, moreItemSkus);
 				}
-			} else {
-				LOGGER.warn("Client disposed. Not consuming sku: " + sku + ", token: " + token);
 			}
-		} catch (RemoteException e) {
-			AbstractApplication.get().getExceptionHandler().logHandledException(
-				"Remote exception while consuming. PurchaseInfo: " + itemInfo, e);
-			responseCode = InAppBillingResponseCode.IABHELPER_REMOTE_EXCEPTION;
+		} else {
+			LOGGER.warn("Client disposed. Not queried inventary");
 		}
-		return responseCode;
+		
+		return inventory;
+	}
+	
+	private void queryPurchases(Inventory inventory, String itemType) throws ErrorCodeException {
+		// Query purchases
+		LOGGER.debug("Querying owned items, item type: " + itemType);
+		String continueToken = null;
+		
+		try {
+			do {
+				LOGGER.debug("Calling getPurchases with continuation token: " + continueToken);
+				Bundle ownedItems;
+				ownedItems = service.getPurchases(IN_APP_BILLING_API_VERSION, context.getPackageName(), itemType,
+					continueToken);
+				
+				InAppBillingErrorCode inAppBillingErrorCode = getResponseCode(ownedItems);
+				if (inAppBillingErrorCode != null) {
+					throw inAppBillingErrorCode.newErrorCodeException("getPurchases() failed querying " + itemType);
+				}
+				
+				List<String> ownedSkus = ownedItems.getStringArrayList(RESPONSE_INAPP_ITEM_LIST);
+				if (ownedSkus == null) {
+					throw InAppBillingErrorCode.BAD_RESPONSE.newErrorCodeException("Missing purchase item list from getPurchases()");
+				}
+				
+				List<String> purchaseDataList = ownedItems.getStringArrayList(RESPONSE_INAPP_PURCHASE_DATA_LIST);
+				if (purchaseDataList == null) {
+					throw InAppBillingErrorCode.MISSING_PURCHASE_DATA.newErrorCodeException("Missing purchase data list from getPurchases()");
+				}
+				
+				List<String> signatureList = ownedItems.getStringArrayList(RESPONSE_INAPP_SIGNATURE_LIST);
+				if (signatureList == null) {
+					throw InAppBillingErrorCode.MISSING_DATA_SIGNATURE.newErrorCodeException("Missing data signature list from getPurchases()");
+				}
+				
+				for (int i = 0; i < purchaseDataList.size(); ++i) {
+					String purchaseData = purchaseDataList.get(i);
+					String signature = signatureList.get(i);
+					String sku = ownedSkus.get(i);
+					if (Security.verifyPurchase(signatureBase64, purchaseData, signature)) {
+						LOGGER.debug("Sku is owned: " + sku);
+						Purchase purchase = new Purchase(itemType, purchaseData, signature);
+						
+						if (TextUtils.isEmpty(purchase.getToken())) {
+							LOGGER.warn("BUG: empty/null token!");
+							LOGGER.debug("Purchase data: " + purchaseData);
+						}
+						
+						// Record ownership and token
+						inventory.addPurchase(purchase);
+					} else {
+						LOGGER.warn("Purchase signature verification failed. Sku is ignored: " + sku);
+						AbstractApplication.get().getExceptionHandler().logHandledException(
+							InAppBillingErrorCode.VERIFICATION_FAILED.newErrorCodeException("Purchase signature verification failed. Purchase data: ["
+									+ purchaseData + "]. Signature: " + signature));
+					}
+				}
+				
+				continueToken = ownedItems.getString(INAPP_CONTINUATION_TOKEN);
+				LOGGER.debug("Continuation token: " + continueToken);
+			} while (!TextUtils.isEmpty(continueToken));
+			
+		} catch (RemoteException e) {
+			throw InAppBillingErrorCode.REMOTE_EXCEPTION.newErrorCodeException(e);
+		} catch (JSONException e) {
+			throw InAppBillingErrorCode.BAD_RESPONSE.newErrorCodeException(e);
+		}
+	}
+	
+	private void querySkuDetails(String itemType, Inventory inventory, List<String> moreSkus) throws ErrorCodeException {
+		
+		LOGGER.debug("Querying SKU details.");
+		ArrayList<String> skuList = Lists.newArrayList(inventory.getAllOwnedSkus(itemType));
+		if (moreSkus != null) {
+			for (String sku : moreSkus) {
+				if (!skuList.contains(sku)) {
+					skuList.add(sku);
+				}
+			}
+		}
+		
+		if (!skuList.isEmpty()) {
+			
+			try {
+				Bundle querySkus = new Bundle();
+				querySkus.putStringArrayList(GET_SKU_DETAILS_ITEM_LIST, skuList);
+				Bundle skuDetailsBundle = service.getSkuDetails(IN_APP_BILLING_API_VERSION, context.getPackageName(),
+					itemType, querySkus);
+				
+				List<String> skuDetailsList = skuDetailsBundle.getStringArrayList(RESPONSE_GET_SKU_DETAILS_LIST);
+				if (skuDetailsList != null) {
+					for (String each : skuDetailsList) {
+						SkuDetails skuDetails = new SkuDetails(itemType, each);
+						LOGGER.debug("Got sku details: " + skuDetails);
+						inventory.addSkuDetails(skuDetails);
+					}
+				} else {
+					InAppBillingErrorCode inAppBillingErrorCode = getResponseCode(skuDetailsBundle);
+					if (inAppBillingErrorCode != null) {
+						throw inAppBillingErrorCode.newErrorCodeException("getSkuDetails() failed querying " + itemType);
+					} else {
+						throw InAppBillingErrorCode.BAD_RESPONSE.newErrorCodeException("getSkuDetails() returned a bundle with neither an error nor a detail list.");
+					}
+				}
+			} catch (RemoteException e) {
+				throw InAppBillingErrorCode.REMOTE_EXCEPTION.newErrorCodeException(e);
+			} catch (JSONException e) {
+				throw InAppBillingErrorCode.BAD_RESPONSE.newErrorCodeException(e);
+			}
+		}
 	}
 	
 	/**
@@ -670,23 +676,15 @@ public class InAppBillingClient {
 		 * Called to notify that a consumption has finished.
 		 * 
 		 * @param purchase The purchase that was (or was to be) consumed.
-		 * @param result The result of the consumption operation.
 		 */
-		public void onConsumeFinished(Purchase purchase, InAppBillingResponseCode result);
-	}
-	
-	/**
-	 * Callback that notifies when a multi-item consumption operation finishes.
-	 */
-	public interface OnConsumeMultiFinishedListener {
+		public void onConsumeFinished(Purchase purchase);
 		
 		/**
-		 * Called to notify that a consumption of multiple items has finished.
+		 * Called to notify that a consumption has failed.
 		 * 
-		 * @param purchases The purchases that were (or were to be) consumed.
-		 * @param results The results of each consumption operation, corresponding to each sku.
+		 * @param errorCodeException The result of the consumption operation.
 		 */
-		public void onConsumeMultiFinished(List<Purchase> purchases, List<InAppBillingResponseCode> results);
+		public void onConsumeFailed(ErrorCodeException errorCodeException);
 	}
 	
 	/**
@@ -696,214 +694,159 @@ public class InAppBillingClient {
 	 * @param purchase The purchase to be consumed.
 	 * @param listener The listener to notify when the consumption operation finishes.
 	 */
-	public void consumeAsync(Purchase purchase, OnConsumeFinishedListener listener) {
-		List<Purchase> purchases = new ArrayList<Purchase>();
-		purchases.add(purchase);
-		consumeAsyncInternal(purchases, listener, null);
-	}
-	
-	/**
-	 * Same as consumeAsync, but for multiple items at once.
-	 * 
-	 * @param purchases The list of PurchaseInfo objects representing the purchases to consume.
-	 * @param listener The listener to notify when the consumption operation finishes.
-	 */
-	public void consumeAsync(List<Purchase> purchases, OnConsumeMultiFinishedListener listener) {
-		consumeAsyncInternal(purchases, null, listener);
-	}
-	
-	// Checks that setup was done; if not, throws an exception.
-	private void checkSetupDone(String operation) {
-		if (!mSetupDone) {
-			throw new UnexpectedException("IAB helper is not set up. Can't perform operation: " + operation);
-		}
-	}
-	
-	// Workaround to bug where sometimes response codes come as Long instead of Integer
-	private InAppBillingResponseCode getResponseCodeFromBundle(Bundle b) {
-		Object o = b.get(RESPONSE_CODE);
-		if (o == null) {
-			LOGGER.debug("Bundle/Intent with null response code, assuming OK (known issue)");
-			return InAppBillingResponseCode.OK;
-		} else if (o instanceof Integer) {
-			return InAppBillingResponseCode.valueOf(((Integer)o).intValue());
-		} else if (o instanceof Long) {
-			return InAppBillingResponseCode.valueOf((int)((Long)o).longValue());
-		} else {
-			throw new UnexpectedException("Unexpected type for bundle/intent response code: " + o.getClass().getName());
-		}
-	}
-	
-	// Workaround to bug where sometimes response codes come as Long instead of Integer
-	private InAppBillingResponseCode getResponseCodeFromIntent(Intent i) {
-		return getResponseCodeFromBundle(i.getExtras());
-	}
-	
-	private Boolean flagStartAsync(String operation) {
-		if (mAsyncInProgress) {
-			LOGGER.warn("Can't start async operation (" + operation + ") because another async operation ("
-					+ mAsyncOperation + ") is in progress.");
-			return false;
-		}
-		mAsyncOperation = operation;
-		mAsyncInProgress = true;
-		LOGGER.debug("Starting async operation: " + operation);
-		return true;
-	}
-	
-	private void flagEndAsync() {
-		LOGGER.debug("Ending async operation: " + mAsyncOperation);
-		mAsyncOperation = null;
-		mAsyncInProgress = false;
-	}
-	
-	private InAppBillingResponseCode queryPurchases(Inventory inv, String itemType) throws JSONException,
-			RemoteException {
-		// Query purchases
-		LOGGER.debug("Querying owned items, item type: " + itemType);
-		LOGGER.debug("Package name: " + mContext.getPackageName());
-		boolean verificationFailed = false;
-		String continueToken = null;
-		
-		do {
-			LOGGER.debug("Calling getPurchases with continuation token: " + continueToken);
-			Bundle ownedItems = mService.getPurchases(3, mContext.getPackageName(), itemType, continueToken);
-			
-			InAppBillingResponseCode responseCode = getResponseCodeFromBundle(ownedItems);
-			LOGGER.debug("Owned items response: " + responseCode.name());
-			if (responseCode != InAppBillingResponseCode.OK) {
-				LOGGER.debug("getPurchases() failed: " + responseCode.name());
-				return responseCode;
-			}
-			if (!ownedItems.containsKey(RESPONSE_INAPP_ITEM_LIST)
-					|| !ownedItems.containsKey(RESPONSE_INAPP_PURCHASE_DATA_LIST)
-					|| !ownedItems.containsKey(RESPONSE_INAPP_SIGNATURE_LIST)) {
-				AbstractApplication.get().getExceptionHandler().logHandledException(
-					new UnexpectedException("Bundle returned from getPurchases() doesn't contain required fields."));
-				return InAppBillingResponseCode.IABHELPER_BAD_RESPONSE;
-			}
-			
-			ArrayList<String> ownedSkus = ownedItems.getStringArrayList(RESPONSE_INAPP_ITEM_LIST);
-			ArrayList<String> purchaseDataList = ownedItems.getStringArrayList(RESPONSE_INAPP_PURCHASE_DATA_LIST);
-			ArrayList<String> signatureList = ownedItems.getStringArrayList(RESPONSE_INAPP_SIGNATURE_LIST);
-			
-			for (int i = 0; i < purchaseDataList.size(); ++i) {
-				String purchaseData = purchaseDataList.get(i);
-				String signature = signatureList.get(i);
-				String sku = ownedSkus.get(i);
-				if (Security.verifyPurchase(mSignatureBase64, purchaseData, signature)) {
-					LOGGER.debug("Sku is owned: " + sku);
-					Purchase purchase = new Purchase(itemType, purchaseData, signature);
-					
-					if (TextUtils.isEmpty(purchase.getToken())) {
-						LOGGER.warn("BUG: empty/null token!");
-						LOGGER.debug("Purchase data: " + purchaseData);
-					}
-					
-					// Record ownership and token
-					inv.addPurchase(purchase);
-				} else {
-					LOGGER.warn("Purchase signature verification **FAILED**. Not adding item.");
-					LOGGER.debug("   Purchase data: " + purchaseData);
-					LOGGER.debug("   Signature: " + signature);
-					verificationFailed = true;
-				}
-			}
-			
-			continueToken = ownedItems.getString(INAPP_CONTINUATION_TOKEN);
-			LOGGER.debug("Continuation token: " + continueToken);
-		} while (!TextUtils.isEmpty(continueToken));
-		
-		return verificationFailed ? InAppBillingResponseCode.IABHELPER_VERIFICATION_FAILED
-				: InAppBillingResponseCode.OK;
-	}
-	
-	private InAppBillingResponseCode querySkuDetails(String itemType, Inventory inv, List<String> moreSkus)
-			throws RemoteException, JSONException {
-		LOGGER.debug("Querying SKU details.");
-		ArrayList<String> skuList = new ArrayList<String>();
-		skuList.addAll(inv.getAllOwnedSkus(itemType));
-		if (moreSkus != null) {
-			for (String sku : moreSkus) {
-				if (!skuList.contains(sku)) {
-					skuList.add(sku);
-				}
-			}
-		}
-		
-		if (skuList.size() == 0) {
-			LOGGER.debug("queryPrices: nothing to do because there are no SKUs.");
-			return InAppBillingResponseCode.OK;
-		}
-		
-		Bundle querySkus = new Bundle();
-		querySkus.putStringArrayList(GET_SKU_DETAILS_ITEM_LIST, skuList);
-		Bundle skuDetails = mService.getSkuDetails(3, mContext.getPackageName(), itemType, querySkus);
-		
-		if (!skuDetails.containsKey(RESPONSE_GET_SKU_DETAILS_LIST)) {
-			InAppBillingResponseCode responseCode = getResponseCodeFromBundle(skuDetails);
-			if (responseCode != InAppBillingResponseCode.OK) {
-				LOGGER.debug("getSkuDetails() failed: " + responseCode.name());
-				return responseCode;
-			} else {
-				AbstractApplication.get().getExceptionHandler().logHandledException(
-					new UnexpectedException(
-							"getSkuDetails() returned a bundle with neither an error nor a detail list."));
-				return InAppBillingResponseCode.IABHELPER_BAD_RESPONSE;
-			}
-		}
-		
-		ArrayList<String> responseList = skuDetails.getStringArrayList(RESPONSE_GET_SKU_DETAILS_LIST);
-		
-		for (String thisResponse : responseList) {
-			SkuDetails d = new SkuDetails(itemType, thisResponse);
-			LOGGER.debug("Got sku details: " + d);
-			inv.addSkuDetails(d);
-		}
-		return InAppBillingResponseCode.OK;
-	}
-	
-	private void consumeAsyncInternal(final List<Purchase> purchases, final OnConsumeFinishedListener singleListener,
-			final OnConsumeMultiFinishedListener multiListener) {
+	public void consumeAsync(final Purchase purchase, final OnConsumeFinishedListener listener) {
 		final Handler handler = new Handler();
 		if (flagStartAsync("consumeAsyncInternal")) {
 			ExecutorUtils.execute(new SafeRunnable() {
 				
 				@Override
 				public void doRun() {
-					final List<InAppBillingResponseCode> results = new ArrayList<InAppBillingResponseCode>();
-					for (Purchase purchase : purchases) {
-						InAppBillingResponseCode response = consume(purchase);
-						if (response != null) {
-							results.add(response);
-						}
+					ErrorCodeException errorCodeException = null;
+					try {
+						consume(purchase);
+					} catch (ErrorCodeException e) {
+						errorCodeException = e;
 					}
 					
 					flagEndAsync();
-					if (!mDisposed && (singleListener != null)) {
+					
+					final ErrorCodeException errorCodeExceptionFinal = errorCodeException;
+					if (!disposed && (listener != null)) {
 						handler.post(new Runnable() {
 							
 							@Override
 							public void run() {
-								singleListener.onConsumeFinished(purchases.get(0), results.get(0));
-							}
-						});
-					}
-					if (!mDisposed && (multiListener != null)) {
-						handler.post(new Runnable() {
-							
-							@Override
-							public void run() {
-								multiListener.onConsumeMultiFinished(purchases, results);
+								if (errorCodeExceptionFinal == null) {
+									listener.onConsumeFinished(purchase);
+								} else {
+									listener.onConsumeFailed(errorCodeExceptionFinal);
+								}
+								
 							}
 						});
 					}
 				}
 			});
-		} else {
-			AbstractApplication.get().getExceptionHandler().logWarningException(
-				"Can't start async operation (consumeAsyncInternal) because another async operation ("
-						+ mAsyncOperation + ") is in progress.");
 		}
+	}
+	
+	/**
+	 * Consumes a given in-app product. Consuming can only be done on an item that's owned, and as a result of
+	 * consumption, the user will no longer own it. This method may block or take long to return. Do not call from the
+	 * UI thread. For that, see {@link #consumeAsync}.
+	 * 
+	 * @param purchase The {@link Purchase} that represents the item to consume.
+	 */
+	private void consume(Purchase purchase) throws ErrorCodeException {
+		
+		if (purchase.getItemType().equals(ITEM_TYPE_INAPP)) {
+			try {
+				String token = purchase.getToken();
+				String sku = purchase.getSku();
+				if ((token == null) || token.equals("")) {
+					throw InAppBillingErrorCode.MISSING_TOKEN.newErrorCodeException("Can't consume " + sku
+							+ ". No token.");
+				}
+				
+				if (!disposed) {
+					LOGGER.debug("Consuming sku: " + sku + ", token: " + token);
+					int response = service.consumePurchase(IN_APP_BILLING_API_VERSION, context.getPackageName(), token);
+					InAppBillingErrorCode inAppBillingErrorCode = InAppBillingErrorCode.findByErrorResponseCode(response);
+					if (inAppBillingErrorCode == null) {
+						LOGGER.debug("Successfully consumed sku: " + sku);
+					} else {
+						throw inAppBillingErrorCode.newErrorCodeException("Error consuming consuming sku " + sku);
+					}
+				} else {
+					LOGGER.warn("Client disposed. Not consuming sku: " + sku + ", token: " + token);
+				}
+			} catch (RemoteException e) {
+				throw InAppBillingErrorCode.REMOTE_EXCEPTION.newErrorCodeException();
+			}
+		} else {
+			throw InAppBillingErrorCode.INVALID_CONSUMPTION.newErrorCodeException("Items of type '"
+					+ purchase.getItemType() + "' can't be consumed.");
+		}
+	}
+	
+	/**
+	 * Dispose of object, releasing resources. It's very important to call this method when you are done with this
+	 * object. It will release any resources used by it such as service connections. Naturally, once the object is
+	 * disposed of, it can't be used again.
+	 */
+	public void dispose() {
+		LOGGER.debug("Disposing.");
+		setupDone = false;
+		if (serviceConnection != null) {
+			LOGGER.debug("Unbinding from service.");
+			if (context != null) {
+				try {
+					context.unbindService(serviceConnection);
+				} catch (RuntimeException e) {
+					LOGGER.warn("Error on unbinding", e);
+				}
+			}
+		}
+		disposed = true;
+		context = null;
+		serviceConnection = null;
+		service = null;
+		purchaseListener = null;
+	}
+	
+	private Boolean flagStartAsync(String operation) {
+		if (asyncInProgress) {
+			AbstractApplication.get().getExceptionHandler().logWarningException(
+				"Can't start async operation (consumeAsyncInternal) because another (" + asyncOperation
+						+ ") is in progress.");
+			return false;
+		}
+		asyncOperation = operation;
+		asyncInProgress = true;
+		LOGGER.debug("Starting async operation: " + operation);
+		return true;
+	}
+	
+	private void flagEndAsync() {
+		LOGGER.debug("Ending async operation: " + asyncOperation);
+		asyncOperation = null;
+		asyncInProgress = false;
+	}
+	
+	// Checks that setup was done; if not, throws an exception.
+	private void checkSetupDone(String operation) {
+		if (!setupDone) {
+			throw new UnexpectedException("InAppBillingClient is not set up. Can't perform operation: " + operation);
+		}
+	}
+	
+	// Workaround to bug where sometimes response codes come as Long instead of Integer
+	private InAppBillingErrorCode getResponseCode(Bundle bundle) {
+		Object responseCode = bundle.get(RESPONSE_CODE);
+		if (responseCode == null) {
+			LOGGER.debug("Bundle/Intent with null response code, assuming OK (known issue)");
+			return null;
+		} else if (responseCode instanceof Integer) {
+			return InAppBillingErrorCode.findByErrorResponseCode(((Integer)responseCode).intValue());
+		} else if (responseCode instanceof Long) {
+			return InAppBillingErrorCode.findByErrorResponseCode((int)((Long)responseCode).longValue());
+		} else {
+			throw new UnexpectedException("Unexpected type for bundle response code: "
+					+ responseCode.getClass().getName());
+		}
+	}
+	
+	private void checkNotDisposed() {
+		if (disposed) {
+			throw new UnexpectedException("InAppBillingClient was disposed of, so it cannot be used.");
+		}
+	}
+	
+	/**
+	 * @return whether subscriptions are supported.
+	 */
+	public boolean subscriptionsSupported() {
+		checkNotDisposed();
+		return subscriptionsSupported;
 	}
 }

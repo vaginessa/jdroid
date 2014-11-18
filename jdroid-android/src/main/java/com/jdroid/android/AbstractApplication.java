@@ -246,7 +246,7 @@ public abstract class AbstractApplication extends Application {
 			File dir = getFileSystemCacheDirectory(cache);
 			
 			// Verify if the cache should be clean
-			if (dir != null) {
+			if ((dir != null) && dir.exists()) {
 				float dirSize = FileUtils.getDirectorySizeInMB(dir);
 				LOGGER.info("Cache " + cache.getName() + " size: " + dirSize + " MB");
 				if (dirSize > cache.getMaximumSize()) {

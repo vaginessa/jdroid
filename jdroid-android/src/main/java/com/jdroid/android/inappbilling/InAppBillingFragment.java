@@ -5,22 +5,23 @@ import org.slf4j.Logger;
 import android.content.Intent;
 import android.os.Bundle;
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.exception.CommonErrorCode;
+import com.jdroid.android.R;
+import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.fragment.AbstractGridFragment;
 import com.jdroid.android.inappbilling.InAppBillingClient.OnConsumeFinishedListener;
-import com.jdroid.android.inappbilling.InAppBillingClient.OnIabPurchaseFinishedListener;
+import com.jdroid.android.inappbilling.InAppBillingClient.InAppBillingPurchaseFinishedListener;
 import com.jdroid.android.inappbilling.InAppBillingClient.QueryInventoryFinishedListener;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.loading.NonBlockingLoading;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
+import com.jdroid.java.exception.ErrorCodeException;
+import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
 
 public abstract class InAppBillingFragment extends AbstractGridFragment<Product> {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(InAppBillingFragment.class);
-	
-	public static final int PURCHASE_REQUEST_CODE = 10001;
 	
 	private InAppBillingClient inAppBillingClient;
 	private List<Product> products;
@@ -36,31 +37,27 @@ public abstract class InAppBillingFragment extends AbstractGridFragment<Product>
 		inAppBillingClient = new InAppBillingClient(getActivity(), BillingContext.get().getGooglePlayPublicKey());
 		
 		// Start setup. This is asynchronous and the specified listener will be called once setup completes.
-		inAppBillingClient.startSetup(new InAppBillingClient.OnIabSetupFinishedListener() {
+		inAppBillingClient.startSetup(new InAppBillingClient.InAppBillingSetupListener() {
 			
 			@Override
-			public void onIabSetupFinished(InAppBillingResponseCode result) {
-				
-				// Have we been disposed of in the meantime? If so, quit.
-				if (inAppBillingClient == null) {
-					return;
-				}
-				
-				if (result.isSuccess()) {
+			public void onSetupFinished() {
+				if (inAppBillingClient != null) {
 					
 					// IAB is fully set up. Now, let's get an inventory of stuff we own.
-					LOGGER.info("Setup successful. Querying inventory.");
+					LOGGER.debug("Setup successful. Querying inventory.");
 					
 					List<String> productsIds = Lists.newArrayList();
 					for (ProductType each : getProductTypes()) {
 						productsIds.add(each.getProductId());
 					}
 					inAppBillingClient.queryInventoryAsync(true, productsIds, queryInventoryListener);
-					
-				} else if (result == InAppBillingResponseCode.BILLING_UNAVAILABLE) {
-					onNotSupportedInAppBilling();
-				} else {
-					LOGGER.warn("Problem setting up in-app billing: " + result);
+				}
+			}
+			
+			@Override
+			public void onSetupFailed(ErrorCodeException errorCodeException) {
+				if (inAppBillingClient != null) {
+					AbstractApplication.get().getExceptionHandler().handleThrowable(errorCodeException);
 				}
 			}
 		});
@@ -74,14 +71,8 @@ public abstract class InAppBillingFragment extends AbstractGridFragment<Product>
 	private QueryInventoryFinishedListener queryInventoryListener = new InAppBillingClient.QueryInventoryFinishedListener() {
 		
 		@Override
-		public void onQueryInventoryFinished(InAppBillingResponseCode result, Inventory inventory) {
-			
-			// Have we been disposed of in the meantime? If so, quit.
-			if (inAppBillingClient == null) {
-				return;
-			}
-			
-			if (result.isSuccess()) {
+		public void onQueryInventoryFinished(Inventory inventory) {
+			if (inAppBillingClient != null) {
 				LOGGER.debug("Query inventory was successful.");
 				
 				List<Product> productsToConsume = Lists.newArrayList();
@@ -108,34 +99,19 @@ public abstract class InAppBillingFragment extends AbstractGridFragment<Product>
 				for (Product each : productsToConsume) {
 					inAppBillingClient.consumeAsync(each.getPurchase(), consumeListener);
 				}
-				
-			} else {
-				LOGGER.warn("Failed to query inventory: " + result);
+			}
+		}
+		
+		@Override
+		public void onQueryInventoryFailed(ErrorCodeException errorCodeException) {
+			if (inAppBillingClient != null) {
 				dismissLoading();
-				onFailedToLoadPurchases();
+				
+				errorCodeException.setDescription(getString(R.string.failedToLoadPurchases));
+				AbstractApplication.get().getExceptionHandler().handleThrowable(errorCodeException);
 			}
 		}
 	};
-	
-	protected void onNotSupportedInAppBilling() {
-		ExecutorUtils.execute(new Runnable() {
-			
-			@Override
-			public void run() {
-				throw CommonErrorCode.INAPP_BILLING_NOT_SUPPORTED.newErrorCodeException();
-			}
-		});
-	}
-	
-	protected void onFailedToLoadPurchases() {
-		ExecutorUtils.execute(new Runnable() {
-			
-			@Override
-			public void run() {
-				throw CommonErrorCode.INAPP_BILLING_FAILED_TO_LOAD_PURCHASES.newErrorCodeException();
-			}
-		});
-	}
 	
 	/**
 	 * This method is executed (on the UI thread) when the products are loaded
@@ -151,46 +127,64 @@ public abstract class InAppBillingFragment extends AbstractGridFragment<Product>
 	}
 	
 	public void launchPurchaseFlow(Product product) {
-		inAppBillingClient.launchPurchaseFlow(getActivity(), product.getProductType().getProductId(),
-			PURCHASE_REQUEST_CODE, purchaseListener, product.generatePayload());
+		inAppBillingClient.launchInAppPurchaseFlow(getActivity(), product.getProductType().getProductId(),
+			purchaseListener, product.generatePayload());
 		AbstractApplication.get().getAnalyticsSender().trackInAppBillingPurchaseTry(product);
 	}
 	
 	// Callback for when a purchase is finished
-	private OnIabPurchaseFinishedListener purchaseListener = new InAppBillingClient.OnIabPurchaseFinishedListener() {
+	private InAppBillingPurchaseFinishedListener purchaseListener = new InAppBillingClient.InAppBillingPurchaseFinishedListener() {
 		
 		@Override
-		public void onIabPurchaseFinished(InAppBillingResponseCode result, Purchase purchase) {
-			LOGGER.info("Purchase finished: " + result + ", purchase: " + purchase);
-			
-			// if we were disposed of in the meantime, quit.
-			if (inAppBillingClient == null) {
-				return;
-			}
-			
-			if (result.isSuccess()) {
+		public void onIabPurchaseFinished(Purchase purchase) {
+			if (inAppBillingClient != null) {
+				LOGGER.info("Purchase finished: + " + purchase);
 				
 				Product product = findProduct(purchase);
 				
-				if (!product.verifyDeveloperPayload(purchase)) {
-					LOGGER.warn("Authenticity verification failed " + result);
-					return;
+				if (product.verifyDeveloperPayload(purchase)) {
+					product.setPurchase(purchase);
+					
+					AbstractApplication.get().getAnalyticsSender().trackInAppBillingPurchase(product);
+					onPurchased(product);
+					
+					if (product.getProductType().isConsumable()) {
+						inAppBillingClient.consumeAsync(purchase, consumeListener);
+					}
+				} else {
+					ExecutorUtils.execute(new Runnable() {
+						
+						@Override
+						public void run() {
+							throw new UnexpectedException("Authenticity verification failed");
+						}
+					});
 				}
-				product.setPurchase(purchase);
-				
-				AbstractApplication.get().getAnalyticsSender().trackInAppBillingPurchase(product);
-				onPurchased(product);
-				
-				if (product.getProductType().isConsumable()) {
-					inAppBillingClient.consumeAsync(purchase, consumeListener);
-				}
-			} else {
-				LOGGER.warn("Failed to purchase item: " + result);
 			}
-			
 		}
 		
+		@Override
+		public void onIabPurchaseFailed(ErrorCodeException errorCodeException) {
+			if (DefaultExceptionHandler.matchAnyErrorCode(errorCodeException, InAppBillingErrorCode.USER_CANCELED)) {
+				LOGGER.warn(errorCodeException.getMessage());
+			} else if (DefaultExceptionHandler.matchAnyErrorCode(errorCodeException,
+				InAppBillingErrorCode.DEVELOPER_ERROR)) {
+				AbstractApplication.get().getExceptionHandler().logHandledException(errorCodeException);
+			} else {
+				AbstractApplication.get().getExceptionHandler().handleThrowable(errorCodeException);
+			}
+		}
 	};
+	
+	protected void onFailedToPurchase() {
+		ExecutorUtils.execute(new Runnable() {
+			
+			@Override
+			public void run() {
+				throw com.jdroid.java.exception.CommonErrorCode.UNEXPECTED_ERROR.newErrorCodeException();
+			}
+		});
+	}
 	
 	private Product findProduct(Purchase purchase) {
 		Product product = null;
@@ -207,22 +201,19 @@ public abstract class InAppBillingFragment extends AbstractGridFragment<Product>
 	private OnConsumeFinishedListener consumeListener = new InAppBillingClient.OnConsumeFinishedListener() {
 		
 		@Override
-		public void onConsumeFinished(Purchase purchase, InAppBillingResponseCode result) {
-			LOGGER.info("Consumption finished. Purchase: " + purchase + ", result: " + result);
-			
-			// if we were disposed of in the meantime, quit.
-			if (inAppBillingClient == null) {
-				return;
-			}
-			
-			if (result.isSuccess()) {
-				
+		public void onConsumeFinished(Purchase purchase) {
+			if (inAppBillingClient != null) {
 				Product product = findProduct(purchase);
 				product.setPurchase(null);
 				
 				onConsumed(product);
-			} else {
-				LOGGER.warn("Failed to consume item: " + result);
+			}
+		}
+		
+		@Override
+		public void onConsumeFailed(ErrorCodeException errorCodeException) {
+			if (inAppBillingClient != null) {
+				AbstractApplication.get().getExceptionHandler().handleThrowable(errorCodeException);
 			}
 		}
 	};
