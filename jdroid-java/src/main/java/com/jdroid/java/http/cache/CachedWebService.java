@@ -60,7 +60,7 @@ public abstract class CachedWebService implements EntityEnclosingWebService {
 	public <T> T readFromCache(Parser parser) {
 		T response = null;
 		File cacheFile = new File(getHttpCacheDirectory(cache), generateCacheFileName());
-		if (cacheFile.exists()) {
+		if (cacheFile.exists() && (cacheFile.length() > 0)) {
 			
 			long diff = System.currentTimeMillis() - cacheFile.lastModified();
 			if ((timeToLive == null) || ((diff >= 0) && (diff < timeToLive))) {
@@ -71,6 +71,8 @@ public abstract class CachedWebService implements EntityEnclosingWebService {
 					LOGGER.info("Reading http request from cache: " + cacheFile.getAbsolutePath());
 				} catch (FileNotFoundException e) {
 					LOGGER.warn("Error when opening cache file: " + cacheFile.getAbsolutePath(), e);
+				} catch (Exception e) {
+					LoggerUtils.logHandledException(LOGGER, e);
 				} finally {
 					FileUtils.safeClose(fileInputStream);
 				}

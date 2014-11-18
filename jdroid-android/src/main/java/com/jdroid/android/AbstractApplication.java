@@ -110,6 +110,7 @@ public abstract class AbstractApplication extends Application {
 		analyticsSender = createAnalyticsSender();
 		
 		initExceptionHandlers();
+		LoggerUtils.setExceptionLogger(getExceptionHandler());
 		initStrictMode();
 		
 		// This is required to initialize the statics fields of the utils classes.

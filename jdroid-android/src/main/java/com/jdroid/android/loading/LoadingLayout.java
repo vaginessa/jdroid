@@ -58,7 +58,7 @@ public class LoadingLayout extends FrameLayout {
 		updateViewState();
 	}
 	
-	// TODO WIP
+	// TODO Retry. WIP
 	@SuppressWarnings("unused")
 	private void setRetry() {
 		if (retryButton != null) {

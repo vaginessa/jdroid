@@ -30,6 +30,7 @@ import com.android.vending.billing.IInAppBillingService;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.concurrent.SafeRunnable;
 import com.jdroid.java.concurrent.ExecutorUtils;
+import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.CollectionUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -344,7 +345,8 @@ public class InAppBillingClient {
 				Bundle buyIntentBundle = mService.getBuyIntent(3, mContext.getPackageName(), sku, itemType, extraData);
 				InAppBillingResponseCode responseCode = getResponseCodeFromBundle(buyIntentBundle);
 				if (responseCode != InAppBillingResponseCode.OK) {
-					LOGGER.error("Unable to buy item, Error response: " + responseCode.name());
+					AbstractApplication.get().getExceptionHandler().logHandledException(
+						new UnexpectedException("Unable to buy item, Error response: " + responseCode.name()));
 					flagEndAsync();
 					if (listener != null) {
 						listener.onIabPurchaseFinished(responseCode, null);
@@ -360,16 +362,16 @@ public class InAppBillingClient {
 				act.startIntentSenderForResult(pendingIntent.getIntentSender(), requestCode, new Intent(),
 					Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
 			} catch (SendIntentException e) {
-				LOGGER.error("SendIntentException while launching purchase flow for sku " + sku);
-				e.printStackTrace();
+				AbstractApplication.get().getExceptionHandler().logHandledException(
+					"SendIntentException while launching purchase flow for sku " + sku, e);
 				flagEndAsync();
 				
 				if (listener != null) {
 					listener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_SEND_INTENT_FAILED, null);
 				}
 			} catch (RemoteException e) {
-				LOGGER.error("RemoteException while launching purchase flow for sku " + sku);
-				e.printStackTrace();
+				AbstractApplication.get().getExceptionHandler().logHandledException(
+					"RemoteException while launching purchase flow for sku " + sku, e);
 				flagEndAsync();
 				
 				if (listener != null) {
@@ -402,7 +404,8 @@ public class InAppBillingClient {
 		flagEndAsync();
 		
 		if (data == null) {
-			LOGGER.error("Null data in IAB activity result.");
+			AbstractApplication.get().getExceptionHandler().logHandledException(
+				new UnexpectedException("Null data in IAB activity result."));
 			if (mPurchaseListener != null) {
 				mPurchaseListener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_BAD_RESPONSE, null);
 			}
@@ -421,8 +424,9 @@ public class InAppBillingClient {
 			LOGGER.debug("Expected item type: " + mPurchasingItemType);
 			
 			if ((purchaseData == null) || (dataSignature == null)) {
-				LOGGER.error("BUG: either purchaseData or dataSignature is null.");
-				LOGGER.debug("Extras: " + data.getExtras().toString());
+				AbstractApplication.get().getExceptionHandler().logHandledException(
+					new UnexpectedException("PurchaseData or dataSignature is null. Extras: "
+							+ data.getExtras().toString()));
 				if (mPurchaseListener != null) {
 					mPurchaseListener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_UNKNOWN_ERROR, null);
 				}
@@ -436,7 +440,8 @@ public class InAppBillingClient {
 				
 				// Verify signature
 				if (!Security.verifyPurchase(mSignatureBase64, purchaseData, dataSignature)) {
-					LOGGER.error("Purchase signature verification FAILED for sku " + sku);
+					AbstractApplication.get().getExceptionHandler().logHandledException(
+						new UnexpectedException("Purchase signature verification FAILED for sku " + sku));
 					if (mPurchaseListener != null) {
 						mPurchaseListener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_VERIFICATION_FAILED,
 							purchase);
@@ -445,8 +450,7 @@ public class InAppBillingClient {
 				}
 				LOGGER.debug("Purchase signature successfully verified.");
 			} catch (JSONException e) {
-				LOGGER.error("Failed to parse purchase data.");
-				e.printStackTrace();
+				AbstractApplication.get().getExceptionHandler().logHandledException("Failed to parse purchase data.", e);
 				if (mPurchaseListener != null) {
 					mPurchaseListener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_BAD_RESPONSE, null);
 				}
@@ -468,8 +472,9 @@ public class InAppBillingClient {
 				mPurchaseListener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_USER_CANCELLED, null);
 			}
 		} else {
-			LOGGER.error("Purchase failed. Result code: " + Integer.toString(resultCode) + ". Response: "
-					+ responseCode.name());
+			AbstractApplication.get().getExceptionHandler().logHandledException(
+				new UnexpectedException("Purchase failed. Result code: " + Integer.toString(resultCode)
+						+ ". Response: " + responseCode.name()));
 			if (mPurchaseListener != null) {
 				mPurchaseListener.onIabPurchaseFinished(InAppBillingResponseCode.IABHELPER_UNKNOWN_PURCHASE_RESPONSE,
 					null);
@@ -621,7 +626,8 @@ public class InAppBillingClient {
 		if (itemInfo.getItemType().equals(ITEM_TYPE_INAPP)) {
 			responseCode = InAppBillingResponseCode.OK;
 		} else {
-			LOGGER.error("Items of type '" + itemInfo.getItemType() + "' can't be consumed.");
+			AbstractApplication.get().getExceptionHandler().logHandledException(
+				new UnexpectedException("Items of type '" + itemInfo.getItemType() + "' can't be consumed."));
 			responseCode = InAppBillingResponseCode.IABHELPER_INVALID_CONSUMPTION;
 		}
 		
@@ -629,7 +635,8 @@ public class InAppBillingClient {
 			String token = itemInfo.getToken();
 			String sku = itemInfo.getSku();
 			if ((token == null) || token.equals("")) {
-				LOGGER.error("Can't consume " + sku + ". No token.");
+				AbstractApplication.get().getExceptionHandler().logHandledException(
+					new UnexpectedException("Can't consume " + sku + ". No token."));
 				responseCode = InAppBillingResponseCode.IABHELPER_MISSING_TOKEN;
 			}
 			
@@ -640,13 +647,15 @@ public class InAppBillingClient {
 				if (responseCode == InAppBillingResponseCode.OK) {
 					LOGGER.debug("Successfully consumed sku: " + sku);
 				} else {
-					LOGGER.error("Error consuming consuming sku " + sku + ". " + responseCode.name());
+					AbstractApplication.get().getExceptionHandler().logHandledException(
+						new UnexpectedException("Error consuming consuming sku " + sku + ". " + responseCode.name()));
 				}
 			} else {
 				LOGGER.warn("Client disposed. Not consuming sku: " + sku + ", token: " + token);
 			}
 		} catch (RemoteException e) {
-			LOGGER.error("Remote exception while consuming. PurchaseInfo: " + itemInfo, e);
+			AbstractApplication.get().getExceptionHandler().logHandledException(
+				"Remote exception while consuming. PurchaseInfo: " + itemInfo, e);
 			responseCode = InAppBillingResponseCode.IABHELPER_REMOTE_EXCEPTION;
 		}
 		return responseCode;
@@ -706,8 +715,7 @@ public class InAppBillingClient {
 	// Checks that setup was done; if not, throws an exception.
 	private void checkSetupDone(String operation) {
 		if (!mSetupDone) {
-			LOGGER.error("Illegal state for operation (" + operation + "): IAB helper is not set up.");
-			throw new IllegalStateException("IAB helper is not set up. Can't perform operation: " + operation);
+			throw new UnexpectedException("IAB helper is not set up. Can't perform operation: " + operation);
 		}
 	}
 	
@@ -722,9 +730,7 @@ public class InAppBillingClient {
 		} else if (o instanceof Long) {
 			return InAppBillingResponseCode.valueOf((int)((Long)o).longValue());
 		} else {
-			LOGGER.error("Unexpected type for bundle/intent response code.");
-			LOGGER.error(o.getClass().getName());
-			throw new RuntimeException("Unexpected type for bundle/intent response code: " + o.getClass().getName());
+			throw new UnexpectedException("Unexpected type for bundle/intent response code: " + o.getClass().getName());
 		}
 	}
 	
@@ -772,7 +778,8 @@ public class InAppBillingClient {
 			if (!ownedItems.containsKey(RESPONSE_INAPP_ITEM_LIST)
 					|| !ownedItems.containsKey(RESPONSE_INAPP_PURCHASE_DATA_LIST)
 					|| !ownedItems.containsKey(RESPONSE_INAPP_SIGNATURE_LIST)) {
-				LOGGER.error("Bundle returned from getPurchases() doesn't contain required fields.");
+				AbstractApplication.get().getExceptionHandler().logHandledException(
+					new UnexpectedException("Bundle returned from getPurchases() doesn't contain required fields."));
 				return InAppBillingResponseCode.IABHELPER_BAD_RESPONSE;
 			}
 			
@@ -839,7 +846,9 @@ public class InAppBillingClient {
 				LOGGER.debug("getSkuDetails() failed: " + responseCode.name());
 				return responseCode;
 			} else {
-				LOGGER.error("getSkuDetails() returned a bundle with neither an error nor a detail list.");
+				AbstractApplication.get().getExceptionHandler().logHandledException(
+					new UnexpectedException(
+							"getSkuDetails() returned a bundle with neither an error nor a detail list."));
 				return InAppBillingResponseCode.IABHELPER_BAD_RESPONSE;
 			}
 		}

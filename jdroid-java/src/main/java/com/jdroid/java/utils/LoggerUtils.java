@@ -7,6 +7,7 @@ import com.jdroid.java.logger.MuteLogger;
 public class LoggerUtils {
 	
 	private static boolean enabled = false;
+	private static ExceptionLogger exceptionLogger;
 	
 	private static final Logger MUTE_LOGGER = new MuteLogger();
 	
@@ -33,5 +34,22 @@ public class LoggerUtils {
 	
 	public static boolean isEnabled() {
 		return enabled;
+	}
+	
+	public static void logHandledException(Logger logger, Exception e) {
+		if (exceptionLogger != null) {
+			exceptionLogger.logHandledException(e);
+		} else {
+			logger.error(e.getMessage(), e);
+		}
+	}
+	
+	public static interface ExceptionLogger {
+		
+		public void logHandledException(Throwable throwable);
+	}
+	
+	public static void setExceptionLogger(ExceptionLogger exceptionLogger) {
+		LoggerUtils.exceptionLogger = exceptionLogger;
 	}
 }

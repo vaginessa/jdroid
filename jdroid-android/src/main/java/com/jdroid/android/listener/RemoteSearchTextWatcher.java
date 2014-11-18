@@ -2,15 +2,12 @@ package com.jdroid.android.listener;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import org.slf4j.Logger;
 import android.text.Editable;
 import android.text.TextWatcher;
+import com.jdroid.android.AbstractApplication;
 import com.jdroid.java.concurrent.ExecutorUtils;
-import com.jdroid.java.utils.LoggerUtils;
 
 public abstract class RemoteSearchTextWatcher implements TextWatcher {
-	
-	private final static Logger LOGGER = LoggerUtils.getLogger(RemoteSearchTextWatcher.class);
 	
 	// The search frequency in milliseconds
 	private static final int SEARCH_FREQUENCY = 1000;
@@ -40,7 +37,7 @@ public abstract class RemoteSearchTextWatcher implements TextWatcher {
 		try {
 			timerSearchRunnable.queue.put(s.toString());
 		} catch (InterruptedException e) {
-			LOGGER.error(e.getMessage());
+			AbstractApplication.get().getExceptionHandler().logHandledException(e);
 		}
 	}
 	

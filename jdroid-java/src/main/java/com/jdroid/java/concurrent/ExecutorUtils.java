@@ -53,7 +53,7 @@ public final class ExecutorUtils {
 		try {
 			Thread.sleep(seconds * 1000);
 		} catch (InterruptedException e) {
-			LOGGER.error("Error when sleeping", e);
+			LoggerUtils.logHandledException(LOGGER, e);
 		}
 	}
 	
@@ -64,7 +64,7 @@ public final class ExecutorUtils {
 		try {
 			Thread.sleep(millis);
 		} catch (InterruptedException e) {
-			LOGGER.error("Error when sleeping", e);
+			LoggerUtils.logHandledException(LOGGER, e);
 		}
 	}
 }

@@ -37,9 +37,7 @@ public class CacheParser implements Parser {
 				try {
 					inputStreamCopy.reset();
 				} catch (IOException e) {
-					// TODO We should do something like this, but we can't because we are on the jdroid java project
-					// AbstractApplication.get().getExceptionHandler().logHandledException(e);
-					LOGGER.error("Error when trying to reset the input stream", e);
+					LoggerUtils.logHandledException(LOGGER, e);
 				}
 				FileUtils.copyStream(inputStreamCopy, cacheFile);
 				LOGGER.debug("Saved http request to cache file: " + cacheFile.getAbsolutePath());
