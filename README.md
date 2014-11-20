@@ -1,5 +1,5 @@
 [![JDROID](https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/logoDark.png)](http://jdroidframework.com/)
-[![Build Status](https://api.travis-ci.org/maxirosson/jdroid.svg)](https://travis-ci.org/maxirosson/jdroid)
+[![Build Status](https://api.travis-ci.org/maxirosson/jdroid.svg?branch=master)](https://travis-ci.org/maxirosson/jdroid)
 ======
 
 The JDROID Framework provides a programming and architectural model for modern Java-based enterprise and android applications.
