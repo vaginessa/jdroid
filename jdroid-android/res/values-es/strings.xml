@@ -56,8 +56,8 @@
 	<string name="gallery">Galería</string>
 
 	<!-- Rate me -->
-	<string name="rateMeTitle">¿Le gusta %1$s?</string>
-	<string name="rateMeDescription">¡Califiquenos ahora!</string>
+	<string name="rateMeTitle">¿Le gustó %1$s?</string>
+	<string name="rateMeDescription">¡Califíquenos ahora!</string>
 
 	<!-- About Dialog -->
 	<string name="about">Acerca de</string>

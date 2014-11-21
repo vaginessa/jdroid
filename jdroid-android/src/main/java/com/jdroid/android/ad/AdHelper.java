@@ -12,6 +12,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.context.AppContext;
+import com.jdroid.android.location.LocationHelper;
 
 public class AdHelper {
 	
@@ -100,6 +101,7 @@ public class AdHelper {
 				builder.addTestDevice(deviceId);
 			}
 		}
+		builder.setLocation(LocationHelper.get().getLocation());
 		return builder;
 	}
 	
