@@ -22,7 +22,6 @@ public enum Hasher {
 	 * @return String hashed value.
 	 */
 	public String hash(String value) {
-		
 		try {
 			MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
 			messageDigest.reset();
@@ -31,6 +30,23 @@ public enum Hasher {
 			return EncryptionUtils.toHex(hashed);
 		} catch (NoSuchAlgorithmException e) {
 			throw new UnexpectedException(e);
+		}
+	}
+	
+	public Boolean isSupported() {
+		try {
+			MessageDigest.getInstance(algorithm);
+			return true;
+		} catch (NoSuchAlgorithmException e) {
+			return false;
+		}
+	}
+	
+	public static Hasher getSupportedHasher() {
+		if (Hasher.SHA_512.isSupported()) {
+			return Hasher.SHA_512;
+		} else {
+			return Hasher.SHA_1;
 		}
 	}
 }

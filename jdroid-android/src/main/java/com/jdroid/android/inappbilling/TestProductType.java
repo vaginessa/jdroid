@@ -1,5 +1,7 @@
 package com.jdroid.android.inappbilling;
 
+import com.jdroid.android.inappbilling.Product.ItemType;
+
 public enum TestProductType implements ProductType {
 	
 	// When you make an in-app billing request with this product ID, the Google Play app responds as though you
@@ -61,5 +63,13 @@ public enum TestProductType implements ProductType {
 	@Override
 	public Integer getTitleId() {
 		return null;
+	}
+	
+	/**
+	 * @see com.jdroid.android.inappbilling.ProductType#getItemType()
+	 */
+	@Override
+	public ItemType getItemType() {
+		return ItemType.MANAGED;
 	}
 }

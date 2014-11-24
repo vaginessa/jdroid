@@ -30,6 +30,11 @@ public class BillingContext {
 		
 	}
 	
+	/**
+	 * @return Your application's public key, encoded in base64. This is used for verification of purchase signatures.
+	 *         You can find your app's base64-encoded public key in your application's page on Google Play Developer
+	 *         Console. Note that this is NOT your "developer public key".
+	 */
 	public String getGooglePlayPublicKey() {
 		return googlePlayPublicKey;
 	}

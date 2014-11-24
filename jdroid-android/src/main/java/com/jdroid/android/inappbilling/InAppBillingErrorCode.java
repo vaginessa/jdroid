@@ -28,7 +28,7 @@ public enum InAppBillingErrorCode implements ErrorCode {
 	
 	// Indicates an unexpected server error. For example, this error is triggered if you try to purchase an item from
 	// yourself, which is not allowed by Google Checkout.
-	ERROR(null, 6),
+	UNEXPECTED_ERROR(null, 6),
 	
 	// Failure to purchase since item is already owned
 	ITEM_ALREADY_OWNED(null, 7),

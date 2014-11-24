@@ -39,47 +39,31 @@ public class Purchase {
 		}
 	}
 	
-	private String itemType; // ITEM_TYPE_INAPP or ITEM_TYPE_SUBS
 	private String orderId;
-	private String packageName;
-	private String sku;
-	private long purchaseTime;
+	private String productId;
 	private PurchaseState state;
 	private String developerPayload;
 	private String token;
 	private String signature;
+	private Boolean verified;
 	
-	public Purchase(String itemType, String jsonPurchaseInfo, String signature) throws JSONException {
-		this.itemType = itemType;
+	public Purchase(String jsonPurchaseInfo, String signature) throws JSONException {
 		JSONObject jsonObject = new JSONObject(jsonPurchaseInfo);
 		orderId = jsonObject.optString("orderId");
-		packageName = jsonObject.optString("packageName");
-		sku = jsonObject.optString("productId");
-		purchaseTime = jsonObject.optLong("purchaseTime");
+		productId = jsonObject.optString("productId");
 		state = PurchaseState.valueOf(jsonObject.optInt("purchaseState"));
 		developerPayload = jsonObject.optString("developerPayload");
 		token = jsonObject.optString("token", jsonObject.optString("purchaseToken"));
 		this.signature = signature;
-	}
-	
-	public String getItemType() {
-		return itemType;
+		verified = false;
 	}
 	
 	public String getOrderId() {
 		return orderId;
 	}
 	
-	public String getPackageName() {
-		return packageName;
-	}
-	
-	public String getSku() {
-		return sku;
-	}
-	
-	public long getPurchaseTime() {
-		return purchaseTime;
+	public String getProductId() {
+		return productId;
 	}
 	
 	public PurchaseState getState() {
@@ -98,13 +82,20 @@ public class Purchase {
 		return signature;
 	}
 	
+	public void markAsVerfied() {
+		verified = true;
+	}
+	
+	public Boolean isVerified() {
+		return verified;
+	}
+	
 	/**
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Purchase [itemType=" + itemType + ", orderId=" + orderId + ", packageName=" + packageName + ", sku="
-				+ sku + ", purchaseTime=" + purchaseTime + ", state=" + state + ", developerPayload="
+		return "Purchase [orderId=" + orderId + ", productId=" + productId + ", state=" + state + ", developerPayload="
 				+ developerPayload + ", token=" + token + ", signature=" + signature + "]";
 	}
 	

@@ -1,12 +1,3 @@
-/*
- * Copyright (c) 2012 Google Inc. Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
- * file except in compliance with the License. You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language governing permissions and limitations under the
- * License.
- */
-
 package com.jdroid.android.inappbilling;
 
 import org.json.JSONException;
@@ -17,9 +8,8 @@ import org.json.JSONObject;
  */
 public class SkuDetails {
 	
-	private String mItemType;
 	private String mSku;
-	private String mType;
+	private String mItemType;
 	private String mTitle;
 	private String mDescription;
 	
@@ -27,11 +17,10 @@ public class SkuDetails {
 	private Double price;
 	private String currencyCode;
 	
-	public SkuDetails(String itemType, String jsonSkuDetails) throws JSONException {
-		mItemType = itemType;
+	public SkuDetails(String jsonSkuDetails) throws JSONException {
 		JSONObject o = new JSONObject(jsonSkuDetails);
 		mSku = o.optString("productId");
-		mType = o.optString("type");
+		mItemType = o.optString("type");
 		mTitle = o.optString("title");
 		mDescription = o.optString("description");
 		
@@ -45,8 +34,8 @@ public class SkuDetails {
 		return mSku;
 	}
 	
-	public String getType() {
-		return mType;
+	public String getItemType() {
+		return mItemType;
 	}
 	
 	public String getFormattedPrice() {
@@ -80,9 +69,9 @@ public class SkuDetails {
 	 */
 	@Override
 	public String toString() {
-		return "SkuDetails [mItemType=" + mItemType + ", mSku=" + mSku + ", mType=" + mType + ", formattedPrice="
-				+ formattedPrice + ", mTitle=" + mTitle + ", mDescription=" + mDescription + ", price=" + price
-				+ ", currencyCode=" + currencyCode + "]";
+		return "SkuDetails [mItemType=" + mItemType + ", mSku=" + mSku + ", formattedPrice=" + formattedPrice
+				+ ", mTitle=" + mTitle + ", mDescription=" + mDescription + ", price=" + price + ", currencyCode="
+				+ currencyCode + "]";
 	}
 	
 }
