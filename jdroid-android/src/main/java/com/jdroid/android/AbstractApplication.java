@@ -32,6 +32,7 @@ import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.fragment.AbstractPreferenceFragment;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.gcm.GcmMessageResolver;
+import com.jdroid.android.inappbilling.ProductType;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
 import com.jdroid.android.sqlite.SQLiteUpgradeStep;
@@ -348,10 +349,6 @@ public abstract class AbstractApplication extends Application {
 		return new FragmentHelper(fragment);
 	}
 	
-	public Boolean isInAppBillingEnabled() {
-		return false;
-	}
-	
 	public void setCurrentActivity(Activity activity) {
 		currentActivity = activity;
 	}
@@ -476,6 +473,9 @@ public abstract class AbstractApplication extends Application {
 				}
 			}
 		}
-		
+	}
+	
+	public List<ProductType> getSupportedProductTypes() {
+		return Lists.newArrayList();
 	}
 }

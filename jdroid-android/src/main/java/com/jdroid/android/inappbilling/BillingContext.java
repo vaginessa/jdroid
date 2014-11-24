@@ -1,15 +1,22 @@
 package com.jdroid.android.inappbilling;
 
+import java.util.List;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.PropertiesUtils;
+import com.jdroid.java.utils.StringUtils;
 
 public class BillingContext {
 	
-	public static final String IN_APP_BILLING_MOCK_ENABLED = "inAppBillingMockEnabled";
-	public static final String IN_APP_BILLING_TEST_PRODUCT_IDS = "inAppBillingTestProductIds";
+	public static final String MOCK_ENABLED = "inAppBillingMockEnabled";
+	public static final String TEST_PRODUCT_IDS = "inAppBillingTestProductIds";
+	public static final String PURCHASED_PRODUCT_TYPES = "inAppBillingPurchasedProductTypes";
 	
 	private String googlePlayPublicKey;
+	private List<ProductType> purchasedProductTypes;
 	
 	private static final BillingContext INSTANCE = new BillingContext();
 	
@@ -41,13 +48,64 @@ public class BillingContext {
 	
 	public Boolean isInAppBillingMockEnabled() {
 		return !AbstractApplication.get().getAppContext().isProductionEnvironment()
-				&& PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(
-					IN_APP_BILLING_MOCK_ENABLED, false);
+				&& PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(MOCK_ENABLED,
+					false);
 	}
 	
 	public TestProductType getTestProductType() {
 		return TestProductType.valueOf(PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
-			IN_APP_BILLING_TEST_PRODUCT_IDS, TestProductType.PURCHASED.name()));
+			TEST_PRODUCT_IDS, TestProductType.PURCHASED.name()));
 	}
 	
+	public void setPurchasedProductTypes(Inventory inventory) {
+		purchasedProductTypes = Lists.newArrayList();
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
+		Editor editor = sharedPreferences.edit();
+		List<String> productIds = Lists.newArrayList();
+		for (Product each : inventory.getProducts()) {
+			if (each.isPurchaseVerified()) {
+				productIds.add(each.getId());
+				purchasedProductTypes.add(each.getProductType());
+			}
+		}
+		editor.putString(PURCHASED_PRODUCT_TYPES, StringUtils.join(productIds));
+		editor.commit();
+	}
+	
+	public void addPurchasedProductType(ProductType productType) {
+		if (purchasedProductTypes != null) {
+			purchasedProductTypes.add(productType);
+		}
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
+		String currentValue = sharedPreferences.getString(PURCHASED_PRODUCT_TYPES, null);
+		String newValue = productType.getProductId();
+		Editor editor = sharedPreferences.edit();
+		if (StringUtils.isNotEmpty(currentValue)) {
+			newValue = "," + productType.getProductId();
+		} else {
+			newValue = productType.getProductId();
+		}
+		editor.putString(PURCHASED_PRODUCT_TYPES, newValue);
+		editor.commit();
+	}
+	
+	public List<ProductType> getPurchasedProductTypes() {
+		if (purchasedProductTypes == null) {
+			String pref = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
+				PURCHASED_PRODUCT_TYPES, null);
+			purchasedProductTypes = Lists.newArrayList();
+			for (String each : StringUtils.splitToCollection(pref)) {
+				ProductType productType = null;
+				for (ProductType supportedProductType : AbstractApplication.get().getSupportedProductTypes()) {
+					if (supportedProductType.getProductId().equals(each)) {
+						productType = supportedProductType;
+					}
+				}
+				if (productType == null) {
+					purchasedProductTypes.add(productType);
+				}
+			}
+		}
+		return purchasedProductTypes;
+	}
 }

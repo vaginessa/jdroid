@@ -20,14 +20,12 @@ import android.os.RemoteException;
 import android.text.TextUtils;
 import com.android.vending.billing.IInAppBillingService;
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.concurrent.SafeRunnable;
 import com.jdroid.android.inappbilling.Product.ItemType;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.ErrorCode;
 import com.jdroid.java.exception.ErrorCodeException;
-import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.CollectionUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -41,7 +39,7 @@ import com.jdroid.java.utils.LoggerUtils;
  * (and not before) you may call other methods.
  * 
  * After setup is complete, you will typically want to request an inventory of owned items and subscriptions. See
- * {@link #queryInventory}, {@link #queryInventory(List, List, QueryInventoryFinishedListener)} and related methods.
+ * {@link #queryInventory}, {@link #queryInventory(List, List)} and related methods.
  * 
  * When you are done with this object, don't forget to call {@link #dispose} to ensure proper cleanup. This object holds
  * a binding to the in-app billing service, which will leak unless you dispose of it correctly. If you created the
@@ -76,9 +74,6 @@ public class InAppBillingClient {
 	// some fields on the getSkuDetails response bundle
 	private static final String GET_SKU_DETAILS_ITEM_LIST = "ITEM_ID_LIST";
 	
-	// Is setup done?
-	private boolean setupDone = false;
-	
 	// Has this object been disposed of? (If so, we should ignore callbacks, etc)
 	private boolean disposed = false;
 	
@@ -107,9 +102,7 @@ public class InAppBillingClient {
 	// The product id used to launch the purchase flow
 	private String productId;
 	
-	// The listener registered on launchPurchaseFlow, which we have to call back when
-	// the purchase finishes
-	private InAppBillingPurchaseFinishedListener purchaseListener;
+	private InAppBillingClientListener listener;
 	
 	private Inventory inventory;
 	
@@ -127,330 +120,93 @@ public class InAppBillingClient {
 	}
 	
 	/**
-	 * Callback for setup process.
-	 */
-	public interface InAppBillingSetupListener {
-		
-		/**
-		 * Called to notify that setup is complete.
-		 */
-		public void onSetupFinished();
-		
-		/**
-		 * Called to notify that setup failed.
-		 * 
-		 * @param errorCodeException The result of the setup process.
-		 */
-		public void onSetupFailed(ErrorCodeException errorCodeException);
-		
-	}
-	
-	/**
 	 * Starts the setup process. This will start up the setup process asynchronously. You will be notified through the
 	 * listener when the setup process is complete. This method is safe to call from a UI thread.
-	 * 
-	 * @param listener The listener to notify when the setup process is complete.
 	 */
-	public void startSetup(final InAppBillingSetupListener listener) {
-		// If already set up, can't do it again.
-		checkNotDisposed();
-		if (setupDone) {
-			throw new UnexpectedException("InAppBillingClient is already set up.");
-		}
+	public void startSetup() {
 		
-		// Connection to IAB service
-		LOGGER.debug("Starting in-app billing setup.");
-		serviceConnection = new ServiceConnection() {
-			
-			@Override
-			public void onServiceDisconnected(ComponentName name) {
-				LOGGER.debug("Billing service disconnected.");
-				service = null;
-			}
-			
-			@Override
-			public void onServiceConnected(ComponentName name, IBinder binder) {
-				if (disposed) {
-					return;
+		try {
+			LOGGER.debug("Starting in-app billing setup.");
+			serviceConnection = new ServiceConnection() {
+				
+				@Override
+				public void onServiceDisconnected(ComponentName name) {
+					LOGGER.debug("Billing service disconnected.");
+					service = null;
 				}
-				LOGGER.debug("Billing service connected.");
-				service = IInAppBillingService.Stub.asInterface(binder);
-				String packageName = context.getPackageName();
-				try {
-					LOGGER.debug("Checking in-app billing " + IN_APP_BILLING_API_VERSION + " support for item type "
-							+ ItemType.MANAGED);
-					int response = service.isBillingSupported(IN_APP_BILLING_API_VERSION, packageName,
-						ItemType.MANAGED.getType());
-					ErrorCode inAppBillingErrorCode = InAppBillingErrorCode.findByErrorResponseCode(response);
-					if (inAppBillingErrorCode == null) {
-						
-						LOGGER.debug("In-app billing supported for item type " + ItemType.MANAGED);
-						
+				
+				@Override
+				public void onServiceConnected(ComponentName name, IBinder binder) {
+					if (disposed) {
+						return;
+					}
+					LOGGER.debug("Billing service connected.");
+					service = IInAppBillingService.Stub.asInterface(binder);
+					String packageName = context.getPackageName();
+					try {
 						LOGGER.debug("Checking in-app billing " + IN_APP_BILLING_API_VERSION
-								+ " support for item type " + ItemType.SUBSCRIPTION);
-						response = service.isBillingSupported(IN_APP_BILLING_API_VERSION, packageName,
-							ItemType.SUBSCRIPTION.getType());
-						inAppBillingErrorCode = InAppBillingErrorCode.findByErrorResponseCode(response);
+								+ " support for item type " + ItemType.MANAGED);
+						int response = service.isBillingSupported(IN_APP_BILLING_API_VERSION, packageName,
+							ItemType.MANAGED.getType());
+						ErrorCode inAppBillingErrorCode = InAppBillingErrorCode.findByErrorResponseCode(response);
 						if (inAppBillingErrorCode == null) {
-							LOGGER.debug("In-app billing supported for item type " + ItemType.SUBSCRIPTION);
-							subscriptionsSupported = true;
+							
+							LOGGER.debug("In-app billing supported for item type " + ItemType.MANAGED);
+							
+							LOGGER.debug("Checking in-app billing " + IN_APP_BILLING_API_VERSION
+									+ " support for item type " + ItemType.SUBSCRIPTION);
+							response = service.isBillingSupported(IN_APP_BILLING_API_VERSION, packageName,
+								ItemType.SUBSCRIPTION.getType());
+							inAppBillingErrorCode = InAppBillingErrorCode.findByErrorResponseCode(response);
+							if (inAppBillingErrorCode == null) {
+								LOGGER.debug("In-app billing supported for item type " + ItemType.SUBSCRIPTION);
+								subscriptionsSupported = true;
+							} else {
+								LOGGER.warn("Subscriptions NOT AVAILABLE. InAppBillingErrorCode: "
+										+ inAppBillingErrorCode);
+							}
+							
+							LOGGER.debug("In-app billing setup successful.");
+							if (listener != null) {
+								listener.onSetupFinished();
+							}
+							
 						} else {
-							LOGGER.warn("Subscriptions NOT AVAILABLE. InAppBillingErrorCode: " + inAppBillingErrorCode);
+							if (listener != null) {
+								listener.onSetupFailed(inAppBillingErrorCode.newErrorCodeException());
+							}
+							// if in-app purchases aren't supported, neither are subscriptions.
+							subscriptionsSupported = false;
 						}
-						
-						setupDone = true;
+					} catch (RemoteException e) {
 						if (listener != null) {
-							listener.onSetupFinished();
+							listener.onSetupFailed(InAppBillingErrorCode.REMOTE_EXCEPTION.newErrorCodeException(e));
 						}
-						
-					} else {
+					} catch (Exception e) {
 						if (listener != null) {
-							listener.onSetupFailed(inAppBillingErrorCode.newErrorCodeException());
+							listener.onSetupFailed(InAppBillingErrorCode.UNEXPECTED_ERROR.newErrorCodeException(e));
 						}
-						// if in-app purchases aren't supported, neither are subscriptions.
-						subscriptionsSupported = false;
 					}
-				} catch (RemoteException e) {
-					if (listener != null) {
-						listener.onSetupFailed(InAppBillingErrorCode.REMOTE_EXCEPTION.newErrorCodeException(
-							"Remote exception while starting setup.", e));
-					}
-					return;
+				}
+			};
+			
+			Intent serviceIntent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
+			serviceIntent.setPackage("com.android.vending");
+			List<ResolveInfo> resolveInfos = context.getPackageManager().queryIntentServices(serviceIntent, 0);
+			if (CollectionUtils.isNotEmpty(resolveInfos)) {
+				// service available to handle that Intent
+				context.bindService(serviceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
+			} else {
+				// no service available to handle that Intent
+				if (listener != null) {
+					listener.onSetupFailed(InAppBillingErrorCode.BILLING_UNAVAILABLE.newErrorCodeException());
 				}
 			}
-		};
-		
-		Intent serviceIntent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
-		serviceIntent.setPackage("com.android.vending");
-		List<ResolveInfo> resolveInfos = context.getPackageManager().queryIntentServices(serviceIntent, 0);
-		if (CollectionUtils.isNotEmpty(resolveInfos)) {
-			// service available to handle that Intent
-			context.bindService(serviceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
-		} else {
-			// no service available to handle that Intent
+		} catch (Exception e) {
 			if (listener != null) {
-				listener.onSetupFailed(InAppBillingErrorCode.BILLING_UNAVAILABLE.newErrorCodeException());
+				listener.onSetupFailed(InAppBillingErrorCode.UNEXPECTED_ERROR.newErrorCodeException(e));
 			}
 		}
-	}
-	
-	/**
-	 * Callback that notifies when a purchase is finished.
-	 */
-	public interface InAppBillingPurchaseFinishedListener {
-		
-		/**
-		 * Called to notify that an in-app purchase finished.
-		 * 
-		 * @param product The {@link Product} purchased
-		 */
-		public void onPurchaseFinished(Product product);
-		
-		/**
-		 * Called to notify that an in-app purchase failed.
-		 * 
-		 * @param errorCodeException The result of the purchase.
-		 */
-		public void onPurchaseFailed(ErrorCodeException errorCodeException);
-	}
-	
-	public void launchInAppPurchaseFlow(Activity activity, String productId,
-			InAppBillingPurchaseFinishedListener listener, String devloperPayload) {
-		launchPurchaseFlow(activity, productId, ItemType.MANAGED, PURCHASE_REQUEST_CODE, listener, devloperPayload);
-	}
-	
-	public void launchSubscriptionPurchaseFlow(Activity activity, String productId, int requestCode,
-			InAppBillingPurchaseFinishedListener listener, String devloperPayload) {
-		launchPurchaseFlow(activity, productId, ItemType.SUBSCRIPTION, PURCHASE_REQUEST_CODE, listener, devloperPayload);
-	}
-	
-	/**
-	 * Initiate the UI flow for an in-app purchase. Call this method to initiate an in-app purchase, which will involve
-	 * bringing up the Google Play screen. The calling activity will be paused while the user interacts with Google
-	 * Play, and the result will be delivered via the activity's {@link android.app.Activity#onActivityResult} method,
-	 * at which point you must call this object's {@link #handleActivityResult} method to continue the purchase flow.
-	 * This method MUST be called from the UI thread of the Activity.
-	 * 
-	 * @param activity The calling activity.
-	 * @param productId The product id of the item to purchase.
-	 * @param itemType indicates if it's a product or a subscription (ITEM_TYPE_INAPP or ITEM_TYPE_SUBS)
-	 * @param requestCode A request code (to differentiate from other responses -- as in
-	 *            {@link android.app.Activity#startActivityForResult}).
-	 * @param listener The listener to notify when the purchase process finishes
-	 * @param devloperPayload The developer payload, which will be returned with the purchase data when the purchase
-	 *            completes. This extra data will be permanently bound to that purchase and will always be returned when
-	 *            the purchase is queried.
-	 */
-	private void launchPurchaseFlow(Activity activity, String productId, ItemType itemType, int requestCode,
-			InAppBillingPurchaseFinishedListener listener, String devloperPayload) {
-		checkNotDisposed();
-		checkSetupDone("launchPurchaseFlow");
-		if (flagStartAsync("launchPurchaseFlow")) {
-			
-			if (itemType.equals(ItemType.SUBSCRIPTION) && !subscriptionsSupported) {
-				flagEndAsync();
-				if (listener != null) {
-					listener.onPurchaseFailed(InAppBillingErrorCode.SUBSCRIPTIONS_NOT_AVAILABLE.newErrorCodeException());
-				}
-				return;
-			}
-			
-			try {
-				LOGGER.debug("Constructing buy intent for product id " + productId + ", item type: " + itemType);
-				Bundle buyIntentBundle = service.getBuyIntent(IN_APP_BILLING_API_VERSION, context.getPackageName(),
-					productId, itemType.getType(), devloperPayload);
-				InAppBillingErrorCode inAppBillingErrorCode = getResponseCode(buyIntentBundle);
-				if (inAppBillingErrorCode == null) {
-					PendingIntent pendingIntent = buyIntentBundle.getParcelable(RESPONSE_BUY_INTENT);
-					LOGGER.debug("Launching buy intent for product id " + productId + ". Request code: " + requestCode);
-					this.requestCode = requestCode;
-					this.productId = productId;
-					purchaseListener = listener;
-					activity.startIntentSenderForResult(pendingIntent.getIntentSender(), requestCode, new Intent(), 0,
-						0, 0);
-				} else {
-					flagEndAsync();
-					if (listener != null) {
-						listener.onPurchaseFailed(inAppBillingErrorCode.newErrorCodeException());
-					}
-				}
-			} catch (SendIntentException e) {
-				flagEndAsync();
-				
-				if (listener != null) {
-					listener.onPurchaseFailed(InAppBillingErrorCode.SEND_INTENT_FAILED.newErrorCodeException(e));
-				}
-			} catch (RemoteException e) {
-				flagEndAsync();
-				
-				if (listener != null) {
-					listener.onPurchaseFailed(InAppBillingErrorCode.REMOTE_EXCEPTION.newErrorCodeException(e));
-				}
-			}
-		}
-	}
-	
-	/**
-	 * Handles an activity result that's part of the purchase flow in in-app billing. If you are calling
-	 * {@link #launchPurchaseFlow}, then you must call this method from your Activity's onActivityResult method. This
-	 * method MUST be called from the UI thread of the Activity.
-	 * 
-	 * @param requestCode The requestCode as you received it.
-	 * @param resultCode The resultCode as you received it.
-	 * @param data The data (Intent) as you received it.
-	 * @return Returns true if the result was related to a purchase flow and was handled; false if the result was not
-	 *         related to a purchase, in which case you should handle it normally.
-	 */
-	public boolean handleActivityResult(int requestCode, int resultCode, Intent data) {
-		if (this.requestCode != requestCode) {
-			return false;
-		}
-		
-		checkNotDisposed();
-		checkSetupDone("handleActivityResult");
-		
-		// end of async purchase operation that started on launchPurchaseFlow
-		flagEndAsync();
-		
-		if (data == null) {
-			if (purchaseListener != null) {
-				purchaseListener.onPurchaseFailed(InAppBillingErrorCode.BAD_RESPONSE.newErrorCodeException("Null data on activity result."));
-			}
-			return true;
-		}
-		
-		InAppBillingErrorCode inAppBillingErrorCode = getResponseCode(data.getExtras());
-		if ((resultCode == Activity.RESULT_OK) && (inAppBillingErrorCode == null)) {
-			
-			String purchaseData = data.getStringExtra(RESPONSE_INAPP_PURCHASE_DATA);
-			if (purchaseData == null) {
-				if (purchaseListener != null) {
-					purchaseListener.onPurchaseFailed(InAppBillingErrorCode.MISSING_PURCHASE_DATA.newErrorCodeException("PurchaseData is null. Extras: "
-							+ data.getExtras().toString()));
-				}
-				return true;
-			}
-			
-			String signature = data.getStringExtra(RESPONSE_INAPP_SIGNATURE);
-			if (signature == null) {
-				if (purchaseListener != null) {
-					purchaseListener.onPurchaseFailed(InAppBillingErrorCode.MISSING_DATA_SIGNATURE.newErrorCodeException("DataSignature is null. Extras: "
-							+ data.getExtras().toString()));
-				}
-				return true;
-			}
-			
-			LOGGER.debug("Successful resultcode from purchase activity.");
-			LOGGER.debug("Purchase data: " + purchaseData);
-			LOGGER.debug("Data signature: " + signature);
-			LOGGER.debug("Extras: " + data.getExtras());
-			
-			try {
-				
-				Product product = inventory.getProduct(productId);
-				try {
-					product.setPurchase(signatureBase64, purchaseData, signature);
-					LOGGER.debug("Purchase signature successfully verified.");
-					if (purchaseListener != null) {
-						purchaseListener.onPurchaseFinished(product);
-					}
-				} catch (ErrorCodeException e) {
-					if (purchaseListener != null) {
-						purchaseListener.onPurchaseFailed(e);
-					}
-				}
-			} catch (JSONException e) {
-				if (purchaseListener != null) {
-					purchaseListener.onPurchaseFailed(InAppBillingErrorCode.BAD_PURCHASE_DATA.newErrorCodeException(e));
-				}
-			}
-			
-		} else if (resultCode == Activity.RESULT_OK) {
-			if (purchaseListener != null) {
-				purchaseListener.onPurchaseFailed(inAppBillingErrorCode.newErrorCodeException("Result code was OK but in-app billing response was not OK"));
-			}
-		} else if (resultCode == Activity.RESULT_CANCELED) {
-			if (purchaseListener != null) {
-				if (inAppBillingErrorCode != null) {
-					purchaseListener.onPurchaseFailed(inAppBillingErrorCode.newErrorCodeException("Purchase Failed. Result code: "
-							+ Integer.toString(resultCode)));
-				} else {
-					purchaseListener.onPurchaseFailed(InAppBillingErrorCode.USER_CANCELED.newErrorCodeException("Purchase canceled. Result code: "
-							+ Integer.toString(resultCode)));
-				}
-			}
-		} else {
-			if (purchaseListener != null) {
-				if (inAppBillingErrorCode != null) {
-					purchaseListener.onPurchaseFailed(inAppBillingErrorCode.newErrorCodeException("Purchase Failed. Result code: "
-							+ Integer.toString(resultCode)));
-				} else {
-					purchaseListener.onPurchaseFailed(InAppBillingErrorCode.UNKNOWN_PURCHASE_RESPONSE.newErrorCodeException("Purchase failed. Result code: "
-							+ Integer.toString(resultCode)));
-				}
-			}
-		}
-		return true;
-	}
-	
-	/**
-	 * Listener that notifies when an inventory query operation completes.
-	 */
-	public interface QueryInventoryFinishedListener {
-		
-		/**
-		 * Called to notify that an inventory query operation completed.
-		 * 
-		 * @param inventory The inventory.
-		 */
-		public void onQueryInventoryFinished(Inventory inventory);
-		
-		/**
-		 * Called to notify that an inventory query operation failed.
-		 * 
-		 * @param errorCodeException The result of the operation.
-		 */
-		public void onQueryInventoryFailed(ErrorCodeException errorCodeException);
 	}
 	
 	/**
@@ -459,41 +215,48 @@ public class InAppBillingClient {
 	 * 
 	 * @param managedProductTypes the managed {@link ProductType}s supported by the app
 	 * @param subscriptionsProductTypes the subscriptions {@link ProductType}s supported by the app
-	 * @param listener The listener to notify when the refresh operation completes.
 	 */
 	public void queryInventory(final List<ProductType> managedProductTypes,
-			final List<ProductType> subscriptionsProductTypes, final QueryInventoryFinishedListener listener) {
+			final List<ProductType> subscriptionsProductTypes) {
 		final Handler handler = new Handler();
 		if (flagStartAsync("queryInventory")) {
-			ExecutorUtils.execute(new SafeRunnable() {
+			ExecutorUtils.execute(new Runnable() {
 				
 				@Override
-				public void doRun() {
-					ErrorCodeException errorCodeException = null;
-					Inventory inventory = null;
+				public void run() {
 					try {
-						inventory = queryInventoryInner(managedProductTypes, subscriptionsProductTypes);
-					} catch (ErrorCodeException e) {
-						errorCodeException = e;
-					}
-					
-					flagEndAsync();
-					
-					final ErrorCodeException errorCodeExceptionFinal = errorCodeException;
-					final Inventory inventoryFinal = inventory;
-					if (!disposed && (listener != null)) {
-						handler.post(new Runnable() {
-							
-							@Override
-							public void run() {
-								if (errorCodeExceptionFinal == null) {
-									listener.onQueryInventoryFinished(inventoryFinal);
-								} else {
-									listener.onQueryInventoryFailed(errorCodeExceptionFinal);
-								}
+						ErrorCodeException errorCodeException = null;
+						Inventory inventory = null;
+						try {
+							inventory = queryInventoryInner(managedProductTypes, subscriptionsProductTypes);
+							BillingContext.get().setPurchasedProductTypes(inventory);
+						} catch (ErrorCodeException e) {
+							errorCodeException = e;
+						}
+						
+						flagEndAsync();
+						
+						final ErrorCodeException errorCodeExceptionFinal = errorCodeException;
+						final Inventory inventoryFinal = inventory;
+						if (!disposed) {
+							handler.post(new Runnable() {
 								
-							}
-						});
+								@Override
+								public void run() {
+									if (listener != null) {
+										if (errorCodeExceptionFinal == null) {
+											listener.onQueryInventoryFinished(inventoryFinal);
+										} else {
+											listener.onQueryInventoryFailed(errorCodeExceptionFinal);
+										}
+									}
+								}
+							});
+						}
+					} catch (Exception e) {
+						if (listener != null) {
+							listener.onQueryInventoryFailed(InAppBillingErrorCode.UNEXPECTED_ERROR.newErrorCodeException(e));
+						}
 					}
 				}
 			});
@@ -512,7 +275,7 @@ public class InAppBillingClient {
 	private Inventory queryInventoryInner(List<ProductType> managedProductTypes,
 			List<ProductType> subscriptionsProductTypes) throws ErrorCodeException {
 		inventory = null;
-		if (!disposed && setupDone) {
+		if (!disposed) {
 			inventory = new Inventory();
 			queryProductsDetails(inventory, ItemType.MANAGED, managedProductTypes);
 			queryPurchases(inventory, ItemType.MANAGED);
@@ -522,6 +285,7 @@ public class InAppBillingClient {
 				queryProductsDetails(inventory, ItemType.SUBSCRIPTION, subscriptionsProductTypes);
 				queryPurchases(inventory, ItemType.SUBSCRIPTION);
 			}
+			LOGGER.debug("Query inventory was successful.");
 		} else {
 			LOGGER.warn("Client disposed. Not queried inventary");
 		}
@@ -646,24 +410,177 @@ public class InAppBillingClient {
 		}
 	}
 	
+	public void launchInAppPurchaseFlow(Activity activity, String productId, String devloperPayload) {
+		launchPurchaseFlow(activity, productId, ItemType.MANAGED, PURCHASE_REQUEST_CODE, devloperPayload);
+	}
+	
+	public void launchSubscriptionPurchaseFlow(Activity activity, String productId, int requestCode,
+			String devloperPayload) {
+		launchPurchaseFlow(activity, productId, ItemType.SUBSCRIPTION, PURCHASE_REQUEST_CODE, devloperPayload);
+	}
+	
 	/**
-	 * Callback that notifies when a consumption operation finishes.
+	 * Initiate the UI flow for an in-app purchase. Call this method to initiate an in-app purchase, which will involve
+	 * bringing up the Google Play screen. The calling activity will be paused while the user interacts with Google
+	 * Play, and the result will be delivered via the activity's {@link android.app.Activity#onActivityResult} method,
+	 * at which point you must call this object's {@link #handleActivityResult} method to continue the purchase flow.
+	 * This method MUST be called from the UI thread of the Activity.
+	 * 
+	 * @param activity The calling activity.
+	 * @param productId The product id of the item to purchase.
+	 * @param itemType indicates if it's a product or a subscription (ITEM_TYPE_INAPP or ITEM_TYPE_SUBS)
+	 * @param requestCode A request code (to differentiate from other responses -- as in
+	 *            {@link android.app.Activity#startActivityForResult}).
+	 * @param devloperPayload The developer payload, which will be returned with the purchase data when the purchase
+	 *            completes. This extra data will be permanently bound to that purchase and will always be returned when
+	 *            the purchase is queried.
 	 */
-	public interface OnConsumeFinishedListener {
+	private void launchPurchaseFlow(Activity activity, String productId, ItemType itemType, int requestCode,
+			String devloperPayload) {
+		if (flagStartAsync("launchPurchaseFlow")) {
+			
+			if (itemType.equals(ItemType.SUBSCRIPTION) && !subscriptionsSupported) {
+				flagEndAsync();
+				if (listener != null) {
+					listener.onPurchaseFailed(InAppBillingErrorCode.SUBSCRIPTIONS_NOT_AVAILABLE.newErrorCodeException());
+				}
+				return;
+			}
+			
+			try {
+				LOGGER.debug("Constructing buy intent for product id " + productId + ", item type: " + itemType);
+				Bundle buyIntentBundle = service.getBuyIntent(IN_APP_BILLING_API_VERSION, context.getPackageName(),
+					productId, itemType.getType(), devloperPayload);
+				InAppBillingErrorCode inAppBillingErrorCode = getResponseCode(buyIntentBundle);
+				if (inAppBillingErrorCode == null) {
+					PendingIntent pendingIntent = buyIntentBundle.getParcelable(RESPONSE_BUY_INTENT);
+					LOGGER.debug("Launching buy intent for product id " + productId + ". Request code: " + requestCode);
+					this.requestCode = requestCode;
+					this.productId = productId;
+					activity.startIntentSenderForResult(pendingIntent.getIntentSender(), requestCode, new Intent(), 0,
+						0, 0);
+				} else {
+					flagEndAsync();
+					if (listener != null) {
+						listener.onPurchaseFailed(inAppBillingErrorCode.newErrorCodeException());
+					}
+				}
+			} catch (SendIntentException e) {
+				flagEndAsync();
+				
+				if (listener != null) {
+					listener.onPurchaseFailed(InAppBillingErrorCode.SEND_INTENT_FAILED.newErrorCodeException(e));
+				}
+			} catch (RemoteException e) {
+				flagEndAsync();
+				
+				if (listener != null) {
+					listener.onPurchaseFailed(InAppBillingErrorCode.REMOTE_EXCEPTION.newErrorCodeException(e));
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Handles an activity result that's part of the purchase flow in in-app billing. If you are calling
+	 * {@link #launchPurchaseFlow}, then you must call this method from your Activity's onActivityResult method. This
+	 * method MUST be called from the UI thread of the Activity.
+	 * 
+	 * @param requestCode The requestCode as you received it.
+	 * @param resultCode The resultCode as you received it.
+	 * @param data The data (Intent) as you received it.
+	 * @return Returns true if the result was related to a purchase flow and was handled; false if the result was not
+	 *         related to a purchase, in which case you should handle it normally.
+	 */
+	public boolean handleActivityResult(int requestCode, int resultCode, Intent data) {
+		if (this.requestCode != requestCode) {
+			return false;
+		}
 		
-		/**
-		 * Called to notify that a consumption has finished.
-		 * 
-		 * @param product The {@link Product} that was (or was to be) consumed.
-		 */
-		public void onConsumeFinished(Product product);
+		// end of async purchase operation that started on launchPurchaseFlow
+		flagEndAsync();
 		
-		/**
-		 * Called to notify that a consumption has failed.
-		 * 
-		 * @param errorCodeException The result of the consumption operation.
-		 */
-		public void onConsumeFailed(ErrorCodeException errorCodeException);
+		if (data == null) {
+			if (listener != null) {
+				listener.onPurchaseFailed(InAppBillingErrorCode.BAD_RESPONSE.newErrorCodeException("Null data on activity result."));
+			}
+			return true;
+		}
+		
+		InAppBillingErrorCode inAppBillingErrorCode = getResponseCode(data.getExtras());
+		if ((resultCode == Activity.RESULT_OK) && (inAppBillingErrorCode == null)) {
+			
+			String purchaseData = data.getStringExtra(RESPONSE_INAPP_PURCHASE_DATA);
+			if (purchaseData == null) {
+				if (listener != null) {
+					listener.onPurchaseFailed(InAppBillingErrorCode.MISSING_PURCHASE_DATA.newErrorCodeException("PurchaseData is null. Extras: "
+							+ data.getExtras().toString()));
+				}
+				return true;
+			}
+			
+			String signature = data.getStringExtra(RESPONSE_INAPP_SIGNATURE);
+			if (signature == null) {
+				if (listener != null) {
+					listener.onPurchaseFailed(InAppBillingErrorCode.MISSING_DATA_SIGNATURE.newErrorCodeException("DataSignature is null. Extras: "
+							+ data.getExtras().toString()));
+				}
+				return true;
+			}
+			
+			LOGGER.debug("Successful resultcode from purchase activity.");
+			LOGGER.debug("Purchase data: " + purchaseData);
+			LOGGER.debug("Data signature: " + signature);
+			LOGGER.debug("Extras: " + data.getExtras());
+			
+			try {
+				
+				Product product = inventory.getProduct(productId);
+				try {
+					product.setPurchase(signatureBase64, purchaseData, signature);
+					LOGGER.debug("Purchase signature successfully verified.");
+					BillingContext.get().addPurchasedProductType(product.getProductType());
+					AbstractApplication.get().getAnalyticsSender().trackInAppBillingPurchase(product);
+					if (listener != null) {
+						listener.onPurchaseFinished(product);
+					}
+				} catch (ErrorCodeException e) {
+					if (listener != null) {
+						listener.onPurchaseFailed(e);
+					}
+				}
+			} catch (JSONException e) {
+				if (listener != null) {
+					listener.onPurchaseFailed(InAppBillingErrorCode.BAD_PURCHASE_DATA.newErrorCodeException(e));
+				}
+			}
+			
+		} else if (resultCode == Activity.RESULT_OK) {
+			if (listener != null) {
+				listener.onPurchaseFailed(inAppBillingErrorCode.newErrorCodeException("Result code was OK but in-app billing response was not OK"));
+			}
+		} else if (resultCode == Activity.RESULT_CANCELED) {
+			if (listener != null) {
+				if (inAppBillingErrorCode != null) {
+					listener.onPurchaseFailed(inAppBillingErrorCode.newErrorCodeException("Purchase Failed. Result code: "
+							+ Integer.toString(resultCode)));
+				} else {
+					listener.onPurchaseFailed(InAppBillingErrorCode.USER_CANCELED.newErrorCodeException("Purchase canceled. Result code: "
+							+ Integer.toString(resultCode)));
+				}
+			}
+		} else {
+			if (listener != null) {
+				if (inAppBillingErrorCode != null) {
+					listener.onPurchaseFailed(inAppBillingErrorCode.newErrorCodeException("Purchase Failed. Result code: "
+							+ Integer.toString(resultCode)));
+				} else {
+					listener.onPurchaseFailed(InAppBillingErrorCode.UNKNOWN_PURCHASE_RESPONSE.newErrorCodeException("Purchase failed. Result code: "
+							+ Integer.toString(resultCode)));
+				}
+			}
+		}
+		return true;
 	}
 	
 	/**
@@ -671,38 +588,44 @@ public class InAppBillingClient {
 	 * background and notifies completion through the provided listener. This method is safe to call from a UI thread.
 	 * 
 	 * @param product The {@link Product} to be consumed.
-	 * @param listener The listener to notify when the consumption operation finishes.
 	 */
-	public void consume(final Product product, final OnConsumeFinishedListener listener) {
+	public void consume(final Product product) {
 		final Handler handler = new Handler();
 		if (flagStartAsync("consume")) {
-			ExecutorUtils.execute(new SafeRunnable() {
+			ExecutorUtils.execute(new Runnable() {
 				
 				@Override
-				public void doRun() {
-					ErrorCodeException errorCodeException = null;
+				public void run() {
 					try {
-						consume(product);
-					} catch (ErrorCodeException e) {
-						errorCodeException = e;
-					}
-					
-					flagEndAsync();
-					
-					final ErrorCodeException errorCodeExceptionFinal = errorCodeException;
-					if (!disposed && (listener != null)) {
-						handler.post(new Runnable() {
-							
-							@Override
-							public void run() {
-								if (errorCodeExceptionFinal == null) {
-									listener.onConsumeFinished(product);
-								} else {
-									listener.onConsumeFailed(errorCodeExceptionFinal);
-								}
+						ErrorCodeException errorCodeException = null;
+						try {
+							consumeInner(product);
+						} catch (ErrorCodeException e) {
+							errorCodeException = e;
+						}
+						
+						flagEndAsync();
+						
+						final ErrorCodeException errorCodeExceptionFinal = errorCodeException;
+						if (!disposed) {
+							handler.post(new Runnable() {
 								
-							}
-						});
+								@Override
+								public void run() {
+									if (listener != null) {
+										if (errorCodeExceptionFinal == null) {
+											listener.onConsumeFinished(product);
+										} else {
+											listener.onConsumeFailed(errorCodeExceptionFinal);
+										}
+									}
+								}
+							});
+						}
+					} catch (Exception e) {
+						if (listener != null) {
+							listener.onQueryInventoryFailed(InAppBillingErrorCode.UNEXPECTED_ERROR.newErrorCodeException(e));
+						}
 					}
 				}
 			});
@@ -716,7 +639,7 @@ public class InAppBillingClient {
 	 * 
 	 * @param product The {@link Product} that represents the item to consume.
 	 */
-	private void consume(Product product) throws ErrorCodeException {
+	private void consumeInner(Product product) throws ErrorCodeException {
 		
 		if (product.getProductType().getItemType().equals(ItemType.MANAGED)) {
 			try {
@@ -757,7 +680,6 @@ public class InAppBillingClient {
 	 */
 	public void dispose() {
 		LOGGER.debug("Disposing.");
-		setupDone = false;
 		if (serviceConnection != null) {
 			LOGGER.debug("Unbinding from service.");
 			if (context != null) {
@@ -772,7 +694,7 @@ public class InAppBillingClient {
 		context = null;
 		serviceConnection = null;
 		service = null;
-		purchaseListener = null;
+		listener = null;
 	}
 	
 	private Boolean flagStartAsync(String operation) {
@@ -794,13 +716,6 @@ public class InAppBillingClient {
 		asyncInProgress = false;
 	}
 	
-	// Checks that setup was done; if not, throws an exception.
-	private void checkSetupDone(String operation) {
-		if (!setupDone) {
-			throw new UnexpectedException("InAppBillingClient is not set up. Can't perform operation: " + operation);
-		}
-	}
-	
 	// Workaround to bug where sometimes response codes come as Long instead of Integer
 	private InAppBillingErrorCode getResponseCode(Bundle bundle) {
 		Object responseCode = bundle.get(RESPONSE_CODE);
@@ -812,14 +727,8 @@ public class InAppBillingClient {
 		} else if (responseCode instanceof Long) {
 			return InAppBillingErrorCode.findByErrorResponseCode((int)((Long)responseCode).longValue());
 		} else {
-			throw new UnexpectedException("Unexpected type for bundle response code: "
+			throw InAppBillingErrorCode.UNEXPECTED_ERROR.newErrorCodeException("Unexpected type for bundle response code: "
 					+ responseCode.getClass().getName());
-		}
-	}
-	
-	private void checkNotDisposed() {
-		if (disposed) {
-			throw new UnexpectedException("InAppBillingClient was disposed of, so it cannot be used.");
 		}
 	}
 	
@@ -827,7 +736,10 @@ public class InAppBillingClient {
 	 * @return whether subscriptions are supported.
 	 */
 	public boolean subscriptionsSupported() {
-		checkNotDisposed();
 		return subscriptionsSupported;
+	}
+	
+	public void setInAppBillingClientListener(InAppBillingClientListener listener) {
+		this.listener = listener;
 	}
 }

@@ -48,6 +48,7 @@
 	<string name="inAppBillingMockEnabledDescription">Enable/disable In App Billing mocks</string>
 	<string name="inAppBillingTestProductIdsTitle">Test Product Id</string>
 	<string name="inAppBillingTestProductIdsDescription">Pick the Test Product Id</string>
+	<string name="inAppBillingPurchasedProductTypeTitle">Purchased products ids</string>
 
 	<!-- Experiments -->
 	<string name="experimentsSettings">Experiments</string>
