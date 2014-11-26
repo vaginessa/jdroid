@@ -41,6 +41,9 @@ public class InAppBillingHelperFragment extends AbstractGridFragment<Product> im
 		super.onCreate(savedInstanceState);
 		
 		inAppBillingClient = new InAppBillingClient(getActivity());
+		
+		// TODO The use cases logic should be replicated here. With the current approach, if an error happens on while
+		// the app is on the background, when the fragment is resumed, the error dialog is not displayed to the user
 		inAppBillingClient.setInAppBillingClientListener(this);
 		inAppBillingClient.startSetup();
 	}

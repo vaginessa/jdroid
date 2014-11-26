@@ -293,4 +293,19 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 		});
 	}
 	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackTiming(java.lang.String, java.lang.String,
+	 *      java.lang.String, long)
+	 */
+	@Override
+	public void trackTiming(final String category, final String variable, final String label, final long value) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+			
+			@Override
+			protected void track(T tracker) {
+				tracker.trackTiming(category, variable, label, value);
+			}
+		});
+	}
+	
 }

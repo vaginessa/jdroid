@@ -42,4 +42,6 @@ public interface AnalyticsTracker {
 	
 	public void trackRateMeBannerClicked();
 	
+	public void trackTiming(String category, String variable, String label, long value);
+	
 }

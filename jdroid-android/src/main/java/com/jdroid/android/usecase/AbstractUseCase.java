@@ -3,6 +3,7 @@ package com.jdroid.android.usecase;
 import java.io.Serializable;
 import java.util.List;
 import org.slf4j.Logger;
+import com.jdroid.android.AbstractApplication;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.AbstractException;
@@ -75,6 +76,8 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 			for (T listener : listeners) {
 				notifyFailedUseCase(abstractException, listener);
 			}
+			AbstractApplication.get().getAnalyticsSender().trackTiming("UseCase", getClass().getSimpleName(),
+				getClass().getSimpleName(), executionTime);
 		} finally {
 			if (!listeners.isEmpty()) {
 				markAsNotified();

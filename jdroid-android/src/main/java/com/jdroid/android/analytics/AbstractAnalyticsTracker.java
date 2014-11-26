@@ -138,4 +138,13 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 		// Do Nothing
 	}
 	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackTiming(java.lang.String, java.lang.String,
+	 *      java.lang.String, long)
+	 */
+	@Override
+	public void trackTiming(String category, String variable, String label, long value) {
+		// Do Nothing
+	}
+	
 }
