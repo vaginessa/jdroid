@@ -100,8 +100,11 @@ public abstract class FileUtils {
 			// If the File instance to delete is a directory, delete all it's
 			// contents.
 			if (file.isDirectory()) {
-				for (File contentFile : file.listFiles()) {
-					FileUtils.forceDelete(contentFile);
+				File[] listFiles = file.listFiles();
+				if (listFiles != null) {
+					for (File contentFile : listFiles) {
+						FileUtils.forceDelete(contentFile);
+					}
 				}
 			}
 			

@@ -66,6 +66,14 @@ public enum AndroidErrorCode implements ErrorCode {
 	}
 	
 	/**
+	 * @see com.jdroid.java.exception.ErrorCode#newErrorCodeException(java.lang.String)
+	 */
+	@Override
+	public ErrorCodeException newErrorCodeException(String message) {
+		return new ErrorCodeException(this, message);
+	}
+	
+	/**
 	 * @see com.jdroid.java.exception.ErrorCode#getTitleResId()
 	 */
 	@Override

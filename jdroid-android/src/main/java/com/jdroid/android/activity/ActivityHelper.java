@@ -41,6 +41,7 @@ import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
+import com.jdroid.android.inappbilling.InAppBillingHelperFragment;
 import com.jdroid.android.loading.ActivityLoading;
 import com.jdroid.android.loading.DefaultBlockingLoading;
 import com.jdroid.android.location.LocationHelper;
@@ -77,6 +78,7 @@ public class ActivityHelper implements ActivityIf {
 	private ActionBarDrawerToggle drawerToggle;
 	private ListView drawerList;
 	private static Boolean navDrawerManuallyUsed = false;
+	private static Boolean inAppBillingLoaded = false;
 	
 	/**
 	 * @param activity
@@ -135,6 +137,11 @@ public class ActivityHelper implements ActivityIf {
 		AbstractApplication.get().changeLocale();
 		
 		AbstractApplication.get().initExceptionHandlers();
+		
+		if ((savedInstanceState == null) && (activity instanceof FragmentActivity) && !inAppBillingLoaded) {
+			InAppBillingHelperFragment.add((FragmentActivity)activity, InAppBillingHelperFragment.class, true, null);
+			inAppBillingLoaded = true;
+		}
 		
 		// Action bar
 		final ActionBar actionBar = activity.getActionBar();
@@ -458,6 +465,10 @@ public class ActivityHelper implements ActivityIf {
 	public void onPause() {
 		LOGGER.debug("Executing onPause on " + activity);
 		AbstractApplication.get().setInBackground(true);
+		
+		if (activity instanceof FragmentActivity) {
+			InAppBillingHelperFragment.remove((FragmentActivity)activity);
+		}
 	}
 	
 	public void onStop() {

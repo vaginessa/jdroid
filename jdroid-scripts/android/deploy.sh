@@ -6,4 +6,4 @@ APKS_DIRECTORY=$2
 ASSEMBLIES_DIRECTORY=$PROJECT_BUILD_DIRECTORY/assemblies
 
 # Copy the apks to dropbox
-find $ASSEMBLIES_DIRECTORY -type f -name '*.apk' -exec cp {} $APKS_DIRECTORY \;
+find $ASSEMBLIES_DIRECTORY -type f -name '*.apk' -exec mv {} $APKS_DIRECTORY \;

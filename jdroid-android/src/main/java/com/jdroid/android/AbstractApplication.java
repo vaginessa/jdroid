@@ -32,6 +32,7 @@ import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.fragment.AbstractPreferenceFragment;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.gcm.GcmMessageResolver;
+import com.jdroid.android.inappbilling.ProductType;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
 import com.jdroid.android.sqlite.SQLiteUpgradeStep;
@@ -246,7 +247,7 @@ public abstract class AbstractApplication extends Application {
 			File dir = getFileSystemCacheDirectory(cache);
 			
 			// Verify if the cache should be clean
-			if (dir != null) {
+			if ((dir != null) && dir.exists()) {
 				float dirSize = FileUtils.getDirectorySizeInMB(dir);
 				LOGGER.info("Cache " + cache.getName() + " size: " + dirSize + " MB");
 				if (dirSize > cache.getMaximumSize()) {
@@ -346,10 +347,6 @@ public abstract class AbstractApplication extends Application {
 	
 	public FragmentHelper createFragmentHelper(Fragment fragment) {
 		return new FragmentHelper(fragment);
-	}
-	
-	public Boolean isInAppBillingEnabled() {
-		return false;
 	}
 	
 	public void setCurrentActivity(Activity activity) {
@@ -476,6 +473,13 @@ public abstract class AbstractApplication extends Application {
 				}
 			}
 		}
-		
+	}
+	
+	public List<ProductType> getManagedProductTypes() {
+		return Lists.newArrayList();
+	}
+	
+	public List<ProductType> getSubscriptionsProductTypes() {
+		return Lists.newArrayList();
 	}
 }

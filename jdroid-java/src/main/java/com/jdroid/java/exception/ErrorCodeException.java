@@ -41,4 +41,9 @@ public class ErrorCodeException extends AbstractException {
 	public Object[] getErrorCodeDescriptionArgs() {
 		return errorCodeDescriptionArgs;
 	}
+	
+	public ErrorCodeException markAsTrackable() {
+		setTrackable(true);
+		return this;
+	}
 }

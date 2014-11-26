@@ -1,15 +1,31 @@
 package com.jdroid.android.inappbilling;
 
+import org.json.JSONException;
 import com.jdroid.android.inappbilling.Purchase.PurchaseState;
-import com.jdroid.java.utils.Hasher;
 
 public class Product {
+	
+	public enum ItemType {
+		MANAGED("inapp"),
+		SUBSCRIPTION("subs");
+		
+		private String type;
+		
+		private ItemType(String type) {
+			this.type = type;
+		}
+		
+		public String getType() {
+			return type;
+		}
+		
+	}
 	
 	private ProductType productType;
 	private String title;
 	private String description;
 	private Purchase purchase;
-	private Boolean consumed;
+	private Boolean available;
 	
 	private String formattedPrice;
 	private Double price;
@@ -23,7 +39,7 @@ public class Product {
 		this.formattedPrice = formattedPrice;
 		this.price = price;
 		this.currencyCode = currencyCode;
-		consumed = false;
+		available = true;
 	}
 	
 	/**
@@ -58,31 +74,46 @@ public class Product {
 		return productType;
 	}
 	
-	public void setPurchase(Purchase purchase) {
-		this.purchase = purchase;
-		consumed = isPurchaseVerified();
+	public void setPurchase(String signatureBase64, String jsonPurchaseInfo, String signature) throws JSONException {
+		purchase = new Purchase(jsonPurchaseInfo, signature);
+		if (Security.verifyPurchase(signatureBase64, jsonPurchaseInfo, signature)) {
+			if (!verifyDeveloperPayload()) {
+				throw InAppBillingErrorCode.VERIFICATION_FAILED.newErrorCodeException("Purchase developer payload verification FAILED. "
+						+ jsonPurchaseInfo);
+			}
+		} else {
+			throw InAppBillingErrorCode.VERIFICATION_FAILED.newErrorCodeException("Purchase signature verification FAILED. "
+					+ jsonPurchaseInfo);
+		}
+		
+		purchase.markAsVerfied();
+		available = false;
 	}
 	
 	public Boolean isPurchaseVerified() {
-		return (purchase != null) && (purchase.getState() == PurchaseState.PURCHASED)
-				&& verifyDeveloperPayload(purchase);
+		return (purchase != null) && (purchase.getState() == PurchaseState.PURCHASED) && purchase.isVerified();
 	}
 	
 	public Boolean isAvailable() {
-		return productType.isConsumable() || !consumed;
+		return available;
 	}
 	
-	public Boolean isConsumed() {
-		return consumed;
+	public void consume() {
+		purchase = null;
+		available = true;
 	}
 	
-	protected String generatePayload() {
+	public Boolean isWaitingToConsume() {
+		return productType.isConsumable() && !available && isPurchaseVerified();
+	}
+	
+	public String getDevloperPayload() {
 		/*
 		 * TODO: for security, generate your payload here for verification. See the comments on verifyDeveloperPayload()
 		 * for more info. Since this is a SAMPLE, we just use an empty string, but on a production app you should
 		 * carefully generate this.
 		 */
-		return Hasher.SHA_512.hash(productType.getProductId());
+		return productType.getProductId();
 	}
 	
 	/**
@@ -91,7 +122,7 @@ public class Product {
 	 * @param purchase
 	 * @return
 	 */
-	protected Boolean verifyDeveloperPayload(Purchase purchase) {
+	protected Boolean verifyDeveloperPayload() {
 		String payload = purchase.getDeveloperPayload();
 		
 		/*
@@ -107,7 +138,7 @@ public class Product {
 		 * across app installations is recommended.
 		 */
 		
-		return Hasher.SHA_512.hash(purchase.getSku()).equals(payload);
+		return purchase.getProductId().equals(payload);
 	}
 	
 	/**
@@ -119,5 +150,16 @@ public class Product {
 	
 	public String getCurrencyCode() {
 		return currencyCode;
+	}
+	
+	public String getId() {
+		return getProductType().getProductId();
+	}
+	
+	@Override
+	public String toString() {
+		return "Product [productType=" + productType + ", title=" + title + ", description=" + description
+				+ ", purchase=" + purchase + ", available=" + available + ", formattedPrice=" + formattedPrice
+				+ ", price=" + price + ", currencyCode=" + currencyCode + "]";
 	}
 }

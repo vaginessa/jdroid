@@ -39,47 +39,31 @@ public class Purchase {
 		}
 	}
 	
-	private String mItemType; // ITEM_TYPE_INAPP or ITEM_TYPE_SUBS
-	private String mOrderId;
-	private String mPackageName;
-	private String mSku;
-	private long mPurchaseTime;
+	private String orderId;
+	private String productId;
 	private PurchaseState state;
-	private String mDeveloperPayload;
-	private String mToken;
-	private String mSignature;
+	private String developerPayload;
+	private String token;
+	private String signature;
+	private Boolean verified;
 	
-	public Purchase(String itemType, String jsonPurchaseInfo, String signature) throws JSONException {
-		mItemType = itemType;
-		JSONObject o = new JSONObject(jsonPurchaseInfo);
-		mOrderId = o.optString("orderId");
-		mPackageName = o.optString("packageName");
-		mSku = o.optString("productId");
-		mPurchaseTime = o.optLong("purchaseTime");
-		state = PurchaseState.valueOf(o.optInt("purchaseState"));
-		mDeveloperPayload = o.optString("developerPayload");
-		mToken = o.optString("token", o.optString("purchaseToken"));
-		mSignature = signature;
-	}
-	
-	public String getItemType() {
-		return mItemType;
+	public Purchase(String jsonPurchaseInfo, String signature) throws JSONException {
+		JSONObject jsonObject = new JSONObject(jsonPurchaseInfo);
+		orderId = jsonObject.optString("orderId");
+		productId = jsonObject.optString("productId");
+		state = PurchaseState.valueOf(jsonObject.optInt("purchaseState"));
+		developerPayload = jsonObject.optString("developerPayload");
+		token = jsonObject.optString("token", jsonObject.optString("purchaseToken"));
+		this.signature = signature;
+		verified = false;
 	}
 	
 	public String getOrderId() {
-		return mOrderId;
+		return orderId;
 	}
 	
-	public String getPackageName() {
-		return mPackageName;
-	}
-	
-	public String getSku() {
-		return mSku;
-	}
-	
-	public long getPurchaseTime() {
-		return mPurchaseTime;
+	public String getProductId() {
+		return productId;
 	}
 	
 	public PurchaseState getState() {
@@ -87,15 +71,23 @@ public class Purchase {
 	}
 	
 	public String getDeveloperPayload() {
-		return mDeveloperPayload;
+		return developerPayload;
 	}
 	
 	public String getToken() {
-		return mToken;
+		return token;
 	}
 	
 	public String getSignature() {
-		return mSignature;
+		return signature;
+	}
+	
+	public void markAsVerfied() {
+		verified = true;
+	}
+	
+	public Boolean isVerified() {
+		return verified;
 	}
 	
 	/**
@@ -103,9 +95,8 @@ public class Purchase {
 	 */
 	@Override
 	public String toString() {
-		return "Purchase [mItemType=" + mItemType + ", mOrderId=" + mOrderId + ", mPackageName=" + mPackageName
-				+ ", mSku=" + mSku + ", mPurchaseTime=" + mPurchaseTime + ", state=" + state + ", mDeveloperPayload="
-				+ mDeveloperPayload + ", mToken=" + mToken + ", mSignature=" + mSignature + "]";
+		return "Purchase [orderId=" + orderId + ", productId=" + productId + ", state=" + state + ", developerPayload="
+				+ developerPayload + ", token=" + token + ", signature=" + signature + "]";
 	}
 	
 }

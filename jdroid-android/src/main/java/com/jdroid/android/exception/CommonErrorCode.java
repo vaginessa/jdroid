@@ -14,8 +14,7 @@ public enum CommonErrorCode implements ErrorCode {
 	
 	// The app is not compatible with the API anymore and needs to be upgraded.
 	INVALID_API_VERSION(null, 403),
-	INAPP_BILLING_NOT_SUPPORTED(R.string.notSupportedInAppBillingError),
-	INAPP_BILLING_FAILED_TO_LOAD_PURCHASES(R.string.failedToLoadPurchases),
+	
 	FACEBOOK_ERROR(R.string.facebookError),
 	FACEBOOK_SESSION_EXPIRED_ERROR(null);
 	
@@ -64,6 +63,14 @@ public enum CommonErrorCode implements ErrorCode {
 	@Override
 	public ErrorCodeException newErrorCodeException(Throwable throwable) {
 		return new ErrorCodeException(this, throwable);
+	}
+	
+	/**
+	 * @see com.jdroid.java.exception.ErrorCode#newErrorCodeException(java.lang.String)
+	 */
+	@Override
+	public ErrorCodeException newErrorCodeException(String message) {
+		return new ErrorCodeException(this, message);
 	}
 	
 	/**

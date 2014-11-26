@@ -1,6 +1,5 @@
 package com.jdroid.java.exception;
 
-
 /**
  * Common interface for all the possible errors of the application
  * 
@@ -19,6 +18,12 @@ public interface ErrorCode {
 	 * @return A new {@link ErrorCodeException}
 	 */
 	public ErrorCodeException newErrorCodeException();
+	
+	/**
+	 * @param message The message
+	 * @return A new {@link ErrorCodeException}
+	 */
+	public ErrorCodeException newErrorCodeException(String message);
 	
 	/**
 	 * @return The title resource id

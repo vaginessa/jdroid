@@ -62,6 +62,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 			}
 			tracker = analytics.newTracker(AbstractApplication.get().getAppContext().getGoogleAnalyticsTrackingId());
 			tracker.setSessionTimeout(SESSION_TIMEOUT);
+			tracker.enableAdvertisingIdCollection(true);
 			
 			init(customDimensionsMap, customMetricsMap);
 		}
@@ -196,6 +197,15 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	@Override
 	public void trackNotificationOpened(String notificationName) {
 		sendEvent(NOTIFICATION_CATEGORY, "open", notificationName);
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackTiming(java.lang.String, java.lang.String,
+	 *      java.lang.String, long)
+	 */
+	@Override
+	public void trackTiming(String category, String variable, String label, long value) {
+		sendTiming(category, variable, label, value);
 	}
 	
 	/**
@@ -387,6 +397,17 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		tracker.send(socialBuilder.build());
 		LOGGER.debug("Social interaction sent. Network [" + accountType.getFriendlyName() + "] Action ["
 				+ socialAction.getName() + "] Target [" + socialTarget + "]");
+	}
+	
+	public void sendTiming(String category, String variable, String label, long value) {
+		HitBuilders.TimingBuilder timingBuilder = new HitBuilders.TimingBuilder();
+		timingBuilder.setCategory(category);
+		timingBuilder.setVariable(variable);
+		timingBuilder.setLabel(label);
+		timingBuilder.setValue(value);
+		tracker.send(timingBuilder.build());
+		LOGGER.debug("Timing sent. Category [" + category + "] Variable [" + variable + "] Label [" + label
+				+ "] Value [" + value + "]");
 	}
 	
 	public void dispatchLocalHits() {

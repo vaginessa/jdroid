@@ -164,13 +164,6 @@ public class AppContext {
 			adsEnabled);
 	}
 	
-	public void enableAds(Boolean enable) {
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
-		Editor editor = sharedPreferences.edit();
-		editor.putBoolean(ADS_ENABLED, enable);
-		editor.commit();
-	}
-	
 	/**
 	 * @return The MD5-hashed ID of the devices that should display mocked ads
 	 */
