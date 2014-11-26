@@ -4,10 +4,6 @@ import java.util.List;
 
 public interface InAppBillingListener {
 	
-	public List<ProductType> getManagedProductTypes();
-	
-	public List<ProductType> getSubscriptionsProductTypes();
-	
 	/**
 	 * This method is executed (on the UI thread) when the products are loaded
 	 * 

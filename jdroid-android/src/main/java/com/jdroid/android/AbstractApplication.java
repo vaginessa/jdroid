@@ -475,7 +475,11 @@ public abstract class AbstractApplication extends Application {
 		}
 	}
 	
-	public List<ProductType> getSupportedProductTypes() {
+	public List<ProductType> getManagedProductTypes() {
+		return Lists.newArrayList();
+	}
+	
+	public List<ProductType> getSubscriptionsProductTypes() {
 		return Lists.newArrayList();
 	}
 }

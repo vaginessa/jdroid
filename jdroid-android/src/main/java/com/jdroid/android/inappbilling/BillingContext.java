@@ -57,7 +57,7 @@ public class BillingContext {
 			TEST_PRODUCT_IDS, TestProductType.PURCHASED.name()));
 	}
 	
-	public void setPurchasedProductTypes(Inventory inventory) {
+	public synchronized void setPurchasedProductTypes(Inventory inventory) {
 		purchasedProductTypes = Lists.newArrayList();
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
 		Editor editor = sharedPreferences.edit();
@@ -72,7 +72,7 @@ public class BillingContext {
 		editor.commit();
 	}
 	
-	public void addPurchasedProductType(ProductType productType) {
+	public synchronized void addPurchasedProductType(ProductType productType) {
 		if (purchasedProductTypes != null) {
 			purchasedProductTypes.add(productType);
 		}
@@ -89,20 +89,22 @@ public class BillingContext {
 		editor.commit();
 	}
 	
-	public List<ProductType> getPurchasedProductTypes() {
+	public synchronized List<ProductType> getPurchasedProductTypes() {
 		if (purchasedProductTypes == null) {
 			String pref = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
 				PURCHASED_PRODUCT_TYPES, null);
 			purchasedProductTypes = Lists.newArrayList();
 			for (String each : StringUtils.splitToCollection(pref)) {
 				ProductType productType = null;
-				for (ProductType supportedProductType : AbstractApplication.get().getSupportedProductTypes()) {
+				List<ProductType> supportedProductTypes = Lists.newArrayList();
+				supportedProductTypes.addAll(AbstractApplication.get().getManagedProductTypes());
+				supportedProductTypes.addAll(AbstractApplication.get().getSubscriptionsProductTypes());
+				for (ProductType supportedProductType : supportedProductTypes) {
 					if (supportedProductType.getProductId().equals(each)) {
 						productType = supportedProductType;
+						purchasedProductTypes.add(productType);
+						break;
 					}
-				}
-				if (productType == null) {
-					purchasedProductTypes.add(productType);
 				}
 			}
 		}

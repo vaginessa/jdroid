@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.fragment.AbstractGridFragment;
-import com.jdroid.android.inappbilling.Product.ItemType;
-import com.jdroid.java.collections.Lists;
 
 public abstract class InAppBillingGridFragment extends AbstractGridFragment<Product> implements InAppBillingListener {
 	
@@ -19,36 +17,17 @@ public abstract class InAppBillingGridFragment extends AbstractGridFragment<Prod
 		super.onCreate(savedInstanceState);
 		
 		if (savedInstanceState == null) {
-			InAppBillingHelperFragment.add(getActivity(), InAppBillingHelperFragment.class, this);
+			InAppBillingHelperFragment.add(getActivity(), InAppBillingHelperFragment.class, getManagedProductTypes(),
+				getSubscriptionsProductTypes(), false, this);
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.android.inappbilling.InAppBillingListener#getManagedProductTypes()
-	 */
-	@Override
 	public List<ProductType> getManagedProductTypes() {
-		List<ProductType> productTypes = Lists.newArrayList();
-		for (ProductType productType : AbstractApplication.get().getSupportedProductTypes()) {
-			if (productType.getItemType().equals(ItemType.MANAGED)) {
-				productTypes.add(productType);
-			}
-		}
-		return productTypes;
+		return AbstractApplication.get().getManagedProductTypes();
 	}
 	
-	/**
-	 * @see com.jdroid.android.inappbilling.InAppBillingListener#getSubscriptionsProductTypes()
-	 */
-	@Override
 	public List<ProductType> getSubscriptionsProductTypes() {
-		List<ProductType> productTypes = Lists.newArrayList();
-		for (ProductType productType : AbstractApplication.get().getSupportedProductTypes()) {
-			if (productType.getItemType().equals(ItemType.SUBSCRIPTION)) {
-				productTypes.add(productType);
-			}
-		}
-		return productTypes;
+		return AbstractApplication.get().getSubscriptionsProductTypes();
 	}
 	
 	public void launchPurchaseFlow(Product product) {

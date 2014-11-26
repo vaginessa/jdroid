@@ -67,6 +67,7 @@ public class InAppBillingDebugPrefsAppender implements PreferencesAppender {
 	 */
 	@Override
 	public Boolean isEnabled() {
-		return !AbstractApplication.get().getSupportedProductTypes().isEmpty();
+		return !AbstractApplication.get().getManagedProductTypes().isEmpty()
+				|| !AbstractApplication.get().getSubscriptionsProductTypes().isEmpty();
 	}
 }

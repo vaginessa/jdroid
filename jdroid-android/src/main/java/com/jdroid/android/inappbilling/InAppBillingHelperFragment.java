@@ -1,5 +1,7 @@
 package com.jdroid.android.inappbilling;
 
+import java.io.Serializable;
+import java.util.List;
 import org.slf4j.Logger;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,21 +18,52 @@ import com.jdroid.java.utils.LoggerUtils;
 
 public class InAppBillingHelperFragment extends AbstractGridFragment<Product> implements InAppBillingClientListener {
 	
+	private static final String MANAGED_PRODUCT_TYPES = "managedProductTypes";
+	private static final String SUBSCRIPTIONS_PRODUCT_TYPES = "subscriptionsProductTypes";
+	private static final String SILENT_MODE = "silentMode";
+	
 	private static final Logger LOGGER = LoggerUtils.getLogger(InAppBillingHelperFragment.class);
 	
 	private InAppBillingClient inAppBillingClient;
-	private Boolean silentMode = false;
+	private List<ProductType> managedProductTypes;
+	private List<ProductType> subscriptionsProductTypes;
+	private Boolean silentMode;
 	
 	public static void add(FragmentActivity activity,
-			Class<? extends InAppBillingHelperFragment> inAppBillingHelperFragmentClass, Fragment targetFragment) {
+			Class<? extends InAppBillingHelperFragment> inAppBillingHelperFragmentClass, Boolean silentMode,
+			Fragment targetFragment) {
+		add(activity, inAppBillingHelperFragmentClass, AbstractApplication.get().getManagedProductTypes(),
+			AbstractApplication.get().getSubscriptionsProductTypes(), silentMode, targetFragment);
+	}
+	
+	public static void add(FragmentActivity activity,
+			Class<? extends InAppBillingHelperFragment> inAppBillingHelperFragmentClass,
+			List<ProductType> managedProductTypes, List<ProductType> subscriptionsProductTypes, Boolean silentMode,
+			Fragment targetFragment) {
 		
 		AbstractFragmentActivity abstractFragmentActivity = (AbstractFragmentActivity)activity;
 		InAppBillingHelperFragment inAppBillingHelperFragment = abstractFragmentActivity.instanceFragment(
 			inAppBillingHelperFragmentClass, null);
 		inAppBillingHelperFragment.setTargetFragment(targetFragment, 0);
+		
+		Bundle args = new Bundle();
+		args.putSerializable(MANAGED_PRODUCT_TYPES, (Serializable)managedProductTypes);
+		args.putSerializable(SUBSCRIPTIONS_PRODUCT_TYPES, (Serializable)subscriptionsProductTypes);
+		args.putBoolean(SILENT_MODE, silentMode);
+		inAppBillingHelperFragment.setArguments(args);
+		
 		FragmentTransaction fragmentTransaction = abstractFragmentActivity.getSupportFragmentManager().beginTransaction();
 		fragmentTransaction.add(0, inAppBillingHelperFragment, InAppBillingHelperFragment.class.getSimpleName());
 		fragmentTransaction.commit();
+	}
+	
+	public static void remove(FragmentActivity activity) {
+		Fragment fragmentToRemove = get(activity);
+		if (fragmentToRemove != null) {
+			FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
+			fragmentTransaction.remove(fragmentToRemove);
+			fragmentTransaction.commit();
+		}
 	}
 	
 	/**
@@ -39,6 +72,10 @@ public class InAppBillingHelperFragment extends AbstractGridFragment<Product> im
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		managedProductTypes = getArgument(MANAGED_PRODUCT_TYPES);
+		subscriptionsProductTypes = getArgument(SUBSCRIPTIONS_PRODUCT_TYPES);
+		silentMode = getArgument(SILENT_MODE);
 		
 		inAppBillingClient = new InAppBillingClient(getActivity());
 		
@@ -53,11 +90,7 @@ public class InAppBillingHelperFragment extends AbstractGridFragment<Product> im
 	 */
 	@Override
 	public void onSetupFinished() {
-		InAppBillingListener inAppBillingListener = getInAppBillingListener();
-		if (inAppBillingListener != null) {
-			inAppBillingClient.queryInventory(inAppBillingListener.getManagedProductTypes(),
-				inAppBillingListener.getSubscriptionsProductTypes());
-		}
+		inAppBillingClient.queryInventory(managedProductTypes, subscriptionsProductTypes);
 	}
 	
 	public InAppBillingListener getInAppBillingListener() {
