@@ -50,18 +50,18 @@ public enum TestProductType implements ProductType {
 	}
 	
 	/**
-	 * @see com.jdroid.android.inappbilling.ProductType#getDescriptionId()
-	 */
-	@Override
-	public Integer getDescriptionId() {
-		return null;
-	}
-	
-	/**
 	 * @see com.jdroid.android.inappbilling.ProductType#getTitleId()
 	 */
 	@Override
 	public Integer getTitleId() {
+		return null;
+	}
+	
+	/**
+	 * @see com.jdroid.android.inappbilling.ProductType#getDescriptionId()
+	 */
+	@Override
+	public Integer getDescriptionId() {
 		return null;
 	}
 	

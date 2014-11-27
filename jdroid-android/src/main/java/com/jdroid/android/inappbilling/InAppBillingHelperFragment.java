@@ -41,20 +41,23 @@ public class InAppBillingHelperFragment extends AbstractGridFragment<Product> im
 			List<ProductType> managedProductTypes, List<ProductType> subscriptionsProductTypes, Boolean silentMode,
 			Fragment targetFragment) {
 		
-		AbstractFragmentActivity abstractFragmentActivity = (AbstractFragmentActivity)activity;
-		InAppBillingHelperFragment inAppBillingHelperFragment = abstractFragmentActivity.instanceFragment(
-			inAppBillingHelperFragmentClass, null);
-		inAppBillingHelperFragment.setTargetFragment(targetFragment, 0);
+		if (!managedProductTypes.isEmpty() || !subscriptionsProductTypes.isEmpty()) {
+			AbstractFragmentActivity abstractFragmentActivity = (AbstractFragmentActivity)activity;
+			InAppBillingHelperFragment inAppBillingHelperFragment = abstractFragmentActivity.instanceFragment(
+				inAppBillingHelperFragmentClass, null);
+			inAppBillingHelperFragment.setTargetFragment(targetFragment, 0);
+			
+			Bundle args = new Bundle();
+			args.putSerializable(MANAGED_PRODUCT_TYPES, (Serializable)managedProductTypes);
+			args.putSerializable(SUBSCRIPTIONS_PRODUCT_TYPES, (Serializable)subscriptionsProductTypes);
+			args.putBoolean(SILENT_MODE, silentMode);
+			inAppBillingHelperFragment.setArguments(args);
+			
+			FragmentTransaction fragmentTransaction = abstractFragmentActivity.getSupportFragmentManager().beginTransaction();
+			fragmentTransaction.add(0, inAppBillingHelperFragment, InAppBillingHelperFragment.class.getSimpleName());
+			fragmentTransaction.commit();
+		}
 		
-		Bundle args = new Bundle();
-		args.putSerializable(MANAGED_PRODUCT_TYPES, (Serializable)managedProductTypes);
-		args.putSerializable(SUBSCRIPTIONS_PRODUCT_TYPES, (Serializable)subscriptionsProductTypes);
-		args.putBoolean(SILENT_MODE, silentMode);
-		inAppBillingHelperFragment.setArguments(args);
-		
-		FragmentTransaction fragmentTransaction = abstractFragmentActivity.getSupportFragmentManager().beginTransaction();
-		fragmentTransaction.add(0, inAppBillingHelperFragment, InAppBillingHelperFragment.class.getSimpleName());
-		fragmentTransaction.commit();
 	}
 	
 	public static void remove(FragmentActivity activity) {

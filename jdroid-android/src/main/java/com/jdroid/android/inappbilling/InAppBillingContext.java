@@ -9,7 +9,7 @@ import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.PropertiesUtils;
 import com.jdroid.java.utils.StringUtils;
 
-public class BillingContext {
+public class InAppBillingContext {
 	
 	public static final String MOCK_ENABLED = "inAppBillingMockEnabled";
 	public static final String TEST_PRODUCT_IDS = "inAppBillingTestProductIds";
@@ -18,16 +18,16 @@ public class BillingContext {
 	private String googlePlayPublicKey;
 	private List<ProductType> purchasedProductTypes;
 	
-	private static final BillingContext INSTANCE = new BillingContext();
+	private static final InAppBillingContext INSTANCE = new InAppBillingContext();
 	
 	/**
-	 * @return The {@link BillingContext} instance
+	 * @return The {@link InAppBillingContext} instance
 	 */
-	public static BillingContext get() {
+	public static InAppBillingContext get() {
 		return INSTANCE;
 	}
 	
-	private BillingContext() {
+	private InAppBillingContext() {
 		
 		// TODO Instead of just storing the entire literal string here embedded in the program, construct the key at
 		// runtime from pieces or use bit manipulation (for example, XOR with some other string) to hide the actual key.

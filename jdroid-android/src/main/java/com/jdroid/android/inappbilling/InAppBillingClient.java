@@ -115,7 +115,7 @@ public class InAppBillingClient {
 	 */
 	public InAppBillingClient(Context ctx) {
 		context = ctx.getApplicationContext();
-		signatureBase64 = BillingContext.get().getGooglePlayPublicKey();
+		signatureBase64 = InAppBillingContext.get().getGooglePlayPublicKey();
 		LOGGER.debug("InAppBillingClient created.");
 	}
 	
@@ -229,7 +229,7 @@ public class InAppBillingClient {
 						Inventory inventory = null;
 						try {
 							inventory = queryInventoryInner(managedProductTypes, subscriptionsProductTypes);
-							BillingContext.get().setPurchasedProductTypes(inventory);
+							InAppBillingContext.get().setPurchasedProductTypes(inventory);
 						} catch (ErrorCodeException e) {
 							errorCodeException = e;
 						}
@@ -384,12 +384,14 @@ public class InAppBillingClient {
 					for (ProductType each : productTypes) {
 						SkuDetails skuDetails = map.get(each.getProductId());
 						if (skuDetails != null) {
-							ProductType productType = BillingContext.get().isInAppBillingMockEnabled() ? BillingContext.get().getTestProductType()
+							ProductType productType = InAppBillingContext.get().isInAppBillingMockEnabled() ? InAppBillingContext.get().getTestProductType()
 									: each;
+							
+							String title = each.getTitleId() != null ? context.getString(each.getTitleId()) : null;
+							String description = each.getDescriptionId() != null ? context.getString(each.getDescriptionId())
+									: null;
 							Product product = new Product(productType, skuDetails.getFormattedPrice(),
-									skuDetails.getPrice(), skuDetails.getCurrencyCode(),
-									context.getString(each.getTitleId()), context.getString(each.getDescriptionId(),
-										skuDetails.getFormattedPrice()));
+									skuDetails.getPrice(), skuDetails.getCurrencyCode(), title, description);
 							LOGGER.debug("Adding to inventory: " + product);
 							inventory.addProduct(product);
 						}
@@ -539,7 +541,7 @@ public class InAppBillingClient {
 				try {
 					product.setPurchase(signatureBase64, purchaseData, signature);
 					LOGGER.debug("Purchase signature successfully verified.");
-					BillingContext.get().addPurchasedProductType(product.getProductType());
+					InAppBillingContext.get().addPurchasedProductType(product.getProductType());
 					AbstractApplication.get().getAnalyticsSender().trackInAppBillingPurchase(product);
 					if (listener != null) {
 						listener.onPurchaseFinished(product);
