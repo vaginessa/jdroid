@@ -21,6 +21,15 @@ jdroid-android/.settings/org.maven.ide.eclipse.prefs
 jdroid-android-tools/dex-method-counts/bin/
 jdroid-android-tools/dex-method-counts/build/
 
+jdroid-android-tools/google-play-publisher/bin/
+jdroid-android-tools/google-play-publisher/target/
+jdroid-android-tools/google-play-publisher/test-output/
+jdroid-android-tools/google-play-publisher/work/
+jdroid-android-tools/google-play-publisher/.settings/org.maven.ide.eclipse.prefs
+jdroid-android-tools/google-play-publisher/src/main/resources/settings.local.properties
+jdroid-android-tools/google-play-publisher/src/main/resources/git.properties
+jdroid-android-tools/google-play-publisher/src/main/resources/log4j.xml
+
 jdroid-google-play-services/bin/
 jdroid-google-play-services/gen/
 jdroid-google-play-services/target/
