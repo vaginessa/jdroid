@@ -53,7 +53,8 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 			long startTime = System.currentTimeMillis();
 			doExecute();
 			executionTime = System.currentTimeMillis() - startTime;
-			LOGGER.debug("Finished use case. Execution time: " + DateUtils.formatDuration(executionTime));
+			LOGGER.debug("Finished use case " + getClass().getSimpleName() + ". Execution time: "
+					+ DateUtils.formatDuration(executionTime));
 			
 			if (executionTime < minimumExecutionTime) {
 				ExecutorUtils.sleepInMillis(minimumExecutionTime - executionTime);

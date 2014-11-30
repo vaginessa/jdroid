@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.jdroid.android.R;
@@ -68,6 +69,7 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 		
 		if (isInstantSearchEnabled()) {
 			searchText.addTextChangedListener(getTextWatcher());
+			searchText.setImeOptions(EditorInfo.IME_ACTION_DONE);
 		} else {
 			searchText.setOnKeyListener(new OnEnterKeyListener(false) {
 				
@@ -156,7 +158,9 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 		if (enoughToFilter()) {
 			search();
 		} else {
-			getBaseArrayAdapter().clear();
+			if (getBaseArrayAdapter() != null) {
+				getBaseArrayAdapter().clear();
+			}
 		}
 	}
 	
@@ -179,7 +183,9 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 	private void search() {
 		if (StringUtils.isNotEmpty(searchText.getText().toString()) || !isSearchValueRequired()) {
 			doSearch();
-			searchText.clearFocus();
+			if (!isInstantSearchEnabled()) {
+				searchText.clearFocus();
+			}
 		} else {
 			ToastUtils.showToast(R.string.requiredSearchTerm);
 		}
@@ -200,8 +206,10 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 		getSearchUseCase().setSearchValue(searchText.getText().toString());
 		getSearchUseCase().reset();
 		
-		if (getBaseArrayAdapter() != null) {
-			getBaseArrayAdapter().clear();
+		if (!isInstantSearchEnabled()) {
+			if (getBaseArrayAdapter() != null) {
+				getBaseArrayAdapter().clear();
+			}
 		}
 		executeUseCase(getSearchUseCase());
 		
