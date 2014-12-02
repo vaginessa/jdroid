@@ -50,10 +50,12 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	
 	private static final String RESOLVING_ERROR_KEY = "resolvingError";
 	private static final String SIGN_IN_CLICKED_KEY = "signInClicked";
+	private static final String SHARE_LINK_KEY = "shareLink";
 	private static final String DIALOG_ERROR_KEY = "dialogErrorKey";
 	
 	// Request code to use when launching the resolution activity
 	public static final int REQUEST_RESOLVE_ERROR = 1001;
+	public static final int SHARE_REQUEST_CODE = 1002;
 	
 	private GoogleApiClient googleApiClient;
 	private ConnectionResult connectionResult;
@@ -65,6 +67,8 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	// Track whether the sign-in button has been clicked so that we know to resolve all issues preventing sign-in
 	// without waiting.
 	private boolean signInClicked = false;
+	
+	private String shareLink;
 	
 	public static void add(FragmentActivity activity,
 			Class<? extends GooglePlusHelperFragment> googlePlusHelperFragmentClass, Fragment targetFragment) {
@@ -111,6 +115,12 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
+		
+		if (savedInstanceState != null) {
+			resolvingError = savedInstanceState.getBoolean(RESOLVING_ERROR_KEY);
+			signInClicked = savedInstanceState.getBoolean(SIGN_IN_CLICKED_KEY);
+			shareLink = savedInstanceState.getString(SHARE_LINK_KEY);
+		}
 		
 		googlePlusAuthenticationUseCase = createGooglePlusAuthenticationUseCase();
 		
@@ -245,6 +255,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 		super.onSaveInstanceState(outState);
 		outState.putBoolean(RESOLVING_ERROR_KEY, resolvingError);
 		outState.putBoolean(SIGN_IN_CLICKED_KEY, signInClicked);
+		outState.putString(SHARE_LINK_KEY, shareLink);
 	}
 	
 	/**
@@ -363,6 +374,10 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 					googlePlusListener.onGooglePlusSignInFailed();
 				}
 			}
+		} else if ((requestCode == SHARE_REQUEST_CODE) && (resultCode == Activity.RESULT_OK) && (shareLink != null)) {
+			AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(AccountType.GOOGLE_PLUS,
+				SocialAction.SHARE, shareLink);
+			shareLink = null;
 		}
 	}
 	
@@ -448,16 +463,17 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 			});
 	}
 	
-	public static void share(Activity activity, String content, String link) {
-		PlusShare.Builder builder = new PlusShare.Builder(activity);
+	public void share(String content, String link) {
+		PlusShare.Builder builder = new PlusShare.Builder(getActivity());
 		builder.setText(content);
 		builder.setType(MimeType.TEXT);
 		builder.setContentUrl(Uri.parse(link));
 		builder.setContentDeepLinkId(link);
 		
 		Intent intent = builder.getIntent();
+		shareLink = link;
 		if (IntentUtils.isIntentAvailable(intent)) {
-			activity.startActivityForResult(intent, 0);
+			getActivity().startActivityForResult(intent, SHARE_REQUEST_CODE);
 		} else {
 			GooglePlayUtils.showDownloadDialog(R.string.googlePlus, "com.google.android.apps.plus");
 		}

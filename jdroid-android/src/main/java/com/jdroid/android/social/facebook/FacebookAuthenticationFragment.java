@@ -25,8 +25,8 @@ import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.utils.LoggerUtils;
 
-public abstract class FacebookAuthenticationFragment<T extends FacebookAuthenticationUseCase> extends AbstractFragment
-		implements SessionStateListener, FacebookAuthenticationListener {
+public class FacebookAuthenticationFragment<T extends FacebookAuthenticationUseCase> extends AbstractFragment implements
+		SessionStateListener, FacebookAuthenticationListener {
 	
 	private final Logger logger = LoggerUtils.getLogger(getClass());
 	
@@ -45,7 +45,8 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 		
 		AbstractFragmentActivity abstractFragmentActivity = (AbstractFragmentActivity)activity;
 		FacebookAuthenticationFragment<?> facebookAuthenticationFragment = abstractFragmentActivity.instanceFragment(
-			facebookAuthenticationFragmentClass, bundle);
+			facebookAuthenticationFragmentClass != null ? facebookAuthenticationFragmentClass
+					: FacebookAuthenticationFragment.class, bundle);
 		facebookAuthenticationFragment.setTargetFragment(targetFragment, 0);
 		FragmentTransaction fragmentTransaction = abstractFragmentActivity.getSupportFragmentManager().beginTransaction();
 		fragmentTransaction.add(0, facebookAuthenticationFragment, FacebookAuthenticationFragment.class.getSimpleName());
@@ -177,7 +178,7 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 		facebookConnector.logout();
 	}
 	
-	public void share(String name, String caption, String description, String link, String picture) {
+	public void share(String name, String caption, String description, final String link, String picture) {
 		Session session = Session.getActiveSession();
 		if ((session != null) && session.isOpened()) {
 			
@@ -198,6 +199,9 @@ public abstract class FacebookAuthenticationFragment<T extends FacebookAuthentic
 					if ((facebookException != null)
 							&& (facebookException.getClass() != FacebookOperationCanceledException.class)) {
 						ToastUtils.showToast(R.string.sharingFailed);
+					} else {
+						AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(AccountType.FACEBOOK,
+							SocialAction.SHARE, link);
 					}
 				}
 			});
