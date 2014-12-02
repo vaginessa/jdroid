@@ -2,18 +2,16 @@ package com.googleplaypublisher;
 
 import java.io.File;
 import java.util.Locale;
+import com.jdroid.java.utils.FileUtils;
 
 public class LocaleListing {
 	
 	private Locale locale;
 	private String listingPath;
 	
-	private String title;
-	private String shortDescription;
-	private String fullDescription;
-	
-	public void setLocale(Locale locale) {
+	public LocaleListing(Locale locale, String listingPath) {
 		this.locale = locale;
+		this.listingPath = listingPath;
 	}
 	
 	public Locale getLocale() {
@@ -21,16 +19,24 @@ public class LocaleListing {
 	}
 	
 	public String getTitle() {
-		File file = new File(listingPath + java.io.File.pathSeparator + locale.toString() + java.io.File.pathSeparator
-				+ "details/title.txt");
-		return title;
+		return getDetailsContent("title");
 	}
 	
 	public String getShortDescription() {
-		return shortDescription;
+		return getDetailsContent("shortDescription");
 	}
 	
 	public String getFullDescription() {
-		return fullDescription;
+		return getDetailsContent("fullDescription");
+	}
+	
+	public String getRecentChanges() {
+		return getDetailsContent("recentChanges");
+	}
+	
+	private String getDetailsContent(String item) {
+		File file = new File(listingPath + java.io.File.separator + locale.getLanguage() + java.io.File.separator
+				+ "details/" + item + ".txt");
+		return FileUtils.toString(file);
 	}
 }

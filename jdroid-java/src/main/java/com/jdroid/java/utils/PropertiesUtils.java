@@ -1,5 +1,7 @@
 package com.jdroid.java.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -13,6 +15,21 @@ import com.jdroid.java.exception.UnexpectedException;
 public abstract class PropertiesUtils {
 	
 	private static List<Properties> propertiesList = Lists.newArrayList();
+	
+	@SuppressWarnings("resource")
+	public static void loadExternalProperties(String fileName) {
+		InputStream inputStream = null;
+		try {
+			inputStream = new FileInputStream(new File(fileName));
+			Properties properties = new Properties();
+			properties.load(inputStream);
+			propertiesList.add(properties);
+		} catch (IOException e) {
+			throw new UnexpectedException("Cannot read from file: " + fileName, e);
+		} finally {
+			FileUtils.safeClose(inputStream);
+		}
+	}
 	
 	@SuppressWarnings("resource")
 	public static void loadProperties(String resourceName) {

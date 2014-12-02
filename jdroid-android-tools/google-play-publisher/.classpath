@@ -3,6 +3,7 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="target/classes"/>
+	<classpathentry kind="src" path="/jdroid-java"/>
 
 	<classpathentry kind="lib" path="libs/google-api-services-androidpublisher-v2-rev20141111-1.19.0.jar" sourcepath="libs-sources/google-api-services-androidpublisher-v2-rev20141111-1.19.0-sources.jar"/>
 	<classpathentry kind="lib" path="libs/google-api-client-1.19.0.jar" sourcepath="libs-sources/google-api-client-1.19.0-sources.jar"/>
