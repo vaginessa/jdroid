@@ -399,7 +399,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 				+ socialAction.getName() + "] Target [" + socialTarget + "]");
 	}
 	
-	public void sendTiming(String category, String variable, String label, long value) {
+	public synchronized void sendTiming(String category, String variable, String label, long value) {
 		HitBuilders.TimingBuilder timingBuilder = new HitBuilders.TimingBuilder();
 		timingBuilder.setCategory(category);
 		timingBuilder.setVariable(variable);

@@ -22,12 +22,15 @@ import com.google.api.services.androidpublisher.AndroidPublisher.Edits;
 import com.google.api.services.androidpublisher.AndroidPublisher.Edits.Apklistings;
 import com.google.api.services.androidpublisher.AndroidPublisher.Edits.Apks.Upload;
 import com.google.api.services.androidpublisher.AndroidPublisher.Edits.Commit;
+import com.google.api.services.androidpublisher.AndroidPublisher.Edits.Images;
+import com.google.api.services.androidpublisher.AndroidPublisher.Edits.Images.Deleteall;
 import com.google.api.services.androidpublisher.AndroidPublisher.Edits.Insert;
 import com.google.api.services.androidpublisher.AndroidPublisherScopes;
 import com.google.api.services.androidpublisher.model.Apk;
 import com.google.api.services.androidpublisher.model.ApkListing;
 import com.google.api.services.androidpublisher.model.ApksListResponse;
 import com.google.api.services.androidpublisher.model.AppEdit;
+import com.google.api.services.androidpublisher.model.ImagesUploadResponse;
 import com.google.api.services.androidpublisher.model.Listing;
 import com.google.api.services.androidpublisher.model.Track;
 import com.jdroid.java.exception.UnexpectedException;
@@ -143,11 +146,60 @@ public class GooglePlayPublisher {
 				listing.setFullDescription(each.getFullDescription());
 				listing.setShortDescription(each.getShortDescription());
 				
-				Edits.Listings.Update updateUSListingsRequest = edits.listings().update(appContext.getPackageName(),
+				Edits.Listings.Update updateListingsRequest = edits.listings().update(appContext.getPackageName(),
 					editId, each.getLocale().toString(), listing);
-				Listing updatedListing = updateUSListingsRequest.execute();
+				Listing updatedListing = updateListingsRequest.execute();
 				log.info(String.format("Created new " + each.getLocale().toString() + " app listing with title: %s",
 					updatedListing.getTitle()));
+				
+				// Update images
+				Images.Upload uploadImageRequest = edits.images().upload(appContext.getPackageName(), editId,
+					each.getLocale().toString(), ImageType.FEATURE_GRAPHIC.getKey(), each.getFeatureGraphic());
+				ImagesUploadResponse response = uploadImageRequest.execute();
+				log.info(String.format("Feature graphic %s has been updated.", response.getImage()));
+				
+				uploadImageRequest = edits.images().upload(appContext.getPackageName(), editId,
+					each.getLocale().toString(), ImageType.PROMO_GRAPHIC.getKey(), each.getPromoGraphic());
+				response = uploadImageRequest.execute();
+				log.info(String.format("Promo graphic %s has been updated.", response.getImage()));
+				
+				uploadImageRequest = edits.images().upload(appContext.getPackageName(), editId,
+					each.getLocale().toString(), ImageType.ICON.getKey(), each.getHighResolutionIcon());
+				response = uploadImageRequest.execute();
+				log.info(String.format("High resolution icon %s has been updated.", response.getImage()));
+				
+				Deleteall deleteallRequest = edits.images().deleteall(appContext.getPackageName(), editId,
+					each.getLocale().toString(), ImageType.PHONE_SCREENSHOTS.getKey());
+				deleteallRequest.execute();
+				log.info(String.format("Phone screenshots has been deleted."));
+				for (AbstractInputStreamContent content : each.getSevenInchScreenshots()) {
+					uploadImageRequest = edits.images().upload(appContext.getPackageName(), editId,
+						each.getLocale().toString(), ImageType.PHONE_SCREENSHOTS.getKey(), content);
+					response = uploadImageRequest.execute();
+					log.info(String.format("Phone screenshot %s has been updated.", response.getImage()));
+				}
+				
+				deleteallRequest = edits.images().deleteall(appContext.getPackageName(), editId,
+					each.getLocale().toString(), ImageType.SEVEN_INCH_SCREENSHOTS.getKey());
+				deleteallRequest.execute();
+				log.info(String.format("Seven inch screenshots has been deleted."));
+				for (AbstractInputStreamContent content : each.getSevenInchScreenshots()) {
+					uploadImageRequest = edits.images().upload(appContext.getPackageName(), editId,
+						each.getLocale().toString(), ImageType.SEVEN_INCH_SCREENSHOTS.getKey(), content);
+					response = uploadImageRequest.execute();
+					log.info(String.format("Seven inch screenshot %s has been updated.", response.getImage()));
+				}
+				
+				deleteallRequest = edits.images().deleteall(appContext.getPackageName(), editId,
+					each.getLocale().toString(), ImageType.TEN_INCH_SCREENSHOTS.getKey());
+				deleteallRequest.execute();
+				log.info(String.format("Ten inch screenshots has been deleted."));
+				for (AbstractInputStreamContent content : each.getSevenInchScreenshots()) {
+					uploadImageRequest = edits.images().upload(appContext.getPackageName(), editId,
+						each.getLocale().toString(), ImageType.TEN_INCH_SCREENSHOTS.getKey(), content);
+					response = uploadImageRequest.execute();
+					log.info(String.format("Ten inch screenshot %s has been updated.", response.getImage()));
+				}
 			}
 			
 			commitEdit(appContext, edits, editId);
@@ -182,12 +234,12 @@ public class GooglePlayPublisher {
 			List<Integer> apkVersionCodes = new ArrayList<>();
 			apkVersionCodes.add(apk.getVersionCode());
 			Edits.Tracks.Update updateTrackRequest = edits.tracks().update(appContext.getPackageName(), editId,
-				trackType.getName(), new Track().setVersionCodes(apkVersionCodes));
+				trackType.getKey(), new Track().setVersionCodes(apkVersionCodes));
 			Track updatedTrack = updateTrackRequest.execute();
 			log.info(String.format("Track %s has been updated.", updatedTrack.getTrack()));
 			
-			// Update recent changes field in apk listing.
 			for (LocaleListing each : localeListings) {
+				// Update recent changes field in apk listing.
 				ApkListing newApkListing = new ApkListing();
 				newApkListing.setRecentChanges(each.getRecentChanges());
 				Apklistings.Update updateRecentChangesRequest = edits.apklistings().update(appContext.getPackageName(),

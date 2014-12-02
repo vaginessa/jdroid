@@ -22,6 +22,8 @@ public class AppContext {
 	
 	private String listingPath;
 	private String locales;
+	private String apkPath;
+	private TrackType trackType;
 	
 	public AppContext(String fileName) {
 		
@@ -56,6 +58,16 @@ public class AppContext {
 		if (Strings.isNullOrEmpty(locales)) {
 			throw new UnexpectedException("locales cannot be null or empty!");
 		}
+		
+		apkPath = PropertiesUtils.getStringProperty("apk.path");
+		if (Strings.isNullOrEmpty(apkPath)) {
+			throw new UnexpectedException("apkPath cannot be null or empty!");
+		}
+		
+		trackType = TrackType.findByKey(PropertiesUtils.getStringProperty("track.type"));
+		if (trackType == null) {
+			throw new UnexpectedException("trackType cannot be null or empty!");
+		}
 	}
 	
 	public String getAppName() {
@@ -80,6 +92,14 @@ public class AppContext {
 	
 	public String getLocales() {
 		return locales;
+	}
+	
+	public String getApkPath() {
+		return apkPath;
+	}
+	
+	public TrackType getTrackType() {
+		return trackType;
 	}
 	
 }

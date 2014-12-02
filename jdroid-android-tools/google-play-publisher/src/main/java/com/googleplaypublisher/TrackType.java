@@ -7,13 +7,22 @@ public enum TrackType {
 	PRODUCTION("production"),
 	ROLLOUT("rollout");
 	
-	private String name;
+	private String key;
 	
-	private TrackType(String name) {
-		this.name = name;
+	private TrackType(String key) {
+		this.key = key;
 	}
 	
-	public String getName() {
-		return name;
+	public String getKey() {
+		return key;
+	}
+	
+	public static TrackType findByKey(String key) {
+		for (TrackType each : TrackType.values()) {
+			if (each.getKey().equals(key)) {
+				return each;
+			}
+		}
+		return null;
 	}
 }

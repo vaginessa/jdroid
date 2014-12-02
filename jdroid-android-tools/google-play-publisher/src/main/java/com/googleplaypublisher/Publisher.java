@@ -24,6 +24,8 @@ public class Publisher {
 			localeListings.add(new LocaleListing(new Locale(language, country), appContext.getListingPath()));
 		}
 		GooglePlayPublisher.updateListings(appContext, localeListings);
+		// GooglePlayPublisher.updateApk(appContext, appContext.getApkPath(), appContext.getTrackType(),
+		// localeListings);
 	}
 	
 }
