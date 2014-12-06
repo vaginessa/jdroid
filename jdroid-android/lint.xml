@@ -111,6 +111,9 @@
         <ignore path="src/main/java/com/facebook/NativeAppCallContentProvider.java" />
         <ignore path="src/main/java/com/jdroid/android/exception/ExceptionReportActivity.java" />
     </issue>
+    <issue id="ResourceAsColor">
+        <ignore path="src/main/java/com/jdroid/android/utils/NotificationBuilder.java" />
+    </issue>
     <issue id="ScrollViewSize">
         <ignore path="res/layout/com_facebook_usersettingsfragment.xml" />
     </issue>

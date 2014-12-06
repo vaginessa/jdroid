@@ -29,6 +29,7 @@ public class NotificationBuilder {
 		Context context = AbstractApplication.get();
 		builder = new NotificationCompat.Builder(context);
 		builder.setAutoCancel(true);
+		setColor(R.color.accentColor);
 	}
 	
 	public Notification build() {
@@ -120,8 +121,24 @@ public class NotificationBuilder {
 		builder.setContent(remoteViews);
 	}
 	
+	public void setColor(int colorResId) {
+		builder.setColor(AbstractApplication.get().getResources().getColor(colorResId));
+	}
+	
+	public void setColor(String color) {
+		builder.setColor(Color.parseColor(color));
+	}
+	
+	public void setWhiteLight() {
+		setLight("white");
+	}
+	
 	public void setBlueLight() {
-		builder.setLights(Color.parseColor("blue"), 1000, 5000);
+		setLight("blue");
+	}
+	
+	private void setLight(String color) {
+		builder.setLights(Color.parseColor(color), 1000, 5000);
 	}
 	
 	public void setSound(int soundResId) {
@@ -136,6 +153,42 @@ public class NotificationBuilder {
 		if (notificationSound != null) {
 			builder.setSound(notificationSound);
 		}
+	}
+	
+	public void setMaxPriority() {
+		builder.setPriority(NotificationCompat.PRIORITY_MAX);
+	}
+	
+	public void setHighPriority() {
+		builder.setPriority(NotificationCompat.PRIORITY_HIGH);
+	}
+	
+	public void setLowPriority() {
+		builder.setPriority(NotificationCompat.PRIORITY_LOW);
+	}
+	
+	public void setMinPriority() {
+		builder.setPriority(NotificationCompat.PRIORITY_MIN);
+	}
+	
+	public void setCategory(String category) {
+		builder.setCategory(category);
+	}
+	
+	public void setPublicVisibility() {
+		builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+	}
+	
+	public void setPrivateVisibility() {
+		builder.setVisibility(NotificationCompat.VISIBILITY_PRIVATE);
+	}
+	
+	public void setSecretVisibility() {
+		builder.setVisibility(NotificationCompat.VISIBILITY_SECRET);
+	}
+	
+	public void addPerson(String uri) {
+		builder.addPerson(uri);
 	}
 	
 	public void setDefaultVibration() {

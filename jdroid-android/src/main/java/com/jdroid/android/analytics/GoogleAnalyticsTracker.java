@@ -62,10 +62,14 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 			}
 			tracker = analytics.newTracker(AbstractApplication.get().getAppContext().getGoogleAnalyticsTrackingId());
 			tracker.setSessionTimeout(SESSION_TIMEOUT);
-			tracker.enableAdvertisingIdCollection(true);
+			tracker.enableAdvertisingIdCollection(isAdvertisingIdCollectionEnabled());
 			
 			init(customDimensionsMap, customMetricsMap);
 		}
+	}
+	
+	protected Boolean isAdvertisingIdCollectionEnabled() {
+		return true;
 	}
 	
 	protected void init(Map<String, Integer> customDimensionsMap, Map<String, Integer> customMetricsMap) {
