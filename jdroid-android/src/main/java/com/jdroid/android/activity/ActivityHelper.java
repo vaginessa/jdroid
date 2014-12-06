@@ -186,7 +186,7 @@ public class ActivityHelper implements ActivityIf {
 				GravityCompat.START);
 			
 			User user = SecurityContext.get().getUser();
-			if (user != null) {
+			if (isNavDrawerUserHeaderVisible() && (user != null)) {
 				View navDrawerHeader = inflate(R.layout.nav_drawer_header);
 				ImageLoaderUtils.displayImage(user.getCoverPictureUrl(),
 					((ImageView)navDrawerHeader.findViewById(R.id.cover)), null, null, User.PROFILE_PICTURE_TTL);
@@ -814,6 +814,10 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	public Boolean isNavDrawerOpenedOnFirstSession() {
+		return true;
+	}
+	
+	protected Boolean isNavDrawerUserHeaderVisible() {
 		return true;
 	}
 	
