@@ -1,11 +1,11 @@
 /**
  * Copyright 2010-present Facebook
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -24,16 +24,16 @@ import android.os.Bundle;
  * the call return immediately, without blocking the calling thread. This is necessary when accessing the API in the UI
  * thread, for instance. The request response is returned to the caller via a callback interface, which the developer
  * must implement.
- * 
+ *
  * This sample implementation simply spawns a new thread for each request, and makes the API call immediately. This may
  * work in many applications, but more sophisticated users may re-implement this behavior using a thread pool, a network
  * thread, a request queue, or other mechanism. Advanced functionality could be built, such as rate-limiting of
  * requests, as per a specific application's needs.
- * 
+ *
  * @deprecated
- * 
+ *
  * @see RequestListener The callback interface.
- * 
+ *
  * @author Jim Brusstar (jimbru@fb.com), Yariv Sadan (yariv@fb.com), Luke Shepard (lshepard@fb.com)
  */
 @Deprecated
@@ -55,7 +55,7 @@ public class AsyncFacebookRunner {
 	 * affect the UI will need to be posted to the UI thread or an appropriate handler.
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link com.facebook.Session} for more info.
-	 * 
+	 *
 	 * @param context The Android context in which the logout should be called: it should be the same context in which
 	 *            the login occurred in order to clear any stored cookies
 	 * @param listener Callback interface to notify the application when the request has completed.
@@ -107,7 +107,7 @@ public class AsyncFacebookRunner {
 	 * </code>
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link com.facebook.Request} for more info.
-	 * 
+	 *
 	 * @param parameters Key-value pairs of parameters to the request. Refer to the documentation: one of the parameters
 	 *            must be "method".
 	 * @param listener Callback interface to notify the application when the request has completed.
@@ -133,7 +133,7 @@ public class AsyncFacebookRunner {
 	 * affect the UI will need to be posted to the UI thread or an appropriate handler.
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link com.facebook.Request} for more info.
-	 * 
+	 *
 	 * @param graphPath Path to resource in the Facebook graph, e.g., to fetch data about the currently logged
 	 *            authenticated user, provide "me", which will fetch http://graph.facebook.com/me
 	 * @param listener Callback interface to notify the application when the request has completed.
@@ -159,7 +159,7 @@ public class AsyncFacebookRunner {
 	 * affect the UI will need to be posted to the UI thread or an appropriate handler.
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link com.facebook.Request} for more info.
-	 * 
+	 *
 	 * @param graphPath Path to resource in the Facebook graph, e.g., to fetch data about the currently logged
 	 *            authenticated user, provide "me", which will fetch http://graph.facebook.com/me
 	 * @param parameters key-value string parameters, e.g. the path "search" with parameters "q" : "facebook" would
@@ -188,7 +188,7 @@ public class AsyncFacebookRunner {
 	 * affect the UI will need to be posted to the UI thread or an appropriate handler.
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link com.facebook.Request} for more info.
-	 * 
+	 *
 	 * @param graphPath Path to resource in the Facebook graph, e.g., to fetch data about the currently logged
 	 *            authenticated user, provide "me", which will fetch http://graph.facebook.com/me
 	 * @param parameters key-value string parameters, e.g. the path "search" with parameters {"q" : "facebook"} would
@@ -232,35 +232,35 @@ public class AsyncFacebookRunner {
 		
 		/**
 		 * Called when a request completes with the given response.
-		 * 
+		 *
 		 * Executed by a background thread: do not update the UI in this method.
 		 */
 		public void onComplete(String response, Object state);
 		
 		/**
 		 * Called when a request has a network or request error.
-		 * 
+		 *
 		 * Executed by a background thread: do not update the UI in this method.
 		 */
 		public void onIOException(IOException e, Object state);
 		
 		/**
 		 * Called when a request fails because the requested resource is invalid or does not exist.
-		 * 
+		 *
 		 * Executed by a background thread: do not update the UI in this method.
 		 */
 		public void onFileNotFoundException(FileNotFoundException e, Object state);
 		
 		/**
 		 * Called if an invalid graph path is provided (which may result in a malformed URL).
-		 * 
+		 *
 		 * Executed by a background thread: do not update the UI in this method.
 		 */
 		public void onMalformedURLException(MalformedURLException e, Object state);
 		
 		/**
 		 * Called when the server-side Facebook method fails.
-		 * 
+		 *
 		 * Executed by a background thread: do not update the UI in this method.
 		 */
 		public void onFacebookError(FacebookError e, Object state);

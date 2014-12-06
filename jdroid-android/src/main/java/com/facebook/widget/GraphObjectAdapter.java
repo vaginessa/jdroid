@@ -1,11 +1,11 @@
 /**
  * Copyright 2010-present Facebook.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -23,6 +23,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import org.json.JSONObject;
@@ -449,7 +450,7 @@ class GraphObjectAdapter<T extends GraphObject> extends BaseAdapter implements S
 		
 		// Note: these dimensions are in pixels, not dips
 		ViewGroup.LayoutParams layoutParams = picture.getLayoutParams();
-		return String.format("picture.height(%d).width(%d)", layoutParams.height, layoutParams.width);
+		return String.format(Locale.US, "picture.height(%d).width(%d)", layoutParams.height, layoutParams.width);
 	}
 	
 	private boolean shouldShowActivityCircleCell() {
@@ -649,7 +650,11 @@ class GraphObjectAdapter<T extends GraphObject> extends BaseAdapter implements S
 		if ((sectionAndItem != null) && (sectionAndItem.graphObject != null)) {
 			String id = getIdOfGraphObject(sectionAndItem.graphObject);
 			if (id != null) {
-				return Long.parseLong(id);
+				try {
+					return Long.parseLong(id);
+				} catch (NumberFormatException e) {
+					// NOOP
+				}
 			}
 		}
 		return 0;

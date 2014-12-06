@@ -1,11 +1,11 @@
 /**
  * Copyright 2010-present Facebook.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -111,7 +111,7 @@ public class ProfilePictureView extends FrameLayout {
 	
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param context Context for this View
 	 */
 	public ProfilePictureView(Context context) {
@@ -121,7 +121,7 @@ public class ProfilePictureView extends FrameLayout {
 	
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param context Context for this View
 	 * @param attrs AttributeSet for this View. The attribute 'preset_size' is processed here
 	 */
@@ -133,7 +133,7 @@ public class ProfilePictureView extends FrameLayout {
 	
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param context Context for this View
 	 * @param attrs AttributeSet for this View. The attribute 'preset_size' is processed here
 	 * @param defStyle Default style for this View
@@ -146,7 +146,7 @@ public class ProfilePictureView extends FrameLayout {
 	
 	/**
 	 * Gets the current preset size type
-	 * 
+	 *
 	 * @return The current preset size type, if set; CUSTOM if not
 	 */
 	public final int getPresetSize() {
@@ -155,7 +155,7 @@ public class ProfilePictureView extends FrameLayout {
 	
 	/**
 	 * Apply a preset size to this profile photo
-	 * 
+	 *
 	 * @param sizeType The size type to apply: SMALL, NORMAL or LARGE
 	 */
 	public final void setPresetSize(int sizeType) {
@@ -176,7 +176,7 @@ public class ProfilePictureView extends FrameLayout {
 	
 	/**
 	 * Indicates whether the cropped version of the profile photo has been chosen
-	 * 
+	 *
 	 * @return True if the cropped version is chosen, false if not.
 	 */
 	public final boolean isCropped() {
@@ -185,7 +185,7 @@ public class ProfilePictureView extends FrameLayout {
 	
 	/**
 	 * Sets the profile photo to be the cropped version, or the original version
-	 * 
+	 *
 	 * @param showCroppedVersion True to select the cropped version False to select the standard version
 	 */
 	public final void setCropped(boolean showCroppedVersion) {
@@ -196,7 +196,7 @@ public class ProfilePictureView extends FrameLayout {
 	
 	/**
 	 * Returns the profile Id for the current profile photo
-	 * 
+	 *
 	 * @return The profile Id
 	 */
 	public final String getProfileId() {
@@ -205,7 +205,7 @@ public class ProfilePictureView extends FrameLayout {
 	
 	/**
 	 * Sets the profile Id for this profile photo
-	 * 
+	 *
 	 * @param profileId The profileId NULL/Empty String will show the blank profile photo
 	 */
 	public final void setProfileId(String profileId) {
@@ -222,7 +222,7 @@ public class ProfilePictureView extends FrameLayout {
 	
 	/**
 	 * Returns the current OnErrorListener for this instance of ProfilePictureView
-	 * 
+	 *
 	 * @return The OnErrorListener
 	 */
 	public final OnErrorListener getOnErrorListener() {
@@ -231,7 +231,7 @@ public class ProfilePictureView extends FrameLayout {
 	
 	/**
 	 * Sets an OnErrorListener for this instance of ProfilePictureView to call into when certain exceptions occur.
-	 * 
+	 *
 	 * @param onErrorListener The Listener object to set
 	 */
 	public final void setOnErrorListener(OnErrorListener onErrorListener) {
@@ -241,7 +241,7 @@ public class ProfilePictureView extends FrameLayout {
 	/**
 	 * The ProfilePictureView will display the provided image while the specified profile is being loaded, or if the
 	 * specified profile is not available.
-	 * 
+	 *
 	 * @param inputBitmap The bitmap to render until the actual profile is loaded.
 	 */
 	public final void setDefaultProfilePicture(Bitmap inputBitmap) {

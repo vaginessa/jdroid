@@ -1,11 +1,11 @@
 /**
  * Copyright 2010-present Facebook.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -22,7 +22,9 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import com.facebook.internal.LikeActionController;
 import com.facebook.internal.NativeProtocol;
+import com.facebook.internal.PendingCallStore;
 import com.facebook.widget.FacebookDialog;
 
 /**
@@ -38,7 +40,7 @@ import com.facebook.widget.FacebookDialog;
 @SuppressWarnings("javadoc")
 public class UiLifecycleHelper {
 	
-	private static final String DIALOG_CALL_BUNDLE_SAVE_KEY = "com.facebook.UiLifecycleHelper.pendingFacebookDialogCallKey";
+	private static final String DIALOG_CALL_ID_SAVE_KEY = "com.facebook.UiLifecycleHelper.pendingFacebookDialogCallKey";
 	
 	private final static String ACTIVITY_NULL_MESSAGE = "activity cannot be null";
 	
@@ -47,12 +49,14 @@ public class UiLifecycleHelper {
 	private final BroadcastReceiver receiver;
 	private final LocalBroadcastManager broadcastManager;
 	// Members related to handling FacebookDialog calls
-	private FacebookDialog.PendingCall pendingFacebookDialogCall;
+	private UUID pendingFacebookDialogCallId;
+	private PendingCallStore pendingFacebookDialogCallStore;
+	
 	private AppEventsLogger appEventsLogger;
 	
 	/**
 	 * Creates a new UiLifecycleHelper.
-	 * 
+	 *
 	 * @param activity the Activity associated with the helper. If calling from a Fragment, use
 	 *            {@link android.support.v4.app.Fragment#getActivity()}
 	 * @param callback the callback for Session status changes, can be null
@@ -61,15 +65,20 @@ public class UiLifecycleHelper {
 		if (activity == null) {
 			throw new IllegalArgumentException(ACTIVITY_NULL_MESSAGE);
 		}
+		
 		this.activity = activity;
 		this.callback = callback;
 		receiver = new ActiveSessionBroadcastReceiver();
 		broadcastManager = LocalBroadcastManager.getInstance(activity);
+		pendingFacebookDialogCallStore = PendingCallStore.getInstance();
+		
+		// initialize SDK
+		Settings.sdkInitialize(activity);
 	}
 	
 	/**
 	 * To be called from an Activity or Fragment's onCreate method.
-	 * 
+	 *
 	 * @param savedInstanceState the previously saved state
 	 */
 	public void onCreate(Bundle savedInstanceState) {
@@ -84,7 +93,11 @@ public class UiLifecycleHelper {
 			Session.setActiveSession(session);
 		}
 		if (savedInstanceState != null) {
-			pendingFacebookDialogCall = savedInstanceState.getParcelable(DIALOG_CALL_BUNDLE_SAVE_KEY);
+			String callIdString = savedInstanceState.getString(DIALOG_CALL_ID_SAVE_KEY);
+			if (callIdString != null) {
+				pendingFacebookDialogCallId = UUID.fromString(callIdString);
+			}
+			pendingFacebookDialogCallStore.restoreFromSavedInstanceState(savedInstanceState);
 		}
 	}
 	
@@ -114,7 +127,7 @@ public class UiLifecycleHelper {
 	
 	/**
 	 * To be called from an Activity or Fragment's onActivityResult method.
-	 * 
+	 *
 	 * @param requestCode the request code
 	 * @param resultCode the result code
 	 * @param data the result data
@@ -126,11 +139,11 @@ public class UiLifecycleHelper {
 	/**
 	 * To be called from an Activity or Fragment's onActivityResult method, when the results of a FacebookDialog call
 	 * are expected.
-	 * 
+	 *
 	 * @param requestCode the request code
 	 * @param resultCode the result code
 	 * @param data the result data
-	 * @param dialogCallback the callback for handling FacebookDialog results, can be null
+	 * @param facebookDialogCallback the callback for handling FacebookDialog results, can be null
 	 */
 	public void onActivityResult(int requestCode, int resultCode, Intent data,
 			FacebookDialog.Callback facebookDialogCallback) {
@@ -139,17 +152,24 @@ public class UiLifecycleHelper {
 			session.onActivityResult(activity, requestCode, resultCode, data);
 		}
 		
+		if (LikeActionController.handleOnActivityResult(activity, requestCode, resultCode, data)) {
+			return;
+		}
+		
 		handleFacebookDialogActivityResult(requestCode, resultCode, data, facebookDialogCallback);
 	}
 	
 	/**
 	 * To be called from an Activity or Fragment's onSaveInstanceState method.
-	 * 
+	 *
 	 * @param outState the bundle to save state in
 	 */
 	public void onSaveInstanceState(Bundle outState) {
 		Session.saveSession(Session.getActiveSession(), outState);
-		outState.putParcelable(DIALOG_CALL_BUNDLE_SAVE_KEY, pendingFacebookDialogCall);
+		if (pendingFacebookDialogCallId != null) {
+			outState.putString(DIALOG_CALL_ID_SAVE_KEY, pendingFacebookDialogCallId.toString());
+		}
+		pendingFacebookDialogCallStore.saveInstanceState(outState);
 	}
 	
 	/**
@@ -189,12 +209,15 @@ public class UiLifecycleHelper {
 	 * @param appCall an PendingCall object containing the call ID
 	 */
 	public void trackPendingDialogCall(FacebookDialog.PendingCall pendingCall) {
-		if (pendingFacebookDialogCall != null) {
+		if (pendingFacebookDialogCallId != null) {
 			// If one is already pending, cancel it; we don't allow multiple pending calls.
 			Log.i("Facebook", "Tracking new app call while one is still pending; canceling pending call.");
 			cancelPendingAppCall(null);
 		}
-		pendingFacebookDialogCall = pendingCall;
+		if (pendingCall != null) {
+			pendingFacebookDialogCallId = pendingCall.getCallId();
+			pendingFacebookDialogCallStore.trackPendingCall(pendingCall);
+		}
 	}
 	
 	/**
@@ -202,10 +225,10 @@ public class UiLifecycleHelper {
 	 * may be returned if the current Session changes, so this value should not be cached for long periods of time --
 	 * always call getAppEventsLogger to get the right logger for the current Session. If no Session is currently
 	 * available, this method will return null.
-	 * 
+	 *
 	 * To ensure delivery of app events across Activity lifecycle events, calling Activities should be sure to call the
 	 * onStop method.
-	 * 
+	 *
 	 * @return an AppEventsLogger to use for logging app events
 	 */
 	public AppEventsLogger getAppEventsLogger() {
@@ -250,7 +273,11 @@ public class UiLifecycleHelper {
 	
 	private boolean handleFacebookDialogActivityResult(int requestCode, int resultCode, Intent data,
 			FacebookDialog.Callback facebookDialogCallback) {
-		if ((pendingFacebookDialogCall == null) || (pendingFacebookDialogCall.getRequestCode() != requestCode)) {
+		if (pendingFacebookDialogCallId == null) {
+			return false;
+		}
+		FacebookDialog.PendingCall pendingCall = pendingFacebookDialogCallStore.getPendingCallById(pendingFacebookDialogCallId);
+		if ((pendingCall == null) || (pendingCall.getRequestCode() != requestCode)) {
 			return false;
 		}
 		
@@ -261,33 +288,34 @@ public class UiLifecycleHelper {
 			return true;
 		}
 		
-		String callIdString = data.getStringExtra(NativeProtocol.EXTRA_PROTOCOL_CALL_ID);
-		UUID callId = null;
-		if (callIdString != null) {
-			try {
-				callId = UUID.fromString(callIdString);
-			} catch (IllegalArgumentException exception) {
-			}
-		}
+		UUID callId = NativeProtocol.getCallIdFromIntent(data);
 		
 		// Was this result for the call we are waiting on?
-		if ((callId != null) && pendingFacebookDialogCall.getCallId().equals(callId)) {
+		if ((callId != null) && pendingFacebookDialogCallId.equals(callId)) {
 			// Yes, we can handle it normally.
-			FacebookDialog.handleActivityResult(activity, pendingFacebookDialogCall, requestCode, data,
-				facebookDialogCallback);
+			FacebookDialog.handleActivityResult(activity, pendingCall, requestCode, data, facebookDialogCallback);
 		} else {
 			// No, send a cancellation error to the pending call and ignore the result, because we
 			// don't know what to do with it.
 			cancelPendingAppCall(facebookDialogCallback);
 		}
 		
-		pendingFacebookDialogCall = null;
+		stopTrackingPendingAppCall();
 		return true;
 	}
 	
 	private void cancelPendingAppCall(FacebookDialog.Callback facebookDialogCallback) {
+		if (pendingFacebookDialogCallId == null) {
+			return;
+		}
+		
+		FacebookDialog.PendingCall pendingCall = pendingFacebookDialogCallStore.getPendingCallById(pendingFacebookDialogCallId);
+		if (pendingCall == null) {
+			return;
+		}
+		
 		if (facebookDialogCallback != null) {
-			Intent pendingIntent = pendingFacebookDialogCall.getRequestIntent();
+			Intent pendingIntent = pendingCall.getRequestIntent();
 			
 			Intent cancelIntent = new Intent();
 			cancelIntent.putExtra(NativeProtocol.EXTRA_PROTOCOL_CALL_ID,
@@ -298,9 +326,15 @@ public class UiLifecycleHelper {
 				pendingIntent.getIntExtra(NativeProtocol.EXTRA_PROTOCOL_VERSION, 0));
 			cancelIntent.putExtra(NativeProtocol.STATUS_ERROR_TYPE, NativeProtocol.ERROR_UNKNOWN_ERROR);
 			
-			FacebookDialog.handleActivityResult(activity, pendingFacebookDialogCall,
-				pendingFacebookDialogCall.getRequestCode(), cancelIntent, facebookDialogCallback);
+			FacebookDialog.handleActivityResult(activity, pendingCall, pendingCall.getRequestCode(), cancelIntent,
+				facebookDialogCallback);
 		}
-		pendingFacebookDialogCall = null;
+		
+		stopTrackingPendingAppCall();
+	}
+	
+	private void stopTrackingPendingAppCall() {
+		pendingFacebookDialogCallStore.stopTrackingPendingCall(pendingFacebookDialogCallId);
+		pendingFacebookDialogCallId = null;
 	}
 }

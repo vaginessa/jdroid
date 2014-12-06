@@ -16,6 +16,7 @@
 	<classpathentry exported="true" kind="var" path="M2_REPO/org/slf4j/slf4j-android/1.6.1-RC1/slf4j-android-1.6.1-RC1.jar" sourcepath="M2_REPO/org/slf4j/slf4j-android/1.6.1-RC1/slf4j-android-1.6.1-RC1-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/com/crashlytics/android/crashlytics/1.1.13/crashlytics-1.1.13.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/com/nostra13/universalimageloader/universal-image-loader/1.9.2/universal-image-loader-1.9.2.jar" sourcepath="/M2_REPO/com/nostra13/universalimageloader/universal-image-loader/1.9.2/universal-image-loader-1.9.2-sources.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/com/parse/bolts/bolts-android/1.1.2/bolts-android-1.1.2.jar" sourcepath="M2_REPO/com/parse/bolts/bolts-android/1.1.2/bolts-android-1.1.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/pivotallabs/robolectric/1.2/robolectric-1.2-jar-with-dependencies.jar"/>
 	<classpathentry kind="var" path="M2_REPO/junit/junit/4.8.2/junit-4.8.2.jar"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>

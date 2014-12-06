@@ -1,11 +1,11 @@
 /**
  * Copyright 2010-present Facebook.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -36,6 +36,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,9 +51,11 @@ import android.os.Parcel;
 import android.os.ParcelFileDescriptor;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Pair;
 import com.facebook.internal.AttributionIdentifiers;
 import com.facebook.internal.Logger;
+import com.facebook.internal.NativeProtocol;
 import com.facebook.internal.ServerProtocol;
 import com.facebook.internal.Utility;
 import com.facebook.internal.Validate;
@@ -64,22 +68,20 @@ import com.facebook.model.OpenGraphAction;
 import com.facebook.model.OpenGraphObject;
 
 /**
- * A single request to be sent to the Facebook Platform through either the <a
- * href="https://developers.facebook.com/docs/reference/api/">Graph API</a> or <a
- * href="https://developers.facebook.com/docs/reference/rest/">REST API</a>. The Request class provides functionality
+ * A single request to be sent to the Facebook Platform through the <a
+ * href="https://developers.facebook.com/docs/reference/api/">Graph API</a>. The Request class provides functionality
  * relating to serializing and deserializing requests and responses, making calls in batches (with a single round-trip
  * to the service) and making calls asynchronously.
- * 
- * The particular service endpoint that a request targets is determined by either a graph path (see the
- * {@link #setGraphPath(String) setGraphPath} method) or a REST method name (see the {@link #setRestMethod(String)
- * setRestMethod} method); a single request may not target both.
- * 
+ *
+ * The particular service endpoint that a request targets is determined by a graph path (see the
+ * {@link #setGraphPath(String) setGraphPath} method).
+ *
  * A Request can be executed either anonymously or representing an authenticated user. In the former case, no Session
  * needs to be specified, while in the latter, a Session that is in an opened state must be provided. If requests are
  * executed in a batch, a Facebook application ID must be associated with the batch, either by supplying a Session for
  * at least one of the requests in the batch (the first one found in the batch will be used) or by calling the
  * {@link #setDefaultBatchApplicationId(String) setDefaultBatchApplicationId} method.
- * 
+ *
  * After completion of a request, its Session, if any, will be checked to determine if its Facebook access token needs
  * to be extended; if so, a request to extend it will be issued in the background.
  */
@@ -91,6 +93,8 @@ public class Request {
 	 * side by the Facebook platform, not by the Request class.
 	 */
 	public static final int MAXIMUM_BATCH_SIZE = 50;
+	
+	public static final String TAG = Request.class.getSimpleName();
 	
 	private static final String ME = "me";
 	private static final String MY_FRIENDS = "me/friends";
@@ -106,6 +110,7 @@ public class Request {
 	private static final String USER_AGENT_BASE = "FBAndroidSDK";
 	private static final String USER_AGENT_HEADER = "User-Agent";
 	private static final String CONTENT_TYPE_HEADER = "Content-Type";
+	private static final String ACCEPT_LANGUAGE_HEADER = "Accept-Language";
 	
 	// Parameter names/values
 	private static final String PICTURE_PARAM = "picture";
@@ -124,7 +129,6 @@ public class Request {
 	private static final String BATCH_PARAM = "batch";
 	private static final String ATTACHMENT_FILENAME_PREFIX = "file";
 	private static final String ATTACHED_FILES_PARAM = "attached_files";
-	private static final String MIGRATION_BUNDLE_PARAM = "migration_bundle";
 	private static final String ISO_8601_FORMAT_STRING = "yyyy-MM-dd'T'HH:mm:ssZ";
 	private static final String STAGING_PARAM = "file";
 	private static final String OBJECT_PARAM = "object";
@@ -133,11 +137,13 @@ public class Request {
 	
 	private static String defaultBatchApplicationId;
 	
+	// Group 1 in the pattern is the path without the version info
+	private static Pattern versionPattern = Pattern.compile("^/?v\\d+\\.\\d+/(.*)");
+	
 	private Session session;
 	private HttpMethod httpMethod;
 	private String graphPath;
 	private GraphObject graphObject;
-	private String restMethod;
 	private String batchEntryName;
 	private String batchEntryDependsOn;
 	private boolean batchEntryOmitResultOnSuccess = true;
@@ -145,6 +151,8 @@ public class Request {
 	private Callback callback;
 	private String overriddenURL;
 	private Object tag;
+	private String version;
+	private boolean skipClientToken = false;
 	
 	/**
 	 * Constructs a request without a session, graph path, or any other parameters.
@@ -158,7 +166,7 @@ public class Request {
 	 * case the request is sent without an access token and thus is not executed in the context of any particular user.
 	 * Only certain graph requests can be expected to succeed in this case. If a Session is provided, it must be in an
 	 * opened state or the request will fail.
-	 * 
+	 *
 	 * @param session the Session to use, or null
 	 * @param graphPath the graph path to retrieve
 	 */
@@ -171,9 +179,9 @@ public class Request {
 	 * provided, in which case the request is sent without an access token and thus is not executed in the context of
 	 * any particular user. Only certain graph requests can be expected to succeed in this case. If a Session is
 	 * provided, it must be in an opened state or the request will fail.
-	 * 
+	 *
 	 * Depending on the httpMethod parameter, the object at the graph path may be retrieved, created, or deleted.
-	 * 
+	 *
 	 * @param session the Session to use, or null
 	 * @param graphPath the graph path to retrieve, create, or delete
 	 * @param parameters additional parameters to pass along with the Graph API request; parameters must be Strings,
@@ -189,9 +197,9 @@ public class Request {
 	 * provided, in which case the request is sent without an access token and thus is not executed in the context of
 	 * any particular user. Only certain graph requests can be expected to succeed in this case. If a Session is
 	 * provided, it must be in an opened state or the request will fail.
-	 * 
+	 *
 	 * Depending on the httpMethod parameter, the object at the graph path may be retrieved, created, or deleted.
-	 * 
+	 *
 	 * @param session the Session to use, or null
 	 * @param graphPath the graph path to retrieve, create, or delete
 	 * @param parameters additional parameters to pass along with the Graph API request; parameters must be Strings,
@@ -201,9 +209,32 @@ public class Request {
 	 *            conditions
 	 */
 	public Request(Session session, String graphPath, Bundle parameters, HttpMethod httpMethod, Callback callback) {
+		this(session, graphPath, parameters, httpMethod, callback, null);
+	}
+	
+	/**
+	 * Constructs a request with a specific Session, graph path, parameters, and HTTP method. A Session need not be
+	 * provided, in which case the request is sent without an access token and thus is not executed in the context of
+	 * any particular user. Only certain graph requests can be expected to succeed in this case. If a Session is
+	 * provided, it must be in an opened state or the request will fail.
+	 *
+	 * Depending on the httpMethod parameter, the object at the graph path may be retrieved, created, or deleted.
+	 *
+	 * @param session the Session to use, or null
+	 * @param graphPath the graph path to retrieve, create, or delete
+	 * @param parameters additional parameters to pass along with the Graph API request; parameters must be Strings,
+	 *            Numbers, Bitmaps, Dates, or Byte arrays.
+	 * @param httpMethod the {@link HttpMethod} to use for the request, or null for default (HttpMethod.GET)
+	 * @param callback a callback that will be called when the request is completed to handle success or error
+	 *            conditions
+	 * @param version the version of the Graph API
+	 */
+	public Request(Session session, String graphPath, Bundle parameters, HttpMethod httpMethod, Callback callback,
+			String version) {
 		this.session = session;
 		this.graphPath = graphPath;
 		this.callback = callback;
+		this.version = version;
 		
 		setHttpMethod(httpMethod);
 		
@@ -213,8 +244,8 @@ public class Request {
 			this.parameters = new Bundle();
 		}
 		
-		if (!this.parameters.containsKey(MIGRATION_BUNDLE_PARAM)) {
-			this.parameters.putString(MIGRATION_BUNDLE_PARAM, FacebookSdkVersion.MIGRATION_BUNDLE);
+		if (this.version == null) {
+			this.version = ServerProtocol.getAPIVersion();
 		}
 	}
 	
@@ -230,7 +261,7 @@ public class Request {
 	/**
 	 * Creates a new Request configured to post a GraphObject to a particular graph path, to either create or update the
 	 * object at that path.
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param graphPath the graph path to retrieve, create, or delete
 	 * @param graphObject the GraphObject to create or update
@@ -245,24 +276,8 @@ public class Request {
 	}
 	
 	/**
-	 * Creates a new Request configured to make a call to the Facebook REST API.
-	 * 
-	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
-	 * @param restMethod the method in the Facebook REST API to execute
-	 * @param parameters additional parameters to pass along with the Graph API request; parameters must be Strings,
-	 *            Numbers, Bitmaps, Dates, or Byte arrays.
-	 * @param httpMethod the HTTP method to use for the request; must be one of GET, POST, or DELETE
-	 * @return a Request that is ready to execute
-	 */
-	public static Request newRestRequest(Session session, String restMethod, Bundle parameters, HttpMethod httpMethod) {
-		Request request = new Request(session, null, parameters, httpMethod);
-		request.setRestMethod(restMethod);
-		return request;
-	}
-	
-	/**
 	 * Creates a new Request configured to retrieve a user's own profile.
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param callback a callback that will be called when the request is completed to handle success or error
 	 *            conditions
@@ -283,7 +298,7 @@ public class Request {
 	
 	/**
 	 * Creates a new Request configured to retrieve a user's friend list.
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param callback a callback that will be called when the request is completed to handle success or error
 	 *            conditions
@@ -304,7 +319,7 @@ public class Request {
 	
 	/**
 	 * Creates a new Request configured to upload a photo to the user's default photo album.
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param image the image to upload
 	 * @param callback a callback that will be called when the request is completed to handle success or error
@@ -321,7 +336,7 @@ public class Request {
 	/**
 	 * Creates a new Request configured to upload a photo to the user's default photo album. The photo will be read from
 	 * the specified stream.
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param file the file containing the photo to upload
 	 * @param callback a callback that will be called when the request is completed to handle success or error
@@ -341,7 +356,7 @@ public class Request {
 	/**
 	 * Creates a new Request configured to upload a photo to the user's default photo album. The photo will be read from
 	 * the specified file descriptor.
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param file the file to upload
 	 * @param callback a callback that will be called when the request is completed to handle success or error
@@ -360,7 +375,7 @@ public class Request {
 	
 	/**
 	 * Creates a new Request configured to retrieve a particular graph path.
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param graphPath the graph path to retrieve
 	 * @param callback a callback that will be called when the request is completed to handle success or error
@@ -374,7 +389,7 @@ public class Request {
 	/**
 	 * Creates a new Request that is configured to perform a search for places near a specified location via the Graph
 	 * API. At least one of location or searchText must be specified.
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param location the location around which to search; only the latitude and longitude components of the location
 	 *            are meaningful
@@ -385,7 +400,7 @@ public class Request {
 	 * @param callback a callback that will be called when the request is completed to handle success or error
 	 *            conditions
 	 * @return a Request that is ready to execute
-	 * 
+	 *
 	 * @throws FacebookException If neither location nor searchText is specified
 	 */
 	public static Request newPlacesSearchRequest(Session session, Location location, int radiusInMeters,
@@ -421,7 +436,7 @@ public class Request {
 	
 	/**
 	 * Creates a new Request configured to post a status update to a user's feed.
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param message the text of the status update
 	 * @param callback a callback that will be called when the request is completed to handle success or error
@@ -434,7 +449,7 @@ public class Request {
 	
 	/**
 	 * Creates a new Request configured to post a status update to a user's feed.
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param message the text of the status update
 	 * @param placeId an optional place id to associate with the post
@@ -463,7 +478,7 @@ public class Request {
 	
 	/**
 	 * Creates a new Request configured to post a status update to a user's feed.
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param message the text of the status update
 	 * @param place an optional place to associate with the post
@@ -501,8 +516,8 @@ public class Request {
 	 * activeSession; otherwise the ID will represent the user logged into the native Facebook app on the device. A
 	 * `null` ID will be provided into the callback if a) there is no native Facebook app, b) no one is logged into it,
 	 * or c) the app has previously called {@link Settings#setLimitEventAndDataUsage(android.content.Context, boolean)}
-	 * with `true` for this user.
-	 * 
+	 * with `true` for this user. <b>You must call this method from a background thread for it to work properly.</b>
+	 *
 	 * @param session the Session to issue the Request on, or null; if non-null, the session must be in an opened state.
 	 *            If there is no logged-in Facebook user, null is the expected choice.
 	 * @param context the Application context from which the app ID will be pulled, and from which the 'attribution ID'
@@ -531,8 +546,8 @@ public class Request {
 	 * activeSession; otherwise the ID will represent the user logged into the native Facebook app on the device. A
 	 * `null` ID will be provided into the callback if a) there is no native Facebook app, b) no one is logged into it,
 	 * or c) the app has previously called {@link Settings#setLimitEventAndDataUsage(android.content.Context, boolean)}
-	 * ;} with `true` for this user.
-	 * 
+	 * ;} with `true` for this user. <b>You must call this method from a background thread for it to work properly.</b>
+	 *
 	 * @param session the Session to issue the Request on, or null; if non-null, the session must be in an opened state.
 	 *            If there is no logged-in Facebook user, null is the expected choice.
 	 * @param context the Application context from which the app ID will be pulled, and from which the 'attribution ID'
@@ -596,7 +611,7 @@ public class Request {
 	 * post binary data such as images, in preparation for a post of an Open Graph object or action which references the
 	 * image. The URI returned when uploading a staging resource may be passed as the image property for an Open Graph
 	 * object or action.
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param image the image to upload
 	 * @param callback a callback that will be called when the request is completed to handle success or error
@@ -615,7 +630,7 @@ public class Request {
 	 * post binary data such as images, in preparation for a post of an Open Graph object or action which references the
 	 * image. The URI returned when uploading a staging resource may be passed as the image property for an Open Graph
 	 * object or action.
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param file the file containing the image to upload
 	 * @param callback a callback that will be called when the request is completed to handle success or error
@@ -636,7 +651,7 @@ public class Request {
 	
 	/**
 	 * Creates a new Request configured to create a user owned Open Graph object.
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param openGraphObject the Open Graph object to create; must not be null, and must have a non-empty type and
 	 *            title
@@ -664,7 +679,7 @@ public class Request {
 	
 	/**
 	 * Creates a new Request configured to create a user owned Open Graph object.
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param type the fully-specified Open Graph object type (e.g., my_app_namespace:my_object_name); must not be null
 	 * @param title the title of the Open Graph object; must not be null
@@ -689,7 +704,7 @@ public class Request {
 	
 	/**
 	 * Creates a new Request configured to publish an Open Graph action.
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param openGraphAction the Open Graph object to create; must not be null, and must have a non-empty 'type'
 	 * @param callback a callback that will be called when the request is completed to handle success or error
@@ -711,7 +726,7 @@ public class Request {
 	
 	/**
 	 * Creates a new Request configured to delete a resource through the Graph API.
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param id the id of the object to delete
 	 * @param callback a callback that will be called when the request is completed to handle success or error
@@ -724,7 +739,7 @@ public class Request {
 	
 	/**
 	 * Creates a new Request configured to update a user owned Open Graph object.
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param openGraphObject the Open Graph object to update, which must have a valid 'id' property
 	 * @param callback a callback that will be called when the request is completed to handle success or error
@@ -749,7 +764,7 @@ public class Request {
 	
 	/**
 	 * Creates a new Request configured to update a user owned Open Graph object.
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param id the id of the Open Graph object
 	 * @param title the title of the Open Graph object
@@ -773,7 +788,7 @@ public class Request {
 	
 	/**
 	 * Returns the GraphObject, if any, associated with this request.
-	 * 
+	 *
 	 * @return the GraphObject associated with this requeset, or null if there is none
 	 */
 	public final GraphObject getGraphObject() {
@@ -782,7 +797,7 @@ public class Request {
 	
 	/**
 	 * Sets the GraphObject associated with this request. This is meaningful only for POST requests.
-	 * 
+	 *
 	 * @param graphObject the GraphObject to upload along with this request
 	 */
 	public final void setGraphObject(GraphObject graphObject) {
@@ -791,7 +806,7 @@ public class Request {
 	
 	/**
 	 * Returns the graph path of this request, if any.
-	 * 
+	 *
 	 * @return the graph path of this request, or null if there is none
 	 */
 	public final String getGraphPath() {
@@ -799,8 +814,8 @@ public class Request {
 	}
 	
 	/**
-	 * Sets the graph path of this request. A graph path may not be set if a REST method has been specified.
-	 * 
+	 * Sets the graph path of this request.
+	 *
 	 * @param graphPath the graph path for this request
 	 */
 	public final void setGraphPath(String graphPath) {
@@ -809,7 +824,7 @@ public class Request {
 	
 	/**
 	 * Returns the {@link HttpMethod} to use for this request.
-	 * 
+	 *
 	 * @return the HttpMethod
 	 */
 	public final HttpMethod getHttpMethod() {
@@ -818,7 +833,7 @@ public class Request {
 	
 	/**
 	 * Sets the {@link HttpMethod} to use for this request.
-	 * 
+	 *
 	 * @param httpMethod the HttpMethod, or null for the default (HttpMethod.GET).
 	 */
 	public final void setHttpMethod(HttpMethod httpMethod) {
@@ -829,8 +844,35 @@ public class Request {
 	}
 	
 	/**
+	 * Returns the version of the API that this request will use. By default this is the current API at the time the SDK
+	 * is released.
+	 *
+	 * @return the version that this request will use
+	 */
+	public final String getVersion() {
+		return version;
+	}
+	
+	/**
+	 * Set the version to use for this request. By default the version will be the current API at the time the SDK is
+	 * released. Only use this if you need to explicitly override.
+	 *
+	 * @param version The version to use. Should look like "v2.0"
+	 */
+	public final void setVersion(String version) {
+		this.version = version;
+	}
+	
+	/**
+	 * This is an internal function that is not meant to be used by developers.
+	 */
+	public final void setSkipClientToken(boolean skipClientToken) {
+		this.skipClientToken = skipClientToken;
+	}
+	
+	/**
 	 * Returns the parameters for this request.
-	 * 
+	 *
 	 * @return the parameters
 	 */
 	public final Bundle getParameters() {
@@ -839,7 +881,7 @@ public class Request {
 	
 	/**
 	 * Sets the parameters for this request.
-	 * 
+	 *
 	 * @param parameters the parameters
 	 */
 	public final void setParameters(Bundle parameters) {
@@ -847,26 +889,8 @@ public class Request {
 	}
 	
 	/**
-	 * Returns the REST method to call for this request.
-	 * 
-	 * @return the REST method
-	 */
-	public final String getRestMethod() {
-		return restMethod;
-	}
-	
-	/**
-	 * Sets the REST method to call for this request. A REST method may not be set if a graph path has been specified.
-	 * 
-	 * @param restMethod the REST method to call
-	 */
-	public final void setRestMethod(String restMethod) {
-		this.restMethod = restMethod;
-	}
-	
-	/**
 	 * Returns the Session associated with this request.
-	 * 
+	 *
 	 * @return the Session associated with this request, or null if none has been specified
 	 */
 	public final Session getSession() {
@@ -876,7 +900,7 @@ public class Request {
 	/**
 	 * Sets the Session to use for this request. The Session does not need to be opened at the time it is specified, but
 	 * it must be opened by the time the request is executed.
-	 * 
+	 *
 	 * @param session the Session to use for this request
 	 */
 	public final void setSession(Session session) {
@@ -885,7 +909,7 @@ public class Request {
 	
 	/**
 	 * Returns the name of this request's entry in a batched request.
-	 * 
+	 *
 	 * @return the name of this request's batch entry, or null if none has been specified
 	 */
 	public final String getBatchEntryName() {
@@ -897,7 +921,7 @@ public class Request {
 	 * as part of a batched request. It can be used to specified dependencies between requests. See <a
 	 * href="https://developers.facebook.com/docs/reference/api/batch/">Batch Requests</a> in the Graph API
 	 * documentation for more details.
-	 * 
+	 *
 	 * @param batchEntryName the name of this request's entry in a batched request, which must be unique within a
 	 *            particular batch of requests
 	 */
@@ -907,7 +931,7 @@ public class Request {
 	
 	/**
 	 * Returns the name of the request that this request entry explicitly depends on in a batched request.
-	 * 
+	 *
 	 * @return the name of this request's dependency, or null if none has been specified
 	 */
 	public final String getBatchEntryDependsOn() {
@@ -919,7 +943,7 @@ public class Request {
 	 * only used if this request is submitted as part of a batched request. It can be used to specified dependencies
 	 * between requests. See <a href="https://developers.facebook.com/docs/reference/api/batch/">Batch Requests</a> in
 	 * the Graph API documentation for more details.
-	 * 
+	 *
 	 * @param batchEntryDependsOn the name of the request entry that this entry depends on in a batched request
 	 */
 	public final void setBatchEntryDependsOn(String batchEntryDependsOn) {
@@ -929,7 +953,7 @@ public class Request {
 	/**
 	 * Returns whether or not this batch entry will return a response if it is successful. Only applies if another
 	 * request entry in the batch specifies this entry as a dependency.
-	 * 
+	 *
 	 * @return the name of this request's dependency, or null if none has been specified
 	 */
 	public final boolean getBatchEntryOmitResultOnSuccess() {
@@ -941,7 +965,7 @@ public class Request {
 	 * entry in the batch specifies this entry as a dependency. See <a
 	 * href="https://developers.facebook.com/docs/reference/api/batch/">Batch Requests</a> in the Graph API
 	 * documentation for more details.
-	 * 
+	 *
 	 * @param batchEntryOmitResultOnSuccess the name of the request entry that this entry depends on in a batched
 	 *            request
 	 */
@@ -953,7 +977,7 @@ public class Request {
 	 * Gets the default Facebook application ID that will be used to submit batched requests if none of those requests
 	 * specifies a Session. Batched requests require an application ID, so either at least one request in a batch must
 	 * specify a Session or the application ID must be specified explicitly.
-	 * 
+	 *
 	 * @return the Facebook application ID to use for batched requests if none can be determined
 	 */
 	public static final String getDefaultBatchApplicationId() {
@@ -964,7 +988,7 @@ public class Request {
 	 * Sets the default application ID that will be used to submit batched requests if none of those requests specifies
 	 * a Session. Batched requests require an application ID, so either at least one request in a batch must specify a
 	 * Session or the application ID must be specified explicitly.
-	 * 
+	 *
 	 * @param applicationId the Facebook application ID to use for batched requests if none can be determined
 	 */
 	public static final void setDefaultBatchApplicationId(String applicationId) {
@@ -973,7 +997,7 @@ public class Request {
 	
 	/**
 	 * Returns the callback which will be called when the request finishes.
-	 * 
+	 *
 	 * @return the callback
 	 */
 	public final Callback getCallback() {
@@ -982,7 +1006,7 @@ public class Request {
 	
 	/**
 	 * Sets the callback which will be called when the request finishes.
-	 * 
+	 *
 	 * @param callback the callback
 	 */
 	public final void setCallback(Callback callback) {
@@ -992,7 +1016,7 @@ public class Request {
 	/**
 	 * Sets the tag on the request; this is an application-defined object that can be used to distinguish between
 	 * different requests. Its value has no effect on the execution of the request.
-	 * 
+	 *
 	 * @param tag an object to serve as a tag, or null
 	 */
 	public final void setTag(Object tag) {
@@ -1002,7 +1026,7 @@ public class Request {
 	/**
 	 * Gets the tag on the request; this is an application-defined object that can be used to distinguish between
 	 * different requests. Its value has no effect on the execution of the request.
-	 * 
+	 *
 	 * @return an object that serves as a tag, or null
 	 */
 	public final Object getTag() {
@@ -1014,9 +1038,9 @@ public class Request {
 	 * object at that path.
 	 * <p/>
 	 * This should only be called from the UI thread.
-	 * 
+	 *
 	 * This method is deprecated. Prefer to call Request.newPostRequest(...).executeAsync();
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param graphPath the graph path to retrieve, create, or delete
 	 * @param graphObject the GraphObject to create or update
@@ -1031,32 +1055,12 @@ public class Request {
 	}
 	
 	/**
-	 * Starts a new Request configured to make a call to the Facebook REST API.
-	 * <p/>
-	 * This should only be called from the UI thread.
-	 * 
-	 * This method is deprecated. Prefer to call Request.newRestRequest(...).executeAsync();
-	 * 
-	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
-	 * @param restMethod the method in the Facebook REST API to execute
-	 * @param parameters additional parameters to pass along with the Graph API request; parameters must be Strings,
-	 *            Numbers, Bitmaps, Dates, or Byte arrays.
-	 * @param httpMethod the HTTP method to use for the request; must be one of GET, POST, or DELETE
-	 * @return a RequestAsyncTask that is executing the request
-	 */
-	@Deprecated
-	public static RequestAsyncTask executeRestRequestAsync(Session session, String restMethod, Bundle parameters,
-			HttpMethod httpMethod) {
-		return newRestRequest(session, restMethod, parameters, httpMethod).executeAsync();
-	}
-	
-	/**
 	 * Starts a new Request configured to retrieve a user's own profile.
 	 * <p/>
 	 * This should only be called from the UI thread.
-	 * 
+	 *
 	 * This method is deprecated. Prefer to call Request.newMeRequest(...).executeAsync();
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param callback a callback that will be called when the request is completed to handle success or error
 	 *            conditions
@@ -1071,9 +1075,9 @@ public class Request {
 	 * Starts a new Request configured to retrieve a user's friend list.
 	 * <p/>
 	 * This should only be called from the UI thread.
-	 * 
+	 *
 	 * This method is deprecated. Prefer to call Request.newMyFriendsRequest(...).executeAsync();
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param callback a callback that will be called when the request is completed to handle success or error
 	 *            conditions
@@ -1088,9 +1092,9 @@ public class Request {
 	 * Starts a new Request configured to upload a photo to the user's default photo album.
 	 * <p/>
 	 * This should only be called from the UI thread.
-	 * 
+	 *
 	 * This method is deprecated. Prefer to call Request.newUploadPhotoRequest(...).executeAsync();
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param image the image to upload
 	 * @param callback a callback that will be called when the request is completed to handle success or error
@@ -1107,9 +1111,9 @@ public class Request {
 	 * the specified stream.
 	 * <p/>
 	 * This should only be called from the UI thread.
-	 * 
+	 *
 	 * This method is deprecated. Prefer to call Request.newUploadPhotoRequest(...).executeAsync();
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param file the file containing the photo to upload
 	 * @param callback a callback that will be called when the request is completed to handle success or error
@@ -1126,9 +1130,9 @@ public class Request {
 	 * Starts a new Request configured to retrieve a particular graph path.
 	 * <p/>
 	 * This should only be called from the UI thread.
-	 * 
+	 *
 	 * This method is deprecated. Prefer to call Request.newGraphPathRequest(...).executeAsync();
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param graphPath the graph path to retrieve
 	 * @param callback a callback that will be called when the request is completed to handle success or error
@@ -1145,9 +1149,9 @@ public class Request {
 	 * API.
 	 * <p/>
 	 * This should only be called from the UI thread.
-	 * 
+	 *
 	 * This method is deprecated. Prefer to call Request.newPlacesSearchRequest(...).executeAsync();
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param location the location around which to search; only the latitude and longitude components of the location
 	 *            are meaningful
@@ -1157,7 +1161,7 @@ public class Request {
 	 * @param callback a callback that will be called when the request is completed to handle success or error
 	 *            conditions
 	 * @return a RequestAsyncTask that is executing the request
-	 * 
+	 *
 	 * @throws FacebookException If neither location nor searchText is specified
 	 */
 	@Deprecated
@@ -1170,9 +1174,9 @@ public class Request {
 	 * Starts a new Request configured to post a status update to a user's feed.
 	 * <p/>
 	 * This should only be called from the UI thread.
-	 * 
+	 *
 	 * This method is deprecated. Prefer to call Request.newStatusUpdateRequest(...).executeAsync();
-	 * 
+	 *
 	 * @param session the Session to use, or null; if non-null, the session must be in an opened state
 	 * @param message the text of the status update
 	 * @param callback a callback that will be called when the request is completed to handle success or error
@@ -1188,9 +1192,9 @@ public class Request {
 	 * Executes this request and returns the response.
 	 * <p/>
 	 * This should only be called if you have transitioned off the UI thread.
-	 * 
+	 *
 	 * @return the Response object representing the results of the request
-	 * 
+	 *
 	 * @throws FacebookException If there was an error in the protocol used to communicate with the service
 	 * @throws IllegalArgumentException
 	 */
@@ -1202,9 +1206,9 @@ public class Request {
 	 * Executes this request and returns the response.
 	 * <p/>
 	 * This should only be called from the UI thread.
-	 * 
+	 *
 	 * @return a RequestAsyncTask that is executing the request
-	 * 
+	 *
 	 * @throws IllegalArgumentException
 	 */
 	public final RequestAsyncTask executeAsync() {
@@ -1214,10 +1218,10 @@ public class Request {
 	/**
 	 * Serializes one or more requests but does not execute them. The resulting HttpURLConnection can be executed
 	 * explicitly by the caller.
-	 * 
+	 *
 	 * @param requests one or more Requests to serialize
 	 * @return an HttpURLConnection which is ready to execute
-	 * 
+	 *
 	 * @throws FacebookException If any of the requests in the batch are badly constructed or if there are problems
 	 *             contacting the service
 	 * @throws IllegalArgumentException if the passed in array is zero-length
@@ -1230,10 +1234,10 @@ public class Request {
 	/**
 	 * Serializes one or more requests but does not execute them. The resulting HttpURLConnection can be executed
 	 * explicitly by the caller.
-	 * 
+	 *
 	 * @param requests one or more Requests to serialize
 	 * @return an HttpURLConnection which is ready to execute
-	 * 
+	 *
 	 * @throws FacebookException If any of the requests in the batch are badly constructed or if there are problems
 	 *             contacting the service
 	 * @throws IllegalArgumentException if the passed in collection is empty
@@ -1248,19 +1252,15 @@ public class Request {
 	/**
 	 * Serializes one or more requests but does not execute them. The resulting HttpURLConnection can be executed
 	 * explicitly by the caller.
-	 * 
+	 *
 	 * @param requests a RequestBatch to serialize
 	 * @return an HttpURLConnection which is ready to execute
-	 * 
+	 *
 	 * @throws FacebookException If any of the requests in the batch are badly constructed or if there are problems
 	 *             contacting the service
 	 * @throws IllegalArgumentException
 	 */
 	public static HttpURLConnection toHttpConnection(RequestBatch requests) {
-		
-		for (Request request : requests) {
-			request.validate();
-		}
 		
 		URL url = null;
 		try {
@@ -1296,11 +1296,11 @@ public class Request {
 	 * Executes a single request on the current thread and returns the response.
 	 * <p/>
 	 * This should only be used if you have transitioned off the UI thread.
-	 * 
+	 *
 	 * @param request the Request to execute
-	 * 
+	 *
 	 * @return the Response object representing the results of the request
-	 * 
+	 *
 	 * @throws FacebookException If there was an error in the protocol used to communicate with the service
 	 */
 	public static Response executeAndWait(Request request) {
@@ -1317,12 +1317,12 @@ public class Request {
 	 * Executes requests on the current thread as a single batch and returns the responses.
 	 * <p/>
 	 * This should only be used if you have transitioned off the UI thread.
-	 * 
+	 *
 	 * @param requests the Requests to execute
-	 * 
+	 *
 	 * @return a list of Response objects representing the results of the requests; responses are returned in the same
 	 *         order as the requests were specified.
-	 * 
+	 *
 	 * @throws NullPointerException In case of a null request
 	 * @throws FacebookException If there was an error in the protocol used to communicate with the service
 	 */
@@ -1336,12 +1336,12 @@ public class Request {
 	 * Executes requests as a single batch on the current thread and returns the responses.
 	 * <p/>
 	 * This should only be used if you have transitioned off the UI thread.
-	 * 
+	 *
 	 * @param requests the Requests to execute
-	 * 
+	 *
 	 * @return a list of Response objects representing the results of the requests; responses are returned in the same
 	 *         order as the requests were specified.
-	 * 
+	 *
 	 * @throws FacebookException If there was an error in the protocol used to communicate with the service
 	 */
 	public static List<Response> executeBatchAndWait(Collection<Request> requests) {
@@ -1352,12 +1352,12 @@ public class Request {
 	 * Executes requests on the current thread as a single batch and returns the responses.
 	 * <p/>
 	 * This should only be used if you have transitioned off the UI thread.
-	 * 
+	 *
 	 * @param requests the batch of Requests to execute
-	 * 
+	 *
 	 * @return a list of Response objects representing the results of the requests; responses are returned in the same
 	 *         order as the requests were specified.
-	 * 
+	 *
 	 * @throws FacebookException If there was an error in the protocol used to communicate with the service
 	 * @throws IllegalArgumentException if the passed in RequestBatch is empty
 	 * @throws NullPointerException if the passed in RequestBatch or any of its contents are null
@@ -1385,10 +1385,10 @@ public class Request {
 	 * succeeded or failed, a callback must be specified (see the {@link #setCallback(Callback) setCallback} method).
 	 * <p/>
 	 * This should only be called from the UI thread.
-	 * 
+	 *
 	 * @param requests the Requests to execute
 	 * @return a RequestAsyncTask that is executing the request
-	 * 
+	 *
 	 * @throws NullPointerException If a null request is passed in
 	 */
 	public static RequestAsyncTask executeBatchAsync(Request... requests) {
@@ -1403,10 +1403,10 @@ public class Request {
 	 * succeeded or failed, a callback must be specified (see the {@link #setCallback(Callback) setCallback} method).
 	 * <p/>
 	 * This should only be called from the UI thread.
-	 * 
+	 *
 	 * @param requests the Requests to execute
 	 * @return a RequestAsyncTask that is executing the request
-	 * 
+	 *
 	 * @throws IllegalArgumentException if the passed in collection is empty
 	 * @throws NullPointerException if the passed in collection or any of its contents are null
 	 */
@@ -1420,10 +1420,10 @@ public class Request {
 	 * succeeded or failed, a callback must be specified (see the {@link #setCallback(Callback) setCallback} method).
 	 * <p/>
 	 * This should only be called from the UI thread.
-	 * 
+	 *
 	 * @param requests the RequestBatch to execute
 	 * @return a RequestAsyncTask that is executing the request
-	 * 
+	 *
 	 * @throws IllegalArgumentException if the passed in RequestBatch is empty
 	 * @throws NullPointerException if the passed in RequestBatch or any of its contents are null
 	 */
@@ -1441,11 +1441,11 @@ public class Request {
 	 * ensure that it will correctly generate the desired responses.
 	 * <p/>
 	 * This should only be called if you have transitioned off the UI thread.
-	 * 
+	 *
 	 * @param connection the HttpURLConnection that the requests were serialized into
 	 * @param requests the requests represented by the HttpURLConnection
 	 * @return a list of Responses corresponding to the requests
-	 * 
+	 *
 	 * @throws FacebookException If there was an error in the protocol used to communicate with the service
 	 */
 	public static List<Response> executeConnectionAndWait(HttpURLConnection connection, Collection<Request> requests) {
@@ -1458,11 +1458,11 @@ public class Request {
 	 * ensure that it will correctly generate the desired responses.
 	 * <p/>
 	 * This should only be called if you have transitioned off the UI thread.
-	 * 
+	 *
 	 * @param connection the HttpURLConnection that the requests were serialized into
 	 * @param requests the RequestBatch represented by the HttpURLConnection
 	 * @return a list of Responses corresponding to the requests
-	 * 
+	 *
 	 * @throws FacebookException If there was an error in the protocol used to communicate with the service
 	 */
 	public static List<Response> executeConnectionAndWait(HttpURLConnection connection, RequestBatch requests) {
@@ -1502,7 +1502,7 @@ public class Request {
 	 * {@link #setCallback(Callback) setCallback} method).
 	 * <p/>
 	 * This should only be called from the UI thread.
-	 * 
+	 *
 	 * @param connection the HttpURLConnection that the requests were serialized into
 	 * @param requests the requests represented by the HttpURLConnection
 	 * @return a RequestAsyncTask that is executing the request
@@ -1520,7 +1520,7 @@ public class Request {
 	 * {@link #setCallback(Callback) setCallback} method)
 	 * <p/>
 	 * This should only be called from the UI thread.
-	 * 
+	 *
 	 * @param callbackHandler a Handler that will be used to post calls to the callback for each request; if null, a
 	 *            Handler will be instantiated on the calling thread
 	 * @param connection the HttpURLConnection that the requests were serialized into
@@ -1539,14 +1539,14 @@ public class Request {
 	
 	/**
 	 * Returns a string representation of this Request, useful for debugging.
-	 * 
+	 *
 	 * @return the debugging information
 	 */
 	@Override
 	public String toString() {
 		return new StringBuilder().append("{Request: ").append(" session: ").append(session).append(", graphPath: ").append(
-			graphPath).append(", graphObject: ").append(graphObject).append(", restMethod: ").append(restMethod).append(
-			", httpMethod: ").append(httpMethod).append(", parameters: ").append(parameters).append("}").toString();
+			graphPath).append(", graphObject: ").append(graphObject).append(", httpMethod: ").append(httpMethod).append(
+			", parameters: ").append(parameters).append("}").toString();
 	}
 	
 	static void runCallbacks(final RequestBatch requests, List<Response> responses) {
@@ -1594,6 +1594,7 @@ public class Request {
 		
 		connection.setRequestProperty(USER_AGENT_HEADER, getUserAgent());
 		connection.setRequestProperty(CONTENT_TYPE_HEADER, getMimeContentType());
+		connection.setRequestProperty(ACCEPT_LANGUAGE_HEADER, Locale.getDefault().toString());
 		
 		connection.setChunkedStreamingMode(0);
 		return connection;
@@ -1607,6 +1608,16 @@ public class Request {
 				String accessToken = session.getAccessToken();
 				Logger.registerAccessToken(accessToken);
 				parameters.putString(ACCESS_TOKEN_PARAM, accessToken);
+			}
+		} else if (!skipClientToken && !parameters.containsKey(ACCESS_TOKEN_PARAM)) {
+			String appID = Settings.getApplicationId();
+			String clientToken = Settings.getClientToken();
+			if (!Utility.isNullOrEmpty(appID) && !Utility.isNullOrEmpty(clientToken)) {
+				String accessToken = appID + "|" + clientToken;
+				parameters.putString(ACCESS_TOKEN_PARAM, accessToken);
+			} else {
+				Log.d(TAG,
+					"Warning: Sessionless Request needs token but missing either application ID or client token.");
 			}
 		}
 		parameters.putString(SDK_PARAM, SDK_ANDROID);
@@ -1645,13 +1656,7 @@ public class Request {
 			throw new FacebookException("Can't override URL for a batch request");
 		}
 		
-		String baseUrl;
-		if (restMethod != null) {
-			baseUrl = ServerProtocol.BATCHED_REST_METHOD_URL_BASE + restMethod;
-		} else {
-			baseUrl = graphPath;
-		}
-		
+		String baseUrl = getGraphPathWithVersion();
 		addCommonParameters();
 		return appendParametersToBaseUrl(baseUrl);
 	}
@@ -1661,19 +1666,24 @@ public class Request {
 			return overriddenURL.toString();
 		}
 		
-		String baseUrl;
-		if (restMethod != null) {
-			baseUrl = String.format("%s/%s", ServerProtocol.getRestUrlBase(), restMethod);
+		String graphBaseUrlBase;
+		if ((this.getHttpMethod() == HttpMethod.POST) && (graphPath != null) && graphPath.endsWith(VIDEOS_SUFFIX)) {
+			graphBaseUrlBase = ServerProtocol.getGraphVideoUrlBase();
 		} else {
-			if ((this.getHttpMethod() == HttpMethod.POST) && (graphPath != null) && graphPath.endsWith(VIDEOS_SUFFIX)) {
-				baseUrl = String.format("%s/%s", ServerProtocol.getGraphVideoUrlBase(), graphPath);
-			} else {
-				baseUrl = String.format("%s/%s", ServerProtocol.getGraphUrlBase(), graphPath);
-			}
+			graphBaseUrlBase = ServerProtocol.getGraphUrlBase();
 		}
+		String baseUrl = String.format("%s/%s", graphBaseUrlBase, getGraphPathWithVersion());
 		
 		addCommonParameters();
 		return appendParametersToBaseUrl(baseUrl);
+	}
+	
+	private String getGraphPathWithVersion() {
+		Matcher matcher = versionPattern.matcher(graphPath);
+		if (matcher.matches()) {
+			return graphPath;
+		}
+		return String.format("%s/%s", version, graphPath);
 	}
 	
 	private static class Attachment {
@@ -1750,12 +1760,6 @@ public class Request {
 		batch.put(batchEntry);
 	}
 	
-	private void validate() {
-		if ((graphPath != null) && (restMethod != null)) {
-			throw new IllegalArgumentException("Only one of a graph path or REST method may be specified per request.");
-		}
-	}
-	
 	private static boolean hasOnProgressCallbacks(RequestBatch requests) {
 		for (RequestBatch.Callback callback : requests.getCallbacks()) {
 			if (callback instanceof RequestBatch.OnProgressCallback) {
@@ -1821,7 +1825,9 @@ public class Request {
 			
 			processRequest(requests, logger, numRequests, url, outputStream);
 		} finally {
-			outputStream.close();
+			if (outputStream != null) {
+				outputStream.close();
+			}
 		}
 		
 		logger.log();
@@ -1876,6 +1882,18 @@ public class Request {
 		}
 	}
 	
+	private static boolean isMeRequest(String path) {
+		Matcher matcher = versionPattern.matcher(path);
+		if (matcher.matches()) {
+			// Group 1 contains the path aside from version
+			path = matcher.group(1);
+		}
+		if (path.startsWith("me/") || path.startsWith("/me/")) {
+			return true;
+		}
+		return false;
+	}
+	
 	private static void processGraphObject(GraphObject graphObject, String path, KeyValueSerializer serializer)
 			throws IOException {
 		// In general, graph objects are passed by reference (ID/URL). But if this is an OG Action,
@@ -1885,7 +1903,7 @@ public class Request {
 		// but passing the OG Action type as a substituted parameter is unlikely.
 		// It looks like an OG Action if it's posted to me/namespace:action[?other=stuff].
 		boolean isOGAction = false;
-		if (path.startsWith("me/") || path.startsWith("/me/")) {
+		if (isMeRequest(path)) {
 			int colonLocation = path.indexOf(":");
 			int questionMarkLocation = path.indexOf("?");
 			isOGAction = (colonLocation > 3)
@@ -1928,6 +1946,8 @@ public class Request {
 					processGraphObjectProperty(key, jsonObject.optString("id"), serializer, passByValue);
 				} else if (jsonObject.has("url")) {
 					processGraphObjectProperty(key, jsonObject.optString("url"), serializer, passByValue);
+				} else if (jsonObject.has(NativeProtocol.OPEN_GRAPH_CREATE_OBJECT_KEY)) {
+					processGraphObjectProperty(key, jsonObject.toString(), serializer, passByValue);
 				}
 			}
 		} else if (JSONArray.class.isAssignableFrom(valueClass)) {
@@ -2229,7 +2249,7 @@ public class Request {
 		
 		/**
 		 * The method that will be called when a request completes.
-		 * 
+		 *
 		 * @param response the Response of this request, which may include error information if the request was
 		 *            unsuccessful
 		 */
@@ -2245,7 +2265,7 @@ public class Request {
 		
 		/**
 		 * The method that will be called when progress is made.
-		 * 
+		 *
 		 * @param current the current value of the progress of the request.
 		 * @param max the maximum value (target) value that the progress will have.
 		 */
@@ -2261,7 +2281,7 @@ public class Request {
 		
 		/**
 		 * The method that will be called when the request completes.
-		 * 
+		 *
 		 * @param user the GraphObject representing the returned user, or null
 		 * @param response the Response of this request, which may include error information if the request was
 		 *            unsuccessful
@@ -2278,7 +2298,7 @@ public class Request {
 		
 		/**
 		 * The method that will be called when the request completes.
-		 * 
+		 *
 		 * @param users the list of GraphObjects representing the returned friends, or null
 		 * @param response the Response of this request, which may include error information if the request was
 		 *            unsuccessful
@@ -2295,7 +2315,7 @@ public class Request {
 		
 		/**
 		 * The method that will be called when the request completes.
-		 * 
+		 *
 		 * @param places the list of GraphObjects representing the returned places, or null
 		 * @param response the Response of this request, which may include error information if the request was
 		 *            unsuccessful

@@ -1,11 +1,11 @@
 /**
  * Copyright 2010-present Facebook
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -60,7 +60,7 @@ import com.facebook.TokenCachingStrategy;
  * <p/>
  * Adding @Deprecated to this class causes warnings in other deprecated classes that reference this one. That is the
  * only reason this entire class is not deprecated.
- * 
+ *
  * @devDocDeprecated
  */
 @SuppressWarnings("javadoc")
@@ -190,7 +190,7 @@ public class Facebook {
 	 * sign-on may be disabled by passing FORCE_DIALOG_AUTH as the activityCode parameter in your call to authorize().
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link Session} for more info.
-	 * 
+	 *
 	 * @param activity The Android activity in which we want to display the authorization dialog.
 	 * @param permissions A list of permissions required for this application: e.g. "read_stream", "publish_stream",
 	 *            "offline_access", etc. see http://developers.facebook.com/docs/authentication/permissions This
@@ -403,7 +403,7 @@ public class Facebook {
 	 * thread).
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link Session} for more info.
-	 * 
+	 *
 	 * @param context The Android Context that will be used to bind to the Facebook RefreshToken Service
 	 * @param serviceListener Callback interface for notifying the calling application when the refresh request has
 	 *            completed or failed (can be null). In case of a success a new token can be found inside the result
@@ -432,7 +432,7 @@ public class Facebook {
 	 * Calls extendAccessToken if shouldExtendAccessToken returns true.
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link Session} for more info.
-	 * 
+	 *
 	 * @return the same value as extendAccessToken if the the token requires refreshing, true otherwise
 	 */
 	@Deprecated
@@ -448,7 +448,7 @@ public class Facebook {
 	 * Check if the access token requires refreshing.
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link Session} for more info.
-	 * 
+	 *
 	 * @return true if the last time a new token was obtained was over 24 hours ago.
 	 */
 	@Deprecated
@@ -484,9 +484,13 @@ public class Facebook {
 		@Override
 		public void onServiceDisconnected(ComponentName arg) {
 			serviceListener.onError(new Error("Service disconnected"));
-			// We returned an error so there's no point in
-			// keeping the binding open.
-			applicationsContext.unbindService(TokenRefreshServiceConnection.this);
+			try {
+				// We returned an error so there's no point in
+				// keeping the binding open.
+				applicationsContext.unbindService(TokenRefreshServiceConnection.this);
+			} catch (IllegalArgumentException ex) {
+				// Do nothing, the connection was already unbound
+			}
 		}
 		
 		private void refreshToken() {
@@ -579,7 +583,7 @@ public class Facebook {
 	 * Note that this method blocks waiting for a network response, so do not call it in a UI thread.
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link Session} for more info.
-	 * 
+	 *
 	 * @param context The Android context in which the logout should be called: it should be the same context in which
 	 *            the login occurred in order to clear any stored cookies
 	 * @throws IOException
@@ -632,7 +636,7 @@ public class Facebook {
 	 * </code>
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link Request} for more info.
-	 * 
+	 *
 	 * @param parameters Key-value pairs of parameters to the request. Refer to the documentation: one of the parameters
 	 *            must be "method".
 	 * @throws IOException if a network error occurs
@@ -658,7 +662,7 @@ public class Facebook {
 	 * Note that this method blocks waiting for a network response, so do not call it in a UI thread.
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link Request} for more info.
-	 * 
+	 *
 	 * @param graphPath Path to resource in the Facebook graph, e.g., to fetch data about the currently logged
 	 *            authenticated user, provide "me", which will fetch http://graph.facebook.com/me
 	 * @throws IOException
@@ -678,7 +682,7 @@ public class Facebook {
 	 * Note that this method blocks waiting for a network response, so do not call it in a UI thread.
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link Request} for more info.
-	 * 
+	 *
 	 * @param graphPath Path to resource in the Facebook graph, e.g., to fetch data about the currently logged
 	 *            authenticated user, provide "me", which will fetch http://graph.facebook.com/me
 	 * @param parameters key-value string parameters, e.g. the path "search" with parameters "q" : "facebook" would
@@ -701,7 +705,7 @@ public class Facebook {
 	 * Note that this method blocks waiting for a network response, so do not call it in a UI thread.
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link Request} for more info.
-	 * 
+	 *
 	 * @param graphPath Path to resource in the Facebook graph, e.g., to fetch data about the currently logged
 	 *            authenticated user, provide "me", which will fetch http://graph.facebook.com/me
 	 * @param params Key-value string parameters, e.g. the path "search" with parameters {"q" : "facebook"} would
@@ -734,9 +738,9 @@ public class Facebook {
 	 * <p/>
 	 * Note that this method is asynchronous and the callback will be invoked in the original calling thread (not in a
 	 * background thread).
-	 * 
+	 *
 	 * This method is deprecated. See {@link com.facebook.widget.WebDialog}.
-	 * 
+	 *
 	 * @param context The Android context in which we will generate this dialog.
 	 * @param action String representation of the desired method: e.g. "login", "stream.publish", ...
 	 * @param listener Callback interface to notify the application when the dialog has completed.
@@ -751,7 +755,7 @@ public class Facebook {
 	 * <p/>
 	 * Note that this method is asynchronous and the callback will be invoked in the original calling thread (not in a
 	 * background thread).
-	 * 
+	 *
 	 * This method is deprecated. See {@link com.facebook.widget.WebDialog}.
 	 * 
 	 * @param context The Android context in which we will generate this dialog.
@@ -784,7 +788,7 @@ public class Facebook {
 	
 	/**
 	 * Returns whether the current access token is valid
-	 * 
+	 *
 	 * @return boolean - whether this object has an non-expired session token
 	 */
 	@Deprecated
@@ -797,7 +801,7 @@ public class Facebook {
 	 * Allows the user to set a Session for the Facebook class to use. If a Session is set here, then one should not use
 	 * the authorize, logout, or extendAccessToken methods which alter the Session object since that may result in
 	 * undefined behavior. Using those methods after setting the session here will result in exceptions being thrown.
-	 * 
+	 *
 	 * @param session the Session object to use, cannot be null
 	 */
 	@Deprecated
@@ -889,7 +893,7 @@ public class Facebook {
 	
 	/**
 	 * Retrieve the OAuth 2.0 access token for API access: treat with care. Returns null if no session exists.
-	 * 
+	 *
 	 * @return String - access token
 	 */
 	@Deprecated
@@ -905,7 +909,7 @@ public class Facebook {
 	/**
 	 * Retrieve the current session's expiration time (in milliseconds since Unix epoch), or 0 if the session doesn't
 	 * expire or doesn't exist.
-	 * 
+	 *
 	 * @return long - session expiration time
 	 */
 	@Deprecated
@@ -921,7 +925,7 @@ public class Facebook {
 	/**
 	 * Retrieve the last time the token was updated (in milliseconds since the Unix epoch), or 0 if the token has not
 	 * been set.
-	 * 
+	 *
 	 * @return long - timestamp of the last token update.
 	 */
 	@Deprecated
@@ -934,7 +938,7 @@ public class Facebook {
 	 * getAccessToken(), getAccessExpires, and getLastAccessUpdate() respectively.
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link Session} for more info.
-	 * 
+	 *
 	 * @param accessToken - access token
 	 * @param accessExpires - access token expiration time
 	 * @param lastAccessUpdate - timestamp of the last token update
@@ -953,7 +957,7 @@ public class Facebook {
 	 * Set the OAuth 2.0 access token for API access.
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link Session} for more info.
-	 * 
+	 *
 	 * @param token - access token
 	 */
 	@Deprecated
@@ -970,7 +974,7 @@ public class Facebook {
 	 * Set the current session's expiration time (in milliseconds since Unix epoch), or 0 if the session doesn't expire.
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link Session} for more info.
-	 * 
+	 *
 	 * @param timestampInMsec - timestamp in milliseconds
 	 */
 	@Deprecated
@@ -987,7 +991,7 @@ public class Facebook {
 	 * Set the current session's duration (in seconds since Unix epoch), or "0" if session doesn't expire.
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link Session} for more info.
-	 * 
+	 *
 	 * @param expiresInSecsFromNow - duration in seconds (or 0 if the session doesn't expire)
 	 */
 	@Deprecated
@@ -1002,7 +1006,7 @@ public class Facebook {
 	
 	/**
 	 * This method is deprecated. See {@link Facebook} and {@link Session} for more info.
-	 * 
+	 *
 	 * @return the String representing application ID
 	 */
 	@Deprecated
@@ -1012,7 +1016,7 @@ public class Facebook {
 	
 	/**
 	 * This method is deprecated. See {@link Facebook} and {@link Session} for more info.
-	 * 
+	 *
 	 * @param appId the String representing the application ID
 	 */
 	@Deprecated
@@ -1089,7 +1093,7 @@ public class Facebook {
 	 * Get Attribution ID for app install conversion tracking.
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link Settings} for more info.
-	 * 
+	 *
 	 * @param contentResolver
 	 * @return Attribution ID that will be used for conversion tracking. It will be null only if the user has not
 	 *         installed or logged in to the Facebook app.
@@ -1105,7 +1109,7 @@ public class Facebook {
 	 * config page.
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link Settings} for more info.
-	 * 
+	 *
 	 * @return a Boolean indicating whether installation of the app should be auto-published.
 	 */
 	@Deprecated
@@ -1117,29 +1121,12 @@ public class Facebook {
 	 * Sets whether auto publishing of installs will occur.
 	 * <p/>
 	 * This method is deprecated. See {@link Facebook} and {@link Settings} for more info.
-	 * 
+	 *
 	 * @param value a Boolean indicating whether installation of the app should be auto-published.
 	 */
 	@Deprecated
 	public void setShouldAutoPublishInstall(boolean value) {
 		Settings.setShouldAutoPublishInstall(value);
-	}
-	
-	/**
-	 * Manually publish install attribution to the Facebook graph. Internally handles tracking repeat calls to prevent
-	 * multiple installs being published to the graph.
-	 * <p/>
-	 * This method is deprecated. See {@link Facebook} and {@link Settings} for more info.
-	 * 
-	 * @param context the current Android context
-	 * @return Always false. Earlier versions of the API returned true if it was no longer necessary to call. Apps
-	 *         should ignore this value, but for compatibility we will return false to ensure repeat calls (and the
-	 *         underlying code will prevent duplicate network traffic).
-	 */
-	@Deprecated
-	public boolean publishInstall(final Context context) {
-		Settings.publishInstallAsync(context, mAppId);
-		return false;
 	}
 	
 	/**
@@ -1152,7 +1139,7 @@ public class Facebook {
 	 * <p/>
 	 * Adding @Deprecated to this class causes warnings in other deprecated classes that reference this one. That is the
 	 * only reason this entire class is not deprecated.
-	 * 
+	 *
 	 * @devDocDeprecated
 	 */
 	public static interface DialogListener {
@@ -1202,7 +1189,7 @@ public class Facebook {
 	 * <p/>
 	 * Adding @Deprecated to this class causes warnings in other deprecated classes that reference this one. That is the
 	 * only reason this entire class is not deprecated.
-	 * 
+	 *
 	 * @devDocDeprecated
 	 */
 	public static interface ServiceListener {

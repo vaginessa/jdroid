@@ -1,11 +1,11 @@
 /**
  * Copyright 2010-present Facebook.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -36,7 +36,7 @@ import com.facebook.internal.Validate;
  * (e.g., images) to native dialogs launched via the {@link com.facebook.widget.FacebookDialog} class. It stores
  * attachments in temporary files and allows the Facebook application to retrieve them via the content provider.
  * </p>
- * 
+ *
  * <p>
  * Callers are generally not expected to need to use this class directly; see
  * {@link com.facebook.widget.FacebookDialog.OpenGraphActionDialogBuilder#setImageAttachmentsForObject(String, java.util.List)
@@ -54,7 +54,7 @@ public final class NativeAppCallAttachmentStore implements NativeAppCallContentP
 	/**
 	 * Adds a number of bitmap attachments associated with a native app call. The attachments will be served via
 	 * {@link NativeAppCallContentProvider#openFile(android.net.Uri, String) openFile}.
-	 * 
+	 *
 	 * @param context the Context the call is being made from
 	 * @param callId the unique ID of the call
 	 * @param imageAttachments a Map of attachment names to Bitmaps; the attachment names will be part of the URI
@@ -83,22 +83,22 @@ public final class NativeAppCallAttachmentStore implements NativeAppCallContentP
 	}
 	
 	/**
-	 * Adds a number of bitmap attachment files associated with a native app call. The attachments will be served via
-	 * {@link NativeAppCallContentProvider#openFile(android.net.Uri, String) openFile}.
-	 * 
+	 * Adds a number of bitmap/video attachment files associated with a native app call. The attachments will be served
+	 * via {@link NativeAppCallContentProvider#openFile(android.net.Uri, String) openFile}.
+	 *
 	 * @param context the Context the call is being made from
 	 * @param callId the unique ID of the call
-	 * @param imageAttachments a Map of attachment names to Files containing the bitmaps; the attachment names will be
-	 *            part of the URI processed by openFile
+	 * @param mediaAttachmentFiles a Map of attachment names to Files containing the bitmaps/videos; the attachment
+	 *            names will be part of the URI processed by openFile
 	 * @throws java.io.IOException
 	 */
-	public void addAttachmentFilesForCall(Context context, UUID callId, Map<String, File> imageAttachmentFiles) {
+	public void addAttachmentFilesForCall(Context context, UUID callId, Map<String, File> mediaAttachmentFiles) {
 		Validate.notNull(context, "context");
 		Validate.notNull(callId, "callId");
-		Validate.containsNoNulls(imageAttachmentFiles.values(), "imageAttachmentFiles");
-		Validate.containsNoNullOrEmpty(imageAttachmentFiles.keySet(), "imageAttachmentFiles");
+		Validate.containsNoNulls(mediaAttachmentFiles.values(), "mediaAttachmentFiles");
+		Validate.containsNoNullOrEmpty(mediaAttachmentFiles.keySet(), "mediaAttachmentFiles");
 		
-		addAttachments(context, callId, imageAttachmentFiles, new ProcessAttachment<File>() {
+		addAttachments(context, callId, mediaAttachmentFiles, new ProcessAttachment<File>() {
 			
 			@SuppressWarnings("resource")
 			@Override
@@ -167,7 +167,7 @@ public final class NativeAppCallAttachmentStore implements NativeAppCallContentP
 	
 	/**
 	 * Removes any temporary files associated with a particular native app call.
-	 * 
+	 *
 	 * @param context the Context the call is being made from
 	 * @param callId the unique ID of the call
 	 */

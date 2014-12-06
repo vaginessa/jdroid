@@ -1,11 +1,11 @@
 /**
  * Copyright 2010-present Facebook.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -110,7 +110,7 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
 	
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param args a Bundle that optionally contains one or more values containing additional configuration information
 	 *            for the Fragment.
 	 */
@@ -121,7 +121,7 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
 	
 	/**
 	 * Gets the location to search around. Either the location or the search text (or both) must be specified.
-	 * 
+	 *
 	 * @return the Location to search around
 	 */
 	public Location getLocation() {
@@ -130,7 +130,7 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
 	
 	/**
 	 * Sets the location to search around. Either the location or the search text (or both) must be specified.
-	 * 
+	 *
 	 * @param location the Location to search around
 	 */
 	public void setLocation(Location location) {
@@ -139,7 +139,7 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
 	
 	/**
 	 * Gets the radius in meters around the location to search.
-	 * 
+	 *
 	 * @return the radius in meters
 	 */
 	public int getRadiusInMeters() {
@@ -148,7 +148,7 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
 	
 	/**
 	 * Sets the radius in meters around the location to search.
-	 * 
+	 *
 	 * @param radiusInMeters the radius in meters
 	 */
 	public void setRadiusInMeters(int radiusInMeters) {
@@ -157,7 +157,7 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
 	
 	/**
 	 * Gets the number of results to retrieve.
-	 * 
+	 *
 	 * @return the number of results to retrieve
 	 */
 	public int getResultsLimit() {
@@ -166,7 +166,7 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
 	
 	/**
 	 * Sets the number of results to retrieve.
-	 * 
+	 *
 	 * @param resultsLimit the number of results to retrieve
 	 */
 	public void setResultsLimit(int resultsLimit) {
@@ -176,7 +176,7 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
 	/**
 	 * Gets the search text (e.g., category, name) to search for. Either the location or the search text (or both) must
 	 * be specified.
-	 * 
+	 *
 	 * @return the search text
 	 */
 	public String getSearchText() {
@@ -186,7 +186,7 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
 	/**
 	 * Sets the search text (e.g., category, name) to search for. Either the location or the search text (or both) must
 	 * be specified. If a search box is displayed, this will update its contents to the specified text.
-	 * 
+	 *
 	 * @param searchText the search text
 	 */
 	public void setSearchText(String searchText) {
@@ -205,7 +205,7 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
 	 * until the user pauses typing to refresh the data. Note that this method will NOT update the text in the search
 	 * box, if any, as it is intended to be called as a result of changes to the search box (and is public to enable
 	 * applications to provide their own search box UI instead of the default one).
-	 * 
+	 *
 	 * @param searchText the search text
 	 * @param forceReloadEventIfSameText if true, will reload even if the search text has not changed; if false,
 	 *            identical search text will not force a reload
@@ -232,7 +232,7 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
 	
 	/**
 	 * Gets the currently-selected place.
-	 * 
+	 *
 	 * @return the currently-selected place, or null if there is none
 	 */
 	public GraphPlace getSelection() {

@@ -1,11 +1,11 @@
 /**
  * Copyright 2010-present Facebook.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -110,7 +110,7 @@ public class UserSettingsFragment extends FacebookFragment {
 	 * <p/>
 	 * If the passed in session is currently opened, this method will also attempt to load some user information for
 	 * display (if needed).
-	 * 
+	 *
 	 * @param newSession the Session object to use
 	 * @throws com.facebook.FacebookException if errors occur during the loading of user information
 	 */
@@ -127,7 +127,7 @@ public class UserSettingsFragment extends FacebookFragment {
 	/**
 	 * Sets the default audience to use when the session is opened. This value is only useful when specifying write
 	 * permissions for the native login dialog.
-	 * 
+	 *
 	 * @param defaultAudience the default audience value to use
 	 */
 	public void setDefaultAudience(SessionDefaultAudience defaultAudience) {
@@ -137,7 +137,7 @@ public class UserSettingsFragment extends FacebookFragment {
 	/**
 	 * Gets the default audience to use when the session is opened. This value is only useful when specifying write
 	 * permissions for the native login dialog.
-	 * 
+	 *
 	 * @return the default audience value to use
 	 */
 	public SessionDefaultAudience getDefaultAudience() {
@@ -158,9 +158,9 @@ public class UserSettingsFragment extends FacebookFragment {
 	 * Since the session can be automatically opened when the UserSettingsFragment is constructed, it's important to
 	 * always pass in a consistent set of permissions to this method, or manage the setting of permissions outside of
 	 * the LoginButton class altogether (by managing the session explicitly).
-	 * 
+	 *
 	 * @param permissions the read permissions to use
-	 * 
+	 *
 	 * @throws UnsupportedOperationException if setPublishPermissions has been called
 	 */
 	public void setReadPermissions(List<String> permissions) {
@@ -181,9 +181,9 @@ public class UserSettingsFragment extends FacebookFragment {
 	 * Since the session can be automatically opened when the UserSettingsFragment is constructed, it's important to
 	 * always pass in a consistent set of permissions to this method, or manage the setting of permissions outside of
 	 * the LoginButton class altogether (by managing the session explicitly).
-	 * 
+	 *
 	 * @param permissions the read permissions to use
-	 * 
+	 *
 	 * @throws UnsupportedOperationException if setPublishPermissions has been called
 	 */
 	public void setReadPermissions(String... permissions) {
@@ -204,9 +204,9 @@ public class UserSettingsFragment extends FacebookFragment {
 	 * Since the session can be automatically opened when the LoginButton is constructed, it's important to always pass
 	 * in a consistent set of permissions to this method, or manage the setting of permissions outside of the
 	 * LoginButton class altogether (by managing the session explicitly).
-	 * 
+	 *
 	 * @param permissions the read permissions to use
-	 * 
+	 *
 	 * @throws UnsupportedOperationException if setReadPermissions has been called
 	 * @throws IllegalArgumentException if permissions is null or empty
 	 */
@@ -228,9 +228,9 @@ public class UserSettingsFragment extends FacebookFragment {
 	 * Since the session can be automatically opened when the LoginButton is constructed, it's important to always pass
 	 * in a consistent set of permissions to this method, or manage the setting of permissions outside of the
 	 * LoginButton class altogether (by managing the session explicitly).
-	 * 
+	 *
 	 * @param permissions the read permissions to use
-	 * 
+	 *
 	 * @throws UnsupportedOperationException if setReadPermissions has been called
 	 * @throws IllegalArgumentException if permissions is null or empty
 	 */
@@ -248,7 +248,7 @@ public class UserSettingsFragment extends FacebookFragment {
 	/**
 	 * Sets the login behavior for the session that will be opened. If null is specified, the default (
 	 * {@link SessionLoginBehavior SessionLoginBehavior.SSO_WITH_FALLBACK} will be used.
-	 * 
+	 *
 	 * @param loginBehavior The {@link SessionLoginBehavior SessionLoginBehavior} that specifies what behaviors should
 	 *            be attempted during authorization.
 	 */
@@ -259,7 +259,7 @@ public class UserSettingsFragment extends FacebookFragment {
 	/**
 	 * Gets the login behavior for the session that will be opened. If null is returned, the default (
 	 * {@link SessionLoginBehavior SessionLoginBehavior.SSO_WITH_FALLBACK} will be used.
-	 * 
+	 *
 	 * @return loginBehavior The {@link SessionLoginBehavior SessionLoginBehavior} that specifies what behaviors should
 	 *         be attempted during authorization.
 	 */
@@ -269,7 +269,7 @@ public class UserSettingsFragment extends FacebookFragment {
 	
 	/**
 	 * Sets an OnErrorListener for this instance of UserSettingsFragment to call into when certain exceptions occur.
-	 * 
+	 *
 	 * @param onErrorListener The listener object to set
 	 */
 	public void setOnErrorListener(LoginButton.OnErrorListener onErrorListener) {
@@ -278,7 +278,7 @@ public class UserSettingsFragment extends FacebookFragment {
 	
 	/**
 	 * Returns the current OnErrorListener for this instance of UserSettingsFragment.
-	 * 
+	 *
 	 * @return The OnErrorListener
 	 */
 	public LoginButton.OnErrorListener getOnErrorListener() {
@@ -288,7 +288,7 @@ public class UserSettingsFragment extends FacebookFragment {
 	/**
 	 * Sets the callback interface that will be called whenever the status of the Session associated with this
 	 * LoginButton changes.
-	 * 
+	 *
 	 * @param callback the callback interface
 	 */
 	public void setSessionStatusCallback(Session.StatusCallback callback) {

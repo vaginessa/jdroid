@@ -1,11 +1,11 @@
 /**
  * Copyright 2010-present Facebook.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -30,13 +30,13 @@ import android.util.Pair;
  * ContentProvider</a> that can be used to provide binary attachments (e.g., images) to calls made via @link
  * FacebookDialog}. The {@link NativeAppCallAttachmentStore} class provides methods to attach and clean up the
  * attachments.
- * 
+ *
  * <p>
  * Note that this ContentProvider is only necessary if an application wishes to attach images, etc., that are stored in
  * memory and do not have another way to be referenced by a content URI. For images obtained from, e.g., the Camera or
  * Gallery, that already have a content URI associated with them, use of this class is not necessary.
  * </p>
- * 
+ *
  * <p>
  * If an application wishes to attach images that are stored in-memory within the application, this content provider
  * must be listed in the application's AndroidManifest.xml, and it should be named according to the pattern

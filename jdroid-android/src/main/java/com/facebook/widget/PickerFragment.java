@@ -1,11 +1,11 @@
 /**
  * Copyright 2010-present Facebook.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -105,6 +105,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	private final Class<T> graphObjectClass;
 	private LoadingStrategy loadingStrategy;
 	private SelectionStrategy selectionStrategy;
+	private Set<String> selectionHint;
 	private ProgressBar activityCircle;
 	private SessionTracker sessionTracker;
 	private String titleText;
@@ -268,7 +269,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	/**
 	 * Gets the current OnDataChangedListener for this fragment, which will be called whenever the underlying data being
 	 * displaying in the picker has changed.
-	 * 
+	 *
 	 * @return the OnDataChangedListener, or null if there is none
 	 */
 	public OnDataChangedListener getOnDataChangedListener() {
@@ -278,7 +279,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	/**
 	 * Sets the current OnDataChangedListener for this fragment, which will be called whenever the underlying data being
 	 * displaying in the picker has changed.
-	 * 
+	 *
 	 * @param onDataChangedListener the OnDataChangedListener, or null if there is none
 	 */
 	public void setOnDataChangedListener(OnDataChangedListener onDataChangedListener) {
@@ -288,7 +289,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	/**
 	 * Gets the current OnSelectionChangedListener for this fragment, which will be called whenever the user selects or
 	 * unselects a graph object in the list.
-	 * 
+	 *
 	 * @return the OnSelectionChangedListener, or null if there is none
 	 */
 	public OnSelectionChangedListener getOnSelectionChangedListener() {
@@ -298,7 +299,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	/**
 	 * Sets the current OnSelectionChangedListener for this fragment, which will be called whenever the user selects or
 	 * unselects a graph object in the list.
-	 * 
+	 *
 	 * @param onSelectionChangedListener the OnSelectionChangedListener, or null if there is none
 	 */
 	public void setOnSelectionChangedListener(OnSelectionChangedListener onSelectionChangedListener) {
@@ -308,7 +309,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	/**
 	 * Gets the current OnDoneButtonClickedListener for this fragment, which will be called when the user clicks the
 	 * Done button.
-	 * 
+	 *
 	 * @return the OnDoneButtonClickedListener, or null if there is none
 	 */
 	public OnDoneButtonClickedListener getOnDoneButtonClickedListener() {
@@ -318,7 +319,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	/**
 	 * Sets the current OnDoneButtonClickedListener for this fragment, which will be called when the user clicks the
 	 * Done button. This will only be possible if the title bar is being shown in this fragment.
-	 * 
+	 *
 	 * @param onDoneButtonClickedListener the OnDoneButtonClickedListener, or null if there is none
 	 */
 	public void setOnDoneButtonClickedListener(OnDoneButtonClickedListener onDoneButtonClickedListener) {
@@ -328,7 +329,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	/**
 	 * Gets the current OnErrorListener for this fragment, which will be called in the event of network or other errors
 	 * encountered while populating the graph objects in the list.
-	 * 
+	 *
 	 * @return the OnErrorListener, or null if there is none
 	 */
 	public OnErrorListener getOnErrorListener() {
@@ -338,7 +339,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	/**
 	 * Sets the current OnErrorListener for this fragment, which will be called in the event of network or other errors
 	 * encountered while populating the graph objects in the list.
-	 * 
+	 *
 	 * @param onErrorListener the OnErrorListener, or null if there is none
 	 */
 	public void setOnErrorListener(OnErrorListener onErrorListener) {
@@ -349,7 +350,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	 * Gets the current filter for this fragment, which will be called for each graph object returned from the service
 	 * to determine if it should be displayed in the list. If no filter is specified, all retrieved graph objects will
 	 * be displayed.
-	 * 
+	 *
 	 * @return the GraphObjectFilter, or null if there is none
 	 */
 	public GraphObjectFilter<T> getFilter() {
@@ -360,7 +361,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	 * Sets the current filter for this fragment, which will be called for each graph object returned from the service
 	 * to determine if it should be displayed in the list. If no filter is specified, all retrieved graph objects will
 	 * be displayed.
-	 * 
+	 *
 	 * @param filter the GraphObjectFilter, or null if there is none
 	 */
 	public void setFilter(GraphObjectFilter<T> filter) {
@@ -369,7 +370,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	
 	/**
 	 * Gets the Session to use for any Facebook requests this fragment will make.
-	 * 
+	 *
 	 * @return the Session that will be used for any Facebook requests, or null if there is none
 	 */
 	public Session getSession() {
@@ -379,7 +380,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	/**
 	 * Sets the Session to use for any Facebook requests this fragment will make. If the parameter is null, the fragment
 	 * will use the current active session, if any.
-	 * 
+	 *
 	 * @param session the Session to use for Facebook requests, or null to use the active session
 	 */
 	public void setSession(Session session) {
@@ -388,7 +389,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	
 	/**
 	 * Gets whether to display pictures, if available, for displayed graph objects.
-	 * 
+	 *
 	 * @return true if pictures should be displayed, false if not
 	 */
 	public boolean getShowPictures() {
@@ -397,7 +398,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	
 	/**
 	 * Sets whether to display pictures, if available, for displayed graph objects.
-	 * 
+	 *
 	 * @param showPictures true if pictures should be displayed, false if not
 	 */
 	public void setShowPictures(boolean showPictures) {
@@ -406,7 +407,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	
 	/**
 	 * Gets the extra fields to request for the retrieved graph objects.
-	 * 
+	 *
 	 * @return the extra fields to request
 	 */
 	public Set<String> getExtraFields() {
@@ -415,7 +416,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	
 	/**
 	 * Sets the extra fields to request for the retrieved graph objects.
-	 * 
+	 *
 	 * @param fields the extra fields to request
 	 */
 	public void setExtraFields(Collection<String> fields) {
@@ -428,7 +429,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	/**
 	 * Sets whether to show a title bar with a Done button. This must be called prior to the Fragment going through its
 	 * creation lifecycle to have an effect.
-	 * 
+	 *
 	 * @param showTitleBar true if a title bar should be displayed, false if not
 	 */
 	public void setShowTitleBar(boolean showTitleBar) {
@@ -437,7 +438,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	
 	/**
 	 * Gets whether to show a title bar with a Done button. The default is true.
-	 * 
+	 *
 	 * @return true if a title bar will be shown, false if not.
 	 */
 	public boolean getShowTitleBar() {
@@ -447,7 +448,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	/**
 	 * Sets the text to show in the title bar, if a title bar is to be shown. This must be called prior to the Fragment
 	 * going through its creation lifecycle to have an effect, or the default will be used.
-	 * 
+	 *
 	 * @param titleText the text to show in the title bar
 	 */
 	public void setTitleText(String titleText) {
@@ -456,7 +457,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	
 	/**
 	 * Gets the text to show in the title bar, if a title bar is to be shown.
-	 * 
+	 *
 	 * @return the text to show in the title bar
 	 */
 	public String getTitleText() {
@@ -469,7 +470,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	/**
 	 * Sets the text to show in the Done button, if a title bar is to be shown. This must be called prior to the
 	 * Fragment going through its creation lifecycle to have an effect, or the default will be used.
-	 * 
+	 *
 	 * @param doneButtonText the text to show in the Done button
 	 */
 	public void setDoneButtonText(String doneButtonText) {
@@ -478,7 +479,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	
 	/**
 	 * Gets the text to show in the Done button, if a title bar is to be shown.
-	 * 
+	 *
 	 * @return the text to show in the Done button
 	 */
 	public String getDoneButtonText() {
@@ -490,14 +491,26 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	
 	/**
 	 * Causes the picker to load data from the service and display it to the user.
-	 * 
+	 *
 	 * @param forceReload if true, data will be loaded even if there is already data being displayed (or loading); if
 	 *            false, data will not be re-loaded if it is already displayed (or loading)
 	 */
 	public void loadData(boolean forceReload) {
+		loadData(forceReload, null);
+	}
+	
+	/**
+	 * Causes the picker to load data from the service and display it to the user.
+	 *
+	 * @param forceReload if true, data will be loaded even if there is already data being displayed (or loading); if
+	 *            false, data will not be re-loaded if it is already displayed (or loading)
+	 * @param selectIds ids to select, if they are present in the loaded data
+	 */
+	public void loadData(boolean forceReload, Set<String> selectIds) {
 		if (!forceReload && loadingStrategy.isDataPresentOrLoading()) {
 			return;
 		}
+		selectionHint = selectIds;
 		loadDataSkippingRoundTripIfCached();
 	}
 	
@@ -505,7 +518,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	 * Updates the properties of the PickerFragment based on the contents of the supplied Bundle; calling Activities may
 	 * use this to pass additional configuration information to the PickerFragment beyond what is specified in its XML
 	 * layout.
-	 * 
+	 *
 	 * @param inState a Bundle containing keys corresponding to properties of the PickerFragment
 	 */
 	public void setSettingsFromBundle(Bundle inState) {
@@ -758,6 +771,33 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 			if (dataChanged && (onDataChangedListener != null)) {
 				onDataChangedListener.onDataChanged(PickerFragment.this);
 			}
+			if ((selectionHint != null) && !selectionHint.isEmpty() && (data != null)) {
+				data.moveToFirst();
+				boolean changed = false;
+				for (int i = 0; i < data.getCount(); i++) {
+					data.moveToPosition(i);
+					T graphObject = data.getGraphObject();
+					if (!graphObject.asMap().containsKey("id")) {
+						continue;
+					}
+					Object obj = graphObject.getProperty("id");
+					if (!(obj instanceof String)) {
+						continue;
+					}
+					String id = (String)obj;
+					if (selectionHint.contains(id)) {
+						selectionStrategy.toggleSelection(id);
+						selectionHint.remove(id);
+						changed = true;
+					}
+					if (selectionHint.isEmpty()) {
+						break;
+					}
+				}
+				if ((onSelectionChangedListener != null) && changed) {
+					onSelectionChangedListener.onSelectionChanged(PickerFragment.this);
+				}
+			}
 		}
 	}
 	
@@ -789,7 +829,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 		
 		/**
 		 * Called when a network or other error is encountered.
-		 * 
+		 *
 		 * @param error a FacebookException representing the error that was encountered.
 		 */
 		void onError(PickerFragment<?> fragment, FacebookException error);
@@ -830,14 +870,14 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 	
 	/**
 	 * Callback interface that will be called to determine if a graph object should be displayed.
-	 * 
+	 *
 	 * @param <T>
 	 */
 	public interface GraphObjectFilter<T> {
 		
 		/**
 		 * Called to determine if a graph object should be displayed.
-		 * 
+		 *
 		 * @param graphObject the graph object
 		 * @return true to display the graph object, false to hide it
 		 */
@@ -921,7 +961,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 		
 		public void startLoading(Request request) {
 			if (loader != null) {
-				loader.startLoading(request, true);
+				loader.startLoading(request, canSkipRoundTripIfCached());
 				onStartLoading(loader, request);
 			}
 		}
@@ -944,6 +984,10 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
 		
 		protected void onLoadFinished(GraphObjectPagingLoader<T> loader, SimpleGraphObjectCursor<T> data) {
 			updateAdapter(data);
+		}
+		
+		protected boolean canSkipRoundTripIfCached() {
+			return true;
 		}
 	}
 	

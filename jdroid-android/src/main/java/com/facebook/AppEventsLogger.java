@@ -1,11 +1,11 @@
 /**
  * Copyright 2010-present Facebook.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -23,23 +23,25 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Currency;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import bolts.AppLinks;
 import com.facebook.internal.AttributionIdentifiers;
 import com.facebook.internal.Logger;
 import com.facebook.internal.Utility;
@@ -58,6 +60,7 @@ import com.facebook.model.GraphObject;
  * </p>
  * <p>
  * The AppEventsLogger class has a few related roles:
+ * </p>
  * <ul>
  * <li>
  * Logging predefined and application-defined events to Facebook App Insights with a numeric value to sum across a large
@@ -74,7 +77,7 @@ import com.facebook.model.GraphObject;
  * situations:
  * <ul>
  * <li>when an event count threshold is passed (currently 100 logged events).</li>
- * <li>when a time threshold is passed (currently 60 seconds).</li>
+ * <li>when a time threshold is passed (currently 15 seconds).</li>
  * <li>when an app has gone to background and is then brought back to the foreground.</li>
  * </ul>
  * <li>
@@ -96,7 +99,7 @@ import com.facebook.model.GraphObject;
  * There is a limit on the number of unique event names an app can use, on the order of 300.</li>
  * <li>
  * There is a limit to the number of unique parameter names in the provided parameters that can be used per event, on
- * the order of 10. This is not just for an individual call, but for all invocations for that eventName.</li>
+ * the order of 25. This is not just for an individual call, but for all invocations for that eventName.</li>
  * <li>
  * Event names and parameter names (the keys in the NSDictionary) must be between 2 and 40 characters, and must consist
  * of alphanumeric characters, _, -, or spaces.</li>
@@ -125,66 +128,29 @@ public class AppEventsLogger {
 		EXPLICIT_ONLY,
 	}
 	
-	private enum SuppressionTimeoutBehavior {
-		// Successfully logging an event will reset the timeout period (i.e., events will log no more than every N
-		// seconds).
-		RESET_TIMEOUT_WHEN_LOG_SUCCESSFUL,
-		// Attempting to log an event, even if it is suppressed, will reset the timeout period (i.e., events will not
-		// be logged until they have been "silent" for at least N seconds).
-		RESET_TIMEOUT_WHEN_LOG_ATTEMPTED,
-	}
-	
-	private static class EventSuppression {
-		
-		// Timeout period in seconds
-		private int timeoutPeriod;
-		private SuppressionTimeoutBehavior behavior;
-		
-		EventSuppression(int timeoutPeriod, SuppressionTimeoutBehavior behavior) {
-			this.timeoutPeriod = timeoutPeriod;
-			this.behavior = behavior;
-		}
-		
-		int getTimeoutPeriod() {
-			return timeoutPeriod;
-		}
-		
-		SuppressionTimeoutBehavior getBehavior() {
-			return behavior;
-		}
-	}
-	
 	// Constants
 	private static final String TAG = AppEventsLogger.class.getCanonicalName();
 	
 	private static final int NUM_LOG_EVENTS_TO_TRY_TO_FLUSH_AFTER = 100;
-	private static final int FLUSH_PERIOD_IN_SECONDS = 60;
+	private static final int FLUSH_PERIOD_IN_SECONDS = 15;
 	private static final int APP_SUPPORTS_ATTRIBUTION_ID_RECHECK_PERIOD_IN_SECONDS = 60 * 60 * 24;
-	private static final int APP_ACTIVATE_SUPPRESSION_PERIOD_IN_SECONDS = 5 * 60;
+	private static final int FLUSH_APP_SESSION_INFO_IN_SECONDS = 30;
+	
+	private static final String SOURCE_APPLICATION_HAS_BEEN_SET_BY_THIS_INTENT = "_fbSourceApplicationHasBeenSet";
 	
 	// Instance member variables
 	private final Context context;
 	private final AccessTokenAppIdPair accessTokenAppId;
 	
 	private static Map<AccessTokenAppIdPair, SessionEventsState> stateMap = new ConcurrentHashMap<AccessTokenAppIdPair, SessionEventsState>();
-	private static Timer flushTimer;
-	private static Timer supportsAttributionRecheckTimer;
+	private static ScheduledThreadPoolExecutor backgroundExecutor;
 	private static FlushBehavior flushBehavior = FlushBehavior.AUTO;
 	private static boolean requestInFlight;
 	private static Context applicationContext;
 	private static Object staticLock = new Object();
 	private static String hashedDeviceAndAppId;
-	private static Map<String, Date> mapEventsToSuppressionTime = new HashMap<String, Date>();
-	private static Map<String, EventSuppression> mapEventNameToSuppress = new HashMap<String, EventSuppression>() {
-		
-		private static final long serialVersionUID = 1L;
-		
-		{
-			put(AppEventsConstants.EVENT_NAME_ACTIVATED_APP, new EventSuppression(
-					APP_ACTIVATE_SUPPRESSION_PERIOD_IN_SECONDS,
-					SuppressionTimeoutBehavior.RESET_TIMEOUT_WHEN_LOG_ATTEMPTED));
-		}
-	};
+	private static String sourceApplication;
+	private static boolean isOpenedByApplink;
 	
 	// Rather than retaining Sessions, we extract the information we need and track app events by
 	// application ID and access token (which may be null for Session-less calls). This avoids needing to
@@ -253,6 +219,7 @@ public class AppEventsLogger {
 	/**
 	 * This method is deprecated. Use {@link Settings#getLimitEventAndDataUsage(Context)} instead.
 	 */
+	
 	@Deprecated
 	public static boolean getLimitEventUsage(Context context) {
 		return Settings.getLimitEventAndDataUsage(context);
@@ -269,45 +236,108 @@ public class AppEventsLogger {
 	/**
 	 * Notifies the events system that the app has launched & logs an activatedApp event. Should be called whenever your
 	 * app becomes active, typically in the onResume() method of each long-running Activity of your app.
-	 * 
+	 *
 	 * Use this method if your application ID is stored in application metadata, otherwise see
 	 * {@link AppEventsLogger#activateApp(android.content.Context, String)}.
-	 * 
+	 *
 	 * @param context Used to access the applicationId and the attributionId for non-authenticated users.
 	 */
 	public static void activateApp(Context context) {
+		Settings.sdkInitialize(context);
 		activateApp(context, Utility.getMetadataApplicationId(context));
 	}
 	
 	/**
 	 * Notifies the events system that the app has launched & logs an activatedApp event. Should be called whenever your
 	 * app becomes active, typically in the onResume() method of each long-running Activity of your app.
-	 * 
+	 *
 	 * @param context Used to access the attributionId for non-authenticated users.
-	 * 
 	 * @param applicationId The specific applicationId to report the activation for.
 	 */
-	@SuppressWarnings("deprecation")
 	public static void activateApp(Context context, String applicationId) {
 		if ((context == null) || (applicationId == null)) {
 			throw new IllegalArgumentException("Both context and applicationId must be non-null");
 		}
 		
+		if ((context instanceof Activity)) {
+			setSourceApplication((Activity)context);
+		} else {
+			// If context is not an Activity, we cannot get intent nor calling activity.
+			resetSourceApplication();
+			Log.d(AppEventsLogger.class.getName(),
+				"To set source application the context of activateApp must be an instance of Activity");
+		}
+		
 		// activateApp supercedes publishInstall in the public API, so we need to explicitly invoke it, since the server
 		// can't reliably infer install state for all conditions of an app activate.
-		Settings.publishInstallAsync(context, applicationId);
+		Settings.publishInstallAsync(context, applicationId, null);
 		
-		AppEventsLogger logger = new AppEventsLogger(context, applicationId, null);
-		logger.logEvent(AppEventsConstants.EVENT_NAME_ACTIVATED_APP);
+		final AppEventsLogger logger = new AppEventsLogger(context, applicationId, null);
+		final long eventTime = System.currentTimeMillis();
+		final String sourceApplicationInfo = getSourceApplication();
+		backgroundExecutor.execute(new Runnable() {
+			
+			@Override
+			public void run() {
+				logger.logAppSessionResumeEvent(eventTime, sourceApplicationInfo);
+			}
+		});
+	}
+	
+	/**
+	 * Notifies the events system that the app has been deactivated (put in the background) and tracks the application
+	 * session information. Should be called whenever your app becomes inactive, typically in the onPause() method of
+	 * each long-running Activity of your app.
+	 *
+	 * Use this method if your application ID is stored in application metadata, otherwise see
+	 * {@link AppEventsLogger#deactivateApp(android.content.Context, String)}.
+	 *
+	 * @param context Used to access the applicationId and the attributionId for non-authenticated users.
+	 */
+	public static void deactivateApp(Context context) {
+		deactivateApp(context, Utility.getMetadataApplicationId(context));
+	}
+	
+	/**
+	 * Notifies the events system that the app has been deactivated (put in the background) and tracks the application
+	 * session information. Should be called whenever your app becomes inactive, typically in the onPause() method of
+	 * each long-running Activity of your app.
+	 *
+	 * @param context Used to access the attributionId for non-authenticated users.
+	 * @param applicationId The specific applicationId to track session information for.
+	 */
+	public static void deactivateApp(Context context, String applicationId) {
+		if ((context == null) || (applicationId == null)) {
+			throw new IllegalArgumentException("Both context and applicationId must be non-null");
+		}
+		
+		resetSourceApplication();
+		
+		final AppEventsLogger logger = new AppEventsLogger(context, applicationId, null);
+		final long eventTime = System.currentTimeMillis();
+		backgroundExecutor.execute(new Runnable() {
+			
+			@Override
+			public void run() {
+				logger.logAppSessionSuspendEvent(eventTime);
+			}
+		});
+	}
+	
+	private void logAppSessionResumeEvent(long eventTime, String sourceApplicationInfo) {
+		PersistedAppSessionInfo.onResume(applicationContext, accessTokenAppId, this, eventTime, sourceApplicationInfo);
+	}
+	
+	private void logAppSessionSuspendEvent(long eventTime) {
+		PersistedAppSessionInfo.onSuspend(applicationContext, accessTokenAppId, this, eventTime);
 	}
 	
 	/**
 	 * Build an AppEventsLogger instance to log events through. The Facebook app that these events are targeted at comes
 	 * from this application's metadata. The application ID used to log events will be determined from the app ID
 	 * specified in the package metadata.
-	 * 
+	 *
 	 * @param context Used to access the applicationId and the attributionId for non-authenticated users.
-	 * 
 	 * @return AppEventsLogger instance to invoke log* methods on.
 	 */
 	public static AppEventsLogger newLogger(Context context) {
@@ -316,12 +346,11 @@ public class AppEventsLogger {
 	
 	/**
 	 * Build an AppEventsLogger instance to log events through.
-	 * 
+	 *
 	 * @param context Used to access the attributionId for non-authenticated users.
 	 * @param session Explicitly specified Session to log events against. If null, the activeSession will be used if
 	 *            it's open, otherwise the logging will happen against the default app ID specified via the app ID
 	 *            specified in the package metadata.
-	 * 
 	 * @return AppEventsLogger instance to invoke log* methods on.
 	 */
 	public static AppEventsLogger newLogger(Context context, Session session) {
@@ -330,13 +359,12 @@ public class AppEventsLogger {
 	
 	/**
 	 * Build an AppEventsLogger instance to log events through.
-	 * 
+	 *
 	 * @param context Used to access the attributionId for non-authenticated users.
 	 * @param applicationId Explicitly specified Facebook applicationId to log events against. If null, the default app
 	 *            ID specified in the package metadata will be used.
 	 * @param session Explicitly specified Session to log events against. If null, the activeSession will be used if
 	 *            it's open, otherwise the logging will happen against the specified app ID.
-	 * 
 	 * @return AppEventsLogger instance to invoke log* methods on.
 	 */
 	public static AppEventsLogger newLogger(Context context, String applicationId, Session session) {
@@ -346,11 +374,10 @@ public class AppEventsLogger {
 	/**
 	 * Build an AppEventsLogger instance to log events that are attributed to the application but not to any particular
 	 * Session.
-	 * 
+	 *
 	 * @param context Used to access the attributionId for non-authenticated users.
 	 * @param applicationId Explicitly specified Facebook applicationId to log events against. If null, the default app
 	 *            ID specified in the package metadata will be used.
-	 * 
 	 * @return AppEventsLogger instance to invoke log* methods on.
 	 */
 	public static AppEventsLogger newLogger(Context context, String applicationId) {
@@ -369,7 +396,7 @@ public class AppEventsLogger {
 	/**
 	 * Access the behavior that AppEventsLogger uses to determine when to flush logged events to the server. This
 	 * setting applies to all instances of AppEventsLogger.
-	 * 
+	 *
 	 * @return specified flush behavior.
 	 */
 	public static FlushBehavior getFlushBehavior() {
@@ -381,7 +408,7 @@ public class AppEventsLogger {
 	/**
 	 * Set the behavior that this AppEventsLogger uses to determine when to flush logged events to the server. This
 	 * setting applies to all instances of AppEventsLogger.
-	 * 
+	 *
 	 * @param flushBehavior the desired behavior.
 	 */
 	public static void setFlushBehavior(FlushBehavior flushBehavior) {
@@ -392,7 +419,7 @@ public class AppEventsLogger {
 	
 	/**
 	 * Log an app event with the specified name.
-	 * 
+	 *
 	 * @param eventName eventName used to denote the event. Choose amongst the EVENT_NAME_* constants in
 	 *            {@link AppEventsConstants} when possible. Or create your own if none of the EVENT_NAME_* constants are
 	 *            applicable. Event names should be 40 characters or less, alphanumeric, and can include spaces,
@@ -405,7 +432,7 @@ public class AppEventsLogger {
 	
 	/**
 	 * Log an app event with the specified name and the supplied value.
-	 * 
+	 *
 	 * @param eventName eventName used to denote the event. Choose amongst the EVENT_NAME_* constants in
 	 *            {@link AppEventsConstants} when possible. Or create your own if none of the EVENT_NAME_* constants are
 	 *            applicable. Event names should be 40 characters or less, alphanumeric, and can include spaces,
@@ -420,7 +447,7 @@ public class AppEventsLogger {
 	
 	/**
 	 * Log an app event with the specified name and set of parameters.
-	 * 
+	 *
 	 * @param eventName eventName used to denote the event. Choose amongst the EVENT_NAME_* constants in
 	 *            {@link AppEventsConstants} when possible. Or create your own if none of the EVENT_NAME_* constants are
 	 *            applicable. Event names should be 40 characters or less, alphanumeric, and can include spaces,
@@ -439,7 +466,7 @@ public class AppEventsLogger {
 	
 	/**
 	 * Log an app event with the specified name, supplied value, and set of parameters.
-	 * 
+	 *
 	 * @param eventName eventName used to denote the event. Choose amongst the EVENT_NAME_* constants in
 	 *            {@link AppEventsConstants} when possible. Or create your own if none of the EVENT_NAME_* constants are
 	 *            applicable. Event names should be 40 characters or less, alphanumeric, and can include spaces,
@@ -460,7 +487,7 @@ public class AppEventsLogger {
 	
 	/**
 	 * Logs a purchase event with Facebook, in the specified amount and with the specified currency.
-	 * 
+	 *
 	 * @param purchaseAmount Amount of purchase, in the currency specified by the 'currency' parameter. This value will
 	 *            be rounded to the thousandths place (e.g., 12.34567 becomes 12.346).
 	 * @param currency Currency used to specify the amount.
@@ -472,7 +499,7 @@ public class AppEventsLogger {
 	/**
 	 * Logs a purchase event with Facebook, in the specified amount and with the specified currency. Additional detail
 	 * about the purchase can be passed in through the parameters bundle.
-	 * 
+	 *
 	 * @param purchaseAmount Amount of purchase, in the currency specified by the 'currency' parameter. This value will
 	 *            be rounded to the thousandths place (e.g., 12.34567 becomes 12.346).
 	 * @param currency Currency used to specify the amount.
@@ -531,7 +558,7 @@ public class AppEventsLogger {
 	
 	/**
 	 * Returns the app ID this logger was configured to log to.
-	 * 
+	 *
 	 * @return the Facebook app ID
 	 */
 	public String getApplicationId() {
@@ -570,9 +597,11 @@ public class AppEventsLogger {
 			session = Session.getActiveSession();
 		}
 		
-		if (session != null) {
+		// If we have a session and the appId passed is null or matches the session's app ID:
+		if ((session != null) && ((applicationId == null) || applicationId.equals(session.getApplicationId()))) {
 			accessTokenAppId = new AccessTokenAppIdPair(session);
 		} else {
+			// If no app ID passed, get it from the manifest:
 			if (applicationId == null) {
 				applicationId = Utility.getMetadataApplicationId(context);
 			}
@@ -595,14 +624,13 @@ public class AppEventsLogger {
 	
 	private static void initializeTimersIfNeeded() {
 		synchronized (staticLock) {
-			if (flushTimer != null) {
+			if (backgroundExecutor != null) {
 				return;
 			}
-			flushTimer = new Timer();
-			supportsAttributionRecheckTimer = new Timer();
+			backgroundExecutor = new ScheduledThreadPoolExecutor(1);
 		}
 		
-		flushTimer.schedule(new TimerTask() {
+		final Runnable flushRunnable = new Runnable() {
 			
 			@Override
 			public void run() {
@@ -610,10 +638,11 @@ public class AppEventsLogger {
 					flushAndWait(FlushReason.TIMER);
 				}
 			}
-		}, 0, // start immediately
-			FLUSH_PERIOD_IN_SECONDS * 1000);
+		};
 		
-		supportsAttributionRecheckTimer.schedule(new TimerTask() {
+		backgroundExecutor.scheduleAtFixedRate(flushRunnable, 0, FLUSH_PERIOD_IN_SECONDS, TimeUnit.SECONDS);
+		
+		final Runnable attributionRecheckRunnable = new Runnable() {
 			
 			@Override
 			public void run() {
@@ -627,51 +656,28 @@ public class AppEventsLogger {
 					Utility.queryAppSettings(applicationId, true);
 				}
 			}
-		}, 0, // start immediately
-			APP_SUPPORTS_ATTRIBUTION_ID_RECHECK_PERIOD_IN_SECONDS * 1000);
+		};
+		
+		backgroundExecutor.scheduleAtFixedRate(attributionRecheckRunnable, 0,
+			APP_SUPPORTS_ATTRIBUTION_ID_RECHECK_PERIOD_IN_SECONDS, TimeUnit.SECONDS);
 	}
 	
 	private void logEvent(String eventName, Double valueToSum, Bundle parameters, boolean isImplicitlyLogged) {
-		
-		AppEvent event = new AppEvent(eventName, valueToSum, parameters, isImplicitlyLogged);
+		AppEvent event = new AppEvent(context, eventName, valueToSum, parameters, isImplicitlyLogged);
 		logEvent(context, event, accessTokenAppId);
 	}
 	
-	private static void logEvent(Context context, AppEvent event, AccessTokenAppIdPair accessTokenAppId) {
-		if (shouldSuppressEvent(event)) {
-			return;
-		}
-		
-		SessionEventsState state = getSessionEventsState(context, accessTokenAppId);
-		state.addEvent(event);
-		
-		flushIfNecessary();
-	}
-	
-	// This will also update the timestamp based on specified behavior.
-	private static boolean shouldSuppressEvent(AppEvent event) {
-		EventSuppression suppressionInfo = mapEventNameToSuppress.get(event.getName());
-		if (suppressionInfo == null) {
-			return false;
-		}
-		
-		Date timestamp = mapEventsToSuppressionTime.get(event.getName());
-		boolean suppressed;
-		if (timestamp == null) {
-			suppressed = false;
-		} else {
-			long delta = new Date().getTime() - timestamp.getTime();
-			suppressed = delta < (suppressionInfo.getTimeoutPeriod() * 1000);
-		}
-		
-		// Update the time if we're not suppressed, OR if we are suppressed but the behavior is to reset even on
-		// suppressed events.
-		if (!suppressed
-				|| (suppressionInfo.getBehavior() == SuppressionTimeoutBehavior.RESET_TIMEOUT_WHEN_LOG_ATTEMPTED)) {
-			mapEventsToSuppressionTime.put(event.getName(), new Date());
-		}
-		
-		return suppressed;
+	private static void logEvent(final Context context, final AppEvent event,
+			final AccessTokenAppIdPair accessTokenAppId) {
+		Settings.getExecutor().execute(new Runnable() {
+			
+			@Override
+			public void run() {
+				SessionEventsState state = getSessionEventsState(context, accessTokenAppId);
+				state.addEvent(event);
+				flushIfNecessary();
+			}
+		});
 	}
 	
 	static void eagerFlush() {
@@ -703,12 +709,20 @@ public class AppEventsLogger {
 	
 	// Creates a new SessionEventsState if not already in the map.
 	private static SessionEventsState getSessionEventsState(Context context, AccessTokenAppIdPair accessTokenAppId) {
+		// Do this work outside of the lock to prevent deadlocks in implementation of
+		// AdvertisingIdClient.getAdvertisingIdInfo, because that implementation blocks waiting on the main thread,
+		// which may also grab this staticLock.
+		SessionEventsState state = stateMap.get(accessTokenAppId);
+		AttributionIdentifiers attributionIdentifiers = null;
+		if (state == null) {
+			// Retrieve attributionId, but we will only send it if attribution is supported for the app.
+			attributionIdentifiers = AttributionIdentifiers.getAttributionIdentifiers(context);
+		}
+		
 		synchronized (staticLock) {
-			SessionEventsState state = stateMap.get(accessTokenAppId);
+			// Check state again while we're locked.
+			state = stateMap.get(accessTokenAppId);
 			if (state == null) {
-				// Retrieve attributionId, but we will only send it if attribution is supported for the app.
-				AttributionIdentifiers attributionIdentifiers = AttributionIdentifiers.getAttributionIdentifiers(context);
-				
 				state = new SessionEventsState(attributionIdentifiers, context.getPackageName(), hashedDeviceAndAppId);
 				stateMap.put(accessTokenAppId, state);
 			}
@@ -750,7 +764,7 @@ public class AppEventsLogger {
 		try {
 			flushResults = buildAndExecuteRequests(reason, keysToFlush);
 		} catch (Exception e) {
-			Log.d(TAG, "Caught unexpected exception while flushing: " + e.toString());
+			Utility.logd(TAG, "Caught unexpected exception while flushing: ", e);
 		}
 		
 		synchronized (staticLock) {
@@ -820,6 +834,10 @@ public class AppEventsLogger {
 		}
 		requestParameters.putString("access_token", accessTokenAppId.getAccessToken());
 		postRequest.setParameters(requestParameters);
+		
+		if (fetchedAppSettings == null) {
+			return null;
+		}
 		
 		int numEvents = sessionEventsState.populateRequest(postRequest, fetchedAppSettings.supportsImplicitLogging(),
 			fetchedAppSettings.supportsAttribution(), limitEventUsage);
@@ -914,6 +932,76 @@ public class AppEventsLogger {
 	 */
 	private static void notifyDeveloperError(String message) {
 		Logger.log(LoggingBehavior.DEVELOPER_ERRORS, "AppEvents", message);
+	}
+	
+	/**
+	 * Source Application setters and getters
+	 */
+	private static void setSourceApplication(Activity activity) {
+		
+		ComponentName callingApplication = activity.getCallingActivity();
+		if (callingApplication != null) {
+			String callingApplicationPackage = callingApplication.getPackageName();
+			if (callingApplicationPackage.equals(activity.getPackageName())) {
+				// open by own app.
+				resetSourceApplication();
+				return;
+			}
+			sourceApplication = callingApplicationPackage;
+		}
+		
+		// Tap icon to open an app will still get the old intent if the activity was opened by an intent before.
+		// Introduce an extra field in the intent to force clear the sourceApplication.
+		Intent openIntent = activity.getIntent();
+		if ((openIntent == null) || openIntent.getBooleanExtra(SOURCE_APPLICATION_HAS_BEEN_SET_BY_THIS_INTENT, false)) {
+			resetSourceApplication();
+			return;
+		}
+		
+		Bundle applinkData = AppLinks.getAppLinkData(openIntent);
+		
+		if (applinkData == null) {
+			resetSourceApplication();
+			return;
+		}
+		
+		isOpenedByApplink = true;
+		
+		Bundle applinkReferrerData = applinkData.getBundle("referer_app_link");
+		
+		if (applinkReferrerData == null) {
+			sourceApplication = null;
+			return;
+		}
+		
+		String applinkReferrerPackage = applinkReferrerData.getString("package");
+		sourceApplication = applinkReferrerPackage;
+		
+		// Mark this intent has been used to avoid use this intent again and again.
+		openIntent.putExtra(SOURCE_APPLICATION_HAS_BEEN_SET_BY_THIS_INTENT, true);
+		
+		return;
+	}
+	
+	static void setSourceApplication(String applicationPackage, boolean openByAppLink) {
+		sourceApplication = applicationPackage;
+		isOpenedByApplink = openByAppLink;
+	}
+	
+	static String getSourceApplication() {
+		String openType = "Unclassified";
+		if (isOpenedByApplink) {
+			openType = "Applink";
+		}
+		if (sourceApplication != null) {
+			return openType + "(" + sourceApplication + ")";
+		}
+		return openType;
+	}
+	
+	static void resetSourceApplication() {
+		sourceApplication = null;
+		isOpenedByApplink = false;
 	}
 	
 	//
@@ -1021,6 +1109,15 @@ public class AppEventsLogger {
 					limitEventUsage);
 			}
 			
+			// The code to get all the Extended info is safe but just in case we can wrap the whole
+			// call in its own try/catch block since some of the things it does might cause
+			// unexpected exceptions on rooted/funky devices:
+			try {
+				Utility.setAppEventExtendedDeviceInfoParameters(publishParams, applicationContext);
+			} catch (Exception e) {
+				// Swallow
+			}
+			
 			publishParams.setProperty("application_package_name", packageName);
 			
 			request.setGraphObject(publishParams);
@@ -1059,19 +1156,18 @@ public class AppEventsLogger {
 		private static final HashSet<String> validatedIdentifiers = new HashSet<String>();
 		private String name;
 		
-		public AppEvent(String eventName, Double valueToSum, Bundle parameters, boolean isImplicitlyLogged) {
-			
-			validateIdentifier(eventName);
-			
-			name = eventName;
-			
-			isImplicit = isImplicitlyLogged;
-			jsonObject = new JSONObject();
-			
+		public AppEvent(Context context, String eventName, Double valueToSum, Bundle parameters,
+				boolean isImplicitlyLogged) {
 			try {
+				validateIdentifier(eventName);
+				
+				name = eventName;
+				isImplicit = isImplicitlyLogged;
+				jsonObject = new JSONObject();
 				
 				jsonObject.put("_eventName", eventName);
 				jsonObject.put("_logTime", System.currentTimeMillis() / 1000);
+				jsonObject.put("_ui", Utility.getActivityName(context));
 				
 				if (valueToSum != null) {
 					jsonObject.put("_valueToSum", valueToSum.doubleValue());
@@ -1111,6 +1207,11 @@ public class AppEventsLogger {
 					jsonException.toString());
 				jsonObject = null;
 				
+			} catch (FacebookException e) {
+				// If any of the above failed, just consider this an illegal event.
+				Logger.log(LoggingBehavior.APP_EVENTS, "AppEvents", "Invalid app event name or parameter:",
+					e.toString());
+				jsonObject = null;
 			}
 		}
 		
@@ -1132,7 +1233,7 @@ public class AppEventsLogger {
 		}
 		
 		// throw exception if not valid.
-		private void validateIdentifier(String identifier) {
+		private void validateIdentifier(String identifier) throws FacebookException {
 			
 			// Identifier should be 40 chars or less, and only have 0-9A-Za-z, underscore, hyphen, and space (but no
 			// hyphen or space in the first position).
@@ -1163,7 +1264,6 @@ public class AppEventsLogger {
 								+ "and alphanumeric, _, - or space, and not start with a space or hyphen.", identifier));
 				}
 			}
-			
 		}
 		
 		private static class SerializationProxyV1 implements Serializable {
@@ -1190,6 +1290,113 @@ public class AppEventsLogger {
 		public String toString() {
 			return String.format("\"%s\", implicit: %b, json: %s", jsonObject.optString("_eventName"), isImplicit,
 				jsonObject.toString());
+		}
+	}
+	
+	static class PersistedAppSessionInfo {
+		
+		private static final String PERSISTED_SESSION_INFO_FILENAME = "AppEventsLogger.persistedsessioninfo";
+		
+		@SuppressWarnings("hiding")
+		private static final Object staticLock = new Object();
+		private static boolean hasChanges = false;
+		private static boolean isLoaded = false;
+		private static Map<AccessTokenAppIdPair, FacebookTimeSpentData> appSessionInfoMap;
+		
+		private static final Runnable appSessionInfoFlushRunnable = new Runnable() {
+			
+			@Override
+			public void run() {
+				PersistedAppSessionInfo.saveAppSessionInformation(applicationContext);
+			}
+		};
+		
+		@SuppressWarnings("unchecked")
+		private static void restoreAppSessionInformation(Context context) {
+			ObjectInputStream ois = null;
+			
+			synchronized (staticLock) {
+				if (!isLoaded) {
+					try {
+						ois = new ObjectInputStream(context.openFileInput(PERSISTED_SESSION_INFO_FILENAME));
+						appSessionInfoMap = (HashMap<AccessTokenAppIdPair, FacebookTimeSpentData>)ois.readObject();
+						Logger.log(LoggingBehavior.APP_EVENTS, "AppEvents", "App session info loaded");
+					} catch (FileNotFoundException fex) {
+					} catch (Exception e) {
+						Log.d(TAG, "Got unexpected exception: " + e.toString());
+					} finally {
+						Utility.closeQuietly(ois);
+						context.deleteFile(PERSISTED_SESSION_INFO_FILENAME);
+						if (appSessionInfoMap == null) {
+							appSessionInfoMap = new HashMap<AccessTokenAppIdPair, FacebookTimeSpentData>();
+						}
+						// Regardless of the outcome of the load, the session information cache
+						// is always deleted. Therefore, always treat the session information cache
+						// as loaded
+						isLoaded = true;
+						hasChanges = false;
+					}
+				}
+			}
+		}
+		
+		static void saveAppSessionInformation(Context context) {
+			ObjectOutputStream oos = null;
+			
+			synchronized (staticLock) {
+				if (hasChanges) {
+					try {
+						oos = new ObjectOutputStream(new BufferedOutputStream(context.openFileOutput(
+							PERSISTED_SESSION_INFO_FILENAME, Context.MODE_PRIVATE)));
+						oos.writeObject(appSessionInfoMap);
+						hasChanges = false;
+						Logger.log(LoggingBehavior.APP_EVENTS, "AppEvents", "App session info saved");
+					} catch (Exception e) {
+						Log.d(TAG, "Got unexpected exception: " + e.toString());
+					} finally {
+						Utility.closeQuietly(oos);
+					}
+				}
+			}
+		}
+		
+		static void onResume(Context context, AccessTokenAppIdPair accessTokenAppId, AppEventsLogger logger,
+				long eventTime, String sourceApplicationInfo) {
+			synchronized (staticLock) {
+				FacebookTimeSpentData timeSpentData = getTimeSpentData(context, accessTokenAppId);
+				timeSpentData.onResume(logger, eventTime, sourceApplicationInfo);
+				onTimeSpentDataUpdate();
+			}
+		}
+		
+		static void onSuspend(Context context, AccessTokenAppIdPair accessTokenAppId, AppEventsLogger logger,
+				long eventTime) {
+			synchronized (staticLock) {
+				FacebookTimeSpentData timeSpentData = getTimeSpentData(context, accessTokenAppId);
+				timeSpentData.onSuspend(logger, eventTime);
+				onTimeSpentDataUpdate();
+			}
+		}
+		
+		private static FacebookTimeSpentData getTimeSpentData(Context context, AccessTokenAppIdPair accessTokenAppId) {
+			restoreAppSessionInformation(context);
+			FacebookTimeSpentData result = null;
+			
+			result = appSessionInfoMap.get(accessTokenAppId);
+			if (result == null) {
+				result = new FacebookTimeSpentData();
+				appSessionInfoMap.put(accessTokenAppId, result);
+			}
+			
+			return result;
+		}
+		
+		private static void onTimeSpentDataUpdate() {
+			if (!hasChanges) {
+				hasChanges = true;
+				backgroundExecutor.schedule(appSessionInfoFlushRunnable, FLUSH_APP_SESSION_INFO_IN_SECONDS,
+					TimeUnit.SECONDS);
+			}
 		}
 	}
 	

@@ -1,11 +1,11 @@
 /**
  * Copyright 2010-present Facebook.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -68,9 +68,9 @@ public class SharedPreferencesTokenCachingStrategy extends TokenCachingStrategy 
 	/**
 	 * Creates a default {@link SharedPreferencesTokenCachingStrategy SharedPreferencesTokenCachingStrategy} instance
 	 * that provides access to a single set of token information.
-	 * 
+	 *
 	 * @param context The Context object to use to get the SharedPreferences object.
-	 * 
+	 *
 	 * @throws NullPointerException if the passed in Context is null
 	 */
 	public SharedPreferencesTokenCachingStrategy(Context context) {
@@ -80,11 +80,11 @@ public class SharedPreferencesTokenCachingStrategy extends TokenCachingStrategy 
 	/**
 	 * Creates a {@link SharedPreferencesTokenCachingStrategy SharedPreferencesTokenCachingStrategy} instance that is
 	 * distinct for the passed in cacheKey.
-	 * 
+	 *
 	 * @param context The Context object to use to get the SharedPreferences object.
-	 * 
+	 *
 	 * @param cacheKey Identifies a distinct set of token information.
-	 * 
+	 *
 	 * @throws NullPointerException if the passed in Context is null
 	 */
 	public SharedPreferencesTokenCachingStrategy(Context context, String cacheKey) {
@@ -103,7 +103,7 @@ public class SharedPreferencesTokenCachingStrategy extends TokenCachingStrategy 
 	
 	/**
 	 * Returns a Bundle that contains the information stored in this cache
-	 * 
+	 *
 	 * @return A Bundle with the information contained in this cache
 	 */
 	@Override
@@ -128,7 +128,7 @@ public class SharedPreferencesTokenCachingStrategy extends TokenCachingStrategy 
 	
 	/**
 	 * Persists all supported data types present in the passed in Bundle, to the cache
-	 * 
+	 *
 	 * @param bundle The Bundle containing information to be cached
 	 */
 	@Override
@@ -149,11 +149,7 @@ public class SharedPreferencesTokenCachingStrategy extends TokenCachingStrategy 
 				return;
 			}
 		}
-		
-		boolean successfulCommit = editor.commit();
-		if (!successfulCommit) {
-			Logger.log(LoggingBehavior.CACHE, Log.WARN, TAG, "SharedPreferences.Editor.commit() was not successful");
-		}
+		editor.apply();
 	}
 	
 	/**
@@ -161,7 +157,7 @@ public class SharedPreferencesTokenCachingStrategy extends TokenCachingStrategy 
 	 */
 	@Override
 	public void clear() {
-		cache.edit().clear().commit();
+		cache.edit().clear().apply();
 	}
 	
 	private void serializeKey(String key, Bundle bundle, SharedPreferences.Editor editor) throws JSONException {
