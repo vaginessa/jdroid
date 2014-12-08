@@ -317,7 +317,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	public Boolean isDarkTheme() {
-		return true;
+		return false;
 	}
 	
 	private String getMockedEmail() {

@@ -4,6 +4,7 @@
 	<style name="Jdroid.Theme.Light" parent="@android:style/Theme.Holo.Light">
 		<item name="android:actionBarStyle">@style/actionBar</item>
 		<item name="android:homeAsUpIndicator">@drawable/ic_up</item>
+		<item name="android:actionBarItemBackground">@drawable/default_item_selector</item>
 	</style>
 
 	<style name="actionBar" parent="@android:style/Widget.Holo.ActionBar">
@@ -12,7 +13,7 @@
 	</style>
 
 	<style name="actionBarTitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-		<item name="android:textColor">@color/actionBarText</item>
+		<item name="android:textColor">@color/textColorPrimary</item>
 	</style>
 
 	<!-- Translucent Action Bar -->
