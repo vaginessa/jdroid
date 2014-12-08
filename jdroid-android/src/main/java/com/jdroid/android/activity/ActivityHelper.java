@@ -447,6 +447,10 @@ public class ActivityHelper implements ActivityIf {
 			adHelper.onResume();
 		}
 		
+		checkNavDrawerItem();
+	}
+	
+	private void checkNavDrawerItem() {
 		if (isNavDrawerEnabled()) {
 			for (int i = 0; i < getVisibleNavDrawerItems().size(); i++) {
 				NavDrawerItem item = getVisibleNavDrawerItems().get(i);
@@ -779,7 +783,11 @@ public class ActivityHelper implements ActivityIf {
 		}
 		
 		// update selected item and title, then close the drawer
-		drawerList.setItemChecked(position, true);
+		if (navDrawerItem.isMainAction()) {
+			drawerList.setItemChecked(position, true);
+		} else {
+			checkNavDrawerItem();
+		}
 		drawerLayout.closeDrawer(drawerList);
 	}
 	
