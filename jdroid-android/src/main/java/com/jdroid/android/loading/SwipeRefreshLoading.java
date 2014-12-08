@@ -8,10 +8,10 @@ import com.jdroid.android.fragment.FragmentIf;
 
 public class SwipeRefreshLoading implements FragmentLoading {
 	
-	private Integer colorRes1;
-	private Integer colorRes2;
-	private Integer colorRes3;
-	private Integer colorRes4;
+	private Integer colorRes1 = R.color.colorPrimary;
+	private Integer colorRes2 = R.color.accentColor;
+	private Integer colorRes3 = R.color.colorPrimaryDark;
+	private Integer colorRes4 = R.color.accentColorPressed;
 	
 	/**
 	 * @see com.jdroid.android.loading.FragmentLoading#onViewCreated(com.jdroid.android.fragment.FragmentIf)

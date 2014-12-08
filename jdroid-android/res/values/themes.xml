@@ -13,7 +13,7 @@
 	</style>
 
 	<style name="actionBarTitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-		<item name="android:textColor">@color/textColorPrimary</item>
+		<item name="android:textColor">@color/actionBarTextColor</item>
 	</style>
 
 	<!-- Translucent Action Bar -->

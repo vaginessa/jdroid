@@ -57,12 +57,7 @@ public class SwipeRefreshLoadingFragment extends AbstractListFragment<Object> {
 	 */
 	@Override
 	public FragmentLoading getDefaultLoading() {
-		SwipeRefreshLoading swipeRefreshLoading = new SwipeRefreshLoading();
-		swipeRefreshLoading.setColorRes1(R.color.blue);
-		swipeRefreshLoading.setColorRes2(R.color.grey);
-		swipeRefreshLoading.setColorRes3(R.color.lightBlue);
-		swipeRefreshLoading.setColorRes4(android.R.color.white);
-		return swipeRefreshLoading;
+		return new SwipeRefreshLoading();
 	}
 	
 	/**

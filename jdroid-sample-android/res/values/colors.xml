@@ -1,19 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<!-- Text -->
-	<color name="textColor">@android:color/black</color>
-
-	<!-- Action Bar -->
-	<color name="actionBarBackground">#159ed0</color>
-	<color name="actionBarText">@android:color/white</color>
-
-	<!-- Nav Drawer -->
-	<color name="navDrawerItemsBackground">#FFFFFF</color>
-	<color name="navDrawerBackground">#FFFFFF</color>
-	<color name="navDrawerItemColor">@android:color/black</color>
-
-	<!-- About -->
-	<color name="aboutSeparator">#DBDBDB</color>
-
 </resources>

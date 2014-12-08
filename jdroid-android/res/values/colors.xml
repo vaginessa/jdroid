@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<!-- Material Design Colors -->
-
 	<!-- your app branding color for the app bar -->
 	<color name="colorPrimary">#159ED0</color>
 
 	<!-- darker variant for the status bar and contextual app bars -->
 	<color name="colorPrimaryDark">#2196F3</color>
 
-	<color name="textColorPrimary">@android:color/white</color>
 
 	<!-- theme UI controls like checkboxes and text fields -->
 	<color name="accentColor">#1976D2</color>
 	<color name="accentColorPressed">#039BE5</color>
 
 	<!-- Text -->
+	<color name="actionBarTextColor">@android:color/white</color>
 	<color name="textColor">@android:color/black</color>
 
 	<!-- Action Bar -->
