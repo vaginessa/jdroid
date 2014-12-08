@@ -24,7 +24,7 @@
 	<color name="navDrawerItemsBackground">#FFFFFF</color>
 	<color name="navDrawerBackground">#FFFFFF</color>
 	<color name="navDrawerItemColor">#444</color>
-	<color name="navDrawerItemPressedColor">#44999999</color>
+	<color name="navDrawerItemPressedColor">@color/accentColor</color>
 	<color name="navDrawerItemSelectedColor">@color/colorPrimary</color>
 
 	<!-- Maps -->
