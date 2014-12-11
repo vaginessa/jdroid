@@ -428,7 +428,7 @@ public abstract class AbstractApplication extends Application {
 			Map<Class<? extends Identifiable>, Repository<? extends Identifiable>> repositories, SQLiteHelper dbHelper) {
 	}
 	
-	protected Boolean isDatabaseEnabled() {
+	public Boolean isDatabaseEnabled() {
 		return false;
 	}
 	

@@ -42,6 +42,7 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		addAppender(appenders, createNavDrawerDebugPrefsAppender());
 		addAppender(appenders, createAdsDebugPrefsAppender());
 		addAppender(appenders, createExperimentsDebugPrefsAppender());
+		addAppender(appenders, createDatabaseDebugPrefsAppender());
 		addAppender(appenders, createLogsDebugPrefsAppender());
 		addAppender(appenders, createImageLoaderDebugPrefsAppender());
 		addAppender(appenders, createHttpCacheDebugPrefsAppender());
@@ -104,6 +105,10 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 	
 	protected ImageLoaderDebugPrefsAppender createImageLoaderDebugPrefsAppender() {
 		return new ImageLoaderDebugPrefsAppender();
+	}
+	
+	protected DatabaseDebugPrefsAppender createDatabaseDebugPrefsAppender() {
+		return new DatabaseDebugPrefsAppender();
 	}
 	
 	protected LogsDebugPrefsAppender createLogsDebugPrefsAppender() {
