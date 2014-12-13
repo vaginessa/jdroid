@@ -7,3 +7,5 @@ ASSEMBLIES_DIRECTORY=$PROJECT_BUILD_DIRECTORY/assemblies
 
 # Copy the apks to dropbox
 find $ASSEMBLIES_DIRECTORY -type f -name '*.apk' -exec mv {} $APKS_DIRECTORY \;
+
+echo "Apk deployed to $APKS_DIRECTORY"
