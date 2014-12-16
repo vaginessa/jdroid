@@ -1,8 +1,8 @@
 package com.jdroid.android.view;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.support.v7.app.ActionBar;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
+import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.utils.AndroidUtils;
 
 public class ButtonBarView extends FrameLayout {
@@ -98,8 +99,8 @@ public class ButtonBarView extends FrameLayout {
 	 * 
 	 * @param activity The {@link Activity}
 	 */
-	public void addToActionBar(Activity activity) {
-		ActionBar actionBar = activity.getActionBar();
+	public void addToActionBar(AbstractFragmentActivity activity) {
+		ActionBar actionBar = activity.getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(!AndroidUtils.isPreKitkat());
 		actionBar.setDisplayShowTitleEnabled(false);
 		actionBar.setDisplayShowHomeEnabled(false);

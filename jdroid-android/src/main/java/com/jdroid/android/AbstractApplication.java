@@ -20,6 +20,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
+import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
@@ -341,7 +342,7 @@ public abstract class AbstractApplication extends Application {
 		return appContext;
 	}
 	
-	public ActivityHelper createActivityHelper(Activity activity) {
+	public ActivityHelper createActivityHelper(AbstractFragmentActivity activity) {
 		return new ActivityHelper(activity);
 	}
 	

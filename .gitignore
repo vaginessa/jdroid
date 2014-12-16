@@ -34,6 +34,10 @@ jdroid-google-play-services/bin/
 jdroid-google-play-services/gen/
 jdroid-google-play-services/target/
 
+jdroid-support-v7-appcompat/bin/
+jdroid-support-v7-appcompat/gen/
+jdroid-support-v7-appcompat/target/
+
 jdroid-sample-server/bin/
 jdroid-sample-server/target/
 jdroid-sample-server/test-output/

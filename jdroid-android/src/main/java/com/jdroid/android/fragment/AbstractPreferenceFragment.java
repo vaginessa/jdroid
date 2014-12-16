@@ -1,9 +1,10 @@
 package com.jdroid.android.fragment;
 
-import android.app.ActionBar;
 import android.preference.PreferenceFragment;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import com.google.android.gms.ads.AdSize;
+import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
@@ -219,7 +220,7 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	 */
 	@Override
 	public ActionBar getActionBar() {
-		return getActivity().getActionBar();
+		return ((AbstractFragmentActivity)getActivity()).getSupportActionBar();
 	}
 	
 	// //////////////////////// Analytics //////////////////////// //

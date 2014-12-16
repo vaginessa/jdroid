@@ -70,7 +70,7 @@ mkdir -p $ASSEMBLIES_DIRECTORY
 # Checking out
 # ************************
 
-if [ "$CLEAN" = "true" ]
+if [ "$CLEAN" = "true" ] || [ ! -d "$SOURCE_DIRECTORY" ]
 then
 	# Clean the directories
 	rm -r -f $SOURCE_DIRECTORY

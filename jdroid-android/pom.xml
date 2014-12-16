@@ -76,6 +76,14 @@
 			<type>apklib</type>
 		</dependency>
 		
+		<!-- Support v7 appcompat -->
+		<dependency>
+			<groupId>com.jdroidframework</groupId>
+			<artifactId>support-v7-appcompat</artifactId>
+			<version>${project.version}</version>
+			<type>apklib</type>
+		</dependency>
+		
 		<!-- Android Universal Image Loader-->
 		<dependency>
 			<groupId>com.nostra13.universalimageloader</groupId>

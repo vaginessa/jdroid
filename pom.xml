@@ -36,6 +36,7 @@
 		<module>jdroid-java</module>
 		<module>jdroid-javaweb</module>
 		<module>jdroid-google-play-services</module>
+		<module>jdroid-support-v7-appcompat</module>
 		<module>jdroid-android</module>
     </modules>
 	
@@ -43,8 +44,8 @@
 	<jdroid.version>1.1.0-SNAPSHOT</jdroid.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<eclipse.plugin.version>2.9</eclipse.plugin.version>
-		<android.sdk.platform>19</android.sdk.platform>
-		<android.version>4.4_r1</android.version>
+		<android.sdk.platform>21</android.sdk.platform>
+		<android.version>5.0_r2</android.version>
 		<android.maven.plugin.version>3.8.1</android.maven.plugin.version>
 	</properties>
 	

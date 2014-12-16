@@ -70,7 +70,7 @@ public class InAppBillingHelperFragment extends AbstractGridFragment<Product> im
 	}
 	
 	/**
-	 * @see com.jdroid.android.activity.AbstractActivity#onCreate(android.os.Bundle)
+	 * @see com.jdroid.android.fragment.AbstractFragment#onCreate(android.os.Bundle)
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -192,7 +192,7 @@ public class InAppBillingHelperFragment extends AbstractGridFragment<Product> im
 	}
 	
 	/**
-	 * @see com.jdroid.android.activity.AbstractActivity#onActivityResult(int, int, android.content.Intent)
+	 * @see android.support.v4.app.Fragment#onActivityResult(int, int, android.content.Intent)
 	 */
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -209,7 +209,7 @@ public class InAppBillingHelperFragment extends AbstractGridFragment<Product> im
 	}
 	
 	/**
-	 * @see com.jdroid.android.activity.AbstractActivity#onDestroy()
+	 * @see com.jdroid.android.fragment.AbstractFragment#onDestroy()
 	 */
 	@Override
 	public void onDestroy() {

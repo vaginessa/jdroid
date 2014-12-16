@@ -1,15 +1,16 @@
 package com.jdroid.android.fragment;
 
 import org.slf4j.Logger;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.view.ViewGroup;
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
+import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.ad.HouseAdBuilder;
@@ -375,7 +376,7 @@ public class FragmentHelper implements FragmentIf {
 	 */
 	@Override
 	public ActionBar getActionBar() {
-		return fragment.getActivity().getActionBar();
+		return ((AbstractFragmentActivity)fragment.getActivity()).getSupportActionBar();
 	}
 	
 	// //////////////////////// Analytics //////////////////////// //

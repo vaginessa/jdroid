@@ -3,6 +3,7 @@ package com.jdroid.sample.android;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
@@ -29,10 +30,10 @@ public class AndroidApplication extends AbstractApplication {
 	}
 	
 	/**
-	 * @see com.jdroid.android.AbstractApplication#createActivityHelper(android.app.Activity)
+	 * @see com.jdroid.android.AbstractApplication#createActivityHelper(com.jdroid.android.activity.AbstractFragmentActivity)
 	 */
 	@Override
-	public ActivityHelper createActivityHelper(Activity activity) {
+	public ActivityHelper createActivityHelper(AbstractFragmentActivity activity) {
 		return new AndroidActivityHelper(activity);
 	}
 	

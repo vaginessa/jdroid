@@ -3,7 +3,6 @@ package com.jdroid.android.activity;
 import java.util.List;
 import org.slf4j.Logger;
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,13 +12,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.DrawerLayout.DrawerListener;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -56,7 +56,6 @@ import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.ReflectionUtils;
 
-@SuppressWarnings("deprecation")
 public class ActivityHelper implements ActivityIf {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(ActivityHelper.class);
@@ -65,7 +64,7 @@ public class ActivityHelper implements ActivityIf {
 	public static final String NAV_DRAWER_MANUALLY_USED = "navDrawerManuallyUsed";
 	private static final String TITLE_KEY = "title";
 	
-	private Activity activity;
+	private AbstractFragmentActivity activity;
 	private Handler locationHandler;
 	private AdHelper adHelper;
 	private boolean isDestoyed = false;
@@ -84,12 +83,12 @@ public class ActivityHelper implements ActivityIf {
 	/**
 	 * @param activity
 	 */
-	public ActivityHelper(Activity activity) {
+	public ActivityHelper(AbstractFragmentActivity activity) {
 		this.activity = activity;
 	}
 	
 	public ActivityIf getActivityIf() {
-		return (ActivityIf)activity;
+		return activity;
 	}
 	
 	protected Activity getActivity() {
@@ -140,18 +139,15 @@ public class ActivityHelper implements ActivityIf {
 		AbstractApplication.get().initExceptionHandlers();
 		
 		if ((savedInstanceState == null) && (activity instanceof FragmentActivity) && !inAppBillingLoaded) {
-			InAppBillingHelperFragment.add((FragmentActivity)activity, InAppBillingHelperFragment.class, true, null);
+			InAppBillingHelperFragment.add(activity, InAppBillingHelperFragment.class, true, null);
 			inAppBillingLoaded = true;
 		}
 		
 		// Action bar
-		final ActionBar actionBar = activity.getActionBar();
+		final ActionBar actionBar = activity.getSupportActionBar();
 		if (actionBar != null) {
 			
-			actionBar.setHomeButtonEnabled(true);
-			if (!getActivityIf().isLauncherActivity()) {
-				actionBar.setDisplayHomeAsUpEnabled(true);
-			}
+			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
 		
 		if (getActivityIf().onBeforeSetContentView()) {
@@ -171,11 +167,6 @@ public class ActivityHelper implements ActivityIf {
 		// Nav Drawer
 		
 		if (isNavDrawerEnabled()) {
-			
-			if (getActivityIf().isNavDrawerTopLevelView()) {
-				actionBar.setDisplayHomeAsUpEnabled(true);
-				actionBar.setHomeButtonEnabled(true);
-			}
 			
 			drawerLayout = findView(R.id.drawer_layout);
 			drawerList = findView(R.id.left_drawer);
@@ -253,8 +244,7 @@ public class ActivityHelper implements ActivityIf {
 			};
 			
 			if (getActivityIf().isNavDrawerTopLevelView()) {
-				drawerToggle = new ActionBarDrawerToggle(activity, drawerLayout,
-						isDarkTheme() ? R.drawable.ic_drawer_dark : R.drawable.ic_drawer, R.string.drawerOpen,
+				drawerToggle = new ActionBarDrawerToggle(activity, drawerLayout, R.string.drawerOpen,
 						R.string.drawerClose) {
 					
 					@Override
@@ -353,9 +343,6 @@ public class ActivityHelper implements ActivityIf {
 		return false;
 	}
 	
-	public void onContentChanged() {
-	}
-	
 	public void onSaveInstanceState(Bundle outState) {
 		LOGGER.debug("Executing onSaveInstanceState on " + activity);
 		dismissLoading();
@@ -432,7 +419,7 @@ public class ActivityHelper implements ActivityIf {
 		AbstractApplication.get().setInBackground(false);
 		AbstractApplication.get().setCurrentActivity(activity);
 		
-		ActionBar actionBar = activity.getActionBar();
+		ActionBar actionBar = activity.getSupportActionBar();
 		if (actionBar != null) {
 			AppContext context = AbstractApplication.get().getAppContext();
 			if (!context.isProductionEnvironment() && context.displayDebugSettings()) {
@@ -454,7 +441,7 @@ public class ActivityHelper implements ActivityIf {
 		if (isNavDrawerEnabled()) {
 			for (int i = 0; i < getVisibleNavDrawerItems().size(); i++) {
 				NavDrawerItem item = getVisibleNavDrawerItems().get(i);
-				if (item.isMainAction() && item.matchesActivity((FragmentActivity)activity)) {
+				if (item.isMainAction() && item.matchesActivity(activity)) {
 					drawerList.setItemChecked(i + drawerList.getHeaderViewsCount(), true);
 				}
 			}
@@ -472,7 +459,7 @@ public class ActivityHelper implements ActivityIf {
 		AbstractApplication.get().setInBackground(true);
 		
 		if (activity instanceof FragmentActivity) {
-			InAppBillingHelperFragment.remove((FragmentActivity)activity);
+			InAppBillingHelperFragment.remove(activity);
 		}
 	}
 	
@@ -778,8 +765,8 @@ public class ActivityHelper implements ActivityIf {
 	
 	private void selectNavDrawerItem(int position) {
 		NavDrawerItem navDrawerItem = (NavDrawerItem)drawerList.getAdapter().getItem(position);
-		if (!navDrawerItem.matchesActivity((FragmentActivity)activity)) {
-			navDrawerItem.startActivity((FragmentActivity)activity);
+		if (!navDrawerItem.matchesActivity(activity)) {
+			navDrawerItem.startActivity(activity);
 		}
 		
 		// update selected item and title, then close the drawer

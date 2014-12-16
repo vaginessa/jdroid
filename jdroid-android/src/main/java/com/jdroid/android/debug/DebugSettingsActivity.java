@@ -65,7 +65,7 @@ public class DebugSettingsActivity extends AbstractFragmentActivity {
 	}
 	
 	/**
-	 * @see com.jdroid.android.activity.AbstractPreferenceActivity#requiresAuthentication()
+	 * @see com.jdroid.android.activity.AbstractFragmentActivity#requiresAuthentication()
 	 */
 	@Override
 	public Boolean requiresAuthentication() {

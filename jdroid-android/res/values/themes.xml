@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<style name="Jdroid.Theme.Light" parent="@android:style/Theme.Holo.Light">
-		<item name="android:actionBarStyle">@style/actionBar</item>
-		<item name="android:homeAsUpIndicator">@drawable/ic_up</item>
-		<item name="android:actionBarItemBackground">@drawable/default_item_selector</item>
+	<!-- Themes -->
+
+	<style name="Jdroid.Theme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+		<!-- your app branding color for the app bar -->
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<!-- darker variant for the status bar and contextual app bars -->
+		<!-- <item name="colorPrimaryDark">@color/colorPrimaryDark</item> -->
+		<!-- theme UI controls like checkboxes and text fields -->
+		<item name="colorAccent">@color/accentColor</item>
 	</style>
 
-	<style name="actionBar" parent="@android:style/Widget.Holo.ActionBar">
-		<item name="android:background">@drawable/actionbar_background</item>
-		<item name="android:titleTextStyle">@style/actionBarTitleTextStyle</item>
+	<style name="Jdroid.Theme.Light" parent="Jdroid.Theme.Base">
+
 	</style>
 
-	<style name="actionBarTitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-		<item name="android:textColor">@color/actionBarTextColor</item>
-	</style>
-
-	<!-- Translucent Action Bar -->
-
-	<style name="transparentActionBar" parent="@style/actionBar">
-		<item name="android:background">@android:color/transparent</item>
+	<style name="Jdroid.Theme.Light.TranslucentActionBar" parent="Jdroid.Theme.Base">
+		<item name="windowActionBarOverlay">true</item>
+		<item name="android:windowActionBarOverlay">true</item>
+		<item name="android:windowContentOverlay">@null</item>
 	</style>
 
 </resources>

@@ -1,8 +1,8 @@
 package com.jdroid.android.fragment;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.activity.ComponentIf;

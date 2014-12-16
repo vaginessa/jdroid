@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +24,7 @@ import com.jdroid.java.exception.UnexpectedException;
  * Base {@link Activity}
  * 
  */
-public abstract class AbstractFragmentActivity extends FragmentActivity implements ActivityIf {
+public abstract class AbstractFragmentActivity extends ActionBarActivity implements ActivityIf {
 	
 	private ActivityHelper activityHelper;
 	
@@ -61,15 +61,6 @@ public abstract class AbstractFragmentActivity extends FragmentActivity implemen
 		activityHelper.beforeOnCreate();
 		super.onCreate(savedInstanceState);
 		activityHelper.onCreate(savedInstanceState);
-	}
-	
-	/**
-	 * @see android.app.Activity#onContentChanged()
-	 */
-	@Override
-	public void onContentChanged() {
-		super.onContentChanged();
-		activityHelper.onContentChanged();
 	}
 	
 	/**

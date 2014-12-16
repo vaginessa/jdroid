@@ -31,7 +31,7 @@
 
 	<supports-screens android:largeScreens="true" android:xlargeScreens="true" />
 
-	<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19" />
+	<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="21" />
 
 	<application android:icon="@drawable/ic_launcher" android:logo="@drawable/ic_launcher" android:label="@string/appName"
 		android:allowBackup="true" android:name="com.jdroid.sample.android.AndroidApplication" android:hardwareAccelerated="true"

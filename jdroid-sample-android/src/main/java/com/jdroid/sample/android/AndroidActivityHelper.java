@@ -1,7 +1,7 @@
 package com.jdroid.sample.android;
 
 import java.util.List;
-import android.app.Activity;
+import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.navdrawer.NavDrawerItem;
 import com.jdroid.java.collections.Lists;
@@ -9,7 +9,7 @@ import com.jdroid.sample.android.ui.navdrawer.AndroidNavDrawerItem;
 
 public class AndroidActivityHelper extends ActivityHelper {
 	
-	public AndroidActivityHelper(Activity activity) {
+	public AndroidActivityHelper(AbstractFragmentActivity activity) {
 		super(activity);
 	}
 	
@@ -28,13 +28,4 @@ public class AndroidActivityHelper extends ActivityHelper {
 	public List<NavDrawerItem> getNavDrawerItems() {
 		return Lists.<NavDrawerItem>newArrayList(AndroidNavDrawerItem.values());
 	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ActivityHelper#isDarkTheme()
-	 */
-	@Override
-	public Boolean isDarkTheme() {
-		return false;
-	}
-	
 }

@@ -1,8 +1,8 @@
 package com.jdroid.android.dialog;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;

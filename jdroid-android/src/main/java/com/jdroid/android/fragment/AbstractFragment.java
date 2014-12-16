@@ -1,10 +1,10 @@
 package com.jdroid.android.fragment;
 
-import android.app.ActionBar;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.ScrollView;
 import com.google.android.gms.ads.AdSize;

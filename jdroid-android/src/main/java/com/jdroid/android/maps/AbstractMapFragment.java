@@ -1,11 +1,11 @@
 package com.jdroid.android.maps;
 
 import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.content.res.TypedArray;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
