@@ -14,7 +14,7 @@
 	</parent>
 
 	<properties>
-		<android.sdk.platform>19</android.sdk.platform>
+		<android.sdk.platform>21</android.sdk.platform>
 		<app.alias>androiddebugkey</app.alias>
 		<jdroid.version>0.6.0-SNAPSHOT</jdroid.version>
 	</properties>
