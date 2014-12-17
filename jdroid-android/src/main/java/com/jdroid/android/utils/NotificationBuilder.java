@@ -29,7 +29,7 @@ public class NotificationBuilder {
 		Context context = AbstractApplication.get();
 		builder = new NotificationCompat.Builder(context);
 		builder.setAutoCancel(true);
-		setColor(R.color.accentColor);
+		setColor(R.color.colorPrimary);
 	}
 	
 	public Notification build() {
