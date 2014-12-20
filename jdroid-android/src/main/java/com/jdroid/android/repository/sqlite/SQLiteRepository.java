@@ -182,7 +182,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 				item = createObjectFromCursor(cursor);
 				onLoaded(item);
 			}
-			LOGGER.info("Retrieved object from database of type: " + getTableName() + " id: " + id);
+			LOGGER.trace("Retrieved object from database of type: " + getTableName() + " id: " + id);
 			return item;
 		} finally {
 			if (cursor != null) {
@@ -294,7 +294,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 				item.setId(id);
 			}
 			onStored(item);
-			LOGGER.info("Stored object in database: " + item);
+			LOGGER.trace("Stored object in database: " + item);
 			successTransaction(db, endTransaction);
 		} finally {
 			endTransaction(db, endTransaction);
