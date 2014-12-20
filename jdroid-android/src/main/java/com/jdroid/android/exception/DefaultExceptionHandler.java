@@ -159,7 +159,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 			
 			if (trackable) {
 				LOGGER.error(errorMessage, throwableToLog);
-				AbstractApplication.get().getAnalyticsSender().trackHandledException(throwable);
+				AbstractApplication.get().getAnalyticsSender().trackHandledException(throwableToLog);
 			} else {
 				LOGGER.warn(errorMessage);
 			}

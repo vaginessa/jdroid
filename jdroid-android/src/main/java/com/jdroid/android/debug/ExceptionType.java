@@ -38,16 +38,28 @@ public enum ExceptionType {
 	},
 	UNEXPECTED_WRAPPED_EXCEPTION {
 		
+		@SuppressWarnings("null")
 		@Override
 		public void crash() {
-			throw new UnexpectedException(CRASH_MESSAGE, new NullPointerException());
+			try {
+				Long value = null;
+				value.toString();
+			} catch (Exception e) {
+				throw new UnexpectedException(CRASH_MESSAGE, e);
+			}
 		}
 	},
 	UNEXPECTED_NO_MESSAGE_WRAPPED_EXCEPTION {
 		
+		@SuppressWarnings("null")
 		@Override
 		public void crash() {
-			throw new UnexpectedException(new NullPointerException());
+			try {
+				Long value = null;
+				value.toString();
+			} catch (Exception e) {
+				throw new UnexpectedException(e);
+			}
 		}
 	},
 	RUNTIME_EXCEPTION {
