@@ -1796,7 +1796,6 @@ public class FacebookDialog {
 				// Clone the existing object to avoid modifying it from under the caller.
 				graphObject = new JSONObject(graphObject.toString());
 				
-				@SuppressWarnings("unchecked")
 				Iterator<String> keys = graphObject.keys();
 				while (keys.hasNext()) {
 					String key = keys.next();

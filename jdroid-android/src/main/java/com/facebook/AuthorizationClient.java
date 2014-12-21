@@ -38,6 +38,7 @@ import com.facebook.model.GraphUser;
 import com.facebook.widget.WebDialog;
 import com.jdroid.android.R;
 
+@SuppressWarnings("deprecation")
 class AuthorizationClient implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

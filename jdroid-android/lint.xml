@@ -106,6 +106,9 @@
     <issue id="NestedWeights">
         <ignore path="res/layout/com_facebook_placepickerfragment_list_row.xml" />
     </issue>
+    <issue id="NewApi">
+        <ignore path="src/main/java/android/support/v7/widget/RoundRectDrawable.java" />
+    </issue>
     <issue id="Orientation">
         <ignore path="res/layout/com_facebook_picker_title_bar.xml" />
     </issue>
@@ -162,6 +165,7 @@
     <issue id="TypographyEllipsis">
         <ignore path="res/values/fb_strings.xml" />
     </issue>
+    <issue id="TypographyOther" severity="ignore" />
     <issue id="UnusedIds" severity="ignore" />
     <issue id="UnusedResources">
         <ignore path="res/color/common_signin_btn_text_dark.xml" />

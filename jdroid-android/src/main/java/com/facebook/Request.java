@@ -1932,7 +1932,6 @@ public class Request {
 			JSONObject jsonObject = (JSONObject)value;
 			if (passByValue) {
 				// We need to pass all properties of this object in key[propertyName] format.
-				@SuppressWarnings("unchecked")
 				Iterator<String> keys = jsonObject.keys();
 				while (keys.hasNext()) {
 					String propertyName = keys.next();

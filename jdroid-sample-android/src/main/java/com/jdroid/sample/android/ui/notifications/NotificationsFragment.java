@@ -37,7 +37,7 @@ public class NotificationsFragment extends AbstractFragment {
 				NotificationBuilder builder = new NotificationBuilder();
 				builder.setSmallIcon(R.drawable.ic_launcher);
 				builder.setTicker(R.string.notificationTicker);
-				builder.setContentTitle(R.string.notificationTicker);
+				builder.setContentTitle(R.string.notificationTitle);
 				builder.setContentText(R.string.notificationDescription);
 				builder.setWhen(System.currentTimeMillis());
 				builder.setBlueLight();

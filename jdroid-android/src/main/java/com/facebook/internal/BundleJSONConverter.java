@@ -192,7 +192,6 @@ public class BundleJSONConverter {
 	
 	public static Bundle convertToBundle(JSONObject jsonObject) throws JSONException {
 		Bundle bundle = new Bundle();
-		@SuppressWarnings("unchecked")
 		Iterator<String> jsonIterator = jsonObject.keys();
 		while (jsonIterator.hasNext()) {
 			String key = jsonIterator.next();

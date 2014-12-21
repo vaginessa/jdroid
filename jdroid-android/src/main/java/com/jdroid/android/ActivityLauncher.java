@@ -1,9 +1,11 @@
 package com.jdroid.android;
 
 import java.io.Serializable;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 /**
@@ -126,10 +128,11 @@ public class ActivityLauncher {
 		}
 	}
 	
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 	public static void launchViewActivity(String uriString) {
 		Activity currentActivity = AbstractApplication.get().getCurrentActivity();
 		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uriString));
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
 		currentActivity.startActivity(intent);
 	}
 }
