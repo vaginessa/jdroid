@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
+    <issue id="Assert">
+        <ignore path="src/main/java/com/facebook/Response.java" />
+        <ignore path="src/main/java/com/facebook/internal/WorkQueue.java" />
+        <ignore path="src/main/java/com/facebook/widget/GraphObjectAdapter.java" />
+    </issue>
     <issue id="ContentDescription" severity="ignore" />
     <issue id="DefaultLocale">
         <ignore path="src/main/java/com/facebook/AuthorizationClient.java" />
@@ -64,6 +69,11 @@
         <ignore path="res/drawable/com_facebook_button_grey_focused.9.png" />
         <ignore path="res/drawable/com_facebook_button_grey_normal.9.png" />
         <ignore path="res/drawable/com_facebook_button_grey_pressed.9.png" />
+        <ignore path="res/drawable/com_facebook_button_like_background.png" />
+        <ignore path="res/drawable/com_facebook_button_like_background_selected.png" />
+        <ignore path="res/drawable/com_facebook_button_like_icon.png" />
+        <ignore path="res/drawable/com_facebook_button_like_icon_selected.png" />
+        <ignore path="res/drawable/com_facebook_button_like_pressed.png" />
         <ignore path="res/drawable/com_facebook_close.png" />
         <ignore path="res/drawable/com_facebook_icon.png" />
         <ignore path="res/drawable/com_facebook_inverse_icon.png" />
@@ -85,7 +95,14 @@
     <issue id="InefficientWeight">
         <ignore path="res/layout/com_facebook_picker_list_row.xml" />
     </issue>
+    <issue id="InflateParams" severity="ignore">
+        <ignore path="src/main/java/com/facebook/widget/GraphObjectAdapter.java" />
+    </issue>
     <issue id="InvalidPackage" severity="ignore" />
+    <issue id="MissingTranslation">
+        <ignore path="res/values/debug_strings.xml" />
+        <ignore path="res/values/fb_strings.xml" />
+    </issue>
     <issue id="NestedWeights">
         <ignore path="res/layout/com_facebook_placepickerfragment_list_row.xml" />
     </issue>
@@ -108,12 +125,25 @@
         <ignore path="res/layout/com_facebook_search_bar_layout.xml" />
     </issue>
     <issue id="Registered">
+        <ignore path="src/main/java/com/facebook/LoginActivity.java" />
         <ignore path="src/main/java/com/facebook/NativeAppCallContentProvider.java" />
         <ignore path="src/main/java/com/jdroid/android/exception/ExceptionReportActivity.java" />
     </issue>
     <issue id="ResourceAsColor">
         <ignore path="src/main/java/com/jdroid/android/utils/NotificationBuilder.java" />
     </issue>
+    <issue id="RtlEnabled" severity="ignore" />
+    <issue id="RtlHardcoded" severity="ignore">
+        <ignore path="res/layout/com_facebook_picker_list_row.xml" />
+        <ignore path="res/layout/com_facebook_picker_list_section_header.xml" />
+        <ignore path="res/layout/com_facebook_picker_title_bar.xml" />
+        <ignore path="res/layout/com_facebook_placepickerfragment_list_row.xml" />
+        <ignore path="res/layout/com_facebook_search_bar_layout.xml" />
+        <ignore path="res/layout/com_facebook_tooltip_bubble.xml" />
+        <ignore path="src/main/java/com/facebook/internal/LikeBoxCountView.java" />
+        <ignore path="src/main/java/com/facebook/widget/LikeView.java" />
+    </issue>
+    <issue id="RtlSymmetry" severity="ignore" />
     <issue id="ScrollViewSize">
         <ignore path="res/layout/com_facebook_usersettingsfragment.xml" />
     </issue>
@@ -128,6 +158,7 @@
         <ignore path="res/layout/com_facebook_picker_search_box.xml" />
         <ignore path="res/layout/com_facebook_search_bar_layout.xml" />
     </issue>
+    <issue id="TypographyDashes" severity="ignore" />
     <issue id="TypographyEllipsis">
         <ignore path="res/values/fb_strings.xml" />
     </issue>

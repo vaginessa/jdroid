@@ -51,7 +51,7 @@
 	<string name="selectTime">Seleccione una hora</string>
 
 	<!-- Picture Dialog Fragment -->
-	<string name="selectPhoto">Orígen de la imágen</string>
+	<string name="selectPhoto">Origen de la imagen</string>
 	<string name="camera">Cámara</string>
 	<string name="gallery">Galería</string>
 
@@ -63,7 +63,6 @@
 	<string name="about">Acerca de</string>
 	<string name="version">Versión %1$s</string>
 	<string name="contactUs">Contáctenos</string>
-	<string name="share">Compartir</string>
 	<string name="copyright">© %1$s %2$s</string>
 	<string name="allRightsReservedLegend">Todos los derechos reservados</string>
 	<string name="followUs">Síganos</string>
@@ -76,9 +75,6 @@
 
 	<!-- Sharing -->
 	<string name="sharingFailed">Ha fallado la acción de compartir</string>
-
-	<!-- Facebook -->
-	<string name="facebook">Facebook</string>
 
 	<!-- Google+ -->
 	<string name="googlePlus">Google+</string>

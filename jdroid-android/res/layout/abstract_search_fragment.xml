@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="match_parent" xmlns:tools="http://schemas.android.com/tools">
 
 	<LinearLayout android:id="@+id/searchBox" android:layout_width="match_parent" android:layout_height="wrap_content"
 		android:orientation="horizontal" android:padding="4dp">
@@ -22,7 +22,8 @@
 	</LinearLayout>
 
 	<LinearLayout android:layout_height="match_parent" android:layout_width="match_parent"
-		android:orientation="vertical" android:layout_below="@+id/searchBox" android:layout_above="@+id/adViewContainer">
+		android:orientation="vertical" android:layout_below="@+id/searchBox" android:layout_above="@+id/adViewContainer"
+		tools:ignore="UnknownIdInLayout">
 		<GridView android:id="@+id/grid" android:layout_width="match_parent" android:layout_height="0dp"
 			android:layout_weight="1" android:gravity="center" android:columnWidth="150dp" android:stretchMode="columnWidth"
 			style="@style/gridList" android:layout_margin="4dp" />

@@ -99,6 +99,7 @@
     <issue id="RequiredSize" severity="ignore" />
     <issue id="ResAuto" severity="ignore" />
     <issue id="ResourceAsColor" severity="ignore" />
+    <issue id="RtlHardcoded" severity="ignore" />
     <issue id="ScrollViewCount" severity="ignore" />
     <issue id="ScrollViewSize" severity="ignore" />
     <issue id="SdCardPath" severity="ignore" />
@@ -130,6 +131,7 @@
     <issue id="UnknownId" severity="ignore" />
     <issue id="UnknownIdInLayout" severity="ignore" />
     <issue id="UnlocalizedSms" severity="ignore" />
+    <issue id="UnusedAttribute" severity="ignore" />
     <issue id="UnusedNamespace" severity="ignore" />
     <issue id="UnusedQuantity" severity="ignore" />
     <issue id="UnusedResources" severity="ignore" />

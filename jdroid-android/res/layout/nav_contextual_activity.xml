@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/drawer_layout" android:layout_width="match_parent" android:layout_height="match_parent">
+	android:id="@+id/drawer_layout" android:layout_width="match_parent" android:layout_height="match_parent"
+	xmlns:tools="http://schemas.android.com/tools">
 
 	<RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
 		<LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="match_parent"
-			android:layout_above="@+id/adViewContainer">
+			android:layout_above="@+id/adViewContainer" tools:ignore="UnknownIdInLayout">
 
 			<LinearLayout android:id="@+id/fragmentContainer" android:layout_width="200dp" android:layout_height="match_parent"
 				android:orientation="horizontal" />

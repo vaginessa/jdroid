@@ -61,7 +61,6 @@
 	<string name="about">About</string>
 	<string name="version">Version %1$s</string>
 	<string name="contactUs">Contact Us</string>
-	<string name="share">Share</string>
 	<string name="copyright">© %1$s %2$s</string>
 	<string name="allRightsReservedLegend">All Rights Reserved</string>
 	<string name="followUs">Follow us</string>
@@ -74,9 +73,6 @@
 
 	<!-- Sharing -->
 	<string name="sharingFailed">The sharing failed</string>
-
-	<!-- Facebook -->
-	<string name="facebook">Facebook</string>
 
 	<!-- Google+ -->
 	<string name="googlePlus">Google+</string>
