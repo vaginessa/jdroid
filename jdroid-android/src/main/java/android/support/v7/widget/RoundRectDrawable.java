@@ -8,8 +8,11 @@
  */
 package android.support.v7.widget;
 
+import static android.support.v7.widget.RoundRectDrawableWithShadow.calculateHorizontalPadding;
+import static android.support.v7.widget.RoundRectDrawableWithShadow.calculateVerticalPadding;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
+import android.graphics.Outline;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
@@ -24,33 +27,74 @@ import android.graphics.drawable.Drawable;
  */
 class RoundRectDrawable extends Drawable {
 	
-	float mRadius;
-	final Paint mPaint;
-	final RectF mBounds;
+	private float mRadius;
+	private final Paint mPaint;
+	private final RectF mBoundsF;
+	private final Rect mBoundsI;
+	private float mPadding;
+	private boolean mInsetForPadding = false;
+	private boolean mInsetForRadius = true;
 	
 	public RoundRectDrawable(int backgroundColor, float radius) {
 		mRadius = radius;
 		mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
 		mPaint.setColor(backgroundColor);
-		mBounds = new RectF();
+		mBoundsF = new RectF();
+		mBoundsI = new Rect();
+	}
+	
+	void setPadding(float padding, boolean insetForPadding, boolean insetForRadius) {
+		if ((padding == mPadding) && (mInsetForPadding == insetForPadding) && (mInsetForRadius == insetForRadius)) {
+			return;
+		}
+		mPadding = padding;
+		mInsetForPadding = insetForPadding;
+		mInsetForRadius = insetForRadius;
+		updateBounds(null);
+		invalidateSelf();
+	}
+	
+	float getPadding() {
+		return mPadding;
 	}
 	
 	@Override
 	public void draw(Canvas canvas) {
-		canvas.drawRoundRect(mBounds, mRadius, mRadius, mPaint);
+		canvas.drawRoundRect(mBoundsF, mRadius, mRadius, mPaint);
+	}
+	
+	private void updateBounds(Rect bounds) {
+		if (bounds == null) {
+			bounds = getBounds();
+		}
+		mBoundsF.set(bounds.left, bounds.top, bounds.right, bounds.bottom);
+		mBoundsI.set(bounds);
+		if (mInsetForPadding) {
+			float vInset = calculateVerticalPadding(mPadding, mRadius, mInsetForRadius);
+			float hInset = calculateHorizontalPadding(mPadding, mRadius, mInsetForRadius);
+			mBoundsI.inset((int)Math.ceil(hInset), (int)Math.ceil(vInset));
+			// to make sure they have same bounds.
+			mBoundsF.set(mBoundsI);
+		}
 	}
 	
 	@Override
 	protected void onBoundsChange(Rect bounds) {
 		super.onBoundsChange(bounds);
-		mBounds.set(bounds.left, bounds.top, bounds.right, bounds.bottom);
+		updateBounds(bounds);
 	}
 	
-	public void setRadius(float radius) {
+	@Override
+	public void getOutline(Outline outline) {
+		outline.setRoundRect(mBoundsI, mRadius);
+	}
+	
+	void setRadius(float radius) {
 		if (radius == mRadius) {
 			return;
 		}
 		mRadius = radius;
+		updateBounds(null);
 		invalidateSelf();
 	}
 	
@@ -66,10 +110,15 @@ class RoundRectDrawable extends Drawable {
 	
 	@Override
 	public int getOpacity() {
-		return PixelFormat.OPAQUE;
+		return PixelFormat.TRANSLUCENT;
 	}
 	
 	public float getRadius() {
 		return mRadius;
+	}
+	
+	public void setColor(int color) {
+		mPaint.setColor(color);
+		invalidateSelf();
 	}
 }

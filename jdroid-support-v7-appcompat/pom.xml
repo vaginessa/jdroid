@@ -18,7 +18,7 @@
 		<dependency>
 			<groupId>android.compatibility</groupId>
 			<artifactId>android-support-v7-appcompat</artifactId>
-			<version>21.0.2</version>
+			<version>${android.support.version}</version>
 		</dependency>
 
 	</dependencies>

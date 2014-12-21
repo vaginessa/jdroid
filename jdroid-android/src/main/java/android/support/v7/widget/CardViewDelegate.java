@@ -20,4 +20,12 @@ interface CardViewDelegate {
 	void setBackgroundDrawable(Drawable paramDrawable);
 	
 	Drawable getBackground();
+	
+	boolean getUseCompatPadding();
+	
+	boolean getPreventCornerOverlap();
+	
+	float getRadius();
+	
+	void setShadowPadding(int left, int top, int right, int bottom);
 }
