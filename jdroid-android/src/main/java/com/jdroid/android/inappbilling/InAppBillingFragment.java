@@ -29,7 +29,10 @@ public abstract class InAppBillingFragment extends AbstractFragment implements I
 	}
 	
 	public void launchPurchaseFlow(Product product) {
-		InAppBillingHelperFragment.get(getActivity()).launchPurchaseFlow(product);
+		InAppBillingHelperFragment inAppBillingHelperFragment = InAppBillingHelperFragment.get(getActivity());
+		if (inAppBillingHelperFragment != null) {
+			inAppBillingHelperFragment.launchPurchaseFlow(product);
+		}
 	}
 	
 	/**

@@ -40,9 +40,14 @@ public class GcmService extends WorkerService {
 	 * @param intent intent containing the message payload as extras.
 	 */
 	public void onMessage(Context context, Intent intent) {
-		GcmMessage gcmMessage = AbstractApplication.get().getGcmResolver().resolve(intent);
-		if (gcmMessage != null) {
-			gcmMessage.handle(intent);
+		GcmMessageResolver gcmResolver = AbstractApplication.get().getGcmResolver();
+		if (gcmResolver != null) {
+			GcmMessage gcmMessage = gcmResolver.resolve(intent);
+			if (gcmMessage != null) {
+				gcmMessage.handle(intent);
+			}
+		} else {
+			LOGGER.warn("A GCM message was received, but not resolved is configured");
 		}
 	}
 	

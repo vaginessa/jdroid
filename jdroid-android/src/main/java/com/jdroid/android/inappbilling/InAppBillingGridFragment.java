@@ -30,7 +30,10 @@ public abstract class InAppBillingGridFragment extends AbstractGridFragment<Prod
 	}
 	
 	public void launchPurchaseFlow(Product product) {
-		InAppBillingHelperFragment.get(getActivity()).launchPurchaseFlow(product);
+		InAppBillingHelperFragment inAppBillingHelperFragment = InAppBillingHelperFragment.get(getActivity());
+		if (inAppBillingHelperFragment != null) {
+			inAppBillingHelperFragment.launchPurchaseFlow(product);
+		}
 	}
 	
 	/**
