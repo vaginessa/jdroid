@@ -12,11 +12,11 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.exception.DefaultExceptionHandler;
-import com.jdroid.android.fragment.AbstractGridFragment;
+import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.java.exception.ErrorCodeException;
 import com.jdroid.java.utils.LoggerUtils;
 
-public class InAppBillingHelperFragment extends AbstractGridFragment<Product> implements InAppBillingClientListener {
+public class InAppBillingHelperFragment extends AbstractFragment implements InAppBillingClientListener {
 	
 	private static final String MANAGED_PRODUCT_TYPES = "managedProductTypes";
 	private static final String SUBSCRIPTIONS_PRODUCT_TYPES = "subscriptionsProductTypes";
@@ -41,7 +41,7 @@ public class InAppBillingHelperFragment extends AbstractGridFragment<Product> im
 			List<ProductType> managedProductTypes, List<ProductType> subscriptionsProductTypes, Boolean silentMode,
 			Fragment targetFragment) {
 		
-		if (!managedProductTypes.isEmpty() || !subscriptionsProductTypes.isEmpty()) {
+		if (!managedProductTypes.isEmpty() || (!subscriptionsProductTypes.isEmpty() && (get(activity) == null))) {
 			AbstractFragmentActivity abstractFragmentActivity = (AbstractFragmentActivity)activity;
 			InAppBillingHelperFragment inAppBillingHelperFragment = abstractFragmentActivity.instanceFragment(
 				inAppBillingHelperFragmentClass, null);
@@ -174,6 +174,9 @@ public class InAppBillingHelperFragment extends AbstractGridFragment<Product> im
 		}
 	}
 	
+	/**
+	 * @see com.jdroid.android.inappbilling.InAppBillingClientListener#onConsumeFinished(com.jdroid.android.inappbilling.Product)
+	 */
 	@Override
 	public void onConsumeFinished(Product product) {
 		InAppBillingListener inAppBillingListener = getInAppBillingListener();
