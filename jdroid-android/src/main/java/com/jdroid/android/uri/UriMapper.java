@@ -60,23 +60,24 @@ public class UriMapper {
 	private static void startActivityFromUri(Activity activity, Uri uri) {
 		Intent intent = getIntentFromUri(activity, uri);
 		
+		String className = intent.getComponent().getShortClassName();
+		int dot = className.lastIndexOf('.');
+		if (dot != -1) {
+			className = className.substring(dot + 1);
+		}
+		
 		AppLoadingSource appLoadingSource = null;
 		if (uri.getScheme() == null) {
 			appLoadingSource = AppLoadingSource.NORMAL;
 			AbstractApplication.get().getExceptionHandler().logWarningException("Uri not supported: " + uri.toString());
 		} else if (uri.getScheme().startsWith("http")) {
 			appLoadingSource = AppLoadingSource.URL;
+			AbstractApplication.get().getAnalyticsSender().trackUriOpened(appLoadingSource.getName(), className);
 		} else {
 			appLoadingSource = AppLoadingSource.DEEPLINK;
+			AbstractApplication.get().getAnalyticsSender().trackUriOpened(appLoadingSource.getName(), className);
 		}
 		appLoadingSource.flagIntent(activity.getIntent());
-		
-		String className = intent.getComponent().getShortClassName();
-		int dot = className.lastIndexOf('.');
-		if (dot != -1) {
-			className = className.substring(dot + 1);
-		}
-		AbstractApplication.get().getAnalyticsSender().trackUriOpened(appLoadingSource.getName(), className);
 		
 		activity.startActivity(intent);
 	}
