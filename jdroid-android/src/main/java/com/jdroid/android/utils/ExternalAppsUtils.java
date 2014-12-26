@@ -3,10 +3,17 @@ package com.jdroid.android.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import com.jdroid.android.AbstractApplication;
 
 public class ExternalAppsUtils {
+	
+	public static final String TWITTER_PACKAGE_NAME = "com.twitter.android";
+	public static final String FACEBOOK_PACKAGE_NAME = "com.facebook.katana";
+	public static final String WHATSAPP_PACKAGE_NAME = "com.whatsapp";
+	public static final String HANGOUTS_PACKAGE_NAME = "com.google.android.talk";
 	
 	public static boolean isAppInstalled(Context context, String packageName) {
 		PackageManager pm = context.getPackageManager();
@@ -56,5 +63,13 @@ public class ExternalAppsUtils {
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		
 		AbstractApplication.get().startActivity(intent);
+	}
+	
+	public static Drawable getAppIcon(String packageName) {
+		try {
+			return AbstractApplication.get().getPackageManager().getApplicationIcon(packageName);
+		} catch (NameNotFoundException e) {
+			return null;
+		}
 	}
 }

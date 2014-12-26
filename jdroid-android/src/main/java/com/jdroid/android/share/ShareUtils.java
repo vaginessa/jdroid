@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.Html;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.social.AccountType;
+import com.jdroid.android.social.SocialAction;
+import com.jdroid.android.utils.ExternalAppsUtils;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.utils.EncodingUtils;
 
@@ -26,6 +29,34 @@ public class ShareUtils {
 		Activity activity = AbstractApplication.get().getCurrentActivity();
 		Intent intent = createShareHtmlContentIntent(shareSubject, shareText);
 		activity.startActivity(Intent.createChooser(intent, shareTitle));
+	}
+	
+	public static void shareOnTwitter(String shareKey, String shareText) {
+		share(ExternalAppsUtils.TWITTER_PACKAGE_NAME, AccountType.TWITTER, shareKey, shareText);
+	}
+	
+	public static void shareOnFacebook(String shareKey, String shareText) {
+		share(ExternalAppsUtils.FACEBOOK_PACKAGE_NAME, AccountType.FACEBOOK, shareKey, shareText);
+	}
+	
+	public static void shareOnWhatsApp(String shareKey, String shareText) {
+		share(ExternalAppsUtils.WHATSAPP_PACKAGE_NAME, AccountType.WHATSAPP, shareKey, shareText);
+	}
+	
+	public static void shareOnHangouts(String shareKey, String shareText) {
+		share(ExternalAppsUtils.HANGOUTS_PACKAGE_NAME, AccountType.HANGOUTS, shareKey, shareText);
+	}
+	
+	public static void shareOnSmsApp(String packageName, String shareKey, String shareText) {
+		share(packageName, AccountType.UNDEFINED, shareKey, shareText);
+	}
+	
+	private static void share(String packageName, AccountType accountType, String shareKey, String shareText) {
+		Intent intent = createShareTextContentIntent(null, shareText);
+		intent.setPackage(packageName);
+		AbstractApplication.get().getCurrentActivity().startActivity(intent);
+		
+		AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(accountType, SocialAction.SHARE, shareKey);
 	}
 	
 	public static Intent createShareTextContentIntent(String shareSubject, String shareText) {
