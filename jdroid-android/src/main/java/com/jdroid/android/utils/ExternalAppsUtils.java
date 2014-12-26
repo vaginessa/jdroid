@@ -13,6 +13,7 @@ public class ExternalAppsUtils {
 	public static final String TWITTER_PACKAGE_NAME = "com.twitter.android";
 	public static final String FACEBOOK_PACKAGE_NAME = "com.facebook.katana";
 	public static final String WHATSAPP_PACKAGE_NAME = "com.whatsapp";
+	public static final String TELEGRAM_PACKAGE_NAME = "org.telegram.messenger";
 	public static final String HANGOUTS_PACKAGE_NAME = "com.google.android.talk";
 	
 	public static boolean isAppInstalled(Context context, String packageName) {

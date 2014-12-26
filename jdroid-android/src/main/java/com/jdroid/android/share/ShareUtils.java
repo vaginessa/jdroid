@@ -43,6 +43,10 @@ public class ShareUtils {
 		share(ExternalAppsUtils.WHATSAPP_PACKAGE_NAME, AccountType.WHATSAPP, shareKey, shareText);
 	}
 	
+	public static void shareOnTelegram(String shareKey, String shareText) {
+		share(ExternalAppsUtils.TELEGRAM_PACKAGE_NAME, AccountType.TELEGRAM, shareKey, shareText);
+	}
+	
 	public static void shareOnHangouts(String shareKey, String shareText) {
 		share(ExternalAppsUtils.HANGOUTS_PACKAGE_NAME, AccountType.HANGOUTS, shareKey, shareText);
 	}

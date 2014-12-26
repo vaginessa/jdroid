@@ -8,6 +8,7 @@ public enum AccountType {
 	FACEBOOK("facebook", "Facebook", R.drawable.ic_facebook),
 	TWITTER("twitter", "Twitter", null),
 	WHATSAPP("whatsapp", "WhatsApp", null),
+	TELEGRAM("telegram", "Telegram", null),
 	HANGOUTS("hangouts", "Hangouts", null),
 	INTERNAL("internal", "Internal", null),
 	ANONYMOUS("anonymous", "Anonymous", null),
