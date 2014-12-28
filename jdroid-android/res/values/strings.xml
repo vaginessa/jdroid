@@ -74,6 +74,9 @@
 	<!-- Sharing -->
 	<string name="sharingFailed">The sharing failed</string>
 
+	<!-- Facebook -->
+	<string name="facebook">Facebook</string>
+
 	<!-- Google+ -->
 	<string name="googlePlus">Google+</string>
 

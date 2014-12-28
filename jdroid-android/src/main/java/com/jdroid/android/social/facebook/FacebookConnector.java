@@ -12,6 +12,7 @@ import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.Session.Builder;
+import com.facebook.Session.StatusCallback;
 import com.facebook.SessionDefaultAudience;
 import com.facebook.SessionLoginBehavior;
 import com.facebook.SessionState;
@@ -166,13 +167,9 @@ public class FacebookConnector {
 	}
 	
 	public void login(Fragment fragment) {
-		Session currentSession = getCurrentSession();
 		
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("Facebook currentSession currentSession.isOpened() = " + currentSession.isOpened());
-			LOGGER.debug("Facebook currentSession currentSession.isClosed() = " + currentSession.isClosed());
-			LOGGER.debug("Facebook currentSession currentSession state = " + currentSession.getState().name());
-		}
+		Session currentSession = getCurrentSession();
+		LOGGER.debug("Executing login. Current session state: " + currentSession.getState().name());
 		
 		if (currentSession.isClosed()) {
 			// Discard the current session and build a new one to avoid an exception
@@ -188,6 +185,16 @@ public class FacebookConnector {
 			openRequest.setDefaultAudience(DEFAULT_AUDIENCE);
 			openRequest.setPermissions(PERMISSIONS);
 			openRequest.setLoginBehavior(LOGIN_BEHAVIOR);
+			openRequest.setCallback(new StatusCallback() {
+				
+				@Override
+				public void call(Session session, SessionState state, Exception exception) {
+					LOGGER.debug("Executing open request callback. State: " + state.toString());
+					if (state.isOpened()) {
+						notifyFacebookAuthenticationListener();
+					}
+				}
+			});
 			
 			currentSession.openForRead(openRequest);
 		}

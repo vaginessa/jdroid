@@ -20,6 +20,8 @@ import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
+import com.jdroid.android.utils.ExternalAppsUtils;
+import com.jdroid.android.utils.GooglePlayUtils;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.AbstractException;
@@ -179,35 +181,39 @@ public class FacebookAuthenticationFragment<T extends FacebookAuthenticationUseC
 	}
 	
 	public void share(String name, String caption, String description, final String link, String picture) {
-		Session session = Session.getActiveSession();
-		if ((session != null) && session.isOpened()) {
-			
-			Bundle params = new Bundle();
-			params.putString("name", name);
-			params.putString("caption", caption);
-			params.putString("description", description);
-			params.putString("link", link);
-			params.putString("picture", picture);
-			
-			// Invoke the dialog
-			FeedDialogBuilder builder = new WebDialog.FeedDialogBuilder(getActivity(), Session.getActiveSession(),
-					params);
-			builder.setOnCompleteListener(new OnCompleteListener() {
+		if (ExternalAppsUtils.isAppInstalled(getActivity(), ExternalAppsUtils.FACEBOOK_PACKAGE_NAME)) {
+			Session session = Session.getActiveSession();
+			if ((session != null) && session.isOpened()) {
 				
-				@Override
-				public void onComplete(Bundle values, FacebookException facebookException) {
-					if ((facebookException != null)
-							&& (facebookException.getClass() != FacebookOperationCanceledException.class)) {
-						ToastUtils.showToast(R.string.sharingFailed);
-					} else {
-						AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(AccountType.FACEBOOK,
-							SocialAction.SHARE, link);
+				Bundle params = new Bundle();
+				params.putString("name", name);
+				params.putString("caption", caption);
+				params.putString("description", description);
+				params.putString("link", link);
+				params.putString("picture", picture);
+				
+				// Invoke the dialog
+				FeedDialogBuilder builder = new WebDialog.FeedDialogBuilder(getActivity(), Session.getActiveSession(),
+						params);
+				builder.setOnCompleteListener(new OnCompleteListener() {
+					
+					@Override
+					public void onComplete(Bundle values, FacebookException facebookException) {
+						if ((facebookException != null)
+								&& (facebookException.getClass() != FacebookOperationCanceledException.class)) {
+							ToastUtils.showToast(R.string.sharingFailed);
+						} else {
+							AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(AccountType.FACEBOOK,
+								SocialAction.SHARE, link);
+						}
 					}
-				}
-			});
-			builder.build().show();
+				});
+				builder.build().show();
+			} else {
+				startLoginProcess();
+			}
 		} else {
-			FacebookAuthenticationFragment.get(getActivity()).startLoginProcess();
+			GooglePlayUtils.showDownloadDialog(R.string.facebook, ExternalAppsUtils.FACEBOOK_PACKAGE_NAME);
 		}
 	}
 	
