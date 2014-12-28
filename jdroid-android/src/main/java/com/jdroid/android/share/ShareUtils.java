@@ -13,22 +13,28 @@ import com.jdroid.java.utils.EncodingUtils;
 
 public class ShareUtils {
 	
-	public static void shareTextContent(int shareTitle, int shareSubject, int shareText) {
+	public static void shareTextContent(String shareKey, int shareTitle, int shareSubject, int shareText) {
 		Activity activity = AbstractApplication.get().getCurrentActivity();
-		shareTextContent(activity.getString(shareTitle), activity.getString(shareSubject),
+		shareTextContent(shareKey, activity.getString(shareTitle), activity.getString(shareSubject),
 			activity.getString(shareText));
+		
+		AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(null, SocialAction.SHARE, shareKey);
 	}
 	
-	public static void shareTextContent(String shareTitle, String shareSubject, String shareText) {
+	public static void shareTextContent(String shareKey, String shareTitle, String shareSubject, String shareText) {
 		Activity activity = AbstractApplication.get().getCurrentActivity();
 		Intent intent = createShareTextContentIntent(shareSubject, shareText);
 		activity.startActivity(Intent.createChooser(intent, shareTitle));
+		
+		AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(null, SocialAction.SHARE, shareKey);
 	}
 	
-	public static void shareHtmlContent(String shareTitle, String shareSubject, String shareText) {
+	public static void shareHtmlContent(String shareKey, String shareTitle, String shareSubject, String shareText) {
 		Activity activity = AbstractApplication.get().getCurrentActivity();
 		Intent intent = createShareHtmlContentIntent(shareSubject, shareText);
 		activity.startActivity(Intent.createChooser(intent, shareTitle));
+		
+		AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(null, SocialAction.SHARE, shareKey);
 	}
 	
 	public static void shareOnTwitter(String shareKey, String shareText) {
@@ -52,7 +58,7 @@ public class ShareUtils {
 	}
 	
 	public static void shareOnSmsApp(String packageName, String shareKey, String shareText) {
-		share(packageName, AccountType.UNDEFINED, shareKey, shareText);
+		share(packageName, AccountType.SMS, shareKey, shareText);
 	}
 	
 	private static void share(String packageName, AccountType accountType, String shareKey, String shareText) {

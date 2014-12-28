@@ -225,8 +225,8 @@ public class NotificationBuilder {
 	}
 	
 	public void addStartActivityAction(int icon, String title, Intent intent) {
-		PendingIntent pendingIntent = PendingIntent.getActivity(AbstractApplication.get(), IdGenerator.getIntId(),
-			intent, 0);
+		PendingIntent pendingIntent = PendingIntent.getActivity(AbstractApplication.get(),
+			IdGenerator.getRandomIntId(), intent, 0);
 		builder.addAction(icon, title, pendingIntent);
 	}
 	
@@ -235,7 +235,7 @@ public class NotificationBuilder {
 	}
 	
 	public void addStartServiceAction(int icon, String title, Intent intent) {
-		PendingIntent pendingIntent = PendingIntent.getService(AbstractApplication.get(), IdGenerator.getIntId(),
+		PendingIntent pendingIntent = PendingIntent.getService(AbstractApplication.get(), IdGenerator.getRandomIntId(),
 			intent, 0);
 		builder.addAction(icon, title, pendingIntent);
 	}

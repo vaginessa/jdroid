@@ -242,16 +242,23 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	 */
 	@Override
 	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget) {
-		sendEvent("social" + accountType.getFriendlyName(), socialAction.getName(), socialTarget);
+		
+		String category = "social";
+		String network = "Undefined";
+		if (accountType != null) {
+			category += accountType.getFriendlyName();
+			network = accountType.getFriendlyName();
+		}
+		sendEvent(category, socialAction.getName(), socialTarget);
 		
 		SocialBuilder socialBuilder = new SocialBuilder();
-		socialBuilder.setNetwork(accountType.getFriendlyName());
+		socialBuilder.setNetwork(network);
 		socialBuilder.setAction(socialAction.getName());
 		socialBuilder.setTarget(socialTarget);
 		
 		tracker.send(socialBuilder.build());
-		LOGGER.debug("Social interaction sent. Network [" + accountType.getFriendlyName() + "] Action ["
-				+ socialAction.getName() + "] Target [" + socialTarget + "]");
+		LOGGER.debug("Social interaction sent. Network [" + network + "] Action [" + socialAction.getName()
+				+ "] Target [" + socialTarget + "]");
 	}
 	
 	protected void addCustomDimension(AppViewBuilder appViewBuilder, CustomDimension customDimension, String dimension) {

@@ -10,9 +10,9 @@ public enum AccountType {
 	WHATSAPP("whatsapp", "WhatsApp", null),
 	TELEGRAM("telegram", "Telegram", null),
 	HANGOUTS("hangouts", "Hangouts", null),
+	SMS("sms", "SMS", null),
 	INTERNAL("internal", "Internal", null),
-	ANONYMOUS("anonymous", "Anonymous", null),
-	UNDEFINED("undefined", "Undefined", null);
+	ANONYMOUS("anonymous", "Anonymous", null);
 	
 	private String name;
 	private String friendlyName;
