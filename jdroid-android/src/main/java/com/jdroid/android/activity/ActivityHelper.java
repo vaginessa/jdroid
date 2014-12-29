@@ -457,10 +457,6 @@ public class ActivityHelper implements ActivityIf {
 	public void onPause() {
 		LOGGER.debug("Executing onPause on " + activity);
 		AbstractApplication.get().setInBackground(true);
-		
-		if (activity instanceof FragmentActivity) {
-			InAppBillingHelperFragment.remove(activity);
-		}
 	}
 	
 	public void onStop() {

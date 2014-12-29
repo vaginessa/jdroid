@@ -60,15 +60,6 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 		
 	}
 	
-	public static void remove(FragmentActivity activity) {
-		Fragment fragmentToRemove = get(activity);
-		if (fragmentToRemove != null) {
-			FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
-			fragmentTransaction.remove(fragmentToRemove);
-			fragmentTransaction.commit();
-		}
-	}
-	
 	/**
 	 * @see com.jdroid.android.fragment.AbstractFragment#onCreate(android.os.Bundle)
 	 */

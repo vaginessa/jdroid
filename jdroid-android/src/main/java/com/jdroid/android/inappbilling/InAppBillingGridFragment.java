@@ -17,8 +17,10 @@ public abstract class InAppBillingGridFragment extends AbstractGridFragment<Prod
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		
-		InAppBillingHelperFragment.add(getActivity(), InAppBillingHelperFragment.class, getManagedProductTypes(),
-			getSubscriptionsProductTypes(), false, this);
+		if (savedInstanceState == null) {
+			InAppBillingHelperFragment.add(getActivity(), InAppBillingHelperFragment.class, getManagedProductTypes(),
+				getSubscriptionsProductTypes(), false, this);
+		}
 	}
 	
 	public List<ProductType> getManagedProductTypes() {
