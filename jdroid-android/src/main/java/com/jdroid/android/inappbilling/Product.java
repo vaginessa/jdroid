@@ -75,6 +75,7 @@ public class Product {
 	}
 	
 	public void setPurchase(String signatureBase64, String jsonPurchaseInfo, String signature) throws JSONException {
+		available = false;
 		purchase = new Purchase(jsonPurchaseInfo, signature);
 		if (Security.verifyPurchase(signatureBase64, jsonPurchaseInfo, signature)) {
 			if (!verifyDeveloperPayload()) {
@@ -87,7 +88,6 @@ public class Product {
 		}
 		
 		purchase.markAsVerfied();
-		available = false;
 	}
 	
 	public Boolean isPurchaseVerified() {
