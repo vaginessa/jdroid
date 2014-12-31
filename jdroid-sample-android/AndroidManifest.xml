@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.jdroid.sample.android"
-	android:versionCode="140000600" android:versionName="0.6.0" xmlns:tools="http://schemas.android.com/tools">
+	android:versionCode="140000700" android:versionName="0.7.0" xmlns:tools="http://schemas.android.com/tools">
 
 	<permission android:name="com.jdroid.sample.android.permission.MAPS_RECEIVE" android:protectionLevel="signature" />
 

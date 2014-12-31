@@ -5,7 +5,7 @@
     <groupId>com.jdroidframework</groupId>
     <artifactId>jdroid-parent</artifactId>
     <packaging>pom</packaging>
-    <version>0.6.0</version>
+    <version>0.7.0-SNAPSHOT</version>
     <name>jdroid</name>
     <description>Application Framework for Android and Java apps.</description>
 	<url>https://github.com/maxirosson/jdroid</url>
