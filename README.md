@@ -37,7 +37,7 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
  * [Google Cloud Messaging integration](http://developer.android.com/google/gcm/index.html)
  * [Google Maps v2 integration](http://developer.android.com/google/play-services/maps.html)
  * [Google+ integration](http://developer.android.com/google/play-services/plus.html): +1 button, friends, sign in, sign out, revoke access, share
- * [Google Mobile Ads (AdMob) integration](http://developer.android.com/google/play-services/ads.html)
+ * [Google Mobile Ads (AdMob) integration](http://developer.android.com/google/play-services/ads.html): banners & interstitials support
  * [Google Play In App Billing v3 integration](http://developer.android.com/google/play/billing/index.html)
 * [Sqlite integration](https://sqlite.org/)
 * [Android Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader)
@@ -54,6 +54,7 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * House ads support
 * Base Activity & Fragment implementations
 * ListView & GridView pagination support
+* Hero image and parallax effect support
 * Loading & Refresh
  * Blocking loading dialog
  * Non blocking loading component
@@ -69,7 +70,7 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * QuickReturnLayout component
 * Animations
  * Fade in / Fade out
-* Utilities for Alarms, Bitmaps, [Notifications](http://developer.android.com/design/patterns/notifications.html), Shared Preferences, [Toasts](http://developer.android.com/guide/topics/ui/notifiers/toasts.html), Sounds, GPS, and more
+* Utilities for Alarms, Bitmaps, [Notifications](http://developer.android.com/design/patterns/notifications.html), Shared Preferences, [Toasts](http://developer.android.com/guide/topics/ui/notifiers/toasts.html), GPS, and more
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid Java Web](https://github.com/maxirosson/jdroid/wiki/jdroid-Java-Web)
 ---------------
@@ -92,6 +93,7 @@ Dependency project for Java Web apps
 --------------
 Useful tools for Android apps
 * Report the methods invocations in android dex files, package by package
+* Publish APKs and listings (feature/promo graphics, High resolution icon, screenshots, title, short and full descriptions) on Google Play
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/genericNews.png" width="25" height="25"/> jdroid Scripts](https://github.com/maxirosson/jdroid/wiki/jdroid-Scripts)
 --------------
