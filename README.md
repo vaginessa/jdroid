@@ -91,7 +91,7 @@ Dependency project for Java Web apps
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid Android Tools](https://github.com/maxirosson/jdroid/wiki/jdroid-Android-Tools)
 --------------
-Useful tools for Android apps
+Useful tools for Android apps developers
 * Report the methods invocations in android dex files, package by package
 * Publish APKs and listings (feature/promo graphics, High resolution icon, screenshots, title, short and full descriptions) on Google Play
 
