@@ -10,6 +10,7 @@ SNAPSHOT=$3
 sh $SOURCE_DIRECTORY/jdroid-scripts/incrementPomVersion.sh $SOURCE_DIRECTORY $SOURCE_DIRECTORY $VERSION_TYPE false 'version' $SNAPSHOT
 sh $SOURCE_DIRECTORY/jdroid-scripts/incrementPomVersion.sh $SOURCE_DIRECTORY $SOURCE_DIRECTORY/jdroid-java $VERSION_TYPE false 'version' $SNAPSHOT
 sh $SOURCE_DIRECTORY/jdroid-scripts/incrementPomVersion.sh $SOURCE_DIRECTORY $SOURCE_DIRECTORY/jdroid-android $VERSION_TYPE false 'version' $SNAPSHOT
+sh $SOURCE_DIRECTORY/jdroid-scripts/incrementPomVersion.sh $SOURCE_DIRECTORY $SOURCE_DIRECTORY/jdroid-support-v7-appcompat $VERSION_TYPE false 'version' $SNAPSHOT
 sh $SOURCE_DIRECTORY/jdroid-scripts/incrementPomVersion.sh $SOURCE_DIRECTORY $SOURCE_DIRECTORY/jdroid-google-play-services $VERSION_TYPE false 'version' $SNAPSHOT
 sh $SOURCE_DIRECTORY/jdroid-scripts/incrementPomVersion.sh $SOURCE_DIRECTORY $SOURCE_DIRECTORY/jdroid-javaweb $VERSION_TYPE false 'version' $SNAPSHOT
 
