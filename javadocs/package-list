@@ -1,3 +1,4 @@
+android.support.v7.appcompat
 com.android.vending.billing
 com.facebook
 com.facebook.android
@@ -13,6 +14,7 @@ com.jdroid.android.animation
 com.jdroid.android.api
 com.jdroid.android.api.parser
 com.jdroid.android.barcode
+com.jdroid.android.boot
 com.jdroid.android.concurrent
 com.jdroid.android.contacts
 com.jdroid.android.contentprovider
@@ -49,15 +51,14 @@ com.jdroid.android.social
 com.jdroid.android.social.facebook
 com.jdroid.android.social.googleplus
 com.jdroid.android.social.twitter
-com.jdroid.android.sound
 com.jdroid.android.sqlite
 com.jdroid.android.uri
 com.jdroid.android.usecase
 com.jdroid.android.usecase.listener
 com.jdroid.android.utils
-com.jdroid.android.video
 com.jdroid.android.view
 com.jdroid.android.voice
+com.jdroid.android.webview
 com.jdroid.android.wizard
 com.jdroid.java.api
 com.jdroid.java.collections
@@ -84,6 +85,7 @@ com.jdroid.java.parser.json
 com.jdroid.java.parser.plain
 com.jdroid.java.parser.zip
 com.jdroid.java.repository
+com.jdroid.java.scheduler
 com.jdroid.java.search
 com.jdroid.java.utils
 com.jdroid.javaweb.api
@@ -106,4 +108,5 @@ com.jdroid.javaweb.push.gcm
 com.jdroid.javaweb.repository
 com.jdroid.javaweb.search
 com.jdroid.javaweb.spring
+com.jdroid.javaweb.twitter
 com.jdroid.javaweb.utils
