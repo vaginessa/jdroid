@@ -4,17 +4,17 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.jdroidframework</groupId>
 	<artifactId>jdroid-sample-server</artifactId>
-	<version>0.6.0-SNAPSHOT</version>
+	<version>0.6.0</version>
 	<packaging>war</packaging>
 	<name>Jdroid Sample Server</name>
 	<parent>
 		<groupId>com.jdroidframework</groupId>
 		<artifactId>jdroid-parent</artifactId>
-		<version>0.6.0-SNAPSHOT</version>
+		<version>0.6.0</version>
 	</parent>
 
 	<properties>
-		<jdroid.version>0.6.0-SNAPSHOT</jdroid.version>
+		<jdroid.version>0.6.0</jdroid.version>
 	</properties>
 
 	<build>
