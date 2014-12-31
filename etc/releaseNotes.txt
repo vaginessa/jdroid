@@ -1,32 +1,34 @@
-Changed the Maven groupId to com.jdroidframework\n
-Added Travis Continuous Integration\n
-Created jdroid-android-tools\n
-\n
+* All the projects were migrated to java 7\n
 jdroid Java\n
 -----------\n
-* Added PATCH method support to Http Layer\n
+* Exception handling improvements\n
 * Upgraded dependencies versions\n
 * Bug fixing\n
 \n
 jdroid Java Web\n
 ---------------\n
-* Added default filter\n
+* Added Twitter4j integration\n
+* Exception handling improvements\n
 * Upgraded dependencies versions\n
 * Bug fixing\n
 \n
 jdroid Android\n
 --------------\n
-* Added XML Pull Parser\n
-* Added Jdroid reference to about dialog\n
-* Added GCM messages emualation support to Debug settings\n
-* Added support to house ads\n
-* Added custom up intent support\n
-* Added QuickReturnLayout component\n
-* Added default headers appender\n
+* Added spanish locale support
+* Added support v7 appcompat dependency\n
+* Added Android Lollipop support: material action bar, new action bar drawer, material theme, new notifications features\n
+* Added Google Maps support\n
+* Added new Screen utils\n
+* Added interstitial ads support\n
+* Added Hero image and parallax effect support\n
+* Google Analytics improvements\n
+* Sharing improvements\n
+* Exception handling improvements\n
+* Debug settings improvements\n
 * Upgraded dependencies versions\n
 * Bug fixing\n
 \n
-jdroid scripts\n
+jdroid Android Tools\n
 --------------\n
-* Added Strip Google Play Services jar script\n
+* Publish APKs and listings (feature/promo graphics, High resolution icon, screenshots, title, short and full descriptions) on Google Play\n
 \n

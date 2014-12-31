@@ -1,4 +1,4 @@
-package com.googleplaypublisher;
+package com.jdroid.googleplaypublisher;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.googleplaypublisher;
+package com.jdroid.googleplaypublisher;
 
 import com.google.api.client.repackaged.com.google.common.base.Strings;
 import com.jdroid.java.exception.UnexpectedException;

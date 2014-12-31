@@ -1,4 +1,4 @@
-package com.googleplaypublisher;
+package com.jdroid.googleplaypublisher;
 
 public enum ImageType {
 	
