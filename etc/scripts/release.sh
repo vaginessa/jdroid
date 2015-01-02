@@ -10,7 +10,7 @@ ASSEMBLIES_DIRECTORY=$BUILD_DIRECTORY/$PROJECT_NAME/assemblies
 
 # Build
 # ************************
-sh ./build.sh $BUILD_DIRECTORY
+sh $JDROID_HOME/etc/scripts/build.sh $BUILD_DIRECTORY
 
 # Javadoc & zip Generation
 # ************************
