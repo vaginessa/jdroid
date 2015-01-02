@@ -109,15 +109,11 @@ A set of useful shell scripts to
 Apps using jdroid
 --------------
 
-<a href="https://play.google.com/store/apps/details?id=com.mediafever&referrer=utm_source%3Djdroid">
-  <img alt="Get it on Google Play"
-       src="https://github.com/maxirosson/media-fever/blob/gh-pages/images/featureGraphic.png?raw=true" />
-</a>
-
-<a href="https://play.google.com/store/apps/details?id=com.codenumber.lite">
-  <img alt="Get it on Google Play"
-       src="https://github.com/maxirosson/code-number/blob/master/codenumber.png?raw=true" />
-</a>
+|               | Google Play   |
+| ------------- | ------------- |
+| [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/mediafever.png" width="40" height="40"/>](https://play.google.com/store/apps/details?id=com.mediafever&referrer=utm_source%3Djdroid) | Media Fever |
+| [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/subtefy.png" width="40" height="40"/>](https://play.google.com/store/apps/details?id=com.subtefy&referrer=utm_source%3Djdroid) | Subtefy |
+| [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/codenumber.png" width="40" height="40"/>](https://play.google.com/store/apps/details?id=com.codenumber.lite) | Code Number |
 
 Acknowledgements
 --------------
