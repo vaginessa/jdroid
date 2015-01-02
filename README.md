@@ -127,3 +127,4 @@ Acknowledgements
 
 --------------
 For more information, visit the [GitHub Wiki](https://github.com/maxirosson/jdroid/wiki) or our [Site](http://jdroidframework.com/).
+Follow us on [@jdroidframework](https://twitter.com/jdroidframework)
