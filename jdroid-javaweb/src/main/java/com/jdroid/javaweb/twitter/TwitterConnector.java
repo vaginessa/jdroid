@@ -1,10 +1,14 @@
 package com.jdroid.javaweb.twitter;
 
+import java.util.List;
 import org.slf4j.Logger;
+import twitter4j.Query;
 import twitter4j.Status;
+import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
+import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.context.Application;
 
@@ -34,6 +38,16 @@ public class TwitterConnector {
 			}
 		} catch (TwitterException e) {
 			LOGGER.error("Error when posting on Twitter: [" + text + "]", e);
+		}
+	}
+	
+	public List<Status> searchTweets(String queryText) {
+		Twitter twitter = twitterFactory.getInstance();
+		Query query = new Query(queryText);
+		try {
+			return twitter.search(query).getTweets();
+		} catch (TwitterException e) {
+			throw new UnexpectedException(e);
 		}
 	}
 	
