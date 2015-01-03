@@ -59,19 +59,24 @@
 
 	<!-- About Dialog -->
 	<string name="about">About</string>
+	<string name="spreadTheLove">Spread the love</string>
+	<string name="libraries">Libraries</string>
 	<string name="version">Version %1$s</string>
+	<string name="followUs">Follow Us</string>
 	<string name="contactUs">Contact Us</string>
-	<string name="copyright">© %1$s %2$s</string>
-	<string name="allRightsReservedLegend">All Rights Reserved</string>
-	<string name="followUs">Follow us</string>
-	<string name="jdroidLegend">Using Jdroid - Application Framework for Android and Java apps</string>
-	<string name="universalImageLoaderLegend">Using Universal Image Loader © 2011-2014, Sergey Tarasevich</string>
+	<string name="rateUs">Rate Us</string>
+	<string name="copyright">© %1$s %2$s - All Rights Reserved</string>
+	<string name="jdroidTitle">Jdroid</string>
+	<string name="jdroidDescription">Application Framework for Android and Java apps</string>
+	<string name="universalImageLoaderTitle">Universal Image Loader</string>
+	<string name="universalImageLoaderDescription">Powerful and flexible library for loading, caching and displaying images on Android.</string>
 
 	<!-- External Apps -->
 	<string name="barcodeScanner">Barcode Scanner</string>
 	<string name="voiceSearch">Voice Search</string>
 
 	<!-- Sharing -->
+	<string name="share">Share</string>
 	<string name="sharingFailed">The sharing failed</string>
 
 	<!-- Facebook -->
@@ -79,6 +84,9 @@
 
 	<!-- Google+ -->
 	<string name="googlePlus">Google+</string>
+
+	<!-- Twitter -->
+	<string name="twitter">Twitter</string>
 
 	<!-- Map -->
 	<string name="driving">Driving</string>

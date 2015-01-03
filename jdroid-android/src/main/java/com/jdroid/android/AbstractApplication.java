@@ -20,6 +20,9 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
+import com.jdroid.android.about.AboutFragment;
+import com.jdroid.android.about.LibrariesFragment;
+import com.jdroid.android.about.SpreadTheLoveFragment;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
@@ -482,5 +485,17 @@ public abstract class AbstractApplication extends Application {
 	
 	public List<ProductType> getSubscriptionsProductTypes() {
 		return Lists.newArrayList();
+	}
+	
+	public Class<? extends AboutFragment> getAboutFragmentClass() {
+		return AboutFragment.class;
+	}
+	
+	public Class<? extends LibrariesFragment> getLibrariesFragmentClass() {
+		return LibrariesFragment.class;
+	}
+	
+	public Class<? extends SpreadTheLoveFragment> getSpreadTheLoveFragmentClass() {
+		return SpreadTheLoveFragment.class;
 	}
 }

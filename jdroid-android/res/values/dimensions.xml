@@ -41,4 +41,7 @@
 	<dimen name="nav_drawer_icon_size">24dp</dimen>
 	<dimen name="nav_drawer_icon_margin">16dp</dimen>
 
+	<!-- Share -->
+	<dimen name="shareItemWidth">64dp</dimen>
+
 </resources>

@@ -61,19 +61,24 @@
 
 	<!-- About Dialog -->
 	<string name="about">Acerca de</string>
+	<string name="spreadTheLove">Difunda @string/appName</string>
+	<string name="libraries">Librerias</string>
 	<string name="version">Versión %1$s</string>
+	<string name="followUs">Siganos</string>
 	<string name="contactUs">Contáctenos</string>
-	<string name="copyright">© %1$s %2$s</string>
-	<string name="allRightsReservedLegend">Todos los derechos reservados</string>
-	<string name="followUs">Síganos</string>
-	<string name="jdroidLegend">Usando Jdroid - Application Framework for Android and Java apps</string>
-	<string name="universalImageLoaderLegend">Usando Universal Image Loader (c) 2011-2014, Sergey Tarasevich</string>
+	<string name="rateUs">Califíquenos</string>
+	<string name="copyright">© %1$s %2$s - Todos los derechos reservados</string>
+	<string name="jdroidTitle">Jdroid</string>
+	<string name="jdroidDescription">Application Framework for Android and Java apps</string>
+	<string name="universalImageLoaderTitle">Universal Image Loader</string>
+	<string name="universalImageLoaderDescription">Powerful and flexible library for loading, caching and displaying images on Android.</string>
 
 	<!-- External Apps -->
 	<string name="barcodeScanner">Barcode Scanner</string>
 	<string name="voiceSearch">Voice Search</string>
 
 	<!-- Sharing -->
+	<string name="share">Compartir</string>
 	<string name="sharingFailed">Ha fallado la acción de compartir</string>
 
 	<!-- Facebook -->

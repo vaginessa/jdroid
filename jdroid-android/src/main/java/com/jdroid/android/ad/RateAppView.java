@@ -42,11 +42,16 @@ public class RateAppView extends RelativeLayout {
 			
 			@Override
 			public void onClick(View v) {
-				SharedPreferencesHelper.get().savePreference(RATE_ME_CLICK_TIMESTAMP, System.currentTimeMillis());
+				rateMeClicked();
 				GooglePlayUtils.launchAppDetails(context);
 				AbstractApplication.get().getAnalyticsSender().trackRateMeBannerClicked();
 			}
+			
 		});
+	}
+	
+	public static void rateMeClicked() {
+		SharedPreferencesHelper.get().savePreference(RATE_ME_CLICK_TIMESTAMP, System.currentTimeMillis());
 	}
 	
 	public static Boolean displayRateMe() {

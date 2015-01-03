@@ -260,4 +260,16 @@ public class AppContext {
 	public String getContactUsEmail() {
 		return contactUsEmail;
 	}
+	
+	public String getTwitterAccount() {
+		return null;
+	}
+	
+	public String getFacebookPageId() {
+		return null;
+	}
+	
+	public String getGooglePlusCommunityId() {
+		return null;
+	}
 }
