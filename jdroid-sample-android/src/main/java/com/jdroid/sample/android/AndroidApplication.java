@@ -3,6 +3,7 @@ package com.jdroid.sample.android;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.about.SpreadTheLoveFragment;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
@@ -13,6 +14,7 @@ import com.jdroid.android.gcm.GcmMessageResolver;
 import com.jdroid.sample.android.analytics.AndroidAnalyticsSender;
 import com.jdroid.sample.android.gcm.AndroidGcmResolver;
 import com.jdroid.sample.android.ui.HomeActivity;
+import com.jdroid.sample.android.ui.about.AndroidSpreadTheLoveFragment;
 import com.jdroid.sample.android.ui.debug.AndroidDebugSettingsFragment;
 
 public class AndroidApplication extends AbstractApplication {
@@ -67,5 +69,13 @@ public class AndroidApplication extends AbstractApplication {
 	@Override
 	public Class<? extends AbstractPreferenceFragment> getDebugSettingsFragmentClass() {
 		return AndroidDebugSettingsFragment.class;
+	}
+	
+	/**
+	 * @see com.jdroid.android.AbstractApplication#getSpreadTheLoveFragmentClass()
+	 */
+	@Override
+	public Class<? extends SpreadTheLoveFragment> getSpreadTheLoveFragmentClass() {
+		return AndroidSpreadTheLoveFragment.class;
 	}
 }

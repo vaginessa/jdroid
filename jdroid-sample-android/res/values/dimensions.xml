@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<!-- Nav Drawer -->
-
-	<dimen name="nav_drawer_main_min_height">68dp</dimen>
-	<dimen name="nav_drawer_secondary_min_height">48dp</dimen>
-
 </resources>
