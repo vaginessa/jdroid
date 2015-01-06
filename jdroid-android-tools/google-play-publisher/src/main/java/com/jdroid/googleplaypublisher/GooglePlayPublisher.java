@@ -17,6 +17,7 @@ import com.google.api.client.http.FileContent;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.repackaged.com.google.common.base.Strings;
 import com.google.api.services.androidpublisher.AndroidPublisher;
 import com.google.api.services.androidpublisher.AndroidPublisher.Edits;
 import com.google.api.services.androidpublisher.AndroidPublisher.Edits.Apklistings;
@@ -172,7 +173,7 @@ public class GooglePlayPublisher {
 					each.getLocale().toString(), ImageType.PHONE_SCREENSHOTS.getKey());
 				deleteallRequest.execute();
 				log.info(String.format("Phone screenshots has been deleted."));
-				for (AbstractInputStreamContent content : each.getSevenInchScreenshots()) {
+				for (AbstractInputStreamContent content : each.getPhoneScreenshots()) {
 					uploadImageRequest = edits.images().upload(appContext.getPackageName(), editId,
 						each.getLocale().toString(), ImageType.PHONE_SCREENSHOTS.getKey(), content);
 					response = uploadImageRequest.execute();
@@ -194,7 +195,7 @@ public class GooglePlayPublisher {
 					each.getLocale().toString(), ImageType.TEN_INCH_SCREENSHOTS.getKey());
 				deleteallRequest.execute();
 				log.info(String.format("Ten inch screenshots has been deleted."));
-				for (AbstractInputStreamContent content : each.getSevenInchScreenshots()) {
+				for (AbstractInputStreamContent content : each.getTenInchScreenshots()) {
 					uploadImageRequest = edits.images().upload(appContext.getPackageName(), editId,
 						each.getLocale().toString(), ImageType.TEN_INCH_SCREENSHOTS.getKey(), content);
 					response = uploadImageRequest.execute();
@@ -212,6 +213,14 @@ public class GooglePlayPublisher {
 	public static void updateApk(AppContext appContext, String apkFilePath, TrackType trackType,
 			List<LocaleListing> localeListings) {
 		try {
+			
+			if (Strings.isNullOrEmpty(apkFilePath)) {
+				throw new UnexpectedException("apkPath cannot be null or empty!");
+			}
+			
+			if (trackType == null) {
+				throw new UnexpectedException("trackType cannot be null or empty!");
+			}
 			
 			// Create the API service.
 			AndroidPublisher service = init(appContext);

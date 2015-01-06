@@ -60,14 +60,7 @@ public class AppContext {
 		}
 		
 		apkPath = PropertiesUtils.getStringProperty("apk.path");
-		if (Strings.isNullOrEmpty(apkPath)) {
-			throw new UnexpectedException("apkPath cannot be null or empty!");
-		}
-		
 		trackType = TrackType.findByKey(PropertiesUtils.getStringProperty("track.type"));
-		if (trackType == null) {
-			throw new UnexpectedException("trackType cannot be null or empty!");
-		}
 	}
 	
 	public String getAppName() {
