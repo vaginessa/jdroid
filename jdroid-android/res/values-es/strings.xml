@@ -87,6 +87,9 @@
 	<!-- Google+ -->
 	<string name="googlePlus">Google+</string>
 
+	<!-- Twitter -->
+	<string name="twitter">Twitter</string>
+
 	<!-- Map -->
 	<string name="driving">Conduciendo</string>
 	<string name="walking">Caminando</string>
