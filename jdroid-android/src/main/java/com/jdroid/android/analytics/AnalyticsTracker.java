@@ -44,4 +44,10 @@ public interface AnalyticsTracker {
 	
 	public void trackTiming(String category, String variable, String label, long value);
 	
+	public void trackRateUs();
+	
+	public void trackContactUs();
+	
+	public void trackAboutLibraryOpen(String libraryKey);
+	
 }

@@ -30,6 +30,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	private static final Logger LOGGER = LoggerUtils.getLogger(GoogleAnalyticsTracker.class);
 	
 	public static final String NOTIFICATION_CATEGORY = "notification";
+	private static final String ABOUT_CATEGORY = "about";
 	private static final String ADS_CATEGORY = "ads";
 	private static final String CLICK_ACTION = "click";
 	
@@ -259,6 +260,30 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		tracker.send(socialBuilder.build());
 		LOGGER.debug("Social interaction sent. Network [" + network + "] Action [" + socialAction.getName()
 				+ "] Target [" + socialTarget + "]");
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackRateUs()
+	 */
+	@Override
+	public void trackRateUs() {
+		sendEvent(ABOUT_CATEGORY, "rateUs", "rateUs");
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackContactUs()
+	 */
+	@Override
+	public void trackContactUs() {
+		sendEvent(ABOUT_CATEGORY, "contactUs", "contactUs");
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackAboutLibraryOpen(java.lang.String)
+	 */
+	@Override
+	public void trackAboutLibraryOpen(String libraryKey) {
+		sendEvent(ABOUT_CATEGORY, "openLibary", libraryKey);
 	}
 	
 	protected void addCustomDimension(AppViewBuilder appViewBuilder, CustomDimension customDimension, String dimension) {

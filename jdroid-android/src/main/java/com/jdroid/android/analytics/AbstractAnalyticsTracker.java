@@ -147,4 +147,28 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 		// Do Nothing
 	}
 	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackRateUs()
+	 */
+	@Override
+	public void trackRateUs() {
+		// Do Nothing
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackContactUs()
+	 */
+	@Override
+	public void trackContactUs() {
+		// Do Nothing
+	}
+	
+	/**
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackAboutLibraryOpen(java.lang.String)
+	 */
+	@Override
+	public void trackAboutLibraryOpen(String libraryKey) {
+		// Do Nothing
+	}
+	
 }

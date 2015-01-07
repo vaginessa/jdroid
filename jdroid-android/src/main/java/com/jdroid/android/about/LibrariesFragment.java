@@ -21,9 +21,10 @@ public class LibrariesFragment extends AbstractListFragment<Library> {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		libraries.add(new Library(R.string.jdroidTitle, R.string.jdroidDescription, "http://jdroidframework.com"));
-		libraries.add(new Library(R.string.universalImageLoaderTitle, R.string.universalImageLoaderDescription,
-				"https://github.com/nostra13/Android-Universal-Image-Loader"));
+		libraries.add(new Library("jdroid", R.string.jdroidTitle, R.string.jdroidDescription,
+				"http://jdroidframework.com"));
+		libraries.add(new Library("universalImageLoader", R.string.universalImageLoaderTitle,
+				R.string.universalImageLoaderDescription, "https://github.com/nostra13/Android-Universal-Image-Loader"));
 		libraries.addAll(getCustomLibraries());
 	}
 	
@@ -51,6 +52,8 @@ public class LibrariesFragment extends AbstractListFragment<Library> {
 	@Override
 	public void onItemSelected(Library item) {
 		item.onSelected(getActivity());
+		AbstractApplication.get().getAnalyticsSender().trackAboutLibraryOpen(item.getLibraryKey());
+		
 	}
 	
 	protected Boolean displayImageLoader() {

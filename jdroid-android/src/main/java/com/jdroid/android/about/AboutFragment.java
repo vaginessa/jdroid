@@ -42,6 +42,7 @@ public class AboutFragment extends AbstractListFragment<AboutItem> {
 					Intent intent = ShareUtils.createOpenMail(contactUsEmailAddress,
 						AbstractApplication.get().getAppName());
 					startActivity(intent);
+					AbstractApplication.get().getAnalyticsSender().trackContactUs();
 				}
 			});
 		}
@@ -58,6 +59,7 @@ public class AboutFragment extends AbstractListFragment<AboutItem> {
 			public void onSelected(Activity activity) {
 				RateAppView.rateMeClicked();
 				GooglePlayUtils.launchAppDetails(getActivity());
+				AbstractApplication.get().getAnalyticsSender().trackRateUs();
 			}
 		});
 		aboutItems.add(new AboutItem(R.drawable.ic_libraries, R.string.libraries) {

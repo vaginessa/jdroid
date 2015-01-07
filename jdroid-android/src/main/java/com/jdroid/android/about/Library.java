@@ -5,11 +5,13 @@ import com.jdroid.android.utils.IntentUtils;
 
 public class Library {
 	
+	private String libraryKey;
 	private Integer nameResId;
 	private Integer descriptionResId;
 	private String url;
 	
-	public Library(Integer nameResId, Integer descriptionResId, String url) {
+	public Library(String libraryKey, Integer nameResId, Integer descriptionResId, String url) {
+		this.libraryKey = libraryKey;
 		this.nameResId = nameResId;
 		this.descriptionResId = descriptionResId;
 		this.url = url;
@@ -31,4 +33,7 @@ public class Library {
 		IntentUtils.startUrl(activity, url);
 	}
 	
+	public String getLibraryKey() {
+		return libraryKey;
+	}
 }
