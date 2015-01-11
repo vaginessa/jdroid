@@ -399,7 +399,7 @@ public class InAppBillingClient {
 				} else {
 					InAppBillingErrorCode inAppBillingErrorCode = getResponseCode(productsDetailsBundle);
 					if (inAppBillingErrorCode != null) {
-						throw inAppBillingErrorCode.newErrorCodeException("getSkuDetails() failed querying " + itemType);
+						throw inAppBillingErrorCode.newErrorCodeException("Failed querying " + itemType);
 					} else {
 						throw InAppBillingErrorCode.BAD_RESPONSE.newErrorCodeException("getSkuDetails() returned a bundle with neither an error nor a detail list.");
 					}

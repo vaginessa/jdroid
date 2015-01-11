@@ -11,7 +11,7 @@ import com.jdroid.sample.android.ui.HomeActivity;
 public enum AndroidNavDrawerItem implements NavDrawerItem {
 	
 	HOME(R.drawable.home, R.string.home, HomeActivity.class, true),
-	ABOUT(R.drawable.info, R.string.about, AboutActivity.class, true);
+	ABOUT(R.drawable.about_item_selector, R.string.about, AboutActivity.class, true);
 	
 	private Integer iconResource;
 	private Integer nameResource;
