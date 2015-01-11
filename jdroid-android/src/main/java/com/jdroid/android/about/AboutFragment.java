@@ -21,7 +21,6 @@ import com.jdroid.android.utils.GooglePlayUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.DateUtils;
 
-// TODO See reconstruction and rotation for all the about screens
 public class AboutFragment extends AbstractListFragment<AboutItem> {
 	
 	private List<AboutItem> aboutItems = Lists.newArrayList();
@@ -86,6 +85,7 @@ public class AboutFragment extends AbstractListFragment<AboutItem> {
 	 */
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 		
 		View header = inflate(R.layout.about_header_fragment);
 		TextView appName = (TextView)header.findViewById(R.id.appName);

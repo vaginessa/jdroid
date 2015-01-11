@@ -61,7 +61,7 @@
 
 	<!-- About Dialog -->
 	<string name="about">Acerca de</string>
-	<string name="spreadTheLove">Difundanos</string>
+	<string name="spreadTheLove">Difúndanos</string>
 	<string name="libraries">Librerias</string>
 	<string name="version">Versión %1$s</string>
 	<string name="followUs">Siganos</string>

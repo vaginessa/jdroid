@@ -24,11 +24,10 @@ import com.jdroid.android.social.facebook.FacebookAuthenticationFragment;
 import com.jdroid.android.social.googleplus.GooglePlusHelperFragment;
 import com.jdroid.android.social.googleplus.GooglePlusOneButtonHelper;
 import com.jdroid.android.social.twitter.TwitterConnector;
+import com.jdroid.android.utils.GooglePlayUtils;
 import com.jdroid.java.collections.Lists;
 
 public abstract class SpreadTheLoveFragment extends AbstractFragment {
-	
-	private static final String SHARE_KEY = "app";
 	
 	private GooglePlusOneButtonHelper googlePlusOneButtonHelper;
 	
@@ -145,8 +144,8 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 			
 			@Override
 			public void share() {
-				ShareUtils.shareTextContent(SHARE_KEY, getString(R.string.share), getString(R.string.appName),
-					SpreadTheLoveFragment.this.getDefaultShareText());
+				ShareUtils.shareTextContent(SpreadTheLoveFragment.this.getShareKey(), getString(R.string.share),
+					getString(R.string.appName), SpreadTheLoveFragment.this.getDefaultShareText());
 			}
 		});
 		
@@ -175,7 +174,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 	}
 	
 	public String getShareKey() {
-		return SHARE_KEY;
+		return GooglePlayUtils.getGooglePlayLink();
 	}
 	
 	protected abstract String getDefaultShareText();
