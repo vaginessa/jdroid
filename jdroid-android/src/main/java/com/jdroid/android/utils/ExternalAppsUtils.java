@@ -15,6 +15,7 @@ public class ExternalAppsUtils {
 	public static final String WHATSAPP_PACKAGE_NAME = "com.whatsapp";
 	public static final String TELEGRAM_PACKAGE_NAME = "org.telegram.messenger";
 	public static final String HANGOUTS_PACKAGE_NAME = "com.google.android.talk";
+	public static final String GOOGLE_PLUS_PACKAGE_NAME = "com.google.android.apps.plus";
 	
 	public static boolean isAppInstalled(Context context, String packageName) {
 		PackageManager pm = context.getPackageManager();
