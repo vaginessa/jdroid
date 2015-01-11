@@ -36,6 +36,7 @@ import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.social.SocialUser;
+import com.jdroid.android.utils.ExternalAppsUtils;
 import com.jdroid.android.utils.GooglePlayUtils;
 import com.jdroid.android.utils.IntentUtils;
 import com.jdroid.java.collections.Lists;
@@ -463,7 +464,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 			});
 	}
 	
-	public void share(String content, String link) {
+	public void shareDeeplink(String content, String link) {
 		PlusShare.Builder builder = new PlusShare.Builder(getActivity());
 		builder.setText(content);
 		builder.setType(MimeType.TEXT);
@@ -475,7 +476,22 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 		if (IntentUtils.isIntentAvailable(intent)) {
 			getActivity().startActivityForResult(intent, SHARE_REQUEST_CODE);
 		} else {
-			GooglePlayUtils.showDownloadDialog(R.string.googlePlus, "com.google.android.apps.plus");
+			GooglePlayUtils.showDownloadDialog(R.string.googlePlus, ExternalAppsUtils.GOOGLE_PLUS_PACKAGE_NAME);
+		}
+	}
+	
+	public void share(String content, String link) {
+		PlusShare.Builder builder = new PlusShare.Builder(getActivity());
+		builder.setText(content);
+		builder.setType(MimeType.TEXT);
+		builder.setContentUrl(Uri.parse(link));
+		
+		Intent intent = builder.getIntent();
+		shareLink = link;
+		if (IntentUtils.isIntentAvailable(intent)) {
+			getActivity().startActivityForResult(intent, SHARE_REQUEST_CODE);
+		} else {
+			GooglePlayUtils.showDownloadDialog(R.string.googlePlus, ExternalAppsUtils.GOOGLE_PLUS_PACKAGE_NAME);
 		}
 	}
 	

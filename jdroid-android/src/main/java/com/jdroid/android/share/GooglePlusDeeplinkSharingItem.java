@@ -20,7 +20,7 @@ public abstract class GooglePlusDeeplinkSharingItem extends SharingItem {
 	 */
 	@Override
 	public void share() {
-		GooglePlusHelperFragment.get((FragmentActivity)AbstractApplication.get().getCurrentActivity()).share(
+		GooglePlusHelperFragment.get((FragmentActivity)AbstractApplication.get().getCurrentActivity()).shareDeeplink(
 			getContent(), getLink());
 	}
 	

@@ -11,6 +11,7 @@ import com.google.android.gms.plus.PlusOneButton;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.fragment.AbstractFragment;
+import com.jdroid.android.share.GooglePlusSharingItem;
 import com.jdroid.android.share.HangoutsSharingItem;
 import com.jdroid.android.share.MoreSharingItem;
 import com.jdroid.android.share.ShareUtils;
@@ -88,6 +89,18 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 			@Override
 			public String getShareText() {
 				return SpreadTheLoveFragment.this.getTwitterShareText();
+			}
+		});
+		sharingItems.add(new GooglePlusSharingItem() {
+			
+			@Override
+			public String getShareKey() {
+				return SpreadTheLoveFragment.this.getShareKey();
+			}
+			
+			@Override
+			public String getShareText() {
+				return SpreadTheLoveFragment.this.getGooglePlusShareText();
 			}
 		});
 		sharingItems.add(new WhatsAppSharingItem() {
@@ -180,6 +193,10 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 	protected abstract String getDefaultShareText();
 	
 	protected String getTwitterShareText() {
+		return getDefaultShareText();
+	}
+	
+	protected String getGooglePlusShareText() {
 		return getDefaultShareText();
 	}
 	

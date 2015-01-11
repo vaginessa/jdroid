@@ -57,6 +57,10 @@ public class ShareUtils {
 		share(ExternalAppsUtils.HANGOUTS_PACKAGE_NAME, AccountType.HANGOUTS, shareKey, shareText);
 	}
 	
+	public static void shareOnGooglePlus(String shareKey, String shareText) {
+		share(ExternalAppsUtils.GOOGLE_PLUS_PACKAGE_NAME, AccountType.GOOGLE_PLUS, shareKey, shareText);
+	}
+	
 	public static void shareOnSmsApp(String packageName, String shareKey, String shareText) {
 		share(packageName, AccountType.SMS, shareKey, shareText);
 	}

@@ -6,6 +6,7 @@ import com.jdroid.sample.android.R;
 public class AndroidSpreadTheLoveFragment extends SpreadTheLoveFragment {
 	
 	public static final String TWITTER_SHARE_URL = "http://goo.gl/XcxvIh";
+	public static final String GOOGLE_PLUS_SHARE_URL = "http://goo.gl/6BloFX";
 	public static final String FACEBOOK_SHARE_URL = "http://goo.gl/ogJoNX";
 	public static final String WHATSAPP_SHARE_URL = "http://goo.gl/6KGhXn";
 	public static final String TELEGRAM_SHARE_URL = "http://goo.gl/P4t4v0";
@@ -27,6 +28,14 @@ public class AndroidSpreadTheLoveFragment extends SpreadTheLoveFragment {
 	@Override
 	protected String getTwitterShareText() {
 		return getString(R.string.shareMessage, TWITTER_SHARE_URL);
+	}
+	
+	/**
+	 * @see com.jdroid.android.about.SpreadTheLoveFragment#getGooglePlusShareText()
+	 */
+	@Override
+	protected String getGooglePlusShareText() {
+		return getString(R.string.shareMessage, GOOGLE_PLUS_SHARE_URL);
 	}
 	
 	/**
