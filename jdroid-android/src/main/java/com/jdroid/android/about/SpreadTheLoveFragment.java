@@ -158,7 +158,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 			@Override
 			public void share() {
 				ShareUtils.shareTextContent(SpreadTheLoveFragment.this.getShareKey(), getString(R.string.share),
-					getString(R.string.appName), SpreadTheLoveFragment.this.getDefaultShareText());
+					getShareTitle(), SpreadTheLoveFragment.this.getDefaultShareText());
 			}
 		});
 		
@@ -168,6 +168,10 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 		} else {
 			plusOneButton.setVisibility(View.GONE);
 		}
+	}
+	
+	protected String getShareTitle() {
+		return getString(R.string.appName);
 	}
 	
 	protected String getFacebookPageId() {
