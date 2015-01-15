@@ -14,6 +14,8 @@ sh $SOURCE_DIRECTORY/jdroid-scripts/incrementPomVersion.sh $SOURCE_DIRECTORY $SO
 sh $SOURCE_DIRECTORY/jdroid-scripts/incrementPomVersion.sh $SOURCE_DIRECTORY $SOURCE_DIRECTORY/jdroid-google-play-services $VERSION_TYPE false 'version' $SNAPSHOT
 sh $SOURCE_DIRECTORY/jdroid-scripts/incrementPomVersion.sh $SOURCE_DIRECTORY $SOURCE_DIRECTORY/jdroid-javaweb $VERSION_TYPE false 'version' $SNAPSHOT
 
+sh $SOURCE_DIRECTORY/jdroid-scripts/incrementPomVersion.sh $SOURCE_DIRECTORY $SOURCE_DIRECTORY/google-play-publisher $VERSION_TYPE false 'version' $SNAPSHOT
+
 sh $SOURCE_DIRECTORY/jdroid-scripts/incrementPomVersion.sh $SOURCE_DIRECTORY $SOURCE_DIRECTORY/jdroid-sample-server $VERSION_TYPE false 'version' $SNAPSHOT
 sh $SOURCE_DIRECTORY/jdroid-scripts/incrementPomVersion.sh $SOURCE_DIRECTORY $SOURCE_DIRECTORY/jdroid-sample-server $VERSION_TYPE false 'jdroid.version' $SNAPSHOT
 
