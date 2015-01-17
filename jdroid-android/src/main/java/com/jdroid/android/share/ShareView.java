@@ -39,7 +39,7 @@ public class ShareView extends FrameLayout {
 		});
 	}
 	
-	public static void initShareSection(final Activity activity, List<SharingItem> sharingItems,
+	public static Boolean initShareSection(final Activity activity, List<SharingItem> sharingItems,
 			MoreSharingItem moreSharingItem) {
 		ViewGroup shareSection = (ViewGroup)activity.findViewById(R.id.shareSection);
 		ViewGroup shareItemsContainer = (ViewGroup)activity.findViewById(R.id.shareItemsContainer);
@@ -62,6 +62,8 @@ public class ShareView extends FrameLayout {
 			ShareView shareView = new ShareView(activity);
 			shareView.init(activity, moreSharingItem);
 			shareItemsContainer.addView(shareView);
+			return true;
 		}
+		return false;
 	}
 }

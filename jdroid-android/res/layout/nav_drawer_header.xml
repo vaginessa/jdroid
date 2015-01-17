@@ -13,9 +13,9 @@
 			android:src="@drawable/profile_default" />
 		<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent"
 			android:orientation="vertical" android:layout_gravity="center_vertical">
-			<TextView android:id="@+id/fullName" style="@style/h2Text" android:layout_marginLeft="10dp"
+			<TextView android:id="@+id/fullName" style="@style/textSmall" android:layout_marginLeft="10dp"
 				android:textColor="@android:color/white" android:textStyle="bold" android:lines="1" android:ellipsize="end" />
-			<TextView android:id="@+id/email" style="@style/smallText" android:layout_marginLeft="10dp" android:lines="1"
+			<TextView android:id="@+id/email" style="@style/textMicro" android:layout_marginLeft="10dp" android:lines="1"
 				android:ellipsize="end" android:textColor="@android:color/white" />
 		</LinearLayout>
 	</LinearLayout>

@@ -3,11 +3,11 @@
 	android:id="@+id/swipeRefreshLayout" android:layout_width="match_parent" android:layout_height="match_parent"
 	android:layout_above="@+id/adViewContainer" xmlns:tools="http://schemas.android.com/tools">
 
-	<RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
-		android:paddingTop="4dp" android:paddingBottom="4dp">
+	<RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
 
 		<ListView android:id="@+id/android:list" style="@style/list" android:dividerHeight="0dp"
-			android:divider="@android:color/transparent" android:layout_above="@+id/adViewContainer" tools:ignore="UnknownIdInLayout" />
+			android:divider="@android:color/transparent" android:layout_above="@+id/adViewContainer" tools:ignore="UnknownIdInLayout"
+			android:paddingTop="4dp" android:paddingBottom="4dp" />
 
 		<TextView android:id="@id/android:empty" android:layout_height="match_parent" android:layout_width="match_parent"
 			android:gravity="center_vertical|center_horizontal" style="@style/noResultsText" android:layout_margin="14dp"

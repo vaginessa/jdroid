@@ -8,15 +8,6 @@
 	<dimen name="textMedium">16sp</dimen>
 	<dimen name="textLarge">20sp</dimen>
 
-	<dimen name="title1Text">20sp</dimen>
-	<dimen name="title2Text">18sp</dimen>
-
-	<dimen name="h1Text">16sp</dimen>
-	<dimen name="h2Text">14sp</dimen>
-
-	<dimen name="normalText">14sp</dimen>
-	<dimen name="smallText">12sp</dimen>
-
 	<!-- Lists & Grids -->
 
 	<dimen name="contextual_list_item_icon_size">36dp</dimen>

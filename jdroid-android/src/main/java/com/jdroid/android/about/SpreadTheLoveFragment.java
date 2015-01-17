@@ -153,7 +153,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 			}
 		});
 		
-		ShareView.initShareSection(getActivity(), sharingItems, new MoreSharingItem() {
+		Boolean initialized = ShareView.initShareSection(getActivity(), sharingItems, new MoreSharingItem() {
 			
 			@Override
 			public void share() {
@@ -162,11 +162,18 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 			}
 		});
 		
-		PlusOneButton plusOneButton = findView(R.id.plusOneButton);
+		if (!initialized) {
+			findView(R.id.shareSectionTitle).setVisibility(View.GONE);
+		}
+		
 		if (displayGooglePlusOneButton()) {
+			PlusOneButton plusOneButton = findView(R.id.plusOneButton);
 			googlePlusOneButtonHelper = new GooglePlusOneButtonHelper(this, plusOneButton);
+			if (!GooglePlayUtils.isGooglePlayServicesAvailable(getActivity())) {
+				findView(R.id.plusOneSection).setVisibility(View.GONE);
+			}
 		} else {
-			plusOneButton.setVisibility(View.GONE);
+			findView(R.id.plusOneSection).setVisibility(View.GONE);
 		}
 	}
 	
