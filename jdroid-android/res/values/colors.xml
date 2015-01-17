@@ -13,7 +13,7 @@
 
 	<!-- Text -->
 	<color name="actionBarTextColor">@android:color/white</color>
-	<color name="textColor">@android:color/black</color>
+	<color name="textColor">#444444</color>
 
 	<!-- Action Bar -->
 	<color name="actionBarBackground">@color/colorPrimary</color>
@@ -22,7 +22,7 @@
 	<!-- Nav Drawer -->
 	<color name="navDrawerItemsBackground">#FFFFFF</color>
 	<color name="navDrawerBackground">#FFFFFF</color>
-	<color name="navDrawerItemTextColor">#444444</color>
+	<color name="navDrawerItemTextColor">@color/textColor</color>
 	<color name="navDrawerItemSelectedTextColor">#FFFFFF</color>
 	<color name="navDrawerItemPressedColor">@color/accentColorPressed</color>
 	<color name="navDrawerItemSelectedColor">@color/colorPrimary</color>

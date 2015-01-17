@@ -337,13 +337,26 @@
 	<!-- CardView -->
 
 	<style name="cardViewStyle" xmlns:card_view="http://schemas.android.com/apk/res-auto">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
 		<item name="cardBackgroundColor">@android:color/white</item>
+		<item name="android:layout_marginTop">0dp</item>
+		<item name="android:layout_marginBottom">0dp</item>
+		<item name="android:layout_marginLeft">8dp</item>
+		<item name="android:layout_marginRight">8dp</item>
+	</style>
+
+	<style name="cardViewClickableStyle" parent="@style/cardViewStyle">
+		<item name="android:foreground">?android:attr/selectableItemBackground</item>
 	</style>
 
 	<style name="cardViewInner">
-		<item name="android:layout_marginTop">8dp</item>
-		<item name="android:layout_marginBottom">8dp</item>
-		<item name="android:layout_marginLeft">12dp</item>
-		<item name="android:layout_marginRight">12dp</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:padding">12dp</item>
+	</style>
+
+	<style name="cardViewInnerClickable" parent="@style/cardViewInner">
+		<item name="android:background">@drawable/default_item_selector</item>
 	</style>
 </resources>
