@@ -25,6 +25,13 @@ public class ExternalAppsUtils {
 			installed = true;
 		} catch (PackageManager.NameNotFoundException e) {
 			installed = false;
+		} catch (RuntimeException e) {
+			if (e.getMessage().equals("Package manager has died")) {
+				AbstractApplication.get().getExceptionHandler().logWarningException(
+					"Runtime error while loading package info", e);
+			} else {
+				throw e;
+			}
 		}
 		return installed;
 	}
