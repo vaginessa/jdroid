@@ -8,6 +8,10 @@ public abstract class SharingItem {
 	
 	public abstract String getPackageName();
 	
+	public Integer getMinimumVersionCode() {
+		return null;
+	}
+	
 	public Drawable getAppIcon() {
 		return ExternalAppsUtils.getAppIcon(getPackageName());
 	}
@@ -16,7 +20,8 @@ public abstract class SharingItem {
 	
 	public Boolean isEnabled() {
 		String packageName = getPackageName();
-		return (packageName != null) && ExternalAppsUtils.isAppInstalled(AbstractApplication.get(), packageName);
+		return (packageName != null)
+				&& ExternalAppsUtils.isAppInstalled(AbstractApplication.get(), packageName, getMinimumVersionCode());
 	}
 	
 }

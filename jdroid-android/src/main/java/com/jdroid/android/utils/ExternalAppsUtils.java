@@ -2,6 +2,7 @@ package com.jdroid.android.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.Drawable;
@@ -18,15 +19,22 @@ public class ExternalAppsUtils {
 	public static final String GOOGLE_PLUS_PACKAGE_NAME = "com.google.android.apps.plus";
 	
 	public static boolean isAppInstalled(Context context, String packageName) {
+		return isAppInstalled(context, packageName, null);
+	}
+	
+	public static boolean isAppInstalled(Context context, String packageName, Integer minimumVersionCode) {
 		PackageManager pm = context.getPackageManager();
 		boolean installed = false;
 		try {
-			pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
-			installed = true;
+			PackageInfo packageInfo = pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+			if ((minimumVersionCode == null) || (packageInfo.versionCode >= minimumVersionCode)) {
+				installed = true;
+			}
 		} catch (PackageManager.NameNotFoundException e) {
 			installed = false;
 		} catch (RuntimeException e) {
-			if (e.getMessage().equals("Package manager has died")) {
+			if (e.getMessage().equals("Package manager has died")
+					|| e.getMessage().equals("Transaction has failed to Package manger")) {
 				AbstractApplication.get().getExceptionHandler().logWarningException(
 					"Runtime error while loading package info", e);
 			} else {

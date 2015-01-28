@@ -18,6 +18,7 @@ import com.jdroid.android.fragment.AbstractListFragment;
 import com.jdroid.android.share.ShareUtils;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.GooglePlayUtils;
+import com.jdroid.android.utils.IntentUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.DateUtils;
 
@@ -40,8 +41,14 @@ public class AboutFragment extends AbstractListFragment<AboutItem> {
 				public void onSelected(Activity activity) {
 					Intent intent = ShareUtils.createOpenMail(contactUsEmailAddress,
 						AbstractApplication.get().getAppName());
-					startActivity(intent);
-					AbstractApplication.get().getAnalyticsSender().trackContactUs();
+					if (IntentUtils.isIntentAvailable(intent)) {
+						startActivity(intent);
+						AbstractApplication.get().getAnalyticsSender().trackContactUs();
+					} else {
+						// TODO Improve this adding a toast or something
+						AbstractApplication.get().getExceptionHandler().logWarningException(
+							"Error when sending email intent");
+					}
 				}
 			});
 		}

@@ -140,6 +140,11 @@ public abstract class DateUtils {
 	public static final String HHMM_DATE_FORMAT = "HH:mm";
 	
 	/**
+	 * Date format like 21:45:34
+	 */
+	public static final String HHMMSS_DATE_FORMAT = "HH:mm:ss";
+	
+	/**
 	 * Date format like Friday 5 November
 	 */
 	public static final String EEEEDMMMM_DATE_FORMAT = "EEEE d MMMM";
@@ -629,7 +634,7 @@ public abstract class DateUtils {
 			builder.append(seconds);
 			builder.append("s, ");
 		}
-		if ((milliseconds > 0) || (builder.length() > 0)) {
+		if (milliseconds >= 0) {
 			builder.append(milliseconds);
 			builder.append("ms");
 		}

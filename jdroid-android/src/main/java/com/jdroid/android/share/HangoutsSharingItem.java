@@ -19,4 +19,12 @@ public abstract class HangoutsSharingItem extends AppSharingItem {
 	public String getPackageName() {
 		return ExternalAppsUtils.HANGOUTS_PACKAGE_NAME;
 	}
+	
+	/**
+	 * @see com.jdroid.android.share.SharingItem#getMinimumVersionCode()
+	 */
+	@Override
+	public Integer getMinimumVersionCode() {
+		return 22181736;
+	}
 }
