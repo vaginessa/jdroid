@@ -12,7 +12,7 @@ import com.jdroid.java.context.GitContext;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.javaweb.context.Application;
 
-public class AdminController {
+public class AdminController extends AbstractController {
 	
 	@RequestMapping(value = "/info", method = RequestMethod.GET, produces = MimeType.TEXT)
 	@ResponseBody
