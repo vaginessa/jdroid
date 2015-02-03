@@ -18,9 +18,6 @@ jdroid-android/target/
 jdroid-android/tmp/
 jdroid-android/.settings/org.maven.ide.eclipse.prefs
 
-jdroid-android-tools/dex-method-counts/bin/
-jdroid-android-tools/dex-method-counts/build/
-
 jdroid-android-tools/google-play-publisher/bin/
 jdroid-android-tools/google-play-publisher/target/
 jdroid-android-tools/google-play-publisher/test-output/
