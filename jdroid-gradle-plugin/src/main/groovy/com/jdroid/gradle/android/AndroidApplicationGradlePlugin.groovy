@@ -1,9 +1,7 @@
 package com.jdroid.gradle.android
-
+import com.android.build.gradle.AppPlugin
 import org.gradle.api.GradleException
 import org.gradle.api.Project
-import org.gradle.api.plugins.JavaBasePlugin
-
 public class AndroidApplicationGradlePlugin extends AndroidGradlePlugin {
 
 	public void apply(Project project) {
@@ -66,6 +64,10 @@ public class AndroidApplicationGradlePlugin extends AndroidGradlePlugin {
 		return AndroidApplicationGradlePluginExtension.class;
 	}
 
+	protected void applyAndroidPlugin() {
+		project.apply plugin: AppPlugin
+	}
+
 	def changeVersion(Project project, def versionType, def newVersion) {
 		def file = project.file("./build.gradle")
 		def patternVersionNumber = java.util.regex.Pattern.compile(versionType + " = (\\d+)")
@@ -95,6 +97,8 @@ public class AndroidApplicationGradlePlugin extends AndroidGradlePlugin {
 		}
 	}
 }
+
+import org.gradle.api.plugins.JavaBasePlugin
 
 public class AndroidApplicationGradlePluginExtension extends AndroidGradlePluginExtension {
 

@@ -1,14 +1,20 @@
 apply plugin: 'groovy'
+apply plugin: 'maven'
+
+repositories {
+	mavenCentral()
+}
+
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+}
 
 dependencies {
     compile gradleApi()
     compile localGroovy()
-}
-
-apply plugin: 'maven'
-
-repositories {
-    mavenCentral()
+	compile 'com.android.tools.build:gradle:1.0.1'
 }
 
 group = 'com.jdroidframework'
@@ -17,7 +23,7 @@ version = '1.0-SNAPSHOT'
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: uri('../repo'))
+            repository(url: uri('/Users/maxirosson/Dropbox/Public/maven-repository'))
         }
     }
 }
