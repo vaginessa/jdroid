@@ -14,10 +14,11 @@ then
 	exit 1;
 fi
 
-  # Maven 3.2.3
+# Maven 3.2.3
 wget http://archive.apache.org/dist/maven/maven-3/3.2.3/binaries/apache-maven-3.2.3-bin.tar.gz
 tar xvf apache-maven-3.2.3-bin.tar.gz > /dev/null
 export MVN_HOME=`pwd`/apache-maven-3.2.3/bin
+$MVN_HOME/mvn --version
 
 # ************************
 # jdroid
