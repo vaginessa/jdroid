@@ -18,7 +18,7 @@ env:
 
 before_install:
   # Maven 3.2.3
-  - wget http://www.us.apache.org/dist/maven/maven-3/3.2.3/binaries/apache-maven-3.2.3-bin.tar.gz
+  - wget http://archive.apache.org/dist/maven/maven-3/3.2.3/binaries/apache-maven-3.2.3-bin.tar.gz
   - tar xvf apache-maven-3.2.3-bin.tar.gz > /dev/null
   - export MVN_HOME=`pwd`/apache-maven-3.2.3
   - export PATH=${MVN_HOME}/bin/:${PATH}
