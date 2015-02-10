@@ -9,6 +9,9 @@ import com.jdroid.android.social.SocialAction;
 
 public class TwitterConnector {
 	
+	public static Integer CHARACTERS_LIMIT = 140;
+	public static Integer URL_CHARACTERS_COUNT = 22;
+	
 	public static void openProfile(String account) {
 		try {
 			Intent intent = new Intent();
