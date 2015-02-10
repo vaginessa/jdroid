@@ -16,15 +16,6 @@ env:
    # GOOGLE_SERVER_API_KEY
    - secure: "eO8VzfFjeGySdLpN5Tqsovwj8SwVWtCt1hWcZrYcm7eK54a20fxTcgoU0p439EVxCftQruoy+ndZTRhLVxwqIEGP0pefz40JqxmmV8lp0FY7GKq29FrNxY4aS/1W9wJDijhX7H9F+vCHQD04/8RFvjqD89zOl0I6FvzVxchPx6A="
 
-before_install:
-  # Maven 3.2.3
-  - wget http://archive.apache.org/dist/maven/maven-3/3.2.3/binaries/apache-maven-3.2.3-bin.tar.gz
-  - tar xvf apache-maven-3.2.3-bin.tar.gz > /dev/null
-  - export MVN_HOME=`pwd`/apache-maven-3.2.3
-  - export PATH=${MVN_HOME}/bin/:${PATH}:${MVN_HOME}/bin/
-  - echo $PATH
-  - mvn --version
-
 android:
   components:
 
