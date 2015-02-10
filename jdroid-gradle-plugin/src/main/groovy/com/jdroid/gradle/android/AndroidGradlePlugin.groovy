@@ -2,6 +2,7 @@ package com.jdroid.gradle.android
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.JavaBasePlugin
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -14,7 +15,7 @@ public abstract class AndroidGradlePlugin implements Plugin<Project> {
 		project.task('verifyMissingTranslationsBetweenLocales') << {
 
 			description = 'Verify if there are missing translations between locales'
-			group = 'verification'
+			group = JavaBasePlugin.VERIFICATION_GROUP
 
 			Boolean error = false;
 
@@ -93,7 +94,7 @@ public abstract class AndroidGradlePlugin implements Plugin<Project> {
 		project.task('verifyMissingTranslations') << {
 
 			description = 'Verify if there are missing translations ("TODO") on any string resource.'
-			group = 'verification'
+			group = JavaBasePlugin.VERIFICATION_GROUP
 
 			Boolean error = false;
 
@@ -140,7 +141,38 @@ public abstract class AndroidGradlePlugin implements Plugin<Project> {
 }
 
 public class AndroidGradlePluginExtension {
+
 	String[] resourcesDirsPaths = ['src/main/res/']
 	String[] notDefaultLanguages = []
+
+	public String gitSha() {
+		return 'git rev-parse --short HEAD'.execute().text.trim()
+	}
+
+	public String buildTime() {
+		def df = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+		df.setTimeZone(TimeZone.getDefault())
+		return df.format(new Date())
+	}
+
+	public String branch() {
+		def branch = hasProperty('gitBranch') ? gitBranch : 'git symbolic-ref HEAD'.execute().text.trim()
+		return branch.replaceAll(".*/", "")
+	}
+
+	public void setString(def flavor, String key, def value, String defaultValue) {
+		value = value == "null" ? defaultValue : value
+		flavor.buildConfigField "String", key, value
+	}
+
+	public void setBoolean(def flavor, String key, def value, def defaultValue) {
+		value = value == "null" ? defaultValue : value
+		flavor.buildConfigField "boolean", key, value
+	}
+
+	public void setInteger(def flavor, String key, def value, def defaultValue) {
+		value = value == "null" ? defaultValue : value
+		flavor.buildConfigField "Integer", key, value
+	}
 }
 

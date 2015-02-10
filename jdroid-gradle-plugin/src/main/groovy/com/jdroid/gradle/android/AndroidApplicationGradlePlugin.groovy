@@ -2,6 +2,7 @@ package com.jdroid.gradle.android
 
 import org.gradle.api.GradleException
 import org.gradle.api.Project
+import org.gradle.api.plugins.JavaBasePlugin
 
 public class AndroidApplicationGradlePlugin extends AndroidGradlePlugin {
 
@@ -11,7 +12,7 @@ public class AndroidApplicationGradlePlugin extends AndroidGradlePlugin {
 		project.task('countMethods') << {
 
 			description = 'Output per-package method counts in an Android DEX executable grouped by package.'
-			group = 'verification'
+			group = JavaBasePlugin.VERIFICATION_GROUP
 
 			if (!project.hasProperty('apkPathName')) {
 				throw new GradleException('Missing apkPathName parameter')
