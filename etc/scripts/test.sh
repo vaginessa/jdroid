@@ -23,7 +23,7 @@ export MVN_HOME=`pwd`/apache-maven-3.2.3/bin
 # jdroid
 # ************************
 
-MVN_HOME/mvn clean install -P jdroid-test
+$MVN_HOME/mvn clean install -P jdroid-test
 
 # Validate localizations
 VALIDATE_LOCALIZATIONS=./jdroid-scripts/android/validateLocalizations.sh
@@ -40,7 +40,7 @@ sh $VALIDATE_MISSING './jdroid-sample-android/res/values-es/strings.xml'
 if [ "$INSTALL" = "true" ]
 then
 	#mvn clean install -P jdroid-release -Dmaven.test.skip=true -Dgpg.skip=true
-	MVN_HOME/mvn clean deploy -P jdroid-release -Dmaven.test.skip=true -Dgpg.skip=true --settings ./settings.xml
+	$MVN_HOME/mvn clean deploy -P jdroid-release -Dmaven.test.skip=true -Dgpg.skip=true --settings ./settings.xml
 fi
 
 # ************************
@@ -48,11 +48,11 @@ fi
 # ************************
 
 cd jdroid-sample-android
-MVN_HOME/mvn clean test -P jdroid-test
+$MVN_HOME/mvn clean test -P jdroid-test
 
 if [ "$INSTALL" = "true" ]
 then
-	MVN_HOME/mvn clean install -P jdroid-sample-android-uat -Dmaven.test.skip=true --settings ../settings.xml
+	$MVN_HOME/mvn clean install -P jdroid-sample-android-uat -Dmaven.test.skip=true --settings ../settings.xml
 fi
 
 # ************************
@@ -60,9 +60,9 @@ fi
 # ************************
 
 cd ../jdroid-sample-server
-MVN_HOME/mvn clean test -P jdroid-test
+$MVN_HOME/mvn clean test -P jdroid-test
 
 if [ "$INSTALL" = "true" ]
 then
-	MVN_HOME/mvn clean assembly:assembly -P jdroid-sample-server-uat -Dmaven.test.skip=true --settings ../settings.xml
+	$MVN_HOME/mvn clean assembly:assembly -P jdroid-sample-server-uat -Dmaven.test.skip=true --settings ../settings.xml
 fi
