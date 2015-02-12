@@ -38,7 +38,9 @@ jdroid-support-v7-appcompat/target/
 jdroid-gradle-plugin/.gradle/
 jdroid-gradle-plugin/build/
 jdroid-gradle-plugin/.idea/libraries
+jdroid-gradle-plugin/.idea/workspace.xml
 jdroid-gradle-plugin/local.properties
+jdroid-gradle-plugin/*.iml
 
 jdroid-sample-server/bin/
 jdroid-sample-server/target/
