@@ -1,3 +1,10 @@
+.gradle
+build/
+.idea/libraries
+.idea/workspace.xml
+*.iml
+/local.properties
+
 target/
 
 jdroid-java/bin/
