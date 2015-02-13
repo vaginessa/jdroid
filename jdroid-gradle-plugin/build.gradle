@@ -1,5 +1,6 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
+apply plugin: 'signing'
 
 dependencies {
     compile gradleApi()
@@ -16,4 +17,18 @@ uploadArchives {
             repository(url: uri('/Users/maxirosson/Dropbox/Public/maven-repository'))
         }
     }
+}
+
+task javadocJar(type: Jar) {
+	classifier = 'javadoc'
+	from javadoc
+}
+
+task sourcesJar(type: Jar) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+artifacts {
+	archives javadocJar, sourcesJar
 }

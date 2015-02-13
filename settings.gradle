@@ -1,1 +1,1 @@
-include ':jdroid-gradle-plugin'
+include ':jdroid-java', ':jdroid-gradle-plugin'

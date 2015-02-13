@@ -1,0 +1,53 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+dependencies {
+	compile "org.apache.httpcomponents:httpclient:4.1.2"
+
+	// Required to handle Multipart POSTs
+	compile("org.apache.httpcomponents:httpmime:4.0.1") {
+		exclude group: 'commons-logging', module: 'commons-logging'
+		exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+		exclude group: 'org.apache.httpcomponents', module: 'httpcore'
+	}
+	compile("org.apache.james:apache-mime4j:0.6") {
+		exclude group: 'commons-logging', module: 'commons-logging'
+	}
+
+	// Email Sending
+	compile "android.mail:mail:1.0"
+	compile "android.mail:activation:1.0"
+	compile "android.mail:additionnal:1.0"
+
+	// Logging
+	compile "org.slf4j:slf4j-api:1.6.3"
+
+	// Testing
+	testCompile "org.testng:testng:6.3"
+	testCompile "org.mockito:mockito-all:1.8.5"
+}
+
+group = 'com.jdroidframework'
+version = '0.7.0-SNAPSHOT'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('/Users/maxirosson/Dropbox/Public/maven-repository'))
+        }
+    }
+}
+
+task javadocJar(type: Jar) {
+	classifier = 'javadoc'
+	from javadoc
+}
+
+task sourcesJar(type: Jar) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+artifacts {
+	archives javadocJar, sourcesJar
+}

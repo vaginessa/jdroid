@@ -7,11 +7,9 @@ build/
 
 target/
 
-jdroid-java/bin/
-jdroid-java/target/
-jdroid-java/test-output/
-jdroid-java/work/
-jdroid-java/.settings/org.maven.ide.eclipse.prefs
+jdroid-java/build/
+jdroid-java/*.iml
+jdroid-java/local.properties
 
 jdroid-javaweb/bin/
 jdroid-javaweb/target/

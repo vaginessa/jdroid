@@ -14,7 +14,6 @@ then
 	exit 1;
 fi
 
-cd jdroid-gradle-plugin
 ./gradlew assemble
 
 # ************************
