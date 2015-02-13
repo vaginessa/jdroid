@@ -1,5 +1,10 @@
 package com.jdroid.gradle.android
 import com.android.build.gradle.AppPlugin
+import com.jdroid.gradle.android.task.CountMethodsReportTask
+import com.jdroid.gradle.android.task.CountMethodsSummaryTask
+import com.jdroid.gradle.android.task.IncrementMajorVersionTask
+import com.jdroid.gradle.android.task.IncrementMinorVersionTask
+import com.jdroid.gradle.android.task.IncrementPatchVersionTask
 import org.gradle.api.Project
 public class AndroidApplicationGradlePlugin extends AndroidGradlePlugin {
 
@@ -8,36 +13,9 @@ public class AndroidApplicationGradlePlugin extends AndroidGradlePlugin {
 
 		project.task('countMethodsReport', type: CountMethodsReportTask)
 		project.task('countMethodsSummary', type: CountMethodsSummaryTask)
-
-		// Increment version tasks
-
-		project.task('incrementMajorVersion') << {
-
-			description = 'Increments the major version (X+1.X.X) '
-
-			project.jdroid.versionMajor = changeVersion(project, "versionMajor", null)
-			project.jdroid.versionMinor = changeVersion(project, "versionMinor", 0)
-			project.jdroid.versionPatch = changeVersion(project, "versionPatch", 0)
-			commitVersionChange(project)
-		}
-
-		project.task('incrementMinorVersion') << {
-
-			description = 'Increments the minor version (X.X+1.X)'
-
-			project.jdroid.versionMinor = changeVersion(project, "versionMinor", null)
-			project.jdroid.versionPatch = changeVersion(project, "versionPatch", 0)
-			commitVersionChange(project)
-		}
-
-		project.task('incrementPatchVersion') << {
-
-			description = 'Increments the patch version (X.X.X+1)'
-
-			project.jdroid.versionPatch = changeVersion(project, "versionPatch", null)
-			commitVersionChange(project)
-		}
-
+		project.task('incrementMajorVersion', type: IncrementMajorVersionTask)
+		project.task('incrementMinorVersion', type: IncrementMinorVersionTask)
+		project.task('incrementPatchVersion', type: IncrementPatchVersionTask)
 	}
 
 	protected Class<? extends AndroidGradlePluginExtension> getExtensionClass() {
@@ -46,35 +24,6 @@ public class AndroidApplicationGradlePlugin extends AndroidGradlePlugin {
 
 	protected void applyAndroidPlugin() {
 		project.apply plugin: AppPlugin
-	}
-
-	def changeVersion(Project project, def versionType, def newVersion) {
-		def file = project.file("./build.gradle")
-		def patternVersionNumber = java.util.regex.Pattern.compile(versionType + " = (\\d+)")
-		def manifestText = file.getText()
-		def matcherVersionNumber = patternVersionNumber.matcher(manifestText)
-		matcherVersionNumber.find()
-		def currentVersion = Integer.parseInt(matcherVersionNumber.group(1))
-		if (newVersion == null) {
-			newVersion = currentVersion + 1
-		}
-		def fileContent = matcherVersionNumber.replaceAll(versionType + " = " + newVersion)
-		file.write(fileContent)
-		return newVersion
-	}
-
-	void commitVersionChange(Project project) {
-		project.exec {
-			commandLine 'git', 'diff', 'HEAD'
-		}
-
-		project.exec {
-			commandLine 'git', 'add', '-A'
-		}
-
-		project.exec {
-			commandLine 'git', 'commit', '-m', "Changed app version to v${project.jdroid.versionMajor}.${project.jdroid.versionMinor}.${project.jdroid.versionPatch}"
-		}
 	}
 }
 

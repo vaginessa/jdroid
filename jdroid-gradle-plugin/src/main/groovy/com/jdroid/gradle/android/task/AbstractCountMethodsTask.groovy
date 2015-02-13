@@ -1,5 +1,4 @@
-package com.jdroid.gradle.android
-
+package com.jdroid.gradle.android.task
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.FileCollection
 import org.gradle.api.plugins.JavaBasePlugin
@@ -7,11 +6,12 @@ import org.gradle.api.tasks.TaskAction
 
 public abstract class AbstractCountMethodsTask extends DefaultTask {
 
+	public AbstractCountMethodsTask() {
+		group = JavaBasePlugin.VERIFICATION_GROUP
+	}
+
 	@TaskAction
 	public void doExecute() {
-
-		group = JavaBasePlugin.VERIFICATION_GROUP
-
 		List<String> apkFilePaths = []
 		if (project.hasProperty('apkFilePath')) {
 			apkFilePaths.add(project.apkFilePath)
