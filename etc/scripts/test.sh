@@ -48,10 +48,10 @@ cd jdroid-gradle-plugin
 #cd jdroid-sample-android
 #mvn clean test -P jdroid-test
 
-$if [ "$INSTALL" = "true" ]
-$then
-$	mvn clean install -P jdroid-sample-android-uat -Dmaven.test.skip=true --settings ../settings.xml
-$fi
+#if [ "$INSTALL" = "true" ]
+#then
+#	mvn clean install -P jdroid-sample-android-uat -Dmaven.test.skip=true --settings ../settings.xml
+#fi
 
 # ************************
 # jdroid sample server
