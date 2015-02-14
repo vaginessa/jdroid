@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/jdroid.iml" filepath="$PROJECT_DIR$/jdroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jdroid-android/jdroid-android.iml" filepath="$PROJECT_DIR$/jdroid-android/jdroid-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/jdroid-gradle-plugin/jdroid-gradle-plugin.iml" filepath="$PROJECT_DIR$/jdroid-gradle-plugin/jdroid-gradle-plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/jdroid-java/jdroid-java.iml" filepath="$PROJECT_DIR$/jdroid-java/jdroid-java.iml" />
     </modules>

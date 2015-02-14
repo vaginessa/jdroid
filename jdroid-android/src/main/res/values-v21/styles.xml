@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:card_view="http://schemas.android.com/apk/res-auto">
 
 	<!-- CardView -->
 
-	<style name="cardViewStyle" xmlns:card_view="http://schemas.android.com/apk/res-auto">
+	<style name="cardViewStyle" >
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="cardBackgroundColor">@android:color/white</item>

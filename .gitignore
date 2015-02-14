@@ -17,11 +17,9 @@ jdroid-javaweb/test-output/
 jdroid-javaweb/work/
 jdroid-javaweb/.settings/org.maven.ide.eclipse.prefs
 
-jdroid-android/bin/
-jdroid-android/gen/
-jdroid-android/target/
-jdroid-android/tmp/
-jdroid-android/.settings/org.maven.ide.eclipse.prefs
+jdroid-android/build/
+jdroid-android/*.iml
+jdroid-android/local.properties
 
 jdroid-android-tools/google-play-publisher/bin/
 jdroid-android-tools/google-play-publisher/target/
