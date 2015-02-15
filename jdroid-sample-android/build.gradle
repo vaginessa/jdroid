@@ -1,0 +1,57 @@
+apply plugin: 'com.android.application'
+apply plugin: 'maven'
+
+description = 'Jdroid Sample Android'
+
+repositories {
+	maven {
+		url "http://download.crashlytics.com/maven"
+	}
+}
+
+buildscript {
+	dependencies {
+		classpath 'com.android.tools.build:gradle:1.0.1'
+	}
+}
+
+dependencies {
+
+	// Module dependencies
+	compile project(':jdroid-android')
+}
+
+group = 'com.jdroidframework'
+version = '0.7.0-SNAPSHOT'
+
+android {
+	compileSdkVersion 21
+	buildToolsVersion "21.1.2"
+
+	defaultConfig {
+		minSdkVersion 14
+		targetSdkVersion 21
+		versionCode 190000000
+		versionName '1.0.0'
+	}
+
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_7
+		targetCompatibility JavaVersion.VERSION_1_7
+	}
+
+	packagingOptions {
+		exclude 'META-INF/LICENSE'
+		exclude 'META-INF/NOTICE'
+	}
+
+}
+
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			repository(url: uri('/Users/maxirosson/Dropbox/Public/maven-repository'))
+		}
+	}
+}
+

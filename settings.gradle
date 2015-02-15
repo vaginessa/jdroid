@@ -1,3 +1,4 @@
 include ':jdroid-java'
 include ':jdroid-android'
 include ':jdroid-gradle-plugin'
+include ':jdroid-sample-android'

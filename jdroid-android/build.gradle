@@ -17,6 +17,7 @@ buildscript {
 
 configurations {
 	compile.exclude group: "org.apache.httpcomponents",  module: "httpclient"
+	compile.exclude group: "org.slf4j",  module: "slf4j-api"
 }
 
 dependencies {
@@ -56,7 +57,7 @@ version = '0.7.0-SNAPSHOT'
 
 android {
 	compileSdkVersion 21
-	buildToolsVersion "21.1.1"
+	buildToolsVersion "21.1.2"
 
 	defaultConfig {
 		minSdkVersion 14
