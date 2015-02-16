@@ -1,17 +1,20 @@
 package com.jdroid.android.context;
 
-import java.util.Locale;
-import java.util.Set;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
+
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.BuildConfig;
 import com.jdroid.android.debug.ExceptionType;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.utils.PropertiesUtils;
 import com.jdroid.java.utils.ValidationUtils;
+
+import java.util.Locale;
+import java.util.Set;
 
 public class AppContext {
 	
@@ -27,7 +30,6 @@ public class AppContext {
 	
 	// Environment
 	private String localIp;
-	private Environment environment;
 	private Boolean isFreeApp;
 	private String installationSource;
 	private Server server;
@@ -60,9 +62,7 @@ public class AppContext {
 		PropertiesUtils.loadProperties(PROPERTIES_RESOURCE_NAME);
 		
 		localIp = PropertiesUtils.getStringProperty("local.ip");
-		environment = Environment.valueOf(PropertiesUtils.getStringProperty("environment.name",
-			Environment.DEV.toString()));
-		
+
 		debugSettings = PropertiesUtils.getBooleanProperty("debug.settings", false);
 		isFreeApp = PropertiesUtils.getBooleanProperty("free.app");
 		server = findServerByName(PropertiesUtils.getStringProperty("server.name"));
@@ -138,15 +138,11 @@ public class AppContext {
 		return debugSettings;
 	}
 	
-	public Environment getEnvironment() {
-		return environment;
-	}
-	
 	/**
 	 * @return Whether the application is running on a production environment
 	 */
 	public Boolean isProductionEnvironment() {
-		return environment.equals(Environment.PROD);
+		return BuildConfig.BUILD_TYPE.equals("release");
 	}
 	
 	/**

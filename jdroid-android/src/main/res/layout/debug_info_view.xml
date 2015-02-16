@@ -5,8 +5,8 @@
 
 		<TextView android:id="@+id/packageName" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/packageName" />
-		<TextView android:id="@+id/environmentName" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="@string/environmentName" />
+		<TextView android:id="@+id/buildType" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/buildType" />
 		<TextView android:id="@+id/analyticsEnabled" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/analyticsEnabled" />
 

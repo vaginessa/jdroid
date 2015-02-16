@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.BuildConfig;
 import com.jdroid.android.R;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.utils.AndroidUtils;
@@ -24,9 +25,9 @@ public class DebugInfoView extends LinearLayout {
 		packageName.setText(context.getString(R.string.packageName, AndroidUtils.getPackageName()));
 		
 		final AppContext applicationContext = AbstractApplication.get().getAppContext();
-		TextView environmentName = (TextView)findViewById(R.id.environmentName);
-		environmentName.setText(context.getString(R.string.environmentName,
-			applicationContext.getEnvironment().toString()));
+		TextView buildType = (TextView)findViewById(R.id.buildType);
+		buildType.setText(context.getString(R.string.buildType,
+				BuildConfig.BUILD_TYPE));
 		
 		TextView analyticsEnabled = (TextView)findViewById(R.id.analyticsEnabled);
 		analyticsEnabled.setText(context.getString(R.string.analyticsEnabled,
