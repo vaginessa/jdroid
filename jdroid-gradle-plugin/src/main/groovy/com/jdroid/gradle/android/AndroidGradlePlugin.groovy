@@ -19,7 +19,7 @@ public abstract class AndroidGradlePlugin implements Plugin<Project> {
 		def android = project.extensions.findByName("android")
 
 		android.compileSdkVersion 21
-		android.buildToolsVersion "21.1.1"
+		android.buildToolsVersion "21.1.2"
 
 		android.defaultConfig {
 			minSdkVersion 14

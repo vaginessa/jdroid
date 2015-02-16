@@ -11,32 +11,7 @@
             <option value="$PROJECT_DIR$/jdroid-android" />
             <option value="$PROJECT_DIR$/jdroid-gradle-plugin" />
             <option value="$PROJECT_DIR$/jdroid-java" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="distributionType" value="LOCAL" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/jdroid-android" />
-        <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle/gradle-2.2.1" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/jdroid-android" />
-            <option value="$PROJECT_DIR$/jdroid-gradle-plugin" />
-            <option value="$PROJECT_DIR$/jdroid-java" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="distributionType" value="LOCAL" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/jdroid-java" />
-        <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle/gradle-2.2.1" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/jdroid-android" />
-            <option value="$PROJECT_DIR$/jdroid-gradle-plugin" />
-            <option value="$PROJECT_DIR$/jdroid-java" />
+            <option value="$PROJECT_DIR$/jdroid-sample-android" />
           </set>
         </option>
       </GradleProjectSettings>
