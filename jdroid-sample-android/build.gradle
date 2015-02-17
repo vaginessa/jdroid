@@ -102,7 +102,6 @@ android {
 		debug {
 			signingConfig signingConfigs.debug
 
-			jdroid.setBoolean(buildTypes.debug, "GOOGLE_ANALYTICS_ENABLED", GOOGLE_ANALYTICS_ENABLED, "false")
 			jdroid.setBoolean(buildTypes.debug, "CRASHLYTICS_ENABLED", CRASHLYTICS_ENABLED, "false")
 			jdroid.setString(buildTypes.debug, "SERVER_NAME", SERVER_NAME, "\"DEV\"")
 		}

@@ -9,6 +9,8 @@
 			android:text="@string/buildType" />
 		<TextView android:id="@+id/analyticsEnabled" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/analyticsEnabled" />
+		<TextView android:id="@+id/adsEnabled" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/adsEnabled" />
 
 		<TextView android:id="@+id/screenDensity" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/screenDensity" />

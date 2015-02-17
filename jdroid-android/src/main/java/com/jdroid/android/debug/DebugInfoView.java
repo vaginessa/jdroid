@@ -32,7 +32,11 @@ public class DebugInfoView extends LinearLayout {
 		TextView analyticsEnabled = (TextView)findViewById(R.id.analyticsEnabled);
 		analyticsEnabled.setText(context.getString(R.string.analyticsEnabled,
 			applicationContext.isGoogleAnalyticsEnabled()));
-		
+
+		TextView adsEnabled = (TextView)findViewById(R.id.adsEnabled);
+		adsEnabled.setText(context.getString(R.string.adsEnabled,
+			applicationContext.areAdsEnabled()));
+
 		TextView smallestScreenWidthDp = (TextView)findViewById(R.id.smallestScreenWidthDp);
 		smallestScreenWidthDp.setText(context.getString(R.string.smallestScreenWidthDp,
 			ScreenUtils.getSmallestScreenWidthDp()));

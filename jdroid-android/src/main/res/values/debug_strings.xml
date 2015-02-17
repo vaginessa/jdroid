@@ -72,6 +72,7 @@
 	<string name="packageName">Package Name: %1$s</string>
 	<string name="buildType">Build Type: %1$s</string>
 	<string name="analyticsEnabled">Analytics Enabled: %1$s</string>
+	<string name="adsEnabled">Ads Enabled: %1$s</string>
 	<string name="smallestScreenWidthDp">Smallest Screen Width: %1$sdp</string>
 	<string name="screenDensity">Screen Density: %1$s</string>
 	<string name="networkOperatorName">Network Operator Name: %1$s</string>

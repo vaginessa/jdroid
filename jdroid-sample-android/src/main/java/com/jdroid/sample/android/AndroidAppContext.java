@@ -68,4 +68,9 @@ public class AndroidAppContext extends AppContext {
 	public Set<String> getTestDevicesIds() {
 		return Sets.newHashSet(StringUtils.splitToCollection(BuildConfig.ADS_TEST_DEVICES_IDS));
 	}
+
+	@Override
+	public String getContactUsEmail() {
+		return "jdroidsoft@gmail.com";
+	}
 }
