@@ -38,7 +38,7 @@ public class DebugSettingsActivity extends AbstractFragmentActivity {
 	}
 	
 	protected AbstractPreferenceFragment createNewFragment() {
-		return instanceAbstractPreferenceFragment(AbstractApplication.get().getDebugSettingsFragmentClass(),
+		return instanceAbstractPreferenceFragment(AbstractApplication.get().getDebugContext().getDebugSettingsFragmentClass(),
 			getIntent().getExtras());
 	}
 	

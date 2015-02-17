@@ -6,7 +6,6 @@ import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.debug.ExceptionType;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.collections.Sets;
 import com.jdroid.java.http.Server;
@@ -22,8 +21,7 @@ public abstract class AppContext {
 	private static final String FIRST_SESSION_TIMESTAMP = "firstSessionTimestamp";
 	public static final String HTTP_MOCK_ENABLED = "httpMockEnabled";
 	public static final String HTTP_MOCK_SLEEP = "httpMockSleep";
-	public static final String HTTP_MOCK_CRASH_TYPE = "httpMockCrashType";
-	
+
 	// Environment
 	private Server server;
 	private String serverApiVersion;
@@ -144,11 +142,6 @@ public abstract class AppContext {
 	public Integer getHttpMockSleepDuration() {
 		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(HTTP_MOCK_SLEEP,
 			false) ? 10 : null;
-	}
-	
-	public ExceptionType getHttpMockExceptionType() {
-		return ExceptionType.find(PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
-			HTTP_MOCK_CRASH_TYPE, null));
 	}
 	
 	public Boolean isUserDataMocked() {

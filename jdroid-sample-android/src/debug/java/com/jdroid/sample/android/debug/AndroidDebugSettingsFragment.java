@@ -1,8 +1,7 @@
-package com.jdroid.sample.android.ui.debug;
+package com.jdroid.sample.android.debug;
 
-import java.util.List;
-import java.util.Map;
 import android.content.Intent;
+
 import com.jdroid.android.debug.DebugSettingsFragment;
 import com.jdroid.android.debug.EmulatedGcmMessageIntentBuilder;
 import com.jdroid.android.gcm.GcmMessage;
@@ -10,6 +9,9 @@ import com.jdroid.java.collections.Lists;
 import com.jdroid.java.http.Server;
 import com.jdroid.sample.android.api.ApiServer;
 import com.jdroid.sample.android.gcm.AndroidGcmMessage;
+
+import java.util.List;
+import java.util.Map;
 
 public class AndroidDebugSettingsFragment extends DebugSettingsFragment {
 	

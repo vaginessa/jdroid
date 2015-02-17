@@ -1,6 +1,5 @@
 package com.jdroid.android.about;
 
-import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,11 +8,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.ActivityLauncher;
 import com.jdroid.android.R;
 import com.jdroid.android.ad.RateAppView;
-import com.jdroid.android.debug.DebugSettingsActivity;
 import com.jdroid.android.fragment.AbstractListFragment;
 import com.jdroid.android.share.ShareUtils;
 import com.jdroid.android.utils.AndroidUtils;
@@ -21,6 +20,8 @@ import com.jdroid.android.utils.GooglePlayUtils;
 import com.jdroid.android.utils.IntentUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.DateUtils;
+
+import java.util.List;
 
 public class AboutFragment extends AbstractListFragment<AboutItem> {
 	
@@ -110,7 +111,7 @@ public class AboutFragment extends AbstractListFragment<AboutItem> {
 				
 				@Override
 				public void onClick(View v) {
-					ActivityLauncher.launchActivity(DebugSettingsActivity.class);
+					AbstractApplication.get().getDebugContext().launchActivityDebugSettingsActivity();
 				}
 			});
 		}

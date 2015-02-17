@@ -17,12 +17,9 @@ import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.context.AppContext;
-import com.jdroid.android.debug.DebugLog;
-import com.jdroid.android.debug.DebugLogsRepository;
-import com.jdroid.android.debug.DebugSettingsFragment;
+import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.ExceptionHandler;
-import com.jdroid.android.fragment.AbstractPreferenceFragment;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.gcm.GcmMessageResolver;
 import com.jdroid.android.inappbilling.ProductType;
@@ -81,6 +78,7 @@ public abstract class AbstractApplication extends Application {
 	protected static AbstractApplication INSTANCE;
 	
 	private AppContext appContext;
+	private DebugContext debugContext;
 	private AnalyticsSender<? extends AnalyticsTracker> analyticsSender;
 	
 	/** Current activity in the top stack. */
@@ -115,6 +113,7 @@ public abstract class AbstractApplication extends Application {
 		LOGGER.debug("Executing onCreate on " + this);
 		
 		appContext = createAppContext();
+		debugContext = createDebugContext();
 		analyticsSender = createAnalyticsSender();
 		
 		initExceptionHandlers();
@@ -341,15 +340,22 @@ public abstract class AbstractApplication extends Application {
 	public abstract Class<? extends Activity> getHomeActivityClass();
 	
 	protected abstract AppContext createAppContext();
-	
+
 	public AppContext getAppContext() {
 		return appContext;
 	}
-	
+	protected DebugContext createDebugContext() {
+		return new DebugContext();
+	}
+
+	public DebugContext getDebugContext() {
+		return debugContext;
+	}
+
 	public ActivityHelper createActivityHelper(AbstractFragmentActivity activity) {
 		return new ActivityHelper(activity);
 	}
-	
+
 	public FragmentHelper createFragmentHelper(Fragment fragment) {
 		return new FragmentHelper(fragment);
 	}
@@ -418,9 +424,7 @@ public abstract class AbstractApplication extends Application {
 		
 		if (isDatabaseEnabled()) {
 			SQLiteHelper dbHelper = new SQLiteHelper(this);
-			if (isDebugLogRepositoryEnabled() && !appContext.isProductionEnvironment()) {
-				repositories.put(DebugLog.class, new DebugLogsRepository(dbHelper));
-			}
+			debugContext.initDebugRepositories(repositories, dbHelper);
 			initDatabaseRepositories(repositories, dbHelper);
 			dbHelper.addUpgradeSteps(getSQLiteUpgradeSteps());
 		}
@@ -448,10 +452,6 @@ public abstract class AbstractApplication extends Application {
 	@SuppressWarnings("unchecked")
 	public <M extends Identifiable> Repository<M> getRepositoryInstance(Class<M> persistentClass) {
 		return (Repository<M>)repositories.get(persistentClass);
-	}
-	
-	public Class<? extends AbstractPreferenceFragment> getDebugSettingsFragmentClass() {
-		return DebugSettingsFragment.class;
 	}
 	
 	protected String getFixedLocaleCountryCode() {

@@ -2,6 +2,7 @@ package com.jdroid.sample.android;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
+
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.about.SpreadTheLoveFragment;
 import com.jdroid.android.activity.AbstractFragmentActivity;
@@ -9,14 +10,14 @@ import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.context.AppContext;
-import com.jdroid.android.fragment.AbstractPreferenceFragment;
+import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.gcm.GcmMessageResolver;
 import com.jdroid.sample.android.analytics.AndroidAnalyticsSender;
+import com.jdroid.sample.android.debug.AndroidDebugContext;
 import com.jdroid.sample.android.gcm.AndroidGcmResolver;
 import com.jdroid.sample.android.ui.HomeActivity;
 import com.jdroid.sample.android.ui.about.AndroidSpreadTheLoveFragment;
-import com.jdroid.sample.android.ui.debug.AndroidDebugSettingsFragment;
 
 public class AndroidApplication extends AbstractApplication {
 	
@@ -68,15 +69,12 @@ public class AndroidApplication extends AbstractApplication {
 	protected AnalyticsSender<? extends AnalyticsTracker> createAnalyticsSender() {
 		return AndroidAnalyticsSender.get();
 	}
-	
-	/**
-	 * @see com.jdroid.android.AbstractApplication#getDebugSettingsFragmentClass()
-	 */
+
 	@Override
-	public Class<? extends AbstractPreferenceFragment> getDebugSettingsFragmentClass() {
-		return AndroidDebugSettingsFragment.class;
+	protected DebugContext createDebugContext() {
+		return new AndroidDebugContext();
 	}
-	
+
 	/**
 	 * @see com.jdroid.android.AbstractApplication#getSpreadTheLoveFragmentClass()
 	 */

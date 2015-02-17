@@ -1,16 +1,18 @@
 package com.jdroid.android.debug;
 
-import java.util.List;
-import java.util.Map;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+
 import com.jdroid.android.R;
 import com.jdroid.android.fragment.AbstractPreferenceFragment;
 import com.jdroid.android.gcm.GcmMessage;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.http.Server;
+
+import java.util.List;
+import java.util.Map;
 
 public class DebugSettingsFragment extends AbstractPreferenceFragment {
 	

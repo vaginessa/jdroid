@@ -25,9 +25,9 @@ buildscript {
 }
 
 dependencies {
-
-	// Module dependencies
-	compile project(':jdroid-android')
+	compile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT'
+//	compile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT:debug'
+//	releaseCompile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT:release'
 }
 
 jdroid {
@@ -126,6 +126,12 @@ android {
 
 		}
 	}
+
+	sourceSets.uat {
+		java.srcDirs = ['src/debug/java']
+		resources.srcDirs = ['src/debug/resources']
+	}
 }
+
 
 

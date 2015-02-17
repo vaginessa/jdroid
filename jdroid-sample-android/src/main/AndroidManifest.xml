@@ -35,7 +35,6 @@
 
 		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="${googleMapsApiKey}" />
 		<meta-data android:name="com.crashlytics.ApiKey" android:value="${crashlyticsApiKey}" />
-		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 
 		<activity android:name="com.jdroid.sample.android.ui.HomeActivity" android:windowSoftInputMode="stateHidden">
 			<intent-filter>
@@ -70,12 +69,6 @@
 			android:parentActivityName="com.jdroid.android.about.AboutActivity" />
 		<activity android:name="com.jdroid.android.about.LibrariesActivity" android:label="@string/libraries"
 			android:parentActivityName="com.jdroid.android.about.AboutActivity" />
-
-		<activity android:name="com.jdroid.android.debug.DebugSettingsActivity" android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity"
-			android:label="@string/debugSettings" />
-
-		<activity android:name="com.google.android.gms.ads.AdActivity"
-			android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
 
 		<!-- Google Cloud Messaging Configuration -->
 		<service android:name="com.jdroid.android.gcm.GcmService" />
