@@ -1,12 +1,10 @@
 package com.jdroid.android.social.facebook;
 
-import java.util.Arrays;
-import java.util.List;
-import org.slf4j.Logger;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+
 import com.facebook.FacebookRequestError.Category;
 import com.facebook.Request;
 import com.facebook.Response;
@@ -25,6 +23,11 @@ import com.jdroid.android.exception.CommonErrorCode;
 import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * This class handles all Facebook session events and requests.
@@ -72,6 +75,9 @@ public class FacebookConnector {
 	public FacebookConnector(Activity activity, SessionStateListener sessionStateListener,
 			FacebookAuthenticationListener facebookAuthenticationListener) {
 		facebookAppId = AbstractApplication.get().getAppContext().getFacebookAppId();
+		if (facebookAppId == null) {
+			throw new UnexpectedException("Missing Facebook App ID");
+		}
 		buildSession(facebookAppId);
 		this.sessionStateListener = sessionStateListener;
 		if (activity != null) {

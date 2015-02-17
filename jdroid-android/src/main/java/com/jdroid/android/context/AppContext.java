@@ -6,20 +6,16 @@ import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.BuildConfig;
 import com.jdroid.android.debug.ExceptionType;
 import com.jdroid.android.utils.SharedPreferencesHelper;
+import com.jdroid.java.collections.Sets;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.utils.PropertiesUtils;
-import com.jdroid.java.utils.ValidationUtils;
 
 import java.util.Locale;
 import java.util.Set;
 
-public class AppContext {
-	
-	private static final String PROPERTIES_RESOURCE_NAME = "settings.properties";
-	private static final String LOCAL_PROPERTIES_RESOURCE_NAME = "settings.local.properties";
+public abstract class AppContext {
 	
 	public static final String USER_DATA_MOCKED = "userDataMocked";
 	public static final String ADS_ENABLED = "adsEnabled";
@@ -29,72 +25,24 @@ public class AppContext {
 	public static final String HTTP_MOCK_CRASH_TYPE = "httpMockCrashType";
 	
 	// Environment
-	private String localIp;
-	private Boolean isFreeApp;
-	private String installationSource;
 	private Server server;
 	private String serverApiVersion;
 	
-	// Social
-	private String contactUsEmail;
-	private String googleProjectId;
-	private String facebookAppId;
-	
-	// Debug
-	private Boolean debugSettings;
-	
 	// Ads
 	private Boolean adsEnabled;
-	private String adUnitId;
-	private Set<String> testDevicesIds;
-	
-	// Google Analytics
-	private Boolean googleAnalyticsEnabled;
-	private Boolean googleAnalyticsDebugEnabled;
-	private String googleAnalyticsTrackingId;
-	
-	// CrashlyticsEnabled
-	private Boolean crashlyticsEnabled;
-	private Boolean crashlyticsDebugEnabled;
-	
-	public AppContext() {
-		PropertiesUtils.loadProperties(LOCAL_PROPERTIES_RESOURCE_NAME);
-		PropertiesUtils.loadProperties(PROPERTIES_RESOURCE_NAME);
-		
-		localIp = PropertiesUtils.getStringProperty("local.ip");
 
-		debugSettings = PropertiesUtils.getBooleanProperty("debug.settings", false);
-		isFreeApp = PropertiesUtils.getBooleanProperty("free.app");
-		server = findServerByName(PropertiesUtils.getStringProperty("server.name"));
+	public AppContext() {
+
+		server = findServerByName(getServerName());
 		serverApiVersion = PropertiesUtils.getStringProperty("server.api.version");
-		
-		contactUsEmail = PropertiesUtils.getStringProperty("mail.contact");
-		if (!ValidationUtils.isValidEmail(contactUsEmail)) {
-			contactUsEmail = null;
-		}
-		
-		googleProjectId = PropertiesUtils.getStringProperty("google.projectId");
-		facebookAppId = PropertiesUtils.getStringProperty("facebook.app.id");
-		
-		adsEnabled = PropertiesUtils.getBooleanProperty("ads.enabled", false);
+
+		adsEnabled = areAdsEnabledByDefault();
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
 		if (!sharedPreferences.contains(ADS_ENABLED)) {
 			Editor editor = sharedPreferences.edit();
 			editor.putBoolean(ADS_ENABLED, adsEnabled);
 			editor.commit();
 		}
-		
-		adUnitId = PropertiesUtils.getStringProperty("ads.adUnitId");
-		testDevicesIds = PropertiesUtils.getStringSetProperty("ads.tests.devices.ids");
-		
-		googleAnalyticsEnabled = PropertiesUtils.getBooleanProperty("google.analytics.enabled", false);
-		googleAnalyticsDebugEnabled = PropertiesUtils.getBooleanProperty("google.analytics.debug.enabled", false);
-		googleAnalyticsTrackingId = PropertiesUtils.getStringProperty("google.analytics.trackingId");
-		
-		crashlyticsEnabled = PropertiesUtils.getBooleanProperty("crashlytics.enabled", false);
-		crashlyticsDebugEnabled = PropertiesUtils.getBooleanProperty("crashlytics.debug.enabled", false);
-		
-		installationSource = PropertiesUtils.getStringProperty("installation.source", "GooglePlay");
 	}
 	
 	protected Server findServerByName(String name) {
@@ -116,40 +64,41 @@ public class AppContext {
 				clazz.getSimpleName(), defaultServer.getName()).toUpperCase(Locale.US));
 		}
 	}
+
+	protected abstract String getServerName();
 	
 	/**
 	 * @return The Google project ID acquired from the API console
 	 */
 	public String getGoogleProjectId() {
-		return googleProjectId;
+		return null;
 	}
 	
 	/**
 	 * @return The registered Facebook app ID that is used to identify this application for Facebook.
 	 */
 	public String getFacebookAppId() {
-		return facebookAppId;
+		return null;
 	}
 	
 	/**
 	 * @return Whether the application should display the debug settings
 	 */
 	public Boolean displayDebugSettings() {
-		return debugSettings;
+		return !isProductionEnvironment();
 	}
-	
+
+	public abstract String getBuildType();
+
 	/**
 	 * @return Whether the application is running on a production environment
 	 */
 	public Boolean isProductionEnvironment() {
-		return BuildConfig.BUILD_TYPE.equals("release");
+		return getBuildType().equals("release");
 	}
-	
-	/**
-	 * @return Whether the application is free or not
-	 */
-	public Boolean isFreeApp() {
-		return isFreeApp;
+
+	public Boolean areAdsEnabledByDefault() {
+		return false;
 	}
 	
 	/**
@@ -164,33 +113,27 @@ public class AppContext {
 	 * @return The MD5-hashed ID of the devices that should display mocked ads
 	 */
 	public Set<String> getTestDevicesIds() {
-		return testDevicesIds;
+		return Sets.newHashSet();
 	}
 	
 	/**
 	 * @return The AdMob Publisher ID
 	 */
 	public String getAdUnitId() {
-		return adUnitId;
+		return null;
 	}
 	
 	/**
 	 * @return Whether the application has Google Analytics enabled or not
 	 */
-	public Boolean isGoogleAnalyticsEnabled() {
-		return googleAnalyticsEnabled;
-	}
+	public abstract Boolean isGoogleAnalyticsEnabled();
 	
 	/**
 	 * @return The Google Analytics Tracking ID
 	 */
-	public String getGoogleAnalyticsTrackingId() {
-		return googleAnalyticsTrackingId;
-	}
+	public abstract String getGoogleAnalyticsTrackingId();
 	
-	public Boolean isGoogleAnalyticsDebugEnabled() {
-		return googleAnalyticsDebugEnabled;
-	}
+	public abstract Boolean isGoogleAnalyticsDebugEnabled();
 	
 	public Boolean isHttpMockEnabled() {
 		return !isProductionEnvironment()
@@ -213,21 +156,15 @@ public class AppContext {
 			false);
 	}
 	
-	public String getLocalIp() {
-		return localIp;
-	}
-	
+	public abstract String getLocalIp();
+
 	public String getInstallationSource() {
-		return installationSource;
+		return "GooglePlay";
 	}
 	
-	public Boolean isCrashlyticsEnabled() {
-		return crashlyticsEnabled;
-	}
+	public abstract Boolean isCrashlyticsEnabled();
 	
-	public Boolean isCrashlyticsDebugEnabled() {
-		return crashlyticsDebugEnabled;
-	}
+	public abstract Boolean isCrashlyticsDebugEnabled();
 	
 	public void saveFirstSessionTimestamp() {
 		Long firstSessionTimestamp = getFirstSessionTimestamp();
@@ -254,7 +191,7 @@ public class AppContext {
 	}
 	
 	public String getContactUsEmail() {
-		return contactUsEmail;
+		return null;
 	}
 	
 	public String getTwitterAccount() {

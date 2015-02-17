@@ -1,17 +1,5 @@
 package com.jdroid.android;
 
-import java.io.File;
-import java.io.InputStream;
-import java.lang.Thread.UncaughtExceptionHandler;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.UUID;
-import org.slf4j.Logger;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -20,6 +8,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
+
 import com.jdroid.android.about.AboutFragment;
 import com.jdroid.android.about.LibrariesFragment;
 import com.jdroid.android.about.SpreadTheLoveFragment;
@@ -60,6 +49,20 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+
+import org.slf4j.Logger;
+
+import java.io.File;
+import java.io.InputStream;
+import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.UUID;
 
 public abstract class AbstractApplication extends Application {
 	
@@ -337,9 +340,7 @@ public abstract class AbstractApplication extends Application {
 	
 	public abstract Class<? extends Activity> getHomeActivityClass();
 	
-	protected AppContext createAppContext() {
-		return new AppContext();
-	}
+	protected abstract AppContext createAppContext();
 	
 	public AppContext getAppContext() {
 		return appContext;

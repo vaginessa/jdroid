@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.jdroid.sample.android"
-	android:versionCode="140000700" android:versionName="0.7.0" xmlns:tools="http://schemas.android.com/tools">
+	 xmlns:tools="http://schemas.android.com/tools">
 
-	<permission android:name="com.jdroid.sample.android.permission.MAPS_RECEIVE" android:protectionLevel="signature" />
+	<permission android:name="${applicationId}.permission.MAPS_RECEIVE" android:protectionLevel="signature" />
+	<permission android:name="${applicationId}.permission.C2D_MESSAGE" android:protectionLevel="signature" />
 
+	<uses-permission android:name="${applicationId}.permission.MAPS_RECEIVE" />
+	<uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
 
-	<!-- Google Cloud Messaging permissions -->
-	<permission android:name="com.jdroid.sample.android.permission.C2D_MESSAGE" android:protectionLevel="signature" />
-	<uses-permission android:name="com.jdroid.sample.android.permission.C2D_MESSAGE" />
-	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
 	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
 	<uses-permission android:name="com.android.vending.BILLING" />
@@ -18,7 +17,6 @@
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="com.jdroid.sample.android.permission.MAPS_RECEIVE" />
 
 	<uses-feature android:name="com.google.android.tv" android:required="false" />
 	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
@@ -31,14 +29,12 @@
 
 	<supports-screens android:largeScreens="true" android:xlargeScreens="true" />
 
-	<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="21" />
-
 	<application android:icon="@drawable/ic_launcher" android:logo="@drawable/ic_launcher" android:label="@string/appName"
 		android:allowBackup="true" android:name="com.jdroid.sample.android.AndroidApplication" android:hardwareAccelerated="true"
 		android:theme="@style/App.Theme">
 
-		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyDhgOTyv5EqcYckAnPI1Cdms-1DxBYhjjA" />
-		<meta-data android:name="com.crashlytics.ApiKey" android:value="478dae49374362f33bc054fc44d1f4242c574ccb" />
+		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="${googleMapsApiKey}" />
+		<meta-data android:name="com.crashlytics.ApiKey" android:value="${crashlyticsApiKey}" />
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 
 		<activity android:name="com.jdroid.sample.android.ui.HomeActivity" android:windowSoftInputMode="stateHidden">
@@ -88,7 +84,7 @@
 			<intent-filter>
 				<!-- Receive actual messages -->
 				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
-				<category android:name="com.jdroid.sample.android" />
+				<category android:name="${applicationId}" />
 			</intent-filter>
 		</receiver>
 

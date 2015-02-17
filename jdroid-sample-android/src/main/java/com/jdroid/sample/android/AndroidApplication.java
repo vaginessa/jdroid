@@ -8,6 +8,7 @@ import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
+import com.jdroid.android.context.AppContext;
 import com.jdroid.android.fragment.AbstractPreferenceFragment;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.gcm.GcmMessageResolver;
@@ -30,7 +31,12 @@ public class AndroidApplication extends AbstractApplication {
 	public Class<? extends Activity> getHomeActivityClass() {
 		return HomeActivity.class;
 	}
-	
+
+	@Override
+	protected AppContext createAppContext() {
+		return new AndroidAppContext();
+	}
+
 	/**
 	 * @see com.jdroid.android.AbstractApplication#createActivityHelper(com.jdroid.android.activity.AbstractFragmentActivity)
 	 */

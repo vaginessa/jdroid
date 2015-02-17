@@ -13,6 +13,7 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.location.LocationHelper;
+import com.jdroid.java.exception.UnexpectedException;
 
 public class AdHelper {
 	
@@ -26,7 +27,7 @@ public class AdHelper {
 	
 	public void loadAd(final Activity activity, ViewGroup adViewContainer, AdSize adSize,
 			HouseAdBuilder houseAdBuilder, Boolean isInterstitialEnabled) {
-		
+
 		AppContext applicationContext = AbstractApplication.get().getAppContext();
 		if (isInterstitialEnabled && applicationContext.areAdsEnabled()) {
 			loadInterstitial(activity);
@@ -39,6 +40,11 @@ public class AdHelper {
 			} else {
 				
 				adView = new AdView(activity);
+
+				if (applicationContext.getAdUnitId() == null) {
+					throw new UnexpectedException("Missing ad unit ID");
+				}
+
 				adView.setAdUnitId(applicationContext.getAdUnitId());
 				adView.setAdSize(adSize);
 				customView = houseAdBuilder != null ? houseAdBuilder.build(activity) : null;
@@ -108,6 +114,11 @@ public class AdHelper {
 	private void loadInterstitial(Activity activity) {
 		interstitial = new InterstitialAd(activity);
 		AppContext applicationContext = AbstractApplication.get().getAppContext();
+
+		if (applicationContext.getAdUnitId() == null) {
+			throw new UnexpectedException("Missing ad unit ID");
+		}
+
 		interstitial.setAdUnitId(applicationContext.getAdUnitId());
 		
 		AdRequest.Builder builder = createBuilder(applicationContext);
