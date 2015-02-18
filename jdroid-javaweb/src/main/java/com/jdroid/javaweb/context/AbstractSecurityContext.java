@@ -1,9 +1,10 @@
 package com.jdroid.javaweb.context;
 
-import org.slf4j.Logger;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.domain.Entity;
 import com.jdroid.javaweb.exception.InvalidAuthenticationException;
+
+import org.slf4j.Logger;
 
 /**
  * A context holding per session values
@@ -42,7 +43,7 @@ public abstract class AbstractSecurityContext<T extends Entity> {
 	}
 	
 	/**
-	 * @param username The email to verify
+	 * @param email The email to verify
 	 * @param password The password to verify
 	 * @return The user
 	 * @throws InvalidAuthenticationException Thrown if the email and/or the password are invalid

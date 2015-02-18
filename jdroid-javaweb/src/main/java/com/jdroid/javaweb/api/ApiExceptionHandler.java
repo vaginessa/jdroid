@@ -1,10 +1,14 @@
 package com.jdroid.javaweb.api;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.jdroid.java.collections.Lists;
+import com.jdroid.java.exception.ErrorCodeException;
+import com.jdroid.java.utils.LoggerUtils;
+import com.jdroid.javaweb.exception.CommonErrorCode;
+import com.jdroid.javaweb.exception.InvalidArgumentException;
+import com.jdroid.javaweb.exception.InvalidAuthenticationException;
+
 import org.slf4j.Logger;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.core.style.StylerUtils;
@@ -25,14 +29,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 import org.springframework.web.util.WebUtils;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.jdroid.java.collections.Lists;
-import com.jdroid.java.exception.ErrorCodeException;
-import com.jdroid.java.utils.LoggerUtils;
-import com.jdroid.javaweb.exception.CommonErrorCode;
-import com.jdroid.javaweb.exception.InvalidArgumentException;
-import com.jdroid.javaweb.exception.InvalidAuthenticationException;
+
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Renders a response with a RESTful Error representation based on the error format discussed in <a
@@ -108,7 +111,7 @@ public class ApiExceptionHandler extends AbstractHandlerExceptionResolver {
 	 * @param response current HTTP response
 	 * @param handler the executed handler, or <code>null</code> if none chosen at the time of the exception (for
 	 *            example, if multipart resolution failed)
-	 * @param ex the exception that got thrown during handler execution
+	 * @param exception the exception that got thrown during handler execution
 	 * @return a corresponding ModelAndView to forward to, or <code>null</code> for default processing
 	 * 
 	 * @see org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver#doResolveException(javax.servlet.http.HttpServletRequest,

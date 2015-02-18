@@ -77,8 +77,6 @@ Dependency project for Java Web apps
 * Http Filters
  * Authentication filter
  * API version filter
-* Parsers
- * Sax XML Parser
 * [Spring MVC integration](http://projects.spring.io/spring-framework/)
 * [Hibernate ORM integration](http://hibernate.org/orm/)
 * [Restfb Facebook integration](http://restfb.com/)

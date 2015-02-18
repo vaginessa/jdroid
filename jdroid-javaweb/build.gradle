@@ -1,0 +1,83 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+dependencies {
+
+	// Push for Android
+	compile "android.gcm:gcm-server:r2"
+	compile "com.googlecode.json-simple:json-simple:1.1"
+
+	// Logging
+	compile "log4j:log4j:1.2.16"
+	compile "org.slf4j:slf4j-log4j12:1.6.3"
+
+	// Spring
+	compile "org.springframework:spring-core:3.2.4.RELEASE"
+	compile "org.springframework:spring-web:3.2.4.RELEASE"
+	compile "org.springframework:spring-webmvc:3.2.4.RELEASE"
+	compile "org.springframework:spring-orm:3.2.4.RELEASE"
+	compile "org.springframework:spring-context-support:3.2.4.RELEASE"
+
+	// Hibernate
+	compile "org.hibernate:hibernate-core:3.6.10.Final"
+	compile "javassist:javassist:3.12.1.GA"
+
+	// Database
+	compile "commons-dbcp:commons-dbcp:1.4"
+
+	// Jackson
+	compile "com.fasterxml.jackson.core:jackson-core:2.2.3"
+	compile "com.fasterxml.jackson.core:jackson-databind:2.2.3"
+	compile "com.fasterxml.jackson.core:jackson-annotations:2.2.3"
+
+	// Facebook
+	compile "com.restfb:restfb:1.6.12"
+
+	// Twitter
+	compile "org.twitter4j:twitter4j-core:4.0.2"
+
+	// Apache Commons
+	compile "commons-collections:commons-collections:3.2.1"
+	compile "commons-beanutils:commons-beanutils:1.8.3"
+
+	// Guava
+	compile "com.google.guava:guava:11.0.1"
+
+	// Open CSV
+	compile "net.sf.opencsv:opencsv:2.3"
+
+	// Servlet API
+	compile "javax.servlet:servlet-api:2.5"
+
+	// Module dependencies
+	compile project(':jdroid-java')
+
+	// Testing
+	testCompile "org.testng:testng:6.3"
+	testCompile "org.mockito:mockito-all:1.8.5"
+}
+
+group = 'com.jdroidframework'
+version = '0.7.0-SNAPSHOT'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('/Users/maxirosson/Dropbox/Public/maven-repository'))
+        }
+    }
+}
+
+task javadocJar(type: Jar) {
+	classifier = 'javadoc'
+	from javadoc
+}
+
+task sourcesJar(type: Jar) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+artifacts {
+	archives javadocJar, sourcesJar
+}
