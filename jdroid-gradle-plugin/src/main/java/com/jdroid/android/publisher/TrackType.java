@@ -1,4 +1,4 @@
-package com.jdroid.googleplaypublisher;
+package com.jdroid.android.publisher;
 
 public enum TrackType {
 	

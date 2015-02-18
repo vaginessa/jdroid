@@ -1,4 +1,5 @@
 package com.jdroid.gradle.android
+
 import com.jdroid.gradle.android.task.VerifyMissingTranslationsBetweenLocalesTask
 import com.jdroid.gradle.android.task.VerifyMissingTranslationsTask
 import org.gradle.api.JavaVersion

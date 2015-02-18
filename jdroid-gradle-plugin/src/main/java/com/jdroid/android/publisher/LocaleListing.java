@@ -1,13 +1,14 @@
-package com.jdroid.googleplaypublisher;
+package com.jdroid.android.publisher;
 
-import java.io.File;
-import java.util.List;
-import java.util.Locale;
 import com.google.api.client.http.AbstractInputStreamContent;
 import com.google.api.client.http.FileContent;
 import com.google.api.client.util.Lists;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.utils.FileUtils;
+
+import java.io.File;
+import java.util.List;
+import java.util.Locale;
 
 public class LocaleListing {
 	

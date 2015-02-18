@@ -1,14 +1,5 @@
-package com.jdroid.googleplaypublisher;
+package com.jdroid.android.publisher;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
@@ -35,6 +26,17 @@ import com.google.api.services.androidpublisher.model.ImagesUploadResponse;
 import com.google.api.services.androidpublisher.model.Listing;
 import com.google.api.services.androidpublisher.model.Track;
 import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.GeneralSecurityException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Helper class to initialize the publisher APIs client library.
@@ -45,9 +47,9 @@ import com.jdroid.java.exception.UnexpectedException;
  * </p>
  */
 public class GooglePlayPublisher {
-	
-	private static final Log log = LogFactory.getLog(GooglePlayPublisher.class);
-	
+
+	private static final Logger LOGGER = LoggerUtils.getLogger(GooglePlayPublisher.class);
+
 	public static final String MIME_TYPE_APK = "application/vnd.android.package-archive";
 	
 	/** Global instance of the JSON factory. */
@@ -77,7 +79,7 @@ public class GooglePlayPublisher {
 			
 			// Set up and return API client.
 			return new AndroidPublisher.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential).setApplicationName(
-				appContext.getAppName()).build();
+				appContext.getPackageName()).build();
 		} catch (GeneralSecurityException e) {
 			throw new UnexpectedException(e);
 		} catch (IOException e) {
@@ -87,7 +89,7 @@ public class GooglePlayPublisher {
 	
 	private static Credential authorizeWithServiceAccount(AppContext appContext) throws GeneralSecurityException,
 			IOException {
-		log.info(String.format("Authorizing using Service Account: %s", appContext.getServiceAccountEmail()));
+		System.out.println(String.format("Authorizing using Service Account: %s", appContext.getServiceAccountEmail()));
 		
 		// Build service account credential.
 		GoogleCredential.Builder builder = new GoogleCredential.Builder();
@@ -120,10 +122,10 @@ public class GooglePlayPublisher {
 			
 			// Print the apk info.
 			for (Apk apk : apksResponse.getApks()) {
-				log.info(String.format("Version: %d - Binary sha1: %s", apk.getVersionCode(), apk.getBinary().getSha1()));
+				System.out.println(String.format("Version: %d - Binary sha1: %s", apk.getVersionCode(), apk.getBinary().getSha1()));
 			}
 		} catch (IOException ex) {
-			log.error("Exception was thrown while updating listing", ex);
+			LOGGER.error("Exception was thrown while updating listing", ex);
 		}
 	}
 	
@@ -138,7 +140,7 @@ public class GooglePlayPublisher {
 			Insert editRequest = edits.insert(appContext.getPackageName(), null);
 			AppEdit edit = editRequest.execute();
 			String editId = edit.getId();
-			log.info(String.format("Created edit with id: %s", editId));
+			System.out.println(String.format("Created edit with id: %s", editId));
 			
 			// Update listing for each locale of the application.
 			for (LocaleListing each : localeListings) {
@@ -150,63 +152,63 @@ public class GooglePlayPublisher {
 				Edits.Listings.Update updateListingsRequest = edits.listings().update(appContext.getPackageName(),
 					editId, each.getLocale().toString(), listing);
 				Listing updatedListing = updateListingsRequest.execute();
-				log.info(String.format("Created new " + each.getLocale().toString() + " app listing with title: %s",
+				System.out.println(String.format("Created new " + each.getLocale().toString() + " app listing with title: %s",
 					updatedListing.getTitle()));
 				
 				// Update images
 				Images.Upload uploadImageRequest = edits.images().upload(appContext.getPackageName(), editId,
 					each.getLocale().toString(), ImageType.FEATURE_GRAPHIC.getKey(), each.getFeatureGraphic());
 				ImagesUploadResponse response = uploadImageRequest.execute();
-				log.info(String.format("Feature graphic %s has been updated.", response.getImage()));
+				System.out.println(String.format("Feature graphic %s has been updated.", response.getImage()));
 				
 				uploadImageRequest = edits.images().upload(appContext.getPackageName(), editId,
 					each.getLocale().toString(), ImageType.PROMO_GRAPHIC.getKey(), each.getPromoGraphic());
 				response = uploadImageRequest.execute();
-				log.info(String.format("Promo graphic %s has been updated.", response.getImage()));
+				System.out.println(String.format("Promo graphic %s has been updated.", response.getImage()));
 				
 				uploadImageRequest = edits.images().upload(appContext.getPackageName(), editId,
 					each.getLocale().toString(), ImageType.ICON.getKey(), each.getHighResolutionIcon());
 				response = uploadImageRequest.execute();
-				log.info(String.format("High resolution icon %s has been updated.", response.getImage()));
+				System.out.println(String.format("High resolution icon %s has been updated.", response.getImage()));
 				
 				Deleteall deleteallRequest = edits.images().deleteall(appContext.getPackageName(), editId,
 					each.getLocale().toString(), ImageType.PHONE_SCREENSHOTS.getKey());
 				deleteallRequest.execute();
-				log.info(String.format("Phone screenshots has been deleted."));
+				System.out.println(String.format("Phone screenshots has been deleted."));
 				for (AbstractInputStreamContent content : each.getPhoneScreenshots()) {
 					uploadImageRequest = edits.images().upload(appContext.getPackageName(), editId,
 						each.getLocale().toString(), ImageType.PHONE_SCREENSHOTS.getKey(), content);
 					response = uploadImageRequest.execute();
-					log.info(String.format("Phone screenshot %s has been updated.", response.getImage()));
+					System.out.println(String.format("Phone screenshot %s has been updated.", response.getImage()));
 				}
 				
 				deleteallRequest = edits.images().deleteall(appContext.getPackageName(), editId,
 					each.getLocale().toString(), ImageType.SEVEN_INCH_SCREENSHOTS.getKey());
 				deleteallRequest.execute();
-				log.info(String.format("Seven inch screenshots has been deleted."));
+				System.out.println(String.format("Seven inch screenshots has been deleted."));
 				for (AbstractInputStreamContent content : each.getSevenInchScreenshots()) {
 					uploadImageRequest = edits.images().upload(appContext.getPackageName(), editId,
 						each.getLocale().toString(), ImageType.SEVEN_INCH_SCREENSHOTS.getKey(), content);
 					response = uploadImageRequest.execute();
-					log.info(String.format("Seven inch screenshot %s has been updated.", response.getImage()));
+					System.out.println(String.format("Seven inch screenshot %s has been updated.", response.getImage()));
 				}
 				
 				deleteallRequest = edits.images().deleteall(appContext.getPackageName(), editId,
 					each.getLocale().toString(), ImageType.TEN_INCH_SCREENSHOTS.getKey());
 				deleteallRequest.execute();
-				log.info(String.format("Ten inch screenshots has been deleted."));
+				System.out.println(String.format("Ten inch screenshots has been deleted."));
 				for (AbstractInputStreamContent content : each.getTenInchScreenshots()) {
 					uploadImageRequest = edits.images().upload(appContext.getPackageName(), editId,
 						each.getLocale().toString(), ImageType.TEN_INCH_SCREENSHOTS.getKey(), content);
 					response = uploadImageRequest.execute();
-					log.info(String.format("Ten inch screenshot %s has been updated.", response.getImage()));
+					System.out.println(String.format("Ten inch screenshot %s has been updated.", response.getImage()));
 				}
 			}
 			
 			commitEdit(appContext, edits, editId);
 			
 		} catch (IOException ex) {
-			log.error("Exception was thrown while updating listing", ex);
+			LOGGER.error("Exception was thrown while updating listing", ex);
 		}
 	}
 	
@@ -230,14 +232,14 @@ public class GooglePlayPublisher {
 			Insert editRequest = edits.insert(appContext.getPackageName(), null);
 			AppEdit edit = editRequest.execute();
 			String editId = edit.getId();
-			log.info(String.format("Created edit with id: %s", editId));
+			System.out.println(String.format("Created edit with id: %s", editId));
 			
 			// Upload new apk to developer console
 			String apkPath = GooglePlayPublisher.class.getResource(apkFilePath).toURI().getPath();
 			AbstractInputStreamContent apkFile = new FileContent(MIME_TYPE_APK, new File(apkPath));
 			Upload uploadRequest = edits.apks().upload(appContext.getPackageName(), editId, apkFile);
 			Apk apk = uploadRequest.execute();
-			log.info(String.format("Version code %d has been uploaded", apk.getVersionCode()));
+			System.out.println(String.format("Version code %d has been uploaded", apk.getVersionCode()));
 			
 			// Assign apk to beta track.
 			List<Integer> apkVersionCodes = new ArrayList<>();
@@ -245,7 +247,7 @@ public class GooglePlayPublisher {
 			Edits.Tracks.Update updateTrackRequest = edits.tracks().update(appContext.getPackageName(), editId,
 				trackType.getKey(), new Track().setVersionCodes(apkVersionCodes));
 			Track updatedTrack = updateTrackRequest.execute();
-			log.info(String.format("Track %s has been updated.", updatedTrack.getTrack()));
+			System.out.println(String.format("Track %s has been updated.", updatedTrack.getTrack()));
 			
 			for (LocaleListing each : localeListings) {
 				// Update recent changes field in apk listing.
@@ -254,20 +256,20 @@ public class GooglePlayPublisher {
 				Apklistings.Update updateRecentChangesRequest = edits.apklistings().update(appContext.getPackageName(),
 					editId, apk.getVersionCode(), each.getLocale().toString(), newApkListing);
 				updateRecentChangesRequest.execute();
-				log.info("Recent changes has been updated.");
+				System.out.println("Recent changes has been updated.");
 			}
 			
 			// Commit changes for edit.
 			commitEdit(appContext, edits, editId);
 			
 		} catch (IOException | URISyntaxException ex) {
-			log.error("Exception was thrown while uploading apk and updating recent changes", ex);
+			LOGGER.error("Exception was thrown while uploading apk and updating recent changes", ex);
 		}
 	}
 	
 	private static void commitEdit(AppContext appContext, Edits edits, String editId) throws IOException {
 		Commit commitRequest = edits.commit(appContext.getPackageName(), editId);
 		AppEdit appEdit = commitRequest.execute();
-		log.info(String.format("App edit with id %s has been comitted", appEdit.getId()));
+		System.out.println(String.format("App edit with id %s has been comitted", appEdit.getId()));
 	}
 }

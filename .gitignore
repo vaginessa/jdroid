@@ -5,38 +5,17 @@ build/
 *.iml
 /local.properties
 
-target/
-
 jdroid-java/build/
 jdroid-java/*.iml
 jdroid-java/local.properties
 
-jdroid-javaweb/bin/
-jdroid-javaweb/target/
-jdroid-javaweb/test-output/
-jdroid-javaweb/work/
-jdroid-javaweb/.settings/org.maven.ide.eclipse.prefs
+jdroid-javaweb/build/
+jdroid-javaweb/*.iml
+jdroid-javaweb/local.properties
 
 jdroid-android/build/
 jdroid-android/*.iml
 jdroid-android/local.properties
-
-jdroid-android-tools/google-play-publisher/bin/
-jdroid-android-tools/google-play-publisher/target/
-jdroid-android-tools/google-play-publisher/test-output/
-jdroid-android-tools/google-play-publisher/work/
-jdroid-android-tools/google-play-publisher/.settings/org.maven.ide.eclipse.prefs
-jdroid-android-tools/google-play-publisher/src/main/resources/settings.local.properties
-jdroid-android-tools/google-play-publisher/src/main/resources/git.properties
-jdroid-android-tools/google-play-publisher/src/main/resources/log4j.xml
-
-jdroid-google-play-services/bin/
-jdroid-google-play-services/gen/
-jdroid-google-play-services/target/
-
-jdroid-support-v7-appcompat/bin/
-jdroid-support-v7-appcompat/gen/
-jdroid-support-v7-appcompat/target/
 
 jdroid-gradle-plugin/.gradle/
 jdroid-gradle-plugin/build/
@@ -45,15 +24,9 @@ jdroid-gradle-plugin/.idea/workspace.xml
 jdroid-gradle-plugin/local.properties
 jdroid-gradle-plugin/*.iml
 
-jdroid-sample-server/bin/
-jdroid-sample-server/target/
-jdroid-sample-server/test-output/
-jdroid-sample-server/work/
-jdroid-sample-server/.settings/org.maven.ide.eclipse.prefs
-jdroid-sample-server/src/main/resources/settings.local.properties
-jdroid-sample-server/src/main/resources/git.properties
-jdroid-sample-server/src/main/resources/log4j.xml
-jdroid-sample-server/src/main/webapp/.#webclasspath
+jdroid-sample-server/build/
+jdroid-sample-server/*.iml
+jdroid-sample-server/local.properties
 
 jdroid-sample-android/build/
 jdroid-sample-android/*.iml

@@ -1,14 +1,10 @@
-package com.jdroid.googleplaypublisher;
+package com.jdroid.android.publisher;
 
 import com.google.api.client.repackaged.com.google.common.base.Strings;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.PropertiesUtils;
 
 public class AppContext {
-	
-	// Specify the name of your application. If the application name is {@code null} or blank, the application will log
-	// a warning. Suggested format is "MyCompany-Application/1.0".
-	private String appName;
 	
 	// Specify the package name of the app.
 	private String packageName;
@@ -29,16 +25,12 @@ public class AppContext {
 		
 		PropertiesUtils.loadExternalProperties(fileName);
 		
-		appName = PropertiesUtils.getStringProperty("app.name");
-		if (Strings.isNullOrEmpty(appName)) {
-			throw new UnexpectedException("appName cannot be null or empty!");
-		}
-		
 		packageName = PropertiesUtils.getStringProperty("package.name");
 		if (Strings.isNullOrEmpty(packageName)) {
 			throw new UnexpectedException("packageName cannot be null or empty!");
 		}
-		
+
+
 		serviceAccountEmail = PropertiesUtils.getStringProperty("service.account.email");
 		if (Strings.isNullOrEmpty(serviceAccountEmail)) {
 			throw new UnexpectedException("serviceAccountEmail cannot be null or empty!");
@@ -61,10 +53,6 @@ public class AppContext {
 		
 		apkPath = PropertiesUtils.getStringProperty("apk.path");
 		trackType = TrackType.findByKey(PropertiesUtils.getStringProperty("track.type"));
-	}
-	
-	public String getAppName() {
-		return appName;
 	}
 	
 	public String getPackageName() {
