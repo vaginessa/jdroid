@@ -90,7 +90,7 @@ public class VerifyMissingTranslationsBetweenLocalesTask extends DefaultTask {
 		}
 	}
 
-	private String getKey(String it) {
+	public static String getKey(String it) {
 		String key = null;
 		if (it.trim().matches('[^!]* name="[^"]*">.*')) {
 			Matcher matcher = Pattern.compile('name="([^"]*)">').matcher(it.trim());

@@ -12,7 +12,6 @@
             <option value="$PROJECT_DIR$/jdroid-gradle-plugin" />
             <option value="$PROJECT_DIR$/jdroid-java" />
             <option value="$PROJECT_DIR$/jdroid-javaweb" />
-            <option value="$PROJECT_DIR$/jdroid-sample-android" />
           </set>
         </option>
       </GradleProjectSettings>

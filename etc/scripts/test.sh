@@ -14,7 +14,7 @@ then
 	exit 1;
 fi
 
-./gradlew assemble
+./gradlew build
 
 # ************************
 # jdroid
