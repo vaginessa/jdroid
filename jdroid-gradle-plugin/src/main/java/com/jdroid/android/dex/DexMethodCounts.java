@@ -12,12 +12,7 @@
  * limitations under the License.
  */
 
-package info.persistent.dex;
-
-import com.android.dexdeps.ClassRef;
-import com.android.dexdeps.DexData;
-import com.android.dexdeps.MethodRef;
-import com.android.dexdeps.Output;
+package com.jdroid.android.dex;
 
 import java.io.File;
 import java.io.FileNotFoundException;

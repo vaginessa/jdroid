@@ -1,6 +1,6 @@
 package com.jdroid.gradle.android.task
 
-import info.persistent.dex.DexMethodCounts
+import com.jdroid.android.dex.DexMethodCounts
 
 public class CountMethodsReportTask extends AbstractCountMethodsTask {
 

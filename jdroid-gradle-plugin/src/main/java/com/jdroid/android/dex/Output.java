@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.dexdeps;
+package com.jdroid.android.dex;
 
 import java.io.PrintStream;
 

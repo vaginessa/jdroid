@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.dexdeps;
+package com.jdroid.android.dex;
 
 public class FieldRef {
     private String mDeclClass, mFieldType, mFieldName;
