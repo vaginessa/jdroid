@@ -1,0 +1,20 @@
+apply plugin: 'jetty'
+
+description = 'Jdroid Sample Server'
+
+repositories {
+	mavenCentral()
+	maven {
+		url "http://dl.dropbox.com/u/8520947/maven-repository/"
+	}
+}
+
+
+dependencies {
+	compile 'com.jdroidframework:jdroid-javaweb:0.7.0-SNAPSHOT'
+}
+
+
+
+
+
