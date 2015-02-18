@@ -1,8 +1,5 @@
 package com.jdroid.java.parser.json;
 
-import java.io.InputStream;
-import java.util.List;
-import org.slf4j.Logger;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.json.JSONArray;
 import com.jdroid.java.json.JSONObject;
@@ -10,6 +7,11 @@ import com.jdroid.java.parser.Parser;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.StringUtils;
+
+import org.slf4j.Logger;
+
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * JSON input streams parser
@@ -67,7 +69,7 @@ public abstract class JsonParser<T> implements Parser {
 	 * 
 	 * @param <ITEM> The item's type.
 	 * 
-	 * @param jsonObject The {@link JsonObjectWrapper} to parse.
+	 * @param jsonObject The {@link JSONObject} to parse.
 	 * @param jsonKey The key for the Json array.
 	 * @param parser The {@link JsonParser} to parse each list item.
 	 * @return The parsed list.
@@ -81,7 +83,7 @@ public abstract class JsonParser<T> implements Parser {
 	 * 
 	 * @param <ITEM> The item's type.
 	 * 
-	 * @param json The {@link JsonArrayWrapper} to parse.
+	 * @param jsonArray The {@link JSONArray} to parse.
 	 * @param parser The {@link JsonParser} to parse each list item.
 	 * @return The parsed list.
 	 */

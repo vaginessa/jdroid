@@ -24,7 +24,7 @@ public class ApacheHttpGetWebService extends ApacheHttpWebService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.apache.ApacheHttpWebService#createHttpUriRequest()
+	 * @see com.jdroid.java.http.apache.ApacheHttpWebService#createHttpUriRequest(java.lang.String)
 	 */
 	@Override
 	protected HttpUriRequest createHttpUriRequest(String url) {
