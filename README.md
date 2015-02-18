@@ -63,7 +63,6 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * Rate me component
 * Picture import (From camera or gallery) component
 * Barcode reading component
-* Coverflow component
 * Voice Recognizer component
 * Date & Time picker components
 * About dialog component
