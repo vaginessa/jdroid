@@ -5,6 +5,9 @@ allprojects {
 	buildscript {
 		repositories {
 			mavenCentral()
+			maven {
+				url "http://dl.dropbox.com/u/8520947/maven-repository/"
+			}
 		}
 	}
 

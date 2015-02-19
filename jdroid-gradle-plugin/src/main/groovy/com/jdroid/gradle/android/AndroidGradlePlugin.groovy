@@ -45,7 +45,10 @@ public abstract class AndroidGradlePlugin implements Plugin<Project> {
 		}
 
 		project.task('verifyMissingTranslationsBetweenLocales', type: VerifyMissingTranslationsBetweenLocalesTask)
+		project.tasks.'check'.dependsOn 'verifyMissingTranslationsBetweenLocales'
+
 		project.task('verifyMissingTranslations', type: VerifyMissingTranslationsTask)
+
 	}
 
 	protected Class<? extends AndroidGradlePluginExtension> getExtensionClass() {

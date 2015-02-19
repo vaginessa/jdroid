@@ -1,4 +1,4 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.jdroid.android.library'
 apply plugin: 'maven'
 
 description = 'Jdroid Android'
@@ -11,7 +11,7 @@ repositories {
 
 buildscript {
 	dependencies {
-		classpath 'com.android.tools.build:gradle:1.0.1'
+		classpath 'com.jdroidframework:jdroid-gradle-plugin:0.7.0-SNAPSHOT'
 	}
 }
 
@@ -42,11 +42,6 @@ dependencies {
 
 	// Module dependencies
 	compile project(':jdroid-java')
-//		exclude group: 'org.apache.httpcomponents', module: 'httpclient'
-//		exclude group: 'org.apache.httpcomponents', module: 'httpcore'
-//		exclude group: 'org.json', module: 'json'
-//		exclude group: 'org.slf4j', module: 'slf4j-api'
-//	}
 
 //	testCompile 'com.pivotallabs:robolectric:1.2:jar-with-dependencies'
 //	testCompile 'junit:junit:4.8.2'
@@ -55,30 +50,11 @@ dependencies {
 group = 'com.jdroidframework'
 version = '0.7.0-SNAPSHOT'
 
+jdroid {
+	notDefaultLanguages = ['es']
+}
+
 android {
-	compileSdkVersion 21
-	buildToolsVersion "21.1.2"
-
-	defaultConfig {
-		minSdkVersion 14
-		targetSdkVersion 21
-		versionCode 190000000
-		versionName '1.0.0'
-	}
-
-	compileOptions {
-		sourceCompatibility JavaVersion.VERSION_1_7
-		targetCompatibility JavaVersion.VERSION_1_7
-	}
-
-	lintOptions {
-		abortOnError false
-	}
-
-	packagingOptions {
-		exclude 'META-INF/LICENSE'
-		exclude 'META-INF/NOTICE'
-	}
 
 	// TODO We will publish the debug version until we discover how to publish both debug and release
 	//publishNonDefault true
