@@ -14,24 +14,20 @@ then
 	exit 1;
 fi
 
-./gradlew build
-
 # ************************
 # jdroid
 # ************************
 
-#mvn clean install -P jdroid-test
+./gradlew build
 
-# Validate localizations
-#VALIDATE_LOCALIZATIONS=./jdroid-scripts/android/validateLocalizations.sh
-#sh $VALIDATE_LOCALIZATIONS 'string name=' './jdroid-android/res/values/strings.xml' './jdroid-android/res/values-es/strings.xml'
+# ************************
+# jdroid sample android
+# ************************
 
-# Missing translations validation
-#VALIDATE_MISSING=./jdroid-scripts/android/validateMissingTranslations.sh
-#sh $VALIDATE_MISSING './jdroid-android/res/values/strings.xml'
-#sh $VALIDATE_MISSING './jdroid-android/res/values-es/strings.xml'
-#sh $VALIDATE_MISSING './jdroid-sample-android/res/values/strings.xml'
-#sh $VALIDATE_MISSING './jdroid-sample-android/res/values-es/strings.xml'
+cd jdroid-sample-android
+../gradle build
+
+
 
 
 #if [ "$INSTALL" = "true" ]
