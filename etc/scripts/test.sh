@@ -25,7 +25,7 @@ fi
 # ************************
 
 cd jdroid-sample-android
-../gradle build
+../gradlew build
 
 
 
