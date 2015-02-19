@@ -1,13 +1,15 @@
 package com.jdroid.java.marshaller;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import com.jdroid.java.collections.Lists;
+import com.jdroid.java.json.JsonMap;
+
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import com.jdroid.java.collections.Lists;
-import com.jdroid.java.json.JsonMap;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class MarshallerProviderTest {
 	
@@ -22,7 +24,7 @@ public class MarshallerProviderTest {
 	 * @return The different cases
 	 */
 	@DataProvider
-	public Iterator<Object[]> masrsallDataProvider() {
+	public Iterator<Object[]> marshallDataProvider() {
 		List<Object[]> cases = Lists.newArrayList();
 		cases.add(new Object[] { 1, "1" });
 		cases.add(new Object[] { "1", "1" });
@@ -33,14 +35,14 @@ public class MarshallerProviderTest {
 		String dummyJson = "{\"listLongProperty\":[5,6],\"listStringProperty\":[\"3\",\"4\"],\"stringProperty\":\"1\",\"longProperty\":2}";
 		cases.add(new Object[] { dummyClass, dummyJson });
 		cases.add(new Object[] { Lists.newArrayList(dummyClass, dummyClass), "[" + dummyJson + "," + dummyJson + "]" });
-		
+
 		cases.add(new Object[] { new DummyClass(), "{}" });
 		
 		return cases.iterator();
 	}
 	
-	@Test(dataProvider = "masrsallDataProvider")
-	public void masrsall(Object data, String expectedJson) {
+	@Test(dataProvider = "marshallDataProvider")
+	public void marshall(Object data, String expectedJson) {
 		String result = marshallerProvider.marshall(data, null, null).toString();
 		Assert.assertEquals(result.replace(" ", ""), expectedJson);
 	}

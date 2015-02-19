@@ -27,6 +27,14 @@ fi
 cd jdroid-sample-android
 ../gradlew build
 
+# ************************
+# jdroid sample server
+# ************************
+
+cd ../jdroid-sample-server
+../gradlew build
+
+
 
 
 
