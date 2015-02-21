@@ -13,6 +13,14 @@ public class Sanitizer {
 		}
 		return plain;
 	}
+
+	public static String plainStringWithoutExtraSpaces(String text) {
+		String plain = plainString(text);
+		if (text != null) {
+			plain = plain.replaceAll("\\s{2,}", " ").trim();
+		}
+		return plain;
+	}
 	
 	public static String plainStringWithoutNumbers(String text) {
 		String withoutNumbers = removeNumbers(text);
