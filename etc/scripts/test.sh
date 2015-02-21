@@ -32,6 +32,8 @@ cd jdroid-sample-android
 # ************************
 
 cd ../jdroid-sample-server
+
+GRADLE_USER_HOME=$(pwd)/etc/travis
 ../gradlew build
 
 
