@@ -22,12 +22,17 @@ version = '0.7.0-SNAPSHOT'
 project.afterEvaluate {
 
 	project.task('generateSettings') << {
+
+		def googleServerApiKeyValue = project.hasProperty('googleServerApiKey') ? googleServerApiKey : System.getenv('googleServerApiKey')
+		def httpMockEnabledValue = project.hasProperty('httpMockEnabled') ? httpMockEnabled : System.getenv('httpMockEnabled')
+		def httpMockSleepDurationValue = project.hasProperty('httpMockSleepDuration') ? httpMockSleepDuration : System.getenv('httpMockSleepDuration')
+
 		new File("$projectDir/src/main/resources/settings.properties").withWriter { out ->
 			out.writeLine("appName=${project.name}")
 			out.writeLine("appVersion=${project.version}")
-			out.writeLine("googleServerApiKey=${googleServerApiKey}")
-			out.writeLine("httpMockEnabled=${httpMockEnabled}")
-			out.writeLine("httpMockSleepDuration=${httpMockSleepDuration}")
+			out.writeLine("googleServerApiKey=${googleServerApiKeyValue}")
+			out.writeLine("httpMockEnabled=${httpMockEnabledValue}")
+			out.writeLine("httpMockSleepDuration=${httpMockSleepDurationValue}")
 		}
 	}
 
