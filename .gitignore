@@ -27,6 +27,8 @@ jdroid-gradle-plugin/*.iml
 jdroid-sample-server/build/
 jdroid-sample-server/*.iml
 jdroid-sample-server/local.properties
+jdroid-sample-server/gradle.properties
+jdroid-sample-server/src/main/resources/settings.properties
 
 jdroid-sample-android/build/
 jdroid-sample-android/*.iml
