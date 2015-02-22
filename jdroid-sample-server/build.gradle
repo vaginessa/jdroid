@@ -42,5 +42,5 @@ project.afterEvaluate {
 }
 
 // Task to make Heroku Gradle Build Pack work. https://github.com/heroku/heroku-buildpack-gradle
-task heroku(dependsOn: ':jdroid-sample-server:assemble') << {
+task stage(dependsOn: ':jdroid-sample-server:assemble') << {
 }

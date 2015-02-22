@@ -21,6 +21,10 @@ buildscript {
 	}
 }
 
+configurations.all {
+	resolutionStrategy.cacheChangingModulesFor 30, 'seconds'
+}
+
 buildscript {
 	dependencies {
 		classpath 'com.jdroidframework:jdroid-gradle-plugin:0.7.0-SNAPSHOT'
