@@ -7,6 +7,8 @@
       <module fileurl="file://$PROJECT_DIR$/jdroid-gradle-plugin/jdroid-gradle-plugin.iml" filepath="$PROJECT_DIR$/jdroid-gradle-plugin/jdroid-gradle-plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/jdroid-java/jdroid-java.iml" filepath="$PROJECT_DIR$/jdroid-java/jdroid-java.iml" />
       <module fileurl="file://$PROJECT_DIR$/jdroid-javaweb/jdroid-javaweb.iml" filepath="$PROJECT_DIR$/jdroid-javaweb/jdroid-javaweb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jdroid-sample-android/jdroid-sample-android.iml" filepath="$PROJECT_DIR$/jdroid-sample-android/jdroid-sample-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jdroid-sample-server/jdroid-sample-server.iml" filepath="$PROJECT_DIR$/jdroid-sample-server/jdroid-sample-server.iml" />
     </modules>
   </component>
 </project>
