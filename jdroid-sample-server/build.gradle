@@ -9,6 +9,9 @@ repositories {
 	}
 }
 
+configurations.all {
+	resolutionStrategy.cacheChangingModulesFor 30, 'seconds'
+}
 
 dependencies {
 	compile 'com.jdroidframework:jdroid-javaweb:0.7.0-SNAPSHOT'
@@ -36,4 +39,8 @@ project.afterEvaluate {
 
 	project.tasks.'processResources'.dependsOn 'generateSettings'
 
+}
+
+// Task to make Heroku Gradle Build Pack work. https://github.com/heroku/heroku-buildpack-gradle
+task heroku(dependsOn: ':jdroid-sample-server:assemble') << {
 }
