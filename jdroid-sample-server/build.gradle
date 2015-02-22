@@ -40,7 +40,3 @@ project.afterEvaluate {
 	project.tasks.'processResources'.dependsOn 'generateSettings'
 
 }
-
-// Task to make Heroku Gradle Build Pack work. https://github.com/heroku/heroku-buildpack-gradle
-task stage(dependsOn: ':jdroid-sample-server:assemble') << {
-}
