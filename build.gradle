@@ -17,4 +17,9 @@ allprojects {
 			url "http://dl.dropbox.com/u/8520947/maven-repository/"
 		}
     }
+
+	// Task to make Heroku Gradle Build Pack work. https://github.com/heroku/heroku-buildpack-gradle
+	task stage(dependsOn: ':jdroid-sample-server:assemble') << {
+	}
 }
+
