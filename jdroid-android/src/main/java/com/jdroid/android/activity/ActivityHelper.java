@@ -1,7 +1,5 @@
 package com.jdroid.android.activity;
 
-import java.util.List;
-import org.slf4j.Logger;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -31,6 +29,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.ActivityLauncher;
@@ -55,6 +54,10 @@ import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.ReflectionUtils;
+
+import org.slf4j.Logger;
+
+import java.util.List;
 
 public class ActivityHelper implements ActivityIf {
 	
@@ -537,7 +540,7 @@ public class ActivityHelper implements ActivityIf {
 			if (upIntent == null) {
 				upIntent = NavUtils.getParentActivityIntent(activity);
 			}
-			if (NavUtils.shouldUpRecreateTask(activity, upIntent)) {
+			if (upIntent != null && NavUtils.shouldUpRecreateTask(activity, upIntent)) {
 				// This activity is NOT part of this app's task, so create a new task
 				// when navigating up, with a synthesized back stack.
 				TaskStackBuilder builder = TaskStackBuilder.create(activity);

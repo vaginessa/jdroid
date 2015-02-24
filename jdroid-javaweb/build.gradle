@@ -81,3 +81,8 @@ task sourcesJar(type: Jar) {
 artifacts {
 	archives javadocJar, sourcesJar
 }
+
+test {
+	useTestNG {
+	}
+}
