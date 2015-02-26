@@ -17,7 +17,7 @@ set -e
 # ************************
 
 cd jdroid-sample-android
-../gradlew build
+../gradlew check assembleUat countMethodsSummary
 
 # ************************
 # jdroid sample server

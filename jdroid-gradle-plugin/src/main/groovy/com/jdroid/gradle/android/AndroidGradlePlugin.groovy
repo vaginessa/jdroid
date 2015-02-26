@@ -13,7 +13,7 @@ public abstract class AndroidGradlePlugin implements Plugin<Project> {
 	public void apply(Project project) {
 		this.project = project
 
-		project.extensions.create("jdroid", getExtensionClass())
+		project.extensions.create("jdroid", getExtensionClass(), this)
 
 		applyAndroidPlugin()
 
@@ -58,40 +58,4 @@ public abstract class AndroidGradlePlugin implements Plugin<Project> {
 	protected abstract void applyAndroidPlugin();
 }
 
-
-
-public class AndroidGradlePluginExtension {
-
-	String[] resourcesDirsPaths = ['src/main/res/']
-	String[] notDefaultLanguages = []
-
-	public String gitSha() {
-		return 'git rev-parse --short HEAD'.execute().text.trim()
-	}
-
-	public String buildTime() {
-		def df = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-		df.setTimeZone(TimeZone.getDefault())
-		return df.format(new Date())
-	}
-
-	public String branch() {
-		return 'git symbolic-ref HEAD'.execute().text.trim().replaceAll(".*/", "")
-	}
-
-	public void setString(def flavor, String key, def value, String defaultValue) {
-		value = value == "null" ? defaultValue : value
-		flavor.buildConfigField "String", key, value
-	}
-
-	public void setBoolean(def flavor, String key, def value, def defaultValue) {
-		value = value == "null" ? defaultValue : value
-		flavor.buildConfigField "boolean", key, value
-	}
-
-	public void setInteger(def flavor, String key, def value, def defaultValue) {
-		value = value == "null" ? defaultValue : value
-		flavor.buildConfigField "Integer", key, value
-	}
-}
 

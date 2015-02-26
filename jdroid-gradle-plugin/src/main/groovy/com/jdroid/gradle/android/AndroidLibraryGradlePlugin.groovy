@@ -1,7 +1,7 @@
 package com.jdroid.gradle.android
 
-import org.gradle.api.Project
 import com.android.build.gradle.LibraryPlugin
+import org.gradle.api.Project
 
 public class AndroidLibraryGradlePlugin extends AndroidGradlePlugin {
 
@@ -19,6 +19,3 @@ public class AndroidLibraryGradlePlugin extends AndroidGradlePlugin {
 	}
 }
 
-public class AndroidLibraryGradlePluginExtension extends AndroidGradlePluginExtension {
-
-}

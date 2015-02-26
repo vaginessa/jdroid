@@ -31,11 +31,3 @@ public class AndroidApplicationGradlePlugin extends AndroidGradlePlugin {
 		project.apply plugin: AppPlugin
 	}
 }
-
-public class AndroidApplicationGradlePluginExtension extends AndroidGradlePluginExtension {
-
-	def versionMajor
-	def versionMinor
-	def versionPatch
-
-}

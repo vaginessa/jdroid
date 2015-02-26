@@ -21,9 +21,9 @@ buildscript {
 	}
 }
 
-configurations.all {
-	resolutionStrategy.cacheChangingModulesFor 30, 'seconds'
-}
+//configurations.all {
+//	resolutionStrategy.cacheChangingModulesFor 30, 'seconds'
+//}
 
 buildscript {
 	dependencies {
@@ -32,9 +32,30 @@ buildscript {
 }
 
 dependencies {
-	compile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT'
+//	compile project(':jdroid-android')
+    compile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT'
 //	compile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT:debug'
 //	releaseCompile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT:release'
+
+	testCompile 'junit:junit:4.12'
+	testCompile "org.mockito:mockito-core:1.9.5"
+	testCompile('org.robolectric:robolectric:2.4') {
+		exclude module: 'classworlds'
+		exclude module: 'commons-logging'
+		exclude module: 'httpclient'
+		exclude module: 'maven-artifact'
+		exclude module: 'maven-artifact-manager'
+		exclude module: 'maven-error-diagnostics'
+		exclude module: 'maven-model'
+		exclude module: 'maven-project'
+		exclude module: 'maven-settings'
+		exclude module: 'plexus-container-default'
+		exclude module: 'plexus-interpolation'
+		exclude module: 'plexus-utils'
+		exclude module: 'wagon-file'
+		exclude module: 'wagon-http-lightweight'
+		exclude module: 'wagon-provider-api'
+	}
 }
 
 jdroid {
@@ -49,6 +70,7 @@ jdroid {
 android {
 
 	defaultConfig {
+
 		versionCode 140000000 + jdroid.versionMajor * 10000 + jdroid.versionMinor * 100 + jdroid.versionPatch
 		versionName "${jdroid.versionMajor}.${jdroid.versionMinor}.${jdroid.versionPatch}"
 
@@ -64,31 +86,31 @@ android {
 		}
 
 		// Common
-		defaultConfig.buildConfigField "String", "BUILD_TIME", "\"${jdroid.buildTime()}\""
-		defaultConfig.buildConfigField "String", "GIT_SHA", "\"${jdroid.gitSha()}\""
-		defaultConfig.buildConfigField "String", "GIT_BRANCH", "\"${jdroid.branch()}\""
+		jdroid.setString(defaultConfig, "BUILD_TIME", jdroid.buildTime())
+		jdroid.setString(defaultConfig, "GIT_SHA", jdroid.gitSha())
+		jdroid.setString(defaultConfig, "GIT_BRANCH", jdroid.branch())
 
-		jdroid.setBoolean(defaultConfig, "GOOGLE_ANALYTICS_ENABLED", GOOGLE_ANALYTICS_ENABLED, "true")
-		jdroid.setString(defaultConfig, "GOOGLE_ANALYTICS_TRACKING_ID", GOOGLE_ANALYTICS_TRACKING_ID, "\"UA-9898638-5\"")
-		jdroid.setBoolean(defaultConfig, "GOOGLE_ANALYTICS_DEBUG_ENABLED", GOOGLE_ANALYTICS_DEBUG_ENABLED, "true")
+		jdroid.setBoolean(defaultConfig, "GOOGLE_ANALYTICS_ENABLED", true)
+		jdroid.setString(defaultConfig, "GOOGLE_ANALYTICS_TRACKING_ID", "UA-9898638-5")
+		jdroid.setBoolean(defaultConfig, "GOOGLE_ANALYTICS_DEBUG_ENABLED", true)
 
 		// TODO Add GOOGLE_PROJECT_ID
-		jdroid.setString(defaultConfig, "GOOGLE_PROJECT_ID", GOOGLE_PROJECT_ID, "\"????????\"")
+		jdroid.setString(defaultConfig, "GOOGLE_PROJECT_ID", "????????")
 		// TODO Add FACEBOOK_APP_ID
-		jdroid.setString(defaultConfig, "FACEBOOK_APP_ID", FACEBOOK_APP_ID, "\"????????\"")
+		jdroid.setString(defaultConfig, "FACEBOOK_APP_ID", "????????")
 
 
-		jdroid.setBoolean(defaultConfig, "CRASHLYTICS_ENABLED", CRASHLYTICS_ENABLED, "true")
-		jdroid.setBoolean(defaultConfig, "CRASHLYTICS_DEBUG_ENABLED", CRASHLYTICS_DEBUG_ENABLED, "true")
+		jdroid.setBoolean(defaultConfig, "CRASHLYTICS_ENABLED", true)
+		jdroid.setBoolean(defaultConfig, "CRASHLYTICS_DEBUG_ENABLED", true)
 
 
-		jdroid.setString(defaultConfig, "LOCAL_IP", LOCAL_IP, "\"\"")
+		jdroid.setString(defaultConfig, "LOCAL_IP", null)
 
-		jdroid.setString(defaultConfig, "INSTALLATION_SOURCE", INSTALLATION_SOURCE, "\"GooglePlay\"")
+		jdroid.setString(defaultConfig, "INSTALLATION_SOURCE", "GooglePlay")
 
-		jdroid.setBoolean(defaultConfig, "ADS_ENABLED", ADS_ENABLED, "true")
-		jdroid.setString(defaultConfig, "AD_UNIT_ID", AD_UNIT_ID, "\"ca-app-pub-4654922738884963/8672724544\"")
-		jdroid.setString(defaultConfig, "ADS_TEST_DEVICES_IDS", ADS_TEST_DEVICES_IDS, "\"\"")
+		jdroid.setBoolean(defaultConfig, "ADS_ENABLED", true)
+		jdroid.setString(defaultConfig, "AD_UNIT_ID", "ca-app-pub-4654922738884963/8672724544")
+		jdroid.setString(defaultConfig, "ADS_TEST_DEVICES_IDS", null)
 
 		manifestPlaceholders = [googleMapsApiKey: "AIzaSyDhgOTyv5EqcYckAnPI1Cdms-1DxBYhjjA", crashlyticsApiKey: "478dae49374362f33bc054fc44d1f4242c574ccb"]
 	}
@@ -109,23 +131,25 @@ android {
 		debug {
 			signingConfig signingConfigs.debug
 
-			jdroid.setBoolean(buildTypes.debug, "CRASHLYTICS_ENABLED", CRASHLYTICS_ENABLED, "false")
-			jdroid.setString(buildTypes.debug, "SERVER_NAME", SERVER_NAME, "\"DEV\"")
+			jdroid.setBoolean(buildTypes.debug, "CRASHLYTICS_ENABLED", false)
+			jdroid.setString(buildTypes.debug, "SERVER_NAME", "DEV")
 		}
 
 		uat {
 			signingConfig signingConfigs.debug
 
-			jdroid.setString(buildTypes.uat, "SERVER_NAME", SERVER_NAME, "\"UAT\"")
+			jdroid.setString(buildTypes.uat, "SERVER_NAME", "UAT")
 
 		}
 
 		release {
 
-			jdroid.setBoolean(buildTypes.release, "GOOGLE_ANALYTICS_DEBUG_ENABLED", GOOGLE_ANALYTICS_DEBUG_ENABLED, "false")
-			jdroid.setBoolean(buildTypes.release, "CRASHLYTICS_DEBUG_ENABLED", CRASHLYTICS_DEBUG_ENABLED, "false")
+			signingConfig signingConfigs.release
 
-			jdroid.setString(buildTypes.release, "SERVER_NAME", SERVER_NAME, "\"PROD\"")
+			jdroid.setBoolean(buildTypes.release, "GOOGLE_ANALYTICS_DEBUG_ENABLED", false)
+			jdroid.setBoolean(buildTypes.release, "CRASHLYTICS_DEBUG_ENABLED", false)
+
+			jdroid.setString(buildTypes.release, "SERVER_NAME", "PROD")
 
 			// TODO Add GOOGLE_ANALYTICS_TRACKING_ID
 			// TODO Add FACEBOOK_APP_ID
@@ -138,6 +162,10 @@ android {
 		java.srcDirs = ['src/debug/java']
 		resources.srcDirs = ['src/debug/resources']
 	}
+
+	sourceSets.test.java.srcDirs += "build/generated/source/r/debug"
+	sourceSets.test.java.srcDirs += sourceSets.main.java.srcDirs
+	sourceSets.test.java.srcDirs += sourceSets.debug.java.srcDirs
 }
 
 

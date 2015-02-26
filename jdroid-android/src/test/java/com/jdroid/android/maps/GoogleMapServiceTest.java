@@ -1,9 +1,7 @@
-package com.jdroid.android;
+package com.jdroid.android.maps;
 
+import com.jdroid.android.CustomRobolectricRunner;
 import com.jdroid.android.domain.GeoLocation;
-import com.jdroid.android.maps.GoogleMapService;
-import com.jdroid.android.maps.Route;
-import com.jdroid.android.maps.RouteMode;
 
 import org.junit.Before;
 import org.junit.Test;
