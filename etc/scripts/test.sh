@@ -10,7 +10,7 @@ set -e
 # jdroid
 # ************************
 
-./gradlew build
+./gradlew clean build
 
 # ************************
 # jdroid sample android

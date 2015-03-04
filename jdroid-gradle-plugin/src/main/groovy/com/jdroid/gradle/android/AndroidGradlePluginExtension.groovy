@@ -1,14 +1,14 @@
 package com.jdroid.gradle.android
 
-public class AndroidGradlePluginExtension {
+import com.jdroid.gradle.commons.BaseGradleExtension
+
+public class AndroidGradlePluginExtension extends BaseGradleExtension {
 
 	String[] resourcesDirsPaths = ['src/main/res/']
 	String[] notDefaultLanguages = []
 
-	protected final AndroidGradlePlugin androidGradlePlugin
-
 	public AndroidGradlePluginExtension(AndroidGradlePlugin androidGradlePlugin) {
-		this.androidGradlePlugin = androidGradlePlugin
+		super(androidGradlePlugin)
 	}
 
 	public String gitSha() {
@@ -39,14 +39,5 @@ public class AndroidGradlePluginExtension {
 	public void setInteger(def flavor, String propertyName, Integer defaultValue) {
 		def value = getProp(propertyName, defaultValue).toString()
 		flavor.buildConfigField "Integer", propertyName, value
-	}
-
-	public def getProp(String propertyName) {
-		return getProp(propertyName, null)
-	}
-
-	public def getProp(String propertyName, def defaultValue) {
-		def value = androidGradlePlugin.project.hasProperty(propertyName) ? androidGradlePlugin.project.ext.get(propertyName) : System.getenv(propertyName)
-		return value != null ? value : defaultValue
 	}
 }
