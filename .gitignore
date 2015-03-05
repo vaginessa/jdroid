@@ -33,3 +33,5 @@ jdroid-sample-server/src/main/resources/settings.properties
 jdroid-sample-android/build/
 jdroid-sample-android/*.iml
 jdroid-sample-android/local.properties
+jdroid-sample-android/gradle.properties
+

@@ -42,6 +42,7 @@ project.afterEvaluate {
 		new File("$projectDir/src/main/resources/settings.properties").withWriter { out ->
 			out.writeLine("appName=${project.name}")
 			out.writeLine("appVersion=${project.version}")
+			out.writeLine("buildTime=${jdroid.buildTime()}")
 			out.writeLine("googleServerApiKey=${jdroid.getProp('googleServerApiKey')}")
 			out.writeLine("httpMockEnabled=${jdroid.getProp('httpMockEnabled', false)}")
 			out.writeLine("httpMockSleepDuration=${jdroid.getProp('httpMockSleepDuration', 10)}")

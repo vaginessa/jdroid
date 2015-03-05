@@ -8,7 +8,8 @@ public class AppContext {
 	private String appName;
 	private String appVersion;
 	private String appHomePath;
-	
+
+	private String buildTime;
 	private String apiVersion;
 	private String minApiVersion;
 	
@@ -197,5 +198,13 @@ public class AppContext {
 	 */
 	public void setTwitterEnabled(Boolean twitterEnabled) {
 		this.twitterEnabled = twitterEnabled;
+	}
+
+	public String getBuildTime() {
+		return buildTime;
+	}
+
+	public void setBuildTime(String buildTime) {
+		this.buildTime = buildTime;
 	}
 }

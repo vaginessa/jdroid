@@ -1,16 +1,18 @@
 package com.jdroid.javaweb.api;
 
-import java.nio.charset.Charset;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.TimeZone;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.common.collect.Maps;
 import com.jdroid.java.context.GitContext;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.javaweb.context.Application;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.nio.charset.Charset;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TimeZone;
 
 public class AdminController extends AbstractController {
 	
@@ -21,6 +23,7 @@ public class AdminController extends AbstractController {
 		Map<String, Object> infoMap = Maps.newLinkedHashMap();
 		infoMap.put("App Name", Application.get().getAppContext().getAppName());
 		infoMap.put("App Version", Application.get().getAppContext().getAppVersion());
+		infoMap.put("Build Time", Application.get().getAppContext().getBuildTime());
 		infoMap.put("Git Branch", GitContext.get().getBranch());
 		infoMap.put("Git Commit Id", GitContext.get().getCommitId());
 		infoMap.put("Git Commit Time", GitContext.get().getCommitTime());

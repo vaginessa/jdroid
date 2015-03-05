@@ -13,13 +13,12 @@ public class AndroidApplicationGradlePlugin extends AndroidGradlePlugin {
 		super.apply(project);
 
 		project.task('countMethodsReport', type: CountMethodsReportTask)
-
 		project.task('countMethodsSummary', type: CountMethodsSummaryTask)
-		project.tasks.'check'.dependsOn 'countMethodsSummary'
 
 		project.task('incrementMajorVersion', type: IncrementMajorVersionTask)
 		project.task('incrementMinorVersion', type: IncrementMinorVersionTask)
 		project.task('incrementPatchVersion', type: IncrementPatchVersionTask)
+
 		project.task('googlePlayPublish', type: GooglePlayPublisherTask)
 	}
 

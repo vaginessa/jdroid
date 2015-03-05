@@ -18,6 +18,7 @@
 	<bean id="appContext" class="com.jdroid.javaweb.context.AppContext">
 		<property name="appName" value="${appName}" />
 		<property name="appVersion" value="${appVersion}" />
+		<property name="buildTime" value="${buildTime}" />
 		<property name="googleServerApiKey" value="${googleServerApiKey}" />
 		<property name="httpMockEnabled" value="${httpMockEnabled}" />
 		<property name="httpMockSleepDuration" value="${httpMockSleepDuration}" />
