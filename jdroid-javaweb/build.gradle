@@ -1,5 +1,8 @@
 apply plugin: 'java'
-apply plugin: 'maven'
+
+description = 'Jdroid Java Web'
+
+def springVersion = '3.2.4.RELEASE'
 
 dependencies {
 
@@ -12,11 +15,11 @@ dependencies {
 	compile "org.slf4j:slf4j-log4j12:1.6.3"
 
 	// Spring
-	compile "org.springframework:spring-core:3.2.4.RELEASE"
-	compile "org.springframework:spring-web:3.2.4.RELEASE"
-	compile "org.springframework:spring-webmvc:3.2.4.RELEASE"
-	compile "org.springframework:spring-orm:3.2.4.RELEASE"
-	compile "org.springframework:spring-context-support:3.2.4.RELEASE"
+	compile "org.springframework:spring-core:" + springVersion
+	compile "org.springframework:spring-web:" + springVersion
+	compile "org.springframework:spring-webmvc:" + springVersion
+	compile "org.springframework:spring-orm:" + springVersion
+	compile "org.springframework:spring-context-support:" + springVersion
 
 	// Hibernate
 	compile "org.hibernate:hibernate-core:3.6.10.Final"
@@ -55,17 +58,6 @@ dependencies {
 	// Testing
 	testCompile "org.testng:testng:6.3"
 	testCompile "org.mockito:mockito-all:1.8.5"
-}
-
-group = 'com.jdroidframework'
-version = '0.7.0-SNAPSHOT'
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: uri('/Users/maxirosson/Dropbox/Public/maven-repository'))
-        }
-    }
 }
 
 task javadocJar(type: Jar) {

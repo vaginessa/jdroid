@@ -1,6 +1,7 @@
 apply plugin: 'groovy'
-apply plugin: 'maven'
 apply plugin: 'signing'
+
+description = 'Jdroid Gradle Plugin'
 
 dependencies {
     compile gradleApi()
@@ -12,17 +13,6 @@ dependencies {
 
 	// Module dependencies
 	compile project(':jdroid-java')
-}
-
-group = 'com.jdroidframework'
-version = '0.7.0-SNAPSHOT'
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: uri('/Users/maxirosson/Dropbox/Public/maven-repository'))
-        }
-    }
 }
 
 task javadocJar(type: Jar) {

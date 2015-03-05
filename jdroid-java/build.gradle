@@ -1,5 +1,6 @@
 apply plugin: 'java'
-apply plugin: 'maven'
+
+description = 'Jdroid Java'
 
 dependencies {
 	compile "org.apache.httpcomponents:httpclient:4.1.2"
@@ -25,17 +26,6 @@ dependencies {
 	// Testing
 	testCompile "org.testng:testng:6.3"
 	testCompile "org.mockito:mockito-all:1.8.5"
-}
-
-group = 'com.jdroidframework'
-version = '0.7.0-SNAPSHOT'
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: uri('/Users/maxirosson/Dropbox/Public/maven-repository'))
-        }
-    }
 }
 
 task javadocJar(type: Jar) {

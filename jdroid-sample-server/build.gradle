@@ -2,6 +2,7 @@ apply plugin: 'jetty'
 apply plugin: 'com.jdroid.java'
 
 description = 'Jdroid Sample Server'
+version = '0.7.0-SNAPSHOT'
 
 repositories {
 	mavenCentral()
@@ -32,8 +33,6 @@ buildscript {
 dependencies {
 	compile 'com.jdroidframework:jdroid-javaweb:0.7.0-SNAPSHOT'
 }
-
-version = '0.7.0-SNAPSHOT'
 
 // Generate the settings.properties
 project.afterEvaluate {
