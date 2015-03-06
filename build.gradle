@@ -30,42 +30,44 @@ subprojects {
 		repositories {
 			mavenDeployer {
 				repository(url: uri('/Users/maxirosson/Dropbox/Public/maven-repository'))
-				pom.project {
-					description 'Application Framework for Android and Java apps.'
-					inceptionYear '2011'
-					organization {
-						name 'Jdroid'
-						url 'http://www.jdroidframework.com'
-					}
-					licenses {
-						license {
-							name 'The Apache License, Version 2.0'
-							url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-							distribution 'repo'
-						}
-					}
-					developers {
-						developer {
-							name 'Maxi Rosson'
-							email 'jdroidsoft@gmail.com'
-							roles {
-								role 'architect'
-        						role 'developer'
-							}
-						}
-					}
-					scm {
-						connection 'scm:git:git@github.com:maxirosson/jdroid.git'
-						developerConnection 'scm:git:git@github.com:maxirosson/jdroid.git'
-						url 'git@github.com:maxirosson/jdroid.git'
-					}
-					issueManagement {
-						system 'GitHub'
-    					url 'https://github.com/maxirosson/jdroid/issues'
-					}
-				}
+// FIXME The following configuration is removing the dependencies section on the generated pom
+//				pom.project {
+//					description 'Application Framework for Android and Java apps.'
+//					inceptionYear '2011'
+//					organization {
+//						name 'Jdroid'
+//						url 'http://www.jdroidframework.com'
+//					}
+//					licenses {
+//						license {
+//							name 'The Apache License, Version 2.0'
+//							url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+//							distribution 'repo'
+//						}
+//					}
+//					developers {
+//						developer {
+//							name 'Maxi Rosson'
+//							email 'jdroidsoft@gmail.com'
+//							roles {
+//								role 'architect'
+//        						role 'developer'
+//							}
+//						}
+//					}
+//					scm {
+//						connection 'scm:git:git@github.com:maxirosson/jdroid.git'
+//						developerConnection 'scm:git:git@github.com:maxirosson/jdroid.git'
+//						url 'git@github.com:maxirosson/jdroid.git'
+//					}
+//					issueManagement {
+//						system 'GitHub'
+//    					url 'https://github.com/maxirosson/jdroid/issues'
+//					}
+//				}
 			}
 		}
 	}
 }
+
 

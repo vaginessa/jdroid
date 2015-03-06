@@ -1,26 +1,22 @@
 package com.jdroid.android.maps;
 
-import com.jdroid.android.CustomRobolectricRunner;
+import com.jdroid.android.AbstractIntegrationTest;
 import com.jdroid.android.domain.GeoLocation;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 
-@RunWith(CustomRobolectricRunner.class)
-public class GoogleMapServiceTest {
+public class GoogleMapServiceTest extends AbstractIntegrationTest {
 
 	private GoogleMapService googleMapService;
 
-	@Before
-	public void setUp() throws Exception {
-		Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
+	@Override
+	protected void onSetup() {
+		super.onSetup();
 		googleMapService = new GoogleMapService();
 	}
 
