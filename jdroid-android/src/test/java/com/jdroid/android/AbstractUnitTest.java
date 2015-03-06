@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 
 @RunWith(CustomRobolectricRunner.class)
-public class AbstractUnitTest {
+public abstract class AbstractUnitTest {
 
 	@Before
 	public final void setUp() throws Exception {
