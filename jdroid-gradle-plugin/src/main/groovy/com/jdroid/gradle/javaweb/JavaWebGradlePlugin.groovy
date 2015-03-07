@@ -17,9 +17,6 @@ public class JavaWebGradlePlugin extends JavaGradlePlugin {
 		}
 
 		project.dependencies {
-			// TODO Remove hardcoded version
-			compile 'com.jdroidframework:jdroid-javaweb:0.7.0-SNAPSHOT'
-
 			// to run our App on Heroku
 			runtimeOnly "org.mortbay.jetty:jetty-runner:8.1.1.v20120215"
 		}
