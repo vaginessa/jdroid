@@ -6,7 +6,6 @@ public class JavaGradlePlugin extends BaseGradlePlugin {
 
 	public void apply(Project project) {
 		super.apply(project)
-
 	}
 
 	protected Class<? extends JavaGradleExtension> getExtensionClass() {
