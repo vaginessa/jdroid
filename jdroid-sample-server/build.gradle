@@ -41,9 +41,9 @@ project.afterEvaluate {
 			out.writeLine("appName=${project.name}")
 			out.writeLine("appVersion=${project.version}")
 			out.writeLine("buildTime=${jdroid.buildTime()}")
-			out.writeLine("googleServerApiKey=${jdroid.getProp('googleServerApiKey')}")
-			out.writeLine("httpMockEnabled=${jdroid.getProp('httpMockEnabled', false)}")
-			out.writeLine("httpMockSleepDuration=${jdroid.getProp('httpMockSleepDuration', 10)}")
+			out.writeLine("googleServerApiKey=${jdroid.getProp('GOOGLE_SERVER_API_KEY')}")
+			out.writeLine("httpMockEnabled=${jdroid.getProp('HTTP_MOCK_ENABLED', false)}")
+			out.writeLine("httpMockSleepDuration=${jdroid.getProp('HTTP_MOCK_SLEEP_DURATION', 10)}")
 		}
 	}
 
