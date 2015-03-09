@@ -1,9 +1,11 @@
 package com.jdroid.javaweb.context;
 
+import com.jdroid.java.context.GitContext;
+import com.jdroid.javaweb.domain.Entity;
+
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import com.jdroid.javaweb.domain.Entity;
 
 /**
  * 
@@ -22,6 +24,7 @@ public class Application<T extends Entity> implements ApplicationContextAware {
 	}
 	
 	private AppContext appContext;
+	private GitContext gitContext;
 	private SecurityContextHolder<T> securityContextHolder;
 	private ApplicationContext springApplicationContext;
 	
@@ -64,5 +67,13 @@ public class Application<T extends Entity> implements ApplicationContextAware {
 	 */
 	public void setAppContext(AppContext appContext) {
 		this.appContext = appContext;
+	}
+
+	public GitContext getGitContext() {
+		return gitContext;
+	}
+
+	public void setGitContext(GitContext gitContext) {
+		this.gitContext = gitContext;
 	}
 }

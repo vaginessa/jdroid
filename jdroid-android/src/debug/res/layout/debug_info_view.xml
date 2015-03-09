@@ -21,14 +21,10 @@
 		<TextView android:id="@+id/simOperatorName" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			style="@string/simOperatorName" />
 
-		<TextView android:id="@+id/branch" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="@string/branch" />
-		<TextView android:id="@+id/commitId" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="@string/commitId" />
-		<TextView android:id="@+id/commitTime" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="@string/commitTime" />
-		<TextView android:id="@+id/buildTime" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="@string/buildTime" />
+		<TextView android:id="@+id/gitBranch" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/gitBranch" />
+		<TextView android:id="@+id/gitSha" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/gitSha" />
 
 	</LinearLayout>
 </merge>

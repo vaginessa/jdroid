@@ -9,7 +9,6 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.collections.Sets;
 import com.jdroid.java.http.Server;
-import com.jdroid.java.utils.PropertiesUtils;
 
 import java.util.Locale;
 import java.util.Set;
@@ -24,15 +23,13 @@ public abstract class AppContext {
 
 	// Environment
 	private Server server;
-	private String serverApiVersion;
-	
+
 	// Ads
 	private Boolean adsEnabled;
 
 	public AppContext() {
 
 		server = findServerByName(getServerName());
-		serverApiVersion = PropertiesUtils.getStringProperty("server.api.version");
 
 		adsEnabled = areAdsEnabledByDefault();
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
@@ -180,7 +177,7 @@ public abstract class AppContext {
 	}
 	
 	public String getServerApiVersion() {
-		return serverApiVersion;
+		return null;
 	}
 	
 	public String getContactUsEmail() {

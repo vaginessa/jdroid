@@ -77,9 +77,7 @@
 	<string name="screenDensity">Screen Density: %1$s</string>
 	<string name="networkOperatorName">Network Operator Name: %1$s</string>
 	<string name="simOperatorName">SIM Operator Name: %1$s</string>
-	<string name="branch">Branch: %1$s</string>
-	<string name="commitId">Commit Id: %1$s</string>
-	<string name="commitTime">Commit Time: %1$s</string>
-	<string name="buildTime">Build Time: %1$s</string>
+	<string name="gitBranch">Git Branch: %1$s</string>
+	<string name="gitSha">Git Sha: %1$s</string>
 
 </resources>

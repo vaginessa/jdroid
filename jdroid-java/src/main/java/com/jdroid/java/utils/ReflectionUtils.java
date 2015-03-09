@@ -1,15 +1,24 @@
 package com.jdroid.java.utils;
 
+import com.jdroid.java.domain.Identifiable;
+import com.jdroid.java.exception.UnexpectedException;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.Collection;
-import com.jdroid.java.domain.Identifiable;
-import com.jdroid.java.exception.UnexpectedException;
 
 /**
  * Reflection related utilities
  */
 public abstract class ReflectionUtils {
+
+	public static Class<?> getClass(String className) {
+		try {
+			return Class.forName(className);
+		} catch (ClassNotFoundException e) {
+			throw new UnexpectedException(e);
+		}
+	}
 	
 	/**
 	 * Create a class for the specified type,.
@@ -57,11 +66,7 @@ public abstract class ReflectionUtils {
 		field.setAccessible(true);
 		try {
 			field.set(object, value);
-		} catch (SecurityException e) {
-			throw new UnexpectedException(e);
-		} catch (IllegalArgumentException e) {
-			throw new UnexpectedException(e);
-		} catch (IllegalAccessException e) {
+		} catch (SecurityException | IllegalArgumentException | IllegalAccessException e) {
 			throw new UnexpectedException(e);
 		} finally {
 			field.setAccessible(false);
@@ -77,9 +82,7 @@ public abstract class ReflectionUtils {
 		field.setAccessible(true);
 		try {
 			return field.get(object);
-		} catch (IllegalArgumentException e) {
-			throw new UnexpectedException(e);
-		} catch (IllegalAccessException e) {
+		} catch (IllegalArgumentException | IllegalAccessException e) {
 			throw new UnexpectedException(e);
 		}
 	}
@@ -94,6 +97,12 @@ public abstract class ReflectionUtils {
 		field.setAccessible(true);
 		return get(field, object);
 	}
+
+	public static Object getStaticFieldValue(Class<?> clazz, String fieldName) {
+		Field field = getField(clazz, fieldName);
+		field.setAccessible(true);
+		return get((Field)field, (Object)null);
+	}
 	
 	/**
 	 * @param object
@@ -103,9 +112,7 @@ public abstract class ReflectionUtils {
 	public static Field getField(Object object, String fieldName) {
 		try {
 			return object.getClass().getDeclaredField(fieldName);
-		} catch (SecurityException e) {
-			throw new UnexpectedException(e);
-		} catch (NoSuchFieldException e) {
+		} catch (SecurityException | NoSuchFieldException e) {
 			throw new UnexpectedException(e);
 		}
 	}
@@ -164,9 +171,7 @@ public abstract class ReflectionUtils {
 		try {
 			Field field = object.getClass().getDeclaredField(fieldName);
 			return field.getType();
-		} catch (SecurityException e) {
-			throw new UnexpectedException(e);
-		} catch (NoSuchFieldException e) {
+		} catch (SecurityException | NoSuchFieldException e) {
 			throw new UnexpectedException(e);
 		}
 	}

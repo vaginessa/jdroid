@@ -11,7 +11,6 @@ import com.jdroid.android.R;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.ScreenUtils;
-import com.jdroid.java.context.GitContext;
 import com.jdroid.java.utils.StringUtils;
 
 public class DebugInfoView extends LinearLayout {
@@ -44,32 +43,18 @@ public class DebugInfoView extends LinearLayout {
 		TextView screenDensity = (TextView)findViewById(R.id.screenDensity);
 		screenDensity.setText(context.getString(R.string.screenDensity, ScreenUtils.getScreenDensity()));
 		
-		TextView branch = (TextView)findViewById(R.id.branch);
-		if (GitContext.get().getBranch() != null) {
-			branch.setText(context.getString(R.string.branch, GitContext.get().getBranch()));
+		TextView gitBranch = (TextView)findViewById(R.id.gitBranch);
+		if (AbstractApplication.get().getGitContext().getBranch() != null) {
+			gitBranch.setText(context.getString(R.string.gitBranch, AbstractApplication.get().getGitContext().getBranch()));
 		} else {
-			branch.setVisibility(View.GONE);
+			gitBranch.setVisibility(View.GONE);
 		}
 		
-		TextView commitId = (TextView)findViewById(R.id.commitId);
-		if (GitContext.get().getCommitId() != null) {
-			commitId.setText(context.getString(R.string.commitId, GitContext.get().getCommitId()));
+		TextView gitSha = (TextView)findViewById(R.id.gitSha);
+		if (AbstractApplication.get().getGitContext().getSha() != null) {
+			gitSha.setText(context.getString(R.string.gitSha, AbstractApplication.get().getGitContext().getSha()));
 		} else {
-			commitId.setVisibility(View.GONE);
-		}
-		
-		TextView commitTime = (TextView)findViewById(R.id.commitTime);
-		if (GitContext.get().getCommitTime() != null) {
-			commitTime.setText(context.getString(R.string.commitTime, GitContext.get().getCommitTime()));
-		} else {
-			commitTime.setVisibility(View.GONE);
-		}
-		
-		TextView buildTime = (TextView)findViewById(R.id.buildTime);
-		if (GitContext.get().getBuildTime() != null) {
-			buildTime.setText(context.getString(R.string.buildTime, GitContext.get().getBuildTime()));
-		} else {
-			buildTime.setVisibility(View.GONE);
+			gitSha.setVisibility(View.GONE);
 		}
 		
 		TextView networkOperatorName = (TextView)findViewById(R.id.networkOperatorName);

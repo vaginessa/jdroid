@@ -16,6 +16,7 @@ import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
+import com.jdroid.android.context.AndroidGitContext;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.exception.DefaultExceptionHandler;
@@ -33,6 +34,7 @@ import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
+import com.jdroid.java.context.GitContext;
 import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.http.cache.Cache;
 import com.jdroid.java.http.cache.CachedWebService;
@@ -78,6 +80,7 @@ public abstract class AbstractApplication extends Application {
 	protected static AbstractApplication INSTANCE;
 	
 	private AppContext appContext;
+	private GitContext gitContext;
 	private DebugContext debugContext;
 	private AnalyticsSender<? extends AnalyticsTracker> analyticsSender;
 	
@@ -113,6 +116,8 @@ public abstract class AbstractApplication extends Application {
 		LOGGER.debug("Executing onCreate on " + this);
 		
 		appContext = createAppContext();
+		gitContext = createGitContext();
+
 		debugContext = createDebugContext();
 		analyticsSender = createAnalyticsSender();
 		
@@ -338,12 +343,29 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	public abstract Class<? extends Activity> getHomeActivityClass();
+
+	public Class<?> getBuildConfigClass() {
+		return ReflectionUtils.getClass(AndroidUtils.getPackageName() + ".BuildConfig");
+	}
+
+	public <T> T getBuildConfigValue(String property) {
+		return (T)ReflectionUtils.getStaticFieldValue(AbstractApplication.get().getBuildConfigClass(), property);
+	}
 	
 	protected abstract AppContext createAppContext();
 
 	public AppContext getAppContext() {
 		return appContext;
 	}
+
+	protected GitContext createGitContext() {
+		return new AndroidGitContext();
+	}
+
+	public GitContext getGitContext() {
+		return gitContext;
+	}
+
 	protected DebugContext createDebugContext() {
 		return new DebugContext();
 	}

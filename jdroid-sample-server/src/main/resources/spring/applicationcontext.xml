@@ -24,8 +24,14 @@
 		<property name="httpMockSleepDuration" value="${httpMockSleepDuration}" />
 	</bean>
 
+	<bean id="gitContext" class="com.jdroid.javaweb.context.ServerGitContext">
+		<property name="branch" value="${gitBranch}" />
+		<property name="sha" value="${gitSha}" />
+	</bean>
+
 	<bean id="application" class="com.jdroid.javaweb.context.Application">
 		<property name="appContext" ref="appContext" />
+		<property name="gitContext" ref="gitContext" />
 	</bean>
 
 	<context:annotation-config />
