@@ -1,7 +1,5 @@
 package com.jdroid.sample.android;
 
-import com.jdroid.android.CustomRobolectricRunner;
-
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
