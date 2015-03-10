@@ -66,6 +66,7 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * Voice Recognizer component
 * Date & Time picker components
 * About dialog component
+ * Contact Us, Spread the Word, Rate Us & Libraries 
 * QuickReturnLayout component
 * Animations
  * Fade in / Fade out
@@ -86,11 +87,20 @@ Dependency project for Java Web apps
 * [Log4j logging support](http://logging.apache.org/log4j/1.2/)
 * Utilities for Collections, CSV, Files, Reflection, [Guava](https://code.google.com/p/guava-libraries/) and more
 
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid Android Tools](https://github.com/maxirosson/jdroid/wiki/jdroid-Android-Tools)
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid Gradle Plugin](https://github.com/maxirosson/jdroid/wiki/jdroid-Gradle-Plugin)
 --------------
-Useful tools for Android apps developers
-* Report the methods invocations in android dex files, package by package
-* Publish APKs and listings (feature/promo graphics, High resolution icon, screenshots, title, short and full descriptions) on Google Play
+Gradle Plugin for Java & Android projects
+* Android
+ * Default Google Android Plugin configuration
+ * Android Tasks
+    * Verify Missing Translations Between Locales
+    * Verify Missing Translations
+    * Report the methods invocations in android dex files, package by package
+    * Increment app version according to [Semantic Versioning](http://semver.org/)
+    * Publish listings on Google Play
+* Java Web
+ * Jetty integration
+ * Heroku integration
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/genericNews.png" width="25" height="25"/> jdroid Scripts](https://github.com/maxirosson/jdroid/wiki/jdroid-Scripts)
 --------------
