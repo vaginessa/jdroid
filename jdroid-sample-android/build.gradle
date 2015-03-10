@@ -112,6 +112,8 @@ android {
 		jdroid.setString(defaultConfig, "AD_UNIT_ID", "ca-app-pub-4654922738884963/8672724544")
 		jdroid.setString(defaultConfig, "ADS_TEST_DEVICES_IDS", null)
 
+		jdroid.setString(defaultConfig, "GOOGLE_PLAY_PUBLIC_KEY", null)
+
 		manifestPlaceholders = [googleMapsApiKey: "AIzaSyDhgOTyv5EqcYckAnPI1Cdms-1DxBYhjjA", crashlyticsApiKey: "478dae49374362f33bc054fc44d1f4242c574ccb"]
 	}
 
@@ -150,6 +152,8 @@ android {
 			jdroid.setBoolean(buildTypes.release, "CRASHLYTICS_DEBUG_ENABLED", false)
 
 			jdroid.setString(buildTypes.release, "SERVER_NAME", "PROD")
+
+			// TODO Add GOOGLE_PLAY_PUBLIC_KEY
 
 			// TODO Add GOOGLE_ANALYTICS_TRACKING_ID
 			// TODO Add FACEBOOK_APP_ID

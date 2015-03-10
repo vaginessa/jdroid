@@ -17,15 +17,16 @@ public class CustomRobolectricRunner extends RobolectricTestRunner {
 
 	@Override
 	protected AndroidManifest getAppManifest(Config config) {
-		String path = "src/test/AndroidManifest.xml";
+		String manifestPath = "src/test/AndroidManifest.xml";
 
 		// android studio has a different execution root for tests than pure gradle
 		// so we avoid here manual effort to get them running inside android studio
-		if (!new File(path).exists()) {
-			path = "jdroid-sample-android/" + path;
+		if (!new File(manifestPath).exists()) {
+			manifestPath = "jdroid-sample-android/" + manifestPath;
 		}
 
-		config = overwriteConfig(config, "manifest", path);
+		config = overwriteConfig(config, "manifest", manifestPath);
+		config = overwriteConfig(config, "resourceDir", "../main/res");
 		return super.getAppManifest(config);
 	}
 

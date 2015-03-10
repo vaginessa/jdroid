@@ -9,6 +9,7 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.collections.Sets;
 import com.jdroid.java.http.Server;
+import com.jdroid.java.utils.StringUtils;
 
 import java.util.Locale;
 import java.util.Set;
@@ -60,7 +61,9 @@ public abstract class AppContext {
 		}
 	}
 
-	protected abstract String getServerName();
+	protected String getServerName() {
+		return AbstractApplication.get().getBuildConfigValue("SERVER_NAME", null);
+	}
 	
 	/**
 	 * @return The Google project ID acquired from the API console
@@ -83,7 +86,9 @@ public abstract class AppContext {
 		return !isProductionEnvironment();
 	}
 
-	public abstract String getBuildType();
+	public String getBuildType() {
+		return AbstractApplication.get().getBuildConfigValue("BUILD_TYPE");
+	}
 
 	/**
 	 * @return Whether the application is running on a production environment
@@ -93,7 +98,7 @@ public abstract class AppContext {
 	}
 
 	public Boolean areAdsEnabledByDefault() {
-		return false;
+		return AbstractApplication.get().getBuildConfigValue("ADS_ENABLED", false);
 	}
 	
 	/**
@@ -108,27 +113,34 @@ public abstract class AppContext {
 	 * @return The MD5-hashed ID of the devices that should display mocked ads
 	 */
 	public Set<String> getTestDevicesIds() {
-		return Sets.newHashSet();
+		String testDevicesIds = AbstractApplication.get().getBuildConfigValue("ADS_TEST_DEVICES_IDS", null);
+		return testDevicesIds != null ? Sets.newHashSet(StringUtils.splitToCollection(testDevicesIds)) : Sets.<String>newHashSet();
 	}
 	
 	/**
 	 * @return The AdMob Publisher ID
 	 */
 	public String getAdUnitId() {
-		return null;
+		return AbstractApplication.get().getBuildConfigValue("AD_UNIT_ID", null);
 	}
 	
 	/**
 	 * @return Whether the application has Google Analytics enabled or not
 	 */
-	public abstract Boolean isGoogleAnalyticsEnabled();
+	public Boolean isGoogleAnalyticsEnabled() {
+		return AbstractApplication.get().getBuildConfigValue("GOOGLE_ANALYTICS_ENABLED", false);
+	}
 	
 	/**
 	 * @return The Google Analytics Tracking ID
 	 */
-	public abstract String getGoogleAnalyticsTrackingId();
+	public String getGoogleAnalyticsTrackingId() {
+		return AbstractApplication.get().getBuildConfigValue("GOOGLE_ANALYTICS_TRACKING_ID", null);
+	}
 	
-	public abstract Boolean isGoogleAnalyticsDebugEnabled();
+	public  Boolean isGoogleAnalyticsDebugEnabled() {
+		return AbstractApplication.get().getBuildConfigValue("GOOGLE_ANALYTICS_DEBUG_ENABLED", false);
+	}
 	
 	public Boolean isHttpMockEnabled() {
 		return !isProductionEnvironment()
@@ -146,15 +158,22 @@ public abstract class AppContext {
 			false);
 	}
 	
-	public abstract String getLocalIp();
+	public String getLocalIp() {
+		return AbstractApplication.get().getBuildConfigValue("LOCAL_IP", null);
+	}
+
 
 	public String getInstallationSource() {
-		return "GooglePlay";
+		return AbstractApplication.get().getBuildConfigValue("INSTALLATION_SOURCE", "GooglePlay");
 	}
 	
-	public abstract Boolean isCrashlyticsEnabled();
+	public Boolean isCrashlyticsEnabled() {
+		return AbstractApplication.get().getBuildConfigValue("CRASHLYTICS_ENABLED", false);
+	}
 	
-	public abstract Boolean isCrashlyticsDebugEnabled();
+	public Boolean isCrashlyticsDebugEnabled() {
+		return AbstractApplication.get().getBuildConfigValue("CRASHLYTICS_DEBUG_ENABLED", false);
+	}
 	
 	public void saveFirstSessionTimestamp() {
 		Long firstSessionTimestamp = getFirstSessionTimestamp();

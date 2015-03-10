@@ -351,7 +351,11 @@ public abstract class AbstractApplication extends Application {
 	public <T> T getBuildConfigValue(String property) {
 		return (T)ReflectionUtils.getStaticFieldValue(AbstractApplication.get().getBuildConfigClass(), property);
 	}
-	
+
+	public <T> T getBuildConfigValue(String property, Object defaultValue) {
+		return (T)ReflectionUtils.getStaticFieldValue(AbstractApplication.get().getBuildConfigClass(), property, defaultValue);
+	}
+
 	protected abstract AppContext createAppContext();
 
 	public AppContext getAppContext() {

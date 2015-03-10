@@ -1,13 +1,14 @@
 package com.jdroid.android.inappbilling;
 
-import java.util.List;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
+
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.utils.PropertiesUtils;
 import com.jdroid.java.utils.StringUtils;
+
+import java.util.List;
 
 public class InAppBillingContext {
 	
@@ -33,7 +34,7 @@ public class InAppBillingContext {
 		// runtime from pieces or use bit manipulation (for example, XOR with some other string) to hide the actual key.
 		// The key itself is not secret information, but we don't want to make it easy for an attacker to replace the
 		// public key with one of their own and then fake messages from the server.
-		googlePlayPublicKey = PropertiesUtils.getStringProperty("google.play.public.key");
+		googlePlayPublicKey = AbstractApplication.get().getBuildConfigValue("GOOGLE_PLAY_PUBLIC_KEY");
 		
 	}
 	

@@ -100,10 +100,21 @@ public abstract class ReflectionUtils {
 
 	public static Object getStaticFieldValue(Class<?> clazz, String fieldName) {
 		Field field = getField(clazz, fieldName);
-		field.setAccessible(true);
 		return get((Field)field, (Object)null);
 	}
-	
+
+	public static Object getStaticFieldValue(Class<?> clazz, String fieldName, Object defaultValue) {
+		Field field = getField(clazz, fieldName);
+		field.setAccessible(true);
+		try {
+			return field.get(null);
+		} catch (IllegalAccessException e) {
+			throw new UnexpectedException(e);
+		} catch (IllegalArgumentException e) {
+			return defaultValue;
+		}
+	}
+
 	/**
 	 * @param object
 	 * @param fieldName
