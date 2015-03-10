@@ -86,9 +86,9 @@ android {
 		}
 
 		// Common
-		jdroid.setString(defaultConfig, "BUILD_TIME", jdroid.buildTime())
-		jdroid.setString(defaultConfig, "GIT_SHA", jdroid.gitSha())
-		jdroid.setString(defaultConfig, "GIT_BRANCH", jdroid.branch())
+		jdroid.setString(defaultConfig, "BUILD_TIME", jdroid.getBuildTime())
+		jdroid.setString(defaultConfig, "GIT_SHA", jdroid.getGitSha())
+		jdroid.setString(defaultConfig, "GIT_BRANCH", jdroid.getGitBranch())
 
 		jdroid.setBoolean(defaultConfig, "GOOGLE_ANALYTICS_ENABLED", true)
 		jdroid.setString(defaultConfig, "GOOGLE_ANALYTICS_TRACKING_ID", "UA-9898638-5")

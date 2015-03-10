@@ -8,18 +8,18 @@ public class BaseGradleExtension {
 		this.baseGradlePlugin = baseGradlePlugin
 	}
 
-	public String gitSha() {
+	public String getGitSha() {
 		return 'git rev-parse --short HEAD'.execute().text.trim()
 	}
 
-	public String buildTime() {
+	public String getGitBranch() {
+		return 'git symbolic-ref HEAD'.execute().text.trim().replaceAll(".*/", "")
+	}
+
+	public String getBuildTime() {
 		def df = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
 		df.setTimeZone(TimeZone.getDefault())
 		return df.format(new Date())
-	}
-
-	public String branch() {
-		return 'git symbolic-ref HEAD'.execute().text.trim().replaceAll(".*/", "")
 	}
 
 	public def getProp(String propertyName) {
