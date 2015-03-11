@@ -14,12 +14,12 @@ public abstract class AndroidGradlePlugin extends BaseGradlePlugin {
 
 		def android = project.extensions.findByName("android")
 
-		android.compileSdkVersion 21
-		android.buildToolsVersion "21.1.2"
+		android.compileSdkVersion 22
+		android.buildToolsVersion "22"
 
 		android.defaultConfig {
 			minSdkVersion 14
-			targetSdkVersion 21
+			targetSdkVersion 22
 		}
 
 		android.compileOptions {
