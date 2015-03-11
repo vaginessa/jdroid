@@ -1,11 +1,12 @@
 package com.jdroid.android.maps;
 
-import java.util.ArrayList;
-import java.util.List;
 import com.jdroid.android.domain.GeoLocation;
 import com.jdroid.java.json.JSONArray;
 import com.jdroid.java.json.JSONObject;
 import com.jdroid.java.parser.json.JsonParser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * From https://developers.google.com/maps/documentation/directions/?hl=es#Limits
@@ -54,7 +55,7 @@ public class GoogleRouteParser extends JsonParser<JSONObject> {
 	private List<GeoLocation> decodePolyLine(String poly) {
 		int len = poly.length();
 		int index = 0;
-		List<GeoLocation> decoded = new ArrayList<GeoLocation>();
+		List<GeoLocation> decoded = new ArrayList<>();
 		int lat = 0;
 		int lng = 0;
 		

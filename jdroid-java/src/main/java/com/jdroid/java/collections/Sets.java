@@ -17,7 +17,7 @@ public class Sets {
 	 * @return a new, empty {@code HashSet}
 	 */
 	public static <E> HashSet<E> newHashSet() {
-		return new HashSet<E>();
+		return new HashSet<>();
 	}
 	
 	/**
@@ -28,7 +28,7 @@ public class Sets {
 	 */
 	@SafeVarargs
 	public static <E> HashSet<E> newHashSet(E... elements) {
-		HashSet<E> set = new HashSet<E>();
+		HashSet<E> set = new HashSet<>();
 		Collections.addAll(set, elements);
 		return set;
 	}
@@ -40,7 +40,7 @@ public class Sets {
 	 * @return a new {@code HashSet} containing those elements (minus duplicates)
 	 */
 	public static <E> HashSet<E> newHashSet(Iterable<? extends E> elements) {
-		return (elements instanceof Collection) ? new HashSet<E>((Collection<? extends E>)elements)
+		return (elements instanceof Collection) ? new HashSet<>((Collection<? extends E>)elements)
 				: newHashSet(elements.iterator());
 	}
 	
@@ -66,7 +66,7 @@ public class Sets {
 	 * @return a new, empty {@code LinkedHashSet}
 	 */
 	public static <E> LinkedHashSet<E> newLinkedHashSet() {
-		return new LinkedHashSet<E>();
+		return new LinkedHashSet<>();
 	}
 	
 	/**
@@ -77,7 +77,7 @@ public class Sets {
 	 */
 	public static <E> LinkedHashSet<E> newLinkedHashSet(Iterable<? extends E> elements) {
 		if (elements instanceof Collection) {
-			return new LinkedHashSet<E>((Collection<? extends E>)elements);
+			return new LinkedHashSet<>((Collection<? extends E>)elements);
 		}
 		LinkedHashSet<E> set = newLinkedHashSet();
 		for (E element : elements) {
@@ -94,7 +94,7 @@ public class Sets {
 	 * @return a new, empty {@code TreeSet}
 	 */
 	public static <E extends Comparable<?>> TreeSet<E> newTreeSet() {
-		return new TreeSet<E>();
+		return new TreeSet<>();
 	}
 	
 	/**

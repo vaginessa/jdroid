@@ -82,7 +82,7 @@ public abstract class AbstractFragmentActivity extends ActionBarActivity impleme
 	}
 	
 	/**
-	 * @see roboguice.activity.GuiceActivity#onStart()
+	 * @see android.app.Activity#onStart()
 	 */
 	@Override
 	protected void onStart() {
@@ -91,7 +91,7 @@ public abstract class AbstractFragmentActivity extends ActionBarActivity impleme
 	}
 	
 	/**
-	 * @see roboguice.activity.GuiceActivity#onResume()
+	 * @see android.app.Activity#onResume()
 	 */
 	@Override
 	protected void onResume() {
@@ -100,7 +100,7 @@ public abstract class AbstractFragmentActivity extends ActionBarActivity impleme
 	}
 	
 	/**
-	 * @see roboguice.activity.RoboActivity#onPause()
+	 * @see android.app.Activity#onPause()
 	 */
 	@Override
 	protected void onPause() {
@@ -110,7 +110,7 @@ public abstract class AbstractFragmentActivity extends ActionBarActivity impleme
 	}
 	
 	/**
-	 * @see roboguice.activity.RoboActivity#onStop()
+	 * @see android.app.Activity#onStop()
 	 */
 	@Override
 	protected void onStop() {
@@ -119,7 +119,7 @@ public abstract class AbstractFragmentActivity extends ActionBarActivity impleme
 	}
 	
 	/**
-	 * @see roboguice.activity.RoboActivity#onDestroy()
+	 * @see android.app.Activity#onDestroy()
 	 */
 	@Override
 	protected void onDestroy() {
@@ -237,9 +237,7 @@ public abstract class AbstractFragmentActivity extends ActionBarActivity impleme
 				FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 				fragmentTransaction.add(useCaseFragmentClass.newInstance(), useCaseFragmentClass.getSimpleName());
 				fragmentTransaction.commit();
-			} catch (InstantiationException e) {
-				throw new UnexpectedException(e);
-			} catch (IllegalAccessException e) {
+			} catch (InstantiationException | IllegalAccessException e) {
 				throw new UnexpectedException(e);
 			}
 		}
@@ -274,9 +272,7 @@ public abstract class AbstractFragmentActivity extends ActionBarActivity impleme
 		E fragment = null;
 		try {
 			fragment = fragmentClass.newInstance();
-		} catch (InstantiationException e) {
-			throw new UnexpectedException(e);
-		} catch (IllegalAccessException e) {
+		} catch (InstantiationException | IllegalAccessException e) {
 			throw new UnexpectedException(e);
 		}
 		fragment.setArguments(bundle);

@@ -1,12 +1,13 @@
 package com.jdroid.java.repository;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.utils.ReflectionUtils;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 
@@ -59,7 +60,9 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 	 */
 	@Override
 	public void removeAll(Collection<T> items) {
-		items.removeAll(items);
+		for (T item : items) {
+			remove(item);
+		}
 	}
 	
 	/**

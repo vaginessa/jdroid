@@ -26,7 +26,7 @@ public class AbstractScheduler {
 		return executionStartDate;
 	}
 	
-	public Date getLastExdcutionEndDate() {
+	public Date getLastExecutionEndDate() {
 		return executionEndDate;
 	}
 	

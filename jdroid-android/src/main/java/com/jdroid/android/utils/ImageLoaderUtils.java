@@ -17,7 +17,7 @@ public class ImageLoaderUtils {
 	
 	private static SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.get("imageLoader");
 	@SuppressWarnings("unchecked")
-	private static Map<String, Long> imagesExpirationMap = new ConcurrentHashMap<String, Long>(
+	private static Map<String, Long> imagesExpirationMap = new ConcurrentHashMap<>(
 			(Map<String, Long>)sharedPreferencesHelper.loadAllPreferences());
 	
 	public static void displayImage(String url, ImageView imageView, Integer defaultImage,

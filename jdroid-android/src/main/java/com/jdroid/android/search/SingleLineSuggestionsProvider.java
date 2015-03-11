@@ -1,5 +1,6 @@
 package com.jdroid.android.search;
 
+import android.annotation.SuppressLint;
 import android.content.SearchRecentSuggestionsProvider;
 import com.jdroid.android.utils.AndroidUtils;
 
@@ -12,6 +13,7 @@ import com.jdroid.android.utils.AndroidUtils;
  * </pre>
  * 
  */
+@SuppressLint("Registered")
 public class SingleLineSuggestionsProvider extends SearchRecentSuggestionsProvider {
 	
 	public final static String AUTHORITY = AndroidUtils.getPackageName() + ".SingleLineSuggestionsProvider";

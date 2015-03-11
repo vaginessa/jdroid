@@ -77,10 +77,10 @@ public class EncodingUtils {
 			try {
 				byte[] bytes = toEncode.getBytes(UTF8);
 				int bytesLength = bytes.length;
-				for (int i = 0; i < bytesLength; i++) {
+				for (byte aByte : bytes) {
 					encoded.append('%');
-					encoded.append(HEX_DIGITS[(bytes[i] & 0xf0) >> 4]);
-					encoded.append(HEX_DIGITS[bytes[i] & 0xf]);
+					encoded.append(HEX_DIGITS[(aByte & 0xf0) >> 4]);
+					encoded.append(HEX_DIGITS[aByte & 0xf]);
 				}
 			} catch (UnsupportedEncodingException e) {
 				throw new AssertionError(e);

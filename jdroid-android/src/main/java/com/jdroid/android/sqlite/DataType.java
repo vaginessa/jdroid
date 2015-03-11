@@ -1,16 +1,18 @@
 package com.jdroid.android.sqlite;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import android.content.ContentValues;
 import android.database.Cursor;
+
 import com.jdroid.android.utils.AndroidEncryptionUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.json.JSONObject;
 import com.jdroid.java.parser.json.JsonParser;
 import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.StringUtils;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public enum DataType {
 	TEXT("TEXT") {
@@ -39,7 +41,7 @@ public enum DataType {
 		@Override
 		public <T> void writeValue(ContentValues values, String columnName, T value) {
 			if (value != null) {
-				values.put(columnName, Integer.valueOf(((Number)value).intValue()));
+				values.put(columnName, Integer.valueOf(((Number) value).intValue()));
 			} else {
 				values.putNull(columnName);
 			}
@@ -52,7 +54,7 @@ public enum DataType {
 			if (cursor.isNull(columnIndex)) {
 				return null;
 			}
-			return Integer.valueOf(cursor.getInt(columnIndex));
+			return cursor.getInt(columnIndex);
 		}
 	},
 	LONG("INTEGER") {
@@ -60,7 +62,7 @@ public enum DataType {
 		@Override
 		public <T> void writeValue(ContentValues values, String columnName, T value) {
 			if (value != null) {
-				values.put(columnName, Long.valueOf(((Number)value).longValue()));
+				values.put(columnName, ((Number) value).longValue());
 			} else {
 				values.putNull(columnName);
 			}
@@ -73,7 +75,7 @@ public enum DataType {
 			if (cursor.isNull(columnIndex)) {
 				return null;
 			}
-			return Long.valueOf(cursor.getLong(columnIndex));
+			return cursor.getLong(columnIndex);
 		}
 	},
 	REAL("REAL") {
@@ -81,7 +83,7 @@ public enum DataType {
 		@Override
 		public <T> void writeValue(ContentValues values, String columnName, T value) {
 			if (value != null) {
-				values.put(columnName, Double.valueOf(((Number)value).doubleValue()));
+				values.put(columnName, ((Number) value).doubleValue());
 			} else {
 				values.putNull(columnName);
 			}
@@ -94,7 +96,7 @@ public enum DataType {
 			if (cursor.isNull(columnIndex)) {
 				return null;
 			}
-			return Double.valueOf(cursor.getDouble(columnIndex));
+			return cursor.getDouble(columnIndex);
 		}
 	},
 	FLOAT("REAL") {
@@ -102,7 +104,7 @@ public enum DataType {
 		@Override
 		public <T> void writeValue(ContentValues values, String columnName, T value) {
 			if (value != null) {
-				values.put(columnName, Float.valueOf(((Number)value).floatValue()));
+				values.put(columnName, ((Number) value).floatValue());
 			} else {
 				values.putNull(columnName);
 			}
@@ -115,7 +117,7 @@ public enum DataType {
 			if (cursor.isNull(columnIndex)) {
 				return null;
 			}
-			return Float.valueOf(cursor.getFloat(columnIndex));
+			return cursor.getFloat(columnIndex);
 		}
 	},
 	BLOB("BLOB") {
@@ -144,7 +146,7 @@ public enum DataType {
 		@Override
 		public <T> void writeValue(ContentValues values, String columnName, T value) {
 			if (value != null) {
-				values.put(columnName, Integer.valueOf(((Boolean)value) ? 1 : 0));
+				values.put(columnName, ((Boolean) value) ? 1 : 0);
 			} else {
 				values.putNull(columnName);
 			}

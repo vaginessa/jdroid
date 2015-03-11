@@ -1,11 +1,13 @@
 package com.jdroid.android.service;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.utils.NotificationUtils;
 import com.jdroid.java.concurrent.ExecutorUtils;
 
+@SuppressLint("Registered")
 public class UseCaseService extends WorkerService {
 	
 	private final static String USE_CASE = "useCase";

@@ -13,6 +13,8 @@ package com.jdroid.java.json;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import com.jdroid.java.collections.Lists;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -22,7 +24,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import com.jdroid.java.collections.Lists;
 
 /**
  * A JSONArray is an ordered sequence of values. Its external text form is a string wrapped in square brackets with
@@ -512,7 +513,7 @@ public class JSONArray {
 	 * @return this.
 	 */
 	public JSONArray put(double value) throws JSONException {
-		Double d = new Double(value);
+		Double d = value;
 		JSONObject.testValidity(d);
 		this.put(d);
 		return this;
@@ -525,7 +526,7 @@ public class JSONArray {
 	 * @return this.
 	 */
 	public JSONArray put(int value) {
-		this.put(new Integer(value));
+		this.put(Integer.valueOf(value));
 		return this;
 	}
 	
@@ -536,7 +537,7 @@ public class JSONArray {
 	 * @return this.
 	 */
 	public JSONArray put(long value) {
-		this.put(new Long(value));
+		this.put(Long.valueOf(value));
 		return this;
 	}
 	
@@ -600,7 +601,7 @@ public class JSONArray {
 	 * @throws JSONException If the index is negative or if the value is not finite.
 	 */
 	public JSONArray put(int index, double value) throws JSONException {
-		this.put(index, new Double(value));
+		this.put(index, Double.valueOf(value));
 		return this;
 	}
 	
@@ -614,7 +615,7 @@ public class JSONArray {
 	 * @throws JSONException If the index is negative.
 	 */
 	public JSONArray put(int index, int value) throws JSONException {
-		this.put(index, new Integer(value));
+		this.put(index, Integer.valueOf(value));
 		return this;
 	}
 	
@@ -628,7 +629,7 @@ public class JSONArray {
 	 * @throws JSONException If the index is negative.
 	 */
 	public JSONArray put(int index, long value) throws JSONException {
-		this.put(index, new Long(value));
+		this.put(index, Long.valueOf(value));
 		return this;
 	}
 	

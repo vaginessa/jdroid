@@ -30,7 +30,7 @@ public class FacebookPreferencesUtils {
 		return SharedPreferencesHelper.getOldDefault().loadPreference(PREFS_FACEBOOK_ACCESS_TOKEN);
 	}
 	
-	public static Boolean verifyFacebookAccesToken() {
+	public static Boolean verifyFacebookAccessToken() {
 		existsFacebookAccessToken = FacebookPreferencesUtils.loadFacebookAccessTokenHashFromPreferences() != null;
 		return existsFacebookAccessToken;
 	}
@@ -49,7 +49,7 @@ public class FacebookPreferencesUtils {
 			facebookUserInfo.setLastName(lastName);
 			facebookUserInfo.setFacebookId(facebookId);
 		}
-		verifyFacebookAccesToken();
+		verifyFacebookAccessToken();
 		return facebookUserInfo;
 	}
 	

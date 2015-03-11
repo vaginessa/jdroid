@@ -1,7 +1,5 @@
 package com.jdroid.android.social.googleplus;
 
-import java.util.List;
-import org.slf4j.Logger;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -14,6 +12,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -43,6 +42,10 @@ import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
+
+import java.util.List;
 
 public class GooglePlusHelperFragment extends AbstractFragment implements ConnectionCallbacks,
 		OnConnectionFailedListener {
@@ -219,7 +222,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	}
 	
 	/**
-	 * A helper method to flip the resolvingError flag and start the resolution of the ConnenctionResult from the failed
+	 * A helper method to flip the resolvingError flag and start the resolution of the ConnectionResult from the failed
 	 * connect() call.
 	 */
 	private void startResolution(ConnectionResult connectionResult) {

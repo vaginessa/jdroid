@@ -1,13 +1,14 @@
 package com.jdroid.android.dialog;
 
-import java.io.Serializable;
-import java.util.List;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+
+import java.io.Serializable;
+import java.util.List;
 
 public class ChoiceItemDialogFragment extends AbstractDialogFragment {
 	
@@ -16,8 +17,7 @@ public class ChoiceItemDialogFragment extends AbstractDialogFragment {
 	public static final String RESOURCE_TITLE_ID_EXTRA = "resourceTitleId";
 	private List<ChoiceItem> values;
 	private ChoiceItem selectedItem;
-	private int resourceTitleId;
-	
+
 	/**
 	 * @param targetFragment The fragment that invokes the dialog
 	 * @param values The list must implements ChoiceItem
@@ -48,7 +48,7 @@ public class ChoiceItemDialogFragment extends AbstractDialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		values = (List<ChoiceItem>)getArguments().getSerializable(ITEMS_EXTRA);
 		selectedItem = (ChoiceItem)getArguments().getSerializable(CURRENT_ITEM_EXTRA);
-		resourceTitleId = getArguments().getInt(RESOURCE_TITLE_ID_EXTRA);
+		int resourceTitleId = getArguments().getInt(RESOURCE_TITLE_ID_EXTRA);
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setTitle(resourceTitleId);

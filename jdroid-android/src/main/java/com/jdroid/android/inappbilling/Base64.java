@@ -26,6 +26,8 @@ package com.jdroid.android.inappbilling;
  * @version 1.3
  */
 
+import com.jdroid.java.exception.UnexpectedException;
+
 /**
  * Base64 converter class. This code is not a complete MIME encoder; it simply converts binary data to base64 data and
  * back.
@@ -270,8 +272,10 @@ public class Base64 {
 			}
 			e += 4;
 		}
-		
-		assert (e == outBuff.length);
+
+		if (e != outBuff.length) {
+			throw new UnexpectedException("Buffer error");
+		}
 		return outBuff;
 	}
 	

@@ -17,7 +17,7 @@ public class Lists {
 	 * @return a new, empty {@code ArrayList}
 	 */
 	public static <E> ArrayList<E> newArrayList() {
-		return new ArrayList<E>();
+		return new ArrayList<>();
 	}
 	
 	/**
@@ -28,7 +28,7 @@ public class Lists {
 	 */
 	@SafeVarargs
 	public static <E> ArrayList<E> newArrayList(E... elements) {
-		ArrayList<E> list = new ArrayList<E>();
+		ArrayList<E> list = new ArrayList<>();
 		Collections.addAll(list, elements);
 		return list;
 	}
@@ -44,7 +44,7 @@ public class Lists {
 	 * @return a new {@code ArrayList} containing those elements
 	 */
 	public static <E> ArrayList<E> newArrayList(Iterable<? extends E> elements) {
-		return (elements instanceof Collection) ? new ArrayList<E>((Collection<? extends E>)elements)
+		return (elements instanceof Collection) ? new ArrayList<>((Collection<? extends E>)elements)
 				: newArrayList(elements.iterator());
 	}
 	
@@ -70,7 +70,7 @@ public class Lists {
 	 * @return a new, empty {@code LinkedList}
 	 */
 	public static <E> LinkedList<E> newLinkedList() {
-		return new LinkedList<E>();
+		return new LinkedList<>();
 	}
 	
 	/**

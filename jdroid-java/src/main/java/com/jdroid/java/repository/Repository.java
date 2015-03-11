@@ -1,13 +1,14 @@
 package com.jdroid.java.repository;
 
+import com.jdroid.java.domain.Identifiable;
+
 import java.util.Collection;
 import java.util.List;
-import com.jdroid.java.domain.Identifiable;
 
 /**
  * Interface that all repositories must adhere to. It provides basic repository functionality.
  * 
- * @param <T> This is a parameterized interface.
+ * @param <T> Thie type of Identifiable
  */
 public interface Repository<T extends Identifiable> {
 	

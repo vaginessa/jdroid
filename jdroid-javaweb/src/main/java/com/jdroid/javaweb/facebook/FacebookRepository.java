@@ -1,7 +1,5 @@
 package com.jdroid.javaweb.facebook;
 
-import java.util.List;
-import java.util.NoSuchElementException;
 import com.google.common.collect.Lists;
 import com.jdroid.javaweb.guava.function.PropertyFunction;
 import com.restfb.Connection;
@@ -12,22 +10,25 @@ import com.restfb.exception.FacebookOAuthException;
 import com.restfb.types.FacebookType;
 import com.restfb.types.User;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+
 public class FacebookRepository {
 	
-	private static String FRIEND_FQL = "SELECT uid,name FROM user WHERE uid in (SELECT uid1 FROM friend WHERE uid2 = me() and uid1 = #friendId#)";
-	private static String FRIEND_FQL_REPLACEMENT = "#friendId#";
-	private static String FRIENDS_FQL = "SELECT uid,first_name,last_name,is_app_user FROM user WHERE uid in (SELECT uid1 FROM friend WHERE uid2 = me()) order by name";
-	private static String APP_FRIENDS_FQL = "SELECT uid,first_name,last_name FROM user WHERE is_app_user AND uid in (SELECT uid1 FROM friend WHERE uid2 = me()) order by name";
-	private static String APP_FRIENDS_IDS_FQL = "SELECT uid FROM user WHERE is_app_user AND uid in (SELECT uid1 FROM friend WHERE uid2 = me()) order by name";
-	private static String FB_ID = "id";
-	private static String FB_ME = "me";
-	private static String FB_FEED = "/feed";
-	private static String FB_SEARCH = "search";
-	private static String FB_MESSAGE = "message";
-	private static String FB_CAPTION = "caption";
-	private static String FB_LINK = "link";
-	private static String FB_PICTURE = "picture";
-	private static String FB_DESC = "description";
+	private static final String FRIEND_FQL = "SELECT uid,name FROM user WHERE uid in (SELECT uid1 FROM friend WHERE uid2 = me() and uid1 = #friendId#)";
+	private static final String FRIEND_FQL_REPLACEMENT = "#friendId#";
+	private static final String FRIENDS_FQL = "SELECT uid,first_name,last_name,is_app_user FROM user WHERE uid in (SELECT uid1 FROM friend WHERE uid2 = me()) order by name";
+	private static final String APP_FRIENDS_FQL = "SELECT uid,first_name,last_name FROM user WHERE is_app_user AND uid in (SELECT uid1 FROM friend WHERE uid2 = me()) order by name";
+	private static final String APP_FRIENDS_IDS_FQL = "SELECT uid FROM user WHERE is_app_user AND uid in (SELECT uid1 FROM friend WHERE uid2 = me()) order by name";
+	private static final String FB_ID = "id";
+	private static final String FB_ME = "me";
+	private static final String FB_FEED = "/feed";
+	private static final String FB_SEARCH = "search";
+	private static final String FB_MESSAGE = "message";
+	private static final String FB_CAPTION = "caption";
+	private static final String FB_LINK = "link";
+	private static final String FB_PICTURE = "picture";
+	private static final String FB_DESC = "description";
 	
 	private FacebookClient createFacebookClient(String accessToken) {
 		return new DefaultFacebookClient(accessToken);

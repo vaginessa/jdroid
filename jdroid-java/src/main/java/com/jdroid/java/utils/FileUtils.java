@@ -1,5 +1,9 @@
 package com.jdroid.java.utils;
 
+import com.jdroid.java.exception.UnexpectedException;
+
+import org.slf4j.Logger;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -17,8 +21,6 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-import org.slf4j.Logger;
-import com.jdroid.java.exception.UnexpectedException;
 
 /**
  * This class contains functions for working with files within the application.
@@ -109,7 +111,7 @@ public abstract class FileUtils {
 			}
 			
 			if (file.delete()) {
-				LOGGER.debug("File " + file.getPath() + " was succesfully deleted.");
+				LOGGER.debug("File " + file.getPath() + " was successfully deleted.");
 			} else {
 				LOGGER.warn("File " + file.getPath() + " couldn't be deleted.");
 			}
@@ -234,21 +236,21 @@ public abstract class FileUtils {
 	
 	/**
 	 * @param source the source {@link InputStream}
-	 * @param destin the destin {@link File}
+	 * @param target the target {@link File}
 	 */
 	@SuppressWarnings("resource")
-	public static void copyStream(InputStream source, File destin) {
+	public static void copyStream(InputStream source, File target) {
 		FileOutputStream out = null;
 		try {
-			File dir = destin.getParentFile();
+			File dir = target.getParentFile();
 			if (dir != null) {
 				dir.mkdirs();
 			}
-			out = new FileOutputStream(destin);
+			out = new FileOutputStream(target);
 			FileUtils.copyStream(source, out);
 		} catch (IOException e) {
 			throw new UnexpectedException(
-					new StringBuilder("Error copying the file to [").append(destin).append("]").toString(), e);
+					new StringBuilder("Error copying the file to [").append(target).append("]").toString(), e);
 		} finally {
 			safeClose(out);
 		}
@@ -306,11 +308,7 @@ public abstract class FileUtils {
 		} catch (FileNotFoundException e) {
 			throw new UnexpectedException(e);
 		} finally {
-			try {
-				zipOutputStream.close();
-			} catch (IOException e) {
-				LOGGER.warn("Exception thrown when the zipOutputStream was being closed", e);
-			}
+			safeClose(zipOutputStream);
 		}
 	}
 	
@@ -319,24 +317,22 @@ public abstract class FileUtils {
 		
 		try {
 			String files[] = fileItem.list();
-			
-			for (int i = 0; i < files.length; i++) {
+
+			for (String file : files) {
 				String itemRelativePath = (parentItemPath != null ? parentItemPath + File.separatorChar : "")
-						+ files[i];
+						+ file;
 				File itemFile = new File(directoryToZipPath + File.separatorChar + itemRelativePath);
 				if (itemFile.isDirectory()) {
 					FileUtils.zipFileItem(directoryToZipPath, zipOutputStream, itemFile, itemRelativePath);
 				} else {
 					FileInputStream entryInputStream = new FileInputStream(fileItem.getAbsolutePath()
-							+ File.separatorChar + files[i]);
+							+ File.separatorChar + file);
 					ZipEntry entry = new ZipEntry(itemRelativePath);
 					zipOutputStream.putNextEntry(entry);
 					FileUtils.copyStream(entryInputStream, zipOutputStream, false);
 					entryInputStream.close();
 				}
 			}
-		} catch (FileNotFoundException e) {
-			throw new UnexpectedException(e);
 		} catch (IOException e) {
 			throw new UnexpectedException(e);
 		}
@@ -372,9 +368,7 @@ public abstract class FileUtils {
 			// null if security restricted
 			return 0L;
 		}
-		for (int i = 0; i < files.length; i++) {
-			File file = files[i];
-			
+		for (File file : files) {
 			if (file.isDirectory()) {
 				size += getDirectorySize(file);
 			} else {

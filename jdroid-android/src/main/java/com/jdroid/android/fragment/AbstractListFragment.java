@@ -347,9 +347,6 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 		}
 	}
 	
-	/**
-	 * @param item
-	 */
 	@Override
 	public void onItemSelected(T item) {
 		// Do Nothing

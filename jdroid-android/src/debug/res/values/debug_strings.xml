@@ -1,83 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-	<string name="debugSettings">Debug Settings</string>
+	<string name="debugSettings" tools:ignore="MissingTranslation">Debug Settings</string>
 
 	<!-- Server -->
-	<string name="serversSettings">Servers</string>
+	<string name="serversSettings" tools:ignore="MissingTranslation">Servers</string>
 
 	<!-- Http Mocks -->
-	<string name="httpMocksSettings">HTTP Mocks</string>
-	<string name="httpMockEnabledTitle">Http Mocks</string>
-	<string name="httpMockEnabledDescription">Enable/disable http mocks</string>
-	<string name="httpMockSleepTitle">Http Mocks sleep</string>
-	<string name="httpMockSleepDescription">Enable/disable http mocks sleep</string>
-	<string name="httpMockCrashType">Http Mocks Crash Type</string>
-	<string name="httpMockCrashTypeDescription">Pick the crash type for your mocks calls</string>
+	<string name="httpMocksSettings" tools:ignore="MissingTranslation">HTTP Mocks</string>
+	<string name="httpMockEnabledTitle" tools:ignore="MissingTranslation">Http Mocks</string>
+	<string name="httpMockEnabledDescription" tools:ignore="MissingTranslation">Enable/disable http mocks</string>
+	<string name="httpMockSleepTitle" tools:ignore="MissingTranslation">Http Mocks sleep</string>
+	<string name="httpMockSleepDescription" tools:ignore="MissingTranslation">Enable/disable http mocks sleep</string>
+	<string name="httpMockCrashType" tools:ignore="MissingTranslation">Http Mocks Crash Type</string>
+	<string name="httpMockCrashTypeDescription" tools:ignore="MissingTranslation">Pick the crash type for your mocks calls</string>
 
 	<!-- Http Cache -->
-	<string name="httpCacheSettings">Http cache</string>
-	<string name="clearHttpCache">Clear Http cache</string>
+	<string name="httpCacheSettings" tools:ignore="MissingTranslation">Http cache</string>
+	<string name="clearHttpCache" tools:ignore="MissingTranslation">Clear Http cache</string>
 
 	<!-- Image Loader -->
-	<string name="imageLoaderSettings">Image Loader</string>
-	<string name="clearImagesDiskCache">Clear images disk cache</string>
-	<string name="clearImagesMemoryCache">Clear images memory cache</string>
+	<string name="imageLoaderSettings" tools:ignore="MissingTranslation">Image Loader</string>
+	<string name="clearImagesDiskCache" tools:ignore="MissingTranslation">Clear images disk cache</string>
+	<string name="clearImagesMemoryCache" tools:ignore="MissingTranslation">Clear images memory cache</string>
 
 	<!-- Exception Handling -->
-	<string name="exceptionHandlingSettings">Exception Handling</string>
-	<string name="exceptionType">Exception type</string>
-	<string name="uiThread">UI Thread</string>
-	<string name="crash">Crash</string>
+	<string name="exceptionHandlingSettings" tools:ignore="MissingTranslation">Exception Handling</string>
+	<string name="exceptionType" tools:ignore="MissingTranslation">Exception type</string>
+	<string name="uiThread" tools:ignore="MissingTranslation">UI Thread</string>
+	<string name="crash" tools:ignore="MissingTranslation">Crash</string>
 
 	<!-- Ads -->
-	<string name="adsSettings">Ads</string>
-	<string name="adsEnabledTitle">Ads Enabled</string>
-	<string name="adsEnabledDescription">Enable/disable the ads</string>
+	<string name="adsSettings" tools:ignore="MissingTranslation">Ads</string>
+	<string name="adsEnabledTitle" tools:ignore="MissingTranslation">Ads Enabled</string>
+	<string name="adsEnabledDescription" tools:ignore="MissingTranslation">Enable/disable the ads</string>
 
 	<!-- Nav Drawer -->
-	<string name="navDrawerSettings">Nav Drawer</string>
-	<string name="navDrawerManuallyUsedTitle">Nav drawer manually used</string>
-	<string name="navDrawerManuallyUsedDescription">Whether the user actively expanded or closed the navigation drawer manually</string>
-	<string name="userDataMockedTitle">Mock the user data</string>
-	<string name="userDataMockedDescription">Whether to mock the user name and email on the nav drawer</string>
+	<string name="navDrawerSettings" tools:ignore="MissingTranslation">Nav Drawer</string>
+	<string name="navDrawerManuallyUsedTitle" tools:ignore="MissingTranslation">Nav drawer manually used</string>
+	<string name="navDrawerManuallyUsedDescription" tools:ignore="MissingTranslation">Whether the user actively expanded or closed the navigation drawer manually</string>
+	<string name="userDataMockedTitle" tools:ignore="MissingTranslation">Mock the user data</string>
+	<string name="userDataMockedDescription" tools:ignore="MissingTranslation">Whether to mock the user name and email on the nav drawer</string>
 
 	<!-- In App Billing -->
-	<string name="inAppBillingSettings">In App Billing</string>
-	<string name="inAppBillingMockEnabledTitle">In App Billing Mocks</string>
-	<string name="inAppBillingMockEnabledDescription">Enable/disable In App Billing mocks</string>
-	<string name="inAppBillingTestProductIdsTitle">Test Product Id</string>
-	<string name="inAppBillingTestProductIdsDescription">Pick the Test Product Id</string>
-	<string name="inAppBillingPurchasedProductTypeTitle">Purchased products ids</string>
+	<string name="inAppBillingSettings" tools:ignore="MissingTranslation">In App Billing</string>
+	<string name="inAppBillingMockEnabledTitle" tools:ignore="MissingTranslation">In App Billing Mocks</string>
+	<string name="inAppBillingMockEnabledDescription" tools:ignore="MissingTranslation">Enable/disable In App Billing mocks</string>
+	<string name="inAppBillingTestProductIdsTitle" tools:ignore="MissingTranslation">Test Product Id</string>
+	<string name="inAppBillingTestProductIdsDescription" tools:ignore="MissingTranslation">Pick the Test Product Id</string>
+	<string name="inAppBillingPurchasedProductTypeTitle" tools:ignore="MissingTranslation">Purchased products ids</string>
 
 	<!-- Experiments -->
-	<string name="experimentsSettings">Experiments</string>
-	<string name="experimentTitle">Experiment id: %1$s</string>
-	<string name="experimentDescription">Pick the experiment variant</string>
+	<string name="experimentsSettings" tools:ignore="MissingTranslation">Experiments</string>
+	<string name="experimentTitle" tools:ignore="MissingTranslation">Experiment id: %1$s</string>
+	<string name="experimentDescription" tools:ignore="MissingTranslation">Pick the experiment variant</string>
 
 	<!-- GCM -->
-	<string name="gcmSettings">GCM</string>
-	<string name="emulateGcmMessageTitle">Emulate GCM Message</string>
-	<string name="emulateGcmMessageDescription">Pick the GCM Message type to emulate</string>
+	<string name="gcmSettings" tools:ignore="MissingTranslation">GCM</string>
+	<string name="emulateGcmMessageTitle" tools:ignore="MissingTranslation">Emulate GCM Message</string>
+	<string name="emulateGcmMessageDescription" tools:ignore="MissingTranslation">Pick the GCM Message type to emulate</string>
 
 	<!-- Database -->
-	<string name="database">Database</string>
-	<string name="downloadDatabase">Download database</string>
+	<string name="database" tools:ignore="MissingTranslation">Database</string>
+	<string name="downloadDatabase" tools:ignore="MissingTranslation">Download database</string>
 
 	<!-- Debug Database -->
-	<string name="debugDatabase">Debug Database</string>
-	<string name="cleanDebugData">Clean debug data</string>
+	<string name="debugDatabase" tools:ignore="MissingTranslation">Debug Database</string>
+	<string name="cleanDebugData" tools:ignore="MissingTranslation">Clean debug data</string>
 
 	<!-- Info View -->
-	<string name="packageName">Package Name: %1$s</string>
-	<string name="buildType">Build Type: %1$s</string>
-	<string name="analyticsEnabled">Analytics Enabled: %1$s</string>
-	<string name="adsEnabled">Ads Enabled: %1$s</string>
-	<string name="smallestScreenWidthDp">Smallest Screen Width: %1$sdp</string>
-	<string name="screenDensity">Screen Density: %1$s</string>
-	<string name="networkOperatorName">Network Operator Name: %1$s</string>
-	<string name="simOperatorName">SIM Operator Name: %1$s</string>
-	<string name="gitBranch">Git Branch: %1$s</string>
-	<string name="gitSha">Git Sha: %1$s</string>
+	<string name="packageName" tools:ignore="MissingTranslation">Package Name: %1$s</string>
+	<string name="buildType" tools:ignore="MissingTranslation">Build Type: %1$s</string>
+	<string name="analyticsEnabled" tools:ignore="MissingTranslation">Analytics Enabled: %1$s</string>
+	<string name="adsEnabled" tools:ignore="MissingTranslation">Ads Enabled: %1$s</string>
+	<string name="smallestScreenWidthDp" tools:ignore="MissingTranslation">Smallest Screen Width: %1$sdp</string>
+	<string name="screenDensity" tools:ignore="MissingTranslation">Screen Density: %1$s</string>
+	<string name="networkOperatorName" tools:ignore="MissingTranslation">Network Operator Name: %1$s</string>
+	<string name="simOperatorName" tools:ignore="MissingTranslation">SIM Operator Name: %1$s</string>
+	<string name="gitBranch" tools:ignore="MissingTranslation">Git Branch: %1$s</string>
+	<string name="gitSha" tools:ignore="MissingTranslation">Git Sha: %1$s</string>
 
 </resources>

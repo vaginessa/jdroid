@@ -1,9 +1,10 @@
 package com.jdroid.android.intent;
 
+import com.jdroid.java.collections.Maps;
+
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.Map;
-import com.jdroid.java.collections.Maps;
 
 public class IntentContext implements Serializable {
 	
@@ -25,7 +26,7 @@ public class IntentContext implements Serializable {
 	 * @param value The value to add
 	 */
 	public static void addValue(String key, Object value) {
-		data.put(key, new WeakReference<Object>(value));
+		data.put(key, new WeakReference<>(value));
 	}
 	
 	/**

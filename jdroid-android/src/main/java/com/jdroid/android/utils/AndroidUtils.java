@@ -1,6 +1,5 @@
 package com.jdroid.android.utils;
 
-import java.util.List;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -21,11 +20,14 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ScrollView;
+
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.StringUtils;
 import com.jdroid.java.utils.ValidationUtils;
+
+import java.util.List;
 
 public class AndroidUtils {
 	
@@ -210,8 +212,8 @@ public class AndroidUtils {
 	}
 	
 	public static String getMacAddress() {
-		WifiManager wimanager = (WifiManager)AbstractApplication.get().getSystemService(Context.WIFI_SERVICE);
-		return wimanager.getConnectionInfo().getMacAddress();
+		WifiManager wifiManager = (WifiManager)AbstractApplication.get().getSystemService(Context.WIFI_SERVICE);
+		return wifiManager.getConnectionInfo().getMacAddress();
 	}
 	
 	public static String getDeviceUUID() {

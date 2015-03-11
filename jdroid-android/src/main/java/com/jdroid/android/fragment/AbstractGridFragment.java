@@ -93,7 +93,7 @@ public class AbstractGridFragment<T> extends AbstractFragment implements OnItemS
 	/**
 	 * Set the currently selected grid item to the specified position with the adapter's data
 	 * 
-	 * @param position
+	 * @param position the position
 	 */
 	public void setSelection(int position) {
 		ensureGrid();

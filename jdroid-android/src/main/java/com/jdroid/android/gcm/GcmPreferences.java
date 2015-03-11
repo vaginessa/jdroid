@@ -1,12 +1,15 @@
 package com.jdroid.android.gcm;
 
-import java.sql.Timestamp;
-import org.slf4j.Logger;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
+
+import java.sql.Timestamp;
 
 /**
  * Utilities for device registration.
@@ -80,7 +83,7 @@ public final class GcmPreferences {
 		Editor editor = prefs.edit();
 		editor.putString(PROPERTY_REG_ID, registrationId);
 		editor.putInt(PROPERTY_APP_VERSION, appVersion);
-		editor.commit();
+		editor.apply();
 		
 		LOGGER.debug("Saved the registrationId [" + registrationId + "] on app version " + appVersion);
 	}
@@ -98,7 +101,7 @@ public final class GcmPreferences {
 		long expirationTime = System.currentTimeMillis() + getRegisterOnServerLifespan(context);
 		editor.putLong(PROPERTY_ON_SERVER_EXPIRATION_TIME, System.currentTimeMillis()
 				+ getRegisterOnServerLifespan(context));
-		editor.commit();
+		editor.apply();
 		LOGGER.debug("Setted registeredOnServer status as " + flag + " until " + new Timestamp(expirationTime));
 	}
 	
@@ -150,7 +153,7 @@ public final class GcmPreferences {
 		SharedPreferences prefs = getGCMPreferences(context);
 		Editor editor = prefs.edit();
 		editor.putLong(PROPERTY_ON_SERVER_LIFESPAN, lifespan);
-		editor.commit();
+		editor.apply();
 	}
 	
 	private static SharedPreferences getGCMPreferences(Context context) {

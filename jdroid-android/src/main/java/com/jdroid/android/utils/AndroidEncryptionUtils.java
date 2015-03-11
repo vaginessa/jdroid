@@ -1,9 +1,15 @@
 package com.jdroid.android.utils;
 
+import android.content.SharedPreferences;
+import android.util.Base64;
+
+import com.jdroid.java.exception.UnexpectedException;
+
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -11,9 +17,6 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import android.content.SharedPreferences;
-import android.util.Base64;
-import com.jdroid.java.exception.UnexpectedException;
 
 public class AndroidEncryptionUtils {
 	
@@ -83,15 +86,9 @@ public class AndroidEncryptionUtils {
 			SecretKeySpec skeySpec = new SecretKeySpec(raw, ALGORITHM);
 			cipher.init(opMode, skeySpec);
 			return cipher.doFinal(input);
-		} catch (NoSuchAlgorithmException e) {
-			throw new UnexpectedException(e);
-		} catch (NoSuchPaddingException e) {
+		} catch (NoSuchAlgorithmException | NoSuchPaddingException | BadPaddingException | IllegalBlockSizeException e) {
 			throw new UnexpectedException(e);
 		} catch (InvalidKeyException e) {
-			throw new UnexpectedException(e);
-		} catch (IllegalBlockSizeException e) {
-			throw new UnexpectedException(e);
-		} catch (BadPaddingException e) {
 			throw new UnexpectedException(e);
 		}
 	}
@@ -112,9 +109,9 @@ public class AndroidEncryptionUtils {
 	
 	private static String toHexEncode(byte[] bytes) {
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < bytes.length; i++) {
-			int low = bytes[i] & 0xF;
-			int high = (bytes[i] >>> 4) & 0xF;
+		for (byte aByte : bytes) {
+			int low = aByte & 0xF;
+			int high = (aByte >>> 4) & 0xF;
 			sb.append(Character.forDigit(high, 16));
 			sb.append(Character.forDigit(low, 16));
 		}

@@ -70,7 +70,7 @@ public class InAppBillingContext {
 			}
 		}
 		editor.putString(PURCHASED_PRODUCT_TYPES, StringUtils.join(productIds));
-		editor.commit();
+		editor.apply();
 	}
 	
 	public synchronized void addPurchasedProductType(ProductType productType) {
@@ -87,7 +87,7 @@ public class InAppBillingContext {
 			newValue = productType.getProductId();
 		}
 		editor.putString(PURCHASED_PRODUCT_TYPES, newValue);
-		editor.commit();
+		editor.apply();
 	}
 	
 	public synchronized List<ProductType> getPurchasedProductTypes() {

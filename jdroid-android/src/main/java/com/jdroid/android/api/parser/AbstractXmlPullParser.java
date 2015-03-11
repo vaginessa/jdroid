@@ -1,15 +1,18 @@
 package com.jdroid.android.api.parser;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 import android.util.Xml;
+
 import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.parser.Parser;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.NumberUtils;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public abstract class AbstractXmlPullParser implements Parser {
 	
@@ -32,9 +35,7 @@ public abstract class AbstractXmlPullParser implements Parser {
 			parser.setInput(inputStream, null);
 			parser.nextTag();
 			return readFeed(parser);
-		} catch (XmlPullParserException e) {
-			throw new ConnectionException(e);
-		} catch (IOException e) {
+		} catch (XmlPullParserException | IOException e) {
 			throw new ConnectionException(e);
 		} finally {
 			FileUtils.safeClose(inputStream);

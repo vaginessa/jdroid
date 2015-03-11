@@ -117,7 +117,7 @@ public class FacebookAuthenticationFragment<T extends FacebookAuthenticationUseC
 			
 			@Override
 			public void run() {
-				final Boolean isConnected = FacebookPreferencesUtils.verifyFacebookAccesToken();
+				final Boolean isConnected = FacebookPreferencesUtils.verifyFacebookAccessToken();
 				executeOnUIThread(new Runnable() {
 					
 					@Override

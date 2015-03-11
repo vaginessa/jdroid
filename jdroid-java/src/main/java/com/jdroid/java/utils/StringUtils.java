@@ -1,5 +1,8 @@
 package com.jdroid.java.utils;
 
+import com.jdroid.java.collections.Lists;
+import com.jdroid.java.collections.Sets;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -7,8 +10,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import com.jdroid.java.collections.Lists;
-import com.jdroid.java.collections.Sets;
 
 /**
  * This class contains functions for managing Strings
@@ -181,22 +182,22 @@ public abstract class StringUtils {
 			return str;
 		}
 		int strLen = str.length();
-		StringBuffer buffer = new StringBuffer(strLen);
+		StringBuilder builder = new StringBuilder(strLen);
 		boolean capitalizeNext = true;
 		for (int i = 0; i < strLen; i++) {
 			char ch = str.charAt(i);
 			
 			if (isDelimiter(ch, delimiters)) {
-				buffer.append(ch);
+				builder.append(ch);
 				capitalizeNext = true;
 			} else if (capitalizeNext) {
-				buffer.append(Character.toTitleCase(ch));
+				builder.append(Character.toTitleCase(ch));
 				capitalizeNext = false;
 			} else {
-				buffer.append(ch);
+				builder.append(ch);
 			}
 		}
-		return buffer.toString();
+		return builder.toString();
 	}
 	
 	/**
@@ -210,8 +211,8 @@ public abstract class StringUtils {
 		if (delimiters == null) {
 			return Character.isWhitespace(ch);
 		}
-		for (int i = 0, isize = delimiters.length; i < isize; i++) {
-			if (ch == delimiters[i]) {
+		for (char delimiter : delimiters) {
+			if (ch == delimiter) {
 				return true;
 			}
 		}
@@ -378,7 +379,7 @@ public abstract class StringUtils {
 	 * "\n" character
 	 * 
 	 * @param text A Sting, the text to word wrap to two lines.
-	 * @param minLength The min text length to appy word wrap.
+	 * @param minLength The min text length to apply word wrap.
 	 * @return The input text word wrapped to two lines or the original text.
 	 */
 	public static String wordWrapToTwoLines(String text, int minLength) {

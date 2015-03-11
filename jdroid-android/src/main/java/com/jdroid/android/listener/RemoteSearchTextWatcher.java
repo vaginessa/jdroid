@@ -1,11 +1,13 @@
 package com.jdroid.android.listener;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 import android.text.Editable;
 import android.text.TextWatcher;
+
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.java.concurrent.ExecutorUtils;
+
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 public abstract class RemoteSearchTextWatcher implements TextWatcher {
 	
@@ -61,7 +63,7 @@ public abstract class RemoteSearchTextWatcher implements TextWatcher {
 	
 	private class TimerSearchRunnable implements Runnable {
 		
-		private BlockingQueue<String> queue = new ArrayBlockingQueue<String>(20);
+		private BlockingQueue<String> queue = new ArrayBlockingQueue<>(20);
 		
 		@Override
 		public void run() {

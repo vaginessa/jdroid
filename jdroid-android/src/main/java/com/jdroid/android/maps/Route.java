@@ -1,12 +1,13 @@
 package com.jdroid.android.maps;
 
-import java.util.ArrayList;
-import java.util.List;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds.Builder;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.domain.GeoLocation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Route {
 	
@@ -15,7 +16,7 @@ public class Route {
 	private RouteMode mode;
 	
 	public Route() {
-		points = new ArrayList<GeoLocation>();
+		points = new ArrayList<>();
 	}
 	
 	public void addPoint(GeoLocation p) {

@@ -1,13 +1,15 @@
 package com.jdroid.android.wizard;
 
-import java.util.List;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.view.ButtonBarView;
 import com.jdroid.android.view.CustomViewPager;
+
+import java.util.List;
 
 public abstract class WizardActivity extends AbstractFragmentActivity {
 	
@@ -61,7 +63,7 @@ public abstract class WizardActivity extends AbstractFragmentActivity {
 			@Override
 			public void onClick(View view) {
 				if (isOnFinishStep()) {
-					onfinishWizard();
+					onFinishWizard();
 				} else {
 					pager.setCurrentItem(pager.getCurrentItem() + 1);
 				}
@@ -131,6 +133,6 @@ public abstract class WizardActivity extends AbstractFragmentActivity {
 		return pager.getCurrentItem() == (getWizardSteps().size() - 1);
 	}
 	
-	protected abstract void onfinishWizard();
+	protected abstract void onFinishWizard();
 	
 }

@@ -1,12 +1,14 @@
 package com.jdroid.android.analytics;
 
+import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
+
+import com.jdroid.android.AbstractApplication;
+import com.jdroid.java.collections.Maps;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import android.content.SharedPreferences.Editor;
-import android.preference.PreferenceManager;
-import com.jdroid.android.AbstractApplication;
-import com.jdroid.java.collections.Maps;
 
 public class ExperimentHelper {
 	
@@ -35,7 +37,7 @@ public class ExperimentHelper {
 			experimentVariant = experiment.getVariants().get(new Random().nextInt(experiment.getVariants().size()));
 			Editor editor = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).edit();
 			editor.putString(experiment.getId(), experimentVariant.getId());
-			editor.commit();
+			editor.apply();
 		} else {
 			for (ExperimentVariant each : experiment.getVariants()) {
 				if (each.getId().equals(experimentVariantValue)) {

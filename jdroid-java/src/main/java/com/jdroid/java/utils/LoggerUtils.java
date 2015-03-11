@@ -1,8 +1,9 @@
 package com.jdroid.java.utils;
 
+import com.jdroid.java.logger.MuteLogger;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.jdroid.java.logger.MuteLogger;
 
 public class LoggerUtils {
 	
@@ -17,13 +18,13 @@ public class LoggerUtils {
 	
 	public static Logger getLogger(Class<?> clazz) {
 		if (enabled) {
-			return LoggerFactory.getLogger(getLmitedName(clazz.getSimpleName()));
+			return LoggerFactory.getLogger(getLimitedName(clazz.getSimpleName()));
 		} else {
 			return MUTE_LOGGER;
 		}
 	}
 	
-	private static String getLmitedName(String name) {
+	private static String getLimitedName(String name) {
 		// Logcat support 23 characters as maximum
 		return name.substring(0, Math.min(name.length(), 23));
 	}

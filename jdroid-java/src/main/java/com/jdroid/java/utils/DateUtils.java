@@ -1,5 +1,8 @@
 package com.jdroid.java.utils;
 
+import com.jdroid.java.collections.Lists;
+import com.jdroid.java.exception.UnexpectedException;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,8 +11,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
-import com.jdroid.java.collections.Lists;
-import com.jdroid.java.exception.UnexpectedException;
 
 /**
  * Utilities for Dates and Calendars
@@ -216,7 +217,7 @@ public abstract class DateUtils {
 		}
 	}
 	
-	public static final void init() {
+	public static void init() {
 		// nothing...
 	}
 	

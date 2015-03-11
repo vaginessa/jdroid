@@ -21,10 +21,6 @@ public class BadgeView extends TextView {
 		this(context, null);
 	}
 	
-	/**
-	 * @param context
-	 * @param attrs
-	 */
 	public BadgeView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		

@@ -1,10 +1,5 @@
 package com.jdroid.java.http.mock;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.Collection;
-import java.util.Map;
-import org.slf4j.Logger;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.UnexpectedException;
@@ -16,6 +11,13 @@ import com.jdroid.java.parser.Parser;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.StringUtils;
+
+import org.slf4j.Logger;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * Mocked {@link WebService} and {@link EntityEnclosingWebService} implementation that returns mocked responses
@@ -217,8 +219,8 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	protected String generateMockFilePath(Object... urlSegments) {
 		StringBuilder sb = new StringBuilder(getMocksBasePath());
 		if (urlSegments != null) {
-			for (int i = 0; i < urlSegments.length; i++) {
-				sb.append(urlSegments[i].toString().replaceAll(URL_SEPARATOR, MOCK_SEPARATOR));
+			for (Object urlSegment : urlSegments) {
+				sb.append(urlSegment.toString().replaceAll(URL_SEPARATOR, MOCK_SEPARATOR));
 				sb.append(MOCK_SEPARATOR);
 			}
 		}

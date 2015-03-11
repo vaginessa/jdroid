@@ -21,10 +21,10 @@ public abstract class UseCaseFragment<T extends DefaultAbstractUseCase> extends 
 		setRetainInstance(true);
 		
 		useCase = getInstance(getUseCaseClass());
-		intializeUseCase(useCase);
+		initializeUseCase(useCase);
 	}
 	
-	protected void intializeUseCase(T useCase) {
+	protected void initializeUseCase(T useCase) {
 		// Do Nothing
 	}
 	

@@ -1,7 +1,8 @@
 package com.jdroid.java.exception;
 
-import java.util.Map;
 import com.jdroid.java.collections.Maps;
+
+import java.util.Map;
 
 public abstract class AbstractException extends RuntimeException {
 	
@@ -24,9 +25,6 @@ public abstract class AbstractException extends RuntimeException {
 		super(message);
 	}
 	
-	/**
-	 * @param cause
-	 */
 	public AbstractException(Throwable cause) {
 		super(cause);
 	}

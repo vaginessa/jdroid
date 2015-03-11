@@ -1,12 +1,14 @@
 package com.jdroid.java.http.apache;
 
-import java.io.InputStream;
-import java.util.zip.GZIPInputStream;
-import org.apache.http.Header;
-import org.apache.http.HttpResponse;
 import com.jdroid.java.http.HttpResponseWrapper;
 import com.jdroid.java.http.WebService;
 import com.jdroid.java.utils.FileUtils;
+
+import org.apache.http.Header;
+import org.apache.http.HttpResponse;
+
+import java.io.InputStream;
+import java.util.zip.GZIPInputStream;
 
 public class ApacheHttpResponseWrapper extends HttpResponseWrapper {
 	
@@ -61,8 +63,8 @@ public class ApacheHttpResponseWrapper extends HttpResponseWrapper {
 	 */
 	@Override
 	public String getHeader(String name) {
-		Header[] headerstatusCode = httpResponse.getHeaders(name);
-		return headerstatusCode.length > 0 ? headerstatusCode[0].getValue() : null;
+		Header[] headerStatusCode = httpResponse.getHeaders(name);
+		return headerStatusCode.length > 0 ? headerStatusCode[0].getValue() : null;
 	}
 	
 }

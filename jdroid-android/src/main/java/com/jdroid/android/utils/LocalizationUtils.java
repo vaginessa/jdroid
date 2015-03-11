@@ -10,7 +10,7 @@ public final class LocalizationUtils {
 	 * 
 	 * @param resId The resource id to obtain the format
 	 * @param args arguments to replace format specifiers
-	 * @return The localized and formated string
+	 * @return The localized and formatted string
 	 */
 	public static String getString(int resId, Object... args) {
 		return AbstractApplication.get().getString(resId, args);

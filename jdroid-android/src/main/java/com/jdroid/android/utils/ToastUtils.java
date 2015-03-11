@@ -1,14 +1,16 @@
 package com.jdroid.android.utils;
 
-import java.lang.ref.WeakReference;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
+
+import java.lang.ref.WeakReference;
 
 public final class ToastUtils {
 	
@@ -41,7 +43,7 @@ public final class ToastUtils {
 		};
 	};
 	
-	public static final void init() {
+	public static void init() {
 		// nothing...
 	}
 	
@@ -278,7 +280,7 @@ public final class ToastUtils {
 			toast.setView(view);
 			toast.show();
 			
-			currentToast = new WeakReference<Toast>(toast);
+			currentToast = new WeakReference<>(toast);
 		}
 	}
 	

@@ -1,7 +1,5 @@
 package com.jdroid.android.view;
 
-import java.util.LinkedList;
-import java.util.Queue;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Rect;
@@ -14,6 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.Scroller;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class HorizontalListView extends AdapterView<ListAdapter> {
 	
 	private ListAdapter listAdapter;
@@ -25,7 +26,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 	private int displayOffset = 0;
 	private Scroller scroller;
 	private GestureDetector gesture;
-	private Queue<View> removedViewQueue = new LinkedList<View>();
+	private Queue<View> removedViewQueue = new LinkedList<>();
 	private OnItemSelectedListener onItemSelected;
 	private OnItemClickListener onItemClicked;
 	private OnItemLongClickListener onItemLongClicked;

@@ -11,7 +11,7 @@ public class Maps {
 	 * @return a new, empty {@code HashMap}
 	 */
 	public static <K, V> HashMap<K, V> newHashMap() {
-		return new HashMap<K, V>();
+		return new HashMap<>();
 	}
 	
 	/**
@@ -20,6 +20,6 @@ public class Maps {
 	 * @return a new, empty {@code LinkedHashMap}
 	 */
 	public static <K, V> LinkedHashMap<K, V> newLinkedHashMap() {
-		return new LinkedHashMap<K, V>();
+		return new LinkedHashMap<>();
 	}
 }

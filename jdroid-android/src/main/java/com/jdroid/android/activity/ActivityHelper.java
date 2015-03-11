@@ -70,7 +70,7 @@ public class ActivityHelper implements ActivityIf {
 	private AbstractFragmentActivity activity;
 	private Handler locationHandler;
 	private AdHelper adHelper;
-	private boolean isDestoyed = false;
+	private boolean isDestroyed = false;
 	
 	private ActivityLoading loading;
 	
@@ -83,9 +83,6 @@ public class ActivityHelper implements ActivityIf {
 	private static Boolean navDrawerManuallyUsed = false;
 	private static Boolean inAppBillingLoaded = false;
 	
-	/**
-	 * @param activity
-	 */
 	public ActivityHelper(AbstractFragmentActivity activity) {
 		this.activity = activity;
 	}
@@ -479,7 +476,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	public void onDestroy() {
-		isDestoyed = true;
+		isDestroyed = true;
 		LOGGER.debug("Executing onDestroy on " + activity);
 		dismissLoading();
 	}
@@ -686,7 +683,7 @@ public class ActivityHelper implements ActivityIf {
 	 */
 	@Override
 	public Boolean isActivityDestroyed() {
-		return isDestoyed;
+		return isDestroyed;
 	}
 	
 	// //////////////////////// Loading //////////////////////// //
@@ -751,7 +748,7 @@ public class ActivityHelper implements ActivityIf {
 					SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
 					Editor editor = sharedPreferences.edit();
 					editor.putBoolean(NAV_DRAWER_MANUALLY_USED, true);
-					editor.commit();
+					editor.apply();
 					navDrawerManuallyUsed = true;
 				}
 			});

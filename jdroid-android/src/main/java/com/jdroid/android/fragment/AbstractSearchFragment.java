@@ -30,8 +30,6 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 	
 	private int threshold = 1;
 	private EditText searchText;
-	private View searchButton;
-	private View cancelButton;
 	private View loading;
 	
 	/**
@@ -79,26 +77,26 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 				}
 			});
 		}
-		
-		searchButton = findView(R.id.searchButton);
+
+		View searchButton = findView(R.id.searchButton);
 		if (isInstantSearchEnabled()) {
 			if (searchButton != null) {
 				searchButton.setVisibility(View.GONE);
 			}
 		} else {
 			searchButton.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					search();
 				}
 			});
 		}
-		
-		cancelButton = findView(R.id.cancelButton);
+
+		View cancelButton = findView(R.id.cancelButton);
 		if (displayCancelButton()) {
 			cancelButton.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					doCancel();

@@ -1,8 +1,9 @@
 package com.jdroid.android.uri;
 
+import android.net.Uri;
+
 import java.util.ArrayList;
 import java.util.List;
-import android.net.Uri;
 
 /**
  * This matcher check if the beginning of the given path matches with some of the configured path prefixes.
@@ -14,7 +15,7 @@ public class PathPrefixMatcher {
 	private UriHandler<?> noMatchObject;
 	
 	public PathPrefixMatcher() {
-		handlers = new ArrayList<UriHandler<?>>();
+		handlers = new ArrayList<>();
 	}
 	
 	/**

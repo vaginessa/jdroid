@@ -13,6 +13,9 @@ package com.jdroid.java.json;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import com.jdroid.java.collections.Lists;
+import com.jdroid.java.utils.DateUtils;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -29,8 +32,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
-import com.jdroid.java.collections.Lists;
-import com.jdroid.java.utils.DateUtils;
 
 /**
  * A JSONObject is an unordered collection of name/value pairs. Its external form is a string wrapped in curly braces
@@ -142,9 +143,9 @@ public class JSONObject {
 	 */
 	public JSONObject(JSONObject jo, String[] names) {
 		this();
-		for (int i = 0; i < names.length; i += 1) {
+		for (String name : names) {
 			try {
-				this.putOnce(names[i], jo.opt(names[i]));
+				this.putOnce(name, jo.opt(name));
 			} catch (Exception ignore) {
 			}
 		}
@@ -253,8 +254,7 @@ public class JSONObject {
 	public JSONObject(Object object, String names[]) {
 		this();
 		Class c = object.getClass();
-		for (int i = 0; i < names.length; i += 1) {
-			String name = names[i];
+		for (String name : names) {
 			try {
 				this.putOpt(name, c.getField(name).get(object));
 			} catch (Exception ignore) {
@@ -589,13 +589,13 @@ public class JSONObject {
 		if (value == null) {
 			this.put(key, 1);
 		} else if (value instanceof Integer) {
-			this.put(key, ((Integer)value).intValue() + 1);
+			this.put(key, (Integer) value + 1);
 		} else if (value instanceof Long) {
-			this.put(key, ((Long)value).longValue() + 1);
+			this.put(key, (Long) value + 1);
 		} else if (value instanceof Double) {
-			this.put(key, ((Double)value).doubleValue() + 1);
+			this.put(key, (Double) value + 1);
 		} else if (value instanceof Float) {
-			this.put(key, ((Float)value).floatValue() + 1);
+			this.put(key, (Float) value + 1);
 		} else {
 			throw new JSONException("Unable to increment [" + quote(key) + "].");
 		}
@@ -853,9 +853,9 @@ public class JSONObject {
 		boolean includeSuperClass = klass.getClassLoader() != null;
 		
 		Method[] methods = includeSuperClass ? klass.getMethods() : klass.getDeclaredMethods();
-		for (int i = 0; i < methods.length; i += 1) {
+		for (Method method1 : methods) {
 			try {
-				Method method = methods[i];
+				Method method = method1;
 				if (Modifier.isPublic(method.getModifiers())) {
 					String name = method.getName();
 					String key = "";
@@ -875,8 +875,8 @@ public class JSONObject {
 						} else if (!Character.isUpperCase(key.charAt(1))) {
 							key = key.substring(0, 1).toLowerCase() + key.substring(1);
 						}
-						
-						Object result = method.invoke(bean, (Object[])null);
+
+						Object result = method.invoke(bean, (Object[]) null);
 						if (result != null) {
 							map.put(key, wrap(result));
 						}
@@ -922,7 +922,7 @@ public class JSONObject {
 	 * @throws JSONException If the key is null or if the number is invalid.
 	 */
 	public JSONObject put(String key, double value) throws JSONException {
-		this.put(key, new Double(value));
+		this.put(key, Double.valueOf(value));
 		return this;
 	}
 	
@@ -935,7 +935,7 @@ public class JSONObject {
 	 * @throws JSONException If the key is null.
 	 */
 	public JSONObject put(String key, int value) throws JSONException {
-		this.put(key, new Integer(value));
+		this.put(key, Integer.valueOf(value));
 		return this;
 	}
 	
@@ -948,7 +948,7 @@ public class JSONObject {
 	 * @throws JSONException If the key is null.
 	 */
 	public JSONObject put(String key, long value) throws JSONException {
-		this.put(key, new Long(value));
+		this.put(key, Long.valueOf(value));
 		return this;
 	}
 	
@@ -1146,10 +1146,10 @@ public class JSONObject {
 						return d;
 					}
 				} else {
-					Long myLong = new Long(string);
+					Long myLong = Long.valueOf(string);
 					if (string.equals(myLong.toString())) {
-						if (myLong.longValue() == myLong.intValue()) {
-							return new Integer(myLong.intValue());
+						if (myLong == myLong.intValue()) {
+							return myLong.intValue();
 						} else {
 							return myLong;
 						}
@@ -1344,7 +1344,7 @@ public class JSONObject {
 		return this.write(writer, 0, 0);
 	}
 	
-	static final Writer writeValue(Writer writer, Object value, int indentFactor, int indent) throws JSONException,
+	static Writer writeValue(Writer writer, Object value, int indentFactor, int indent) throws JSONException,
 			IOException {
 		if ((value == null) || value.equals(null)) {
 			writer.write("null");
@@ -1376,7 +1376,7 @@ public class JSONObject {
 		return writer;
 	}
 	
-	static final void indent(Writer writer, int indent) throws IOException {
+	static void indent(Writer writer, int indent) throws IOException {
 		for (int i = 0; i < indent; i += 1) {
 			writer.write(' ');
 		}

@@ -1,7 +1,5 @@
 package com.jdroid.android.debug;
 
-import java.util.List;
-import java.util.Map.Entry;
 import android.app.Activity;
 import android.content.SharedPreferences.Editor;
 import android.preference.ListPreference;
@@ -10,12 +8,16 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.analytics.ExperimentHelper;
 import com.jdroid.android.analytics.ExperimentHelper.Experiment;
 import com.jdroid.android.analytics.ExperimentHelper.ExperimentVariant;
 import com.jdroid.java.collections.Lists;
+
+import java.util.List;
+import java.util.Map.Entry;
 
 public class ExperimentsDebugPrefsAppender implements PreferencesAppender {
 	
@@ -62,7 +64,7 @@ public class ExperimentsDebugPrefsAppender implements PreferencesAppender {
 					
 					Editor editor = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).edit();
 					editor.putString(experiment.getId(), newValue.toString());
-					editor.commit();
+					editor.apply();
 					
 					((ListPreference)preference).setValue(newValue.toString());
 					

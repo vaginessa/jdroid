@@ -34,9 +34,9 @@ public class DexMethodCounts {
 
 	private static final String CLASSES_DEX = "classes.dex";
 
-	private static boolean includeClasses = true;
+	private static final boolean includeClasses = true;
 	private static String packageFilter;
-	private static int maxDepth = Integer.MAX_VALUE;
+	private static final int maxDepth = Integer.MAX_VALUE;
 	private static DexMethodCounts.Filter filter = DexMethodCounts.Filter.ALL;
 
 	private static PrintWriter printWriter;

@@ -37,7 +37,7 @@ public abstract class AppContext {
 		if (!sharedPreferences.contains(ADS_ENABLED)) {
 			Editor editor = sharedPreferences.edit();
 			editor.putBoolean(ADS_ENABLED, adsEnabled);
-			editor.commit();
+			editor.apply();
 		}
 	}
 	

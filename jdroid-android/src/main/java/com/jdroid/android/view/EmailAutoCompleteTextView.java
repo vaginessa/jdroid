@@ -29,7 +29,7 @@ public class EmailAutoCompleteTextView extends AutoCompleteTextView {
 	
 	private void init() {
 		if (!isInEditMode()) {
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+			ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
 					android.R.layout.simple_dropdown_item_1line, AndroidUtils.getAccountsEmails());
 			setAdapter(adapter);
 			setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS

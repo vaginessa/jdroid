@@ -1,7 +1,5 @@
 package com.jdroid.android.dialog;
 
-import java.io.Serializable;
-import java.util.Map;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -12,7 +10,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.Button;
+
 import com.jdroid.java.collections.Maps;
+
+import java.io.Serializable;
+import java.util.Map;
 
 public class AlertDialogFragment extends AbstractDialogFragment {
 	
@@ -127,7 +129,7 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 		}
 		
 		AlertDialog dialog = dialogBuilder.create();
-		if ((positiveButtonText != null) && !dismissOnPositivoButtonClick()) {
+		if ((positiveButtonText != null) && !dismissOnPossitiveButtonClick()) {
 			// As workaround, to override default dismiss behavior the listener is directly set on the button.
 			dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 				
@@ -164,7 +166,7 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 		parameters.put(key, value);
 	}
 	
-	protected boolean dismissOnPositivoButtonClick() {
+	protected boolean dismissOnPossitiveButtonClick() {
 		return true;
 	}
 	

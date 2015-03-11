@@ -14,7 +14,7 @@ public class RefreshActionProvider extends TwoStateActionProvider {
 	 */
 	@Override
 	protected Integer getFirstStateImageResId() {
-		return R.drawable.refresh;
+		return R.drawable.ic_menu_refresh;
 	}
 	
 	/**

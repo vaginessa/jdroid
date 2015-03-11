@@ -1,8 +1,11 @@
 package com.jdroid.java.utils;
 
+import com.jdroid.java.exception.UnexpectedException;
+
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -10,7 +13,6 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import com.jdroid.java.exception.UnexpectedException;
 
 public class EncryptionUtils {
 	
@@ -55,13 +57,9 @@ public class EncryptionUtils {
 			SecretKeySpec skeySpec = new SecretKeySpec(raw, AES);
 			cipher.init(opMode, skeySpec);
 			return cipher.doFinal(input);
-		} catch (NoSuchAlgorithmException e) {
-			throw new UnexpectedException(e);
-		} catch (NoSuchPaddingException e) {
+		} catch (NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException e) {
 			throw new UnexpectedException(e);
 		} catch (InvalidKeyException e) {
-			throw new UnexpectedException(e);
-		} catch (IllegalBlockSizeException e) {
 			throw new UnexpectedException(e);
 		} catch (BadPaddingException e) {
 			throw new UnexpectedException(e);
@@ -79,9 +77,9 @@ public class EncryptionUtils {
 	
 	public static String toHex(byte[] bytes) {
 		StringBuilder hexBuilder = new StringBuilder();
-		for (int i = 0; i < bytes.length; i++) {
-			hexBuilder.append(Character.forDigit((bytes[i] >>> 4) & 0xf, 16));
-			hexBuilder.append(Character.forDigit(bytes[i] & 0xf, 16));
+		for (byte aByte : bytes) {
+			hexBuilder.append(Character.forDigit((aByte >>> 4) & 0xf, 16));
+			hexBuilder.append(Character.forDigit(aByte & 0xf, 16));
 		}
 		return hexBuilder.toString();
 	}
