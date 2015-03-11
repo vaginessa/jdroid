@@ -32,8 +32,8 @@ buildscript {
 }
 
 dependencies {
-//	compile project(':jdroid-android')
-    compile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT'
+	compile project(':jdroid-android')
+//  compile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT'
 //	compile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT:debug'
 //	releaseCompile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT:release'
 

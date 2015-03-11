@@ -30,7 +30,8 @@ buildscript {
 }
 
 project.dependencies {
-	compile 'com.jdroidframework:jdroid-javaweb:0.7.0-SNAPSHOT'
+	compile project(':jdroid-javaweb')
+	//compile 'com.jdroidframework:jdroid-javaweb:0.7.0-SNAPSHOT'
 }
 
 // Generate the settings.properties
