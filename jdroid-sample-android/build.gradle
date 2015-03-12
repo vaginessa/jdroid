@@ -172,5 +172,13 @@ android {
 	sourceSets.test.java.srcDirs += sourceSets.debug.java.srcDirs
 }
 
+tasks.withType(Test) {
+	scanForTestClasses = true
+
+	if (!hasProperty('integration') || integration != 'true') {
+		exclude "**/integration/**/*Test.class"
+	}
+}
+
 
 
