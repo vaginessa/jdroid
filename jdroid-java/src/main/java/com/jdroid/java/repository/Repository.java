@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Interface that all repositories must adhere to. It provides basic repository functionality.
  * 
- * @param <T> Thie type of Identifiable
+ * @param <T> The type of Identifiable
  */
 public interface Repository<T extends Identifiable> {
 	

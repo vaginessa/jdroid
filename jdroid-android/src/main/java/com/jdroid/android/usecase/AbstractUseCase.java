@@ -67,7 +67,7 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 				notifyFinishedUseCase(listener);
 			}
 		} catch (RuntimeException e) {
-			AbstractException abstractException = null;
+			AbstractException abstractException;
 			if (e instanceof AbstractException) {
 				abstractException = (AbstractException)e;
 			} else {

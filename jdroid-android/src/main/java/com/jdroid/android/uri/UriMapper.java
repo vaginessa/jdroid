@@ -1,14 +1,16 @@
 package com.jdroid.android.uri;
 
-import org.slf4j.Logger;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.webkit.URLUtil;
+
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
 
 /**
  * Mapper which allows to navigate the application using a Uri.
@@ -66,7 +68,7 @@ public class UriMapper {
 			className = className.substring(dot + 1);
 		}
 		
-		AppLoadingSource appLoadingSource = null;
+		AppLoadingSource appLoadingSource;
 		if (uri.getScheme() == null) {
 			appLoadingSource = AppLoadingSource.NORMAL;
 			AbstractApplication.get().getExceptionHandler().logWarningException("Uri not supported: " + uri.toString());
@@ -83,7 +85,7 @@ public class UriMapper {
 	}
 	
 	public static Intent getIntentFromUri(Context context, Uri uri) {
-		Intent intent = null;
+		Intent intent;
 		try {
 			if (uri != null) {
 				

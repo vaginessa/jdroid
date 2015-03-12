@@ -3,6 +3,7 @@ apply plugin: 'java'
 description = 'Jdroid Java'
 
 dependencies {
+	//noinspection GradleDependency
 	compile "org.apache.httpcomponents:httpclient:4.1.2"
 
 	// Required to handle Multipart POSTs

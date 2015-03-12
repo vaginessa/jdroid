@@ -76,7 +76,6 @@ public class EncodingUtils {
 			String toEncode = s.substring(current, nextAllowed);
 			try {
 				byte[] bytes = toEncode.getBytes(UTF8);
-				int bytesLength = bytes.length;
 				for (byte aByte : bytes) {
 					encoded.append('%');
 					encoded.append(HEX_DIGITS[(aByte & 0xf0) >> 4]);

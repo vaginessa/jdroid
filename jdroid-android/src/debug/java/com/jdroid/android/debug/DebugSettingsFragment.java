@@ -60,7 +60,7 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 			}
 		}
 		
-		ListView listView = ((ListView)findView(android.R.id.list));
+		ListView listView = findView(android.R.id.list);
 		
 		View debugInfoView = new DebugInfoView(getActivity());
 		listView.addFooterView(debugInfoView);

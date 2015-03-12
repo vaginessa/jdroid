@@ -1,9 +1,7 @@
 package com.jdroid.android.analytics;
 
-import java.util.Map;
-import java.util.Map.Entry;
-import org.slf4j.Logger;
 import android.app.Activity;
+
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.HitBuilders.AppViewBuilder;
@@ -24,6 +22,11 @@ import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
+
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	
@@ -380,7 +383,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 	
 	public void sendEvent(String category, String action, String label) {
-		sendEvent(category, action, label, null, (Map<String, String>)null);
+		sendEvent(category, action, label, null, null);
 	}
 	
 	public void sendEvent(String category, String action, String label, Map<String, String> customDimensions) {

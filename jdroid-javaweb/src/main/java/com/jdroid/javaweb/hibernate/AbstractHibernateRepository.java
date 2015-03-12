@@ -1,9 +1,13 @@
 package com.jdroid.javaweb.hibernate;
 
-import java.sql.SQLException;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import com.google.common.base.Function;
+import com.jdroid.java.domain.Identifiable;
+import com.jdroid.java.repository.Repository;
+import com.jdroid.java.search.PagedResult;
+import com.jdroid.javaweb.domain.Entity;
+import com.jdroid.javaweb.search.Pager;
+import com.jdroid.javaweb.search.Sorting;
+
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -16,13 +20,11 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.impl.CriteriaImpl;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-import com.google.common.base.Function;
-import com.jdroid.java.domain.Identifiable;
-import com.jdroid.java.repository.Repository;
-import com.jdroid.java.search.PagedResult;
-import com.jdroid.javaweb.domain.Entity;
-import com.jdroid.javaweb.search.Pager;
-import com.jdroid.javaweb.search.Sorting;
+
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Hibernate Repository
@@ -88,7 +90,7 @@ public class AbstractHibernateRepository<T extends Entity> extends HibernateDaoS
 	@Override
 	public void update(T item) {
 		getHibernateTemplate().update(item);
-	};
+	}
 	
 	/**
 	 * @see com.jdroid.java.repository.Repository#remove(com.jdroid.java.domain.Identifiable)
@@ -254,7 +256,7 @@ public class AbstractHibernateRepository<T extends Entity> extends HibernateDaoS
 		detachedCriteria.setProjection(null);
 		detachedCriteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 		if (sorting != null) {
-			Order order = null;
+			Order order;
 			if (sorting.isAscending()) {
 				order = Order.asc(sorting.getSortingKey().getProperty());
 			} else {

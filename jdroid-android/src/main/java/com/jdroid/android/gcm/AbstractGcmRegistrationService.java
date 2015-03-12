@@ -28,7 +28,7 @@ public abstract class AbstractGcmRegistrationService extends WorkerService {
 		
 		if (GooglePlayUtils.isGooglePlayServicesAvailable(this)) {
 			if (!GcmPreferences.isRegistered(this) || !GcmPreferences.isRegisteredOnServer(this)) {
-				String registrationId = null;
+				String registrationId;
 				try {
 					GoogleCloudMessaging googleCloudMessaging = GoogleCloudMessaging.getInstance(this);
 					

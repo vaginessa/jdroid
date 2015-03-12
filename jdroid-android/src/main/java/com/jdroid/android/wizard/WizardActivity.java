@@ -78,7 +78,7 @@ public abstract class WizardActivity extends AbstractFragmentActivity {
 	
 	protected Integer getOffscreenPageLimit() {
 		return null;
-	};
+	}
 	
 	protected int getNegativeStringResId() {
 		return R.string.previous;

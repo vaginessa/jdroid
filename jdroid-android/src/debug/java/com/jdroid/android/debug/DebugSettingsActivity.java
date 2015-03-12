@@ -44,7 +44,7 @@ public class DebugSettingsActivity extends AbstractFragmentActivity {
 	
 	private <E extends AbstractPreferenceFragment> E instanceAbstractPreferenceFragment(Class<E> fragmentClass,
 			Bundle bundle) {
-		E fragment = null;
+		E fragment;
 		try {
 			fragment = fragmentClass.newInstance();
 		} catch (InstantiationException e) {

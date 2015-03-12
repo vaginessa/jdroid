@@ -1,7 +1,5 @@
 package com.jdroid.android.location;
 
-import java.util.List;
-import org.slf4j.Logger;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,9 +10,14 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.SystemClock;
+
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.utils.AlarmUtils;
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
+
+import java.util.List;
 
 public class LocationHelper implements LocationListener {
 	
@@ -99,9 +102,8 @@ public class LocationHelper implements LocationListener {
 	
 	private PendingIntent getCancelPendingIntent() {
 		Intent gpsIntent = new Intent(GPS_TIMEOUT_ACTION);
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(AbstractApplication.get(), 0, gpsIntent,
+		return PendingIntent.getBroadcast(AbstractApplication.get(), 0, gpsIntent,
 			PendingIntent.FLAG_CANCEL_CURRENT);
-		return pendingIntent;
 	}
 	
 	/**

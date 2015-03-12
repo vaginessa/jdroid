@@ -86,7 +86,7 @@ public class MarshallerProvider {
 		@Override
 		public Class<?> evaluate(Object marshallerType) {
 			return marshallerType.getClass();
-		};
+		}
 	}
 	
 	public void setMarshallerTypeEvaluator(MarshallerTypeEvaluator marshallerTypeEvaluator) {

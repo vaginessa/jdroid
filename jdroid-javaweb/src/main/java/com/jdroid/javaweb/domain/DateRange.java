@@ -1,12 +1,14 @@
 package com.jdroid.javaweb.domain;
 
+import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.java.utils.DateUtils;
+
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Embeddable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.utils.DateUtils;
 
 /**
  * This is a Date Range class to store a start date and an end date
@@ -156,7 +158,7 @@ public class DateRange implements Serializable, Comparable<DateRange> {
 		if (!overlaps(dateRange)) {
 			throw new IllegalArgumentException();
 		}
-		;
+
 		return new DateRange(startDate.after(dateRange.getStartDate()) ? startDate : dateRange.getStartDate(),
 				endDate.before(dateRange.getEndDate()) ? endDate : dateRange.getEndDate());
 	}

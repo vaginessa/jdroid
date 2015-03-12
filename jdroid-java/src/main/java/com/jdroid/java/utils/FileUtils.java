@@ -139,7 +139,7 @@ public abstract class FileUtils {
 	}
 	
 	public static File createTempFile() {
-		File file = null;
+		File file;
 		try {
 			file = File.createTempFile("tempFile", ".tmp");
 		} catch (IOException e) {
@@ -157,7 +157,7 @@ public abstract class FileUtils {
 	
 	public static File toTempFile(String content) {
 		
-		File file = null;
+		File file;
 		try {
 			file = File.createTempFile("tempFile", ".tmp");
 		} catch (IOException e) {

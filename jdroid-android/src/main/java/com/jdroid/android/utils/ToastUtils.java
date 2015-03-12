@@ -40,7 +40,7 @@ public final class ToastUtils {
 				default:
 					break;
 			}
-		};
+		}
 	};
 	
 	public static void init() {

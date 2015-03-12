@@ -23,6 +23,11 @@
 		<property name="httpMockEnabled" value="${httpMockEnabled}" />
 		<property name="httpMockSleepDuration" value="${httpMockSleepDuration}" />
 		<property name="adminToken" value="${adminToken}" />
+		<property name="twitterOAuthConsumerKey" value="${twitterOAuthConsumerKey}" />
+		<property name="twitterOAuthConsumerSecret" value="${twitterOAuthConsumerSecret}" />
+		<property name="twitterOAuthAccessToken" value="${twitterOAuthAccessToken}" />
+		<property name="twitterOAuthAccessTokenSecret" value="${twitterOAuthAccessTokenSecret}" />
+		<property name="twitterEnabled" value="${twitterEnabled}" />
 	</bean>
 
 	<bean id="gitContext" class="com.jdroid.javaweb.context.ServerGitContext">

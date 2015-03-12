@@ -35,7 +35,7 @@ public abstract class JsonParser<T> implements Parser {
 			LOGGER.trace(input);
 			
 			// Create a wrapped JsonObject or JsonArray
-			T json = null;
+			T json;
 			if (input.startsWith(ARRAY_PREFIX)) {
 				json = (T)new JSONArray(input);
 			} else {

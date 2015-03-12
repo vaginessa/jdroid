@@ -100,7 +100,7 @@ public abstract class ReflectionUtils {
 
 	public static Object getStaticFieldValue(Class<?> clazz, String fieldName) {
 		Field field = getField(clazz, fieldName);
-		return get((Field)field, (Object)null);
+		return get(field, (Object)null);
 	}
 
 	public static Object getStaticFieldValue(Class<?> clazz, String fieldName, Object defaultValue) {

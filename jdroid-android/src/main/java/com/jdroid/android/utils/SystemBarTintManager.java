@@ -354,11 +354,9 @@ public class SystemBarTintManager {
 		
 		@TargetApi(14)
 		private int getActionBarHeight(Context context) {
-			int result = 0;
 			TypedValue tv = new TypedValue();
 			context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
-			result = context.getResources().getDimensionPixelSize(tv.resourceId);
-			return result;
+			return context.getResources().getDimensionPixelSize(tv.resourceId);
 		}
 		
 		@TargetApi(14)

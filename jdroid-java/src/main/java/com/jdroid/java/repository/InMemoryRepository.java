@@ -45,7 +45,7 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 	@Override
 	public void update(T item) {
 		add(item);
-	};
+	}
 	
 	/**
 	 * @see com.jdroid.java.repository.Repository#remove(com.jdroid.java.domain.Identifiable)

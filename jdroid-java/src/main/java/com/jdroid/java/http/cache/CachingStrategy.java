@@ -1,9 +1,10 @@
 package com.jdroid.java.http.cache;
 
-import org.slf4j.Logger;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.parser.Parser;
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
 
 public enum CachingStrategy {
 	
@@ -12,7 +13,7 @@ public enum CachingStrategy {
 		@Override
 		public <T> T execute(CachedWebService cachedWebService, Parser parser) {
 			return cachedWebService.executeRequest(parser);
-		};
+		}
 	},
 	
 	// First try with the cache. If it is a hit, return the cached response, else execute the request

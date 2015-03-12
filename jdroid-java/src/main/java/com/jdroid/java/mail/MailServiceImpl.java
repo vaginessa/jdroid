@@ -1,16 +1,18 @@
 package com.jdroid.java.mail;
 
+import com.jdroid.java.utils.LoggerUtils;
+import com.jdroid.java.utils.PropertiesUtils;
+
+import org.slf4j.Logger;
+
 import java.util.Properties;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import org.slf4j.Logger;
-import com.jdroid.java.utils.LoggerUtils;
-import com.jdroid.java.utils.PropertiesUtils;
 
 public class MailServiceImpl implements MailService {
 	
@@ -49,8 +51,7 @@ public class MailServiceImpl implements MailService {
 		}
 	}
 	
-	private Message makeMessage(String subject, String body, String sender, String recipient) throws AddressException,
-			MessagingException {
+	private Message makeMessage(String subject, String body, String sender, String recipient) throws MessagingException {
 		MimeMessage message = new MimeMessage(session);
 		message.setFrom(new InternetAddress(sender));
 		message.setSubject(subject);

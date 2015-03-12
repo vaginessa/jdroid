@@ -40,7 +40,7 @@ public class ApacheHttpResponseWrapper extends HttpResponseWrapper {
 			FileUtils.safeClose(inputStream);
 		}
 		return content;
-	};
+	}
 	
 	/**
 	 * @see com.jdroid.java.http.HttpResponseWrapper#getStatusCode()

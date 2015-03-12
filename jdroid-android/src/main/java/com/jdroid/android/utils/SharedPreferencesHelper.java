@@ -1,11 +1,13 @@
 package com.jdroid.android.utils;
 
-import java.util.Map;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
+
 import com.jdroid.android.AbstractApplication;
+
+import java.util.Map;
 
 /**
  * Helper to work with the shared preferences
@@ -111,7 +113,7 @@ public class SharedPreferencesHelper {
 	 * @return the preference value if it exists, or null.
 	 */
 	public String loadPreference(String key) {
-		return getSharedPreferences().getString(key, (String)null);
+		return getSharedPreferences().getString(key, null);
 	}
 	
 	/**

@@ -176,7 +176,6 @@ public abstract class AbstractApplication extends Application {
 		Integer fromVersionCode = SharedPreferencesHelper.getOldDefault().loadPreferenceAsInteger(VERSION_CODE_KEY);
 		if (fromVersionCode == null) {
 			appLaunchStatus = AppLaunchStatus.NEW_INSTALATTION;
-			fromVersionCode = 0;
 		} else {
 			if (AndroidUtils.getVersionCode().equals(fromVersionCode)) {
 				appLaunchStatus = AppLaunchStatus.NORMAL;
@@ -457,10 +456,12 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	protected void initRepositories(Map<Class<? extends Identifiable>, Repository<? extends Identifiable>> repositories) {
+		// Do nothing
 	}
 	
 	protected void initDatabaseRepositories(
 			Map<Class<? extends Identifiable>, Repository<? extends Identifiable>> repositories, SQLiteHelper dbHelper) {
+		// Do nothing
 	}
 	
 	public Boolean isDatabaseEnabled() {

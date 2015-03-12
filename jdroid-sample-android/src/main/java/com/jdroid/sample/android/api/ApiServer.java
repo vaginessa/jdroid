@@ -1,10 +1,11 @@
 package com.jdroid.sample.android.api;
 
-import java.util.List;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.http.HttpWebServiceProcessor;
 import com.jdroid.java.http.Server;
+
+import java.util.List;
 
 public enum ApiServer implements Server {
 	
@@ -53,7 +54,7 @@ public enum ApiServer implements Server {
 			}
 			return urlBuilder.toString();
 		}
-	};
+	}
 	
 	/**
 	 * @see com.jdroid.java.http.Server#supportsSsl()

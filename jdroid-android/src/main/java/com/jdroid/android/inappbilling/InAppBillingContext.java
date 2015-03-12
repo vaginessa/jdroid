@@ -78,25 +78,24 @@ public class InAppBillingContext {
 			purchasedProductTypes.add(productType);
 		}
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
-		String currentValue = sharedPreferences.getString(PURCHASED_PRODUCT_TYPES, null);
-		String newValue = productType.getProductId();
+		String value = sharedPreferences.getString(PURCHASED_PRODUCT_TYPES, null);
 		Editor editor = sharedPreferences.edit();
-		if (StringUtils.isNotEmpty(currentValue)) {
-			newValue = "," + productType.getProductId();
+		if (StringUtils.isNotEmpty(value)) {
+			value = value + "," + productType.getProductId();
 		} else {
-			newValue = productType.getProductId();
+			value = productType.getProductId();
 		}
-		editor.putString(PURCHASED_PRODUCT_TYPES, newValue);
+		editor.putString(PURCHASED_PRODUCT_TYPES, value);
 		editor.apply();
 	}
-	
+
 	public synchronized List<ProductType> getPurchasedProductTypes() {
 		if (purchasedProductTypes == null) {
 			String pref = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
 				PURCHASED_PRODUCT_TYPES, null);
 			purchasedProductTypes = Lists.newArrayList();
 			for (String each : StringUtils.splitToCollection(pref)) {
-				ProductType productType = null;
+				ProductType productType;
 				List<ProductType> supportedProductTypes = Lists.newArrayList();
 				supportedProductTypes.addAll(AbstractApplication.get().getManagedProductTypes());
 				supportedProductTypes.addAll(AbstractApplication.get().getSubscriptionsProductTypes());

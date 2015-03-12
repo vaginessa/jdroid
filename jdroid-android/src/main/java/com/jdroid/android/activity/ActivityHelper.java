@@ -128,6 +128,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	public void beforeOnCreate() {
+		// Do nothing
 	}
 	
 	public void onCreate(Bundle savedInstanceState) {

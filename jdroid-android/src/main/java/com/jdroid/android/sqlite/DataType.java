@@ -297,7 +297,7 @@ public enum DataType {
 				@Override
 				public Object parse(JSONObject json) {
 					return json;
-				};
+				}
 			};
 			
 			return (JSONObject)parser.parse(value);

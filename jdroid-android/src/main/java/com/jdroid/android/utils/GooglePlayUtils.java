@@ -23,7 +23,7 @@ public class GooglePlayUtils {
 			FragmentActivity fragmentActivity = (FragmentActivity)AbstractApplication.get().getCurrentActivity();
 			launchAppDetails(fragmentActivity, AndroidUtils.getPackageName());
 			fragmentActivity.finish();
-		};
+		}
 	}
 	
 	public static class DownloadAppDialogFragment extends AlertDialogFragment {
@@ -34,7 +34,7 @@ public class GooglePlayUtils {
 		protected void onPositiveClick() {
 			FragmentActivity fragmentActivity = (FragmentActivity)AbstractApplication.get().getCurrentActivity();
 			launchAppDetails(fragmentActivity, getArguments().getString(PACKAGE_NAME));
-		};
+		}
 		
 		public void setPackageName(String packageName) {
 			addParameter(PACKAGE_NAME, packageName);

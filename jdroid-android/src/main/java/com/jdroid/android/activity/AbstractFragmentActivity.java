@@ -1,6 +1,5 @@
 package com.jdroid.android.activity;
 
-import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -11,6 +10,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
@@ -19,6 +19,8 @@ import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.UseCaseFragment;
 import com.jdroid.android.loading.ActivityLoading;
 import com.jdroid.java.exception.UnexpectedException;
+
+import java.util.List;
 
 /**
  * Base {@link Activity}
@@ -269,7 +271,7 @@ public abstract class AbstractFragmentActivity extends ActionBarActivity impleme
 	}
 	
 	public <E extends Fragment> E instanceFragment(Class<E> fragmentClass, Bundle bundle) {
-		E fragment = null;
+		E fragment;
 		try {
 			fragment = fragmentClass.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {

@@ -48,6 +48,13 @@ project.afterEvaluate {
 			out.writeLine("httpMockEnabled=${jdroid.getProp('HTTP_MOCK_ENABLED', false)}")
 			out.writeLine("httpMockSleepDuration=${jdroid.getProp('HTTP_MOCK_SLEEP_DURATION', 10)}")
 			out.writeLine("adminToken=${jdroid.getProp('ADMIN_TOKEN', 'admin')}")
+
+			// TODO Ignore the null keys, because they are generating "null" strings
+			out.writeLine("twitterOAuthConsumerKey=${jdroid.getProp('TWITTER_OAUTH_CONSUMER_KEY')}")
+			out.writeLine("twitterOAuthConsumerSecret=${jdroid.getProp('TWITTER_OAUTH_CONSUMER_SECRET')}")
+			out.writeLine("twitterOAuthAccessToken=${jdroid.getProp('TWITTER_OAUTH_ACCESS_TOKEN')}")
+			out.writeLine("twitterOAuthAccessTokenSecret=${jdroid.getProp('TWITTER_OAUTH_ACCESS_TOKEN_SECRET')}")
+			out.writeLine("twitterEnabled=${jdroid.getProp('TWITTER_ENABLED')}")
 		}
 	}
 
