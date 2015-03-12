@@ -1,20 +1,22 @@
 package com.jdroid.sample.api.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import com.jdroid.java.utils.StringUtils;
+import com.jdroid.javaweb.api.AbstractController;
 import com.jdroid.javaweb.push.Device;
 import com.jdroid.javaweb.push.DeviceType;
 import com.jdroid.javaweb.push.PushMessage;
 import com.jdroid.javaweb.push.PushService;
 import com.jdroid.javaweb.push.gcm.AbstractGcmMessage;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 @Controller
 @RequestMapping("/gcm")
-public class GcmController {
+public class GcmController extends AbstractController {
 	
 	@Autowired
 	private PushService pushService;

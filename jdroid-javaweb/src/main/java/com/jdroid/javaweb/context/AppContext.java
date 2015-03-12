@@ -23,7 +23,7 @@ public class AppContext {
 	private String twitterOAuthConsumerSecret;
 	private String twitterOAuthAccessToken;
 	private String twitterOAuthAccessTokenSecret;
-	private Boolean twitterEnabled = true;
+	private Boolean twitterEnabled;
 	
 	public String getAppName() {
 		return appName;

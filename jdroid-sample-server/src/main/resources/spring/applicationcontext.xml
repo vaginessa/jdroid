@@ -22,6 +22,7 @@
 		<property name="googleServerApiKey" value="${googleServerApiKey}" />
 		<property name="httpMockEnabled" value="${httpMockEnabled}" />
 		<property name="httpMockSleepDuration" value="${httpMockSleepDuration}" />
+		<property name="adminToken" value="${adminToken}" />
 	</bean>
 
 	<bean id="gitContext" class="com.jdroid.javaweb.context.ServerGitContext">

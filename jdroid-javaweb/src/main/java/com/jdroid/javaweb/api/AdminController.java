@@ -14,11 +14,11 @@ import java.util.Map.Entry;
 import java.util.TimeZone;
 
 public class AdminController extends AbstractController {
-	
+
 	@RequestMapping(value = "/info", method = RequestMethod.GET, produces = MimeType.TEXT)
 	@ResponseBody
 	public String getAppInfo() {
-		
+
 		Map<String, Object> infoMap = Maps.newLinkedHashMap();
 		infoMap.put("App Name", Application.get().getAppContext().getAppName());
 		infoMap.put("App Version", Application.get().getAppContext().getAppVersion());
@@ -30,19 +30,30 @@ public class AdminController extends AbstractController {
 		infoMap.put("Default Charset", Charset.defaultCharset());
 		infoMap.put("File Encoding", System.getProperty("file.encoding"));
 		infoMap.put("Time Zone", TimeZone.getDefault().getID());
-		
+
+		// Twitter
+		infoMap.put("Twitter Enabled", Application.get().getAppContext().isTwitterEnabled());
+		infoMap.put("Twitter Oauth Consumer Key", Application.get().getAppContext().getTwitterOAuthConsumerKey());
+		infoMap.put("Twitter Oauth Consumer Secret", Application.get().getAppContext().getTwitterOAuthConsumerSecret());
+		infoMap.put("Twitter Oauth Access Token", Application.get().getAppContext().getTwitterOAuthAccessToken());
+		infoMap.put("Twitter Oauth Access Token Secret", Application.get().getAppContext().getTwitterOAuthAccessTokenSecret());
+
 		infoMap.putAll(getCustomInfoMap());
-		
+
 		StringBuilder builder = new StringBuilder();
 		for (Entry<String, Object> entry : infoMap.entrySet()) {
-			builder.append("\n");
-			builder.append(entry.getKey());
-			builder.append(": ");
-			builder.append(entry.getValue());
+			if (entry.getValue() != null) {
+				builder.append("\n");
+				builder.append(entry.getKey());
+				builder.append(": ");
+				builder.append(entry.getValue());
+			}
 		}
+
+
 		return builder.toString();
 	}
-	
+
 	protected Map<String, Object> getCustomInfoMap() {
 		return Maps.newHashMap();
 	}

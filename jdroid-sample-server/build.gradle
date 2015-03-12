@@ -47,6 +47,7 @@ project.afterEvaluate {
 			out.writeLine("googleServerApiKey=${jdroid.getProp('GOOGLE_SERVER_API_KEY')}")
 			out.writeLine("httpMockEnabled=${jdroid.getProp('HTTP_MOCK_ENABLED', false)}")
 			out.writeLine("httpMockSleepDuration=${jdroid.getProp('HTTP_MOCK_SLEEP_DURATION', 10)}")
+			out.writeLine("adminToken=${jdroid.getProp('ADMIN_TOKEN', 'admin')}")
 		}
 	}
 
