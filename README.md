@@ -105,11 +105,7 @@ Gradle Plugin for Java & Android projects
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/genericNews.png" width="25" height="25"/> jdroid Scripts](https://github.com/maxirosson/jdroid/wiki/jdroid-Scripts)
 --------------
 A set of useful shell scripts to
- * Increment the pom & android manifest versions according to [Semantic Versioning](http://semver.org/)
  * Create a pull request on [Github](https://github.com)
- * Create a merge request on [Gitlab](https://www.gitlab.com/)
- * Count the methods invocations in android dex files
- * Strip Google Play Services jar
  * Start/stop and deploy on [Apache Tomcat](http://tomcat.apache.org/)
  * Automatically restart [Apache Tomcat](http://tomcat.apache.org/)
 
