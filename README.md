@@ -87,7 +87,7 @@ Dependency project for Java Web apps
 * [Log4j logging support](http://logging.apache.org/log4j/1.2/)
 * Utilities for Collections, CSV, Files, Reflection, [Guava](https://code.google.com/p/guava-libraries/) and more
 
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid Gradle Plugin](https://github.com/maxirosson/jdroid/wiki/jdroid-Gradle-Plugin)
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/gradle.png" width="25" height="25"/> jdroid Gradle Plugin](https://github.com/maxirosson/jdroid/wiki/jdroid-Gradle-Plugin)
 --------------
 Gradle Plugin for Java & Android projects
 * Android
