@@ -99,8 +99,8 @@ Gradle Plugin for Java & Android projects
     * Increment app version according to [Semantic Versioning](http://semver.org/)
     * Publish listings on Google Play
 * Java Web
- * Jetty integration
- * Heroku integration
+ * [Jetty](http://eclipse.org/jetty) integration
+ * [Heroku](https://www.heroku.com) integration
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/genericNews.png" width="25" height="25"/> jdroid Scripts](https://github.com/maxirosson/jdroid/wiki/jdroid-Scripts)
 --------------
