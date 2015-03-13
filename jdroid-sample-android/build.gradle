@@ -175,7 +175,8 @@ android {
 tasks.withType(Test) {
 	scanForTestClasses = true
 
-	if (!hasProperty('integration') || integration != 'true') {
+	def integrationTestsEnabled = jdroid.getProp('INTEGRATION_TESTS_ENABLED', 'true')
+	if (integrationTestsEnabled != 'true') {
 		exclude "**/integration/**/*Test.class"
 	}
 }

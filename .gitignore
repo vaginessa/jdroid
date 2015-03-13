@@ -4,6 +4,7 @@ build/
 .idea/workspace.xml
 *.iml
 /local.properties
+/captures
 
 jdroid-java/build/
 jdroid-java/*.iml
