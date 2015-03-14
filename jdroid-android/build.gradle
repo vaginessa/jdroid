@@ -71,6 +71,10 @@ jdroid {
 
 android {
 
+	lintOptions {
+		disable 'ContentDescription', 'RtlEnabled', 'RtlHardcoded', 'RtlSymmetry', 'UseCompoundDrawables', 'UnknownIdInLayout'
+	}
+
 	// TODO We will publish the debug version until we discover how to publish both debug and release
 	//publishNonDefault true
 	defaultPublishConfig "debug"

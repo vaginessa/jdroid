@@ -17,11 +17,11 @@ set -e
 # ************************
 
 cd jdroid-sample-android
-../gradlew check assembleUat countMethodsSummary -Pintegration=true
+../gradlew check assembleUat countMethodsSummary
 
 # ************************
 # jdroid sample server
 # ************************
 
 cd ../jdroid-sample-server
-../gradlew build -Pintegration=true
+../gradlew build
