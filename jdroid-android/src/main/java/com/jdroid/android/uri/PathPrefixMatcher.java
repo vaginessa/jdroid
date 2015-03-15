@@ -50,7 +50,7 @@ public class PathPrefixMatcher {
 	 * Checks if uri path segments matches with some of configured path prefixes.
 	 * 
 	 * @param uri the uri to evaluate.
-	 * @return the path uri handler or the no match hander if there is one.
+	 * @return the path uri handler or the no match handler if there is one.
 	 */
 	public UriHandler<?> match(Uri uri) {
 		List<String> pathSegments = uri.getPathSegments();
