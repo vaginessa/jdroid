@@ -41,6 +41,19 @@
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="http" android:host="jdroidframework.com" android:pathPattern=".*" />
+				<data android:scheme="jdroid" android:host="app" android:pathPattern=".*" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="com.google.android.apps.plus.VIEW_DEEP_LINK" />
+				<data android:scheme="vnd.google.deeplink" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+			</intent-filter>
 		</activity>
 
 		<activity android:name="com.jdroid.sample.android.ui.ads.AdsActivity" android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity"

@@ -13,18 +13,28 @@ import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.gcm.GcmMessageResolver;
+import com.jdroid.android.uri.NoSegmentsUriHandler;
 import com.jdroid.sample.android.analytics.AndroidAnalyticsSender;
 import com.jdroid.sample.android.debug.AndroidDebugContext;
 import com.jdroid.sample.android.gcm.AndroidGcmResolver;
 import com.jdroid.sample.android.ui.HomeActivity;
 import com.jdroid.sample.android.ui.about.AndroidSpreadTheLoveFragment;
+import com.jdroid.sample.android.uri.AdsUriHandler;
 
 public class AndroidApplication extends AbstractApplication {
 	
 	public static AndroidApplication get() {
 		return (AndroidApplication)AbstractApplication.INSTANCE;
 	}
-	
+
+	@Override
+	public void onCreate() {
+		super.onCreate();
+
+		getUriMapper().addUriHandler(new NoSegmentsUriHandler());
+		getUriMapper().addUriHandler(new AdsUriHandler());
+	}
+
 	/**
 	 * @see com.jdroid.android.AbstractApplication#getHomeActivityClass()
 	 */

@@ -4,20 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
-/**
- * Handler which starts Home activity.
- * 
- */
-public class NoMatchUriHandler extends UriHandler<Void> {
-	
-	/**
-	 * @see com.jdroid.android.uri.UriHandler#getPathPrefixes()
-	 */
+public class NoSegmentsUriHandler extends UriHandler<Void> {
+
 	@Override
-	public String[] getPathPrefixes() {
-		return new String[0];
+	public Boolean match(Uri uri) {
+		return uri.getPathSegments().isEmpty();
 	}
-	
+
 	/**
 	 * @see com.jdroid.android.uri.UriHandler#parseParameters(android.net.Uri)
 	 */
@@ -31,6 +24,6 @@ public class NoMatchUriHandler extends UriHandler<Void> {
 	 */
 	@Override
 	public Intent createStartIntent(Context context, Void parameters) {
-		return createDefaultIntent(context);
+		return null;
 	}
 }

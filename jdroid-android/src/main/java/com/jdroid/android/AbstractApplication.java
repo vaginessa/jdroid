@@ -3,7 +3,6 @@ package com.jdroid.android;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.StrictMode;
@@ -27,6 +26,7 @@ import com.jdroid.android.inappbilling.ProductType;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
 import com.jdroid.android.sqlite.SQLiteUpgradeStep;
+import com.jdroid.android.uri.UriMapper;
 import com.jdroid.android.utils.AndroidEncryptionUtils;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.ImageLoaderUtils;
@@ -83,6 +83,7 @@ public abstract class AbstractApplication extends Application {
 	private GitContext gitContext;
 	private DebugContext debugContext;
 	private AnalyticsSender<? extends AnalyticsTracker> analyticsSender;
+	private UriMapper uriMapper;
 	
 	/** Current activity in the top stack. */
 	private Activity currentActivity;
@@ -111,15 +112,18 @@ public abstract class AbstractApplication extends Application {
 		
 		changeLocale();
 		
-		LoggerUtils.setEnabled(isDebuggable());
+		appContext = createAppContext();
+
+		LoggerUtils.setEnabled(appContext.isLoggingEnabled());
 		LOGGER = LoggerUtils.getLogger(AbstractApplication.class);
 		LOGGER.debug("Executing onCreate on " + this);
-		
-		appContext = createAppContext();
+
 		gitContext = createGitContext();
 
 		debugContext = createDebugContext();
 		analyticsSender = createAnalyticsSender();
+
+		uriMapper = createUriMapper();
 		
 		initExceptionHandlers();
 		LoggerUtils.setExceptionLogger(getExceptionHandler());
@@ -361,6 +365,14 @@ public abstract class AbstractApplication extends Application {
 		return appContext;
 	}
 
+	protected UriMapper createUriMapper() {
+		return new UriMapper();
+	}
+
+	public UriMapper getUriMapper() {
+		return uriMapper;
+	}
+
 	protected GitContext createGitContext() {
 		return new AndroidGitContext();
 	}
@@ -427,11 +439,6 @@ public abstract class AbstractApplication extends Application {
 	
 	public String getAppName() {
 		return getString(R.string.appName);
-	}
-	
-	private boolean isDebuggable() {
-		int flags = this.getApplicationInfo().flags;
-		return (flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
 	}
 	
 	public GcmMessageResolver getGcmResolver() {

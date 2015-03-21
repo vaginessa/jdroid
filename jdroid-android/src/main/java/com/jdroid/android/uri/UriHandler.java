@@ -3,7 +3,6 @@ package com.jdroid.android.uri;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import com.jdroid.android.AbstractApplication;
 
 /**
  * Handler which parse the parameters and starts the proper activity based on an uri
@@ -14,11 +13,9 @@ import com.jdroid.android.AbstractApplication;
 public abstract class UriHandler<T> {
 	
 	/**
-	 * Return the path prefixes associated with this handler.
-	 * 
-	 * @return the path prefix
+	 * @return Whether the uri matches the handler or not
 	 */
-	public abstract String[] getPathPrefixes();
+	public abstract Boolean match(Uri uri);
 	
 	/**
 	 * Parse the parameters and create the intent for the proper activity base on the uri.
@@ -33,25 +30,6 @@ public abstract class UriHandler<T> {
 		
 		// Start activity
 		return createStartIntent(context, parameters);
-	}
-	
-	/**
-	 * Starts a default activity for landing.
-	 * 
-	 * @param context
-	 */
-	protected void startDefaultActivity(Context context) {
-		context.startActivity(createDefaultIntent(context));
-	}
-	
-	/**
-	 * Creates a default intent for to start the landing activity.
-	 * 
-	 * @param context
-	 * @return the intent
-	 */
-	protected Intent createDefaultIntent(Context context) {
-		return new Intent(context, AbstractApplication.get().getHomeActivityClass());
 	}
 	
 	/**

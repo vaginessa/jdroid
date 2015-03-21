@@ -86,6 +86,10 @@ public abstract class AppContext {
 		return !isProductionEnvironment();
 	}
 
+	public Boolean isLoggingEnabled() {
+		return !isProductionEnvironment();
+	}
+
 	public String getBuildType() {
 		return AbstractApplication.get().getBuildConfigValue("BUILD_TYPE");
 	}

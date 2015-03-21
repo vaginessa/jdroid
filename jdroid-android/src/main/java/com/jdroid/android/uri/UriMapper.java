@@ -8,9 +8,12 @@ import android.webkit.URLUtil;
 
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.analytics.AppLoadingSource;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
+
+import java.util.List;
 
 /**
  * Mapper which allows to navigate the application using a Uri.
@@ -22,21 +25,11 @@ public class UriMapper {
 	private static final String GOOGLE_PLUS_DEEPLINK_SUFFIX = "&gplus_source=stream";
 	
 	private static final Logger LOG = LoggerUtils.getLogger(UriMapper.class);
-	private static final PathPrefixMatcher PATH_PREFIX_MATCHER = buildPathMatcher();
-	
-	/**
-	 * Build the matcher to evaluate Uris.
-	 * 
-	 * @return the matcher.
-	 */
-	private static PathPrefixMatcher buildPathMatcher() {
-		PathPrefixMatcher matcher = new PathPrefixMatcher();
-		matcher.setNoMatchObject(new NoMatchUriHandler());
-		return matcher;
-	}
-	
-	public static void addUriHandler(UriHandler<?> uriHandler) {
-		PATH_PREFIX_MATCHER.addUriHandler(uriHandler);
+
+	private List<UriHandler<?>> handlers = Lists.newArrayList();
+
+	public void addUriHandler(UriHandler<?> uriHandler) {
+		handlers.add(uriHandler);
 	}
 	
 	/**
@@ -44,10 +37,10 @@ public class UriMapper {
 	 * 
 	 * @param activity
 	 */
-	public static void checkDeepLink(Activity activity) {
+	public void checkDeepLink(Activity activity) {
 		Uri targetUri = activity.getIntent().getData();
 		if (targetUri != null) {
-			UriMapper.startActivityFromUri(activity, targetUri);
+			startActivityFromUri(activity, targetUri);
 		} else {
 			AppLoadingSource.NORMAL.flagIntent(activity.getIntent());
 		}
@@ -59,33 +52,36 @@ public class UriMapper {
 	 * @param activity The {@link Activity}
 	 * @param uri uri to evaluate
 	 */
-	private static void startActivityFromUri(Activity activity, Uri uri) {
+	private void startActivityFromUri(Activity activity, Uri uri) {
 		Intent intent = getIntentFromUri(activity, uri);
-		
-		String className = intent.getComponent().getShortClassName();
-		int dot = className.lastIndexOf('.');
-		if (dot != -1) {
-			className = className.substring(dot + 1);
+		if (intent != null) {
+
+			String className = intent.getComponent().getShortClassName();
+			int dot = className.lastIndexOf('.');
+			if (dot != -1) {
+				className = className.substring(dot + 1);
+			}
+
+			AppLoadingSource appLoadingSource;
+			if (uri.getScheme() == null) {
+				appLoadingSource = AppLoadingSource.NORMAL;
+				AbstractApplication.get().getExceptionHandler().logWarningException("Uri not supported: " + uri.toString());
+			} else if (uri.getScheme().startsWith("http")) {
+				appLoadingSource = AppLoadingSource.URL;
+				AbstractApplication.get().getAnalyticsSender().trackUriOpened(appLoadingSource.getName(), className);
+			} else {
+				appLoadingSource = AppLoadingSource.DEEPLINK;
+				AbstractApplication.get().getAnalyticsSender().trackUriOpened(appLoadingSource.getName(), className);
+			}
+			appLoadingSource.flagIntent(activity.getIntent());
+
+			activity.startActivity(intent);
+
 		}
-		
-		AppLoadingSource appLoadingSource;
-		if (uri.getScheme() == null) {
-			appLoadingSource = AppLoadingSource.NORMAL;
-			AbstractApplication.get().getExceptionHandler().logWarningException("Uri not supported: " + uri.toString());
-		} else if (uri.getScheme().startsWith("http")) {
-			appLoadingSource = AppLoadingSource.URL;
-			AbstractApplication.get().getAnalyticsSender().trackUriOpened(appLoadingSource.getName(), className);
-		} else {
-			appLoadingSource = AppLoadingSource.DEEPLINK;
-			AbstractApplication.get().getAnalyticsSender().trackUriOpened(appLoadingSource.getName(), className);
-		}
-		appLoadingSource.flagIntent(activity.getIntent());
-		
-		activity.startActivity(intent);
 	}
 	
-	public static Intent getIntentFromUri(Context context, Uri uri) {
-		Intent intent;
+	public Intent getIntentFromUri(Context context, Uri uri) {
+		Intent intent = null;
 		try {
 			if (uri != null) {
 				
@@ -94,19 +90,15 @@ public class UriMapper {
 				if (uriString.startsWith(GOOGLE_PLUS_DEEPLINK_PREFFIX)) {
 					uriString = uriString.replace(GOOGLE_PLUS_DEEPLINK_PREFFIX, "");
 					uriString = uriString.replace(GOOGLE_PLUS_DEEPLINK_SUFFIX, "");
-					uriString = new String(URLUtil.decode(uriString.getBytes())).toString();
+					uriString = new String(URLUtil.decode(uriString.getBytes()));
 					uri = Uri.parse(uriString);
 				}
 				
 				intent = getIntentFromUriInner(context, uri);
-			} else {
-				intent = createDefaultIntent(context, uri);
 			}
 		} catch (Exception e) {
 			// Log the crash.
 			AbstractApplication.get().getExceptionHandler().logHandledException("Error parsing Uri: " + uri, e);
-			// Return default intent
-			intent = createDefaultIntent(context, uri);
 		}
 		return intent;
 	}
@@ -118,7 +110,7 @@ public class UriMapper {
 	 * @param uriString uri to evaluate
 	 * @return the intent
 	 */
-	public static Intent getIntentFromUri(Context context, String uriString) {
+	public Intent getIntentFromUri(Context context, String uriString) {
 		return getIntentFromUri(context, uriString != null ? Uri.parse(uriString) : null);
 	}
 	
@@ -129,32 +121,31 @@ public class UriMapper {
 	 * @param uri uri to evaluate
 	 * @return the intent
 	 */
-	private static Intent getIntentFromUriInner(Context context, Uri uri) {
-		UriHandler<?> uriHandler = PATH_PREFIX_MATCHER.match(uri);
-		Intent intent = uriHandler.getStartIntent(context, uri);
-		
-		// Track the event.
-		if (PATH_PREFIX_MATCHER.isNoMatchObject(uriHandler)) {
-			AbstractApplication.get().getExceptionHandler().logWarningException("Error parsing Uri: " + uri.toString());
-		} else {
+	private Intent getIntentFromUriInner(Context context, Uri uri) {
+		UriHandler<?> uriHandler = match(uri);
+
+		Intent intent = null;
+		if (uriHandler != null) {
 			LOG.debug("Handled Uri: " + uri.toString());
+			intent = uriHandler.getStartIntent(context, uri);
+		} else {
+			AbstractApplication.get().getExceptionHandler().logWarningException("Error parsing Uri: " + uri.toString());
 		}
 		return intent;
 	}
 	
 	/**
-	 * Create a default intent which open home activity.
-	 * 
-	 * @param context
-	 * @param uri
-	 * @return the intent
+	 * Checks if any UriHandler matches the uri
+	 *
+	 * @param uri the uri to evaluate.
+	 * @return the matched UriHandler or null.
 	 */
-	private static Intent createDefaultIntent(Context context, Uri uri) {
-		Intent intent = new Intent(context, AbstractApplication.get().getHomeActivityClass());
-		if (uri != null) {
-			AbstractApplication.get().getExceptionHandler().logWarningException("Error parsing Uri: " + uri.toString());
+	private UriHandler<?> match(Uri uri) {
+		for (UriHandler<?> uriHandler : handlers) {
+			if (uriHandler.match(uri)) {
+				return uriHandler;
+			}
 		}
-		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		return intent;
+		return null;
 	}
 }
