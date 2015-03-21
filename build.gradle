@@ -19,12 +19,14 @@ allprojects {
     }
 }
 
+ext.jdroidVersion = '0.7.0-SNAPSHOT'
+
 subprojects {
 
 	apply plugin: 'maven'
 
 	group = 'com.jdroidframework'
-	version = '0.7.0-SNAPSHOT'
+	version = jdroidVersion
 
 	uploadArchives {
 		repositories {

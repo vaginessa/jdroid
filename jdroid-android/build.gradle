@@ -12,7 +12,7 @@ repositories {
 
 buildscript {
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-plugin:0.7.0-SNAPSHOT'
+		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + jdroidVersion
 	}
 }
 

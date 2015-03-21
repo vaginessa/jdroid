@@ -1,7 +1,6 @@
 apply plugin: 'com.jdroid.javaweb'
 
 description = 'Jdroid Sample Server'
-version = '0.7.0-SNAPSHOT'
 
 repositories {
 	mavenCentral()
@@ -25,7 +24,7 @@ buildscript {
 
 buildscript {
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-plugin:0.7.0-SNAPSHOT'
+		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + jdroidVersion
 	}
 }
 
