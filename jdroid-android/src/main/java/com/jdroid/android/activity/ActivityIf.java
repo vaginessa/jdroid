@@ -1,12 +1,14 @@
 package com.jdroid.android.activity;
 
-import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+
 import com.jdroid.android.loading.ActivityLoading;
+
+import java.util.List;
 
 public interface ActivityIf extends ComponentIf {
 	
@@ -36,6 +38,8 @@ public interface ActivityIf extends ComponentIf {
 	public Intent getUpIntent();
 	
 	public Boolean isInterstitialEnabled();
+
+	public String getInterstitialAdUnitId();
 	
 	public void displayInterstitial(Boolean retryIfNotLoaded);
 	

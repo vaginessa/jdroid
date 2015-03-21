@@ -1,12 +1,12 @@
 package com.jdroid.android.fragment;
 
-import org.slf4j.Logger;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
@@ -26,6 +26,8 @@ import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
 
 public class FragmentHelper implements FragmentIf {
 	
@@ -71,8 +73,8 @@ public class FragmentHelper implements FragmentIf {
 		
 		adHelper = createAdLoader();
 		if (adHelper != null) {
-			adHelper.loadAd(fragment.getActivity(), (ViewGroup)(fragment.getView().findViewById(R.id.adViewContainer)),
-				getFragmentIf().getAdSize(), getHouseAdBuilder(), false);
+			adHelper.loadBanner(fragment.getActivity(), (ViewGroup)(fragment.getView().findViewById(R.id.adViewContainer)),
+					getFragmentIf().getAdSize(), getFragmentIf().getBannerAdUnitId(), getHouseAdBuilder());
 		}
 		
 		if (loading == null) {
@@ -354,7 +356,12 @@ public class FragmentHelper implements FragmentIf {
 	public AdSize getAdSize() {
 		return getActivityIf().getAdSize();
 	}
-	
+
+	@Override
+	public String getBannerAdUnitId() {
+		return getActivityIf().getBannerAdUnitId();
+	}
+
 	public HouseAdBuilder getHouseAdBuilder() {
 		return null;
 	}

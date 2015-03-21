@@ -4,6 +4,7 @@ import android.preference.PreferenceFragment;
 import android.support.v7.app.ActionBar;
 import android.view.View;
 import com.google.android.gms.ads.AdSize;
+import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.context.AppContext;
@@ -206,7 +207,12 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	public AdSize getAdSize() {
 		return AdSize.SMART_BANNER;
 	}
-	
+
+	@Override
+	public String getBannerAdUnitId() {
+		return AbstractApplication.get().getAppContext().getDefaultAdUnitId();
+	}
+
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getActivityIf()
 	 */

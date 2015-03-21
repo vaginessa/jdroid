@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.fragment.AbstractFragment;
+import com.jdroid.sample.android.AndroidAppContext;
 import com.jdroid.sample.android.R;
 
 public class AdsFragment extends AbstractFragment {
@@ -38,7 +39,12 @@ public class AdsFragment extends AbstractFragment {
 			}
 		});
 	}
-	
+
+	@Override
+	public String getBannerAdUnitId() {
+		return AndroidAppContext.SAMPLE_BANNER_AD_UNIT_ID;
+	}
+
 	/**
 	 * @see com.jdroid.android.fragment.AbstractFragment#getAdSize()
 	 */

@@ -299,7 +299,17 @@ public abstract class AbstractFragmentActivity extends ActionBarActivity impleme
 	public AdSize getAdSize() {
 		return activityHelper.getAdSize();
 	}
-	
+
+	@Override
+	public String getBannerAdUnitId() {
+		return activityHelper.getBannerAdUnitId();
+	}
+
+	@Override
+	public String getInterstitialAdUnitId() {
+		return activityHelper.getInterstitialAdUnitId();
+	}
+
 	/**
 	 * @see com.jdroid.android.activity.ActivityIf#isLauncherActivity()
 	 */

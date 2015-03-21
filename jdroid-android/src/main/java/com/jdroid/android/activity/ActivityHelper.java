@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.GravityCompat;
@@ -139,7 +138,7 @@ public class ActivityHelper implements ActivityIf {
 		
 		AbstractApplication.get().initExceptionHandlers();
 		
-		if ((savedInstanceState == null) && (activity instanceof FragmentActivity) && !inAppBillingLoaded) {
+		if ((savedInstanceState == null) && !inAppBillingLoaded) {
 			InAppBillingHelperFragment.add(activity, InAppBillingHelperFragment.class, true, null);
 			inAppBillingLoaded = true;
 		}
@@ -161,8 +160,11 @@ public class ActivityHelper implements ActivityIf {
 		// Ads
 		adHelper = createAdHelper();
 		if (adHelper != null) {
-			adHelper.loadAd(activity, (ViewGroup)(activity.findViewById(R.id.adViewContainer)),
-				getActivityIf().getAdSize(), getHouseAdBuilder(), getActivityIf().isInterstitialEnabled());
+			adHelper.loadBanner(activity, (ViewGroup)(activity.findViewById(R.id.adViewContainer)),
+					getActivityIf().getAdSize(), getActivityIf().getBannerAdUnitId(), getHouseAdBuilder());
+			if (getActivityIf().isInterstitialEnabled()) {
+				adHelper.loadInterstitial(activity, getActivityIf().getInterstitialAdUnitId());
+			}
 		}
 		
 		// Nav Drawer
@@ -638,7 +640,17 @@ public class ActivityHelper implements ActivityIf {
 	public AdSize getAdSize() {
 		return AdSize.SMART_BANNER;
 	}
-	
+
+	@Override
+	public String getBannerAdUnitId() {
+		return AbstractApplication.get().getAppContext().getDefaultAdUnitId();
+	}
+
+	@Override
+	public String getInterstitialAdUnitId() {
+		return AbstractApplication.get().getAppContext().getDefaultAdUnitId();
+	}
+
 	public HouseAdBuilder getHouseAdBuilder() {
 		return null;
 	}

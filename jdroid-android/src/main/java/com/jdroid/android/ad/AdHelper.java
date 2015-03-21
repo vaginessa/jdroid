@@ -24,15 +24,12 @@ public class AdHelper {
 	
 	private InterstitialAd interstitial;
 	private Boolean displayInterstitial = false;
-	
-	public void loadAd(final Activity activity, ViewGroup adViewContainer, AdSize adSize,
-			HouseAdBuilder houseAdBuilder, Boolean isInterstitialEnabled) {
+
+	public void loadBanner(final Activity activity, ViewGroup adViewContainer, AdSize adSize, String adUnitId,
+			HouseAdBuilder houseAdBuilder) {
 
 		AppContext applicationContext = AbstractApplication.get().getAppContext();
-		if (isInterstitialEnabled && applicationContext.areAdsEnabled()) {
-			loadInterstitial(activity);
-		}
-		
+
 		this.adViewContainer = adViewContainer;
 		if (adViewContainer != null) {
 			if ((adSize == null) || !applicationContext.areAdsEnabled()) {
@@ -41,11 +38,11 @@ public class AdHelper {
 				
 				adView = new AdView(activity);
 
-				if (applicationContext.getAdUnitId() == null) {
+				if (adUnitId == null) {
 					throw new UnexpectedException("Missing ad unit ID");
 				}
 
-				adView.setAdUnitId(applicationContext.getAdUnitId());
+				adView.setAdUnitId(adUnitId);
 				adView.setAdSize(adSize);
 				customView = houseAdBuilder != null ? houseAdBuilder.build(activity) : null;
 				if (customView != null) {
@@ -111,35 +108,37 @@ public class AdHelper {
 		return builder;
 	}
 	
-	private void loadInterstitial(Activity activity) {
-		interstitial = new InterstitialAd(activity);
+	public void loadInterstitial(Activity activity, String adUnitId) {
 		AppContext applicationContext = AbstractApplication.get().getAppContext();
+		if (applicationContext.areAdsEnabled()) {
+			interstitial = new InterstitialAd(activity);
 
-		if (applicationContext.getAdUnitId() == null) {
-			throw new UnexpectedException("Missing ad unit ID");
-		}
+			if (adUnitId == null) {
+				throw new UnexpectedException("Missing ad unit ID");
+			}
 
-		interstitial.setAdUnitId(applicationContext.getAdUnitId());
-		
-		AdRequest.Builder builder = createBuilder(applicationContext);
-		interstitial.loadAd(builder.build());
-		interstitial.setAdListener(new AdListener() {
-			
-			@Override
-			public void onAdLoaded() {
-				super.onAdLoaded();
-				if (displayInterstitial) {
-					displayInterstitial(false);
+			interstitial.setAdUnitId(adUnitId);
+
+			AdRequest.Builder builder = createBuilder(applicationContext);
+			interstitial.loadAd(builder.build());
+			interstitial.setAdListener(new AdListener() {
+
+				@Override
+				public void onAdLoaded() {
+					super.onAdLoaded();
+					if (displayInterstitial) {
+						displayInterstitial(false);
+					}
 				}
-			}
-			
-			@Override
-			public void onAdOpened() {
-				super.onAdOpened();
-				AbstractApplication.get().getAnalyticsSender().onActivityStart(AdActivity.class, null, null);
-			}
-			
-		});
+
+				@Override
+				public void onAdOpened() {
+					super.onAdOpened();
+					AbstractApplication.get().getAnalyticsSender().onActivityStart(AdActivity.class, null, null);
+				}
+
+			});
+		}
 	}
 	
 	public void displayInterstitial(Boolean retryIfNotLoaded) {

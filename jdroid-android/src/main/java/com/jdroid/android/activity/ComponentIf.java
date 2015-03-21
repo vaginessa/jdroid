@@ -56,7 +56,9 @@ public interface ComponentIf {
 	public AppContext getAppContext();
 	
 	public AdSize getAdSize();
-	
+
+	public String getBannerAdUnitId();
+
 	public User getUser();
 	
 	public void showLoading();

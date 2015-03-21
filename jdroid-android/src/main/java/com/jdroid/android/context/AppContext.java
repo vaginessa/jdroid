@@ -124,7 +124,7 @@ public abstract class AppContext {
 	/**
 	 * @return The AdMob Publisher ID
 	 */
-	public String getAdUnitId() {
+	public String getDefaultAdUnitId() {
 		return AbstractApplication.get().getBuildConfigValue("AD_UNIT_ID", null);
 	}
 	

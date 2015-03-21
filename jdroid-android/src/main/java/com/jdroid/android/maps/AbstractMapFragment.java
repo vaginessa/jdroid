@@ -413,7 +413,12 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	public AdSize getAdSize() {
 		return fragmentHelper.getAdSize();
 	}
-	
+
+	@Override
+	public String getBannerAdUnitId() {
+		return fragmentHelper.getBannerAdUnitId();
+	}
+
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#onResumeUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
 	 *      com.jdroid.android.usecase.listener.DefaultUseCaseListener)
