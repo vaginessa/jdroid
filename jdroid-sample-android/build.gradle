@@ -140,6 +140,8 @@ android {
 		uat {
 			signingConfig signingConfigs.debug
 
+			debuggable true
+
 			jdroid.setString(buildTypes.uat, "SERVER_NAME", "UAT")
 
 		}

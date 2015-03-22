@@ -35,7 +35,6 @@ public class AdsFragment extends AbstractFragment {
 			@Override
 			public void onClick(View v) {
 				getActivityIf().displayInterstitial(false);
-				
 			}
 		});
 	}

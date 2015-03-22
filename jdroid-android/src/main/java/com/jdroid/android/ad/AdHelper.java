@@ -69,7 +69,7 @@ public class AdHelper {
 											customView.setVisibility(View.GONE);
 										}
 									}
-								}, DateUtils.SECOND_IN_MILLIS * 5);
+								}, DateUtils.SECOND_IN_MILLIS * 10);
 							}
 						}
 						

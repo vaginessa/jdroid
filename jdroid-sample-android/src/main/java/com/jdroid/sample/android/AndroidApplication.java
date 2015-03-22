@@ -9,6 +9,7 @@ import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
+import com.jdroid.android.analytics.ExperimentHelper;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.fragment.FragmentHelper;
@@ -16,6 +17,7 @@ import com.jdroid.android.gcm.GcmMessageResolver;
 import com.jdroid.android.uri.NoSegmentsUriHandler;
 import com.jdroid.sample.android.analytics.AndroidAnalyticsSender;
 import com.jdroid.sample.android.debug.AndroidDebugContext;
+import com.jdroid.sample.android.experiment.AndroidExperiment;
 import com.jdroid.sample.android.gcm.AndroidGcmResolver;
 import com.jdroid.sample.android.ui.HomeActivity;
 import com.jdroid.sample.android.ui.about.AndroidSpreadTheLoveFragment;
@@ -33,6 +35,8 @@ public class AndroidApplication extends AbstractApplication {
 
 		getUriMapper().addUriHandler(new NoSegmentsUriHandler());
 		getUriMapper().addUriHandler(new AdsUriHandler());
+
+		ExperimentHelper.registerExperiment(AndroidExperiment.SAMPLE_EXPERIMENT);
 	}
 
 	/**
