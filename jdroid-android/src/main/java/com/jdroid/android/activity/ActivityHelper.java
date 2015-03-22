@@ -824,5 +824,9 @@ public class ActivityHelper implements ActivityIf {
 	protected Boolean isNavDrawerUserHeaderVisible() {
 		return true;
 	}
-	
+
+	@Override
+	public void onBackPressed() {
+		// Do nothing
+	}
 }

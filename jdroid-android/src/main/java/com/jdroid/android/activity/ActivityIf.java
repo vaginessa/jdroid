@@ -56,5 +56,7 @@ public interface ActivityIf extends ComponentIf {
 	public Boolean isNavDrawerEnabled();
 	
 	public Boolean isNavDrawerTopLevelView();
+
+	public void onBackPressed();
 	
 }

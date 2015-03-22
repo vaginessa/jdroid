@@ -450,5 +450,10 @@ public abstract class AbstractFragmentActivity extends ActionBarActivity impleme
 	public void setLoading(ActivityLoading loading) {
 		activityHelper.setLoading(loading);
 	}
-	
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		activityHelper.onBackPressed();
+	}
 }
