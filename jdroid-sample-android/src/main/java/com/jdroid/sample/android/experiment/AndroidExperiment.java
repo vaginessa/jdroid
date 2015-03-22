@@ -8,16 +8,14 @@ import java.util.List;
 
 public enum AndroidExperiment implements ExperimentHelper.Experiment {
 
-	SAMPLE_EXPERIMENT("sampleExperiment", Lists.<ExperimentHelper.ExperimentVariant>newArrayList(SimpleExperimentVariant.A, SimpleExperimentVariant.B), 9);
+	SAMPLE_EXPERIMENT("sampleExperiment", Lists.<ExperimentHelper.ExperimentVariant>newArrayList(SimpleExperimentVariant.A, SimpleExperimentVariant.B));
 
 	private String id;
 	private List<ExperimentHelper.ExperimentVariant> variants;
-	private Integer customDimensionIndex;
 
-	private AndroidExperiment(String id, List<ExperimentHelper.ExperimentVariant> variants, Integer customDimensionIndex) {
+	private AndroidExperiment(String id, List<ExperimentHelper.ExperimentVariant> variants) {
 		this.id = id;
 		this.variants = variants;
-		this.customDimensionIndex = customDimensionIndex;
 	}
 
 	@Override
@@ -28,10 +26,5 @@ public enum AndroidExperiment implements ExperimentHelper.Experiment {
 	@Override
 	public List<ExperimentHelper.ExperimentVariant> getVariants() {
 		return variants;
-	}
-
-	@Override
-	public Integer getCustomDimensionIndex() {
-		return customDimensionIndex;
 	}
 }

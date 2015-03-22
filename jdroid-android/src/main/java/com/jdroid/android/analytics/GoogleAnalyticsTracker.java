@@ -112,11 +112,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 				for (Entry<Experiment, ExperimentVariant> entry : ExperimentHelper.getExperimentsMap().entrySet()) {
 					Experiment experiment = entry.getKey();
 					ExperimentVariant experimentVariant = entry.getValue();
-					Integer customDimensionIndex = experiment.getCustomDimensionIndex();
-					if (customDimensionIndex != null) {
-						addCustomDimension(appViewBuilder, customDimensionIndex, experiment.getId() + "-"
-								+ experimentVariant.getId());
-					}
+					sendEvent("abTesting", "load", experiment.getId() + "-" + experimentVariant.getId());
 				}
 				
 				String installationSource = SharedPreferencesHelper.getOldDefault().loadPreference(

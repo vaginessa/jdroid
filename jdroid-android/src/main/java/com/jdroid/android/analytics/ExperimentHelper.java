@@ -17,8 +17,6 @@ public class ExperimentHelper {
 		public String getId();
 		
 		public List<ExperimentVariant> getVariants();
-		
-		public Integer getCustomDimensionIndex();
 	}
 	
 	public interface ExperimentVariant {
