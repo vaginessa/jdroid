@@ -17,7 +17,7 @@ public class GooglePlayPublisherTask  extends DefaultTask {
 	@TaskAction
 	public void doExecute() {
 
-		String configFile = project.configFile
+		String configFile = project.jdroid.getProp('GOOGLE_PLAY_PUBLISHER_CONFIG_FILE')
 		AppContext appContext = new AppContext(configFile);
 
 		GooglePlayPublisher.listApks(appContext);

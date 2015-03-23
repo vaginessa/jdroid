@@ -1,12 +1,9 @@
 package com.jdroid.gradle.android
+
 import com.android.build.gradle.AppPlugin
-import com.jdroid.gradle.android.task.CountMethodsReportTask
-import com.jdroid.gradle.android.task.CountMethodsSummaryTask
-import com.jdroid.gradle.android.task.GooglePlayPublisherTask
-import com.jdroid.gradle.android.task.IncrementMajorVersionTask
-import com.jdroid.gradle.android.task.IncrementMinorVersionTask
-import com.jdroid.gradle.android.task.IncrementPatchVersionTask
+import com.jdroid.gradle.android.task.*
 import org.gradle.api.Project
+
 public class AndroidApplicationGradlePlugin extends AndroidGradlePlugin {
 
 	public void apply(Project project) {
@@ -20,6 +17,8 @@ public class AndroidApplicationGradlePlugin extends AndroidGradlePlugin {
 		project.task('incrementPatchVersion', type: IncrementPatchVersionTask)
 
 		project.task('googlePlayPublish', type: GooglePlayPublisherTask)
+
+		project.task('copyApks', type: CopyApksTask)
 	}
 
 	protected Class<? extends AndroidGradlePluginExtension> getExtensionClass() {
