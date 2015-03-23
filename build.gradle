@@ -19,18 +19,25 @@ allprojects {
     }
 }
 
-ext.jdroidVersion = '0.7.0-SNAPSHOT'
+group = 'com.jdroidframework'
+version = '0.7.0-SNAPSHOT'
 
 subprojects {
 
 	apply plugin: 'maven'
+	apply plugin: 'signing'
 
-	group = 'com.jdroidframework'
-	version = jdroidVersion
+	group = rootProject.group
+	version = rootProject.version
 
 	uploadArchives {
 		repositories {
 			mavenDeployer {
+
+//				beforeDeployment { MavenDeployment deployment ->
+//					signing.signPom(deployment)
+//				}
+
 				repository(url: uri('/Users/maxirosson/Dropbox/Public/maven-repository'))
 // FIXME The following configuration is removing the dependencies section on the generated pom
 //				pom.project {

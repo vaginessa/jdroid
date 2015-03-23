@@ -29,6 +29,7 @@ done
 
 # Deploy to Maven repository
 # ************************
+// ./gradlew clean :jdroid-gradle-plugin:uploadArchives :jdroid-java:uploadArchives :jdroid-javaweb:uploadArchives :jdroid-android:uploadArchives
 mvn clean deploy -P jdroid-release -Dmaven.test.skip=true
 
 # Upload Release on GitHub

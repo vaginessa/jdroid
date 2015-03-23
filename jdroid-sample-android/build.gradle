@@ -27,7 +27,7 @@ buildscript {
 
 buildscript {
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + jdroidVersion
+		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + project.version
 	}
 }
 
@@ -182,6 +182,3 @@ tasks.withType(Test) {
 		exclude "**/integration/**/*Test.class"
 	}
 }
-
-
-
