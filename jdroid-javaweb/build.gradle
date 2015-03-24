@@ -8,7 +8,6 @@ def springVersion = '3.2.4.RELEASE'
 dependencies {
 
 	// Push for Android
-	compile "android.gcm:gcm-server:r2"
 	compile "com.googlecode.json-simple:json-simple:1.1"
 
 	// Logging
