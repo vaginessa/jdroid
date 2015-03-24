@@ -2,7 +2,8 @@ apply plugin: 'groovy'
 apply plugin: 'signing'
 apply plugin: 'java-gradle-plugin'
 
-description = 'Jdroid Gradle Plugin'
+ext.projectName = 'Jdroid Gradle Plugin'
+description = 'Gradle Plugin for Java & Android projects'
 
 dependencies {
     compile localGroovy()

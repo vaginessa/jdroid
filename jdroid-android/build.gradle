@@ -1,6 +1,7 @@
 apply plugin: 'com.jdroid.android.library'
 
-description = 'Jdroid Android'
+ext.projectName = 'Jdroid Android'
+description = 'Jdroid dependency project for Android apps'
 
 def googlePlayServicesVersion = '7.0.0'
 

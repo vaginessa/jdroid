@@ -1,6 +1,7 @@
 apply plugin: 'java'
 
-description = 'Jdroid Java'
+ext.projectName = 'Jdroid Java'
+description = 'Jdroid dependency project for both Android & Java apps'
 
 dependencies {
 	//noinspection GradleDependency

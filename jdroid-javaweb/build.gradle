@@ -1,6 +1,7 @@
 apply plugin: 'java'
 
-description = 'Jdroid Java Web'
+ext.projectName = 'Jdroid Java Web'
+description = 'Jdroid dependency project for Java Web apps'
 
 def springVersion = '3.2.4.RELEASE'
 

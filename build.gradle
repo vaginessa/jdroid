@@ -27,56 +27,89 @@ subprojects {
 	apply plugin: 'maven'
 	apply plugin: 'signing'
 
+	ext.projectName = null
+
 	group = rootProject.group
 	version = rootProject.version
 
-	uploadArchives {
-		repositories {
-			mavenDeployer {
+	afterEvaluate {
+		uploadArchives {
+			repositories {
+				mavenDeployer {
 
-//				beforeDeployment { MavenDeployment deployment ->
-//					signing.signPom(deployment)
-//				}
+					beforeDeployment { MavenDeployment deployment ->
+						signing.signPom(deployment)
+					}
 
-				repository(url: uri('/Users/maxirosson/Dropbox/Public/maven-repository'))
-// FIXME The following configuration is removing the dependencies section on the generated pom
-//				pom.project {
-//					description 'Application Framework for Android and Java apps.'
-//					inceptionYear '2011'
-//					organization {
-//						name 'Jdroid'
-//						url 'http://www.jdroidframework.com'
-//					}
-//					licenses {
-//						license {
-//							name 'The Apache License, Version 2.0'
-//							url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-//							distribution 'repo'
-//						}
-//					}
-//					developers {
-//						developer {
-//							name 'Maxi Rosson'
-//							email 'jdroidsoft@gmail.com'
-//							roles {
-//								role 'architect'
-//        						role 'developer'
-//							}
-//						}
-//					}
-//					scm {
-//						connection 'scm:git:git@github.com:maxirosson/jdroid.git'
-//						developerConnection 'scm:git:git@github.com:maxirosson/jdroid.git'
-//						url 'git@github.com:maxirosson/jdroid.git'
-//					}
-//					issueManagement {
-//						system 'GitHub'
-//    					url 'https://github.com/maxirosson/jdroid/issues'
-//					}
-//				}
+//					repository(url: uri('/Users/maxirosson/Dropbox/Public/maven-repository'))
+
+				repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+					authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+				}
+				snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+					authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+				}
+
+				pom.project {
+					name project.ext.projectName
+					description project.description
+					inceptionYear '2011'
+					organization {
+						name 'Jdroid'
+						url 'http://www.jdroidframework.com'
+					}
+					licenses {
+						license {
+							name 'The Apache License, Version 2.0'
+							url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+							distribution 'repo'
+						}
+					}
+					developers {
+						developer {
+							name 'Maxi Rosson'
+							email 'jdroidsoft@gmail.com'
+							roles {
+								role 'architect'
+								role 'developer'
+							}
+						}
+					}
+					scm {
+						connection 'scm:git:git@github.com:maxirosson/jdroid.git'
+						developerConnection 'scm:git:git@github.com:maxirosson/jdroid.git'
+						url 'git@github.com:maxirosson/jdroid.git'
+					}
+					issueManagement {
+						system 'GitHub'
+						url 'https://github.com/maxirosson/jdroid/issues'
+					}
+				}
+				}
 			}
 		}
 	}
+
+	signing {
+		required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
+		sign configurations.archives
+	}
+}
+
+def isReleaseBuild() {
+	return project.version.contains("SNAPSHOT") == false
+}
+
+def getRepositoryUsername() {
+	return getProp('NEXUS_USERNAME')
+}
+
+def getRepositoryPassword() {
+	getProp('NEXUS_PASSWORD')
+}
+
+public def getProp(String propertyName) {
+	return project.hasProperty(propertyName) ? project.ext.get(propertyName) : System.getenv(propertyName)
 }
 
 

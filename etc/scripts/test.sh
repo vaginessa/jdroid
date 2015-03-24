@@ -5,6 +5,12 @@
 # before executing them, which helps identify which steps failed.
 set -e
 
+DEPLOY=$1
+
+if [ -z "$DEPLOY" ]
+then
+	DEPLOY="false"
+fi
 
 # ************************
 # jdroid
@@ -25,3 +31,12 @@ cd jdroid-sample-android
 
 cd ../jdroid-sample-server
 ../gradlew build
+
+# ************************
+# Deploy Snapshot to Maven repository
+# ************************
+
+if [ "$DEPLOY" = "true" ]
+then
+	./gradlew :jdroid-gradle-plugin:uploadArchives :jdroid-java:uploadArchives :jdroid-javaweb:uploadArchives :jdroid-android:uploadArchives
+fi
