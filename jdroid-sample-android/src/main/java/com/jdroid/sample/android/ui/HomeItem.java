@@ -25,7 +25,6 @@ public enum HomeItem implements ActionItem {
 	GOOGLE_PLUS(R.string.googlePlus, R.drawable.google_plus, ImageLoaderActivity.class),
 	IN_APP_BILLING(R.string.inAppBilling, R.drawable.shopping_cart, ImageLoaderActivity.class),
 	LOADING(R.string.loading, R.drawable.refresh, LoadingActivity.class),
-	MERGE_ADAPTER(R.string.mergeAdapter, R.drawable.list, ImageLoaderActivity.class),
 	NOTIFICATIONS(R.string.notifications, R.drawable.notifications, NotificationsActivity.class),
 	TOASTS(R.string.toasts, R.drawable.info, ToastsActivity.class);
 	

@@ -25,8 +25,7 @@ configurations {
 dependencies {
 
 	compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.2'
-	compile 'android.commonsware:mergeadapter:1.0.1'
-	compile 'android.commonsware:sacklist:1.0.0'
+
 	compile 'org.slf4j:slf4j-android:1.6.1-RC1'
 	compile 'com.crashlytics.android:crashlytics:1.1.13'
 	compile 'com.facebook.android:facebook-android-sdk:3.21.1'

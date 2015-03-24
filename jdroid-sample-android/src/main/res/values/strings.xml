@@ -26,9 +26,6 @@
 	<!-- In App Billing -->
 	<string name="inAppBilling">In App Billing</string>
 
-	<!-- Merge Adapter -->
-	<string name="mergeAdapter">Merge Adapter</string>
-
 	<!-- Notifications -->
 	<string name="notifications">Notifications</string>
 	<string name="createNotification">Create Notification</string>

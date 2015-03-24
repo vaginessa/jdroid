@@ -36,6 +36,7 @@ cd ../jdroid-sample-server
 # Deploy Snapshot to Maven repository
 # ************************
 
+cd ..
 if [ "$DEPLOY" = "true" ]
 then
 	./gradlew :jdroid-gradle-plugin:uploadArchives :jdroid-java:uploadArchives :jdroid-javaweb:uploadArchives :jdroid-android:uploadArchives
