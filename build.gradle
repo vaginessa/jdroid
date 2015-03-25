@@ -21,9 +21,10 @@ allprojects {
 		maven {
 			url "https://oss.sonatype.org/content/repositories/snapshots/"
 		}
-		if (project.hasProperty('EXTRA_MAVEN_REPO')) {
+		String extraMavenRepo = project.getProp('EXTRA_MAVEN_REPO')
+		if (extraMavenRepo != null) {
 			maven {
-				url EXTRA_MAVEN_REPO
+				url extraMavenRepo
 			}
 		}
     }
