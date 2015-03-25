@@ -23,7 +23,6 @@ Dependency project for both Android & Java apps
  * [Jackson JSON parser](https://github.com/FasterXML/jackson)
  * Plain text parser
 * JSON marshallers
-* Mail Service
 * Exception handling
 * Utilities for Collections, Strings, Dates, Files, Encryption, Threads, [Logging](http://www.slf4j.org/), Validations, Reflection and more
 

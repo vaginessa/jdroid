@@ -7,23 +7,14 @@ repositories {
 	maven {
 		url "http://download.crashlytics.com/maven"
 	}
-	maven {
-		url "http://dl.dropbox.com/u/8520947/maven-repository/"
-	}
+
 }
 
 buildscript {
 	repositories {
 		mavenCentral()
-		maven {
-			url "http://dl.dropbox.com/u/8520947/maven-repository/"
-		}
 	}
 }
-
-//configurations.all {
-//	resolutionStrategy.cacheChangingModulesFor 30, 'seconds'
-//}
 
 buildscript {
 	dependencies {

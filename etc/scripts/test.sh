@@ -5,11 +5,11 @@
 # before executing them, which helps identify which steps failed.
 set -e
 
-DEPLOY=$1
+UPLOAD=$1
 
-if [ -z "$DEPLOY" ]
+if [ -z "$UPLOAD" ]
 then
-	DEPLOY="false"
+	UPLOAD="false"
 fi
 
 # ************************
@@ -37,7 +37,7 @@ cd ../jdroid-sample-server
 # ************************
 
 cd ..
-if [ "$DEPLOY" = "true" ]
+if [ "$UPLOAD" = "true" ]
 then
 	./gradlew :jdroid-gradle-plugin:uploadArchives :jdroid-java:uploadArchives :jdroid-javaweb:uploadArchives :jdroid-android:uploadArchives
 fi

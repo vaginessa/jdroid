@@ -17,11 +17,6 @@ dependencies {
 		exclude group: 'commons-logging', module: 'commons-logging'
 	}
 
-	// Email Sending
-	compile "android.mail:mail:1.0"
-	compile "android.mail:activation:1.0"
-	compile "android.mail:additionnal:1.0"
-
 	// Logging
 	compile "org.slf4j:slf4j-api:1.6.3"
 

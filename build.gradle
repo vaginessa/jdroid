@@ -5,8 +5,13 @@ allprojects {
 	buildscript {
 		repositories {
 			mavenCentral()
+			if (project.hasProperty('LOCAL_MAVEN_REPO')) {
+				maven {
+					url LOCAL_MAVEN_REPO
+				}
+			}
 			maven {
-				url "http://dl.dropbox.com/u/8520947/maven-repository/"
+				url "https://oss.sonatype.org/content/repositories/snapshots/"
 			}
 		}
 	}
@@ -14,7 +19,12 @@ allprojects {
     repositories {
         mavenCentral()
 		maven {
-			url "http://dl.dropbox.com/u/8520947/maven-repository/"
+			url "https://oss.sonatype.org/content/repositories/snapshots/"
+		}
+		if (project.hasProperty('EXTRA_MAVEN_REPO')) {
+			maven {
+				url EXTRA_MAVEN_REPO
+			}
 		}
     }
 }
@@ -41,50 +51,53 @@ subprojects {
 						signing.signPom(deployment)
 					}
 
-//					repository(url: uri('/Users/maxirosson/Dropbox/Public/maven-repository'))
-
-				repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-					authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-				}
-				snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-					authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-				}
-
-				pom.project {
-					name project.ext.projectName
-					description project.description
-					inceptionYear '2011'
-					organization {
-						name 'Jdroid'
-						url 'http://www.jdroidframework.com'
-					}
-					licenses {
-						license {
-							name 'The Apache License, Version 2.0'
-							url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-							distribution 'repo'
+					def localUpload = getProp('LOCAL_UPLOAD')
+					if (localUpload != null && localUpload == 'true') {
+						repository(url: uri(LOCAL_MAVEN_REPO))
+					} else {
+						repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+							authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+						}
+						snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+							authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
 						}
 					}
-					developers {
-						developer {
-							name 'Maxi Rosson'
-							email 'jdroidsoft@gmail.com'
-							roles {
-								role 'architect'
-								role 'developer'
+
+					pom.project {
+						name project.ext.projectName
+						description project.description
+						inceptionYear '2011'
+						organization {
+							name 'Jdroid'
+							url 'http://www.jdroidframework.com'
+						}
+						licenses {
+							license {
+								name 'The Apache License, Version 2.0'
+								url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+								distribution 'repo'
 							}
 						}
+						developers {
+							developer {
+								name 'Maxi Rosson'
+								email 'jdroidsoft@gmail.com'
+								roles {
+									role 'architect'
+									role 'developer'
+								}
+							}
+						}
+						scm {
+							connection 'scm:git:git@github.com:maxirosson/jdroid.git'
+							developerConnection 'scm:git:git@github.com:maxirosson/jdroid.git'
+							url 'git@github.com:maxirosson/jdroid.git'
+						}
+						issueManagement {
+							system 'GitHub'
+							url 'https://github.com/maxirosson/jdroid/issues'
+						}
 					}
-					scm {
-						connection 'scm:git:git@github.com:maxirosson/jdroid.git'
-						developerConnection 'scm:git:git@github.com:maxirosson/jdroid.git'
-						url 'git@github.com:maxirosson/jdroid.git'
-					}
-					issueManagement {
-						system 'GitHub'
-						url 'https://github.com/maxirosson/jdroid/issues'
-					}
-				}
 				}
 			}
 		}
