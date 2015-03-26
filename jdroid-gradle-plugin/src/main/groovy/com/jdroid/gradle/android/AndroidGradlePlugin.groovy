@@ -1,4 +1,5 @@
 package com.jdroid.gradle.android
+
 import com.jdroid.gradle.android.task.VerifyMissingTranslationsBetweenLocalesTask
 import com.jdroid.gradle.android.task.VerifyMissingTranslationsTask
 import com.jdroid.gradle.commons.BaseGradlePlugin
@@ -10,6 +11,7 @@ public abstract class AndroidGradlePlugin extends BaseGradlePlugin {
 	public void apply(Project project) {
 		super.apply(project)
 
+		project.apply plugin: 'android-sdk-manager'
 		applyAndroidPlugin()
 
 		def android = project.extensions.findByName("android")
