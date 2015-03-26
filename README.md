@@ -90,11 +90,13 @@ Dependency project for Java Web apps
 Gradle Plugin for Java & Android projects
 * Android
  * Default Google Android Plugin configuration
+ * [SDK Manager Plugin](https://github.com/JakeWharton/sdk-manager-plugin) integration
  * Android Tasks
     * Verify Missing Translations Between Locales
     * Verify Missing Translations
     * Report the methods invocations in android dex files, package by package
     * Increment app version according to [Semantic Versioning](http://semver.org/)
+    * Copy generated APKs to a target directory
     * Publish listings on Google Play
 * Java Web
  * [Jetty](http://eclipse.org/jetty) integration
