@@ -1,5 +1,6 @@
 package com.jdroid.android.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -7,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+
 import com.jdroid.android.AbstractApplication;
 
 public class ExternalAppsUtils {
@@ -17,6 +19,7 @@ public class ExternalAppsUtils {
 	public static final String TELEGRAM_PACKAGE_NAME = "org.telegram.messenger";
 	public static final String HANGOUTS_PACKAGE_NAME = "com.google.android.talk";
 	public static final String GOOGLE_PLUS_PACKAGE_NAME = "com.google.android.apps.plus";
+	public static final String GOOGLE_MAPS_PACKAGE_NAME = "com.google.android.apps.maps";
 	
 	public static boolean isAppInstalled(Context context, String packageName) {
 		return isAppInstalled(context, packageName, null);
@@ -72,6 +75,18 @@ public class ExternalAppsUtils {
 		skypeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		
 		AbstractApplication.get().startActivity(skypeIntent);
+	}
+
+	public static void openCustomMap(Activity activity, String mapId) {
+		boolean isAppInstalled = isAppInstalled(activity, GOOGLE_MAPS_PACKAGE_NAME);
+		if (isAppInstalled) {
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setPackage(GOOGLE_MAPS_PACKAGE_NAME);
+			intent.setData(Uri.parse("https://www.google.com/maps/d/viewer?mid=" + mapId));
+			activity.startActivity(intent);
+		} else {
+			GooglePlayUtils.launchAppDetails(activity, GOOGLE_MAPS_PACKAGE_NAME);
+		}
 	}
 	
 	public static void openUrl(String url) {
