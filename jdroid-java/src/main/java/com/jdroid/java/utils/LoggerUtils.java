@@ -15,7 +15,7 @@ public class LoggerUtils {
 	public static Logger getLogger(Object name) {
 		return LoggerUtils.getLogger(name.getClass());
 	}
-	
+
 	public static Logger getLogger(Class<?> clazz) {
 		if (enabled) {
 			return LoggerFactory.getLogger(getLimitedName(clazz.getSimpleName()));

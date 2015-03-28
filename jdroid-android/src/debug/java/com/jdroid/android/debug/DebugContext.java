@@ -4,6 +4,8 @@ import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.ActivityLauncher;
 import com.jdroid.android.debug.mocks.AndroidJsonMockWebService;
 import com.jdroid.android.fragment.AbstractPreferenceFragment;
+import com.jdroid.android.log.DatabaseLog;
+import com.jdroid.android.log.DatabaseLogsRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
 import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.http.mock.AbstractMockWebService;
@@ -24,7 +26,7 @@ public class DebugContext {
 	public void initDebugRepositories(
 			Map<Class<? extends Identifiable>, Repository<? extends Identifiable>> repositories, SQLiteHelper dbHelper) {
 		if (AbstractApplication.get().isDebugLogRepositoryEnabled() && !AbstractApplication.get().getAppContext().isProductionEnvironment()) {
-			repositories.put(DebugLog.class, new DebugLogsRepository(dbHelper));
+			repositories.put(DatabaseLog.class, new DatabaseLogsRepository(dbHelper));
 		}
 	}
 

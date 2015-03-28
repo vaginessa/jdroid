@@ -1,32 +1,26 @@
-package com.jdroid.android.debug;
+package com.jdroid.android.log;
 
-import java.util.Date;
 import com.jdroid.android.domain.Entity;
 import com.jdroid.java.utils.DateUtils;
 
-public class DebugLog extends Entity {
+import java.util.Date;
+
+public class DatabaseLog extends Entity {
 	
 	private static final long serialVersionUID = -2732523562518387416L;
 	
-	private String text;
+	private String message;
 	private Date dateTime;
 	
-	public DebugLog() {
+	public DatabaseLog() {
 	}
 	
-	public DebugLog(String text) {
-		this.text = text;
+	public DatabaseLog(String message) {
+		this.message = message;
 		dateTime = DateUtils.now();
 	}
 	
-	public String getText() {
-		return text;
-	}
-	
-	public void setText(String text) {
-		this.text = text;
-	}
-	
+
 	public Date getDateTime() {
 		return dateTime;
 	}
@@ -35,4 +29,11 @@ public class DebugLog extends Entity {
 		this.dateTime = dateTime;
 	}
 	
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
 }

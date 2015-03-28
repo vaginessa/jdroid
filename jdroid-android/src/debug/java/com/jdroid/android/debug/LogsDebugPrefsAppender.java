@@ -7,39 +7,25 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
+import com.jdroid.android.log.DatabaseLog;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.repository.Repository;
 import com.jdroid.java.utils.LoggerUtils;
 
+import org.slf4j.Logger;
+
 public class LogsDebugPrefsAppender implements PreferencesAppender {
-	
-	public static void log(final String text) {
-		if (LoggerUtils.isEnabled()) {
-			ExecutorUtils.execute(new Runnable() {
-				
-				@Override
-				public void run() {
-					
-					try {
-						Repository<DebugLog> repository = AbstractApplication.get().getRepositoryInstance(
-							DebugLog.class);
-						repository.add(new DebugLog(text));
-					} catch (Exception e) {
-						AbstractApplication.get().getExceptionHandler().logHandledException(e);
-					}
-				}
-			});
-		}
-	}
+
+	private static final Logger LOGGER_UTILS = LoggerUtils.getLogger(LogsDebugPrefsAppender.class);
 	
 	public static void clean() {
 		ExecutorUtils.execute(new Runnable() {
-			
+
 			@Override
 			public void run() {
-				
+
 				try {
-					Repository<DebugLog> repository = AbstractApplication.get().getRepositoryInstance(DebugLog.class);
+					Repository<DatabaseLog> repository = AbstractApplication.get().getRepositoryInstance(DatabaseLog.class);
 					repository.removeAll();
 				} catch (Exception e) {
 					AbstractApplication.get().getExceptionHandler().logHandledException(e);
@@ -47,7 +33,7 @@ public class LogsDebugPrefsAppender implements PreferencesAppender {
 			}
 		});
 	}
-	
+
 	/**
 	 * @see com.jdroid.android.debug.PreferencesAppender#initPreferences(android.app.Activity,
 	 *      android.preference.PreferenceScreen)

@@ -30,7 +30,7 @@ public abstract class JsonParser<T> implements Parser {
 	@Override
 	public Object parse(String input) {
 		
-		LOGGER.debug("Parsing started.");
+		LOGGER.trace("Parsing started.");
 		try {
 			LOGGER.trace(input);
 			
@@ -45,7 +45,7 @@ public abstract class JsonParser<T> implements Parser {
 			// Parse the JSONObject
 			return parse(json);
 		} finally {
-			LOGGER.debug("Parsing finished.");
+			LOGGER.trace("Parsing finished.");
 		}
 	}
 	
