@@ -96,4 +96,9 @@ public class AndroidApplication extends AbstractApplication {
 	public Class<? extends SpreadTheLoveFragment> getSpreadTheLoveFragmentClass() {
 		return AndroidSpreadTheLoveFragment.class;
 	}
+
+	@Override
+	public Boolean isImageLoaderEnabled() {
+		return true;
+	}
 }

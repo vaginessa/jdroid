@@ -151,7 +151,7 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	public Boolean isImageLoaderEnabled() {
-		return true;
+		return false;
 	}
 	
 	protected void initImageLoader() {

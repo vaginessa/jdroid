@@ -1,14 +1,16 @@
 package com.jdroid.android.about;
 
-import java.util.List;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.fragment.AbstractListFragment;
 import com.jdroid.java.collections.Lists;
+
+import java.util.List;
 
 public class LibrariesFragment extends AbstractListFragment<Library> {
 	
@@ -23,8 +25,10 @@ public class LibrariesFragment extends AbstractListFragment<Library> {
 		
 		libraries.add(new Library("jdroid", R.string.jdroidTitle, R.string.jdroidDescription,
 				"http://jdroidframework.com"));
-		libraries.add(new Library("universalImageLoader", R.string.universalImageLoaderTitle,
-				R.string.universalImageLoaderDescription, "https://github.com/nostra13/Android-Universal-Image-Loader"));
+		if (AbstractApplication.get().isImageLoaderEnabled()) {
+			libraries.add(new Library("universalImageLoader", R.string.universalImageLoaderTitle,
+					R.string.universalImageLoaderDescription, "https://github.com/nostra13/Android-Universal-Image-Loader"));
+		}
 		libraries.addAll(getCustomLibraries());
 	}
 	
