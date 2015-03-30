@@ -531,6 +531,6 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	public Class<? extends SpreadTheLoveFragment> getSpreadTheLoveFragmentClass() {
-		return SpreadTheLoveFragment.class;
+		return null;
 	}
 }

@@ -53,13 +53,16 @@ public class AboutFragment extends AbstractListFragment<AboutItem> {
 				}
 			});
 		}
-		aboutItems.add(new AboutItem(R.drawable.ic_spread_the_love, R.string.spreadTheLove) {
-			
-			@Override
-			public void onSelected(Activity activity) {
-				ActivityLauncher.launchActivity(SpreadTheLoveActivity.class);
-			}
-		});
+
+		if (AbstractApplication.get().getSpreadTheLoveFragmentClass() != null) {
+			aboutItems.add(new AboutItem(R.drawable.ic_spread_the_love, R.string.spreadTheLove) {
+
+				@Override
+				public void onSelected(Activity activity) {
+					ActivityLauncher.launchActivity(SpreadTheLoveActivity.class);
+				}
+			});
+		}
 		aboutItems.add(new AboutItem(R.drawable.ic_rate_us, R.string.rateUs) {
 			
 			@Override
