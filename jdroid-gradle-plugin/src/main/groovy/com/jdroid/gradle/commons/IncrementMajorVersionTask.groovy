@@ -1,4 +1,4 @@
-package com.jdroid.gradle.android.task
+package com.jdroid.gradle.commons
 
 import org.gradle.api.tasks.TaskAction
 

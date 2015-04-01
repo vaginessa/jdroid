@@ -1,10 +1,9 @@
-package com.jdroid.gradle.android.task
+package com.jdroid.gradle.commons
 import org.gradle.api.DefaultTask
-import org.gradle.api.Project
 
 public class AbstractIncrementVersionTask extends DefaultTask {
 
-	protected def changeVersion(Project project, def versionType, def newVersion) {
+	protected def changeVersion(String versionType, Integer newVersion) {
 		def file = project.file("./build.gradle")
 		def patternVersionNumber = java.util.regex.Pattern.compile(versionType + " = (\\d+)")
 		def manifestText = file.getText()

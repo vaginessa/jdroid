@@ -4,6 +4,11 @@ public class BaseGradleExtension {
 
 	protected final BaseGradlePlugin baseGradlePlugin
 
+	def versionMajor
+	def versionMinor
+	def versionPatch
+	def versionClassifier
+
 	public BaseGradleExtension(BaseGradlePlugin baseGradlePlugin) {
 		this.baseGradlePlugin = baseGradlePlugin
 	}

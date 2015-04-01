@@ -23,6 +23,16 @@ project.dependencies {
 	//compile 'com.jdroidframework:jdroid-javaweb:0.7.0-SNAPSHOT'
 }
 
+jdroid {
+
+	versionMajor = 0
+	versionMinor = 7
+	versionPatch = 0
+	versionClassifier = "-SNAPSHOT"
+}
+
+version = "${jdroid.versionMajor}.${jdroid.versionMinor}.${jdroid.versionPatch}${jdroid.versionClassifier}"
+
 // Generate the settings.properties
 project.afterEvaluate {
 

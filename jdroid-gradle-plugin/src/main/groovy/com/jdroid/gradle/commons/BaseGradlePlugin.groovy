@@ -11,6 +11,10 @@ public class BaseGradlePlugin implements Plugin<Project> {
 		this.project = project
 
 		project.extensions.create("jdroid", getExtensionClass(), this)
+
+		project.task('incrementMajorVersion', type: IncrementMajorVersionTask)
+		project.task('incrementMinorVersion', type: IncrementMinorVersionTask)
+		project.task('incrementPatchVersion', type: IncrementPatchVersionTask)
 	}
 
 	protected Class<? extends BaseGradleExtension> getExtensionClass() {
