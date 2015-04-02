@@ -16,13 +16,13 @@ fi
 # jdroid gradle plugin
 # ************************
 
-./gradlew clean :jdroid-gradle-plugin:build :jdroid-gradle-plugin:uploadArchives --refresh-dependencies --configure-on-demand -PLOCAL_UPLOAD=true
+./gradlew :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:build :jdroid-gradle-plugin:uploadArchives --refresh-dependencies --configure-on-demand -PLOCAL_UPLOAD=true
 
 # ************************
 # jdroid
 # ************************
 
-./gradlew :jdroid-java:build :jdroid-android:build :jdroid-javaweb:build --refresh-dependencies
+./gradlew :jdroid-java:clean :jdroid-java:build :jdroid-android:clean :jdroid-android:build :jdroid-javaweb:clean :jdroid-javaweb:build --refresh-dependencies
 
 # ************************
 # jdroid sample android
