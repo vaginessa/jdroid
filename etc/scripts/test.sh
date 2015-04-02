@@ -16,7 +16,7 @@ fi
 # jdroid gradle plugin
 # ************************
 
-./gradlew clean :jdroid-gradle-plugin:build :jdroid-gradle-plugin:uploadArchives --refresh-dependencies -PLOCAL_UPLOAD=true
+./gradlew clean :jdroid-gradle-plugin:build :jdroid-gradle-plugin:uploadArchives --refresh-dependencies --configure-on-demand -PLOCAL_UPLOAD=true
 
 # ************************
 # jdroid
