@@ -54,7 +54,7 @@ subprojects {
 
 					def localUpload = getProp('LOCAL_UPLOAD')
 					if (localUpload != null && localUpload == 'true') {
-						repository(url: uri(LOCAL_MAVEN_REPO))
+						repository(url: uri(getProp('LOCAL_MAVEN_REPO')))
 					} else {
 						repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
 							authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
