@@ -7,10 +7,14 @@ public class BaseGradleExtension {
 	def versionMajor
 	def versionMinor
 	def versionPatch
-	def versionClassifier
+	def versionClassifier = ""
 
 	public BaseGradleExtension(BaseGradlePlugin baseGradlePlugin) {
 		this.baseGradlePlugin = baseGradlePlugin
+	}
+
+	public String getVersion() {
+		return "${versionMajor}.${versionMinor}.${versionPatch}${versionClassifier}"
 	}
 
 	public String getGitSha() {

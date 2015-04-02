@@ -31,7 +31,7 @@ jdroid {
 	versionClassifier = "-SNAPSHOT"
 }
 
-version = "${jdroid.versionMajor}.${jdroid.versionMinor}.${jdroid.versionPatch}${jdroid.versionClassifier}"
+version = jdroid.getVersion()
 
 // Generate the settings.properties
 project.afterEvaluate {
