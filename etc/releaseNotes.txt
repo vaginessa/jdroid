@@ -14,7 +14,7 @@ jdroid Android\n
 * Improved url handling support\n
 * Improved About screen\n
 * Improved A/B Testing support\n
-* Removed Merge Adaptar dependencies\n
+* Removed Merge Adapter dependencies\n
 * Removed deprecated coverflow component\n
 * Updated Google Play Services to 7.0.0\n
 * Updated support libraries\n

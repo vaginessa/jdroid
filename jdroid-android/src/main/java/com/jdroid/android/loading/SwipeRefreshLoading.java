@@ -18,8 +18,8 @@ public class SwipeRefreshLoading implements FragmentLoading {
 	 */
 	@Override
 	public void onViewCreated(final FragmentIf fragmentIf) {
-		final SwipeRefreshLayout swipeRefreshLayout = getSwiteRefreshLayout(fragmentIf);
-		// Fix to this behaviour: "everytime you scroll up in that view, the SwipeRefreshLayout fires and updates,
+		final SwipeRefreshLayout swipeRefreshLayout = getSwipeRefreshLayout(fragmentIf);
+		// Fix to this behaviour: "every time you scroll up in that view, the SwipeRefreshLayout fires and updates,
 		// making your app unable to scroll up in a list"
 		if (fragmentIf instanceof AbstractListFragment) {
 			final AbstractListFragment<?> abstractListFragment = (AbstractListFragment<?>)fragmentIf;
@@ -46,7 +46,7 @@ public class SwipeRefreshLoading implements FragmentLoading {
 	 */
 	@Override
 	public void show(FragmentIf fragmentIf) {
-		SwipeRefreshLayout swipeRefreshLayout = getSwiteRefreshLayout(fragmentIf);
+		SwipeRefreshLayout swipeRefreshLayout = getSwipeRefreshLayout(fragmentIf);
 		if ((colorRes1 != null) && (colorRes2 != null) && (colorRes3 != null) && (colorRes4 != null)) {
 			swipeRefreshLayout.setColorSchemeResources(colorRes1, colorRes2, colorRes3, colorRes4);
 		}
@@ -58,11 +58,11 @@ public class SwipeRefreshLoading implements FragmentLoading {
 	 */
 	@Override
 	public void dismiss(FragmentIf fragmentIf) {
-		SwipeRefreshLayout swipeRefreshLayout = getSwiteRefreshLayout(fragmentIf);
+		SwipeRefreshLayout swipeRefreshLayout = getSwipeRefreshLayout(fragmentIf);
 		swipeRefreshLayout.setRefreshing(false);
 	}
 	
-	public SwipeRefreshLayout getSwiteRefreshLayout(FragmentIf fragmentIf) {
+	public SwipeRefreshLayout getSwipeRefreshLayout(FragmentIf fragmentIf) {
 		return fragmentIf.findView(R.id.swipeRefreshLayout);
 	}
 	

@@ -339,7 +339,7 @@ public class SystemBarTintManager {
 		private final boolean mInPortrait;
 		private final float mSmallestWidthDp;
 		
-		private SystemBarConfig(Activity activity, boolean translucentStatusBar, boolean traslucentNavBar) {
+		private SystemBarConfig(Activity activity, boolean translucentStatusBar, boolean trasnlucentNavBar) {
 			Resources res = activity.getResources();
 			mInPortrait = (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
 			mSmallestWidthDp = getSmallestWidthDp(activity);
@@ -349,7 +349,7 @@ public class SystemBarTintManager {
 			mNavigationBarWidth = getNavigationBarWidth(activity);
 			mHasNavigationBar = (mNavigationBarHeight > 0);
 			mTranslucentStatusBar = translucentStatusBar;
-			mTranslucentNavBar = traslucentNavBar;
+			mTranslucentNavBar = trasnlucentNavBar;
 		}
 		
 		@TargetApi(14)

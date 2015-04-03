@@ -88,7 +88,7 @@ public class Product {
 					+ jsonPurchaseInfo);
 		}
 		
-		purchase.markAsVerfied();
+		purchase.markAsVerified();
 	}
 	
 	public Boolean isPurchaseVerified() {
@@ -108,7 +108,7 @@ public class Product {
 		return productType.isConsumable() && !available && isPurchaseVerified();
 	}
 	
-	public String getDevloperPayload() {
+	public String getDeveloperPayload() {
 		/*
 		 * TODO: for security, generate your payload here for verification. See the comments on verifyDeveloperPayload()
 		 * for more info. Since this is a SAMPLE, we just use an empty string, but on a production app you should

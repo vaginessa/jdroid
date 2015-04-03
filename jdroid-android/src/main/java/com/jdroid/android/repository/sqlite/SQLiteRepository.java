@@ -1,18 +1,21 @@
 package com.jdroid.android.repository.sqlite;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import org.slf4j.Logger;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.domain.Entity;
 import com.jdroid.android.sqlite.Column;
 import com.jdroid.android.sqlite.SQLiteHelper;
 import com.jdroid.java.repository.Repository;
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Repository implementation which uses SQLite.
@@ -446,7 +449,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		try {
 			db.delete(getTableName(), getParentIdColumnName() + "=?", new String[] { parentId.toString() });
 			addAll(list);
-			LOGGER.trace("Replaced childs of parent " + parentId + " and type " + getTableName());
+			LOGGER.trace("Replaced children of parent " + parentId + " and type " + getTableName());
 			successTransaction(db, endTransaction);
 		} finally {
 			endTransaction(db, endTransaction);
@@ -479,10 +482,10 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 			builder.append(", ");
 		}
 		// Add references
-		StringBuilder referecesBuilder = new StringBuilder();
+		StringBuilder referencesBuilder = new StringBuilder();
 		for (Column column : getColumns()) {
 			if (column.getReference() != null) {
-				referecesBuilder.append("FOREIGN KEY(").append(column.getColumnName()).append(") REFERENCES ").append(
+				referencesBuilder.append("FOREIGN KEY(").append(column.getColumnName()).append(") REFERENCES ").append(
 					column.getReference().getTableName()).append("(").append(
 					column.getReference().getColumn().getColumnName()).append(") ON DELETE CASCADE, ");
 			}
@@ -499,7 +502,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 				uniqueBuilder.append(column.getColumnName());
 			}
 		}
-		return getCreateTableSQL(builder.toString(), referecesBuilder.toString(), uniqueBuilder.toString());
+		return getCreateTableSQL(builder.toString(), referencesBuilder.toString(), uniqueBuilder.toString());
 	}
 	
 	/**

@@ -131,7 +131,7 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 	}
 	
 	public void launchPurchaseFlow(Product product) {
-		inAppBillingClient.launchInAppPurchaseFlow(getActivity(), product.getId(), product.getDevloperPayload());
+		inAppBillingClient.launchInAppPurchaseFlow(getActivity(), product.getId(), product.getDeveloperPayload());
 		AbstractApplication.get().getAnalyticsSender().trackInAppBillingPurchaseTry(product);
 	}
 	

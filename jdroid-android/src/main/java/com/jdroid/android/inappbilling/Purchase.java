@@ -82,7 +82,7 @@ public class Purchase {
 		return signature;
 	}
 	
-	public void markAsVerfied() {
+	public void markAsVerified() {
 		verified = true;
 	}
 	
