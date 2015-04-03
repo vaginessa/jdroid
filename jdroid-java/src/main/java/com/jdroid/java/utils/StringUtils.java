@@ -69,7 +69,7 @@ public abstract class StringUtils {
 			return true;
 		}
 		for (int i = 0; i < strLen; i++) {
-			if ((Character.isWhitespace(str.charAt(i)) == false)) {
+			if ((!Character.isWhitespace(str.charAt(i)))) {
 				return false;
 			}
 		}
@@ -420,9 +420,6 @@ public abstract class StringUtils {
 	}
 	
 	public static boolean hasOnlyCharacters(String name) {
-		if (isEmpty(name)) {
-			return false;
-		}
-		return name.matches("[A-Za-z\\s]*");
+		return !isEmpty(name) && name.matches("[A-Za-z\\s]*");
 	}
 }

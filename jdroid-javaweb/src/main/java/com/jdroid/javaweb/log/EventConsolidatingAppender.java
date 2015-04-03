@@ -1,12 +1,7 @@
 package com.jdroid.javaweb.log;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.ConcurrentHashMap;
+import com.jdroid.java.utils.CollectionUtils;
+
 import org.apache.log4j.Appender;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Category;
@@ -17,7 +12,14 @@ import org.apache.log4j.helpers.AppenderAttachableImpl;
 import org.apache.log4j.spi.AppenderAttachable;
 import org.apache.log4j.spi.LoggingEvent;
 import org.apache.log4j.varia.DenyAllFilter;
-import com.jdroid.java.utils.CollectionUtils;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * https://github.com/mattklein/event-consolidating-appender 2012-02-13
@@ -164,9 +166,8 @@ public class EventConsolidatingAppender extends AppenderSkeleton implements Appe
 				Timer timer = new Timer();
 				timer.schedule(task, delaySecs * 1000);
 				timers.put(loggerName, timer);
-			} else {
-				// We've already scheduled the TimerTask for this logger; nothing to do
 			}
+			// We've already scheduled the TimerTask for this logger; nothing to do on the else
 		}
 	}
 	
@@ -231,9 +232,13 @@ public class EventConsolidatingAppender extends AppenderSkeleton implements Appe
 			LoggingEvent firstEvent = existingEvents.get(0);
 			
 			highestLevel = Level.ALL; // Level.ALL is the level with the lowest rank
-			consolidatedMessage.append(linesep + "The following " + existingEvents.size()
-					+ " events were consolidated since they occurred within " + delaySecs + " seconds of each other:"
-					+ linesep);
+			consolidatedMessage.append(linesep);
+			consolidatedMessage.append("The following ");
+			consolidatedMessage.append(existingEvents.size());
+			consolidatedMessage.append(" events were consolidated since they occurred within ");
+			consolidatedMessage.append(delaySecs);
+			consolidatedMessage.append(" seconds of each other: ");
+			consolidatedMessage.append(linesep);
 			consolidatedFqnOfCategoryClass = firstEvent.fqnOfCategoryClass;
 			consolidatedLogger = firstEvent.getLogger();
 			int eventNum = 1;
@@ -250,8 +255,8 @@ public class EventConsolidatingAppender extends AppenderSkeleton implements Appe
 				if (layout.ignoresThrowable()) {
 					String[] s = event.getThrowableStrRep();
 					if (s != null) {
-						for (int j = 0; j < s.length; j++) {
-							consolidatedMessage.append(s[j]);
+						for (String value : s) {
+							consolidatedMessage.append(value);
 							consolidatedMessage.append(Layout.LINE_SEP);
 						}
 					}

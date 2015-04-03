@@ -133,14 +133,21 @@ public final class MulticastResult implements Serializable {
 
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder("MulticastResult(")
-        .append("multicast_id=").append(multicastId).append(",")
-        .append("total=").append(getTotal()).append(",")
-        .append("success=").append(success).append(",")
-        .append("failure=").append(failure).append(",")
-        .append("canonical_ids=").append(canonicalIds).append(",");
+    StringBuilder builder = new StringBuilder();
+    builder.append("MulticastResult(multicast_id=");
+    builder.append(multicastId);
+    builder.append(",total=");
+    builder.append(getTotal());
+    builder.append(",success=");
+    builder.append(success);
+    builder.append(",failure=");
+    builder.append(failure);
+    builder.append(",canonical_ids=");
+    builder.append(canonicalIds);
+    builder.append(",");
     if (!results.isEmpty()) {
-      builder.append("results: " + results);
+      builder.append("results: ");
+      builder.append(results);
     }
     return builder.toString();
   }

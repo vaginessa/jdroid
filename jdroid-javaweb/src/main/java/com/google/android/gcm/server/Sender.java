@@ -109,7 +109,7 @@ public class Sender {
   public Result send(Message message, String registrationId, int retries)
       throws IOException {
     int attempt = 0;
-    Result result = null;
+    Result result;
     int backoff = BACKOFF_INITIAL_DELAY;
     boolean tryAgain;
     do {
@@ -244,7 +244,7 @@ public class Sender {
   public MulticastResult send(Message message, List<String> regIds, int retries)
       throws IOException {
     int attempt = 0;
-    MulticastResult multicastResult = null;
+    MulticastResult multicastResult;
     int backoff = BACKOFF_INITIAL_DELAY;
     // Map of results by registration id, it will be updated after each attempt
     // to send the messages

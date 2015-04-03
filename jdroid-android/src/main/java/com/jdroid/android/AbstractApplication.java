@@ -75,7 +75,7 @@ public abstract class AbstractApplication extends Application {
 	public static final String INSTALLATION_SOURCE = "installationSource";
 	private static final String VERSION_CODE_KEY = "versionCodeKey";
 	
-	private static final String CACHE_DIRECTORY_PREFFIX = "cache_";
+	private static final String CACHE_DIRECTORY_PREFIX = "cache_";
 	
 	protected static AbstractApplication INSTANCE;
 	
@@ -159,14 +159,14 @@ public abstract class AbstractApplication extends Application {
 			
 			// Create global configuration and initialize ImageLoader with this configuration
 			
-			DisplayImageOptions.Builder defaultOptiBuilder = new DisplayImageOptions.Builder();
-			defaultOptiBuilder.cacheInMemory(true);
-			defaultOptiBuilder.cacheOnDisk(true);
+			DisplayImageOptions.Builder displayImageOptionsBuilder = new DisplayImageOptions.Builder();
+			displayImageOptionsBuilder.cacheInMemory(true);
+			displayImageOptionsBuilder.cacheOnDisk(true);
 			
 			ImageLoaderConfiguration.Builder configBuilder = new ImageLoaderConfiguration.Builder(
 					getApplicationContext());
 			configBuilder.tasksProcessingOrder(QueueProcessingType.LIFO);
-			configBuilder.defaultDisplayImageOptions(defaultOptiBuilder.build());
+			configBuilder.defaultDisplayImageOptions(displayImageOptionsBuilder.build());
 			configBuilder.diskCacheSize(10 * 1024 * 1024);
 			// configBuilder.writeDebugLogs();
 			
@@ -179,7 +179,7 @@ public abstract class AbstractApplication extends Application {
 	protected void verifyAppLaunchStatus() {
 		Integer fromVersionCode = SharedPreferencesHelper.getOldDefault().loadPreferenceAsInteger(VERSION_CODE_KEY);
 		if (fromVersionCode == null) {
-			appLaunchStatus = AppLaunchStatus.NEW_INSTALATTION;
+			appLaunchStatus = AppLaunchStatus.NEW_INSTALLATION;
 		} else {
 			if (AndroidUtils.getVersionCode().equals(fromVersionCode)) {
 				appLaunchStatus = AppLaunchStatus.NORMAL;
@@ -275,7 +275,7 @@ public abstract class AbstractApplication extends Application {
 						}
 					});
 					
-					// Remove the file until the minumum size is achieved
+					// Remove the file until the minimum size is achieved
 					for (File file : files) {
 						if (dirSize > cache.getMinimumSize()) {
 							dirSize -= FileUtils.getFileSizeInMB(file);
@@ -304,7 +304,7 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	public File getFileSystemCacheDirectory(Cache cache) {
-		return getApplicationContext().getDir(CACHE_DIRECTORY_PREFFIX + cache.getName(), Context.MODE_PRIVATE);
+		return getApplicationContext().getDir(CACHE_DIRECTORY_PREFIX + cache.getName(), Context.MODE_PRIVATE);
 	}
 	
 	public void initExceptionHandlers() {
@@ -491,7 +491,7 @@ public abstract class AbstractApplication extends Application {
 	protected String getFixedLocaleCountryCode() {
 		return null;
 	}
-	
+
 	public void changeLocale() {
 		
 		String countryCode = getFixedLocaleCountryCode();

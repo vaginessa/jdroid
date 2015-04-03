@@ -77,8 +77,8 @@ public class MethodRef {
         StringBuilder builder = new StringBuilder();
 
         builder.append("(");
-        for (int i = 0; i < protos.length; i++) {
-            builder.append(protos[i]);
+        for (String proto : protos) {
+            builder.append(proto);
         }
 
         builder.append(")");

@@ -196,7 +196,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	}
 	
 	/**
-	 * @see com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener#onConnectionFailed(com.google.android.gms.common.ConnectionResult)
+	 * @see com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener#onConnectionFailed(com.google.android.gms.common.ConnectionResult)
 	 */
 	@Override
 	public void onConnectionFailed(ConnectionResult connectionResult) {
@@ -263,7 +263,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	}
 	
 	/**
-	 * @see com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks#onConnected(android.os.Bundle)
+	 * @see com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks#onConnected(android.os.Bundle)
 	 */
 	@Override
 	public void onConnected(Bundle bundle) {

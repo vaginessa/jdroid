@@ -1,8 +1,5 @@
 package com.jdroid.android.usecase;
 
-import java.io.Serializable;
-import java.util.List;
-import org.slf4j.Logger;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
@@ -10,6 +7,11 @@ import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * 
@@ -101,8 +103,7 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 	}
 	
 	/**
-	 * Override this method with the functionality to be executed between
-	 * {@link NoResultUseCaseListener#onStartUseCase()} and {@link NoResultUseCaseListener#onFinishUseCase()}
+	 * Override this method with the use case functionality to be executed
 	 */
 	protected abstract void doExecute();
 	

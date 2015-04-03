@@ -101,9 +101,7 @@ public class Output {
             out.println("Classes:");
         }
 
-        for (int i = 0; i < classes.length; i++) {
-            ClassRef ref = classes[i];
-
+        for (ClassRef ref : classes) {
             out.println(descriptorToDot(ref.getName()));
         }
     }
@@ -116,11 +114,9 @@ public class Output {
         for (int i = 0; i < classes.length; i++) {
             FieldRef[] fields = classes[i].getFieldArray();
 
-            for (int j = 0; j < fields.length; j++) {
-                FieldRef ref = fields[j];
-
+            for (FieldRef ref : fields) {
                 out.println(descriptorToDot(ref.getDeclClassName()) +
-                    "." + ref.getName() + " : " + ref.getTypeName());
+                        "." + ref.getName() + " : " + ref.getTypeName());
             }
         }
     }
@@ -133,11 +129,9 @@ public class Output {
         for (int i = 0; i < classes.length; i++) {
             MethodRef[] methods = classes[i].getMethodArray();
 
-            for (int j = 0; j < methods.length; j++) {
-                MethodRef ref = methods[j];
-
+            for (MethodRef ref : methods) {
                 out.println(descriptorToDot(ref.getDeclClassName()) +
-                    "." + ref.getName() + " : " + ref.getDescriptor());
+                        "." + ref.getName() + " : " + ref.getDescriptor());
             }
         }
     }
@@ -192,11 +186,9 @@ public class Output {
      */
     private static void printXmlFields(ClassRef cref) {
         FieldRef[] fields = cref.getFieldArray();
-        for (int i = 0; i < fields.length; i++) {
-            FieldRef fref = fields[i];
-
+        for (FieldRef fref : fields) {
             out.println(IN3 + "<field name=\"" + fref.getName() +
-                "\" type=\"" + descriptorToDot(fref.getTypeName()) + "\"/>");
+                    "\" type=\"" + descriptorToDot(fref.getTypeName()) + "\"/>");
         }
     }
 
@@ -221,9 +213,9 @@ public class Output {
                     "\">");
             }
             String[] args = mref.getArgumentTypeNames();
-            for (int j = 0; j < args.length; j++) {
+            for (String arg : args) {
                 out.println(IN4 + "<parameter type=\"" +
-                    descriptorToDot(args[j]) + "\"/>");
+                        descriptorToDot(arg) + "\"/>");
             }
             if (constructor) {
                 out.println(IN3 + "</constructor>");

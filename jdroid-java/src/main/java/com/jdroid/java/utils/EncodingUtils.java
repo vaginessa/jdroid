@@ -58,8 +58,6 @@ public class EncodingUtils {
 			if (nextToEncode > current) {
 				// Append allowed characters leading up to this point.
 				encoded.append(s, current, nextToEncode);
-			} else {
-				// assert nextToEncode == current
 			}
 			
 			// Switch to "encoding" mode.

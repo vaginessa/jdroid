@@ -1,7 +1,8 @@
 package com.jdroid.android.inappbilling;
 
-import org.json.JSONException;
 import com.jdroid.android.inappbilling.Purchase.PurchaseState;
+
+import org.json.JSONException;
 
 public class Product {
 	
@@ -119,7 +120,6 @@ public class Product {
 	/**
 	 * Verifies the developer payload of a purchase.
 	 * 
-	 * @param purchase
 	 * @return
 	 */
 	protected Boolean verifyDeveloperPayload() {

@@ -205,7 +205,6 @@ public class DexData {
 
             if (offset == 0) {
                 protoId.types = new int[0];
-                continue;
             } else {
                 seek(offset);
                 int size = readInt();       // #of entries in list
@@ -293,19 +292,15 @@ public class DexData {
             mTypeIds[mClassDefs[i].classIdx].internal = true;
         }
 
-        for (int i = 0; i < mTypeIds.length; i++) {
-            String className = mStrings[mTypeIds[i].descriptorIdx];
+        for (TypeIdItem mTypeId : mTypeIds) {
+            String className = mStrings[mTypeId.descriptorIdx];
 
             if (className.length() == 1) {
                 // primitive class
-                mTypeIds[i].internal = true;
+                mTypeId.internal = true;
             } else if (className.charAt(0) == '[') {
-                mTypeIds[i].internal = true;
+                mTypeId.internal = true;
             }
-
-            //System.out.println(i + " " +
-            //    (mTypeIds[i].internal ? "INTERNAL" : "external") + " - " +
-            //    mStrings[mTypeIds[i].descriptorIdx]);
         }
     }
 
@@ -406,15 +401,14 @@ public class DexData {
      * references into the appropriate ClassRef.
      */
     private void addExternalMethodReferences(ClassRef[] sparseRefs) {
-        for (int i = 0; i < mMethodIds.length; i++) {
-            if (!mTypeIds[mMethodIds[i].classIdx].internal) {
-                MethodIdItem methodId = mMethodIds[i];
+        for (MethodIdItem methodId : mMethodIds) {
+            if (!mTypeIds[methodId.classIdx].internal) {
                 MethodRef newMethodRef = new MethodRef(
                         classNameFromTypeIndex(methodId.classIdx),
                         argArrayFromProtoIndex(methodId.protoIdx),
                         returnTypeFromProtoIndex(methodId.protoIdx),
                         mStrings[methodId.nameIdx]);
-                sparseRefs[mMethodIds[i].classIdx].addMethod(newMethodRef);
+                sparseRefs[methodId.classIdx].addMethod(newMethodRef);
             }
         }
     }
@@ -494,8 +488,6 @@ public class DexData {
     /**
      * Reads a variable-length unsigned LEB128 value.  Does not attempt to
      * verify that the value is valid.
-     *
-     * @throws EOFException if we run off the end of the file
      */
     int readUnsignedLeb128() throws IOException {
         int result = 0;

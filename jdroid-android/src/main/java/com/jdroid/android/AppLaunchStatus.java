@@ -2,7 +2,7 @@ package com.jdroid.android;
 
 public enum AppLaunchStatus {
 	
-	NEW_INSTALATTION,
+	NEW_INSTALLATION,
 	NORMAL,
 	VERSION_UPGRADE;
 }

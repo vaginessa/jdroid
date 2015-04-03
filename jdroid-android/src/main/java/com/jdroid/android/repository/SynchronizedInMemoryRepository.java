@@ -29,12 +29,8 @@ public class SynchronizedInMemoryRepository<T extends Identifiable> extends InMe
 	 */
 	@Override
 	public Boolean isOutdated() {
-		if ((lastUpdateTimestamp == null)
-				|| ((lastUpdateTimestamp + getRefreshFrequency()) < System.currentTimeMillis())) {
-			return true;
-		} else {
-			return false;
-		}
+		return (lastUpdateTimestamp == null)
+				|| ((lastUpdateTimestamp + getRefreshFrequency()) < System.currentTimeMillis());
 	}
 	
 	/**

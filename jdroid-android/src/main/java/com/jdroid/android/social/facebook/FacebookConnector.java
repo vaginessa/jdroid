@@ -20,13 +20,13 @@ import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.exception.CommonErrorCode;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -39,8 +39,8 @@ public class FacebookConnector {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(FacebookConnector.class);
 	
-	private static final List<String> PERMISSIONS = Arrays.asList("email");
-	private static final List<String> PUBLISH_PERMISSION = Arrays.asList("publish_stream");
+	private static final List<String> PERMISSIONS = Lists.newArrayList("email");
+	private static final List<String> PUBLISH_PERMISSION = Lists.newArrayList("publish_stream");
 	private static final SessionLoginBehavior LOGIN_BEHAVIOR = SessionLoginBehavior.SSO_WITH_FALLBACK;
 	private SessionDefaultAudience DEFAULT_AUDIENCE = SessionDefaultAudience.FRIENDS;
 	

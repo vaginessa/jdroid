@@ -41,7 +41,7 @@ public enum DataType {
 		@Override
 		public <T> void writeValue(ContentValues values, String columnName, T value) {
 			if (value != null) {
-				values.put(columnName, Integer.valueOf(((Number) value).intValue()));
+				values.put(columnName, ((Number)value).intValue());
 			} else {
 				values.putNull(columnName);
 			}

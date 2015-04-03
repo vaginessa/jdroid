@@ -1,5 +1,11 @@
 package com.jdroid.javaweb.utils;
 
+import com.jdroid.java.collections.Lists;
+import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.utils.NumberUtils;
+import com.jdroid.java.utils.StringUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -14,13 +20,9 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Collection;
 import java.util.List;
+
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
-import com.jdroid.java.collections.Lists;
-import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.utils.DateUtils;
-import com.jdroid.java.utils.NumberUtils;
-import com.jdroid.java.utils.StringUtils;
 
 /**
  * Utilities for CSV
@@ -91,7 +93,7 @@ public class CSVUtils {
 	/**
 	 * Reads a csv file and returns a list of T with the values
 	 * 
-	 * @param csv A comma separeted value string
+	 * @param csv A comma separated value string
 	 * @param valueConverter A {@link ValueConverter}
 	 * @param <T> A {@link ValueConverter}
 	 * @return A list with all the values into the file
@@ -104,7 +106,7 @@ public class CSVUtils {
 	/**
 	 * Reads a csv file and returns a list of string with the values
 	 * 
-	 * @param csv A comma separeted value string
+	 * @param csv A comma separated value string
 	 * @return A list with all the values into the file
 	 */
 	public static List<String> fromCSV(String csv) {

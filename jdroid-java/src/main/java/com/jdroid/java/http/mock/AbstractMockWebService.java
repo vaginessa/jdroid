@@ -100,7 +100,7 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	@Override
 	public void addHeader(String name, String value) {
 		if (value != null) {
-			headers.put(name, value.toString());
+			headers.put(name, value);
 		}
 	}
 	

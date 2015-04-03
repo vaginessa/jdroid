@@ -1,14 +1,21 @@
 package com.jdroid.javaweb.filter.gzip;
 
+import com.jdroid.java.utils.EncodingUtils;
+import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
+
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
-import com.jdroid.java.utils.EncodingUtils;
 
 public class GZIPResponseWrapper extends HttpServletResponseWrapper {
+
+	private static final Logger LOGGER = LoggerUtils.getLogger(GZIPResponseWrapper.class);
 	
 	protected HttpServletResponse wrappedResponse;
 	protected ServletOutputStream stream;
@@ -29,6 +36,7 @@ public class GZIPResponseWrapper extends HttpServletResponseWrapper {
 				}
 			}
 		} catch (IOException e) {
+			LOGGER.error("IOException when closing GZIPResponseWrapper", e);
 		}
 	}
 	

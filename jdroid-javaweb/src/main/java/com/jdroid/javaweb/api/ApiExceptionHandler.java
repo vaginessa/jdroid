@@ -163,7 +163,7 @@ public class ApiExceptionHandler extends AbstractHandlerExceptionResolver {
 		if (!WebUtils.isIncludeRequest(webRequest.getRequest())) {
 			webRequest.getResponse().setStatus(
 				error != null ? error.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR.value());
-			webRequest.getResponse().setHeader(STATUS_CODE_HEADER, error != null ? error.getCode().toString() : "500");
+			webRequest.getResponse().setHeader(STATUS_CODE_HEADER, error != null ? error.getCode() : "500");
 		}
 	}
 	

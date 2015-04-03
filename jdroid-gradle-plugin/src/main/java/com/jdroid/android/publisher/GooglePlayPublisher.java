@@ -174,7 +174,7 @@ public class GooglePlayPublisher {
 				Deleteall deleteallRequest = edits.images().deleteall(appContext.getPackageName(), editId,
 					each.getLocale().toString(), ImageType.PHONE_SCREENSHOTS.getKey());
 				deleteallRequest.execute();
-				System.out.println(String.format("Phone screenshots has been deleted."));
+				System.out.println("Phone screenshots has been deleted.");
 				for (AbstractInputStreamContent content : each.getPhoneScreenshots()) {
 					uploadImageRequest = edits.images().upload(appContext.getPackageName(), editId,
 						each.getLocale().toString(), ImageType.PHONE_SCREENSHOTS.getKey(), content);
@@ -185,7 +185,7 @@ public class GooglePlayPublisher {
 				deleteallRequest = edits.images().deleteall(appContext.getPackageName(), editId,
 					each.getLocale().toString(), ImageType.SEVEN_INCH_SCREENSHOTS.getKey());
 				deleteallRequest.execute();
-				System.out.println(String.format("Seven inch screenshots has been deleted."));
+				System.out.println("Seven inch screenshots has been deleted.");
 				for (AbstractInputStreamContent content : each.getSevenInchScreenshots()) {
 					uploadImageRequest = edits.images().upload(appContext.getPackageName(), editId,
 						each.getLocale().toString(), ImageType.SEVEN_INCH_SCREENSHOTS.getKey(), content);
@@ -196,7 +196,7 @@ public class GooglePlayPublisher {
 				deleteallRequest = edits.images().deleteall(appContext.getPackageName(), editId,
 					each.getLocale().toString(), ImageType.TEN_INCH_SCREENSHOTS.getKey());
 				deleteallRequest.execute();
-				System.out.println(String.format("Ten inch screenshots has been deleted."));
+				System.out.println("Ten inch screenshots has been deleted.");
 				for (AbstractInputStreamContent content : each.getTenInchScreenshots()) {
 					uploadImageRequest = edits.images().upload(appContext.getPackageName(), editId,
 						each.getLocale().toString(), ImageType.TEN_INCH_SCREENSHOTS.getKey(), content);

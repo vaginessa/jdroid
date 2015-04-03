@@ -1,10 +1,5 @@
 package com.jdroid.android.inappbilling;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import org.json.JSONException;
-import org.slf4j.Logger;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -18,6 +13,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.text.TextUtils;
+
 import com.android.vending.billing.IInAppBillingService;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.inappbilling.Product.ItemType;
@@ -28,6 +24,13 @@ import com.jdroid.java.exception.ErrorCode;
 import com.jdroid.java.exception.ErrorCodeException;
 import com.jdroid.java.utils.CollectionUtils;
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.json.JSONException;
+import org.slf4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Provides convenience methods for in-app billing. You can create one instance of this class for your application and
@@ -637,7 +640,7 @@ public class InAppBillingClient {
 	/**
 	 * Consumes a given in-app product. Consuming can only be done on an item that's owned, and as a result of
 	 * consumption, the user will no longer own it. This method may block or take long to return. Do not call from the
-	 * UI thread. For that, see {@link #consume(Purchase, OnConsumeFinishedListener)}.
+	 * UI thread.
 	 * 
 	 * @param product The {@link Product} that represents the item to consume.
 	 */
