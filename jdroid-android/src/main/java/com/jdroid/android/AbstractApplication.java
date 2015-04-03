@@ -89,7 +89,7 @@ public abstract class AbstractApplication extends Application {
 	private Activity currentActivity;
 	
 	private String installationId;
-	private boolean inBackground = false;
+	private Boolean inBackground = true;
 	
 	private AppLaunchStatus appLaunchStatus;
 	
@@ -408,14 +408,14 @@ public abstract class AbstractApplication extends Application {
 	/**
 	 * @return the inBackground
 	 */
-	public boolean isInBackground() {
+	public Boolean isInBackground() {
 		return inBackground;
 	}
 	
 	/**
 	 * @param inBackground the inBackground to set
 	 */
-	public void setInBackground(boolean inBackground) {
+	public void setInBackground(Boolean inBackground) {
 		this.inBackground = inBackground;
 	}
 	

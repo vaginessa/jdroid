@@ -1,15 +1,19 @@
 package com.jdroid.android.log;
 
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.java.concurrent.ExecutorUtils;
+import com.jdroid.java.concurrent.LowPriorityThreadFactory;
 import com.jdroid.java.repository.Repository;
 
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 public class DatabaseLogger implements Logger {
 	
 	private Logger wrappedLogger;
+	private Executor executor = Executors.newFixedThreadPool(1, new LowPriorityThreadFactory());
 	
 	public DatabaseLogger(Logger wrappedLogger) {
 		this.wrappedLogger = wrappedLogger;
@@ -341,7 +345,7 @@ public class DatabaseLogger implements Logger {
 	}
 
 	private void log(final String message) {
-		ExecutorUtils.execute(new Runnable() {
+		executor.execute(new Runnable() {
 
 			@Override
 			public void run() {
