@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.jdroid.android.fragment.AbstractListFragment;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.loading.SwipeRefreshLoading;
 import com.jdroid.sample.android.R;
+import com.jdroid.sample.android.ui.adapter.SampleAdapter;
 import com.jdroid.sample.android.usecase.SampleUseCase;
 
 public class SwipeRefreshLoadingFragment extends AbstractListFragment<Object> {
@@ -33,7 +35,7 @@ public class SwipeRefreshLoadingFragment extends AbstractListFragment<Object> {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.swipe_list_fragment, container, false);
 	}
-	
+
 	/**
 	 * @see com.jdroid.android.fragment.AbstractFragment#onResume()
 	 */
@@ -68,5 +70,16 @@ public class SwipeRefreshLoadingFragment extends AbstractListFragment<Object> {
 		if (!sampleUseCase.isInProgress()) {
 			executeUseCase(sampleUseCase);
 		}
+	}
+
+	@Override
+	public void onFinishUseCase() {
+		executeOnUIThread(new Runnable() {
+			@Override
+			public void run() {
+				setListAdapter(new SampleAdapter(getActivity(), sampleUseCase.getItems()));
+				dismissLoading();
+			}
+		});
 	}
 }
