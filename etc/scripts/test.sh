@@ -16,34 +16,31 @@ fi
 # jdroid gradle plugin
 # ************************
 
-./gradlew :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:build :jdroid-gradle-plugin:uploadArchives --refresh-dependencies --configure-on-demand -PLOCAL_UPLOAD=true --debug
+./gradlew :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:build :jdroid-gradle-plugin:uploadArchives --refresh-dependencies --configure-on-demand -PLOCAL_UPLOAD=true --info
 
 # ************************
 # jdroid
 # ************************
 
-./gradlew :jdroid-java:clean :jdroid-java:build :jdroid-android:clean :jdroid-android:build :jdroid-javaweb:clean :jdroid-javaweb:build --refresh-dependencies
+./gradlew :jdroid-java:clean :jdroid-java:build :jdroid-android:clean :jdroid-android:build :jdroid-javaweb:clean :jdroid-javaweb:build --refresh-dependencies --info
 
 # ************************
 # jdroid sample android
 # ************************
 
-cd jdroid-sample-android
-../gradlew check assembleUat countMethodsSummary
+./gradlew :jdroid-sample-android:check :jdroid-sample-android:assembleUat :jdroid-sample-android:countMethodsSummary --info
 
 # ************************
 # jdroid sample server
 # ************************
 
-cd ../jdroid-sample-server
-../gradlew build
+./gradlew :jdroid-sample-server:build --info
 
 # ************************
 # Deploy Snapshot to Maven repository
 # ************************
 
-cd ..
 if [ "$UPLOAD" = "true" ]
 then
-	./gradlew :jdroid-gradle-plugin:uploadArchives :jdroid-java:uploadArchives :jdroid-javaweb:uploadArchives :jdroid-android:uploadArchives
+	./gradlew :jdroid-gradle-plugin:uploadArchives :jdroid-java:uploadArchives :jdroid-javaweb:uploadArchives :jdroid-android:uploadArchives --info
 fi
