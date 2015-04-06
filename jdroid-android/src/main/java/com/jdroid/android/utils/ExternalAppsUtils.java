@@ -77,16 +77,24 @@ public class ExternalAppsUtils {
 		AbstractApplication.get().startActivity(skypeIntent);
 	}
 
+	public static void openCustomMapOnBrowser(Activity activity, String mapId) {
+		IntentUtils.startUrl(activity, getCustomMapUrl(mapId));
+	}
+
 	public static void openCustomMap(Activity activity, String mapId) {
 		boolean isAppInstalled = isAppInstalled(activity, GOOGLE_MAPS_PACKAGE_NAME);
 		if (isAppInstalled) {
 			Intent intent = new Intent(Intent.ACTION_VIEW);
 			intent.setPackage(GOOGLE_MAPS_PACKAGE_NAME);
-			intent.setData(Uri.parse("https://www.google.com/maps/d/viewer?mid=" + mapId));
+			intent.setData(Uri.parse(getCustomMapUrl(mapId)));
 			activity.startActivity(intent);
 		} else {
 			GooglePlayUtils.launchAppDetails(activity, GOOGLE_MAPS_PACKAGE_NAME);
 		}
+	}
+
+	private static String getCustomMapUrl(String mapId) {
+		return "https://www.google.com/maps/d/viewer?mid=" + mapId;
 	}
 	
 	public static void openUrl(String url) {

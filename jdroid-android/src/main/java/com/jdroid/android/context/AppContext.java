@@ -170,6 +170,10 @@ public abstract class AppContext {
 	public String getInstallationSource() {
 		return AbstractApplication.get().getBuildConfigValue("INSTALLATION_SOURCE", "GooglePlay");
 	}
+
+	public Boolean isChromeInstallationSource() {
+		return getInstallationSource().equals("Chrome");
+	}
 	
 	public Boolean isCrashlyticsEnabled() {
 		return AbstractApplication.get().getBuildConfigValue("CRASHLYTICS_ENABLED", false);
