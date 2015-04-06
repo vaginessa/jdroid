@@ -22,6 +22,11 @@ configurations {
 	compile.exclude group: "org.slf4j",  module: "slf4j-api"
 }
 
+configurations.all {
+	// check for updates every build
+	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 dependencies {
 
 	compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.2'

@@ -22,6 +22,11 @@ buildscript {
 	}
 }
 
+configurations.all {
+	// check for updates every build
+	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 dependencies {
 	compile project(':jdroid-android')
 //  compile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT'

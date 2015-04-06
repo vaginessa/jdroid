@@ -18,6 +18,11 @@ buildscript {
 	}
 }
 
+configurations.all {
+	// check for updates every build
+	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 project.dependencies {
 	compile project(':jdroid-javaweb')
 	//compile 'com.jdroidframework:jdroid-javaweb:0.7.0-SNAPSHOT'
