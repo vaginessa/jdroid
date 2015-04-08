@@ -72,7 +72,7 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid Java Web](https://github.com/maxirosson/jdroid/wiki/jdroid-Java-Web)
 ---------------
-Dependency project for Java Web apps 
+Dependency project for Java-based enterprise apps 
 * Http Filters
  * Authentication filter
  * API version filter
