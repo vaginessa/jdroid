@@ -125,5 +125,3 @@ def getRepositoryPassword() {
 public def getProp(String propertyName) {
 	return project.hasProperty(propertyName) ? project.ext.get(propertyName) : System.getenv(propertyName)
 }
-
-

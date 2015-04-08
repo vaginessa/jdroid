@@ -5,7 +5,8 @@ BUILD_DIRECTORY=$1
 CLEAN=$2
 BRANCH=$3
 BUILD_SAMPLES=$4
-PROFILE=$5
+DEPLOY=$5
+PROFILE=$6
 
 PROJECT_NAME=jdroid
 
@@ -44,6 +45,11 @@ then
 	exit 1;
 fi
 
+if [ -z "$CLEAN" ]
+then
+	CLEAN="true"
+fi
+
 if [ -z "$BRANCH" ]
 then
 	BRANCH=master
@@ -54,9 +60,9 @@ then
 	BUILD_SAMPLES="false"
 fi
 
-if [ -z "$CLEAN" ]
+if [ -z "$DEPLOY" ]
 then
-	CLEAN="true"
+	DEPLOY="false"
 fi
 
 SOURCE_DIRECTORY=$BUILD_DIRECTORY/$PROJECT_NAME/source
@@ -94,12 +100,6 @@ then
 	git pull
 fi
 
-# Assemblies Generation
-# ************************
-cd $SOURCE_DIRECTORY/$PROJECT_NAME
-
-mvn dependency:resolve clean install -Dmaven.test.skip=true
-
 # Samples Assemblies Generation
 # ************************
 if [ "$BUILD_SAMPLES" = "true" ]
@@ -116,4 +116,13 @@ then
 	mvn clean dependency:resolve -P $PROFILE install -Dmaven.test.skip=true
 	cp ./target/*.apk $ASSEMBLIES_DIRECTORY/
 	sh $JDROID_HOME/jdroid-scripts/android/validateDex.sh $ANDROID_APP_DIR/target/classes.dex
+fi
+
+# Deploy to Sonatype repository
+# ************************
+cd $SOURCE_DIRECTORY/$PROJECT_NAME
+
+if [ "$DEPLOY" = "true" ]
+then
+	./gradlew clean :jdroid-gradle-plugin:uploadArchives :jdroid-java:uploadArchives :jdroid-javaweb:uploadArchives :jdroid-android:uploadArchives
 fi

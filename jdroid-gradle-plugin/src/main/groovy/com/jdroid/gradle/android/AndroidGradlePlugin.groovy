@@ -20,7 +20,7 @@ public abstract class AndroidGradlePlugin extends BaseGradlePlugin {
 		android.buildToolsVersion "22.0.1"
 
 		android.defaultConfig {
-			minSdkVersion 14
+			minSdkVersion project.jdroid.getProp('MIN_SDK_VERSION', 14)
 			targetSdkVersion 22
 		}
 

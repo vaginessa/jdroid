@@ -6,30 +6,10 @@ OAUTH_TOKEN=$2
 
 PROJECT_NAME=jdroid
 SOURCE_DIRECTORY=$BUILD_DIRECTORY/$PROJECT_NAME/source/$PROJECT_NAME
-ASSEMBLIES_DIRECTORY=$BUILD_DIRECTORY/$PROJECT_NAME/assemblies
 
-# Build
+# Build and Deploy to Sonatype
 # ************************
-sh $JDROID_HOME/etc/scripts/build.sh $BUILD_DIRECTORY
-
-# Javadoc & zip Generation
-# ************************
-cd $SOURCE_DIRECTORY
-mvn clean install javadoc:aggregate assembly:single -P jdroid-release -Dmaven.test.skip=true
-cp ./target/*.zip $ASSEMBLIES_DIRECTORY/
-cp -r ./target/site $ASSEMBLIES_DIRECTORY
-
-ASSEMBLY_FILE_PATH=""
-for filename in $ASSEMBLIES_DIRECTORY/*jdroid.zip
-do
-	newname=`echo $filename | sed 's/jdroid-parent/jdroid/g' | sed 's/-jdroid\.zip/\.zip/g'`
-	mv $filename $newname
-	ASSEMBLY_FILE_PATH=$newname
-done
-
-# Deploy to Maven repository
-# ************************
-./gradlew :jdroid-gradle-plugin:uploadArchives :jdroid-java:uploadArchives :jdroid-javaweb:uploadArchives :jdroid-android:uploadArchives
+sh $JDROID_HOME/etc/scripts/build.sh $BUILD_DIRECTORY false production false true
 
 # Upload Release on GitHub
 # ************************
@@ -52,38 +32,3 @@ RESPONSE=$(curl \
   "body": "$BODY"
 }
 EOF)
-
-# Upload the jdroid-vX.X.X.zip to the release created on Github.
-# ************************
-
-ASSEMBLY_FILE_NAME="$PROJECT_NAME-$TAG_NAME.zip" 
-
-UPLOAD_URL=$(echo $RESPONSE | sed -e "s/^.*\"upload_url\": \"//" | cut -f1 -d"\"" | sed -e "s/{?name}/?name=$ASSEMBLY_FILE_NAME/")
-echo "Uploading assembly to $UPLOAD_URL"
-
-
-curl -H "Authorization: token $OAUTH_TOKEN" \
-     -H "Accept: application/vnd.github.manifold-preview" \
-     -H "Content-Type: application/zip" \
-     --data-binary @$ASSEMBLY_FILE_PATH \
-     "$UPLOAD_URL"
-     
-     
-# Update the JavaDocs on gh-pages branch
-# ************************
-
-git config user.name "maxirosson"
-git config user.email "maxirosson@gmail.com"
-git add -A
-git stash
-git co gh-pages
-git add -A
-git stash
-rm -rf ./javadocs
-mkdir javadocs
-cp -r $ASSEMBLIES_DIRECTORY/site/apidocs/* ./javadocs/
-git co -- ./javadocs/stylesheet.css
-git add -A
-git commit -m "Upgraded javadocs to $PROJECT_NAME $TAG_NAME"
-git push origin HEAD:gh-pages
-

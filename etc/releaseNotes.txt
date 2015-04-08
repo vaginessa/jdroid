@@ -10,7 +10,6 @@ jdroid Android\n
 --------------\n
 * Added support to multiple Admob ad units\n
 * Migrated to Android 5.1 (Api level 22)\n
-* Improved about screen\n
 * Improved url handling support\n
 * Improved About screen\n
 * Improved A/B Testing support\n
