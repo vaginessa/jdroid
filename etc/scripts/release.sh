@@ -9,14 +9,14 @@ SOURCE_DIRECTORY=$BUILD_DIRECTORY/$PROJECT_NAME/source/$PROJECT_NAME
 
 # Build and Deploy to Sonatype
 # ************************
-sh $JDROID_HOME/etc/scripts/build.sh $BUILD_DIRECTORY false production false true
+#sh $JDROID_HOME/etc/scripts/build.sh $BUILD_DIRECTORY false production false true
 
 # Upload Release on GitHub
 # ************************
 
 REPO_OWNER=maxirosson
 BODY=`cat ./etc/releaseNotes.txt`
-TAG_NAME=v`mvn help:evaluate -Dexpression=project.version 2>/dev/null| grep -v "^\["`
+TAG_NAME=v`./gradlew :printVersion -q --configure-on-demand`
 
 RESPONSE=$(curl \
     -X POST \
@@ -32,3 +32,4 @@ RESPONSE=$(curl \
   "body": "$BODY"
 }
 EOF)
+

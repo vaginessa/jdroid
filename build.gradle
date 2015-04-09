@@ -67,6 +67,7 @@ subprojects {
 					pom.project {
 						name project.ext.projectName
 						description project.description
+						url 'http://www.jdroidframework.com'
 						inceptionYear '2011'
 						organization {
 							name 'Jdroid'
@@ -124,4 +125,8 @@ def getRepositoryPassword() {
 
 public def getProp(String propertyName) {
 	return project.hasProperty(propertyName) ? project.ext.get(propertyName) : System.getenv(propertyName)
+}
+
+task printVersion << {
+	println version
 }
