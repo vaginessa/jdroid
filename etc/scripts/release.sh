@@ -9,7 +9,7 @@ SOURCE_DIRECTORY=$BUILD_DIRECTORY/$PROJECT_NAME/source/$PROJECT_NAME
 
 # Build and Deploy to Sonatype
 # ************************
-#sh $JDROID_HOME/etc/scripts/build.sh $BUILD_DIRECTORY false production false true
+sh $JDROID_HOME/etc/scripts/build.sh $BUILD_DIRECTORY false production false true
 
 # Upload Release on GitHub
 # ************************
