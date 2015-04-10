@@ -1,9 +1,21 @@
 apply plugin: 'groovy'
 apply plugin: 'signing'
 apply plugin: 'java-gradle-plugin'
+apply plugin: "com.gradle.plugin-publish"
 
 ext.projectName = 'Jdroid Gradle Plugin'
 description = 'Gradle Plugin for Java & Android projects'
+
+buildscript {
+	repositories {
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
+	}
+	dependencies {
+		classpath "com.gradle.publish:plugin-publish-plugin:0.9.0"
+	}
+}
 
 dependencies {
     compile localGroovy()
@@ -33,4 +45,42 @@ task sourcesJar(type: Jar) {
 
 artifacts {
 	archives javadocJar, sourcesJar
+}
+
+// Configuration to publish your plugin to the plugin portal
+pluginBundle {
+	website = 'http://www.jdroidframework.com/'
+	vcsUrl = 'https://github.com/maxirosson/jdroid'
+
+	plugins {
+		javaPlugin {
+			id = 'com.jdroid.java'
+			displayName = 'Jdroid Java Gradle Plugin'
+			description = 'Gradle Plugin for Java libraries'
+			tags = ['jdroid', 'java']
+		}
+		javaWebPlugin {
+			id = 'com.jdroid.javaweb'
+			displayName = 'Jdroid Java Gradle Plugin'
+			description = 'Gradle Plugin for Java Web apps'
+			tags = ['jdroid', 'java']
+		}
+		androidAppPlugin {
+			id = 'com.jdroid.android.application'
+			displayName = 'Jdroid Android App Gradle Plugin'
+			description = 'Gradle Plugin for Android apps'
+			tags = ['jdroid', 'java', 'android']
+		}
+		androidLibPlugin {
+			id = 'com.jdroid.android.library'
+			displayName = 'Jdroid Android Library Gradle Plugin'
+			description = 'Gradle Plugin for Android libraries'
+			tags = ['jdroid', 'java', 'android']
+		}
+	}
+
+	mavenCoordinates {
+		groupId = "com.jdroidframework"
+		artifactId = "jdroid-gradle-plugin"
+	}
 }
