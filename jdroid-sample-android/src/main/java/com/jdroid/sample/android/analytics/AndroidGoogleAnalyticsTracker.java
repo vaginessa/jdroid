@@ -1,7 +1,8 @@
 package com.jdroid.sample.android.analytics;
 
-import java.util.Map;
 import com.jdroid.android.analytics.GoogleAnalyticsTracker;
+
+import java.util.Map;
 
 public class AndroidGoogleAnalyticsTracker extends GoogleAnalyticsTracker implements AndroidAnalyticsTracker {
 	
@@ -19,6 +20,7 @@ public class AndroidGoogleAnalyticsTracker extends GoogleAnalyticsTracker implem
 		customDimensionsMap.put(CustomDimension.INSTALLATION_SOURCE.name(), 1);
 		customDimensionsMap.put(CustomDimension.DEVICE_TYPE.name(), 2);
 		customDimensionsMap.put(CustomDimension.APP_LOADING_SOURCE.name(), 3);
+		customDimensionsMap.put(CustomDimension.DEVICE_YEAR_CLASS.name(), 4);
 	}
 	
 	/**

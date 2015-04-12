@@ -49,6 +49,9 @@ dependencies {
 	compile 'com.google.android.gms:play-services-maps:' + googlePlayServicesVersion
 	compile 'com.google.android.gms:play-services-plus:' + googlePlayServicesVersion
 
+	// https://github.com/facebook/device-year-class
+	compile 'com.facebook.device.yearclass:yearclass:1.0.1'
+
 	// Module dependencies
 	compile project(':jdroid-java')
 

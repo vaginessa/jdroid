@@ -53,7 +53,8 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		IS_LOGGED,
 		INSTALLATION_SOURCE,
 		APP_LOADING_SOURCE,
-		DEVICE_TYPE;
+		DEVICE_TYPE,
+		DEVICE_YEAR_CLASS;
 	}
 	
 	public GoogleAnalyticsTracker() {
@@ -105,7 +106,9 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 			} else if (!hasCommonCustomDimension(CustomDimension.APP_LOADING_SOURCE.name())) {
 				addCommonCustomDimension(CustomDimension.APP_LOADING_SOURCE.name(), AppLoadingSource.NORMAL.getName());
 			}
-			
+
+			addCustomDimension(appViewBuilder, CustomDimension.DEVICE_YEAR_CLASS, AbstractApplication.get().getDeviceYearClass().toString());
+
 			if (!firstTrackingSent) {
 				addCustomDimension(appViewBuilder, CustomDimension.DEVICE_TYPE, AndroidUtils.getDeviceType());
 				

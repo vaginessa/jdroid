@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 
+import com.facebook.device.yearclass.YearClass;
 import com.jdroid.android.about.AboutFragment;
 import com.jdroid.android.about.LibrariesFragment;
 import com.jdroid.android.about.SpreadTheLoveFragment;
@@ -76,7 +77,8 @@ public abstract class AbstractApplication extends Application {
 	private static final String VERSION_CODE_KEY = "versionCodeKey";
 	
 	private static final String CACHE_DIRECTORY_PREFIX = "cache_";
-	
+	private static final String DEVICE_YEAR_CLASS = "DeviceYearClass";
+
 	protected static AbstractApplication INSTANCE;
 	
 	private AppContext appContext;
@@ -94,6 +96,8 @@ public abstract class AbstractApplication extends Application {
 	private AppLaunchStatus appLaunchStatus;
 	
 	private Map<Class<? extends Identifiable>, Repository<? extends Identifiable>> repositories;
+
+	private Integer deviceYearClass = YearClass.CLASS_UNKNOWN;
 	
 	public AbstractApplication() {
 		INSTANCE = this;
@@ -139,6 +143,7 @@ public abstract class AbstractApplication extends Application {
 			public void run() {
 				loadInstallationId();
 				verifyAppLaunchStatus();
+				initDeviceYearClass();
 				initFileSystemCache();
 				initEncryptionUtils();
 				
@@ -306,7 +311,20 @@ public abstract class AbstractApplication extends Application {
 	public File getFileSystemCacheDirectory(Cache cache) {
 		return getApplicationContext().getDir(CACHE_DIRECTORY_PREFIX + cache.getName(), Context.MODE_PRIVATE);
 	}
-	
+
+	protected void initDeviceYearClass() {
+		deviceYearClass = SharedPreferencesHelper.get().loadPreferenceAsInteger(DEVICE_YEAR_CLASS, YearClass.CLASS_UNKNOWN);
+		//Try again if device was previously unknown.
+		if (deviceYearClass == YearClass.CLASS_UNKNOWN) {
+			deviceYearClass = YearClass.get(getApplicationContext());
+			SharedPreferencesHelper.get().savePreference(DEVICE_YEAR_CLASS, deviceYearClass);
+		}
+	}
+
+	public Integer getDeviceYearClass() {
+		return deviceYearClass;
+	}
+
 	public void initExceptionHandlers() {
 		UncaughtExceptionHandler currentExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
 		if ((currentExceptionHandler == null) || !currentExceptionHandler.getClass().equals(getExceptionHandlerClass())) {

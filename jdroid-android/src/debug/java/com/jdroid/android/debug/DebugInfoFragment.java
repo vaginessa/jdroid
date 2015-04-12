@@ -49,6 +49,8 @@ public class DebugInfoFragment extends AbstractListFragment<Pair<String, Object>
 		properties.add(new Pair<String, Object>("Network Operator Name", AndroidUtils.getNetworkOperatorName()));
 		properties.add(new Pair<String, Object>("Sim Operator Name", AndroidUtils.getSimOperatorName()));
 
+		properties.add(new Pair<String, Object>("Device Year Class", AbstractApplication.get().getDeviceYearClass()));
+
 		properties.addAll(AbstractApplication.get().getDebugContext().getCustomDebugInfoProperties());
 	}
 
