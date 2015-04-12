@@ -2,7 +2,6 @@ package com.jdroid.android.debug;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ListView;
 
 import com.jdroid.android.R;
 import com.jdroid.android.fragment.AbstractPreferenceFragment;
@@ -51,23 +50,14 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		addAppender(appenders, createExceptionHandlingDebugPrefsAppender());
 		addAppender(appenders, createInAppBillingDebugPrefsAppender());
 		addAppender(appenders, createGcmDebugPrefsAppender());
-		
+		addAppender(appenders, createInfoDebugPrefsAppender());
+
 		appenders.addAll(getCustomPreferencesAppenders());
 		
 		for (PreferencesAppender preferencesAppender : appenders) {
 			if (preferencesAppender.isEnabled()) {
 				preferencesAppender.initPreferences(getActivity(), getPreferenceScreen());
 			}
-		}
-		
-		ListView listView = findView(android.R.id.list);
-		
-		View debugInfoView = new DebugInfoView(getActivity());
-		listView.addFooterView(debugInfoView);
-		
-		View customDebugInfoView = getCustomDebugInfoView();
-		if (customDebugInfoView != null) {
-			listView.addFooterView(debugInfoView);
 		}
 	}
 	
@@ -132,12 +122,12 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 	protected HttpMocksDebugPrefsAppender createHttpMocksDebugPrefsAppender() {
 		return new HttpMocksDebugPrefsAppender();
 	}
-	
+
+	protected InfoDebugPrefsAppender createInfoDebugPrefsAppender() {
+		return new InfoDebugPrefsAppender();
+	}
+
 	protected List<PreferencesAppender> getCustomPreferencesAppenders() {
 		return Lists.newArrayList();
-	}
-	
-	protected View getCustomDebugInfoView() {
-		return null;
 	}
 }

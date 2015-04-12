@@ -27,4 +27,8 @@ public class DebugContext {
 	public Class<? extends AbstractPreferenceFragment> getDebugSettingsFragmentClass() {
 		return null;
 	}
+
+	public List<Pair<String, Object>> getCustomDebugInfoProperties() {
+		return Lists.newArrayList();
+	}
 }

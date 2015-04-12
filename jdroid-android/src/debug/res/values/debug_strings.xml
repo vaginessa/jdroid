@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
 	<string name="debugSettings" tools:ignore="MissingTranslation">Debug Settings</string>
+	<string name="debugInfoSettings" tools:ignore="MissingTranslation">Debug Info Settings</string>
 
 	<!-- Server -->
 	<string name="serversSettings" tools:ignore="MissingTranslation">Servers</string>
@@ -64,20 +65,12 @@
 	<string name="database" tools:ignore="MissingTranslation">Database</string>
 	<string name="downloadDatabase" tools:ignore="MissingTranslation">Download database</string>
 
+	<!-- Debug Info -->
+	<string name="debugInfoCategory" tools:ignore="MissingTranslation">Debug Info</string>
+	<string name="debugInfo" tools:ignore="MissingTranslation">Debug Info</string>
+
 	<!-- Debug Database -->
 	<string name="debugDatabase" tools:ignore="MissingTranslation">Debug Database</string>
 	<string name="cleanDebugData" tools:ignore="MissingTranslation">Clean debug data</string>
-
-	<!-- Info View -->
-	<string name="packageName" tools:ignore="MissingTranslation">Package Name: %1$s</string>
-	<string name="buildType" tools:ignore="MissingTranslation">Build Type: %1$s</string>
-	<string name="analyticsEnabled" tools:ignore="MissingTranslation">Analytics Enabled: %1$s</string>
-	<string name="adsEnabled" tools:ignore="MissingTranslation">Ads Enabled: %1$s</string>
-	<string name="smallestScreenWidthDp" tools:ignore="MissingTranslation">Smallest Screen Width: %1$sdp</string>
-	<string name="screenDensity" tools:ignore="MissingTranslation">Screen Density: %1$s</string>
-	<string name="networkOperatorName" tools:ignore="MissingTranslation">Network Operator Name: %1$s</string>
-	<string name="simOperatorName" tools:ignore="MissingTranslation">SIM Operator Name: %1$s</string>
-	<string name="gitBranch" tools:ignore="MissingTranslation">Git Branch: %1$s</string>
-	<string name="gitSha" tools:ignore="MissingTranslation">Git Sha: %1$s</string>
 
 </resources>
