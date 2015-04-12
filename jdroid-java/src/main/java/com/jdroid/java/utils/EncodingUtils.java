@@ -1,5 +1,7 @@
 package com.jdroid.java.utils;
 
+import com.jdroid.java.exception.UnexpectedException;
+
 import java.io.UnsupportedEncodingException;
 
 public class EncodingUtils {
@@ -80,7 +82,7 @@ public class EncodingUtils {
 					encoded.append(HEX_DIGITS[aByte & 0xf]);
 				}
 			} catch (UnsupportedEncodingException e) {
-				throw new AssertionError(e);
+				throw new UnexpectedException(e);
 			}
 			
 			current = nextAllowed;
@@ -101,5 +103,20 @@ public class EncodingUtils {
 		return ((c >= 'A') && (c <= 'Z')) || ((c >= 'a') && (c <= 'z')) || ((c >= '0') && (c <= '9'))
 				|| ("_-!.~'()*/".indexOf(c) != NOT_FOUND) || ((allow != null) && (allow.indexOf(c) != NOT_FOUND));
 	}
-	
+
+	/**
+	 * Decode a UTF-8 encoded String.
+	 *
+	 * @param url
+	 * @return decoded String.
+	 */
+	public static String decodeURL(String url) {
+		String decodedString = null;
+		try {
+			decodedString = java.net.URLDecoder.decode(url, UTF8);
+		} catch (UnsupportedEncodingException e) {
+			throw new UnexpectedException(e);
+		}
+		return decodedString;
+	}
 }
