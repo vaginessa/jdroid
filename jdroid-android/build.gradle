@@ -33,7 +33,9 @@ dependencies {
 
 	compile 'org.slf4j:slf4j-android:1.6.1-RC1'
 	compile 'com.crashlytics.android:crashlytics:1.1.13'
-	compile 'com.facebook.android:facebook-android-sdk:3.21.1'
+	compile('com.facebook.android:facebook-android-sdk:3.21.1') {
+		exclude module: 'support-v4'
+	}
 
 	compile 'com.android.support:support-v4:22.0.0'
 	compile 'com.android.support:appcompat-v7:22.0.0'
