@@ -1,5 +1,7 @@
 package com.jdroid.java.utils;
 
+import java.text.DecimalFormat;
+
 public class NumberUtils {
 	
 	public static Float getFloat(String value) {
@@ -56,6 +58,15 @@ public class NumberUtils {
 	
 	public static String getString(Integer value) {
 		return value != null ? value.toString() : null;
+	}
+
+	public static String formatThousand(String number) {
+		if (StringUtils.isBlank(number)) {
+			return StringUtils.EMPTY;
+		}
+
+		DecimalFormat decimalFormatter = new DecimalFormat();
+		return decimalFormatter.format(Double.valueOf(number));
 	}
 	
 	public static String getOrdinalSuffix(int n) {

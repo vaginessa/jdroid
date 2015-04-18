@@ -112,5 +112,9 @@ public class Lists {
 		}
 		return filteredList;
 	}
+
+	public static boolean intersect(Collection<?> a, Collection<?> b) {
+		return !Collections.disjoint(a, b);
+	}
 	
 }

@@ -1,12 +1,15 @@
 package com.jdroid.java.http.apache.delete;
 
-import java.util.List;
-import org.apache.http.client.methods.HttpDelete;
-import org.apache.http.client.methods.HttpUriRequest;
+import com.jdroid.java.http.HttpMethod;
 import com.jdroid.java.http.HttpWebServiceProcessor;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.http.apache.ApacheHttpWebService;
 import com.jdroid.java.http.apache.HttpClientFactory;
+
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpUriRequest;
+
+import java.util.List;
 
 public class ApacheHttpDeleteWebService extends ApacheHttpWebService {
 	
@@ -15,12 +18,9 @@ public class ApacheHttpDeleteWebService extends ApacheHttpWebService {
 		super(httpClientFactory, server, urlSegments, httpWebServiceProcessors);
 	}
 	
-	/**
-	 * @see com.jdroid.java.http.apache.ApacheHttpWebService#getMethodName()
-	 */
 	@Override
-	public String getMethodName() {
-		return HttpDelete.METHOD_NAME;
+	public HttpMethod getHttpMethod() {
+		return HttpMethod.DELETE;
 	}
 	
 	/**

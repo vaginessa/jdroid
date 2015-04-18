@@ -1,7 +1,10 @@
 package com.jdroid.java.http;
 
-import org.slf4j.Logger;
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
+
+import java.io.InputStream;
 
 public abstract class HttpResponseWrapper {
 	
@@ -43,4 +46,6 @@ public abstract class HttpResponseWrapper {
 		int code = getStatusCode();
 		return (code >= 500) && (code <= 599);
 	}
+
+	public abstract InputStream getInputStream();
 }

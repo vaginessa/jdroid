@@ -187,7 +187,7 @@ public abstract class ReflectionUtils {
 		}
 	}
 	
-	public static void setId(Identifiable identifiable, Long id) {
+	public static void setId(Identifiable identifiable, Object id) {
 		ReflectionUtils.set(identifiable, "id", id);
 	}
 }

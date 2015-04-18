@@ -23,6 +23,14 @@
 	<!-- Google Maps -->
 	<string name="googleMaps">Google Maps</string>
 
+	<!-- Http -->
+	<string name="http">Http</string>
+	<string name="httpGet">GET</string>
+	<string name="httpPost">POST</string>
+	<string name="httpPut">PUT</string>
+	<string name="httpDelete">DELETE</string>
+	<string name="httpPatch">PATCH</string>
+
 	<!-- In App Billing -->
 	<string name="inAppBilling">In App Billing</string>
 

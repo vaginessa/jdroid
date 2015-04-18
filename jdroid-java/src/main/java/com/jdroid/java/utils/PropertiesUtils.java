@@ -89,6 +89,6 @@ public abstract class PropertiesUtils {
 	
 	public static Set<String> getStringSetProperty(String name) {
 		String value = getStringProperty(name);
-		return Sets.newHashSet(StringUtils.splitToCollection(value));
+		return Sets.newHashSet(StringUtils.splitToCollectionWithCommaSeparator(value));
 	}
 }

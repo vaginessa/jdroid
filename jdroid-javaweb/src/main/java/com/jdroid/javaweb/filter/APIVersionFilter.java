@@ -1,20 +1,23 @@
 package com.jdroid.javaweb.filter;
 
-import java.io.IOException;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.springframework.web.filter.OncePerRequestFilter;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.api.ApiExceptionHandler;
 import com.jdroid.javaweb.context.Application;
 import com.jdroid.javaweb.exception.CommonErrorCode;
 
-public class AbstractAPIVersionFilter extends OncePerRequestFilter {
+import org.slf4j.Logger;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class APIVersionFilter extends OncePerRequestFilter {
 	
-	private static final Logger LOGGER = LoggerUtils.getLogger(AbstractAPIVersionFilter.class);
+	private static final Logger LOGGER = LoggerUtils.getLogger(APIVersionFilter.class);
 	
 	private static final String API_VERSION_HEADER = "api-version";
 	

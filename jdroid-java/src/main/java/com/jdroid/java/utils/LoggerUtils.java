@@ -37,11 +37,17 @@ public class LoggerUtils {
 		return enabled;
 	}
 	
-	public static void logHandledException(Logger logger, Exception e) {
+	/**
+	 * Log the {@link Exception} on the {@link ExceptionLogger}. If it is null, the defaultLogger is used
+	 *
+	 * @param defaultLogger The {@link Logger} used if the {@link ExceptionLogger} is null
+	 * @param e The {@link Exception} to log
+	 */
+	public static void logHandledException(Logger defaultLogger, Exception e) {
 		if (exceptionLogger != null) {
 			exceptionLogger.logHandledException(e);
 		} else {
-			logger.error(e.getMessage(), e);
+			defaultLogger.error(e.getMessage(), e);
 		}
 	}
 	

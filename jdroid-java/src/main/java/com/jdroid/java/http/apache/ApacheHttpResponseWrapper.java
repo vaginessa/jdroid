@@ -1,5 +1,6 @@
 package com.jdroid.java.http.apache;
 
+import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.http.HttpResponseWrapper;
 import com.jdroid.java.http.WebService;
 import com.jdroid.java.utils.FileUtils;
@@ -7,6 +8,7 @@ import com.jdroid.java.utils.FileUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.GZIPInputStream;
 
@@ -17,7 +19,22 @@ public class ApacheHttpResponseWrapper extends HttpResponseWrapper {
 	public ApacheHttpResponseWrapper(HttpResponse httpResponse) {
 		this.httpResponse = httpResponse;
 	}
-	
+
+	@Override
+	public InputStream getInputStream() {
+		InputStream inputStream = null;
+		try {
+			inputStream = httpResponse.getEntity() != null ? httpResponse.getEntity().getContent() : null;
+			Header contentEncoding = httpResponse.getFirstHeader(WebService.CONTENT_ENCODING_HEADER);
+			if ((contentEncoding != null) && contentEncoding.getValue().equalsIgnoreCase(WebService.GZIP_ENCODING)) {
+				inputStream = new GZIPInputStream(inputStream);
+			}
+		} catch (IOException e) {
+			throw new ConnectionException(e, false);
+		}
+		return inputStream;
+	}
+
 	/**
 	 * @see com.jdroid.java.http.HttpResponseWrapper#getContent()
 	 */
@@ -26,16 +43,10 @@ public class ApacheHttpResponseWrapper extends HttpResponseWrapper {
 		String content = null;
 		InputStream inputStream = null;
 		try {
-			inputStream = httpResponse.getEntity() != null ? httpResponse.getEntity().getContent() : null;
-			Header contentEncoding = httpResponse.getFirstHeader(WebService.CONTENT_ENCODING_HEADER);
-			if ((contentEncoding != null) && contentEncoding.getValue().equalsIgnoreCase(WebService.GZIP_ENCODING)) {
-				inputStream = new GZIPInputStream(inputStream);
-			}
+			inputStream = getInputStream();
 			if (inputStream != null) {
-				content = FileUtils.toString(inputStream);
+				content = FileUtils.toString(getInputStream());
 			}
-		} catch (Exception e) {
-			// Do Nothing
 		} finally {
 			FileUtils.safeClose(inputStream);
 		}

@@ -118,7 +118,7 @@ public abstract class AppContext {
 	 */
 	public Set<String> getTestDevicesIds() {
 		String testDevicesIds = AbstractApplication.get().getBuildConfigValue("ADS_TEST_DEVICES_IDS", null);
-		return testDevicesIds != null ? Sets.newHashSet(StringUtils.splitToCollection(testDevicesIds)) : Sets.<String>newHashSet();
+		return testDevicesIds != null ? Sets.newHashSet(StringUtils.splitToCollectionWithCommaSeparator(testDevicesIds)) : Sets.<String>newHashSet();
 	}
 	
 	/**

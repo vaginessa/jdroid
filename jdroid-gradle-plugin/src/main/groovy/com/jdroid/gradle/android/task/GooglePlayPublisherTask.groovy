@@ -23,7 +23,7 @@ public class GooglePlayPublisherTask  extends DefaultTask {
 		GooglePlayPublisher.listApks(appContext);
 
 		List<LocaleListing> localeListings = Lists.newArrayList();
-		for (String each : StringUtils.splitToCollection(appContext.getLocales())) {
+		for (String each : StringUtils.splitToCollectionWithCommaSeparator(appContext.getLocales())) {
 			String[] split = each.split("-");
 			String language = split[0];
 			String country = "";

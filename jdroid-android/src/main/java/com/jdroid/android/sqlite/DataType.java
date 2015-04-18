@@ -270,7 +270,7 @@ public enum DataType {
 			if (cursor.isNull(columnIndex)) {
 				return null;
 			}
-			return Lists.newArrayList(StringUtils.splitToCollection(cursor.getString(columnIndex)));
+			return Lists.newArrayList(StringUtils.splitToCollectionWithCommaSeparator(cursor.getString(columnIndex)));
 		}
 	},
 	MAP("TEXT") {

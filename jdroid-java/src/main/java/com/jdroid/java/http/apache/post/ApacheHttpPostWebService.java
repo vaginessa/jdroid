@@ -1,12 +1,15 @@
 package com.jdroid.java.http.apache.post;
 
-import java.util.List;
-import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
-import org.apache.http.client.methods.HttpPost;
+import com.jdroid.java.http.HttpMethod;
 import com.jdroid.java.http.HttpWebServiceProcessor;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.http.apache.ApacheHttpEntityEnclosingWebService;
 import com.jdroid.java.http.apache.HttpClientFactory;
+
+import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
+import org.apache.http.client.methods.HttpPost;
+
+import java.util.List;
 
 public class ApacheHttpPostWebService extends ApacheHttpEntityEnclosingWebService {
 	
@@ -15,12 +18,9 @@ public class ApacheHttpPostWebService extends ApacheHttpEntityEnclosingWebServic
 		super(httpClientFactory, server, urlSegments, httpWebServiceProcessors);
 	}
 	
-	/**
-	 * @see com.jdroid.java.http.apache.ApacheHttpWebService#getMethodName()
-	 */
 	@Override
-	public String getMethodName() {
-		return HttpPost.METHOD_NAME;
+	public HttpMethod getHttpMethod() {
+		return HttpMethod.POST;
 	}
 	
 	/**

@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import com.jdroid.android.ActionItem;
 import com.jdroid.android.ActivityLauncher;
 import com.jdroid.sample.android.R;
+import com.jdroid.sample.android.http.HttpActivity;
 import com.jdroid.sample.android.imageloader.ImageLoaderActivity;
 import com.jdroid.sample.android.ui.ads.AdsActivity;
 import com.jdroid.sample.android.ui.analytics.AnalyticsActivity;
@@ -23,6 +24,7 @@ public enum HomeItem implements ActionItem {
 	GCM(R.string.gcm, R.drawable.cloud, ImageLoaderActivity.class),
 	GOOGLE_MAPS(R.string.googleMaps, R.drawable.map, MapActivity.class),
 	GOOGLE_PLUS(R.string.googlePlus, R.drawable.google_plus, ImageLoaderActivity.class),
+	HTTP(R.string.http, R.drawable.cloud, HttpActivity.class),
 	IN_APP_BILLING(R.string.inAppBilling, R.drawable.shopping_cart, ImageLoaderActivity.class),
 	LOADING(R.string.loading, R.drawable.refresh, LoadingActivity.class),
 	NOTIFICATIONS(R.string.notifications, R.drawable.notifications, NotificationsActivity.class),

@@ -94,7 +94,7 @@ public class InAppBillingContext {
 			String pref = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
 				PURCHASED_PRODUCT_TYPES, null);
 			purchasedProductTypes = Lists.newArrayList();
-			for (String each : StringUtils.splitToCollection(pref)) {
+			for (String each : StringUtils.splitToCollectionWithCommaSeparator(pref)) {
 				ProductType productType;
 				List<ProductType> supportedProductTypes = Lists.newArrayList();
 				supportedProductTypes.addAll(AbstractApplication.get().getManagedProductTypes());

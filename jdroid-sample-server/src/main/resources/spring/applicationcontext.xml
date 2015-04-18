@@ -20,6 +20,7 @@
 		<property name="appVersion" value="${appVersion}" />
 		<property name="buildTime" value="${buildTime}" />
 		<property name="googleServerApiKey" value="${googleServerApiKey}" />
+		<property name="minApiVersion" value="${minApiVersion}" />
 		<property name="httpMockEnabled" value="${httpMockEnabled}" />
 		<property name="httpMockSleepDuration" value="${httpMockSleepDuration}" />
 		<property name="adminToken" value="${adminToken}" />

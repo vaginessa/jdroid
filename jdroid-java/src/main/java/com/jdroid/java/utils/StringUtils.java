@@ -335,11 +335,11 @@ public abstract class StringUtils {
 		return Pattern.compile(StringUtils.ALPHANUMERIC_PATTERN).matcher(value).replaceAll("");
 	}
 	
-	public static Collection<String> splitToCollection(String text) {
-		return splitToCollection(text, COMMA);
+	public static Collection<String> splitToCollectionWithCommaSeparator(String text) {
+		return splitToCollectionWithCommaSeparator(text, COMMA);
 	}
 	
-	public static Collection<String> splitToCollection(String text, String separator) {
+	public static Collection<String> splitToCollectionWithCommaSeparator(String text, String separator) {
 		Collection<String> values = Lists.newArrayList();
 		if (isNotEmpty(text)) {
 			values = Lists.newArrayList(text.split(separator));

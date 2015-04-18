@@ -34,4 +34,8 @@ public class Sanitizer {
 	public static String removeNumbers(String text) {
 		return text != null ? text.replaceAll("\\d", "") : null;
 	}
+
+	public static String removeDashes(String text) {
+		return text != null ? text.replaceAll(StringUtils.DASH, "") : null;
+	}
 }

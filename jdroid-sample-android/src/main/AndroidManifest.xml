@@ -76,6 +76,7 @@
 		<activity android:name="com.jdroid.sample.android.ui.loading.SwipeRefreshLoadingActivity"
 			android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>
 		<activity android:name="com.jdroid.sample.android.ui.maps.MapActivity" android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>
+		<activity android:name="com.jdroid.sample.android.http.HttpActivity" android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<activity android:name="com.jdroid.android.about.AboutActivity" android:label="@string/about"
 			android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>

@@ -13,7 +13,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/build/classes/main" />
     <output-test url="file://$MODULE_DIR$/build/classes/test" />
     <exclude-output />
@@ -219,8 +219,5 @@
     <orderEntry type="library" exported="" name="gradle-ide-native-2.2.1" level="project" />
     <orderEntry type="library" exported="" name="gradle-cunit-2.2.1" level="project" />
     <orderEntry type="library" exported="" name="gradle-plugin-development-2.2.1" level="project" />
-    <orderEntry type="library" exported="" name="jdroid-gradle-plugin.jdroid-gradle-plugin-0.8.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="jdroid-gradle-plugin.jdroid-gradle-plugin-0.8.0-SNAPSHOT-javadoc" level="project" />
-    <orderEntry type="library" exported="" name="jdroid-gradle-plugin.jdroid-gradle-plugin-0.8.0-SNAPSHOT-sources" level="project" />
   </component>
 </module>

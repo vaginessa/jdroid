@@ -8,6 +8,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath:spring/applicationcontext.xml,
+			classpath:spring/applicationcontext-marshaller.xml,
 			classpath:spring/applicationcontext-repository.xml
 		</param-value>
 	</context-param>
@@ -30,6 +31,16 @@
 	<filter-mapping>
 		<filter-name>Admin Security Filter</filter-name>
 		<url-pattern>/api/admin/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>API Version Filter</filter-name>
+		<filter-class>com.jdroid.javaweb.filter.APIVersionFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>API Version Filter</filter-name>
+		<url-pattern>/api/*</url-pattern>
 	</filter-mapping>
 
 	<listener>
