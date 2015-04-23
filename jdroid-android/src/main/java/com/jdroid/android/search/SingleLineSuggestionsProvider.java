@@ -16,7 +16,7 @@ import com.jdroid.android.utils.AndroidUtils;
 @SuppressLint("Registered")
 public class SingleLineSuggestionsProvider extends SearchRecentSuggestionsProvider {
 	
-	public final static String AUTHORITY = AndroidUtils.getPackageName() + ".SingleLineSuggestionsProvider";
+	public final static String AUTHORITY = AndroidUtils.getApplicationId() + ".SingleLineSuggestionsProvider";
 	public final static int MODE = DATABASE_MODE_QUERIES;
 	
 	public SingleLineSuggestionsProvider() {

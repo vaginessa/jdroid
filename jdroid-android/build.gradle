@@ -29,10 +29,12 @@ configurations.all {
 
 dependencies {
 
-	compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.2'
+	// https://github.com/nostra13/Android-Universal-Image-Loader
+	compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
 
 	compile 'org.slf4j:slf4j-android:1.6.1-RC1'
 	compile 'com.crashlytics.android:crashlytics:1.1.13'
+	// https://developers.facebook.com/docs/android
 	compile('com.facebook.android:facebook-android-sdk:3.21.1') {
 		exclude module: 'support-v4'
 	}
@@ -58,7 +60,9 @@ dependencies {
 	compile project(':jdroid-java')
 
 	testCompile 'junit:junit:4.12'
-	testCompile "org.mockito:mockito-core:1.9.5"
+	testCompile "org.mockito:mockito-all:1.10.19"
+
+	// http://robolectric.org/getting-started/
 	testCompile('org.robolectric:robolectric:2.4') {
 		exclude module: 'classworlds'
 		exclude module: 'commons-logging'

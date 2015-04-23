@@ -40,7 +40,7 @@ public class DebugInfoFragment extends AbstractListFragment<Pair<String, Object>
 		properties.add(new Pair<String, Object>("Git Branch", AbstractApplication.get().getGitContext().getBranch()));
 		properties.add(new Pair<String, Object>("Git Sha", AbstractApplication.get().getGitContext().getSha()));
 
-		properties.add(new Pair<String, Object>("Package Name", AndroidUtils.getPackageName()));
+		properties.add(new Pair<String, Object>("Application Id", AndroidUtils.getApplicationId()));
 		properties.add(new Pair<String, Object>("Version Name", AndroidUtils.getVersionName()));
 		properties.add(new Pair<String, Object>("Version Code", AndroidUtils.getVersionCode()));
 		properties.add(new Pair<String, Object>("API Level", AndroidUtils.getApiLevel()));

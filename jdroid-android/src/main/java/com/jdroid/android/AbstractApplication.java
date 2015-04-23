@@ -136,23 +136,23 @@ public abstract class AbstractApplication extends Application {
 		// This is required to initialize the statics fields of the utils classes.
 		ToastUtils.init();
 		DateUtils.init();
-		
+
 		ExecutorUtils.execute(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				loadInstallationId();
 				verifyAppLaunchStatus();
 				initDeviceYearClass();
 				initFileSystemCache();
+				initImageLoader();
 				initEncryptionUtils();
-				
+
 				appContext.saveFirstSessionTimestamp();
 			}
 		});
-		
+
 		initRepositories();
-		initImageLoader();
 	}
 	
 	public Boolean isImageLoaderEnabled() {
@@ -177,7 +177,7 @@ public abstract class AbstractApplication extends Application {
 			
 			ImageLoader.getInstance().init(configBuilder.build());
 			
-			ImageLoaderUtils.clearImagesCache();
+			ImageLoaderUtils.clearExpiredDiskCaches();
 		}
 	}
 	
@@ -366,7 +366,7 @@ public abstract class AbstractApplication extends Application {
 	public abstract Class<? extends Activity> getHomeActivityClass();
 
 	public Class<?> getBuildConfigClass() {
-		return ReflectionUtils.getClass(AndroidUtils.getPackageName() + ".BuildConfig");
+		return ReflectionUtils.getClass(AndroidUtils.getApplicationId() + ".BuildConfig");
 	}
 
 	public <T> T getBuildConfigValue(String property) {

@@ -142,7 +142,7 @@ public class NotificationBuilder {
 	}
 	
 	public void setSound(int soundResId) {
-		Uri notificationSound = Uri.parse("android.resource://" + AndroidUtils.getPackageName() + "/" + soundResId);
+		Uri notificationSound = Uri.parse("android.resource://" + AndroidUtils.getApplicationId() + "/" + soundResId);
 		if (notificationSound != null) {
 			builder.setSound(notificationSound);
 		}

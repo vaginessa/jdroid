@@ -5,9 +5,10 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.jdroid.android.utils.ImageLoaderUtils;
 
 public class ImageLoaderDebugPrefsAppender implements PreferencesAppender {
 	
@@ -29,7 +30,7 @@ public class ImageLoaderDebugPrefsAppender implements PreferencesAppender {
 			
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				ImageLoader.getInstance().clearDiskCache();
+				ImageLoaderUtils.clearDiskCache();
 				return true;
 			}
 		});
@@ -42,7 +43,7 @@ public class ImageLoaderDebugPrefsAppender implements PreferencesAppender {
 			
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				ImageLoader.getInstance().clearMemoryCache();
+				ImageLoaderUtils.clearMemoryCache();
 				return true;
 			}
 		});

@@ -2,6 +2,7 @@ package com.jdroid.java.http;
 
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
+import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.parser.Parser;
 import com.jdroid.java.utils.EncodingUtils;
 import com.jdroid.java.utils.FileUtils;
@@ -101,7 +102,14 @@ public abstract class AbstractWebService implements WebService {
 			inputStream = httpResponseWrapper.getInputStream();
 
 			// parse and return response.
-			return (T)((parser != null) && (inputStream != null) ? parser.parse(inputStream) : null);
+			if (parser != null) {
+				if (inputStream != null) {
+					return (T)parser.parse(inputStream);
+				} else {
+					throw new UnexpectedException("The web service was expecting a response, but it was null");
+				}
+			}
+			return null;
 		} finally {
 			FileUtils.safeClose(inputStream);
 			doFinally();

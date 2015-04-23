@@ -16,7 +16,7 @@ import com.jdroid.android.utils.AndroidUtils;
 @SuppressLint("Registered")
 public class TwoLinesSuggestionsProvider extends SearchRecentSuggestionsProvider {
 	
-	public final static String AUTHORITY = AndroidUtils.getPackageName() + ".TwoLinesSuggestionsProvider";
+	public final static String AUTHORITY = AndroidUtils.getApplicationId() + ".TwoLinesSuggestionsProvider";
 	public final static int MODE = DATABASE_MODE_QUERIES | DATABASE_MODE_2LINES;
 	
 	public TwoLinesSuggestionsProvider() {

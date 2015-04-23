@@ -54,9 +54,9 @@ public class AndroidUtils {
 	}
 	
 	/**
-	 * @return The package name of the application
+	 * @return The application id of the application
 	 */
-	public static String getPackageName() {
+	public static String getApplicationId() {
 		return getPackageInfo().packageName;
 	}
 	

@@ -1,10 +1,8 @@
 package com.jdroid.android.utils;
 
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
+
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -12,6 +10,10 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.utils.DiskCacheUtils;
+
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ImageLoaderUtils {
 	
@@ -71,7 +73,7 @@ public class ImageLoaderUtils {
 		}
 	}
 	
-	public static void clearImagesCache() {
+	public static void clearExpiredDiskCaches() {
 		ExecutorUtils.execute(new Runnable() {
 			
 			@Override
@@ -88,5 +90,12 @@ public class ImageLoaderUtils {
 			}
 		});
 	}
-	
+
+	public static void clearDiskCache() {
+		ImageLoader.getInstance().clearDiskCache();
+	}
+	public static void clearMemoryCache() {
+		ImageLoader.getInstance().clearMemoryCache();
+	}
+
 }

@@ -22,7 +22,9 @@ dependencies {
 	compile "org.springframework:spring-context-support:" + springVersion
 
 	// Hibernate
-	compile "org.hibernate:hibernate-core:3.6.10.Final"
+	compile ("org.hibernate:hibernate-core:3.6.10.Final") {
+		exclude group: 'org.slf4j', module: 'slf4j-api'
+	}
 	compile "javassist:javassist:3.12.1.GA"
 
 	// Database
@@ -37,14 +39,15 @@ dependencies {
 	compile "com.restfb:restfb:1.6.12"
 
 	// Twitter
-	compile "org.twitter4j:twitter4j-core:4.0.2"
+	// http://twitter4j.org/en/index.html#download
+	compile "org.twitter4j:twitter4j-core:4.0.3"
 
 	// Apache Commons
 	compile "commons-collections:commons-collections:3.2.1"
 	compile "commons-beanutils:commons-beanutils:1.8.3"
 
 	// Guava
-	compile "com.google.guava:guava:11.0.1"
+	compile "com.google.guava:guava:18.0"
 
 	// Open CSV
 	compile "net.sf.opencsv:opencsv:2.3"
@@ -56,8 +59,8 @@ dependencies {
 	compile project(':jdroid-java')
 
 	// Testing
-	testCompile "org.testng:testng:6.3"
-	testCompile "org.mockito:mockito-all:1.8.5"
+	testCompile "org.testng:testng:6.8.21"
+	testCompile "org.mockito:mockito-all:1.10.19"
 }
 
 task javadocJar(type: Jar) {

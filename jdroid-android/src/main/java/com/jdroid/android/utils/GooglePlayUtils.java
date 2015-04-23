@@ -21,7 +21,7 @@ public class GooglePlayUtils {
 		@Override
 		protected void onPositiveClick() {
 			FragmentActivity fragmentActivity = (FragmentActivity)AbstractApplication.get().getCurrentActivity();
-			launchAppDetails(fragmentActivity, AndroidUtils.getPackageName());
+			launchAppDetails(fragmentActivity, AndroidUtils.getApplicationId());
 			fragmentActivity.finish();
 		}
 	}
@@ -61,7 +61,7 @@ public class GooglePlayUtils {
 	}
 	
 	public static void launchAppDetails(Context context) {
-		launchAppDetails(context, AndroidUtils.getPackageName());
+		launchAppDetails(context, AndroidUtils.getApplicationId());
 	}
 	
 	public static void launchAppDetails(Context context, String packageName) {
@@ -100,6 +100,6 @@ public class GooglePlayUtils {
 	}
 	
 	public static String getGooglePlayLink() {
-		return getGooglePlayLink(AndroidUtils.getPackageName());
+		return getGooglePlayLink(AndroidUtils.getApplicationId());
 	}
 }

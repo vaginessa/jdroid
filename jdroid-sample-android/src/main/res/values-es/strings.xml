@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="appName">Jdroid Sample Android</string>
+	<string name="appName">Jdroid Sample</string>
 	<string name="home">Home</string>
 
 	<!-- Ads -->

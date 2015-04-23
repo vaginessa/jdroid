@@ -21,8 +21,8 @@ dependencies {
 	compile "org.slf4j:slf4j-api:1.6.3"
 
 	// Testing
-	testCompile "org.testng:testng:6.3"
-	testCompile "org.mockito:mockito-all:1.8.5"
+	testCompile "org.testng:testng:6.8.21"
+	testCompile "org.mockito:mockito-all:1.10.19"
 }
 
 task javadocJar(type: Jar) {

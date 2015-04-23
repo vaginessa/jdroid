@@ -1,5 +1,6 @@
 package com.jdroid.sample.android.ui.maps;
 
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.jdroid.android.maps.AbstractMapFragment;
 
@@ -34,5 +35,9 @@ public class MapFragment extends AbstractMapFragment {
 	protected Boolean isLocationEnabled() {
 		return true;
 	}
-	
+
+	@Override
+	public AdSize getAdSize() {
+		return null;
+	}
 }
