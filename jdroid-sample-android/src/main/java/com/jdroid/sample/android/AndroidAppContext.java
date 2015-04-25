@@ -24,4 +24,12 @@ public class AndroidAppContext extends AppContext {
 	public String getContactUsEmail() {
 		return "jdroidsoft@gmail.com";
 	}
+
+	/**
+	 * @see com.jdroid.android.context.AppContext#getTwitterAccount()
+	 */
+	@Override
+	public String getTwitterAccount() {
+		return "jdroidframework";
+	}
 }

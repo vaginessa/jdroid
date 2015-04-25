@@ -1,12 +1,12 @@
 package com.jdroid.android.about;
 
-import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+
 import com.google.android.gms.plus.PlusOneButton;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
@@ -28,6 +28,8 @@ import com.jdroid.android.social.twitter.TwitterConnector;
 import com.jdroid.android.utils.GooglePlayUtils;
 import com.jdroid.java.collections.Lists;
 
+import java.util.List;
+
 public abstract class SpreadTheLoveFragment extends AbstractFragment {
 	
 	private GooglePlusOneButtonHelper googlePlusOneButtonHelper;
@@ -47,37 +49,53 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		
+
+		Boolean followUsVisible = false;
+
+		View facebook = findView(R.id.facebook);
 		if (getFacebookPageId() != null) {
-			findView(R.id.facebook).setOnClickListener(new OnClickListener() {
+			facebook.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					FacebookAuthenticationFragment.openPage(getFacebookPageId());
 				}
 			});
+			followUsVisible = true;
+		} else {
+			facebook.setVisibility(View.GONE);
 		}
-		
+
+		View googlePlus = findView(R.id.googlePlus);
 		if (getGooglePlusCommunityId() != null) {
-			findView(R.id.googlePlus).setOnClickListener(new OnClickListener() {
+			googlePlus.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					GooglePlusHelperFragment.openCommunity(getGooglePlusCommunityId());
 				}
 			});
+			followUsVisible = true;
+		} else {
+			googlePlus.setVisibility(View.GONE);
 		}
-		
+
+		View twitter = findView(R.id.twitter);
 		if (getTwitterAccount() != null) {
-			findView(R.id.twitter).setOnClickListener(new OnClickListener() {
+			twitter.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					TwitterConnector.openProfile(getTwitterAccount());
 				}
 			});
+			followUsVisible = true;
+		} else {
+			twitter.setVisibility(View.GONE);
 		}
-		
+
+		findView(R.id.followUs).setVisibility(followUsVisible ? View.VISIBLE : View.GONE);
+
 		List<SharingItem> sharingItems = Lists.newArrayList();
 		sharingItems.add(new TwitterSharingItem() {
 			
@@ -158,7 +176,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 			@Override
 			public void share() {
 				ShareUtils.shareTextContent(SpreadTheLoveFragment.this.getShareKey(), getString(R.string.share),
-					getShareTitle(), SpreadTheLoveFragment.this.getDefaultShareText());
+						getShareTitle(), SpreadTheLoveFragment.this.getDefaultShareText());
 			}
 		});
 		

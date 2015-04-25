@@ -1,18 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<!-- Lists & Grids -->
-
-	<style name="list" parent="@style/parentList">
-		<item name="android:listSelector">@drawable/default_item_selector</item>
-	</style>
-
-	<style name="grid" parent="@style/parentGrid">
-		<item name="android:listSelector">@drawable/default_item_selector</item>
-	</style>
-
-	<style name="gridList" parent="@style/parentGridList">
-		<item name="android:listSelector">@drawable/default_item_selector</item>
-	</style>
-
 </resources>

@@ -11,4 +11,14 @@ public abstract class DefaultAnalyticsTracker extends AbstractAnalyticsTracker i
 	public void trackExampleEvent() {
 		// Do nothing
 	}
+
+	@Override
+	public void trackExampleTransaction() {
+		// Do nothing
+	}
+
+	@Override
+	public void trackExampleTiming() {
+		// Do nothing
+	}
 }

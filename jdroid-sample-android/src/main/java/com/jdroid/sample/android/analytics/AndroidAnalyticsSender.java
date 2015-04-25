@@ -29,4 +29,26 @@ public class AndroidAnalyticsSender extends AnalyticsSender<AndroidAnalyticsTrac
 			}
 		});
 	}
+
+	@Override
+	public void trackExampleTransaction() {
+		ExecutorUtils.execute(new TrackerRunnable() {
+
+			@Override
+			protected void track(AndroidAnalyticsTracker tracker) {
+				tracker.trackExampleTransaction();
+			}
+		});
+	}
+
+	@Override
+	public void trackExampleTiming() {
+		ExecutorUtils.execute(new TrackerRunnable() {
+
+			@Override
+			protected void track(AndroidAnalyticsTracker tracker) {
+				tracker.trackExampleTiming();
+			}
+		});
+	}
 }

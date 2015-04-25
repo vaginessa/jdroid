@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.fragment.AbstractListFragment;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.FragmentLoading;
@@ -81,5 +82,10 @@ public class SwipeRefreshLoadingFragment extends AbstractListFragment<Object> {
 				dismissLoading();
 			}
 		});
+	}
+
+	@Override
+	public AdSize getAdSize() {
+		return null;
 	}
 }

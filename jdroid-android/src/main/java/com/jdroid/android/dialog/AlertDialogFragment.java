@@ -1,13 +1,12 @@
 package com.jdroid.android.dialog;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 
@@ -101,7 +100,7 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 		}
 		
 		if (negativeButtonText != null) {
-			dialogBuilder.setNegativeButton(negativeButtonText, new OnClickListener() {
+			dialogBuilder.setNegativeButton(negativeButtonText, new DialogInterface.OnClickListener() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int whichButton) {
@@ -110,7 +109,7 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 			});
 		}
 		if (neutralButtonText != null) {
-			dialogBuilder.setNeutralButton(neutralButtonText, new OnClickListener() {
+			dialogBuilder.setNeutralButton(neutralButtonText, new DialogInterface.OnClickListener() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int whichButton) {
@@ -119,7 +118,7 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 			});
 		}
 		if (positiveButtonText != null) {
-			dialogBuilder.setPositiveButton(positiveButtonText, new OnClickListener() {
+			dialogBuilder.setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int whichButton) {

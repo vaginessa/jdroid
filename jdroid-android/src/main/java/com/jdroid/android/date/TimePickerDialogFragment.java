@@ -1,19 +1,20 @@
 package com.jdroid.android.date;
 
-import java.util.Date;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.TimePicker;
+
 import com.jdroid.android.R;
 import com.jdroid.android.dialog.AbstractDialogFragment;
 import com.jdroid.java.utils.DateUtils;
+
+import java.util.Date;
 
 public class TimePickerDialogFragment extends AbstractDialogFragment {
 	
@@ -69,7 +70,7 @@ public class TimePickerDialogFragment extends AbstractDialogFragment {
 		timePicker.setCurrentHour(DateUtils.getHour(defaultTime, true));
 		timePicker.setCurrentMinute(DateUtils.getMinute(defaultTime));
 		
-		dialogBuilder.setPositiveButton(getString(R.string.ok), new OnClickListener() {
+		dialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int whichButton) {

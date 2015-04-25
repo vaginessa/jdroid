@@ -16,6 +16,8 @@
 	<!-- Google Analytics -->
 	<string name="googleAnalytics">Google Analytics</string>
 	<string name="sendExampleEvent">Send Example Event</string>
+	<string name="sendExampleTransaction">Send Example Transaction</string>
+	<string name="sendExampleTiming">Send Example Timing</string>
 
 	<!-- Google Cloud Messaging -->
 	<string name="gcm">Google Cloud Messaging</string>

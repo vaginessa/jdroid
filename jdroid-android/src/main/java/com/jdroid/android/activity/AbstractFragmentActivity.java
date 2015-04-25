@@ -6,7 +6,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +26,7 @@ import java.util.List;
  * Base {@link Activity}
  * 
  */
-public abstract class AbstractFragmentActivity extends ActionBarActivity implements ActivityIf {
+public abstract class AbstractFragmentActivity extends AppCompatActivity implements ActivityIf {
 	
 	private ActivityHelper activityHelper;
 	

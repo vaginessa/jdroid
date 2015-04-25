@@ -34,5 +34,21 @@ public class AnalyticsFragment extends AbstractFragment {
 				AndroidAnalyticsSender.get().trackExampleEvent();
 			}
 		});
+
+		findView(R.id.sendExampleTransaction).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				AndroidAnalyticsSender.get().trackExampleTransaction();
+			}
+		});
+
+		findView(R.id.sendExampleTiming).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				AndroidAnalyticsSender.get().trackExampleTiming();
+			}
+		});
 	}
 }
