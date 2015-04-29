@@ -65,6 +65,7 @@
 	<string name="libraries">Librerias</string>
 	<string name="version">Versión %1$s</string>
 	<string name="followUs">Siganos</string>
+	<string name="website">Sitio Web</string>
 	<string name="contactUs">Contáctenos</string>
 	<string name="rateUs">Califíquenos</string>
 	<string name="copyright">© %1$s %2$s - Todos los derechos reservados</string>

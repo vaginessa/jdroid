@@ -5,8 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
+
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.dialog.AlertDialogFragment;
@@ -77,7 +78,7 @@ public class GooglePlayUtils {
 	}
 	
 	public static boolean isGooglePlayServicesAvailable(Context c) {
-		return GooglePlayServicesUtil.isGooglePlayServicesAvailable(c) == ConnectionResult.SUCCESS;
+		return GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(c) == ConnectionResult.SUCCESS;
 	}
 	
 	public static void launchGooglePlayServicesUpdate(Activity c) {

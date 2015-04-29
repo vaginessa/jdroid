@@ -21,6 +21,11 @@ public class AndroidAppContext extends AppContext {
 	}
 
 	@Override
+	public String getWebsite() {
+		return "http://www.jdroidframework.com";
+	}
+
+	@Override
 	public String getContactUsEmail() {
 		return "jdroidsoft@gmail.com";
 	}

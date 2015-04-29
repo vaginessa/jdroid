@@ -14,7 +14,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.Builder;
@@ -386,7 +386,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	}
 	
 	public void signIn() {
-		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity());
+		int resultCode = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getActivity());
 		if ((resultCode == ConnectionResult.SERVICE_MISSING)
 				|| (resultCode == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED)
 				|| (resultCode == ConnectionResult.SERVICE_DISABLED)
@@ -610,7 +610,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			// Get the error code and retrieve the appropriate dialog
 			int errorCode = this.getArguments().getInt(DIALOG_ERROR_KEY);
-			return GooglePlayServicesUtil.getErrorDialog(errorCode, this.getActivity(), REQUEST_RESOLVE_ERROR);
+			return GoogleApiAvailability.getInstance().getErrorDialog(this.getActivity(), errorCode, REQUEST_RESOLVE_ERROR);
 		}
 		
 		/**

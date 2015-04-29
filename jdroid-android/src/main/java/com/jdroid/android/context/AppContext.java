@@ -207,10 +207,14 @@ public abstract class AppContext {
 		return null;
 	}
 	
+	public String getWebsite() {
+		return null;
+	}
+
 	public String getContactUsEmail() {
 		return null;
 	}
-	
+
 	public String getTwitterAccount() {
 		return null;
 	}

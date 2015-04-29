@@ -33,11 +33,21 @@ public class AboutFragment extends AbstractListFragment<AboutItem> {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
+		final String website = getWebsite();
+		if (website != null) {
+			aboutItems.add(new AboutItem(R.drawable.ic_website, R.string.website) {
+				@Override
+				public void onSelected(Activity activity) {
+					IntentUtils.startUrl(activity, website);
+				}
+			});
+		}
+
 		final String contactUsEmailAddress = getContactUsEmail();
 		if (contactUsEmailAddress != null) {
 			aboutItems.add(new AboutItem(R.drawable.ic_contact_us, R.string.contactUs) {
-				
+
 				@Override
 				public void onSelected(Activity activity) {
 					Intent intent = ShareUtils.createOpenMail(contactUsEmailAddress,
@@ -127,10 +137,14 @@ public class AboutFragment extends AbstractListFragment<AboutItem> {
 		return getString(R.string.copyright, DateUtils.getYear(), AbstractApplication.get().getAppName());
 	}
 	
+	protected String getWebsite() {
+		return AbstractApplication.get().getAppContext().getWebsite();
+	}
+
 	protected String getContactUsEmail() {
 		return AbstractApplication.get().getAppContext().getContactUsEmail();
 	}
-	
+
 	/**
 	 * @see com.jdroid.android.fragment.AbstractListFragment#onItemSelected(java.lang.Object)
 	 */
