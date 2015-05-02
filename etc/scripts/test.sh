@@ -37,7 +37,7 @@ fi
 ./gradlew :jdroid-sample-server:build
 
 # ************************
-# Deploy Snapshot to Maven repository
+# Upload Snapshot to Maven repository
 # ************************
 
 if [ "$UPLOAD" = "true" ]

@@ -101,11 +101,12 @@ android {
 	sourceSets.test.java.srcDirs += sourceSets.main.java.srcDirs
 	sourceSets.test.java.srcDirs += sourceSets.debug.java.srcDirs
 
-	buildTypes {
-		debug {
-			testCoverageEnabled = true
-		}
-	}
+	// TODO This is causing errors when loading the app
+//	buildTypes {
+//		debug {
+//			testCoverageEnabled = true
+//		}
+//	}
 }
 
 task androidSourcesJar(type: Jar) {
