@@ -8,6 +8,7 @@ public class BaseGradleExtension {
 	def versionMinor
 	def versionPatch
 	def versionClassifier = ""
+	def integrationTestsPattern = "**/integration/**/*Test.class"
 
 	public BaseGradleExtension(BaseGradlePlugin baseGradlePlugin) {
 		this.baseGradlePlugin = baseGradlePlugin

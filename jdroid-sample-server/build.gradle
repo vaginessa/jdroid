@@ -23,9 +23,13 @@ configurations.all {
 	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 
-project.dependencies {
+dependencies {
 	compile project(':jdroid-javaweb')
 	//compile 'com.jdroidframework:jdroid-javaweb:0.7.0-SNAPSHOT'
+
+	// Testing
+	testCompile "org.testng:testng:6.8.21"
+	testCompile "org.mockito:mockito-all:1.10.19"
 }
 
 jdroid {
@@ -65,3 +69,9 @@ project.afterEvaluate {
 
 	project.tasks.'processResources'.dependsOn 'generateSettings'
 }
+
+test {
+	useTestNG {
+	}
+}
+

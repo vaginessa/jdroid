@@ -2,6 +2,7 @@ package com.jdroid.gradle.commons
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.tasks.testing.Test
 
 public class BaseGradlePlugin implements Plugin<Project> {
 
@@ -15,6 +16,16 @@ public class BaseGradlePlugin implements Plugin<Project> {
 		project.task('incrementMajorVersion', type: IncrementMajorVersionTask)
 		project.task('incrementMinorVersion', type: IncrementMinorVersionTask)
 		project.task('incrementPatchVersion', type: IncrementPatchVersionTask)
+
+		project.afterEvaluate {
+			project.tasks.withType(Test) {
+				scanForTestClasses = true
+
+				if (project.jdroid.getProp('INTEGRATION_TESTS_ENABLED', true) == 'false') {
+					exclude project.jdroid.integrationTestsPattern
+				}
+			}
+		}
 	}
 
 	protected Class<? extends BaseGradleExtension> getExtensionClass() {

@@ -172,12 +172,3 @@ android {
 	sourceSets.test.java.srcDirs += sourceSets.main.java.srcDirs
 	sourceSets.test.java.srcDirs += sourceSets.debug.java.srcDirs
 }
-
-tasks.withType(Test) {
-	scanForTestClasses = true
-
-	def integrationTestsEnabled = jdroid.getProp('INTEGRATION_TESTS_ENABLED', 'true')
-	if (integrationTestsEnabled != 'true') {
-		exclude "**/integration/**/*Test.class"
-	}
-}
