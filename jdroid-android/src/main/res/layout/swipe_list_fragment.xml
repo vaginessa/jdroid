@@ -5,8 +5,7 @@
 		android:layout_above="@+id/adViewContainer" tools:ignore="UnknownIdInLayout">
 
 			<ListView android:id="@+id/android:list" style="@style/list" android:dividerHeight="0dp"
-				android:divider="@android:color/transparent"
-				android:paddingTop="4dp" android:paddingBottom="4dp" />
+				android:divider="@android:color/transparent" />
 
 	</android.support.v4.widget.SwipeRefreshLayout>
 	<TextView android:id="@id/android:empty" android:layout_height="wrap_content" android:layout_width="match_parent" android:layout_centerVertical="true"
