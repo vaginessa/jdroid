@@ -100,19 +100,22 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
 				actionBarBackgroundDrawable.setCallback(drawableCallback);
 			}
-			
-			ParallaxScrollView parallaxScrollView = findView(getParallaxScrollViewId());
-			parallaxScrollView.setOnScrollChangedListener(new NotifyingScrollView.OnScrollChangedListener() {
-				
-				@Override
-				public void onScrollChanged(ScrollView who, int l, int t, int oldl, int oldt) {
-					final int headerHeight = findView(getHeroImageId()).getHeight() - getActionBar().getHeight();
-					final float ratio = (float)Math.min(Math.max(t, 0), headerHeight) / headerHeight;
-					actionBarAlpha = (int)(ratio * 255);
-					actionBarBackgroundDrawable.setAlpha(actionBarAlpha);
-				}
-			});
-			parallaxScrollView.setParallaxViewContainer(findView(getHeroImageContainerId()));
+
+			Integer parallaxScrollViewId = getParallaxScrollViewId();
+			if (parallaxScrollViewId != null) {
+				ParallaxScrollView parallaxScrollView = findView(parallaxScrollViewId);
+				parallaxScrollView.setOnScrollChangedListener(new NotifyingScrollView.OnScrollChangedListener() {
+
+					@Override
+					public void onScrollChanged(ScrollView who, int l, int t, int oldl, int oldt) {
+						final int headerHeight = findView(getHeroImageId()).getHeight() - getActionBar().getHeight();
+						final float ratio = (float)Math.min(Math.max(t, 0), headerHeight) / headerHeight;
+						actionBarAlpha = (int)(ratio * 255);
+						actionBarBackgroundDrawable.setAlpha(actionBarAlpha);
+					}
+				});
+				parallaxScrollView.setParallaxViewContainer(findView(getHeroImageContainerId()));
+			}
 		}
 	}
 	

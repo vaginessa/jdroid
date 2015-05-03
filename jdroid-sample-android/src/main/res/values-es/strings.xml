@@ -64,6 +64,9 @@
 	<string name="nonBlockingLoading">Non Blocking Loading</string>
 	<string name="swipeRefresLoading">Swipe Refresh Loading</string>
 
+	<!-- Hero -->
+	<string name="hero">Hero &amp; Parallax</string>
+
 	<string name="shareMessage">Jdroid - Application Framework for Android and Java apps. Descargue la aplicación de ejemplo en su
 		Android. %1$s</string>
 
