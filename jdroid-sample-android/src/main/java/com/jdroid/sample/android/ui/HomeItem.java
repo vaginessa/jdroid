@@ -8,6 +8,7 @@ import com.jdroid.sample.android.R;
 import com.jdroid.sample.android.hero.HeroActivity;
 import com.jdroid.sample.android.http.HttpActivity;
 import com.jdroid.sample.android.imageloader.ImageLoaderActivity;
+import com.jdroid.sample.android.recyclerview.RecyclerViewActivity;
 import com.jdroid.sample.android.ui.ads.AdsActivity;
 import com.jdroid.sample.android.ui.analytics.AnalyticsActivity;
 import com.jdroid.sample.android.ui.exceptions.ExceptionHandlingActivity;
@@ -30,6 +31,7 @@ public enum HomeItem implements ActionItem {
 	IN_APP_BILLING(R.string.inAppBilling, R.drawable.shopping_cart, ImageLoaderActivity.class),
 	LOADING(R.string.loading, R.drawable.refresh, LoadingActivity.class),
 	NOTIFICATIONS(R.string.notifications, R.drawable.notifications, NotificationsActivity.class),
+	RECYCLER_VIEW(R.string.recyclerView, R.drawable.notifications, RecyclerViewActivity.class),
 	TOASTS(R.string.toasts, R.drawable.info, ToastsActivity.class);
 	
 	private Integer resourceId;

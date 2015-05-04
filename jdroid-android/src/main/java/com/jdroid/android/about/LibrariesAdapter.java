@@ -1,42 +1,41 @@
 package com.jdroid.android.about;
 
-import java.util.List;
-import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+
 import com.jdroid.android.R;
 import com.jdroid.android.about.LibrariesAdapter.LibrariesHolder;
-import com.jdroid.android.adapter.BaseHolderArrayAdapter;
+import com.jdroid.android.recycler.RecyclerViewAdapter;
 
-public class LibrariesAdapter extends BaseHolderArrayAdapter<Library, LibrariesHolder> {
+import java.util.List;
+
+public class LibrariesAdapter extends RecyclerViewAdapter<Library, LibrariesHolder> {
 	
-	public LibrariesAdapter(Context context, List<Library> items) {
-		super(context, R.layout.library_item, items);
+	public LibrariesAdapter(List<Library> items) {
+		super(R.layout.library_item, items);
 	}
 	
-	/**
-	 * @see com.jdroid.android.adapter.BaseHolderArrayAdapter#fillHolderFromItem(java.lang.Object, java.lang.Object)
-	 */
 	@Override
 	protected void fillHolderFromItem(Library item, LibrariesHolder holder) {
 		holder.name.setText(item.getNameResId());
 		holder.description.setText(item.getDescriptionResId());
 	}
 	
-	/**
-	 * @see com.jdroid.android.adapter.BaseHolderArrayAdapter#createViewHolderFromConvertView(android.view.View)
-	 */
 	@Override
-	protected LibrariesHolder createViewHolderFromConvertView(View convertView) {
-		LibrariesHolder holder = new LibrariesHolder();
-		holder.name = findView(convertView, R.id.name);
-		holder.description = findView(convertView, R.id.description);
+	protected LibrariesHolder createViewHolderFromView(View view) {
+		LibrariesHolder holder = new LibrariesHolder(view);
+		holder.name = findView(view, R.id.name);
+		holder.description = findView(view, R.id.description);
 		return holder;
 	}
-	
-	public static class LibrariesHolder {
-		
+
+	public static class LibrariesHolder extends RecyclerView.ViewHolder {
 		protected TextView name;
 		protected TextView description;
+
+		public LibrariesHolder(View itemView) {
+			super(itemView);
+		}
 	}
 }
