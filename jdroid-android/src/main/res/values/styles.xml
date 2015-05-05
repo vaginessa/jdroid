@@ -86,20 +86,6 @@
 
 	<style name="separatedList" parent="@style/parentSeparatedList" />
 
-	<style name="contextualList">
-		<item name="android:scrollbars">none</item>
-		<item name="android:divider">@drawable/default_bar_tab_separator_dark</item>
-		<item name="android:cacheColorHint">@android:color/transparent</item>
-		<item name="android:listSelector">@android:color/transparent</item>
-	</style>
-
-	<style name="contextualItemText" parent="textMediumBold">
-		<item name="android:textColor">@color/textColor</item>
-		<item name="android:textStyle">normal</item>
-		<item name="android:singleLine">true</item>
-		<item name="android:ellipsize">end</item>
-	</style>
-
 	<style name="parentGrid">
 		<item name="android:cacheColorHint">@android:color/transparent</item>
 		<item name="android:listSelector">@android:color/transparent</item>

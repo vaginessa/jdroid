@@ -1,17 +1,18 @@
 package com.jdroid.sample.android.ui.adapter;
 
-import android.app.Activity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jdroid.android.adapter.BaseHolderArrayAdapter;
+import com.jdroid.android.recycler.RecyclerViewAdapter;
+import com.jdroid.sample.android.R;
 
 import java.util.List;
 
-public class SampleAdapter extends BaseHolderArrayAdapter<String, SampleAdapter.SampleHolder> {
+public class SampleAdapter extends RecyclerViewAdapter<String, SampleAdapter.SampleHolder> {
 
-	public SampleAdapter(Activity context, List<String> items) {
-		super(context, com.jdroid.android.R.layout.contextual_list_item, items);
+	public SampleAdapter(List<String> items) {
+		super(R.layout.home_item, items);
 	}
 
 	@Override
@@ -20,13 +21,18 @@ public class SampleAdapter extends BaseHolderArrayAdapter<String, SampleAdapter.
 	}
 
 	@Override
-	protected SampleHolder createViewHolderFromConvertView(View convertView) {
-		SampleHolder holder = new SampleHolder();
-		holder.name = findView(convertView, com.jdroid.android.R.id.name);
+	protected SampleHolder createViewHolderFromView(View view) {
+		SampleHolder holder = new SampleHolder(view);
+		holder.name = findView(view, com.jdroid.android.R.id.name);
 		return holder;
 	}
 
-	public static class SampleHolder {
+	public static class SampleHolder extends RecyclerView.ViewHolder {
+
 		protected TextView name;
+
+		public SampleHolder(View itemView) {
+			super(itemView);
+		}
 	}
 }

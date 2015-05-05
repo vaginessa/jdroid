@@ -17,7 +17,7 @@ public class RecyclerViewFragment extends AbstractRecyclerFragment<String> {
 		super.onViewCreated(view, savedInstanceState);
 
 		List<String> items = Lists.newArrayList("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen");
-		SampleRecyclerAdapter adapter = new SampleRecyclerAdapter(R.layout.contextual_list_item, items);
+		SampleRecyclerAdapter adapter = new SampleRecyclerAdapter(R.layout.home_item, items);
 		setAdapter(adapter);
 
 	}

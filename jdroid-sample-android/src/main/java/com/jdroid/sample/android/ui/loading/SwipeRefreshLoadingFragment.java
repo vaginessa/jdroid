@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.ads.AdSize;
-import com.jdroid.android.fragment.AbstractListFragment;
+import com.jdroid.android.fragment.AbstractRecyclerFragment;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.loading.SwipeRefreshLoading;
@@ -14,7 +14,7 @@ import com.jdroid.sample.android.R;
 import com.jdroid.sample.android.ui.adapter.SampleAdapter;
 import com.jdroid.sample.android.usecase.SampleUseCase;
 
-public class SwipeRefreshLoadingFragment extends AbstractListFragment<Object> {
+public class SwipeRefreshLoadingFragment extends AbstractRecyclerFragment<String> {
 	
 	private SampleUseCase sampleUseCase;
 	
@@ -34,7 +34,7 @@ public class SwipeRefreshLoadingFragment extends AbstractListFragment<Object> {
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.swipe_list_fragment, container, false);
+		return inflater.inflate(R.layout.swipe_recycler_fragment, container, false);
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class SwipeRefreshLoadingFragment extends AbstractListFragment<Object> {
 		executeOnUIThread(new Runnable() {
 			@Override
 			public void run() {
-				setListAdapter(new SampleAdapter(getActivity(), sampleUseCase.getItems()));
+				setAdapter(new SampleAdapter(sampleUseCase.getItems()));
 				dismissLoading();
 			}
 		});

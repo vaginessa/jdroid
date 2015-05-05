@@ -8,10 +8,6 @@
 	<dimen name="textMedium">16sp</dimen>
 	<dimen name="textLarge">20sp</dimen>
 
-	<!-- Lists & Grids -->
-
-	<dimen name="contextual_list_item_icon_size">36dp</dimen>
-
 	<!-- Images -->
 
 	<dimen name="borderedImageViewMargin">3dp</dimen>

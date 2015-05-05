@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.context.AppContext;
-import com.jdroid.android.fragment.AbstractListFragment;
+import com.jdroid.android.fragment.AbstractRecyclerFragment;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.ScreenUtils;
 import com.jdroid.java.collections.Lists;
@@ -14,7 +14,7 @@ import com.jdroid.java.utils.StringUtils;
 
 import java.util.List;
 
-public class DebugInfoFragment extends AbstractListFragment<Pair<String, Object>> {
+public class DebugInfoFragment extends AbstractRecyclerFragment<Pair<String, Object>> {
 
 	private List<Pair<String, Object>> properties = Lists.newArrayList();
 
@@ -67,6 +67,6 @@ public class DebugInfoFragment extends AbstractListFragment<Pair<String, Object>
 				filteredProperties.add(each);
 			}
 		}
-		setListAdapter(new DebugInfoAdapter(getActivity(), filteredProperties));
+		setAdapter(new DebugInfoAdapter(filteredProperties));
 	}
 }
