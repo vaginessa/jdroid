@@ -56,6 +56,17 @@ public abstract class RecyclerViewAdapter<ITEM, VIEWHOLDER extends RecyclerView.
 		return items.size();
 	}
 
+	public void addItem(ITEM item) {
+		items.add(item);
+		notifyItemInserted(items.size() - 1);
+	}
+
+	public void removeItem(ITEM item) {
+		int pos = items.indexOf(item);
+		items.remove(item);
+		notifyItemRemoved(pos);
+	}
+
 	public List<ITEM> getItems() {
 		return items;
 	}

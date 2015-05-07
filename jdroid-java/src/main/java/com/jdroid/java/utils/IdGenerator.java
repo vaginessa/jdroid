@@ -4,21 +4,22 @@ import java.util.Random;
 
 public class IdGenerator {
 	
-	private static int ID = 10000;
+	private static Integer ID = 10000;
 	
-	public static synchronized long getLongId() {
+	public static synchronized Long getLongId() {
+		ID++;
+		return ID.longValue();
+	}
+	
+	public static synchronized Integer getIntId() {
 		return ID++;
 	}
 	
-	public static synchronized int getIntId() {
-		return ID++;
-	}
-	
-	public static long getRandomLongId() {
+	public static Long getRandomLongId() {
 		return Math.abs(new Random().nextLong());
 	}
 	
-	public static int getRandomIntId() {
+	public static Integer getRandomIntId() {
 		return Math.abs(new Random().nextInt());
 	}
 }

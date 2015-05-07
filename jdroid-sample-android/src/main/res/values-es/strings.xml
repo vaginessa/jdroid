@@ -2,6 +2,7 @@
 <resources>
 	<string name="appName">Jdroid Sample</string>
 	<string name="home">Home</string>
+	<string name="add">Add</string>
 
 	<!-- Ads -->
 	<string name="adMob">AdMob</string>
