@@ -23,6 +23,8 @@ public abstract class AbstractRecyclerFragment<T> extends AbstractFragment imple
 	private RecyclerView recyclerView;
 	private RecyclerViewAdapter adapter;
 	private RecyclerView.LayoutManager layoutManager;
+	private View emptyView;
+	private RecyclerView.AdapterDataObserver adapterDataObserver;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,24 +36,63 @@ public abstract class AbstractRecyclerFragment<T> extends AbstractFragment imple
 		super.onViewCreated(view, savedInstanceState);
 
 		recyclerView = findView(R.id.recyclerView);
-
-		// use this setting to improve performance if you know that changes
-		// in content do not change the layout size of the RecyclerView
-		recyclerView.setHasFixedSize(true);
-
-		// use a linear layout manager
-		layoutManager = new LinearLayoutManager(getActivity());
+		recyclerView.setHasFixedSize(hasRecyclerViewFixedSize());
+		layoutManager = createLayoutManager();
 		recyclerView.setLayoutManager(layoutManager);
 
+		emptyView = findView(android.R.id.empty);
+
+		if (adapterDataObserver == null) {
+			adapterDataObserver = new RecyclerView.AdapterDataObserver() {
+				@Override
+				public void onItemRangeInserted(int positionStart, int itemCount) {
+					refreshEmptyView();
+				}
+
+				@Override
+				public void onItemRangeRemoved(int positionStart, int itemCount) {
+					refreshEmptyView();
+				}
+			};
+		}
 		if (adapter != null) {
 			setAdapter(adapter);
 		}
 	}
 
+	// use this setting to improve performance if you know that changes
+	// in content do not change the layout size of the RecyclerView
+	protected Boolean hasRecyclerViewFixedSize() {
+		return true;
+	}
+
+	protected RecyclerView.LayoutManager createLayoutManager() {
+		return new LinearLayoutManager(getActivity());
+	}
+
 	public void setAdapter(RecyclerViewAdapter adapter) {
 		this.adapter = adapter;
+
 		adapter.setOnClickListener(this);
+		adapter.registerAdapterDataObserver(adapterDataObserver);
+
 		recyclerView.setAdapter(adapter);
+
+		refreshEmptyView();
+	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		if (adapter != null && adapterDataObserver != null) {
+			adapter.unregisterAdapterDataObserver(adapterDataObserver);
+		}
+	}
+
+	private void refreshEmptyView() {
+		if (emptyView != null) {
+			emptyView.setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+		}
 	}
 
 	@Override

@@ -1,8 +1,10 @@
 package com.jdroid.sample.android.recyclerview;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.jdroid.android.fragment.AbstractRecyclerFragment;
 import com.jdroid.android.fragment.FragmentHelper;
@@ -27,8 +29,8 @@ public class RecyclerViewFragment extends AbstractRecyclerFragment<String> {
 	}
 
 	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.recycler_view_fragment, container, false);
 	}
 
 	/**

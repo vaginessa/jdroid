@@ -70,6 +70,7 @@
 
 	<!-- Recycler View -->
 	<string name="recyclerView">Recycler View</string>
+	<string name="noResults">No Results</string>
 
 	<!-- About -->
 	<string name="shareMessage">Jdroid - Application Framework for Android and Java apps. Download the sample app on your Android.
