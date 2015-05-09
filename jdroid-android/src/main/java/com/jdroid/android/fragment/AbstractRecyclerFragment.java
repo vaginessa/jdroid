@@ -9,11 +9,16 @@ import android.view.ViewGroup;
 
 import com.jdroid.android.R;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
+import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
 
 /**
  * @param <T>
  */
 public abstract class AbstractRecyclerFragment<T> extends AbstractFragment implements View.OnClickListener {
+
+	private final static Logger LOGGER = LoggerUtils.getLogger(AbstractRecyclerFragment.class);
 
 	private RecyclerView recyclerView;
 	private RecyclerViewAdapter adapter;
@@ -38,6 +43,9 @@ public abstract class AbstractRecyclerFragment<T> extends AbstractFragment imple
 		layoutManager = new LinearLayoutManager(getActivity());
 		recyclerView.setLayoutManager(layoutManager);
 
+		if (adapter != null) {
+			setAdapter(adapter);
+		}
 	}
 
 	public void setAdapter(RecyclerViewAdapter adapter) {
@@ -49,7 +57,11 @@ public abstract class AbstractRecyclerFragment<T> extends AbstractFragment imple
 	@Override
 	public void onClick(View view) {
 		int itemPosition = recyclerView.getChildAdapterPosition(view);
-		onItemSelected((T)adapter.getItem(itemPosition));
+		if (itemPosition != RecyclerView.NO_POSITION) {
+			onItemSelected((T)adapter.getItem(itemPosition));
+		} else {
+			LOGGER.warn("Ignored onClick for item with no position");
+		}
 	}
 
 	public void onItemSelected(T item) {

@@ -17,8 +17,8 @@ public class SampleUseCase extends DefaultAbstractUseCase {
 	@Override
 	protected void doExecute() {
 
-		// Wait 5 seconds to simulate a request
-		ExecutorUtils.sleep(5);
+		// Wait 3 seconds to simulate a request
+		ExecutorUtils.sleep(3);
 
 		items = Lists.newArrayList("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen");
 	}
