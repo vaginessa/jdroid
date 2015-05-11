@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.view.View;
+
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.activity.ActivityIf;
@@ -366,5 +367,10 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	@Override
 	public void onRefresh() {
 		fragmentHelper.onRefresh();
+	}
+
+	@Override
+	public Integer getMenuResourceId() {
+		return fragmentHelper.getMenuResourceId();
 	}
 }

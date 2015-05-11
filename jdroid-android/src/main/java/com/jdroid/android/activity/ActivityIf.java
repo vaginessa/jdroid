@@ -18,8 +18,6 @@ public interface ActivityIf extends ComponentIf {
 	
 	public int getContentView();
 	
-	public Integer getMenuResourceId();
-	
 	public void doOnCreateOptionsMenu(Menu menu);
 	
 	/**

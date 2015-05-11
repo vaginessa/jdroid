@@ -284,5 +284,9 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	@Override
 	public void onRefresh() {
 	}
-	
+
+	@Override
+	public Integer getMenuResourceId() {
+		return null;
+	}
 }

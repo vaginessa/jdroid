@@ -515,4 +515,9 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	public void onRefresh() {
 		fragmentHelper.onRefresh();
 	}
+
+	@Override
+	public Integer getMenuResourceId() {
+		return fragmentHelper.getMenuResourceId();
+	}
 }

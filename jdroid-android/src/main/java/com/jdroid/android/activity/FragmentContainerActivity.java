@@ -3,7 +3,10 @@ package com.jdroid.android.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.MenuItem;
+
 import com.jdroid.android.R;
+import com.jdroid.android.fragment.FragmentIf;
 
 public abstract class FragmentContainerActivity extends AbstractFragmentActivity {
 	
@@ -82,4 +85,22 @@ public abstract class FragmentContainerActivity extends AbstractFragmentActivity
 	public Fragment getFragment() {
 		return getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
 	}
+
+	@Override
+	public Integer getMenuResourceId() {
+		Integer menuResourceId = super.getMenuResourceId();
+		if (menuResourceId == null) {
+			Fragment fragment = getFragment();
+			if (fragment != null && fragment instanceof FragmentIf) {
+				return ((FragmentIf)fragment).getMenuResourceId();
+			}
+		}
+		return menuResourceId;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		return super.onOptionsItemSelected(item) || getFragment().onOptionsItemSelected(item);
+	}
+
 }

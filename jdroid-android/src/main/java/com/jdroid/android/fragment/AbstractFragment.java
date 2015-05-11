@@ -450,4 +450,9 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	public void onRefresh() {
 		fragmentHelper.onRefresh();
 	}
+
+	@Override
+	public Integer getMenuResourceId() {
+		return fragmentHelper.getMenuResourceId();
+	}
 }

@@ -444,4 +444,9 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 	public void onRefresh() {
 		fragmentHelper.onRefresh();
 	}
+
+	@Override
+	public Integer getMenuResourceId() {
+		return fragmentHelper.getMenuResourceId();
+	}
 }

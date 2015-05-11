@@ -474,4 +474,9 @@ public class FragmentHelper implements FragmentIf {
 	public void onRefresh() {
 		// Do nothing
 	}
+
+	@Override
+	public Integer getMenuResourceId() {
+		return null;
+	}
 }

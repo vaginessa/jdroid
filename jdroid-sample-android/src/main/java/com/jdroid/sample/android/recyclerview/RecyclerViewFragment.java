@@ -69,6 +69,11 @@ public class RecyclerViewFragment extends AbstractRecyclerFragment<String> {
 	}
 
 	@Override
+	public Integer getMenuResourceId() {
+		return R.menu.recycler_menu;
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.add:

@@ -64,4 +64,6 @@ public interface ComponentIf {
 	public void showLoading();
 	
 	public void dismissLoading();
+
+	public Integer getMenuResourceId();
 }
