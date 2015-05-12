@@ -18,6 +18,7 @@ import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.UseCaseFragment;
 import com.jdroid.android.loading.ActivityLoading;
+import com.jdroid.android.navdrawer.NavDrawerHeaderBuilder;
 import com.jdroid.java.exception.UnexpectedException;
 
 import java.util.List;
@@ -327,22 +328,6 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	}
 	
 	/**
-	 * @see com.jdroid.android.activity.ActivityIf#isNavDrawerEnabled()
-	 */
-	@Override
-	public Boolean isNavDrawerEnabled() {
-		return activityHelper.isNavDrawerEnabled();
-	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#isNavDrawerTopLevelView()
-	 */
-	@Override
-	public Boolean isNavDrawerTopLevelView() {
-		return activityHelper.isNavDrawerTopLevelView();
-	}
-	
-	/**
 	 * @see com.jdroid.android.activity.ActivityIf#getContextualMenuItemsIds()
 	 */
 	@Override
@@ -455,5 +440,28 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	public void onBackPressed() {
 		super.onBackPressed();
 		activityHelper.onBackPressed();
+	}
+
+	// //////////////////////// Navigation Drawer //////////////////////// //
+
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#isNavDrawerEnabled()
+	 */
+	@Override
+	public Boolean isNavDrawerEnabled() {
+		return activityHelper.isNavDrawerEnabled();
+	}
+
+	/**
+	 * @see com.jdroid.android.activity.ActivityIf#isNavDrawerTopLevelView()
+	 */
+	@Override
+	public Boolean isNavDrawerTopLevelView() {
+		return activityHelper.isNavDrawerTopLevelView();
+	}
+
+	@Override
+	public NavDrawerHeaderBuilder createNavDrawerHeaderBuilder() {
+		return activityHelper.createNavDrawerHeaderBuilder();
 	}
 }

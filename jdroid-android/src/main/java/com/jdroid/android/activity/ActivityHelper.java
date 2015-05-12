@@ -25,9 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
@@ -44,8 +42,8 @@ import com.jdroid.android.loading.ActivityLoading;
 import com.jdroid.android.loading.DefaultBlockingLoading;
 import com.jdroid.android.location.LocationHelper;
 import com.jdroid.android.navdrawer.NavDrawerAdapter;
+import com.jdroid.android.navdrawer.NavDrawerHeaderBuilder;
 import com.jdroid.android.navdrawer.NavDrawerItem;
-import com.jdroid.android.utils.ImageLoaderUtils;
 import com.jdroid.android.utils.NotificationBuilder;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.collections.Lists;
@@ -178,25 +176,9 @@ public class ActivityHelper implements ActivityIf {
 			// set a custom shadow that overlays the main content when the drawer opens
 			drawerLayout.setDrawerShadow(isDarkTheme() ? R.drawable.drawer_shadow_dark : R.drawable.drawer_shadow,
 				GravityCompat.START);
-			
-			User user = SecurityContext.get().getUser();
-			if (isNavDrawerUserHeaderVisible() && (user != null)) {
-				View navDrawerHeader = inflate(R.layout.nav_drawer_header);
-				ImageLoaderUtils.displayImage(user.getCoverPictureUrl(),
-					((ImageView)navDrawerHeader.findViewById(R.id.cover)), null, null, User.PROFILE_PICTURE_TTL);
-				ImageLoaderUtils.displayImage(user.getProfilePictureUrl(),
-					((ImageView)navDrawerHeader.findViewById(R.id.photo)), R.drawable.profile_default, null,
-					User.PROFILE_PICTURE_TTL);
-				
-				String fullname = user.getFullname();
-				String email = user.getEmail();
-				if (AbstractApplication.get().getAppContext().isUserDataMocked()) {
-					fullname = getMockedFullname();
-					email = getMockedEmail();
-				}
-				((TextView)navDrawerHeader.findViewById(R.id.fullName)).setText(fullname);
-				((TextView)navDrawerHeader.findViewById(R.id.email)).setText(email);
-				drawerList.addHeaderView(navDrawerHeader);
+
+			if (isNavDrawerUserHeaderVisible()) {
+				drawerList.addHeaderView(createNavDrawerHeaderBuilder().build());
 			}
 			drawerList.setAdapter(new NavDrawerAdapter(activity, getVisibleNavDrawerItems()));
 			// Set the list's click listener
@@ -204,10 +186,7 @@ public class ActivityHelper implements ActivityIf {
 				
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					if (position < drawerList.getHeaderViewsCount()) {
-						onNavDrawerHeaderClick();
-						drawerLayout.closeDrawer(drawerList);
-					} else {
+					if (position >= drawerList.getHeaderViewsCount()) {
 						selectNavDrawerItem(position);
 					}
 				}
@@ -230,19 +209,12 @@ public class ActivityHelper implements ActivityIf {
 				
 				@Override
 				public void onDrawerOpened(View view) {
-					if (actionBar != null) {
-						title = actionBar.getTitle() != null ? actionBar.getTitle().toString() : null;
-						actionBar.setTitle(R.string.appName);
-					}
-					activity.invalidateOptionsMenu();
+					// Do nothing
 				}
 				
 				@Override
 				public void onDrawerClosed(View view) {
-					if (actionBar != null) {
-						actionBar.setTitle(title);
-					}
-					activity.invalidateOptionsMenu();
+					// Do nothing
 				}
 			};
 			
@@ -308,7 +280,7 @@ public class ActivityHelper implements ActivityIf {
 			trackNotificationOpened(activity.getIntent());
 		}
 	}
-	
+
 	public Boolean isDarkTheme() {
 		return false;
 	}
@@ -749,6 +721,11 @@ public class ActivityHelper implements ActivityIf {
 	public void setLoading(ActivityLoading loading) {
 		this.loading = loading;
 	}
+
+	@Override
+	public void onBackPressed() {
+		// Do nothing
+	}
 	
 	// //////////////////////// Navigation Drawer //////////////////////// //
 	
@@ -766,10 +743,6 @@ public class ActivityHelper implements ActivityIf {
 				}
 			});
 		}
-	}
-	
-	protected void onNavDrawerHeaderClick() {
-		// Do nothing
 	}
 	
 	private void selectNavDrawerItem(int position) {
@@ -826,7 +799,27 @@ public class ActivityHelper implements ActivityIf {
 	}
 
 	@Override
-	public void onBackPressed() {
-		// Do nothing
+	public NavDrawerHeaderBuilder createNavDrawerHeaderBuilder() {
+		NavDrawerHeaderBuilder builder = new NavDrawerHeaderBuilder(getActivityIf());
+		User user = SecurityContext.get().getUser();
+		if (user != null) {
+			builder.setBackground(user.getCoverPictureUrl(), User.PROFILE_PICTURE_TTL);
+			builder.setMainImage(user.getProfilePictureUrl(), User.PROFILE_PICTURE_TTL);
+
+			String fullname = user.getFullname();
+			String email = user.getEmail();
+			if (AbstractApplication.get().getAppContext().isUserDataMocked()) {
+				fullname = getMockedFullname();
+				email = getMockedEmail();
+			}
+
+			builder.setTitle(fullname);
+			builder.setSubTitle(email);
+		} else {
+			builder.setMainImage(R.drawable.ic_launcher);
+			builder.setTitle(getActivity().getString(R.string.appName));
+			builder.setSubTitle(AbstractApplication.get().getAppContext().getWebsite().replaceAll("http://", ""));
+		}
+		return builder;
 	}
 }

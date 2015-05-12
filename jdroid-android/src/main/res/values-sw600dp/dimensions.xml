@@ -10,7 +10,5 @@
 
 	<!-- Nav Drawer -->
 	<dimen name="nav_drawer_width">320dp</dimen>
-	<dimen name="nav_drawer_profile_image_size">48dp</dimen>
-	<dimen name="nav_drawer_cover_image_height">66dp</dimen>
 
 </resources>

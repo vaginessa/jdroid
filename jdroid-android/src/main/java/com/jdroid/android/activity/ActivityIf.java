@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 
 import com.jdroid.android.loading.ActivityLoading;
+import com.jdroid.android.navdrawer.NavDrawerHeaderBuilder;
 
 import java.util.List;
 
@@ -42,6 +43,8 @@ public interface ActivityIf extends ComponentIf {
 	public void displayInterstitial(Boolean retryIfNotLoaded);
 	
 	public Boolean isActivityDestroyed();
+
+	public void onBackPressed();
 	
 	// //////////////////////// Loading //////////////////////// //
 	
@@ -55,6 +58,6 @@ public interface ActivityIf extends ComponentIf {
 	
 	public Boolean isNavDrawerTopLevelView();
 
-	public void onBackPressed();
-	
+	public NavDrawerHeaderBuilder createNavDrawerHeaderBuilder();
+
 }
