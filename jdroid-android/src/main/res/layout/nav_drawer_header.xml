@@ -1,23 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-	android:layout_height="wrap_content">
+<com.jdroid.android.scroll.ScrimInsetsScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="@dimen/nav_drawer_width"
+	android:layout_height="match_parent"
+	android:layout_gravity="start"
+	android:id="@+id/navdrawer"
+	android:background="@android:color/white"
+	android:fitsSystemWindows="true"
+	app:insetForeground="#4000">
 
-	<ImageView android:id="@+id/cover" android:layout_height="162dp"
-		android:layout_width="match_parent" android:scaleType="centerCrop" android:background="@color/navDrawerBackground"
-		android:alpha="0.3" />
+	<LinearLayout android:layout_width="match_parent"
+				  android:layout_height="wrap_content"
+				  android:orientation="vertical">
 
-	<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-		android:orientation="vertical" android:background="@drawable/default_item_selector" android:paddingLeft="16dp"
-				  android:paddingRight="16dp">
-		<ImageView android:id="@+id/photo" android:layout_height="64dp"
-			android:layout_width="64dp" android:scaleType="centerCrop"
-			android:src="@drawable/profile_default" android:layout_marginTop="16dp" android:layout_marginBottom="16dp" />
-		<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent"
-			android:orientation="vertical" android:layout_gravity="center_vertical" android:minHeight="56dp" android:gravity="center_vertical">
-			<TextView android:id="@+id/title" style="@style/textSmall"
-				 android:textStyle="bold" android:lines="1" android:ellipsize="end" tools:text="Tony Stark" />
-			<TextView android:id="@+id/subTitle" style="@style/textMicro" android:lines="1"
-				android:ellipsize="end" tools:text="tonystark@ironmail.com"  />
-		</LinearLayout>
+		<FrameLayout
+			android:id="@+id/chosen_account_view"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/navdrawerHeaderHeight">
+
+			<ImageView android:layout_width="match_parent"
+					   android:layout_height="match_parent"
+					   android:scaleType="centerCrop"
+					   android:tint="#6000"
+					   android:id="@+id/cover" />
+
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:paddingLeft="@dimen/keyline_1"
+				android:paddingRight="@dimen/keyline_1"
+				android:paddingTop="@dimen/keyline_1"
+				android:id="@+id/chosen_account_content_view">
+
+				<com.jdroid.android.images.BezelImageView
+					android:id="@+id/photo"
+					android:layout_width="@dimen/navdrawerHeaderImageSize"
+					android:layout_height="@dimen/navdrawerHeaderImageSize"
+					android:src="@drawable/person_default"
+					android:scaleType="centerCrop"
+					app:maskDrawable="@drawable/circle_mask" />
+
+				<ImageView
+					android:id="@+id/expand_account_box_indicator"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:visibility="gone"
+					android:layout_marginLeft="16dp"
+					android:paddingBottom="16dp"
+					android:layout_alignParentRight="true"
+					android:layout_alignParentBottom="true"
+					android:scaleType="center"
+					android:src="@drawable/ic_drawer_accounts_expand" />
+
+				<TextView
+					android:id="@+id/subTitle"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_alignLeft="@id/photo"
+					android:layout_toLeftOf="@id/expand_account_box_indicator"
+					android:layout_alignParentBottom="true"
+					android:paddingBottom="16dp"
+					android:textSize="14sp"
+					android:textColor="@color/navDrawerHeaderSubTitle"
+					android:maxLines="1"
+					android:singleLine="true"
+					android:ellipsize="end" />
+
+				<TextView
+					android:id="@+id/title"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_above="@id/subTitle"
+					android:layout_alignLeft="@id/photo"
+					android:layout_toLeftOf="@id/expand_account_box_indicator"
+					android:textSize="18sp"
+					android:textColor="@color/navDrawerHeaderTitle"
+					android:maxLines="1"
+					android:singleLine="true"
+					android:ellipsize="end" />
+
+			</RelativeLayout>
+
+		</FrameLayout>
+
+		<FrameLayout android:layout_width="match_parent"
+					 android:layout_height="wrap_content">
+
+			<!-- Account items -->
+			<LinearLayout
+				android:id="@+id/account_list"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:orientation="vertical"
+				android:visibility="invisible" />
+
+			<!-- Drawer items -->
+			<LinearLayout
+				android:id="@+id/navdrawer_items_list"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginBottom="8dp"
+				android:orientation="vertical" />
+		</FrameLayout>
 	</LinearLayout>
-</FrameLayout>
+
+</com.jdroid.android.scroll.ScrimInsetsScrollView>

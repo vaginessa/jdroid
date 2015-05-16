@@ -26,7 +26,7 @@ public class ApacheHttpResponseWrapper extends HttpResponseWrapper {
 		try {
 			inputStream = httpResponse.getEntity() != null ? httpResponse.getEntity().getContent() : null;
 			Header contentEncoding = httpResponse.getFirstHeader(WebService.CONTENT_ENCODING_HEADER);
-			if ((contentEncoding != null) && contentEncoding.getValue().equalsIgnoreCase(WebService.GZIP_ENCODING)) {
+			if (inputStream != null && (contentEncoding != null) && contentEncoding.getValue().equalsIgnoreCase(WebService.GZIP_ENCODING)) {
 				inputStream = new GZIPInputStream(inputStream);
 			}
 		} catch (IOException e) {

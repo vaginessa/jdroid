@@ -6,4 +6,15 @@
 		<!-- Identifier for the child that represents the list. -->
 		<attr name="list" format="reference" />
 	</declare-styleable>
+
+	<declare-styleable name="BezelImageView">
+		<attr name="maskDrawable" format="reference" />
+		<attr name="borderDrawable" format="reference" />
+		<attr name="desaturateOnPress" format="boolean" />
+	</declare-styleable>
+
+	<declare-styleable name="ScrimInsetsView">
+		<attr name="insetForeground" format="reference|color" />
+	</declare-styleable>
+
 </resources>

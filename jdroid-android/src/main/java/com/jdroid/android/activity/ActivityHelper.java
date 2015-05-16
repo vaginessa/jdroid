@@ -818,7 +818,10 @@ public class ActivityHelper implements ActivityIf {
 		} else {
 			builder.setMainImage(R.drawable.ic_launcher);
 			builder.setTitle(getActivity().getString(R.string.appName));
-			builder.setSubTitle(AbstractApplication.get().getAppContext().getWebsite().replaceAll("http://", ""));
+			String website = AbstractApplication.get().getAppContext().getWebsite();
+			if (website != null) {
+				builder.setSubTitle(website.replaceAll("http://", ""));
+			}
 		}
 		return builder;
 	}

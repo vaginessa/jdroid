@@ -26,6 +26,8 @@
 	<color name="navDrawerItemSelectedTextColor">#FFFFFF</color>
 	<color name="navDrawerItemPressedColor">@color/accentColorPressed</color>
 	<color name="navDrawerItemSelectedColor">@color/colorPrimary</color>
+	<color name="navDrawerHeaderTitle">#deffffff</color>
+	<color name="navDrawerHeaderSubTitle">#aaffffff</color>
 
 	<!-- Maps -->
 	<color name="walkingColor">#888888</color>

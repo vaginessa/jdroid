@@ -8,4 +8,10 @@
 	<dimen name="textMedium">18sp</dimen>
 	<dimen name="textLarge">22sp</dimen>
 
+	<!-- Nav Drawer -->
+
+	<dimen name="nav_drawer_width">304dp</dimen>
+	<dimen name="navdrawerHeaderHeight">164dp</dimen>
+	<dimen name="navdrawerHeaderImageSize">64dp</dimen>
+
 </resources>

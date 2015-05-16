@@ -113,8 +113,6 @@ public class DatePickerDialogFragment extends AbstractDialogFragment implements 
 			datePicker.setMaxDate(maxDate.getTime());
 		}
 		
-		datePicker.getCalendarView().setShowWeekNumber(false);
-		
 		dialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
 			
 			@Override
