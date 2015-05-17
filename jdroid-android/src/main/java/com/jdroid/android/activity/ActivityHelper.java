@@ -655,8 +655,9 @@ public class ActivityHelper implements ActivityIf {
 
 					@Override
 					public void onDrawerSlide(View drawerView, float slideOffset) {
-						super.onDrawerSlide(drawerView, slideOffset);
-						drawerListener.onDrawerSlide(drawerView, slideOffset);
+						// 0 offset to disable the hamburger animation
+						super.onDrawerSlide(drawerView, 0);
+						drawerListener.onDrawerSlide(drawerView, 0);
 					}
 
 					@Override

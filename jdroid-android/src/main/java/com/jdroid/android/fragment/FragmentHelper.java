@@ -100,8 +100,8 @@ public class FragmentHelper implements FragmentIf {
 		if (appBar != null && getActivityIf() instanceof AbstractFragmentActivity) {
 			getFragmentIf().beforeInitAppBar(appBar);
 			((AbstractFragmentActivity)getActivityIf()).setSupportActionBar(appBar);
-			getFragmentIf().afterInitAppBar(appBar);
 			getActivityIf().initNavDrawer(appBar);
+			getFragmentIf().afterInitAppBar(appBar);
 		}
 
 		adHelper = createAdLoader();
@@ -151,14 +151,6 @@ public class FragmentHelper implements FragmentIf {
 	
 	public void onResume() {
 		LOGGER.debug("Executing onResume on " + fragment);
-
-		if (appBar != null) {
-			AppContext context = AbstractApplication.get().getAppContext();
-			if (!context.isProductionEnvironment() && context.displayDebugSettings()) {
-				appBar.setBackgroundColor(AbstractApplication.get().getResources().getColor(context.isHttpMockEnabled() ? R.color.actionbarMockBackground : R.color.actionBarBackground));
-			}
-		}
-
 		if (adHelper != null) {
 			adHelper.onResume();
 		}

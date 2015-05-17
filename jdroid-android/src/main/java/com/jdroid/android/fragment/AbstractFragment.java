@@ -89,13 +89,13 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 		fragmentHelper.onViewCreated(view, savedInstanceState);
 		
 		if (isHeroImageEnabled()) {
-			final Toolbar toolbar = fragmentHelper.getAppBar();
-			if (toolbar != null) {
+			final Toolbar appBar = fragmentHelper.getAppBar();
+			if (appBar != null) {
 
 				if (savedInstanceState != null) {
 					actionBarAlpha = savedInstanceState.getInt(ACTION_BAR_ALPHA);
 				}
-				toolbar.getBackground().setAlpha(actionBarAlpha);
+				appBar.getBackground().setAlpha(actionBarAlpha);
 
 				Integer parallaxScrollViewId = getParallaxScrollViewId();
 				if (parallaxScrollViewId != null) {
@@ -104,10 +104,10 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 
 						@Override
 						public void onScrollChanged(ScrollView who, int l, int t, int oldl, int oldt) {
-							final int headerHeight = findView(getHeroImageId()).getHeight() - toolbar.getHeight();
+							final int headerHeight = findView(getHeroImageId()).getHeight() - appBar.getHeight();
 							final float ratio = (float)Math.min(Math.max(t, 0), headerHeight) / headerHeight;
 							actionBarAlpha = (int)(ratio * 255);
-								toolbar.getBackground().setAlpha(actionBarAlpha);
+							appBar.getBackground().setAlpha(actionBarAlpha);
 						}
 					});
 					parallaxScrollView.setParallaxViewContainer(findView(getHeroImageContainerId()));

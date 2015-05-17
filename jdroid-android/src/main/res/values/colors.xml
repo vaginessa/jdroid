@@ -17,7 +17,6 @@
 
 	<!-- Action Bar -->
 	<color name="actionBarBackground">@color/colorPrimary</color>
-	<color name="actionbarMockBackground">#FF489100</color>
 
 	<!-- Nav Drawer -->
 	<color name="navDrawerItemsBackground">#FFFFFF</color>

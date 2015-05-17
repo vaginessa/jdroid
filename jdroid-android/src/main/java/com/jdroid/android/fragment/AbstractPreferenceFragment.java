@@ -37,6 +37,8 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 		Toolbar appBar = findView(R.id.appBar);
 		if (appBar != null && getActivityIf() instanceof AbstractFragmentActivity) {
 			((AbstractFragmentActivity)getActivityIf()).setSupportActionBar(appBar);
+			appBar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+
 		}
 	}
 
