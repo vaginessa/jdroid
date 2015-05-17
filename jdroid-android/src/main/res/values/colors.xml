@@ -15,9 +15,6 @@
 	<color name="actionBarTextColor">@android:color/white</color>
 	<color name="textColor">#444444</color>
 
-	<!-- Action Bar -->
-	<color name="actionBarBackground">@color/colorPrimary</color>
-
 	<!-- Nav Drawer -->
 	<color name="navDrawerItemsBackground">#FFFFFF</color>
 	<color name="navDrawerBackground">#FFFFFF</color>

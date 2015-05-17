@@ -1,5 +1,6 @@
 package com.jdroid.android.fragment;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
@@ -89,13 +90,16 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 		fragmentHelper.onViewCreated(view, savedInstanceState);
 		
 		if (isHeroImageEnabled()) {
-			final Toolbar appBar = fragmentHelper.getAppBar();
+			final Toolbar appBar = getAppBar();
 			if (appBar != null) {
 
 				if (savedInstanceState != null) {
 					actionBarAlpha = savedInstanceState.getInt(ACTION_BAR_ALPHA);
 				}
-				appBar.getBackground().setAlpha(actionBarAlpha);
+
+				Drawable appBarBackgroundDrawable = getResources().getDrawable(R.color.colorPrimary);
+				appBar.setBackgroundDrawable(appBarBackgroundDrawable);
+				appBarBackgroundDrawable.setAlpha(actionBarAlpha);
 
 				Integer parallaxScrollViewId = getParallaxScrollViewId();
 				if (parallaxScrollViewId != null) {
@@ -115,7 +119,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 			}
 		}
 	}
-	
+
 	protected Integer getParallaxScrollViewId() {
 		return null;
 	}

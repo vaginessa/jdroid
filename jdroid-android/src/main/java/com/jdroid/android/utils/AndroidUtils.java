@@ -180,7 +180,11 @@ public class AndroidUtils {
 	public static Boolean isPreKitkat() {
 		return android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT;
 	}
-	
+
+	public static Boolean isPreLollipop() {
+		return android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP;
+	}
+
 	public static String getPlatformVersion() {
 		return android.os.Build.VERSION.RELEASE;
 	}
