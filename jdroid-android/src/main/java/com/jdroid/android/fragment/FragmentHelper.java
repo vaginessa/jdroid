@@ -98,8 +98,9 @@ public class FragmentHelper implements FragmentIf {
 
 		appBar = findView(R.id.appBar);
 		if (appBar != null && getActivityIf() instanceof AbstractFragmentActivity) {
-			getFragmentIf().initAppBar(appBar);
+			getFragmentIf().beforeInitAppBar(appBar);
 			((AbstractFragmentActivity)getActivityIf()).setSupportActionBar(appBar);
+			getFragmentIf().afterInitAppBar(appBar);
 			getActivityIf().initNavDrawer(appBar);
 		}
 
@@ -118,7 +119,12 @@ public class FragmentHelper implements FragmentIf {
 	}
 
 	@Override
-	public void initAppBar(Toolbar appBar) {
+	public void beforeInitAppBar(Toolbar appBar) {
+		// Do nothing
+	}
+
+	@Override
+	public void afterInitAppBar(Toolbar appBar) {
 		// Do nothing
 	}
 

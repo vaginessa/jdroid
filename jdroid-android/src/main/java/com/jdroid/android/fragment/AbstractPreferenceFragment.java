@@ -1,11 +1,16 @@
 package com.jdroid.android.fragment;
 
+import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.R;
+import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
@@ -17,7 +22,24 @@ import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 import com.jdroid.java.exception.AbstractException;
 
 public abstract class AbstractPreferenceFragment extends PreferenceFragment implements FragmentIf {
-	
+
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.base_fragment, container, false);
+		ViewGroup viewGroup = (ViewGroup)view.findViewById(R.id.content);
+		viewGroup.addView(super.onCreateView(inflater, null, savedInstanceState));
+		return view;
+	}
+
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+
+		Toolbar appBar = findView(R.id.appBar);
+		if (appBar != null && getActivityIf() instanceof AbstractFragmentActivity) {
+			((AbstractFragmentActivity)getActivityIf()).setSupportActionBar(appBar);
+		}
+	}
+
 	protected FragmentIf getFragmentIf() {
 		return (FragmentIf)this.getActivity();
 	}
@@ -231,8 +253,13 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 		return (ActivityIf)getActivity();
 	}
 
+
 	@Override
-	public void initAppBar(Toolbar appBar) {
+	public void beforeInitAppBar(Toolbar appBar) {
+	}
+
+	@Override
+	public void afterInitAppBar(Toolbar appBar) {
 	}
 	
 	@Override

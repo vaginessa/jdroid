@@ -331,8 +331,13 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	}
 
 	@Override
-	public void initAppBar(Toolbar appBar) {
-		fragmentHelper.initAppBar(appBar);
+	public void beforeInitAppBar(Toolbar appBar) {
+		fragmentHelper.beforeInitAppBar(appBar);
+	}
+
+	@Override
+	public void afterInitAppBar(Toolbar appBar) {
+		fragmentHelper.afterInitAppBar(appBar);
 	}
 
 	@Override

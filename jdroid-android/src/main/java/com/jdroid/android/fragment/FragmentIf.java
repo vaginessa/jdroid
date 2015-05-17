@@ -20,7 +20,9 @@ public interface FragmentIf extends ComponentIf, DefaultUseCaseListener, OnRefre
 
 	public Toolbar getAppBar();
 
-	public void initAppBar(Toolbar appBar);
+	public void beforeInitAppBar(Toolbar appBar);
+
+	public void afterInitAppBar(Toolbar appBar);
 
 	public Integer getBaseFragmentLayout();
 

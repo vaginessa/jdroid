@@ -287,8 +287,13 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 	}
 
 	@Override
-	public void initAppBar(Toolbar appBar) {
-		fragmentHelper.initAppBar(appBar);
+	public void beforeInitAppBar(Toolbar appBar) {
+		fragmentHelper.beforeInitAppBar(appBar);
+	}
+
+	@Override
+	public void afterInitAppBar(Toolbar appBar) {
+		fragmentHelper.afterInitAppBar(appBar);
 	}
 	
 	@Override

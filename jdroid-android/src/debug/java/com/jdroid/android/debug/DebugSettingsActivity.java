@@ -8,27 +8,23 @@ import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.fragment.AbstractPreferenceFragment;
 import com.jdroid.java.exception.UnexpectedException;
 
-/**
- * Debug Settings Activity just for debug purposes. These settings are disabled on the production environment
- * 
- */
 public class DebugSettingsActivity extends AbstractFragmentActivity {
-	
+
 	/**
 	 * @see com.jdroid.android.activity.ActivityIf#getContentView()
 	 */
 	@Override
 	public int getContentView() {
-		return isNavDrawerEnabled() ? R.layout.nav_fragment_container_activity : R.layout.fragment_container_activity;
+		return R.layout.fragment_container_activity;
 	}
-	
+
 	/**
 	 * @see android.preference.PreferenceActivity#onCreate(android.os.Bundle)
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		if (savedInstanceState == null) {
 			FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 			fragmentTransaction.add(R.id.fragmentContainer, createNewFragment());
@@ -36,12 +32,12 @@ public class DebugSettingsActivity extends AbstractFragmentActivity {
 			fragmentTransaction.commit();
 		}
 	}
-	
+
 	protected AbstractPreferenceFragment createNewFragment() {
 		return instanceAbstractPreferenceFragment(AbstractApplication.get().getDebugContext().getDebugSettingsFragmentClass(),
 			getIntent().getExtras());
 	}
-	
+
 	private <E extends AbstractPreferenceFragment> E instanceAbstractPreferenceFragment(Class<E> fragmentClass,
 			Bundle bundle) {
 		E fragment;
@@ -55,7 +51,7 @@ public class DebugSettingsActivity extends AbstractFragmentActivity {
 		fragment.setArguments(bundle);
 		return fragment;
 	}
-	
+
 	/**
 	 * @see com.jdroid.android.activity.AbstractFragmentActivity#getMenuResourceId()
 	 */
@@ -63,7 +59,7 @@ public class DebugSettingsActivity extends AbstractFragmentActivity {
 	public Integer getMenuResourceId() {
 		return null;
 	}
-	
+
 	/**
 	 * @see com.jdroid.android.activity.AbstractFragmentActivity#requiresAuthentication()
 	 */
