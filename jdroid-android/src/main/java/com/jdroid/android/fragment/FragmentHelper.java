@@ -3,7 +3,8 @@ package com.jdroid.android.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -37,6 +38,8 @@ public class FragmentHelper implements FragmentIf {
 	private AdHelper adHelper;
 	
 	private FragmentLoading loading;
+
+	private Toolbar appBar;
 	
 	public FragmentHelper(Fragment fragment) {
 		this.fragment = fragment;
@@ -67,10 +70,39 @@ public class FragmentHelper implements FragmentIf {
 	public Boolean shouldRetainInstance() {
 		return true;
 	}
+
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		LOGGER.debug("Executing onCreateView on " + fragment);
+		Integer contentFragmentLayout = getFragmentIf().getContentFragmentLayout();
+		if (contentFragmentLayout != null) {
+			View view = inflater.inflate(getFragmentIf().getBaseFragmentLayout(), container, false);
+			ViewGroup viewGroup = (ViewGroup)view.findViewById(R.id.content);
+			viewGroup.addView(inflater.inflate(contentFragmentLayout, null, false));
+			return view;
+		}
+		return null;
+	}
+
+	@Override
+	public Integer getBaseFragmentLayout() {
+		return R.layout.base_fragment;
+	}
+
+	@Override
+	public Integer getContentFragmentLayout() {
+		return null;
+	}
 	
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		LOGGER.debug("Executing onViewCreated on " + fragment);
-		
+
+		appBar = findView(R.id.appBar);
+		if (appBar != null && getActivityIf() instanceof AbstractFragmentActivity) {
+			getFragmentIf().initAppBar(appBar);
+			((AbstractFragmentActivity)getActivityIf()).setSupportActionBar(appBar);
+			getActivityIf().initNavDrawer(appBar);
+		}
+
 		adHelper = createAdLoader();
 		if (adHelper != null) {
 			adHelper.loadBanner(fragment.getActivity(), (ViewGroup)(fragment.getView().findViewById(R.id.adViewContainer)),
@@ -83,6 +115,16 @@ public class FragmentHelper implements FragmentIf {
 		if (loading != null) {
 			loading.onViewCreated(getFragmentIf());
 		}
+	}
+
+	@Override
+	public void initAppBar(Toolbar appBar) {
+		// Do nothing
+	}
+
+	@Override
+	public Toolbar getAppBar() {
+		return appBar;
 	}
 	
 	protected AdHelper createAdLoader() {
@@ -103,6 +145,14 @@ public class FragmentHelper implements FragmentIf {
 	
 	public void onResume() {
 		LOGGER.debug("Executing onResume on " + fragment);
+
+		if (appBar != null) {
+			AppContext context = AbstractApplication.get().getAppContext();
+			if (!context.isProductionEnvironment() && context.displayDebugSettings()) {
+				appBar.setBackgroundColor(AbstractApplication.get().getResources().getColor(context.isHttpMockEnabled() ? R.color.actionbarMockBackground : R.color.actionBarBackground));
+			}
+		}
+
 		if (adHelper != null) {
 			adHelper.onResume();
 		}
@@ -376,14 +426,6 @@ public class FragmentHelper implements FragmentIf {
 	
 	public Boolean isAuthenticated() {
 		return SecurityContext.get().isAuthenticated();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getActionBar()
-	 */
-	@Override
-	public ActionBar getActionBar() {
-		return ((AbstractFragmentActivity)fragment.getActivity()).getSupportActionBar();
 	}
 	
 	// //////////////////////// Analytics //////////////////////// //

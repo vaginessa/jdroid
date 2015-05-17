@@ -1,12 +1,13 @@
 package com.jdroid.android.fragment;
 
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ScrollView;
+
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
@@ -31,24 +32,8 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	private static final String ACTION_BAR_ALPHA = "actionBarAlpha";
 	
 	private FragmentHelper fragmentHelper;
-	private Drawable actionBarBackgroundDrawable;
 	private int actionBarAlpha = 0;
-	private Drawable.Callback drawableCallback = new Drawable.Callback() {
-		
-		@Override
-		public void invalidateDrawable(Drawable who) {
-			getActionBar().setBackgroundDrawable(who);
-		}
-		
-		@Override
-		public void scheduleDrawable(Drawable who, Runnable what, long when) {
-		}
-		
-		@Override
-		public void unscheduleDrawable(Drawable who, Runnable what) {
-		}
-	};
-	
+
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getAppContext()
 	 */
@@ -78,7 +63,23 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	protected Boolean isHeroImageEnabled() {
 		return false;
 	}
-	
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = fragmentHelper.onCreateView(inflater, container, savedInstanceState);
+		return view != null ? view : super.onCreateView(inflater, container, savedInstanceState);
+	}
+
+	@Override
+	public Integer getBaseFragmentLayout() {
+		return isHeroImageEnabled() ? R.layout.base_hero_fragment : fragmentHelper.getBaseFragmentLayout();
+	}
+
+	@Override
+	public Integer getContentFragmentLayout() {
+		return fragmentHelper.getContentFragmentLayout();
+	}
+
 	/**
 	 * @see android.support.v4.app.Fragment#onViewCreated(android.view.View, android.os.Bundle)
 	 */
@@ -88,33 +89,29 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 		fragmentHelper.onViewCreated(view, savedInstanceState);
 		
 		if (isHeroImageEnabled()) {
-			
-			if (savedInstanceState != null) {
-				actionBarAlpha = savedInstanceState.getInt(ACTION_BAR_ALPHA);
-			}
-			
-			actionBarBackgroundDrawable = getResources().getDrawable(R.drawable.actionbar_background);
-			actionBarBackgroundDrawable.setAlpha(actionBarAlpha);
-			getActionBar().setBackgroundDrawable(actionBarBackgroundDrawable);
-			
-			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-				actionBarBackgroundDrawable.setCallback(drawableCallback);
-			}
+			final Toolbar toolbar = fragmentHelper.getAppBar();
+			if (toolbar != null) {
 
-			Integer parallaxScrollViewId = getParallaxScrollViewId();
-			if (parallaxScrollViewId != null) {
-				ParallaxScrollView parallaxScrollView = findView(parallaxScrollViewId);
-				parallaxScrollView.setOnScrollChangedListener(new NotifyingScrollView.OnScrollChangedListener() {
+				if (savedInstanceState != null) {
+					actionBarAlpha = savedInstanceState.getInt(ACTION_BAR_ALPHA);
+				}
+				toolbar.getBackground().setAlpha(actionBarAlpha);
 
-					@Override
-					public void onScrollChanged(ScrollView who, int l, int t, int oldl, int oldt) {
-						final int headerHeight = findView(getHeroImageId()).getHeight() - getActionBar().getHeight();
-						final float ratio = (float)Math.min(Math.max(t, 0), headerHeight) / headerHeight;
-						actionBarAlpha = (int)(ratio * 255);
-						actionBarBackgroundDrawable.setAlpha(actionBarAlpha);
-					}
-				});
-				parallaxScrollView.setParallaxViewContainer(findView(getHeroImageContainerId()));
+				Integer parallaxScrollViewId = getParallaxScrollViewId();
+				if (parallaxScrollViewId != null) {
+					ParallaxScrollView parallaxScrollView = findView(parallaxScrollViewId);
+					parallaxScrollView.setOnScrollChangedListener(new NotifyingScrollView.OnScrollChangedListener() {
+
+						@Override
+						public void onScrollChanged(ScrollView who, int l, int t, int oldl, int oldt) {
+							final int headerHeight = findView(getHeroImageId()).getHeight() - toolbar.getHeight();
+							final float ratio = (float)Math.min(Math.max(t, 0), headerHeight) / headerHeight;
+							actionBarAlpha = (int)(ratio * 255);
+								toolbar.getBackground().setAlpha(actionBarAlpha);
+						}
+					});
+					parallaxScrollView.setParallaxViewContainer(findView(getHeroImageContainerId()));
+				}
 			}
 		}
 	}
@@ -332,15 +329,17 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	public User getUser() {
 		return fragmentHelper.getUser();
 	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getActionBar()
-	 */
+
 	@Override
-	public ActionBar getActionBar() {
-		return fragmentHelper.getActionBar();
+	public void initAppBar(Toolbar appBar) {
+		fragmentHelper.initAppBar(appBar);
 	}
-	
+
+	@Override
+	public Toolbar getAppBar() {
+		return fragmentHelper.getAppBar();
+	}
+
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getAdSize()
 	 */

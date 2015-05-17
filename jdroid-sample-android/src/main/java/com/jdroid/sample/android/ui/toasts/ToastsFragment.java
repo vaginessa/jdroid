@@ -1,25 +1,20 @@
 package com.jdroid.sample.android.ui.toasts;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
+
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.sample.android.R;
 
 public class ToastsFragment extends AbstractFragment {
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup,
-	 *      android.os.Bundle)
-	 */
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.toasts_fragment, container, false);
+	public Integer getContentFragmentLayout() {
+		return R.layout.toasts_fragment;
 	}
-	
+
 	/**
 	 * @see com.jdroid.android.fragment.AbstractFragment#onViewCreated(android.view.View, android.os.Bundle)
 	 */

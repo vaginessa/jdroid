@@ -24,7 +24,7 @@ public class AndroidActivityHelper extends ActivityHelper {
 	}
 
 	@Override
-	protected Boolean isNavDrawerUserHeaderVisible() {
+	protected Boolean isNavDrawerHeaderVisible() {
 		return true;
 	}
 

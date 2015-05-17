@@ -1,11 +1,11 @@
 package com.jdroid.android.fragment;
 
 import android.preference.PreferenceFragment;
-import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
@@ -37,7 +37,17 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	public Boolean shouldRetainInstance() {
 		return true;
 	}
-	
+
+	@Override
+	public Integer getBaseFragmentLayout() {
+		return null;
+	}
+
+	@Override
+	public Integer getContentFragmentLayout() {
+		return null;
+	}
+
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#findView(int)
 	 */
@@ -220,13 +230,14 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	public ActivityIf getActivityIf() {
 		return (ActivityIf)getActivity();
 	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getActionBar()
-	 */
+
 	@Override
-	public ActionBar getActionBar() {
-		return ((AbstractFragmentActivity)getActivity()).getSupportActionBar();
+	public void initAppBar(Toolbar appBar) {
+	}
+	
+	@Override
+	public Toolbar getAppBar() {
+		return null;
 	}
 	
 	// //////////////////////// Analytics //////////////////////// //

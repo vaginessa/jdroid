@@ -2,15 +2,14 @@ package com.jdroid.android.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+
 import com.jdroid.android.R;
 
 /**
@@ -40,13 +39,9 @@ public class AbstractGridFragment<T> extends AbstractFragment implements OnItemS
 		}
 	};
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup,
-	 *      android.os.Bundle)
-	 */
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.grid_fragment, container, false);
+	public Integer getContentFragmentLayout() {
+		return R.layout.grid_fragment;
 	}
 	
 	/**

@@ -34,6 +34,4 @@
 		<TextView android:id="@id/android:empty" android:text="@string/noResultsSearch" style="@style/noResultsText" />
 	</LinearLayout>
 
-	<include layout="@layout/ad_view_container" />
-
 </RelativeLayout>

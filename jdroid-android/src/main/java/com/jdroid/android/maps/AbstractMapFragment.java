@@ -5,13 +5,14 @@ import android.content.res.TypedArray;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.animation.Animation;
+
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
@@ -62,7 +63,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		ViewGroup view = (ViewGroup)inflater.inflate(R.layout.map_fragment, container, false);
+		ViewGroup view = (ViewGroup)fragmentHelper.onCreateView(inflater, container, savedInstanceState);
 		ViewGroup mapContainer = (ViewGroup)view.findViewById(R.id.mapContainer);
 		if (GooglePlayUtils.isGooglePlayServicesAvailable(getActivity())) {
 			View mapView = super.onCreateView(inflater, mapContainer, savedInstanceState);
@@ -89,7 +90,17 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 		}
 		return view;
 	}
-	
+
+	@Override
+	public Integer getBaseFragmentLayout() {
+		return fragmentHelper.getBaseFragmentLayout();
+	}
+
+	@Override
+	public Integer getContentFragmentLayout() {
+		return R.layout.map_fragment;
+	}
+
 	/**
 	 * @see android.support.v4.app.Fragment#onStart()
 	 */
@@ -397,13 +408,15 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	public User getUser() {
 		return fragmentHelper.getUser();
 	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getActionBar()
-	 */
+
 	@Override
-	public ActionBar getActionBar() {
-		return fragmentHelper.getActionBar();
+	public void initAppBar(Toolbar appBar) {
+		fragmentHelper.initAppBar(appBar);
+	}
+	
+	@Override
+	public Toolbar getAppBar() {
+		return fragmentHelper.getAppBar();
 	}
 	
 	/**

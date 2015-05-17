@@ -1,7 +1,5 @@
 package com.jdroid.android.picture;
 
-import java.io.File;
-import java.util.Date;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,15 +8,17 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
+
 import com.jdroid.android.R;
 import com.jdroid.android.dialog.AbstractDialogFragment;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.utils.DateUtils;
+
+import java.io.File;
+import java.util.Date;
 
 public class PictureDialogFragment extends AbstractDialogFragment {
 	
@@ -54,15 +54,11 @@ public class PictureDialogFragment extends AbstractDialogFragment {
 		}
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup,
-	 *      android.os.Bundle)
-	 */
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.picture_dialog_fragment, container, false);
+	public Integer getContentFragmentLayout() {
+		return R.layout.picture_dialog_fragment;
 	}
-	
+
 	/**
 	 * @see android.support.v4.app.Fragment#onViewCreated(android.view.View, android.os.Bundle)
 	 */

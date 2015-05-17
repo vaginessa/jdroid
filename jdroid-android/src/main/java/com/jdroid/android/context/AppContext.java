@@ -110,7 +110,7 @@ public abstract class AppContext {
 	 */
 	public Boolean areAdsEnabled() {
 		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(ADS_ENABLED,
-			adsEnabled);
+				adsEnabled);
 	}
 	
 	/**
@@ -160,6 +160,14 @@ public abstract class AppContext {
 	public Boolean isUserDataMocked() {
 		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(USER_DATA_MOCKED,
 			false);
+	}
+
+	public String getMockedEmail() {
+		return "tonystark@ironmail.com";
+	}
+
+	public String getMockedFullname() {
+		return "Tony Stark";
 	}
 	
 	public String getLocalIp() {

@@ -72,7 +72,7 @@
 				  android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<activity android:name="com.jdroid.sample.android.hero.HeroActivity" android:label="@string/hero"
-				  android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" android:theme="@style/App.Theme.TranslucentActionBar"  tools:ignore="UnusedAttribute"/>
+				  android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity"  tools:ignore="UnusedAttribute"/>
 
 		<activity android:name="com.jdroid.sample.android.ui.exceptions.ExceptionHandlingActivity" android:label="@string/exceptionHandling"
 			android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>

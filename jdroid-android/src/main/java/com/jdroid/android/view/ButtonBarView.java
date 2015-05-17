@@ -1,17 +1,14 @@
 package com.jdroid.android.view;
 
-import android.app.Activity;
 import android.content.Context;
-import android.support.v7.app.ActionBar;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
-import com.jdroid.android.activity.AbstractFragmentActivity;
-import com.jdroid.android.utils.AndroidUtils;
 
 public class ButtonBarView extends FrameLayout {
 	
@@ -91,21 +88,5 @@ public class ButtonBarView extends FrameLayout {
 	
 	public TextView getPositiveText() {
 		return positiveText;
-	}
-	
-	/**
-	 * Put this {@link ButtonBarView} on the {@link ActionBar}. To make it work properly on KitKat you also need to add
-	 * a theme on your activity with the following line: <item name="android:homeAsUpIndicator">@null</item>
-	 * 
-	 * @param activity The {@link Activity}
-	 */
-	public void addToActionBar(AbstractFragmentActivity activity) {
-		ActionBar actionBar = activity.getSupportActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(!AndroidUtils.isPreKitkat());
-		actionBar.setDisplayShowTitleEnabled(false);
-		actionBar.setDisplayShowHomeEnabled(false);
-		actionBar.setHomeButtonEnabled(false);
-		actionBar.setDisplayShowCustomEnabled(true);
-		actionBar.setCustomView(this);
 	}
 }

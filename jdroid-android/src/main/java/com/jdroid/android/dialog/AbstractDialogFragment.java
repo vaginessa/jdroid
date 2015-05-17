@@ -2,8 +2,10 @@ package com.jdroid.android.dialog;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
@@ -48,7 +50,22 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 		fragmentHelper = AbstractApplication.get().createFragmentHelper(this);
 		fragmentHelper.onCreate(savedInstanceState);
 	}
-	
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		return inflater.inflate(getContentFragmentLayout(), container, false);
+	}
+
+	@Override
+	public Integer getBaseFragmentLayout() {
+		return fragmentHelper.getBaseFragmentLayout();
+	}
+
+	@Override
+	public Integer getContentFragmentLayout() {
+		return fragmentHelper.getContentFragmentLayout();
+	}
+
 	/**
 	 * @see android.support.v4.app.Fragment#onViewCreated(android.view.View, android.os.Bundle)
 	 */
@@ -250,13 +267,15 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	public User getUser() {
 		return fragmentHelper.getUser();
 	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getActionBar()
-	 */
+
 	@Override
-	public ActionBar getActionBar() {
-		return fragmentHelper.getActionBar();
+	public void initAppBar(Toolbar appBar) {
+		fragmentHelper.initAppBar(appBar);
+	}
+	
+	@Override
+	public Toolbar getAppBar() {
+		return fragmentHelper.getAppBar();
 	}
 	
 	/**

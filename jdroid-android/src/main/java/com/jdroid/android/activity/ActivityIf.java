@@ -3,6 +3,7 @@ package com.jdroid.android.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 
@@ -53,6 +54,8 @@ public interface ActivityIf extends ComponentIf {
 	public void setLoading(ActivityLoading loading);
 	
 	// //////////////////////// Navigation Drawer //////////////////////// //
+
+	public void initNavDrawer(Toolbar appBar);
 	
 	public Boolean isNavDrawerEnabled();
 	

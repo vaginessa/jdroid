@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+
+	<include layout="@layout/app_bar" />
+
+	<FrameLayout android:id="@+id/content" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_above="@+id/adViewContainer" android:layout_below="@+id/appBar"/>
+
+	<include layout="@layout/ad_view_container" />
+
+</RelativeLayout>

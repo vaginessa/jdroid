@@ -2,14 +2,17 @@ package com.jdroid.android.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
@@ -58,7 +61,23 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 		fragmentHelper = AbstractApplication.get().createFragmentHelper(this);
 		fragmentHelper.onCreate(savedInstanceState);
 	}
-	
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = fragmentHelper.onCreateView(inflater, container, savedInstanceState);
+		return view != null ? view : super.onCreateView(inflater, container, savedInstanceState);
+	}
+
+	@Override
+	public Integer getBaseFragmentLayout() {
+		return fragmentHelper.getBaseFragmentLayout();
+	}
+
+	@Override
+	public Integer getContentFragmentLayout() {
+		return fragmentHelper.getContentFragmentLayout();
+	}
+
 	/**
 	 * @see android.support.v4.app.Fragment#onViewCreated(android.view.View, android.os.Bundle)
 	 */
@@ -266,13 +285,15 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 	public User getUser() {
 		return fragmentHelper.getUser();
 	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getActionBar()
-	 */
+
 	@Override
-	public ActionBar getActionBar() {
-		return fragmentHelper.getActionBar();
+	public void initAppBar(Toolbar appBar) {
+		fragmentHelper.initAppBar(appBar);
+	}
+	
+	@Override
+	public Toolbar getAppBar() {
+		return fragmentHelper.getAppBar();
 	}
 	
 	/**

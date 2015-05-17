@@ -6,6 +6,4 @@
 	<ListView android:id="@+id/android:list" style="@style/list" android:layout_above="@+id/adViewContainer"
 		tools:ignore="UnknownIdInLayout" />
 
-	<include layout="@layout/ad_view_container" />
-
 </RelativeLayout>

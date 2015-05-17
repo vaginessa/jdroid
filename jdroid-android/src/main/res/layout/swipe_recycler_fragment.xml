@@ -14,5 +14,4 @@
 	<TextView android:id="@id/android:empty" android:layout_height="wrap_content" android:layout_width="match_parent" android:layout_centerVertical="true"
 			  android:gravity="center" style="@style/noResultsText" android:layout_margin="14dp"
 			  android:text="@string/noResults" android:visibility="gone" tools:visibility="visible" />
-	<include layout="@layout/ad_view_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true"/>
 </RelativeLayout>

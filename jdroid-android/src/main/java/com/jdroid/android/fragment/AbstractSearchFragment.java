@@ -32,13 +32,9 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 	private EditText searchText;
 	private View loading;
 	
-	/**
-	 * @see android.support.v4.app.ListFragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup,
-	 *      android.os.Bundle)
-	 */
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.abstract_search_fragment, container, false);
+	public Integer getContentFragmentLayout() {
+		return R.layout.abstract_search_fragment;
 	}
 	
 	/**

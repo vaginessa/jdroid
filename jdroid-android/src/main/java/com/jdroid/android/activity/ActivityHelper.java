@@ -14,9 +14,8 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.DrawerLayout.DrawerListener;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +23,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.google.android.gms.ads.AdSize;
@@ -78,6 +76,7 @@ public class ActivityHelper implements ActivityIf {
 	private ActionBarDrawerToggle drawerToggle;
 	private ListView drawerList;
 	private static Boolean navDrawerManuallyUsed = false;
+
 	private static Boolean inAppBillingLoaded = false;
 	
 	public ActivityHelper(AbstractFragmentActivity activity) {
@@ -141,13 +140,6 @@ public class ActivityHelper implements ActivityIf {
 			inAppBillingLoaded = true;
 		}
 		
-		// Action bar
-		final ActionBar actionBar = activity.getSupportActionBar();
-		if (actionBar != null) {
-			
-			actionBar.setDisplayHomeAsUpEnabled(true);
-		}
-		
 		if (getActivityIf().onBeforeSetContentView()) {
 			if (getContentView() != 0) {
 				activity.setContentView(getContentView());
@@ -164,118 +156,7 @@ public class ActivityHelper implements ActivityIf {
 				adHelper.loadInterstitial(activity, getActivityIf().getInterstitialAdUnitId());
 			}
 		}
-		
-		// Nav Drawer
-		
-		if (isNavDrawerEnabled()) {
-			
-			drawerLayout = findView(R.id.drawer_layout);
-			drawerList = findView(R.id.left_drawer);
-			
-			// Set the adapter for the list view
-			// set a custom shadow that overlays the main content when the drawer opens
-			drawerLayout.setDrawerShadow(isDarkTheme() ? R.drawable.drawer_shadow_dark : R.drawable.drawer_shadow,
-				GravityCompat.START);
 
-			if (isNavDrawerUserHeaderVisible()) {
-				drawerList.addHeaderView(createNavDrawerHeaderBuilder().build());
-			}
-			drawerList.setAdapter(new NavDrawerAdapter(activity, getVisibleNavDrawerItems()));
-			// Set the list's click listener
-			drawerList.setOnItemClickListener(new OnItemClickListener() {
-				
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					if (position >= drawerList.getHeaderViewsCount()) {
-						selectNavDrawerItem(position);
-					}
-				}
-				
-			});
-			
-			final DrawerListener drawerListener = new DrawerListener() {
-				
-				@Override
-				public void onDrawerStateChanged(int newState) {
-					if (newState == DrawerLayout.STATE_DRAGGING) {
-						saveNavDrawerManuallyUsed();
-					}
-				}
-				
-				@Override
-				public void onDrawerSlide(View drawerView, float slideOffset) {
-					// Do nothing
-				}
-				
-				@Override
-				public void onDrawerOpened(View view) {
-					// Do nothing
-				}
-				
-				@Override
-				public void onDrawerClosed(View view) {
-					// Do nothing
-				}
-			};
-			
-			if (getActivityIf().isNavDrawerTopLevelView()) {
-				drawerToggle = new ActionBarDrawerToggle(activity, drawerLayout, R.string.drawerOpen,
-						R.string.drawerClose) {
-					
-					@Override
-					public void onDrawerStateChanged(int newState) {
-						super.onDrawerStateChanged(newState);
-						drawerListener.onDrawerStateChanged(newState);
-					}
-					
-					@Override
-					public void onDrawerSlide(View drawerView, float slideOffset) {
-						super.onDrawerSlide(drawerView, slideOffset);
-						drawerListener.onDrawerSlide(drawerView, slideOffset);
-					}
-					
-					@Override
-					public void onDrawerClosed(View view) {
-						super.onDrawerClosed(view);
-						drawerListener.onDrawerClosed(view);
-					}
-					
-					@Override
-					public void onDrawerOpened(View drawerView) {
-						super.onDrawerOpened(drawerView);
-						drawerListener.onDrawerOpened(drawerView);
-					}
-				};
-				
-				// Set the drawer toggle as the DrawerListener
-				drawerLayout.setDrawerListener(drawerToggle);
-			} else {
-				drawerLayout.setDrawerListener(drawerListener);
-			}
-			
-			if (isNavDrawerOpenedOnFirstSession()) {
-				ExecutorUtils.schedule(new Runnable() {
-					
-					@Override
-					public void run() {
-						navDrawerManuallyUsed = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(
-							NAV_DRAWER_MANUALLY_USED, false);
-						activity.runOnUiThread(new Runnable() {
-							
-							@Override
-							public void run() {
-								String action = activity.getIntent().getAction();
-								if (!navDrawerManuallyUsed && Intent.ACTION_MAIN.equals(action)) {
-									drawerLayout.openDrawer(drawerList);
-								}
-							}
-						});
-					}
-				}, 1L);
-			}
-			
-		}
-		
 		if (savedInstanceState == null) {
 			trackNotificationOpened(activity.getIntent());
 		}
@@ -283,14 +164,6 @@ public class ActivityHelper implements ActivityIf {
 
 	public Boolean isDarkTheme() {
 		return false;
-	}
-	
-	private String getMockedEmail() {
-		return "tonystark@ironmail.com";
-	}
-	
-	private String getMockedFullname() {
-		return "Tony Stark";
 	}
 	
 	public void onPostCreate(Bundle savedInstanceState) {
@@ -341,7 +214,7 @@ public class ActivityHelper implements ActivityIf {
 				AbstractApplication.get().saveInstallationSource();
 				AppLoadingSource appLoadingSource = AppLoadingSource.getAppLoadingSource(activity.getIntent());
 				AbstractApplication.get().getAnalyticsSender().onActivityStart(activity.getClass(), appLoadingSource,
-					getOnActivityStartData());
+						getOnActivityStartData());
 			}
 		});
 		
@@ -393,18 +266,7 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.debug("Executing onResume on " + activity);
 		AbstractApplication.get().setInBackground(false);
 		AbstractApplication.get().setCurrentActivity(activity);
-		
-		ActionBar actionBar = activity.getSupportActionBar();
-		if (actionBar != null) {
-			AppContext context = AbstractApplication.get().getAppContext();
-			if (!context.isProductionEnvironment() && context.displayDebugSettings()) {
-				if (context.isHttpMockEnabled()) {
-					actionBar.setBackgroundDrawable(getActivity().getResources().getDrawable(
-						R.color.actionbarMockBackground));
-				}
-			}
-		}
-		
+
 		if (adHelper != null) {
 			adHelper.onResume();
 		}
@@ -728,6 +590,117 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	// //////////////////////// Navigation Drawer //////////////////////// //
+
+	public void initNavDrawer(Toolbar appBar) {
+		if (isNavDrawerEnabled()) {
+
+			drawerLayout = findView(R.id.drawer_layout);
+			drawerList = findView(R.id.left_drawer);
+
+			// Set the adapter for the list view
+			// set a custom shadow that overlays the main content when the drawer opens
+			drawerLayout.setDrawerShadow(isDarkTheme() ? R.drawable.drawer_shadow_dark : R.drawable.drawer_shadow,
+					GravityCompat.START);
+
+			if (isNavDrawerHeaderVisible()) {
+				drawerList.addHeaderView(createNavDrawerHeaderBuilder().build());
+			}
+			drawerList.setAdapter(new NavDrawerAdapter(activity, getVisibleNavDrawerItems()));
+			// Set the list's click listener
+			drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					if (position >= drawerList.getHeaderViewsCount()) {
+						selectNavDrawerItem(position);
+					}
+				}
+
+			});
+
+			final DrawerLayout.DrawerListener drawerListener = new DrawerLayout.DrawerListener() {
+
+				@Override
+				public void onDrawerStateChanged(int newState) {
+					if (newState == DrawerLayout.STATE_DRAGGING) {
+						saveNavDrawerManuallyUsed();
+					}
+				}
+
+				@Override
+				public void onDrawerSlide(View drawerView, float slideOffset) {
+					// Do nothing
+				}
+
+				@Override
+				public void onDrawerOpened(View view) {
+					// Do nothing
+				}
+
+				@Override
+				public void onDrawerClosed(View view) {
+					// Do nothing
+				}
+			};
+
+			if (getActivityIf().isNavDrawerTopLevelView() && appBar != null) {
+				drawerToggle = new ActionBarDrawerToggle(activity, drawerLayout, appBar, R.string.drawerOpen,
+						R.string.drawerClose) {
+
+					@Override
+					public void onDrawerStateChanged(int newState) {
+						super.onDrawerStateChanged(newState);
+						drawerListener.onDrawerStateChanged(newState);
+					}
+
+					@Override
+					public void onDrawerSlide(View drawerView, float slideOffset) {
+						super.onDrawerSlide(drawerView, slideOffset);
+						drawerListener.onDrawerSlide(drawerView, slideOffset);
+					}
+
+					@Override
+					public void onDrawerClosed(View view) {
+						super.onDrawerClosed(view);
+						drawerListener.onDrawerClosed(view);
+					}
+
+					@Override
+					public void onDrawerOpened(View drawerView) {
+						super.onDrawerOpened(drawerView);
+						drawerListener.onDrawerOpened(drawerView);
+					}
+				};
+				// Set the drawer toggle as the DrawerListener
+				drawerLayout.setDrawerListener(drawerToggle);
+			} else {
+				appBar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+				drawerLayout.setDrawerListener(drawerListener);
+			}
+
+			if (isNavDrawerOpenedOnFirstSession()) {
+				ExecutorUtils.schedule(new Runnable() {
+
+					@Override
+					public void run() {
+						navDrawerManuallyUsed = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(
+								NAV_DRAWER_MANUALLY_USED, false);
+						activity.runOnUiThread(new Runnable() {
+
+							@Override
+							public void run() {
+								String action = activity.getIntent().getAction();
+								if (!navDrawerManuallyUsed && Intent.ACTION_MAIN.equals(action)) {
+									drawerLayout.openDrawer(drawerList);
+								}
+							}
+						});
+					}
+				}, 1L);
+			}
+
+		}
+	}
 	
 	private void saveNavDrawerManuallyUsed() {
 		if ((navDrawerManuallyUsed == null) || !navDrawerManuallyUsed) {
@@ -794,7 +767,7 @@ public class ActivityHelper implements ActivityIf {
 		return true;
 	}
 	
-	protected Boolean isNavDrawerUserHeaderVisible() {
+	protected Boolean isNavDrawerHeaderVisible() {
 		return true;
 	}
 
@@ -809,8 +782,8 @@ public class ActivityHelper implements ActivityIf {
 			String fullname = user.getFullname();
 			String email = user.getEmail();
 			if (AbstractApplication.get().getAppContext().isUserDataMocked()) {
-				fullname = getMockedFullname();
-				email = getMockedEmail();
+				fullname = AbstractApplication.get().getAppContext().getMockedFullname();
+				email = AbstractApplication.get().getAppContext().getMockedEmail();
 			}
 
 			builder.setTitle(fullname);

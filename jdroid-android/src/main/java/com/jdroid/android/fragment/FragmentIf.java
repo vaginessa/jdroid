@@ -2,8 +2,9 @@ package com.jdroid.android.fragment;
 
 import android.app.Activity;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
-import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.activity.ComponentIf;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
@@ -16,6 +17,14 @@ import com.jdroid.java.exception.AbstractException;
 public interface FragmentIf extends ComponentIf, DefaultUseCaseListener, OnRefreshListener {
 	
 	public ActivityIf getActivityIf();
+
+	public Toolbar getAppBar();
+
+	public void initAppBar(Toolbar appBar);
+
+	public Integer getBaseFragmentLayout();
+
+	public Integer getContentFragmentLayout();
 	
 	/**
 	 * Finds a view that was identified by the id attribute from the XML that was processed in {@link Activity#onCreate}
@@ -50,8 +59,6 @@ public interface FragmentIf extends ComponentIf, DefaultUseCaseListener, OnRefre
 	public Boolean goBackOnError(AbstractException abstractException);
 	
 	public Boolean shouldRetainInstance();
-	
-	public ActionBar getActionBar();
 	
 	public FragmentLoading getDefaultLoading();
 	
