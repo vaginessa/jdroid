@@ -18,6 +18,8 @@ public interface FragmentIf extends ComponentIf, DefaultUseCaseListener, OnRefre
 	
 	public ActivityIf getActivityIf();
 
+	public Boolean isSecondaryFragment();
+
 	public Toolbar getAppBar();
 
 	public void beforeInitAppBar(Toolbar appBar);

@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -537,5 +538,15 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	@Override
 	public Integer getMenuResourceId() {
 		return fragmentHelper.getMenuResourceId();
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		return fragmentHelper.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public Boolean isSecondaryFragment() {
+		return fragmentHelper.isSecondaryFragment();
 	}
 }

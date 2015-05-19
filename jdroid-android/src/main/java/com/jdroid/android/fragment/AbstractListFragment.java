@@ -475,4 +475,14 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 	public Integer getMenuResourceId() {
 		return fragmentHelper.getMenuResourceId();
 	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		return fragmentHelper.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public Boolean isSecondaryFragment() {
+		return fragmentHelper.isSecondaryFragment();
+	}
 }

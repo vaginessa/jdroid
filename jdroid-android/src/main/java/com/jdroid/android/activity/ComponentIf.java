@@ -2,6 +2,7 @@ package com.jdroid.android.activity;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
+import android.view.MenuItem;
 import android.view.View;
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.context.AppContext;
@@ -66,4 +67,6 @@ public interface ComponentIf {
 	public void dismissLoading();
 
 	public Integer getMenuResourceId();
+
+	public boolean onOptionsItemSelected(MenuItem item);
 }

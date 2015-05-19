@@ -56,6 +56,11 @@
 	<string name="warningToastMessage">This is a warning Toast</string>
 	<string name="errorToastMessage">This is an error Toast</string>
 
+	<!-- Tablets -->
+	<string name="tablets">Tablets</string>
+	<string name="leftAction">Left Action</string>
+	<string name="rightAction">Right Action</string>
+
 	<!-- Loading -->
 	<string name="loading">Loading &amp; Refresh</string>
 	<string name="blockingLoading">Blocking Loading</string>
@@ -71,6 +76,9 @@
 	<!-- Recycler View -->
 	<string name="recyclerView">Recycler View</string>
 	<string name="noResults">No Results</string>
+
+	<!-- Tablets -->
+	<string name="openDetail">Open Detail</string>
 
 	<!-- About -->
 	<string name="shareMessage">Jdroid - Application Framework for Android and Java apps. Download the sample app on your Android.

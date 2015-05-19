@@ -268,10 +268,24 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 		if (addToBackStack) {
 			fragmentTransaction.addToBackStack(newFragment.getClass().getSimpleName());
 		}
-		fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+		fragmentTransaction.setTransition(getTransition());
 		fragmentTransaction.commit();
 	}
-	
+
+	public void replaceFragment(Fragment newFragment, int containerId, boolean addToBackStack) {
+		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+		fragmentTransaction.replace(containerId, newFragment);
+		if (addToBackStack) {
+			fragmentTransaction.addToBackStack(newFragment.getClass().getSimpleName());
+		}
+		fragmentTransaction.setTransition(getTransition());
+		fragmentTransaction.commit();
+	}
+
+	protected int getTransition() {
+		return FragmentTransaction.TRANSIT_FRAGMENT_FADE;
+	}
+
 	public <E extends Fragment> E instanceFragment(Class<E> fragmentClass, Bundle bundle) {
 		E fragment;
 		try {
@@ -290,7 +304,7 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	public void commitFragment(int containerViewId, Fragment fragment) {
 		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 		fragmentTransaction.add(containerViewId, fragment);
-		fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+		fragmentTransaction.setTransition(getTransition());
 		fragmentTransaction.commit();
 	}
 	

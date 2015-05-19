@@ -101,6 +101,15 @@
 		<activity android:name="com.jdroid.sample.android.recyclerview.RecyclerViewActivity" android:label="@string/recyclerView"
 				  android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<activity android:name="com.jdroid.sample.android.ui.tablets.TabletActivity" android:label="@string/tablets"
+				  android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>
+
+		<activity android:name="com.jdroid.sample.android.ui.tablets.LeftTabletActivity" android:label="@string/tablets"
+				  android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>
+
+		<activity android:name="com.jdroid.sample.android.ui.tablets.RightTabletActivity" android:label="@string/tablets"
+				  android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>
+
 		<activity android:name="com.jdroid.android.about.AboutActivity" android:label="@string/about"
 			android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>
 

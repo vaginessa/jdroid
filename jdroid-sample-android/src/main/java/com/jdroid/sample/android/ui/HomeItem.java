@@ -2,8 +2,10 @@ package com.jdroid.sample.android.ui;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+
 import com.jdroid.android.ActionItem;
 import com.jdroid.android.ActivityLauncher;
+import com.jdroid.android.utils.ScreenUtils;
 import com.jdroid.sample.android.R;
 import com.jdroid.sample.android.hero.HeroActivity;
 import com.jdroid.sample.android.http.HttpActivity;
@@ -15,6 +17,8 @@ import com.jdroid.sample.android.ui.exceptions.ExceptionHandlingActivity;
 import com.jdroid.sample.android.ui.loading.LoadingActivity;
 import com.jdroid.sample.android.ui.maps.MapActivity;
 import com.jdroid.sample.android.ui.notifications.NotificationsActivity;
+import com.jdroid.sample.android.ui.tablets.LeftTabletActivity;
+import com.jdroid.sample.android.ui.tablets.TabletActivity;
 import com.jdroid.sample.android.ui.toasts.ToastsActivity;
 
 public enum HomeItem implements ActionItem {
@@ -32,8 +36,9 @@ public enum HomeItem implements ActionItem {
 	LOADING(R.string.loading, R.drawable.refresh, LoadingActivity.class),
 	NOTIFICATIONS(R.string.notifications, R.drawable.notifications, NotificationsActivity.class),
 	RECYCLER_VIEW(R.string.recyclerView, R.drawable.notifications, RecyclerViewActivity.class),
+	TABLETS(R.string.tablets, R.drawable.apps, ScreenUtils.is10Inches() ? TabletActivity.class : LeftTabletActivity.class),
 	TOASTS(R.string.toasts, R.drawable.info, ToastsActivity.class);
-	
+
 	private Integer resourceId;
 	private Integer iconId;
 	private Class<? extends FragmentActivity> activityClass;

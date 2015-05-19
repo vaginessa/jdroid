@@ -329,4 +329,9 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	public Integer getMenuResourceId() {
 		return null;
 	}
+
+	@Override
+	public Boolean isSecondaryFragment() {
+		return null;
+	}
 }

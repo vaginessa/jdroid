@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -99,8 +100,20 @@ public class FragmentHelper implements FragmentIf {
 		appBar = findView(R.id.appBar);
 		if (appBar != null && getActivityIf() instanceof AbstractFragmentActivity) {
 			getFragmentIf().beforeInitAppBar(appBar);
-			((AbstractFragmentActivity)getActivityIf()).setSupportActionBar(appBar);
-			getActivityIf().initNavDrawer(appBar);
+
+			if (getFragmentIf().isSecondaryFragment()) {
+				appBar.inflateMenu(getFragmentIf().getMenuResourceId());
+				appBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+					@Override
+					public boolean onMenuItemClick(MenuItem item) {
+						return getFragmentIf().onOptionsItemSelected(item);
+					}
+				});
+			} else {
+				((AbstractFragmentActivity)getActivityIf()).setSupportActionBar(appBar);
+				getActivityIf().initNavDrawer(appBar);
+			}
+
 			getFragmentIf().afterInitAppBar(appBar);
 		}
 
@@ -116,6 +129,10 @@ public class FragmentHelper implements FragmentIf {
 		if (loading != null) {
 			loading.onViewCreated(getFragmentIf());
 		}
+	}
+
+	public Boolean isSecondaryFragment() {
+		return false;
 	}
 
 	@Override
@@ -518,5 +535,10 @@ public class FragmentHelper implements FragmentIf {
 	@Override
 	public Integer getMenuResourceId() {
 		return null;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		return false;
 	}
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
@@ -462,5 +463,15 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	@Override
 	public Integer getMenuResourceId() {
 		return fragmentHelper.getMenuResourceId();
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		return fragmentHelper.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public Boolean isSecondaryFragment() {
+		return fragmentHelper.isSecondaryFragment();
 	}
 }

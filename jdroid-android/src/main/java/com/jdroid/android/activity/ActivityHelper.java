@@ -356,7 +356,8 @@ public class ActivityHelper implements ActivityIf {
 			}
 		}
 	}
-	
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Pass the event to ActionBarDrawerToggle, if it returns true, then it has handled the app icon touch event
 		if (isNavDrawerEnabled() && (drawerToggle != null) && drawerToggle.onOptionsItemSelected(item)) {
@@ -592,7 +593,7 @@ public class ActivityHelper implements ActivityIf {
 	// //////////////////////// Navigation Drawer //////////////////////// //
 
 	public void initNavDrawer(Toolbar appBar) {
-		if (isNavDrawerEnabled()) {
+		if (getActivityIf().isNavDrawerEnabled()) {
 
 			drawerLayout = findView(R.id.drawer_layout);
 			drawerList = findView(R.id.left_drawer);
