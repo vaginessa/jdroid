@@ -7,6 +7,7 @@ import com.jdroid.android.ActionItem;
 import com.jdroid.android.ActivityLauncher;
 import com.jdroid.android.utils.ScreenUtils;
 import com.jdroid.sample.android.R;
+import com.jdroid.sample.android.datetime.DateTimeActivity;
 import com.jdroid.sample.android.hero.HeroActivity;
 import com.jdroid.sample.android.http.HttpActivity;
 import com.jdroid.sample.android.imageloader.ImageLoaderActivity;
@@ -25,6 +26,7 @@ public enum HomeItem implements ActionItem {
 	
 	ADMOB(R.string.adMob, R.drawable.apps, AdsActivity.class),
 	ANDROID_UNVERSAL_IMAGE_LOADER(R.string.universalImageLoader, R.drawable.photo, ImageLoaderActivity.class),
+	DATE_TIME(R.string.dateTime, R.drawable.photo, DateTimeActivity.class),
 	EXCEPTION_HANDLING(R.string.exceptionHandling, R.drawable.bug, ExceptionHandlingActivity.class),
 	GOOGLE_ANALYTCS(R.string.googleAnalytics, R.drawable.analytics, AnalyticsActivity.class),
 	GCM(R.string.gcm, R.drawable.cloud, ImageLoaderActivity.class),

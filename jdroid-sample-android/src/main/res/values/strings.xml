@@ -8,6 +8,11 @@
 	<string name="adMob">AdMob</string>
 	<string name="display_interstitial">Display Interstitial</string>
 
+	<!-- Date & Time -->
+	<string name="dateTime">Date &amp; Time</string>
+	<string name="datePickerDialog">Date Picker Dialog</string>
+	<string name="timePickerDialog">Time Picker Dialog</string>
+
 	<!-- Image Loader -->
 	<string name="universalImageLoader">Android Universal Image Loader</string>
 
