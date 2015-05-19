@@ -219,6 +219,12 @@
 		<item name="android:layout_marginTop">8dp</item>
 	</style>
 
+	<style name="spreadTheLoveFollowUsItemText" parent="textMediumBold">
+		<item name="android:textStyle">normal</item>
+		<item name="android:singleLine">true</item>
+		<item name="android:ellipsize">end</item>
+	</style>
+
 	<!-- CardView -->
 
 	<style name="cardViewStyle">

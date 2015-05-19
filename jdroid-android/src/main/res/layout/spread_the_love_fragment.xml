@@ -9,39 +9,39 @@
 
 		<android.support.v7.widget.CardView android:id="@+id/facebook" style="@style/cardViewClickableStyle">
 
-			<LinearLayout android:orientation="horizontal" style="@style/cardViewInnerClickable" android:gravity="center_vertical"
+			<LinearLayout android:orientation="horizontal" style="@style/cardViewInner" android:gravity="center_vertical"
 				android:minHeight="@dimen/nav_drawer_main_min_height">
 
 				<ImageView android:layout_width="@dimen/nav_drawer_icon_size" android:layout_height="@dimen/nav_drawer_icon_size"
 					android:layout_marginRight="12dp" android:duplicateParentState="true" android:src="@drawable/ic_facebook" />
 
-				<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/navDrawerItemText"
+				<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/spreadTheLoveFollowUsItemText"
 					android:duplicateParentState="true" android:text="@string/facebook" />
 			</LinearLayout>
 
 		</android.support.v7.widget.CardView>
 		<android.support.v7.widget.CardView android:id="@+id/googlePlus" style="@style/cardViewClickableStyle">
 
-			<LinearLayout android:orientation="horizontal" style="@style/cardViewInnerClickable" android:gravity="center_vertical"
+			<LinearLayout android:orientation="horizontal" style="@style/cardViewInner" android:gravity="center_vertical"
 				android:minHeight="@dimen/nav_drawer_main_min_height">
 
 				<ImageView android:layout_width="@dimen/nav_drawer_icon_size" android:layout_height="@dimen/nav_drawer_icon_size"
 					android:layout_marginRight="12dp" android:duplicateParentState="true" android:src="@drawable/ic_google_plus" />
 
-				<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/navDrawerItemText"
+				<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/spreadTheLoveFollowUsItemText"
 					android:duplicateParentState="true" android:text="@string/googlePlus" />
 			</LinearLayout>
 
 		</android.support.v7.widget.CardView>
 		<android.support.v7.widget.CardView android:id="@+id/twitter" style="@style/cardViewClickableStyle">
 
-			<LinearLayout android:orientation="horizontal" style="@style/cardViewInnerClickable" android:gravity="center_vertical"
+			<LinearLayout android:orientation="horizontal" style="@style/cardViewInner" android:gravity="center_vertical"
 				android:minHeight="@dimen/nav_drawer_main_min_height">
 
 				<ImageView android:layout_width="@dimen/nav_drawer_icon_size" android:layout_height="@dimen/nav_drawer_icon_size"
 					android:layout_marginRight="12dp" android:duplicateParentState="true" android:src="@drawable/ic_twitter" />
 
-				<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/navDrawerItemText"
+				<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/spreadTheLoveFollowUsItemText"
 					android:duplicateParentState="true" android:text="@string/twitter" />
 			</LinearLayout>
 
