@@ -6,6 +6,7 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,6 +54,29 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+
+		// FIXME This is just a workaround to the following error: ClassNotFoundException when unmarshalling android.support.v7.widget.Toolbar$SavedState
+		// It seems to be a problem with the SupportMapFragment implementation
+		if (savedInstanceState != null) {
+			SparseArray sparseArray = (SparseArray)savedInstanceState.get("android:view_state");
+			if (sparseArray != null) {
+				Integer keyToRemove = null;
+				for (int i = 0; i < sparseArray.size(); i++) {
+					int key = sparseArray.keyAt(i);
+					// get the object by the key.
+					Object each = sparseArray.get(key);
+					if (each.toString().startsWith("android.support.v7.widget.Toolbar$SavedState")) {
+						keyToRemove = key;
+					}
+				}
+
+				if (keyToRemove != null) {
+					sparseArray.remove(keyToRemove);
+				}
+			}
+		}
+
+
 		super.onCreate(savedInstanceState);
 		fragmentHelper = AbstractApplication.get().createFragmentHelper(this);
 		fragmentHelper.onCreate(savedInstanceState);
