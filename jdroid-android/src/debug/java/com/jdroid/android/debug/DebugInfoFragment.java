@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.util.Pair;
 import android.view.View;
 
+import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.fragment.AbstractRecyclerFragment;
@@ -68,5 +69,10 @@ public class DebugInfoFragment extends AbstractRecyclerFragment<Pair<String, Obj
 			}
 		}
 		setAdapter(new DebugInfoAdapter(filteredProperties));
+	}
+
+	@Override
+	public AdSize getAdSize() {
+		return null;
 	}
 }

@@ -84,10 +84,15 @@ public class ExternalAppsUtils {
 	public static void openCustomMap(Activity activity, String mapId) {
 		boolean isAppInstalled = isAppInstalled(activity, GOOGLE_MAPS_PACKAGE_NAME);
 		if (isAppInstalled) {
+			String mapUrl = getCustomMapUrl(mapId);
 			Intent intent = new Intent(Intent.ACTION_VIEW);
 			intent.setPackage(GOOGLE_MAPS_PACKAGE_NAME);
-			intent.setData(Uri.parse(getCustomMapUrl(mapId)));
-			activity.startActivity(intent);
+			intent.setData(Uri.parse(mapUrl));
+			if (IntentUtils.isIntentAvailable(intent)) {
+				activity.startActivity(intent);
+			} else {
+				openUrl(mapUrl);
+			}
 		} else {
 			GooglePlayUtils.launchAppDetails(activity, GOOGLE_MAPS_PACKAGE_NAME);
 		}

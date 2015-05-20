@@ -7,9 +7,12 @@
 		<!-- your app branding color for the app bar -->
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<!-- darker variant for the status bar and contextual app bars -->
-		<!-- <item name="colorPrimaryDark">@color/colorPrimaryDark</item> -->
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 		<!-- theme UI controls like checkboxes and text fields -->
 		<item name="colorAccent">@color/accentColor</item>
+
+		<item name="alertDialogTheme">@style/Jdroid.Dialog.Alert</item>
+		<item name="dialogTheme">@style/Jdroid.Dialog</item>
 	</style>
 
 	<style name="Jdroid.Theme.Light" parent="Jdroid.Theme.Base">
@@ -20,9 +23,26 @@
 		<!-- your app branding color for the app bar -->
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<!-- darker variant for the status bar and contextual app bars -->
-		<!-- <item name="colorPrimaryDark">@color/colorPrimaryDark</item> -->
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 		<!-- theme UI controls like checkboxes and text fields -->
 		<item name="colorAccent">@color/accentColor</item>
+
+		<item name="alertDialogTheme">@style/Jdroid.Dialog.Alert</item>
+		<item name="dialogTheme">@style/Jdroid.Dialog</item>
+	</style>
+
+	<!-- Styles -->
+
+	<style name="Jdroid.Dialog.Alert" parent="Theme.AppCompat.Light.Dialog.Alert">
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorAccent">@color/accentColor</item>
+		<item name="android:background">@android:color/white</item>
+	</style>
+
+	<style name="Jdroid.Dialog" parent="Theme.AppCompat.Light.Dialog">
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorAccent">@color/accentColor</item>
+		<item name="android:background">@android:color/white</item>
 	</style>
 
 </resources>
