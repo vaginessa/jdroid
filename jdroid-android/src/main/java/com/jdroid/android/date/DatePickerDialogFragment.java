@@ -159,7 +159,7 @@ public class DatePickerDialogFragment extends AbstractDialogFragment implements 
 	}
 	
 	private void updateTitle(Dialog dialog, Date date) {
-		if (dialog != null) {
+		if (dialog != null && AndroidUtils.isPreLollipop()) {
 			String title = DateUtils.formatDateTime(getActivity(), date.getTime(), DateUtils.FORMAT_SHOW_DATE
 					| DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_ABBREV_MONTH
 					| DateUtils.FORMAT_ABBREV_WEEKDAY);

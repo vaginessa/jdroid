@@ -63,8 +63,6 @@ public class TimePickerDialogFragment extends AbstractDialogFragment {
 		View view = inflate(R.layout.time_picker_dialog_fragment);
 		dialogBuilder.setView(view);
 		
-		dialogBuilder.setTitle(R.string.selectTime);
-		
 		final TimePicker timePicker = (TimePicker)view.findViewById(R.id.timePicker);
 		timePicker.setIs24HourView(DateFormat.is24HourFormat(getActivity()));
 		timePicker.setCurrentHour(DateUtils.getHour(defaultTime, true));

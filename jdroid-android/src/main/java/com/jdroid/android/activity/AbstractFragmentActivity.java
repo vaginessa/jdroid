@@ -22,8 +22,6 @@ import com.jdroid.android.loading.ActivityLoading;
 import com.jdroid.android.navdrawer.NavDrawerHeaderBuilder;
 import com.jdroid.java.exception.UnexpectedException;
 
-import java.util.List;
-
 /**
  * Base {@link Activity}
  * 
@@ -341,15 +339,7 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	public Long getLocationFrequency() {
 		return activityHelper.getLocationFrequency();
 	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#getContextualMenuItemsIds()
-	 */
-	@Override
-	public List<Integer> getContextualMenuItemsIds() {
-		return activityHelper.getContextualMenuItemsIds();
-	}
-	
+
 	/**
 	 * @see android.app.Activity#onPostCreate(android.os.Bundle)
 	 */

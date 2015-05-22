@@ -10,8 +10,6 @@ import android.view.MenuInflater;
 import com.jdroid.android.loading.ActivityLoading;
 import com.jdroid.android.navdrawer.NavDrawerHeaderBuilder;
 
-import java.util.List;
-
 public interface ActivityIf extends ComponentIf {
 	
 	public Boolean onBeforeSetContentView();
@@ -32,8 +30,6 @@ public interface ActivityIf extends ComponentIf {
 	public Boolean isLauncherActivity();
 	
 	public Long getLocationFrequency();
-	
-	public List<Integer> getContextualMenuItemsIds();
 	
 	public Intent getUpIntent();
 	

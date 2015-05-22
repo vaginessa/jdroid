@@ -20,8 +20,8 @@ buildscript {
 dependencies {
     compile localGroovy()
 
-	// Check the release notes at http://tools.android.com/tech-docs/new-build-system
-	compile 'com.android.tools.build:gradle:1.1.3'
+	// Check the release notes at http://tools.android.com/tech-docs/new-build-system and https://developer.android.com/tools/revisions/gradle-plugin.html
+	compile 'com.android.tools.build:gradle:1.2.3'
 
 	// https://github.com/JakeWharton/sdk-manager-plugin
 	compile 'com.jakewharton.sdkmanager:gradle-plugin:0.12.0'

@@ -348,13 +348,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	public void onPrepareOptionsMenu(Menu menu) {
-		if (isNavDrawerEnabled() && (drawerLayout != null)) {
-			// If the nav drawer is open, hide action items related to the content view
-			boolean drawerOpen = drawerLayout.isDrawerOpen(drawerList);
-			for (Integer itemId : getActivityIf().getContextualMenuItemsIds()) {
-				menu.findItem(itemId).setVisible(!drawerOpen);
-			}
-		}
+		// Do nothing
 	}
 
 	@Override
@@ -488,14 +482,6 @@ public class ActivityHelper implements ActivityIf {
 
 	public HouseAdBuilder getHouseAdBuilder() {
 		return null;
-	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#getContextualMenuItemsIds()
-	 */
-	@Override
-	public List<Integer> getContextualMenuItemsIds() {
-		return Lists.newArrayList();
 	}
 	
 	public void onNewIntent(Intent intent) {
