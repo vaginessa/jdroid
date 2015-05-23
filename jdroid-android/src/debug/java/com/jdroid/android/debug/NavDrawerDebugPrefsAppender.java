@@ -4,9 +4,10 @@ import android.app.Activity;
 import android.preference.CheckBoxPreference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+
 import com.jdroid.android.R;
-import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.context.AppContext;
+import com.jdroid.android.navdrawer.NavDrawer;
 
 public class NavDrawerDebugPrefsAppender implements PreferencesAppender {
 	
@@ -22,7 +23,7 @@ public class NavDrawerDebugPrefsAppender implements PreferencesAppender {
 		preferenceScreen.addPreference(preferenceCategory);
 		
 		CheckBoxPreference checkBoxPreference = new CheckBoxPreference(activity);
-		checkBoxPreference.setKey(ActivityHelper.NAV_DRAWER_MANUALLY_USED);
+		checkBoxPreference.setKey(NavDrawer.NAV_DRAWER_MANUALLY_USED);
 		checkBoxPreference.setTitle(R.string.navDrawerManuallyUsedTitle);
 		checkBoxPreference.setSummary(R.string.navDrawerManuallyUsedDescription);
 		preferenceCategory.addPreference(checkBoxPreference);

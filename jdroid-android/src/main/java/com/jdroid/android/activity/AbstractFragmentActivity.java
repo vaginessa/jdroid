@@ -19,6 +19,7 @@ import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.UseCaseFragment;
 import com.jdroid.android.loading.ActivityLoading;
+import com.jdroid.android.navdrawer.NavDrawer;
 import com.jdroid.android.navdrawer.NavDrawerHeaderBuilder;
 import com.jdroid.java.exception.UnexpectedException;
 
@@ -449,30 +450,18 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 
 	// //////////////////////// Navigation Drawer //////////////////////// //
 
-
 	@Override
 	public void initNavDrawer(Toolbar appBar) {
 		activityHelper.initNavDrawer(appBar);
 	}
 
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#isNavDrawerEnabled()
-	 */
+	@Override
+	public NavDrawer createNavDrawer(AbstractFragmentActivity activity, Boolean darkTheme, Toolbar appBar) {
+		return activityHelper.createNavDrawer(activity, darkTheme, appBar);
+	}
+
 	@Override
 	public Boolean isNavDrawerEnabled() {
 		return activityHelper.isNavDrawerEnabled();
-	}
-
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#isNavDrawerTopLevelView()
-	 */
-	@Override
-	public Boolean isNavDrawerTopLevelView() {
-		return activityHelper.isNavDrawerTopLevelView();
-	}
-
-	@Override
-	public NavDrawerHeaderBuilder createNavDrawerHeaderBuilder() {
-		return activityHelper.createNavDrawerHeaderBuilder();
 	}
 }

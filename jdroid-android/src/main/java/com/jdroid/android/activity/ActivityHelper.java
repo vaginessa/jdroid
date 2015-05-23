@@ -3,18 +3,12 @@ package com.jdroid.android.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,8 +16,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
@@ -39,12 +31,9 @@ import com.jdroid.android.inappbilling.InAppBillingHelperFragment;
 import com.jdroid.android.loading.ActivityLoading;
 import com.jdroid.android.loading.DefaultBlockingLoading;
 import com.jdroid.android.location.LocationHelper;
-import com.jdroid.android.navdrawer.NavDrawerAdapter;
-import com.jdroid.android.navdrawer.NavDrawerHeaderBuilder;
-import com.jdroid.android.navdrawer.NavDrawerItem;
+import com.jdroid.android.navdrawer.NavDrawer;
 import com.jdroid.android.utils.NotificationBuilder;
 import com.jdroid.android.utils.ToastUtils;
-import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.LoggerUtils;
@@ -52,14 +41,11 @@ import com.jdroid.java.utils.ReflectionUtils;
 
 import org.slf4j.Logger;
 
-import java.util.List;
-
 public class ActivityHelper implements ActivityIf {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(ActivityHelper.class);
 	
 	private static final int LOCATION_UPDATE_TIMER_CODE = IdGenerator.getIntId();
-	public static final String NAV_DRAWER_MANUALLY_USED = "navDrawerManuallyUsed";
 	private static final String TITLE_KEY = "title";
 	
 	private AbstractFragmentActivity activity;
@@ -71,11 +57,7 @@ public class ActivityHelper implements ActivityIf {
 	
 	private String title;
 	
-	// Navigation drawer
-	private DrawerLayout drawerLayout;
-	private ActionBarDrawerToggle drawerToggle;
-	private ListView drawerList;
-	private static Boolean navDrawerManuallyUsed = false;
+	private NavDrawer navDrawer;
 
 	private static Boolean inAppBillingLoaded = false;
 	
@@ -167,15 +149,14 @@ public class ActivityHelper implements ActivityIf {
 	}
 	
 	public void onPostCreate(Bundle savedInstanceState) {
-		if (drawerToggle != null) {
-			// Sync the toggle state after onRestoreInstanceState has occurred.
-			drawerToggle.syncState();
+		if (navDrawer != null) {
+			navDrawer.onPostCreate(savedInstanceState);
 		}
 	}
 	
 	public void onConfigurationChanged(Configuration newConfig) {
-		if (drawerToggle != null) {
-			drawerToggle.onConfigurationChanged(newConfig);
+		if (navDrawer != null) {
+			navDrawer.onConfigurationChanged(newConfig);
 		}
 	}
 	
@@ -270,18 +251,9 @@ public class ActivityHelper implements ActivityIf {
 		if (adHelper != null) {
 			adHelper.onResume();
 		}
-		
-		checkNavDrawerItem();
-	}
-	
-	private void checkNavDrawerItem() {
-		if (isNavDrawerEnabled()) {
-			for (int i = 0; i < getVisibleNavDrawerItems().size(); i++) {
-				NavDrawerItem item = getVisibleNavDrawerItems().get(i);
-				if (item.isMainAction() && item.matchesActivity(activity)) {
-					drawerList.setItemChecked(i + drawerList.getHeaderViewsCount(), true);
-				}
-			}
+
+		if (navDrawer != null) {
+			navDrawer.onResume();
 		}
 	}
 	
@@ -353,9 +325,7 @@ public class ActivityHelper implements ActivityIf {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Pass the event to ActionBarDrawerToggle, if it returns true, then it has handled the app icon touch event
-		if (isNavDrawerEnabled() && (drawerToggle != null) && drawerToggle.onOptionsItemSelected(item)) {
-			saveNavDrawerManuallyUsed();
+		if (navDrawer != null && navDrawer.onOptionsItemSelected(item)) {
 			return true;
 		} else {
 			return onOptionsItemSelected(item.getItemId());
@@ -579,211 +549,17 @@ public class ActivityHelper implements ActivityIf {
 	// //////////////////////// Navigation Drawer //////////////////////// //
 
 	public void initNavDrawer(Toolbar appBar) {
-		if (getActivityIf().isNavDrawerEnabled()) {
-
-			drawerLayout = findView(R.id.drawer_layout);
-			drawerList = findView(R.id.left_drawer);
-
-			// Set the adapter for the list view
-			// set a custom shadow that overlays the main content when the drawer opens
-			drawerLayout.setDrawerShadow(isDarkTheme() ? R.drawable.drawer_shadow_dark : R.drawable.drawer_shadow,
-					GravityCompat.START);
-
-			if (isNavDrawerHeaderVisible()) {
-				drawerList.addHeaderView(createNavDrawerHeaderBuilder().build());
-			}
-			drawerList.setAdapter(new NavDrawerAdapter(activity, getVisibleNavDrawerItems()));
-			// Set the list's click listener
-			drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					if (position >= drawerList.getHeaderViewsCount()) {
-						selectNavDrawerItem(position);
-					}
-				}
-
-			});
-
-			final DrawerLayout.DrawerListener drawerListener = new DrawerLayout.DrawerListener() {
-
-				@Override
-				public void onDrawerStateChanged(int newState) {
-					if (newState == DrawerLayout.STATE_DRAGGING) {
-						saveNavDrawerManuallyUsed();
-					}
-				}
-
-				@Override
-				public void onDrawerSlide(View drawerView, float slideOffset) {
-					// Do nothing
-				}
-
-				@Override
-				public void onDrawerOpened(View view) {
-					// Do nothing
-				}
-
-				@Override
-				public void onDrawerClosed(View view) {
-					// Do nothing
-				}
-			};
-
-			if (getActivityIf().isNavDrawerTopLevelView() && appBar != null) {
-				drawerToggle = new ActionBarDrawerToggle(activity, drawerLayout, appBar, R.string.drawerOpen,
-						R.string.drawerClose) {
-
-					@Override
-					public void onDrawerStateChanged(int newState) {
-						super.onDrawerStateChanged(newState);
-						drawerListener.onDrawerStateChanged(newState);
-					}
-
-					@Override
-					public void onDrawerSlide(View drawerView, float slideOffset) {
-						// 0 offset to disable the hamburger animation
-						super.onDrawerSlide(drawerView, 0);
-						drawerListener.onDrawerSlide(drawerView, 0);
-					}
-
-					@Override
-					public void onDrawerClosed(View view) {
-						super.onDrawerClosed(view);
-						drawerListener.onDrawerClosed(view);
-					}
-
-					@Override
-					public void onDrawerOpened(View drawerView) {
-						super.onDrawerOpened(drawerView);
-						drawerListener.onDrawerOpened(drawerView);
-					}
-				};
-				// Set the drawer toggle as the DrawerListener
-				drawerLayout.setDrawerListener(drawerToggle);
-			} else {
-				appBar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-				drawerLayout.setDrawerListener(drawerListener);
-			}
-
-			if (isNavDrawerOpenedOnFirstSession()) {
-				ExecutorUtils.schedule(new Runnable() {
-
-					@Override
-					public void run() {
-						navDrawerManuallyUsed = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(
-								NAV_DRAWER_MANUALLY_USED, false);
-						activity.runOnUiThread(new Runnable() {
-
-							@Override
-							public void run() {
-								String action = activity.getIntent().getAction();
-								if (!navDrawerManuallyUsed && Intent.ACTION_MAIN.equals(action)) {
-									drawerLayout.openDrawer(drawerList);
-								}
-							}
-						});
-					}
-				}, 1L);
-			}
-
-		}
+		navDrawer = getActivityIf().createNavDrawer(activity, isDarkTheme(), appBar);
+		navDrawer.init();
 	}
-	
-	private void saveNavDrawerManuallyUsed() {
-		if ((navDrawerManuallyUsed == null) || !navDrawerManuallyUsed) {
-			ExecutorUtils.execute(new Runnable() {
-				
-				@Override
-				public void run() {
-					SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
-					Editor editor = sharedPreferences.edit();
-					editor.putBoolean(NAV_DRAWER_MANUALLY_USED, true);
-					editor.apply();
-					navDrawerManuallyUsed = true;
-				}
-			});
-		}
-	}
-	
-	private void selectNavDrawerItem(int position) {
-		NavDrawerItem navDrawerItem = (NavDrawerItem)drawerList.getAdapter().getItem(position);
-		if (!navDrawerItem.matchesActivity(activity)) {
-			navDrawerItem.startActivity(activity);
-		}
-		
-		// update selected item and title, then close the drawer
-		if (navDrawerItem.isMainAction()) {
-			drawerList.setItemChecked(position, true);
-		} else {
-			checkNavDrawerItem();
-		}
-		drawerLayout.closeDrawer(drawerList);
-	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#isNavDrawerEnabled()
-	 */
+
 	@Override
 	public Boolean isNavDrawerEnabled() {
 		return false;
 	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#isNavDrawerTopLevelView()
-	 */
+
 	@Override
-	public Boolean isNavDrawerTopLevelView() {
-		return false;
-	}
-	
-	public List<NavDrawerItem> getNavDrawerItems() {
+	public NavDrawer createNavDrawer(AbstractFragmentActivity activity, Boolean darkTheme, Toolbar appBar) {
 		return null;
-	}
-	
-	private List<NavDrawerItem> getVisibleNavDrawerItems() {
-		List<NavDrawerItem> visibleNavDrawerItems = Lists.newArrayList();
-		for (NavDrawerItem each : getNavDrawerItems()) {
-			if (each.isVisible()) {
-				visibleNavDrawerItems.add(each);
-			}
-		}
-		return visibleNavDrawerItems;
-	}
-	
-	public Boolean isNavDrawerOpenedOnFirstSession() {
-		return true;
-	}
-	
-	protected Boolean isNavDrawerHeaderVisible() {
-		return true;
-	}
-
-	@Override
-	public NavDrawerHeaderBuilder createNavDrawerHeaderBuilder() {
-		NavDrawerHeaderBuilder builder = new NavDrawerHeaderBuilder(getActivityIf());
-		User user = SecurityContext.get().getUser();
-		if (user != null) {
-			builder.setBackground(user.getCoverPictureUrl(), User.PROFILE_PICTURE_TTL);
-			builder.setMainImage(user.getProfilePictureUrl(), User.PROFILE_PICTURE_TTL);
-
-			String fullname = user.getFullname();
-			String email = user.getEmail();
-			if (AbstractApplication.get().getAppContext().isUserDataMocked()) {
-				fullname = AbstractApplication.get().getAppContext().getMockedFullname();
-				email = AbstractApplication.get().getAppContext().getMockedEmail();
-			}
-
-			builder.setTitle(fullname);
-			builder.setSubTitle(email);
-		} else {
-			builder.setMainImage(R.drawable.ic_launcher);
-			builder.setTitle(getActivity().getString(R.string.appName));
-			String website = AbstractApplication.get().getAppContext().getWebsite();
-			if (website != null) {
-				builder.setSubTitle(website.replaceAll("http://", ""));
-			}
-		}
-		return builder;
 	}
 }

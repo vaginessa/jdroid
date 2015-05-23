@@ -1,7 +1,11 @@
 package com.jdroid.sample.android;
 
+import android.support.v7.widget.Toolbar;
+
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
+import com.jdroid.android.navdrawer.DefaultNavDrawer;
+import com.jdroid.android.navdrawer.NavDrawer;
 import com.jdroid.android.navdrawer.NavDrawerHeaderBuilder;
 import com.jdroid.android.navdrawer.NavDrawerItem;
 import com.jdroid.java.collections.Lists;
@@ -14,32 +18,27 @@ public class AndroidActivityHelper extends ActivityHelper {
 	public AndroidActivityHelper(AbstractFragmentActivity activity) {
 		super(activity);
 	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ActivityHelper#isNavDrawerEnabled()
-	 */
+
 	@Override
 	public Boolean isNavDrawerEnabled() {
 		return true;
 	}
 
 	@Override
-	protected Boolean isNavDrawerHeaderVisible() {
-		return true;
-	}
+	public NavDrawer createNavDrawer(AbstractFragmentActivity activity, Boolean darkTheme, Toolbar appBar) {
+		return new DefaultNavDrawer(activity, isDarkTheme(), appBar) {
 
-	/**
-	 * @see com.jdroid.android.activity.ActivityHelper#getNavDrawerItems()
-	 */
-	@Override
-	public List<NavDrawerItem> getNavDrawerItems() {
-		return Lists.<NavDrawerItem>newArrayList(AndroidNavDrawerItem.values());
-	}
+			@Override
+			public List<NavDrawerItem> getNavDrawerItems() {
+				return Lists.<NavDrawerItem>newArrayList(AndroidNavDrawerItem.values());
+			}
 
-	@Override
-	public NavDrawerHeaderBuilder createNavDrawerHeaderBuilder() {
-		NavDrawerHeaderBuilder builder = super.createNavDrawerHeaderBuilder();
-		builder.setBackground(R.drawable.hero);
-		return builder;
+			@Override
+			public NavDrawerHeaderBuilder createNavDrawerHeaderBuilder() {
+				NavDrawerHeaderBuilder builder = super.createNavDrawerHeaderBuilder();
+				builder.setBackground(R.drawable.hero);
+				return builder;
+			}
+		};
 	}
 }

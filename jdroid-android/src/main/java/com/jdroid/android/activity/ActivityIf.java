@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 
 import com.jdroid.android.loading.ActivityLoading;
-import com.jdroid.android.navdrawer.NavDrawerHeaderBuilder;
+import com.jdroid.android.navdrawer.NavDrawer;
 
 public interface ActivityIf extends ComponentIf {
 	
@@ -52,11 +52,9 @@ public interface ActivityIf extends ComponentIf {
 	// //////////////////////// Navigation Drawer //////////////////////// //
 
 	public void initNavDrawer(Toolbar appBar);
-	
+
 	public Boolean isNavDrawerEnabled();
+
+	public NavDrawer createNavDrawer(AbstractFragmentActivity activity, Boolean darkTheme, Toolbar appBar);
 	
-	public Boolean isNavDrawerTopLevelView();
-
-	public NavDrawerHeaderBuilder createNavDrawerHeaderBuilder();
-
 }
