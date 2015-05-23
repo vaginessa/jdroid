@@ -542,15 +542,20 @@ public class ActivityHelper implements ActivityIf {
 	}
 
 	@Override
-	public void onBackPressed() {
-		// Do nothing
+	public Boolean onBackPressedHandled() {
+		if (navDrawer != null) {
+			return navDrawer.onBackPressed();
+		}
+		return false;
 	}
 	
 	// //////////////////////// Navigation Drawer //////////////////////// //
 
 	public void initNavDrawer(Toolbar appBar) {
-		navDrawer = getActivityIf().createNavDrawer(activity, isDarkTheme(), appBar);
-		navDrawer.init();
+		if (getActivityIf().isNavDrawerEnabled()) {
+			navDrawer = getActivityIf().createNavDrawer(activity, isDarkTheme(), appBar);
+			navDrawer.init();
+		}
 	}
 
 	@Override

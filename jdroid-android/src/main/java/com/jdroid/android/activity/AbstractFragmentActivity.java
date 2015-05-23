@@ -20,7 +20,6 @@ import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.UseCaseFragment;
 import com.jdroid.android.loading.ActivityLoading;
 import com.jdroid.android.navdrawer.NavDrawer;
-import com.jdroid.android.navdrawer.NavDrawerHeaderBuilder;
 import com.jdroid.java.exception.UnexpectedException;
 
 /**
@@ -444,8 +443,13 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 
 	@Override
 	public void onBackPressed() {
-		super.onBackPressed();
-		activityHelper.onBackPressed();
+		if (!onBackPressedHandled()) {
+			super.onBackPressed();
+		}
+	}
+
+	public Boolean onBackPressedHandled() {
+		return activityHelper.onBackPressedHandled();
 	}
 
 	// //////////////////////// Navigation Drawer //////////////////////// //

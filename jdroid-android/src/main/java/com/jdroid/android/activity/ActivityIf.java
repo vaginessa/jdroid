@@ -41,7 +41,7 @@ public interface ActivityIf extends ComponentIf {
 	
 	public Boolean isActivityDestroyed();
 
-	public void onBackPressed();
+	public Boolean onBackPressedHandled();
 	
 	// //////////////////////// Loading //////////////////////// //
 	

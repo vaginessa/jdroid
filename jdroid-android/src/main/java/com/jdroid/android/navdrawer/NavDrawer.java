@@ -174,6 +174,14 @@ public abstract class NavDrawer {
 		}
 	}
 
+	public Boolean onBackPressed() {
+		if (drawerLayout.isDrawerOpen(content)) {
+			drawerLayout.closeDrawer(content);
+			return true;
+		}
+		return false;
+	}
+
 	public DrawerLayout getDrawerLayout() {
 		return drawerLayout;
 	}
