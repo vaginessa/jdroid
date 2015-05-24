@@ -1,4 +1,4 @@
-package com.jdroid.sample.android.imageloader;
+package com.jdroid.sample.android.ui.imageloader;
 
 import android.os.Bundle;
 import android.view.View;

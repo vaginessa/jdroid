@@ -1,4 +1,4 @@
-package com.jdroid.sample.android.recyclerview;
+package com.jdroid.sample.android.ui.recyclerview;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

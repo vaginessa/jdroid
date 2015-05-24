@@ -1,4 +1,4 @@
-package com.jdroid.sample.android.datetime;
+package com.jdroid.sample.android.ui.datetime;
 
 import android.os.Bundle;
 import android.view.View;

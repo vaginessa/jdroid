@@ -7,11 +7,12 @@ import com.jdroid.android.ActionItem;
 import com.jdroid.android.ActivityLauncher;
 import com.jdroid.android.utils.ScreenUtils;
 import com.jdroid.sample.android.R;
-import com.jdroid.sample.android.datetime.DateTimeActivity;
-import com.jdroid.sample.android.hero.HeroActivity;
-import com.jdroid.sample.android.http.HttpActivity;
-import com.jdroid.sample.android.imageloader.ImageLoaderActivity;
-import com.jdroid.sample.android.recyclerview.RecyclerViewActivity;
+import com.jdroid.sample.android.ui.datetime.DateTimeActivity;
+import com.jdroid.sample.android.ui.hero.HeroActivity;
+import com.jdroid.sample.android.ui.http.HttpActivity;
+import com.jdroid.sample.android.ui.imageloader.ImageLoaderActivity;
+import com.jdroid.sample.android.ui.navdrawer.NavDrawerActivity;
+import com.jdroid.sample.android.ui.recyclerview.RecyclerViewActivity;
 import com.jdroid.sample.android.ui.ads.AdsActivity;
 import com.jdroid.sample.android.ui.analytics.AnalyticsActivity;
 import com.jdroid.sample.android.ui.exceptions.ExceptionHandlingActivity;
@@ -36,6 +37,7 @@ public enum HomeItem implements ActionItem {
 	HTTP(R.string.http, R.drawable.cloud, HttpActivity.class),
 	IN_APP_BILLING(R.string.inAppBilling, R.drawable.shopping_cart, ImageLoaderActivity.class),
 	LOADING(R.string.loading, R.drawable.refresh, LoadingActivity.class),
+	NAVDRAWER(R.string.navDrawer, R.drawable.notifications, NavDrawerActivity.class),
 	NOTIFICATIONS(R.string.notifications, R.drawable.notifications, NotificationsActivity.class),
 	RECYCLER_VIEW(R.string.recyclerView, R.drawable.notifications, RecyclerViewActivity.class),
 	TABLETS(R.string.tablets, R.drawable.apps, ScreenUtils.is10Inches() ? TabletActivity.class : LeftTabletActivity.class),

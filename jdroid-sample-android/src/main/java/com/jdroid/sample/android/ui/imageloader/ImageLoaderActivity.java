@@ -1,4 +1,4 @@
-package com.jdroid.sample.android.imageloader;
+package com.jdroid.sample.android.ui.imageloader;
 
 import android.support.v4.app.Fragment;
 import com.jdroid.android.activity.FragmentContainerActivity;

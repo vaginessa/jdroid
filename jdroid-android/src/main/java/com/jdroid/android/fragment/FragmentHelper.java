@@ -111,6 +111,7 @@ public class FragmentHelper implements FragmentIf {
 				});
 			} else {
 				((AbstractFragmentActivity)getActivityIf()).setSupportActionBar(appBar);
+				appBar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
 				getActivityIf().initNavDrawer(appBar);
 			}
 

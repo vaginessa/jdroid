@@ -1,4 +1,4 @@
-package com.jdroid.sample.android.http;
+package com.jdroid.sample.android.ui.http;
 
 import android.os.Bundle;
 import android.view.View;

@@ -1,4 +1,4 @@
-package com.jdroid.sample.android.hero;
+package com.jdroid.sample.android.ui.hero;
 
 import android.support.v4.app.Fragment;
 

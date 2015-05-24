@@ -1,9 +1,8 @@
-package com.jdroid.sample.android.http;
+package com.jdroid.sample.android.ui.http;
 
 import android.support.v4.app.Fragment;
 
 import com.jdroid.android.activity.FragmentContainerActivity;
-import com.jdroid.sample.android.imageloader.ImageLoaderFragment;
 
 public class HttpActivity extends FragmentContainerActivity {
 
