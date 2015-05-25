@@ -18,10 +18,16 @@ public class NavDrawerFragment extends AbstractFragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
-		findView(R.id.customNavDrawer).setOnClickListener(new View.OnClickListener() {
+		findView(R.id.leftCustomNavDrawer).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				ActivityLauncher.launchActivity(CustomNavDrawerActivity.class);
+				ActivityLauncher.launchActivity(LeftCustomNavDrawerActivity.class);
+			}
+		});
+		findView(R.id.rightCustomNavDrawer).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				ActivityLauncher.launchActivity(RightCustomNavDrawerActivity.class);
 			}
 		});
 		findView(R.id.userNavDrawer).setOnClickListener(new View.OnClickListener() {

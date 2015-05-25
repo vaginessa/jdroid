@@ -41,7 +41,8 @@
 
 	<!-- Nav Drawer -->
 	<string name="navDrawer">Nav Drawer</string>
-	<string name="customNavDrawer">Custom Nav Drawer</string>
+	<string name="leftCustomNavDrawer">Left Custom Nav Drawer</string>
+	<string name="rightCustomNavDrawer">Right Custom Nav Drawer</string>
 	<string name="noNavDrawer">No Nav Drawer</string>
 	<string name="userNavDrawer">User Nav Drawer</string>
 

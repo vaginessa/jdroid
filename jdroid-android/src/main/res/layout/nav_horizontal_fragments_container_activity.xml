@@ -10,5 +10,5 @@
 			android:layout_height="match_parent" android:orientation="horizontal" />
 	</LinearLayout>
 
-	<include android:id="@+id/left_drawer" layout="@layout/nav_drawer" />
+	<include android:id="@+id/drawer" layout="@layout/nav_drawer" />
 </android.support.v4.widget.DrawerLayout>

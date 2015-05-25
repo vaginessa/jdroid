@@ -30,9 +30,9 @@ public abstract class DefaultNavDrawer extends NavDrawer {
 	}
 
 	@Override
-	public View createContent() {
+	public View createContentView() {
 
-		drawerList = getActivity().findView(R.id.left_drawer);
+		drawerList = getActivity().findView(R.id.drawer);
 
 		NavDrawerHeaderBuilder navDrawerHeaderBuilder = createNavDrawerHeaderBuilder();
 		if (navDrawerHeaderBuilder != null) {

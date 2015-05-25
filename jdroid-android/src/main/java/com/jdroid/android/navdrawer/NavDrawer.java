@@ -31,7 +31,7 @@ public abstract class NavDrawer {
 
 	private DrawerLayout drawerLayout;
 	private ActionBarDrawerToggle drawerToggle;
-	private View content;
+	private View contentView;
 
 	public NavDrawer(final AbstractFragmentActivity activity, Boolean darkTheme, Toolbar appBar) {
 		this.activity = activity;
@@ -104,13 +104,10 @@ public abstract class NavDrawer {
 			// Set the drawer toggle as the DrawerListener
 			drawerLayout.setDrawerListener(drawerToggle);
 		} else {
-			if (appBar != null) {
-				appBar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-			}
 			drawerLayout.setDrawerListener(drawerListener);
 		}
 
-		content = createContent();
+		contentView = createContentView();
 
 		if (isNavDrawerOpenedOnFirstSession) {
 			ExecutorUtils.schedule(new Runnable() {
@@ -125,7 +122,7 @@ public abstract class NavDrawer {
 						public void run() {
 							String action = activity.getIntent().getAction();
 							if (!navDrawerManuallyUsed && Intent.ACTION_MAIN.equals(action)) {
-								drawerLayout.openDrawer(content);
+								drawerLayout.openDrawer(contentView);
 							}
 						}
 					});
@@ -175,8 +172,8 @@ public abstract class NavDrawer {
 	}
 
 	public Boolean onBackPressed() {
-		if (drawerLayout.isDrawerOpen(content)) {
-			drawerLayout.closeDrawer(content);
+		if (drawerLayout.isDrawerOpen(contentView)) {
+			drawerLayout.closeDrawer(contentView);
 			return true;
 		}
 		return false;
@@ -190,7 +187,7 @@ public abstract class NavDrawer {
 		// Do Nothing
 	}
 
-	public abstract View createContent();
+	public abstract View createContentView();
 
 	protected AbstractFragmentActivity getActivity() {
 		return activity;

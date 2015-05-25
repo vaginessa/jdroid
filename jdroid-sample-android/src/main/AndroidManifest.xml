@@ -101,7 +101,10 @@
 		<activity android:name=".ui.navdrawer.NavDrawerActivity" android:label="@string/navDrawer"
 				  android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>
 
-		<activity android:name=".ui.navdrawer.CustomNavDrawerActivity" android:label="@string/customNavDrawer"
+		<activity android:name=".ui.navdrawer.LeftCustomNavDrawerActivity" android:label="@string/leftCustomNavDrawer"
+				  android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>
+
+		<activity android:name=".ui.navdrawer.RightCustomNavDrawerActivity" android:label="@string/rightCustomNavDrawer"
 				  android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<activity android:name=".ui.navdrawer.NoNavDrawerActivity" android:label="@string/noNavDrawer"
