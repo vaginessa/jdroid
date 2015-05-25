@@ -14,11 +14,13 @@ import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.gcm.GcmMessageResolver;
+import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.uri.NoSegmentsUriHandler;
 import com.jdroid.sample.android.analytics.AndroidAnalyticsSender;
 import com.jdroid.sample.android.debug.AndroidDebugContext;
 import com.jdroid.sample.android.experiment.AndroidExperiment;
 import com.jdroid.sample.android.gcm.AndroidGcmResolver;
+import com.jdroid.sample.android.repository.UserRepositoryImpl;
 import com.jdroid.sample.android.ui.HomeActivity;
 import com.jdroid.sample.android.ui.about.AndroidSpreadTheLoveFragment;
 import com.jdroid.sample.android.uri.AdsUriHandler;
@@ -100,5 +102,10 @@ public class AndroidApplication extends AbstractApplication {
 	@Override
 	public Boolean isImageLoaderEnabled() {
 		return true;
+	}
+
+	@Override
+	public UserRepository getUserRepository() {
+		return new UserRepositoryImpl();
 	}
 }

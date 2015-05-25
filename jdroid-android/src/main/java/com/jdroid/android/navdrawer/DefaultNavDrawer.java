@@ -90,16 +90,8 @@ public abstract class DefaultNavDrawer extends NavDrawer {
 		if (user != null) {
 			builder.setBackground(user.getCoverPictureUrl(), User.PROFILE_PICTURE_TTL);
 			builder.setMainImage(user.getProfilePictureUrl(), User.PROFILE_PICTURE_TTL);
-
-			String fullname = user.getFullname();
-			String email = user.getEmail();
-			if (AbstractApplication.get().getAppContext().isUserDataMocked()) {
-				fullname = AbstractApplication.get().getAppContext().getMockedFullname();
-				email = AbstractApplication.get().getAppContext().getMockedEmail();
-			}
-
-			builder.setTitle(fullname);
-			builder.setSubTitle(email);
+			builder.setTitle(user.getFullname());
+			builder.setSubTitle(user.getEmail());
 		} else {
 			builder.setMainImage(R.drawable.ic_launcher);
 			builder.setTitle(getActivity().getString(R.string.appName));

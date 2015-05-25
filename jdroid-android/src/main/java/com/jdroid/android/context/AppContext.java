@@ -16,7 +16,6 @@ import java.util.Set;
 
 public abstract class AppContext {
 	
-	public static final String USER_DATA_MOCKED = "userDataMocked";
 	public static final String ADS_ENABLED = "adsEnabled";
 	private static final String FIRST_SESSION_TIMESTAMP = "firstSessionTimestamp";
 	public static final String HTTP_MOCK_ENABLED = "httpMockEnabled";
@@ -155,19 +154,6 @@ public abstract class AppContext {
 	public Integer getHttpMockSleepDuration() {
 		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(HTTP_MOCK_SLEEP,
 			false) ? 10 : null;
-	}
-	
-	public Boolean isUserDataMocked() {
-		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(USER_DATA_MOCKED,
-			false);
-	}
-
-	public String getMockedEmail() {
-		return "tonystark@ironmail.com";
-	}
-
-	public String getMockedFullname() {
-		return "Tony Stark";
 	}
 	
 	public String getLocalIp() {
