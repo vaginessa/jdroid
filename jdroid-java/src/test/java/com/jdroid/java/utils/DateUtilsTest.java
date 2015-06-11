@@ -1,13 +1,15 @@
 package com.jdroid.java.utils;
 
+import com.jdroid.java.collections.Lists;
+
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import org.testng.Assert;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-import com.jdroid.java.collections.Lists;
 
 /**
  * Test class for the {@link DateUtils} class.
@@ -96,7 +98,7 @@ public class DateUtilsTest {
 		int month = Calendar.JANUARY;
 		int date = 1;
 		calendar.set(year, month, date);
-		DateUtils.truncate(calendar);
+		DateUtils.truncateTime(calendar);
 		Date createdDate = DateUtils.getDate(year, month, date);
 		Assert.assertEquals(createdDate, calendar.getTime());
 	}
