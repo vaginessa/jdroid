@@ -308,7 +308,7 @@ public abstract class DateUtils {
 	public static Date getDate(int year, int monthOfYear, int dayOfMonth) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(year, monthOfYear, dayOfMonth);
-		truncate(calendar);
+		truncateTime(calendar);
 		return calendar.getTime();
 	}
 	
@@ -320,7 +320,7 @@ public abstract class DateUtils {
 			calendar.set(Calendar.MINUTE, DateUtils.getMinute(time));
 			calendar.set(Calendar.SECOND, 0);
 		} else {
-			truncate(calendar);
+			truncateTime(calendar);
 		}
 		return calendar.getTime();
 	}
@@ -344,6 +344,7 @@ public abstract class DateUtils {
 		calendar.set(is24Hour ? Calendar.HOUR_OF_DAY : Calendar.HOUR, hour);
 		calendar.set(Calendar.MINUTE, minutes);
 		calendar.set(Calendar.SECOND, 0);
+		truncateDate(calendar);
 		return calendar.getTime();
 	}
 	
@@ -442,25 +443,49 @@ public abstract class DateUtils {
 	 * @param date The {@link Date} to truncate
 	 * @return The truncated {@link Date}
 	 */
-	public static Date truncate(Date date) {
+	public static Date truncateTime(Date date) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
-		truncate(calendar);
+		truncateTime(calendar);
 		return calendar.getTime();
 	}
-	
+
 	/**
-	 * Truncate the {@link Calendar} removing hours, minutes, seconds and milliseconds
+	 * Truncate the date asigning it to 1st of January of 1980
+	 *
+	 * @param date The {@link Date} to truncate
+	 * @return The truncated {@link Date}
+	 */
+	public static Date truncateDate(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		truncateDate(calendar);
+		return calendar.getTime();
+	}
+
+	/**
+	 * Truncate the {@link Calendar} date asigning it to 1st of January of 1980
 	 * 
 	 * @param calendar The {@link Calendar} to truncate
 	 */
-	public static void truncate(Calendar calendar) {
+	public static void truncateDate(Calendar calendar) {
+		calendar.set(Calendar.MONTH, 0);
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
+		calendar.set(Calendar.YEAR, 1980);
+	}
+
+	/**
+	 * Truncate the {@link Calendar} removing hours, minutes, seconds and milliseconds
+	 *
+	 * @param calendar The {@link Calendar} to truncate
+	 */
+	public static void truncateTime(Calendar calendar) {
 		calendar.set(Calendar.HOUR_OF_DAY, 0);
 		calendar.set(Calendar.MINUTE, 0);
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
 	}
-	
+
 	/**
 	 * @return the current moment
 	 */
@@ -555,7 +580,7 @@ public abstract class DateUtils {
 	
 	private static Calendar todayCalendar() {
 		Calendar calendar = Calendar.getInstance();
-		DateUtils.truncate(calendar);
+		DateUtils.truncateTime(calendar);
 		return calendar;
 	}
 	
@@ -610,7 +635,7 @@ public abstract class DateUtils {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-		DateUtils.truncate(calendar);
+		DateUtils.truncateTime(calendar);
 		return calendar.getTime();
 	}
 	

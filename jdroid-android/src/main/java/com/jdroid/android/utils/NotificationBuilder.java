@@ -21,6 +21,8 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 public class NotificationBuilder {
 	
 	public static final String NOTIFICATION_NAME = "notificationName";
+
+	private static String NOTIFICATION_URI = "notification://";
 	
 	private String notificationName;
 	private NotificationCompat.Builder builder;
@@ -77,18 +79,36 @@ public class NotificationBuilder {
 	}
 	
 	public void setContentIntentSingleTop(Intent notificationIntent) {
-		
+		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+		setContentIntent(notificationIntent);
+	}
+
+	public void setContentIntentNewTask(Intent notificationIntent) {
+		notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		setContentIntent(notificationIntent);
+	}
+
+	public void setContentIntent(Intent notificationIntent) {
+
 		AppLoadingSource.NOTIFICATION.flagIntent(notificationIntent);
 		if (notificationName != null) {
 			AbstractApplication.get().getAnalyticsSender().trackNotificationDisplayed(notificationName);
 			notificationIntent.putExtra(NOTIFICATION_NAME, notificationName);
 		}
-		
-		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+		// This is a hack to avoid the notification caching
+		if (notificationIntent.getData() == null) {
+			notificationIntent.setData(createUniqueNotificationUri());
+		}
+
 		builder.setContentIntent(PendingIntent.getActivity(AbstractApplication.get(), IdGenerator.getIntId(),
-			notificationIntent, 0));
+				notificationIntent, 0));
 	}
-	
+
+	protected Uri createUniqueNotificationUri() {
+		return Uri.parse(NOTIFICATION_URI + IdGenerator.getIntId());
+	}
+
 	public void setWhen(Long when) {
 		if (when != null) {
 			builder.setWhen(when);
