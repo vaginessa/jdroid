@@ -4,6 +4,12 @@ apply plugin: 'jacoco'
 ext.projectName = 'Jdroid Java'
 description = 'Jdroid dependency project for both Android & Java apps'
 
+buildscript {
+	repositories {
+		jcenter()
+	}
+}
+
 dependencies {
 	//noinspection GradleDependency
 	compile "org.apache.httpcomponents:httpclient:4.1.2"

@@ -17,7 +17,7 @@ public abstract class AndroidGradlePlugin extends BaseGradlePlugin {
 		def android = project.extensions.findByName("android")
 
 		android.compileSdkVersion 22
-		android.buildToolsVersion "22.0.1"
+		android.buildToolsVersion "23.0.0 rc2"
 
 		android.defaultConfig {
 			minSdkVersion project.jdroid.getProp('MIN_SDK_VERSION', 14)

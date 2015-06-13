@@ -1,5 +1,5 @@
 apply plugin: 'com.jdroid.android.application'
-apply plugin: 'jacoco'
+//apply plugin: 'jacoco'
 
 description = 'Jdroid Sample Android'
 
@@ -14,6 +14,7 @@ repositories {
 buildscript {
 	repositories {
 		mavenCentral()
+		jcenter()
 	}
 }
 

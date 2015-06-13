@@ -6,6 +6,13 @@ description = 'Jdroid dependency project for Java Web apps'
 
 def springVersion = '3.2.4.RELEASE'
 
+buildscript {
+
+	repositories {
+		jcenter()
+	}
+}
+
 dependencies {
 
 	// Push for Android

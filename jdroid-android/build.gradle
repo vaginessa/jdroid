@@ -4,7 +4,7 @@ apply plugin: 'jacoco'
 ext.projectName = 'Jdroid Android'
 description = 'Jdroid dependency project for Android apps'
 
-def googlePlayServicesVersion = '7.3.0'
+def googlePlayServicesVersion = '7.5.0'
 
 repositories {
 	maven {
@@ -13,6 +13,11 @@ repositories {
 }
 
 buildscript {
+
+	repositories {
+		jcenter()
+	}
+
 	dependencies {
 		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + project.version
 	}
@@ -31,7 +36,7 @@ configurations.all {
 dependencies {
 
 	// https://github.com/nostra13/Android-Universal-Image-Loader
-	compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
+	compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
 
 	compile 'org.slf4j:slf4j-android:1.6.1-RC1'
 	compile 'com.crashlytics.android:crashlytics:1.1.13'
@@ -40,10 +45,10 @@ dependencies {
 		exclude module: 'support-v4'
 	}
 
-	compile 'com.android.support:support-v4:22.1.1'
-	compile 'com.android.support:recyclerview-v7:22.1.1'
-	compile 'com.android.support:appcompat-v7:22.1.1'
-	compile 'com.android.support:cardview-v7:22.1.1'
+	compile 'com.android.support:support-v4:22.2.0'
+	compile 'com.android.support:recyclerview-v7:22.2.0'
+	compile 'com.android.support:appcompat-v7:22.2.0'
+	compile 'com.android.support:cardview-v7:22.2.0'
 	compile 'com.android.support:multidex:1.0.1'
 
 	compile 'com.google.android.gms:play-services-ads:' + googlePlayServicesVersion
