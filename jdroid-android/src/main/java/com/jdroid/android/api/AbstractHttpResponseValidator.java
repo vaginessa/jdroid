@@ -52,7 +52,11 @@ public abstract class AbstractHttpResponseValidator implements HttpWebServicePro
 			}
 		} else if (httpResponse.isClientError()) {
 			ErrorCode errorCode = getErrorCode(httpResponse);
-			throw errorCode.newErrorCodeException();
+			if (errorCode != null) {
+				throw errorCode.newErrorCodeException();
+			} else {
+				throw new HttpResponseException(message);
+			}
 		} else if (httpResponse.isServerError()) {
 			// 504 - Gateway Timeout
 			if (httpResponse.getStatusCode() == 504) {
@@ -80,8 +84,6 @@ public abstract class AbstractHttpResponseValidator implements HttpWebServicePro
 					}
 				}
 			}
-		} else {
-			throw new HttpResponseException("Missing " + STATUS_CODE_HEADER + " header.");
 		}
 		return errorCode;
 	}
