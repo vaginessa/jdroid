@@ -6,7 +6,7 @@ description = 'Jdroid Sample Android'
 repositories {
 	mavenCentral()
 	maven {
-		url "http://download.crashlytics.com/maven"
+		url 'https://maven.fabric.io/public'
 	}
 
 }
@@ -16,9 +16,7 @@ buildscript {
 		mavenCentral()
 		jcenter()
 	}
-}
 
-buildscript {
 	dependencies {
 		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + project.version
 	}
@@ -97,10 +95,7 @@ android {
 		// TODO Add FACEBOOK_APP_ID
 		jdroid.setString(defaultConfig, "FACEBOOK_APP_ID", "????????")
 
-
 		jdroid.setBoolean(defaultConfig, "CRASHLYTICS_ENABLED", true)
-		jdroid.setBoolean(defaultConfig, "CRASHLYTICS_DEBUG_ENABLED", true)
-
 
 		jdroid.setString(defaultConfig, "LOCAL_IP", null)
 
@@ -151,7 +146,6 @@ android {
 			signingConfig signingConfigs.release
 
 			jdroid.setBoolean(buildTypes.release, "GOOGLE_ANALYTICS_DEBUG_ENABLED", false)
-			jdroid.setBoolean(buildTypes.release, "CRASHLYTICS_DEBUG_ENABLED", false)
 
 			jdroid.setString(buildTypes.release, "SERVER_NAME", "PROD")
 

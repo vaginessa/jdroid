@@ -1,13 +1,17 @@
 package com.jdroid.android.exception;
 
-import java.util.Map;
-import java.util.Map.Entry;
 import android.app.Activity;
+
 import com.crashlytics.android.Crashlytics;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.analytics.AbstractAnalyticsTracker;
 import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.context.SecurityContext;
+
+import java.util.Map;
+import java.util.Map.Entry;
+
+import io.fabric.sdk.android.Fabric;
 
 public class CrashlyticsTracker extends AbstractAnalyticsTracker {
 	
@@ -30,13 +34,12 @@ public class CrashlyticsTracker extends AbstractAnalyticsTracker {
 	 */
 	@Override
 	public void onInitExceptionHandler(Map<String, String> metadata) {
-		Crashlytics.getInstance().setDebugMode(AbstractApplication.get().getAppContext().isCrashlyticsDebugEnabled());
-		Crashlytics.start(AbstractApplication.get());
-		
+		Fabric.with(AbstractApplication.get(), new Crashlytics());
+
 		if (metadata != null) {
 			for (Entry<String, String> entry : metadata.entrySet()) {
 				if (entry.getValue() != null) {
-					Crashlytics.setString(entry.getKey(), entry.getValue());
+					Crashlytics.getInstance().core.setString(entry.getKey(), entry.getValue());
 				}
 			}
 		}
@@ -47,7 +50,7 @@ public class CrashlyticsTracker extends AbstractAnalyticsTracker {
 	 */
 	@Override
 	public void trackHandledException(Throwable throwable) {
-		Crashlytics.logException(throwable);
+		Crashlytics.getInstance().core.logException(throwable);
 	}
 	
 	/**
@@ -57,11 +60,12 @@ public class CrashlyticsTracker extends AbstractAnalyticsTracker {
 	@Override
 	public void onActivityStart(Class<? extends Activity> activityClass, AppLoadingSource appLoadingSource, Object data) {
 		if (appLoadingSource != null) {
-			Crashlytics.setString(AppLoadingSource.class.getSimpleName(), appLoadingSource.getName());
+			Crashlytics.getInstance().core.setString(AppLoadingSource.class.getSimpleName(), appLoadingSource.getName());
 		}
 		
-		Crashlytics.setString("UserId",
-			SecurityContext.get().isAuthenticated() ? SecurityContext.get().getUser().getId().toString() : null);
-		Crashlytics.log("Started " + activityClass.getSimpleName());
+		Crashlytics.getInstance().core.setString("UserId",
+				SecurityContext.get().isAuthenticated() ? SecurityContext.get().getUser().getId().toString() : null);
+
+		Crashlytics.getInstance().core.log("Started " + activityClass.getSimpleName());
 	}
 }

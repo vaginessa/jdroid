@@ -172,11 +172,7 @@ public abstract class AppContext {
 	public Boolean isCrashlyticsEnabled() {
 		return AbstractApplication.get().getBuildConfigValue("CRASHLYTICS_ENABLED", false);
 	}
-	
-	public Boolean isCrashlyticsDebugEnabled() {
-		return AbstractApplication.get().getBuildConfigValue("CRASHLYTICS_DEBUG_ENABLED", false);
-	}
-	
+
 	public void saveFirstSessionTimestamp() {
 		Long firstSessionTimestamp = getFirstSessionTimestamp();
 		if (firstSessionTimestamp == null) {
