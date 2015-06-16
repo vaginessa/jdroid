@@ -10,7 +10,4 @@
 	<dimen name="textMedium">20sp</dimen>
 	<dimen name="textLarge">24sp</dimen>
 
-	<!-- Nav Drawer -->
-	<dimen name="nav_drawer_width">320dp</dimen>
-
 </resources>

@@ -15,6 +15,7 @@ import android.view.View;
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
+import com.jdroid.android.ad.HouseAdBuilder;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.UseCaseFragment;
@@ -322,6 +323,11 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	@Override
 	public String getInterstitialAdUnitId() {
 		return activityHelper.getInterstitialAdUnitId();
+	}
+
+	@Override
+	public HouseAdBuilder getHouseAdBuilder() {
+		return activityHelper.getHouseAdBuilder();
 	}
 
 	/**

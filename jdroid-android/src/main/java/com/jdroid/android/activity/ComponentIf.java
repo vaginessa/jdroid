@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.MenuItem;
 import android.view.View;
 import com.google.android.gms.ads.AdSize;
+import com.jdroid.android.ad.HouseAdBuilder;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 
@@ -59,6 +60,8 @@ public interface ComponentIf {
 	public AdSize getAdSize();
 
 	public String getBannerAdUnitId();
+
+	public HouseAdBuilder getHouseAdBuilder();
 
 	public User getUser();
 	

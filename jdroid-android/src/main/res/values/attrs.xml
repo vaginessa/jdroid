@@ -14,7 +14,9 @@
 	</declare-styleable>
 
 	<declare-styleable name="ScrimInsetsView">
-		<attr name="insetForeground" format="reference|color" />
+		<attr name="insetScrollForeground" format="reference|color" />
 	</declare-styleable>
+
+
 
 </resources>

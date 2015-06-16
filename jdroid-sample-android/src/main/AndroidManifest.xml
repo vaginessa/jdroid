@@ -58,6 +58,8 @@
 
 		<activity android:name="com.jdroid.sample.android.ui.ads.AdsActivity" android:label="@string/adMob"
 				  android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>
+		<activity android:name="com.jdroid.sample.android.ui.ads.HouseAdsActivity" android:label="@string/houseAds"
+				  android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<activity android:name=".ui.imageloader.ImageLoaderActivity" android:label="@string/universalImageLoader"
 			android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>

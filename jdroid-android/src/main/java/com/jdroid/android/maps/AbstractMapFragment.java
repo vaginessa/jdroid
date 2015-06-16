@@ -23,6 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.ActivityIf;
+import com.jdroid.android.ad.HouseAdBuilder;
 import com.jdroid.android.animation.FadeOutAnimation;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
@@ -460,6 +461,11 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	@Override
 	public String getBannerAdUnitId() {
 		return fragmentHelper.getBannerAdUnitId();
+	}
+
+	@Override
+	public HouseAdBuilder getHouseAdBuilder() {
+		return fragmentHelper.getHouseAdBuilder();
 	}
 
 	/**

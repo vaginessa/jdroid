@@ -6,7 +6,8 @@
 
 	<!-- Ads -->
 	<string name="adMob">AdMob</string>
-	<string name="display_interstitial">Display Interstitial</string>
+	<string name="displayInterstitial">Display Interstitial</string>
+	<string name="houseAds">House Ads</string>
 
 	<!-- Date & Time -->
 	<string name="dateTime">Date &amp; Time</string>

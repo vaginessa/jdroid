@@ -10,7 +10,6 @@
 
 	<!-- Nav Drawer -->
 
-	<dimen name="nav_drawer_width">304dp</dimen>
 	<dimen name="navdrawerHeaderHeight">164dp</dimen>
 	<dimen name="navdrawerHeaderImageSize">64dp</dimen>
 

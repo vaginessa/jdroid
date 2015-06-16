@@ -187,24 +187,15 @@
 	<!-- Nav Drawer -->
 
 	<style name="leftNavDrawer">
-		<item name="android:layout_width">@dimen/nav_drawer_width</item>
+		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">match_parent</item>
 		<item name="android:layout_gravity">start</item>
-		<item name="android:background">@color/navDrawerBackground</item>
 	</style>
 
 	<style name="rightNavDrawer">
-		<item name="android:layout_width">@dimen/nav_drawer_width</item>
+		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">match_parent</item>
 		<item name="android:layout_gravity">end</item>
-		<item name="android:background">@color/navDrawerBackground</item>
-	</style>
-
-	<style name="navDrawerItemText" parent="textMediumBold">
-		<item name="android:textColor">@drawable/nav_drawer_text_item_selector</item>
-		<item name="android:textStyle">normal</item>
-		<item name="android:singleLine">true</item>
-		<item name="android:ellipsize">end</item>
 	</style>
 
 	<!-- Update Google Play Services -->

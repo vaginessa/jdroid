@@ -3,9 +3,9 @@ package com.jdroid.sample.android.ui.ads;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 
 import com.google.android.gms.ads.AdSize;
+import com.jdroid.android.ActivityLauncher;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.sample.android.AndroidAppContext;
 import com.jdroid.sample.android.R;
@@ -24,12 +24,19 @@ public class AdsFragment extends AbstractFragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		
-		Button showInterstitial = findView(R.id.displayInterstitial);
-		showInterstitial.setOnClickListener(new OnClickListener() {
+		findView(R.id.displayInterstitial).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				getActivityIf().displayInterstitial(false);
+			}
+		});
+
+		findView(R.id.houseAds).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				ActivityLauncher.launchActivity(HouseAdsActivity.class);
 			}
 		});
 	}

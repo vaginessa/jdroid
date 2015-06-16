@@ -121,7 +121,7 @@ public class FragmentHelper implements FragmentIf {
 		adHelper = createAdLoader();
 		if (adHelper != null) {
 			adHelper.loadBanner(fragment.getActivity(), (ViewGroup)(fragment.getView().findViewById(R.id.adViewContainer)),
-					getFragmentIf().getAdSize(), getFragmentIf().getBannerAdUnitId(), getHouseAdBuilder());
+					getFragmentIf().getAdSize(), getFragmentIf().getBannerAdUnitId(), getFragmentIf().getHouseAdBuilder());
 		}
 		
 		if (loading == null) {
@@ -428,6 +428,7 @@ public class FragmentHelper implements FragmentIf {
 		return getActivityIf().getBannerAdUnitId();
 	}
 
+	@Override
 	public HouseAdBuilder getHouseAdBuilder() {
 		return null;
 	}

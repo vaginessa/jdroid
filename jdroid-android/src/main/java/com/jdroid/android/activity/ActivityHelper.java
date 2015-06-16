@@ -133,7 +133,7 @@ public class ActivityHelper implements ActivityIf {
 		adHelper = createAdHelper();
 		if (adHelper != null) {
 			adHelper.loadBanner(activity, (ViewGroup)(activity.findViewById(R.id.adViewContainer)),
-					getActivityIf().getAdSize(), getActivityIf().getBannerAdUnitId(), getHouseAdBuilder());
+					getActivityIf().getAdSize(), getActivityIf().getBannerAdUnitId(), getActivityIf().getHouseAdBuilder());
 			if (getActivityIf().isInterstitialEnabled()) {
 				adHelper.loadInterstitial(activity, getActivityIf().getInterstitialAdUnitId());
 			}
@@ -450,6 +450,7 @@ public class ActivityHelper implements ActivityIf {
 		return AbstractApplication.get().getAppContext().getDefaultAdUnitId();
 	}
 
+	@Override
 	public HouseAdBuilder getHouseAdBuilder() {
 		return null;
 	}

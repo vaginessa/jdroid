@@ -6,7 +6,7 @@ import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.navdrawer.DefaultNavDrawer;
 import com.jdroid.android.navdrawer.NavDrawer;
-import com.jdroid.android.navdrawer.NavDrawerHeaderBuilder;
+import com.jdroid.android.navdrawer.NavDrawerHeader;
 import com.jdroid.android.navdrawer.NavDrawerItem;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.sample.android.ui.navdrawer.AndroidNavDrawerItem;
@@ -34,10 +34,9 @@ public class AndroidActivityHelper extends ActivityHelper {
 			}
 
 			@Override
-			public NavDrawerHeaderBuilder createNavDrawerHeaderBuilder() {
-				NavDrawerHeaderBuilder builder = super.createNavDrawerHeaderBuilder();
-				builder.setBackground(R.drawable.hero);
-				return builder;
+			protected void initNavDrawerHeader(NavDrawerHeader navDrawerHeader) {
+				super.initNavDrawerHeader(navDrawerHeader);
+				navDrawerHeader.setBackground(R.drawable.hero);
 			}
 		};
 	}

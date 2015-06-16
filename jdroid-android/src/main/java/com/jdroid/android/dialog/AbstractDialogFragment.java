@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.activity.ActivityIf;
+import com.jdroid.android.ad.HouseAdBuilder;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.FragmentHelper;
@@ -295,6 +296,11 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	@Override
 	public String getBannerAdUnitId() {
 		return fragmentHelper.getBannerAdUnitId();
+	}
+
+	@Override
+	public HouseAdBuilder getHouseAdBuilder() {
+		return fragmentHelper.getHouseAdBuilder();
 	}
 
 	/**

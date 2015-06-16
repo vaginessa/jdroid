@@ -6,17 +6,20 @@ import android.support.v4.app.Fragment;
 import com.jdroid.android.activity.FragmentContainerActivity;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
+import com.jdroid.java.utils.IdGenerator;
 
 public class UserNavDrawerActivity extends FragmentContainerActivity {
+
+	private User user;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		User user = new User() {
+		user = new User() {
 			@Override
 			public Long getId() {
-				return null;
+				return IdGenerator.getLongId();
 			}
 
 			@Override
@@ -60,6 +63,20 @@ public class UserNavDrawerActivity extends FragmentContainerActivity {
 			}
 		};
 		SecurityContext.get().attach(user);
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		SecurityContext.get().attach(user);
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+
+		SecurityContext.get().detachUser();
 	}
 
 	@Override

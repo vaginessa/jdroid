@@ -1,18 +1,20 @@
 package com.jdroid.android.about;
 
-import java.util.List;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.jdroid.android.R;
 import com.jdroid.android.about.AboutItemsAdapter.AboutItemHolder;
 import com.jdroid.android.adapter.BaseHolderArrayAdapter;
 
+import java.util.List;
+
 public class AboutItemsAdapter extends BaseHolderArrayAdapter<AboutItem, AboutItemHolder> {
 	
 	public AboutItemsAdapter(Context context, List<AboutItem> items) {
-		super(context, R.layout.nav_drawer_item, items);
+		super(context, R.layout.default_item, items);
 	}
 	
 	/**

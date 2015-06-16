@@ -8,12 +8,12 @@ import com.jdroid.android.R;
 import com.jdroid.android.activity.ComponentIf;
 import com.jdroid.android.utils.ImageLoaderUtils;
 
-public class NavDrawerHeaderBuilder {
+public class NavDrawerHeader {
 
 	private View navDrawerHeader;
 
-	public NavDrawerHeaderBuilder(ComponentIf componentIf) {
-		navDrawerHeader = componentIf.inflate(R.layout.nav_drawer_header);
+	public NavDrawerHeader(ComponentIf componentIf) {
+		navDrawerHeader = componentIf.findView(R.id.navDrawerHeader);
 	}
 
 	public void setTitle(String title) {
@@ -41,9 +41,5 @@ public class NavDrawerHeaderBuilder {
 		ImageLoaderUtils.displayImage(imageUrl,
 				((ImageView)navDrawerHeader.findViewById(R.id.photo)), R.drawable.profile_default, null,
 				ttl);
-	}
-
-	public View build() {
-		return navDrawerHeader;
 	}
 }
