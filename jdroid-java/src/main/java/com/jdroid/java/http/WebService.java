@@ -1,12 +1,14 @@
 package com.jdroid.java.http;
 
-import java.util.Collection;
 import com.jdroid.java.parser.Parser;
+
+import java.util.Collection;
 
 public interface WebService {
 	
 	public static final String HTTPS_PROTOCOL = "https";
 	public static final String HTTP_PROTOCOL = "http";
+	public static final String HTTP_SCHEME = "http://";
 	
 	public static final String ACCEPT_ENCODING_HEADER = "Accept-Encoding";
 	public static final String CONTENT_ENCODING_HEADER = "Content-Encoding";
@@ -36,6 +38,8 @@ public interface WebService {
 	 * @param value The header value.
 	 */
 	public void addHeader(String name, String value);
+
+	public String getHeaderValue(String key):
 	
 	/**
 	 * @param name The parameter name.

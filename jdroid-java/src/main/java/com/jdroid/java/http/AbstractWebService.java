@@ -160,10 +160,6 @@ public abstract class AbstractWebService implements WebService {
 		return userAgent;
 	}
 
-	public Map<String, String> getHeaders() {
-		return headers;
-	}
-
 	/**
 	 * @see com.jdroid.java.http.WebService#getUrl()
 	 */
@@ -252,6 +248,15 @@ public abstract class AbstractWebService implements WebService {
 				+ StringUtils.join(urlSegments, StringUtils.SLASH);
 	}
 
+	public Map<String, String> getHeaders() {
+		return headers;
+	}
+
+	@Override
+	public String getHeaderValue(String key) {
+		return headers.get(key);
+	}
+
 	/**
 	 * @see com.jdroid.java.http.WebService#addHeader(java.lang.String, java.lang.String)
 	 */
@@ -261,7 +266,6 @@ public abstract class AbstractWebService implements WebService {
 			headers.put(name, value);
 		}
 	}
-
 
 	/**
 	 * @see java.lang.Object#toString()

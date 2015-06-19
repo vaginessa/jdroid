@@ -1,10 +1,5 @@
 package com.jdroid.java.http.cache;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.Collection;
-import org.slf4j.Logger;
 import com.jdroid.java.http.HttpWebServiceProcessor;
 import com.jdroid.java.http.WebService;
 import com.jdroid.java.http.post.EntityEnclosingWebService;
@@ -12,6 +7,13 @@ import com.jdroid.java.parser.Parser;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.Hasher;
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Collection;
 
 public abstract class CachedWebService implements EntityEnclosingWebService {
 	
@@ -199,5 +201,10 @@ public abstract class CachedWebService implements EntityEnclosingWebService {
 	 */
 	public Long getTimeToLive() {
 		return timeToLive;
+	}
+
+	@Override
+	public String getHeaderValue(String key) {
+		return webService.getHeaderValue(key);
 	}
 }

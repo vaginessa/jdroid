@@ -20,6 +20,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.slf4j.Logger;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -66,6 +67,8 @@ public abstract class ApacheHttpWebService extends AbstractWebService {
 			} else {
 				throw new UnexpectedException(e);
 			}
+		} catch (SocketTimeoutException e) {
+			throw new ConnectionException(e, true);
 		} catch (ConnectTimeoutException e) {
 			throw new ConnectionException(e, true);
 		} catch (IOException e) {

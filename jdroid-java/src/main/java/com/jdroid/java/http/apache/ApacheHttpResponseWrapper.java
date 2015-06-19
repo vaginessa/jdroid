@@ -45,7 +45,7 @@ public class ApacheHttpResponseWrapper extends HttpResponseWrapper {
 		try {
 			inputStream = getInputStream();
 			if (inputStream != null) {
-				content = FileUtils.toString(getInputStream());
+				content = FileUtils.toString(inputStream);
 			}
 		} finally {
 			FileUtils.safeClose(inputStream);

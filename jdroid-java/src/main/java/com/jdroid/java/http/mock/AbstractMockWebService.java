@@ -251,5 +251,9 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	protected String getSuffix(String path) {
 		return null;
 	}
-	
+
+	@Override
+	public String getHeaderValue(String key) {
+		return headers.get(key);
+	}
 }
