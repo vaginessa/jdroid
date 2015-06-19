@@ -215,7 +215,7 @@ public abstract class AbstractApiService {
 
 	protected EntityEnclosingWebService newCachedPatchService(Cache cache, CachingStrategy cachingStrategy,
 			Long timeToLive, Object... urlSegments) {
-		WebService webService = newPutService(urlSegments);
+		WebService webService = newPatchService(urlSegments);
 		return newCachedWebService(webService, cache, cachingStrategy, timeToLive);
 	}
 
