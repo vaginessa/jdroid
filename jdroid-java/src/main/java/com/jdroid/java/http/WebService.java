@@ -39,7 +39,7 @@ public interface WebService {
 	 */
 	public void addHeader(String name, String value);
 
-	public String getHeaderValue(String key):
+	public String getHeaderValue(String key);
 	
 	/**
 	 * @param name The parameter name.
