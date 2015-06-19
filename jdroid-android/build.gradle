@@ -1,5 +1,4 @@
 apply plugin: 'com.jdroid.android.library'
-apply plugin: 'jacoco'
 
 ext.projectName = 'Jdroid Android'
 description = 'Jdroid dependency project for Android apps'
@@ -112,13 +111,6 @@ android {
 	sourceSets.test.java.srcDirs += "build/generated/source/r/debug"
 	sourceSets.test.java.srcDirs += sourceSets.main.java.srcDirs
 	sourceSets.test.java.srcDirs += sourceSets.debug.java.srcDirs
-
-	// TODO This is causing errors when loading the app
-//	buildTypes {
-//		debug {
-//			testCoverageEnabled = true
-//		}
-//	}
 }
 
 task androidSourcesJar(type: Jar) {
@@ -128,42 +120,4 @@ task androidSourcesJar(type: Jar) {
 
 artifacts {
 	archives androidSourcesJar
-}
-
-jacoco {
-	toolVersion = "0.7.4.201502262128"
-}
-
-// http://raptordigital.blogspot.com.ar/2014/08/code-coverage-reports-using-robolectric.html
-task jacocoTestReport(type:JacocoReport, dependsOn: "testDebug") {
-	group = "Reporting"
-	description = "Generate Jacoco coverage reports"
-
-	def excludesFilter = ['**/R.class',
-						  '**/R$*.class',
-						  '**/*$ViewInjector*.*',
-						  '**/BuildConfig.*',
-						  '**/Manifest*.*']
-	def includesFilter = ['**/com/jdroid/android/*.class',
-						  '**/com/jdroid/android/maps/**/*.class',
-						  '**/com/jdroid/android/context/**/*.class',
-						  '**/com/jdroid/android/http/**/*.class',
-						  '**/com/jdroid/android/domain/**/*.class',
-						  '**/com/jdroid/android/utils/**/*.class',
-						  '**/com/jdroid/android/api/**/*.class',
-						  '**/com/jdroid/android/uri/**/*.class',
-						  '**/com/jdroid/android/exception/**/*.class',
-						  '**/com/jdroid/android/analytics/**/*.class']
-	def debugTree = fileTree(dir: "${project.buildDir}/intermediates/classes/debug", includes: includesFilter, excludes: excludesFilter)
-	classDirectories = files([debugTree])
-
-	def mainSrc = "${project.projectDir}/src/main/java"
-	sourceDirectories = files([mainSrc])
-
-	executionData = fileTree(dir: project.projectDir, includes: ['**/*.exec', '**/*.ec'])
-
-	reports {
-		xml.enabled = true
-		html.enabled = true
-	}
 }

@@ -38,9 +38,4 @@ public class TestAppContext extends AppContext {
 	public Boolean isCrashlyticsEnabled() {
 		return null;
 	}
-
-	@Override
-	public Boolean isCrashlyticsDebugEnabled() {
-		return null;
-	}
 }

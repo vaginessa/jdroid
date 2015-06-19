@@ -1,5 +1,4 @@
 apply plugin: 'com.jdroid.android.application'
-//apply plugin: 'jacoco'
 
 description = 'Jdroid Sample Android'
 
@@ -128,8 +127,6 @@ android {
 
 			jdroid.setBoolean(buildTypes.debug, "CRASHLYTICS_ENABLED", false)
 			jdroid.setString(buildTypes.debug, "SERVER_NAME", "DEV")
-
-//			testCoverageEnabled = true
 		}
 
 		uat {

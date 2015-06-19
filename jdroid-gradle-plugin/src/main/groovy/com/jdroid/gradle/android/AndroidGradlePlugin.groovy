@@ -11,7 +11,7 @@ public abstract class AndroidGradlePlugin extends BaseGradlePlugin {
 	public void apply(Project project) {
 		super.apply(project)
 
-		project.apply plugin: 'android-sdk-manager'
+//		project.apply plugin: 'android-sdk-manager'
 		applyAndroidPlugin()
 
 		def android = project.extensions.findByName("android")

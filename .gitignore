@@ -22,7 +22,6 @@ jdroid-javaweb/local.properties
 jdroid-android/build/
 jdroid-android/*.iml
 jdroid-android/local.properties
-jdroid-android/jacoco.exec
 
 jdroid-gradle-plugin/.gradle/
 jdroid-gradle-plugin/build/
@@ -41,5 +40,4 @@ jdroid-sample-android/build/
 jdroid-sample-android/*.iml
 jdroid-sample-android/local.properties
 jdroid-sample-android/gradle.properties
-jdroid-sample-android/jacoco.exec
 

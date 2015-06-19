@@ -1,5 +1,4 @@
 apply plugin: 'java'
-apply plugin: 'jacoco'
 
 ext.projectName = 'Jdroid Java'
 description = 'Jdroid dependency project for both Android & Java apps'

@@ -22,7 +22,7 @@ fi
 # jdroid
 # ************************
 
-./gradlew :jdroid-java:clean :jdroid-java:build :jdroid-java:jacocoTestReport :jdroid-android:clean :jdroid-android:build :jdroid-android:jacocoTestReport :jdroid-javaweb:clean :jdroid-javaweb:build :jdroid-javaweb:jacocoTestReport
+./gradlew :jdroid-java:clean :jdroid-java:build :jdroid-java:test :jdroid-android:clean :jdroid-android:build :jdroid-android:testDebug :jdroid-javaweb:clean :jdroid-javaweb:build :jdroid-javaweb:test
 
 # ************************
 # jdroid sample android
