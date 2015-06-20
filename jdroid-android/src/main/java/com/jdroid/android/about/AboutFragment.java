@@ -122,9 +122,16 @@ public class AboutFragment extends AbstractListFragment<AboutItem> {
 				}
 			});
 		}
-		
-		getListView().addHeaderView(header);
-		setListAdapter(new AboutItemsAdapter(getActivity(), aboutItems));
+
+		if (getListView().getHeaderViewsCount() == 0) {
+			if (getListAdapter() != null) {
+				setListAdapter(null);
+			}
+			getListView().addHeaderView(header);
+		}
+		if (getListAdapter() == null) {
+			setListAdapter(new AboutItemsAdapter(getActivity(), aboutItems));
+		}
 	}
 	
 	protected String getCopyRightLegend() {
