@@ -52,6 +52,20 @@
 
 		<include android:id="@+id/shareSection" layout="@layout/share_section" />
 
+		<android.support.v7.widget.CardView android:id="@+id/appInvite" style="@style/cardViewClickableStyle">
+
+			<LinearLayout android:orientation="horizontal" style="@style/cardViewInner" android:gravity="center_vertical"
+						  android:minHeight="@dimen/itemMinHeight">
+
+				<ImageView android:layout_width="@dimen/itemIconSize" android:layout_height="@dimen/itemIconSize"
+						   android:layout_marginRight="12dp" android:duplicateParentState="true" android:src="@drawable/ic_app_invite" />
+
+				<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/spreadTheLoveFollowUsItemText"
+						  android:duplicateParentState="true" android:text="@string/appInvite" />
+			</LinearLayout>
+
+		</android.support.v7.widget.CardView>
+
 		<android.support.v7.widget.CardView android:id="@+id/plusOneSection" style="@style/cardViewClickableStyle">
 
 			<com.google.android.gms.plus.PlusOneButton xmlns:plus="http://schemas.android.com/apk/lib/com.google.android.gms.plus"

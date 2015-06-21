@@ -89,6 +89,10 @@
 	<!-- Twitter -->
 	<string name="twitter">Twitter</string>
 
+	<!-- App Invite -->
+	<string name="appInvite">Invite Friends</string>
+	<string name="appInviteTitle">Invite Friends to %1$s</string>
+
 	<!-- Map -->
 	<string name="driving">Driving</string>
 	<string name="walking">Walking</string>

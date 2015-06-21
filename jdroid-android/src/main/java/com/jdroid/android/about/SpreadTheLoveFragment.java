@@ -1,10 +1,12 @@
 package com.jdroid.android.about;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.plus.PlusOneButton;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
@@ -25,18 +27,21 @@ import com.jdroid.android.social.googleplus.GooglePlusOneButtonHelper;
 import com.jdroid.android.social.twitter.TwitterConnector;
 import com.jdroid.android.utils.GooglePlayUtils;
 import com.jdroid.java.collections.Lists;
+import com.jdroid.java.utils.IdGenerator;
 
 import java.util.List;
 
 public abstract class SpreadTheLoveFragment extends AbstractFragment {
-	
+
+	private static final int REQUEST_INVITE = IdGenerator.getIntId();
+
 	private GooglePlusOneButtonHelper googlePlusOneButtonHelper;
-	
+
 	@Override
 	public Integer getContentFragmentLayout() {
 		return R.layout.spread_the_love_fragment;
 	}
-	
+
 	/**
 	 * @see com.jdroid.android.fragment.AbstractFragment#onViewCreated(android.view.View, android.os.Bundle)
 	 */
@@ -49,7 +54,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 		View facebook = findView(R.id.facebook);
 		if (getFacebookPageId() != null) {
 			facebook.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					FacebookAuthenticationFragment.openPage(getFacebookPageId());
@@ -63,7 +68,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 		View googlePlus = findView(R.id.googlePlus);
 		if (getGooglePlusCommunityId() != null) {
 			googlePlus.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					GooglePlusHelperFragment.openCommunity(getGooglePlusCommunityId());
@@ -77,7 +82,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 		View twitter = findView(R.id.twitter);
 		if (getTwitterAccount() != null) {
 			twitter.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					TwitterConnector.openProfile(getTwitterAccount());
@@ -177,6 +182,24 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 		if (!initialized) {
 			findView(R.id.shareSectionTitle).setVisibility(View.GONE);
 		}
+
+		View appInvite = findView(R.id.appInvite);
+		if (displayAppInviteButton()) {
+			appInvite.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					AppInviteInvitation.IntentBuilder intentBuilder = new AppInviteInvitation.IntentBuilder(getAppInviteTitle());
+					intentBuilder.setMessage(getAppInviteMessage());
+					intentBuilder.setDeepLink(Uri.parse(getAppInviteDeeplink()));
+					Intent intent = intentBuilder.build();
+					startActivityForResult(intent, REQUEST_INVITE);
+				}
+			});
+		} else {
+			appInvite.setVisibility(View.GONE);
+		}
 		
 		if (displayGooglePlusOneButton()) {
 			PlusOneButton plusOneButton = findView(R.id.plusOneButton);
@@ -204,7 +227,21 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 	protected String getTwitterAccount() {
 		return AbstractApplication.get().getAppContext().getTwitterAccount();
 	}
-	
+
+	protected Boolean displayAppInviteButton() {
+		return false;
+	}
+
+	protected String getAppInviteTitle() {
+		return getString(R.string.appInviteTitle, getString(R.string.appName));
+	}
+	protected String getAppInviteMessage() {
+		return getString(R.string.appInviteTitle);
+	}
+	protected String getAppInviteDeeplink() {
+		return AbstractApplication.get().getAppContext().getWebsite();
+	}
+
 	protected Boolean displayGooglePlusOneButton() {
 		return true;
 	}

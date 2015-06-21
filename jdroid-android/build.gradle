@@ -58,6 +58,7 @@ dependencies {
 
 	compile 'com.google.android.gms:play-services-ads:' + googlePlayServicesVersion
 	compile 'com.google.android.gms:play-services-analytics:' + googlePlayServicesVersion
+	compile 'com.google.android.gms:play-services-appinvite:' + googlePlayServicesVersion
 	compile 'com.google.android.gms:play-services-base:' + googlePlayServicesVersion
 	compile 'com.google.android.gms:play-services-gcm:' + googlePlayServicesVersion
 	compile 'com.google.android.gms:play-services-identity:' + googlePlayServicesVersion
