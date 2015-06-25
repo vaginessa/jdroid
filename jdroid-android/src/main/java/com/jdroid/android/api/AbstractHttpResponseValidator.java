@@ -18,6 +18,11 @@ public abstract class AbstractHttpResponseValidator implements HttpWebServicePro
 	private static final String STATUS_CODE_HEADER = "status-code";
 	private static final String SUCCESSFUL_STATUS_CODE = "200";
 
+	@Override
+	public void onInit(WebService webService) {
+		// Do Nothing
+	}
+
 	/**
 	 * @see com.jdroid.java.http.HttpWebServiceProcessor#beforeExecute(com.jdroid.java.http.WebService)
 	 */

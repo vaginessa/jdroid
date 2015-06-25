@@ -36,7 +36,7 @@ public abstract class AbstractWebService implements WebService {
 	/** Header values of the request. */
 	private Map<String, String> headers = Maps.newHashMap();
 
-	private List<HttpWebServiceProcessor> httpWebServiceProcessors;
+	private List<HttpWebServiceProcessor> httpWebServiceProcessors = Lists.newArrayList();
 
 	/**
 	 * @param httpWebServiceProcessors
@@ -53,7 +53,12 @@ public abstract class AbstractWebService implements WebService {
 			}
 		}
 		this.server = server;
-		this.httpWebServiceProcessors = httpWebServiceProcessors;
+
+		if (httpWebServiceProcessors != null) {
+			for (HttpWebServiceProcessor each : httpWebServiceProcessors) {
+				addHttpWebServiceProcessor(each);
+			}
+		}
 	}
 
 	/**
@@ -74,10 +79,8 @@ public abstract class AbstractWebService implements WebService {
 		InputStream inputStream = null;
 		try {
 
-			if (httpWebServiceProcessors != null) {
-				for (HttpWebServiceProcessor each : httpWebServiceProcessors) {
-					each.beforeExecute(this);
-				}
+			for (HttpWebServiceProcessor each : httpWebServiceProcessors) {
+				each.beforeExecute(this);
 			}
 
 			String url = getUrl();
@@ -93,10 +96,8 @@ public abstract class AbstractWebService implements WebService {
 
 			HttpResponseWrapper httpResponseWrapper = doExecute(url);
 
-			if (httpWebServiceProcessors != null) {
-				for (HttpWebServiceProcessor each : httpWebServiceProcessors) {
-					each.afterExecute(this, httpResponseWrapper);
-				}
+			for (HttpWebServiceProcessor each : httpWebServiceProcessors) {
+				each.afterExecute(this, httpResponseWrapper);
 			}
 
 			inputStream = httpResponseWrapper.getInputStream();
@@ -282,5 +283,6 @@ public abstract class AbstractWebService implements WebService {
 	@Override
 	public void addHttpWebServiceProcessor(HttpWebServiceProcessor httpWebServiceProcessor) {
 		httpWebServiceProcessors.add(httpWebServiceProcessor);
+		httpWebServiceProcessor.onInit(this);
 	}
 }

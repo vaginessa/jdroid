@@ -36,13 +36,13 @@
 	<style name="Jdroid.Dialog.Alert" parent="Theme.AppCompat.Light.Dialog.Alert">
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<item name="colorAccent">@color/accentColor</item>
-		<item name="android:windowBackground">@android:color/white</item>
+		<item name="android:windowBackground">@drawable/dialog_background_light</item>
 	</style>
 
 	<style name="Jdroid.Dialog" parent="Theme.AppCompat.Light.Dialog">
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<item name="colorAccent">@color/accentColor</item>
-		<item name="android:windowBackground">@android:color/white</item>
+		<item name="android:windowBackground">@drawable/dialog_background_light</item>
 	</style>
 
 </resources>
