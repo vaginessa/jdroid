@@ -148,6 +148,11 @@ public abstract class CachedWebService implements EntityEnclosingWebService {
 	public void setConnectionTimeout(Integer connectionTimeout) {
 		webService.setConnectionTimeout(connectionTimeout);
 	}
+
+	@Override
+	public void setReadTimeout(Integer readTimeout) {
+		// Do Nothing
+	}
 	
 	/**
 	 * @see com.jdroid.java.http.WebService#setUserAgent(java.lang.String)

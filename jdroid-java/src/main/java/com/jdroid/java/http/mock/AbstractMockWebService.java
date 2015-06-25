@@ -178,6 +178,11 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	public void setConnectionTimeout(Integer connectionTimeout) {
 		// Do Nothing
 	}
+
+	@Override
+	public void setReadTimeout(Integer readTimeout) {
+		// Do Nothing
+	}
 	
 	/**
 	 * @see com.jdroid.java.http.WebService#setUserAgent(java.lang.String)

@@ -1,4 +1,4 @@
-package com.jdroid.android.http;
+package com.jdroid.android.http.apache;
 
 import java.io.InputStream;
 import java.security.KeyStore;

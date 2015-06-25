@@ -22,8 +22,11 @@ public abstract class AbstractWebService implements WebService {
 
 	private Boolean ssl = false;
 
-	/** Connection timeout in milliseconds */
-	private Integer connectionTimeout;
+	/** Connection timeout in milliseconds. 10 seconds as default */
+	private Integer connectionTimeout = 10000;
+
+	/** Read timeout in milliseconds. 60 seconds as default */
+	private Integer readTimeout = 60000;
 
 	private String userAgent;
 
@@ -155,6 +158,15 @@ public abstract class AbstractWebService implements WebService {
 
 	public Integer getConnectionTimeout() {
 		return connectionTimeout;
+	}
+
+	public Integer getReadTimeout() {
+		return readTimeout;
+	}
+
+	@Override
+	public void setReadTimeout(Integer readTimeout) {
+		this.readTimeout = readTimeout;
 	}
 
 	public String getUserAgent() {

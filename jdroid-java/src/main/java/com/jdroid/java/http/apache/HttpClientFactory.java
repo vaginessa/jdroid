@@ -16,11 +16,12 @@ public interface HttpClientFactory {
 	
 	/**
 	 * Creates a {@link DefaultHttpClient} and sets a timeout for it.
-	 * 
-	 * @param timeout The connection timeout in milliseconds. If null a default timeout of 10 seconds will be used.
+	 *
+	 * @param connectionTimeout The connection timeout in milliseconds.
+	 * @param readTimeout The connection timeout in milliseconds.
 	 * @param userAgent The user agent
-	 * 
+	 *
 	 * @return {@link DefaultHttpClient} The created client.
 	 */
-	public DefaultHttpClient createHttpClient(Integer timeout, String userAgent);
+	public DefaultHttpClient createHttpClient(Integer connectionTimeout, Integer readTimeout, String userAgent);
 }

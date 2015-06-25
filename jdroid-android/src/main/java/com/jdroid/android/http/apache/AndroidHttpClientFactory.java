@@ -1,8 +1,9 @@
-package com.jdroid.android.http;
+package com.jdroid.android.http.apache;
 
-import org.apache.http.impl.client.DefaultHttpClient;
 import com.jdroid.java.http.apache.DefaultHttpClientFactory;
 import com.jdroid.java.http.apache.HttpClientFactory;
+
+import org.apache.http.impl.client.DefaultHttpClient;
 
 public class AndroidHttpClientFactory extends DefaultHttpClientFactory {
 	
@@ -15,12 +16,9 @@ public class AndroidHttpClientFactory extends DefaultHttpClientFactory {
 		return INSTANCE;
 	}
 	
-	/**
-	 * @see com.jdroid.java.http.apache.HttpClientFactory#createHttpClient(java.lang.Integer, java.lang.String)
-	 */
 	@Override
-	public DefaultHttpClient createHttpClient(Integer timeout, String userAgent) {
-		DefaultHttpClient httpClient = super.createHttpClient(timeout, userAgent);
+	public DefaultHttpClient createHttpClient(Integer connectionTimeout, Integer readTimeout, String userAgent) {
+		DefaultHttpClient httpClient = super.createHttpClient(connectionTimeout, readTimeout, userAgent);
 		httpClient.setRedirectHandler(new AndroidDefaultRedirectHandler());
 		return httpClient;
 	}

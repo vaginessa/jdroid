@@ -44,7 +44,7 @@ public abstract class ApacheHttpWebService extends AbstractWebService {
 		try {
 
 			// make client for http.
-			client = httpClientFactory.createHttpClient(getConnectionTimeout(), getUserAgent());
+			client = httpClientFactory.createHttpClient(getConnectionTimeout(), getReadTimeout(), getUserAgent());
 
 			// Add Cookies
 			addCookies(client);

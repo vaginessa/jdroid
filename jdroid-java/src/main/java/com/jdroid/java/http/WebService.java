@@ -64,7 +64,9 @@ public interface WebService {
 	 * @param connectionTimeout The connection timeout in milliseconds.
 	 */
 	public void setConnectionTimeout(Integer connectionTimeout);
-	
+
+	public void setReadTimeout(Integer readTimeout);
+
 	/**
 	 * @param userAgent The user agent
 	 */

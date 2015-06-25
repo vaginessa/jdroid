@@ -1,16 +1,12 @@
 package com.jdroid.java.http.apache;
 
+import com.jdroid.java.utils.StringUtils;
+
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.params.CoreProtocolPNames;
-import com.jdroid.java.utils.StringUtils;
 
 public class DefaultHttpClientFactory implements HttpClientFactory {
-	
-	// 10 seconds
-	private static final int DEFAULT_TIMEOUT = 10000;
-	// 60 seconds
-	private static final int DEFAULT_SO_TIMEOUT = 60000;
 	
 	private static HttpClientFactory INSTANCE;
 	
@@ -26,18 +22,20 @@ public class DefaultHttpClientFactory implements HttpClientFactory {
 	 */
 	@Override
 	public DefaultHttpClient createHttpClient() {
-		return createHttpClient(null, null);
+		return createHttpClient(null, null, null);
 	}
-	
-	/**
-	 * @see com.jdroid.java.http.apache.HttpClientFactory#createHttpClient(java.lang.Integer, java.lang.String)
-	 */
+
 	@Override
-	public DefaultHttpClient createHttpClient(Integer timeout, String userAgent) {
+	public DefaultHttpClient createHttpClient(Integer connectionTimeout, Integer readTimeout, String userAgent) {
 		DefaultHttpClient client = new DefaultHttpClient();
-		client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,
-			timeout != null ? timeout : DEFAULT_TIMEOUT);
-		client.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, DEFAULT_SO_TIMEOUT);
+		if (connectionTimeout != null) {
+			client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, connectionTimeout);
+		}
+
+		if (readTimeout != null) {
+			client.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, readTimeout);
+		}
+
 		if (StringUtils.isNotBlank(userAgent)) {
 			client.getParams().setParameter(CoreProtocolPNames.USER_AGENT, userAgent);
 		}
