@@ -1,25 +1,22 @@
 package com.jdroid.android.api;
 
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.http.apache.AndroidHttpClientFactory;
-import com.jdroid.java.api.AbstractApacheApiService;
+import com.jdroid.android.http.apache.AndroidApacheApiHttpFactory;
+import com.jdroid.java.api.AbstractApiService;
+import com.jdroid.java.api.ApiHttpFactory;
 import com.jdroid.java.http.Server;
-import com.jdroid.java.http.apache.HttpClientFactory;
 import com.jdroid.java.http.cache.Cache;
 import com.jdroid.java.http.mock.AbstractMockWebService;
 
 import java.io.File;
 
-public abstract class AndroidApiService extends AbstractApacheApiService {
-	
-	/**
-	 * @see com.jdroid.java.api.AbstractApacheApiService#getHttpClientFactoryInstance()
-	 */
+public abstract class AndroidApiService extends AbstractApiService {
+
 	@Override
-	protected HttpClientFactory getHttpClientFactoryInstance() {
-		return AndroidHttpClientFactory.get();
+	public ApiHttpFactory createApiHttpFactory() {
+		return new AndroidApacheApiHttpFactory();
 	}
-	
+
 	/**
 	 * @see com.jdroid.java.api.AbstractApiService#getHttpCacheDirectory(com.jdroid.java.http.cache.Cache)
 	 */

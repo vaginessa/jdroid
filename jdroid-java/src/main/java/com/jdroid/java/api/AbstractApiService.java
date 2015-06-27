@@ -18,6 +18,12 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractApiService {
+
+	private ApiHttpFactory apiHttpFactory;
+
+	public AbstractApiService() {
+		apiHttpFactory = createApiHttpFactory();
+	}
 	
 	// GET
 	
@@ -37,16 +43,13 @@ public abstract class AbstractApiService {
 		if (isHttpMockEnabled() || mocked) {
 			return getAbstractMockWebServiceInstance(urlSegments);
 		} else {
-			return newGetServiceImpl(getServer(), Lists.newArrayList(urlSegments), processors);
+			return apiHttpFactory.newGetService(getServer(), Lists.newArrayList(urlSegments), processors);
 		}
 	}
 
-	protected abstract WebService newGetServiceImpl(Server server, List<Object> urlSegments,
-			List<HttpWebServiceProcessor> httpWebServiceProcessors);
-
 	protected WebService newCachedGetService(Cache cache, CachingStrategy cachingStrategy, Long timeToLive,
 											 List<HttpWebServiceProcessor> processors, Object... urlSegments) {
-		return newCachedGetService(newGetServiceImpl(getServer(), Lists.newArrayList(urlSegments), processors), cache,
+		return newCachedGetService(apiHttpFactory.newGetService(getServer(), Lists.newArrayList(urlSegments), processors), cache,
 				cachingStrategy, timeToLive);
 	}
 
@@ -74,12 +77,9 @@ public abstract class AbstractApiService {
 		if (isHttpMockEnabled() || mocked) {
 			return getAbstractMockWebServiceInstance(urlSegments);
 		} else {
-			return newPostServiceImpl(getServer(), Lists.newArrayList(urlSegments), processors);
+			return apiHttpFactory.newPostService(getServer(), Lists.newArrayList(urlSegments), processors);
 		}
 	}
-
-	protected abstract EntityEnclosingWebService newPostServiceImpl(Server server, List<Object> urlSegments,
-			List<HttpWebServiceProcessor> httpWebServiceProcessors);
 
 	// POST MULTIPART
 	
@@ -91,14 +91,11 @@ public abstract class AbstractApiService {
 		if (isHttpMockEnabled() || mocked) {
 			return getAbstractMockWebServiceInstance(urlSegments);
 		} else {
-			return newMultipartPostServiceImpl(getServer(), Lists.newArrayList(urlSegments),
-				getHttpWebServiceProcessors());
+			return apiHttpFactory.newMultipartPostService(getServer(), Lists.newArrayList(urlSegments),
+					getHttpWebServiceProcessors());
 		}
 	}
 	
-	protected abstract MultipartWebService newMultipartPostServiceImpl(Server server, List<Object> urlSegments,
-			List<HttpWebServiceProcessor> httpWebServiceProcessors);
-
 	// POST FORM
 	
 	protected EntityEnclosingWebService newFormPostService(Object... urlSegments) {
@@ -109,12 +106,9 @@ public abstract class AbstractApiService {
 		if (isHttpMockEnabled() || mocked) {
 			return getAbstractMockWebServiceInstance(urlSegments);
 		} else {
-			return newFormPostServiceImpl(getServer(), Lists.newArrayList(urlSegments), getHttpWebServiceProcessors());
+			return apiHttpFactory.newFormPostService(getServer(), Lists.newArrayList(urlSegments), getHttpWebServiceProcessors());
 		}
 	}
-	
-	protected abstract EntityEnclosingWebService newFormPostServiceImpl(Server server, List<Object> urlSegments,
-			List<HttpWebServiceProcessor> httpWebServiceProcessors);
 	
 	// PUT
 	
@@ -130,12 +124,9 @@ public abstract class AbstractApiService {
 		if (isHttpMockEnabled() || mocked) {
 			return getAbstractMockWebServiceInstance(urlSegments);
 		} else {
-			return newPutServiceImpl(getServer(), Lists.newArrayList(urlSegments), processors);
+			return apiHttpFactory.newPutService(getServer(), Lists.newArrayList(urlSegments), processors);
 		}
 	}
-
-	protected abstract EntityEnclosingWebService newPutServiceImpl(Server server, List<Object> urlSegments,
-																	List<HttpWebServiceProcessor> httpWebServiceProcessors);
 
 	protected EntityEnclosingWebService newCachedPutService(Cache cache, CachingStrategy cachingStrategy,
 															Long timeToLive, Object... urlSegments) {
@@ -153,13 +144,10 @@ public abstract class AbstractApiService {
 		if (isHttpMockEnabled() || mocked) {
 			return getAbstractMockWebServiceInstance(urlSegments);
 		} else {
-			return newMultipartPutServiceImpl(getServer(), Lists.newArrayList(urlSegments),
-				getHttpWebServiceProcessors());
+			return apiHttpFactory.newMultipartPutService(getServer(), Lists.newArrayList(urlSegments),
+					getHttpWebServiceProcessors());
 		}
 	}
-	
-	protected abstract MultipartWebService newMultipartPutServiceImpl(Server server, List<Object> urlSegments,
-			List<HttpWebServiceProcessor> httpWebServiceProcessors);
 	
 	// DELETE
 	
@@ -179,12 +167,9 @@ public abstract class AbstractApiService {
 		if (isHttpMockEnabled() || mocked) {
 			return getAbstractMockWebServiceInstance(urlSegments);
 		} else {
-			return newDeleteServiceImpl(getServer(), Lists.newArrayList(urlSegments), processors);
+			return apiHttpFactory.newDeleteService(getServer(), Lists.newArrayList(urlSegments), processors);
 		}
 	}
-
-	protected abstract WebService newDeleteServiceImpl(Server server, List<Object> urlSegments,
-													List<HttpWebServiceProcessor> httpWebServiceProcessors);
 
 	protected WebService newCachedDeleteService(Cache cache, CachingStrategy cachingStrategy, Long timeToLive,
 												Object... urlSegments) {
@@ -206,12 +191,9 @@ public abstract class AbstractApiService {
 		if (isHttpMockEnabled() || mocked) {
 			return getAbstractMockWebServiceInstance(urlSegments);
 		} else {
-			return newPatchServiceImpl(getServer(), Lists.newArrayList(urlSegments), processors);
+			return apiHttpFactory.newPatchService(getServer(), Lists.newArrayList(urlSegments), processors);
 		}
 	}
-
-	protected abstract EntityEnclosingWebService newPatchServiceImpl(Server server, List<Object> urlSegments,
-																   List<HttpWebServiceProcessor> httpWebServiceProcessors);
 
 	protected EntityEnclosingWebService newCachedPatchService(Cache cache, CachingStrategy cachingStrategy,
 			Long timeToLive, Object... urlSegments) {
@@ -229,6 +211,10 @@ public abstract class AbstractApiService {
 				return AbstractApiService.this.getHttpCacheDirectory(cache);
 			}
 		};
+	}
+
+	public ApiHttpFactory createApiHttpFactory() {
+		return new ApacheApiHttpFactory();
 	}
 
 	protected abstract Server getServer();

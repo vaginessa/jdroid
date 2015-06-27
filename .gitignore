@@ -6,6 +6,7 @@ build/
 .idea/modules.xml
 .idea/gradle.xml
 .idea/misc.xml
+.idea/runConfigurations.xml
 
 *.iml
 /local.properties

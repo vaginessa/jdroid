@@ -13,49 +13,49 @@ import com.jdroid.java.http.urlconnection.put.PutUrlConnectionHttpWebService;
 
 import java.util.List;
 
-public abstract class AbstractUrlConnectionApiService extends AbstractApiService {
+public class UrlConnectionApiHttpFactory implements ApiHttpFactory {
 	
 	@Override
-	protected WebService newGetServiceImpl(Server server, List<Object> urlSegments,
+	public WebService newGetService(Server server, List<Object> urlSegments,
 										   List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		return new GetUrlConnectionHttpWebService(server, urlSegments, httpWebServiceProcessors);
 	}
-
+	
 	@Override
-	protected EntityEnclosingWebService newPostServiceImpl(Server server, List<Object> urlSegments,
+	public EntityEnclosingWebService newPostService(Server server, List<Object> urlSegments,
 														   List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		return new PostUrlConnectionHttpWebService(server, urlSegments, httpWebServiceProcessors);
 	}
-
+	
 	@Override
-	protected MultipartWebService newMultipartPostServiceImpl(Server server, List<Object> urlSegments, List<HttpWebServiceProcessor> httpWebServiceProcessors) {
+	public MultipartWebService newMultipartPostService(Server server, List<Object> urlSegments, List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	@Override
-	protected MultipartWebService newMultipartPutServiceImpl(Server server, List<Object> urlSegments, List<HttpWebServiceProcessor> httpWebServiceProcessors) {
+	public MultipartWebService newMultipartPutService(Server server, List<Object> urlSegments, List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	@Override
-	protected EntityEnclosingWebService newFormPostServiceImpl(Server server, List<Object> urlSegments, List<HttpWebServiceProcessor> httpWebServiceProcessors) {
+	public EntityEnclosingWebService newFormPostService(Server server, List<Object> urlSegments, List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	@Override
-	protected EntityEnclosingWebService newPutServiceImpl(Server server, List<Object> urlSegments,
+	public EntityEnclosingWebService newPutService(Server server, List<Object> urlSegments,
 														  List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		return new PutUrlConnectionHttpWebService(server, urlSegments, httpWebServiceProcessors);
 	}
-
+	
 	@Override
-	protected EntityEnclosingWebService newPatchServiceImpl(Server baseURL, List<Object> urlSegments,
+	public EntityEnclosingWebService newPatchService(Server baseURL, List<Object> urlSegments,
 															List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		return new PatchUrlConnectionHttpWebService(baseURL, urlSegments, httpWebServiceProcessors);
 	}
-
+	
 	@Override
-	protected WebService newDeleteServiceImpl(Server server, List<Object> urlSegments,
+	public WebService newDeleteService(Server server, List<Object> urlSegments,
 											  List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		return new DeleteUrlConnectionHttpWebService(server, urlSegments, httpWebServiceProcessors);
 	}

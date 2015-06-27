@@ -1,11 +1,11 @@
 package com.jdroid.javaweb.api;
 
-import com.jdroid.java.api.AbstractApacheApiService;
+import com.jdroid.java.api.AbstractApiService;
 import com.jdroid.java.http.mock.AbstractMockWebService;
 import com.jdroid.java.http.mock.JsonMockWebService;
 import com.jdroid.javaweb.context.Application;
 
-public abstract class ServerApiService extends AbstractApacheApiService {
+public abstract class ServerApiService extends AbstractApiService {
 	
 	/**
 	 * @see com.jdroid.java.api.AbstractApiService#isHttpMockEnabled()

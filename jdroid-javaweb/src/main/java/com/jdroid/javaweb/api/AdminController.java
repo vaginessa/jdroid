@@ -2,6 +2,7 @@ package com.jdroid.javaweb.api;
 
 import com.google.common.collect.Maps;
 import com.jdroid.java.http.MimeType;
+import com.jdroid.java.utils.DateUtils;
 import com.jdroid.javaweb.context.Application;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +30,9 @@ public class AdminController extends AbstractController {
 		infoMap.put("Http Mock Sleep Duration", Application.get().getAppContext().getHttpMockSleepDuration());
 		infoMap.put("Default Charset", Charset.defaultCharset());
 		infoMap.put("File Encoding", System.getProperty("file.encoding"));
+
 		infoMap.put("Time Zone", TimeZone.getDefault().getID());
+		infoMap.put("Current Time", DateUtils.now());
 
 		// Twitter
 		infoMap.put("Twitter Enabled", Application.get().getAppContext().isTwitterEnabled());
