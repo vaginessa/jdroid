@@ -33,7 +33,7 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	private Object[] urlSegments;
 	private Map<String, String> parameters = Maps.newHashMap();
 	private Map<String, String> headers = Maps.newHashMap();
-	private String entityContent;
+	private String body;
 	
 	public AbstractMockWebService(Object... urlSegments) {
 		this.urlSegments = urlSegments;
@@ -56,8 +56,8 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 			LOGGER.warn("Headers: " + headers.toString());
 		}
 		
-		if (StringUtils.isNotBlank(entityContent)) {
-			LOGGER.warn("HTTP Entity Body: " + entityContent);
+		if (StringUtils.isNotBlank(body)) {
+			LOGGER.warn("HTTP Entity Body: " + body);
 		}
 		
 		Integer httpMockSleep = getHttpMockSleepDuration(urlSegments);
@@ -164,11 +164,11 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.post.EntityEnclosingWebService#setEntity(java.lang.String)
+	 * @see EntityEnclosingWebService#setBody(String)
 	 */
 	@Override
-	public void setEntity(String entityContent) {
-		this.entityContent = entityContent;
+	public void setBody(String body) {
+		this.body = body;
 	}
 	
 	/**

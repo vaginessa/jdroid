@@ -249,6 +249,6 @@ public abstract class AbstractApiService {
 	
 	public void marshall(EntityEnclosingWebService webservice, Object object, MarshallerMode mode,
 			Map<String, String> extras) {
-		webservice.setEntity(MarshallerProvider.get().marshall(object, mode, extras).toString());
+		webservice.setBody(MarshallerProvider.get().marshall(object, mode, extras).toString());
 	}
 }

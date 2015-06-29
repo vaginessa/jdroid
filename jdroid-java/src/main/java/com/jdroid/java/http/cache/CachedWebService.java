@@ -187,11 +187,11 @@ public abstract class CachedWebService implements EntityEnclosingWebService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.post.EntityEnclosingWebService#setEntity(java.lang.String)
+	 * @see EntityEnclosingWebService#setBody(String)
 	 */
 	@Override
-	public void setEntity(String content) {
-		((EntityEnclosingWebService)webService).setEntity(content);
+	public void setBody(String body) {
+		((EntityEnclosingWebService)webService).setBody(body);
 	}
 	
 	/**

@@ -9,6 +9,8 @@ public class AppContext {
 	private String appVersion;
 	private String appHomePath;
 
+	private String buildType;
+
 	private String buildTime;
 	private String apiVersion;
 	private String minApiVersion;
@@ -24,7 +26,10 @@ public class AppContext {
 	private String twitterOAuthAccessToken;
 	private String twitterOAuthAccessTokenSecret;
 	private Boolean twitterEnabled;
-	
+
+	private String rollBarAccessToken;
+	private Boolean rollBarEnabled;
+
 	public String getAppName() {
 		return appName;
 	}
@@ -206,5 +211,29 @@ public class AppContext {
 
 	public void setBuildTime(String buildTime) {
 		this.buildTime = buildTime;
+	}
+
+	public void setBuildType(String buildType) {
+		this.buildType = buildType;
+	}
+
+	public String getBuildType() {
+		return buildType;
+	}
+
+	public String getRollBarAccessToken() {
+		return rollBarAccessToken;
+	}
+
+	public void setRollBarAccessToken(String rollBarAccessToken) {
+		this.rollBarAccessToken = rollBarAccessToken;
+	}
+
+	public Boolean isRollBarEnabled() {
+		return rollBarEnabled;
+	}
+
+	public void setRollBarEnabled(Boolean rollBarEnabled) {
+		this.rollBarEnabled = rollBarEnabled;
 	}
 }

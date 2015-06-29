@@ -62,6 +62,8 @@ dependencies {
 	// Servlet API
 	compile "javax.servlet:servlet-api:2.5"
 
+	compile "org.json:json:20131018"
+
 	// Module dependencies
 	compile project(':jdroid-java')
 

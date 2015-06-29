@@ -12,7 +12,7 @@ import java.util.List;
 
 public abstract class UrlConnectionEntityEnclosingWebService extends UrlConnectionHttpWebService implements EntityEnclosingWebService {
 
-	private String entity;
+	private String body;
 
 	public UrlConnectionEntityEnclosingWebService(Server server, List<Object> urlSegments, List<HttpWebServiceProcessor> httpWebServiceProcessors) {
 		super(server, urlSegments, httpWebServiceProcessors);
@@ -20,17 +20,17 @@ public abstract class UrlConnectionEntityEnclosingWebService extends UrlConnecti
 
 	@Override
 	protected void onConfigureUrlConnection(HttpURLConnection httpURLConnection) throws IOException {
-		if (entity != null) {
+		if (body != null) {
 			httpURLConnection.setDoOutput(true);
-			httpURLConnection.setFixedLengthStreamingMode(entity.getBytes().length);
+			httpURLConnection.setFixedLengthStreamingMode(body.getBytes().length);
 			OutputStream out = new BufferedOutputStream(httpURLConnection.getOutputStream());
-			out.write(entity.getBytes());
+			out.write(body.getBytes());
 			out.close();
 		}
 	}
 
 	@Override
-	public void setEntity(String content) {
-		this.entity = content;
+	public void setBody(String body) {
+		this.body = body;
 	}
 }

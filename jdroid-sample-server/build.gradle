@@ -2,21 +2,19 @@ apply plugin: 'com.jdroid.javaweb'
 
 description = 'Jdroid Sample Server'
 
-repositories {
-	mavenCentral()
-}
-
 buildscript {
 	repositories {
 		mavenCentral()
 		jcenter()
 	}
-}
 
-buildscript {
 	dependencies {
 		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + project.version
 	}
+}
+
+repositories {
+	mavenCentral()
 }
 
 configurations.all {
@@ -50,6 +48,7 @@ project.afterEvaluate {
 		new File("$projectDir/src/main/resources/settings.properties").withWriter { out ->
 			out.writeLine("appName=${project.name}")
 			out.writeLine("appVersion=${project.version}")
+			out.writeLine("buildType=${jdroid.getProp('BUILD_TYPE')}")
 			out.writeLine("buildTime=${jdroid.getBuildTime()}")
 			out.writeLine("gitBranch=${jdroid.getGitBranch()}")
 			out.writeLine("gitSha=${jdroid.getGitSha()}")
@@ -58,6 +57,8 @@ project.afterEvaluate {
 			out.writeLine("httpMockEnabled=${jdroid.getProp('HTTP_MOCK_ENABLED', false)}")
 			out.writeLine("httpMockSleepDuration=${jdroid.getProp('HTTP_MOCK_SLEEP_DURATION', 10)}")
 			out.writeLine("adminToken=${jdroid.getProp('ADMIN_TOKEN', 'admin')}")
+			out.writeLine("rollBarEnabled=${jdroid.getProp('ROLLBAR_ENABLED', 'false')}")
+			out.writeLine("rollBarAccessToken=${jdroid.getProp('ROLLBAR_ACCESS_TOKEN')}")
 
 			// TODO Ignore the null keys, because they are generating "null" strings
 			out.writeLine("twitterOAuthConsumerKey=${jdroid.getProp('TWITTER_OAUTH_CONSUMER_KEY')}")
@@ -74,5 +75,11 @@ project.afterEvaluate {
 test {
 	useTestNG {
 	}
+}
+
+// https://blog.openshift.com/run-gradle-builds-on-openshift/
+war{
+	archiveName = 'ROOT.war'
+	destinationDir = file('webapps')
 }
 

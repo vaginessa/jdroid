@@ -49,13 +49,13 @@ public abstract class ApacheHttpEntityEnclosingWebService extends ApacheHttpWebS
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.post.EntityEnclosingWebService#setEntity(java.lang.String)
+	 * @see EntityEnclosingWebService#setBody(String)
 	 */
 	@Override
-	public void setEntity(String content) {
+	public void setBody(String body) {
 		try {
-			entity = new StringEntity(content, HTTP.UTF_8);
-			ApacheHttpWebService.LOGGER.debug("Entity: " + content);
+			entity = new StringEntity(body, HTTP.UTF_8);
+			ApacheHttpWebService.LOGGER.debug("Entity: " + body);
 		} catch (UnsupportedEncodingException e) {
 			throw new UnexpectedException(e);
 		}

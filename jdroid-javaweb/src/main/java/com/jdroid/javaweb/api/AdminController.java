@@ -23,6 +23,7 @@ public class AdminController extends AbstractController {
 		Map<String, Object> infoMap = Maps.newLinkedHashMap();
 		infoMap.put("App Name", Application.get().getAppContext().getAppName());
 		infoMap.put("App Version", Application.get().getAppContext().getAppVersion());
+		infoMap.put("Build Type", Application.get().getAppContext().getBuildType());
 		infoMap.put("Build Time", Application.get().getAppContext().getBuildTime());
 		infoMap.put("Git Branch", Application.get().getGitContext().getBranch());
 		infoMap.put("Git Sha", Application.get().getGitContext().getSha());
@@ -40,6 +41,10 @@ public class AdminController extends AbstractController {
 		infoMap.put("Twitter Oauth Consumer Secret", Application.get().getAppContext().getTwitterOAuthConsumerSecret());
 		infoMap.put("Twitter Oauth Access Token", Application.get().getAppContext().getTwitterOAuthAccessToken());
 		infoMap.put("Twitter Oauth Access Token Secret", Application.get().getAppContext().getTwitterOAuthAccessTokenSecret());
+
+		// RollBar
+		infoMap.put("RollBar Enabled", Application.get().getAppContext().isRollBarEnabled());
+		infoMap.put("RollBar Access Token", Application.get().getAppContext().getRollBarAccessToken());
 
 		infoMap.putAll(getCustomInfoMap());
 
