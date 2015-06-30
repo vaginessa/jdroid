@@ -345,7 +345,7 @@ public class RollBarLogger implements Logger {
 				@Override
 				public void run() {
 					try {
-						NotifyBuilder builder = new NotifyBuilder();
+						RollBarNotifyBuilder builder = new RollBarNotifyBuilder();
 						builder.setAccessToken(Application.get().getAppContext().getRollBarAccessToken());
 						builder.setEnvironment(Application.get().getAppContext().getBuildType());
 						builder.setLevel(level);

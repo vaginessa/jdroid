@@ -45,12 +45,13 @@ public class DebugInfoFragment extends AbstractRecyclerFragment<Pair<String, Obj
 		properties.add(new Pair<String, Object>("Version Name", AndroidUtils.getVersionName()));
 		properties.add(new Pair<String, Object>("Version Code", AndroidUtils.getVersionCode()));
 		properties.add(new Pair<String, Object>("API Level", AndroidUtils.getApiLevel()));
+
 		properties.add(new Pair<String, Object>("Device Manufacturer", AndroidUtils.getDeviceManufacturer()));
 		properties.add(new Pair<String, Object>("Device Model", AndroidUtils.getDeviceModel()));
+		properties.add(new Pair<String, Object>("Device Year Class", AbstractApplication.get().getDeviceYearClass()));
+
 		properties.add(new Pair<String, Object>("Network Operator Name", AndroidUtils.getNetworkOperatorName()));
 		properties.add(new Pair<String, Object>("Sim Operator Name", AndroidUtils.getSimOperatorName()));
-
-		properties.add(new Pair<String, Object>("Device Year Class", AbstractApplication.get().getDeviceYearClass()));
 
 		properties.addAll(AbstractApplication.get().getDebugContext().getCustomDebugInfoProperties());
 	}

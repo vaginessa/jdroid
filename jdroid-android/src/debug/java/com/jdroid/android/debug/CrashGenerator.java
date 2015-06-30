@@ -25,5 +25,4 @@ public class CrashGenerator {
 			runnable.run();
 		}
 	}
-	
 }

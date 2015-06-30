@@ -55,6 +55,12 @@ public class HttpMocksDebugPrefsAppender implements PreferencesAppender {
 		// FIXME this is not working
 		// preference.setDependency(AppContext.HTTP_MOCK_ENABLED);
 		preferenceCategory.addPreference(preference);
+
+		onInitPreferenceCategory(activity, preferenceCategory);
+	}
+
+	protected void onInitPreferenceCategory(Activity activity, PreferenceCategory preferenceCategory) {
+		// Do nothing
 	}
 	
 	/**

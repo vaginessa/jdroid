@@ -22,7 +22,7 @@ import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class NotifyBuilder {
+public class RollBarNotifyBuilder {
 
 	private String accessToken;
     private String environment;

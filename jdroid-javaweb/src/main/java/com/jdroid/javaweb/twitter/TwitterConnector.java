@@ -1,16 +1,19 @@
 package com.jdroid.javaweb.twitter;
 
-import java.util.List;
+import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.java.utils.LoggerUtils;
+import com.jdroid.javaweb.context.Application;
+
 import org.slf4j.Logger;
+
+import java.util.List;
+
 import twitter4j.Query;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
-import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.utils.LoggerUtils;
-import com.jdroid.javaweb.context.Application;
 
 public class TwitterConnector {
 	
@@ -37,7 +40,7 @@ public class TwitterConnector {
 				Status status = twitterFactory.getInstance().updateStatus(text);
 				LOGGER.info("Successfully updated the status to [" + status.getText() + "].");
 			} else {
-				LOGGER.warn("Ignored tweet status [" + text + "].");
+				LOGGER.info("Ignored tweet status [" + text + "].");
 			}
 		} catch (TwitterException e) {
 			LOGGER.error("Error when posting on Twitter: [" + text + "]", e);
