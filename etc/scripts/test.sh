@@ -22,7 +22,7 @@ fi
 # jdroid sample server
 # ************************
 
-./gradlew :jdroid-java:clean :jdroid-java:build :jdroid-java:test :jdroid-javaweb:clean :jdroid-javaweb:build :jdroid-javaweb:test :jdroid-sample-server:build
+./gradlew :jdroid-java:clean :jdroid-java:build :jdroid-java:test :jdroid-javaweb:clean :jdroid-javaweb:build :jdroid-javaweb:test :jdroid-sample-server:build --configure-on-demand
 
 # ************************
 # jdroid sample android
@@ -36,5 +36,6 @@ fi
 
 if [ "$UPLOAD" = "true" ]
 then
-	./gradlew :jdroid-gradle-plugin:uploadArchives :jdroid-java:uploadArchives :jdroid-javaweb:uploadArchives :jdroid-android:uploadArchives
+	./gradlew :jdroid-gradle-plugin:uploadArchives :jdroid-java:uploadArchives :jdroid-javaweb:uploadArchives
+#	./gradlew :jdroid-android:uploadArchives --configure-on-demand
 fi
