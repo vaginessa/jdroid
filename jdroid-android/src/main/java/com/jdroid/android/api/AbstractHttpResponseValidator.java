@@ -5,13 +5,13 @@ import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.ErrorCode;
 import com.jdroid.java.exception.HttpResponseException;
 import com.jdroid.java.http.HttpResponseWrapper;
-import com.jdroid.java.http.HttpWebServiceProcessor;
-import com.jdroid.java.http.WebService;
+import com.jdroid.java.http.HttpServiceProcessor;
+import com.jdroid.java.http.HttpService;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
 
-public abstract class AbstractHttpResponseValidator implements HttpWebServiceProcessor {
+public abstract class AbstractHttpResponseValidator implements HttpServiceProcessor {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(AbstractHttpResponseValidator.class);
 	
@@ -19,25 +19,25 @@ public abstract class AbstractHttpResponseValidator implements HttpWebServicePro
 	private static final String SUCCESSFUL_STATUS_CODE = "200";
 
 	@Override
-	public void onInit(WebService webService) {
+	public void onInit(HttpService httpService) {
 		// Do Nothing
 	}
 
 	/**
-	 * @see com.jdroid.java.http.HttpWebServiceProcessor#beforeExecute(com.jdroid.java.http.WebService)
+	 * @see HttpServiceProcessor#beforeExecute(HttpService)
 	 */
 	@Override
-	public void beforeExecute(WebService webService) {
+	public void beforeExecute(HttpService httpService) {
 		// Do Nothing
 		
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.HttpWebServiceProcessor#afterExecute(com.jdroid.java.http.WebService,
+	 * @see HttpServiceProcessor#afterExecute(HttpService,
 	 *      com.jdroid.java.http.HttpResponseWrapper)
 	 */
 	@Override
-	public void afterExecute(WebService webService, HttpResponseWrapper httpResponse) {
+	public void afterExecute(HttpService httpService, HttpResponseWrapper httpResponse) {
 		// validate response.
 		this.validateResponse(httpResponse);
 	}

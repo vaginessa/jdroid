@@ -51,10 +51,10 @@ public class DefaultServer implements Server {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.Server#getHttpWebServiceProcessors()
+	 * @see com.jdroid.java.http.Server#getHttpServiceProcessors()
 	 */
 	@Override
-	public List<HttpWebServiceProcessor> getHttpWebServiceProcessors() {
+	public List<HttpServiceProcessor> getHttpServiceProcessors() {
 		return null;
 	}
 	

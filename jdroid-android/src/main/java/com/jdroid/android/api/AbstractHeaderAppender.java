@@ -5,14 +5,14 @@ import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.http.HttpResponseWrapper;
-import com.jdroid.java.http.HttpWebServiceProcessor;
+import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.MimeType;
-import com.jdroid.java.http.WebService;
+import com.jdroid.java.http.HttpService;
 import com.jdroid.java.utils.StringUtils;
 
 import java.util.Locale;
 
-public class AbstractHeaderAppender implements HttpWebServiceProcessor {
+public class AbstractHeaderAppender implements HttpServiceProcessor {
 	
 	public static final String ACCEPT_LANGUAGE_HEADER = "Accept-Language";
 	private static final String API_VERSION_HEADER = "api-version";
@@ -25,59 +25,59 @@ public class AbstractHeaderAppender implements HttpWebServiceProcessor {
 	public static final String CLIENT_OS_VERSION_HEADER = "clientOsVersion";
 
 	@Override
-	public void onInit(WebService webService) {
+	public void onInit(HttpService httpService) {
 		// Do Nothing
 	}
 
 	/**
-	 * @see com.jdroid.java.http.HttpWebServiceProcessor#beforeExecute(com.jdroid.java.http.WebService)
+	 * @see HttpServiceProcessor#beforeExecute(HttpService)
 	 */
 	@Override
-	public void beforeExecute(WebService webService) {
+	public void beforeExecute(HttpService httpService) {
 		
 		// User Agent header
-		webService.setUserAgent(USER_AGENT_HEADER_VALUE);
+		httpService.setUserAgent(USER_AGENT_HEADER_VALUE);
 
-		addLanguageHeader(webService);
-		addApiVersionHeader(webService);
-		addUserTokenHeader(webService);
+		addLanguageHeader(httpService);
+		addApiVersionHeader(httpService);
+		addUserTokenHeader(httpService);
 
-		webService.addHeader(WebService.CONTENT_TYPE_HEADER, MimeType.JSON_UTF8);
-		webService.addHeader(WebService.ACCEPT_HEADER, MimeType.JSON);
-		webService.addHeader(WebService.ACCEPT_ENCODING_HEADER, WebService.GZIP_ENCODING);
+		httpService.addHeader(HttpService.CONTENT_TYPE_HEADER, MimeType.JSON_UTF8);
+		httpService.addHeader(HttpService.ACCEPT_HEADER, MimeType.JSON);
+		httpService.addHeader(HttpService.ACCEPT_ENCODING_HEADER, HttpService.GZIP_ENCODING);
 
-		webService.addHeader(DEVICE_ID_HEADER, AndroidUtils.getDeviceUUID());
-		webService.addHeader(CLIENT_APP_VERSION_HEADER, AndroidUtils.getVersionCode().toString());
-		webService.addHeader(CLIENT_OS_VERSION_HEADER, AndroidUtils.getApiLevel().toString());
+		httpService.addHeader(DEVICE_ID_HEADER, AndroidUtils.getDeviceUUID());
+		httpService.addHeader(CLIENT_APP_VERSION_HEADER, AndroidUtils.getVersionCode().toString());
+		httpService.addHeader(CLIENT_OS_VERSION_HEADER, AndroidUtils.getApiLevel().toString());
 	}
 
-	protected void addLanguageHeader(WebService webService) {
+	protected void addLanguageHeader(HttpService httpService) {
 		String language = Locale.getDefault().getLanguage();
 		String country = Locale.getDefault().getCountry();
 		if (StringUtils.isNotBlank(country)) {
 			language = language + "-" + country;
 		}
-		webService.addHeader(ACCEPT_LANGUAGE_HEADER,  language);
+		httpService.addHeader(ACCEPT_LANGUAGE_HEADER,  language);
 	}
 
-	protected void addApiVersionHeader(WebService webService) {
-		webService.addHeader(API_VERSION_HEADER, AbstractApplication.get().getAppContext().getServerApiVersion());
+	protected void addApiVersionHeader(HttpService httpService) {
+		httpService.addHeader(API_VERSION_HEADER, AbstractApplication.get().getAppContext().getServerApiVersion());
 	}
 
-	protected void addUserTokenHeader(WebService webService) {
+	protected void addUserTokenHeader(HttpService httpService) {
 		User user = SecurityContext.get().getUser();
 		if (user != null) {
-			webService.addHeader(USER_TOKEN_HEADER, user.getUserToken());
+			httpService.addHeader(USER_TOKEN_HEADER, user.getUserToken());
 		}
 	}
 
 
 	/**
-	 * @see com.jdroid.java.http.HttpWebServiceProcessor#afterExecute(com.jdroid.java.http.WebService,
+	 * @see HttpServiceProcessor#afterExecute(HttpService,
 	 *      com.jdroid.java.http.HttpResponseWrapper)
 	 */
 	@Override
-	public void afterExecute(WebService webService, HttpResponseWrapper httpResponse) {
+	public void afterExecute(HttpService httpService, HttpResponseWrapper httpResponse) {
 		// Do Nothing
 	}
 	

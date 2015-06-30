@@ -2,7 +2,7 @@ package com.jdroid.sample.android.api;
 
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.http.HttpWebServiceProcessor;
+import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.Server;
 
 import java.util.List;
@@ -72,10 +72,10 @@ public enum ApiServer implements Server {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.Server#getHttpWebServiceProcessors()
+	 * @see com.jdroid.java.http.Server#getHttpServiceProcessors()
 	 */
 	@Override
-	public List<HttpWebServiceProcessor> getHttpWebServiceProcessors() {
+	public List<HttpServiceProcessor> getHttpServiceProcessors() {
 		return Lists.newArrayList(HeadersAppender.get(), HttpResponseValidator.get());
 	}
 	

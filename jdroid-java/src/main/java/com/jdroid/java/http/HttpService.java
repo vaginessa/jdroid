@@ -4,7 +4,7 @@ import com.jdroid.java.parser.Parser;
 
 import java.util.Collection;
 
-public interface WebService {
+public interface HttpService {
 	
 	public static final String HTTPS_PROTOCOL = "https";
 	public static final String HTTP_PROTOCOL = "http";
@@ -20,17 +20,8 @@ public interface WebService {
 	public static final String EQUALS = "=";
 	public static final String AMPERSAND = "&";
 	
-	/**
-	 * @param <T>
-	 * @param parser
-	 * @return WebServiceResponse
-	 */
 	public <T> T execute(Parser parser);
 	
-	/**
-	 * @param <T>
-	 * @return WebServiceResponse
-	 */
 	public <T> T execute();
 	
 	/**
@@ -58,7 +49,7 @@ public interface WebService {
 	 */
 	public void addUrlSegment(Object segment);
 	
-	public void addHttpWebServiceProcessor(HttpWebServiceProcessor httpWebServiceProcessor);
+	public void addHttpServiceProcessor(HttpServiceProcessor httpServiceProcessor);
 	
 	/**
 	 * @param connectionTimeout The connection timeout in milliseconds.

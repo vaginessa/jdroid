@@ -9,7 +9,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.jdroid.java.http.WebService;
+import com.jdroid.java.http.HttpService;
 
 public class GZIPFilter implements Filter {
 	
@@ -21,8 +21,8 @@ public class GZIPFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
 			ServletException {
 		if (request instanceof HttpServletRequest) {
-			String acceptEncoding = ((HttpServletRequest)request).getHeader(WebService.ACCEPT_ENCODING_HEADER);
-			if ((acceptEncoding != null) && (acceptEncoding.contains(WebService.GZIP_ENCODING))) {
+			String acceptEncoding = ((HttpServletRequest)request).getHeader(HttpService.ACCEPT_ENCODING_HEADER);
+			if ((acceptEncoding != null) && (acceptEncoding.contains(HttpService.GZIP_ENCODING))) {
 				GZIPResponseWrapper wrappedResponse = new GZIPResponseWrapper((HttpServletResponse)response);
 				chain.doFilter(request, wrappedResponse);
 				wrappedResponse.close();

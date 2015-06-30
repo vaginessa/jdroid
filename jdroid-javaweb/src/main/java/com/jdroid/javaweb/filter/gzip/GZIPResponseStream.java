@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.zip.GZIPOutputStream;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import com.jdroid.java.http.WebService;
+import com.jdroid.java.http.HttpService;
 
 public class GZIPResponseStream extends ServletOutputStream {
 	
@@ -37,7 +37,7 @@ public class GZIPResponseStream extends ServletOutputStream {
 		byte[] bytes = baos.toByteArray();
 		
 		response.addHeader("Content-Length", Integer.toString(bytes.length));
-		response.addHeader(WebService.CONTENT_ENCODING_HEADER, WebService.GZIP_ENCODING);
+		response.addHeader(HttpService.CONTENT_ENCODING_HEADER, HttpService.GZIP_ENCODING);
 		output.write(bytes);
 		output.flush();
 		output.close();

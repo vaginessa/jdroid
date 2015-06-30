@@ -1,6 +1,6 @@
 package com.jdroid.sample.api.controller;
 
-import com.jdroid.java.http.AbstractWebService;
+import com.jdroid.java.http.AbstractHttpService;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.api.AbstractController;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/sample")
 public class SampleController extends AbstractController {
 
-	private static final Logger LOGGER = LoggerUtils.getLogger(AbstractWebService.class);
+	private static final Logger LOGGER = LoggerUtils.getLogger(AbstractHttpService.class);
 	
 	@RequestMapping(value = "/get", method = RequestMethod.GET, produces = MimeType.JSON_UTF8)
 	@ResponseBody

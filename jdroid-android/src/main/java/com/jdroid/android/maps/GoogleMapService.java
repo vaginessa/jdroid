@@ -4,7 +4,7 @@ import com.jdroid.android.api.AndroidApiService;
 import com.jdroid.android.domain.GeoLocation;
 import com.jdroid.java.http.DefaultServer;
 import com.jdroid.java.http.Server;
-import com.jdroid.java.http.WebService;
+import com.jdroid.java.http.HttpService;
 
 public class GoogleMapService extends AndroidApiService {
 	
@@ -18,12 +18,12 @@ public class GoogleMapService extends AndroidApiService {
 	private static final String MODE = "mode";
 	
 	public Route findDirections(GeoLocation source, GeoLocation destination, RouteMode mode) {
-		WebService webservice = newGetService(DIRECTIONS, OUTPUT_FORMAT);
-		webservice.addQueryParameter(ORIGIN, toHttpParam(source));
-		webservice.addQueryParameter(DESTINATION, toHttpParam(destination));
-		webservice.addQueryParameter(SENSOR, "true");
-		webservice.addQueryParameter(MODE, mode.getArgName());
-		Route route = webservice.execute(new GoogleRouteParser());
+		HttpService httpService = newGetService(DIRECTIONS, OUTPUT_FORMAT);
+		httpService.addQueryParameter(ORIGIN, toHttpParam(source));
+		httpService.addQueryParameter(DESTINATION, toHttpParam(destination));
+		httpService.addQueryParameter(SENSOR, "true");
+		httpService.addQueryParameter(MODE, mode.getArgName());
+		Route route = httpService.execute(new GoogleRouteParser());
 		if (route != null) {
 			route.setMode(mode);
 		}

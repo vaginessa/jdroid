@@ -1,8 +1,8 @@
 package com.jdroid.java.http.cache;
 
-import com.jdroid.java.http.HttpWebServiceProcessor;
-import com.jdroid.java.http.WebService;
-import com.jdroid.java.http.post.EntityEnclosingWebService;
+import com.jdroid.java.http.HttpServiceProcessor;
+import com.jdroid.java.http.HttpService;
+import com.jdroid.java.http.post.EntityEnclosingHttpService;
 import com.jdroid.java.parser.Parser;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.Hasher;
@@ -15,32 +15,32 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Collection;
 
-public abstract class CachedWebService implements EntityEnclosingWebService {
+public abstract class CachedHttpService implements EntityEnclosingHttpService {
 	
-	private static final Logger LOGGER = LoggerUtils.getLogger(CachedWebService.class);
+	private static final Logger LOGGER = LoggerUtils.getLogger(CachedHttpService.class);
 	
-	private WebService webService;
+	private HttpService httpService;
 	private CachingStrategy cachingStrategy;
 	private Long timeToLive;
 	private Cache cache;
 	
-	public CachedWebService(WebService webService, Cache cache) {
-		this(webService, cache, null, null);
+	public CachedHttpService(HttpService httpService, Cache cache) {
+		this(httpService, cache, null, null);
 	}
 	
-	public CachedWebService(WebService webService, Cache cache, CachingStrategy cachingStrategy) {
-		this(webService, cache, cachingStrategy, null);
+	public CachedHttpService(HttpService httpService, Cache cache, CachingStrategy cachingStrategy) {
+		this(httpService, cache, cachingStrategy, null);
 	}
 	
-	public CachedWebService(WebService webService, Cache cache, CachingStrategy cachingStrategy, Long timeToLive) {
-		this.webService = webService;
+	public CachedHttpService(HttpService httpService, Cache cache, CachingStrategy cachingStrategy, Long timeToLive) {
+		this.httpService = httpService;
 		this.cache = cache;
 		this.cachingStrategy = cachingStrategy != null ? cachingStrategy : CachingStrategy.NO_CACHE;
 		this.timeToLive = timeToLive;
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#execute(com.jdroid.java.parser.Parser)
+	 * @see HttpService#execute(com.jdroid.java.parser.Parser)
 	 */
 	@Override
 	public <T> T execute(Parser parser) {
@@ -51,11 +51,11 @@ public abstract class CachedWebService implements EntityEnclosingWebService {
 	protected abstract File getHttpCacheDirectory(Cache cache);
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#execute()
+	 * @see HttpService#execute()
 	 */
 	@Override
 	public <T> T execute() {
-		return webService.execute();
+		return httpService.execute();
 	}
 	
 	@SuppressWarnings({ "resource", "unchecked" })
@@ -90,7 +90,7 @@ public abstract class CachedWebService implements EntityEnclosingWebService {
 		File cacheFile = new File(getHttpCacheDirectory(cache), cacheFileName);
 		
 		// TODO Se if we should save the cache when the request fails
-		return webService.execute(new CacheParser(parser, cacheFile));
+		return httpService.execute(new CacheParser(parser, cacheFile));
 	}
 	
 	protected String generateCacheFileName() {
@@ -102,51 +102,51 @@ public abstract class CachedWebService implements EntityEnclosingWebService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#addHeader(java.lang.String, java.lang.String)
+	 * @see HttpService#addHeader(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public void addHeader(String name, String value) {
-		webService.addHeader(name, value);
+		httpService.addHeader(name, value);
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#addQueryParameter(java.lang.String, java.lang.Object)
+	 * @see HttpService#addQueryParameter(java.lang.String, java.lang.Object)
 	 */
 	@Override
 	public void addQueryParameter(String name, Object value) {
-		webService.addQueryParameter(name, value);
+		httpService.addQueryParameter(name, value);
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#addQueryParameter(java.lang.String, java.util.Collection)
+	 * @see HttpService#addQueryParameter(java.lang.String, java.util.Collection)
 	 */
 	@Override
 	public void addQueryParameter(String name, Collection<?> values) {
-		webService.addQueryParameter(name, values);
+		httpService.addQueryParameter(name, values);
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#addUrlSegment(java.lang.Object)
+	 * @see HttpService#addUrlSegment(java.lang.Object)
 	 */
 	@Override
 	public void addUrlSegment(Object segment) {
-		webService.addUrlSegment(segment);
+		httpService.addUrlSegment(segment);
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#addHttpWebServiceProcessor(com.jdroid.java.http.HttpWebServiceProcessor)
+	 * @see HttpService#addHttpServiceProcessor(HttpServiceProcessor)
 	 */
 	@Override
-	public void addHttpWebServiceProcessor(HttpWebServiceProcessor httpWebServiceProcessor) {
-		webService.addHttpWebServiceProcessor(httpWebServiceProcessor);
+	public void addHttpServiceProcessor(HttpServiceProcessor httpServiceProcessor) {
+		httpService.addHttpServiceProcessor(httpServiceProcessor);
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#setConnectionTimeout(java.lang.Integer)
+	 * @see HttpService#setConnectionTimeout(java.lang.Integer)
 	 */
 	@Override
 	public void setConnectionTimeout(Integer connectionTimeout) {
-		webService.setConnectionTimeout(connectionTimeout);
+		httpService.setConnectionTimeout(connectionTimeout);
 	}
 
 	@Override
@@ -155,43 +155,43 @@ public abstract class CachedWebService implements EntityEnclosingWebService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#setUserAgent(java.lang.String)
+	 * @see HttpService#setUserAgent(java.lang.String)
 	 */
 	@Override
 	public void setUserAgent(String userAgent) {
-		webService.setUserAgent(userAgent);
+		httpService.setUserAgent(userAgent);
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#setSsl(java.lang.Boolean)
+	 * @see HttpService#setSsl(java.lang.Boolean)
 	 */
 	@Override
 	public void setSsl(Boolean ssl) {
-		webService.setSsl(ssl);
+		httpService.setSsl(ssl);
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#getUrl()
+	 * @see HttpService#getUrl()
 	 */
 	@Override
 	public String getUrl() {
-		return webService.getUrl();
+		return httpService.getUrl();
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#getUrlSuffix()
+	 * @see HttpService#getUrlSuffix()
 	 */
 	@Override
 	public String getUrlSuffix() {
-		return webService.getUrlSuffix();
+		return httpService.getUrlSuffix();
 	}
 	
 	/**
-	 * @see EntityEnclosingWebService#setBody(String)
+	 * @see EntityEnclosingHttpService#setBody(String)
 	 */
 	@Override
 	public void setBody(String body) {
-		((EntityEnclosingWebService)webService).setBody(body);
+		((EntityEnclosingHttpService)httpService).setBody(body);
 	}
 	
 	/**
@@ -210,6 +210,6 @@ public abstract class CachedWebService implements EntityEnclosingWebService {
 
 	@Override
 	public String getHeaderValue(String key) {
-		return webService.getHeaderValue(key);
+		return httpService.getHeaderValue(key);
 	}
 }

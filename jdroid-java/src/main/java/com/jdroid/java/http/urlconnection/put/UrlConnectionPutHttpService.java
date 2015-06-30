@@ -1,23 +1,23 @@
-package com.jdroid.java.http.urlconnection.post;
+package com.jdroid.java.http.urlconnection.put;
 
 import com.jdroid.java.http.HttpMethod;
-import com.jdroid.java.http.HttpWebServiceProcessor;
-import com.jdroid.java.http.MultipartWebService;
+import com.jdroid.java.http.HttpServiceProcessor;
+import com.jdroid.java.http.MultipartHttpService;
 import com.jdroid.java.http.Server;
-import com.jdroid.java.http.urlconnection.UrlConnectionEntityEnclosingWebService;
+import com.jdroid.java.http.urlconnection.UrlConnectionEntityEnclosingHttpService;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
 
-public class PostUrlConnectionHttpWebService extends UrlConnectionEntityEnclosingWebService implements MultipartWebService {
+public class UrlConnectionPutHttpService extends UrlConnectionEntityEnclosingHttpService implements MultipartHttpService {
 
-	public PostUrlConnectionHttpWebService(Server server, List<Object> urlSegments, List<HttpWebServiceProcessor> httpWebServiceProcessors) {
-		super(server, urlSegments, httpWebServiceProcessors);
+	public UrlConnectionPutHttpService(Server server, List<Object> urlSegments, List<HttpServiceProcessor> httpServiceProcessors) {
+		super(server, urlSegments, httpServiceProcessors);
 	}
 
 	@Override
 	public HttpMethod getHttpMethod() {
-		return HttpMethod.POST;
+		return HttpMethod.PUT;
 	}
 
 	@Override

@@ -3,9 +3,9 @@ package com.jdroid.java.http.apache;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.http.AbstractWebService;
+import com.jdroid.java.http.AbstractHttpService;
 import com.jdroid.java.http.HttpResponseWrapper;
-import com.jdroid.java.http.HttpWebServiceProcessor;
+import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -24,17 +24,17 @@ import java.net.SocketTimeoutException;
 import java.util.List;
 import java.util.Map.Entry;
 
-public abstract class ApacheHttpWebService extends AbstractWebService {
+public abstract class ApacheHttpService extends AbstractHttpService {
 	
-	protected static final Logger LOGGER = LoggerUtils.getLogger(ApacheHttpWebService.class);
+	protected static final Logger LOGGER = LoggerUtils.getLogger(ApacheHttpService.class);
 	
 	private List<Cookie> cookies = Lists.newArrayList();
 	private HttpClientFactory httpClientFactory;
 	private HttpClient client = null;
 	
-	public ApacheHttpWebService(HttpClientFactory httpClientFactory, Server server, List<Object> urlSegments,
-			List<HttpWebServiceProcessor> httpWebServiceProcessors) {
-		super(server, urlSegments, httpWebServiceProcessors);
+	public ApacheHttpService(HttpClientFactory httpClientFactory, Server server, List<Object> urlSegments,
+							 List<HttpServiceProcessor> httpServiceProcessors) {
+		super(server, urlSegments, httpServiceProcessors);
 		this.httpClientFactory = httpClientFactory;
 	}
 	

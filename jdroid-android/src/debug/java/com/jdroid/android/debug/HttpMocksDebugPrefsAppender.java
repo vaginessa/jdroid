@@ -8,7 +8,7 @@ import android.preference.PreferenceScreen;
 
 import com.jdroid.android.R;
 import com.jdroid.android.context.AppContext;
-import com.jdroid.android.debug.mocks.AndroidJsonMockWebService;
+import com.jdroid.android.debug.mocks.AndroidJsonMockHttpService;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
@@ -41,7 +41,7 @@ public class HttpMocksDebugPrefsAppender implements PreferencesAppender {
 		preferenceCategory.addPreference(checkBoxPreference);
 		
 		ListPreference preference = new ListPreference(activity);
-		preference.setKey(AndroidJsonMockWebService.HTTP_MOCK_CRASH_TYPE);
+		preference.setKey(AndroidJsonMockHttpService.HTTP_MOCK_CRASH_TYPE);
 		preference.setTitle(R.string.httpMockCrashType);
 		preference.setDialogTitle(R.string.httpMockCrashType);
 		preference.setSummary(R.string.httpMockCrashTypeDescription);

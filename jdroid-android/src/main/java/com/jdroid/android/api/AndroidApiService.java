@@ -1,20 +1,20 @@
 package com.jdroid.android.api;
 
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.http.apache.AndroidApacheApiHttpFactory;
+import com.jdroid.android.http.apache.AndroidApacheHttpServiceFactory;
 import com.jdroid.java.api.AbstractApiService;
-import com.jdroid.java.api.ApiHttpFactory;
+import com.jdroid.java.http.HttpServiceFactory;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.http.cache.Cache;
-import com.jdroid.java.http.mock.AbstractMockWebService;
+import com.jdroid.java.http.mock.AbstractMockHttpService;
 
 import java.io.File;
 
 public abstract class AndroidApiService extends AbstractApiService {
 
 	@Override
-	public ApiHttpFactory createApiHttpFactory() {
-		return new AndroidApacheApiHttpFactory();
+	public HttpServiceFactory createApiHttpFactory() {
+		return new AndroidApacheHttpServiceFactory();
 	}
 
 	/**
@@ -34,11 +34,11 @@ public abstract class AndroidApiService extends AbstractApiService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.api.AbstractApiService#getAbstractMockWebServiceInstance(java.lang.Object[])
+	 * @see com.jdroid.java.api.AbstractApiService#getAbstractMockHttpServiceInstance(java.lang.Object[])
 	 */
 	@Override
-	protected AbstractMockWebService getAbstractMockWebServiceInstance(Object... urlSegments) {
-		return AbstractApplication.get().getDebugContext().getAbstractMockWebServiceInstance(urlSegments);
+	protected AbstractMockHttpService getAbstractMockHttpServiceInstance(Object... urlSegments) {
+		return AbstractApplication.get().getDebugContext().getAbstractMockHttpServiceInstance(urlSegments);
 	}
 	
 	/**

@@ -10,7 +10,6 @@ buildscript {
 }
 
 dependencies {
-	//noinspection GradleDependency
 	compile "org.apache.httpcomponents:httpclient:4.1.2"
 
 	// Required to handle Multipart POSTs
@@ -18,9 +17,6 @@ dependencies {
 		exclude group: 'commons-logging', module: 'commons-logging'
 		exclude group: 'org.apache.httpcomponents', module: 'httpclient'
 		exclude group: 'org.apache.httpcomponents', module: 'httpcore'
-	}
-	compile("org.apache.james:apache-mime4j:0.6") {
-		exclude group: 'commons-logging', module: 'commons-logging'
 	}
 
 	// Logging

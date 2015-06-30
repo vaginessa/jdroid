@@ -1,9 +1,9 @@
 package com.jdroid.java.http;
 
 import java.io.ByteArrayInputStream;
-import com.jdroid.java.http.post.EntityEnclosingWebService;
+import com.jdroid.java.http.post.EntityEnclosingHttpService;
 
-public interface MultipartWebService extends EntityEnclosingWebService {
+public interface MultipartHttpService extends EntityEnclosingHttpService {
 	
 	public void addPart(String name, ByteArrayInputStream in, String mimeType, String filename);
 	

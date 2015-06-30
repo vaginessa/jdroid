@@ -3,10 +3,10 @@ package com.jdroid.java.http.mock;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.http.HttpWebServiceProcessor;
-import com.jdroid.java.http.MultipartWebService;
-import com.jdroid.java.http.WebService;
-import com.jdroid.java.http.post.EntityEnclosingWebService;
+import com.jdroid.java.http.HttpServiceProcessor;
+import com.jdroid.java.http.MultipartHttpService;
+import com.jdroid.java.http.HttpService;
+import com.jdroid.java.http.post.EntityEnclosingHttpService;
 import com.jdroid.java.parser.Parser;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
@@ -20,11 +20,11 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * Mocked {@link WebService} and {@link EntityEnclosingWebService} implementation that returns mocked responses
+ * Mocked {@link HttpService} and {@link EntityEnclosingHttpService} implementation that returns mocked responses
  */
-public abstract class AbstractMockWebService implements MultipartWebService {
+public abstract class AbstractMockHttpService implements MultipartHttpService {
 	
-	private static final Logger LOGGER = LoggerUtils.getLogger(AbstractMockWebService.class);
+	private static final Logger LOGGER = LoggerUtils.getLogger(AbstractMockHttpService.class);
 	
 	private static final String MOCK_SEPARATOR = "_";
 	private static final String SUFFIX_SEPARATOR = "-";
@@ -35,12 +35,12 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	private Map<String, String> headers = Maps.newHashMap();
 	private String body;
 	
-	public AbstractMockWebService(Object... urlSegments) {
+	public AbstractMockHttpService(Object... urlSegments) {
 		this.urlSegments = urlSegments;
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#execute(com.jdroid.java.parser.Parser)
+	 * @see HttpService#execute(com.jdroid.java.parser.Parser)
 	 */
 	@SuppressWarnings({ "unchecked", "resource" })
 	@Override
@@ -82,7 +82,7 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#execute()
+	 * @see HttpService#execute()
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -95,7 +95,7 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#addHeader(java.lang.String, java.lang.String)
+	 * @see HttpService#addHeader(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public void addHeader(String name, String value) {
@@ -105,7 +105,7 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#addQueryParameter(java.lang.String, java.lang.Object)
+	 * @see HttpService#addQueryParameter(java.lang.String, java.lang.Object)
 	 */
 	@Override
 	public void addQueryParameter(String name, Object value) {
@@ -115,7 +115,7 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#addQueryParameter(java.lang.String, java.util.Collection)
+	 * @see HttpService#addQueryParameter(java.lang.String, java.util.Collection)
 	 */
 	@Override
 	public void addQueryParameter(String name, Collection<?> values) {
@@ -123,7 +123,7 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.MultipartWebService#addPart(java.lang.String, java.io.ByteArrayInputStream,
+	 * @see MultipartHttpService#addPart(java.lang.String, java.io.ByteArrayInputStream,
 	 *      java.lang.String, java.lang.String)
 	 */
 	@Override
@@ -132,7 +132,7 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.MultipartWebService#addPart(java.lang.String, java.lang.Object, java.lang.String)
+	 * @see MultipartHttpService#addPart(java.lang.String, java.lang.Object, java.lang.String)
 	 */
 	@Override
 	public void addPart(String name, Object value, String mimeType) {
@@ -140,7 +140,7 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.MultipartWebService#addJsonPart(java.lang.String, java.lang.Object)
+	 * @see MultipartHttpService#addJsonPart(java.lang.String, java.lang.Object)
 	 */
 	@Override
 	public void addJsonPart(String name, Object value) {
@@ -148,7 +148,7 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#addUrlSegment(java.lang.Object)
+	 * @see HttpService#addUrlSegment(java.lang.Object)
 	 */
 	@Override
 	public void addUrlSegment(Object segment) {
@@ -156,15 +156,15 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#addHttpWebServiceProcessor(com.jdroid.java.http.HttpWebServiceProcessor)
+	 * @see HttpService#addHttpServiceProcessor(HttpServiceProcessor)
 	 */
 	@Override
-	public void addHttpWebServiceProcessor(HttpWebServiceProcessor httpWebServiceProcessor) {
+	public void addHttpServiceProcessor(HttpServiceProcessor httpServiceProcessor) {
 		// Do Nothing
 	}
 	
 	/**
-	 * @see EntityEnclosingWebService#setBody(String)
+	 * @see EntityEnclosingHttpService#setBody(String)
 	 */
 	@Override
 	public void setBody(String body) {
@@ -172,7 +172,7 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#setConnectionTimeout(java.lang.Integer)
+	 * @see HttpService#setConnectionTimeout(java.lang.Integer)
 	 */
 	@Override
 	public void setConnectionTimeout(Integer connectionTimeout) {
@@ -185,7 +185,7 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#setUserAgent(java.lang.String)
+	 * @see HttpService#setUserAgent(java.lang.String)
 	 */
 	@Override
 	public void setUserAgent(String userAgent) {
@@ -193,7 +193,7 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#setSsl(java.lang.Boolean)
+	 * @see HttpService#setSsl(java.lang.Boolean)
 	 */
 	@Override
 	public void setSsl(Boolean ssl) {
@@ -206,7 +206,7 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	protected abstract Integer getHttpMockSleepDuration(Object... urlSegments);
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#getUrl()
+	 * @see HttpService#getUrl()
 	 */
 	@Override
 	public String getUrl() {
@@ -214,7 +214,7 @@ public abstract class AbstractMockWebService implements MultipartWebService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.WebService#getUrlSuffix()
+	 * @see HttpService#getUrlSuffix()
 	 */
 	@Override
 	public String getUrlSuffix() {

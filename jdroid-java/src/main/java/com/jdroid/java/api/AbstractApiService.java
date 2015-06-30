@@ -1,15 +1,17 @@
 package com.jdroid.java.api;
 
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.http.HttpWebServiceProcessor;
-import com.jdroid.java.http.MultipartWebService;
+import com.jdroid.java.http.HttpServiceFactory;
+import com.jdroid.java.http.HttpServiceProcessor;
+import com.jdroid.java.http.MultipartHttpService;
 import com.jdroid.java.http.Server;
-import com.jdroid.java.http.WebService;
+import com.jdroid.java.http.HttpService;
+import com.jdroid.java.http.apache.ApacheHttpServiceFactory;
 import com.jdroid.java.http.cache.Cache;
-import com.jdroid.java.http.cache.CachedWebService;
+import com.jdroid.java.http.cache.CachedHttpService;
 import com.jdroid.java.http.cache.CachingStrategy;
-import com.jdroid.java.http.mock.AbstractMockWebService;
-import com.jdroid.java.http.post.EntityEnclosingWebService;
+import com.jdroid.java.http.mock.AbstractMockHttpService;
+import com.jdroid.java.http.post.EntityEnclosingHttpService;
 import com.jdroid.java.marshaller.MarshallerMode;
 import com.jdroid.java.marshaller.MarshallerProvider;
 
@@ -19,192 +21,192 @@ import java.util.Map;
 
 public abstract class AbstractApiService {
 
-	private ApiHttpFactory apiHttpFactory;
+	private HttpServiceFactory httpServiceFactory;
 
 	public AbstractApiService() {
-		apiHttpFactory = createApiHttpFactory();
+		httpServiceFactory = createApiHttpFactory();
 	}
 	
 	// GET
 	
-	protected WebService newGetService(Object... urlSegments) {
+	protected HttpService newGetService(Object... urlSegments) {
 		return newGetService(false, urlSegments);
 	}
 
-	protected WebService newGetService(List<HttpWebServiceProcessor> processors, Object... urlSegments) {
+	protected HttpService newGetService(List<HttpServiceProcessor> processors, Object... urlSegments) {
 		return newGetService(false, processors, urlSegments);
 	}
 	
-	protected WebService newGetService(Boolean mocked, Object... urlSegments) {
-		return newGetService(mocked, getHttpWebServiceProcessors(), urlSegments);
+	protected HttpService newGetService(Boolean mocked, Object... urlSegments) {
+		return newGetService(mocked, getHttpServiceProcessors(), urlSegments);
 	}
 
-	protected WebService newGetService(Boolean mocked, List<HttpWebServiceProcessor> processors, Object... urlSegments) {
+	protected HttpService newGetService(Boolean mocked, List<HttpServiceProcessor> processors, Object... urlSegments) {
 		if (isHttpMockEnabled() || mocked) {
-			return getAbstractMockWebServiceInstance(urlSegments);
+			return getAbstractMockHttpServiceInstance(urlSegments);
 		} else {
-			return apiHttpFactory.newGetService(getServer(), Lists.newArrayList(urlSegments), processors);
+			return httpServiceFactory.newGetService(getServer(), Lists.newArrayList(urlSegments), processors);
 		}
 	}
 
-	protected WebService newCachedGetService(Cache cache, CachingStrategy cachingStrategy, Long timeToLive,
-											 List<HttpWebServiceProcessor> processors, Object... urlSegments) {
-		return newCachedGetService(apiHttpFactory.newGetService(getServer(), Lists.newArrayList(urlSegments), processors), cache,
+	protected HttpService newCachedGetService(Cache cache, CachingStrategy cachingStrategy, Long timeToLive,
+											 List<HttpServiceProcessor> processors, Object... urlSegments) {
+		return newCachedGetService(httpServiceFactory.newGetService(getServer(), Lists.newArrayList(urlSegments), processors), cache,
 				cachingStrategy, timeToLive);
 	}
 
-	protected WebService newCachedGetService(Cache cache, CachingStrategy cachingStrategy, Long timeToLive,
+	protected HttpService newCachedGetService(Cache cache, CachingStrategy cachingStrategy, Long timeToLive,
 											 Object... urlSegments) {
 		return newCachedGetService(newGetService(urlSegments), cache, cachingStrategy, timeToLive);
 	}
 
-	private WebService newCachedGetService(WebService webService, Cache cache, CachingStrategy cachingStrategy,
+	private HttpService newCachedGetService(HttpService httpService, Cache cache, CachingStrategy cachingStrategy,
 										   Long timeToLive) {
-		return newCachedWebService(webService, cache, cachingStrategy, timeToLive);
+		return newCachedhttpService(httpService, cache, cachingStrategy, timeToLive);
 	}
 	
 	// POST
 	
-	protected EntityEnclosingWebService newPostService(Object... urlSegments) {
+	protected EntityEnclosingHttpService newPostService(Object... urlSegments) {
 		return newPostService(false, urlSegments);
 	}
 	
-	protected EntityEnclosingWebService newPostService(Boolean mocked, Object... urlSegments) {
-		return newPostService(mocked, getHttpWebServiceProcessors(), urlSegments);
+	protected EntityEnclosingHttpService newPostService(Boolean mocked, Object... urlSegments) {
+		return newPostService(mocked, getHttpServiceProcessors(), urlSegments);
 	}
 
-	protected EntityEnclosingWebService newPostService(Boolean mocked, List<HttpWebServiceProcessor> processors, Object... urlSegments) {
+	protected EntityEnclosingHttpService newPostService(Boolean mocked, List<HttpServiceProcessor> processors, Object... urlSegments) {
 		if (isHttpMockEnabled() || mocked) {
-			return getAbstractMockWebServiceInstance(urlSegments);
+			return getAbstractMockHttpServiceInstance(urlSegments);
 		} else {
-			return apiHttpFactory.newPostService(getServer(), Lists.newArrayList(urlSegments), processors);
+			return httpServiceFactory.newPostService(getServer(), Lists.newArrayList(urlSegments), processors);
 		}
 	}
 
 	// POST MULTIPART
 	
-	protected MultipartWebService newMultipartPostService(Object... urlSegments) {
+	protected MultipartHttpService newMultipartPostService(Object... urlSegments) {
 		return newMultipartPostService(false, urlSegments);
 	}
 
-	protected MultipartWebService newMultipartPostService(Boolean mocked, Object... urlSegments) {
+	protected MultipartHttpService newMultipartPostService(Boolean mocked, Object... urlSegments) {
 		if (isHttpMockEnabled() || mocked) {
-			return getAbstractMockWebServiceInstance(urlSegments);
+			return getAbstractMockHttpServiceInstance(urlSegments);
 		} else {
-			return apiHttpFactory.newMultipartPostService(getServer(), Lists.newArrayList(urlSegments),
-					getHttpWebServiceProcessors());
+			return httpServiceFactory.newMultipartPostService(getServer(), Lists.newArrayList(urlSegments),
+					getHttpServiceProcessors());
 		}
 	}
 	
 	// POST FORM
 	
-	protected EntityEnclosingWebService newFormPostService(Object... urlSegments) {
+	protected EntityEnclosingHttpService newFormPostService(Object... urlSegments) {
 		return newFormPostService(false, urlSegments);
 	}
 	
-	protected EntityEnclosingWebService newFormPostService(Boolean mocked, Object... urlSegments) {
+	protected EntityEnclosingHttpService newFormPostService(Boolean mocked, Object... urlSegments) {
 		if (isHttpMockEnabled() || mocked) {
-			return getAbstractMockWebServiceInstance(urlSegments);
+			return getAbstractMockHttpServiceInstance(urlSegments);
 		} else {
-			return apiHttpFactory.newFormPostService(getServer(), Lists.newArrayList(urlSegments), getHttpWebServiceProcessors());
+			return httpServiceFactory.newFormPostService(getServer(), Lists.newArrayList(urlSegments), getHttpServiceProcessors());
 		}
 	}
 	
 	// PUT
 	
-	protected EntityEnclosingWebService newPutService(Object... urlSegments) {
+	protected EntityEnclosingHttpService newPutService(Object... urlSegments) {
 		return newPutService(false, urlSegments);
 	}
 
-	protected EntityEnclosingWebService newPutService(Boolean mocked, Object... urlSegments) {
-		return newPutService(mocked, getHttpWebServiceProcessors(), urlSegments);
+	protected EntityEnclosingHttpService newPutService(Boolean mocked, Object... urlSegments) {
+		return newPutService(mocked, getHttpServiceProcessors(), urlSegments);
 	}
 
-	protected EntityEnclosingWebService newPutService(Boolean mocked, List<HttpWebServiceProcessor> processors, Object... urlSegments) {
+	protected EntityEnclosingHttpService newPutService(Boolean mocked, List<HttpServiceProcessor> processors, Object... urlSegments) {
 		if (isHttpMockEnabled() || mocked) {
-			return getAbstractMockWebServiceInstance(urlSegments);
+			return getAbstractMockHttpServiceInstance(urlSegments);
 		} else {
-			return apiHttpFactory.newPutService(getServer(), Lists.newArrayList(urlSegments), processors);
+			return httpServiceFactory.newPutService(getServer(), Lists.newArrayList(urlSegments), processors);
 		}
 	}
 
-	protected EntityEnclosingWebService newCachedPutService(Cache cache, CachingStrategy cachingStrategy,
+	protected EntityEnclosingHttpService newCachedPutService(Cache cache, CachingStrategy cachingStrategy,
 															Long timeToLive, Object... urlSegments) {
-		WebService webService = newPutService(urlSegments);
-		return newCachedWebService(webService, cache, cachingStrategy, timeToLive);
+		HttpService httpService = newPutService(urlSegments);
+		return newCachedhttpService(httpService, cache, cachingStrategy, timeToLive);
 	}
 
 	// PUT MULTIPART
 	
-	protected MultipartWebService newMultipartPutService(Object... urlSegments) {
+	protected MultipartHttpService newMultipartPutService(Object... urlSegments) {
 		return newMultipartPutService(false, urlSegments);
 	}
 	
-	protected MultipartWebService newMultipartPutService(Boolean mocked, Object... urlSegments) {
+	protected MultipartHttpService newMultipartPutService(Boolean mocked, Object... urlSegments) {
 		if (isHttpMockEnabled() || mocked) {
-			return getAbstractMockWebServiceInstance(urlSegments);
+			return getAbstractMockHttpServiceInstance(urlSegments);
 		} else {
-			return apiHttpFactory.newMultipartPutService(getServer(), Lists.newArrayList(urlSegments),
-					getHttpWebServiceProcessors());
+			return httpServiceFactory.newMultipartPutService(getServer(), Lists.newArrayList(urlSegments),
+					getHttpServiceProcessors());
 		}
 	}
 	
 	// DELETE
 	
-	protected WebService newDeleteService(Object... urlSegments) {
+	protected HttpService newDeleteService(Object... urlSegments) {
 		return newDeleteService(false, urlSegments);
 	}
 
-	protected WebService newDeleteService(List<HttpWebServiceProcessor> processors, Object... urlSegments) {
+	protected HttpService newDeleteService(List<HttpServiceProcessor> processors, Object... urlSegments) {
 		return newDeleteService(false, processors, urlSegments);
 	}
 
-	protected WebService newDeleteService(Boolean mocked, Object... urlSegments) {
-		return newDeleteService(mocked, getHttpWebServiceProcessors(), urlSegments);
+	protected HttpService newDeleteService(Boolean mocked, Object... urlSegments) {
+		return newDeleteService(mocked, getHttpServiceProcessors(), urlSegments);
 	}
 
-	protected WebService newDeleteService(Boolean mocked, List<HttpWebServiceProcessor> processors, Object... urlSegments) {
+	protected HttpService newDeleteService(Boolean mocked, List<HttpServiceProcessor> processors, Object... urlSegments) {
 		if (isHttpMockEnabled() || mocked) {
-			return getAbstractMockWebServiceInstance(urlSegments);
+			return getAbstractMockHttpServiceInstance(urlSegments);
 		} else {
-			return apiHttpFactory.newDeleteService(getServer(), Lists.newArrayList(urlSegments), processors);
+			return httpServiceFactory.newDeleteService(getServer(), Lists.newArrayList(urlSegments), processors);
 		}
 	}
 
-	protected WebService newCachedDeleteService(Cache cache, CachingStrategy cachingStrategy, Long timeToLive,
+	protected HttpService newCachedDeleteService(Cache cache, CachingStrategy cachingStrategy, Long timeToLive,
 												Object... urlSegments) {
-		WebService webService = newDeleteService(urlSegments);
-		return newCachedWebService(webService, cache, cachingStrategy, timeToLive);
+		HttpService httpService = newDeleteService(urlSegments);
+		return newCachedhttpService(httpService, cache, cachingStrategy, timeToLive);
 	}
 	
 	// PATCH
 	
-	protected EntityEnclosingWebService newPatchService(Object... urlSegments) {
+	protected EntityEnclosingHttpService newPatchService(Object... urlSegments) {
 		return newPatchService(false, urlSegments);
 	}
 
-	protected EntityEnclosingWebService newPatchService(Boolean mocked, Object... urlSegments) {
-		return newPatchService(mocked, getHttpWebServiceProcessors(), urlSegments);
+	protected EntityEnclosingHttpService newPatchService(Boolean mocked, Object... urlSegments) {
+		return newPatchService(mocked, getHttpServiceProcessors(), urlSegments);
 	}
 
-	protected EntityEnclosingWebService newPatchService(Boolean mocked, List<HttpWebServiceProcessor> processors, Object... urlSegments) {
+	protected EntityEnclosingHttpService newPatchService(Boolean mocked, List<HttpServiceProcessor> processors, Object... urlSegments) {
 		if (isHttpMockEnabled() || mocked) {
-			return getAbstractMockWebServiceInstance(urlSegments);
+			return getAbstractMockHttpServiceInstance(urlSegments);
 		} else {
-			return apiHttpFactory.newPatchService(getServer(), Lists.newArrayList(urlSegments), processors);
+			return httpServiceFactory.newPatchService(getServer(), Lists.newArrayList(urlSegments), processors);
 		}
 	}
 
-	protected EntityEnclosingWebService newCachedPatchService(Cache cache, CachingStrategy cachingStrategy,
+	protected EntityEnclosingHttpService newCachedPatchService(Cache cache, CachingStrategy cachingStrategy,
 			Long timeToLive, Object... urlSegments) {
-		WebService webService = newPatchService(urlSegments);
-		return newCachedWebService(webService, cache, cachingStrategy, timeToLive);
+		HttpService httpService = newPatchService(urlSegments);
+		return newCachedhttpService(httpService, cache, cachingStrategy, timeToLive);
 	}
 
 	/////////////
 
-	protected CachedWebService newCachedWebService(WebService webService, Cache cache, CachingStrategy cachingStrategy, Long timeToLive) {
-		return new CachedWebService(webService, cache, cachingStrategy, timeToLive) {
+	protected CachedHttpService newCachedhttpService(HttpService httpService, Cache cache, CachingStrategy cachingStrategy, Long timeToLive) {
+		return new CachedHttpService(httpService, cache, cachingStrategy, timeToLive) {
 
 			@Override
 			protected File getHttpCacheDirectory(Cache cache) {
@@ -213,17 +215,17 @@ public abstract class AbstractApiService {
 		};
 	}
 
-	public ApiHttpFactory createApiHttpFactory() {
-		return new ApacheApiHttpFactory();
+	public HttpServiceFactory createApiHttpFactory() {
+		return new ApacheHttpServiceFactory();
 	}
 
 	protected abstract Server getServer();
 	
-	protected List<HttpWebServiceProcessor> getHttpWebServiceProcessors() {
-		return getServer().getHttpWebServiceProcessors();
+	protected List<HttpServiceProcessor> getHttpServiceProcessors() {
+		return getServer().getHttpServiceProcessors();
 	}
 	
-	protected abstract AbstractMockWebService getAbstractMockWebServiceInstance(Object... urlSegments);
+	protected abstract AbstractMockHttpService getAbstractMockHttpServiceInstance(Object... urlSegments);
 	
 	protected abstract Boolean isHttpMockEnabled();
 	
@@ -231,24 +233,24 @@ public abstract class AbstractApiService {
 		return null;
 	}
 	
-	public void marshallSimple(EntityEnclosingWebService webservice, Object object) {
-		marshall(webservice, object, MarshallerMode.SIMPLE);
+	public void marshallSimple(EntityEnclosingHttpService httpService, Object object) {
+		marshall(httpService, object, MarshallerMode.SIMPLE);
 	}
 	
-	public void marshall(EntityEnclosingWebService webservice, Object object) {
-		marshall(webservice, object, MarshallerMode.COMPLETE);
+	public void marshall(EntityEnclosingHttpService httpService, Object object) {
+		marshall(httpService, object, MarshallerMode.COMPLETE);
 	}
 	
-	public void marshall(EntityEnclosingWebService webservice, Object object, MarshallerMode mode) {
-		marshall(webservice, object, mode, null);
+	public void marshall(EntityEnclosingHttpService httpService, Object object, MarshallerMode mode) {
+		marshall(httpService, object, mode, null);
 	}
 	
-	public void marshall(EntityEnclosingWebService webservice, Object object, Map<String, String> extras) {
-		marshall(webservice, object, MarshallerMode.COMPLETE, extras);
+	public void marshall(EntityEnclosingHttpService httpService, Object object, Map<String, String> extras) {
+		marshall(httpService, object, MarshallerMode.COMPLETE, extras);
 	}
 	
-	public void marshall(EntityEnclosingWebService webservice, Object object, MarshallerMode mode,
+	public void marshall(EntityEnclosingHttpService httpService, Object object, MarshallerMode mode,
 			Map<String, String> extras) {
-		webservice.setBody(MarshallerProvider.get().marshall(object, mode, extras).toString());
+		httpService.setBody(MarshallerProvider.get().marshall(object, mode, extras).toString());
 	}
 }

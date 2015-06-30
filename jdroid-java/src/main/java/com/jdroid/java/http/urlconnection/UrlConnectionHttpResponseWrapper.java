@@ -1,7 +1,7 @@
 package com.jdroid.java.http.urlconnection;
 
 import com.jdroid.java.http.HttpResponseWrapper;
-import com.jdroid.java.http.WebService;
+import com.jdroid.java.http.HttpService;
 import com.jdroid.java.utils.FileUtils;
 
 import java.io.IOException;
@@ -22,8 +22,8 @@ public class UrlConnectionHttpResponseWrapper extends HttpResponseWrapper {
 
 		inputStream = httpURLConnection.getInputStream();
 
-		String contentEncoding = getHeader(WebService.CONTENT_ENCODING_HEADER);
-		if (inputStream != null && (contentEncoding != null) && contentEncoding.equalsIgnoreCase(WebService.GZIP_ENCODING)) {
+		String contentEncoding = getHeader(HttpService.CONTENT_ENCODING_HEADER);
+		if (inputStream != null && (contentEncoding != null) && contentEncoding.equalsIgnoreCase(HttpService.GZIP_ENCODING)) {
 			inputStream = new GZIPInputStream(inputStream);
 		}
 

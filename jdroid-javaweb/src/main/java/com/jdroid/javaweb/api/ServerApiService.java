@@ -1,8 +1,8 @@
 package com.jdroid.javaweb.api;
 
 import com.jdroid.java.api.AbstractApiService;
-import com.jdroid.java.http.mock.AbstractMockWebService;
-import com.jdroid.java.http.mock.JsonMockWebService;
+import com.jdroid.java.http.mock.AbstractMockHttpService;
+import com.jdroid.java.http.mock.JsonMockHttpService;
 import com.jdroid.javaweb.context.Application;
 
 public abstract class ServerApiService extends AbstractApiService {
@@ -16,11 +16,11 @@ public abstract class ServerApiService extends AbstractApiService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.api.AbstractApiService#getAbstractMockWebServiceInstance(java.lang.Object[])
+	 * @see com.jdroid.java.api.AbstractApiService#getAbstractMockHttpServiceInstance(java.lang.Object[])
 	 */
 	@Override
-	protected AbstractMockWebService getAbstractMockWebServiceInstance(Object... urlSegments) {
-		return new JsonMockWebService(urlSegments) {
+	protected AbstractMockHttpService getAbstractMockHttpServiceInstance(Object... urlSegments) {
+		return new JsonMockHttpService(urlSegments) {
 			
 			@Override
 			protected Integer getHttpMockSleepDuration(Object... urlSegments) {

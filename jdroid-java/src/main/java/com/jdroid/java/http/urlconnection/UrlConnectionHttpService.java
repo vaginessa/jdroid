@@ -2,9 +2,9 @@ package com.jdroid.java.http.urlconnection;
 
 import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.http.AbstractWebService;
+import com.jdroid.java.http.AbstractHttpService;
 import com.jdroid.java.http.HttpResponseWrapper;
-import com.jdroid.java.http.HttpWebServiceProcessor;
+import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.Server;
 
 import java.io.FileNotFoundException;
@@ -18,12 +18,12 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 
-public abstract class UrlConnectionHttpWebService extends AbstractWebService {
+public abstract class UrlConnectionHttpService extends AbstractHttpService {
 
 	private HttpURLConnection urlConnection;
 
-	public UrlConnectionHttpWebService(Server server, List<Object> urlSegments, List<HttpWebServiceProcessor> httpWebServiceProcessors) {
-		super(server, urlSegments, httpWebServiceProcessors);
+	public UrlConnectionHttpService(Server server, List<Object> urlSegments, List<HttpServiceProcessor> httpServiceProcessors) {
+		super(server, urlSegments, httpServiceProcessors);
 	}
 
 	@Override

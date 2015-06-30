@@ -16,9 +16,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractWebService implements WebService {
+public abstract class AbstractHttpService implements HttpService {
 
-	protected static final Logger LOGGER = LoggerUtils.getLogger(AbstractWebService.class);
+	protected static final Logger LOGGER = LoggerUtils.getLogger(AbstractHttpService.class);
 
 	private Boolean ssl = false;
 
@@ -39,15 +39,15 @@ public abstract class AbstractWebService implements WebService {
 	/** Header values of the request. */
 	private Map<String, String> headers = Maps.newHashMap();
 
-	private List<HttpWebServiceProcessor> httpWebServiceProcessors = Lists.newArrayList();
+	private List<HttpServiceProcessor> httpServiceProcessors = Lists.newArrayList();
 
 	/**
-	 * @param httpWebServiceProcessors
+	 * @param httpServiceProcessors
 	 * @param urlSegments
 	 * @param server The {@link Server} where execute the request
 	 */
-	public AbstractWebService(Server server, List<Object> urlSegments,
-								List<HttpWebServiceProcessor> httpWebServiceProcessors) {
+	public AbstractHttpService(Server server, List<Object> urlSegments,
+							   List<HttpServiceProcessor> httpServiceProcessors) {
 
 		this.urlSegments = Lists.newArrayList();
 		if (urlSegments != null) {
@@ -57,15 +57,15 @@ public abstract class AbstractWebService implements WebService {
 		}
 		this.server = server;
 
-		if (httpWebServiceProcessors != null) {
-			for (HttpWebServiceProcessor each : httpWebServiceProcessors) {
-				addHttpWebServiceProcessor(each);
+		if (httpServiceProcessors != null) {
+			for (HttpServiceProcessor each : httpServiceProcessors) {
+				addHttpServiceProcessor(each);
 			}
 		}
 	}
 
 	/**
-	 * @see com.jdroid.java.http.WebService#execute()
+	 * @see HttpService#execute()
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -74,7 +74,7 @@ public abstract class AbstractWebService implements WebService {
 	}
 
 	/**
-	 * @see com.jdroid.java.http.WebService#execute(com.jdroid.java.parser.Parser)
+	 * @see HttpService#execute(com.jdroid.java.parser.Parser)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -82,7 +82,7 @@ public abstract class AbstractWebService implements WebService {
 		InputStream inputStream = null;
 		try {
 
-			for (HttpWebServiceProcessor each : httpWebServiceProcessors) {
+			for (HttpServiceProcessor each : httpServiceProcessors) {
 				each.beforeExecute(this);
 			}
 
@@ -99,7 +99,7 @@ public abstract class AbstractWebService implements WebService {
 
 			HttpResponseWrapper httpResponseWrapper = doExecute(url);
 
-			for (HttpWebServiceProcessor each : httpWebServiceProcessors) {
+			for (HttpServiceProcessor each : httpServiceProcessors) {
 				each.afterExecute(this, httpResponseWrapper);
 			}
 
@@ -129,7 +129,7 @@ public abstract class AbstractWebService implements WebService {
 	protected abstract HttpResponseWrapper doExecute(String url);
 
 	/**
-	 * @see com.jdroid.java.http.WebService#setSsl(java.lang.Boolean)
+	 * @see HttpService#setSsl(java.lang.Boolean)
 	 */
 	@Override
 	public void setSsl(Boolean ssl) {
@@ -141,7 +141,7 @@ public abstract class AbstractWebService implements WebService {
 	}
 
 	/**
-	 * @see com.jdroid.java.http.WebService#setUserAgent(java.lang.String)
+	 * @see HttpService#setUserAgent(java.lang.String)
 	 */
 	@Override
 	public void setUserAgent(String userAgent) {
@@ -149,7 +149,7 @@ public abstract class AbstractWebService implements WebService {
 	}
 
 	/**
-	 * @see com.jdroid.java.http.WebService#setConnectionTimeout(java.lang.Integer)
+	 * @see HttpService#setConnectionTimeout(java.lang.Integer)
 	 */
 	@Override
 	public void setConnectionTimeout(Integer connectionTimeout) {
@@ -174,7 +174,7 @@ public abstract class AbstractWebService implements WebService {
 	}
 
 	/**
-	 * @see com.jdroid.java.http.WebService#getUrl()
+	 * @see HttpService#getUrl()
 	 */
 	@Override
 	public String getUrl() {
@@ -187,7 +187,7 @@ public abstract class AbstractWebService implements WebService {
 	}
 
 	/**
-	 * @see com.jdroid.java.http.WebService#getUrlSuffix()
+	 * @see HttpService#getUrlSuffix()
 	 */
 	@Override
 	public String getUrlSuffix() {
@@ -217,7 +217,7 @@ public abstract class AbstractWebService implements WebService {
 	}
 
 	/**
-	 * @see com.jdroid.java.http.WebService#addQueryParameter(java.lang.String, java.util.Collection)
+	 * @see HttpService#addQueryParameter(java.lang.String, java.util.Collection)
 	 */
 	@Override
 	public void addQueryParameter(String name, Collection<?> values) {
@@ -225,7 +225,7 @@ public abstract class AbstractWebService implements WebService {
 	}
 
 	/**
-	 * @see com.jdroid.java.http.WebService#addQueryParameter(java.lang.String, java.lang.Object)
+	 * @see HttpService#addQueryParameter(java.lang.String, java.lang.Object)
 	 */
 	@Override
 	public void addQueryParameter(String name, Object value) {
@@ -246,7 +246,7 @@ public abstract class AbstractWebService implements WebService {
 	}
 
 	/**
-	 * @see com.jdroid.java.http.WebService#addUrlSegment(java.lang.Object)
+	 * @see HttpService#addUrlSegment(java.lang.Object)
 	 */
 	@Override
 	public void addUrlSegment(Object segment) {
@@ -271,7 +271,7 @@ public abstract class AbstractWebService implements WebService {
 	}
 
 	/**
-	 * @see com.jdroid.java.http.WebService#addHeader(java.lang.String, java.lang.String)
+	 * @see HttpService#addHeader(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public void addHeader(String name, String value) {
@@ -290,11 +290,11 @@ public abstract class AbstractWebService implements WebService {
 
 
 	/**
-	 * @see com.jdroid.java.http.WebService#addHttpWebServiceProcessor(com.jdroid.java.http.HttpWebServiceProcessor)
+	 * @see HttpService#addHttpServiceProcessor(HttpServiceProcessor)
 	 */
 	@Override
-	public void addHttpWebServiceProcessor(HttpWebServiceProcessor httpWebServiceProcessor) {
-		httpWebServiceProcessors.add(httpWebServiceProcessor);
-		httpWebServiceProcessor.onInit(this);
+	public void addHttpServiceProcessor(HttpServiceProcessor httpServiceProcessor) {
+		httpServiceProcessors.add(httpServiceProcessor);
+		httpServiceProcessor.onInit(this);
 	}
 }

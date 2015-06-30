@@ -4,14 +4,14 @@ import android.support.v4.util.Pair;
 
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.ActivityLauncher;
-import com.jdroid.android.debug.mocks.AndroidJsonMockWebService;
+import com.jdroid.android.debug.mocks.AndroidJsonMockHttpService;
 import com.jdroid.android.fragment.AbstractPreferenceFragment;
 import com.jdroid.android.log.DatabaseLog;
 import com.jdroid.android.log.DatabaseLogsRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.domain.Identifiable;
-import com.jdroid.java.http.mock.AbstractMockWebService;
+import com.jdroid.java.http.mock.AbstractMockHttpService;
 import com.jdroid.java.repository.Repository;
 
 import java.util.List;
@@ -23,8 +23,8 @@ public class DebugContext {
 		ActivityLauncher.launchActivity(DebugSettingsActivity.class);
 	}
 
-	public AbstractMockWebService getAbstractMockWebServiceInstance(Object... urlSegments) {
-		return new AndroidJsonMockWebService(urlSegments);
+	public AbstractMockHttpService getAbstractMockHttpServiceInstance(Object... urlSegments) {
+		return new AndroidJsonMockHttpService(urlSegments);
 	}
 
 	public void initDebugRepositories(

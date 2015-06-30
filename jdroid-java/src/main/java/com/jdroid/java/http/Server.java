@@ -12,7 +12,7 @@ public interface Server {
 	
 	public Boolean isProduction();
 	
-	public List<HttpWebServiceProcessor> getHttpWebServiceProcessors();
+	public List<HttpServiceProcessor> getHttpServiceProcessors();
 	
 	public Server instance(String name);
 	

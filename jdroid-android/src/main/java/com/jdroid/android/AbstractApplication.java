@@ -38,7 +38,7 @@ import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.context.GitContext;
 import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.http.cache.Cache;
-import com.jdroid.java.http.cache.CachedWebService;
+import com.jdroid.java.http.cache.CachedHttpService;
 import com.jdroid.java.repository.Repository;
 import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.FileUtils;
@@ -250,7 +250,7 @@ public abstract class AbstractApplication extends Application {
 						"cache/" + entry.getKey());
 					if (source != null) {
 						File cacheFile = new File(AbstractApplication.get().getFileSystemCacheDirectory(cache),
-								CachedWebService.generateCacheFileName(entry.getValue()));
+								CachedHttpService.generateCacheFileName(entry.getValue()));
 						FileUtils.copyStream(source, cacheFile);
 						LOGGER.debug("Populated " + entry.toString() + " to " + cacheFile.getAbsolutePath());
 						FileUtils.safeClose(source);

@@ -1,9 +1,9 @@
 package com.jdroid.java.http.apache;
 
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.http.HttpWebServiceProcessor;
+import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.Server;
-import com.jdroid.java.http.post.EntityEnclosingWebService;
+import com.jdroid.java.http.post.EntityEnclosingHttpService;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
@@ -14,18 +14,18 @@ import org.apache.http.protocol.HTTP;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-public abstract class ApacheHttpEntityEnclosingWebService extends ApacheHttpWebService implements
-		EntityEnclosingWebService {
+public abstract class ApacheEntityEnclosingHttpService extends ApacheHttpService implements
+		EntityEnclosingHttpService {
 	
 	private HttpEntity entity;
 	
-	public ApacheHttpEntityEnclosingWebService(HttpClientFactory httpClientFactory, Server server,
-			List<Object> urlSegments, List<HttpWebServiceProcessor> httpWebServiceProcessors) {
-		super(httpClientFactory, server, urlSegments, httpWebServiceProcessors);
+	public ApacheEntityEnclosingHttpService(HttpClientFactory httpClientFactory, Server server,
+											List<Object> urlSegments, List<HttpServiceProcessor> httpServiceProcessors) {
+		super(httpClientFactory, server, urlSegments, httpServiceProcessors);
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.apache.ApacheHttpWebService#createHttpUriRequest(java.lang.String)
+	 * @see ApacheHttpService#createHttpUriRequest(java.lang.String)
 	 */
 	@Override
 	protected HttpUriRequest createHttpUriRequest(String url) {
@@ -49,13 +49,13 @@ public abstract class ApacheHttpEntityEnclosingWebService extends ApacheHttpWebS
 	}
 	
 	/**
-	 * @see EntityEnclosingWebService#setBody(String)
+	 * @see EntityEnclosingHttpService#setBody(String)
 	 */
 	@Override
 	public void setBody(String body) {
 		try {
 			entity = new StringEntity(body, HTTP.UTF_8);
-			ApacheHttpWebService.LOGGER.debug("Entity: " + body);
+			ApacheHttpService.LOGGER.debug("Entity: " + body);
 		} catch (UnsupportedEncodingException e) {
 			throw new UnexpectedException(e);
 		}

@@ -1,34 +1,38 @@
 package com.jdroid.java.http.apache.put;
 
-import java.io.ByteArrayInputStream;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
-import java.util.List;
-import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.StringBody;
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.http.HttpWebServiceProcessor;
+import com.jdroid.java.http.HttpService;
+import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.MimeType;
-import com.jdroid.java.http.MultipartWebService;
+import com.jdroid.java.http.MultipartHttpService;
 import com.jdroid.java.http.Server;
-import com.jdroid.java.http.WebService;
+import com.jdroid.java.http.apache.ApacheHttpService;
 import com.jdroid.java.http.apache.HttpClientFactory;
+import com.jdroid.java.http.apache.post.ApachePostHttpService;
 import com.jdroid.java.http.apache.post.ByteArrayInputStreamBody;
 import com.jdroid.java.marshaller.MarshallerMode;
 import com.jdroid.java.marshaller.MarshallerProvider;
 
-public class ApacheMultipartHttpPutWebService extends ApacheHttpPutWebService implements MultipartWebService {
+import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.StringBody;
+
+import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.util.List;
+
+public class ApacheMultipartPutHttpService extends ApachePutHttpService implements MultipartHttpService {
 	
 	private MultipartEntity multipartEntity = new MultipartEntity();
 	
-	public ApacheMultipartHttpPutWebService(HttpClientFactory httpClientFactory, Server server,
-			List<Object> urlSegments, List<HttpWebServiceProcessor> httpWebServiceProcessors) {
-		super(httpClientFactory, server, urlSegments, httpWebServiceProcessors);
+	public ApacheMultipartPutHttpService(HttpClientFactory httpClientFactory, Server server,
+										 List<Object> urlSegments, List<HttpServiceProcessor> httpServiceProcessors) {
+		super(httpClientFactory, server, urlSegments, httpServiceProcessors);
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.apache.post.ApacheHttpPostWebService#addEntity(org.apache.http.client.methods.HttpEntityEnclosingRequestBase)
+	 * @see ApachePostHttpService#addEntity(org.apache.http.client.methods.HttpEntityEnclosingRequestBase)
 	 */
 	@Override
 	protected void addEntity(HttpEntityEnclosingRequestBase httpEntityEnclosingRequestBase) {
@@ -36,18 +40,18 @@ public class ApacheMultipartHttpPutWebService extends ApacheHttpPutWebService im
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.apache.ApacheHttpWebService#addHeader(java.lang.String, java.lang.String)
+	 * @see ApacheHttpService#addHeader(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public void addHeader(String name, String value) {
 		// The MultipartEntity will fill the proper content type header. So, we need to avoid the override of it
-		if (!name.equals(WebService.CONTENT_TYPE_HEADER)) {
+		if (!name.equals(HttpService.CONTENT_TYPE_HEADER)) {
 			super.addHeader(name, value);
 		}
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.MultipartWebService#addPart(java.lang.String, java.io.ByteArrayInputStream,
+	 * @see MultipartHttpService#addPart(java.lang.String, java.io.ByteArrayInputStream,
 	 *      java.lang.String, java.lang.String)
 	 */
 	@Override
@@ -56,7 +60,7 @@ public class ApacheMultipartHttpPutWebService extends ApacheHttpPutWebService im
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.MultipartWebService#addPart(java.lang.String, java.lang.Object, java.lang.String)
+	 * @see MultipartHttpService#addPart(java.lang.String, java.lang.Object, java.lang.String)
 	 */
 	@Override
 	public void addPart(String name, Object value, String mimeType) {
@@ -70,7 +74,7 @@ public class ApacheMultipartHttpPutWebService extends ApacheHttpPutWebService im
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.MultipartWebService#addJsonPart(java.lang.String, java.lang.Object)
+	 * @see MultipartHttpService#addJsonPart(java.lang.String, java.lang.Object)
 	 */
 	@Override
 	public void addJsonPart(String name, Object value) {

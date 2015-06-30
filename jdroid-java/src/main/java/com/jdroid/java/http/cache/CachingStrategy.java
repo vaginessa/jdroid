@@ -11,8 +11,8 @@ public enum CachingStrategy {
 	NO_CACHE {
 		
 		@Override
-		public <T> T execute(CachedWebService cachedWebService, Parser parser) {
-			return cachedWebService.executeRequest(parser);
+		public <T> T execute(CachedHttpService cachedHttpService, Parser parser) {
+			return cachedHttpService.executeRequest(parser);
 		}
 	},
 	
@@ -20,10 +20,10 @@ public enum CachingStrategy {
 	CACHE_FIRST {
 		
 		@Override
-		public <T> T execute(CachedWebService cachedWebService, Parser parser) {
-			T response = cachedWebService.readFromCache(parser);
+		public <T> T execute(CachedHttpService cachedHttpService, Parser parser) {
+			T response = cachedHttpService.readFromCache(parser);
 			if (response == null) {
-				response = cachedWebService.executeRequest(parser);
+				response = cachedHttpService.executeRequest(parser);
 			}
 			return response;
 		}
@@ -34,17 +34,17 @@ public enum CachingStrategy {
 	CACHE_FIRST_ASYNCH_REMOTE {
 		
 		@Override
-		public <T> T execute(final CachedWebService cachedWebService, final Parser parser) {
-			T response = cachedWebService.readFromCache(parser);
+		public <T> T execute(final CachedHttpService cachedHttpService, final Parser parser) {
+			T response = cachedHttpService.readFromCache(parser);
 			if (response == null) {
-				response = cachedWebService.executeRequest(parser);
+				response = cachedHttpService.executeRequest(parser);
 			} else {
 				ExecutorUtils.execute(new Runnable() {
 					
 					@Override
 					public void run() {
 						try {
-							cachedWebService.executeRequest(parser);
+							cachedHttpService.executeRequest(parser);
 						} catch (Exception e) {
 							LoggerUtils.logHandledException(LOGGER, e);
 						}
@@ -61,20 +61,20 @@ public enum CachingStrategy {
 	CACHE_FORCED_FIRST_ASYNCH_REMOTE {
 		
 		@Override
-		public <T> T execute(final CachedWebService cachedWebService, final Parser parser) {
-			Long originalTimeToLive = cachedWebService.getTimeToLive();
-			cachedWebService.setTimeToLive(null);
-			T response = cachedWebService.readFromCache(parser);
+		public <T> T execute(final CachedHttpService cachedHttpService, final Parser parser) {
+			Long originalTimeToLive = cachedHttpService.getTimeToLive();
+			cachedHttpService.setTimeToLive(null);
+			T response = cachedHttpService.readFromCache(parser);
 			if (response == null) {
-				response = cachedWebService.executeRequest(parser);
+				response = cachedHttpService.executeRequest(parser);
 			} else {
-				cachedWebService.setTimeToLive(originalTimeToLive);
+				cachedHttpService.setTimeToLive(originalTimeToLive);
 				ExecutorUtils.execute(new Runnable() {
 					
 					@Override
 					public void run() {
 						try {
-							CachingStrategy.CACHE_FIRST.execute(cachedWebService, parser);
+							CachingStrategy.CACHE_FIRST.execute(cachedHttpService, parser);
 						} catch (Exception e) {
 							LoggerUtils.logHandledException(LOGGER, e);
 						}
@@ -89,8 +89,8 @@ public enum CachingStrategy {
 	CACHE_ONLY {
 		
 		@Override
-		public <T> T execute(CachedWebService cachedWebService, Parser parser) {
-			return cachedWebService.readFromCache(parser);
+		public <T> T execute(CachedHttpService cachedHttpService, Parser parser) {
+			return cachedHttpService.readFromCache(parser);
 		}
 	},
 	
@@ -98,15 +98,15 @@ public enum CachingStrategy {
 	REMOTE_FIRST {
 		
 		@Override
-		public <T> T execute(CachedWebService cachedWebService, Parser parser) {
+		public <T> T execute(CachedHttpService cachedHttpService, Parser parser) {
 			T response = null;
 			try {
-				response = cachedWebService.executeRequest(parser);
+				response = cachedHttpService.executeRequest(parser);
 			} catch (Exception e) {
 				LoggerUtils.logHandledException(LOGGER, e);
 			}
 			if (response == null) {
-				response = cachedWebService.readFromCache(parser);
+				response = cachedHttpService.readFromCache(parser);
 			}
 			return response;
 		}
@@ -114,5 +114,5 @@ public enum CachingStrategy {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(CachingStrategy.class);
 	
-	public abstract <T> T execute(CachedWebService cacheWebService, Parser parser);
+	public abstract <T> T execute(CachedHttpService cachedHttpService, Parser parser);
 }

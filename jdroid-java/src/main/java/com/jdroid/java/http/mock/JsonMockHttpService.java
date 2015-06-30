@@ -1,16 +1,16 @@
 package com.jdroid.java.http.mock;
 
-public abstract class JsonMockWebService extends AbstractMockWebService {
+public abstract class JsonMockHttpService extends AbstractMockHttpService {
 	
 	private final static String MOCKS_BASE_PATH = "mocks/json/";
 	private final static String MOCKS_EXTENSION = ".json";
 	
-	public JsonMockWebService(Object... urlSegments) {
+	public JsonMockHttpService(Object... urlSegments) {
 		super(urlSegments);
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.mock.AbstractMockWebService#getMocksBasePath()
+	 * @see AbstractMockHttpService#getMocksBasePath()
 	 */
 	@Override
 	protected String getMocksBasePath() {
@@ -18,7 +18,7 @@ public abstract class JsonMockWebService extends AbstractMockWebService {
 	}
 	
 	/**
-	 * @see com.jdroid.java.http.mock.AbstractMockWebService#getMocksExtension()
+	 * @see AbstractMockHttpService#getMocksExtension()
 	 */
 	@Override
 	protected String getMocksExtension() {
