@@ -80,6 +80,6 @@ test {
 // https://blog.openshift.com/run-gradle-builds-on-openshift/
 war{
 	archiveName = 'ROOT.war'
-	destinationDir = file('webapps')
+//	destinationDir = file('webapps')
 }
 

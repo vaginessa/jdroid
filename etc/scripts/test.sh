@@ -19,22 +19,16 @@ fi
 ./gradlew :jdroid-java:clean :jdroid-java:uploadArchives :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=true
 
 # ************************
-# jdroid
+# jdroid sample server
 # ************************
 
-./gradlew :jdroid-java:clean :jdroid-java:build :jdroid-java:test :jdroid-android:clean :jdroid-android:build :jdroid-android:testDebug :jdroid-javaweb:clean :jdroid-javaweb:build :jdroid-javaweb:test
+./gradlew :jdroid-java:clean :jdroid-java:build :jdroid-java:test :jdroid-javaweb:clean :jdroid-javaweb:build :jdroid-javaweb:test :jdroid-sample-server:build
 
 # ************************
 # jdroid sample android
 # ************************
 
-./gradlew :jdroid-sample-android:check :jdroid-sample-android:assembleUat :jdroid-sample-android:countMethodsSummary
-
-# ************************
-# jdroid sample server
-# ************************
-
-./gradlew :jdroid-sample-server:build
+#./gradlew :jdroid-android:clean :jdroid-android:build :jdroid-android:testDebug :jdroid-sample-android:check :jdroid-sample-android:assembleUat :jdroid-sample-android:countMethodsSummary
 
 # ************************
 # Upload Snapshot to Maven repository
