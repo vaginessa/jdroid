@@ -13,7 +13,7 @@ import java.io.File;
 public abstract class AndroidApiService extends AbstractApiService {
 
 	@Override
-	public HttpServiceFactory createApiHttpFactory() {
+	public HttpServiceFactory createHttpServiceFactory() {
 		return new AndroidApacheHttpServiceFactory();
 	}
 

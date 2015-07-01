@@ -19,6 +19,10 @@ public abstract class ReflectionUtils {
 			throw new UnexpectedException(e);
 		}
 	}
+
+	public static <T> T newInstance(String className) {
+		return (T)newInstance(getClass(className));
+	}
 	
 	/**
 	 * Create a class for the specified type,.
@@ -73,11 +77,6 @@ public abstract class ReflectionUtils {
 		}
 	}
 	
-	/**
-	 * @param field
-	 * @param object
-	 * @return Object
-	 */
 	public static Object get(Field field, Object object) {
 		field.setAccessible(true);
 		try {
@@ -87,11 +86,6 @@ public abstract class ReflectionUtils {
 		}
 	}
 	
-	/**
-	 * @param object
-	 * @param fieldName
-	 * @return Object
-	 */
 	public static Object get(Object object, String fieldName) {
 		Field field = getField(object, fieldName);
 		field.setAccessible(true);
@@ -115,11 +109,6 @@ public abstract class ReflectionUtils {
 		}
 	}
 
-	/**
-	 * @param object
-	 * @param fieldName
-	 * @return Field
-	 */
 	public static Field getField(Object object, String fieldName) {
 		try {
 			return object.getClass().getDeclaredField(fieldName);
@@ -173,11 +162,6 @@ public abstract class ReflectionUtils {
 		}
 	}
 	
-	/**
-	 * @param object
-	 * @param fieldName
-	 * @return Class<?>
-	 */
 	public static Class<?> getType(Object object, String fieldName) {
 		try {
 			Field field = object.getClass().getDeclaredField(fieldName);

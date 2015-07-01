@@ -1,12 +1,12 @@
 package com.jdroid.java.api;
 
 import com.jdroid.java.collections.Lists;
+import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.java.http.HttpService;
 import com.jdroid.java.http.HttpServiceFactory;
 import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.MultipartHttpService;
 import com.jdroid.java.http.Server;
-import com.jdroid.java.http.HttpService;
-import com.jdroid.java.http.apache.ApacheHttpServiceFactory;
 import com.jdroid.java.http.cache.Cache;
 import com.jdroid.java.http.cache.CachedHttpService;
 import com.jdroid.java.http.cache.CachingStrategy;
@@ -14,6 +14,7 @@ import com.jdroid.java.http.mock.AbstractMockHttpService;
 import com.jdroid.java.http.post.EntityEnclosingHttpService;
 import com.jdroid.java.marshaller.MarshallerMode;
 import com.jdroid.java.marshaller.MarshallerProvider;
+import com.jdroid.java.utils.ReflectionUtils;
 
 import java.io.File;
 import java.util.List;
@@ -24,7 +25,7 @@ public abstract class AbstractApiService {
 	private HttpServiceFactory httpServiceFactory;
 
 	public AbstractApiService() {
-		httpServiceFactory = createApiHttpFactory();
+		httpServiceFactory = createHttpServiceFactory();
 	}
 	
 	// GET
@@ -215,8 +216,14 @@ public abstract class AbstractApiService {
 		};
 	}
 
-	public HttpServiceFactory createApiHttpFactory() {
-		return new ApacheHttpServiceFactory();
+	public HttpServiceFactory createHttpServiceFactory() {
+		HttpServiceFactory httpServiceFactory;
+		try {
+			httpServiceFactory = ReflectionUtils.newInstance("com.jdroid.java.http.apache.ApacheHttpServiceFactory");
+		} catch (UnexpectedException e) {
+			httpServiceFactory = ReflectionUtils.newInstance("com.jdroid.java.http.urlconnection.UrlConnectionHttpServiceFactory");
+		}
+		return httpServiceFactory;
 	}
 
 	protected abstract Server getServer();

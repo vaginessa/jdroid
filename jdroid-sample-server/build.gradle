@@ -24,6 +24,7 @@ configurations.all {
 
 dependencies {
 	compile project(':jdroid-javaweb')
+	compile project(':jdroid-java-http-apache')
 	//compile 'com.jdroidframework:jdroid-javaweb:0.7.0-SNAPSHOT'
 
 	// Testing

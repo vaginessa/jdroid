@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
-ext.projectName = 'Jdroid Java'
-description = 'Jdroid dependency project for both Android & Java apps'
+ext.projectName = 'Jdroid Java Http Url Connection'
+description = 'Url Connection Http Layer Implementation for Jdroid'
 
 buildscript {
 	repositories {
@@ -11,8 +11,8 @@ buildscript {
 
 dependencies {
 
-	// Logging
-	compile "org.slf4j:slf4j-api:1.6.3"
+	// Module dependencies
+	compile project(':jdroid-java')
 
 	// Testing
 	testCompile "org.testng:testng:6.8.21"

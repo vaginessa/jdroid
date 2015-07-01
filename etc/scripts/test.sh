@@ -22,7 +22,7 @@ fi
 # jdroid sample server
 # ************************
 
-./gradlew :jdroid-java:clean :jdroid-java:build :jdroid-java:test :jdroid-javaweb:clean :jdroid-javaweb:build :jdroid-javaweb:test :jdroid-sample-server:build --configure-on-demand
+./gradlew :jdroid-java:clean :jdroid-java:build :jdroid-java:test :jdroid-java-http-apache:build :jdroid-java-http-apache:test :jdroid-java-http-urlconnection:build :jdroid-java-http-urlconnection:test :jdroid-javaweb:clean :jdroid-javaweb:build :jdroid-javaweb:test :jdroid-sample-server:build --configure-on-demand
 
 # ************************
 # jdroid sample android
