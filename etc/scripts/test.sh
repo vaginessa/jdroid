@@ -36,6 +36,6 @@ fi
 
 if [ "$UPLOAD" = "true" ]
 then
-	./gradlew :jdroid-gradle-plugin:uploadArchives :jdroid-java:uploadArchives :jdroid-javaweb:uploadArchives --configure-on-demand
+	./gradlew :jdroid-gradle-plugin:uploadArchives :jdroid-java:uploadArchives :jdroid-java-http-apache:uploadArchives :jdroid-java-http-urlconnection:uploadArchives :jdroid-javaweb:uploadArchives --configure-on-demand
 	#./gradlew :jdroid-android:uploadArchives
 fi
