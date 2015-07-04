@@ -1,4 +1,4 @@
-package com.jdroid.android.social.facebook;
+package com.jdroid.android.facebook;
 
 import com.facebook.SessionState;
 

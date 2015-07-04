@@ -1,13 +1,11 @@
-package com.jdroid.android.social.facebook;
+package com.jdroid.android.facebook;
 
-import org.slf4j.Logger;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+
 import com.facebook.FacebookException;
 import com.facebook.FacebookOperationCanceledException;
 import com.facebook.Session;
@@ -15,7 +13,6 @@ import com.facebook.widget.WebDialog;
 import com.facebook.widget.WebDialog.FeedDialogBuilder;
 import com.facebook.widget.WebDialog.OnCompleteListener;
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.social.AccountType;
@@ -26,6 +23,8 @@ import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
 
 public class FacebookAuthenticationFragment<T extends FacebookAuthenticationUseCase> extends AbstractFragment implements
 		SessionStateListener, FacebookAuthenticationListener {
@@ -216,22 +215,9 @@ public class FacebookAuthenticationFragment<T extends FacebookAuthenticationUseC
 			GooglePlayUtils.showDownloadDialog(R.string.facebook, ExternalAppsUtils.FACEBOOK_PACKAGE_NAME);
 		}
 	}
-	
-	public static void openPage(String pageId) {
-		try {
-			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/" + pageId));
-			AbstractApplication.get().getCurrentActivity().startActivity(intent);
-		} catch (ActivityNotFoundException e) {
-			AbstractApplication.get().getCurrentActivity().startActivity(
-				new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/" + pageId)));
-		} finally {
-			AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(AccountType.FACEBOOK,
-				SocialAction.OPEN_PROFILE, pageId);
-		}
-	}
-	
+
 	/**
-	 * @see com.jdroid.android.social.facebook.FacebookAuthenticationListener#onFacebookLoginCompleted(com.jdroid.android.social.facebook.FacebookConnector)
+	 * @see FacebookAuthenticationListener#onFacebookLoginCompleted(FacebookConnector)
 	 */
 	@Override
 	public void onFacebookLoginCompleted(FacebookConnector facebookConnector) {
@@ -241,7 +227,7 @@ public class FacebookAuthenticationFragment<T extends FacebookAuthenticationUseC
 	}
 	
 	/**
-	 * @see com.jdroid.android.social.facebook.FacebookAuthenticationListener#onFacebookLogoutCompleted()
+	 * @see FacebookAuthenticationListener#onFacebookLogoutCompleted()
 	 */
 	@Override
 	public void onFacebookLogoutCompleted() {
@@ -318,7 +304,7 @@ public class FacebookAuthenticationFragment<T extends FacebookAuthenticationUseC
 	}
 	
 	/**
-	 * @see com.jdroid.android.social.facebook.SessionStateListener#onSessionOpened()
+	 * @see SessionStateListener#onSessionOpened()
 	 */
 	@Override
 	public void onSessionOpened() {
@@ -326,7 +312,7 @@ public class FacebookAuthenticationFragment<T extends FacebookAuthenticationUseC
 	}
 	
 	/**
-	 * @see com.jdroid.android.social.facebook.SessionStateListener#onSessionClosed()
+	 * @see SessionStateListener#onSessionClosed()
 	 */
 	@Override
 	public void onSessionClosed() {
@@ -334,7 +320,7 @@ public class FacebookAuthenticationFragment<T extends FacebookAuthenticationUseC
 	}
 	
 	/**
-	 * @see com.jdroid.android.social.facebook.SessionStateListener#onSessionOpenedWithUpdatedToken()
+	 * @see SessionStateListener#onSessionOpenedWithUpdatedToken()
 	 */
 	@Override
 	public void onSessionOpenedWithUpdatedToken() {
@@ -342,7 +328,7 @@ public class FacebookAuthenticationFragment<T extends FacebookAuthenticationUseC
 	}
 	
 	/**
-	 * @see com.jdroid.android.social.facebook.SessionStateListener#onSessionClosedLoginFailed()
+	 * @see SessionStateListener#onSessionClosedLoginFailed()
 	 */
 	@Override
 	public void onSessionClosedLoginFailed() {

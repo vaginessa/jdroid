@@ -1,12 +1,13 @@
-package com.jdroid.android.social.facebook;
+package com.jdroid.android.facebook;
 
-import org.slf4j.Logger;
 import com.facebook.model.GraphUser;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.utils.AndroidEncryptionUtils;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.StringUtils;
+
+import org.slf4j.Logger;
 
 public class FacebookAuthenticationUseCase extends DefaultAbstractUseCase {
 	

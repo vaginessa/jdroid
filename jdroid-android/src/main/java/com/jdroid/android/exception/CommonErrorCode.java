@@ -1,11 +1,12 @@
 package com.jdroid.android.exception;
 
-import java.util.Collection;
 import com.jdroid.android.R;
 import com.jdroid.java.exception.ErrorCode;
 import com.jdroid.java.exception.ErrorCodeException;
 import com.jdroid.java.utils.StringUtils;
 import com.jdroid.java.utils.ValidationUtils;
+
+import java.util.Collection;
 
 public enum CommonErrorCode implements ErrorCode {
 	
@@ -15,7 +16,6 @@ public enum CommonErrorCode implements ErrorCode {
 	// The app is not compatible with the API anymore and needs to be upgraded.
 	INVALID_API_VERSION(null, 403),
 	
-	FACEBOOK_ERROR(R.string.facebookError),
 	FACEBOOK_SESSION_EXPIRED_ERROR(null);
 	
 	private Integer resourceId;

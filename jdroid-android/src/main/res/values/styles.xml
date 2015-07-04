@@ -152,20 +152,6 @@
 		<item name="android:gravity">center</item>
 	</style>
 
-	<!-- Facebook -->
-
-	<style name="facebookButton" parent="@style/socialButton">
-		<item name="android:background">@drawable/facebook_button_selector</item>
-	</style>
-
-	<style name="facebookLoginButton" parent="@style/facebookButton">
-		<item name="android:text">@string/signIn</item>
-	</style>
-
-	<style name="facebookLogoutButton" parent="@style/facebookButton">
-		<item name="android:text">@string/logout</item>
-	</style>
-
 	<!-- Google+ -->
 
 	<style name="googlePlusButton" parent="@style/socialButton">

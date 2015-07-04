@@ -1,4 +1,4 @@
-package com.jdroid.android.social.facebook;
+package com.jdroid.android.facebook;
 
 import android.content.Context;
 import android.content.SharedPreferences.Editor;

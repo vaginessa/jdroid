@@ -10,6 +10,7 @@ import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.plus.PlusOneButton;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
+import com.jdroid.android.facebook.FacebookHelper;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.share.GooglePlusSharingItem;
 import com.jdroid.android.share.HangoutsSharingItem;
@@ -21,7 +22,6 @@ import com.jdroid.android.share.SmsSharingItem;
 import com.jdroid.android.share.TelegramSharingItem;
 import com.jdroid.android.share.TwitterSharingItem;
 import com.jdroid.android.share.WhatsAppSharingItem;
-import com.jdroid.android.social.facebook.FacebookAuthenticationFragment;
 import com.jdroid.android.social.googleplus.GooglePlusHelperFragment;
 import com.jdroid.android.social.googleplus.GooglePlusOneButtonHelper;
 import com.jdroid.android.social.twitter.TwitterConnector;
@@ -57,7 +57,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 
 				@Override
 				public void onClick(View v) {
-					FacebookAuthenticationFragment.openPage(getFacebookPageId());
+					FacebookHelper.openPage(getFacebookPageId());
 				}
 			});
 			followUsVisible = true;

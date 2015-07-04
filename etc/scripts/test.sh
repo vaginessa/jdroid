@@ -28,7 +28,7 @@ fi
 # jdroid sample android
 # ************************
 
-#./gradlew :jdroid-android:clean :jdroid-android:build :jdroid-android:testDebug :jdroid-sample-android:check :jdroid-sample-android:assembleUat :jdroid-sample-android:countMethodsSummary
+#./gradlew :jdroid-android:clean :jdroid-android:build :jdroid-android:testDebug :jdroid-android-facebook:clean :jdroid-android-facebook:build :jdroid-android-facebook:testDebug :jdroid-sample-android:check :jdroid-sample-android:assembleUat :jdroid-sample-android:countMethodsSummary
 
 # ************************
 # Upload Snapshot to Maven repository
