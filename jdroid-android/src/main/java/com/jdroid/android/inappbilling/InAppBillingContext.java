@@ -91,18 +91,16 @@ public class InAppBillingContext {
 
 	public synchronized List<ProductType> getPurchasedProductTypes() {
 		if (purchasedProductTypes == null) {
-			String pref = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
+			String purchasedProductTypesPref = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
 				PURCHASED_PRODUCT_TYPES, null);
 			purchasedProductTypes = Lists.newArrayList();
-			for (String each : StringUtils.splitToCollectionWithCommaSeparator(pref)) {
-				ProductType productType;
+			for (String each : StringUtils.splitToCollectionWithCommaSeparator(purchasedProductTypesPref)) {
 				List<ProductType> supportedProductTypes = Lists.newArrayList();
 				supportedProductTypes.addAll(AbstractApplication.get().getManagedProductTypes());
 				supportedProductTypes.addAll(AbstractApplication.get().getSubscriptionsProductTypes());
 				for (ProductType supportedProductType : supportedProductTypes) {
 					if (supportedProductType.getProductId().equals(each)) {
-						productType = supportedProductType;
-						purchasedProductTypes.add(productType);
+						purchasedProductTypes.add(supportedProductType);
 						break;
 					}
 				}

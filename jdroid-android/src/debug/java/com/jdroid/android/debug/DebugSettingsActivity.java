@@ -2,7 +2,7 @@ package com.jdroid.android.debug;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import com.jdroid.android.AbstractApplication;
+
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.fragment.AbstractPreferenceFragment;
@@ -34,8 +34,7 @@ public class DebugSettingsActivity extends AbstractFragmentActivity {
 	}
 
 	protected AbstractPreferenceFragment createNewFragment() {
-		return instanceAbstractPreferenceFragment(AbstractApplication.get().getDebugContext().getDebugSettingsFragmentClass(),
-			getIntent().getExtras());
+		return instanceAbstractPreferenceFragment(DebugSettingsFragment.class, getIntent().getExtras());
 	}
 
 	private <E extends AbstractPreferenceFragment> E instanceAbstractPreferenceFragment(Class<E> fragmentClass,

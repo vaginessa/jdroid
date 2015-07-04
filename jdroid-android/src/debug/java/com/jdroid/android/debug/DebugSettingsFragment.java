@@ -3,20 +3,14 @@ package com.jdroid.android.debug;
 import android.os.Bundle;
 import android.view.View;
 
+import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.fragment.AbstractPreferenceFragment;
-import com.jdroid.android.gcm.GcmMessage;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.collections.Maps;
-import com.jdroid.java.http.Server;
 
 import java.util.List;
-import java.util.Map;
 
 public class DebugSettingsFragment extends AbstractPreferenceFragment {
-	
-	private Map<Class<? extends Server>, List<? extends Server>> serversMap = Maps.newLinkedHashMap();
-	private Map<GcmMessage, EmulatedGcmMessageIntentBuilder> gcmMessagesMap = Maps.newHashMap();
 	
 	/**
 	 * @see android.preference.PreferenceActivity#onCreate(android.os.Bundle)
@@ -33,26 +27,25 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		
-		initServers(serversMap);
-		initGcmMessages(gcmMessagesMap);
+
+		DebugContext debugContext = AbstractApplication.get().getDebugContext();
 		
 		List<PreferencesAppender> appenders = Lists.newArrayList();
-		addAppender(appenders, createServersDebugPrefsAppender());
-		addAppender(appenders, createHttpMocksDebugPrefsAppender());
-		addAppender(appenders, createNavDrawerDebugPrefsAppender());
-		addAppender(appenders, createAdsDebugPrefsAppender());
-		addAppender(appenders, createExperimentsDebugPrefsAppender());
-		addAppender(appenders, createDatabaseDebugPrefsAppender());
-		addAppender(appenders, createLogsDebugPrefsAppender());
-		addAppender(appenders, createImageLoaderDebugPrefsAppender());
-		addAppender(appenders, createHttpCacheDebugPrefsAppender());
-		addAppender(appenders, createExceptionHandlingDebugPrefsAppender());
-		addAppender(appenders, createInAppBillingDebugPrefsAppender());
-		addAppender(appenders, createGcmDebugPrefsAppender());
-		addAppender(appenders, createInfoDebugPrefsAppender());
+		addAppender(appenders, debugContext.createServersDebugPrefsAppender());
+		addAppender(appenders, debugContext.createHttpMocksDebugPrefsAppender());
+		addAppender(appenders, debugContext.createNavDrawerDebugPrefsAppender());
+		addAppender(appenders, debugContext.createAdsDebugPrefsAppender());
+		addAppender(appenders, debugContext.createExperimentsDebugPrefsAppender());
+		addAppender(appenders, debugContext.createDatabaseDebugPrefsAppender());
+		addAppender(appenders, debugContext.createLogsDebugPrefsAppender());
+		addAppender(appenders, debugContext.createImageLoaderDebugPrefsAppender());
+		addAppender(appenders, debugContext.createHttpCacheDebugPrefsAppender());
+		addAppender(appenders, debugContext.createExceptionHandlingDebugPrefsAppender());
+		addAppender(appenders, debugContext.createInAppBillingDebugPrefsAppender());
+		addAppender(appenders, debugContext.createGcmDebugPrefsAppender());
+		addAppender(appenders, debugContext.createInfoDebugPrefsAppender());
 
-		appenders.addAll(getCustomPreferencesAppenders());
+		appenders.addAll(debugContext.getCustomPreferencesAppenders());
 		
 		for (PreferencesAppender preferencesAppender : appenders) {
 			if (preferencesAppender.isEnabled()) {
@@ -65,69 +58,5 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		if (preferencesAppender != null) {
 			appenders.add(preferencesAppender);
 		}
-	}
-	
-	protected void initServers(Map<Class<? extends Server>, List<? extends Server>> serversMap) {
-		// Do nothing
-	}
-	
-	protected ServersDebugPrefsAppender createServersDebugPrefsAppender() {
-		return new ServersDebugPrefsAppender(serversMap);
-	}
-	
-	protected void initGcmMessages(Map<GcmMessage, EmulatedGcmMessageIntentBuilder> gcmMessagesMap) {
-		// Do nothing
-	}
-	
-	protected GcmDebugPrefsAppender createGcmDebugPrefsAppender() {
-		return new GcmDebugPrefsAppender(gcmMessagesMap);
-	}
-	
-	protected InAppBillingDebugPrefsAppender createInAppBillingDebugPrefsAppender() {
-		return new InAppBillingDebugPrefsAppender();
-	}
-	
-	protected ExceptionHandlingDebugPrefsAppender createExceptionHandlingDebugPrefsAppender() {
-		return new ExceptionHandlingDebugPrefsAppender();
-	}
-	
-	protected HttpCacheDebugPrefsAppender createHttpCacheDebugPrefsAppender() {
-		return new HttpCacheDebugPrefsAppender();
-	}
-	
-	protected ImageLoaderDebugPrefsAppender createImageLoaderDebugPrefsAppender() {
-		return new ImageLoaderDebugPrefsAppender();
-	}
-	
-	protected DatabaseDebugPrefsAppender createDatabaseDebugPrefsAppender() {
-		return new DatabaseDebugPrefsAppender();
-	}
-	
-	protected LogsDebugPrefsAppender createLogsDebugPrefsAppender() {
-		return new LogsDebugPrefsAppender();
-	}
-	
-	protected ExperimentsDebugPrefsAppender createExperimentsDebugPrefsAppender() {
-		return new ExperimentsDebugPrefsAppender();
-	}
-	
-	protected AdsDebugPrefsAppender createAdsDebugPrefsAppender() {
-		return new AdsDebugPrefsAppender();
-	}
-	
-	protected NavDrawerDebugPrefsAppender createNavDrawerDebugPrefsAppender() {
-		return new NavDrawerDebugPrefsAppender();
-	}
-	
-	protected HttpMocksDebugPrefsAppender createHttpMocksDebugPrefsAppender() {
-		return new HttpMocksDebugPrefsAppender();
-	}
-
-	protected InfoDebugPrefsAppender createInfoDebugPrefsAppender() {
-		return new InfoDebugPrefsAppender();
-	}
-
-	protected List<PreferencesAppender> getCustomPreferencesAppenders() {
-		return Lists.newArrayList();
 	}
 }

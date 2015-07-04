@@ -16,6 +16,7 @@ import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
+import com.jdroid.android.application.ApplicationListener;
 import com.jdroid.android.context.AndroidGitContext;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
@@ -98,6 +99,8 @@ public abstract class AbstractApplication extends Application {
 	private Map<Class<? extends Identifiable>, Repository<? extends Identifiable>> repositories;
 
 	private Integer deviceYearClass = YearClass.CLASS_UNKNOWN;
+
+	private List<ApplicationListener> applicationListeners = Lists.newArrayList();
 	
 	public AbstractApplication() {
 		INSTANCE = this;
@@ -153,6 +156,51 @@ public abstract class AbstractApplication extends Application {
 		});
 
 		initRepositories();
+
+		initApplicationListeners(applicationListeners);
+		for (ApplicationListener each: applicationListeners) {
+			each.onCreate();
+		}
+	}
+
+	protected void initApplicationListeners(List<ApplicationListener> applicationListeners) {
+		// Do nothing
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+
+		for (ApplicationListener each: applicationListeners) {
+			each.onConfigurationChanged(newConfig);
+		}
+	}
+
+	@Override
+	public void onLowMemory() {
+		super.onLowMemory();
+
+		for (ApplicationListener each: applicationListeners) {
+			each.onLowMemory();
+		}
+	}
+
+	@Override
+	public void onTrimMemory(int level) {
+		super.onTrimMemory(level);
+
+		for (ApplicationListener each: applicationListeners) {
+			each.onTrimMemory(level);
+		}
+	}
+
+	@Override
+	protected void attachBaseContext(Context base) {
+		super.attachBaseContext(base);
+
+		for (ApplicationListener each: applicationListeners) {
+			each.attachBaseContext(base);
+		}
 	}
 	
 	public Boolean isImageLoaderEnabled() {

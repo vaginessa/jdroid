@@ -27,11 +27,72 @@ public class DebugContext {
 		// Do nothing
 	}
 
-	public Class<? extends AbstractPreferenceFragment> getDebugSettingsFragmentClass() {
+	public List<Pair<String, Object>> getCustomDebugInfoProperties() {
 		return null;
 	}
 
-	public List<Pair<String, Object>> getCustomDebugInfoProperties() {
-		return Lists.newArrayList();
+	public ServersDebugPrefsAppender createServersDebugPrefsAppender() {
+		return null;
 	}
+
+	public Map<Class<? extends Server>, List<? extends Server>> getServersMap() {
+		return null;
+	}
+
+	public GcmDebugPrefsAppender createGcmDebugPrefsAppender() {
+		return null;
+	}
+
+	public Map<GcmMessage, EmulatedGcmMessageIntentBuilder> getGcmMessagesMap() {
+		return null;
+	}
+
+	public InAppBillingDebugPrefsAppender createInAppBillingDebugPrefsAppender() {
+		return null;
+	}
+
+	public ExceptionHandlingDebugPrefsAppender createExceptionHandlingDebugPrefsAppender() {
+		return null;
+	}
+
+	public HttpCacheDebugPrefsAppender createHttpCacheDebugPrefsAppender() {
+		return null;
+	}
+
+	public ImageLoaderDebugPrefsAppender createImageLoaderDebugPrefsAppender() {
+		return null;
+	}
+
+	public DatabaseDebugPrefsAppender createDatabaseDebugPrefsAppender() {
+		return null;
+	}
+
+	public LogsDebugPrefsAppender createLogsDebugPrefsAppender() {
+		return null;
+	}
+
+	public ExperimentsDebugPrefsAppender createExperimentsDebugPrefsAppender() {
+		return null;
+	}
+
+	public AdsDebugPrefsAppender createAdsDebugPrefsAppender() {
+		return null;
+	}
+
+	public NavDrawerDebugPrefsAppender createNavDrawerDebugPrefsAppender() {
+		return null;
+	}
+
+	public HttpMocksDebugPrefsAppender createHttpMocksDebugPrefsAppender() {
+		return null;
+	}
+
+	public InfoDebugPrefsAppender createInfoDebugPrefsAppender() {
+		return null;
+	}
+
+	public List<PreferencesAppender> getCustomPreferencesAppenders() {
+		return null;
+	}
+
 }
