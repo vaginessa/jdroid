@@ -1,4 +1,4 @@
-package com.jdroid.android.maps;
+package com.jdroid.android.google.maps;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds.Builder;

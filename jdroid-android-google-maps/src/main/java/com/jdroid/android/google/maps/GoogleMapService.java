@@ -1,4 +1,4 @@
-package com.jdroid.android.maps;
+package com.jdroid.android.google.maps;
 
 import com.jdroid.android.api.AndroidApiService;
 import com.jdroid.android.domain.GeoLocation;

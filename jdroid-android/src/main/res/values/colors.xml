@@ -19,10 +19,6 @@
 	<color name="navDrawerHeaderTitle">#deffffff</color>
 	<color name="navDrawerHeaderSubTitle">#aaffffff</color>
 
-	<!-- Maps -->
-	<color name="walkingColor">#888888</color>
-	<color name="drivingColor">#319FDA</color>
-
 	<!-- Buttons -->
 	<color name="grey">#DBDBDB</color>
 

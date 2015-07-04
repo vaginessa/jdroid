@@ -1,4 +1,4 @@
-package com.jdroid.android.maps;
+package com.jdroid.android.google.maps;
 
 import android.annotation.TargetApi;
 import android.content.res.TypedArray;
@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.animation.Animation;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,7 +22,6 @@ import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationChangeListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.R;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.ad.HouseAdBuilder;
 import com.jdroid.android.animation.FadeOutAnimation;
@@ -105,6 +105,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 			mapContainer.addView(mapView);
 		} else {
 			mapContainer.addView(inflate(R.layout.update_google_services));
+			((TextView)mapContainer.findViewById(R.id.updateGooglePlayServicesLegend)).setText(R.string.updateGooglePlayServices);
 			mapContainer.findViewById(R.id.updateGooglePlayServicesButton).setOnClickListener(new OnClickListener() {
 				
 				@Override

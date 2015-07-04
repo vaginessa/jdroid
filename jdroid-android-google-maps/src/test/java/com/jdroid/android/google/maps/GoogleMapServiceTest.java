@@ -1,4 +1,4 @@
-package com.jdroid.android.maps;
+package com.jdroid.android.google.maps;
 
 import com.jdroid.android.AbstractIntegrationTest;
 import com.jdroid.android.domain.GeoLocation;

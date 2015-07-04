@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="driving">Conduciendo</string>
+	<string name="walking">Caminando</string>
+	<string name="updateGooglePlayServices">Por favor actualice la aplicación de Google Play Services para poder visualizar los mapas</string>
+
+</resources>

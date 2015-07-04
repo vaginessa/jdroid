@@ -1,6 +1,5 @@
-package com.jdroid.android.maps;
+package com.jdroid.android.google.maps;
 
-import com.jdroid.android.R;
 import com.jdroid.android.dialog.ChoiceItem;
 
 public enum RouteMode implements ChoiceItem {

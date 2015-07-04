@@ -3,8 +3,7 @@
 	android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical"
 	android:gravity="center_vertical" android:padding="10dp">
 
-	<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" style="@style/updateGooglePlayServicesLegend"
-		android:text="@string/updateGooglePlayServices" />
+	<TextView android:id="@+id/updateGooglePlayServicesLegend" android:layout_width="wrap_content" android:layout_height="wrap_content" style="@style/updateGooglePlayServicesLegend"/>
 	<TextView android:id="@+id/updateGooglePlayServicesButton" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:layout_gravity="center_horizontal" style="@style/textViewButton"
 		android:text="@string/refresh" />

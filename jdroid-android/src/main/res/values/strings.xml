@@ -93,9 +93,4 @@
 	<string name="appInvite">Invite Friends</string>
 	<string name="appInviteTitle">Invite Friends to %1$s</string>
 
-	<!-- Map -->
-	<string name="driving">Driving</string>
-	<string name="walking">Walking</string>
-	<string name="updateGooglePlayServices">Please update the Google Play Services app to see the maps.</string>
-
 </resources>
