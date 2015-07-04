@@ -24,6 +24,8 @@ import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.gcm.GcmMessageResolver;
+import com.jdroid.android.images.loader.ImageLoaderHelper;
+import com.jdroid.android.images.loader.uil.UilImageLoaderHelper;
 import com.jdroid.android.inappbilling.ProductType;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
@@ -31,7 +33,6 @@ import com.jdroid.android.sqlite.SQLiteUpgradeStep;
 import com.jdroid.android.uri.UriMapper;
 import com.jdroid.android.utils.AndroidEncryptionUtils;
 import com.jdroid.android.utils.AndroidUtils;
-import com.jdroid.android.utils.ImageLoaderUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.collections.Lists;
@@ -46,10 +47,6 @@ import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.ReflectionUtils;
 import com.jdroid.java.utils.StringUtils;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import org.slf4j.Logger;
 
@@ -101,6 +98,8 @@ public abstract class AbstractApplication extends Application {
 	private Integer deviceYearClass = YearClass.CLASS_UNKNOWN;
 
 	private List<ApplicationListener> applicationListeners = Lists.newArrayList();
+
+	private ImageLoaderHelper imageLoaderHelper;
 	
 	public AbstractApplication() {
 		INSTANCE = this;
@@ -140,6 +139,7 @@ public abstract class AbstractApplication extends Application {
 		ToastUtils.init();
 		DateUtils.init();
 
+		imageLoaderHelper = createImageLoaderHelper();
 		ExecutorUtils.execute(new Runnable() {
 
 			@Override
@@ -148,7 +148,7 @@ public abstract class AbstractApplication extends Application {
 				verifyAppLaunchStatus();
 				initDeviceYearClass();
 				initFileSystemCache();
-				initImageLoader();
+				imageLoaderHelper.init();
 				initEncryptionUtils();
 
 				appContext.saveFirstSessionTimestamp();
@@ -161,6 +161,14 @@ public abstract class AbstractApplication extends Application {
 		for (ApplicationListener each: applicationListeners) {
 			each.onCreate();
 		}
+	}
+
+	public ImageLoaderHelper getImageLoaderHelper() {
+		return imageLoaderHelper;
+	}
+
+	protected ImageLoaderHelper createImageLoaderHelper() {
+		return new UilImageLoaderHelper();
 	}
 
 	protected void initApplicationListeners(List<ApplicationListener> applicationListeners) {
@@ -200,32 +208,6 @@ public abstract class AbstractApplication extends Application {
 
 		for (ApplicationListener each: applicationListeners) {
 			each.attachBaseContext(base);
-		}
-	}
-	
-	public Boolean isImageLoaderEnabled() {
-		return false;
-	}
-	
-	protected void initImageLoader() {
-		if (isImageLoaderEnabled()) {
-			
-			// Create global configuration and initialize ImageLoader with this configuration
-			
-			DisplayImageOptions.Builder displayImageOptionsBuilder = new DisplayImageOptions.Builder();
-			displayImageOptionsBuilder.cacheInMemory(true);
-			displayImageOptionsBuilder.cacheOnDisk(true);
-			
-			ImageLoaderConfiguration.Builder configBuilder = new ImageLoaderConfiguration.Builder(
-					getApplicationContext());
-			configBuilder.tasksProcessingOrder(QueueProcessingType.LIFO);
-			configBuilder.defaultDisplayImageOptions(displayImageOptionsBuilder.build());
-			configBuilder.diskCacheSize(10 * 1024 * 1024);
-			// configBuilder.writeDebugLogs();
-			
-			ImageLoader.getInstance().init(configBuilder.build());
-			
-			ImageLoaderUtils.clearExpiredDiskCaches();
 		}
 	}
 	

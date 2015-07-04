@@ -100,11 +100,6 @@ public class AndroidApplication extends AbstractApplication {
 	}
 
 	@Override
-	public Boolean isImageLoaderEnabled() {
-		return true;
-	}
-
-	@Override
 	public UserRepository getUserRepository() {
 		return new UserRepositoryImpl();
 	}

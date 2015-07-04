@@ -24,8 +24,10 @@ public class LibrariesFragment extends AbstractRecyclerFragment<Library> {
 		libraries.add(new Library("jdroid", R.string.jdroidTitle, R.string.jdroidDescription,
 				"http://jdroidframework.com"));
 		if (displayImageLoader()) {
-			libraries.add(new Library("universalImageLoader", R.string.universalImageLoaderTitle,
-					R.string.universalImageLoaderDescription, "https://github.com/nostra13/Android-Universal-Image-Loader"));
+			Library library = AbstractApplication.get().getImageLoaderHelper().getLibrary();
+			if (library != null) {
+				libraries.add(library);
+			}
 		}
 		libraries.addAll(getCustomLibraries());
 	}
@@ -47,7 +49,7 @@ public class LibrariesFragment extends AbstractRecyclerFragment<Library> {
 	}
 	
 	protected Boolean displayImageLoader() {
-		return AbstractApplication.get().isImageLoaderEnabled();
+		return AbstractApplication.get().getImageLoaderHelper() != null;
 	}
 	
 	protected List<Library> getCustomLibraries() {

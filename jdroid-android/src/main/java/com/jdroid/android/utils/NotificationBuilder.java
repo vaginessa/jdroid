@@ -219,8 +219,7 @@ public class NotificationBuilder {
 	private Bitmap createLargeIconBitmap(String largeIconUrl) {
 		Bitmap largeIconBitmap = null;
 		if (StringUtils.isNotEmpty(largeIconUrl)) {
-			
-			largeIconBitmap = ImageLoaderUtils.loadBitmap(largeIconUrl, ImageScaleType.EXACTLY,
+			largeIconBitmap = AbstractApplication.get().getImageLoaderHelper().loadBitmap(largeIconUrl, ImageScaleType.EXACTLY,
 				NotificationUtils.getNotificationLargeIconWidthPx(),
 				NotificationUtils.getNotificationLargeIconHeightPx(), null);
 		}

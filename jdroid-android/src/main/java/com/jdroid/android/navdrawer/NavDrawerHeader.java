@@ -4,9 +4,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.ComponentIf;
-import com.jdroid.android.utils.ImageLoaderUtils;
 
 public class NavDrawerHeader {
 
@@ -29,7 +29,7 @@ public class NavDrawerHeader {
 	}
 
 	public void setBackground(String imageUrl, Long ttl) {
-		ImageLoaderUtils.displayImage(imageUrl,
+		AbstractApplication.get().getImageLoaderHelper().displayImage(imageUrl,
 				((ImageView)navDrawerHeader.findViewById(R.id.cover)), null, null, ttl);
 	}
 
@@ -38,7 +38,7 @@ public class NavDrawerHeader {
 	}
 
 	public void setMainImage(String imageUrl, Long ttl) {
-		ImageLoaderUtils.displayImage(imageUrl,
+		AbstractApplication.get().getImageLoaderHelper().displayImage(imageUrl,
 				((ImageView)navDrawerHeader.findViewById(R.id.photo)), R.drawable.profile_default, null,
 				ttl);
 	}
