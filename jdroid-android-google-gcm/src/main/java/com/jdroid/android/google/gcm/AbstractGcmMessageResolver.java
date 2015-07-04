@@ -1,13 +1,16 @@
-package com.jdroid.android.gcm;
+package com.jdroid.android.google.gcm;
 
-import java.util.List;
-import org.slf4j.Logger;
 import android.content.Intent;
+
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.NumberUtils;
+
+import org.slf4j.Logger;
+
+import java.util.List;
 
 public abstract class AbstractGcmMessageResolver implements GcmMessageResolver {
 	
@@ -27,7 +30,7 @@ public abstract class AbstractGcmMessageResolver implements GcmMessageResolver {
 	}
 	
 	/**
-	 * @see com.jdroid.android.gcm.GcmMessageResolver#resolve(android.content.Intent)
+	 * @see GcmMessageResolver#resolve(android.content.Intent)
 	 */
 	@Override
 	public GcmMessage resolve(Intent intent) {

@@ -1,11 +1,13 @@
-package com.jdroid.android.gcm;
+package com.jdroid.android.google.gcm;
 
-import org.slf4j.Logger;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
 
 /**
  * {@link BroadcastReceiver} that receives GCM messages and delivers them to an application-specific {@link GcmService}

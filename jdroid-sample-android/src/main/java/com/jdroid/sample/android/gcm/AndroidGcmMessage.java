@@ -1,7 +1,8 @@
 package com.jdroid.sample.android.gcm;
 
 import android.content.Intent;
-import com.jdroid.android.gcm.GcmMessage;
+
+import com.jdroid.android.google.gcm.GcmMessage;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.android.utils.ToastUtils;
 
@@ -24,9 +25,6 @@ public enum AndroidGcmMessage implements GcmMessage {
 		this.messageKey = messageKey;
 	}
 	
-	/**
-	 * @see com.jdroid.android.gcm.GcmMessage#getMessageKey()
-	 */
 	@Override
 	public String getMessageKey() {
 		return messageKey;

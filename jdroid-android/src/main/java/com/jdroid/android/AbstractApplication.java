@@ -23,7 +23,7 @@ import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.fragment.FragmentHelper;
-import com.jdroid.android.gcm.GcmMessageResolver;
+import com.jdroid.android.google.gcm.GcmContext;
 import com.jdroid.android.images.loader.ImageLoaderHelper;
 import com.jdroid.android.images.loader.uil.UilImageLoaderHelper;
 import com.jdroid.android.inappbilling.ProductType;
@@ -82,6 +82,8 @@ public abstract class AbstractApplication extends Application {
 	private AppContext appContext;
 	private GitContext gitContext;
 	private DebugContext debugContext;
+	private GcmContext gcmContext;
+
 	private AnalyticsSender<? extends AnalyticsTracker> analyticsSender;
 	private UriMapper uriMapper;
 	
@@ -125,6 +127,7 @@ public abstract class AbstractApplication extends Application {
 		LOGGER.debug("Executing onCreate on " + this);
 
 		gitContext = createGitContext();
+		gcmContext = createGcmContext();
 
 		debugContext = createDebugContext();
 		analyticsSender = createAnalyticsSender();
@@ -429,6 +432,14 @@ public abstract class AbstractApplication extends Application {
 		return gitContext;
 	}
 
+	protected GcmContext createGcmContext() {
+		return null;
+	}
+
+	public GcmContext getGcmContext() {
+		return gcmContext;
+	}
+
 	protected DebugContext createDebugContext() {
 		return new DebugContext();
 	}
@@ -487,10 +498,6 @@ public abstract class AbstractApplication extends Application {
 	
 	public String getAppName() {
 		return getString(R.string.appName);
-	}
-	
-	public GcmMessageResolver getGcmResolver() {
-		return null;
 	}
 	
 	public UserRepository getUserRepository() {

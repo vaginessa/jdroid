@@ -8,6 +8,7 @@ import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.fragment.AbstractRecyclerFragment;
+import com.jdroid.android.google.gcm.GcmContext;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.ScreenUtils;
 import com.jdroid.java.collections.Lists;
@@ -31,9 +32,13 @@ public class DebugInfoFragment extends AbstractRecyclerFragment<Pair<String, Obj
 		properties.add(new Pair<String, Object>("Analytics Enabled", appContext.isGoogleAnalyticsEnabled()));
 		properties.add(new Pair<String, Object>("Analytics Tracking Id", appContext.getGoogleAnalyticsTrackingId()));
 		properties.add(new Pair<String, Object>("Ads Enabled", appContext.areAdsEnabled()));
-		properties.add(new Pair<String, Object>("Google Project Id", appContext.getGoogleProjectId()));
 		properties.add(new Pair<String, Object>("Installation Source", appContext.getInstallationSource()));
 		properties.add(new Pair<String, Object>("Crashlytics Enabled", appContext.isCrashlyticsEnabled()));
+
+		GcmContext gcmContext = AbstractApplication.get().getGcmContext();
+		if (gcmContext != null) {
+			properties.add(new Pair<String, Object>("Google Project Id", gcmContext.getGoogleProjectId()));
+		}
 
 		properties.add(new Pair<String, Object>("Smallest Screen Width Dp", ScreenUtils.getSmallestScreenWidthDp()));
 		properties.add(new Pair<String, Object>("Screen Density", ScreenUtils.getScreenDensity()));

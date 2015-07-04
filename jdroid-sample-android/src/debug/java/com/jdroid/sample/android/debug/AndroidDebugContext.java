@@ -5,7 +5,7 @@ import android.support.v4.util.Pair;
 
 import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.debug.EmulatedGcmMessageIntentBuilder;
-import com.jdroid.android.gcm.GcmMessage;
+import com.jdroid.android.google.gcm.GcmMessage;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.http.Server;

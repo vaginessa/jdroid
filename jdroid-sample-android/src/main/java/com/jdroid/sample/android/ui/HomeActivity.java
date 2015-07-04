@@ -7,7 +7,9 @@ import android.support.v7.widget.Toolbar;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.FragmentContainerActivity;
+import com.jdroid.android.google.gcm.AbstractGcmRegistrationService;
 import com.jdroid.android.navdrawer.NavDrawer;
+import com.jdroid.sample.android.gcm.AndroidGcmRegistrationService;
 
 public class HomeActivity extends FragmentContainerActivity {
 
@@ -20,6 +22,7 @@ public class HomeActivity extends FragmentContainerActivity {
 
 		if (savedInstanceState == null) {
 			AbstractApplication.get().getUriMapper().checkDeepLink(this);
+			AbstractGcmRegistrationService.runRegistrationService(getApplicationContext(), AndroidGcmRegistrationService.class);
 		}
 	}
 

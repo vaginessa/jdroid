@@ -5,7 +5,7 @@ import android.support.v4.util.Pair;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.ActivityLauncher;
 import com.jdroid.android.debug.mocks.AndroidJsonMockHttpService;
-import com.jdroid.android.gcm.GcmMessage;
+import com.jdroid.android.google.gcm.GcmMessage;
 import com.jdroid.android.log.DatabaseLog;
 import com.jdroid.android.log.DatabaseLogsRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;

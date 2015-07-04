@@ -1,13 +1,15 @@
-package com.jdroid.android.gcm;
+package com.jdroid.android.google.gcm;
 
-import java.util.List;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
+
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.java.collections.Lists;
+
+import java.util.List;
 
 public abstract class GcmMessageBroadcastReceiver extends BroadcastReceiver {
 	
@@ -16,7 +18,7 @@ public abstract class GcmMessageBroadcastReceiver extends BroadcastReceiver {
 	 */
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		GcmMessage gcmMessage = AbstractApplication.get().getGcmResolver().resolve(intent);
+		GcmMessage gcmMessage = AbstractApplication.get().getGcmContext().getGcmResolver().resolve(intent);
 		onGcmMessage(gcmMessage, intent);
 	}
 	

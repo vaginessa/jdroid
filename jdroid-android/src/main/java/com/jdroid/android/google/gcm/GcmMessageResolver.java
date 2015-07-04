@@ -1,4 +1,4 @@
-package com.jdroid.android.gcm;
+package com.jdroid.android.google.gcm;
 
 import android.content.Intent;
 

@@ -2,21 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.jdroid.sample.android"
 	 xmlns:tools="http://schemas.android.com/tools">
 
-	<permission android:name="${applicationId}.permission.MAPS_RECEIVE" android:protectionLevel="signature" />
-	<permission android:name="${applicationId}.permission.C2D_MESSAGE" android:protectionLevel="signature" />
-
-	<uses-permission android:name="${applicationId}.permission.MAPS_RECEIVE" />
-	<uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
-
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
 	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
 	<uses-permission android:name="com.android.vending.BILLING" />
 
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 	<uses-feature android:name="com.google.android.tv" android:required="false" />
 	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
@@ -25,15 +16,11 @@
 	<uses-feature android:name="android.hardware.LOCATION" android:required="false" />
 	<uses-feature android:name="android.hardware.location.NETWORK" android:required="false" />
 	<uses-feature android:name="android.hardware.location.GPS" android:required="false" />
-	<uses-feature android:glEsVersion="0x00020000" android:required="true" />
-
-	<supports-screens android:largeScreens="true" android:xlargeScreens="true" />
 
 	<application android:icon="@drawable/ic_launcher" android:logo="@drawable/ic_launcher" android:label="@string/appName"
 		android:allowBackup="true" android:name="com.jdroid.sample.android.AndroidApplication" android:hardwareAccelerated="true"
 		android:theme="@style/App.Theme">
 
-		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="${googleMapsApiKey}" />
 		<meta-data android:name="com.crashlytics.ApiKey" android:value="${crashlyticsApiKey}" />
 
 		<activity android:name="com.jdroid.sample.android.ui.HomeActivity" android:windowSoftInputMode="stateHidden">
@@ -139,30 +126,7 @@
 		<activity android:name="com.jdroid.android.about.LibrariesActivity" android:label="@string/libraries"
 			android:parentActivityName="com.jdroid.android.about.AboutActivity" tools:ignore="UnusedAttribute"/>
 
-		<!-- Google Cloud Messaging Configuration -->
-		<service android:name="com.jdroid.android.gcm.GcmService" />
-		<receiver android:name="com.jdroid.android.gcm.GcmBroadcastReceiver" android:exported="true"
-			android:permission="com.google.android.c2dm.permission.SEND">
-			<intent-filter>
-				<!-- Receive actual messages -->
-				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
-				<category android:name="${applicationId}" />
-			</intent-filter>
-		</receiver>
-
-		<!-- Register AnalyticsReceiver and AnalyticsService to support background dispatching on non-Google Play devices -->
-		<receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver"
-				  android:enabled="true">
-			<intent-filter>
-				<action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
-			</intent-filter>
-		</receiver>
-		<service android:name="com.google.android.gms.analytics.AnalyticsService"
-				 android:enabled="true"
-				 android:exported="false"/>
-
 		<!-- Used for install referral measurement -->
-		<service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
 		<receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver" android:exported="true"
 			tools:ignore="ExportedReceiver">
 			<intent-filter>

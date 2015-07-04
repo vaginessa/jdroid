@@ -1,7 +1,8 @@
 package com.jdroid.sample.android.gcm;
 
-import com.jdroid.android.gcm.AbstractGcmMessageResolver;
-import com.jdroid.android.gcm.GcmMessageResolver;
+
+import com.jdroid.android.google.gcm.AbstractGcmMessageResolver;
+import com.jdroid.android.google.gcm.GcmMessageResolver;
 
 public class AndroidGcmResolver extends AbstractGcmMessageResolver {
 	
@@ -15,9 +16,6 @@ public class AndroidGcmResolver extends AbstractGcmMessageResolver {
 		super(AndroidGcmMessage.values());
 	}
 	
-	/**
-	 * @see com.jdroid.android.gcm.AbstractGcmMessageResolver#onNotAuthenticatedUser(java.lang.Long)
-	 */
 	@Override
 	protected void onNotAuthenticatedUser(Long userId) {
 	}

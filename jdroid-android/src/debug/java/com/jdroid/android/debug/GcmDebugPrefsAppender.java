@@ -1,8 +1,5 @@
 package com.jdroid.android.debug;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import android.app.Activity;
 import android.content.Intent;
 import android.preference.ListPreference;
@@ -10,9 +7,14 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+
 import com.jdroid.android.R;
-import com.jdroid.android.gcm.GcmMessage;
+import com.jdroid.android.google.gcm.GcmMessage;
 import com.jdroid.java.collections.Lists;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class GcmDebugPrefsAppender implements PreferencesAppender {
 	

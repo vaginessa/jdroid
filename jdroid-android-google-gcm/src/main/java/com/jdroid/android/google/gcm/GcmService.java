@@ -1,13 +1,15 @@
-package com.jdroid.android.gcm;
+package com.jdroid.android.google.gcm;
 
-import org.slf4j.Logger;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.service.WorkerService;
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
 
 /**
  * Base {@link IntentService} to handle Google Cloud Messaging (GCM) messages.
@@ -40,7 +42,7 @@ public class GcmService extends WorkerService {
 	 * @param intent intent containing the message payload as extras.
 	 */
 	public void onMessage(Context context, Intent intent) {
-		GcmMessageResolver gcmResolver = AbstractApplication.get().getGcmResolver();
+		GcmMessageResolver gcmResolver = AbstractApplication.get().getGcmContext().getGcmResolver();
 		if (gcmResolver != null) {
 			GcmMessage gcmMessage = gcmResolver.resolve(intent);
 			if (gcmMessage != null) {

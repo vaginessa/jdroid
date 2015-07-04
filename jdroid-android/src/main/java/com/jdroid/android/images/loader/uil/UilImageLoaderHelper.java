@@ -23,6 +23,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class UilImageLoaderHelper implements ImageLoaderHelper {
 
+	private SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.get("imageLoader");
+	private Map<String, Long> imagesExpirationMap;
+
 	@Override
 	public void init() {
 
@@ -41,13 +44,10 @@ public class UilImageLoaderHelper implements ImageLoaderHelper {
 
 		ImageLoader.getInstance().init(configBuilder.build());
 
+		imagesExpirationMap = new ConcurrentHashMap<>(
+				(Map<String, Long>)sharedPreferencesHelper.loadAllPreferences());
 		clearExpiredDiskCaches();
 	}
-
-	private SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.get("imageLoader");
-	@SuppressWarnings("unchecked")
-	private Map<String, Long> imagesExpirationMap = new ConcurrentHashMap<>(
-			(Map<String, Long>)sharedPreferencesHelper.loadAllPreferences());
 
 	@Override
 	public void displayImage(String url, ImageView imageView, Integer defaultImage,

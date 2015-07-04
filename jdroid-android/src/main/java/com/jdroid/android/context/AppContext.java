@@ -65,13 +65,6 @@ public abstract class AppContext {
 	}
 	
 	/**
-	 * @return The Google project ID acquired from the API console
-	 */
-	public String getGoogleProjectId() {
-		return null;
-	}
-	
-	/**
 	 * @return The registered Facebook app ID that is used to identify this application for Facebook.
 	 */
 	public String getFacebookAppId() {

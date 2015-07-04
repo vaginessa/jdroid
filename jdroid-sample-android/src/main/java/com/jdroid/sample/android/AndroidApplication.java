@@ -13,13 +13,13 @@ import com.jdroid.android.analytics.ExperimentHelper;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.fragment.FragmentHelper;
-import com.jdroid.android.gcm.GcmMessageResolver;
+import com.jdroid.android.google.gcm.GcmContext;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.uri.NoSegmentsUriHandler;
 import com.jdroid.sample.android.analytics.AndroidAnalyticsSender;
 import com.jdroid.sample.android.debug.AndroidDebugContext;
 import com.jdroid.sample.android.experiment.AndroidExperiment;
-import com.jdroid.sample.android.gcm.AndroidGcmResolver;
+import com.jdroid.sample.android.gcm.AndroidGcmContext;
 import com.jdroid.sample.android.repository.UserRepositoryImpl;
 import com.jdroid.sample.android.ui.HomeActivity;
 import com.jdroid.sample.android.ui.about.AndroidSpreadTheLoveFragment;
@@ -71,14 +71,6 @@ public class AndroidApplication extends AbstractApplication {
 	}
 	
 	/**
-	 * @see com.jdroid.android.AbstractApplication#getGcmResolver()
-	 */
-	@Override
-	public GcmMessageResolver getGcmResolver() {
-		return AndroidGcmResolver.get();
-	}
-	
-	/**
 	 * @see com.jdroid.android.AbstractApplication#createAnalyticsSender()
 	 */
 	@Override
@@ -89,6 +81,11 @@ public class AndroidApplication extends AbstractApplication {
 	@Override
 	protected DebugContext createDebugContext() {
 		return new AndroidDebugContext();
+	}
+
+	@Override
+	protected GcmContext createGcmContext() {
+		return new AndroidGcmContext();
 	}
 
 	/**
