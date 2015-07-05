@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="about">Acerca de</string>
+	<string name="spreadTheLove">Difúndanos</string>
+	<string name="libraries">Librerias</string>
+	<string name="version">Versión %1$s</string>
+	<string name="followUs">Siganos</string>
+	<string name="website">Sitio Web</string>
+	<string name="contactUs">Contáctenos</string>
+	<string name="rateUs">Califíquenos</string>
+	<string name="copyright">© %1$s %2$s - Todos los derechos reservados</string>
+	<string name="jdroidTitle">Jdroid</string>
+	<string name="jdroidDescription">Application Framework for Android and Java apps</string>
+
+	<!-- App Invite -->
+	<string name="appInvite">Invitar Amigos</string>
+	<string name="appInviteTitle">Invitar Amigos a %1$s</string>
+
+</resources>

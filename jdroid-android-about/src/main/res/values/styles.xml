@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:card_view="http://schemas.android.com/apk/res-auto">
+
+	<style name="aboutSeparator">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">1dp</item>
+		<item name="android:background">@color/aboutSeparator</item>
+		<item name="android:layout_marginBottom">8dp</item>
+		<item name="android:layout_marginLeft">12dp</item>
+		<item name="android:layout_marginRight">12dp</item>
+		<item name="android:layout_marginTop">8dp</item>
+	</style>
+
+	<style name="spreadTheLoveFollowUsItemText" parent="textMediumBold">
+		<item name="android:textStyle">normal</item>
+		<item name="android:singleLine">true</item>
+		<item name="android:ellipsize">end</item>
+	</style>
+
+</resources>

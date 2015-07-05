@@ -113,8 +113,6 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.debug("Executing onCreate on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 		
-		AbstractApplication.get().changeLocale();
-		
 		AbstractApplication.get().initExceptionHandlers();
 		
 		if ((savedInstanceState == null) && !inAppBillingLoaded) {

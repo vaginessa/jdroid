@@ -198,24 +198,6 @@
 		<item name="android:fontFamily" tools:targetApi="16">sans-serif-condensed</item>
 	</style>
 
-	<!-- About -->
-
-	<style name="aboutSeparator">
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_height">1dp</item>
-		<item name="android:background">@color/aboutSeparator</item>
-		<item name="android:layout_marginBottom">8dp</item>
-		<item name="android:layout_marginLeft">12dp</item>
-		<item name="android:layout_marginRight">12dp</item>
-		<item name="android:layout_marginTop">8dp</item>
-	</style>
-
-	<style name="spreadTheLoveFollowUsItemText" parent="textMediumBold">
-		<item name="android:textStyle">normal</item>
-		<item name="android:singleLine">true</item>
-		<item name="android:ellipsize">end</item>
-	</style>
-
 	<!-- CardView -->
 
 	<style name="cardViewStyle">

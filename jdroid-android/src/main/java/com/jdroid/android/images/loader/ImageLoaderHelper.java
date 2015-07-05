@@ -3,7 +3,6 @@ package com.jdroid.android.images.loader;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
 
-import com.jdroid.android.about.Library;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -24,5 +23,11 @@ public interface ImageLoaderHelper {
 
 	public void clearMemoryCache();
 
-	public Library getLibrary();
+	public Integer getLibraryNameResId();
+
+	public Integer getLibraryDescriptionResId();
+
+	public String getLibraryUrl();
+
+	public String getLibraryKey();
 }

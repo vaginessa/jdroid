@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.ActivityLauncher;
-import com.jdroid.android.R;
 import com.jdroid.android.ad.RateAppView;
 import com.jdroid.android.fragment.AbstractListFragment;
 import com.jdroid.android.share.ShareUtils;
@@ -62,7 +61,7 @@ public class AboutFragment extends AbstractListFragment<AboutItem> {
 			});
 		}
 
-		if (AbstractApplication.get().getSpreadTheLoveFragmentClass() != null) {
+		if (AbstractApplication.get().getAboutContext().getSpreadTheLoveFragmentClass() != null) {
 			aboutItems.add(new AboutItem(R.drawable.ic_spread_the_love, R.string.spreadTheLove) {
 
 				@Override

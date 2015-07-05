@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jdroid.android.R;
 import com.jdroid.android.about.AboutItemsAdapter.AboutItemHolder;
 import com.jdroid.android.adapter.BaseHolderArrayAdapter;
 

@@ -22,7 +22,4 @@
 	<!-- Buttons -->
 	<color name="grey">#DBDBDB</color>
 
-	<!-- About -->
-	<color name="aboutSeparator">#DBDBDB</color>
-
 </resources>

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.about.SpreadTheLoveFragment;
+import com.jdroid.android.about.AboutContext;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
@@ -22,7 +22,7 @@ import com.jdroid.sample.android.experiment.AndroidExperiment;
 import com.jdroid.sample.android.gcm.AndroidGcmContext;
 import com.jdroid.sample.android.repository.UserRepositoryImpl;
 import com.jdroid.sample.android.ui.HomeActivity;
-import com.jdroid.sample.android.ui.about.AndroidSpreadTheLoveFragment;
+import com.jdroid.sample.android.ui.about.AndroidAboutContext;
 import com.jdroid.sample.android.uri.AdsUriHandler;
 
 public class AndroidApplication extends AbstractApplication {
@@ -88,12 +88,9 @@ public class AndroidApplication extends AbstractApplication {
 		return new AndroidGcmContext();
 	}
 
-	/**
-	 * @see com.jdroid.android.AbstractApplication#getSpreadTheLoveFragmentClass()
-	 */
 	@Override
-	public Class<? extends SpreadTheLoveFragment> getSpreadTheLoveFragmentClass() {
-		return AndroidSpreadTheLoveFragment.class;
+	protected AboutContext createAboutContext() {
+		return new AndroidAboutContext();
 	}
 
 	@Override

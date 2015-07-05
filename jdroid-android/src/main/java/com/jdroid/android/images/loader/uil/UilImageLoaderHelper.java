@@ -5,7 +5,6 @@ import android.widget.ImageView;
 
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
-import com.jdroid.android.about.Library;
 import com.jdroid.android.images.loader.ImageLoaderHelper;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.concurrent.ExecutorUtils;
@@ -132,8 +131,22 @@ public class UilImageLoaderHelper implements ImageLoaderHelper {
 	}
 
 	@Override
-	public Library getLibrary() {
-		return new Library("universalImageLoader", R.string.universalImageLoaderTitle,
-				R.string.universalImageLoaderDescription, "https://github.com/nostra13/Android-Universal-Image-Loader");
+	public Integer getLibraryNameResId() {
+		return R.string.universalImageLoaderTitle;
+	}
+
+	@Override
+	public Integer getLibraryDescriptionResId() {
+		return R.string.universalImageLoaderDescription;
+	}
+
+	@Override
+	public String getLibraryUrl() {
+		return "https://github.com/nostra13/Android-Universal-Image-Loader";
+	}
+
+	@Override
+	public String getLibraryKey() {
+		return "universalImageLoader";
 	}
 }

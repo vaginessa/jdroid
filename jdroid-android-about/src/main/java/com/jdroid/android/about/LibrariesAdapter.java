@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jdroid.android.R;
 import com.jdroid.android.about.LibrariesAdapter.LibrariesHolder;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
 

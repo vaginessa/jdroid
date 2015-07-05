@@ -4,14 +4,11 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 
 import com.facebook.device.yearclass.YearClass;
-import com.jdroid.android.about.AboutFragment;
-import com.jdroid.android.about.LibrariesFragment;
-import com.jdroid.android.about.SpreadTheLoveFragment;
+import com.jdroid.android.about.AboutContext;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
@@ -57,7 +54,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
@@ -83,6 +79,7 @@ public abstract class AbstractApplication extends Application {
 	private GitContext gitContext;
 	private DebugContext debugContext;
 	private GcmContext gcmContext;
+	private AboutContext aboutContext;
 
 	private AnalyticsSender<? extends AnalyticsTracker> analyticsSender;
 	private UriMapper uriMapper;
@@ -118,8 +115,6 @@ public abstract class AbstractApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		
-		changeLocale();
-		
 		appContext = createAppContext();
 
 		LoggerUtils.setEnabled(appContext.isLoggingEnabled());
@@ -128,6 +123,7 @@ public abstract class AbstractApplication extends Application {
 
 		gitContext = createGitContext();
 		gcmContext = createGcmContext();
+		aboutContext = createAboutContext();
 
 		debugContext = createDebugContext();
 		analyticsSender = createAnalyticsSender();
@@ -440,6 +436,14 @@ public abstract class AbstractApplication extends Application {
 		return gcmContext;
 	}
 
+	public AboutContext getAboutContext() {
+		return aboutContext;
+	}
+
+	protected AboutContext createAboutContext() {
+		return new AboutContext();
+	}
+
 	protected DebugContext createDebugContext() {
 		return new DebugContext();
 	}
@@ -543,49 +547,11 @@ public abstract class AbstractApplication extends Application {
 		return (Repository<M>)repositories.get(persistentClass);
 	}
 	
-	protected String getFixedLocaleCountryCode() {
-		return null;
-	}
-
-	public void changeLocale() {
-		
-		String countryCode = getFixedLocaleCountryCode();
-		
-		if (countryCode != null) {
-			Locale locale = new Locale(countryCode);
-			Locale.setDefault(locale);
-			
-			Context baseContext = getBaseContext();
-			if (baseContext != null) {
-				Resources resources = baseContext.getResources();
-				if (resources != null) {
-					Configuration config = resources.getConfiguration();
-					if (config != null) {
-						config.locale = locale;
-						resources.updateConfiguration(config, getResources().getDisplayMetrics());
-					}
-				}
-			}
-		}
-	}
-	
 	public List<ProductType> getManagedProductTypes() {
 		return Lists.newArrayList();
 	}
 	
 	public List<ProductType> getSubscriptionsProductTypes() {
 		return Lists.newArrayList();
-	}
-	
-	public Class<? extends AboutFragment> getAboutFragmentClass() {
-		return AboutFragment.class;
-	}
-	
-	public Class<? extends LibrariesFragment> getLibrariesFragmentClass() {
-		return LibrariesFragment.class;
-	}
-	
-	public Class<? extends SpreadTheLoveFragment> getSpreadTheLoveFragmentClass() {
-		return null;
 	}
 }

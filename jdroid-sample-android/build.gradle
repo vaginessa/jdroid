@@ -28,6 +28,7 @@ configurations.all {
 
 dependencies {
 	compile project(':jdroid-android')
+	compile project(':jdroid-android-about')
 	compile project(':jdroid-android-facebook')
 	compile project(':jdroid-android-google-maps')
 	compile project(':jdroid-android-google-gcm')

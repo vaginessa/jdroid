@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.R;
 import com.jdroid.android.fragment.AbstractRecyclerFragment;
+import com.jdroid.android.images.loader.ImageLoaderHelper;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
@@ -24,7 +24,9 @@ public class LibrariesFragment extends AbstractRecyclerFragment<Library> {
 		libraries.add(new Library("jdroid", R.string.jdroidTitle, R.string.jdroidDescription,
 				"http://jdroidframework.com"));
 		if (displayImageLoader()) {
-			Library library = AbstractApplication.get().getImageLoaderHelper().getLibrary();
+			ImageLoaderHelper imageLoaderHelper = AbstractApplication.get().getImageLoaderHelper();
+			Library library = new Library(imageLoaderHelper.getLibraryKey(), imageLoaderHelper.getLibraryNameResId(),
+					imageLoaderHelper.getLibraryDescriptionResId(), imageLoaderHelper.getLibraryUrl());
 			if (library != null) {
 				libraries.add(library);
 			}
