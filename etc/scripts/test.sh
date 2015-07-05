@@ -37,5 +37,5 @@ fi
 if [ "$UPLOAD" = "true" ]
 then
 	./gradlew :jdroid-gradle-plugin:uploadArchives :jdroid-java:uploadArchives :jdroid-java-http-apache:uploadArchives :jdroid-java-http-urlconnection:uploadArchives :jdroid-javaweb:uploadArchives --configure-on-demand
-	#./gradlew :jdroid-android:uploadArchives :jdroid-android-facebook:uploadArchives :jdroid-android-google-maps:uploadArchives :jdroid-android-google-gcm:uploadArchives :jdroid-android-about-gcm:uploadArchives
+	#./gradlew :jdroid-android:uploadArchives :jdroid-android-facebook:uploadArchives :jdroid-android-google-maps:uploadArchives :jdroid-android-google-gcm:uploadArchives :jdroid-android-about:uploadArchives
 fi
