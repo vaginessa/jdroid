@@ -1,8 +1,9 @@
-package com.jdroid.android.social.googleplus;
+package com.jdroid.android.google.plus;
 
-import java.util.List;
 import com.google.android.gms.plus.model.people.Person;
 import com.jdroid.android.social.SocialUser;
+
+import java.util.List;
 
 /**
  * Google+ Listener. All the events are invoked on the UI thread

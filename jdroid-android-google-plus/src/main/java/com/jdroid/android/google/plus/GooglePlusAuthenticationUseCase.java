@@ -1,4 +1,4 @@
-package com.jdroid.android.social.googleplus;
+package com.jdroid.android.google.plus;
 
 import com.google.android.gms.plus.model.people.Person;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;

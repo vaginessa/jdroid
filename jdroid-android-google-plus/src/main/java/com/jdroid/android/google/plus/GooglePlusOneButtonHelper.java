@@ -1,15 +1,17 @@
-package com.jdroid.android.social.googleplus;
+package com.jdroid.android.google.plus;
 
-import java.util.Locale;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.view.View;
+
 import com.google.android.gms.plus.PlusOneButton;
 import com.google.android.gms.plus.PlusOneButton.OnPlusOneClickListener;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.utils.GooglePlayUtils;
+
+import java.util.Locale;
 
 public class GooglePlusOneButtonHelper {
 	

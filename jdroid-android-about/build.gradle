@@ -29,6 +29,7 @@ configurations.all {
 dependencies {
 
 	compile project(':jdroid-android')
+	compile project(':jdroid-android-google-plus')
 
 	compile 'com.google.android.gms:play-services-appinvite:' + googlePlayServicesVersion
 

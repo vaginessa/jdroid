@@ -1,4 +1,4 @@
-package com.jdroid.android.social.googleplus;
+package com.jdroid.android.google.plus;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -29,9 +29,9 @@ import com.google.android.gms.plus.PlusShare;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.android.gms.plus.model.people.PersonBuffer;
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.fragment.AbstractFragment;
+import com.jdroid.android.google.plus.GooglePlusAuthenticationUseCase;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.social.SocialUser;

@@ -1,8 +1,9 @@
-package com.jdroid.android.share;
+package com.jdroid.android.google.plus;
 
 import android.support.v4.app.FragmentActivity;
+
 import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.social.googleplus.GooglePlusHelperFragment;
+import com.jdroid.android.share.SharingItem;
 import com.jdroid.android.utils.ExternalAppsUtils;
 
 public abstract class GooglePlusDeeplinkSharingItem extends SharingItem {
