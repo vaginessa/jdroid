@@ -106,5 +106,9 @@ public abstract class AbstractRecyclerFragment<T> extends AbstractFragment imple
 	public void onItemSelected(T item) {
 		// Do Nothing
 	}
+
+	public RecyclerViewAdapter getAdapter() {
+		return adapter;
+	}
 }
 

@@ -1,13 +1,13 @@
 package com.jdroid.sample.android.ui.loading;
 
 import android.os.Bundle;
-import com.jdroid.android.fragment.AbstractGridFragment;
+import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.loading.NonBlockingLoading;
 import com.jdroid.sample.android.usecase.SampleUseCase;
 
-public class NonBlockingLoadingFragment extends AbstractGridFragment<Object> {
+public class NonBlockingLoadingFragment extends AbstractFragment {
 	
 	private SampleUseCase sampleUseCase;
 	

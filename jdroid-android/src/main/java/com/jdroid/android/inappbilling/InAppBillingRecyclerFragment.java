@@ -1,14 +1,15 @@
 package com.jdroid.android.inappbilling;
 
-import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.fragment.AbstractGridFragment;
 
-public abstract class InAppBillingGridFragment extends AbstractGridFragment<Product> implements InAppBillingListener {
+import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.fragment.AbstractRecyclerFragment;
+
+import java.util.List;
+
+public abstract class InAppBillingRecyclerFragment extends AbstractRecyclerFragment<Product> implements InAppBillingListener {
 	
 	/**
 	 * @see com.jdroid.android.fragment.AbstractGridFragment#onViewCreated(android.view.View, android.os.Bundle)
@@ -44,7 +45,7 @@ public abstract class InAppBillingGridFragment extends AbstractGridFragment<Prod
 	@Override
 	@SuppressWarnings("rawtypes")
 	public void onConsumed(Product product) {
-		((ArrayAdapter)getListAdapter()).notifyDataSetChanged();
+		getAdapter().notifyDataSetChanged();
 	}
 	
 	/**
