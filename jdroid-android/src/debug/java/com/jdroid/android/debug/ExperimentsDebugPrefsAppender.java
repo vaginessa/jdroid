@@ -6,8 +6,8 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceCategory;
+import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
 
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
@@ -22,15 +22,14 @@ import java.util.Map.Entry;
 public class ExperimentsDebugPrefsAppender implements PreferencesAppender {
 	
 	/**
-	 * @see com.jdroid.android.debug.PreferencesAppender#initPreferences(android.app.Activity,
-	 *      android.preference.PreferenceScreen)
+	 * @see PreferencesAppender#initPreferences(Activity, PreferenceGroup)
 	 */
 	@Override
-	public void initPreferences(Activity activity, PreferenceScreen preferenceScreen) {
+	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		
 		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
 		preferenceCategory.setTitle(R.string.experimentsSettings);
-		preferenceScreen.addPreference(preferenceCategory);
+		preferenceGroup.addPreference(preferenceCategory);
 		for (Entry<Experiment, ExperimentVariant> entry : ExperimentHelper.getExperimentsMap().entrySet()) {
 			
 			Experiment experiment = entry.getKey();

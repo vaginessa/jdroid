@@ -5,7 +5,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceCategory;
-import android.preference.PreferenceScreen;
+import android.preference.PreferenceGroup;
 
 import com.jdroid.android.R;
 import com.jdroid.java.collections.Lists;
@@ -25,15 +25,14 @@ public class ServersDebugPrefsAppender implements PreferencesAppender {
 	}
 	
 	/**
-	 * @see com.jdroid.android.debug.PreferencesAppender#initPreferences(android.app.Activity,
-	 *      android.preference.PreferenceScreen)
+	 * @see PreferencesAppender#initPreferences(Activity, PreferenceGroup)
 	 */
 	@Override
-	public void initPreferences(Activity activity, PreferenceScreen preferenceScreen) {
+	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		
 		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
 		preferenceCategory.setTitle(R.string.serversSettings);
-		preferenceScreen.addPreference(preferenceCategory);
+		preferenceGroup.addPreference(preferenceCategory);
 		
 		for (final Entry<Class<? extends Server>, List<? extends Server>> entry : serversMap.entrySet()) {
 			ListPreference preference = new ListPreference(activity);

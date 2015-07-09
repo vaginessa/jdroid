@@ -3,7 +3,7 @@ package com.jdroid.android.debug;
 import android.app.Activity;
 import android.preference.CheckBoxPreference;
 import android.preference.PreferenceCategory;
-import android.preference.PreferenceScreen;
+import android.preference.PreferenceGroup;
 
 import com.jdroid.android.R;
 import com.jdroid.android.navdrawer.NavDrawer;
@@ -11,15 +11,14 @@ import com.jdroid.android.navdrawer.NavDrawer;
 public class NavDrawerDebugPrefsAppender implements PreferencesAppender {
 	
 	/**
-	 * @see com.jdroid.android.debug.PreferencesAppender#initPreferences(android.app.Activity,
-	 *      android.preference.PreferenceScreen)
+	 * @see PreferencesAppender#initPreferences(Activity, PreferenceGroup)
 	 */
 	@Override
-	public void initPreferences(Activity activity, PreferenceScreen preferenceScreen) {
+	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		
 		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
 		preferenceCategory.setTitle(R.string.navDrawerSettings);
-		preferenceScreen.addPreference(preferenceCategory);
+		preferenceGroup.addPreference(preferenceCategory);
 		
 		CheckBoxPreference checkBoxPreference = new CheckBoxPreference(activity);
 		checkBoxPreference.setKey(NavDrawer.NAV_DRAWER_MANUALLY_USED);

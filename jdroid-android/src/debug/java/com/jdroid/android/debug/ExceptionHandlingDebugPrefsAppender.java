@@ -7,8 +7,9 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
+import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
+
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.java.collections.Lists;
@@ -19,15 +20,14 @@ public class ExceptionHandlingDebugPrefsAppender implements PreferencesAppender 
 	private static final String CRASH_TYPE_KEY = "crashType";
 	
 	/**
-	 * @see com.jdroid.android.debug.PreferencesAppender#initPreferences(android.app.Activity,
-	 *      android.preference.PreferenceScreen)
+	 * @see PreferencesAppender#initPreferences(Activity, PreferenceGroup)
 	 */
 	@Override
-	public void initPreferences(Activity activity, PreferenceScreen preferenceScreen) {
+	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		
 		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
 		preferenceCategory.setTitle(R.string.exceptionHandlingSettings);
-		preferenceScreen.addPreference(preferenceCategory);
+		preferenceGroup.addPreference(preferenceCategory);
 		
 		ListPreference preference = new ListPreference(activity);
 		preference.setKey(CRASH_TYPE_KEY);

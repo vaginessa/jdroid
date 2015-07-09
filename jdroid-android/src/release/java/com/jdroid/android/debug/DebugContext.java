@@ -18,6 +18,10 @@ public class DebugContext {
 		// Do nothing
 	}
 
+	public Class<? extends AbstractPreferenceFragment> getDebugSettingsFragmentClass() {
+		return null;
+	}
+
 	public AbstractMockHttpService getAbstractMockHttpServiceInstance(Object... urlSegments) {
 		return null;
 	}

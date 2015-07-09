@@ -5,6 +5,7 @@ import android.support.v4.util.Pair;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.ActivityLauncher;
 import com.jdroid.android.debug.mocks.AndroidJsonMockHttpService;
+import com.jdroid.android.fragment.AbstractPreferenceFragment;
 import com.jdroid.android.google.gcm.GcmMessage;
 import com.jdroid.android.log.DatabaseLog;
 import com.jdroid.android.log.DatabaseLogsRepository;
@@ -23,6 +24,10 @@ public class DebugContext {
 
 	public void launchActivityDebugSettingsActivity() {
 		ActivityLauncher.launchActivity(DebugSettingsActivity.class);
+	}
+
+	public Class<? extends AbstractPreferenceFragment> getDebugSettingsFragmentClass() {
+		return DebugSettingsFragment.class;
 	}
 
 	public AbstractMockHttpService getAbstractMockHttpServiceInstance(Object... urlSegments) {

@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
-import android.preference.PreferenceScreen;
+import android.preference.PreferenceGroup;
+
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.log.DatabaseLog;
@@ -35,15 +36,14 @@ public class LogsDebugPrefsAppender implements PreferencesAppender {
 	}
 
 	/**
-	 * @see com.jdroid.android.debug.PreferencesAppender#initPreferences(android.app.Activity,
-	 *      android.preference.PreferenceScreen)
+	 * @see PreferencesAppender#initPreferences(Activity, PreferenceGroup)
 	 */
 	@Override
-	public void initPreferences(final Activity activity, PreferenceScreen preferenceScreen) {
+	public void initPreferences(final Activity activity, PreferenceGroup preferenceGroup) {
 		
 		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
 		preferenceCategory.setTitle(R.string.debugDatabase);
-		preferenceScreen.addPreference(preferenceCategory);
+		preferenceGroup.addPreference(preferenceCategory);
 		
 		Preference preference = new Preference(activity);
 		preference.setTitle(R.string.cleanDebugData);
