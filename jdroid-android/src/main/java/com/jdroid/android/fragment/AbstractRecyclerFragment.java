@@ -97,13 +97,13 @@ public abstract class AbstractRecyclerFragment<T> extends AbstractFragment imple
 	public void onClick(View view) {
 		int itemPosition = recyclerView.getChildAdapterPosition(view);
 		if (itemPosition != RecyclerView.NO_POSITION) {
-			onItemSelected((T)adapter.getItem(itemPosition));
+			onItemSelected((T)adapter.getItem(itemPosition), view);
 		} else {
 			LOGGER.warn("Ignored onClick for item with no position");
 		}
 	}
 
-	public void onItemSelected(T item) {
+	public void onItemSelected(T item, View view) {
 		// Do Nothing
 	}
 

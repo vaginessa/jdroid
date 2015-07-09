@@ -145,11 +145,8 @@ public class AboutFragment extends AbstractListFragment<AboutItem> {
 		return AbstractApplication.get().getAppContext().getContactUsEmail();
 	}
 
-	/**
-	 * @see com.jdroid.android.fragment.AbstractListFragment#onItemSelected(java.lang.Object)
-	 */
 	@Override
-	public void onItemSelected(AboutItem item) {
+	public void onItemSelected(AboutItem item, View view) {
 		item.onSelected(getActivity());
 	}
 	

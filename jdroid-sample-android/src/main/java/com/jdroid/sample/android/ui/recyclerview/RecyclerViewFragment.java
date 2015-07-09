@@ -2,6 +2,7 @@ package com.jdroid.sample.android.ui.recyclerview;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.jdroid.android.fragment.AbstractRecyclerFragment;
 import com.jdroid.android.fragment.FragmentHelper;
@@ -56,7 +57,7 @@ public class RecyclerViewFragment extends AbstractRecyclerFragment<String> {
 	}
 
 	@Override
-	public void onItemSelected(String item) {
+	public void onItemSelected(String item, View view) {
 		adapter.removeItem(item);
 	}
 

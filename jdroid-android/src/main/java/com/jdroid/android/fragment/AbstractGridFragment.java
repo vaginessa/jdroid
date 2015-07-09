@@ -16,7 +16,7 @@ import com.jdroid.android.R;
  * 
  * @param <T>
  */
-public class AbstractGridFragment<T> extends AbstractFragment implements OnItemSelectedListener<T> {
+public class AbstractGridFragment<T> extends AbstractFragment {
 	
 	private ListAdapter adapter;
 	private GridView gridView;
@@ -202,14 +202,10 @@ public class AbstractGridFragment<T> extends AbstractFragment implements OnItemS
 	
 	@SuppressWarnings("unchecked")
 	public void onGridItemClick(GridView parent, View view, int position, long id) {
-		onItemSelected((T)parent.getAdapter().getItem(position));
+		onItemSelected((T)parent.getAdapter().getItem(position), view);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.OnItemSelectedListener#onItemSelected(java.lang.Object)
-	 */
-	@Override
-	public void onItemSelected(T item) {
+	public void onItemSelected(T item, View view) {
 		// Do Nothing
 	}
 	

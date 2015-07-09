@@ -44,7 +44,7 @@ public class LibrariesFragment extends AbstractRecyclerFragment<Library> {
 	}
 	
 	@Override
-	public void onItemSelected(Library item) {
+	public void onItemSelected(Library item, View view) {
 		item.onSelected(getActivity());
 		AbstractApplication.get().getAnalyticsSender().trackAboutLibraryOpen(item.getLibraryKey());
 		

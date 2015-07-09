@@ -16,11 +16,8 @@ public class HomeFragment extends AbstractRecyclerFragment<HomeItem> {
 		setAdapter(new HomeAdapter(HomeItem.values()));
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractListFragment#onItemSelected(java.lang.Object)
-	 */
 	@Override
-	public void onItemSelected(HomeItem item) {
+	public void onItemSelected(HomeItem item, View view) {
 		item.startActivity(getActivity());
 	}
 	
