@@ -17,8 +17,8 @@ public abstract class DefaultNavDrawer extends NavDrawer {
 
 	private NavigationView navigationView;
 
-	public DefaultNavDrawer(AbstractFragmentActivity activity, Boolean darkTheme, Toolbar appBar) {
-		super(activity, darkTheme, appBar);
+	public DefaultNavDrawer(AbstractFragmentActivity activity, Toolbar appBar) {
+		super(activity, appBar);
 	}
 
 	@Override

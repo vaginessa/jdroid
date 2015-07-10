@@ -25,8 +25,8 @@ public class AndroidActivityHelper extends ActivityHelper {
 	}
 
 	@Override
-	public NavDrawer createNavDrawer(AbstractFragmentActivity activity, Boolean darkTheme, Toolbar appBar) {
-		return new DefaultNavDrawer(activity, isDarkTheme(), appBar) {
+	public NavDrawer createNavDrawer(AbstractFragmentActivity activity, Toolbar appBar) {
+		return new DefaultNavDrawer(activity, appBar) {
 
 			@Override
 			public List<NavDrawerItem> getNavDrawerItems() {

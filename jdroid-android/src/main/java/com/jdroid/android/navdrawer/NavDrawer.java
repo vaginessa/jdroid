@@ -26,16 +26,14 @@ public abstract class NavDrawer {
 	private AbstractFragmentActivity activity;
 	private Toolbar appBar;
 	private Boolean isNavDrawerTopLevelView = false;
-	private Boolean darkTheme;
 	private Boolean isNavDrawerOpenedOnFirstSession = true;
 
 	private DrawerLayout drawerLayout;
 	private ActionBarDrawerToggle drawerToggle;
 	private View contentView;
 
-	public NavDrawer(final AbstractFragmentActivity activity, Boolean darkTheme, Toolbar appBar) {
+	public NavDrawer(final AbstractFragmentActivity activity, Toolbar appBar) {
 		this.activity = activity;
-		this.darkTheme = darkTheme;
 		this.appBar = appBar;
 		drawerLayout = activity.findView(R.id.drawer_layout);
 	}
@@ -44,8 +42,7 @@ public abstract class NavDrawer {
 
 		// Set the adapter for the list view
 		// set a custom shadow that overlays the main content when the drawer opens
-		drawerLayout.setDrawerShadow(darkTheme ? R.drawable.drawer_shadow_dark : R.drawable.drawer_shadow,
-				GravityCompat.START);
+		drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
 		final DrawerLayout.DrawerListener drawerListener = new DrawerLayout.DrawerListener() {
 

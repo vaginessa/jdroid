@@ -118,6 +118,8 @@
 		<activity android:name="com.jdroid.sample.android.ui.tablets.RightTabletActivity" android:label="@string/tablets"
 				  android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<service android:name="com.jdroid.sample.android.gcm.AndroidGcmRegistrationService" />
+
 		<!-- Used for install referral measurement -->
 		<receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver" android:exported="true"
 			tools:ignore="ExportedReceiver">

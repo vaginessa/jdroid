@@ -20,7 +20,7 @@ public class RightCustomNavDrawerActivity extends FragmentContainerActivity {
 	}
 
 	@Override
-	public NavDrawer createNavDrawer(AbstractFragmentActivity activity, Boolean darkTheme, Toolbar appBar) {
-		return new RightSampleNavDrawer(activity, darkTheme, appBar);
+	public NavDrawer createNavDrawer(AbstractFragmentActivity activity, Toolbar appBar) {
+		return new RightSampleNavDrawer(activity, appBar);
 	}
 }

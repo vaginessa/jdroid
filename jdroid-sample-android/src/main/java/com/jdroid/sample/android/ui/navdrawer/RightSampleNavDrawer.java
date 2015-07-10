@@ -9,8 +9,8 @@ import com.jdroid.sample.android.R;
 
 public class RightSampleNavDrawer extends NavDrawer {
 
-	public RightSampleNavDrawer(AbstractFragmentActivity activity, Boolean darkTheme, Toolbar appBar) {
-		super(activity, darkTheme, appBar);
+	public RightSampleNavDrawer(AbstractFragmentActivity activity, Toolbar appBar) {
+		super(activity, appBar);
 	}
 
 	@Override

@@ -240,7 +240,9 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 				FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 				fragmentTransaction.add(useCaseFragmentClass.newInstance(), useCaseFragmentClass.getSimpleName());
 				fragmentTransaction.commit();
-			} catch (InstantiationException | IllegalAccessException e) {
+			} catch (InstantiationException e) {
+				throw new UnexpectedException(e);
+			} catch (IllegalAccessException e) {
 				throw new UnexpectedException(e);
 			}
 		}
@@ -289,7 +291,9 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 		E fragment;
 		try {
 			fragment = fragmentClass.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
+		} catch (InstantiationException e) {
+			throw new UnexpectedException(e);
+		} catch (IllegalAccessException e) {
 			throw new UnexpectedException(e);
 		}
 		fragment.setArguments(bundle);
@@ -466,8 +470,8 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	}
 
 	@Override
-	public NavDrawer createNavDrawer(AbstractFragmentActivity activity, Boolean darkTheme, Toolbar appBar) {
-		return activityHelper.createNavDrawer(activity, darkTheme, appBar);
+	public NavDrawer createNavDrawer(AbstractFragmentActivity activity, Toolbar appBar) {
+		return activityHelper.createNavDrawer(activity, appBar);
 	}
 
 	@Override

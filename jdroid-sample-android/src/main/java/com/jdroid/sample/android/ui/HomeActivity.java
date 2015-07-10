@@ -7,9 +7,7 @@ import android.support.v7.widget.Toolbar;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.FragmentContainerActivity;
-import com.jdroid.android.google.gcm.AbstractGcmRegistrationService;
 import com.jdroid.android.navdrawer.NavDrawer;
-import com.jdroid.sample.android.gcm.AndroidGcmRegistrationService;
 
 public class HomeActivity extends FragmentContainerActivity {
 
@@ -22,7 +20,8 @@ public class HomeActivity extends FragmentContainerActivity {
 
 		if (savedInstanceState == null) {
 			AbstractApplication.get().getUriMapper().checkDeepLink(this);
-			AbstractGcmRegistrationService.runRegistrationService(getApplicationContext(), AndroidGcmRegistrationService.class);
+			// TODO Enable to make gcm work
+//			AbstractGcmRegistrationService.runRegistrationService(getApplicationContext(), AndroidGcmRegistrationService.class);
 		}
 	}
 
@@ -35,8 +34,8 @@ public class HomeActivity extends FragmentContainerActivity {
 	}
 
 	@Override
-	public NavDrawer createNavDrawer(AbstractFragmentActivity activity, Boolean darkTheme, Toolbar appBar) {
-		NavDrawer navDrawer = super.createNavDrawer(activity, darkTheme, appBar);
+	public NavDrawer createNavDrawer(AbstractFragmentActivity activity, Toolbar appBar) {
+		NavDrawer navDrawer = super.createNavDrawer(activity, appBar);
 		navDrawer.setIsNavDrawerTopLevelView(true);
 		return navDrawer;
 	}

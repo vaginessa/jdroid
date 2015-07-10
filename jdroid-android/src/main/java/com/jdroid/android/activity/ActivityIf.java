@@ -55,6 +55,6 @@ public interface ActivityIf extends ComponentIf {
 
 	public Boolean isNavDrawerEnabled();
 
-	public NavDrawer createNavDrawer(AbstractFragmentActivity activity, Boolean darkTheme, Toolbar appBar);
+	public NavDrawer createNavDrawer(AbstractFragmentActivity activity, Toolbar appBar);
 	
 }

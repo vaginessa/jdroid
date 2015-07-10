@@ -142,10 +142,6 @@ public class ActivityHelper implements ActivityIf {
 		}
 	}
 
-	public Boolean isDarkTheme() {
-		return false;
-	}
-	
 	public void onPostCreate(Bundle savedInstanceState) {
 		if (navDrawer != null) {
 			navDrawer.onPostCreate(savedInstanceState);
@@ -552,7 +548,7 @@ public class ActivityHelper implements ActivityIf {
 
 	public void initNavDrawer(Toolbar appBar) {
 		if (getActivityIf().isNavDrawerEnabled()) {
-			navDrawer = getActivityIf().createNavDrawer(activity, isDarkTheme(), appBar);
+			navDrawer = getActivityIf().createNavDrawer(activity, appBar);
 			navDrawer.init();
 		}
 	}
@@ -563,7 +559,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 
 	@Override
-	public NavDrawer createNavDrawer(AbstractFragmentActivity activity, Boolean darkTheme, Toolbar appBar) {
+	public NavDrawer createNavDrawer(AbstractFragmentActivity activity, Toolbar appBar) {
 		return null;
 	}
 }
