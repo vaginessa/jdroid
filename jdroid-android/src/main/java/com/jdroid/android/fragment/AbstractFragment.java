@@ -99,7 +99,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 					actionBarAlpha = savedInstanceState.getInt(ACTION_BAR_ALPHA);
 				}
 
-				Drawable appBarBackgroundDrawable = getResources().getDrawable(R.color.colorPrimary);
+				Drawable appBarBackgroundDrawable = getResources().getDrawable(R.color.colorPrimary).mutate();
 				appBar.setBackgroundDrawable(appBarBackgroundDrawable);
 				appBarBackgroundDrawable.setAlpha(actionBarAlpha);
 
