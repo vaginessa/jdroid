@@ -28,9 +28,9 @@
 			<RelativeLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:paddingLeft="@dimen/keyline_1"
-				android:paddingRight="@dimen/keyline_1"
-				android:paddingTop="@dimen/keyline_1"
+				android:paddingLeft="@dimen/navdrawerHeaderHorizontalPadding"
+				android:paddingRight="@dimen/navdrawerHeaderHorizontalPadding"
+				android:paddingTop="@dimen/navdrawerHeaderTopPadding"
 				android:id="@+id/chosen_account_content_view">
 
 				<com.jdroid.android.images.BezelImageView
