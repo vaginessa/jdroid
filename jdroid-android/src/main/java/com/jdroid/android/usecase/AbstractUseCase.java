@@ -68,6 +68,8 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 			for (T listener : listeners) {
 				notifyFinishedUseCase(listener);
 			}
+			AbstractApplication.get().getAnalyticsSender().trackTiming("UseCase", getClass().getSimpleName(),
+					getClass().getSimpleName(), executionTime);
 		} catch (RuntimeException e) {
 			AbstractException abstractException;
 			if (e instanceof AbstractException) {
@@ -79,8 +81,6 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 			for (T listener : listeners) {
 				notifyFailedUseCase(abstractException, listener);
 			}
-			AbstractApplication.get().getAnalyticsSender().trackTiming("UseCase", getClass().getSimpleName(),
-				getClass().getSimpleName(), executionTime);
 		} finally {
 			if (!listeners.isEmpty()) {
 				markAsNotified();
