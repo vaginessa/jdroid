@@ -1,10 +1,12 @@
 package com.jdroid.android.analytics;
 
-import java.util.Map;
 import android.app.Activity;
+
 import com.jdroid.android.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
+
+import java.util.Map;
 
 public interface AnalyticsTracker {
 	
@@ -24,8 +26,10 @@ public interface AnalyticsTracker {
 	
 	public void onFragmentStart(String screenViewName);
 	
+	public void trackFatalException(Throwable throwable);
+
 	public void trackHandledException(Throwable throwable);
-	
+
 	public void trackUriOpened(String uriType, String screenName);
 	
 	public void trackInAppBillingPurchaseTry(Product product);

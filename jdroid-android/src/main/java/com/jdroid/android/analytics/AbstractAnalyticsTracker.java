@@ -1,10 +1,12 @@
 package com.jdroid.android.analytics;
 
-import java.util.Map;
 import android.app.Activity;
+
 import com.jdroid.android.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
+
+import java.util.Map;
 
 public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	
@@ -64,7 +66,12 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	public void onFragmentStart(String screenViewName) {
 		// Do Nothing
 	}
-	
+
+	@Override
+	public void trackFatalException(Throwable throwable) {
+		// Do Nothing
+	}
+
 	/**
 	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackHandledException(java.lang.Throwable)
 	 */

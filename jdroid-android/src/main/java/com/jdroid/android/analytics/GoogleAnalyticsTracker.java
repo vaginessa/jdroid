@@ -10,6 +10,7 @@ import com.google.android.gms.analytics.HitBuilders.ItemBuilder;
 import com.google.android.gms.analytics.HitBuilders.SocialBuilder;
 import com.google.android.gms.analytics.HitBuilders.TransactionBuilder;
 import com.google.android.gms.analytics.Logger.LogLevel;
+import com.google.android.gms.analytics.StandardExceptionParser;
 import com.google.android.gms.analytics.Tracker;
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.analytics.ExperimentHelper.Experiment;
@@ -287,7 +288,28 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	public void trackAboutLibraryOpen(String libraryKey) {
 		sendEvent(ABOUT_CATEGORY, "openLibary", libraryKey);
 	}
-	
+
+	@Override
+	public void trackFatalException(Throwable throwable) {
+		HitBuilders.ExceptionBuilder builder = new HitBuilders.ExceptionBuilder();
+		String description = new StandardExceptionParser(AbstractApplication.get(), null).getDescription(Thread.currentThread().getName(), throwable);
+		builder.setDescription(description);
+		builder.setFatal(true);
+		tracker.send(builder.build());
+		dispatchLocalHits();
+		LOGGER.debug("Fatal exception sent. Description [" + description + "]");
+	}
+
+	@Override
+	public void trackHandledException(Throwable throwable) {
+		HitBuilders.ExceptionBuilder builder = new HitBuilders.ExceptionBuilder();
+		String description = new StandardExceptionParser(AbstractApplication.get(), null).getDescription(Thread.currentThread().getName(), throwable);
+		builder.setDescription(description);
+		builder.setFatal(false);
+		tracker.send(builder.build());
+		LOGGER.debug("Non fatal exception sent. Description [" + description + "]");
+	}
+
 	protected void addCustomDimension(AppViewBuilder appViewBuilder, CustomDimension customDimension, String dimension) {
 		addCustomDimension(appViewBuilder, customDimension.name(), dimension);
 	}

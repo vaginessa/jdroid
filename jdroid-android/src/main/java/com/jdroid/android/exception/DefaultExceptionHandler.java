@@ -1,12 +1,8 @@
 package com.jdroid.android.exception;
 
-import java.lang.Thread.UncaughtExceptionHandler;
-import java.net.UnknownHostException;
-import java.util.List;
-import javax.net.ssl.SSLPeerUnverifiedException;
-import org.slf4j.Logger;
 import android.app.Activity;
 import android.support.v4.app.FragmentActivity;
+
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.utils.AndroidUtils;
@@ -19,6 +15,14 @@ import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.ErrorCode;
 import com.jdroid.java.exception.ErrorCodeException;
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
+
+import java.lang.Thread.UncaughtExceptionHandler;
+import java.net.UnknownHostException;
+import java.util.List;
+
+import javax.net.ssl.SSLPeerUnverifiedException;
 
 public class DefaultExceptionHandler implements ExceptionHandler {
 	
@@ -57,6 +61,11 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	
 	protected void handleMainThreadException(Thread thread, Throwable throwable) {
 		try {
+			try {
+				AbstractApplication.get().getAnalyticsSender().trackFatalException(throwable);
+			} catch (Exception e) {
+				wrappedExceptionHandler.uncaughtException(thread, e);
+			}
 			wrappedExceptionHandler.uncaughtException(thread, throwable);
 		} catch (Exception e) {
 			LOGGER.error("Error when trying to handle an exception", e);

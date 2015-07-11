@@ -1,9 +1,7 @@
 package com.jdroid.android.analytics;
 
-import java.util.List;
-import java.util.Map;
-import org.slf4j.Logger;
 import android.app.Activity;
+
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.inappbilling.Product;
@@ -12,6 +10,11 @@ import com.jdroid.android.social.SocialAction;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 
@@ -165,6 +168,15 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 				tracker.onFragmentStart(screenViewName);
 			}
 		});
+	}
+
+	@Override
+	public void trackFatalException(final Throwable throwable) {
+		for (T tracker : trackers) {
+			if (tracker.isEnabled()) {
+				tracker.trackFatalException(throwable);
+			}
+		}
 	}
 	
 	/**
