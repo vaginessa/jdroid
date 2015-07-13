@@ -2,6 +2,8 @@ package com.jdroid.sample.android.api;
 
 import com.jdroid.android.api.AndroidApiService;
 import com.jdroid.java.http.HttpService;
+import com.jdroid.java.http.HttpServiceFactory;
+import com.jdroid.java.http.urlconnection.UrlConnectionHttpServiceFactory;
 
 public class SampleApiService extends AndroidApiService {
 
@@ -43,5 +45,10 @@ public class SampleApiService extends AndroidApiService {
 		httpService.addHeader("header1", "value1");
 		httpService.setUserAgent("sampleUserAgent");
 		httpService.execute();
+	}
+
+	@Override
+	public HttpServiceFactory createHttpServiceFactory() {
+		return new UrlConnectionHttpServiceFactory();
 	}
 }

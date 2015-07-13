@@ -1,4 +1,4 @@
-package com.jdroid.android.analytics;
+package com.jdroid.android.google.analytics;
 
 import android.app.Activity;
 
@@ -13,6 +13,9 @@ import com.google.android.gms.analytics.Logger.LogLevel;
 import com.google.android.gms.analytics.StandardExceptionParser;
 import com.google.android.gms.analytics.Tracker;
 import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.analytics.AbstractAnalyticsTracker;
+import com.jdroid.android.analytics.AppLoadingSource;
+import com.jdroid.android.analytics.ExperimentHelper;
 import com.jdroid.android.analytics.ExperimentHelper.Experiment;
 import com.jdroid.android.analytics.ExperimentHelper.ExperimentVariant;
 import com.jdroid.android.inappbilling.Product;

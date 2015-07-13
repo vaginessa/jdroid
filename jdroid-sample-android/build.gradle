@@ -32,6 +32,9 @@ dependencies {
 	compile project(':jdroid-android-facebook')
 	compile project(':jdroid-android-google-maps')
 	compile project(':jdroid-android-google-gcm')
+	compile(project(':jdroid-java-http-urlconnection')) {
+		transitive = false
+	}
 //  compile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT'
 //	compile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT:debug'
 //	releaseCompile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT:release'

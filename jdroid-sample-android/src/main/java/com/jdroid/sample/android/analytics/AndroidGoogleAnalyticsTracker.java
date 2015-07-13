@@ -1,7 +1,7 @@
 package com.jdroid.sample.android.analytics;
 
 import com.google.android.gms.analytics.HitBuilders;
-import com.jdroid.android.analytics.GoogleAnalyticsTracker;
+import com.jdroid.android.google.analytics.GoogleAnalyticsTracker;
 import com.jdroid.java.utils.IdGenerator;
 
 import java.util.Map;
@@ -18,7 +18,7 @@ public class AndroidGoogleAnalyticsTracker extends GoogleAnalyticsTracker implem
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.GoogleAnalyticsTracker#init(java.util.Map, java.util.Map)
+	 * @see GoogleAnalyticsTracker#init(java.util.Map, java.util.Map)
 	 */
 	@Override
 	protected void init(Map<String, Integer> customDimensionsMap, Map<String, Integer> customMetricsMap) {

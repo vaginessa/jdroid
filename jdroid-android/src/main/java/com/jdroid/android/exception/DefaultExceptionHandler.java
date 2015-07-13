@@ -157,12 +157,9 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 			}
 			
 			if (errorMessage == null) {
-				errorMessage = throwable.getMessage();
+				errorMessage = throwableToLog.getMessage();
 				if (errorMessage == null) {
-					errorMessage = throwableToLog.getMessage();
-					if (errorMessage == null) {
-						errorMessage = "Error";
-					}
+					errorMessage = "Error";
 				}
 			}
 			

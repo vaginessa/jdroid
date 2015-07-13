@@ -10,7 +10,7 @@ import java.util.List;
 public enum ApiServer implements Server {
 	
 	PROD("url", ":8080", "/jdroid-sample-server/api", true, true),
-	UAT("jdroid-sample-server-staging.herokuapp.com", null, "/jdroid-sample-server/api", true, false),
+	UAT("staging-jdroid.rhcloud.com", null, "/jdroid-sample-server/api", true, false),
 	DEV(null, ":8080", "/jdroid-sample-server/api", true, false);
 
 	private String domain;
