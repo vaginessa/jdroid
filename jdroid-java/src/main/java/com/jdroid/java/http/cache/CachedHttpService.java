@@ -2,7 +2,7 @@ package com.jdroid.java.http.cache;
 
 import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.HttpService;
-import com.jdroid.java.http.post.EntityEnclosingHttpService;
+import com.jdroid.java.http.post.BodyEnclosingHttpService;
 import com.jdroid.java.parser.Parser;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.Hasher;
@@ -15,7 +15,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Collection;
 
-public abstract class CachedHttpService implements EntityEnclosingHttpService {
+public abstract class CachedHttpService implements BodyEnclosingHttpService {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(CachedHttpService.class);
 	
@@ -187,11 +187,11 @@ public abstract class CachedHttpService implements EntityEnclosingHttpService {
 	}
 	
 	/**
-	 * @see EntityEnclosingHttpService#setBody(String)
+	 * @see BodyEnclosingHttpService#setBody(String)
 	 */
 	@Override
 	public void setBody(String body) {
-		((EntityEnclosingHttpService)httpService).setBody(body);
+		((BodyEnclosingHttpService)httpService).setBody(body);
 	}
 	
 	/**

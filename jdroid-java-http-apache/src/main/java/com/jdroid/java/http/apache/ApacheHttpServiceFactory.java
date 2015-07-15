@@ -5,8 +5,6 @@ import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.MultipartHttpService;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.http.HttpService;
-import com.jdroid.java.http.apache.DefaultHttpClientFactory;
-import com.jdroid.java.http.apache.HttpClientFactory;
 import com.jdroid.java.http.apache.delete.ApacheDeleteHttpService;
 import com.jdroid.java.http.apache.get.ApacheGetHttpService;
 import com.jdroid.java.http.apache.patch.ApachePatchHttpService;
@@ -15,7 +13,7 @@ import com.jdroid.java.http.apache.post.ApachePostHttpService;
 import com.jdroid.java.http.apache.post.ApacheMultipartPostHttpService;
 import com.jdroid.java.http.apache.put.ApachePutHttpService;
 import com.jdroid.java.http.apache.put.ApacheMultipartPutHttpService;
-import com.jdroid.java.http.post.EntityEnclosingHttpService;
+import com.jdroid.java.http.post.BodyEnclosingHttpService;
 
 import java.util.List;
 
@@ -29,14 +27,14 @@ public class ApacheHttpServiceFactory implements HttpServiceFactory {
 	}
 	
 	@Override
-	public EntityEnclosingHttpService newPostService(Server server, List<Object> urlSegments,
+	public BodyEnclosingHttpService newPostService(Server server, List<Object> urlSegments,
 														   List<HttpServiceProcessor> httpServiceProcessors) {
 		return new ApachePostHttpService(getHttpClientFactoryInstance(), server, urlSegments,
 				httpServiceProcessors);
 	}
 	
 	@Override
-	public EntityEnclosingHttpService newPutService(Server server, List<Object> urlSegments,
+	public BodyEnclosingHttpService newPutService(Server server, List<Object> urlSegments,
 														  List<HttpServiceProcessor> httpServiceProcessors) {
 		return new ApachePutHttpService(getHttpClientFactoryInstance(), server, urlSegments,
 				httpServiceProcessors);
@@ -64,14 +62,14 @@ public class ApacheHttpServiceFactory implements HttpServiceFactory {
 	}
 	
 	@Override
-	public EntityEnclosingHttpService newFormPostService(Server server, List<Object> urlSegments,
+	public BodyEnclosingHttpService newFormPostService(Server server, List<Object> urlSegments,
 															   List<HttpServiceProcessor> httpServiceProcessors) {
 		return new ApacheFormPostHttpService(getHttpClientFactoryInstance(), server, urlSegments,
 				httpServiceProcessors);
 	}
 	
 	@Override
-	public EntityEnclosingHttpService newPatchService(Server baseURL, List<Object> urlSegments,
+	public BodyEnclosingHttpService newPatchService(Server baseURL, List<Object> urlSegments,
 															List<HttpServiceProcessor> httpServiceProcessors) {
 		return new ApachePatchHttpService(getHttpClientFactoryInstance(), baseURL, urlSegments,
 				httpServiceProcessors);

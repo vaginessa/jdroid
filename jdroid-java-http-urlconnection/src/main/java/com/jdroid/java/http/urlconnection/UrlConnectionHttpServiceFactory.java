@@ -5,7 +5,7 @@ import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.MultipartHttpService;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.http.HttpService;
-import com.jdroid.java.http.post.EntityEnclosingHttpService;
+import com.jdroid.java.http.post.BodyEnclosingHttpService;
 import com.jdroid.java.http.urlconnection.delete.UrlConnectionDeleteHttpService;
 import com.jdroid.java.http.urlconnection.get.UrlConnectionGetHttpService;
 import com.jdroid.java.http.urlconnection.patch.UrlConnectionPatchHttpService;
@@ -23,7 +23,7 @@ public class UrlConnectionHttpServiceFactory implements HttpServiceFactory {
 	}
 	
 	@Override
-	public EntityEnclosingHttpService newPostService(Server server, List<Object> urlSegments,
+	public BodyEnclosingHttpService newPostService(Server server, List<Object> urlSegments,
 														   List<HttpServiceProcessor> httpServiceProcessors) {
 		return new UrlConnectionPostHttpService(server, urlSegments, httpServiceProcessors);
 	}
@@ -39,18 +39,18 @@ public class UrlConnectionHttpServiceFactory implements HttpServiceFactory {
 	}
 	
 	@Override
-	public EntityEnclosingHttpService newFormPostService(Server server, List<Object> urlSegments, List<HttpServiceProcessor> httpServiceProcessors) {
+	public BodyEnclosingHttpService newFormPostService(Server server, List<Object> urlSegments, List<HttpServiceProcessor> httpServiceProcessors) {
 		throw new UnsupportedOperationException();
 	}
 	
 	@Override
-	public EntityEnclosingHttpService newPutService(Server server, List<Object> urlSegments,
+	public BodyEnclosingHttpService newPutService(Server server, List<Object> urlSegments,
 														  List<HttpServiceProcessor> httpServiceProcessors) {
 		return new UrlConnectionPutHttpService(server, urlSegments, httpServiceProcessors);
 	}
 	
 	@Override
-	public EntityEnclosingHttpService newPatchService(Server baseURL, List<Object> urlSegments,
+	public BodyEnclosingHttpService newPatchService(Server baseURL, List<Object> urlSegments,
 															List<HttpServiceProcessor> httpServiceProcessors) {
 		return new UrlConnectionPatchHttpService(baseURL, urlSegments, httpServiceProcessors);
 	}

@@ -11,7 +11,7 @@ import com.jdroid.java.http.cache.Cache;
 import com.jdroid.java.http.cache.CachedHttpService;
 import com.jdroid.java.http.cache.CachingStrategy;
 import com.jdroid.java.http.mock.AbstractMockHttpService;
-import com.jdroid.java.http.post.EntityEnclosingHttpService;
+import com.jdroid.java.http.post.BodyEnclosingHttpService;
 import com.jdroid.java.marshaller.MarshallerMode;
 import com.jdroid.java.marshaller.MarshallerProvider;
 import com.jdroid.java.utils.ReflectionUtils;
@@ -68,15 +68,15 @@ public abstract class AbstractApiService {
 	
 	// POST
 	
-	protected EntityEnclosingHttpService newPostService(Object... urlSegments) {
+	protected BodyEnclosingHttpService newPostService(Object... urlSegments) {
 		return newPostService(false, urlSegments);
 	}
 	
-	protected EntityEnclosingHttpService newPostService(Boolean mocked, Object... urlSegments) {
+	protected BodyEnclosingHttpService newPostService(Boolean mocked, Object... urlSegments) {
 		return newPostService(mocked, getHttpServiceProcessors(), urlSegments);
 	}
 
-	protected EntityEnclosingHttpService newPostService(Boolean mocked, List<HttpServiceProcessor> processors, Object... urlSegments) {
+	protected BodyEnclosingHttpService newPostService(Boolean mocked, List<HttpServiceProcessor> processors, Object... urlSegments) {
 		if (isHttpMockEnabled() || mocked) {
 			return getAbstractMockHttpServiceInstance(urlSegments);
 		} else {
@@ -101,11 +101,11 @@ public abstract class AbstractApiService {
 	
 	// POST FORM
 	
-	protected EntityEnclosingHttpService newFormPostService(Object... urlSegments) {
+	protected BodyEnclosingHttpService newFormPostService(Object... urlSegments) {
 		return newFormPostService(false, urlSegments);
 	}
 	
-	protected EntityEnclosingHttpService newFormPostService(Boolean mocked, Object... urlSegments) {
+	protected BodyEnclosingHttpService newFormPostService(Boolean mocked, Object... urlSegments) {
 		if (isHttpMockEnabled() || mocked) {
 			return getAbstractMockHttpServiceInstance(urlSegments);
 		} else {
@@ -115,15 +115,15 @@ public abstract class AbstractApiService {
 	
 	// PUT
 	
-	protected EntityEnclosingHttpService newPutService(Object... urlSegments) {
+	protected BodyEnclosingHttpService newPutService(Object... urlSegments) {
 		return newPutService(false, urlSegments);
 	}
 
-	protected EntityEnclosingHttpService newPutService(Boolean mocked, Object... urlSegments) {
+	protected BodyEnclosingHttpService newPutService(Boolean mocked, Object... urlSegments) {
 		return newPutService(mocked, getHttpServiceProcessors(), urlSegments);
 	}
 
-	protected EntityEnclosingHttpService newPutService(Boolean mocked, List<HttpServiceProcessor> processors, Object... urlSegments) {
+	protected BodyEnclosingHttpService newPutService(Boolean mocked, List<HttpServiceProcessor> processors, Object... urlSegments) {
 		if (isHttpMockEnabled() || mocked) {
 			return getAbstractMockHttpServiceInstance(urlSegments);
 		} else {
@@ -131,7 +131,7 @@ public abstract class AbstractApiService {
 		}
 	}
 
-	protected EntityEnclosingHttpService newCachedPutService(Cache cache, CachingStrategy cachingStrategy,
+	protected BodyEnclosingHttpService newCachedPutService(Cache cache, CachingStrategy cachingStrategy,
 															Long timeToLive, Object... urlSegments) {
 		HttpService httpService = newPutService(urlSegments);
 		return newCachedhttpService(httpService, cache, cachingStrategy, timeToLive);
@@ -182,15 +182,15 @@ public abstract class AbstractApiService {
 	
 	// PATCH
 	
-	protected EntityEnclosingHttpService newPatchService(Object... urlSegments) {
+	protected BodyEnclosingHttpService newPatchService(Object... urlSegments) {
 		return newPatchService(false, urlSegments);
 	}
 
-	protected EntityEnclosingHttpService newPatchService(Boolean mocked, Object... urlSegments) {
+	protected BodyEnclosingHttpService newPatchService(Boolean mocked, Object... urlSegments) {
 		return newPatchService(mocked, getHttpServiceProcessors(), urlSegments);
 	}
 
-	protected EntityEnclosingHttpService newPatchService(Boolean mocked, List<HttpServiceProcessor> processors, Object... urlSegments) {
+	protected BodyEnclosingHttpService newPatchService(Boolean mocked, List<HttpServiceProcessor> processors, Object... urlSegments) {
 		if (isHttpMockEnabled() || mocked) {
 			return getAbstractMockHttpServiceInstance(urlSegments);
 		} else {
@@ -198,7 +198,7 @@ public abstract class AbstractApiService {
 		}
 	}
 
-	protected EntityEnclosingHttpService newCachedPatchService(Cache cache, CachingStrategy cachingStrategy,
+	protected BodyEnclosingHttpService newCachedPatchService(Cache cache, CachingStrategy cachingStrategy,
 			Long timeToLive, Object... urlSegments) {
 		HttpService httpService = newPatchService(urlSegments);
 		return newCachedhttpService(httpService, cache, cachingStrategy, timeToLive);
@@ -240,23 +240,23 @@ public abstract class AbstractApiService {
 		return null;
 	}
 	
-	public void marshallSimple(EntityEnclosingHttpService httpService, Object object) {
+	public void marshallSimple(BodyEnclosingHttpService httpService, Object object) {
 		marshall(httpService, object, MarshallerMode.SIMPLE);
 	}
 	
-	public void marshall(EntityEnclosingHttpService httpService, Object object) {
+	public void marshall(BodyEnclosingHttpService httpService, Object object) {
 		marshall(httpService, object, MarshallerMode.COMPLETE);
 	}
 	
-	public void marshall(EntityEnclosingHttpService httpService, Object object, MarshallerMode mode) {
+	public void marshall(BodyEnclosingHttpService httpService, Object object, MarshallerMode mode) {
 		marshall(httpService, object, mode, null);
 	}
 	
-	public void marshall(EntityEnclosingHttpService httpService, Object object, Map<String, String> extras) {
+	public void marshall(BodyEnclosingHttpService httpService, Object object, Map<String, String> extras) {
 		marshall(httpService, object, MarshallerMode.COMPLETE, extras);
 	}
 	
-	public void marshall(EntityEnclosingHttpService httpService, Object object, MarshallerMode mode,
+	public void marshall(BodyEnclosingHttpService httpService, Object object, MarshallerMode mode,
 			Map<String, String> extras) {
 		httpService.setBody(MarshallerProvider.get().marshall(object, mode, extras).toString());
 	}

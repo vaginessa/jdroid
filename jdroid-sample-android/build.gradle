@@ -163,8 +163,9 @@ android {
 	}
 
 	sourceSets.uat {
-		java.srcDirs = ['src/debug/java']
-		resources.srcDirs = ['src/debug/resources']
+		java.srcDirs = ['src/debug/java', 'src/uat/java']
+		resources.srcDirs = ['src/debug/resources', 'src/uat/resources']
+		res.srcDirs = ['src/debug/resources', 'src/uat/resources']
 	}
 
 	sourceSets.test.java.srcDirs += "build/generated/source/r/debug"

@@ -3,7 +3,7 @@ package com.jdroid.java.http.apache;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.Server;
-import com.jdroid.java.http.post.EntityEnclosingHttpService;
+import com.jdroid.java.http.post.BodyEnclosingHttpService;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
@@ -14,13 +14,13 @@ import org.apache.http.protocol.HTTP;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-public abstract class ApacheEntityEnclosingHttpService extends ApacheHttpService implements
-		EntityEnclosingHttpService {
+public abstract class ApacheBodyEnclosingHttpService extends ApacheHttpService implements
+		BodyEnclosingHttpService {
 	
 	private HttpEntity entity;
 	
-	public ApacheEntityEnclosingHttpService(HttpClientFactory httpClientFactory, Server server,
-											List<Object> urlSegments, List<HttpServiceProcessor> httpServiceProcessors) {
+	public ApacheBodyEnclosingHttpService(HttpClientFactory httpClientFactory, Server server,
+										  List<Object> urlSegments, List<HttpServiceProcessor> httpServiceProcessors) {
 		super(httpClientFactory, server, urlSegments, httpServiceProcessors);
 	}
 	
@@ -49,13 +49,13 @@ public abstract class ApacheEntityEnclosingHttpService extends ApacheHttpService
 	}
 	
 	/**
-	 * @see EntityEnclosingHttpService#setBody(String)
+	 * @see BodyEnclosingHttpService#setBody(String)
 	 */
 	@Override
 	public void setBody(String body) {
 		try {
 			entity = new StringEntity(body, HTTP.UTF_8);
-			ApacheHttpService.LOGGER.debug("Entity: " + body);
+			ApacheHttpService.LOGGER.debug("Body: " + body);
 		} catch (UnsupportedEncodingException e) {
 			throw new UnexpectedException(e);
 		}

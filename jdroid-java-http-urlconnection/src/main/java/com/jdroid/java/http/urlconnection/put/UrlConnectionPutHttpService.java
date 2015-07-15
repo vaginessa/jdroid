@@ -4,12 +4,12 @@ import com.jdroid.java.http.HttpMethod;
 import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.MultipartHttpService;
 import com.jdroid.java.http.Server;
-import com.jdroid.java.http.urlconnection.UrlConnectionEntityEnclosingHttpService;
+import com.jdroid.java.http.urlconnection.UrlConnectionBodyEnclosingHttpService;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
 
-public class UrlConnectionPutHttpService extends UrlConnectionEntityEnclosingHttpService implements MultipartHttpService {
+public class UrlConnectionPutHttpService extends UrlConnectionBodyEnclosingHttpService implements MultipartHttpService {
 
 	public UrlConnectionPutHttpService(Server server, List<Object> urlSegments, List<HttpServiceProcessor> httpServiceProcessors) {
 		super(server, urlSegments, httpServiceProcessors);

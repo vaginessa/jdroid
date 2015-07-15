@@ -6,7 +6,7 @@ import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.MultipartHttpService;
 import com.jdroid.java.http.HttpService;
-import com.jdroid.java.http.post.EntityEnclosingHttpService;
+import com.jdroid.java.http.post.BodyEnclosingHttpService;
 import com.jdroid.java.parser.Parser;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
@@ -20,7 +20,7 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * Mocked {@link HttpService} and {@link EntityEnclosingHttpService} implementation that returns mocked responses
+ * Mocked {@link HttpService} and {@link BodyEnclosingHttpService} implementation that returns mocked responses
  */
 public abstract class AbstractMockHttpService implements MultipartHttpService {
 	
@@ -164,7 +164,7 @@ public abstract class AbstractMockHttpService implements MultipartHttpService {
 	}
 	
 	/**
-	 * @see EntityEnclosingHttpService#setBody(String)
+	 * @see BodyEnclosingHttpService#setBody(String)
 	 */
 	@Override
 	public void setBody(String body) {
