@@ -3,7 +3,8 @@ package com.jdroid.sample.android.api;
 import com.jdroid.android.api.AndroidApiService;
 import com.jdroid.java.http.HttpService;
 import com.jdroid.java.http.HttpServiceFactory;
-import com.jdroid.java.http.urlconnection.UrlConnectionHttpServiceFactory;
+import com.jdroid.java.http.okhttp.OkHttpServiceFactory;
+import com.jdroid.java.http.post.BodyEnclosingHttpService;
 
 public class SampleApiService extends AndroidApiService {
 
@@ -16,16 +17,18 @@ public class SampleApiService extends AndroidApiService {
 	}
 
 	public void httpPostSample() {
-		HttpService httpService = newPostService("sample", "post");
+		BodyEnclosingHttpService httpService = newPostService("sample", "post");
 		httpService.addQueryParameter("param1", "value1");
+		httpService.setBody("{}");
 		httpService.addHeader("header1", "value1");
 		httpService.setUserAgent("sampleUserAgent");
 		httpService.execute();
 	}
 
 	public void httpPutSample() {
-		HttpService httpService = newPutService("sample", "put");
+		BodyEnclosingHttpService httpService = newPutService("sample", "put");
 		httpService.addQueryParameter("param1", "value1");
+		httpService.setBody("{}");
 		httpService.addHeader("header1", "value1");
 		httpService.setUserAgent("sampleUserAgent");
 		httpService.execute();
@@ -40,8 +43,9 @@ public class SampleApiService extends AndroidApiService {
 	}
 
 	public void httpPatchSample() {
-		HttpService httpService = newPatchService("sample", "patch");
+		BodyEnclosingHttpService httpService = newPatchService("sample", "patch");
 		httpService.addQueryParameter("param1", "value1");
+		httpService.setBody("{}");
 		httpService.addHeader("header1", "value1");
 		httpService.setUserAgent("sampleUserAgent");
 		httpService.execute();
@@ -49,6 +53,6 @@ public class SampleApiService extends AndroidApiService {
 
 	@Override
 	public HttpServiceFactory createHttpServiceFactory() {
-		return new UrlConnectionHttpServiceFactory();
+		return new OkHttpServiceFactory();
 	}
 }

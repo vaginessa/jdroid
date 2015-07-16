@@ -32,8 +32,8 @@ dependencies {
 	compile project(':jdroid-android-facebook')
 	compile project(':jdroid-android-google-maps')
 	compile project(':jdroid-android-google-gcm')
-	compile(project(':jdroid-java-http-urlconnection')) {
-		transitive = false
+	compile(project(':jdroid-java-http-okhttp')) {
+		exclude module: 'slf4j-api'
 	}
 //  compile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT'
 //	compile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT:debug'
@@ -165,7 +165,7 @@ android {
 	sourceSets.uat {
 		java.srcDirs = ['src/debug/java', 'src/uat/java']
 		resources.srcDirs = ['src/debug/resources', 'src/uat/resources']
-		res.srcDirs = ['src/debug/resources', 'src/uat/resources']
+		res.srcDirs = ['src/debug/res', 'src/uat/res']
 	}
 
 	sourceSets.test.java.srcDirs += "build/generated/source/r/debug"

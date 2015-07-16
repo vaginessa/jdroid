@@ -1,6 +1,7 @@
 include ':jdroid-java'
 include ':jdroid-java-http-apache'
 include ':jdroid-java-http-urlconnection'
+include ':jdroid-java-http-okhttp'
 include ':jdroid-android'
 include ':jdroid-android-about'
 include ':jdroid-android-google-gcm'

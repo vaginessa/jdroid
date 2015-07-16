@@ -9,9 +9,10 @@ import java.util.List;
 
 public enum ApiServer implements Server {
 	
-	PROD("url", ":8080", "/jdroid-sample-server/api", true, true),
-	UAT("staging-jdroid.rhcloud.com", null, "/jdroid-sample-server/api", true, false),
-	DEV(null, ":8080", "/jdroid-sample-server/api", true, false);
+	PROD("url", ":8080", "/api", true, true),
+	UAT("staging-jdroid.rhcloud.com", null, "/api", true, false),
+	DEV(null, ":8080", "/api", true, false),
+	MOCKEY_LOCAL(null, ":8081", "/service/api", false, false);
 
 	private String domain;
 	private String port;
