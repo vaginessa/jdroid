@@ -26,7 +26,12 @@ public abstract class WorkerService extends IntentService {
 	protected final void onHandleIntent(Intent intent) {
 		try {
 			if (intent != null) {
+				long startTime = System.currentTimeMillis();
 				doExecute(intent);
+				long executionTime = System.currentTimeMillis() - startTime;
+				AbstractApplication.get().getAnalyticsSender().trackTiming("Service", getClass().getSimpleName(),
+						getClass().getSimpleName(), executionTime);
+
 			}
 		} catch (Exception e) {
 			AbstractApplication.get().getExceptionHandler().logHandledException(e);
