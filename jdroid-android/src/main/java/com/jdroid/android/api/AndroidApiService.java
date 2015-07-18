@@ -22,7 +22,7 @@ public abstract class AndroidApiService extends AbstractApiService {
 	 */
 	@Override
 	protected File getHttpCacheDirectory(Cache cache) {
-		return AbstractApplication.get().getFileSystemCacheDirectory(cache);
+		return AbstractApplication.get().getCacheManager().getFileSystemCacheDirectory(cache);
 	}
 	
 	/**

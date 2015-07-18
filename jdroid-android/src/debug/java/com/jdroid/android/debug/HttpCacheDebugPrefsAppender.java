@@ -28,7 +28,7 @@ public class HttpCacheDebugPrefsAppender implements PreferencesAppender {
 			
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				AbstractApplication.get().cleanFileSystemCache();
+				AbstractApplication.get().getCacheManager().cleanFileSystemCache();
 				return true;
 			}
 		});
