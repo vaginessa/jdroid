@@ -102,6 +102,8 @@ android {
 	sourceSets.test.java.srcDirs += "build/generated/source/r/debug"
 	sourceSets.test.java.srcDirs += sourceSets.main.java.srcDirs
 	sourceSets.test.java.srcDirs += sourceSets.debug.java.srcDirs
+	sourceSets.test.resources.srcDirs += sourceSets.debug.resources.srcDirs
+	sourceSets.test.res.srcDirs += sourceSets.debug.res.srcDirs
 }
 
 task androidSourcesJar(type: Jar) {
