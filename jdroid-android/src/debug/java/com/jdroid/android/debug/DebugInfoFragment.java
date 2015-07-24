@@ -28,7 +28,10 @@ public class DebugInfoFragment extends AbstractRecyclerFragment<Pair<String, Obj
 		super.onCreate(savedInstanceState);
 
 		AppContext appContext = AbstractApplication.get().getAppContext();
+
 		properties.add(new Pair<String, Object>("Build Type", appContext.getBuildType()));
+		properties.add(new Pair<String, Object>("Build Time", appContext.getBuildTime()));
+
 		properties.add(new Pair<String, Object>("Analytics Enabled", appContext.isGoogleAnalyticsEnabled()));
 		properties.add(new Pair<String, Object>("Analytics Tracking Id", appContext.getGoogleAnalyticsTrackingId()));
 		properties.add(new Pair<String, Object>("Ads Enabled", appContext.areAdsEnabled()));

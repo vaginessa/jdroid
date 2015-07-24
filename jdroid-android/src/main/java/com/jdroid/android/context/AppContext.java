@@ -86,6 +86,10 @@ public abstract class AppContext {
 		return AbstractApplication.get().getBuildConfigValue("BUILD_TYPE");
 	}
 
+	public String getBuildTime() {
+		return AbstractApplication.get().getBuildConfigValue("BUILD_TIME");
+	}
+
 	/**
 	 * @return Whether the application is running on a production environment
 	 */
