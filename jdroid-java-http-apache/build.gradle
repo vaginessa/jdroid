@@ -2,6 +2,7 @@ apply plugin: 'java'
 
 ext.projectName = 'Jdroid Java Http Apache'
 description = 'Apache Http Layer Implementation for Jdroid'
+ext.packaging = 'jar'
 
 buildscript {
 	repositories {

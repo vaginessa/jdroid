@@ -1,6 +1,9 @@
 apply plugin: 'com.jdroid.android.application'
 
 description = 'Jdroid Sample Android'
+ext.packaging = 'apk'
+
+def jdroidVersion = project.version
 
 repositories {
 	mavenCentral()
@@ -26,18 +29,59 @@ configurations.all {
 	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 
+configurations {
+	uatCompile
+}
+
+
 dependencies {
+
+//	debugCompile 'com.jdroidframework:jdroid-android:' + jdroidVersion + ':debug@aar'
+//	uatCompile 'com.jdroidframework:jdroid-android:' + jdroidVersion + ':debug@aar'
+//	releaseCompile 'com.jdroidframework:jdroid-android:' + jdroidVersion + ':release@aar'
+//	debugCompile project(path: ":jdroid-android", configuration: 'debug')
+//	uatCompile project(path: ":jdroid-android", configuration: 'debug')
+//	releaseCompile project(path: ":jdroid-android", configuration: 'release')
 	compile project(':jdroid-android')
+
+//	debugCompile 'com.jdroidframework:jdroid-android-about:' + jdroidVersion + ':debug@aar'
+//	uatCompile 'com.jdroidframework:jdroid-android-about:' + jdroidVersion + ':debug@aar'
+//	releaseCompile 'com.jdroidframework:jdroid-android-about:' + jdroidVersion + ':release@aar'
+//	debugCompile project(path: ":jdroid-android-about", configuration: 'debug')
+//	uatCompile project(path: ":jdroid-android-about", configuration: 'debug')
+//	releaseCompile project(path: ":jdroid-android-about", configuration: 'release')
 	compile project(':jdroid-android-about')
+
+//	debugCompile 'com.jdroidframework:jdroid-android-facebook:' + jdroidVersion + ':debug@aar'
+//	uatCompile 'com.jdroidframework:jdroid-android-facebook:' + jdroidVersion + ':debug@aar'
+//	releaseCompile 'com.jdroidframework:jdroid-android-facebook:' + jdroidVersion + ':release@aar'
+//	debugCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
+//	uatCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
+//	releaseCompile project(path: ":jdroid-android-facebook", configuration: 'release')
 	compile project(':jdroid-android-facebook')
+
+//	debugCompile 'com.jdroidframework:jdroid-android-google-maps:' + jdroidVersion + ':debug@aar'
+//	uatCompile 'com.jdroidframework:jdroid-android-google-maps:' + jdroidVersion + ':debug@aar'
+//	releaseCompile 'com.jdroidframework:jdroid-android-google-maps:' + jdroidVersion + ':release@aar'
+//	debugCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
+//	uatCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
+//	releaseCompile project(path: ":jdroid-android-google-maps", configuration: 'release')
 	compile project(':jdroid-android-google-maps')
+
+//	debugCompile 'com.jdroidframework:jdroid-android-google-gcm:' + jdroidVersion + ':debug@aar'
+//	uatCompile 'com.jdroidframework:jdroid-android-google-gcm:' + jdroidVersion + ':debug@aar'
+//	releaseCompile 'com.jdroidframework:jdroid-android-google-gcm:' + jdroidVersion + ':release@aar'
+//	debugCompile project(path: ":jdroid-android-google-gcm", configuration: 'debug')
+//	uatCompile project(path: ":jdroid-android-google-gcm", configuration: 'debug')
+//	releaseCompile project(path: ":jdroid-android-google-gcm", configuration: 'release')
 	compile project(':jdroid-android-google-gcm')
+
+//	compile ('com.jdroidframework:jdroid-java-http-okhttp:' + jdroidVersion) {
+//		exclude module: 'slf4j-api'
+//	}
 	compile(project(':jdroid-java-http-okhttp')) {
 		exclude module: 'slf4j-api'
 	}
-//  compile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT'
-//	compile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT:debug'
-//	releaseCompile 'com.jdroidframework:jdroid-android:0.7.0-SNAPSHOT:release'
 
 	testCompile 'junit:junit:4.12'
 	testCompile "org.mockito:mockito-core:1.9.5"
@@ -59,7 +103,6 @@ dependencies {
 		exclude module: 'wagon-provider-api'
 	}
 }
-
 jdroid {
 
 	versionMajor = 0
@@ -123,7 +166,10 @@ android {
 		}
 
 		release {
-			// TODO
+			storeFile file(jdroid.getProp('STORE_FILE', './debug.keystore'))
+			storePassword jdroid.getProp('STORE_PASSWORD')
+			keyAlias jdroid.getProp('KEY_ALIAS')
+			keyPassword jdroid.getProp('KEY_PASSWORD')
 		}
 	}
 
@@ -171,6 +217,8 @@ android {
 	sourceSets.test.java.srcDirs += "build/generated/source/r/debug"
 	sourceSets.test.java.srcDirs += sourceSets.main.java.srcDirs
 	sourceSets.test.java.srcDirs += sourceSets.debug.java.srcDirs
+	sourceSets.test.resources.srcDirs += sourceSets.main.resources.srcDirs
 	sourceSets.test.resources.srcDirs += sourceSets.debug.resources.srcDirs
+	sourceSets.test.res.srcDirs += sourceSets.main.res.srcDirs
 	sourceSets.test.res.srcDirs += sourceSets.debug.res.srcDirs
 }

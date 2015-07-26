@@ -5,6 +5,7 @@ apply plugin: "com.gradle.plugin-publish"
 
 ext.projectName = 'Jdroid Gradle Plugin'
 description = 'Gradle Plugin for Java & Android projects'
+ext.packaging = 'jar'
 
 buildscript {
 	repositories {

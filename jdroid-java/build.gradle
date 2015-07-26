@@ -2,6 +2,7 @@ apply plugin: 'java'
 
 ext.projectName = 'Jdroid Java'
 description = 'Jdroid dependency project for both Android & Java apps'
+ext.packaging = 'jar'
 
 buildscript {
 	repositories {

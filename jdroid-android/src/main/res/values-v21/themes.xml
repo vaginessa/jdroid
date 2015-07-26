@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<style name="Jdroid.Theme.Light.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+	<style name="Jdroid.Theme.Light.NoActionBar" parent="@style/Theme.AppCompat.Light.NoActionBar">
 		<!-- your app branding color for the app bar -->
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<!-- darker variant for the status bar and contextual app bars -->

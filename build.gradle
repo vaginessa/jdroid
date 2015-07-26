@@ -69,6 +69,7 @@ subprojects {
 					pom.project {
 						name project.ext.projectName
 						description project.description
+						packaging project.ext.packaging
 						url 'http://www.jdroidframework.com'
 						inceptionYear '2011'
 						organization {

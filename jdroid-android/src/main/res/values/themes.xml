@@ -3,7 +3,7 @@
 
 	<!-- Themes -->
 
-	<style name="Jdroid.Theme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+	<style name="Jdroid.Theme.Base" parent="@style/Theme.AppCompat.Light.DarkActionBar">
 		<!-- your app branding color for the app bar -->
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<!-- darker variant for the status bar and contextual app bars -->
@@ -19,7 +19,7 @@
 
 	</style>
 
-	<style name="Jdroid.Theme.Light.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+	<style name="Jdroid.Theme.Light.NoActionBar" parent="@style/Theme.AppCompat.Light.NoActionBar">
 		<!-- your app branding color for the app bar -->
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<!-- darker variant for the status bar and contextual app bars -->
@@ -33,13 +33,13 @@
 
 	<!-- Styles -->
 
-	<style name="Jdroid.Dialog.Alert" parent="Theme.AppCompat.Light.Dialog.Alert">
+	<style name="Jdroid.Dialog.Alert" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<item name="colorAccent">@color/accentColor</item>
 		<item name="android:windowBackground">@drawable/dialog_background_light</item>
 	</style>
 
-	<style name="Jdroid.Dialog" parent="Theme.AppCompat.Light.Dialog">
+	<style name="Jdroid.Dialog" parent="@style/Theme.AppCompat.Light.Dialog">
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<item name="colorAccent">@color/accentColor</item>
 		<item name="android:windowBackground">@drawable/dialog_background_light</item>

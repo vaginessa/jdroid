@@ -12,6 +12,7 @@
 	<string name="previous">Anterior</string>
 	<string name="finish">Finalizar</string>
 	<string name="refresh">Actualizar</string>
+	<string name="update">Actualizar</string>
 	<string name="logout">Cerrar sesión</string>
 	<string name="revokeAccess">Revocar</string>
 	<string name="signIn">Iniciar sesión</string>
