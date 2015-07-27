@@ -53,7 +53,7 @@ public abstract class AppContext {
 		if (isProductionEnvironment() || !displayDebugSettings()) {
 			return (T)defaultServer;
 		} else {
-			Class<?> clazz = defaultServer.getClass().getDeclaringClass() != null ? defaultServer.getClass().getDeclaringClass()
+			Class<?> clazz = defaultServer.getClass().getEnclosingClass() != null ? defaultServer.getClass().getEnclosingClass()
 					: defaultServer.getClass();
 			return (T)defaultServer.instance(PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
 				clazz.getSimpleName(), defaultServer.getName()).toUpperCase(Locale.US));

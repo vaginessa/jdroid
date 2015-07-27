@@ -212,7 +212,7 @@ public class NotificationBuilder {
 	}
 	
 	public void setDefaultVibration() {
-		long[] defaultPattern = { 1000, 1000 };
+		long[] defaultPattern = { 1000, 500 };
 		builder.setVibrate(defaultPattern);
 	}
 	
