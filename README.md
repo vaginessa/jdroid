@@ -54,6 +54,7 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * House ads support
 * Base Activity & Fragment implementations
 * ListView & GridView pagination support
+* Recycler View Support 
 * Hero image and parallax effect support
 * Loading & Refresh
  * Blocking loading dialog
