@@ -1,25 +1,29 @@
-* All the projects were migrated to Android Studio and Gradle\n
+jdroid Java\n
+---------------\n
+* Ok http integration\n
+* Created jdroid-java-http-okhttp library\n
+* Created jdroid-java-http-apache library\n
+* Upgraded dependencies versions\n
+* Bug fixing\n
 \n
 jdroid Java Web\n
 ---------------\n
-* Added more debug info to admin controller\n
+* RollBar integration\n
 * Upgraded dependencies versions\n
 * Bug fixing\n
 \n
 jdroid Android\n
 --------------\n
-* Added support to multiple Admob ad units\n
-* Migrated to Android 5.1 (Api level 22)\n
-* Improved url handling support\n
-* Improved About screen\n
-* Improved A/B Testing support\n
-* Removed Merge Adapter dependencies\n
-* Removed deprecated coverflow component\n
-* Updated Google Play Services to 7.0.0\n
+* Created jdroid-android-google-plus library\n
+* Created jdroid-android-about library\n
+* Created jdroid-android-google-gcm library\n
+* Created jdroid-android-google-maps library\n
+* Created jdroid-android-facebook library\n
+* Added navigation view support to nav drawer\n
+* Added Left & right nav drawers support\n
+* Added Recycler View support\n
+* Added Exception tracking support on Analytics\n
+* Added Device year class integration\n
 * Updated support libraries\n
 * Bug fixing\n
-\n
-jdroid Gradle Plugin\n
---------------\n
-* Created new Gradle Plugin for java and android apps\n
 \n
