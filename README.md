@@ -13,6 +13,7 @@ Help us to continue with this project:
 Dependency project for both Android & Java apps
 * HTTP Service Layer
  * [Apache HTTP Client implementation](https://hc.apache.org/)
+ * [OkHttp Implementation](http://square.github.io/okhttp/)
  * GET, POST, PUT, PATCH & DELETE methods
  * Headers appender
  * Response validator
@@ -41,6 +42,7 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * [Sqlite integration](https://sqlite.org/)
 * [Android Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader)
 * [Facebook integration](https://developers.facebook.com/docs/android/): sign in, sign out, share with deep link
+* [Device year class integration](https://github.com/facebook/device-year-class)
 * Exception handling
  * [Crashlytics integration](https://crashlytics.com/)
 * [Lint support](http://developer.android.com/tools/help/lint.html)
@@ -80,6 +82,7 @@ Dependency project for Java-based enterprise apps
 * [Hibernate ORM integration](http://hibernate.org/orm/)
 * [Restfb Facebook integration](http://restfb.com/)
 * [Twitter 4j integration](http://twitter4j.org/)
+* [Rollbar integration](https://rollbar.com/)
 * Generic push framework. [Google Cloud Messaging implementation](http://developer.android.com/google/gcm/index.html)
 * Pagination and filtering support
 * [Log4j logging support](http://logging.apache.org/log4j/1.2/)
