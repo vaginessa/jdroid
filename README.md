@@ -8,12 +8,10 @@ Help us to continue with this project:
 
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2UEBTRTSCYA9L)
 
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid Java](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
 -----------
 Dependency project for both Android & Java apps
 * HTTP Service Layer
- * [Apache HTTP Client implementation](https://hc.apache.org/)
- * [OkHttp Implementation](http://square.github.io/okhttp/)
  * GET, POST, PUT, PATCH & DELETE methods
  * Headers appender
  * Response validator
@@ -26,6 +24,22 @@ Dependency project for both Android & Java apps
 * JSON marshallers
 * Exception handling
 * Utilities for Collections, Strings, Dates, Files, Encryption, Threads, [Logging](http://www.slf4j.org/), Validations, Reflection and more
+
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-http-apache](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
+-----------
+* HTTP Service Layer
+ * [Apache HTTP Client implementation](https://hc.apache.org/)
+
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-http-urlconnection](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
+-----------
+* HTTP Service Layer
+ * Url Connection implementation
+
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-http-okhttp](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
+-----------
+* HTTP Service Layer
+ * [OkHttp Implementation](http://square.github.io/okhttp/)
+
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid Android](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
