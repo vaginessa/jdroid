@@ -14,4 +14,5 @@ fi
 
 cd $JDROID_HOME
 ./gradlew :jdroid-gradle-plugin:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=$LOCAL_UPLOAD
-./gradlew :jdroid-java:uploadArchives :jdroid-java-http-apache:uploadArchives :jdroid-java-http-urlconnection:uploadArchives :jdroid-java-http-okhttp:uploadArchives :jdroid-javaweb:uploadArchives :jdroid-android:uploadArchives :jdroid-android-facebook:uploadArchives :jdroid-android-google-maps:uploadArchives :jdroid-android-google-gcm:uploadArchives :jdroid-android-google-plus:uploadArchives :jdroid-android-about:uploadArchives -PLOCAL_UPLOAD=$LOCAL_UPLOAD --refresh-dependencies
+./gradlew :jdroid-java:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=$LOCAL_UPLOAD --refresh-dependencies
+./gradlew :jdroid-java-http-apache:uploadArchives :jdroid-java-http-urlconnection:uploadArchives :jdroid-java-http-okhttp:uploadArchives :jdroid-javaweb:uploadArchives :jdroid-android:uploadArchives :jdroid-android-facebook:uploadArchives :jdroid-android-google-maps:uploadArchives :jdroid-android-google-gcm:uploadArchives :jdroid-android-google-plus:uploadArchives :jdroid-android-about:uploadArchives -PLOCAL_UPLOAD=$LOCAL_UPLOAD --refresh-dependencies
