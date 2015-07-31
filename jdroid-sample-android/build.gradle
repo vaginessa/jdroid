@@ -3,7 +3,12 @@ apply plugin: 'com.jdroid.android.application'
 description = 'Jdroid Sample Android'
 ext.packaging = 'apk'
 
-def jdroidVersion = project.version
+jdroid {
+	versionMajor = 0
+	versionMinor = 8
+	versionPatch = 0
+	notDefaultLanguages = ['es']
+}
 
 repositories {
 	mavenCentral()
@@ -20,7 +25,7 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + project.version
+		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + jdroidVersion
 	}
 }
 
@@ -36,44 +41,59 @@ configurations {
 
 dependencies {
 
+	// TODO Enable this when we discover how to publish both debug and release libraries
 //	debugCompile 'com.jdroidframework:jdroid-android:' + jdroidVersion + ':debug@aar'
 //	uatCompile 'com.jdroidframework:jdroid-android:' + jdroidVersion + ':debug@aar'
 //	releaseCompile 'com.jdroidframework:jdroid-android:' + jdroidVersion + ':release@aar'
 //	debugCompile project(path: ":jdroid-android", configuration: 'debug')
 //	uatCompile project(path: ":jdroid-android", configuration: 'debug')
 //	releaseCompile project(path: ":jdroid-android", configuration: 'release')
+
+	//compile 'com.jdroidframework:jdroid-android:' + jdroidVersion
 	compile project(':jdroid-android')
 
+	// TODO Enable this when we discover how to publish both debug and release libraries
 //	debugCompile 'com.jdroidframework:jdroid-android-about:' + jdroidVersion + ':debug@aar'
 //	uatCompile 'com.jdroidframework:jdroid-android-about:' + jdroidVersion + ':debug@aar'
 //	releaseCompile 'com.jdroidframework:jdroid-android-about:' + jdroidVersion + ':release@aar'
 //	debugCompile project(path: ":jdroid-android-about", configuration: 'debug')
 //	uatCompile project(path: ":jdroid-android-about", configuration: 'debug')
 //	releaseCompile project(path: ":jdroid-android-about", configuration: 'release')
+
+	//compile 'com.jdroidframework:jdroid-android-about:' + jdroidVersion
 	compile project(':jdroid-android-about')
 
+	// TODO Enable this when we discover how to publish both debug and release libraries
 //	debugCompile 'com.jdroidframework:jdroid-android-facebook:' + jdroidVersion + ':debug@aar'
 //	uatCompile 'com.jdroidframework:jdroid-android-facebook:' + jdroidVersion + ':debug@aar'
 //	releaseCompile 'com.jdroidframework:jdroid-android-facebook:' + jdroidVersion + ':release@aar'
 //	debugCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
 //	uatCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
 //	releaseCompile project(path: ":jdroid-android-facebook", configuration: 'release')
+
+	//compile 'com.jdroidframework:jdroid-android-facebook:' + jdroidVersion
 	compile project(':jdroid-android-facebook')
 
+	// TODO Enable this when we discover how to publish both debug and release libraries
 //	debugCompile 'com.jdroidframework:jdroid-android-google-maps:' + jdroidVersion + ':debug@aar'
 //	uatCompile 'com.jdroidframework:jdroid-android-google-maps:' + jdroidVersion + ':debug@aar'
 //	releaseCompile 'com.jdroidframework:jdroid-android-google-maps:' + jdroidVersion + ':release@aar'
 //	debugCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
 //	uatCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
 //	releaseCompile project(path: ":jdroid-android-google-maps", configuration: 'release')
+
+	//compile 'com.jdroidframework:jdroid-android-google-maps:' + jdroidVersion
 	compile project(':jdroid-android-google-maps')
 
+	// TODO Enable this when we discover how to publish both debug and release libraries
 //	debugCompile 'com.jdroidframework:jdroid-android-google-gcm:' + jdroidVersion + ':debug@aar'
 //	uatCompile 'com.jdroidframework:jdroid-android-google-gcm:' + jdroidVersion + ':debug@aar'
 //	releaseCompile 'com.jdroidframework:jdroid-android-google-gcm:' + jdroidVersion + ':release@aar'
 //	debugCompile project(path: ":jdroid-android-google-gcm", configuration: 'debug')
 //	uatCompile project(path: ":jdroid-android-google-gcm", configuration: 'debug')
 //	releaseCompile project(path: ":jdroid-android-google-gcm", configuration: 'release')
+
+	//compile 'com.jdroidframework:jdroid-android-google-gcm:' + jdroidVersion
 	compile project(':jdroid-android-google-gcm')
 
 //	compile ('com.jdroidframework:jdroid-java-http-okhttp:' + jdroidVersion) {
@@ -103,14 +123,7 @@ dependencies {
 		exclude module: 'wagon-provider-api'
 	}
 }
-jdroid {
 
-	versionMajor = 0
-	versionMinor = 8
-	versionPatch = 0
-
-	notDefaultLanguages = ['es']
-}
 
 android {
 

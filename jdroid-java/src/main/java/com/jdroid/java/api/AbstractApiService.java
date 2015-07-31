@@ -216,7 +216,7 @@ public abstract class AbstractApiService {
 		};
 	}
 
-	public HttpServiceFactory createHttpServiceFactory() {
+	protected HttpServiceFactory createHttpServiceFactory() {
 		HttpServiceFactory httpServiceFactory;
 		try {
 			httpServiceFactory = ReflectionUtils.newInstance("com.jdroid.java.http.apache.ApacheHttpServiceFactory");
@@ -240,23 +240,23 @@ public abstract class AbstractApiService {
 		return null;
 	}
 	
-	public void marshallSimple(BodyEnclosingHttpService httpService, Object object) {
+	protected void marshallSimple(BodyEnclosingHttpService httpService, Object object) {
 		marshall(httpService, object, MarshallerMode.SIMPLE);
 	}
 	
-	public void marshall(BodyEnclosingHttpService httpService, Object object) {
+	protected void marshall(BodyEnclosingHttpService httpService, Object object) {
 		marshall(httpService, object, MarshallerMode.COMPLETE);
 	}
 	
-	public void marshall(BodyEnclosingHttpService httpService, Object object, MarshallerMode mode) {
+	protected void marshall(BodyEnclosingHttpService httpService, Object object, MarshallerMode mode) {
 		marshall(httpService, object, mode, null);
 	}
 	
-	public void marshall(BodyEnclosingHttpService httpService, Object object, Map<String, String> extras) {
+	protected void marshall(BodyEnclosingHttpService httpService, Object object, Map<String, String> extras) {
 		marshall(httpService, object, MarshallerMode.COMPLETE, extras);
 	}
 	
-	public void marshall(BodyEnclosingHttpService httpService, Object object, MarshallerMode mode,
+	protected void marshall(BodyEnclosingHttpService httpService, Object object, MarshallerMode mode,
 			Map<String, String> extras) {
 		httpService.setBody(MarshallerProvider.get().marshall(object, mode, extras).toString());
 	}

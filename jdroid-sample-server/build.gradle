@@ -3,6 +3,15 @@ apply plugin: 'com.jdroid.javaweb'
 description = 'Jdroid Sample Server'
 ext.packaging = 'war'
 
+//jdroid {
+//
+//	versionMajor = a
+//	versionMinor = b
+//	versionPatch = c
+//}
+//version = jdroid.getVersion()
+version = project.version
+
 buildscript {
 	repositories {
 		mavenCentral()
@@ -10,7 +19,7 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + project.version
+		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + jdroidVersion
 	}
 }
 
@@ -22,26 +31,19 @@ configurations.all {
 	// check for updates every build
 	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
-
 dependencies {
+
+	//compile 'com.jdroidframework:jdroid-javaweb:' + jdroidVersion
 	compile project(':jdroid-javaweb')
+
+	//compile 'com.jdroidframework:jdroid-java-http-apache:' + jdroidVersion
 	compile project(':jdroid-java-http-apache')
-	//compile 'com.jdroidframework:jdroid-javaweb:0.7.0-SNAPSHOT'
 
 	// Testing
 	testCompile "org.testng:testng:6.8.21"
 	testCompile "org.mockito:mockito-all:1.10.19"
 }
 
-jdroid {
-
-	versionMajor = 0
-	versionMinor = 8
-	versionPatch = 0
-	versionClassifier = "-SNAPSHOT"
-}
-
-version = jdroid.getVersion()
 
 // Generate the settings.properties
 project.afterEvaluate {
