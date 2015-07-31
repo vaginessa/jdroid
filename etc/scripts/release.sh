@@ -5,7 +5,6 @@ BUILD_DIRECTORY=$1
 OAUTH_TOKEN=$2
 
 PROJECT_NAME=jdroid
-SOURCE_DIRECTORY=$BUILD_DIRECTORY/$PROJECT_NAME/source/$PROJECT_NAME
 
 # Build and Deploy to Sonatype
 # ************************
