@@ -50,12 +50,10 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
  * [Google Analytics v4 integration](https://developers.google.com/analytics/devguides/collection/android/v4/). A/B testing support
  * [Google Cloud Messaging integration](http://developer.android.com/google/gcm/index.html)
  * [Google Maps v2 integration](http://developer.android.com/google/play-services/maps.html)
- * [Google+ integration](http://developer.android.com/google/play-services/plus.html): +1 button, friends, sign in, sign out, revoke access, share
  * [Google Mobile Ads (AdMob) integration](http://developer.android.com/google/play-services/ads.html): banners & interstitials support
  * [Google Play In App Billing v3 integration](http://developer.android.com/google/play/billing/index.html)
 * [Sqlite integration](https://sqlite.org/)
 * [Android Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader)
-* [Facebook integration](https://developers.facebook.com/docs/android/): sign in, sign out, share with deep link
 * [Device year class integration](https://github.com/facebook/device-year-class)
 * Exception handling
  * [Crashlytics integration](https://crashlytics.com/)
@@ -80,12 +78,25 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * Barcode reading component
 * Voice Recognizer component
 * Date & Time picker components
-* About dialog component
- * Contact Us, Spread the Word, Rate Us & Libraries 
 * QuickReturnLayout component
 * Animations
  * Fade in / Fade out
 * Utilities for Alarms, Bitmaps, [Notifications](http://developer.android.com/design/patterns/notifications.html), Shared Preferences, [Toasts](http://developer.android.com/guide/topics/ui/notifiers/toasts.html), GPS, and more
+
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-google-plus](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
+--------------
+ * [Google+ integration](http://developer.android.com/google/play-services/plus.html)
+  * +1 button, friends, sign in, sign out, revoke access, share
+
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-facebook](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
+--------------
+* [Facebook SDK integration](https://developers.facebook.com/docs/android/)
+ * Sign in, sign out, share with deep link
+
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-about](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
+--------------
+* About dialog component
+ * Contact Us, Spread the Word, Rate Us & Libraries 
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid Java Web](https://github.com/maxirosson/jdroid/wiki/jdroid-Java-Web)
 ---------------
