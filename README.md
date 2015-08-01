@@ -2,7 +2,7 @@
 [![Build Status](https://api.travis-ci.org/maxirosson/jdroid.svg?branch=master)](https://travis-ci.org/maxirosson/jdroid)
 ======
 
-The JDROID Framework provides a programming and architectural model for modern Java-based enterprise and android applications.
+The jdroid Framework provides a programming and architectural model for modern Java-based enterprise and android applications.
 
 Help us to continue with this project:
 
@@ -10,7 +10,7 @@ Help us to continue with this project:
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
 -----------
-Dependency project for both Android & Java apps
+Dependency for both Android & Java apps
 * HTTP Service Layer
  * GET, POST, PUT, PATCH & DELETE methods
  * Headers appender
@@ -42,7 +42,7 @@ Dependency project for both Android & Java apps
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
-Library project for Android apps. Support for Android 4.0 (api level 14) and higher versions
+Dependency for Android apps. Support for Android 4.0 (api level 14) and higher versions
 * Languages supported: english & spanish
 * [Navigation Drawer support](https://developer.android.com/design/patterns/navigation-drawer.html)
 * [Google Analytics v4 integration](https://developers.google.com/analytics/devguides/collection/android/v4/). A/B testing support
