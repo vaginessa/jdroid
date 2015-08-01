@@ -48,8 +48,6 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * [Navigation Drawer support](https://developer.android.com/design/patterns/navigation-drawer.html)
 * Google Play Services integration
  * [Google Analytics v4 integration](https://developers.google.com/analytics/devguides/collection/android/v4/). A/B testing support
- * [Google Cloud Messaging integration](http://developer.android.com/google/gcm/index.html)
- * [Google Maps v2 integration](http://developer.android.com/google/play-services/maps.html)
  * [Google Mobile Ads (AdMob) integration](http://developer.android.com/google/play-services/ads.html): banners & interstitials support
  * [Google Play In App Billing v3 integration](http://developer.android.com/google/play/billing/index.html)
 * [Sqlite integration](https://sqlite.org/)
@@ -82,6 +80,14 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
 * Animations
  * Fade in / Fade out
 * Utilities for Alarms, Bitmaps, [Notifications](http://developer.android.com/design/patterns/notifications.html), Shared Preferences, [Toasts](http://developer.android.com/guide/topics/ui/notifiers/toasts.html), GPS, and more
+
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-google-gcm](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
+--------------
+ * [Google Cloud Messaging integration](http://developer.android.com/google/gcm/index.html)
+
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-google-maps](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
+--------------
+ * [Google Maps v2 integration](http://developer.android.com/google/play-services/maps.html)
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-google-plus](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
