@@ -30,15 +30,15 @@ Dependency project for both Android & Java apps
 * HTTP Service Layer
  * [Apache HTTP Client implementation](https://hc.apache.org/)
 
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-http-urlconnection](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
------------
-* HTTP Service Layer
- * Url Connection implementation
-
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-http-okhttp](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
 -----------
 * HTTP Service Layer
  * [OkHttp Implementation](http://square.github.io/okhttp/)
+
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-http-urlconnection](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
+-----------
+* HTTP Service Layer
+ * Url Connection implementation
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
@@ -102,7 +102,7 @@ Library project for Android apps. Support for Android 4.0 (api level 14) and hig
  * [Google+ integration](http://developer.android.com/google/play-services/plus.html)
   * +1 button, friends, sign in, sign out, revoke access, share
 
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid Java Web](https://github.com/maxirosson/jdroid/wiki/jdroid-Java-Web)
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-javaweb](https://github.com/maxirosson/jdroid/wiki/jdroid-Java-Web)
 ---------------
 Dependency project for Java-based enterprise apps 
 * Http Filters
@@ -118,7 +118,7 @@ Dependency project for Java-based enterprise apps
 * [Log4j logging support](http://logging.apache.org/log4j/1.2/)
 * Utilities for Collections, CSV, Files, Reflection, [Guava](https://code.google.com/p/guava-libraries/) and more
 
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/gradle.png" width="25" height="25"/> jdroid Gradle Plugin](https://github.com/maxirosson/jdroid/wiki/jdroid-Gradle-Plugin)
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/gradle.png" width="25" height="25"/> jdroid-gradle-plugin](https://github.com/maxirosson/jdroid/wiki/jdroid-Gradle-Plugin)
 --------------
 Gradle Plugin for Java & Android projects
 * Android
@@ -135,7 +135,7 @@ Gradle Plugin for Java & Android projects
  * [Jetty](http://eclipse.org/jetty) integration
  * [Heroku](https://www.heroku.com) integration
 
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/genericNews.png" width="25" height="25"/> jdroid Scripts](https://github.com/maxirosson/jdroid/wiki/jdroid-Scripts)
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/genericNews.png" width="25" height="25"/>jdroid-scripts](https://github.com/maxirosson/jdroid/wiki/jdroid-Scripts)
 --------------
 A set of useful shell scripts to
  * Create a pull request on [Github](https://github.com)
