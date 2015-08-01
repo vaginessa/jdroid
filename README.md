@@ -135,7 +135,7 @@ Gradle Plugin for Java & Android projects
  * [Jetty](http://eclipse.org/jetty) integration
  * [Heroku](https://www.heroku.com) integration
 
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/genericNews.png" width="25" height="25"/>jdroid-scripts](https://github.com/maxirosson/jdroid/wiki/jdroid-Scripts)
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/genericNews.png" width="25" height="25"/> jdroid-scripts](https://github.com/maxirosson/jdroid/wiki/jdroid-Scripts)
 --------------
 A set of useful shell scripts to
  * Create a pull request on [Github](https://github.com)
