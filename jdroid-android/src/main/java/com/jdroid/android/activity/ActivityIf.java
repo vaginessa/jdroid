@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 
 import com.jdroid.android.loading.ActivityLoading;
 import com.jdroid.android.navdrawer.NavDrawer;
+import com.jdroid.android.uri.UriHandler;
 
 public interface ActivityIf extends ComponentIf {
 	
@@ -42,6 +43,8 @@ public interface ActivityIf extends ComponentIf {
 	public Boolean isActivityDestroyed();
 
 	public Boolean onBackPressedHandled();
+
+	public UriHandler getUriHandler();
 	
 	// //////////////////////// Loading //////////////////////// //
 	

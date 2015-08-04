@@ -4,10 +4,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 
-import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.FragmentContainerActivity;
 import com.jdroid.android.navdrawer.NavDrawer;
+import com.jdroid.android.uri.NoSegmentsUriHandler;
+import com.jdroid.android.uri.UriHandler;
 
 public class HomeActivity extends FragmentContainerActivity {
 
@@ -19,7 +20,6 @@ public class HomeActivity extends FragmentContainerActivity {
 		super.onCreate(savedInstanceState);
 
 		if (savedInstanceState == null) {
-			AbstractApplication.get().getUriMapper().checkDeepLink(this);
 			// TODO Enable to make gcm work
 //			AbstractGcmRegistrationService.runRegistrationService(getApplicationContext(), AndroidGcmRegistrationService.class);
 		}
@@ -38,5 +38,10 @@ public class HomeActivity extends FragmentContainerActivity {
 		NavDrawer navDrawer = super.createNavDrawer(activity, appBar);
 		navDrawer.setIsNavDrawerTopLevelView(true);
 		return navDrawer;
+	}
+
+	@Override
+	public UriHandler getUriHandler() {
+		return new NoSegmentsUriHandler();
 	}
 }

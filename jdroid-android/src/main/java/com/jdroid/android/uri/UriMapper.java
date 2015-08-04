@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.webkit.URLUtil;
 
 import com.jdroid.android.AbstractApplication;
 import com.jdroid.android.analytics.AppLoadingSource;
+import com.jdroid.android.utils.NotificationBuilder;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -26,23 +28,43 @@ public class UriMapper {
 	
 	private static final Logger LOG = LoggerUtils.getLogger(UriMapper.class);
 
-	private List<UriHandler<?>> handlers = Lists.newArrayList();
+	private List<UriHandler> handlers = Lists.newArrayList();
 
-	public void addUriHandler(UriHandler<?> uriHandler) {
+	public void addUriHandler(UriHandler uriHandler) {
 		handlers.add(uriHandler);
 	}
 	
-	/**
-	 * Check for an incoming deep link
-	 * 
-	 * @param activity
-	 */
-	public void checkDeepLink(Activity activity) {
-		Uri targetUri = activity.getIntent().getData();
-		if (targetUri != null) {
-			startActivityFromUri(activity, targetUri);
-		} else {
-			AppLoadingSource.NORMAL.flagIntent(activity.getIntent());
+	public void handleUri(Activity activity, Bundle savedInstanceState, UriHandler uriHandler) {
+		if (savedInstanceState == null) {
+
+			Uri uri = activity.getIntent().getData();
+			if (uri != null && uri.toString() != null && !uri.toString().startsWith(NotificationBuilder.NOTIFICATION_URI)) {
+
+				if (uriHandler.matches(uri)) {
+					Intent intent = uriHandler.getStartIntent(activity, uri);
+					if (intent != null) {
+						activity.setIntent(intent);
+					}
+				} else {
+					AbstractApplication.get().getExceptionHandler().logWarningException("Uri doesn't match with the handler: " + uri.toString());
+				}
+
+				AppLoadingSource appLoadingSource;
+				if (uri.getScheme() == null) {
+					appLoadingSource = AppLoadingSource.NORMAL;
+					AbstractApplication.get().getExceptionHandler().logWarningException("Uri with null scheme: " + uri.toString());
+				} else if (uri.getScheme().startsWith("http")) {
+					appLoadingSource = AppLoadingSource.URL;
+					AbstractApplication.get().getAnalyticsSender().trackUriOpened(appLoadingSource.getName(), activity.getClass().getSimpleName());
+				} else {
+					appLoadingSource = AppLoadingSource.DEEPLINK;
+					AbstractApplication.get().getAnalyticsSender().trackUriOpened(appLoadingSource.getName(), activity.getClass().getSimpleName());
+				}
+				appLoadingSource.flagIntent(activity.getIntent());
+
+			} else {
+				AppLoadingSource.NORMAL.flagIntent(activity.getIntent());
+			}
 		}
 	}
 	
@@ -122,7 +144,7 @@ public class UriMapper {
 	 * @return the intent
 	 */
 	private Intent getIntentFromUriInner(Context context, Uri uri) {
-		UriHandler<?> uriHandler = match(uri);
+		UriHandler uriHandler = match(uri);
 
 		Intent intent = null;
 		if (uriHandler != null) {
@@ -140,9 +162,9 @@ public class UriMapper {
 	 * @param uri the uri to evaluate.
 	 * @return the matched UriHandler or null.
 	 */
-	private UriHandler<?> match(Uri uri) {
-		for (UriHandler<?> uriHandler : handlers) {
-			if (uriHandler.match(uri)) {
+	private UriHandler match(Uri uri) {
+		for (UriHandler uriHandler : handlers) {
+			if (uriHandler.matches(uri)) {
 				return uriHandler;
 			}
 		}

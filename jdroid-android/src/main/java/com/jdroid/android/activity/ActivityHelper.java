@@ -32,6 +32,7 @@ import com.jdroid.android.loading.ActivityLoading;
 import com.jdroid.android.loading.DefaultBlockingLoading;
 import com.jdroid.android.location.LocationHelper;
 import com.jdroid.android.navdrawer.NavDrawer;
+import com.jdroid.android.uri.UriHandler;
 import com.jdroid.android.utils.NotificationBuilder;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.concurrent.ExecutorUtils;
@@ -114,7 +115,12 @@ public class ActivityHelper implements ActivityIf {
 		AbstractApplication.get().setCurrentActivity(activity);
 		
 		AbstractApplication.get().initExceptionHandlers();
-		
+
+		UriHandler uriHandler = getActivityIf().getUriHandler();
+		if (uriHandler != null) {
+			AbstractApplication.get().getUriMapper().handleUri(activity, savedInstanceState, uriHandler);
+		}
+
 		if ((savedInstanceState == null) && !inAppBillingLoaded) {
 			InAppBillingHelperFragment.add(activity, InAppBillingHelperFragment.class, true, null);
 			inAppBillingLoaded = true;
@@ -140,6 +146,10 @@ public class ActivityHelper implements ActivityIf {
 		if (savedInstanceState == null) {
 			trackNotificationOpened(activity.getIntent());
 		}
+	}
+
+	public UriHandler getUriHandler() {
+		return null;
 	}
 
 	public void onPostCreate(Bundle savedInstanceState) {

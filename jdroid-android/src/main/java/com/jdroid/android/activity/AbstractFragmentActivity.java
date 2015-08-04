@@ -21,6 +21,7 @@ import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.UseCaseFragment;
 import com.jdroid.android.loading.ActivityLoading;
 import com.jdroid.android.navdrawer.NavDrawer;
+import com.jdroid.android.uri.UriHandler;
 import com.jdroid.java.exception.UnexpectedException;
 
 /**
@@ -416,7 +417,12 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	public Boolean isActivityDestroyed() {
 		return activityHelper.isActivityDestroyed();
 	}
-	
+
+	@Override
+	public UriHandler getUriHandler() {
+		return activityHelper.getUriHandler();
+	}
+
 	// //////////////////////// Loading //////////////////////// //
 	
 	/**

@@ -32,8 +32,8 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="http" android:host="jdroidframework.com" android:pathPattern=".*" />
-				<data android:scheme="jdroid" android:host="app" android:pathPattern=".*" />
+				<data android:scheme="http" android:host="jdroidframework.com" android:path="/" />
+				<data android:scheme="jdroid" android:host="app" android:path="/" />
 			</intent-filter>
 			<intent-filter>
 				<action android:name="com.google.android.apps.plus.VIEW_DEEP_LINK" />
@@ -44,7 +44,15 @@
 		</activity>
 
 		<activity android:name="com.jdroid.sample.android.ui.ads.AdsActivity" android:label="@string/adMob"
-				  android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>
+				  android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="http" android:host="jdroidframework.com" android:path="/ads" />
+				<data android:scheme="jdroid" android:host="app" android:path="/ads" />
+			</intent-filter>
+		</activity>
 
 		<activity android:name="com.jdroid.sample.android.ui.ads.HouseAdsActivity" android:label="@string/houseAds"
 				  android:parentActivityName="com.jdroid.sample.android.ui.HomeActivity" tools:ignore="UnusedAttribute"/>

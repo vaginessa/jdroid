@@ -22,7 +22,7 @@ public class NotificationBuilder {
 	
 	public static final String NOTIFICATION_NAME = "notificationName";
 
-	private static String NOTIFICATION_URI = "notification://";
+	public static String NOTIFICATION_URI = "notification://";
 	
 	private String notificationName;
 	private NotificationCompat.Builder builder;
@@ -101,12 +101,12 @@ public class NotificationBuilder {
 			notificationIntent.setData(createUniqueNotificationUri());
 		}
 
-		builder.setContentIntent(PendingIntent.getActivity(AbstractApplication.get(), IdGenerator.getIntId(),
+		builder.setContentIntent(PendingIntent.getActivity(AbstractApplication.get(), IdGenerator.getRandomIntId(),
 				notificationIntent, 0));
 	}
 
 	protected Uri createUniqueNotificationUri() {
-		return Uri.parse(NOTIFICATION_URI + IdGenerator.getIntId());
+		return Uri.parse(NOTIFICATION_URI + IdGenerator.getRandomIntId());
 	}
 
 	public void setWhen(Long when) {

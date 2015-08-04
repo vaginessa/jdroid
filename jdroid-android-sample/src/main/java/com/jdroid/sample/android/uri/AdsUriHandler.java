@@ -7,26 +7,15 @@ import android.net.Uri;
 import com.jdroid.android.uri.UriHandler;
 import com.jdroid.sample.android.ui.ads.AdsActivity;
 
-public class AdsUriHandler extends UriHandler<Void> {
+public class AdsUriHandler implements UriHandler {
 
 	@Override
-	public Boolean match(Uri uri) {
+	public Boolean matches(Uri uri) {
 		return !uri.getPathSegments().isEmpty() && uri.getPathSegments().get(0).equals("ads");
 	}
 
-	/**
-	 * @see UriHandler#parseParameters(Uri)
-	 */
 	@Override
-	public Void parseParameters(Uri uri) {
-		return null;
-	}
-
-	/**
-	 * @see UriHandler#createStartIntent(Context, Object)
-	 */
-	@Override
-	public Intent createStartIntent(Context context, Void parameters) {
+	public Intent getStartIntent(Context context, Uri uri) {
 		Intent intent = new Intent(context, AdsActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		return intent;
