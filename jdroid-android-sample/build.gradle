@@ -169,7 +169,10 @@ android {
 
 		jdroid.setString(defaultConfig, "GOOGLE_PLAY_PUBLIC_KEY", null)
 
-		manifestPlaceholders = [googleMapsApiKey: "AIzaSyDhgOTyv5EqcYckAnPI1Cdms-1DxBYhjjA", crashlyticsApiKey: "478dae49374362f33bc054fc44d1f4242c574ccb"]
+		manifestPlaceholders = [
+				googleMapsApiKey: "AIzaSyDhgOTyv5EqcYckAnPI1Cdms-1DxBYhjjA",
+				crashlyticsApiKey: "478dae49374362f33bc054fc44d1f4242c574ccb"
+		]
 	}
 
 	signingConfigs {
