@@ -17,10 +17,12 @@ public class OkHttpResponseWrapper extends HttpResponseWrapper {
 
 	public OkHttpResponseWrapper(Response response) throws IOException {
 		this.response = response;
-		inputStream = response.body().byteStream();
-		String contentEncoding = response.header(HttpService.CONTENT_ENCODING_HEADER);
-		if (inputStream != null && (contentEncoding != null) && contentEncoding.equalsIgnoreCase(HttpService.GZIP_ENCODING)) {
-			inputStream = new GZIPInputStream(inputStream);
+		if (response.code() != 204) {
+			inputStream = response.body().byteStream();
+			String contentEncoding = response.header(HttpService.CONTENT_ENCODING_HEADER);
+			if (inputStream != null && (contentEncoding != null) && contentEncoding.equalsIgnoreCase(HttpService.GZIP_ENCODING)) {
+				inputStream = new GZIPInputStream(inputStream);
+			}
 		}
 	}
 

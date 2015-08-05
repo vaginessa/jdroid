@@ -15,6 +15,7 @@ public interface HttpService {
 	public static final String GZIP_ENCODING = "gzip";
 	public static final String ACCEPT_HEADER = "accept";
 	public static final String CONTENT_TYPE_HEADER = "content-type";
+	public static final String USER_AGENT_HEADER = "User-Agent";
 	
 	public static final String QUESTION_MARK = "?";
 	public static final String EQUALS = "=";

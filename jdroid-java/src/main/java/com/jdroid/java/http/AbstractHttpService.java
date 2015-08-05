@@ -103,10 +103,11 @@ public abstract class AbstractHttpService implements HttpService {
 				each.afterExecute(this, httpResponseWrapper);
 			}
 
-			inputStream = httpResponseWrapper.getInputStream();
-
 			// parse and return response.
 			if (parser != null) {
+
+				inputStream = httpResponseWrapper.getInputStream();
+
 				if (inputStream != null) {
 					return (T)parser.parse(inputStream);
 				} else {

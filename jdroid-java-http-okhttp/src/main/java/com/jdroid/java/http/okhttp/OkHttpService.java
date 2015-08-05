@@ -4,8 +4,10 @@ import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.http.AbstractHttpService;
 import com.jdroid.java.http.HttpResponseWrapper;
+import com.jdroid.java.http.HttpService;
 import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.Server;
+import com.jdroid.java.utils.StringUtils;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -35,7 +37,7 @@ public abstract class OkHttpService extends AbstractHttpService {
 		Request.Builder builder = new Request.Builder();
 		builder.url(urlString);
 
-		// Add Headers
+		addUserAgent(builder);
 		addHeaders(builder);
 
 		onConfigureRequestBuilder(builder);
@@ -54,6 +56,15 @@ public abstract class OkHttpService extends AbstractHttpService {
 			throw new UnexpectedException(e);
 		}
 	}
+
+	protected void addUserAgent(Request.Builder builder) {
+		String userAgent = getUserAgent();
+		if (StringUtils.isNotBlank(userAgent)) {
+			builder.addHeader(HttpService.USER_AGENT_HEADER, userAgent);
+			LOGGER.debug("User Agent: " + userAgent);
+		}
+	}
+
 
 	private void addHeaders(Request.Builder builder) {
 		for (Map.Entry<String, String> entry : getHeaders().entrySet()) {
