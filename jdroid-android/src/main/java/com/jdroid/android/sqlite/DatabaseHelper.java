@@ -4,7 +4,7 @@ import java.util.Set;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.collections.Sets;
 
 public class DatabaseHelper extends SQLiteOpenHelper {

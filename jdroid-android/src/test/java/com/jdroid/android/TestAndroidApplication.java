@@ -3,6 +3,7 @@ package com.jdroid.android;
 import android.app.Activity;
 import android.content.Context;
 
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.exception.ExceptionHandler;
 

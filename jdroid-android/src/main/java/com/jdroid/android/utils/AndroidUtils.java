@@ -21,7 +21,8 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ScrollView;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.intent.IntentUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.StringUtils;

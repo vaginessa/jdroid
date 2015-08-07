@@ -3,7 +3,7 @@ package com.jdroid.android.debug;
 import android.os.Bundle;
 import android.view.View;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.fragment.AbstractPreferenceFragment;
 import com.jdroid.java.collections.Lists;

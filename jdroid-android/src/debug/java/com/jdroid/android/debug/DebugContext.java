@@ -2,8 +2,8 @@ package com.jdroid.android.debug;
 
 import android.support.v4.util.Pair;
 
-import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.ActivityLauncher;
+import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.debug.mocks.AndroidJsonMockHttpService;
 import com.jdroid.android.fragment.AbstractPreferenceFragment;
 import com.jdroid.android.google.gcm.GcmMessage;

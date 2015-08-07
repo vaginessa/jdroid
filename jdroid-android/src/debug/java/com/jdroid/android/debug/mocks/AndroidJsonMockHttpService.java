@@ -2,7 +2,7 @@ package com.jdroid.android.debug.mocks;
 
 import android.preference.PreferenceManager;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.debug.CrashGenerator;
 import com.jdroid.android.debug.ExceptionType;
 import com.jdroid.java.http.mock.AbstractMockHttpService;

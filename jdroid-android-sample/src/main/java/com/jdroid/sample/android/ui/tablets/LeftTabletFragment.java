@@ -5,7 +5,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.jdroid.android.ActivityLauncher;
+import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.utils.ScreenUtils;
 import com.jdroid.android.utils.ToastUtils;

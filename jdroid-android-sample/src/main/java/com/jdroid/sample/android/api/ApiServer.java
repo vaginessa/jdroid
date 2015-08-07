@@ -1,6 +1,6 @@
 package com.jdroid.sample.android.api;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.Server;

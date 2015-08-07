@@ -18,7 +18,7 @@ import com.facebook.SharedPreferencesTokenCachingStrategy;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.exception.CommonErrorCode;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.ConnectionException;

@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.domain.Entity;
 import com.jdroid.android.sqlite.Column;
 import com.jdroid.android.sqlite.SQLiteHelper;

@@ -3,7 +3,7 @@ package com.jdroid.android.google.maps;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds.Builder;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.domain.GeoLocation;
 
 import java.util.ArrayList;

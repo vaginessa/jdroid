@@ -9,7 +9,9 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.google.GooglePlayUtils;
+import com.jdroid.android.intent.IntentUtils;
 
 public class ExternalAppsUtils {
 	

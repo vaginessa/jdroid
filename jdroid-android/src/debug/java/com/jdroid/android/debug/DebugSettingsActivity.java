@@ -3,7 +3,7 @@ package com.jdroid.android.debug;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.fragment.AbstractPreferenceFragment;

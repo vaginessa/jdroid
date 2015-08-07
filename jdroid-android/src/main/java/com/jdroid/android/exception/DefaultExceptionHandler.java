@@ -3,10 +3,10 @@ package com.jdroid.android.exception;
 import android.app.Activity;
 import android.support.v4.app.FragmentActivity;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.utils.AndroidUtils;
-import com.jdroid.android.utils.GooglePlayUtils;
+import com.jdroid.android.google.GooglePlayUtils;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;

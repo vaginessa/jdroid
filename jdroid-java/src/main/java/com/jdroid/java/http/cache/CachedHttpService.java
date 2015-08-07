@@ -3,7 +3,7 @@ package com.jdroid.java.http.cache;
 import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.HttpService;
 import com.jdroid.java.http.post.BodyEnclosingHttpService;
-import com.jdroid.java.parser.Parser;
+import com.jdroid.java.http.parser.Parser;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.Hasher;
 import com.jdroid.java.utils.LoggerUtils;
@@ -40,7 +40,7 @@ public abstract class CachedHttpService implements BodyEnclosingHttpService {
 	}
 	
 	/**
-	 * @see HttpService#execute(com.jdroid.java.parser.Parser)
+	 * @see HttpService#execute(Parser)
 	 */
 	@Override
 	public <T> T execute(Parser parser) {

@@ -5,8 +5,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.jdroid.android.fragment.AbstractFragment;
-import com.jdroid.android.utils.NotificationBuilder;
-import com.jdroid.android.utils.NotificationUtils;
+import com.jdroid.android.notification.NotificationBuilder;
+import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.sample.android.R;
 

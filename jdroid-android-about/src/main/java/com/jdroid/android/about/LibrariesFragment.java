@@ -3,7 +3,7 @@ package com.jdroid.android.about;
 import android.os.Bundle;
 import android.view.View;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.fragment.AbstractRecyclerFragment;
 import com.jdroid.android.images.loader.ImageLoaderHelper;
 import com.jdroid.java.collections.Lists;

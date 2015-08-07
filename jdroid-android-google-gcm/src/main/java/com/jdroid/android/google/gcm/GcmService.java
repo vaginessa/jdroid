@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.service.WorkerService;
 import com.jdroid.java.utils.LoggerUtils;
 

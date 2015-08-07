@@ -1,6 +1,6 @@
 package com.jdroid.sample.android.api;
 
-import com.jdroid.android.api.AbstractHeaderAppender;
+import com.jdroid.android.http.AbstractHeaderAppender;
 
 public class HeadersAppender extends AbstractHeaderAppender {
 	

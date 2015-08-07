@@ -3,9 +3,9 @@ package com.jdroid.android.barcode;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
-import com.jdroid.android.utils.GooglePlayUtils;
+import com.jdroid.android.google.GooglePlayUtils;
 import com.jdroid.java.utils.IdGenerator;
 
 /**

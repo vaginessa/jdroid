@@ -3,7 +3,7 @@ package com.jdroid.java.http;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.parser.Parser;
+import com.jdroid.java.http.parser.Parser;
 import com.jdroid.java.utils.EncodingUtils;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
@@ -74,7 +74,7 @@ public abstract class AbstractHttpService implements HttpService {
 	}
 
 	/**
-	 * @see HttpService#execute(com.jdroid.java.parser.Parser)
+	 * @see HttpService#execute(Parser)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override

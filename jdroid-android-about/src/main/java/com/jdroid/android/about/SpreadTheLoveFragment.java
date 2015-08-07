@@ -8,7 +8,7 @@ import android.view.View.OnClickListener;
 
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.plus.PlusOneButton;
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.facebook.FacebookHelper;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.share.GooglePlusSharingItem;
@@ -24,7 +24,7 @@ import com.jdroid.android.share.WhatsAppSharingItem;
 import com.jdroid.android.google.plus.GooglePlusHelperFragment;
 import com.jdroid.android.google.plus.GooglePlusOneButtonHelper;
 import com.jdroid.android.social.twitter.TwitterConnector;
-import com.jdroid.android.utils.GooglePlayUtils;
+import com.jdroid.android.google.GooglePlayUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.IdGenerator;
 

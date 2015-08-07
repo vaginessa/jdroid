@@ -1,6 +1,6 @@
 package com.jdroid.android.context;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.domain.User;
 
 public class SecurityContext {

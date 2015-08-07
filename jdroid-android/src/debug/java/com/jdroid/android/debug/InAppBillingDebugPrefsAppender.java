@@ -1,18 +1,19 @@
 package com.jdroid.android.debug;
 
-import java.util.List;
 import android.app.Activity;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
-import com.jdroid.android.inappbilling.InAppBillingContext;
-import com.jdroid.android.inappbilling.ProductType;
-import com.jdroid.android.inappbilling.TestProductType;
+import com.jdroid.android.google.inappbilling.InAppBillingContext;
+import com.jdroid.android.google.inappbilling.ProductType;
+import com.jdroid.android.google.inappbilling.TestProductType;
 import com.jdroid.java.collections.Lists;
+
+import java.util.List;
 
 public class InAppBillingDebugPrefsAppender implements PreferencesAppender {
 	
@@ -46,14 +47,14 @@ public class InAppBillingDebugPrefsAppender implements PreferencesAppender {
 		preferenceCategory.addPreference(preference);
 		
 		// Purchased products
-		List<ProductType> purchasedProductTypes = InAppBillingContext.get().getPurchasedProductTypes();
+		List<ProductType> purchasedProductTypes = AbstractApplication.get().getInAppBillingContext().getPurchasedProductTypes();
 		if (!purchasedProductTypes.isEmpty()) {
 			preference = new ListPreference(activity);
 			preference.setTitle(R.string.inAppBillingPurchasedProductTypeTitle);
 			preference.setDialogTitle(R.string.inAppBillingPurchasedProductTypeTitle);
 			preference.setSummary(R.string.inAppBillingPurchasedProductTypeTitle);
 			entries = Lists.newArrayList();
-			for (ProductType each : InAppBillingContext.get().getPurchasedProductTypes()) {
+			for (ProductType each : AbstractApplication.get().getInAppBillingContext().getPurchasedProductTypes()) {
 				entries.add(each.getProductId());
 			}
 			preference.setEntries(entries.toArray(new CharSequence[0]));
@@ -67,7 +68,7 @@ public class InAppBillingDebugPrefsAppender implements PreferencesAppender {
 	 */
 	@Override
 	public Boolean isEnabled() {
-		return !AbstractApplication.get().getManagedProductTypes().isEmpty()
-				|| !AbstractApplication.get().getSubscriptionsProductTypes().isEmpty();
+		return !AbstractApplication.get().getInAppBillingContext().getManagedProductTypes().isEmpty()
+				|| !AbstractApplication.get().getInAppBillingContext().getSubscriptionsProductTypes().isEmpty();
 	}
 }

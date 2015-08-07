@@ -2,7 +2,7 @@ package com.jdroid.sample.android.ui.navdrawer;
 
 import android.support.v4.app.FragmentActivity;
 
-import com.jdroid.android.ActivityLauncher;
+import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.about.AboutActivity;
 import com.jdroid.android.navdrawer.NavDrawerItem;
 import com.jdroid.sample.android.R;

@@ -1,7 +1,7 @@
 package com.jdroid.sample.android.api;
 
 import com.jdroid.java.json.JSONObject;
-import com.jdroid.java.parser.json.JsonParser;
+import com.jdroid.java.http.parser.json.JsonParser;
 
 public class SampleJsonParser extends JsonParser<JSONObject> {
 

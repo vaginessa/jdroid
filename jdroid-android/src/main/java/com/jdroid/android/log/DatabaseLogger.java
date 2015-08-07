@@ -1,6 +1,6 @@
 package com.jdroid.android.log;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.concurrent.LowPriorityThreadFactory;
 import com.jdroid.java.repository.Repository;
 

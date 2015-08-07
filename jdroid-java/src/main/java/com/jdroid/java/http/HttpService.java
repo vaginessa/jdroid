@@ -1,6 +1,6 @@
 package com.jdroid.java.http;
 
-import com.jdroid.java.parser.Parser;
+import com.jdroid.java.http.parser.Parser;
 
 import java.util.Collection;
 

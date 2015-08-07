@@ -1,7 +1,7 @@
 package com.jdroid.android.share;
 
 import android.provider.Settings;
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.ExternalAppsUtils;
 

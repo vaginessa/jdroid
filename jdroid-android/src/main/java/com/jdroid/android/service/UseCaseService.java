@@ -2,9 +2,9 @@ package com.jdroid.android.service;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
-import com.jdroid.android.utils.NotificationUtils;
+import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.java.concurrent.ExecutorUtils;
 
 @SuppressLint("Registered")

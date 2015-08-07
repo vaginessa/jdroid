@@ -5,7 +5,7 @@ import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.collections.Sets;
 import com.jdroid.java.http.Server;

@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
-import com.jdroid.android.utils.AndroidDateUtils;
+
 import com.jdroid.java.utils.DateUtils;
 
 public class TimeButton extends TextView {

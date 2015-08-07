@@ -7,7 +7,7 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.GridView;
 import android.widget.ListAdapter;
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.adapter.BaseArrayAdapter;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;

@@ -6,7 +6,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
-import com.jdroid.android.ActivityLauncher;
+import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.R;
 
 public class InfoDebugPrefsAppender implements PreferencesAppender {

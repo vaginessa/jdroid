@@ -7,9 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
-import com.jdroid.android.utils.GooglePlayUtils;
+import com.jdroid.android.google.GooglePlayUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 
 public class RateAppView extends RelativeLayout {

@@ -3,7 +3,7 @@ package com.jdroid.android.images.loader.uil;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.images.loader.ImageLoaderHelper;
 import com.jdroid.android.utils.SharedPreferencesHelper;

@@ -3,7 +3,7 @@ package com.jdroid.android.service;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.utils.WakeLockManager;
 
 public abstract class WorkerService extends IntentService {

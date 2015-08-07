@@ -4,10 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.service.WorkerService;
-import com.jdroid.android.utils.GooglePlayUtils;
-import com.jdroid.android.utils.IntentRetryUtils;
+import com.jdroid.android.google.GooglePlayUtils;
+import com.jdroid.android.intent.IntentRetryUtils;
 import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;

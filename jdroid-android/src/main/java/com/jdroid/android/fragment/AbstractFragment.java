@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ScrollView;
 
 import com.google.android.gms.ads.AdSize;
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.ad.HouseAdBuilder;

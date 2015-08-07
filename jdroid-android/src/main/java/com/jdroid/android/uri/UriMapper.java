@@ -7,9 +7,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.webkit.URLUtil;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.analytics.AppLoadingSource;
-import com.jdroid.android.utils.NotificationBuilder;
+import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.LoggerUtils;
 

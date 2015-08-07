@@ -2,7 +2,7 @@ package com.jdroid.android.google.plus;
 
 import android.support.v4.app.FragmentActivity;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.share.SharingItem;
 import com.jdroid.android.utils.ExternalAppsUtils;
 

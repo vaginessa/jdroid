@@ -4,8 +4,8 @@ import java.io.Serializable;
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.ActivityLauncher;
+import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.activity.ActivityLauncher;
 
 /**
  * {@link OnClickListener} that launches an {@link Activity} on the onClick event

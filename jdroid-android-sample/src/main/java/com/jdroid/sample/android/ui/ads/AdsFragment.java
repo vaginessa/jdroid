@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.google.android.gms.ads.AdSize;
-import com.jdroid.android.ActivityLauncher;
+import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.sample.android.AndroidAppContext;
 import com.jdroid.sample.android.R;

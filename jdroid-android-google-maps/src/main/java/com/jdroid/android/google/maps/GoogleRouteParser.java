@@ -3,7 +3,7 @@ package com.jdroid.android.google.maps;
 import com.jdroid.android.domain.GeoLocation;
 import com.jdroid.java.json.JSONArray;
 import com.jdroid.java.json.JSONObject;
-import com.jdroid.java.parser.json.JsonParser;
+import com.jdroid.java.http.parser.json.JsonParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 public class GoogleRouteParser extends JsonParser<JSONObject> {
 	
 	/**
-	 * @see com.jdroid.java.parser.json.JsonParser#parse(java.lang.Object)
+	 * @see JsonParser#parse(java.lang.Object)
 	 */
 	@Override
 	public Object parse(JSONObject json) {

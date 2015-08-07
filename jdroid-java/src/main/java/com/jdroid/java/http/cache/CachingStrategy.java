@@ -1,7 +1,7 @@
 package com.jdroid.java.http.cache;
 
 import com.jdroid.java.concurrent.ExecutorUtils;
-import com.jdroid.java.parser.Parser;
+import com.jdroid.java.http.parser.Parser;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;

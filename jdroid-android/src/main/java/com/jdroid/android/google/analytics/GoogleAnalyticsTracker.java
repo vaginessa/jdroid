@@ -12,13 +12,13 @@ import com.google.android.gms.analytics.HitBuilders.TransactionBuilder;
 import com.google.android.gms.analytics.Logger.LogLevel;
 import com.google.android.gms.analytics.StandardExceptionParser;
 import com.google.android.gms.analytics.Tracker;
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.analytics.AbstractAnalyticsTracker;
 import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.analytics.ExperimentHelper;
 import com.jdroid.android.analytics.ExperimentHelper.Experiment;
 import com.jdroid.android.analytics.ExperimentHelper.ExperimentVariant;
-import com.jdroid.android.inappbilling.Product;
+import com.jdroid.android.google.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.utils.AndroidUtils;
@@ -164,7 +164,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackInAppBillingPurchaseTry(com.jdroid.android.inappbilling.Product)
+	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackInAppBillingPurchaseTry(com.jdroid.android.google.inappbilling.Product)
 	 */
 	@Override
 	public void trackInAppBillingPurchaseTry(Product product) {
@@ -172,7 +172,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackInAppBillingPurchase(com.jdroid.android.inappbilling.Product)
+	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackInAppBillingPurchase(com.jdroid.android.google.inappbilling.Product)
 	 */
 	@Override
 	public void trackInAppBillingPurchase(Product product) {

@@ -11,7 +11,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.SystemClock;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.utils.AlarmUtils;
 import com.jdroid.java.utils.LoggerUtils;
 

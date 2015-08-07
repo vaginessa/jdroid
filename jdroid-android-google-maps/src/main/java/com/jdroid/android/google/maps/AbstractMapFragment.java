@@ -21,7 +21,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationChangeListener;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.ad.HouseAdBuilder;
 import com.jdroid.android.animation.FadeOutAnimation;
@@ -35,7 +35,7 @@ import com.jdroid.android.location.LocationHelper;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
-import com.jdroid.android.utils.GooglePlayUtils;
+import com.jdroid.android.google.GooglePlayUtils;
 import com.jdroid.java.exception.AbstractException;
 
 public abstract class AbstractMapFragment extends SupportMapFragment implements FragmentIf, OnMyLocationChangeListener {

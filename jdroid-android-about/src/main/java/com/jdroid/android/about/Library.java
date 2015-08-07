@@ -1,7 +1,7 @@
 package com.jdroid.android.about;
 
 import android.app.Activity;
-import com.jdroid.android.utils.IntentUtils;
+import com.jdroid.android.intent.IntentUtils;
 
 public class Library {
 	

@@ -3,7 +3,7 @@ package com.jdroid.android.listener;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.concurrent.ExecutorUtils;
 
 import java.util.concurrent.ArrayBlockingQueue;

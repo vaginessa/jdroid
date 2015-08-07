@@ -6,7 +6,7 @@ import android.os.Handler.Callback;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.widget.TextView;
-import com.jdroid.android.utils.AndroidDateUtils;
+
 import com.jdroid.java.utils.IdGenerator;
 
 /**

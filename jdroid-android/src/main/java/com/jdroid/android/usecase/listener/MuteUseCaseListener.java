@@ -1,6 +1,6 @@
 package com.jdroid.android.usecase.listener;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.exception.AbstractException;
 
 /**

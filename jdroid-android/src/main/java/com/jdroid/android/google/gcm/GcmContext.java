@@ -1,6 +1,6 @@
 package com.jdroid.android.google.gcm;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 
 public class GcmContext {
 

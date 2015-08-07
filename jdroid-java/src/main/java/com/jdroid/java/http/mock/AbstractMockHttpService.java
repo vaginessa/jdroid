@@ -7,7 +7,7 @@ import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.MultipartHttpService;
 import com.jdroid.java.http.HttpService;
 import com.jdroid.java.http.post.BodyEnclosingHttpService;
-import com.jdroid.java.parser.Parser;
+import com.jdroid.java.http.parser.Parser;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.StringUtils;
@@ -40,7 +40,7 @@ public abstract class AbstractMockHttpService implements MultipartHttpService {
 	}
 	
 	/**
-	 * @see HttpService#execute(com.jdroid.java.parser.Parser)
+	 * @see HttpService#execute(Parser)
 	 */
 	@SuppressWarnings({ "unchecked", "resource" })
 	@Override

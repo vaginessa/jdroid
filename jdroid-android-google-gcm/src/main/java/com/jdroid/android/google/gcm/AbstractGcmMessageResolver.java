@@ -2,7 +2,7 @@ package com.jdroid.android.google.gcm;
 
 import android.content.Intent;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.LoggerUtils;

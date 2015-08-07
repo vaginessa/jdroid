@@ -3,7 +3,7 @@ package com.jdroid.sample.android.ui.navdrawer;
 import android.os.Bundle;
 import android.view.View;
 
-import com.jdroid.android.ActivityLauncher;
+import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.sample.android.R;
 

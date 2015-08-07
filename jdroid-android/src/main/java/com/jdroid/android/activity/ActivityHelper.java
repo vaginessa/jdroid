@@ -18,8 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.ads.AdSize;
-import com.jdroid.android.AbstractApplication;
-import com.jdroid.android.ActivityLauncher;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.ad.HouseAdBuilder;
@@ -27,13 +26,13 @@ import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
-import com.jdroid.android.inappbilling.InAppBillingHelperFragment;
+import com.jdroid.android.google.inappbilling.InAppBillingHelper;
 import com.jdroid.android.loading.ActivityLoading;
 import com.jdroid.android.loading.DefaultBlockingLoading;
 import com.jdroid.android.location.LocationHelper;
 import com.jdroid.android.navdrawer.NavDrawer;
 import com.jdroid.android.uri.UriHandler;
-import com.jdroid.android.utils.NotificationBuilder;
+import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.IdGenerator;
@@ -60,8 +59,6 @@ public class ActivityHelper implements ActivityIf {
 	
 	private NavDrawer navDrawer;
 
-	private static Boolean inAppBillingLoaded = false;
-	
 	public ActivityHelper(AbstractFragmentActivity activity) {
 		this.activity = activity;
 	}
@@ -121,11 +118,8 @@ public class ActivityHelper implements ActivityIf {
 			AbstractApplication.get().getUriMapper().handleUri(activity, savedInstanceState, uriHandler);
 		}
 
-		if ((savedInstanceState == null) && !inAppBillingLoaded) {
-			InAppBillingHelperFragment.add(activity, InAppBillingHelperFragment.class, true, null);
-			inAppBillingLoaded = true;
-		}
-		
+		InAppBillingHelper.onCreate(activity, savedInstanceState);
+
 		if (getActivityIf().onBeforeSetContentView()) {
 			if (getContentView() != 0) {
 				activity.setContentView(getContentView());

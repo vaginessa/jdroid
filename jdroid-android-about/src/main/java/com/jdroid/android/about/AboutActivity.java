@@ -1,7 +1,7 @@
 package com.jdroid.android.about;
 
 import android.support.v4.app.Fragment;
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.activity.FragmentContainerActivity;
 
 public class AboutActivity extends FragmentContainerActivity {

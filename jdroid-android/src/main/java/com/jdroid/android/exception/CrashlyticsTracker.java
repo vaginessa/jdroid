@@ -3,7 +3,7 @@ package com.jdroid.android.exception;
 import android.app.Activity;
 
 import com.crashlytics.android.Crashlytics;
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.analytics.AbstractAnalyticsTracker;
 import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.context.SecurityContext;

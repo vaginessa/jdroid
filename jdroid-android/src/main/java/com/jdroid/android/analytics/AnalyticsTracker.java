@@ -2,7 +2,7 @@ package com.jdroid.android.analytics;
 
 import android.app.Activity;
 
-import com.jdroid.android.inappbilling.Product;
+import com.jdroid.android.google.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 

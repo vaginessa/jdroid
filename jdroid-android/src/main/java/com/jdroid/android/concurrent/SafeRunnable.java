@@ -1,6 +1,6 @@
 package com.jdroid.android.concurrent;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 
 public abstract class SafeRunnable implements Runnable {
 	

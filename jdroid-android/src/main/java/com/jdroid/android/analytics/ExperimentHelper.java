@@ -3,7 +3,7 @@ package com.jdroid.android.analytics;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.collections.Maps;
 
 import java.util.List;

@@ -9,7 +9,7 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.analytics.ExperimentHelper;
 import com.jdroid.android.analytics.ExperimentHelper.Experiment;

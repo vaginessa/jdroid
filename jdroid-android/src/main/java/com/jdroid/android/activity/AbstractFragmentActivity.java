@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.gms.ads.AdSize;
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.ad.HouseAdBuilder;
 import com.jdroid.android.context.AppContext;

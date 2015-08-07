@@ -2,9 +2,9 @@ package com.jdroid.android.analytics;
 
 import android.app.Activity;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.exception.ExceptionHandler;
-import com.jdroid.android.inappbilling.Product;
+import com.jdroid.android.google.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.java.collections.Lists;
@@ -206,7 +206,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackInAppBillingPurchaseTry(com.jdroid.android.inappbilling.Product)
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackInAppBillingPurchaseTry(com.jdroid.android.google.inappbilling.Product)
 	 */
 	@Override
 	public void trackInAppBillingPurchaseTry(final Product product) {
@@ -220,7 +220,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackInAppBillingPurchase(com.jdroid.android.inappbilling.Product)
+	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackInAppBillingPurchase(com.jdroid.android.google.inappbilling.Product)
 	 */
 	@Override
 	public void trackInAppBillingPurchase(final Product product) {

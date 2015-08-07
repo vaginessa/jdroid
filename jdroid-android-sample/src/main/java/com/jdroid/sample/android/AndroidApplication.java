@@ -3,7 +3,7 @@ package com.jdroid.sample.android;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.about.AboutContext;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
@@ -42,7 +42,7 @@ public class AndroidApplication extends AbstractApplication {
 	}
 
 	/**
-	 * @see com.jdroid.android.AbstractApplication#getHomeActivityClass()
+	 * @see AbstractApplication#getHomeActivityClass()
 	 */
 	@Override
 	public Class<? extends Activity> getHomeActivityClass() {
@@ -55,7 +55,7 @@ public class AndroidApplication extends AbstractApplication {
 	}
 
 	/**
-	 * @see com.jdroid.android.AbstractApplication#createActivityHelper(com.jdroid.android.activity.AbstractFragmentActivity)
+	 * @see AbstractApplication#createActivityHelper(com.jdroid.android.activity.AbstractFragmentActivity)
 	 */
 	@Override
 	public ActivityHelper createActivityHelper(AbstractFragmentActivity activity) {
@@ -63,7 +63,7 @@ public class AndroidApplication extends AbstractApplication {
 	}
 	
 	/**
-	 * @see com.jdroid.android.AbstractApplication#createFragmentHelper(android.support.v4.app.Fragment)
+	 * @see AbstractApplication#createFragmentHelper(android.support.v4.app.Fragment)
 	 */
 	@Override
 	public FragmentHelper createFragmentHelper(Fragment fragment) {
@@ -71,7 +71,7 @@ public class AndroidApplication extends AbstractApplication {
 	}
 	
 	/**
-	 * @see com.jdroid.android.AbstractApplication#createAnalyticsSender()
+	 * @see AbstractApplication#createAnalyticsSender()
 	 */
 	@Override
 	protected AnalyticsSender<? extends AnalyticsTracker> createAnalyticsSender() {

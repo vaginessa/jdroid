@@ -6,7 +6,7 @@ import android.database.Cursor;
 import com.jdroid.android.utils.AndroidEncryptionUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.json.JSONObject;
-import com.jdroid.java.parser.json.JsonParser;
+import com.jdroid.java.http.parser.json.JsonParser;
 import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.StringUtils;
 

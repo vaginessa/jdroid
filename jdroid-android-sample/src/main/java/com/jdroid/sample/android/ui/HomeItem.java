@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.jdroid.android.ActionItem;
-import com.jdroid.android.ActivityLauncher;
+import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.utils.ScreenUtils;
 import com.jdroid.sample.android.R;
 import com.jdroid.sample.android.ui.datetime.DateTimeActivity;

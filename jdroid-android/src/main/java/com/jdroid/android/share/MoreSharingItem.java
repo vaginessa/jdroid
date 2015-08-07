@@ -3,7 +3,7 @@ package com.jdroid.android.share;
 import android.graphics.drawable.Drawable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
 
 public abstract class MoreSharingItem extends SharingItem {

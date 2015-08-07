@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.ads.AdSize;
-import com.jdroid.android.AbstractApplication;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.ad.HouseAdBuilder;
 import com.jdroid.android.context.AppContext;
