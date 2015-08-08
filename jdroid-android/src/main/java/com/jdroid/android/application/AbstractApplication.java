@@ -117,18 +117,11 @@ public abstract class AbstractApplication extends Application {
 		LOGGER = LoggerUtils.getLogger(AbstractApplication.class);
 		LOGGER.debug("Executing onCreate on " + this);
 
-		gitContext = createGitContext();
-		gcmContext = createGcmContext();
-		aboutContext = createAboutContext();
-		inAppBillingContext = createInAppBillingContext();
-
-		debugContext = createDebugContext();
 		analyticsSender = createAnalyticsSender();
 
 		uriMapper = createUriMapper();
 
 		updateManager = createUpdateManager();
-		cacheManager = createCacheManager();
 
 		initExceptionHandlers();
 		LoggerUtils.setExceptionLogger(getExceptionHandler());
@@ -146,8 +139,15 @@ public abstract class AbstractApplication extends Application {
 				loadInstallationId();
 				verifyAppLaunchStatus();
 				initDeviceYearClass();
-				cacheManager.initFileSystemCache();
-				imageLoaderHelper.init();
+
+				if (getCacheManager() != null) {
+					getCacheManager().initFileSystemCache();
+				}
+
+				if (imageLoaderHelper != null) {
+					imageLoaderHelper.init();
+				}
+
 				initEncryptionUtils();
 
 				appContext.saveFirstSessionTimestamp();
@@ -160,8 +160,6 @@ public abstract class AbstractApplication extends Application {
 		for (ApplicationListener each: applicationListeners) {
 			each.onCreate();
 		}
-
-
 	}
 
 	public ImageLoaderHelper getImageLoaderHelper() {
@@ -232,7 +230,7 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	protected AnalyticsSender<? extends AnalyticsTracker> createAnalyticsSender() {
-		return new AnalyticsSender<AnalyticsTracker>();
+		return new AnalyticsSender<>();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -307,10 +305,12 @@ public abstract class AbstractApplication extends Application {
 		return ReflectionUtils.getClass(AndroidUtils.getApplicationId() + ".BuildConfig");
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T> T getBuildConfigValue(String property) {
 		return (T)ReflectionUtils.getStaticFieldValue(AbstractApplication.get().getBuildConfigClass(), property);
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T> T getBuildConfigValue(String property, Object defaultValue) {
 		return (T)ReflectionUtils.getStaticFieldValue(AbstractApplication.get().getBuildConfigClass(), property, defaultValue);
 	}
@@ -330,6 +330,11 @@ public abstract class AbstractApplication extends Application {
 	}
 
 	public CacheManager getCacheManager() {
+		synchronized (AbstractApplication.class) {
+			if (cacheManager == null) {
+				cacheManager = createCacheManager();
+			}
+		}
 		return cacheManager;
 	}
 
@@ -346,6 +351,11 @@ public abstract class AbstractApplication extends Application {
 	}
 
 	public GitContext getGitContext() {
+		synchronized (AbstractApplication.class) {
+			if (gitContext == null) {
+				gitContext = createGitContext();
+			}
+		}
 		return gitContext;
 	}
 
@@ -354,10 +364,20 @@ public abstract class AbstractApplication extends Application {
 	}
 
 	public GcmContext getGcmContext() {
+		synchronized (AbstractApplication.class) {
+			if (gcmContext == null) {
+				gcmContext = createGcmContext();
+			}
+		}
 		return gcmContext;
 	}
 
 	public AboutContext getAboutContext() {
+		synchronized (AbstractApplication.class) {
+			if (aboutContext == null) {
+				aboutContext = createAboutContext();
+			}
+		}
 		return aboutContext;
 	}
 
@@ -370,6 +390,11 @@ public abstract class AbstractApplication extends Application {
 	}
 
 	public DebugContext getDebugContext() {
+		synchronized (AbstractApplication.class) {
+			if (debugContext == null) {
+				debugContext = createDebugContext();
+			}
+		}
 		return debugContext;
 	}
 
@@ -430,13 +455,13 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	private void initRepositories() {
-		repositories = new HashMap<Class<? extends Identifiable>, Repository<? extends Identifiable>>();
+		repositories = new HashMap<>();
 		
 		initRepositories(repositories);
 		
 		if (isDatabaseEnabled()) {
 			SQLiteHelper dbHelper = new SQLiteHelper(this);
-			debugContext.initDebugRepositories(repositories, dbHelper);
+			getDebugContext().initDebugRepositories(repositories, dbHelper);
 			initDatabaseRepositories(repositories, dbHelper);
 			dbHelper.addUpgradeSteps(getSQLiteUpgradeSteps());
 		}
@@ -469,6 +494,11 @@ public abstract class AbstractApplication extends Application {
 	}
 
 	public InAppBillingContext getInAppBillingContext() {
+		synchronized (AbstractApplication.class) {
+			if (inAppBillingContext == null) {
+				inAppBillingContext = createInAppBillingContext();
+			}
+		}
 		return inAppBillingContext;
 	}
 
