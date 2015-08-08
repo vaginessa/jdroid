@@ -1,12 +1,9 @@
 package com.jdroid.android.exception;
 
-import android.app.Activity;
-import android.support.v4.app.FragmentActivity;
-
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
-import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.GooglePlayUtils;
+import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
@@ -29,8 +26,8 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	private final static Logger LOGGER = LoggerUtils.getLogger(DefaultExceptionHandler.class);
 	
 	private static final String MAIN_THREAD_NAME = "main";
-	private static final String GO_BACK_KEY = "goBack";
-	
+	private static final String ERROR_DISPLAYER = "errorDisplayer";
+
 	private UncaughtExceptionHandler wrappedExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
 	private UncaughtExceptionHandler defautlExceptionHandler;
 	
@@ -172,35 +169,6 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 		}
 	}
 	
-	protected void displayError(String title, String message, Throwable throwable) {
-		Activity activity = AbstractApplication.get().getCurrentActivity();
-		if (activity != null) {
-			ErrorDialogFragment.show((FragmentActivity)activity, title, message, goBackOnError(throwable));
-		}
-	}
-	
-	private Boolean goBackOnError(Throwable throwable) {
-		if (throwable instanceof AbstractException) {
-			AbstractException abstractException = (AbstractException)throwable;
-			return abstractException.hasParameter(GO_BACK_KEY) ? abstractException.<Boolean>getParameter(GO_BACK_KEY)
-					: goBackOnErrorByDefault(abstractException);
-		} else {
-			return goBackOnErrorByDefault(throwable);
-		}
-	}
-	
-	protected Boolean goBackOnErrorByDefault(Throwable throwable) {
-		return true;
-	}
-	
-	public static void markAsGoBackOnError(AbstractException abstractException) {
-		abstractException.addParameter(GO_BACK_KEY, true);
-	}
-	
-	public static void markAsNotGoBackOnError(AbstractException abstractException) {
-		abstractException.addParameter(GO_BACK_KEY, false);
-	}
-	
 	public static void setMessageOnConnectionTimeout(RuntimeException runtimeException, String text) {
 		if (runtimeException instanceof ConnectionException) {
 			ConnectionException connectionException = (ConnectionException)runtimeException;
@@ -260,10 +228,30 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 		if (description == null) {
 			description = LocalizationUtils.getString(R.string.defaultErrorDescription);
 		}
-		
+
 		displayError(title, description, throwable);
-		
+
 		logHandledException(throwable);
+	}
+
+	protected void displayError(String title, String description, Throwable throwable) {
+		createErrorDisplayer(throwable).displayError(title, description, throwable);
+	}
+
+	protected ErrorDisplayer createErrorDisplayer(Throwable throwable) {
+		ErrorDisplayer errorDisplayer = null;
+		if (throwable instanceof AbstractException) {
+			AbstractException abstractException = (AbstractException)throwable;
+			errorDisplayer = (ErrorDisplayer)abstractException.getParameter(ERROR_DISPLAYER);
+		}
+		if (errorDisplayer == null) {
+			errorDisplayer = new DialogErrorDisplayer();
+		}
+		return errorDisplayer;
+	}
+
+	public static void setErrorDisplayer(AbstractException abstractException, ErrorDisplayer errorDisplayer) {
+		abstractException.addParameter(ERROR_DISPLAYER, errorDisplayer);
 	}
 	
 	public static Boolean matchAnyErrorCode(Throwable throwable, ErrorCode... errorCodes) {

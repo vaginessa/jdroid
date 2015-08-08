@@ -1,6 +1,6 @@
 package com.jdroid.android.debug;
 
-import com.jdroid.android.exception.DefaultExceptionHandler;
+import com.jdroid.android.exception.DialogErrorDisplayer;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.AbstractException;
 
@@ -14,7 +14,7 @@ public class CrashGenerator {
 				try {
 					exceptionType.crash();
 				} catch (AbstractException e) {
-					DefaultExceptionHandler.markAsNotGoBackOnError(e);
+					DialogErrorDisplayer.markAsNotGoBackOnError(e);
 					throw e;
 				}
 			}

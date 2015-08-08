@@ -10,17 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.ads.AdSize;
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.ad.HouseAdBuilder;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.concurrent.SafeExecuteWrapperRunnable;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
-import com.jdroid.android.exception.DefaultExceptionHandler;
+import com.jdroid.android.exception.DialogErrorDisplayer;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
@@ -348,9 +348,9 @@ public class FragmentHelper implements FragmentIf {
 		FragmentIf fragmentIf = getFragmentIf();
 		if (fragmentIf != null) {
 			if (fragmentIf.goBackOnError(abstractException)) {
-				DefaultExceptionHandler.markAsGoBackOnError(abstractException);
+				DialogErrorDisplayer.markAsGoBackOnError(abstractException);
 			} else {
-				DefaultExceptionHandler.markAsNotGoBackOnError(abstractException);
+				DialogErrorDisplayer.markAsNotGoBackOnError(abstractException);
 			}
 			fragmentIf.dismissLoading();
 		}

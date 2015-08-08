@@ -1,6 +1,6 @@
 package com.jdroid.android.usecase.listener;
 
-import com.jdroid.android.exception.DefaultExceptionHandler;
+import com.jdroid.android.exception.DialogErrorDisplayer;
 import com.jdroid.android.fragment.FragmentIf;
 import com.jdroid.java.exception.AbstractException;
 
@@ -31,9 +31,9 @@ public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		if (goBackOnError(abstractException)) {
-			DefaultExceptionHandler.markAsGoBackOnError(abstractException);
+			DialogErrorDisplayer.markAsGoBackOnError(abstractException);
 		} else {
-			DefaultExceptionHandler.markAsNotGoBackOnError(abstractException);
+			DialogErrorDisplayer.markAsNotGoBackOnError(abstractException);
 		}
 		FragmentIf fragmentIf = getFragmentIf();
 		if (fragmentIf != null) {

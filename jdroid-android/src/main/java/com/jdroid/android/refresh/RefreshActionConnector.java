@@ -4,8 +4,9 @@ import android.support.v4.view.MenuItemCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
 import com.jdroid.android.R;
-import com.jdroid.android.exception.DefaultExceptionHandler;
+import com.jdroid.android.exception.DialogErrorDisplayer;
 import com.jdroid.android.fragment.FragmentIf;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 import com.jdroid.java.exception.AbstractException;
@@ -75,9 +76,9 @@ public abstract class RefreshActionConnector implements RefreshActionProvider.On
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		if (goBackOnError(abstractException)) {
-			DefaultExceptionHandler.markAsGoBackOnError(abstractException);
+			DialogErrorDisplayer.markAsGoBackOnError(abstractException);
 		} else {
-			DefaultExceptionHandler.markAsNotGoBackOnError(abstractException);
+			DialogErrorDisplayer.markAsNotGoBackOnError(abstractException);
 		}
 		stopLoadingOnUIThread();
 		throw abstractException;

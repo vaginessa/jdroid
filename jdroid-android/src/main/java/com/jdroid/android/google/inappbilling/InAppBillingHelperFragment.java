@@ -10,6 +10,7 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.exception.DefaultExceptionHandler;
+import com.jdroid.android.exception.DialogErrorDisplayer;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.java.exception.ErrorCodeException;
 import com.jdroid.java.utils.LoggerUtils;
@@ -163,7 +164,7 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 			InAppBillingErrorCode.ITEM_UNAVAILABLE)) {
 			AbstractApplication.get().getExceptionHandler().logHandledException(errorCodeException);
 		} else {
-			DefaultExceptionHandler.markAsNotGoBackOnError(errorCodeException);
+			DialogErrorDisplayer.markAsNotGoBackOnError(errorCodeException);
 			AbstractApplication.get().getExceptionHandler().handleThrowable(errorCodeException);
 		}
 	}

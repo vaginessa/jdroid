@@ -19,6 +19,8 @@
 
 	<!-- Exception Handling -->
 	<string name="exceptionHandling">Exception Handling</string>
+	<string name="defaultErrorDisplayer">Default Error Displayer</string>
+	<string name="snackbarErrorDisplayer">Snackbar Error Displayer</string>
 
 	<!-- Google Analytics -->
 	<string name="googleAnalytics">Google Analytics</string>
