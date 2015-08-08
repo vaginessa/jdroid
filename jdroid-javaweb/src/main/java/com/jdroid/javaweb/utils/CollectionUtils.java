@@ -11,7 +11,7 @@ import com.google.common.collect.Iterables;
 /**
  * A set of useful functions used against a Collection
  */
-public abstract class CollectionUtils extends com.jdroid.java.utils.CollectionUtils {
+public abstract class CollectionUtils extends com.jdroid.java.collections.CollectionUtils {
 	
 	/**
 	 * Default string separator

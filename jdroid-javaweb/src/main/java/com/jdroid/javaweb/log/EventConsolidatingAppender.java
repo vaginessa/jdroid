@@ -1,6 +1,6 @@
 package com.jdroid.javaweb.log;
 
-import com.jdroid.java.utils.CollectionUtils;
+import com.jdroid.java.collections.CollectionUtils;
 
 import org.apache.log4j.Appender;
 import org.apache.log4j.AppenderSkeleton;

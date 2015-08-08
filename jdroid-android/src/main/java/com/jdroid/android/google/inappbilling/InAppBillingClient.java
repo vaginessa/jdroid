@@ -22,7 +22,7 @@ import com.jdroid.java.collections.Maps;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.ErrorCode;
 import com.jdroid.java.exception.ErrorCodeException;
-import com.jdroid.java.utils.CollectionUtils;
+import com.jdroid.java.collections.CollectionUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.json.JSONException;

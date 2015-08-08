@@ -1,4 +1,4 @@
-package com.jdroid.android.repository.sqlite;
+package com.jdroid.android.sqlite.repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public abstract class StringEntityRepository extends SQLiteRepository<StringEnti
 	}
 	
 	/**
-	 * @see com.jdroid.android.repository.sqlite.SQLiteRepository#createObjectFromCursor(android.database.Cursor)
+	 * @see SQLiteRepository#createObjectFromCursor(android.database.Cursor)
 	 */
 	@Override
 	protected StringEntity createObjectFromCursor(Cursor cursor) {
@@ -32,7 +32,7 @@ public abstract class StringEntityRepository extends SQLiteRepository<StringEnti
 	}
 	
 	/**
-	 * @see com.jdroid.android.repository.sqlite.SQLiteRepository#createContentValuesFromObject(com.jdroid.android.domain.Entity)
+	 * @see SQLiteRepository#createContentValuesFromObject(com.jdroid.android.domain.Entity)
 	 */
 	@Override
 	protected ContentValues createContentValuesFromObject(StringEntity item) {

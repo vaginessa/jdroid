@@ -1,4 +1,4 @@
-package com.jdroid.android.repository.sqlite;
+package com.jdroid.android.sqlite.repository;
 
 import com.jdroid.android.domain.Entity;
 

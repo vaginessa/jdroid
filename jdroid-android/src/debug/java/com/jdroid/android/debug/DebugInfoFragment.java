@@ -7,7 +7,7 @@ import android.view.View;
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
-import com.jdroid.android.fragment.AbstractRecyclerFragment;
+import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.google.gcm.GcmContext;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.ScreenUtils;

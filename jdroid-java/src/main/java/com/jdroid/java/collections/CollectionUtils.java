@@ -1,4 +1,4 @@
-package com.jdroid.java.utils;
+package com.jdroid.java.collections;
 
 import java.util.Collection;
 

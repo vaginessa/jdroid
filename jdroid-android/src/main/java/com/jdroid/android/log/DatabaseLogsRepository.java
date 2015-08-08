@@ -3,7 +3,7 @@ package com.jdroid.android.log;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.jdroid.android.repository.sqlite.SQLiteRepository;
+import com.jdroid.android.sqlite.repository.SQLiteRepository;
 import com.jdroid.android.sqlite.Column;
 import com.jdroid.android.sqlite.SQLiteHelper;
 

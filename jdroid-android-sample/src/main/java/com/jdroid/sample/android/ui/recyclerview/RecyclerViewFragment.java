@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.jdroid.android.fragment.AbstractRecyclerFragment;
+import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.sample.android.R;

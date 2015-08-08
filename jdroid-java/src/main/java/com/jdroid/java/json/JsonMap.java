@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import com.jdroid.java.marshaller.MarshallerMode;
 import com.jdroid.java.marshaller.MarshallerProvider;
-import com.jdroid.java.utils.CollectionUtils;
+import com.jdroid.java.collections.CollectionUtils;
 
 public class JsonMap extends LinkedHashMap<String, Object> {
 	

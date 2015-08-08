@@ -1,4 +1,4 @@
-package com.jdroid.android.repository.sqlite;
+package com.jdroid.android.sqlite.repository;
 
 import android.content.ContentValues;
 import android.database.Cursor;

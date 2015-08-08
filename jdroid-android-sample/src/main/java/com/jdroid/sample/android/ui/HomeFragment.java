@@ -3,7 +3,7 @@ package com.jdroid.sample.android.ui;
 import android.os.Bundle;
 import android.view.View;
 
-import com.jdroid.android.fragment.AbstractRecyclerFragment;
+import com.jdroid.android.recycler.AbstractRecyclerFragment;
 
 public class HomeFragment extends AbstractRecyclerFragment<HomeItem> {
 	

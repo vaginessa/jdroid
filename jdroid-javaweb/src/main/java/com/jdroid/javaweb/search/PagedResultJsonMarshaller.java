@@ -5,7 +5,7 @@ import com.jdroid.java.json.JsonMap;
 import com.jdroid.java.marshaller.Marshaller;
 import com.jdroid.java.marshaller.MarshallerMode;
 import com.jdroid.java.search.PagedResult;
-import com.jdroid.java.utils.CollectionUtils;
+import com.jdroid.java.collections.CollectionUtils;
 
 public class PagedResultJsonMarshaller implements Marshaller<PagedResult<?>, JsonMap> {
 	

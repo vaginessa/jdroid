@@ -3,7 +3,7 @@ package com.jdroid.sample.android.ui.loading;
 import android.os.Bundle;
 
 import com.google.android.gms.ads.AdSize;
-import com.jdroid.android.fragment.AbstractRecyclerFragment;
+import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.loading.SwipeRefreshLoading;

@@ -1,17 +1,16 @@
-package com.jdroid.android.fragment;
+package com.jdroid.android.search;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.jdroid.android.R;
 import com.jdroid.android.adapter.BaseArrayAdapter;
+import com.jdroid.android.fragment.AbstractPaginatedGridFragment;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.listener.OnEnterKeyListener;
 import com.jdroid.android.usecase.PaginatedUseCase;

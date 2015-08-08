@@ -1,8 +1,9 @@
-package com.jdroid.android.service;
+package com.jdroid.android.usecase.service;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.service.WorkerService;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.java.concurrent.ExecutorUtils;

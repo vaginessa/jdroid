@@ -1,4 +1,4 @@
-package com.jdroid.android.fragment;
+package com.jdroid.android.search;
 
 import android.os.Bundle;
 import android.text.TextWatcher;
@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.jdroid.android.R;
 import com.jdroid.android.adapter.BaseArrayAdapter;
+import com.jdroid.android.fragment.AbstractListFragment;
 import com.jdroid.android.listener.FilterListTextWatcher;
 
 /**

@@ -1,4 +1,4 @@
-package com.jdroid.android.fragment;
+package com.jdroid.android.recycler;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.jdroid.android.R;
-import com.jdroid.android.recycler.RecyclerViewAdapter;
+import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
