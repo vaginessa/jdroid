@@ -9,11 +9,15 @@ import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
-import com.jdroid.android.application.AbstractApplication;
+
 import com.jdroid.android.R;
 import com.jdroid.android.analytics.AppLoadingSource;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.java.utils.IdGenerator;
@@ -40,7 +44,7 @@ public class NotificationBuilder {
 		return builder.build();
 	}
 	
-	public void setSmallIcon(int icon) {
+	public void setSmallIcon(@DrawableRes int icon) {
 		builder.setSmallIcon(icon);
 	}
 	
@@ -52,7 +56,7 @@ public class NotificationBuilder {
 		builder.setTicker(tickerText);
 	}
 	
-	public void setContentTitle(int contentTitleId, Object... args) {
+	public void setContentTitle(@StringRes int contentTitleId, Object... args) {
 		setContentTitle(LocalizationUtils.getString(contentTitleId, args));
 	}
 	
@@ -60,7 +64,7 @@ public class NotificationBuilder {
 		builder.setContentTitle(contentTitle);
 	}
 	
-	public void setContentText(int contentTextId, Object... args) {
+	public void setContentText(@StringRes int contentTextId, Object... args) {
 		setContentText(LocalizationUtils.getString(contentTextId, args));
 	}
 	
@@ -129,7 +133,7 @@ public class NotificationBuilder {
 		}
 	}
 	
-	public void setInProgress(int notificationIcon, int progress, int contentTitle, int actionText) {
+	public void setInProgress(@DrawableRes int notificationIcon, int progress, int contentTitle, int actionText) {
 		builder.setOngoing(true);
 		
 		Context context = AbstractApplication.get();
@@ -143,7 +147,7 @@ public class NotificationBuilder {
 		builder.setContent(remoteViews);
 	}
 	
-	public void setColor(int colorResId) {
+	public void setColor(@ColorRes int colorResId) {
 		builder.setColor(AbstractApplication.get().getResources().getColor(colorResId));
 	}
 	
@@ -241,21 +245,21 @@ public class NotificationBuilder {
 		}
 	}
 	
-	public void addStartActivityAction(int icon, int titleId, Intent intent) {
+	public void addStartActivityAction(@DrawableRes int icon, @StringRes int titleId, Intent intent) {
 		addStartActivityAction(icon, LocalizationUtils.getString(titleId), intent);
 	}
 	
-	public void addStartActivityAction(int icon, String title, Intent intent) {
+	public void addStartActivityAction(@DrawableRes int icon, String title, Intent intent) {
 		PendingIntent pendingIntent = PendingIntent.getActivity(AbstractApplication.get(),
 			IdGenerator.getRandomIntId(), intent, 0);
 		builder.addAction(icon, title, pendingIntent);
 	}
 	
-	public void addStartServiceAction(int icon, int titleId, Intent intent) {
+	public void addStartServiceAction(@DrawableRes int icon, @StringRes int titleId, Intent intent) {
 		addStartServiceAction(icon, LocalizationUtils.getString(titleId), intent);
 	}
 	
-	public void addStartServiceAction(int icon, String title, Intent intent) {
+	public void addStartServiceAction(@DrawableRes int icon, String title, Intent intent) {
 		PendingIntent pendingIntent = PendingIntent.getService(AbstractApplication.get(), IdGenerator.getRandomIntId(),
 			intent, 0);
 		builder.addAction(icon, title, pendingIntent);

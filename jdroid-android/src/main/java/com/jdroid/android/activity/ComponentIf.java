@@ -1,9 +1,13 @@
 package com.jdroid.android.activity;
 
 import android.app.Activity;
+import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.MenuRes;
 import android.support.v4.app.Fragment;
 import android.view.MenuItem;
 import android.view.View;
+
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.ad.HouseAdBuilder;
 import com.jdroid.android.context.AppContext;
@@ -31,7 +35,7 @@ public interface ComponentIf {
 	 * 
 	 * @return The view if found or null otherwise.
 	 */
-	public <V extends View> V findView(int id);
+	public <V extends View> V findView(@IdRes int id);
 	
 	/**
 	 * Inflate a new view hierarchy from the specified xml resource.
@@ -39,7 +43,7 @@ public interface ComponentIf {
 	 * @param resource ID for an XML layout resource to load
 	 * @return The root View of the inflated XML file.
 	 */
-	public View inflate(int resource);
+	public View inflate(@LayoutRes int resource);
 	
 	/**
 	 * @param clazz The {@link Class}
@@ -69,6 +73,7 @@ public interface ComponentIf {
 	
 	public void dismissLoading();
 
+	@MenuRes
 	public Integer getMenuResourceId();
 
 	public boolean onOptionsItemSelected(MenuItem item);

@@ -447,17 +447,11 @@ public class FragmentHelper implements FragmentIf {
 	
 	// //////////////////////// Analytics //////////////////////// //
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#shouldTrackOnFragmentStart()
-	 */
 	@Override
 	public Boolean shouldTrackOnFragmentStart() {
 		return false;
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getScreenViewName()
-	 */
 	@Override
 	public String getScreenViewName() {
 		return fragment.getClass().getSimpleName();

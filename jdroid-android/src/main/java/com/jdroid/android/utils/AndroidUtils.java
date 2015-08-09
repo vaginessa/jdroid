@@ -1,5 +1,6 @@
 package com.jdroid.android.utils;
 
+import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -15,6 +16,7 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.provider.MediaStore;
 import android.provider.Settings.Secure;
+import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
 import android.view.View;
 import android.view.WindowManager;
@@ -205,7 +207,8 @@ public class AndroidUtils {
 			return "Unknown";
 		}
 	}
-	
+
+	@RequiresPermission(Manifest.permission.GET_ACCOUNTS)
 	public static List<String> getAccountsEmails() {
 		List<String> emails = Lists.newArrayList();
 		for (Account account : AccountManager.get(AbstractApplication.get()).getAccounts()) {
@@ -215,7 +218,8 @@ public class AndroidUtils {
 		}
 		return emails;
 	}
-	
+
+	@RequiresPermission(Manifest.permission.ACCESS_WIFI_STATE)
 	public static String getMacAddress() {
 		WifiManager wifiManager = (WifiManager)AbstractApplication.get().getSystemService(Context.WIFI_SERVICE);
 		return wifiManager.getConnectionInfo().getMacAddress();

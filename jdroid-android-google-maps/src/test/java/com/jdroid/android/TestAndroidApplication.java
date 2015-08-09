@@ -2,6 +2,7 @@ package com.jdroid.android;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
@@ -23,6 +24,7 @@ public class TestAndroidApplication extends AbstractApplication {
 		return null;
 	}
 
+	@NonNull
 	@Override
 	protected AppContext createAppContext() {
 		return new TestAppContext();

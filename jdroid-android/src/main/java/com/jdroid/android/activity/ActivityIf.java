@@ -3,6 +3,9 @@ package com.jdroid.android.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +19,8 @@ public interface ActivityIf extends ComponentIf {
 	public Boolean onBeforeSetContentView();
 	
 	public void onAfterSetContentView(Bundle savedInstanceState);
-	
+
+	@LayoutRes
 	public int getContentView();
 	
 	public void doOnCreateOptionsMenu(Menu menu);
@@ -29,11 +33,12 @@ public interface ActivityIf extends ComponentIf {
 	public MenuInflater getMenuInflater();
 	
 	public Boolean isLauncherActivity();
-	
+
+	@Nullable
 	public Long getLocationFrequency();
 	
 	public Intent getUpIntent();
-	
+
 	public Boolean isInterstitialEnabled();
 
 	public String getInterstitialAdUnitId();
@@ -44,10 +49,12 @@ public interface ActivityIf extends ComponentIf {
 
 	public Boolean onBackPressedHandled();
 
+	@Nullable
 	public UriHandler getUriHandler();
 	
 	// //////////////////////// Loading //////////////////////// //
-	
+
+	@NonNull
 	public ActivityLoading getDefaultLoading();
 	
 	public void setLoading(ActivityLoading loading);

@@ -5,6 +5,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.facebook.device.yearclass.YearClass;
@@ -162,10 +164,12 @@ public abstract class AbstractApplication extends Application {
 		}
 	}
 
+	@Nullable
 	public ImageLoaderHelper getImageLoaderHelper() {
 		return imageLoaderHelper;
 	}
 
+	@Nullable
 	protected ImageLoaderHelper createImageLoaderHelper() {
 		return new UilImageLoaderHelper();
 	}
@@ -228,12 +232,14 @@ public abstract class AbstractApplication extends Application {
 			updateManager.update(fromVersionCode);
 		}
 	}
-	
+
+	@NonNull
 	protected AnalyticsSender<? extends AnalyticsTracker> createAnalyticsSender() {
 		return new AnalyticsSender<>();
 	}
 	
 	@SuppressWarnings("unchecked")
+	@NonNull
 	public <T extends AnalyticsTracker> AnalyticsSender<T> getAnalyticsSender() {
 		return (AnalyticsSender<T>)analyticsSender;
 	}
@@ -315,20 +321,25 @@ public abstract class AbstractApplication extends Application {
 		return (T)ReflectionUtils.getStaticFieldValue(AbstractApplication.get().getBuildConfigClass(), property, defaultValue);
 	}
 
+	@NonNull
 	protected abstract AppContext createAppContext();
 
+	@NonNull
 	public AppContext getAppContext() {
 		return appContext;
 	}
 
+	@Nullable
 	protected UpdateManager createUpdateManager() {
 		return null;
 	}
 
+	@Nullable
 	protected CacheManager createCacheManager() {
 		return new CacheManager();
 	}
 
+	@Nullable
 	public CacheManager getCacheManager() {
 		synchronized (AbstractApplication.class) {
 			if (cacheManager == null) {
@@ -338,18 +349,22 @@ public abstract class AbstractApplication extends Application {
 		return cacheManager;
 	}
 
+	@NonNull
 	protected UriMapper createUriMapper() {
 		return new UriMapper();
 	}
 
+	@NonNull
 	public UriMapper getUriMapper() {
 		return uriMapper;
 	}
 
+	@NonNull
 	protected GitContext createGitContext() {
 		return new AndroidGitContext();
 	}
 
+	@NonNull
 	public GitContext getGitContext() {
 		synchronized (AbstractApplication.class) {
 			if (gitContext == null) {
@@ -359,10 +374,12 @@ public abstract class AbstractApplication extends Application {
 		return gitContext;
 	}
 
+	@Nullable
 	protected GcmContext createGcmContext() {
 		return null;
 	}
 
+	@Nullable
 	public GcmContext getGcmContext() {
 		synchronized (AbstractApplication.class) {
 			if (gcmContext == null) {
@@ -371,6 +388,7 @@ public abstract class AbstractApplication extends Application {
 		}
 		return gcmContext;
 	}
+
 
 	public AboutContext getAboutContext() {
 		synchronized (AbstractApplication.class) {

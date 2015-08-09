@@ -1,6 +1,9 @@
 package com.jdroid.android.fragment;
 
 import android.app.Activity;
+import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -26,8 +29,10 @@ public interface FragmentIf extends ComponentIf, DefaultUseCaseListener, OnRefre
 
 	public void afterInitAppBar(Toolbar appBar);
 
+	@LayoutRes
 	public Integer getBaseFragmentLayout();
 
+	@LayoutRes
 	public Integer getContentFragmentLayout();
 	
 	/**
@@ -38,7 +43,7 @@ public interface FragmentIf extends ComponentIf, DefaultUseCaseListener, OnRefre
 	 * 
 	 * @return The view if found or null otherwise.
 	 */
-	public <V extends View> V findViewOnActivity(int id);
+	public <V extends View> V findViewOnActivity(@IdRes int id);
 	
 	/**
 	 * @param key The key of the argument extra
@@ -69,6 +74,7 @@ public interface FragmentIf extends ComponentIf, DefaultUseCaseListener, OnRefre
 	public void setLoading(FragmentLoading loading);
 	
 	public Boolean shouldTrackOnFragmentStart();
-	
+
+	@NonNull
 	public String getScreenViewName();
 }

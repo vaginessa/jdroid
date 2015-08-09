@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -158,17 +159,11 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 		return super.onPrepareOptionsMenu(menu);
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#getMenuResourceId()
-	 */
 	@Override
 	public Integer getMenuResourceId() {
 		return activityHelper.getMenuResourceId();
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#doOnCreateOptionsMenu(android.view.Menu)
-	 */
 	@Override
 	public void doOnCreateOptionsMenu(Menu menu) {
 		activityHelper.doOnCreateOptionsMenu(menu);
@@ -441,9 +436,7 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 		activityHelper.dismissLoading();
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#getDefaultLoading()
-	 */
+	@NonNull
 	@Override
 	public ActivityLoading getDefaultLoading() {
 		return activityHelper.getDefaultLoading();

@@ -1,5 +1,7 @@
 package com.jdroid.android.exception;
 
+import android.support.annotation.NonNull;
+
 import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.GooglePlayUtils;
@@ -238,6 +240,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 		createErrorDisplayer(throwable).displayError(title, description, throwable);
 	}
 
+	@NonNull
 	protected ErrorDisplayer createErrorDisplayer(Throwable throwable) {
 		ErrorDisplayer errorDisplayer = null;
 		if (throwable instanceof AbstractException) {

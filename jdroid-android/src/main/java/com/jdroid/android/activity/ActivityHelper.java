@@ -7,6 +7,8 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.widget.Toolbar;
@@ -142,6 +144,7 @@ public class ActivityHelper implements ActivityIf {
 		}
 	}
 
+	@Override
 	public UriHandler getUriHandler() {
 		return null;
 	}
@@ -157,7 +160,8 @@ public class ActivityHelper implements ActivityIf {
 			navDrawer.onConfigurationChanged(newConfig);
 		}
 	}
-	
+
+	@Nullable
 	protected AdHelper createAdHelper() {
 		return new AdHelper();
 	}
@@ -211,30 +215,22 @@ public class ActivityHelper implements ActivityIf {
 			locationHandler.sendMessage(Message.obtain(locationHandler, LOCATION_UPDATE_TIMER_CODE));
 		}
 	}
-	
+
+	@Nullable
 	protected Object getOnActivityStartData() {
 		return null;
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#getLocationFrequency()
-	 */
 	@Override
 	public Long getLocationFrequency() {
 		return null;
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#isInterstitialEnabled()
-	 */
 	@Override
 	public Boolean isInterstitialEnabled() {
 		return false;
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#displayInterstitial(java.lang.Boolean)
-	 */
 	@Override
 	public void displayInterstitial(Boolean retryIfNotLoaded) {
 		adHelper.displayInterstitial(retryIfNotLoaded);
@@ -301,9 +297,6 @@ public class ActivityHelper implements ActivityIf {
 		return true;
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#getMenuResourceId()
-	 */
 	@Override
 	public Integer getMenuResourceId() {
 		return null;
@@ -385,18 +378,12 @@ public class ActivityHelper implements ActivityIf {
 		return extras != null ? (E)extras.get(key) : null;
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#findView(int)
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <V extends View> V findView(int id) {
 		return (V)activity.findViewById(id);
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#inflate(int)
-	 */
 	@Override
 	public View inflate(int resource) {
 		return LayoutInflater.from(activity).inflate(resource, null);
@@ -528,17 +515,12 @@ public class ActivityHelper implements ActivityIf {
 		});
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#getDefaultLoading()
-	 */
+	@NonNull
 	@Override
 	public ActivityLoading getDefaultLoading() {
 		return new DefaultBlockingLoading();
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#setLoading(com.jdroid.android.loading.ActivityLoading)
-	 */
 	@Override
 	public void setLoading(ActivityLoading loading) {
 		this.loading = loading;

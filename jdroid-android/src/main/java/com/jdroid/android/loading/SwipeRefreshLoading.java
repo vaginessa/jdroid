@@ -1,5 +1,6 @@
 package com.jdroid.android.loading;
 
+import android.support.annotation.ColorRes;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.AbsListView;
 import com.jdroid.android.R;
@@ -66,19 +67,19 @@ public class SwipeRefreshLoading implements FragmentLoading {
 		return fragmentIf.findView(R.id.swipeRefreshLayout);
 	}
 	
-	public void setColorRes1(Integer colorRes1) {
+	public void setColorRes1(@ColorRes Integer colorRes1) {
 		this.colorRes1 = colorRes1;
 	}
 	
-	public void setColorRes2(Integer colorRes2) {
+	public void setColorRes2(@ColorRes Integer colorRes2) {
 		this.colorRes2 = colorRes2;
 	}
 	
-	public void setColorRes3(Integer colorRes3) {
+	public void setColorRes3(@ColorRes Integer colorRes3) {
 		this.colorRes3 = colorRes3;
 	}
 	
-	public void setColorRes4(Integer colorRes4) {
+	public void setColorRes4(@ColorRes Integer colorRes4) {
 		this.colorRes4 = colorRes4;
 	}
 	

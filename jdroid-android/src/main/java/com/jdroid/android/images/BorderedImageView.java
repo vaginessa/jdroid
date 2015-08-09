@@ -41,9 +41,6 @@ public class BorderedImageView extends LinearLayout {
 		addView(imageView);
 	}
 	
-	/**
-	 * @return the imageView
-	 */
 	public ImageView getImageView() {
 		return imageView;
 	}

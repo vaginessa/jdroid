@@ -1,5 +1,7 @@
 package com.jdroid.android.loading;
 
+import android.support.annotation.IdRes;
+
 import com.jdroid.android.application.AbstractApplication;
 
 public abstract class BlockingLoading implements ActivityLoading {
@@ -15,7 +17,7 @@ public abstract class BlockingLoading implements ActivityLoading {
 		return cancelable;
 	}
 	
-	public void setLoadingResId(int loadingResId) {
+	public void setLoadingResId(@IdRes int loadingResId) {
 		this.loadingResId = loadingResId;
 	}
 	

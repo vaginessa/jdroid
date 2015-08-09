@@ -10,17 +10,11 @@ import com.jdroid.android.fragment.FragmentIf;
 
 public abstract class HorizontalFragmentsContainerActivity extends AbstractFragmentActivity {
 
-	/**
-	 * @see ActivityIf#getContentView()
-	 */
 	@Override
 	public int getContentView() {
 		return isNavDrawerEnabled() ? R.layout.nav_horizontal_fragments_container_activity : R.layout.horizontal_fragments_container_activity;
 	}
 
-	/**
-	 * @see AbstractFragmentActivity#onCreate(Bundle)
-	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -1,5 +1,6 @@
 package com.jdroid.android.navdrawer;
 
+import android.support.annotation.DrawableRes;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,7 +25,7 @@ public class NavDrawerHeader {
 		((TextView)navDrawerHeader.findViewById(R.id.subTitle)).setText(subTitle);
 	}
 
-	public void setBackground(Integer imageResId) {
+	public void setBackground(@DrawableRes Integer imageResId) {
 		((ImageView)navDrawerHeader.findViewById(R.id.cover)).setImageResource(imageResId);
 	}
 
@@ -33,7 +34,7 @@ public class NavDrawerHeader {
 				((ImageView)navDrawerHeader.findViewById(R.id.cover)), null, null, ttl);
 	}
 
-	public void setMainImage(Integer imageResId) {
+	public void setMainImage(@DrawableRes Integer imageResId) {
 		((ImageView)navDrawerHeader.findViewById(R.id.photo)).setImageResource(imageResId);
 	}
 

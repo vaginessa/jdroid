@@ -1,6 +1,7 @@
 package com.jdroid.android.recycler;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -20,7 +21,6 @@ public abstract class AbstractRecyclerFragment<T> extends AbstractFragment imple
 
 	private RecyclerView recyclerView;
 	private RecyclerViewAdapter adapter;
-	private RecyclerView.LayoutManager layoutManager;
 	private View emptyView;
 	private RecyclerView.AdapterDataObserver adapterDataObserver;
 
@@ -35,7 +35,7 @@ public abstract class AbstractRecyclerFragment<T> extends AbstractFragment imple
 
 		recyclerView = findView(R.id.recyclerView);
 		recyclerView.setHasFixedSize(hasRecyclerViewFixedSize());
-		layoutManager = createLayoutManager();
+		RecyclerView.LayoutManager layoutManager = createLayoutManager();
 		recyclerView.setLayoutManager(layoutManager);
 
 		emptyView = findView(android.R.id.empty);
@@ -64,6 +64,7 @@ public abstract class AbstractRecyclerFragment<T> extends AbstractFragment imple
 		return true;
 	}
 
+	@NonNull
 	protected RecyclerView.LayoutManager createLayoutManager() {
 		return new LinearLayoutManager(getActivity());
 	}

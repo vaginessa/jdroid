@@ -1,5 +1,6 @@
 package com.jdroid.android.location;
 
+import android.Manifest;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.RequiresPermission;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.utils.AlarmUtils;
@@ -23,9 +25,6 @@ public class LocationHelper implements LocationListener {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(LocationHelper.class);
 	private static final String GPS_TIMEOUT_ACTION = "ACTION_GPS_TIMEOUT";
-	
-	// 5 minutes
-	public static final Long DEFAULT_FREQUENCY = 300000L;
 	
 	// 2 minutes
 	private static final int MAXIMUM_TIME_DELTA = 120000;
@@ -43,7 +42,7 @@ public class LocationHelper implements LocationListener {
 	public static LocationHelper get() {
 		return INSTANCE;
 	}
-	
+
 	public LocationHelper() {
 		
 		// Acquire a reference to the system Location Manager
@@ -52,6 +51,7 @@ public class LocationHelper implements LocationListener {
 		BroadcastReceiver stopLocalizationBroadcastReceiver = (new BroadcastReceiver() {
 			
 			@Override
+			@RequiresPermission(anyOf = { Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION})
 			public void onReceive(Context context, Intent intent) {
 				stopLocalization();
 			}
@@ -68,6 +68,7 @@ public class LocationHelper implements LocationListener {
 	/**
 	 * Register the listener with the Location Manager to receive location updates
 	 */
+	@RequiresPermission(anyOf = { Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION})
 	public synchronized void startLocalization() {
 		if (!started && hasSignificantlyOlderLocation()) {
 			
@@ -107,6 +108,7 @@ public class LocationHelper implements LocationListener {
 	/**
 	 * Remove the listener to receive location updates
 	 */
+	@RequiresPermission(anyOf = { Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION})
 	public synchronized void stopLocalization() {
 		if (started) {
 			AlarmUtils.cancelAlarm(getCancelPendingIntent());
@@ -222,10 +224,6 @@ public class LocationHelper implements LocationListener {
 	
 	/**
 	 * Checks whether two providers are the same
-	 * 
-	 * @param provider1
-	 * @param provider2
-	 * @return
 	 */
 	private boolean isSameProvider(String provider1, String provider2) {
 		if (provider1 == null) {

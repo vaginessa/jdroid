@@ -169,7 +169,7 @@ public class LoadingLayout extends FrameLayout {
 		 */
 		private SavedState(Parcel in) {
 			super(in);
-			isLoading = in.readInt() == 1 ? true : false;
+			isLoading = in.readInt() == 1;
 		}
 		
 		@Override

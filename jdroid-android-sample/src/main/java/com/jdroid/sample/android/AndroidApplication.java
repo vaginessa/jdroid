@@ -1,6 +1,7 @@
 package com.jdroid.sample.android;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import com.jdroid.android.application.AbstractApplication;
@@ -41,22 +42,17 @@ public class AndroidApplication extends AbstractApplication {
 		ExperimentHelper.registerExperiment(AndroidExperiment.SAMPLE_EXPERIMENT);
 	}
 
-	/**
-	 * @see AbstractApplication#getHomeActivityClass()
-	 */
 	@Override
 	public Class<? extends Activity> getHomeActivityClass() {
 		return HomeActivity.class;
 	}
 
+	@NonNull
 	@Override
 	protected AppContext createAppContext() {
 		return new AndroidAppContext();
 	}
 
-	/**
-	 * @see AbstractApplication#createActivityHelper(com.jdroid.android.activity.AbstractFragmentActivity)
-	 */
 	@Override
 	public ActivityHelper createActivityHelper(AbstractFragmentActivity activity) {
 		return new AndroidActivityHelper(activity);
@@ -70,9 +66,7 @@ public class AndroidApplication extends AbstractApplication {
 		return new AndroidFragmentHelper(fragment);
 	}
 	
-	/**
-	 * @see AbstractApplication#createAnalyticsSender()
-	 */
+	@NonNull
 	@Override
 	protected AnalyticsSender<? extends AnalyticsTracker> createAnalyticsSender() {
 		return AndroidAnalyticsSender.get();
