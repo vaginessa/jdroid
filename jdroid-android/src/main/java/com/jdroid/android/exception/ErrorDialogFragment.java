@@ -1,28 +1,50 @@
 package com.jdroid.android.exception;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+
 import com.jdroid.android.R;
 import com.jdroid.android.dialog.AlertDialogFragment;
 
 public class ErrorDialogFragment extends AlertDialogFragment {
-	
-	private static final String SHOULD_GO_BACK_EXTRA = "shouldGoBackExtra";
-	
-	public static void show(FragmentActivity activity, String title, String message, Boolean shouldGoBack) {
-		
-		Fragment currentErrorDialogFragment = activity.getSupportFragmentManager().findFragmentByTag(
-			ErrorDialogFragment.class.getSimpleName());
-		
+
+	private static final String ERROR_DIALOG_STRATEGY_EXTRA = "errorDialogStrategyExtra";
+
+	public static void show(FragmentActivity activity, String title, String message, boolean goBackOnError) {
+		DefaultErrorDialogStrategy defaultErrorDialogStrategy = new DefaultErrorDialogStrategy();
+		defaultErrorDialogStrategy.setGoBackOnError(goBackOnError);
+		show(activity, title, message, defaultErrorDialogStrategy);
+	}
+
+	public static void show(FragmentActivity activity, String title, String message,
+							ErrorDialogStrategy errorDialogStrategy) {
+
+		// This code is intentionally left out of the "if" statement to consume time before the call to
+		// "findFragmentByTag" and minimize the possibility of showing the dialog twice
+		ErrorDialogFragment fragment = new ErrorDialogFragment();
+		fragment.addParameter(ERROR_DIALOG_STRATEGY_EXTRA, errorDialogStrategy);
+
+		String okButton = activity.getString(R.string.ok);
+		String dialogTag = generateDialogTag(title, message, errorDialogStrategy);
+		Fragment currentErrorDialogFragment = activity.getSupportFragmentManager().findFragmentByTag(dialogTag);
 		if (currentErrorDialogFragment == null) {
-			ErrorDialogFragment fragment = new ErrorDialogFragment();
-			fragment.addParameter(SHOULD_GO_BACK_EXTRA, shouldGoBack);
-			
-			String okButton = activity.getString(R.string.ok);
-			AlertDialogFragment.show(activity, fragment, title, message, null, null, okButton, true);
+			AlertDialogFragment.show(activity, fragment, null, title, message, null, null, okButton, true, null, dialogTag);
 		}
+	}
+
+	private static String generateDialogTag(String title, String message, ErrorDialogStrategy errorDialogStrategy) {
+		StringBuilder builder = new StringBuilder();
+		if (title != null) {
+			builder.append(title);
+		}
+		if (message != null) {
+			builder.append(message);
+		}
+		if (errorDialogStrategy != null) {
+			builder.append(errorDialogStrategy.getClass().getSimpleName());
+		}
+		return String.valueOf(builder.toString().hashCode());
 	}
 	
 	/**
@@ -30,7 +52,7 @@ public class ErrorDialogFragment extends AlertDialogFragment {
 	 */
 	@Override
 	protected void onPositiveClick() {
-		goBackIfrequired();
+		handleStrategy();
 	}
 	
 	/**
@@ -39,16 +61,10 @@ public class ErrorDialogFragment extends AlertDialogFragment {
 	@Override
 	public void onCancel(DialogInterface dialog) {
 		super.onCancel(dialog);
-		goBackIfrequired();
+		handleStrategy();
 	}
-	
-	private void goBackIfrequired() {
-		Boolean shouldGoBack = getArgument(SHOULD_GO_BACK_EXTRA);
-		if (shouldGoBack) {
-			Activity activiy = getActivity();
-			if (activiy != null) {
-				activiy.finish();
-			}
-		}
+
+	private void handleStrategy() {
+		((ErrorDialogStrategy)getArgument(ERROR_DIALOG_STRATEGY_EXTRA)).onPositiveClick(getActivity());
 	}
 }

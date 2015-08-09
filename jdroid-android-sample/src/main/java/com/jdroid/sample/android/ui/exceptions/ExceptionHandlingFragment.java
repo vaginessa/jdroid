@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.jdroid.android.exception.DefaultExceptionHandler;
+import com.jdroid.android.exception.DialogErrorDisplayer;
 import com.jdroid.android.exception.SnackbarErrorDisplayer;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.java.exception.AbstractException;
@@ -34,6 +35,16 @@ public class ExceptionHandlingFragment extends AbstractFragment {
 			@Override
 			public void onClick(View v) {
 				failingUseCase.setErrorDisplayer(null);
+				failingUseCase.setGoBackOnError(true);
+				executeUseCase(failingUseCase);
+			}
+		});
+
+		findView(R.id.defaultErrorDisplayerNotGoBack).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				failingUseCase.setErrorDisplayer(null);
+				failingUseCase.setGoBackOnError(false);
 				executeUseCase(failingUseCase);
 			}
 		});
@@ -79,6 +90,11 @@ public class ExceptionHandlingFragment extends AbstractFragment {
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		DefaultExceptionHandler.setErrorDisplayer(abstractException, failingUseCase.getErrorDisplayer());
-		super.onFinishFailedUseCase(abstractException);
+
+		if (failingUseCase.getErrorDisplayer() == null && !failingUseCase.getGoBackOnError()) {
+			DialogErrorDisplayer.markAsNotGoBackOnError(abstractException);
+		}
+
+		throw abstractException;
 	}
 }

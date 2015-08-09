@@ -9,6 +9,7 @@ public class FailingUseCase extends DefaultAbstractUseCase {
 	private static final long serialVersionUID = -3206803568176386530L;
 
 	private ErrorDisplayer errorDisplayer;
+	private Boolean goBackOnError = true;
 
 	@Override
 	protected void doExecute() {
@@ -21,5 +22,13 @@ public class FailingUseCase extends DefaultAbstractUseCase {
 
 	public ErrorDisplayer getErrorDisplayer() {
 		return errorDisplayer;
+	}
+
+	public Boolean getGoBackOnError() {
+		return goBackOnError;
+	}
+
+	public void setGoBackOnError(Boolean goBackOnError) {
+		this.goBackOnError = goBackOnError;
 	}
 }

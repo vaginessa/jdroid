@@ -247,6 +247,20 @@ public class FacebookConnector {
 			facebookAuthenticationListener.onFacebookLogoutCompleted();
 		}
 	}
+
+	public void revokeAppPermissions() {
+		if (getCurrentSession().isOpened()) {
+			// revoke all permissions.
+			Response response = Request.executeAndWait(Request.newDeleteObjectRequest(getCurrentSession(),
+					"/me/permissions/", null));
+
+			// log but exclude internet connection errors.
+			if ((response.getError() != null) && !Category.CLIENT.equals(response.getError().getCategory())) {
+				AbstractApplication.get().getExceptionHandler().logWarningException(
+						response.getError().getErrorMessage());
+			}
+		}
+	}
 	
 	public String getAccessToken() {
 		return getCurrentSession().getAccessToken();

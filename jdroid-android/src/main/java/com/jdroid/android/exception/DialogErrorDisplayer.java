@@ -9,23 +9,39 @@ import com.jdroid.java.exception.AbstractException;
 public class DialogErrorDisplayer implements ErrorDisplayer {
 
 	private static final String GO_BACK_KEY = "goBack";
+	private static final String ERROR_DIALOG_STRATEGY_KEY = "errorDialogStrategy";
 
 	@Override
 	public void displayError(String title, String description, Throwable throwable) {
 		Activity activity = AbstractApplication.get().getCurrentActivity();
 		if (activity != null) {
-			ErrorDialogFragment.show((FragmentActivity)activity, title, description, goBackOnError(throwable));
+			ErrorDialogFragment.show((FragmentActivity)activity, title, description, getErrorDialogStrategy(throwable));
 		}
 	}
 
-	private Boolean goBackOnError(Throwable throwable) {
+	private ErrorDialogStrategy getErrorDialogStrategy(Throwable throwable) {
 		if (throwable instanceof AbstractException) {
 			AbstractException abstractException = (AbstractException)throwable;
-			return abstractException.hasParameter(GO_BACK_KEY) ? abstractException.<Boolean>getParameter(GO_BACK_KEY)
-					: goBackOnErrorByDefault(abstractException);
-		} else {
-			return goBackOnErrorByDefault(throwable);
+			return abstractException.hasParameter(ERROR_DIALOG_STRATEGY_KEY) ? abstractException.<ErrorDialogStrategy>getParameter(ERROR_DIALOG_STRATEGY_KEY)
+					: getDefaultErrorDialogStrategy(abstractException);
 		}
+		return getDefaultErrorDialogStrategy(throwable);
+	}
+
+	private DefaultErrorDialogStrategy getDefaultErrorDialogStrategy(Throwable throwable) {
+		DefaultErrorDialogStrategy defaultStrategy = new DefaultErrorDialogStrategy();
+		if (throwable instanceof AbstractException) {
+			AbstractException abstractException = (AbstractException)throwable;
+			defaultStrategy.setGoBackOnError(abstractException.hasParameter(GO_BACK_KEY) ? abstractException.<Boolean>getParameter(GO_BACK_KEY)
+					: goBackOnErrorByDefault(abstractException));
+		} else {
+			defaultStrategy.setGoBackOnError(goBackOnErrorByDefault(throwable));
+		}
+		return defaultStrategy;
+	}
+
+	public static void setErrorDialogStrategy(AbstractException abstractException, ErrorDialogStrategy strategy) {
+		abstractException.addParameter(ERROR_DIALOG_STRATEGY_KEY, strategy);
 	}
 
 	protected Boolean goBackOnErrorByDefault(Throwable throwable) {

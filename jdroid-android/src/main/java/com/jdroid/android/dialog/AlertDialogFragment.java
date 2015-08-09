@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jdroid.java.collections.Maps;
+import com.jdroid.java.utils.StringUtils;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -22,6 +23,8 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 	private static final String NEGATIVE_BUTTON_TEXT_EXTRA = "negativeButtonTextExtra";
 	private static final String NEUTRAL_BUTTON_TEXT_EXTRA = "neutralButtonTextExtra";
 	private static final String POSITIVE_BUTTON_TEXT_EXTRA = "positiveButtonTextExtra";
+	private static final String SCREEN_VIEW_NAME = "screenViewName";
+
 	
 	private String title;
 	private String message;
@@ -29,7 +32,8 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 	private String neutralButtonText;
 	private String positiveButtonText;
 	private Map<String, Serializable> parameters = Maps.newHashMap();
-	
+	private String screenViewName = null;
+
 	public static void show(Fragment fragment, String title, String message, String negativeButtonText,
 			String neutralButtonText, String positiveButtonText, Boolean cancelable) {
 		show(fragment.getActivity(), new AlertDialogFragment(), title, message, negativeButtonText, neutralButtonText,
@@ -40,19 +44,19 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 			String message, String negativeButtonText, String neutralButtonText, String positiveButtonText,
 			Boolean cancelable) {
 		show(fragmentActivity.getSupportFragmentManager(), alertDialogFragment, null, title, message,
-			negativeButtonText, neutralButtonText, positiveButtonText, cancelable);
+			negativeButtonText, neutralButtonText, positiveButtonText, cancelable, null, null);
 	}
 	
 	public static void show(FragmentActivity fragmentActivity, AlertDialogFragment alertDialogFragment,
 			Fragment targetFragment, String title, String message, String negativeButtonText, String neutralButtonText,
-			String positiveButtonText, Boolean cancelable) {
+			String positiveButtonText, Boolean cancelable, String screenViewName, String tag) {
 		show(fragmentActivity.getSupportFragmentManager(), alertDialogFragment, targetFragment, title, message,
-			negativeButtonText, neutralButtonText, positiveButtonText, cancelable);
+			negativeButtonText, neutralButtonText, positiveButtonText, cancelable, screenViewName, tag);
 	}
 	
 	public static void show(FragmentManager fragmentManager, AlertDialogFragment alertDialogFragment,
 			Fragment targetFragment, String title, String message, String negativeButtonText, String neutralButtonText,
-			String positiveButtonText, Boolean cancelable) {
+			String positiveButtonText, Boolean cancelable, String screenViewName, String tag) {
 		
 		Bundle bundle = new Bundle();
 		bundle.putSerializable(TITLE_EXTRA, title);
@@ -60,6 +64,7 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 		bundle.putSerializable(NEGATIVE_BUTTON_TEXT_EXTRA, negativeButtonText);
 		bundle.putSerializable(NEUTRAL_BUTTON_TEXT_EXTRA, neutralButtonText);
 		bundle.putSerializable(POSITIVE_BUTTON_TEXT_EXTRA, positiveButtonText);
+		bundle.putSerializable(SCREEN_VIEW_NAME, screenViewName);
 		for (Map.Entry<String, Serializable> entry : alertDialogFragment.parameters.entrySet()) {
 			bundle.putSerializable(entry.getKey(), entry.getValue());
 		}
@@ -68,8 +73,15 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 		if (targetFragment != null) {
 			alertDialogFragment.setTargetFragment(targetFragment, 0);
 		}
+
+		String dialogTag;
+		if (StringUtils.isNotBlank(tag)) {
+			dialogTag = tag;
+		} else {
+			dialogTag = alertDialogFragment.getClass().getSimpleName();
+		}
 		
-		alertDialogFragment.show(fragmentManager, alertDialogFragment.getClass().getSimpleName());
+		alertDialogFragment.show(fragmentManager, dialogTag);
 	}
 	
 	/**
@@ -84,6 +96,7 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 		positiveButtonText = getArgument(POSITIVE_BUTTON_TEXT_EXTRA);
 		neutralButtonText = getArgument(NEUTRAL_BUTTON_TEXT_EXTRA);
 		negativeButtonText = getArgument(NEGATIVE_BUTTON_TEXT_EXTRA);
+		screenViewName = getArgument(SCREEN_VIEW_NAME);
 	}
 	
 	@Override
@@ -172,5 +185,14 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 	protected View createContentView() {
 		return null;
 	}
-	
+
+	@Override
+	public Boolean shouldTrackOnFragmentStart() {
+		return screenViewName != null;
+	}
+
+	@Override
+	public String getScreenViewName() {
+		return screenViewName;
+	}
 }

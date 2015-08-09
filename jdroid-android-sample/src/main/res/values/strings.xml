@@ -20,6 +20,7 @@
 	<!-- Exception Handling -->
 	<string name="exceptionHandling">Exception Handling</string>
 	<string name="defaultErrorDisplayer">Default Error Displayer</string>
+	<string name="defaultErrorDisplayerNotGoBack">Default Error Displayer (Not go back on error)</string>
 	<string name="snackbarErrorDisplayer">Snackbar Error Displayer</string>
 
 	<!-- Google Analytics -->

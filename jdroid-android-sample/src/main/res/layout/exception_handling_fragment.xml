@@ -5,6 +5,9 @@
 	<Button android:id="@+id/defaultErrorDisplayer" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal" android:text="@string/defaultErrorDisplayer" />
 
+	<Button android:id="@+id/defaultErrorDisplayerNotGoBack" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal" android:text="@string/defaultErrorDisplayerNotGoBack" />
+
 	<Button android:id="@+id/snackbarErrorDisplayer" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal" android:text="@string/snackbarErrorDisplayer" />
 
