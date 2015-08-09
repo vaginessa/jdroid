@@ -4,7 +4,7 @@
 	<application>
 
 		<activity android:name="com.jdroid.android.debug.DebugSettingsActivity"
-				  android:label="@string/debugSettings" />
+				  android:label="@string/debugSettings" android:theme="@style/Jdroid.Theme.Light.Debug" />
 
 		<activity android:name="com.jdroid.android.debug.DebugInfoActivity"
 				  android:label="@string/debugInfoSettings" />
