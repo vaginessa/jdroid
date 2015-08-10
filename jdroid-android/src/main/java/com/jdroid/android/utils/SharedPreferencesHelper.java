@@ -25,11 +25,7 @@ public class SharedPreferencesHelper {
 	public static SharedPreferencesHelper get() {
 		return defaultSharedPreferencesHelper;
 	}
-	
-	public static SharedPreferencesHelper getOldDefault() {
-		return new SharedPreferencesHelper(AbstractApplication.get().getPackageName());
-	}
-	
+
 	public SharedPreferencesHelper(String name) {
 		this.name = name;
 	}

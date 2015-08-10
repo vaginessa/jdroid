@@ -1,6 +1,7 @@
 package com.jdroid.android.utils;
 
 import android.content.SharedPreferences;
+import android.support.annotation.WorkerThread;
 import android.util.Base64;
 
 import com.jdroid.java.exception.UnexpectedException;
@@ -20,7 +21,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class AndroidEncryptionUtils {
 	
-	public static final String PREF_ENCODED_KEY = "pref_encoded_key";
+	private static final String BASE64_KEY = "base64Key";
 	
 	private static final String TRANSFORMATION = "AES/ECB/PKCS5Padding";
 	private static final String ALGORITHM = "AES";
@@ -30,31 +31,13 @@ public class AndroidEncryptionUtils {
 	private static String base64Key;
 	
 	/**
-	 * Loads on memory the encryption key stored on {@link SharedPreferences}. If the key is already on memory, it does
-	 * nothing. You shouldn't call this method in the UI thread.
-	 */
-	public static void init() {
-		base64Key = getBase64Key();
-	}
-	
-	private static String getBase64Key() {
-		if (base64Key == null) {
-			base64Key = SharedPreferencesHelper.getOldDefault().loadPreference(PREF_ENCODED_KEY);
-			if (base64Key == null) {
-				base64Key = generateBase64Key();
-				SharedPreferencesHelper.getOldDefault().savePreference(PREF_ENCODED_KEY, base64Key);
-			}
-		}
-		return base64Key;
-	}
-	
-	/**
 	 * Returns the data encrypted. Avoid calling this method on the UI thread if possible, since it may access to shared
-	 * preferences. If it has to be called from the UI thread, call {@link AndroidEncryptionUtils#init()} first.
+	 * preferences.
 	 * 
 	 * @param cleartext
 	 * @return encrypted data
 	 */
+	@WorkerThread
 	public static String encrypt(String cleartext) {
 		if (cleartext != null) {
 			byte[] result = doFinal(Base64.decode(getBase64Key(), Base64.DEFAULT), Cipher.ENCRYPT_MODE,
@@ -66,11 +49,12 @@ public class AndroidEncryptionUtils {
 	
 	/**
 	 * Returns the original data. Avoid calling this method on the UI thread if possible, since it may access to shared
-	 * preferences. If it has to be called from the UI thread, call {@link #init()} first.
+	 * preferences.
 	 * 
 	 * @param base64Encrypted
 	 * @return the original data
 	 */
+	@WorkerThread
 	public static String decrypt(String base64Encrypted) {
 		if (base64Encrypted != null) {
 			byte[] enc = Base64.decode(base64Encrypted, Base64.DEFAULT);
@@ -92,8 +76,23 @@ public class AndroidEncryptionUtils {
 			throw new UnexpectedException(e);
 		}
 	}
+
+	/**
+	 * Returns the encryption key stored on {@link SharedPreferences}. If the key is already on memory, it doesn't access the file system.
+	 * You shouldn't call this method in the UI thread.
+	 */
+	private static String getBase64Key() {
+		if (base64Key == null) {
+			base64Key = SharedPreferencesHelper.get().loadPreference(BASE64_KEY);
+			if (base64Key == null) {
+				base64Key = generateBase64Key();
+				SharedPreferencesHelper.get().savePreference(BASE64_KEY, base64Key);
+			}
+		}
+		return base64Key;
+	}
 	
-	public static String generateBase64Key() {
+	private static String generateBase64Key() {
 		final int outputKeyLength = 128;
 		try {
 			SecureRandom secureRandom = new SecureRandom();

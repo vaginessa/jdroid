@@ -31,7 +31,6 @@ import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
 import com.jdroid.android.sqlite.SQLiteUpgradeStep;
 import com.jdroid.android.uri.UriMapper;
-import com.jdroid.android.utils.AndroidEncryptionUtils;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.android.utils.ToastUtils;
@@ -150,8 +149,6 @@ public abstract class AbstractApplication extends Application {
 					imageLoaderHelper.init();
 				}
 
-				initEncryptionUtils();
-
 				appContext.saveFirstSessionTimestamp();
 			}
 		});
@@ -215,7 +212,7 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	protected void verifyAppLaunchStatus() {
-		Integer fromVersionCode = SharedPreferencesHelper.getOldDefault().loadPreferenceAsInteger(VERSION_CODE_KEY);
+		Integer fromVersionCode = SharedPreferencesHelper.get().loadPreferenceAsInteger(VERSION_CODE_KEY);
 		if (fromVersionCode == null) {
 			appLaunchStatus = AppLaunchStatus.NEW_INSTALLATION;
 		} else {
@@ -226,7 +223,7 @@ public abstract class AbstractApplication extends Application {
 			}
 		}
 		LOGGER.debug("App launch status: " + appLaunchStatus);
-		SharedPreferencesHelper.getOldDefault().savePreference(VERSION_CODE_KEY, AndroidUtils.getVersionCode());
+		SharedPreferencesHelper.get().savePreference(VERSION_CODE_KEY, AndroidUtils.getVersionCode());
 
 		if (appLaunchStatus.equals(AppLaunchStatus.VERSION_UPGRADE) && updateManager != null) {
 			updateManager.update(fromVersionCode);
@@ -284,10 +281,6 @@ public abstract class AbstractApplication extends Application {
 		return null;
 	}
 	
-	protected void initEncryptionUtils() {
-		AndroidEncryptionUtils.init();
-	}
-	
 	public ExceptionHandler getExceptionHandler() {
 		return (ExceptionHandler)Thread.getDefaultUncaughtExceptionHandler();
 	}
@@ -297,10 +290,10 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	public void saveInstallationSource() {
-		String installationSource = SharedPreferencesHelper.getOldDefault().loadPreference(INSTALLATION_SOURCE);
+		String installationSource = SharedPreferencesHelper.get().loadPreference(INSTALLATION_SOURCE);
 		if (StringUtils.isBlank(installationSource)) {
 			installationSource = appContext.getInstallationSource();
-			SharedPreferencesHelper.getOldDefault().savePreference(INSTALLATION_SOURCE, installationSource);
+			SharedPreferencesHelper.get().savePreference(INSTALLATION_SOURCE, installationSource);
 			LOGGER.debug("Saved installation source: " + installationSource);
 		}
 	}
@@ -455,11 +448,11 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	private void loadInstallationId() {
-		if (SharedPreferencesHelper.getOldDefault().hasPreference(INSTALLATION_ID)) {
-			installationId = SharedPreferencesHelper.getOldDefault().loadPreference(INSTALLATION_ID);
+		if (SharedPreferencesHelper.get().hasPreference(INSTALLATION_ID)) {
+			installationId = SharedPreferencesHelper.get().loadPreference(INSTALLATION_ID);
 		} else {
 			installationId = UUID.randomUUID().toString();
-			SharedPreferencesHelper.getOldDefault().savePreference(INSTALLATION_ID, installationId);
+			SharedPreferencesHelper.get().savePreference(INSTALLATION_ID, installationId);
 		}
 		LOGGER.debug("Installation id: " + installationId);
 	}

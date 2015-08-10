@@ -122,7 +122,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 					sendEvent("abTesting", "load", experiment.getId() + "-" + experimentVariant.getId());
 				}
 				
-				String installationSource = SharedPreferencesHelper.getOldDefault().loadPreference(
+				String installationSource = SharedPreferencesHelper.get().loadPreference(
 					AbstractApplication.INSTALLATION_SOURCE);
 				if (installationSource != null) {
 					addCustomDimension(appViewBuilder, CustomDimension.INSTALLATION_SOURCE, installationSource);
