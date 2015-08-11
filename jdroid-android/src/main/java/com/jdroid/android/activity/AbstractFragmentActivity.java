@@ -77,11 +77,8 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 		activityHelper.onSaveInstanceState(outState);
 	}
 	
-	/**
-	 * @see android.app.Activity#onRestoreInstanceState(android.os.Bundle)
-	 */
 	@Override
-	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+	protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
 		activityHelper.onRestoreInstanceState(savedInstanceState);
 	}
@@ -174,7 +171,7 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		return activityHelper.onOptionsItemSelected(item) ? true : super.onOptionsItemSelected(item);
+		return activityHelper.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
 	}
 	
 	/**

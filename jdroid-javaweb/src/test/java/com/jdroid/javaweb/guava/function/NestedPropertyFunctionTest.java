@@ -1,12 +1,14 @@
 package com.jdroid.javaweb.guava.function;
 
-import java.util.Iterator;
-import java.util.List;
+import com.google.common.collect.Lists;
+import com.jdroid.java.exception.UnexpectedException;
+
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import com.google.common.collect.Lists;
-import com.jdroid.java.exception.UnexpectedException;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Tests the {@link PropertyFunction} class
@@ -48,7 +50,7 @@ public class NestedPropertyFunctionTest {
 	 */
 	@Test(dataProvider = "getApply")
 	public void apply(TestObject testObject, String property, Object expectedResponse) {
-		NestedPropertyFunction<TestObject, Object> function = new NestedPropertyFunction<TestObject, Object>(property);
+		NestedPropertyFunction<TestObject, Object> function = new NestedPropertyFunction<>(property);
 		Assert.assertEquals(function.apply(testObject), expectedResponse);
 	}
 	
@@ -73,7 +75,7 @@ public class NestedPropertyFunctionTest {
 	 */
 	@Test(dataProvider = "getApplyNegative", expectedExceptions = UnexpectedException.class)
 	public void applyNegative(TestObject testObject, String property) {
-		NestedPropertyFunction<TestObject, Object> function = new NestedPropertyFunction<TestObject, Object>(property);
+		NestedPropertyFunction<TestObject, Object> function = new NestedPropertyFunction<>(property);
 		function.apply(testObject);
 	}
 	

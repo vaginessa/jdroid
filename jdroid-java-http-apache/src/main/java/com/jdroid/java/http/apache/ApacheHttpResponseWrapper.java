@@ -22,7 +22,7 @@ public class ApacheHttpResponseWrapper extends HttpResponseWrapper {
 
 	@Override
 	public InputStream getInputStream() {
-		InputStream inputStream = null;
+		InputStream inputStream;
 		try {
 			inputStream = httpResponse.getEntity() != null ? httpResponse.getEntity().getContent() : null;
 			Header contentEncoding = httpResponse.getFirstHeader(HttpService.CONTENT_ENCODING_HEADER);

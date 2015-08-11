@@ -39,7 +39,7 @@ public enum HomeItem implements ActionItem {
 	LOADING(R.string.loading, R.drawable.refresh, LoadingActivity.class),
 	NAVDRAWER(R.string.navDrawer, R.drawable.notifications, NavDrawerActivity.class),
 	NOTIFICATIONS(R.string.notifications, R.drawable.notifications, NotificationsActivity.class),
-	RECYCLER_VIEW(R.string.recyclerView, R.drawable.notifications, RecyclerViewActivity.class),
+	RECYCLER_VIEW(R.string.recyclerView, R.drawable.list, RecyclerViewActivity.class),
 	TABLETS(R.string.tablets, R.drawable.apps, ScreenUtils.is10Inches() ? TabletActivity.class : LeftTabletActivity.class),
 	TOASTS(R.string.toasts, R.drawable.info, ToastsActivity.class);
 
@@ -47,7 +47,7 @@ public enum HomeItem implements ActionItem {
 	private Integer iconId;
 	private Class<? extends FragmentActivity> activityClass;
 	
-	private HomeItem(Integer resourceId, Integer iconId, Class<? extends FragmentActivity> activityClass) {
+	HomeItem(Integer resourceId, Integer iconId, Class<? extends FragmentActivity> activityClass) {
 		this.resourceId = resourceId;
 		this.iconId = iconId;
 		this.activityClass = activityClass;

@@ -15,6 +15,7 @@ dependencies {
 	// Module dependencies
 	compile project(':jdroid-java')
 
+	// https://github.com/square/okhttp/releases
 	compile 'com.squareup.okhttp:okhttp-urlconnection:2.4.0'
 
 	// Testing

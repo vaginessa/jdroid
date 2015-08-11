@@ -1,11 +1,13 @@
 package com.jdroid.android.sqlite.repository;
 
-import java.util.ArrayList;
-import java.util.List;
 import android.content.ContentValues;
 import android.database.Cursor;
+
 import com.jdroid.android.sqlite.Column;
 import com.jdroid.android.sqlite.SQLiteHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Generic repository to store {@link String} objects.
@@ -68,7 +70,7 @@ public abstract class StringEntityRepository extends SQLiteRepository<StringEnti
 	 * @param parentId id of parent entity.
 	 */
 	public void replaceStringChildren(List<String> strings, Long parentId) {
-		ArrayList<StringEntity> entities = new ArrayList<StringEntity>();
+		ArrayList<StringEntity> entities = new ArrayList<>();
 		for (String string : strings) {
 			if (string != null) {
 				StringEntity entity = new StringEntity();
@@ -87,7 +89,7 @@ public abstract class StringEntityRepository extends SQLiteRepository<StringEnti
 	 * @param strings string children list to replace.
 	 */
 	public void replaceStringChildren(List<String> strings) {
-		ArrayList<StringEntity> entities = new ArrayList<StringEntity>();
+		ArrayList<StringEntity> entities = new ArrayList<>();
 		for (String string : strings) {
 			StringEntity entity = new StringEntity();
 			entity.setValue(string);
@@ -103,7 +105,7 @@ public abstract class StringEntityRepository extends SQLiteRepository<StringEnti
 	 * @return list of strings
 	 */
 	public List<String> getStringChildren(Long parentId) {
-		ArrayList<String> strings = new ArrayList<String>();
+		ArrayList<String> strings = new ArrayList<>();
 		List<StringEntity> entities = findByField(Column.PARENT_ID, parentId);
 		for (StringEntity entity : entities) {
 			strings.add(entity.getValue());
@@ -117,7 +119,7 @@ public abstract class StringEntityRepository extends SQLiteRepository<StringEnti
 	 * @return list of strings
 	 */
 	public List<String> getAllString() {
-		ArrayList<String> strings = new ArrayList<String>();
+		ArrayList<String> strings = new ArrayList<>();
 		List<StringEntity> entities = getAll();
 		for (StringEntity entity : entities) {
 			strings.add(entity.getValue());

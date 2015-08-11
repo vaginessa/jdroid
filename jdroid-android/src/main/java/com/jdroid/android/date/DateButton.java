@@ -1,15 +1,18 @@
 package com.jdroid.android.date;
 
-import java.util.Date;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
 import com.jdroid.java.utils.DateUtils;
+
+import java.util.Date;
 
 public class DateButton extends TextView {
 	
@@ -96,7 +99,7 @@ public class DateButton extends TextView {
 		}
 		
 		@Override
-		public void writeToParcel(Parcel dest, int flags) {
+		public void writeToParcel(@NonNull Parcel dest, int flags) {
 			super.writeToParcel(dest, flags);
 			dest.writeInt(DateUtils.getYear(date));
 			dest.writeInt(DateUtils.getMonth(date));

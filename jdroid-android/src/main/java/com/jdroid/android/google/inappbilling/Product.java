@@ -12,7 +12,7 @@ public class Product {
 		
 		private String type;
 		
-		private ItemType(String type) {
+		ItemType(String type) {
 			this.type = type;
 		}
 		

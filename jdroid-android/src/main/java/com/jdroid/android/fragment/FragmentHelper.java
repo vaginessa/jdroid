@@ -2,6 +2,7 @@ package com.jdroid.android.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -452,6 +453,7 @@ public class FragmentHelper implements FragmentIf {
 		return false;
 	}
 	
+	@NonNull
 	@Override
 	public String getScreenViewName() {
 		return fragment.getClass().getSimpleName();

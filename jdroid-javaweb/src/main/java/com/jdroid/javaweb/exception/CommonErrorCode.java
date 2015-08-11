@@ -1,10 +1,11 @@
 package com.jdroid.javaweb.exception;
 
-import java.util.Collection;
 import com.jdroid.java.exception.ErrorCode;
 import com.jdroid.java.exception.ErrorCodeException;
 import com.jdroid.java.utils.StringUtils;
 import com.jdroid.java.utils.ValidationUtils;
+
+import java.util.Collection;
 
 public enum CommonErrorCode implements ErrorCode {
 	
@@ -16,7 +17,7 @@ public enum CommonErrorCode implements ErrorCode {
 	
 	private Integer statusCode;
 	
-	private CommonErrorCode(Integer statusCode) {
+	CommonErrorCode(Integer statusCode) {
 		this.statusCode = statusCode;
 	}
 	

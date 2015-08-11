@@ -40,8 +40,8 @@ public class EventConsolidatingAppender extends AppenderSkeleton implements Appe
 	
 	public EventConsolidatingAppender() {
 		appenders = new AppenderAttachableImpl();
-		cachedEvents = new ConcurrentHashMap<String, List<LoggingEvent>>();
-		timers = new ConcurrentHashMap<String, Timer>();
+		cachedEvents = new ConcurrentHashMap<>();
+		timers = new ConcurrentHashMap<>();
 	}
 	
 	/**

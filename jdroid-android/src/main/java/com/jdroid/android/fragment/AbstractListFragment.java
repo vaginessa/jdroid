@@ -1,6 +1,7 @@
 package com.jdroid.android.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ListFragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -425,9 +426,7 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 		return fragmentHelper.shouldTrackOnFragmentStart();
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getScreenViewName()
-	 */
+	@NonNull
 	@Override
 	public String getScreenViewName() {
 		return fragmentHelper.getScreenViewName();

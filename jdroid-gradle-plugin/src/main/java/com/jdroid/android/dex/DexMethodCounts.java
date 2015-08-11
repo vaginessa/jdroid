@@ -49,7 +49,7 @@ public class DexMethodCounts {
 
 	private static class Node {
 		int count = 0;
-		NavigableMap<String, Node> children = new TreeMap<String, Node>();
+		NavigableMap<String, Node> children = new TreeMap<>();
 
 		void output(String indent) {
 			if (indent.length() == 0) {
@@ -283,7 +283,7 @@ public class DexMethodCounts {
 		ClassRef[] externalClassRefs = dexData.getExternalReferences();
 		printWriter.println("Read in " + externalClassRefs.length +
 				" external class references.");
-		Set<MethodRef> externalMethodRefs = new HashSet<MethodRef>();
+		Set<MethodRef> externalMethodRefs = new HashSet<>();
 		for (ClassRef classRef : externalClassRefs) {
 			for (MethodRef methodRef : classRef.getMethodArray()) {
 				externalMethodRefs.add(methodRef);
@@ -291,7 +291,7 @@ public class DexMethodCounts {
 		}
 		printWriter.println("Read in " + externalMethodRefs.size() +
 				" external method references.");
-		List<MethodRef> filteredMethodRefs = new ArrayList<MethodRef>();
+		List<MethodRef> filteredMethodRefs = new ArrayList<>();
 		for (MethodRef methodRef : methodRefs) {
 			boolean isExternal = externalMethodRefs.contains(methodRef);
 			if ((filter == Filter.DEFINED_ONLY && !isExternal) ||

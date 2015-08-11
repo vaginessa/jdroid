@@ -39,4 +39,8 @@ public class SnackbarErrorDisplayer implements ErrorDisplayer {
 	public void setParentLayoutId(@IdRes int parentLayoutId) {
 		this.parentLayoutId = parentLayoutId;
 	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
 }

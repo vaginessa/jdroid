@@ -34,7 +34,7 @@ public final class MulticastResult implements Serializable {
 
   static final class Builder {
 
-    private final List<Result> results = new ArrayList<Result>();
+    private final List<Result> results = new ArrayList<>();
 
     // required parameters
     private final int success;

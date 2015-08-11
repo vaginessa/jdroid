@@ -3,6 +3,7 @@ package com.jdroid.android.dialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -40,9 +41,7 @@ public class ChoiceItemDialogFragment extends AbstractDialogFragment {
 		
 	}
 	
-	/**
-	 * @see android.support.v4.app.DialogFragment#onCreateDialog(android.os.Bundle)
-	 */
+	@NonNull
 	@SuppressWarnings("unchecked")
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {

@@ -3,6 +3,7 @@ package com.jdroid.android.date;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -53,9 +54,7 @@ public class TimePickerDialogFragment extends AbstractDialogFragment {
 		defaultTime = getArgument(DEFAULT_TIME_EXTRA);
 	}
 	
-	/**
-	 * @see android.support.v4.app.DialogFragment#onCreateDialog(android.os.Bundle)
-	 */
+	@NonNull
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		

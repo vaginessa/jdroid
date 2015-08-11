@@ -13,6 +13,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+import java.io.InterruptedIOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
@@ -52,6 +53,8 @@ public abstract class OkHttpService extends AbstractHttpService {
 			throw new ConnectionException(e, false);
 		}  catch (UnknownHostException e) {
 			throw new ConnectionException(e, false);
+		} catch (InterruptedIOException e) {
+			throw new ConnectionException(e, true);
 		} catch (IOException e) {
 			throw new UnexpectedException(e);
 		}

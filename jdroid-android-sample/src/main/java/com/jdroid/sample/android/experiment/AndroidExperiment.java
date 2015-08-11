@@ -13,7 +13,7 @@ public enum AndroidExperiment implements ExperimentHelper.Experiment {
 	private String id;
 	private List<ExperimentHelper.ExperimentVariant> variants;
 
-	private AndroidExperiment(String id, List<ExperimentHelper.ExperimentVariant> variants) {
+	AndroidExperiment(String id, List<ExperimentHelper.ExperimentVariant> variants) {
 		this.id = id;
 		this.variants = variants;
 	}

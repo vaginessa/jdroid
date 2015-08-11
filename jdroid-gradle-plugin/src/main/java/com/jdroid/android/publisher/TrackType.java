@@ -9,7 +9,7 @@ public enum TrackType {
 	
 	private String key;
 	
-	private TrackType(String key) {
+	TrackType(String key) {
 		this.key = key;
 	}
 	

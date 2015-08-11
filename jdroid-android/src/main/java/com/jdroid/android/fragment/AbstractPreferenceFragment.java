@@ -2,6 +2,7 @@ package com.jdroid.android.fragment;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,7 @@ import com.jdroid.java.exception.AbstractException;
 
 public abstract class AbstractPreferenceFragment extends PreferenceFragment implements FragmentIf {
 
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.base_fragment, container, false);
 		ViewGroup viewGroup = (ViewGroup)view.findViewById(R.id.content);
 		viewGroup.addView(super.onCreateView(inflater, null, savedInstanceState));
@@ -285,9 +286,7 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 		return false;
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getScreenViewName()
-	 */
+	@NonNull
 	@Override
 	public String getScreenViewName() {
 		return null;

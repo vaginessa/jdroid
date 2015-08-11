@@ -1,10 +1,11 @@
 package com.jdroid.sample.android.exception;
 
-import java.util.Collection;
 import com.jdroid.java.exception.ErrorCode;
 import com.jdroid.java.exception.ErrorCodeException;
 import com.jdroid.java.utils.StringUtils;
 import com.jdroid.java.utils.ValidationUtils;
+
+import java.util.Collection;
 
 public enum AndroidErrorCode implements ErrorCode {
 	
@@ -13,13 +14,9 @@ public enum AndroidErrorCode implements ErrorCode {
 	private Integer resourceId;
 	private Integer statusCode;
 	
-	private AndroidErrorCode(Integer resourceId, Integer statusCode) {
+	AndroidErrorCode(Integer resourceId, Integer statusCode) {
 		this.resourceId = resourceId;
 		this.statusCode = statusCode;
-	}
-	
-	private AndroidErrorCode(Integer resourceId) {
-		this.resourceId = resourceId;
 	}
 	
 	public static ErrorCode findByStatusCode(String statusCode) {

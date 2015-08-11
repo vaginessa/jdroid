@@ -218,7 +218,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		}
 		Cursor cursor = null;
 		try {
-			ArrayList<T> items = new ArrayList<T>();
+			ArrayList<T> items = new ArrayList<>();
 			cursor = db.query(getTableName(), getProjection(), selection, selectionArgs, null, null, getDefaultSort());
 			while (cursor.moveToNext()) {
 				T item = createObjectFromCursor(cursor);

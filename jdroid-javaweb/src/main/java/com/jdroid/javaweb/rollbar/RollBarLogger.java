@@ -17,7 +17,7 @@ public class RollBarLogger implements Logger {
 
 	private Executor executor = Executors.newFixedThreadPool(1, new LowPriorityThreadFactory());
 
-	public static enum Level {
+	public enum Level {
 		DEBUG, INFO, WARNING, ERROR, CRITICAL
 	}
 

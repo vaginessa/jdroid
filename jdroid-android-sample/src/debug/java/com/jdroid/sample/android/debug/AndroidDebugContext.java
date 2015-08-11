@@ -20,7 +20,7 @@ public class AndroidDebugContext extends DebugContext {
 	@Override
 	public List<Pair<String, Object>> getCustomDebugInfoProperties() {
 		List<Pair<String, Object>> customProperties = Lists.newArrayList();
-		customProperties.add(new Pair("Sample Key", "Sample Value"));
+		customProperties.add(new Pair<String, Object>("Sample Key", "Sample Value"));
 		return customProperties;
 	}
 

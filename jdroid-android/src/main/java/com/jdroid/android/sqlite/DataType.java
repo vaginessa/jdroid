@@ -306,7 +306,7 @@ public enum DataType {
 	
 	private String type;
 	
-	private DataType(String type) {
+	DataType(String type) {
 		this.type = type;
 	}
 	

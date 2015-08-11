@@ -248,10 +248,10 @@ public class Sender {
     int backoff = BACKOFF_INITIAL_DELAY;
     // Map of results by registration id, it will be updated after each attempt
     // to send the messages
-    Map<String, Result> results = new HashMap<String, Result>();
-    List<String> unsentRegIds = new ArrayList<String>(regIds);
+    Map<String, Result> results = new HashMap<>();
+    List<String> unsentRegIds = new ArrayList<>(regIds);
     boolean tryAgain;
-    List<Long> multicastIds = new ArrayList<Long>();
+    List<Long> multicastIds = new ArrayList<>();
     do {
       attempt++;
       if (logger.isLoggable(Level.FINE)) {
@@ -315,7 +315,7 @@ public class Sender {
       throw new RuntimeException("Internal error: sizes do not match. " +
           "currentResults: " + results + "; unsentRegIds: " + unsentRegIds);
     }
-    List<String> newUnsentRegIds = new ArrayList<String>();
+    List<String> newUnsentRegIds = new ArrayList<>();
     for (int i = 0; i < unsentRegIds.size(); i++) {
       String regId = unsentRegIds.get(i);
       Result result = results.get(i);
@@ -345,7 +345,7 @@ public class Sender {
     if (nonNull(registrationIds).isEmpty()) {
       throw new IllegalArgumentException("registrationIds cannot be empty");
     }
-    Map<Object, Object> jsonRequest = new HashMap<Object, Object>();
+    Map<Object, Object> jsonRequest = new HashMap<>();
     setJsonField(jsonRequest, PARAM_TIME_TO_LIVE, message.getTimeToLive());
     setJsonField(jsonRequest, PARAM_COLLAPSE_KEY, message.getCollapseKey());
     setJsonField(jsonRequest, PARAM_DELAY_WHILE_IDLE,
@@ -485,9 +485,8 @@ public class Sender {
   /**
    * Creates a map with just one key-value pair.
    */
-  protected static final Map<String, String> newKeyValues(String key,
-      String value) {
-    Map<String, String> keyValues = new HashMap<String, String>(1);
+  protected static Map<String, String> newKeyValues(String key, String value) {
+    Map<String, String> keyValues = new HashMap<>(1);
     keyValues.put(nonNull(key), nonNull(value));
     return keyValues;
   }

@@ -111,8 +111,8 @@ public class Output {
      */
     static void printFieldRefs(ClassRef[] classes) {
         out.println("\nFields:");
-        for (int i = 0; i < classes.length; i++) {
-            FieldRef[] fields = classes[i].getFieldArray();
+        for (ClassRef aClass : classes) {
+            FieldRef[] fields = aClass.getFieldArray();
 
             for (FieldRef ref : fields) {
                 out.println(descriptorToDot(ref.getDeclClassName()) +
@@ -126,8 +126,8 @@ public class Output {
      */
     static void printMethodRefs(ClassRef[] classes) {
         out.println("\nMethods:");
-        for (int i = 0; i < classes.length; i++) {
-            MethodRef[] methods = classes[i].getMethodArray();
+        for (ClassRef aClass : classes) {
+            MethodRef[] methods = aClass.getMethodArray();
 
             for (MethodRef ref : methods) {
                 out.println(descriptorToDot(ref.getDeclClassName()) +
@@ -149,8 +149,7 @@ public class Output {
          * the matching fields and methods.
          */
         String prevPackage = null;
-        for (int i = 0; i < externClassRefs.length; i++) {
-            ClassRef cref = externClassRefs[i];
+        for (ClassRef cref : externClassRefs) {
             String declClassName = cref.getName();
             String className = classNameOnly(declClassName);
             String packageName = packageNameOnly(declClassName);
@@ -164,7 +163,7 @@ public class Output {
                 }
 
                 out.println(IN1 +
-                    "<package name=\"" + packageName + "\">");
+                        "<package name=\"" + packageName + "\">");
 
                 prevPackage = packageName;
             }
@@ -197,8 +196,7 @@ public class Output {
      */
     private static void printXmlMethods(ClassRef cref) {
         MethodRef[] methods = cref.getMethodArray();
-        for (int i = 0; i < methods.length; i++) {
-            MethodRef mref = methods[i];
+        for (MethodRef mref : methods) {
             String declClassName = mref.getDeclClassName();
             boolean constructor;
 
@@ -206,11 +204,11 @@ public class Output {
             if (constructor) {
                 // use class name instead of method name
                 out.println(IN3 + "<constructor name=\"" +
-                    classNameOnly(declClassName) + "\">");
+                        classNameOnly(declClassName) + "\">");
             } else {
                 out.println(IN3 + "<method name=\"" + mref.getName() +
-                    "\" return=\"" + descriptorToDot(mref.getReturnTypeName()) +
-                    "\">");
+                        "\" return=\"" + descriptorToDot(mref.getReturnTypeName()) +
+                        "\">");
             }
             String[] args = mref.getArgumentTypeNames();
             for (String arg : args) {

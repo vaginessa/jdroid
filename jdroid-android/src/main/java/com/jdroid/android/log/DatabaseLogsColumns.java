@@ -19,7 +19,7 @@ public enum DatabaseLogsColumns implements Column {
 	private Boolean optional;
 	private Boolean unique;
 	
-	private DatabaseLogsColumns(String columnName, DataType dataType, String extraQualifier, Boolean optional,
+	DatabaseLogsColumns(String columnName, DataType dataType, String extraQualifier, Boolean optional,
 								Boolean unique) {
 		this.columnName = columnName;
 		this.dataType = dataType;

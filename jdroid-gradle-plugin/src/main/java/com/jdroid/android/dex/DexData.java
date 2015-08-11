@@ -384,14 +384,14 @@ public class DexData {
      * references into the appropriate ClassRef.
      */
     private void addExternalFieldReferences(ClassRef[] sparseRefs) {
-        for (int i = 0; i < mFieldIds.length; i++) {
-            if (!mTypeIds[mFieldIds[i].classIdx].internal) {
-                FieldIdItem fieldId = mFieldIds[i];
+        for (FieldIdItem mFieldId : mFieldIds) {
+            if (!mTypeIds[mFieldId.classIdx].internal) {
+                FieldIdItem fieldId = mFieldId;
                 FieldRef newFieldRef = new FieldRef(
                         classNameFromTypeIndex(fieldId.classIdx),
                         classNameFromTypeIndex(fieldId.typeIdx),
                         mStrings[fieldId.nameIdx]);
-                sparseRefs[mFieldIds[i].classIdx].addField(newFieldRef);
+                sparseRefs[mFieldId.classIdx].addField(newFieldRef);
             }
         }
     }

@@ -1,12 +1,14 @@
 package com.jdroid.javaweb.guava.predicate;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import com.google.common.collect.Lists;
+
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import com.google.common.collect.Lists;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Test {@link ContainsPropertyPredicate}
@@ -52,7 +54,7 @@ public class ContainsPropertyPredicateTest {
 	 */
 	@Test(dataProvider = "getScenarios")
 	public void apply(TestObject input, String propertyName, Object value, boolean expected) {
-		ContainsPropertyPredicate<TestObject> predicate = new ContainsPropertyPredicate<TestObject>(propertyName, value);
+		ContainsPropertyPredicate<TestObject> predicate = new ContainsPropertyPredicate<>(propertyName, value);
 		Assert.assertEquals(predicate.apply(input), expected);
 	}
 	

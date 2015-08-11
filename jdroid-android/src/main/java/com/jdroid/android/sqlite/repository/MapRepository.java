@@ -1,11 +1,12 @@
 package com.jdroid.android.sqlite.repository;
 
+import com.jdroid.android.sqlite.Column;
+import com.jdroid.android.sqlite.SQLiteHelper;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.jdroid.android.sqlite.Column;
-import com.jdroid.android.sqlite.SQLiteHelper;
 
 /**
  * Generic repository to store {@link Map} objects.
@@ -24,7 +25,7 @@ public abstract class MapRepository extends StringEntityRepository {
 	 * @return map of children
 	 */
 	public Map<Long, String> getChildrenMap(Long parentId) {
-		Map<Long, String> map = new HashMap<Long, String>();
+		Map<Long, String> map = new HashMap<>();
 		List<StringEntity> children = findByField(Column.PARENT_ID, parentId);
 		for (StringEntity stringEntity : children) {
 			map.put(stringEntity.getId(), stringEntity.getValue());
@@ -40,7 +41,7 @@ public abstract class MapRepository extends StringEntityRepository {
 	 * @param parentId id of parent entity.
 	 */
 	public void replaceMapChildren(Map<Long, String> map, Long parentId) {
-		ArrayList<StringEntity> entities = new ArrayList<StringEntity>();
+		ArrayList<StringEntity> entities = new ArrayList<>();
 		for (Long key : map.keySet()) {
 			StringEntity entity = new StringEntity();
 			entity.setParentId(parentId);

@@ -12,6 +12,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.widget.ImageView;
@@ -111,7 +112,7 @@ public class BezelImageView extends ImageView {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(@NonNull Canvas canvas) {
         if (mBounds == null) {
             return;
         }
@@ -183,7 +184,7 @@ public class BezelImageView extends ImageView {
     }
 
     @Override
-    public void invalidateDrawable(Drawable who) {
+    public void invalidateDrawable(@NonNull Drawable who) {
         if (who == mBorderDrawable || who == mMaskDrawable) {
             invalidate();
         } else {

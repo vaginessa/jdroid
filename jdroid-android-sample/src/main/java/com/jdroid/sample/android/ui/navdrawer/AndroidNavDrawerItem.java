@@ -16,7 +16,7 @@ public enum AndroidNavDrawerItem implements NavDrawerItem {
 	private Integer itemId;
 	private Class<? extends FragmentActivity> activityClass;
 
-	private AndroidNavDrawerItem(Integer itemId,
+	AndroidNavDrawerItem(Integer itemId,
 			Class<? extends FragmentActivity> activityClass) {
 		this.itemId = itemId;
 		this.activityClass = activityClass;

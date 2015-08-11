@@ -95,6 +95,7 @@ public abstract class AbstractRecyclerFragment<T> extends AbstractFragment imple
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public void onClick(View view) {
 		int itemPosition = recyclerView.getChildAdapterPosition(view);
 		if (itemPosition != RecyclerView.NO_POSITION) {

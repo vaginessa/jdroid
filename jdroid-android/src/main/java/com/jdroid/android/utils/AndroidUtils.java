@@ -88,7 +88,7 @@ public class AndroidUtils {
 		try {
 			Context context = AbstractApplication.get();
 			info = context.getPackageManager().getApplicationInfo(context.getPackageName(),
-				PackageManager.GET_META_DATA);
+					PackageManager.GET_META_DATA);
 		} catch (NameNotFoundException e) {
 			// Do Nothing
 		}
@@ -101,7 +101,7 @@ public class AndroidUtils {
 	
 	public static void hideSoftInput(View view) {
 		((InputMethodManager)AbstractApplication.get().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
-			view.getWindowToken(), 0);
+				view.getWindowToken(), 0);
 	}
 	
 	public static void scrollToBottom(final ScrollView scroll) {
@@ -246,6 +246,12 @@ public class AndroidUtils {
 		} else {
 			return "phone";
 		}
+	}
+
+	public static Boolean hasPermission(Context context, String permission) {
+		PackageManager pm = context.getPackageManager();
+		int hasPerm = pm.checkPermission(permission, context.getPackageName());
+		return hasPerm != PackageManager.PERMISSION_GRANTED;
 	}
 	
 }

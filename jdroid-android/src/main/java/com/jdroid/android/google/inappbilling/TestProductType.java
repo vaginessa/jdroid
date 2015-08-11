@@ -29,7 +29,7 @@ public enum TestProductType implements ProductType {
 	
 	private String productId;
 	
-	private TestProductType(String productId) {
+	TestProductType(String productId) {
 		this.productId = productId;
 	}
 	

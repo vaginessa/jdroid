@@ -20,7 +20,7 @@ public enum ApiServer implements Server {
 	private Boolean supportsSsl;
 	private Boolean isProduction;
 	
-	private ApiServer(String domain, String port, String segment, Boolean supportsSsl, Boolean isProduction) {
+	ApiServer(String domain, String port, String segment, Boolean supportsSsl, Boolean isProduction) {
 		this.domain = domain;
 		this.port = port;
 		this.segment = segment;

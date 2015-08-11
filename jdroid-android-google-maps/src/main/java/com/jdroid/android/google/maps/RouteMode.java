@@ -11,7 +11,7 @@ public enum RouteMode implements ChoiceItem {
 	private int resourceTitleId;
 	private String argName;
 	
-	private RouteMode(int colorId, int resourceTitleId, String argName) {
+	RouteMode(int colorId, int resourceTitleId, String argName) {
 		this.colorId = colorId;
 		this.resourceTitleId = resourceTitleId;
 		this.argName = argName;

@@ -69,7 +69,7 @@ public final class Message implements Serializable {
     private Integer timeToLive;
 
     public Builder() {
-      this.data = new LinkedHashMap<String, String>();
+      this.data = new LinkedHashMap<>();
     }
 
     /**

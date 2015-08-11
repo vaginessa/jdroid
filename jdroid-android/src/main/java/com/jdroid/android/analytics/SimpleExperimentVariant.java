@@ -7,7 +7,7 @@ public enum SimpleExperimentVariant implements ExperimentHelper.ExperimentVarian
 
 	private String id;
 
-	private SimpleExperimentVariant(String id) {
+	SimpleExperimentVariant(String id) {
 		this.id = id;
 	}
 

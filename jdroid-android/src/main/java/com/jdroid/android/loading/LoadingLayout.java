@@ -3,6 +3,7 @@ package com.jdroid.android.loading;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -173,7 +174,7 @@ public class LoadingLayout extends FrameLayout {
 		}
 		
 		@Override
-		public void writeToParcel(Parcel dest, int flags) {
+		public void writeToParcel(@NonNull Parcel dest, int flags) {
 			super.writeToParcel(dest, flags);
 			dest.writeInt(isLoading ? 1 : 0);
 		}

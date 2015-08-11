@@ -13,7 +13,7 @@ public enum ImageType {
 	
 	private String key;
 	
-	private ImageType(String key) {
+	ImageType(String key) {
 		this.key = key;
 	}
 	

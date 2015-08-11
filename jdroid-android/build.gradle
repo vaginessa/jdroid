@@ -39,7 +39,8 @@ dependencies {
 	compile 'org.slf4j:slf4j-android:1.6.1-RC1'
 
 	// https://twittersdk.artifactoryonline.com/twittersdk/public/com/crashlytics/sdk/android/crashlytics/
-	compile('com.crashlytics.sdk.android:crashlytics:2.3.2@aar') {
+	// http://docs.fabric.io/android/changelog.html#crashlytics
+	compile('com.crashlytics.sdk.android:crashlytics:2.5.0@aar') {
 		transitive = true
 	}
 

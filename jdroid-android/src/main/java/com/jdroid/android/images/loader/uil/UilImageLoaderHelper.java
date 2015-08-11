@@ -26,6 +26,7 @@ public class UilImageLoaderHelper implements ImageLoaderHelper {
 	private Map<String, Long> imagesExpirationMap;
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public void init() {
 
 		// Create global configuration and initialize ImageLoader with this configuration

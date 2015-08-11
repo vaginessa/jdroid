@@ -21,12 +21,12 @@ public enum CommonErrorCode implements ErrorCode {
 	private Integer resourceId;
 	private Integer statusCode;
 	
-	private CommonErrorCode(Integer resourceId, Integer statusCode) {
+	CommonErrorCode(Integer resourceId, Integer statusCode) {
 		this.resourceId = resourceId;
 		this.statusCode = statusCode;
 	}
 	
-	private CommonErrorCode(Integer resourceId) {
+	CommonErrorCode(Integer resourceId) {
 		this.resourceId = resourceId;
 	}
 	

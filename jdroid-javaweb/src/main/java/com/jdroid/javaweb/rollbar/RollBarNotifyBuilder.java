@@ -108,7 +108,7 @@ public class RollBarNotifyBuilder {
         Throwable throwable = original;
 
         if (throwable != null) {
-            List<JSONObject> traces = new ArrayList<JSONObject>();
+            List<JSONObject> traces = new ArrayList<>();
             do {
                 traces.add(0, createTrace(throwable));
                 throwable = throwable.getCause();
@@ -147,7 +147,7 @@ public class RollBarNotifyBuilder {
         // headers
         Map<String, String> headers = (Map<String, String>) context.get("headers");
         if (headers == null && httpRequest != null) {
-            headers = new HashMap<String, String>();
+            headers = new HashMap<>();
 
             Enumeration<String> headerNames = httpRequest.getHeaderNames();
             while (headerNames.hasMoreElements()) {

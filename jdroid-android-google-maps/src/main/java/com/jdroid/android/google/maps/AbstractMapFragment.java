@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -516,9 +517,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 		return fragmentHelper.shouldTrackOnFragmentStart();
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getScreenViewName()
-	 */
+	@NonNull
 	@Override
 	public String getScreenViewName() {
 		return fragmentHelper.getScreenViewName();

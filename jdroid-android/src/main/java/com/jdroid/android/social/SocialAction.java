@@ -10,7 +10,7 @@ public enum SocialAction {
 	
 	private String name;
 	
-	private SocialAction(String name) {
+	SocialAction(String name) {
 		this.name = name;
 	}
 	

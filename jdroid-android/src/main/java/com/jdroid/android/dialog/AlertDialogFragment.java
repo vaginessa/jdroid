@@ -3,6 +3,7 @@ package com.jdroid.android.dialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -99,6 +100,7 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 		screenViewName = getArgument(SCREEN_VIEW_NAME);
 	}
 	
+	@NonNull
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		
@@ -191,6 +193,7 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 		return screenViewName != null;
 	}
 
+	@NonNull
 	@Override
 	public String getScreenViewName() {
 		return screenViewName;

@@ -249,7 +249,7 @@ public class AbstractHibernateRepository<T extends Entity> extends HibernateDaoS
 		Integer totalPages = pager.getMaxPages(count);
 		
 		if (pager.getPage() > totalPages) {
-			return new PagedResult<T>();
+			return new PagedResult<>();
 		}
 		
 		// Reset criteria after count
@@ -268,7 +268,7 @@ public class AbstractHibernateRepository<T extends Entity> extends HibernateDaoS
 		@SuppressWarnings("unchecked")
 		List<T> data = this.getHibernateTemplate().findByCriteria(detachedCriteria, pager.getOffset(), pager.getSize());
 		
-		return new PagedResult<T>(data, pager.isLastPage(count));
+		return new PagedResult<>(data, pager.isLastPage(count));
 	}
 	
 	/**

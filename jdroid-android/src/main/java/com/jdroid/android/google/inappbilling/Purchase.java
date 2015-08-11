@@ -24,7 +24,7 @@ public class Purchase {
 		
 		private int code;
 		
-		private PurchaseState(int code) {
+		PurchaseState(int code) {
 			this.code = code;
 		}
 		

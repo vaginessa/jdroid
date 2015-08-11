@@ -13,7 +13,7 @@ public enum AppLoadingSource {
 	
 	private String name;
 	
-	private AppLoadingSource(String name) {
+	AppLoadingSource(String name) {
 		this.name = name;
 	}
 	

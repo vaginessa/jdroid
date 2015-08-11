@@ -69,12 +69,12 @@ public enum InAppBillingErrorCode implements ErrorCode {
 	private Integer resourceId;
 	private Integer errorResponseCode;
 	
-	private InAppBillingErrorCode(Integer resourceId, Integer errorResponseCode) {
+	InAppBillingErrorCode(Integer resourceId, Integer errorResponseCode) {
 		this.resourceId = resourceId;
 		this.errorResponseCode = errorResponseCode;
 	}
 	
-	private InAppBillingErrorCode(Integer resourceId) {
+	InAppBillingErrorCode(Integer resourceId) {
 		this.resourceId = resourceId;
 	}
 	

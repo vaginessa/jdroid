@@ -19,10 +19,10 @@ public class HomeActivity extends FragmentContainerActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		if (savedInstanceState == null) {
-			// TODO Enable to make gcm work
+		// TODO Enable to make gcm work
+//		if (savedInstanceState == null) {
 //			AbstractGcmRegistrationService.runRegistrationService(getApplicationContext(), AndroidGcmRegistrationService.class);
-		}
+//		}
 	}
 
 	/**

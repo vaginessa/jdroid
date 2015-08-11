@@ -40,7 +40,7 @@ public class TimeView extends TextView implements Callback {
 	}
 	
 	private void updateTime() {
-		if ((visible != null) && (visible == true)) {
+		if ((visible != null) && (visible)) {
 			if (isInEditMode()) {
 				setText("09:34 PM");
 			} else {

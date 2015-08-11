@@ -21,7 +21,7 @@ public enum AndroidGcmMessage implements GcmMessage {
 	
 	private String messageKey;
 	
-	private AndroidGcmMessage(String messageKey) {
+	AndroidGcmMessage(String messageKey) {
 		this.messageKey = messageKey;
 	}
 	

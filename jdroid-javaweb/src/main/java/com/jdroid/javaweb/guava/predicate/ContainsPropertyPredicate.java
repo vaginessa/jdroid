@@ -1,11 +1,12 @@
 package com.jdroid.javaweb.guava.predicate;
 
-import java.io.Serializable;
-import java.util.Collection;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.jdroid.javaweb.guava.function.PropertyFunction;
+
+import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * Predicates that verifies if the input value is contained by the property represent by the propertyName or viceversa.
@@ -24,7 +25,7 @@ public class ContainsPropertyPredicate<T> implements Predicate<T>, Serializable 
 	 * @param value The value or collection of values to evaluate the contains
 	 */
 	public ContainsPropertyPredicate(String propertyName, Object value) {
-		this.propertyFunction = new PropertyFunction<T, Object>(propertyName);
+		this.propertyFunction = new PropertyFunction<>(propertyName);
 		this.value = value;
 		this.valueIsCollection = Collection.class.isInstance(this.value);
 	}

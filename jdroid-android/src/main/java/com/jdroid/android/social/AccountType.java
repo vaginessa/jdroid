@@ -18,7 +18,7 @@ public enum AccountType {
 	private String friendlyName;
 	private Integer iconResId;
 	
-	private AccountType(String name, String friendlyName, Integer iconResId) {
+	AccountType(String name, String friendlyName, Integer iconResId) {
 		this.name = name;
 		this.friendlyName = friendlyName;
 		this.iconResId = iconResId;

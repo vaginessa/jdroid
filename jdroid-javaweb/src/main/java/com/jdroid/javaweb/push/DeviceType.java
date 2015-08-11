@@ -1,7 +1,8 @@
 package com.jdroid.javaweb.push;
 
-import java.util.List;
 import com.jdroid.javaweb.push.gcm.GcmSender;
+
+import java.util.List;
 
 public enum DeviceType {
 	ANDROID("android", GcmSender.get()),
@@ -12,7 +13,7 @@ public enum DeviceType {
 	private String userAgent;
 	private PushMessageSender pushMessageSender;
 	
-	private DeviceType(String userAgent, PushMessageSender pushMessageSender) {
+	DeviceType(String userAgent, PushMessageSender pushMessageSender) {
 		this.pushMessageSender = pushMessageSender;
 		this.userAgent = userAgent;
 	}

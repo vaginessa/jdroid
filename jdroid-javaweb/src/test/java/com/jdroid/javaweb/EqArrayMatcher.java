@@ -1,8 +1,9 @@
 package com.jdroid.javaweb;
 
-import java.util.Arrays;
 import org.hamcrest.Description;
 import org.mockito.ArgumentMatcher;
+
+import java.util.Arrays;
 
 /**
  * Matcher that verify that two arrays have the same elements in no particular order.
@@ -17,7 +18,7 @@ public class EqArrayMatcher<T> extends ArgumentMatcher<T[]> {
 	 * @param expected list of arguments to match.
 	 */
 	public EqArrayMatcher(T[] expected) {
-		eqCollectionMatcher = new EqCollectionMatcher<T>(Arrays.asList(expected));
+		eqCollectionMatcher = new EqCollectionMatcher<>(Arrays.asList(expected));
 	}
 	
 	/**

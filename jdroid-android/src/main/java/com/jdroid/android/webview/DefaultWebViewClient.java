@@ -1,6 +1,7 @@
 package com.jdroid.android.webview;
 
 import android.net.http.SslError;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
@@ -29,12 +30,8 @@ public class DefaultWebViewClient extends WebViewClient {
 		errorReceived = true;
 	}
 	
-	/**
-	 * @see android.webkit.WebViewClient#onReceivedSslError(android.webkit.WebView, android.webkit.SslErrorHandler,
-	 *      android.net.http.SslError)
-	 */
 	@Override
-	public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+	public void onReceivedSslError(WebView view, @NonNull SslErrorHandler handler, SslError error) {
 		handler.proceed();
 	}
 	
