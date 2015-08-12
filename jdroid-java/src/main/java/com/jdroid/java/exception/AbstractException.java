@@ -78,8 +78,9 @@ public abstract class AbstractException extends RuntimeException {
 		return trackable;
 	}
 	
-	public void setTrackable(Boolean trackable) {
+	public AbstractException setTrackable(Boolean trackable) {
 		this.trackable = trackable;
+		return this;
 	}
 	
 	public Throwable getThrowableToLog() {

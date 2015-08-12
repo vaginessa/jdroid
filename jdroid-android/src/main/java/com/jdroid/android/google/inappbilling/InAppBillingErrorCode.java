@@ -12,7 +12,7 @@ public enum InAppBillingErrorCode implements ErrorCode {
 	// Indicates that in-app billing is not available because the API_VERSION that you specified is not recognized by
 	// the Google Play app or the user is ineligible for in-app billing (for example, the user resides in a
 	// country that prohibits in-app purchases).
-	BILLING_UNAVAILABLE(R.string.notSupportedInAppBillingError, 3),
+	BILLING_UNAVAILABLE(R.string.notSupportedInAppBillingError, 3, false),
 	
 	// Indicates that the Google Play app cannot find the requested item in the application's product list. This can
 	// happen
@@ -68,12 +68,19 @@ public enum InAppBillingErrorCode implements ErrorCode {
 	
 	private Integer resourceId;
 	private Integer errorResponseCode;
+	private Boolean trackable = true;
 	
+	InAppBillingErrorCode(Integer resourceId, Integer errorResponseCode, Boolean trackable) {
+		this.resourceId = resourceId;
+		this.errorResponseCode = errorResponseCode;
+		this.trackable = trackable;
+	}
+
 	InAppBillingErrorCode(Integer resourceId, Integer errorResponseCode) {
 		this.resourceId = resourceId;
 		this.errorResponseCode = errorResponseCode;
 	}
-	
+
 	InAppBillingErrorCode(Integer resourceId) {
 		this.resourceId = resourceId;
 	}
@@ -102,7 +109,7 @@ public enum InAppBillingErrorCode implements ErrorCode {
 	 */
 	@Override
 	public ErrorCodeException newErrorCodeException(Object... errorCodeParameters) {
-		return new ErrorCodeException(this, errorCodeParameters).markAsTrackable();
+		return new ErrorCodeException(this, errorCodeParameters).setTrackable(trackable);
 	}
 	
 	/**
@@ -110,7 +117,7 @@ public enum InAppBillingErrorCode implements ErrorCode {
 	 */
 	@Override
 	public ErrorCodeException newErrorCodeException() {
-		return new ErrorCodeException(this).markAsTrackable();
+		return new ErrorCodeException(this).setTrackable(trackable);
 	}
 	
 	/**
@@ -118,7 +125,7 @@ public enum InAppBillingErrorCode implements ErrorCode {
 	 */
 	@Override
 	public ErrorCodeException newErrorCodeException(Throwable throwable) {
-		return new ErrorCodeException(this, throwable).markAsTrackable();
+		return new ErrorCodeException(this, throwable).setTrackable(trackable);
 	}
 	
 	/**
@@ -126,7 +133,7 @@ public enum InAppBillingErrorCode implements ErrorCode {
 	 */
 	@Override
 	public ErrorCodeException newErrorCodeException(String message) {
-		return new ErrorCodeException(this, name() + ": " + message).markAsTrackable();
+		return new ErrorCodeException(this, name() + ": " + message).setTrackable(trackable);
 	}
 	
 	/**
