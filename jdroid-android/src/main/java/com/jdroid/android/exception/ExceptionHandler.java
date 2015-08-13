@@ -1,7 +1,8 @@
 package com.jdroid.android.exception;
 
-import java.lang.Thread.UncaughtExceptionHandler;
 import com.jdroid.java.utils.LoggerUtils.ExceptionLogger;
+
+import java.lang.Thread.UncaughtExceptionHandler;
 
 public interface ExceptionHandler extends UncaughtExceptionHandler, ExceptionLogger {
 	
@@ -12,6 +13,8 @@ public interface ExceptionHandler extends UncaughtExceptionHandler, ExceptionLog
 	public void logWarningException(String errorMessage, Throwable throwable);
 	
 	public void logWarningException(String errorMessage);
+
+	public void logIgnoreStackTraceWarningException(String errorMessage);
 	
 	public void handleThrowable(Throwable throwable);
 	

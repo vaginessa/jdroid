@@ -8,9 +8,17 @@ public class WarningException extends AbstractException {
 	
 	public WarningException(String message, Throwable cause) {
 		super(message, cause);
+		setPriorityLevel(AbstractException.LOW_PRIORITY);
 	}
 	
 	public WarningException(String message) {
 		super(message);
+		setPriorityLevel(AbstractException.LOW_PRIORITY);
+	}
+
+	public WarningException(String message, boolean ignoreStackTrace) {
+		super(message);
+		setIgnoreStackTrace(ignoreStackTrace);
+		setPriorityLevel(AbstractException.LOW_PRIORITY);
 	}
 }

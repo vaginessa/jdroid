@@ -179,14 +179,11 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackHandledException(java.lang.Throwable)
-	 */
 	@Override
-	public void trackHandledException(final Throwable throwable) {
+	public void trackHandledException(final Throwable throwable, int priority) {
 		for (T tracker : trackers) {
 			if (tracker.isEnabled()) {
-				tracker.trackHandledException(throwable);
+				tracker.trackHandledException(throwable, priority);
 			}
 		}
 	}

@@ -72,11 +72,8 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 		// Do Nothing
 	}
 
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackHandledException(java.lang.Throwable)
-	 */
 	@Override
-	public void trackHandledException(Throwable throwable) {
+	public void trackHandledException(Throwable throwable, int priority) {
 		// Do Nothing
 	}
 	

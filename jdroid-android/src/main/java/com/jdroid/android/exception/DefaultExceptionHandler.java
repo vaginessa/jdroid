@@ -95,6 +95,11 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	public void logWarningException(String errorMessage) {
 		logHandledException(new WarningException(errorMessage));
 	}
+
+	@Override
+	public void logIgnoreStackTraceWarningException(String errorMessage) {
+		logHandledException(new WarningException(errorMessage, true));
+	}
 	
 	/**
 	 * @see com.jdroid.android.exception.ExceptionHandler#logHandledException(java.lang.Throwable)
@@ -103,7 +108,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	public void logHandledException(Throwable throwable) {
 		logHandledException(null, throwable);
 	}
-	
+
 	/**
 	 * @see com.jdroid.android.exception.ExceptionHandler#logHandledException(java.lang.String, java.lang.Throwable)
 	 */
@@ -111,7 +116,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	public void logHandledException(String errorMessage, Throwable throwable) {
 		
 		if (throwable instanceof ConnectionException) {
-			ConnectionException connectionException = (ConnectionException)throwable;
+			final ConnectionException connectionException = (ConnectionException)throwable;
 			
 			Boolean isSSLPeerUnverifiedError = false;
 			// Added to log at least the exception message, because Logcat does not show the stackTrace when it
@@ -139,7 +144,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 					@Override
 					public void run() {
 						AbstractApplication.get().getAnalyticsSender().trackHandledException(
-							new SSLPeerUnverifiedException(sslCause.getMessage()));
+								new SSLPeerUnverifiedException(sslCause.getMessage()), connectionException.getPriorityLevel());
 					}
 				});
 			} else {
@@ -149,10 +154,13 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 		} else {
 			Boolean trackable = true;
 			Throwable throwableToLog = throwable;
+			int priorityLevel = AbstractException.NORMAL_PRIORITY;
+
 			if (throwable instanceof AbstractException) {
 				AbstractException abstractException = (AbstractException)throwable;
 				trackable = abstractException.isTrackable();
 				throwableToLog = abstractException.getThrowableToLog();
+				priorityLevel = abstractException.getPriorityLevel();
 			}
 			
 			if (errorMessage == null) {
@@ -164,7 +172,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 			
 			if (trackable) {
 				LOGGER.error(errorMessage, throwableToLog);
-				AbstractApplication.get().getAnalyticsSender().trackHandledException(throwableToLog);
+				AbstractApplication.get().getAnalyticsSender().trackHandledException(throwableToLog, priorityLevel);
 			} else {
 				LOGGER.warn(errorMessage);
 			}

@@ -2,17 +2,25 @@ package com.jdroid.java.exception;
 
 import com.jdroid.java.collections.Maps;
 
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.Map;
 
 public abstract class AbstractException extends RuntimeException {
 	
 	private static final long serialVersionUID = 6296155655850331666L;
-	
+
+	public static final int CRITICAL_PRIORITY = 10;
+	public static final int NORMAL_PRIORITY = 50;
+	public static final int LOW_PRIORITY = 90;
+
 	private Map<String, Object> parameters = Maps.newHashMap();
 	private String title;
 	private String description;
 	private Boolean trackable = true;
-	
+	private Boolean ignoreStackTrace = false;
+	private int priorityLevel = NORMAL_PRIORITY;
+
 	public AbstractException() {
 		super();
 	}
@@ -85,5 +93,42 @@ public abstract class AbstractException extends RuntimeException {
 	
 	public Throwable getThrowableToLog() {
 		return this;
+	}
+
+	public int getPriorityLevel() {
+		return priorityLevel;
+	}
+
+	public void setPriorityLevel(int priorityLevel) {
+		this.priorityLevel = priorityLevel;
+	}
+
+	@Override
+	public StackTraceElement[] getStackTrace() {
+		return ignoreStackTrace ? null : super.getStackTrace();
+	}
+
+	@Override
+	public void printStackTrace(PrintStream err) {
+		if (ignoreStackTrace) {
+			return;
+		}
+		super.printStackTrace(err);
+	}
+
+	@Override
+	public void printStackTrace(PrintWriter err) {
+		if (ignoreStackTrace) {
+			return;
+		}
+		super.printStackTrace(err);
+	}
+
+	public void setIgnoreStackTrace(Boolean ignoreStackTrace) {
+		this.ignoreStackTrace = ignoreStackTrace;
+	}
+
+	public Boolean isIgnoreStackTrace() {
+		return ignoreStackTrace;
 	}
 }

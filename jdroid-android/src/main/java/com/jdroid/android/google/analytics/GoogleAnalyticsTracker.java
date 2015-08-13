@@ -304,7 +304,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 
 	@Override
-	public void trackHandledException(Throwable throwable) {
+	public void trackHandledException(Throwable throwable, int priority) {
 		HitBuilders.ExceptionBuilder builder = new HitBuilders.ExceptionBuilder();
 		String description = new StandardExceptionParser(AbstractApplication.get(), null).getDescription(Thread.currentThread().getName(), throwable);
 		builder.setDescription(description);

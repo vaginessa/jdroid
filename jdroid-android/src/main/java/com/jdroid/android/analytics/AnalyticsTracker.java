@@ -28,7 +28,7 @@ public interface AnalyticsTracker {
 	
 	public void trackFatalException(Throwable throwable);
 
-	public void trackHandledException(Throwable throwable);
+	public void trackHandledException(Throwable throwable, int priority);
 
 	public void trackUriOpened(String uriType, String screenName);
 	

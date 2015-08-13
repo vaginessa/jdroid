@@ -37,7 +37,8 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 	
 	private Long executionTime = 0L;
 	private Long minimumExecutionTime = 0L;
-	
+	private int exceptionPriorityLevel = AbstractException.NORMAL_PRIORITY;
+
 	/**
 	 * Executes the use case.
 	 */
@@ -77,6 +78,7 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 			} else {
 				abstractException = new UnexpectedException(e);
 			}
+			abstractException.setPriorityLevel(exceptionPriorityLevel);
 			markAsFailed(abstractException);
 			for (T listener : listeners) {
 				notifyFailedUseCase(abstractException, listener);
@@ -215,5 +217,9 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 	
 	public Boolean isNotified() {
 		return notified;
+	}
+
+	public void setExceptionPriorityLevel(int exceptionPriorityLevel) {
+		this.exceptionPriorityLevel = exceptionPriorityLevel;
 	}
 }

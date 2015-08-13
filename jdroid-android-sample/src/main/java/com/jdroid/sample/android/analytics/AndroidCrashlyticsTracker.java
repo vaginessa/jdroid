@@ -1,9 +1,11 @@
 package com.jdroid.sample.android.analytics;
 
-import java.util.Map;
 import android.app.Activity;
+
 import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.exception.CrashlyticsTracker;
+
+import java.util.Map;
 
 public class AndroidCrashlyticsTracker extends DefaultAnalyticsTracker {
 	
@@ -29,12 +31,9 @@ public class AndroidCrashlyticsTracker extends DefaultAnalyticsTracker {
 		CrashlyticsTracker.get().onInitExceptionHandler(metadata);
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackHandledException(java.lang.Throwable)
-	 */
 	@Override
-	public void trackHandledException(Throwable throwable) {
-		CrashlyticsTracker.get().trackHandledException(throwable);
+	public void trackHandledException(Throwable throwable, int priority) {
+		CrashlyticsTracker.get().trackHandledException(throwable, priority);
 	}
 	
 	/**
