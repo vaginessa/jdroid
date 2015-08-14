@@ -27,20 +27,20 @@ public enum HomeItem implements ActionItem {
 	
 	ADMOB(R.string.adMob, R.drawable.apps, AdsActivity.class),
 	ANDROID_UNVERSAL_IMAGE_LOADER(R.string.universalImageLoader, R.drawable.photo, ImageLoaderActivity.class),
-	DATE_TIME(R.string.dateTime, R.drawable.photo, DateTimeActivity.class),
+	DATE_TIME(R.string.dateTime, R.drawable.datetime, DateTimeActivity.class),
 	EXCEPTION_HANDLING(R.string.exceptionHandling, R.drawable.bug, ExceptionHandlingActivity.class),
 	GOOGLE_ANALYTCS(R.string.googleAnalytics, R.drawable.analytics, AnalyticsActivity.class),
 	GCM(R.string.gcm, R.drawable.cloud, ImageLoaderActivity.class),
 	GOOGLE_MAPS(R.string.googleMaps, R.drawable.map, MapActivity.class),
 	GOOGLE_PLUS(R.string.googlePlus, R.drawable.google_plus, ImageLoaderActivity.class),
 	HERO(R.string.hero, R.drawable.photo, HeroActivity.class),
-	HTTP(R.string.http, R.drawable.cloud, HttpActivity.class),
+	HTTP(R.string.http, R.drawable.http, HttpActivity.class),
 	IN_APP_BILLING(R.string.inAppBilling, R.drawable.shopping_cart, ImageLoaderActivity.class),
 	LOADING(R.string.loading, R.drawable.refresh, LoadingActivity.class),
-	NAVDRAWER(R.string.navDrawer, R.drawable.notifications, NavDrawerActivity.class),
+	NAVDRAWER(R.string.navDrawer, R.drawable.drawer, NavDrawerActivity.class),
 	NOTIFICATIONS(R.string.notifications, R.drawable.notifications, NotificationsActivity.class),
 	RECYCLER_VIEW(R.string.recyclerView, R.drawable.list, RecyclerViewActivity.class),
-	TABLETS(R.string.tablets, R.drawable.apps, ScreenUtils.is10Inches() ? TabletActivity.class : LeftTabletActivity.class),
+	TABLETS(R.string.tablets, R.drawable.tablet, ScreenUtils.is10Inches() ? TabletActivity.class : LeftTabletActivity.class),
 	TOASTS(R.string.toasts, R.drawable.info, ToastsActivity.class);
 
 	private Integer resourceId;

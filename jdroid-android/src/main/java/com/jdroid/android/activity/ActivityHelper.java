@@ -2,9 +2,11 @@ package com.jdroid.android.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,11 +24,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.ads.AdSize;
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.ad.HouseAdBuilder;
 import com.jdroid.android.analytics.AppLoadingSource;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
@@ -35,8 +37,9 @@ import com.jdroid.android.loading.ActivityLoading;
 import com.jdroid.android.loading.DefaultBlockingLoading;
 import com.jdroid.android.location.LocationHelper;
 import com.jdroid.android.navdrawer.NavDrawer;
-import com.jdroid.android.uri.UriHandler;
 import com.jdroid.android.notification.NotificationBuilder;
+import com.jdroid.android.uri.UriHandler;
+import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.IdGenerator;
@@ -111,10 +114,13 @@ public class ActivityHelper implements ActivityIf {
 		// Do nothing
 	}
 	
+
 	public void onCreate(Bundle savedInstanceState) {
 		LOGGER.debug("Executing onCreate on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
-		
+
+		overrideStatusBarColor();
+
 		AbstractApplication.get().initExceptionHandlers();
 
 		UriHandler uriHandler = getActivityIf().getUriHandler();
@@ -143,6 +149,13 @@ public class ActivityHelper implements ActivityIf {
 
 		if (savedInstanceState == null) {
 			trackNotificationOpened(activity.getIntent());
+		}
+	}
+
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	protected void overrideStatusBarColor() {
+		if (!AndroidUtils.isPreLollipop()) {
+			activity.getWindow().setStatusBarColor(activity.getResources().getColor(android.R.color.transparent));
 		}
 	}
 

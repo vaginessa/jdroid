@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-	android:layout_height="match_parent" android:orientation="vertical" android:layout_margin="8dp">
+	android:layout_height="match_parent" android:orientation="vertical" android:padding="8dp">
 
 	<Button android:id="@+id/leftCustomNavDrawer" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal" android:text="@string/leftCustomNavDrawer" />
+		android:text="@string/leftCustomNavDrawer" />
 
 	<Button android:id="@+id/rightCustomNavDrawer" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal" android:text="@string/rightCustomNavDrawer" />
+		android:text="@string/rightCustomNavDrawer" />
 
 	<Button android:id="@+id/userNavDrawer" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal" android:text="@string/userNavDrawer" />
+		android:text="@string/userNavDrawer" />
 
 	<Button android:id="@+id/noNavDrawer" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal" android:text="@string/noNavDrawer" />
+		android:text="@string/noNavDrawer" />
 
 </LinearLayout>
