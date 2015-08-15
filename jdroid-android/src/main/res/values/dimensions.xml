@@ -25,7 +25,7 @@
 	<!-- Nav Drawer -->
 
 	<dimen name="navdrawerHeaderHorizontalPadding">16dp</dimen>
-	<dimen name="navdrawerHeaderTopPadding">24dp</dimen>
+	<dimen name="navdrawerHeaderTopPadding">28dp</dimen>
 	<dimen name="navdrawerHeaderHeight">140dp</dimen>
 	<dimen name="navdrawerHeaderImageSize">40dp</dimen>
 

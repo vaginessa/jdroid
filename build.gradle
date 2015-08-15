@@ -34,7 +34,7 @@ group = 'com.jdroidframework'
 version = '0.9.0-SNAPSHOT'
 
 ext.jdroidVersion = project.version
-ext.googlePlayServicesVersion = '7.5.0'
+ext.googlePlayServicesVersion = '7.8.0'
 ext.packaging = null
 
 subprojects {
