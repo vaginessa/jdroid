@@ -6,7 +6,7 @@ import com.jdroid.android.about.AboutActivity;
 import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.navdrawer.NavDrawerItem;
 import com.jdroid.android.sample.R;
-import com.jdroid.android.sample.ui.HomeActivity;
+import com.jdroid.android.sample.ui.home.HomeActivity;
 
 public enum AndroidNavDrawerItem implements NavDrawerItem {
 	

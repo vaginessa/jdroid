@@ -3,8 +3,7 @@ package com.jdroid.android.sample.ui.ads;
 import android.support.v4.app.Fragment;
 import com.jdroid.android.activity.FragmentContainerActivity;
 import com.jdroid.android.uri.UriHandler;
-import com.jdroid.android.sample.AndroidAppContext;
-import com.jdroid.android.sample.uri.AdsUriHandler;
+import com.jdroid.android.sample.application.AndroidAppContext;
 
 public class AdsActivity extends FragmentContainerActivity {
 	

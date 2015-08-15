@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.jdroid.sample.android" android:versionCode="999999999">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.jdroid.android.android" android:versionCode="999999999">
 
-	<application android:name="com.jdroid.sample.android.TestAndroidApplication">
+	<application android:name="com.jdroid.android.sample.TestAndroidApplication">
 
 	</application>
 </manifest>
