@@ -1,7 +1,7 @@
 package com.jdroid.sample.android.integration;
 
 import com.jdroid.sample.android.AbstractIntegrationTest;
-import com.jdroid.sample.android.usecase.SampleUseCase;
+import com.jdroid.android.sample.usecase.SampleUseCase;
 
 import org.junit.Test;
 

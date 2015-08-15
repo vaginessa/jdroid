@@ -9,8 +9,8 @@ import com.jdroid.android.google.gcm.GcmMessage;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.http.Server;
-import com.jdroid.sample.android.api.ApiServer;
-import com.jdroid.sample.android.gcm.AndroidGcmMessage;
+import com.jdroid.android.sample.api.ApiServer;
+import com.jdroid.android.sample.gcm.AndroidGcmMessage;
 
 import java.util.List;
 import java.util.Map;
