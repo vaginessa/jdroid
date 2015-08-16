@@ -6,8 +6,8 @@ public class AbstractIncrementVersionTask extends DefaultTask {
 	protected def changeVersion(String versionType, Integer newVersion) {
 		def file = project.file("./build.gradle")
 		def patternVersionNumber = java.util.regex.Pattern.compile(versionType + " = (\\d+)")
-		def manifestText = file.getText()
-		def matcherVersionNumber = patternVersionNumber.matcher(manifestText)
+		def buildGradleText = file.getText()
+		def matcherVersionNumber = patternVersionNumber.matcher(buildGradleText)
 		matcherVersionNumber.find()
 		def currentVersion = Integer.parseInt(matcherVersionNumber.group(1))
 		if (newVersion == null) {

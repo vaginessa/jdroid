@@ -1,3 +1,11 @@
+import com.jdroid.github.IRepositoryIdProvider;
+import com.jdroid.github.Milestone;
+import com.jdroid.github.Release;
+import com.jdroid.github.RepositoryId;
+import com.jdroid.github.client.GitHubClient;
+import com.jdroid.github.service.MilestoneService;
+import com.jdroid.github.service.ReleaseService;
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 allprojects {
@@ -30,8 +38,31 @@ allprojects {
     }
 }
 
+buildscript {
+
+	repositories {
+		mavenCentral()
+		maven {
+			url "https://oss.sonatype.org/content/repositories/snapshots/"
+		}
+	}
+
+	dependencies {
+		classpath 'com.jdroidframework:jdroid-github:0.8.0-SNAPSHOT'
+	}
+}
+
 group = 'com.jdroidframework'
-version = '0.9.0-SNAPSHOT'
+
+Integer versionMajor = 0
+Integer versionMinor = 9
+Integer versionPatch = 0
+Boolean isSnapshot = getBooleanProp('SNAPSHOT', true)
+
+version = "${versionMajor}.${versionMinor}.${versionPatch}"
+if (isSnapshot) {
+	version = "${version}-SNAPSHOT"
+}
 
 ext.jdroidVersion = project.version
 ext.googlePlayServicesVersion = '7.8.0'
@@ -111,13 +142,9 @@ subprojects {
 	}
 
 	signing {
-		required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
+		required { !isSnapshot && gradle.taskGraph.hasTask("uploadArchives") }
 		sign configurations.archives
 	}
-}
-
-def isReleaseBuild() {
-	return project.version.contains("SNAPSHOT") == false
 }
 
 def getRepositoryUsername() {
@@ -132,6 +159,75 @@ public def getProp(String propertyName) {
 	return project.hasProperty(propertyName) ? project.ext.get(propertyName) : System.getenv(propertyName)
 }
 
+public Boolean getBooleanProp(String propertyName, Boolean defaultValue) {
+    def value = getProp(propertyName)
+	if (value == null) {
+		return defaultValue
+	} else if (value == 'true') {
+		return true
+	} else {
+		return false
+	}
+}
+
 task printVersion << {
 	println version
 }
+
+task closeGitHubMilestone << {
+
+	GitHubClient client = new com.jdroid.github.client.GitHubClient();
+	client.setSerializeNulls(false);
+	client.setOAuth2Token(getProp('GITHUB_OATH_TOKEN'));
+
+	IRepositoryIdProvider repositoryIdProvider = RepositoryId.create("maxirosson", "jdroid");
+
+	closeMilestone(client, repositoryIdProvider, "v${version}");
+}
+
+
+public void closeMilestone(GitHubClient client, IRepositoryIdProvider repositoryIdProvider, String milestoneTitle) throws IOException {
+
+	MilestoneService milestoneService = new MilestoneService(client);
+	for (Milestone each : milestoneService.getMilestones(repositoryIdProvider, "open")) {
+		if (each.getTitle().equals(milestoneTitle)) {
+
+			Milestone newMilestone = new Milestone();
+			newMilestone.setNumber(each.getNumber());
+			newMilestone.setTitle(each.getTitle());
+			newMilestone.setDescription(each.getDescription());
+			newMilestone.setDueOn(new Date());
+			newMilestone.setState("closed");
+			milestoneService.editMilestone(repositoryIdProvider, newMilestone);
+			break;
+		}
+	}
+}
+
+task createGitHubRelease << {
+	GitHubClient client = new com.jdroid.github.client.GitHubClient();
+	client.setSerializeNulls(false);
+	client.setOAuth2Token(getProp('GITHUB_OATH_TOKEN'));
+
+	IRepositoryIdProvider repositoryIdProvider = RepositoryId.create("maxirosson", "jdroid");
+
+	def releaseNotesFile = project.file("./etc/releaseNotes.txt")
+
+	createRelease(client, repositoryIdProvider, "v${version}", releaseNotesFile.getText());
+}
+
+public void createRelease(GitHubClient client, IRepositoryIdProvider repositoryIdProvider, String name, String body) throws IOException {
+
+	Release release = new Release();
+	release.setBody(body);
+	release.setDraft(false);
+	release.setName(name);
+	release.setTagName(name);
+	release.setPrerelease(false);
+	release.setTargetCommitish("production");
+
+	ReleaseService releaseService = new ReleaseService(client);
+	releaseService.createRelease(repositoryIdProvider, release);
+}
+
+

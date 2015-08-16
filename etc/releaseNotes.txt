@@ -1,29 +1,28 @@
-jdroid Java\n
----------------\n
-* Ok http integration\n
-* Created jdroid-java-http-okhttp library\n
-* Created jdroid-java-http-apache library\n
-* Upgraded dependencies versions\n
-* Bug fixing\n
-\n
-jdroid Java Web\n
----------------\n
-* RollBar integration\n
-* Upgraded dependencies versions\n
-* Bug fixing\n
-\n
-jdroid Android\n
---------------\n
-* Created jdroid-android-google-plus library\n
-* Created jdroid-android-about library\n
-* Created jdroid-android-google-gcm library\n
-* Created jdroid-android-google-maps library\n
-* Created jdroid-android-facebook library\n
-* Added navigation view support to nav drawer\n
-* Added Left & right nav drawers support\n
-* Added Recycler View support\n
-* Added Exception tracking support on Analytics\n
-* Added Device year class integration\n
-* Updated support libraries\n
-* Bug fixing\n
-\n
+jdroid Java
+---------------
+* Ok http integration
+* Created jdroid-java-http-okhttp library
+* Created jdroid-java-http-apache library
+* Upgraded dependencies versions
+* Bug fixing
+
+jdroid Java Web
+---------------
+* RollBar integration
+* Upgraded dependencies versions
+* Bug fixing
+
+jdroid Android
+--------------
+* Created jdroid-android-google-plus library
+* Created jdroid-android-about library
+* Created jdroid-android-google-gcm library
+* Created jdroid-android-google-maps library
+* Created jdroid-android-facebook library
+* Added navigation view support to nav drawer
+* Added Left & right nav drawers support
+* Added Recycler View support
+* Added Exception tracking support on Analytics
+* Added Device year class integration
+* Updated support libraries
+* Bug fixing
