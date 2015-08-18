@@ -119,3 +119,19 @@ cd $PROJECT_HOME
 # ************************
 
 ./gradlew :closeGitHubMilestone --configure-on-demand -PSNAPSHOT=false -PGITHUB_OATH_TOKEN=$GIT_HUB_TOKEN
+
+# ************************
+# Update the Jdroid GitHub page
+# ************************
+
+cd $PROJECT_HOME
+git add -A
+git stash
+git checkout gh-pages
+git pull
+
+sed -i '' 's/v[0-9].[0-9].[0-9]/v$VERSION/g' index.html
+git add index.html
+git commit -m 'Updated jdroid version to v$VERSION'
+
+
