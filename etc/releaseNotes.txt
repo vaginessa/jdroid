@@ -1,28 +1,18 @@
 jdroid Java
 ---------------
-* Ok http integration
-* Created jdroid-java-http-okhttp library
-* Created jdroid-java-http-apache library
-* Upgraded dependencies versions
-* Bug fixing
-
-jdroid Java Web
----------------
-* RollBar integration
+* Added the ability to ignore stack trace on warnings exceptions
+* Added priority to handled exceptions
 * Upgraded dependencies versions
 * Bug fixing
 
 jdroid Android
 --------------
-* Created jdroid-android-google-plus library
-* Created jdroid-android-about library
-* Created jdroid-android-google-gcm library
-* Created jdroid-android-google-maps library
-* Created jdroid-android-facebook library
-* Added navigation view support to nav drawer
-* Added Left & right nav drawers support
-* Added Recycler View support
-* Added Exception tracking support on Analytics
-* Added Device year class integration
-* Updated support libraries
+* Added the ability to configure the on click behaviour on an error dialog
+* Added the ability to configure the way of displaying errors
+* Added android annotations to public methods
+* Added status bar color to starting window
+* Added some lazy initializations to AbstractApplication
+* Removed some deprecated uses of shared preferences
+* Improved UriMapper
+* Upgraded dependencies versions
 * Bug fixing
