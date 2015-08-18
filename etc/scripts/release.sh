@@ -104,9 +104,7 @@ cd $PROJECT_HOME
 # ************************
 
 cd $PROJECT_HOME
-
-# Comment the signing config on the root build.gradle ?
-./gradlew :jdroid-gradle-plugin:publishPlugins --configure-on-demand -PSNAPSHOT=false
+./gradlew :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:publishPlugins --configure-on-demand -PSNAPSHOT=false -PSIGNING_ENABLED=false
 
 # ************************
 # Upload Release on GitHub
@@ -128,10 +126,12 @@ cd $PROJECT_HOME
 git add -A
 git stash
 git checkout gh-pages
+git add -A
+git stash
 git pull
 
-sed -i '' 's/v[0-9].[0-9].[0-9]/v$VERSION/g' index.html
+sed -i '' 's/v[0-9].[0-9].[0-9]/v'$VERSION'/g' index.html
 git add index.html
-git commit -m 'Updated jdroid version to v$VERSION'
-
+git commit -m 'Updated jdroid version to v'$VERSION
+git push origin HEAD:gh-pages
 

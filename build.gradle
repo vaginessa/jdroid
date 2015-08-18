@@ -141,9 +141,11 @@ subprojects {
 		}
 	}
 
-	signing {
-		required { !isSnapshot && gradle.taskGraph.hasTask("uploadArchives") }
-		sign configurations.archives
+	if (getBooleanProp('SIGNING_ENABLED', true)) {
+		signing {
+			required { !isSnapshot && gradle.taskGraph.hasTask("uploadArchives") }
+			sign configurations.archives
+		}
 	}
 }
 
