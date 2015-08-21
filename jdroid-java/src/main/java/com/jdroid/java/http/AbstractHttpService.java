@@ -41,6 +41,8 @@ public abstract class AbstractHttpService implements HttpService {
 
 	private List<HttpServiceProcessor> httpServiceProcessors = Lists.newArrayList();
 
+	private HttpResponseWrapper httpResponseWrapper;
+
 	/**
 	 * @param httpServiceProcessors
 	 * @param urlSegments
@@ -97,7 +99,7 @@ public abstract class AbstractHttpService implements HttpService {
 				LOGGER.debug("Headers: " + headers.toString());
 			}
 
-			HttpResponseWrapper httpResponseWrapper = doExecute(url);
+			httpResponseWrapper = doExecute(url);
 
 			for (HttpServiceProcessor each : httpServiceProcessors) {
 				each.afterExecute(this, httpResponseWrapper);

@@ -8,7 +8,7 @@ public class ConnectionException extends ErrorCodeException {
 	
 	private static final long serialVersionUID = 7201698090980820539L;
 	
-	private boolean timeout = false;
+	private boolean readTimeout = false;
 	
 	public ConnectionException(Throwable throwable) {
 		super(CommonErrorCode.CONNECTION_ERROR, throwable);
@@ -18,12 +18,12 @@ public class ConnectionException extends ErrorCodeException {
 		super(CommonErrorCode.CONNECTION_ERROR, message);
 	}
 	
-	public ConnectionException(Throwable throwable, boolean isTimeout) {
+	public ConnectionException(Throwable throwable, boolean readTimeout) {
 		this(throwable);
-		timeout = isTimeout;
+		this.readTimeout = readTimeout;
 	}
 	
-	public boolean isTimeout() {
-		return timeout;
+	public boolean isReadTimeout() {
+		return readTimeout;
 	}
 }

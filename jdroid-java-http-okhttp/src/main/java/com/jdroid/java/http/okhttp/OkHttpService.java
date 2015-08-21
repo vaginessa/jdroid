@@ -15,6 +15,7 @@ import com.squareup.okhttp.Response;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.ConnectException;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.List;
@@ -51,11 +52,28 @@ public abstract class OkHttpService extends AbstractHttpService {
 			throw new ConnectionException(e, true);
 		} catch (ConnectException e) {
 			throw new ConnectionException(e, false);
-		}  catch (UnknownHostException e) {
+		} catch (UnknownHostException e) {
 			throw new ConnectionException(e, false);
 		} catch (InterruptedIOException e) {
 			throw new ConnectionException(e, true);
+		} catch (SocketException e) {
+			Throwable cause = e.getCause();
+			if (cause != null) {
+				String message = cause.getMessage();
+				if (message != null) {
+					if (message.contains("isConnected failed: EHOSTUNREACH (No route to host)")) {
+						throw new ConnectionException(e, false);
+					} else if (message.contains("recvfrom failed: ETIMEDOUT (Connection timed out)")) {
+						throw new ConnectionException(e, true);
+					}
+				}
+			}
+			throw new UnexpectedException(e);
 		} catch (IOException e) {
+			String message = e.getMessage();
+			if (message != null && message.contains("unexpected end of stream on")) {
+				throw new ConnectionException(e, true);
+			}
 			throw new UnexpectedException(e);
 		}
 	}

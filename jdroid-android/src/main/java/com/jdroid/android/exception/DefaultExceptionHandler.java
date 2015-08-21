@@ -182,7 +182,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	public static void setMessageOnConnectionTimeout(RuntimeException runtimeException, String text) {
 		if (runtimeException instanceof ConnectionException) {
 			ConnectionException connectionException = (ConnectionException)runtimeException;
-			if (connectionException.isTimeout()) {
+			if (connectionException.isReadTimeout()) {
 				connectionException.setDescription(text);
 			}
 		}
