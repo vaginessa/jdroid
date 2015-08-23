@@ -141,11 +141,11 @@ A set of useful shell scripts to
 Apps using jdroid
 --------------
 
-|               | Google Play   |
-| ------------- | ------------- |
-| [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/mediafever.png" width="40" height="40"/>](https://play.google.com/store/apps/details?id=com.mediafever&referrer=utm_source%3Djdroid) | Media Fever - Track your movies & series |
-| [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/subtefy.png" width="40" height="40"/>](https://play.google.com/store/apps/details?id=com.subtefy&referrer=utm_source%3Djdroid) | Subtefy - Alertas del Subte |
-| [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/codenumber.png" width="40" height="40"/>](https://play.google.com/store/apps/details?id=com.codenumber.lite) | Code Number - Bulls & Cows |
+|               | Name | Platform |
+| ------------- | ------------- | ------------- |
+| [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/mediafever.png" width="40" height="40"/>](https://play.google.com/store/apps/details?id=com.mediafever&referrer=utm_source%3Djdroid) | Media Fever - Track your movies & series | Android |
+| [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/subtefy.png" width="40" height="40"/>](https://play.google.com/store/apps/details?id=com.subtefy&referrer=utm_source%3Djdroid) | Subtefy - Alertas del Subte | Android |
+| [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/codenumber.png" width="40" height="40"/>](https://play.google.com/store/apps/details?id=com.codenumber.lite) | Code Number - Bulls & Cows | Android |
 
 ## Donations
 Help us to continue with this project:
