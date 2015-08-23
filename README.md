@@ -4,10 +4,6 @@
 
 The jdroid Framework provides a programming and architectural model for modern Java-based enterprise and android applications.
 
-Help us to continue with this project:
-
-[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2UEBTRTSCYA9L)
-
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
 -----------
 Dependency for both Android & Java apps
@@ -150,6 +146,13 @@ Apps using jdroid
 | [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/mediafever.png" width="40" height="40"/>](https://play.google.com/store/apps/details?id=com.mediafever&referrer=utm_source%3Djdroid) | Media Fever - Track your movies & series |
 | [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/subtefy.png" width="40" height="40"/>](https://play.google.com/store/apps/details?id=com.subtefy&referrer=utm_source%3Djdroid) | Subtefy - Alertas del Subte |
 | [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/codenumber.png" width="40" height="40"/>](https://play.google.com/store/apps/details?id=com.codenumber.lite) | Code Number - Bulls & Cows |
+
+## Donations
+Help us to continue with this project:
+
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2UEBTRTSCYA9L)
+
+<a href='https://pledgie.com/campaigns/30030'><img alt='Click here to lend your support to: Jdroid and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/30030.png?skin_name=chrome' border='0' ></a>
 
 Acknowledgements
 --------------
