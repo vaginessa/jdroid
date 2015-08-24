@@ -18,6 +18,7 @@
 	<string name="signIn">Sign in</string>
 	<string name="retry">Retry</string>
 	<string name="removeAdsNow">Remove ads now!</string>
+	<string name="allow">Allow</string>
 
 	<!-- Navigation Drawer -->
 	<string name="drawerOpen">Open navigation drawer</string>

@@ -18,6 +18,7 @@
 	<string name="signIn">Iniciar sesión</string>
 	<string name="retry">Reintentar</string>
 	<string name="removeAdsNow">Ocultar publicidad</string>
+	<string name="allow">Permitir</string>
 
 	<!-- Navigation Drawer -->
 	<string name="drawerOpen">Abrir navigation drawer</string>
