@@ -217,13 +217,22 @@ public abstract class AbstractApiService {
 	}
 
 	protected HttpServiceFactory createHttpServiceFactory() {
-		HttpServiceFactory httpServiceFactory;
-		try {
-			httpServiceFactory = ReflectionUtils.newInstance("com.jdroid.java.http.apache.ApacheHttpServiceFactory");
-		} catch (UnexpectedException e) {
-			httpServiceFactory = ReflectionUtils.newInstance("com.jdroid.java.http.urlconnection.UrlConnectionHttpServiceFactory");
+		HttpServiceFactory httpServiceFactory = createFactory("com.jdroid.java.http.okhttp.OkHttpServiceFactory");
+		if (httpServiceFactory == null) {
+			httpServiceFactory  = createFactory("com.jdroid.java.http.apache.ApacheHttpServiceFactory");
+			if (httpServiceFactory == null) {
+				httpServiceFactory  = createFactory("com.jdroid.java.http.urlconnection.UrlConnectionHttpServiceFactory");
+			}
 		}
 		return httpServiceFactory;
+	}
+
+	private HttpServiceFactory createFactory(String className) {
+		try {
+			return ReflectionUtils.newInstance(className);
+		} catch (UnexpectedException e) {
+			return null;
+		}
 	}
 
 	protected abstract Server getServer();

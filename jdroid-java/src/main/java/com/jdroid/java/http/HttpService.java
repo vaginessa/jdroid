@@ -72,5 +72,7 @@ public interface HttpService {
 	public String getUrl();
 	
 	public String getUrlSuffix();
+
+	public HttpResponseWrapper getHttpResponseWrapper();
 	
 }

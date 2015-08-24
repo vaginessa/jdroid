@@ -70,4 +70,13 @@ public abstract class FragmentContainerActivity extends AbstractFragmentActivity
 		return super.onOptionsItemSelected(item) || getFragment().onOptionsItemSelected(item);
 	}
 
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+		Fragment fragment = getFragment();
+		if (fragment != null) {
+			fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		}
+	}
+
+
 }

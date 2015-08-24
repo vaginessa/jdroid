@@ -7,6 +7,7 @@ import android.view.View;
 import com.google.android.gms.plus.PlusOneButton;
 import com.google.android.gms.plus.PlusOneButton.OnPlusOneClickListener;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.google.GooglePlayServicesUtils;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.google.GooglePlayUtils;
@@ -34,7 +35,7 @@ public class GooglePlusOneButtonHelper {
 	
 	public void onResume() {
 		
-		if (GooglePlayUtils.isGooglePlayServicesAvailable(context.getActivity())) {
+		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(context.getActivity())) {
 			plusOneButton.initialize(url, new OnPlusOneClickListener() {
 				
 				@Override

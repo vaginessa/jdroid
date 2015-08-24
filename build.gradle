@@ -42,13 +42,10 @@ buildscript {
 
 	repositories {
 		mavenCentral()
-		maven {
-			url "https://oss.sonatype.org/content/repositories/snapshots/"
-		}
 	}
 
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-github:0.8.0-SNAPSHOT'
+		classpath 'com.jdroidframework:jdroid-github:0.9.0'
 	}
 }
 
@@ -66,6 +63,7 @@ if (isSnapshot) {
 
 ext.jdroidVersion = project.version
 ext.googlePlayServicesVersion = '7.8.0'
+ext.androidSupportVersion = '23.0.0'
 ext.packaging = null
 
 subprojects {
@@ -207,7 +205,7 @@ public void closeMilestone(GitHubClient client, IRepositoryIdProvider repository
 }
 
 task createGitHubRelease << {
-	GitHubClient client = new com.jdroid.github.client.GitHubClient();
+	GitHubClient client = new GitHubClient();
 	client.setSerializeNulls(false);
 	client.setOAuth2Token(getProp('GITHUB_OATH_TOKEN'));
 

@@ -1,22 +1,18 @@
 package com.jdroid.android.google;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.dialog.AlertDialogFragment;
-import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.intent.IntentUtils;
+import com.jdroid.android.utils.AndroidUtils;
 
 public class GooglePlayUtils {
 	
-	private static final String GOOGLE_PLAY_SERVICES = "com.google.android.gms";
 	private static final String GOOGLE_PLAY_DETAILS_LINK = "http://play.google.com/store/apps/details?id=";
 	
 	public static class UpdateAppDialogFragment extends AlertDialogFragment {
@@ -77,14 +73,6 @@ public class GooglePlayUtils {
 			intent.setData(Uri.parse(getGooglePlayLink(packageName)));
 			context.startActivity(intent);
 		}
-	}
-	
-	public static boolean isGooglePlayServicesAvailable(Context c) {
-		return GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(c) == ConnectionResult.SUCCESS;
-	}
-	
-	public static void launchGooglePlayServicesUpdate(Activity c) {
-		launchAppDetails(c, GOOGLE_PLAY_SERVICES);
 	}
 	
 	public static String getGooglePlayLink(String packageName, String referrer) {

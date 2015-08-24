@@ -300,4 +300,9 @@ public abstract class AbstractHttpService implements HttpService {
 		httpServiceProcessors.add(httpServiceProcessor);
 		httpServiceProcessor.onInit(this);
 	}
+
+	@Override
+	public HttpResponseWrapper getHttpResponseWrapper() {
+		return httpResponseWrapper;
+	}
 }

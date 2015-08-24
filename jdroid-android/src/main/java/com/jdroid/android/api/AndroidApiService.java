@@ -1,9 +1,7 @@
 package com.jdroid.android.api;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.http.apache.AndroidApacheHttpServiceFactory;
 import com.jdroid.java.api.AbstractApiService;
-import com.jdroid.java.http.HttpServiceFactory;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.http.cache.Cache;
 import com.jdroid.java.http.mock.AbstractMockHttpService;
@@ -11,11 +9,6 @@ import com.jdroid.java.http.mock.AbstractMockHttpService;
 import java.io.File;
 
 public abstract class AndroidApiService extends AbstractApiService {
-
-	@Override
-	protected HttpServiceFactory createHttpServiceFactory() {
-		return new AndroidApacheHttpServiceFactory();
-	}
 
 	/**
 	 * @see com.jdroid.java.api.AbstractApiService#getHttpCacheDirectory(com.jdroid.java.http.cache.Cache)

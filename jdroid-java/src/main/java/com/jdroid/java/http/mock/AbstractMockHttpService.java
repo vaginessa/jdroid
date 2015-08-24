@@ -3,6 +3,7 @@ package com.jdroid.java.http.mock;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.java.http.HttpResponseWrapper;
 import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.MultipartHttpService;
 import com.jdroid.java.http.HttpService;
@@ -260,5 +261,10 @@ public abstract class AbstractMockHttpService implements MultipartHttpService {
 	@Override
 	public String getHeaderValue(String key) {
 		return headers.get(key);
+	}
+
+	@Override
+	public HttpResponseWrapper getHttpResponseWrapper() {
+		return null;
 	}
 }

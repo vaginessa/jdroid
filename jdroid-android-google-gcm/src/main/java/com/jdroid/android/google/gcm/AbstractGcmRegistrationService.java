@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.google.GooglePlayServicesUtils;
 import com.jdroid.android.service.WorkerService;
 import com.jdroid.android.google.GooglePlayUtils;
 import com.jdroid.android.intent.IntentRetryUtils;
@@ -26,7 +27,7 @@ public abstract class AbstractGcmRegistrationService extends WorkerService {
 	@Override
 	protected void doExecute(Intent intent) {
 		
-		if (GooglePlayUtils.isGooglePlayServicesAvailable(this)) {
+		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(this)) {
 			if (!GcmPreferences.isRegistered(this) || !GcmPreferences.isRegisteredOnServer(this)) {
 				String registrationId;
 				try {

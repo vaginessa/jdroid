@@ -1,5 +1,6 @@
 package com.jdroid.java.http.cache;
 
+import com.jdroid.java.http.HttpResponseWrapper;
 import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.HttpService;
 import com.jdroid.java.http.post.BodyEnclosingHttpService;
@@ -211,5 +212,10 @@ public abstract class CachedHttpService implements BodyEnclosingHttpService {
 	@Override
 	public String getHeaderValue(String key) {
 		return httpService.getHeaderValue(key);
+	}
+
+	@Override
+	public HttpResponseWrapper getHttpResponseWrapper() {
+		return httpService.getHttpResponseWrapper();
 	}
 }

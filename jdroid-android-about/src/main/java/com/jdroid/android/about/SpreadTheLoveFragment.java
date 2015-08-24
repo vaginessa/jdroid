@@ -11,6 +11,10 @@ import com.google.android.gms.plus.PlusOneButton;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.facebook.FacebookHelper;
 import com.jdroid.android.fragment.AbstractFragment;
+import com.jdroid.android.google.GooglePlayServicesUtils;
+import com.jdroid.android.google.GooglePlayUtils;
+import com.jdroid.android.google.plus.GooglePlusHelperFragment;
+import com.jdroid.android.google.plus.GooglePlusOneButtonHelper;
 import com.jdroid.android.share.GooglePlusSharingItem;
 import com.jdroid.android.share.HangoutsSharingItem;
 import com.jdroid.android.share.MoreSharingItem;
@@ -21,10 +25,7 @@ import com.jdroid.android.share.SmsSharingItem;
 import com.jdroid.android.share.TelegramSharingItem;
 import com.jdroid.android.share.TwitterSharingItem;
 import com.jdroid.android.share.WhatsAppSharingItem;
-import com.jdroid.android.google.plus.GooglePlusHelperFragment;
-import com.jdroid.android.google.plus.GooglePlusOneButtonHelper;
 import com.jdroid.android.social.twitter.TwitterConnector;
-import com.jdroid.android.google.GooglePlayUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.IdGenerator;
 
@@ -203,7 +204,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 		if (displayGooglePlusOneButton()) {
 			PlusOneButton plusOneButton = findView(R.id.plusOneButton);
 			googlePlusOneButtonHelper = new GooglePlusOneButtonHelper(this, plusOneButton);
-			if (!GooglePlayUtils.isGooglePlayServicesAvailable(getActivity())) {
+			if (!GooglePlayServicesUtils.isGooglePlayServicesAvailable(getActivity())) {
 				findView(R.id.plusOneSection).setVisibility(View.GONE);
 			}
 		} else {

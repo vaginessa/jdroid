@@ -29,15 +29,16 @@ import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.PlusShare;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.android.gms.plus.model.people.PersonBuffer;
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.activity.AbstractFragmentActivity;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.fragment.AbstractFragment;
+import com.jdroid.android.google.GooglePlayServicesUtils;
+import com.jdroid.android.google.GooglePlayUtils;
+import com.jdroid.android.intent.IntentUtils;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.social.SocialUser;
 import com.jdroid.android.utils.ExternalAppsUtils;
-import com.jdroid.android.google.GooglePlayUtils;
-import com.jdroid.android.intent.IntentUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.http.MimeType;
@@ -500,7 +501,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	
 	public static void signOut(Context context) {
 		
-		if (GooglePlayUtils.isGooglePlayServicesAvailable(context)) {
+		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(context)) {
 			
 			LogoutListener logoutListener = new LogoutListener();
 			

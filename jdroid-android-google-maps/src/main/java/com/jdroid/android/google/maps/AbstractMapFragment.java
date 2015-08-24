@@ -22,21 +22,21 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationChangeListener;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.ad.HouseAdBuilder;
 import com.jdroid.android.animation.FadeOutAnimation;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.fragment.FragmentIf;
+import com.jdroid.android.google.GooglePlayServicesUtils;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.location.LocationHelper;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
-import com.jdroid.android.google.GooglePlayUtils;
 import com.jdroid.java.exception.AbstractException;
 
 public abstract class AbstractMapFragment extends SupportMapFragment implements FragmentIf, OnMyLocationChangeListener {
@@ -92,7 +92,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		ViewGroup view = (ViewGroup)fragmentHelper.onCreateView(inflater, container, savedInstanceState);
 		ViewGroup mapContainer = (ViewGroup)view.findViewById(R.id.mapContainer);
-		if (GooglePlayUtils.isGooglePlayServicesAvailable(getActivity())) {
+		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(getActivity())) {
 			View mapView = super.onCreateView(inflater, mapContainer, savedInstanceState);
 			
 			if (map == null) {
@@ -111,7 +111,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 				
 				@Override
 				public void onClick(View v) {
-					GooglePlayUtils.launchGooglePlayServicesUpdate(getActivity());
+					GooglePlayServicesUtils.launchGooglePlayServicesUpdate(getActivity());
 					getActivity().finish();
 				}
 			});
