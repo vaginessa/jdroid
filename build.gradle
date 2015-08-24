@@ -45,7 +45,7 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-github:0.9.0'
+		classpath 'com.jdroidframework:jdroid-java-github-connector:0.9.0'
 	}
 }
 
