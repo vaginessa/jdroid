@@ -18,6 +18,8 @@
 	<string name="signIn">Sign in</string>
 	<string name="retry">Retry</string>
 	<string name="removeAdsNow">Remove ads now!</string>
+
+	<!-- Permissions -->
 	<string name="allow">Allow</string>
 
 	<!-- Navigation Drawer -->

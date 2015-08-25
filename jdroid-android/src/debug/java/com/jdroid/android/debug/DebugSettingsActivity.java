@@ -29,7 +29,6 @@ public class DebugSettingsActivity extends AbstractFragmentActivity {
 		if (savedInstanceState == null) {
 			FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 			fragmentTransaction.add(R.id.fragmentContainer, createNewFragment());
-			fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 			fragmentTransaction.commit();
 		}
 	}

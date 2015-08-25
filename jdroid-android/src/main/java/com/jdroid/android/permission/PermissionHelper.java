@@ -46,4 +46,8 @@ public class PermissionHelper {
 	public static void requestPermission(FragmentActivity fragmentActivity, String permission, int permissionRequestCode) {
 		ActivityCompat.requestPermissions(fragmentActivity, new String[]{permission}, permissionRequestCode);
 	}
+
+	public static Boolean verifyPermission(FragmentActivity fragmentActivity, String permission) {
+		return ContextCompat.checkSelfPermission(fragmentActivity, permission) == PackageManager.PERMISSION_GRANTED;
+	}
 }

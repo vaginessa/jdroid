@@ -18,6 +18,8 @@
 	<string name="signIn">Iniciar sesión</string>
 	<string name="retry">Reintentar</string>
 	<string name="removeAdsNow">Ocultar publicidad</string>
+
+	<!-- Permissions -->
 	<string name="allow">Permitir</string>
 
 	<!-- Navigation Drawer -->

@@ -53,7 +53,7 @@
 
 	<!-- Buttons -->
 
-	<style name="textViewButton" parent="@style/textSmall">
+	<style name="raisedButton">
 		<item name="android:paddingLeft">8dp</item>
 		<item name="android:paddingRight">8dp</item>
 		<item name="android:paddingTop">4dp</item>
@@ -61,10 +61,8 @@
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:background">@drawable/textview_button_selector</item>
 		<item name="android:minWidth">100dp</item>
-		<item name="android:minHeight">32dp</item>
-		<item name="android:gravity">center_horizontal|center_vertical</item>
+		<item name="android:minHeight">40dp</item>
 	</style>
-
 
 	<!-- Lists & Grids -->
 

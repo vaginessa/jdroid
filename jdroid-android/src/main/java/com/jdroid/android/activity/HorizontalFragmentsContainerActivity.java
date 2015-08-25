@@ -32,7 +32,6 @@ public abstract class HorizontalFragmentsContainerActivity extends AbstractFragm
 			if (addToBackStack()) {
 				fragmentTransaction.addToBackStack(rightFragment.getClass().getSimpleName());
 			}
-			fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 			fragmentTransaction.commit();
 		}
 	}

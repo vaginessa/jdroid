@@ -14,9 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.gms.ads.AdSize;
-import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.R;
 import com.jdroid.android.ad.HouseAdBuilder;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.UseCaseFragment;
@@ -262,7 +261,6 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 		if (addToBackStack) {
 			fragmentTransaction.addToBackStack(newFragment.getClass().getSimpleName());
 		}
-		fragmentTransaction.setTransition(getTransition());
 		fragmentTransaction.commit();
 	}
 
@@ -272,12 +270,7 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 		if (addToBackStack) {
 			fragmentTransaction.addToBackStack(newFragment.getClass().getSimpleName());
 		}
-		fragmentTransaction.setTransition(getTransition());
 		fragmentTransaction.commit();
-	}
-
-	protected int getTransition() {
-		return FragmentTransaction.TRANSIT_FRAGMENT_FADE;
 	}
 
 	public <E extends Fragment> E instanceFragment(Class<E> fragmentClass, Bundle bundle) {
@@ -293,14 +286,9 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 		return fragment;
 	}
 	
-	public void commitFragment(Fragment fragment) {
-		commitFragment(R.id.fragmentContainer, fragment);
-	}
-	
 	public void commitFragment(int containerViewId, Fragment fragment) {
 		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 		fragmentTransaction.add(containerViewId, fragment);
-		fragmentTransaction.setTransition(getTransition());
 		fragmentTransaction.commit();
 	}
 	
