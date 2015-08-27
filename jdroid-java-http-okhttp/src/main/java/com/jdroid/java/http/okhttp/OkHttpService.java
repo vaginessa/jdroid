@@ -65,6 +65,8 @@ public abstract class OkHttpService extends AbstractHttpService {
 						throw new ConnectionException(e, false);
 					} else if (message.contains("recvfrom failed: ETIMEDOUT (Connection timed out)")) {
 						throw new ConnectionException(e, true);
+					} else if (message.contains("recvfrom failed: ECONNRESET (Connection reset by peer)")) {
+						throw new ConnectionException(e, false);
 					}
 				}
 			}
