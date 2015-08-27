@@ -20,6 +20,7 @@
 	<string name="removeAdsNow">Ocultar publicidad</string>
 
 	<!-- Permissions -->
+	<string name="requiredPermission">Permiso Requerido</string>
 	<string name="allow">Permitir</string>
 
 	<!-- Navigation Drawer -->

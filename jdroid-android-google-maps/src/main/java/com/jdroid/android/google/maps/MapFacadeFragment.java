@@ -1,11 +1,8 @@
 package com.jdroid.android.google.maps;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -18,7 +15,7 @@ import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.google.GooglePlayServicesUtils;
 import com.jdroid.android.permission.PermissionHelper;
-import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.ExternalAppsUtils;
 
 public class MapFacadeFragment extends AbstractFragment {
 
@@ -77,11 +74,11 @@ public class MapFacadeFragment extends AbstractFragment {
 				storagePermissionGranted = PermissionHelper.checkPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE_PERMISSION_REQUEST_CODE);
 			} else {
 				storagePermissionGranted = PermissionHelper.verifyPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-				if (storagePermissionGranted) {
-					displayMap();
-				} else {
-					showPermissionRequiredView();
-				}
+			}
+			if (storagePermissionGranted) {
+				displayMap();
+			} else {
+				showPermissionRequiredView();
 			}
 		} else {
 			showUpdateGooglePlayServices();
@@ -130,9 +127,7 @@ public class MapFacadeFragment extends AbstractFragment {
 			button.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Uri packageURI = Uri.parse("package:" + AndroidUtils.getApplicationId());
-					Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
-					getActivity().startActivity(intent);
+					ExternalAppsUtils.openAppInfo(getActivity());
 				}
 			});
 		}

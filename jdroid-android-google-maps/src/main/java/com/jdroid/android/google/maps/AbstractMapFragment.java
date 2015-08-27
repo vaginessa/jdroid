@@ -27,12 +27,15 @@ import com.jdroid.android.ad.HouseAdBuilder;
 import com.jdroid.android.animation.FadeOutAnimation;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
+import com.jdroid.android.dialog.AlertDialogFragment;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.fragment.FragmentIf;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.location.LocationHelper;
+import com.jdroid.android.dialog.AppInfoDialogFragment;
+import com.jdroid.android.permission.PermissionDialogFragment;
 import com.jdroid.android.permission.PermissionHelper;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
@@ -197,6 +200,8 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 				}
 			}
 		}
+		locationPermissionGranted = PermissionHelper.verifyPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION);
+		initMapLocation();
 	}
 
 	private void showMap() {
@@ -211,9 +216,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 					if (isLocationEnabled() && LocationHelper.get().isLocalizationEnabled()) {
 						locationPermissionGranted = PermissionHelper.checkPermission(getActivity(),
 								Manifest.permission.ACCESS_COARSE_LOCATION, LOCATION_PERMISSION_REQUEST_CODE);
-						if (locationPermissionGranted) {
-							initMapLocation();
-						}
+						initMapLocation();
 					}
 
 				}
@@ -224,7 +227,30 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	private void initMapLocation() {
 		if (map != null) {
 			map.setMyLocationEnabled(isLocationEnabled() && LocationHelper.get().isLocalizationEnabled());
-			map.setOnMyLocationChangeListener(this);
+			if (locationPermissionGranted) {
+				map.setOnMyLocationChangeListener(this);
+				map.setOnMyLocationButtonClickListener(null);
+			} else {
+				map.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+					@Override
+					public boolean onMyLocationButtonClick() {
+						locationPermissionGranted = PermissionHelper.checkPermission(getActivity(),
+								Manifest.permission.ACCESS_COARSE_LOCATION, LOCATION_PERMISSION_REQUEST_CODE);
+						if (!locationPermissionGranted && !PermissionHelper.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)) {
+
+							AppInfoDialogFragment fragment = new AppInfoDialogFragment();
+							String screenViewName = PermissionDialogFragment.class.getSimpleName() + "-" + Manifest.permission.ACCESS_COARSE_LOCATION;
+
+							String title = getActivity().getString(R.string.requiredPermission);
+							String message = getActivity().getString(R.string.locationPermissionRequired);
+
+							AlertDialogFragment.show(getActivity(), fragment, null, title, message, getActivity().getString(R.string.cancel),
+									null, getActivity().getString(R.string.accept), true, screenViewName, null);
+						}
+						return true;
+					}
+				});
+			}
 		}
 	}
 	

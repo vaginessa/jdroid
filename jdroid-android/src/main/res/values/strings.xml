@@ -20,6 +20,7 @@
 	<string name="removeAdsNow">Remove ads now!</string>
 
 	<!-- Permissions -->
+	<string name="requiredPermission">Required Permission</string>
 	<string name="allow">Allow</string>
 
 	<!-- Navigation Drawer -->

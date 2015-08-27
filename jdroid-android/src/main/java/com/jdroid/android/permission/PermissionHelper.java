@@ -1,6 +1,7 @@
 package com.jdroid.android.permission;
 
 import android.content.pm.PackageManager;
+import android.support.annotation.StringRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
@@ -10,6 +11,9 @@ import com.jdroid.android.dialog.AlertDialogFragment;
 
 public class PermissionHelper {
 
+	public static Boolean checkPermission(FragmentActivity fragmentActivity, @StringRes int titleResId, @StringRes int messageResId, String permission, int permissionRequestCode) {
+		return checkPermission(fragmentActivity, fragmentActivity.getString(titleResId), fragmentActivity.getString(messageResId), permission, permissionRequestCode);
+	}
 	public static Boolean checkPermission(FragmentActivity fragmentActivity, String title, String message, String permission, int permissionRequestCode) {
 		if (ContextCompat.checkSelfPermission(fragmentActivity, permission) != PackageManager.PERMISSION_GRANTED) {
 			if (ActivityCompat.shouldShowRequestPermissionRationale(fragmentActivity, permission)) {

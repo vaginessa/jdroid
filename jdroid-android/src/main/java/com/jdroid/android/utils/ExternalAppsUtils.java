@@ -8,6 +8,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.provider.Settings;
+import android.support.v4.app.FragmentActivity;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.GooglePlayUtils;
@@ -118,5 +120,11 @@ public class ExternalAppsUtils {
 		} catch (NameNotFoundException e) {
 			return null;
 		}
+	}
+
+	public static void openAppInfo(FragmentActivity fragmentActivity) {
+		Uri packageURI = Uri.parse("package:" + AndroidUtils.getApplicationId());
+		Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
+		fragmentActivity.startActivity(intent);
 	}
 }
