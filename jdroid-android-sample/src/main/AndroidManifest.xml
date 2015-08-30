@@ -81,6 +81,9 @@
 		<activity android:name="com.jdroid.android.sample.ui.exceptions.ExceptionHandlingActivity" android:label="@string/exceptionHandling"
 			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<activity android:name="com.jdroid.android.sample.ui.google.plus.GooglePlusActivity" android:label="@string/loading"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
 		<activity android:name="com.jdroid.android.sample.ui.loading.LoadingActivity" android:label="@string/loading"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 

@@ -150,24 +150,6 @@
 		<item name="android:gravity">center</item>
 	</style>
 
-	<!-- Google+ -->
-
-	<style name="googlePlusButton" parent="@style/socialButton">
-		<item name="android:background">@drawable/common_signin_btn_text_dark</item>
-	</style>
-
-	<style name="googlePlusLoginButton" parent="@style/googlePlusButton">
-		<item name="android:text">@string/common_signin_button_text</item>
-	</style>
-
-	<style name="googlePlusLogoutButton" parent="@style/googlePlusButton">
-		<item name="android:text">@string/logout</item>
-	</style>
-
-	<style name="googlePlusRevokeButton" parent="@style/googlePlusButton">
-		<item name="android:text">@string/revokeAccess</item>
-	</style>
-
 	<!-- Nav Drawer -->
 
 	<style name="leftNavDrawer">

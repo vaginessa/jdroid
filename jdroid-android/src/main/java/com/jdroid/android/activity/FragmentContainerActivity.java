@@ -1,5 +1,6 @@
 package com.jdroid.android.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,17 +11,11 @@ import com.jdroid.android.fragment.FragmentIf;
 
 public abstract class FragmentContainerActivity extends AbstractFragmentActivity {
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#getContentView()
-	 */
 	@Override
 	public int getContentView() {
 		return isNavDrawerEnabled() ? R.layout.nav_fragment_container_activity : R.layout.fragment_container_activity;
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.AbstractFragmentActivity#onCreate(android.os.Bundle)
-	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -85,5 +80,13 @@ public abstract class FragmentContainerActivity extends AbstractFragmentActivity
 		}
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
 
+		Fragment fragment = getFragment();
+		if (fragment != null) {
+			fragment.onActivityResult(requestCode, resultCode, data);
+		}
+	}
 }

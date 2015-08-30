@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import com.jdroid.android.ActionItem;
 import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.sample.R;
+import com.jdroid.android.sample.ui.google.plus.GooglePlusActivity;
 import com.jdroid.android.utils.ScreenUtils;
 import com.jdroid.android.sample.ui.ads.AdsActivity;
 import com.jdroid.android.sample.ui.analytics.AnalyticsActivity;
@@ -32,7 +33,7 @@ public enum HomeItem implements ActionItem {
 	GOOGLE_ANALYTCS(R.string.googleAnalytics, R.drawable.analytics, AnalyticsActivity.class),
 	GCM(R.string.gcm, R.drawable.cloud, ImageLoaderActivity.class),
 	GOOGLE_MAPS(R.string.googleMaps, R.drawable.map, MapActivity.class),
-	GOOGLE_PLUS(R.string.googlePlus, R.drawable.google_plus, ImageLoaderActivity.class),
+	GOOGLE_PLUS(R.string.googlePlus, R.drawable.google_plus, GooglePlusActivity.class),
 	HERO(R.string.hero, R.drawable.photo, HeroActivity.class),
 	HTTP(R.string.http, R.drawable.http, HttpActivity.class),
 	IN_APP_BILLING(R.string.inAppBilling, R.drawable.shopping_cart, ImageLoaderActivity.class),
