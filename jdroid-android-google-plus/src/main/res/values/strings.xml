@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="accountsPermissionRequired">You need to allow the <b>Contacts</b> permission in order to sign in with Google.</string>
+
+</resources>

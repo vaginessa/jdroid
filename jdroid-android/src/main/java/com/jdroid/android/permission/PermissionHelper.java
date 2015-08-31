@@ -1,5 +1,6 @@
 package com.jdroid.android.permission;
 
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.annotation.StringRes;
 import android.support.v4.app.ActivityCompat;
@@ -51,7 +52,7 @@ public class PermissionHelper {
 		ActivityCompat.requestPermissions(fragmentActivity, new String[]{permission}, permissionRequestCode);
 	}
 
-	public static Boolean verifyPermission(FragmentActivity fragmentActivity, String permission) {
-		return ContextCompat.checkSelfPermission(fragmentActivity, permission) == PackageManager.PERMISSION_GRANTED;
+	public static Boolean verifyPermission(Context context, String permission) {
+		return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
 	}
 }

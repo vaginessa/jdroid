@@ -601,6 +601,6 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	@Nullable
 	@Override
 	public AdHelper getAdHelper() {
-		return fragmentHelper.createAdHelper();
+		return fragmentHelper.getAdHelper();
 	}
 }

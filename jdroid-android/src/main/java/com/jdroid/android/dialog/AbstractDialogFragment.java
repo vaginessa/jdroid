@@ -405,6 +405,6 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	@Nullable
 	@Override
 	public AdHelper getAdHelper() {
-		return fragmentHelper.createAdHelper();
+		return fragmentHelper.getAdHelper();
 	}
 }

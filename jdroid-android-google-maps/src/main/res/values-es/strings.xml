@@ -3,8 +3,8 @@
 
 	<string name="driving">Conduciendo</string>
 	<string name="walking">Caminando</string>
-	<string name="updateGooglePlayServices">Necesita actualizar la aplicación <b>Google Play Services</b> para poder visualizar los mapas.</string>
-	<string name="mapsRequiredPermissionLegend">Necesita habilitar el permiso <b>Espacio de almacenamiento</b> para poder visualizar los mapas.</string>
-	<string name="locationPermissionRequired">You need to allow the <b>location</b> permission in order to see your current location.</string>
+	<string name="updateGooglePlayServices">Necesita actualizar la aplicación <b>Google Play Services</b> para poder visualizar el mapa.</string>
+	<string name="mapsRequiredPermissionLegend">Necesita habilitar el permiso <b>Espacio de almacenamiento</b> para poder visualizar el mapa.</string>
+	<string name="locationPermissionRequired">Necesita habilitar el permiso <b>Ubicación</b> para poder visualizar su ubicación actual en el mapa.</string>
 
 </resources>

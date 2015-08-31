@@ -73,6 +73,14 @@ public class GooglePlusFragment extends AbstractFragment implements GooglePlusLi
 	}
 
 	@Override
+	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+		GooglePlusHelperFragment googlePlusHelperFragment = GooglePlusHelperFragment.get(getActivity());
+		if (googlePlusHelperFragment != null) {
+			googlePlusHelperFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		}
+	}
+
+	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		GooglePlusHelperFragment.removeTarget(getActivity());

@@ -480,6 +480,6 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 	@Nullable
 	@Override
 	public AdHelper getAdHelper() {
-		return fragmentHelper.createAdHelper();
+		return fragmentHelper.getAdHelper();
 	}
 }

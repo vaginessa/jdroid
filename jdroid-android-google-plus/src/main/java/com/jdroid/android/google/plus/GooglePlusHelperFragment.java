@@ -1,11 +1,13 @@
 package com.jdroid.android.google.plus;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,10 +33,14 @@ import com.google.android.gms.plus.model.people.Person;
 import com.google.android.gms.plus.model.people.PersonBuffer;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.dialog.AlertDialogFragment;
+import com.jdroid.android.dialog.AppInfoDialogFragment;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.google.GooglePlayServicesUtils;
 import com.jdroid.android.google.GooglePlayUtils;
 import com.jdroid.android.intent.IntentUtils;
+import com.jdroid.android.permission.PermissionDialogFragment;
+import com.jdroid.android.permission.PermissionHelper;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.social.SocialUser;
@@ -52,7 +58,9 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 		OnConnectionFailedListener {
 	
 	private static Logger LOGGER = LoggerUtils.getLogger(GooglePlusHelperFragment.class);
-	
+
+	private static final int ACCOUNTS_PERMISSION_REQUEST_CODE = 1;
+
 	private static final String RESOLVING_ERROR_KEY = "resolvingError";
 	private static final String SIGN_IN_CLICKED_KEY = "signInClicked";
 	private static final String SHARE_LINK_KEY = "shareLink";
@@ -74,6 +82,8 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	private boolean signInClicked = false;
 	
 	private String shareLink;
+
+	private Boolean contactsPermissionEnabled;
 	
 	public static void add(FragmentActivity activity,
 			Class<? extends GooglePlusHelperFragment> googlePlusHelperFragmentClass, Fragment targetFragment) {
@@ -386,7 +396,7 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 		}
 	}
 	
-	public void signIn() {
+	public Boolean signIn() {
 		int resultCode = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getActivity());
 		if ((resultCode == ConnectionResult.SERVICE_MISSING)
 				|| (resultCode == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED)
@@ -398,21 +408,42 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 				googlePlusListener.onGooglePlusDisconnected();
 			}
 			showErrorDialog(resultCode);
+			return false;
 		} else {
-			signInClicked = true;
-			if (googleApiClient.isConnected()) {
-				// If user is connected but press sign in we start connection flow.
-				googleApiClient.disconnect();
-				googleApiClient.connect();
-			} else if (!googleApiClient.isConnecting()) {
-				// We should always have a connection result ready to resolve, so we can start that process.
-				if ((connectionResult != null) && connectionResult.hasResolution()) {
-					startResolution(connectionResult);
-				} else {
-					// If we don't have one though, we can start connect in order to retrieve one.
+
+			contactsPermissionEnabled = PermissionHelper.checkPermission(getActivity(),
+					Manifest.permission.GET_ACCOUNTS, ACCOUNTS_PERMISSION_REQUEST_CODE);
+
+			if (contactsPermissionEnabled) {
+				signInClicked = true;
+				if (googleApiClient.isConnected()) {
+					// If user is connected but press sign in we start connection flow.
+					googleApiClient.disconnect();
 					googleApiClient.connect();
+				} else if (!googleApiClient.isConnecting()) {
+					// We should always have a connection result ready to resolve, so we can start that process.
+					if ((connectionResult != null) && connectionResult.hasResolution()) {
+						startResolution(connectionResult);
+					} else {
+						// If we don't have one though, we can start connect in order to retrieve one.
+						googleApiClient.connect();
+					}
 				}
+				return true;
 			}
+
+			if (!contactsPermissionEnabled && !PermissionHelper.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.GET_ACCOUNTS)) {
+
+				AppInfoDialogFragment fragment = new AppInfoDialogFragment();
+				String screenViewName = PermissionDialogFragment.class.getSimpleName() + "-" + Manifest.permission.GET_ACCOUNTS;
+
+				String title = getActivity().getString(R.string.requiredPermission);
+				String message = getActivity().getString(R.string.accountsPermissionRequired);
+
+				AlertDialogFragment.show(getActivity(), fragment, null, title, message, getActivity().getString(R.string.cancel), null, getActivity().getString(R.string.ok), true, screenViewName, null);
+			}
+
+			return false;
 		}
 	}
 	
@@ -627,4 +658,18 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 			}
 		}
 	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		switch (requestCode) {
+			case ACCOUNTS_PERMISSION_REQUEST_CODE: {
+				if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+					contactsPermissionEnabled = true;
+					signIn();
+				}
+				return;
+			}
+		}
+	}
+
 }

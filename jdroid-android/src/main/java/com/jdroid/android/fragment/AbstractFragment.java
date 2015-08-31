@@ -471,6 +471,6 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	@Nullable
 	@Override
 	public AdHelper getAdHelper() {
-		return fragmentHelper.createAdHelper();
+		return fragmentHelper.getAdHelper();
 	}
 }

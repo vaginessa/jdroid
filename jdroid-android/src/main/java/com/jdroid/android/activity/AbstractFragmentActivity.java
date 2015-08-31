@@ -433,6 +433,6 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	@Nullable
 	@Override
 	public AdHelper getAdHelper() {
-		return activityHelper.createAdHelper();
+		return activityHelper.getAdHelper();
 	}
 }

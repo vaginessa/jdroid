@@ -68,6 +68,10 @@ android {
 		disable 'ContentDescription', 'RtlEnabled', 'RtlHardcoded', 'RtlSymmetry', 'UseCompoundDrawables', 'UnknownIdInLayout'
 	}
 
+	defaultConfig {
+		manifestPlaceholders = [ googleMapsApiKey: "" ]
+	}
+
 	// TODO We will publish the debug version until we discover how to publish both debug and release
 	//publishNonDefault true
 	defaultPublishConfig "debug"
