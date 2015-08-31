@@ -138,6 +138,7 @@ public class ActivityHelper implements ActivityIf {
 		// Ads
 		adHelper = getActivityIf().createAdHelper();
 		if (adHelper != null) {
+			adHelper.setAdViewContainer((ViewGroup)(activity.findViewById(R.id.adViewContainer)));
 			adHelper.loadBanner(activity);
 			adHelper.loadInterstitial(activity);
 		}
@@ -174,9 +175,7 @@ public class ActivityHelper implements ActivityIf {
 	@Override
 	@Nullable
 	public AdHelper createAdHelper() {
-		AdHelper adHelper = new AdHelper();
-		adHelper.setAdViewContainer((ViewGroup)(activity.findViewById(R.id.adViewContainer)));
-		return adHelper;
+		return null;
 	}
 
 	@Nullable

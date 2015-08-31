@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.ad.AdHelper;
+import com.jdroid.android.ad.AdMobAdHelper;
 import com.jdroid.android.ad.HouseAdBuilder;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
@@ -21,7 +22,7 @@ public class HouseAdsFragment extends AbstractFragment {
 	@Nullable
 	@Override
 	public AdHelper createAdHelper() {
-		AdHelper adHelper = super.createAdHelper();
+		AdMobAdHelper adHelper = new AdMobAdHelper();
 		adHelper.setAdSize(AdSize.BANNER);
 		adHelper.setHouseAdBuilder(new HouseAdBuilder() {
 			@Override

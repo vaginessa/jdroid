@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.ad.AdHelper;
+import com.jdroid.android.ad.AdMobAdHelper;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.application.AndroidAppContext;
@@ -46,7 +47,7 @@ public class AdsFragment extends AbstractFragment {
 	@Nullable
 	@Override
 	public AdHelper createAdHelper() {
-		AdHelper adHelper = super.createAdHelper();
+		AdMobAdHelper adHelper = new AdMobAdHelper();
 		adHelper.setAdSize(AdSize.BANNER);
 		adHelper.setBannerAdUnitId(AndroidAppContext.SAMPLE_BANNER_AD_UNIT_ID);
 		return adHelper;

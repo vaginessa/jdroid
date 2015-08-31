@@ -120,6 +120,7 @@ public class FragmentHelper implements FragmentIf {
 
 		adHelper = getFragmentIf().createAdHelper();
 		if (adHelper != null) {
+			adHelper.setAdViewContainer((ViewGroup)(fragment.getView().findViewById(R.id.adViewContainer)));
 			adHelper.loadBanner(fragment.getActivity());
 		}
 		
@@ -153,9 +154,7 @@ public class FragmentHelper implements FragmentIf {
 	@Override
 	@Nullable
 	public AdHelper createAdHelper() {
-		AdHelper adHelper = new AdHelper();
-		adHelper.setAdViewContainer((ViewGroup)(fragment.getView().findViewById(R.id.adViewContainer)));
-		return adHelper;
+		return null;
 	}
 
 	@Nullable
