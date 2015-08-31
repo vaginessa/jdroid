@@ -1,11 +1,13 @@
 package com.jdroid.android.sample.ui.ads;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.activity.ActivityLauncher;
+import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.application.AndroidAppContext;
@@ -28,7 +30,7 @@ public class AdsFragment extends AbstractFragment {
 			
 			@Override
 			public void onClick(View v) {
-				getActivityIf().displayInterstitial(false);
+				getActivityIf().getAdHelper().displayInterstitial(false);
 			}
 		});
 
@@ -41,16 +43,12 @@ public class AdsFragment extends AbstractFragment {
 		});
 	}
 
+	@Nullable
 	@Override
-	public String getBannerAdUnitId() {
-		return AndroidAppContext.SAMPLE_BANNER_AD_UNIT_ID;
-	}
-
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#getAdSize()
-	 */
-	@Override
-	public AdSize getAdSize() {
-		return AdSize.SMART_BANNER;
+	public AdHelper createAdHelper() {
+		AdHelper adHelper = super.createAdHelper();
+		adHelper.setAdSize(AdSize.BANNER);
+		adHelper.setBannerAdUnitId(AndroidAppContext.SAMPLE_BANNER_AD_UNIT_ID);
+		return adHelper;
 	}
 }

@@ -8,6 +8,7 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -17,24 +18,23 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.animation.Animation;
 
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationChangeListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.jdroid.android.activity.ActivityIf;
-import com.jdroid.android.ad.HouseAdBuilder;
+import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.animation.FadeOutAnimation;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.dialog.AlertDialogFragment;
+import com.jdroid.android.dialog.AppInfoDialogFragment;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.fragment.FragmentIf;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.location.LocationHelper;
-import com.jdroid.android.dialog.AppInfoDialogFragment;
 import com.jdroid.android.permission.PermissionDialogFragment;
 import com.jdroid.android.permission.PermissionHelper;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
@@ -481,24 +481,6 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	public Toolbar getAppBar() {
 		return fragmentHelper.getAppBar();
 	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getAdSize()
-	 */
-	@Override
-	public AdSize getAdSize() {
-		return fragmentHelper.getAdSize();
-	}
-
-	@Override
-	public String getBannerAdUnitId() {
-		return fragmentHelper.getBannerAdUnitId();
-	}
-
-	@Override
-	public HouseAdBuilder getHouseAdBuilder() {
-		return fragmentHelper.getHouseAdBuilder();
-	}
 
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#onResumeUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
@@ -608,5 +590,17 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	@Override
 	public Boolean isSecondaryFragment() {
 		return fragmentHelper.isSecondaryFragment();
+	}
+
+	@Nullable
+	@Override
+	public AdHelper createAdHelper() {
+		return fragmentHelper.createAdHelper();
+	}
+
+	@Nullable
+	@Override
+	public AdHelper getAdHelper() {
+		return fragmentHelper.createAdHelper();
 	}
 }

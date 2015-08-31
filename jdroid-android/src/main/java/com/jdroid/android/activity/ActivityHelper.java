@@ -23,10 +23,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.R;
 import com.jdroid.android.ad.AdHelper;
-import com.jdroid.android.ad.HouseAdBuilder;
 import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
@@ -138,13 +136,10 @@ public class ActivityHelper implements ActivityIf {
 		}
 		
 		// Ads
-		adHelper = createAdHelper();
+		adHelper = getActivityIf().createAdHelper();
 		if (adHelper != null) {
-			adHelper.loadBanner(activity, (ViewGroup)(activity.findViewById(R.id.adViewContainer)),
-					getActivityIf().getAdSize(), getActivityIf().getBannerAdUnitId(), getActivityIf().getHouseAdBuilder());
-			if (getActivityIf().isInterstitialEnabled()) {
-				adHelper.loadInterstitial(activity, getActivityIf().getInterstitialAdUnitId());
-			}
+			adHelper.loadBanner(activity);
+			adHelper.loadInterstitial(activity);
 		}
 
 		if (savedInstanceState == null) {
@@ -176,11 +171,20 @@ public class ActivityHelper implements ActivityIf {
 		}
 	}
 
+	@Override
 	@Nullable
-	protected AdHelper createAdHelper() {
-		return new AdHelper();
+	public AdHelper createAdHelper() {
+		AdHelper adHelper = new AdHelper();
+		adHelper.setAdViewContainer((ViewGroup)(activity.findViewById(R.id.adViewContainer)));
+		return adHelper;
 	}
-	
+
+	@Nullable
+	@Override
+	public AdHelper getAdHelper() {
+		return adHelper;
+	}
+
 	/**
 	 * @see com.jdroid.android.activity.ActivityIf#isLauncherActivity()
 	 */
@@ -240,16 +244,6 @@ public class ActivityHelper implements ActivityIf {
 	@Override
 	public Long getLocationFrequency() {
 		return null;
-	}
-	
-	@Override
-	public Boolean isInterstitialEnabled() {
-		return false;
-	}
-	
-	@Override
-	public void displayInterstitial(Boolean retryIfNotLoaded) {
-		adHelper.displayInterstitial(retryIfNotLoaded);
 	}
 	
 	public void onResume() {
@@ -430,29 +424,6 @@ public class ActivityHelper implements ActivityIf {
 	 */
 	@Override
 	public MenuInflater getMenuInflater() {
-		return null;
-	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#getAdSize()
-	 */
-	@Override
-	public AdSize getAdSize() {
-		return AdSize.SMART_BANNER;
-	}
-
-	@Override
-	public String getBannerAdUnitId() {
-		return AbstractApplication.get().getAppContext().getDefaultAdUnitId();
-	}
-
-	@Override
-	public String getInterstitialAdUnitId() {
-		return AbstractApplication.get().getAppContext().getDefaultAdUnitId();
-	}
-
-	@Override
-	public HouseAdBuilder getHouseAdBuilder() {
 		return null;
 	}
 	

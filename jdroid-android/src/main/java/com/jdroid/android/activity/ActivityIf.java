@@ -39,12 +39,6 @@ public interface ActivityIf extends ComponentIf {
 	
 	public Intent getUpIntent();
 
-	public Boolean isInterstitialEnabled();
-
-	public String getInterstitialAdUnitId();
-	
-	public void displayInterstitial(Boolean retryIfNotLoaded);
-	
 	public Boolean isActivityDestroyed();
 
 	public Boolean onBackPressedHandled();

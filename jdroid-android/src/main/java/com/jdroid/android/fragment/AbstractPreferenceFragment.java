@@ -3,17 +3,16 @@ package com.jdroid.android.fragment;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.ads.AdSize;
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityIf;
-import com.jdroid.android.ad.HouseAdBuilder;
+import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
@@ -235,24 +234,6 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	public User getUser() {
 		return getFragmentIf().getUser();
 	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getAdSize()
-	 */
-	@Override
-	public AdSize getAdSize() {
-		return AdSize.SMART_BANNER;
-	}
-
-	@Override
-	public HouseAdBuilder getHouseAdBuilder() {
-		return null;
-	}
-
-	@Override
-	public String getBannerAdUnitId() {
-		return AbstractApplication.get().getAppContext().getDefaultAdUnitId();
-	}
 
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getActivityIf()
@@ -337,6 +318,18 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 
 	@Override
 	public Boolean isSecondaryFragment() {
+		return null;
+	}
+
+	@Nullable
+	@Override
+	public AdHelper createAdHelper() {
+		return null;
+	}
+
+	@Nullable
+	@Override
+	public AdHelper getAdHelper() {
 		return null;
 	}
 }

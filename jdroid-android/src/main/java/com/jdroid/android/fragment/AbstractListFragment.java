@@ -2,6 +2,7 @@ package com.jdroid.android.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -14,11 +15,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdSize;
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.ActivityIf;
-import com.jdroid.android.ad.HouseAdBuilder;
+import com.jdroid.android.ad.AdHelper;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
@@ -301,24 +301,6 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 	public Toolbar getAppBar() {
 		return fragmentHelper.getAppBar();
 	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getAdSize()
-	 */
-	@Override
-	public AdSize getAdSize() {
-		return fragmentHelper.getAdSize();
-	}
-
-	@Override
-	public String getBannerAdUnitId() {
-		return fragmentHelper.getBannerAdUnitId();
-	}
-
-	@Override
-	public HouseAdBuilder getHouseAdBuilder() {
-		return fragmentHelper.getHouseAdBuilder();
-	}
 
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#onResumeUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
@@ -487,5 +469,17 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 	@Override
 	public Boolean isSecondaryFragment() {
 		return fragmentHelper.isSecondaryFragment();
+	}
+
+	@Nullable
+	@Override
+	public AdHelper createAdHelper() {
+		return fragmentHelper.createAdHelper();
+	}
+
+	@Nullable
+	@Override
+	public AdHelper getAdHelper() {
+		return fragmentHelper.createAdHelper();
 	}
 }

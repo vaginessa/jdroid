@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.MenuRes;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.android.gms.ads.AdSize;
-import com.jdroid.android.ad.HouseAdBuilder;
+import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 
@@ -61,12 +61,6 @@ public interface ComponentIf {
 	
 	public AppContext getAppContext();
 	
-	public AdSize getAdSize();
-
-	public String getBannerAdUnitId();
-
-	public HouseAdBuilder getHouseAdBuilder();
-
 	public User getUser();
 	
 	public void showLoading();
@@ -77,4 +71,10 @@ public interface ComponentIf {
 	public Integer getMenuResourceId();
 
 	public boolean onOptionsItemSelected(MenuItem item);
+
+	@Nullable
+	public AdHelper createAdHelper();
+
+	@Nullable
+	public AdHelper getAdHelper();
 }

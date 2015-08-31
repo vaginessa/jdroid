@@ -2,7 +2,6 @@ package com.jdroid.android.sample.ui.loading;
 
 import android.os.Bundle;
 
-import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.loading.SwipeRefreshLoading;
@@ -75,10 +74,5 @@ public class SwipeRefreshLoadingFragment extends AbstractRecyclerFragment<String
 				dismissLoading();
 			}
 		});
-	}
-
-	@Override
-	public AdSize getAdSize() {
-		return null;
 	}
 }

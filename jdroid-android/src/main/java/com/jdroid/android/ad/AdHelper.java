@@ -17,20 +17,30 @@ import com.jdroid.java.exception.UnexpectedException;
 
 public class AdHelper {
 	
-	private ViewGroup adViewContainer;
 	private View customView;
-	private AdView adView;
 	private Boolean displayAds = false;
-	
+
+	private ViewGroup adViewContainer;
+	private AdView adView;
+	private AdSize adSize;
+	private String bannerAdUnitId;
+
 	private InterstitialAd interstitial;
 	private Boolean displayInterstitial = false;
+	private String interstitialAdUnitId;
+	private Boolean isInterstitialEnabled = false;
 
-	public void loadBanner(final Activity activity, ViewGroup adViewContainer, AdSize adSize, String adUnitId,
-			HouseAdBuilder houseAdBuilder) {
+	private HouseAdBuilder houseAdBuilder;
+
+	public AdHelper() {
+		bannerAdUnitId = AbstractApplication.get().getAppContext().getDefaultAdUnitId();
+		interstitialAdUnitId = AbstractApplication.get().getAppContext().getDefaultAdUnitId();
+	}
+
+	public void loadBanner(final Activity activity) {
 
 		AppContext applicationContext = AbstractApplication.get().getAppContext();
 
-		this.adViewContainer = adViewContainer;
 		if (adViewContainer != null) {
 			if ((adSize == null) || !applicationContext.areAdsEnabled()) {
 				adViewContainer.setVisibility(View.GONE);
@@ -38,11 +48,11 @@ public class AdHelper {
 				
 				adView = new AdView(activity);
 
-				if (adUnitId == null) {
-					throw new UnexpectedException("Missing ad unit ID");
+				if (bannerAdUnitId == null) {
+					throw new UnexpectedException("Missing banner ad unit ID");
 				}
 
-				adView.setAdUnitId(adUnitId);
+				adView.setAdUnitId(bannerAdUnitId);
 				adView.setAdSize(adSize);
 				customView = houseAdBuilder != null ? houseAdBuilder.build(activity) : null;
 				if (customView != null) {
@@ -108,16 +118,16 @@ public class AdHelper {
 		return builder;
 	}
 	
-	public void loadInterstitial(Activity activity, String adUnitId) {
+	public void loadInterstitial(Activity activity) {
 		AppContext applicationContext = AbstractApplication.get().getAppContext();
-		if (applicationContext.areAdsEnabled()) {
+		if (isInterstitialEnabled && applicationContext.areAdsEnabled()) {
 			interstitial = new InterstitialAd(activity);
 
-			if (adUnitId == null) {
-				throw new UnexpectedException("Missing ad unit ID");
+			if (interstitialAdUnitId == null) {
+				throw new UnexpectedException("Missing interstitial ad unit ID");
 			}
 
-			interstitial.setAdUnitId(adUnitId);
+			interstitial.setAdUnitId(interstitialAdUnitId);
 
 			AdRequest.Builder builder = createBuilder(applicationContext);
 			interstitial.loadAd(builder.build());
@@ -175,5 +185,35 @@ public class AdHelper {
 			adView = null;
 			adViewContainer = null;
 		}
+	}
+
+	public AdHelper setAdSize(AdSize adSize) {
+		this.adSize = adSize;
+		return this;
+	}
+
+	public AdHelper setHouseAdBuilder(HouseAdBuilder houseAdBuilder) {
+		this.houseAdBuilder = houseAdBuilder;
+		return this;
+	}
+
+	public AdHelper setAdViewContainer(ViewGroup adViewContainer) {
+		this.adViewContainer = adViewContainer;
+		return this;
+	}
+
+	public AdHelper setBannerAdUnitId(String bannerAdUnitId) {
+		this.bannerAdUnitId = bannerAdUnitId;
+		return this;
+	}
+
+	public AdHelper setInterstitialAdUnitId(String interstitialAdUnitId) {
+		this.interstitialAdUnitId = interstitialAdUnitId;
+		return this;
+	}
+
+	public AdHelper setIsInterstitialEnabled(Boolean isInterstitialEnabled) {
+		this.isInterstitialEnabled = isInterstitialEnabled;
+		return this;
 	}
 }

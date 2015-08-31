@@ -3,6 +3,7 @@ package com.jdroid.android.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -10,12 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.ad.AdHelper;
-import com.jdroid.android.ad.HouseAdBuilder;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.concurrent.SafeExecuteWrapperRunnable;
 import com.jdroid.android.context.AppContext;
@@ -119,10 +118,9 @@ public class FragmentHelper implements FragmentIf {
 			getFragmentIf().afterInitAppBar(appBar);
 		}
 
-		adHelper = createAdLoader();
+		adHelper = getFragmentIf().createAdHelper();
 		if (adHelper != null) {
-			adHelper.loadBanner(fragment.getActivity(), (ViewGroup)(fragment.getView().findViewById(R.id.adViewContainer)),
-					getFragmentIf().getAdSize(), getFragmentIf().getBannerAdUnitId(), getFragmentIf().getHouseAdBuilder());
+			adHelper.loadBanner(fragment.getActivity());
 		}
 		
 		if (loading == null) {
@@ -151,11 +149,21 @@ public class FragmentHelper implements FragmentIf {
 	public Toolbar getAppBar() {
 		return appBar;
 	}
-	
-	protected AdHelper createAdLoader() {
-		return new AdHelper();
+
+	@Override
+	@Nullable
+	public AdHelper createAdHelper() {
+		AdHelper adHelper = new AdHelper();
+		adHelper.setAdViewContainer((ViewGroup)(fragment.getView().findViewById(R.id.adViewContainer)));
+		return adHelper;
 	}
-	
+
+	@Nullable
+	@Override
+	public AdHelper getAdHelper() {
+		return adHelper;
+	}
+
 	public void onActivityCreated(Bundle savedInstanceState) {
 		LOGGER.debug("Executing onActivityCreated on " + fragment);
 	}
@@ -414,24 +422,6 @@ public class FragmentHelper implements FragmentIf {
 	@Override
 	public AppContext getAppContext() {
 		return getActivityIf().getAppContext();
-	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#getAdSize()
-	 */
-	@Override
-	public AdSize getAdSize() {
-		return getActivityIf().getAdSize();
-	}
-
-	@Override
-	public String getBannerAdUnitId() {
-		return getActivityIf().getBannerAdUnitId();
-	}
-
-	@Override
-	public HouseAdBuilder getHouseAdBuilder() {
-		return null;
 	}
 	
 	/**
