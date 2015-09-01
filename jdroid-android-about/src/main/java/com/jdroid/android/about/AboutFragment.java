@@ -7,14 +7,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.activity.ActivityLauncher;
-import com.jdroid.android.ad.RateAppView;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.fragment.AbstractListFragment;
+import com.jdroid.android.intent.IntentUtils;
+import com.jdroid.android.rating.RatingHelper;
 import com.jdroid.android.share.ShareUtils;
 import com.jdroid.android.utils.AndroidUtils;
-import com.jdroid.android.google.GooglePlayUtils;
-import com.jdroid.android.intent.IntentUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.DateUtils;
 
@@ -74,8 +73,7 @@ public class AboutFragment extends AbstractListFragment<AboutItem> {
 			
 			@Override
 			public void onSelected(Activity activity) {
-				RateAppView.rateMeClicked();
-				GooglePlayUtils.launchAppDetails(getActivity());
+				RatingHelper.rateMe(activity);
 				AbstractApplication.get().getAnalyticsSender().trackRateUs();
 			}
 		});

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!-- Rate me -->
+	<string name="rateMeTitle">¿Le gustó %1$s?</string>
+	<string name="rateMeDescription">¡Califíquenos ahora!</string>
+
+</resources>

@@ -58,10 +58,6 @@
 	<string name="camera">Camera</string>
 	<string name="gallery">Gallery</string>
 
-	<!-- Rate me -->
-	<string name="rateMeTitle">Did you like %1$s?</string>
-	<string name="rateMeDescription">Rate it now !</string>
-
 	<!-- External Apps -->
 	<string name="barcodeScanner">Barcode Scanner</string>
 	<string name="voiceSearch">Voice Search</string>

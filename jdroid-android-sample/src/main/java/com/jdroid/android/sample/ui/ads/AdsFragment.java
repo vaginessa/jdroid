@@ -8,8 +8,8 @@ import android.view.View.OnClickListener;
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.ad.AdHelper;
-import com.jdroid.android.ad.AdMobAdHelper;
 import com.jdroid.android.fragment.AbstractFragment;
+import com.jdroid.android.google.admob.AdMobAdHelper;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.application.AndroidAppContext;
 

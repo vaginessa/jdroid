@@ -1,20 +1,18 @@
-package com.jdroid.android.ad;
+package com.jdroid.android.google.admob;
 
-import java.util.Random;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.R;
-import com.jdroid.android.google.GooglePlayUtils;
-import com.jdroid.android.utils.SharedPreferencesHelper;
+import com.jdroid.android.rating.RatingHelper;
+
+import java.util.Random;
 
 public class RateAppView extends RelativeLayout {
-	
-	private static final String RATE_ME_CLICK_TIMESTAMP = "rateMeClickTimestamp";
 	
 	public RateAppView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -42,21 +40,15 @@ public class RateAppView extends RelativeLayout {
 			
 			@Override
 			public void onClick(View v) {
-				rateMeClicked();
-				GooglePlayUtils.launchAppDetails(context);
+				RatingHelper.rateMe(context);
 				AbstractApplication.get().getAnalyticsSender().trackRateMeBannerClicked();
 			}
 			
 		});
 	}
 	
-	public static void rateMeClicked() {
-		SharedPreferencesHelper.get().savePreference(RATE_ME_CLICK_TIMESTAMP, System.currentTimeMillis());
-	}
-	
 	public static Boolean displayRateMe() {
 		Boolean enoughDaysSinceFirstSession = AbstractApplication.get().getAppContext().getDaysSinceFirstSession() > 7;
-		return new Random().nextBoolean() && !SharedPreferencesHelper.get().hasPreference(RATE_ME_CLICK_TIMESTAMP)
-				&& enoughDaysSinceFirstSession;
+		return new Random().nextBoolean() && !RatingHelper.isRateMeClicked() && enoughDaysSinceFirstSession;
 	}
 }

@@ -7,9 +7,9 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.ad.AdHelper;
-import com.jdroid.android.ad.AdMobAdHelper;
-import com.jdroid.android.ad.HouseAdBuilder;
 import com.jdroid.android.fragment.AbstractFragment;
+import com.jdroid.android.google.admob.AdMobAdHelper;
+import com.jdroid.android.google.admob.HouseAdBuilder;
 import com.jdroid.android.sample.R;
 
 public class HouseAdsFragment extends AbstractFragment {

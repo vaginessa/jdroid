@@ -2,11 +2,12 @@ package com.jdroid.android.sample.ui.ads;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+
 import com.jdroid.android.activity.FragmentContainerActivity;
 import com.jdroid.android.ad.AdHelper;
-import com.jdroid.android.ad.AdMobAdHelper;
-import com.jdroid.android.uri.UriHandler;
+import com.jdroid.android.google.admob.AdMobAdHelper;
 import com.jdroid.android.sample.application.AndroidAppContext;
+import com.jdroid.android.uri.UriHandler;
 
 public class AdsActivity extends FragmentContainerActivity {
 	

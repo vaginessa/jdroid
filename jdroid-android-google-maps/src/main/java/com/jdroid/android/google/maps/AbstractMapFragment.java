@@ -245,7 +245,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 							String message = getActivity().getString(R.string.locationPermissionRequired);
 
 							AlertDialogFragment.show(getActivity(), fragment, null, title, message, getActivity().getString(R.string.cancel),
-									null, getActivity().getString(R.string.accept), true, screenViewName, null);
+									null, getActivity().getString(R.string.ok), true, screenViewName, null);
 						}
 						return true;
 					}

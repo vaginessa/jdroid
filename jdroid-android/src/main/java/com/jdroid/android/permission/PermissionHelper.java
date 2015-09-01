@@ -25,7 +25,7 @@ public class PermissionHelper {
 				String screenViewName = PermissionDialogFragment.class.getSimpleName() + "-" + permission;
 
 				AlertDialogFragment.show(fragmentActivity, fragment, null, title, message, fragmentActivity.getString(R.string.cancel),
-						null, fragmentActivity.getString(R.string.accept), true, screenViewName, null);
+						null, fragmentActivity.getString(R.string.ok), true, screenViewName, null);
 			} else {
 				ActivityCompat.requestPermissions(fragmentActivity, new String[]{permission}, permissionRequestCode);
 			}
