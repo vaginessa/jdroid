@@ -1,4 +1,4 @@
-package com.jdroid.android.exception;
+package com.jdroid.android.exception.crashlytics;
 
 import android.app.Activity;
 
