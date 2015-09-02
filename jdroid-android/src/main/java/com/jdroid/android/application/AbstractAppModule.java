@@ -3,6 +3,11 @@ package com.jdroid.android.application;
 import android.content.Context;
 import android.content.res.Configuration;
 
+import com.jdroid.android.debug.PreferencesAppender;
+import com.jdroid.java.collections.Lists;
+
+import java.util.List;
+
 public class AbstractAppModule implements AppModule {
 
 	@Override
@@ -28,5 +33,9 @@ public class AbstractAppModule implements AppModule {
 	@Override
 	public void attachBaseContext(Context base) {
 		// Do Nothing
+	}
+
+	public List<PreferencesAppender> getPreferencesAppenders() {
+		return Lists.newArrayList();
 	}
 }

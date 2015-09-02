@@ -1,12 +1,11 @@
-package com.jdroid.android.debug;
+package com.jdroid.android.google.admob;
 
 import android.app.Activity;
 import android.preference.CheckBoxPreference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
-import com.jdroid.android.R;
-import com.jdroid.android.context.AppContext;
+import com.jdroid.android.debug.PreferencesAppender;
 
 public class AdsDebugPrefsAppender implements PreferencesAppender {
 	
@@ -21,7 +20,7 @@ public class AdsDebugPrefsAppender implements PreferencesAppender {
 		preferenceGroup.addPreference(preferenceCategory);
 		
 		CheckBoxPreference checkBoxPreference = new CheckBoxPreference(activity);
-		checkBoxPreference.setKey(AppContext.ADS_ENABLED);
+		checkBoxPreference.setKey(AdMobAppContext.ADS_ENABLED);
 		checkBoxPreference.setTitle(R.string.adsEnabledTitle);
 		checkBoxPreference.setSummary(R.string.adsEnabledDescription);
 		preferenceCategory.addPreference(checkBoxPreference);

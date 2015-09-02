@@ -16,7 +16,11 @@ public class CrashlyticsAppModule extends AbstractAppModule {
 	}
 
 	private CrashlyticsAppModule() {
-		crashlyticsAppContext = new CrashlyticsAppContext();
+		crashlyticsAppContext = createCrashlyticsAppContext();
+	}
+
+	protected CrashlyticsAppContext createCrashlyticsAppContext() {
+		return new CrashlyticsAppContext();
 	}
 
 	public CrashlyticsAppContext getCrashlyticsAppContext() {

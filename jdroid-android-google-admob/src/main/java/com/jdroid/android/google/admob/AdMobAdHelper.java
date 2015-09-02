@@ -35,8 +35,8 @@ public class AdMobAdHelper implements AdHelper {
 	private HouseAdBuilder houseAdBuilder;
 
 	public AdMobAdHelper() {
-		bannerAdUnitId = AbstractApplication.get().getAppContext().getDefaultAdUnitId();
-		interstitialAdUnitId = AbstractApplication.get().getAppContext().getDefaultAdUnitId();
+		bannerAdUnitId = AdMobAppModule.get().getAdMobAppContext().getDefaultAdUnitId();
+		interstitialAdUnitId = AdMobAppModule.get().getAdMobAppContext().getDefaultAdUnitId();
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class AdMobAdHelper implements AdHelper {
 		AppContext applicationContext = AbstractApplication.get().getAppContext();
 
 		if (adViewContainer != null) {
-			if ((adSize == null) || !applicationContext.areAdsEnabled()) {
+			if ((adSize == null) || !AdMobAppModule.get().getAdMobAppContext().areAdsEnabled()) {
 				adViewContainer.setVisibility(View.GONE);
 			} else {
 
@@ -113,7 +113,7 @@ public class AdMobAdHelper implements AdHelper {
 		final AdRequest.Builder builder = new AdRequest.Builder();
 		if (!applicationContext.isProductionEnvironment()) {
 			builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
-			for (String deviceId : applicationContext.getTestDevicesIds()) {
+			for (String deviceId : AdMobAppModule.get().getAdMobAppContext().getTestDevicesIds()) {
 				builder.addTestDevice(deviceId);
 			}
 		}
@@ -124,7 +124,7 @@ public class AdMobAdHelper implements AdHelper {
 	@Override
 	public void loadInterstitial(Activity activity) {
 		AppContext applicationContext = AbstractApplication.get().getAppContext();
-		if (isInterstitialEnabled && applicationContext.areAdsEnabled()) {
+		if (isInterstitialEnabled && AdMobAppModule.get().getAdMobAppContext().areAdsEnabled()) {
 			interstitial = new InterstitialAd(activity);
 
 			if (interstitialAdUnitId == null) {
@@ -174,7 +174,7 @@ public class AdMobAdHelper implements AdHelper {
 	@Override
 	public void onResume() {
 		if (adView != null) {
-			if (AbstractApplication.get().getAppContext().areAdsEnabled()) {
+			if (AdMobAppModule.get().getAdMobAppContext().areAdsEnabled()) {
 				adView.resume();
 			} else if (adViewContainer != null) {
 				adViewContainer.removeView(adView);

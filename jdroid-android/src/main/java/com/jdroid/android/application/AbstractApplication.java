@@ -520,4 +520,8 @@ public abstract class AbstractApplication extends Application {
 	public AppLaunchStatus getAppLaunchStatus() {
 		return appLaunchStatus;
 	}
+
+	public List<AppModule> getAppModules() {
+		return appModules;
+	}
 }

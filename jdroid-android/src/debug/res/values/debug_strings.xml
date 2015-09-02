@@ -31,11 +31,6 @@
 	<string name="uiThread" tools:ignore="MissingTranslation">UI Thread</string>
 	<string name="crash" tools:ignore="MissingTranslation">Crash</string>
 
-	<!-- Ads -->
-	<string name="adsSettings" tools:ignore="MissingTranslation">Ads</string>
-	<string name="adsEnabledTitle" tools:ignore="MissingTranslation">Ads Enabled</string>
-	<string name="adsEnabledDescription" tools:ignore="MissingTranslation">Enable/disable the ads</string>
-
 	<!-- Nav Drawer -->
 	<string name="navDrawerSettings" tools:ignore="MissingTranslation">Nav Drawer</string>
 	<string name="navDrawerManuallyUsedTitle" tools:ignore="MissingTranslation">Nav drawer manually used</string>

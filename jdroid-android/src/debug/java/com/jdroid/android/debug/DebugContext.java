@@ -95,10 +95,6 @@ public class DebugContext {
 		return new ExperimentsDebugPrefsAppender();
 	}
 	
-	public AdsDebugPrefsAppender createAdsDebugPrefsAppender() {
-		return new AdsDebugPrefsAppender();
-	}
-	
 	public NavDrawerDebugPrefsAppender createNavDrawerDebugPrefsAppender() {
 		return new NavDrawerDebugPrefsAppender();
 	}
