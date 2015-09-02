@@ -74,7 +74,7 @@ public class FacebookConnector {
 	 */
 	public FacebookConnector(Activity activity, SessionStateListener sessionStateListener,
 			FacebookAuthenticationListener facebookAuthenticationListener) {
-		facebookAppId = AbstractApplication.get().getAppContext().getFacebookAppId();
+		facebookAppId = FacebookAppModule.get().getFacebookContext().getFacebookAppId();
 		if (facebookAppId == null) {
 			throw new UnexpectedException("Missing Facebook App ID");
 		}

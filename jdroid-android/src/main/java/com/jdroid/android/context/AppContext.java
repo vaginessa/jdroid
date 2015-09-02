@@ -48,13 +48,6 @@ public abstract class AppContext {
 	}
 	
 	/**
-	 * @return The registered Facebook app ID that is used to identify this application for Facebook.
-	 */
-	public String getFacebookAppId() {
-		return null;
-	}
-	
-	/**
 	 * @return Whether the application should display the debug settings
 	 */
 	public Boolean displayDebugSettings() {

@@ -15,6 +15,7 @@ import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.crashlytics.CrashlyticsAppModule;
 import com.jdroid.android.debug.DebugContext;
+import com.jdroid.android.facebook.FacebookAppModule;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.google.admob.AdMobAppModule;
 import com.jdroid.android.google.gcm.GcmContext;
@@ -100,5 +101,6 @@ public class AndroidApplication extends AbstractApplication {
 	protected void initAppModule(List<AppModule> appModules) {
 		appModules.add(CrashlyticsAppModule.get());
 		appModules.add(AdMobAppModule.get());
+		appModules.add(FacebookAppModule.get());
 	}
 }
