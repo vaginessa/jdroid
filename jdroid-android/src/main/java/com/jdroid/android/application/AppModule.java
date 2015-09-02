@@ -3,7 +3,7 @@ package com.jdroid.android.application;
 import android.content.Context;
 import android.content.res.Configuration;
 
-public interface ApplicationListener {
+public interface AppModule {
 
 	public void onCreate();
 

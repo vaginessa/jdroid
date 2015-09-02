@@ -22,17 +22,11 @@ public class CrashlyticsTracker extends AbstractAnalyticsTracker {
 		return INSTANCE;
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#isEnabled()
-	 */
 	@Override
 	public Boolean isEnabled() {
-		return AbstractApplication.get().getAppContext().isCrashlyticsEnabled();
+		return CrashlyticsAppModule.get().getCrashlyticsAppContext().isCrashlyticsEnabled();
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#onInitExceptionHandler(java.util.Map)
-	 */
 	@Override
 	public void onInitExceptionHandler(Map<String, String> metadata) {
 		Fabric.with(AbstractApplication.get(), new Crashlytics());
@@ -74,10 +68,6 @@ public class CrashlyticsTracker extends AbstractAnalyticsTracker {
 		return throwable;
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#onActivityStart(java.lang.Class,
-	 *      com.jdroid.android.analytics.AppLoadingSource, java.lang.Object)
-	 */
 	@Override
 	public void onActivityStart(Class<? extends Activity> activityClass, AppLoadingSource appLoadingSource, Object data) {
 		if (appLoadingSource != null) {

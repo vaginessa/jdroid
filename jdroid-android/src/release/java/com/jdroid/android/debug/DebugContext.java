@@ -21,4 +21,12 @@ public class DebugContext {
 			Map<Class<? extends Identifiable>, Repository<? extends Identifiable>> repositories, SQLiteHelper dbHelper) {
 		// Do nothing
 	}
+
+	public List<Pair<String, Object>> getCustomDebugInfoProperties() {
+		return null;
+	}
+
+	public void addCustomDebugInfoProperty(Pair<String, Object> pair) {
+		// Do nothing
+	}
 }

@@ -166,10 +166,6 @@ public abstract class AppContext {
 		return getInstallationSource().equals("Chrome");
 	}
 	
-	public Boolean isCrashlyticsEnabled() {
-		return AbstractApplication.get().getBuildConfigValue("CRASHLYTICS_ENABLED", false);
-	}
-
 	public void saveFirstSessionTimestamp() {
 		Long firstSessionTimestamp = getFirstSessionTimestamp();
 		if (firstSessionTimestamp == null) {

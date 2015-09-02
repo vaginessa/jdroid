@@ -90,13 +90,13 @@ public abstract class AbstractApplication extends Application {
 
 	private Integer deviceYearClass = YearClass.CLASS_UNKNOWN;
 
-	private List<ApplicationListener> applicationListeners = Lists.newArrayList();
+	private List<AppModule> appModules = Lists.newArrayList();
 
 	private ImageLoaderHelper imageLoaderHelper;
 
 	private UpdateManager updateManager;
 	private CacheManager cacheManager;
-	
+
 	public AbstractApplication() {
 		INSTANCE = this;
 	}
@@ -155,8 +155,8 @@ public abstract class AbstractApplication extends Application {
 
 		initRepositories();
 
-		initApplicationListeners(applicationListeners);
-		for (ApplicationListener each: applicationListeners) {
+		initAppModule(appModules);
+		for (AppModule each: appModules) {
 			each.onCreate();
 		}
 	}
@@ -171,7 +171,7 @@ public abstract class AbstractApplication extends Application {
 		return new UilImageLoaderHelper();
 	}
 
-	protected void initApplicationListeners(List<ApplicationListener> applicationListeners) {
+	protected void initAppModule(List<AppModule> appModules) {
 		// Do nothing
 	}
 
@@ -179,7 +179,7 @@ public abstract class AbstractApplication extends Application {
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 
-		for (ApplicationListener each: applicationListeners) {
+		for (AppModule each: appModules) {
 			each.onConfigurationChanged(newConfig);
 		}
 	}
@@ -188,7 +188,7 @@ public abstract class AbstractApplication extends Application {
 	public void onLowMemory() {
 		super.onLowMemory();
 
-		for (ApplicationListener each: applicationListeners) {
+		for (AppModule each: appModules) {
 			each.onLowMemory();
 		}
 	}
@@ -197,7 +197,7 @@ public abstract class AbstractApplication extends Application {
 	public void onTrimMemory(int level) {
 		super.onTrimMemory(level);
 
-		for (ApplicationListener each: applicationListeners) {
+		for (AppModule each: appModules) {
 			each.onTrimMemory(level);
 		}
 	}
@@ -206,7 +206,7 @@ public abstract class AbstractApplication extends Application {
 	protected void attachBaseContext(Context base) {
 		super.attachBaseContext(base);
 
-		for (ApplicationListener each: applicationListeners) {
+		for (AppModule each: appModules) {
 			each.attachBaseContext(base);
 		}
 	}

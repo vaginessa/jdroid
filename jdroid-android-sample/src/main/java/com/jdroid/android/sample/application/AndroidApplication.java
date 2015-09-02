@@ -11,7 +11,9 @@ import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.analytics.ExperimentHelper;
+import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.AppContext;
+import com.jdroid.android.crashlytics.CrashlyticsAppModule;
 import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.google.gcm.GcmContext;
@@ -27,6 +29,8 @@ import com.jdroid.android.sample.repository.UserRepositoryImpl;
 import com.jdroid.android.sample.ui.home.HomeActivity;
 import com.jdroid.android.sample.ui.about.AndroidAboutContext;
 import com.jdroid.android.sample.ui.ads.AdsUriHandler;
+
+import java.util.List;
 
 public class AndroidApplication extends AbstractApplication {
 	
@@ -89,5 +93,10 @@ public class AndroidApplication extends AbstractApplication {
 	@Override
 	public UserRepository getUserRepository() {
 		return new UserRepositoryImpl();
+	}
+
+	@Override
+	protected void initAppModule(List<AppModule> appModules) {
+		appModules.add(CrashlyticsAppModule.get());
 	}
 }

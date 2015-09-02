@@ -33,9 +33,4 @@ public class TestAppContext extends AppContext {
 	public String getLocalIp() {
 		return null;
 	}
-
-	@Override
-	public Boolean isCrashlyticsEnabled() {
-		return null;
-	}
 }

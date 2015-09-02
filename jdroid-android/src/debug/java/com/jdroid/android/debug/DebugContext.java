@@ -22,6 +22,8 @@ import java.util.Map;
 
 public class DebugContext {
 
+	private List<Pair<String, Object>> customDebugInfoProperties = Lists.newArrayList();
+
 	public void launchActivityDebugSettingsActivity() {
 		ActivityLauncher.launchActivity(DebugSettingsActivity.class);
 	}
@@ -42,7 +44,11 @@ public class DebugContext {
 	}
 
 	public List<Pair<String, Object>> getCustomDebugInfoProperties() {
-		return Lists.newArrayList();
+		return customDebugInfoProperties;
+	}
+
+	public void addCustomDebugInfoProperty(Pair<String, Object> pair) {
+		customDebugInfoProperties.add(pair);
 	}
 
 	public ServersDebugPrefsAppender createServersDebugPrefsAppender() {

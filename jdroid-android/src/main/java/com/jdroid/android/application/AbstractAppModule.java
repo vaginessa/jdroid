@@ -3,7 +3,7 @@ package com.jdroid.android.application;
 import android.content.Context;
 import android.content.res.Configuration;
 
-public class AbstractApplicationListener implements ApplicationListener {
+public class AbstractAppModule implements AppModule {
 
 	@Override
 	public void onCreate() {
