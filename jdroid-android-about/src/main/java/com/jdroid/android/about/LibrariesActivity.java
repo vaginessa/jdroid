@@ -11,6 +11,6 @@ public class LibrariesActivity extends FragmentContainerActivity {
 	 */
 	@Override
 	protected Class<? extends Fragment> getFragmentClass() {
-		return AbstractApplication.get().getAboutContext().getLibrariesFragmentClass();
+		return AboutAppModule.get().getAboutContext().getLibrariesFragmentClass();
 	}
 }

@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 
 import com.facebook.device.yearclass.YearClass;
 import com.jdroid.android.R;
-import com.jdroid.android.about.AboutContext;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
@@ -70,7 +69,6 @@ public abstract class AbstractApplication extends Application {
 	private AppContext appContext;
 	private GitContext gitContext;
 	private DebugContext debugContext;
-	private AboutContext aboutContext;
 	private InAppBillingContext inAppBillingContext;
 
 	private AnalyticsSender<? extends AnalyticsTracker> analyticsSender;
@@ -363,19 +361,6 @@ public abstract class AbstractApplication extends Application {
 			}
 		}
 		return gitContext;
-	}
-
-	public AboutContext getAboutContext() {
-		synchronized (AbstractApplication.class) {
-			if (aboutContext == null) {
-				aboutContext = createAboutContext();
-			}
-		}
-		return aboutContext;
-	}
-
-	protected AboutContext createAboutContext() {
-		return new AboutContext();
 	}
 
 	protected DebugContext createDebugContext() {

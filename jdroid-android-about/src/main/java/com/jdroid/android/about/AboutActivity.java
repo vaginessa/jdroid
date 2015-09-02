@@ -11,7 +11,7 @@ public class AboutActivity extends FragmentContainerActivity {
 	 */
 	@Override
 	protected Class<? extends Fragment> getFragmentClass() {
-		return AbstractApplication.get().getAboutContext().getAboutFragmentClass();
+		return AboutAppModule.get().getAboutContext().getAboutFragmentClass();
 	}
 	
 }

@@ -60,7 +60,7 @@ public class AboutFragment extends AbstractListFragment<AboutItem> {
 			});
 		}
 
-		if (AbstractApplication.get().getAboutContext().getSpreadTheLoveFragmentClass() != null) {
+		if (AboutAppModule.get().getAboutContext().getSpreadTheLoveFragmentClass() != null) {
 			aboutItems.add(new AboutItem(R.drawable.ic_spread_the_love, R.string.spreadTheLove) {
 
 				@Override

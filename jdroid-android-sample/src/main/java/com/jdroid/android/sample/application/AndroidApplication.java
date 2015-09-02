@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
-import com.jdroid.android.about.AboutContext;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
@@ -26,7 +25,7 @@ import com.jdroid.android.sample.gcm.AndroidGcmAppModule;
 import com.jdroid.android.sample.repository.UserRepositoryImpl;
 import com.jdroid.android.sample.ui.AndroidActivityHelper;
 import com.jdroid.android.sample.ui.AndroidFragmentHelper;
-import com.jdroid.android.sample.ui.about.AndroidAboutContext;
+import com.jdroid.android.sample.ui.about.AndroidAboutAppModule;
 import com.jdroid.android.sample.ui.ads.AdsUriHandler;
 import com.jdroid.android.sample.ui.home.HomeActivity;
 import com.jdroid.android.uri.NoSegmentsUriHandler;
@@ -82,11 +81,6 @@ public class AndroidApplication extends AbstractApplication {
 	}
 
 	@Override
-	protected AboutContext createAboutContext() {
-		return new AndroidAboutContext();
-	}
-
-	@Override
 	public UserRepository getUserRepository() {
 		return new UserRepositoryImpl();
 	}
@@ -97,5 +91,6 @@ public class AndroidApplication extends AbstractApplication {
 		appModules.add(AdMobAppModule.get());
 		appModules.add(FacebookAppModule.get());
 		appModules.add(AndroidGcmAppModule.get());
+		appModules.add(AndroidAboutAppModule.get());
 	}
 }

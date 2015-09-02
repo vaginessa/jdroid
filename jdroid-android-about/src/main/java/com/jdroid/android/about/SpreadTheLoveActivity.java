@@ -11,6 +11,6 @@ public class SpreadTheLoveActivity extends FragmentContainerActivity {
 	 */
 	@Override
 	protected Class<? extends Fragment> getFragmentClass() {
-		return AbstractApplication.get().getAboutContext().getSpreadTheLoveFragmentClass();
+		return AboutAppModule.get().getAboutContext().getSpreadTheLoveFragmentClass();
 	}
 }
