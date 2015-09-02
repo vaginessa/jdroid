@@ -42,7 +42,6 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		addAppender(appenders, debugContext.createHttpCacheDebugPrefsAppender());
 		addAppender(appenders, debugContext.createExceptionHandlingDebugPrefsAppender());
 		addAppender(appenders, debugContext.createInAppBillingDebugPrefsAppender());
-		addAppender(appenders, debugContext.createGcmDebugPrefsAppender());
 		addAppender(appenders, debugContext.createInfoDebugPrefsAppender());
 
 		appenders.addAll(debugContext.getCustomPreferencesAppenders());

@@ -5,6 +5,7 @@ import android.preference.PreferenceManager;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.collections.Sets;
+import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.StringUtils;
 
 import java.util.Set;
@@ -17,11 +18,19 @@ public class AdMobAppContext {
 
 	public AdMobAppContext() {
 		adsEnabled = areAdsEnabledByDefault();
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
-		if (!sharedPreferences.contains(ADS_ENABLED)) {
-			SharedPreferences.Editor editor = sharedPreferences.edit();
-			editor.putBoolean(ADS_ENABLED, adsEnabled);
-			editor.apply();
+		if (AbstractApplication.get().getAppContext().displayDebugSettings()) {
+			ExecutorUtils.execute(new Runnable() {
+				@Override
+				public void run() {
+					// This is required to initialize the prefs to display on the debug settings
+					SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
+					if (!sharedPreferences.contains(ADS_ENABLED)) {
+						SharedPreferences.Editor editor = sharedPreferences.edit();
+						editor.putBoolean(ADS_ENABLED, adsEnabled);
+						editor.apply();
+					}
+				}
+			});
 		}
 	}
 

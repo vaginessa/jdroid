@@ -5,6 +5,7 @@ import android.preference.PreferenceManager;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.collections.Maps;
+import com.jdroid.java.concurrent.ExecutorUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -25,8 +26,20 @@ public class ExperimentHelper {
 	}
 	
 	private static Map<Experiment, ExperimentVariant> experimentsMap = Maps.newHashMap();
+
+	public static void registerExperiments(final Experiment... experiments) {
+		ExecutorUtils.execute(new Runnable() {
+			@Override
+			public void run() {
+				for(Experiment each : experiments) {
+					registerExperiment(each);
+				}
+			}
+		});
+
+	}
 	
-	public static void registerExperiment(Experiment experiment) {
+	private static void registerExperiment(Experiment experiment) {
 		
 		String experimentVariantValue = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
 			experiment.getId(), null);

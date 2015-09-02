@@ -10,8 +10,4 @@ public class GcmContext {
 	public String getGoogleProjectId() {
 		return AbstractApplication.get().getBuildConfigValue("GOOGLE_PROJECT_ID");
 	}
-
-	public GcmMessageResolver getGcmResolver() {
-		return null;
-	}
 }

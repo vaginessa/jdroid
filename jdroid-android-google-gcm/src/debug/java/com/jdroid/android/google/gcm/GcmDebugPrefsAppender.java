@@ -1,4 +1,4 @@
-package com.jdroid.android.debug;
+package com.jdroid.android.google.gcm;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,8 +8,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
-import com.jdroid.android.R;
-import com.jdroid.android.google.gcm.GcmMessage;
+import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;

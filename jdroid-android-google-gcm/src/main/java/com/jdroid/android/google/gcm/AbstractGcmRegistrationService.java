@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.GooglePlayServicesUtils;
-import com.jdroid.android.service.WorkerService;
-import com.jdroid.android.google.GooglePlayUtils;
 import com.jdroid.android.intent.IntentRetryUtils;
+import com.jdroid.android.service.WorkerService;
 import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
@@ -33,7 +31,7 @@ public abstract class AbstractGcmRegistrationService extends WorkerService {
 				try {
 					GoogleCloudMessaging googleCloudMessaging = GoogleCloudMessaging.getInstance(this);
 					
-					String googleProjectId = AbstractApplication.get().getGcmContext().getGoogleProjectId();
+					String googleProjectId = AbstractGcmAppModule.get().getGcmContext().getGoogleProjectId();
 					if (googleProjectId == null) {
 						throw new UnexpectedException("Missing Google Project ID");
 					}

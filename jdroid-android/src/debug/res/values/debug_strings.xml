@@ -49,11 +49,6 @@
 	<string name="experimentTitle" tools:ignore="MissingTranslation">Experiment id: %1$s</string>
 	<string name="experimentDescription" tools:ignore="MissingTranslation">Pick the experiment variant</string>
 
-	<!-- GCM -->
-	<string name="gcmSettings" tools:ignore="MissingTranslation">GCM</string>
-	<string name="emulateGcmMessageTitle" tools:ignore="MissingTranslation">Emulate GCM Message</string>
-	<string name="emulateGcmMessageDescription" tools:ignore="MissingTranslation">Pick the GCM Message type to emulate</string>
-
 	<!-- Database -->
 	<string name="database" tools:ignore="MissingTranslation">Database</string>
 	<string name="downloadDatabase" tools:ignore="MissingTranslation">Download database</string>

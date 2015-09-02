@@ -22,7 +22,6 @@ import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.fragment.FragmentHelper;
-import com.jdroid.android.google.gcm.GcmContext;
 import com.jdroid.android.google.inappbilling.InAppBillingContext;
 import com.jdroid.android.http.cache.CacheManager;
 import com.jdroid.android.images.loader.ImageLoaderHelper;
@@ -71,7 +70,6 @@ public abstract class AbstractApplication extends Application {
 	private AppContext appContext;
 	private GitContext gitContext;
 	private DebugContext debugContext;
-	private GcmContext gcmContext;
 	private AboutContext aboutContext;
 	private InAppBillingContext inAppBillingContext;
 
@@ -366,22 +364,6 @@ public abstract class AbstractApplication extends Application {
 		}
 		return gitContext;
 	}
-
-	@Nullable
-	protected GcmContext createGcmContext() {
-		return null;
-	}
-
-	@Nullable
-	public GcmContext getGcmContext() {
-		synchronized (AbstractApplication.class) {
-			if (gcmContext == null) {
-				gcmContext = createGcmContext();
-			}
-		}
-		return gcmContext;
-	}
-
 
 	public AboutContext getAboutContext() {
 		synchronized (AbstractApplication.class) {

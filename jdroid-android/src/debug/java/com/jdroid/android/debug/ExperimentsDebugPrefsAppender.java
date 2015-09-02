@@ -67,7 +67,7 @@ public class ExperimentsDebugPrefsAppender implements PreferencesAppender {
 					
 					((ListPreference)preference).setValue(newValue.toString());
 					
-					ExperimentHelper.registerExperiment(experiment);
+					ExperimentHelper.registerExperiments(experiment);
 					return false;
 				}
 			});

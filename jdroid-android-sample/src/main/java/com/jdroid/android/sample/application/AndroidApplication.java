@@ -18,12 +18,11 @@ import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.facebook.FacebookAppModule;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.google.admob.AdMobAppModule;
-import com.jdroid.android.google.gcm.GcmContext;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sample.analytics.AndroidAnalyticsSender;
 import com.jdroid.android.sample.debug.AndroidDebugContext;
 import com.jdroid.android.sample.experiment.AndroidExperiment;
-import com.jdroid.android.sample.gcm.AndroidGcmContext;
+import com.jdroid.android.sample.gcm.AndroidGcmAppModule;
 import com.jdroid.android.sample.repository.UserRepositoryImpl;
 import com.jdroid.android.sample.ui.AndroidActivityHelper;
 import com.jdroid.android.sample.ui.AndroidFragmentHelper;
@@ -47,7 +46,7 @@ public class AndroidApplication extends AbstractApplication {
 		getUriMapper().addUriHandler(new NoSegmentsUriHandler());
 		getUriMapper().addUriHandler(new AdsUriHandler());
 
-		ExperimentHelper.registerExperiment(AndroidExperiment.SAMPLE_EXPERIMENT);
+		ExperimentHelper.registerExperiments(AndroidExperiment.SAMPLE_EXPERIMENT);
 	}
 
 	@Override
@@ -83,11 +82,6 @@ public class AndroidApplication extends AbstractApplication {
 	}
 
 	@Override
-	protected GcmContext createGcmContext() {
-		return new AndroidGcmContext();
-	}
-
-	@Override
 	protected AboutContext createAboutContext() {
 		return new AndroidAboutContext();
 	}
@@ -102,5 +96,6 @@ public class AndroidApplication extends AbstractApplication {
 		appModules.add(CrashlyticsAppModule.get());
 		appModules.add(AdMobAppModule.get());
 		appModules.add(FacebookAppModule.get());
+		appModules.add(AndroidGcmAppModule.get());
 	}
 }

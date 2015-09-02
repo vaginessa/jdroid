@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+	<string name="gcmSettings" tools:ignore="MissingTranslation">GCM</string>
+	<string name="emulateGcmMessageTitle" tools:ignore="MissingTranslation">Emulate GCM Message</string>
+	<string name="emulateGcmMessageDescription" tools:ignore="MissingTranslation">Pick the GCM Message type to emulate</string>
+
+</resources>

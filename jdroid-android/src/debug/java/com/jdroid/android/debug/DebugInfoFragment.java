@@ -6,7 +6,6 @@ import android.view.View;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
-import com.jdroid.android.google.gcm.GcmContext;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.ScreenUtils;
@@ -34,11 +33,6 @@ public class DebugInfoFragment extends AbstractRecyclerFragment<Pair<String, Obj
 		properties.add(new Pair<String, Object>("Analytics Enabled", appContext.isGoogleAnalyticsEnabled()));
 		properties.add(new Pair<String, Object>("Analytics Tracking Id", appContext.getGoogleAnalyticsTrackingId()));
 		properties.add(new Pair<String, Object>("Installation Source", appContext.getInstallationSource()));
-
-		GcmContext gcmContext = AbstractApplication.get().getGcmContext();
-		if (gcmContext != null) {
-			properties.add(new Pair<String, Object>("Google Project Id", gcmContext.getGoogleProjectId()));
-		}
 
 		properties.add(new Pair<String, Object>("Smallest Screen Width Dp", ScreenUtils.getSmallestScreenWidthDp()));
 		properties.add(new Pair<String, Object>("Screen Density", ScreenUtils.getScreenDensity()));

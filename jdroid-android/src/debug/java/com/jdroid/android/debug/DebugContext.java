@@ -2,11 +2,10 @@ package com.jdroid.android.debug;
 
 import android.support.v4.util.Pair;
 
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.activity.ActivityLauncher;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.debug.mocks.AndroidJsonMockHttpService;
 import com.jdroid.android.fragment.AbstractPreferenceFragment;
-import com.jdroid.android.google.gcm.GcmMessage;
 import com.jdroid.android.log.DatabaseLog;
 import com.jdroid.android.log.DatabaseLogsRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
@@ -56,14 +55,6 @@ public class DebugContext {
 	}
 
 	public Map<Class<? extends Server>, List<? extends Server>> getServersMap() {
-		return Maps.newHashMap();
-	}
-	
-	public GcmDebugPrefsAppender createGcmDebugPrefsAppender() {
-		return new GcmDebugPrefsAppender(getGcmMessagesMap());
-	}
-
-	public Map<GcmMessage, EmulatedGcmMessageIntentBuilder> getGcmMessagesMap() {
 		return Maps.newHashMap();
 	}
 	

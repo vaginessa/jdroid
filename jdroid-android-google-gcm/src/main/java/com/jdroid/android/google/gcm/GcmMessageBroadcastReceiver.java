@@ -18,7 +18,7 @@ public abstract class GcmMessageBroadcastReceiver extends BroadcastReceiver {
 	 */
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		GcmMessage gcmMessage = AbstractApplication.get().getGcmContext().getGcmResolver().resolve(intent);
+		GcmMessage gcmMessage = AbstractGcmAppModule.get().getGcmMessageResolver().resolve(intent);
 		onGcmMessage(gcmMessage, intent);
 	}
 	
