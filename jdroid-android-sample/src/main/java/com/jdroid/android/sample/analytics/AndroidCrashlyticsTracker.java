@@ -3,7 +3,7 @@ package com.jdroid.android.sample.analytics;
 import android.app.Activity;
 
 import com.jdroid.android.analytics.AppLoadingSource;
-import com.jdroid.android.exception.crashlytics.CrashlyticsTracker;
+import com.jdroid.android.crashlytics.CrashlyticsTracker;
 
 import java.util.Map;
 
