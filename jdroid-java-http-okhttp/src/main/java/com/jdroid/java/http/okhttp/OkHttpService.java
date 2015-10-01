@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import javax.net.ssl.SSLHandshakeException;
+
 public abstract class OkHttpService extends AbstractHttpService {
 
 	public OkHttpService(Server server, List<Object> urlSegments, List<HttpServiceProcessor> httpServiceProcessors) {
@@ -71,6 +73,8 @@ public abstract class OkHttpService extends AbstractHttpService {
 				}
 			}
 			throw new UnexpectedException(e);
+		} catch (SSLHandshakeException e) {
+			throw new ConnectionException(e, false);
 		} catch (IOException e) {
 			String message = e.getMessage();
 			if (message != null && message.contains("unexpected end of stream on")) {
