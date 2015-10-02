@@ -1,6 +1,7 @@
 package com.jdroid.android.google.admob;
 
 import com.jdroid.android.application.AbstractAppModule;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.java.collections.Lists;
 
@@ -8,15 +9,15 @@ import java.util.List;
 
 public class AdMobAppModule extends AbstractAppModule {
 
-	private static final AdMobAppModule INSTANCE = new AdMobAppModule();
+	public static final String MODULE_NAME = AdMobAppModule.class.getName();
+
+	public static AdMobAppModule get() {
+		return (AdMobAppModule)AbstractApplication.get().getAppModule(MODULE_NAME);
+	}
 
 	private AdMobAppContext adMobAppContext;
 
-	public static AdMobAppModule get() {
-		return INSTANCE;
-	}
-
-	private AdMobAppModule() {
+	public AdMobAppModule() {
 		adMobAppContext = createAdMobAppContext();
 	}
 

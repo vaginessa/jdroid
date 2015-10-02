@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
+import com.jdroid.android.about.AboutAppModule;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
@@ -17,6 +18,7 @@ import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.facebook.FacebookAppModule;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.google.admob.AdMobAppModule;
+import com.jdroid.android.google.gcm.AbstractGcmAppModule;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sample.analytics.AndroidAnalyticsSender;
 import com.jdroid.android.sample.debug.AndroidDebugContext;
@@ -30,7 +32,7 @@ import com.jdroid.android.sample.ui.ads.AdsUriHandler;
 import com.jdroid.android.sample.ui.home.HomeActivity;
 import com.jdroid.android.uri.NoSegmentsUriHandler;
 
-import java.util.List;
+import java.util.Map;
 
 public class AndroidApplication extends AbstractApplication {
 	
@@ -86,11 +88,11 @@ public class AndroidApplication extends AbstractApplication {
 	}
 
 	@Override
-	protected void initAppModule(List<AppModule> appModules) {
-		appModules.add(CrashlyticsAppModule.get());
-		appModules.add(AdMobAppModule.get());
-		appModules.add(FacebookAppModule.get());
-		appModules.add(AndroidGcmAppModule.get());
-		appModules.add(AndroidAboutAppModule.get());
+	protected void initAppModule(Map<String, AppModule> appModulesMap) {
+		appModulesMap.put(CrashlyticsAppModule.MODULE_NAME, new CrashlyticsAppModule());
+		appModulesMap.put(AdMobAppModule.MODULE_NAME, new AdMobAppModule());
+		appModulesMap.put(FacebookAppModule.MODULE_NAME, new FacebookAppModule());
+		appModulesMap.put(AbstractGcmAppModule.MODULE_NAME, new AndroidGcmAppModule());
+		appModulesMap.put(AboutAppModule.MODULE_NAME,  new AndroidAboutAppModule());
 	}
 }

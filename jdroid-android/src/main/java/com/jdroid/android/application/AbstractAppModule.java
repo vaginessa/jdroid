@@ -8,7 +8,7 @@ import com.jdroid.java.collections.Lists;
 
 import java.util.List;
 
-public class AbstractAppModule implements AppModule {
+public abstract class AbstractAppModule implements AppModule {
 
 	@Override
 	public void onCreate() {

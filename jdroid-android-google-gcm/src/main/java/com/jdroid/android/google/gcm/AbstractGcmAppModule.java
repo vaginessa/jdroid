@@ -10,18 +10,17 @@ import java.util.List;
 
 public abstract class AbstractGcmAppModule extends AbstractAppModule {
 
-	protected static AbstractGcmAppModule INSTANCE;
+	public static final String MODULE_NAME = AbstractGcmAppModule.class.getName();
+
+	public static AbstractGcmAppModule get() {
+		return (AbstractGcmAppModule)AbstractApplication.get().getAppModule(MODULE_NAME);
+	}
 
 	private GcmContext gcmContext;
 	private GcmDebugContext gcmDebugContext;
 	private GcmMessageResolver gcmMessageResolver;
 
-	public static AbstractGcmAppModule get() {
-		return INSTANCE;
-	}
-
 	public AbstractGcmAppModule() {
-		INSTANCE = this;
 		gcmContext = createGcmContext();
 		gcmMessageResolver = createGcmMessageResolver();
 	}

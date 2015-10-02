@@ -7,15 +7,15 @@ import com.jdroid.android.application.AbstractAppModule;
 
 public class CrashlyticsAppModule extends AbstractAppModule {
 
-	private static final CrashlyticsAppModule INSTANCE = new CrashlyticsAppModule();
+	public static final String MODULE_NAME = CrashlyticsAppModule.class.getName();
+
+	public static CrashlyticsAppModule get() {
+		return (CrashlyticsAppModule)AbstractApplication.get().getAppModule(MODULE_NAME);
+	}
 
 	private CrashlyticsAppContext crashlyticsAppContext;
 
-	public static CrashlyticsAppModule get() {
-		return INSTANCE;
-	}
-
-	private CrashlyticsAppModule() {
+	public CrashlyticsAppModule() {
 		crashlyticsAppContext = createCrashlyticsAppContext();
 	}
 

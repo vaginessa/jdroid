@@ -7,15 +7,6 @@ import com.jdroid.android.sample.debug.AndroidGcmDebugContext;
 
 public class AndroidGcmAppModule extends AbstractGcmAppModule {
 
-	public static AndroidGcmAppModule get() {
-		synchronized (AndroidGcmAppModule.class) {
-			if (AbstractGcmAppModule.INSTANCE == null) {
-				AbstractGcmAppModule.INSTANCE = new AndroidGcmAppModule();
-			}
-		}
-		return (AndroidGcmAppModule)AbstractGcmAppModule.INSTANCE;
-	}
-
 	@Override
 	protected GcmMessageResolver createGcmMessageResolver() {
 		return new AndroidGcmResolver();

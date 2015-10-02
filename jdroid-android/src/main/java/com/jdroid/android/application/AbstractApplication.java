@@ -33,6 +33,7 @@ import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.collections.Lists;
+import com.jdroid.java.collections.Maps;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.context.GitContext;
 import com.jdroid.java.domain.Identifiable;
@@ -86,7 +87,7 @@ public abstract class AbstractApplication extends Application {
 
 	private Integer deviceYearClass = YearClass.CLASS_UNKNOWN;
 
-	private List<AppModule> appModules = Lists.newArrayList();
+	private Map<String, AppModule> appModulesMap = Maps.newLinkedHashMap();
 
 	private ImageLoaderHelper imageLoaderHelper;
 
@@ -113,6 +114,11 @@ public abstract class AbstractApplication extends Application {
 		LoggerUtils.setEnabled(appContext.isLoggingEnabled());
 		LOGGER = LoggerUtils.getLogger(AbstractApplication.class);
 		LOGGER.debug("Executing onCreate on " + this);
+
+		initAppModule(appModulesMap);
+		for (AppModule each: appModulesMap.values()) {
+			each.onCreate();
+		}
 
 		analyticsSender = createAnalyticsSender();
 
@@ -150,11 +156,6 @@ public abstract class AbstractApplication extends Application {
 		});
 
 		initRepositories();
-
-		initAppModule(appModules);
-		for (AppModule each: appModules) {
-			each.onCreate();
-		}
 	}
 
 	@Nullable
@@ -167,7 +168,7 @@ public abstract class AbstractApplication extends Application {
 		return new UilImageLoaderHelper();
 	}
 
-	protected void initAppModule(List<AppModule> appModules) {
+	protected void initAppModule(Map<String, AppModule> appModulesMap) {
 		// Do nothing
 	}
 
@@ -175,7 +176,7 @@ public abstract class AbstractApplication extends Application {
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 
-		for (AppModule each: appModules) {
+		for (AppModule each: appModulesMap.values()) {
 			each.onConfigurationChanged(newConfig);
 		}
 	}
@@ -184,7 +185,7 @@ public abstract class AbstractApplication extends Application {
 	public void onLowMemory() {
 		super.onLowMemory();
 
-		for (AppModule each: appModules) {
+		for (AppModule each: appModulesMap.values()) {
 			each.onLowMemory();
 		}
 	}
@@ -193,7 +194,7 @@ public abstract class AbstractApplication extends Application {
 	public void onTrimMemory(int level) {
 		super.onTrimMemory(level);
 
-		for (AppModule each: appModules) {
+		for (AppModule each: appModulesMap.values()) {
 			each.onTrimMemory(level);
 		}
 	}
@@ -202,7 +203,7 @@ public abstract class AbstractApplication extends Application {
 	protected void attachBaseContext(Context base) {
 		super.attachBaseContext(base);
 
-		for (AppModule each: appModules) {
+		for (AppModule each: appModulesMap.values()) {
 			each.attachBaseContext(base);
 		}
 	}
@@ -489,6 +490,10 @@ public abstract class AbstractApplication extends Application {
 	}
 
 	public List<AppModule> getAppModules() {
-		return appModules;
+		return Lists.newArrayList(appModulesMap.values());
+	}
+
+	public AppModule getAppModule(String appModuleName) {
+		return appModulesMap.get(appModuleName);
 	}
 }

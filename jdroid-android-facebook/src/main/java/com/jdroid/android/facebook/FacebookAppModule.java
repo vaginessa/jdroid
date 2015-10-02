@@ -1,18 +1,19 @@
 package com.jdroid.android.facebook;
 
 import com.jdroid.android.application.AbstractAppModule;
+import com.jdroid.android.application.AbstractApplication;
 
 public class FacebookAppModule extends AbstractAppModule {
 
-	private static final FacebookAppModule INSTANCE = new FacebookAppModule();
+	public static final String MODULE_NAME = FacebookAppModule.class.getName();
+
+	public static FacebookAppModule get() {
+		return (FacebookAppModule)AbstractApplication.get().getAppModule(MODULE_NAME);
+	}
 
 	private FacebookContext facebookContext;
 
-	public static FacebookAppModule get() {
-		return INSTANCE;
-	}
-
-	private FacebookAppModule() {
+	public FacebookAppModule() {
 		facebookContext = createFacebookContext();
 	}
 
