@@ -172,20 +172,34 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 
 	@Override
 	public void trackFatalException(final Throwable throwable) {
-		for (T tracker : trackers) {
-			if (tracker.isEnabled()) {
-				tracker.trackFatalException(throwable);
+		ExecutorUtils.execute(new Runnable() {
+			@Override
+			public void run() {
+				for (T tracker : trackers) {
+					if (tracker.isEnabled()) {
+						tracker.trackFatalException(throwable);
+					}
+				}
 			}
-		}
+		});
 	}
 	
 	@Override
-	public void trackHandledException(final Throwable throwable, int priority) {
-		for (T tracker : trackers) {
-			if (tracker.isEnabled()) {
-				tracker.trackHandledException(throwable, priority);
+	public void trackHandledException(final Throwable throwable, final int priority) {
+		ExecutorUtils.execute(new Runnable() {
+			@Override
+			public void run() {
+				for (T tracker : trackers) {
+					try {
+						if (tracker.isEnabled()) {
+							tracker.trackHandledException(throwable, priority);
+						}
+					} catch (Exception e) {
+						LOGGER.error("Error when trying to track the exception.", e);
+					}
+				}
 			}
-		}
+		});
 	}
 	
 	/**
