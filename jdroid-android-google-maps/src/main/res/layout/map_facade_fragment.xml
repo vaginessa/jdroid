@@ -3,8 +3,8 @@
 	android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical"
 	android:gravity="center_vertical" android:padding="32dp">
 
-	<TextView android:id="@+id/legend" android:layout_width="wrap_content" android:layout_height="wrap_content" style="@style/updateGooglePlayServicesLegend" android:visibility="gone"/>
+	<TextView android:id="@+id/legend" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/updateGooglePlayServices" style="@style/updateGooglePlayServicesLegend" android:visibility="gone"/>
 
 	<Button android:id="@+id/button" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_gravity="center_horizontal" style="@style/raisedButton" android:visibility="gone" android:layout_marginTop="16dp" />
+		android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:text="@string/update" style="@style/raisedButton" android:visibility="gone" android:layout_marginTop="16dp" />
 </LinearLayout>

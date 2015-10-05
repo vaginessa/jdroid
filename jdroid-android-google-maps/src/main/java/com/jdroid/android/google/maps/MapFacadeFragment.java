@@ -1,10 +1,7 @@
 package com.jdroid.android.google.maps;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -14,25 +11,20 @@ import android.widget.TextView;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.google.GooglePlayServicesUtils;
-import com.jdroid.android.permission.PermissionHelper;
-import com.jdroid.android.utils.ExternalAppsUtils;
 
 public class MapFacadeFragment extends AbstractFragment {
-
-	private static final int STORAGE_PERMISSION_REQUEST_CODE = 1;
 
 	private static final String MAP_FRAGMENT_CLASS = "mapFragmentClass";
 	public static final String FRAGMENT_CONTAINER_ID = "fragmentContainerId";
 
 	private Class<? extends AbstractMapFragment> abstractMapFragmentClass;
 	private int fragmentContainerId;
-	private Boolean storagePermissionGranted;
 
 	private TextView legend;
 	private Button button;
 
 	public static Fragment instanceMapFragment(AbstractFragmentActivity abstractFragmentActivity, @LayoutRes int fragmentContainerId, Class<? extends AbstractMapFragment> abstractMapFragmentClass, Bundle bundle) {
-		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(abstractFragmentActivity) && PermissionHelper.verifyPermission(abstractFragmentActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(abstractFragmentActivity)) {
 			return abstractFragmentActivity.instanceFragment(abstractMapFragmentClass, bundle);
 		} else {
 			if (bundle == null) {
@@ -70,34 +62,9 @@ public class MapFacadeFragment extends AbstractFragment {
 		super.onResume();
 
 		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(getActivity())) {
-			if (storagePermissionGranted == null) {
-				storagePermissionGranted = PermissionHelper.checkPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE_PERMISSION_REQUEST_CODE);
-			} else {
-				storagePermissionGranted = PermissionHelper.verifyPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-			}
-			if (storagePermissionGranted) {
-				displayMap();
-			} else {
-				showPermissionRequiredView();
-			}
+			displayMap();
 		} else {
 			showUpdateGooglePlayServices();
-		}
-	}
-
-	@Override
-	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-		switch (requestCode) {
-			case STORAGE_PERMISSION_REQUEST_CODE: {
-				if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-					storagePermissionGranted = true;
-					displayMap();
-				} else {
-					storagePermissionGranted = false;
-					showPermissionRequiredView();
-				}
-				return;
-			}
 		}
 	}
 
@@ -110,38 +77,10 @@ public class MapFacadeFragment extends AbstractFragment {
 		fragmentTransaction.commitAllowingStateLoss();
 	}
 
-	private void showPermissionRequiredView() {
-
-		legend.setText(R.string.mapsRequiredPermissionLegend);
-		legend.setVisibility(View.VISIBLE);
-
-		if (PermissionHelper.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-			button.setOnClickListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					PermissionHelper.requestPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE_PERMISSION_REQUEST_CODE);
-				}
-			});
-		} else {
-			button.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					ExternalAppsUtils.openAppInfo(getActivity());
-				}
-			});
-		}
-
-		button.setText(R.string.allow);
-		button.setVisibility(View.VISIBLE);
-	}
-
 	private void showUpdateGooglePlayServices() {
 
-		legend.setText(R.string.updateGooglePlayServices);
 		legend.setVisibility(View.VISIBLE);
 
-		button.setText(R.string.update);
 		button.setOnClickListener(new View.OnClickListener() {
 
 			@Override
