@@ -5,12 +5,11 @@ import android.app.Activity;
 import com.jdroid.android.google.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
+import com.jdroid.java.analytics.BaseAnalyticsTracker;
 
 import java.util.Map;
 
-public interface AnalyticsTracker {
-	
-	public Boolean isEnabled();
+public interface AnalyticsTracker extends BaseAnalyticsTracker {
 	
 	public void onInitExceptionHandler(Map<String, String> metadata);
 	

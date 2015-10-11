@@ -2,8 +2,12 @@ package com.jdroid.android.crashlytics;
 
 import android.support.v4.util.Pair;
 
+import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AbstractAppModule;
+import com.jdroid.java.collections.Lists;
+
+import java.util.List;
 
 public class CrashlyticsAppModule extends AbstractAppModule {
 
@@ -32,5 +36,10 @@ public class CrashlyticsAppModule extends AbstractAppModule {
 		super.onCreate();
 
 		AbstractApplication.get().getDebugContext().addCustomDebugInfoProperty(new Pair<String, Object>("Crashlytics Enabled", crashlyticsAppContext.isCrashlyticsEnabled()));
+	}
+
+	@Override
+	public List<? extends AnalyticsTracker> getAnalyticsTrackers() {
+		return Lists.newArrayList(crashlyticsAppContext.getAnalyticsTracker());
 	}
 }

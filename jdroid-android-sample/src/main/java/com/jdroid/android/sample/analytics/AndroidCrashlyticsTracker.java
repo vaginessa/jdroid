@@ -9,12 +9,6 @@ import java.util.Map;
 
 public class AndroidCrashlyticsTracker extends DefaultAnalyticsTracker {
 	
-	private static final AndroidCrashlyticsTracker INSTANCE = new AndroidCrashlyticsTracker();
-	
-	public static AndroidCrashlyticsTracker get() {
-		return INSTANCE;
-	}
-	
 	/**
 	 * @see com.jdroid.android.analytics.AnalyticsTracker#isEnabled()
 	 */

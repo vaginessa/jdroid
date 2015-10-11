@@ -20,8 +20,11 @@ import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.google.admob.AdMobAppModule;
 import com.jdroid.android.google.gcm.AbstractGcmAppModule;
 import com.jdroid.android.repository.UserRepository;
-import com.jdroid.android.sample.analytics.AndroidAnalyticsSender;
+import com.jdroid.android.sample.analytics.AndroidGoogleAnalyticsTracker;
+import com.jdroid.android.sample.analytics.AppAnalyticsSender;
+import com.jdroid.android.sample.analytics.AppAnalyticsTracker;
 import com.jdroid.android.sample.debug.AndroidDebugContext;
+import com.jdroid.android.sample.exception.AndroidCrashlyticsAppModule;
 import com.jdroid.android.sample.experiment.AndroidExperiment;
 import com.jdroid.android.sample.gcm.AndroidGcmAppModule;
 import com.jdroid.android.sample.repository.UserRepositoryImpl;
@@ -32,6 +35,7 @@ import com.jdroid.android.sample.ui.ads.AdsUriHandler;
 import com.jdroid.android.sample.ui.home.HomeActivity;
 import com.jdroid.android.uri.NoSegmentsUriHandler;
 
+import java.util.List;
 import java.util.Map;
 
 public class AndroidApplication extends AbstractApplication {
@@ -70,11 +74,22 @@ public class AndroidApplication extends AbstractApplication {
 	public FragmentHelper createFragmentHelper(Fragment fragment) {
 		return new AndroidFragmentHelper(fragment);
 	}
-	
+
 	@NonNull
 	@Override
-	protected AnalyticsSender<? extends AnalyticsTracker> createAnalyticsSender() {
-		return AndroidAnalyticsSender.get();
+	protected AnalyticsSender<? extends AnalyticsTracker> createAnalyticsSender(List<? extends AnalyticsTracker> analyticsTrackers) {
+		return new AppAnalyticsSender((List<AppAnalyticsTracker>)analyticsTrackers);
+	}
+
+	@Override
+	public AnalyticsTracker createGoogleAnalyticsTracker() {
+		return new AndroidGoogleAnalyticsTracker();
+	}
+
+	@NonNull
+	@Override
+	public AppAnalyticsSender getAnalyticsSender() {
+		return (AppAnalyticsSender)super.getAnalyticsSender();
 	}
 
 	@Override
@@ -89,7 +104,7 @@ public class AndroidApplication extends AbstractApplication {
 
 	@Override
 	protected void initAppModule(Map<String, AppModule> appModulesMap) {
-		appModulesMap.put(CrashlyticsAppModule.MODULE_NAME, new CrashlyticsAppModule());
+		appModulesMap.put(CrashlyticsAppModule.MODULE_NAME, new AndroidCrashlyticsAppModule());
 		appModulesMap.put(AdMobAppModule.MODULE_NAME, new AdMobAppModule());
 		appModulesMap.put(FacebookAppModule.MODULE_NAME, new FacebookAppModule());
 		appModulesMap.put(AbstractGcmAppModule.MODULE_NAME, new AndroidGcmAppModule());

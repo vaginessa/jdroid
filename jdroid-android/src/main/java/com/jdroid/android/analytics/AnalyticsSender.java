@@ -2,12 +2,10 @@ package com.jdroid.android.analytics;
 
 import android.app.Activity;
 
-import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.google.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
-import com.jdroid.java.collections.Lists;
+import com.jdroid.java.analytics.BaseAnalyticsSender;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -20,52 +18,17 @@ import java.util.Map;
  * 
  * @param <T>
  */
-public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTracker {
+public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSender<T> implements AnalyticsTracker {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(AnalyticsSender.class);
 	
-	private List<T> trackers = Lists.newArrayList();
-	
 	@SafeVarargs
 	public AnalyticsSender(T... trackers) {
-		this(Lists.newArrayList(trackers));
+		super(trackers);
 	}
 	
 	public AnalyticsSender(List<T> trackers) {
-		for (T tracker : trackers) {
-			if (tracker.isEnabled()) {
-				this.trackers.add(tracker);
-			}
-		}
-	}
-	
-	public abstract class TrackerRunnable implements Runnable {
-		
-		@Override
-		public void run() {
-			for (T tracker : trackers) {
-				try {
-					if (tracker.isEnabled()) {
-						track(tracker);
-					}
-				} catch (Exception e) {
-					ExceptionHandler exceptionHandler = AbstractApplication.get().getExceptionHandler();
-					if (exceptionHandler != null) {
-						exceptionHandler.logHandledException(e);
-					}
-				}
-			}
-		}
-		
-		protected abstract void track(T tracker);
-	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#isEnabled()
-	 */
-	@Override
-	public Boolean isEnabled() {
-		return null;
+		super(trackers);
 	}
 	
 	/**
@@ -74,7 +37,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 	@Override
 	public void onInitExceptionHandler(Map<String, String> metadata) {
 		try {
-			for (T tracker : trackers) {
+			for (T tracker : getTrackers()) {
 				if (tracker.isEnabled()) {
 					tracker.onInitExceptionHandler(metadata);
 				}
@@ -175,7 +138,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 		ExecutorUtils.execute(new Runnable() {
 			@Override
 			public void run() {
-				for (T tracker : trackers) {
+				for (T tracker : getTrackers()) {
 					if (tracker.isEnabled()) {
 						tracker.trackFatalException(throwable);
 					}
@@ -189,7 +152,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 		ExecutorUtils.execute(new Runnable() {
 			@Override
 			public void run() {
-				for (T tracker : trackers) {
+				for (T tracker : getTrackers()) {
 					try {
 						if (tracker.isEnabled()) {
 							tracker.trackHandledException(throwable, priority);

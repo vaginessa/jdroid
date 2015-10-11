@@ -6,16 +6,10 @@ import com.jdroid.java.utils.IdGenerator;
 
 import java.util.Map;
 
-public class AndroidGoogleAnalyticsTracker extends GoogleAnalyticsTracker implements AndroidAnalyticsTracker {
+public class AndroidGoogleAnalyticsTracker extends GoogleAnalyticsTracker implements AppAnalyticsTracker {
 	
-	private static final AndroidGoogleAnalyticsTracker INSTANCE = new AndroidGoogleAnalyticsTracker();
-
 	public static final String EXAMPLE_CATEGORY = "exampleCategory";
 	public static final String EXAMPLE_LABEL = "exampleLabel";
-	
-	public static AndroidGoogleAnalyticsTracker get() {
-		return INSTANCE;
-	}
 	
 	/**
 	 * @see GoogleAnalyticsTracker#init(java.util.Map, java.util.Map)
@@ -29,7 +23,7 @@ public class AndroidGoogleAnalyticsTracker extends GoogleAnalyticsTracker implem
 	}
 	
 	/**
-	 * @see com.jdroid.android.sample.analytics.AndroidAnalyticsTracker#trackExampleEvent()
+	 * @see AppAnalyticsTracker#trackExampleEvent()
 	 */
 	@Override
 	public void trackExampleEvent() {

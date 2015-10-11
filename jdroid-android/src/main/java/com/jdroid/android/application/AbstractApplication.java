@@ -21,6 +21,7 @@ import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.fragment.FragmentHelper;
+import com.jdroid.android.google.analytics.GoogleAnalyticsTracker;
 import com.jdroid.android.google.inappbilling.InAppBillingContext;
 import com.jdroid.android.http.cache.CacheManager;
 import com.jdroid.android.images.loader.ImageLoaderHelper;
@@ -120,7 +121,7 @@ public abstract class AbstractApplication extends Application {
 			each.onCreate();
 		}
 
-		analyticsSender = createAnalyticsSender();
+		analyticsSender = createAnalyticsSender(createAnalyticsTrackers());
 
 		uriMapper = createUriMapper();
 
@@ -228,14 +229,30 @@ public abstract class AbstractApplication extends Application {
 	}
 
 	@NonNull
-	protected AnalyticsSender<? extends AnalyticsTracker> createAnalyticsSender() {
-		return new AnalyticsSender<>();
+	protected AnalyticsSender<? extends AnalyticsTracker> createAnalyticsSender(List<? extends AnalyticsTracker> analyticsTrackers) {
+		return new AnalyticsSender<>(analyticsTrackers);
+	}
+
+	public List<? extends AnalyticsTracker> createAnalyticsTrackers() {
+		List<AnalyticsTracker> analyticsTrackers = Lists.newArrayList();
+		AnalyticsTracker googleAnalyticsTracker = createGoogleAnalyticsTracker();
+		if (googleAnalyticsTracker != null) {
+			analyticsTrackers.add(googleAnalyticsTracker);
+		}
+		for (AppModule each: appModulesMap.values()) {
+			analyticsTrackers.addAll(each.getAnalyticsTrackers());
+		}
+		return analyticsTrackers;
+	}
+
+	public AnalyticsTracker createGoogleAnalyticsTracker() {
+		return new GoogleAnalyticsTracker();
 	}
 	
 	@SuppressWarnings("unchecked")
 	@NonNull
-	public <T extends AnalyticsTracker> AnalyticsSender<T> getAnalyticsSender() {
-		return (AnalyticsSender<T>)analyticsSender;
+	public AnalyticsSender<? extends AnalyticsTracker> getAnalyticsSender() {
+		return analyticsSender;
 	}
 	
 	public Boolean isStrictModeEnabled() {

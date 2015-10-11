@@ -3,6 +3,7 @@ package com.jdroid.android.application;
 import android.content.Context;
 import android.content.res.Configuration;
 
+import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.java.collections.Lists;
 
@@ -33,6 +34,11 @@ public abstract class AbstractAppModule implements AppModule {
 	@Override
 	public void attachBaseContext(Context base) {
 		// Do Nothing
+	}
+
+	@Override
+	public List<? extends AnalyticsTracker> getAnalyticsTrackers() {
+		return Lists.newArrayList();
 	}
 
 	public List<PreferencesAppender> getPreferencesAppenders() {

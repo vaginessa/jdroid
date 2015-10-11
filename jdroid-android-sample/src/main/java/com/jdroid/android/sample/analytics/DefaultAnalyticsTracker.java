@@ -2,10 +2,10 @@ package com.jdroid.android.sample.analytics;
 
 import com.jdroid.android.analytics.AbstractAnalyticsTracker;
 
-public abstract class DefaultAnalyticsTracker extends AbstractAnalyticsTracker implements AndroidAnalyticsTracker {
+public abstract class DefaultAnalyticsTracker extends AbstractAnalyticsTracker implements AppAnalyticsTracker {
 	
 	/**
-	 * @see com.jdroid.android.sample.analytics.AndroidAnalyticsTracker#trackExampleEvent()
+	 * @see AppAnalyticsTracker#trackExampleEvent()
 	 */
 	@Override
 	public void trackExampleEvent() {
