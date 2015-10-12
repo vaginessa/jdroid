@@ -8,6 +8,8 @@ import com.jdroid.android.debug.PreferencesAppender;
 
 import java.util.List;
 
+import io.fabric.sdk.android.Kit;
+
 public interface AppModule {
 
 	public void onCreate();
@@ -21,6 +23,8 @@ public interface AppModule {
 	public void attachBaseContext(Context base);
 
 	public List<? extends AnalyticsTracker> getAnalyticsTrackers();
+
+	public List<Kit> getFabricKits();
 
 	public List<PreferencesAppender> getPreferencesAppenders();
 }

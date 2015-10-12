@@ -9,6 +9,8 @@ import com.jdroid.java.collections.Lists;
 
 import java.util.List;
 
+import io.fabric.sdk.android.Kit;
+
 public abstract class AbstractAppModule implements AppModule {
 
 	@Override
@@ -38,6 +40,11 @@ public abstract class AbstractAppModule implements AppModule {
 
 	@Override
 	public List<? extends AnalyticsTracker> getAnalyticsTrackers() {
+		return Lists.newArrayList();
+	}
+
+	@Override
+	public List<Kit> getFabricKits() {
 		return Lists.newArrayList();
 	}
 

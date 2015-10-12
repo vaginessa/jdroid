@@ -3,7 +3,6 @@ package com.jdroid.android.crashlytics;
 import android.app.Activity;
 
 import com.crashlytics.android.Crashlytics;
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.analytics.AbstractAnalyticsTracker;
 import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.context.SecurityContext;
@@ -11,8 +10,6 @@ import com.jdroid.java.utils.ReflectionUtils;
 
 import java.util.Map;
 import java.util.Map.Entry;
-
-import io.fabric.sdk.android.Fabric;
 
 public class CrashlyticsTracker extends AbstractAnalyticsTracker {
 	
@@ -29,8 +26,6 @@ public class CrashlyticsTracker extends AbstractAnalyticsTracker {
 	
 	@Override
 	public void onInitExceptionHandler(Map<String, String> metadata) {
-		Fabric.with(AbstractApplication.get(), new Crashlytics());
-
 		if (metadata != null) {
 			for (Entry<String, String> entry : metadata.entrySet()) {
 				if (entry.getValue() != null) {

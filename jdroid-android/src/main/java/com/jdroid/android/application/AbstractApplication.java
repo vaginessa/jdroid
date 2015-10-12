@@ -52,6 +52,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import io.fabric.sdk.android.Fabric;
+import io.fabric.sdk.android.Kit;
+
 public abstract class AbstractApplication extends Application {
 	
 	/**
@@ -95,6 +98,8 @@ public abstract class AbstractApplication extends Application {
 	private UpdateManager updateManager;
 	private CacheManager cacheManager;
 
+	private UncaughtExceptionHandler deafaultAndroidExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
+
 	public AbstractApplication() {
 		INSTANCE = this;
 	}
@@ -116,9 +121,17 @@ public abstract class AbstractApplication extends Application {
 		LOGGER = LoggerUtils.getLogger(AbstractApplication.class);
 		LOGGER.debug("Executing onCreate on " + this);
 
+
+		List<Kit> fabricKits = Lists.newArrayList();
 		initAppModule(appModulesMap);
 		for (AppModule each: appModulesMap.values()) {
 			each.onCreate();
+			fabricKits.addAll(each.getFabricKits());
+		}
+		fabricKits.addAll(getFabricKits());
+
+		if (!fabricKits.isEmpty()) {
+			Fabric.with(this, fabricKits.toArray(new Kit[0]));
 		}
 
 		analyticsSender = createAnalyticsSender(createAnalyticsTrackers());
@@ -279,16 +292,12 @@ public abstract class AbstractApplication extends Application {
 	}
 
 	public void initExceptionHandlers() {
-		UncaughtExceptionHandler currentExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
-		if ((currentExceptionHandler == null) || !currentExceptionHandler.getClass().equals(getExceptionHandlerClass())) {
-			
-			getAnalyticsSender().onInitExceptionHandler(getExceptionHandlerMetadata());
-			
-			ExceptionHandler exceptionHandler = ReflectionUtils.newInstance(getExceptionHandlerClass());
-			exceptionHandler.setDefaultExceptionHandler(currentExceptionHandler);
-			Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);
-			LOGGER.info("Custom exception handler initialized");
-		}
+		getAnalyticsSender().onInitExceptionHandler(getExceptionHandlerMetadata());
+
+		ExceptionHandler exceptionHandler = ReflectionUtils.newInstance(getExceptionHandlerClass());
+		exceptionHandler.setDefaultExceptionHandler(deafaultAndroidExceptionHandler);
+		Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);
+		LOGGER.info("Custom exception handler initialized");
 	}
 	
 	protected Map<String, String> getExceptionHandlerMetadata() {
@@ -512,5 +521,9 @@ public abstract class AbstractApplication extends Application {
 
 	public AppModule getAppModule(String appModuleName) {
 		return appModulesMap.get(appModuleName);
+	}
+
+	public List<Kit> getFabricKits() {
+		return Lists.newArrayList();
 	}
 }
