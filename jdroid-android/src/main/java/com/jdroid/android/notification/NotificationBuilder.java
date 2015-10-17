@@ -98,7 +98,8 @@ public class NotificationBuilder {
 
 		AppLoadingSource.NOTIFICATION.flagIntent(notificationIntent);
 		if (notificationName != null) {
-			AbstractApplication.get().getAnalyticsSender().trackNotificationDisplayed(notificationName);
+			// TODO Disabled to avoid session creation on Google Analytics
+			//	AbstractApplication.get().getAnalyticsSender().trackNotificationDisplayed(notificationName);
 			notificationIntent.putExtra(NOTIFICATION_NAME, notificationName);
 		}
 

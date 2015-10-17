@@ -73,20 +73,20 @@ public abstract class FragmentContainerActivity extends AbstractFragmentActivity
 	}
 
 	@Override
-	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-		Fragment fragment = getFragment();
-		if (fragment != null) {
-			fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
-		}
-	}
-
-	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
 		Fragment fragment = getFragment();
 		if (fragment != null) {
 			fragment.onActivityResult(requestCode, resultCode, data);
+		}
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+		Fragment fragment = getFragment();
+		if (fragment != null) {
+			fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
 		}
 	}
 }

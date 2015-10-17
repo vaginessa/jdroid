@@ -435,12 +435,10 @@ public class ActivityHelper implements ActivityIf {
 	private void trackNotificationOpened(Intent intent) {
 		try {
 			AppLoadingSource appLoadingSource = AppLoadingSource.getAppLoadingSource(intent);
-			if (appLoadingSource != null) {
-				if (AppLoadingSource.NOTIFICATION.equals(appLoadingSource)) {
-					String notificationName = intent.getStringExtra(NotificationBuilder.NOTIFICATION_NAME);
-					if (notificationName != null) {
-						AbstractApplication.get().getAnalyticsSender().trackNotificationOpened(notificationName);
-					}
+			if (AppLoadingSource.NOTIFICATION.equals(appLoadingSource)) {
+				String notificationName = intent.getStringExtra(NotificationBuilder.NOTIFICATION_NAME);
+				if (notificationName != null) {
+					AbstractApplication.get().getAnalyticsSender().trackNotificationOpened(notificationName);
 				}
 			}
 		} catch (Exception e) {

@@ -62,8 +62,6 @@ public class UriMapper {
 				}
 				appLoadingSource.flagIntent(activity.getIntent());
 
-			} else {
-				AppLoadingSource.NORMAL.flagIntent(activity.getIntent());
 			}
 		}
 	}

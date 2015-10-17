@@ -27,11 +27,13 @@ public enum AppLoadingSource {
 	
 	public static AppLoadingSource getAppLoadingSource(Intent intent) {
 		String appLoadingSourceValue = intent.getStringExtra(APP_LOADING_SOURCE);
-		for (AppLoadingSource each : values()) {
-			if (each.getName().equals(appLoadingSourceValue)) {
-				return each;
+		if (appLoadingSourceValue != null) {
+			for (AppLoadingSource each : values()) {
+				if (each.getName().equals(appLoadingSourceValue)) {
+					return each;
+				}
 			}
 		}
-		return null;
+		return AppLoadingSource.NORMAL;
 	}
 }
