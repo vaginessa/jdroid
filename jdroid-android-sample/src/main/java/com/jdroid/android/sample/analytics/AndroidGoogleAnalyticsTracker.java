@@ -43,7 +43,7 @@ public class AndroidGoogleAnalyticsTracker extends GoogleAnalyticsTracker implem
 
 	@Override
 	public void trackExampleTiming() {
-		sendTiming(EXAMPLE_CATEGORY, "exampleVariable", EXAMPLE_LABEL, IdGenerator.getRandomLongId());
+		trackTiming(EXAMPLE_CATEGORY, "exampleVariable", EXAMPLE_LABEL, IdGenerator.getRandomLongId());
 	}
 	
 }
