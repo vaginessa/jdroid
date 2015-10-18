@@ -23,10 +23,6 @@ public abstract class DefaultNavDrawer extends NavDrawer {
 
 	@Override
 	public View createContentView() {
-
-		NavDrawerHeader navDrawerHeader = new NavDrawerHeader(getActivity());
-		initNavDrawerHeader(navDrawerHeader);
-
 		navigationView = getActivity().findView(R.id.drawer);
 		navigationView.setNavigationItemSelectedListener(
 				new NavigationView.OnNavigationItemSelectedListener() {
@@ -38,6 +34,8 @@ public abstract class DefaultNavDrawer extends NavDrawer {
 						return true;
 					}
 				});
+		NavDrawerHeader navDrawerHeader = new NavDrawerHeader(navigationView);
+		initNavDrawerHeader(navDrawerHeader);
 		return navigationView;
 	}
 

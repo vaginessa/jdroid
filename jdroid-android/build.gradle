@@ -58,7 +58,6 @@ dependencies {
 
 	// Module dependencies
 	compile project(':jdroid-java')
-	compile project(':jdroid-java-http-apache')
 
 	testCompile 'junit:junit:4.12'
 	testCompile "org.mockito:mockito-all:1.10.19"

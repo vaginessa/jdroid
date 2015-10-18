@@ -1,20 +1,26 @@
 package com.jdroid.android.navdrawer;
 
 import android.support.annotation.DrawableRes;
+import android.support.annotation.LayoutRes;
+import android.support.design.widget.NavigationView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
-import com.jdroid.android.activity.ComponentIf;
+import com.jdroid.android.application.AbstractApplication;
 
 public class NavDrawerHeader {
 
 	private View navDrawerHeader;
 
-	public NavDrawerHeader(ComponentIf componentIf) {
-		navDrawerHeader = componentIf.findView(R.id.navDrawerHeader);
+	public NavDrawerHeader(NavigationView navigationView) {
+		navDrawerHeader = navigationView.inflateHeaderView(getNavDrawerHeaderLayout());
+	}
+
+	@LayoutRes
+	protected int getNavDrawerHeaderLayout() {
+		return R.layout.nav_drawer_header;
 	}
 
 	public void setTitle(String title) {
