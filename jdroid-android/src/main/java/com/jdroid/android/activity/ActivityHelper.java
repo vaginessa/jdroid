@@ -120,6 +120,13 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.debug("Executing onCreate on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 
+		if (firstAppLoad == null) {
+			firstAppLoad = true;
+			UsageStats.incrementAppLoad();
+		} else {
+			firstAppLoad = false;
+		}
+
 		overrideStatusBarColor();
 
 		AbstractApplication.get().initExceptionHandlers();
@@ -211,13 +218,6 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.debug("Executing onStart on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 
-		if (firstAppLoad == null) {
-			firstAppLoad = true;
-			UsageStats.incrementAppLoad();
-		} else {
-			firstAppLoad = false;
-		}
-		
 		ExecutorUtils.execute(new Runnable() {
 			
 			@Override
