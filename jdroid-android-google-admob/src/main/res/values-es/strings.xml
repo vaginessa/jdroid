@@ -2,7 +2,7 @@
 <resources>
 
 	<!-- Rate me -->
-	<string name="rateMeTitle">¿Le gustó %1$s?</string>
+	<string name="rateMeTitle">¿Está disfrutando esta app?</string>
 	<string name="rateMeDescription">¡Califíquenos ahora!</string>
 
 </resources>

@@ -33,8 +33,7 @@ public class RateAppView extends RelativeLayout {
 		
 		LayoutInflater.from(context).inflate(R.layout.rate_app_view, this, true);
 		
-		((TextView)findViewById(R.id.rateAppTitle)).setText(context.getString(R.string.rateMeTitle,
-			context.getString(R.string.appName)));
+		((TextView)findViewById(R.id.rateAppTitle)).setText(context.getString(R.string.rateMeTitle));
 		
 		setOnClickListener(new OnClickListener() {
 			
