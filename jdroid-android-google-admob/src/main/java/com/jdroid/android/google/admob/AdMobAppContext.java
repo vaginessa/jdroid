@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.context.UsageStats;
 import com.jdroid.java.collections.Sets;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.StringUtils;
@@ -42,8 +43,14 @@ public class AdMobAppContext {
 	 * @return Whether the application has ads enabled or not
 	 */
 	public Boolean areAdsEnabled() {
-		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(ADS_ENABLED,
+		Boolean prefEnabled = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(ADS_ENABLED,
 				adsEnabled);
+		Boolean minAppLoadsReached = UsageStats.getAppLoads() >= getMinAppLoadsToDisplayAds() ;
+		return prefEnabled && minAppLoadsReached;
+	}
+
+	protected Long getMinAppLoadsToDisplayAds() {
+		return 5L;
 	}
 
 	/**

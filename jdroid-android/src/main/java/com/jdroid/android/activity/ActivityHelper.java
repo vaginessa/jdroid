@@ -29,6 +29,7 @@ import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.SecurityContext;
+import com.jdroid.android.context.UsageStats;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.google.inappbilling.InAppBillingHelper;
 import com.jdroid.android.loading.ActivityLoading;
@@ -63,6 +64,8 @@ public class ActivityHelper implements ActivityIf {
 	private String title;
 	
 	private NavDrawer navDrawer;
+
+	private static Boolean firstAppLoad;
 
 	public ActivityHelper(AbstractFragmentActivity activity) {
 		this.activity = activity;
@@ -207,6 +210,13 @@ public class ActivityHelper implements ActivityIf {
 	public void onStart() {
 		LOGGER.debug("Executing onStart on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
+
+		if (firstAppLoad == null) {
+			firstAppLoad = true;
+			UsageStats.incrementAppLoad();
+		} else {
+			firstAppLoad = false;
+		}
 		
 		ExecutorUtils.execute(new Runnable() {
 			
@@ -273,6 +283,8 @@ public class ActivityHelper implements ActivityIf {
 	
 	public void onStop() {
 		LOGGER.debug("Executing onStop on " + activity);
+
+		UsageStats.setLastStopTime();
 		ToastUtils.cancelCurrentToast();
 		AbstractApplication.get().getAnalyticsSender().onActivityStop(activity);
 		

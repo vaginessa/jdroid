@@ -69,11 +69,15 @@ public class SharedPreferencesHelper {
 	public void savePreference(String key, Long value) {
 		Editor editor = getEditor();
 		editor.putLong(key, value);
-		
-		// Commit the edits!
 		editor.commit();
 	}
-	
+
+	public void savePreferenceAsync(String key, Long value) {
+		Editor editor = getEditor();
+		editor.putLong(key, value);
+		editor.apply();
+	}
+
 	public void savePreference(String key, Float value) {
 		Editor editor = getEditor();
 		editor.putFloat(key, value);

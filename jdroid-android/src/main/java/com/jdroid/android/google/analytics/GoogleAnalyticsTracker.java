@@ -18,6 +18,7 @@ import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.analytics.ExperimentHelper;
 import com.jdroid.android.analytics.ExperimentHelper.Experiment;
 import com.jdroid.android.analytics.ExperimentHelper.ExperimentVariant;
+import com.jdroid.android.context.UsageStats;
 import com.jdroid.android.google.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
@@ -48,8 +49,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	private Map<String, Integer> customMetricsMap = Maps.newHashMap();
 	private Tracker tracker;
 	private Boolean firstTrackingSent = false;
-	private Long lastStopTime = System.currentTimeMillis();
-	
+
 	private Map<String, String> commonCustomDimensionsValues = Maps.newHashMap();
 	
 	public enum CustomDimension {
@@ -134,14 +134,6 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 			onActivityStartTrack(appViewBuilder, data);
 			sendScreenView(appViewBuilder, activityClass.getSimpleName());
 		}
-	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#onActivityStop(android.app.Activity)
-	 */
-	@Override
-	public void onActivityStop(Activity activity) {
-		lastStopTime = System.currentTimeMillis();
 	}
 	
 	protected void onAppLoadTrack(AppViewBuilder appViewBuilder, Object data) {
@@ -490,6 +482,6 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 	
 	public Boolean isSessionExpired() {
-		return (System.currentTimeMillis() - lastStopTime) > (4 * SESSION_TIMEOUT * DateUtils.MILLIS_PER_SECOND);
+		return (System.currentTimeMillis() - UsageStats.getLastStopTime()) > (4 * SESSION_TIMEOUT * DateUtils.MILLIS_PER_SECOND);
 	}
 }
