@@ -62,7 +62,12 @@ public class CrashlyticsTracker extends AbstractAnalyticsTracker {
 		}
 		return throwable;
 	}
-	
+
+	@Override
+	public void trackErrorBreadcrumb(String message) {
+		Crashlytics.getInstance().core.log(message);
+	}
+
 	@Override
 	public void onActivityStart(Class<? extends Activity> activityClass, AppLoadingSource appLoadingSource, Object data) {
 		if (appLoadingSource != null) {

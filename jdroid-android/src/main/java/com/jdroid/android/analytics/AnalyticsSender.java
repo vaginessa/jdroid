@@ -46,7 +46,18 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 			LOGGER.error("Error when initializing the exception handler", e);
 		}
 	}
-	
+
+	@Override
+	public void trackErrorBreadcrumb(final String message) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+
+			@Override
+			protected void track(T tracker) {
+				tracker.trackErrorBreadcrumb(message);
+			}
+		});
+	}
+
 	/**
 	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStart(java.lang.Class,
 	 *      com.jdroid.android.analytics.AppLoadingSource, java.lang.Object)

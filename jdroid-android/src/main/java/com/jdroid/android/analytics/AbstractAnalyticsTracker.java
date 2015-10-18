@@ -17,7 +17,12 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	public void onInitExceptionHandler(Map<String, String> metadata) {
 		// Do Nothing
 	}
-	
+
+	@Override
+	public void trackErrorBreadcrumb(String message) {
+		// Do Nothing
+	}
+
 	/**
 	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStart(java.lang.Class,
 	 *      com.jdroid.android.analytics.AppLoadingSource, java.lang.Object)

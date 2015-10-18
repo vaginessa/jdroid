@@ -10,8 +10,18 @@ import com.jdroid.java.analytics.BaseAnalyticsTracker;
 import java.util.Map;
 
 public interface AnalyticsTracker extends BaseAnalyticsTracker {
+
+	// Error handling
 	
 	public void onInitExceptionHandler(Map<String, String> metadata);
+
+	public void trackFatalException(Throwable throwable);
+
+	public void trackHandledException(Throwable throwable, int priority);
+
+	public void trackErrorBreadcrumb(String message);
+
+	// Activity/fragment life cycle
 	
 	public void onActivityStart(Class<? extends Activity> activityClass, AppLoadingSource appLoadingSource, Object data);
 	
@@ -24,23 +34,25 @@ public interface AnalyticsTracker extends BaseAnalyticsTracker {
 	public void onActivityDestroy(Activity activity);
 	
 	public void onFragmentStart(String screenViewName);
-	
-	public void trackFatalException(Throwable throwable);
 
-	public void trackHandledException(Throwable throwable, int priority);
+	// In App Billing
 
-	public void trackUriOpened(String uriType, String screenName);
-	
 	public void trackInAppBillingPurchaseTry(Product product);
-	
+
 	public void trackInAppBillingPurchase(Product product);
-	
-	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget);
-	
+
+	// Notifications
+
 	public void trackNotificationDisplayed(String notificationName);
-	
+
 	public void trackNotificationOpened(String notificationName);
 	
+	// More
+
+	public void trackUriOpened(String uriType, String screenName);
+
+	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget);
+
 	public void trackRemoveAdsBannerClicked();
 	
 	public void trackRateMeBannerClicked();
