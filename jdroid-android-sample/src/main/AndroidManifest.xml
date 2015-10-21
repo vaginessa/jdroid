@@ -21,7 +21,7 @@
 	<uses-feature android:name="android.hardware.location.GPS" android:required="false" />
 
 	<application android:icon="@drawable/ic_launcher" android:logo="@drawable/ic_launcher" android:label="@string/appName"
-		android:allowBackup="true" android:name="com.jdroid.android.sample.application.AndroidApplication" android:hardwareAccelerated="true"
+		android:allowBackup="false" android:name="com.jdroid.android.sample.application.AndroidApplication" android:hardwareAccelerated="true"
 		android:theme="@style/App.Theme">
 
 		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="${googleMapsApiKey}" />
