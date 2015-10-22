@@ -40,6 +40,7 @@ Dependency for both Android & Java apps
 --------------
 Dependency for Android apps. Support for Android 4.0 (api level 14) and higher versions
 * Languages supported: english & spanish
+* Android M Permissions scheme support
 * [Navigation Drawer support](https://developer.android.com/design/patterns/navigation-drawer.html)
 * [Google Analytics v4 integration](https://developers.google.com/analytics/devguides/collection/android/v4/). A/B testing support
 * [Google Play In App Billing v3 integration](http://developer.android.com/google/play/billing/index.html)
