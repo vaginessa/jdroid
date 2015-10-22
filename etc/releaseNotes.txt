@@ -1,18 +1,20 @@
-jdroid Java
----------------
-* Added the ability to ignore stack trace on warnings exceptions
-* Added priority to handled exceptions
+jdroid Android
+--------------
+* Created jdroid-android-about library
+* Created jdroid-android-google-gcm library
+* Created jdroid-android-facebook library
+* Created jdroid-android-crashlytics library
+* Created jdroid-android-google-admob library
+* Changed target version to Android M
+* Added support to new Android M permissions scheme
+* Added Google+ sample
 * Upgraded dependencies versions
 * Bug fixing
 
-jdroid Android
---------------
-* Added the ability to configure the on click behaviour on an error dialog
-* Added the ability to configure the way of displaying errors
-* Added android annotations to public methods
-* Added status bar color to starting window
-* Added some lazy initializations to AbstractApplication
-* Removed some deprecated uses of shared preferences
-* Improved UriMapper
-* Upgraded dependencies versions
+jdroid Java
+---------------
+* Bug fixing
+
+jdroid Java Web
+---------------
 * Bug fixing
