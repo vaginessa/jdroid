@@ -42,13 +42,11 @@ Dependency for Android apps. Support for Android 4.0 (api level 14) and higher v
 * Languages supported: english & spanish
 * [Navigation Drawer support](https://developer.android.com/design/patterns/navigation-drawer.html)
 * [Google Analytics v4 integration](https://developers.google.com/analytics/devguides/collection/android/v4/). A/B testing support
-* [Google Mobile Ads (AdMob) integration](http://developer.android.com/google/play-services/ads.html): banners & interstitials support
 * [Google Play In App Billing v3 integration](http://developer.android.com/google/play/billing/index.html)
 * [Sqlite integration](https://sqlite.org/)
 * [Android Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader)
 * [Device year class integration](https://github.com/facebook/device-year-class)
 * Exception handling
- * [Crashlytics integration](https://crashlytics.com/)
 * [Lint support](http://developer.android.com/tools/help/lint.html)
 * [Strict mode support](http://developer.android.com/reference/android/os/StrictMode.html)
 * Parsers
@@ -80,10 +78,18 @@ Dependency for Android apps. Support for Android 4.0 (api level 14) and higher v
 * About dialog component
  * Contact Us, Spread the Word, Rate Us & Libraries
 
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-crashlytics](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
+--------------
+* [Crashlytics integration](https://crashlytics.com/)
+
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-facebook](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
 * [Facebook SDK integration](https://developers.facebook.com/docs/android/)
  * Sign in, sign out, share with deep link
+
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-google-admob](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
+--------------
+* [Google Mobile Ads (AdMob) integration](http://developer.android.com/google/play-services/ads.html): banners & interstitials support
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-google-gcm](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
