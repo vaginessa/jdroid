@@ -54,7 +54,6 @@ Dependency for Android apps. Support for Android 4.0 (api level 14) and higher v
  * XML Pull Parser
 * Debug settings support
 * Url handling support
-* House ads support
 * Base Activity & Fragment implementations
 * ListView & GridView pagination support
 * Recycler View Support 
@@ -91,6 +90,7 @@ Dependency for Android apps. Support for Android 4.0 (api level 14) and higher v
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-google-admob](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
 * [Google Mobile Ads (AdMob) integration](http://developer.android.com/google/play-services/ads.html): banners & interstitials support
+* House ads support
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-google-gcm](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
