@@ -1,32 +1,40 @@
 package com.jdroid.javaweb.push;
 
-import java.util.List;
 import com.google.common.collect.Lists;
+import com.jdroid.java.collections.Maps;
+
+import java.util.List;
+import java.util.Map;
 
 public class PushResponse {
+
+	private DeviceType deviceType;
+	private List<String> registrationTokensToRemove;
+	private Map<String, String> registrationTokensToReplace;
 	
-	private List<Device> devicesToRemove;
-	private List<Device> devicesToUpdate;
-	
-	public PushResponse() {
-		devicesToRemove = Lists.newArrayList();
-		devicesToUpdate = Lists.newArrayList();
+	public PushResponse(DeviceType deviceType) {
+		this.deviceType = deviceType;
+		registrationTokensToRemove = Lists.newArrayList();
+		registrationTokensToReplace = Maps.newHashMap();
 	}
 	
-	public void addDeviceToRemove(Device device) {
-		devicesToRemove.add(device);
+	public void addRegistrationTokenToRemove(String registrationTokenToRemove) {
+		registrationTokensToRemove.add(registrationTokenToRemove);
 	}
 	
-	public void addDeviceToUpdate(Device device) {
-		devicesToUpdate.add(device);
+	public void addRegistrationTokenToReplace(String oldRegistrationToken, String newRegistrationToken) {
+		registrationTokensToReplace.put(oldRegistrationToken, newRegistrationToken);
 	}
 	
-	public List<Device> getDevicesToRemove() {
-		return devicesToRemove;
+	public List<String> getRegistrationTokensToRemove() {
+		return registrationTokensToRemove;
 	}
 	
-	public List<Device> getDevicesToUpdate() {
-		return devicesToUpdate;
+	public Map<String, String> getRegistrationTokensToReplace() {
+		return registrationTokensToReplace;
 	}
-	
+
+	public DeviceType getDeviceType() {
+		return deviceType;
+	}
 }

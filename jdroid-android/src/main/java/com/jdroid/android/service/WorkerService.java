@@ -5,9 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.utils.WakeLockManager;
+import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
 
 public abstract class WorkerService extends IntentService {
-	
+
+	private final static Logger LOGGER = LoggerUtils.getLogger(WorkerService.class);
+
 	private static String TAG = WorkerService.class.getSimpleName();
 	private static final String ENABLE_PARTIAL_WAKE_LOCK = "enablePartialWakeLock";
 	
@@ -19,28 +24,27 @@ public abstract class WorkerService extends IntentService {
 		super(name);
 	}
 	
-	/**
-	 * @see android.app.IntentService#onHandleIntent(android.content.Intent)
-	 */
 	@Override
 	protected final void onHandleIntent(Intent intent) {
-		try {
-			if (intent != null) {
-				long startTime = System.currentTimeMillis();
-				doExecute(intent);
-				long executionTime = System.currentTimeMillis() - startTime;
-				AbstractApplication.get().getAnalyticsSender().trackTiming("Service", getClass().getSimpleName(),
-						getClass().getSimpleName(), executionTime);
+		LOGGER.info("Starting service: " + getClass().getSimpleName());
+		if (intent != null) {
+			try {
+					long startTime = System.currentTimeMillis();
+					doExecute(intent);
+					long executionTime = System.currentTimeMillis() - startTime;
+					AbstractApplication.get().getAnalyticsSender().trackTiming("Service", getClass().getSimpleName(),
+							getClass().getSimpleName(), executionTime);
 
+
+			} catch (Exception e) {
+				AbstractApplication.get().getExceptionHandler().logHandledException(e);
+			} finally {
+				if (intent.hasExtra(ENABLE_PARTIAL_WAKE_LOCK)) {
+					WakeLockManager.releasePartialWakeLock();
+				}
 			}
-		} catch (Exception e) {
-			AbstractApplication.get().getExceptionHandler().logHandledException(e);
-		} finally {
-			if ((intent == null) || intent.hasExtra(ENABLE_PARTIAL_WAKE_LOCK)) {
-				WakeLockManager.releasePartialWakeLock();
-			}
-		}
-		if (intent == null) {
+		} else {
+			WakeLockManager.releasePartialWakeLock();
 			AbstractApplication.get().getExceptionHandler().logWarningException(
 				"Null intent when starting the service: " + getClass().getName());
 		}

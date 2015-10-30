@@ -6,6 +6,9 @@
 
 	<uses-permission android:name="${applicationId}.permission.MAPS_RECEIVE" />
 
+	<uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
+	<permission android:name="${applicationId}.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
 	<uses-permission android:name="com.android.vending.BILLING" />
 
@@ -100,6 +103,9 @@
 		<activity android:name="com.jdroid.android.sample.ui.loading.SwipeRefreshLoadingActivity" android:label="@string/swipeRefresLoading"
 			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<activity android:name="com.jdroid.android.sample.ui.google.gcm.GcmActivity" android:label="@string/gcm"
+			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
 		<activity android:name="com.jdroid.android.sample.ui.maps.MapActivity" android:label="@string/googleMaps"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
@@ -133,7 +139,17 @@
 		<activity android:name="com.jdroid.android.sample.ui.tablets.RightTabletActivity" android:label="@string/tablets"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
-		<service android:name="com.jdroid.android.sample.gcm.AndroidGcmRegistrationService" />
+		<!-- Handles messages sent from GCM to your application -->
+		<receiver android:name="com.google.android.gms.gcm.GcmReceiver" android:exported="true"
+				  android:permission="com.google.android.c2dm.permission.SEND">
+			<intent-filter>
+				<!-- Receive the actual messages -->
+				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
+				<!-- Receives the registration id. -->
+				<action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+				<category android:name="${applicationId}" />
+			</intent-filter>
+		</receiver>
 
 		<!-- Used for install referral measurement -->
 		<receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver" android:exported="true"

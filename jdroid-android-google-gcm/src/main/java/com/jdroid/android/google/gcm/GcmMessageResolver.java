@@ -1,9 +1,9 @@
 package com.jdroid.android.google.gcm;
 
-import android.content.Intent;
+import android.os.Bundle;
 
 public interface GcmMessageResolver {
 	
-	public GcmMessage resolve(Intent intent);
+	public GcmMessage resolve(String from, Bundle data);
 	
 }

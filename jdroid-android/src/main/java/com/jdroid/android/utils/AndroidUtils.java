@@ -225,19 +225,6 @@ public class AndroidUtils {
 		return wifiManager.getConnectionInfo().getMacAddress();
 	}
 	
-	public static String getDeviceUUID() {
-		String uuid = AndroidUtils.getAndroidId();
-		// Use the Android ID unless it's broken, in which case fallback on deviceId, unless it's not available, then
-		// fallback on a random number
-		if (StringUtils.isBlank(uuid) || "9774d56d682e549c".equals(uuid)) {
-			TelephonyManager telephonyManager = ((TelephonyManager)AbstractApplication.get().getSystemService(
-				Context.TELEPHONY_SERVICE));
-			String deviceId = telephonyManager != null ? telephonyManager.getDeviceId() : null;
-			uuid = StringUtils.isNotBlank(deviceId) ? deviceId : AbstractApplication.get().getInstallationId();
-		}
-		return uuid;
-	}
-	
 	public static String getDeviceType() {
 		if (ScreenUtils.is10Inches()) {
 			return "10\" tablet";

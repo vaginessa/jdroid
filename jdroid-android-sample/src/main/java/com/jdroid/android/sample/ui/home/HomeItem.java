@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import com.jdroid.android.ActionItem;
 import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.sample.R;
+import com.jdroid.android.sample.ui.google.gcm.GcmActivity;
 import com.jdroid.android.sample.ui.google.plus.GooglePlusActivity;
 import com.jdroid.android.utils.ScreenUtils;
 import com.jdroid.android.sample.ui.ads.AdsActivity;
@@ -31,7 +32,7 @@ public enum HomeItem implements ActionItem {
 	DATE_TIME(R.string.dateTime, R.drawable.datetime, DateTimeActivity.class),
 	EXCEPTION_HANDLING(R.string.exceptionHandling, R.drawable.bug, ExceptionHandlingActivity.class),
 	GOOGLE_ANALYTCS(R.string.googleAnalytics, R.drawable.analytics, AnalyticsActivity.class),
-	GCM(R.string.gcm, R.drawable.cloud, ImageLoaderActivity.class),
+	GCM(R.string.gcm, R.drawable.cloud, GcmActivity.class),
 	GOOGLE_MAPS(R.string.googleMaps, R.drawable.map, MapActivity.class),
 	GOOGLE_PLUS(R.string.googlePlus, R.drawable.google_plus, GooglePlusActivity.class),
 	HERO(R.string.hero, R.drawable.photo, HeroActivity.class),

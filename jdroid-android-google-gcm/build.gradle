@@ -33,8 +33,6 @@ dependencies {
 //	releaseCompile project(path: ":jdroid-android", configuration: 'release')
 	compile project(':jdroid-android')
 
-	compile 'com.google.android.gms:play-services-gcm:' + googlePlayServicesVersion
-
 	testCompile 'junit:junit:4.12'
 	testCompile "org.mockito:mockito-all:1.10.19"
 

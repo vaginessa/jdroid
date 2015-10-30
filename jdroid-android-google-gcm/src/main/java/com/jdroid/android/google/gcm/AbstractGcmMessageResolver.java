@@ -1,6 +1,6 @@
 package com.jdroid.android.google.gcm;
 
-import android.content.Intent;
+import android.os.Bundle;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.SecurityContext;
@@ -29,17 +29,14 @@ public abstract class AbstractGcmMessageResolver implements GcmMessageResolver {
 		this(Lists.newArrayList(gcmMessages));
 	}
 	
-	/**
-	 * @see GcmMessageResolver#resolve(android.content.Intent)
-	 */
 	@Override
-	public GcmMessage resolve(Intent intent) {
-		String messageKey = intent.getStringExtra(getMessageKeyExtraName());
+	public GcmMessage resolve(String from, Bundle data) {
+		String messageKey = data.getString(getMessageKeyExtraName());
 		LOGGER.debug("GCM message received. / Message Key: " + messageKey);
 		for (GcmMessage each : gcmMessages) {
 			if (each.getMessageKey().equalsIgnoreCase(messageKey)) {
 				
-				Long userId = NumberUtils.getLong(intent.getStringExtra(USER_ID_KEY));
+				Long userId = NumberUtils.getLong(data.getString(USER_ID_KEY));
 				
 				// We should ignore messages received for previously logged users
 				if ((userId != null)

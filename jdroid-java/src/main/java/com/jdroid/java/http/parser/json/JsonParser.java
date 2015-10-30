@@ -2,6 +2,7 @@ package com.jdroid.java.http.parser.json;
 
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.json.JSONArray;
+import com.jdroid.java.json.JSONException;
 import com.jdroid.java.json.JSONObject;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
@@ -31,7 +32,7 @@ public abstract class JsonParser<T> implements com.jdroid.java.http.parser.Parse
 		
 		LOGGER.trace("Parsing started.");
 		try {
-			LOGGER.trace(input);
+			LOGGER.trace("Response: " + input);
 			
 			// Create a wrapped JsonObject or JsonArray
 			T json;
@@ -43,6 +44,13 @@ public abstract class JsonParser<T> implements com.jdroid.java.http.parser.Parse
 			
 			// Parse the JSONObject
 			return parse(json);
+		} catch (JSONException e) {
+			String message = e.getMessage();
+			if (message != null && input != null && message.equals("A JSONObject text must begin with '{' at 1 [character 2 line 1]")) {
+				throw new JSONException("Invalid json [" + input.substring(0, Math.min(input.length(), 50)) + "]");
+			} else {
+				throw e;
+			}
 		} finally {
 			LOGGER.trace("Parsing finished.");
 		}

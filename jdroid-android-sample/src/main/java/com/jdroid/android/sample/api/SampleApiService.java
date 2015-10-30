@@ -1,12 +1,19 @@
 package com.jdroid.android.sample.api;
 
 import com.jdroid.android.api.AndroidApiService;
+import com.jdroid.android.google.gcm.Device;
+import com.jdroid.android.google.gcm.DeviceMarshaller;
 import com.jdroid.java.http.HttpService;
 import com.jdroid.java.http.HttpServiceFactory;
 import com.jdroid.java.http.okhttp.OkHttpServiceFactory;
 import com.jdroid.java.http.post.BodyEnclosingHttpService;
+import com.jdroid.java.marshaller.MarshallerProvider;
 
 public class SampleApiService extends AndroidApiService {
+
+	static {
+		MarshallerProvider.get().addMarshaller(Device.class, new DeviceMarshaller());
+	}
 
 	public SampleResponse httpGetSample() {
 		HttpService httpService = newGetService("sample", "get");
@@ -48,6 +55,26 @@ public class SampleApiService extends AndroidApiService {
 		httpService.setBody("{}");
 		httpService.addHeader("header1", "value1");
 		httpService.setUserAgent("sampleUserAgent");
+		httpService.execute();
+	}
+
+	public void addDevice(Device device) {
+		BodyEnclosingHttpService httpService = newPostService("gcm", "device");
+		marshall(httpService, device);
+		httpService.execute();
+	}
+
+	public void removeDevice() {
+		HttpService httpService = newDeleteService("gcm", "device");
+		httpService.execute();
+	}
+
+	public void sendPush(String registrationToken) {
+		HttpService httpService = newGetService("gcm", "send");
+		httpService.addQueryParameter("registrationToken", registrationToken);
+		httpService.addQueryParameter("messageKeyExtraName", "messageKey");
+		httpService.addQueryParameter("messageKey", "sampleMessage");
+		httpService.addQueryParameter("timestampEnabled", "true");
 		httpService.execute();
 	}
 

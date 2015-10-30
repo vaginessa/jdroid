@@ -13,5 +13,7 @@ public interface PushMessage {
 	public void addParameter(String key, Integer value);
 	
 	public void addParameter(String key, Long value);
+
+	public DeviceType getDeviceType();
 	
 }

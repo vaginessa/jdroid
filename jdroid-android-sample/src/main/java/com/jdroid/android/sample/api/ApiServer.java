@@ -11,7 +11,7 @@ public enum ApiServer implements Server {
 	
 	PROD("url", ":8080", "/api", true, true),
 	UAT("staging-jdroid.rhcloud.com", null, "/api", true, false),
-	DEV(null, ":8080", "/api", true, false),
+	DEV(null, ":8080", "/jdroid-javaweb-sample/api", true, false),
 	MOCKEY_LOCAL(null, ":8081", "/service/api", false, false);
 
 	private String domain;

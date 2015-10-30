@@ -39,6 +39,11 @@ public abstract class AbstractAppModule implements AppModule {
 	}
 
 	@Override
+	public void onInstanceIdTokenRefresh() {
+		// Do Nothing
+	}
+
+	@Override
 	public List<? extends AnalyticsTracker> getAnalyticsTrackers() {
 		return Lists.newArrayList();
 	}

@@ -6,6 +6,5 @@
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
 	<bean id="deviceRepository" class="com.jdroid.javaweb.sample.repository.DeviceInMemoryRepository" />
-	<bean id="deviceGroupRepository" class="com.jdroid.javaweb.sample.repository.DeviceGroupInMemoryRepository" />
 
 </beans>

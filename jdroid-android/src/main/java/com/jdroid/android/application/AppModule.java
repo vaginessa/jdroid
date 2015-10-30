@@ -22,6 +22,8 @@ public interface AppModule {
 
 	public void attachBaseContext(Context base);
 
+	public void onInstanceIdTokenRefresh();
+
 	public List<? extends AnalyticsTracker> getAnalyticsTrackers();
 
 	public List<Kit> getFabricKits();

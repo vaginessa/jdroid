@@ -3,7 +3,10 @@ package com.jdroid.java.repository;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.domain.Identifiable;
+import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.ReflectionUtils;
+
+import org.slf4j.Logger;
 
 import java.util.Collection;
 import java.util.List;
@@ -14,6 +17,8 @@ import java.util.Map;
  * @param <T>
  */
 public class InMemoryRepository<T extends Identifiable> implements Repository<T> {
+
+	private static final Logger LOGGER = LoggerUtils.getLogger(InMemoryRepository.class);
 	
 	private long nextId = 1;
 	private Map<Long, T> items = Maps.newLinkedHashMap();
@@ -27,6 +32,7 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 			ReflectionUtils.setId(item, nextId++);
 		}
 		items.put(item.getId(), item);
+		LOGGER.debug("Added object in memory: " + item);
 	}
 	
 	/**
@@ -37,6 +43,7 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 		for (T item : items) {
 			add(item);
 		}
+		LOGGER.debug("Stored objects in memory:\n" + items);
 	}
 	
 	/**
@@ -45,6 +52,7 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 	@Override
 	public void update(T item) {
 		add(item);
+		LOGGER.debug("Updated object in memory: " + item);
 	}
 	
 	/**
@@ -53,6 +61,7 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 	@Override
 	public void remove(T item) {
 		items.remove(item.getId());
+		LOGGER.debug("Deleted object from memory: " + item);
 	}
 	
 	/**
@@ -63,6 +72,7 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 		for (T item : items) {
 			remove(item);
 		}
+		LOGGER.debug("Deleted objects in memory: " + items);
 	}
 	
 	/**
@@ -79,7 +89,9 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 	 */
 	@Override
 	public List<T> getAll() {
-		return Lists.newArrayList(items.values());
+		List<T> results = Lists.newArrayList(items.values());
+		LOGGER.debug("Retrieved all objects [" + results.size() + "] from memory");
+		return results;
 	}
 	
 	/**
@@ -96,6 +108,7 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 	@Override
 	public void removeAll() {
 		items.clear();
+		LOGGER.debug("Deleted from memory all objects from this repository");
 	}
 	
 	/**

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.jdroid.android.application.AbstractApplication;
@@ -13,12 +14,12 @@ import java.util.List;
 
 public abstract class GcmMessageBroadcastReceiver extends BroadcastReceiver {
 	
-	/**
-	 * @see android.content.BroadcastReceiver#onReceive(android.content.Context, android.content.Intent)
-	 */
+	private static final String FROM = "from";
+
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		GcmMessage gcmMessage = AbstractGcmAppModule.get().getGcmMessageResolver().resolve(intent);
+		String from = intent.getStringExtra(FROM);
+		GcmMessage gcmMessage = AbstractGcmAppModule.get().getGcmMessageResolver().resolve(from, intent.getExtras());
 		onGcmMessage(gcmMessage, intent);
 	}
 	
@@ -42,10 +43,11 @@ public abstract class GcmMessageBroadcastReceiver extends BroadcastReceiver {
 		}
 	}
 	
-	public static void sendBroadcast(GcmMessage gcmMessage, Intent intent) {
+	public static void sendBroadcast(GcmMessage gcmMessage, String from, Bundle data) {
 		Intent broadcastIntent = new Intent();
 		broadcastIntent.setAction(gcmMessage.getMessageKey());
-		broadcastIntent.putExtras(intent.getExtras());
+		broadcastIntent.putExtra(FROM, from);
+		broadcastIntent.putExtras(data);
 		LocalBroadcastManager.getInstance(AbstractApplication.get()).sendBroadcast(broadcastIntent);
 	}
 }

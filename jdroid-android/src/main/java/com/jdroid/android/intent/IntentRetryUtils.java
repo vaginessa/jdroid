@@ -50,7 +50,7 @@ public class IntentRetryUtils {
 			PendingIntent.FLAG_CANCEL_CURRENT);
 		if (count >= maximumRetryCount) {
 			// Discard retry
-			LOGGER.warn("Operation reached the maximum retry count and will be discarded.");
+			AbstractApplication.get().getExceptionHandler().logWarningException("Operation reached the maximum retry count and will be discarded.");
 			return false;
 		}
 		// Retry using an exponential backoff

@@ -1,6 +1,6 @@
-package com.jdroid.javaweb.push.gcm;
+package com.jdroid.javaweb.google.gcm;
 
-public abstract class AuthenticatedGcmMessage extends AbstractGcmMessage {
+public abstract class AuthenticatedGcmMessage extends GcmMessage {
 	
 	private static final String USER_ID_KEY = "userIdKey";
 	

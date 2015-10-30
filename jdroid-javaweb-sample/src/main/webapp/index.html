@@ -10,10 +10,15 @@
 
 		var url = "api/gcm/send?";
 
-		url += "registrationId="
-				+ document.getElementById("registrationId").value;
+		url += "registrationToken="
+				+ document.getElementById("registrationToken").value;
 		url += "&messageKeyExtraName=" + document.getElementById("messageKeyExtraName").value;
 		url += "&messageKey=" + document.getElementById("messageKey").value;
+		url += "&collapseKey=" + document.getElementById("collapseKey").value;
+		url += "&highPriority=" + document.getElementById("highPriority").value;
+		url += "&delayWhileIdle=" + document.getElementById("delayWhileIdle").value;
+		url += "&timeToLive=" + document.getElementById("timeToLive").value;
+		url += "&timestampEnabled=" + document.getElementById("timestampEnabled").value;
 
 		var params = "";
 		var key1 = document.getElementById("key1").value;
@@ -86,11 +91,22 @@
 </head>
 <body>
 	<h1>GCM Push Sender</h1>
-	Registration id
-	<input id="registrationId" type="text" />
-	<br /> Message key
+	Registration Token
+	<input id="registrationToken" type="text" />
+	<br /> Message key extra name
 	<input id="messageKeyExtraName" type="text" value="messageKey" />
+	<br /> Message key
 	<input id="messageKey" type="text" />
+	<br /> Collapse key
+	<input id="collapseKey" type="text" />
+	<br /> High Priority
+	<input id="highPriority" type="text" value="false" />
+	<br /> Delay while idle
+	<input id="delayWhileIdle" type="text" value="false" />
+	<br /> Time to live
+	<input id="timeToLive" type="text" />
+	<br /> Include timestamp on payload
+	<input id="timestampEnabled" type="text" value="false" />
 	<br />
 	<br /> Key 1
 	<input id="key1" type="text" /> Value 1

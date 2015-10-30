@@ -1,19 +1,12 @@
 package com.jdroid.javaweb.push;
 
-import java.util.List;
-
 public interface PushService {
 	
-	public void enableDevice(Long deviceGroupId, String deviceId, DeviceType deviceType, String registrationId);
+	public void addDevice(Device device);
+
+	public void removeDevice(String instanceId, DeviceType deviceType);
 	
-	public void assignDevice(Long deviceGroupId, String deviceId, DeviceType deviceType);
-	
-	public void unassignDevice(Long deviceGroupId, String deviceId, DeviceType deviceType);
-	
-	public void send(PushMessage pushMessage, Device... devices);
-	
-	public void send(PushMessage pushMessage, List<Device> devices);
-	
-	public void removeDevice(String deviceId, DeviceType deviceType, String registrationId);
-	
+	public void send(PushMessage pushMessage);
+
+	public void processResponse(PushResponse pushResponse);
 }

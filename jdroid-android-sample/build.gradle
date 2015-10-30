@@ -174,8 +174,8 @@ android {
 		jdroid.setString(defaultConfig, "GOOGLE_ANALYTICS_TRACKING_ID", "UA-9898638-5")
 		jdroid.setBoolean(defaultConfig, "GOOGLE_ANALYTICS_DEBUG_ENABLED", true)
 
-		// TODO Add GOOGLE_PROJECT_ID
-		jdroid.setString(defaultConfig, "GOOGLE_PROJECT_ID", "????????")
+		// TODO Add GCM_SENDER_ID
+		jdroid.setString(defaultConfig, "GCM_SENDER_ID", "????????")
 		// TODO Add FACEBOOK_APP_ID
 		jdroid.setString(defaultConfig, "FACEBOOK_APP_ID", "????????")
 

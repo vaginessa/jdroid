@@ -50,7 +50,6 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import io.fabric.sdk.android.Fabric;
 import io.fabric.sdk.android.Kit;
@@ -63,7 +62,6 @@ public abstract class AbstractApplication extends Application {
 	 */
 	protected static Logger LOGGER;
 	
-	private static final String INSTALLATION_ID = "installationId";
 	public static final String INSTALLATION_SOURCE = "installationSource";
 	private static final String VERSION_CODE_KEY = "versionCodeKey";
 	
@@ -82,7 +80,6 @@ public abstract class AbstractApplication extends Application {
 	/** Current activity in the top stack. */
 	private Activity currentActivity;
 	
-	private String installationId;
 	private Boolean inBackground = true;
 	
 	private AppLaunchStatus appLaunchStatus;
@@ -153,7 +150,6 @@ public abstract class AbstractApplication extends Application {
 
 			@Override
 			public void run() {
-				loadInstallationId();
 				verifyAppLaunchStatus();
 				initDeviceYearClass();
 
@@ -435,20 +431,6 @@ public abstract class AbstractApplication extends Application {
 	
 	public Boolean isLoadingCancelable() {
 		return false;
-	}
-	
-	public String getInstallationId() {
-		return installationId;
-	}
-	
-	private void loadInstallationId() {
-		if (SharedPreferencesHelper.get().hasPreference(INSTALLATION_ID)) {
-			installationId = SharedPreferencesHelper.get().loadPreference(INSTALLATION_ID);
-		} else {
-			installationId = UUID.randomUUID().toString();
-			SharedPreferencesHelper.get().savePreference(INSTALLATION_ID, installationId);
-		}
-		LOGGER.debug("Installation id: " + installationId);
 	}
 	
 	public String getAppName() {

@@ -1,25 +1,16 @@
 package com.jdroid.javaweb.push;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.javaweb.domain.Entity;
 
-@javax.persistence.Entity
 public class Device extends Entity {
 	
-	@ManyToOne
-	@JoinColumn(name = "deviceGroupId", nullable = true)
-	private DeviceGroup deviceGroup;
-	
-	private String deviceId;
-	private String registrationId;
-	
-	@Enumerated(value = EnumType.STRING)
+	private String instanceId;
 	private DeviceType deviceType;
-	
+
+	private String deviceGroupId;
+	private String registrationToken;
+
 	/**
 	 * Default constructor.
 	 */
@@ -28,33 +19,40 @@ public class Device extends Entity {
 		// Do nothing, is required by hibernate
 	}
 	
-	public Device(String deviceId, String registrationId, DeviceType deviceType) {
+	public Device(String instanceId, DeviceType deviceType, String registrationToken, String deviceGroupId) {
 		
+		if (instanceId == null) {
+			throw new UnexpectedException("The instanceId is required");
+		}
+
 		if (deviceType == null) {
 			throw new UnexpectedException("The device type is required");
 		}
+
+		this.instanceId = instanceId;
 		this.deviceType = deviceType;
-		
-		this.deviceId = deviceId;
-		this.registrationId = registrationId;
+
+		this.deviceGroupId = deviceGroupId;
+		this.registrationToken = registrationToken;
 	}
-	
-	public void updateRegistrationId(String registrationId) {
-		this.registrationId = registrationId;
+
+	public void updateRegistrationToken(String registrationToken) {
+		this.registrationToken = registrationToken;
+	}
+
+	public void updateDeviceGroupId(String deviceGroupId) {
+		this.deviceGroupId = deviceGroupId;
+	}
+
+	public String getInstanceId() {
+		return instanceId;
 	}
 	
 	/**
-	 * @return the deviceId
+	 * @return the registrationToken
 	 */
-	public String getDeviceId() {
-		return deviceId;
-	}
-	
-	/**
-	 * @return the registrationId
-	 */
-	public String getRegistrationId() {
-		return registrationId;
+	public String getRegistrationToken() {
+		return registrationToken;
 	}
 	
 	/**
@@ -64,33 +62,16 @@ public class Device extends Entity {
 		return deviceType;
 	}
 	
+	public String getDeviceGroupId() {
+		return deviceGroupId;
+	}
+
 	/**
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Device [deviceId=" + deviceId + ", registrationId=" + registrationId + ", deviceType=" + deviceType
+		return "Device [instanceId=" + instanceId + ", registrationToken=" + registrationToken + ", deviceType=" + deviceType
 				+ "]";
 	}
-	
-	public void unassignDeviceGroup() {
-		if (deviceGroup != null) {
-			deviceGroup.removeDevice(this);
-		}
-	}
-	
-	/**
-	 * @param deviceGroup the deviceGroup to set
-	 */
-	void setDeviceGroup(DeviceGroup deviceGroup) {
-		this.deviceGroup = deviceGroup;
-	}
-	
-	/**
-	 * @return the deviceGroup
-	 */
-	public DeviceGroup getDeviceGroup() {
-		return deviceGroup;
-	}
-	
 }

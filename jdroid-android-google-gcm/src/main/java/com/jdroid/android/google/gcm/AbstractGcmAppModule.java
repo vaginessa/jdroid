@@ -19,10 +19,12 @@ public abstract class AbstractGcmAppModule extends AbstractAppModule {
 	private GcmContext gcmContext;
 	private GcmDebugContext gcmDebugContext;
 	private GcmMessageResolver gcmMessageResolver;
+	private GcmListenerResolver gcmListenerResolver;
 
 	public AbstractGcmAppModule() {
 		gcmContext = createGcmContext();
 		gcmMessageResolver = createGcmMessageResolver();
+		gcmListenerResolver = createGcmListenerResolver();
 	}
 
 	protected GcmContext createGcmContext() {
@@ -55,12 +57,34 @@ public abstract class AbstractGcmAppModule extends AbstractAppModule {
 		return gcmMessageResolver;
 	}
 
-	protected abstract GcmMessageResolver createGcmMessageResolver();
+	public abstract GcmMessageResolver createGcmMessageResolver();
+
+	public GcmListenerResolver createGcmListenerResolver() {
+		return new GcmListenerResolver();
+	}
+
+	public GcmListenerResolver getGcmListenerResolver() {
+		return gcmListenerResolver;
+	}
+
+	public abstract void onRegisterOnServer(String registrationToken);
+
+	protected List<String> getSubscriptionTopics() {
+		return null;
+	}
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 
-		AbstractApplication.get().getDebugContext().addCustomDebugInfoProperty(new Pair<String, Object>("Google Project Id", gcmContext.getGoogleProjectId()));
+		GcmRegistrationService.start();
+
+		AbstractApplication.get().getDebugContext().addCustomDebugInfoProperty(new Pair<String, Object>("GCM Sender Id", gcmContext.getSenderId()));
+	}
+
+	@Override
+	public void onInstanceIdTokenRefresh() {
+		GcmPreferences.clearRegistrationToken();
+		GcmRegistrationService.start();
 	}
 }

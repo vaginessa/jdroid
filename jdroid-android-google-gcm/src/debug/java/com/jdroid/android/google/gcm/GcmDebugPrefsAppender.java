@@ -1,7 +1,7 @@
 package com.jdroid.android.google.gcm;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -17,9 +17,9 @@ import java.util.Map.Entry;
 
 public class GcmDebugPrefsAppender implements PreferencesAppender {
 	
-	private Map<GcmMessage, EmulatedGcmMessageIntentBuilder> gcmMessagesMap;
+	private Map<GcmMessage, Bundle> gcmMessagesMap;
 	
-	public GcmDebugPrefsAppender(Map<GcmMessage, EmulatedGcmMessageIntentBuilder> gcmMessagesMap) {
+	public GcmDebugPrefsAppender(Map<GcmMessage, Bundle> gcmMessagesMap) {
 		this.gcmMessagesMap = gcmMessagesMap;
 	}
 	
@@ -49,12 +49,9 @@ public class GcmDebugPrefsAppender implements PreferencesAppender {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				
-				for (Entry<GcmMessage, EmulatedGcmMessageIntentBuilder> entry : gcmMessagesMap.entrySet()) {
+				for (Entry<GcmMessage, Bundle> entry : gcmMessagesMap.entrySet()) {
 					if (entry.getKey().getMessageKey().equals(newValue.toString())) {
-						Intent intent = entry.getValue().buildIntent();
-						if (intent != null) {
-							entry.getKey().handle(intent);
-						}
+						entry.getKey().handle("1", entry.getValue());
 						break;
 					}
 				}

@@ -1,11 +1,11 @@
 package com.jdroid.android.google.gcm;
 
-import android.content.Intent;
+import android.os.Bundle;
 
 public interface GcmMessage {
 	
 	public String getMessageKey();
 	
-	public void handle(Intent intent);
+	public void handle(String from, Bundle data);
 	
 }

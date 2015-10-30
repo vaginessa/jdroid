@@ -1,15 +1,11 @@
 package com.jdroid.javaweb.push;
 
-import com.jdroid.javaweb.push.gcm.GcmSender;
-
-import java.util.List;
+import com.jdroid.javaweb.google.gcm.GcmSender;
 
 public enum DeviceType {
 	ANDROID("android", GcmSender.get()),
-	IPHONE("iphone", null),
-	BLACKBERRY("blackberry", null),
-	WINDOWS_PHONE("windowsPhone", null);
-	
+	IOS("iOS", null);
+
 	private String userAgent;
 	private PushMessageSender pushMessageSender;
 	
@@ -27,7 +23,7 @@ public enum DeviceType {
 		return null;
 	}
 	
-	public PushResponse send(List<Device> devices, PushMessage pushMessage) {
-		return pushMessageSender.send(devices, pushMessage);
+	public PushResponse send(PushMessage pushMessage) {
+		return pushMessageSender.send(pushMessage);
 	}
 }

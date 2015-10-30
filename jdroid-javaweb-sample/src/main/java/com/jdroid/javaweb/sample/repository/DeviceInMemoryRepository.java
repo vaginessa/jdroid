@@ -7,20 +7,23 @@ import com.jdroid.javaweb.push.DeviceType;
 
 public class DeviceInMemoryRepository extends InMemoryRepository<Device> implements DeviceRepository {
 	
-	/**
-	 * @see com.jdroid.javaweb.push.DeviceRepository#find(java.lang.String, com.jdroid.javaweb.push.DeviceType)
-	 */
 	@Override
-	public Device find(String installationId, DeviceType deviceType) {
+	public Device findByRegistrationToken(String registrationToken, DeviceType deviceType) {
+		for(Device each : getAll()) {
+			if (each.getRegistrationToken().equals(registrationToken) && each.getDeviceType().equals(deviceType)) {
+				return each;
+			}
+		}
 		return null;
 	}
 	
-	/**
-	 * @see com.jdroid.javaweb.push.DeviceRepository#find(java.lang.String, com.jdroid.javaweb.push.DeviceType,
-	 *      java.lang.String)
-	 */
 	@Override
-	public Device find(String deviceId, DeviceType deviceType, String registrationId) {
+	public Device findByInstanceId(String instanceId, DeviceType deviceType) {
+		for(Device each : getAll()) {
+			if (each.getInstanceId().equals(instanceId) && each.getDeviceType().equals(deviceType)) {
+				return each;
+			}
+		}
 		return null;
 	}
 }
