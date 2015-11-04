@@ -32,6 +32,18 @@ public class GcmFragment extends AbstractFragment {
 			}
 		});
 
+		findView(R.id.clearRegistrationToken).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				ExecutorUtils.execute(new Runnable() {
+					@Override
+					public void run() {
+						GcmPreferences.clearRegistrationToken();
+					}
+				});
+			}
+		});
+
 		findView(R.id.removeInstanceId).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

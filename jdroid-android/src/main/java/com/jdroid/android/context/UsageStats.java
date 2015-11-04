@@ -19,8 +19,6 @@ public class UsageStats {
 		loadAppLoad();
 		appLoads++;
 		SharedPreferencesHelper.get(USAGE_STATS).savePreferenceAsync(APP_LOADS, appLoads);
-
-		LOGGER.info("App load count: " + appLoads);
 	}
 
 	public static Long getAppLoads() {

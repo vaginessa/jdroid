@@ -32,25 +32,21 @@ public class GcmRegistrationService extends WorkerService {
 		
 		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(this)) {
 
-			String registrationToken = GcmPreferences.getRegistrationToken();
-			if (!GcmPreferences.isRegistered()) {
-				try {
+			String registrationToken = null;
+			try {
 
-					String senderId = AbstractGcmAppModule.get().getGcmContext().getSenderId();
-					if (senderId == null) {
-						throw new UnexpectedException("Missing GCM Sender Id");
-					}
-
-					InstanceID instanceID = InstanceID.getInstance(this);
-					registrationToken = instanceID.getToken(senderId, GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
-					GcmPreferences.setRegistrationToken(registrationToken);
-				} catch (Exception e) {
-					LOGGER.warn("Failed to register the device on gcm. Will retry later.", e);
-					IntentRetryUtils.retry(intent);
-					return;
+				String senderId = AbstractGcmAppModule.get().getGcmContext().getSenderId();
+				if (senderId == null) {
+					throw new UnexpectedException("Missing GCM Sender Id");
 				}
-			} else {
-				LOGGER.info("Device already registered on GCM. Registration id: " + registrationToken);
+
+				InstanceID instanceID = InstanceID.getInstance(this);
+				registrationToken = instanceID.getToken(senderId, GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+				GcmPreferences.setRegistrationToken(registrationToken);
+			} catch (Exception e) {
+				LOGGER.warn("Failed to register the device on gcm. Will retry later.", e);
+				IntentRetryUtils.retry(intent);
+				return;
 			}
 
 			Boolean forceServerRegistration = intent.getBooleanExtra(FORCE_SERVER_REGISTRATION, false);

@@ -10,7 +10,7 @@ public class RatingHelper {
 	private static final String RATE_ME_CLICK_TIMESTAMP = "rateMeClickTimestamp";
 
 	public static void rateMe(Context context) {
-		SharedPreferencesHelper.get().savePreference(RATE_ME_CLICK_TIMESTAMP, System.currentTimeMillis());
+		SharedPreferencesHelper.get().savePreferenceAsync(RATE_ME_CLICK_TIMESTAMP, System.currentTimeMillis());
 		GooglePlayUtils.launchAppDetails(context);
 	}
 

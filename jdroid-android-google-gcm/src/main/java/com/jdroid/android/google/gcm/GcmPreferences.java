@@ -1,10 +1,8 @@
 package com.jdroid.android.google.gcm;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 
-import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
@@ -24,7 +22,7 @@ public final class GcmPreferences {
 	// Default lifespan (7 days) of the {@link #isRegisteredOnServer()} flag until it is considered expired.
 	private static final long DEFAULT_ON_SERVER_LIFESPAN_MS = 1000 * 3600 * 24 * 7;
 
-	private static final String PREFERENCES = "com.google.android.gcm";
+	private static final String PREFERENCES = "gcm";
 	private static final String PROPERTY_REGISTRATION_TOKEN = "registrationToken";
 	private static final String PROPERTY_ON_SERVER = "onServer";
 	private static final String PROPERTY_ON_SERVER_EXPIRATION_TIME = "onServerExpirationTime";
@@ -36,16 +34,7 @@ public final class GcmPreferences {
 	 * @return registration id, or null if the registration is not complete.
 	 */
 	public static String getRegistrationToken() {
-		return getGcmPreferences().getString(PROPERTY_REGISTRATION_TOKEN, null);
-	}
-	
-	/**
-	 * Checks whether the application was successfully registered on GCM service.
-	 * 
-	 * @return Whether the application was successfully registered on GCM service.
-	 */
-	public static boolean isRegistered() {
-		return getRegistrationToken() != null;
+		return getSharedPreferencesHelper().loadPreference(PROPERTY_REGISTRATION_TOKEN);
 	}
 	
 	/**
@@ -61,11 +50,11 @@ public final class GcmPreferences {
 	 * @param registrationToken The registrationToken
 	 */
 	public static void setRegistrationToken(String registrationToken) {
-		SharedPreferences prefs = getGcmPreferences();
-		Editor editor = prefs.edit();
-		editor.putString(PROPERTY_REGISTRATION_TOKEN, registrationToken);
-		editor.apply();
-		LOGGER.debug("Saved the registrationToken [" + registrationToken + "]");
+		String oldRegistrationToken = getRegistrationToken();
+		if (oldRegistrationToken == null || (oldRegistrationToken != null && !oldRegistrationToken.equals(registrationToken))) {
+			setRegisteredOnServer(false);
+		}
+		getSharedPreferencesHelper().savePreferenceAsync(PROPERTY_REGISTRATION_TOKEN, registrationToken);
 	}
 	
 	/**
@@ -74,13 +63,10 @@ public final class GcmPreferences {
 	 * @param flag
 	 */
 	public static void setRegisteredOnServer(boolean flag) {
-		SharedPreferences prefs = getGcmPreferences();
-		Editor editor = prefs.edit();
-		editor.putBoolean(PROPERTY_ON_SERVER, flag);
-		long expirationTime = System.currentTimeMillis() + getRegisterOnServerLifespan();
-		editor.putLong(PROPERTY_ON_SERVER_EXPIRATION_TIME, System.currentTimeMillis()
-				+ getRegisterOnServerLifespan());
-		editor.apply();
+		getSharedPreferencesHelper().savePreferenceAsync(PROPERTY_ON_SERVER, flag);
+		long registerOnServerLifespan = getSharedPreferencesHelper().loadPreferenceAsLong(PROPERTY_ON_SERVER_LIFESPAN, DEFAULT_ON_SERVER_LIFESPAN_MS);
+		long expirationTime = System.currentTimeMillis() + registerOnServerLifespan;
+		getSharedPreferencesHelper().savePreferenceAsync(PROPERTY_ON_SERVER_EXPIRATION_TIME, expirationTime);
 		LOGGER.debug("Setted registeredOnServer status as " + flag + " until " + new Timestamp(expirationTime));
 	}
 	
@@ -96,12 +82,10 @@ public final class GcmPreferences {
 	 * @return whether the device was successfully registered in the server side
 	 */
 	public static boolean isRegisteredOnServer() {
-		SharedPreferences prefs = getGcmPreferences();
-		boolean isRegistered = prefs.getBoolean(PROPERTY_ON_SERVER, false);
-		LOGGER.debug("Is registered on server: " + isRegistered);
+		boolean isRegistered = getSharedPreferencesHelper().loadPreferenceAsBoolean(PROPERTY_ON_SERVER, false);
 		if (isRegistered) {
 			// checks if the information is not stale
-			long expirationTime = prefs.getLong(PROPERTY_ON_SERVER_EXPIRATION_TIME, -1);
+			long expirationTime = getSharedPreferencesHelper().loadPreferenceAsLong(PROPERTY_ON_SERVER_EXPIRATION_TIME, -1L);
 			if (System.currentTimeMillis() > expirationTime) {
 				LOGGER.debug("registeredOnServer flag expired on: " + new Timestamp(expirationTime));
 				return false;
@@ -111,28 +95,15 @@ public final class GcmPreferences {
 	}
 	
 	/**
-	 * Gets how long (in milliseconds) the {@link #isRegistered()} property is valid.
-	 * 
-	 * @return value set by {@link #setRegisteredOnServer(boolean)} or {@link #DEFAULT_ON_SERVER_LIFESPAN_MS}
-	 *         if not set.
-	 */
-	public static long getRegisterOnServerLifespan() {
-		return getGcmPreferences().getLong(PROPERTY_ON_SERVER_LIFESPAN, DEFAULT_ON_SERVER_LIFESPAN_MS);
-	}
-	
-	/**
-	 * Sets how long (in milliseconds) the {@link #isRegistered()} flag is valid.
+	 * Sets how long (in milliseconds) the {@link #isRegisteredOnServer()} flag is valid.
 	 * 
 	 * @param lifespan
 	 */
 	public static void setRegisterOnServerLifespan(long lifespan) {
-		SharedPreferences prefs = getGcmPreferences();
-		Editor editor = prefs.edit();
-		editor.putLong(PROPERTY_ON_SERVER_LIFESPAN, lifespan);
-		editor.apply();
+		getSharedPreferencesHelper().savePreferenceAsync(PROPERTY_ON_SERVER_LIFESPAN, lifespan);
 	}
-	
-	private static SharedPreferences getGcmPreferences() {
-		return AbstractApplication.get().getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
+
+	private static SharedPreferencesHelper getSharedPreferencesHelper() {
+		return SharedPreferencesHelper.get(PREFERENCES);
 	}
 }

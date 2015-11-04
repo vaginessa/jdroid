@@ -230,7 +230,7 @@ public abstract class AbstractApplication extends Application {
 			}
 		}
 		LOGGER.debug("App launch status: " + appLaunchStatus);
-		SharedPreferencesHelper.get().savePreference(VERSION_CODE_KEY, AndroidUtils.getVersionCode());
+		SharedPreferencesHelper.get().savePreferenceAsync(VERSION_CODE_KEY, AndroidUtils.getVersionCode());
 
 		if (appLaunchStatus.equals(AppLaunchStatus.VERSION_UPGRADE) && updateManager != null) {
 			updateManager.update(fromVersionCode);
@@ -279,7 +279,7 @@ public abstract class AbstractApplication extends Application {
 		//Try again if device was previously unknown.
 		if (deviceYearClass == YearClass.CLASS_UNKNOWN) {
 			deviceYearClass = YearClass.get(getApplicationContext());
-			SharedPreferencesHelper.get().savePreference(DEVICE_YEAR_CLASS, deviceYearClass);
+			SharedPreferencesHelper.get().savePreferenceAsync(DEVICE_YEAR_CLASS, deviceYearClass);
 		}
 	}
 
@@ -313,7 +313,6 @@ public abstract class AbstractApplication extends Application {
 		if (StringUtils.isBlank(installationSource)) {
 			installationSource = appContext.getInstallationSource();
 			SharedPreferencesHelper.get().savePreference(INSTALLATION_SOURCE, installationSource);
-			LOGGER.debug("Saved installation source: " + installationSource);
 		}
 	}
 	

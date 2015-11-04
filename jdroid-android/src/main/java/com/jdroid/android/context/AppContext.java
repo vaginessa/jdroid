@@ -118,7 +118,7 @@ public abstract class AppContext {
 	public void saveFirstSessionTimestamp() {
 		Long firstSessionTimestamp = getFirstSessionTimestamp();
 		if (firstSessionTimestamp == null) {
-			SharedPreferencesHelper.get().savePreference(FIRST_SESSION_TIMESTAMP, System.currentTimeMillis());
+			SharedPreferencesHelper.get().savePreferenceAsync(FIRST_SESSION_TIMESTAMP, System.currentTimeMillis());
 		}
 	}
 	

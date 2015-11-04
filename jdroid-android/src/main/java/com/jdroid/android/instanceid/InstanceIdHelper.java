@@ -24,7 +24,7 @@ public class InstanceIdHelper {
 			instanceId = SharedPreferencesHelper.get().loadPreference(INSTANCE_ID);
 			if (instanceId == null) {
 				instanceId = InstanceID.getInstance(AbstractApplication.get()).getId();
-				SharedPreferencesHelper.get().savePreference(INSTANCE_ID, instanceId);
+				SharedPreferencesHelper.get().savePreferenceAsync(INSTANCE_ID, instanceId);
 			}
 			LOGGER.debug("Instance id: " + instanceId);
 		}
@@ -35,7 +35,7 @@ public class InstanceIdHelper {
 				anonymousInstanceId = SharedPreferencesHelper.get().loadPreference(ANONYMOUS_INSTANCE_ID);
 				if (anonymousInstanceId == null) {
 					anonymousInstanceId = "anonymous" + UUID.randomUUID();
-					SharedPreferencesHelper.get().savePreference(ANONYMOUS_INSTANCE_ID, anonymousInstanceId);
+					SharedPreferencesHelper.get().savePreferenceAsync(ANONYMOUS_INSTANCE_ID, anonymousInstanceId);
 				}
 				LOGGER.debug("Anonymous Instance id: " + anonymousInstanceId);
 			}
