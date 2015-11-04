@@ -70,7 +70,7 @@ project.afterEvaluate {
 			out.writeLine("twitterOAuthConsumerSecret=${jdroid.getProp('TWITTER_OAUTH_CONSUMER_SECRET')}")
 			out.writeLine("twitterOAuthAccessToken=${jdroid.getProp('TWITTER_OAUTH_ACCESS_TOKEN')}")
 			out.writeLine("twitterOAuthAccessTokenSecret=${jdroid.getProp('TWITTER_OAUTH_ACCESS_TOKEN_SECRET')}")
-			out.writeLine("twitterEnabled=${jdroid.getProp('TWITTER_ENABLED')}")
+			out.writeLine("twitterEnabled=${jdroid.getProp('TWITTER_ENABLED', 'false')}")
 		}
 	}
 
