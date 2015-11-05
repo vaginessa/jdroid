@@ -1,10 +1,10 @@
 package com.jdroid.android.sample.api;
 
-import com.jdroid.android.http.AbstractHttpResponseValidator;
+import com.jdroid.android.http.AbstractAndroidHttpResponseValidator;
 import com.jdroid.java.exception.ErrorCode;
 import com.jdroid.android.sample.exception.AndroidErrorCode;
 
-public class HttpResponseValidator extends AbstractHttpResponseValidator {
+public class HttpResponseValidator extends AbstractAndroidHttpResponseValidator {
 	
 	private static final HttpResponseValidator INSTANCE = new HttpResponseValidator();
 	
@@ -17,7 +17,7 @@ public class HttpResponseValidator extends AbstractHttpResponseValidator {
 	}
 	
 	/**
-	 * @see AbstractHttpResponseValidator#findByStatusCode(java.lang.String)
+	 * @see AbstractAndroidHttpResponseValidator#findByStatusCode(java.lang.String)
 	 */
 	@Override
 	protected ErrorCode findByStatusCode(String statusCode) {
