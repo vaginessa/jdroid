@@ -1,5 +1,9 @@
 package com.jdroid.javaweb.google.gcm;
 
+import com.jdroid.java.concurrent.ExecutorUtils;
+import com.jdroid.java.exception.ConnectionException;
+import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.push.DeviceType;
 import com.jdroid.javaweb.push.PushMessage;
@@ -11,6 +15,12 @@ import org.slf4j.Logger;
 public class GcmSender implements PushMessageSender {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(GcmSender.class);
+
+	// Initial delay before first retry
+	private static final int BACKOFF_INITIAL_DELAY = 1000;
+
+	// Maximum delay before a retry.
+	protected static final int MAX_BACKOFF_DELAY = 1024000;
 	
 	private final static PushMessageSender INSTANCE = new GcmSender();
 
@@ -22,12 +32,53 @@ public class GcmSender implements PushMessageSender {
 	public static PushMessageSender get() {
 		return INSTANCE;
 	}
-	
+
 	@Override
 	public PushResponse send(PushMessage pushMessage) {
-		
+		return send(pushMessage, 10);
+	}
+
+	private PushResponse send(PushMessage pushMessage, int retries) {
+
 		GcmMessage gcmMessage = (GcmMessage)pushMessage;
 
+		int attempt = 0;
+		PushResponse pushResponse = null;
+		int backoff = BACKOFF_INITIAL_DELAY;
+		boolean tryAgain = true;
+		while (tryAgain) {
+			attempt++;
+
+			LOGGER.debug("Attempt #" + attempt + " to send message " + pushMessage);
+			try {
+				pushResponse = sendNoRetry(gcmMessage);
+				tryAgain = (pushResponse == null || !pushResponse.getRegistrationTokensToRetry().isEmpty()) && attempt <= retries;
+			} catch (ConnectionException e) {
+				LOGGER.error("ConnectionException when sending a push", e);
+				tryAgain = true;
+			}
+
+			if (tryAgain) {
+				if (pushResponse != null && !pushResponse.getRegistrationTokensToRetry().isEmpty()) {
+					gcmMessage.setRegistrationIds(pushResponse.getRegistrationTokensToRetry());
+				}
+				int sleepTime = backoff / 2 + IdGenerator.getRandomIntId(backoff);
+				LOGGER.debug("Next attempt on " + sleepTime / 1000 + " seconds");
+				ExecutorUtils.sleepInMillis(sleepTime);
+				if (2 * backoff < MAX_BACKOFF_DELAY) {
+					backoff *= 2;
+				}
+			}
+		};
+		if (pushResponse == null) {
+			throw new UnexpectedException("Could not send message after " + attempt + " attempts");
+		}
+		return pushResponse;
+	}
+	
+
+	private PushResponse sendNoRetry(GcmMessage gcmMessage) {
+		
 		GcmResponse gcmResponse = gcmApiService.sendMessage(gcmMessage);
 
 		PushResponse pushResponse = new PushResponse(DeviceType.ANDROID);
@@ -44,15 +95,20 @@ public class GcmSender implements PushMessageSender {
 						LOGGER.info("Registration id [" + registrationIdToReplace + "] to be replaced by " + each.getRegistrationId());
 					}
 				} else {
-					LOGGER.info("Error [" + each.getError() + "] when sending GCM message/s");
+					LOGGER.error("Error [" + each.getError() + "] when sending GCM message/s");
 					if ("Unavailable".equals(each.getError())) {
-						// TODO
 						// The server couldn't process the request in time. Retry the same request, but you must:
 						// 	Honor the Retry-After header if it is included in the response from the GCM Connection Server.
 						// 	Implement exponential back-off in your retry mechanism. (e.g. if you waited one second before the first retry,
 						// 	wait at least two second before the next one, then 4 seconds and so on). If you're sending multiple messages,
 						// 	delay each one independently by an additional random amount to avoid issuing a new request for all messages at the same time.
 						// Senders that cause problems risk being blacklisted.
+						if (gcmMessage.getTo() != null) {
+							return null;
+						} else {
+							pushResponse.addRegistrationTokenToRetry(gcmMessage.getRegistrationIds().get(i));
+							return pushResponse;
+						}
 					} else if ("NotRegistered".equals(each.getError())) {
 						// you should remove the registration ID from your server database because the application was uninstalled from the device,
 						// or the client app isn't configured to receive messages.

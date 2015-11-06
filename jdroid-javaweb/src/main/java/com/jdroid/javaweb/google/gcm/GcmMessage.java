@@ -1,5 +1,6 @@
 package com.jdroid.javaweb.google.gcm;
 
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.utils.StringUtils;
 import com.jdroid.javaweb.push.DeviceType;
@@ -113,6 +114,13 @@ public class GcmMessage implements PushMessage {
 
 	public List<String> getRegistrationIds() {
 		return registrationIds;
+	}
+
+	public void addRegistrationId(String registrationId) {
+		if (registrationIds == null) {
+			registrationIds = Lists.newArrayList();
+		}
+		registrationIds.add(registrationId);
 	}
 
 	public void setRegistrationIds(List<String> registrationIds) {

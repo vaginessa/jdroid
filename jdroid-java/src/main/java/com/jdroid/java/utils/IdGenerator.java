@@ -22,4 +22,8 @@ public class IdGenerator {
 	public static Integer getRandomIntId() {
 		return Math.abs(new Random().nextInt());
 	}
+
+	public static Integer getRandomIntId(int bound) {
+		return Math.abs(new Random().nextInt(bound));
+	}
 }

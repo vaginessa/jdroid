@@ -32,14 +32,25 @@ public class GcmController extends AbstractController {
 	private DeviceRepository deviceRepository;
 	
 	@RequestMapping(value = "/send", method = RequestMethod.GET)
-	public void send(@RequestParam String registrationToken, final @RequestParam String messageKeyExtraName,
+	public void send(@RequestParam(required = false) String registrationToken, @RequestParam String messageKeyExtraName,
 					 @RequestParam String messageKey, @RequestParam(required = false) String collapseKey,
 					 @RequestParam(required = false) String highPriority, @RequestParam(required = false) String delayWhileIdle,
 					 @RequestParam(required = false) Integer timeToLive, @RequestParam(required = false) String timestampEnabled,
 					 @RequestParam(required = false) String params) {
 
 		GcmMessage pushMessage = new GcmMessage(messageKeyExtraName, messageKey);
-		pushMessage.setTo(StringUtils.isNotEmpty(registrationToken) ? registrationToken : null);
+
+		if (StringUtils.isNotEmpty(registrationToken)) {
+			pushMessage.setTo(registrationToken);
+		} else {
+			List<Device> devices = deviceRepository.getAll();
+			for(Device device : devices) {
+				if (device.getRegistrationToken() != null) {
+					pushMessage.addRegistrationId(device.getRegistrationToken());
+				}
+			}
+		}
+
 		pushMessage.setCollapseKey(StringUtils.isNotEmpty(collapseKey) ? collapseKey : null);
 		if (highPriority != null && highPriority.equalsIgnoreCase("true")) {
 			pushMessage.markAsHighPriority();
