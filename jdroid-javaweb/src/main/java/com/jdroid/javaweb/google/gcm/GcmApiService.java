@@ -33,6 +33,7 @@ public class GcmApiService extends ServerApiService {
 	@Override
 	protected Server getServer() {
 		return new DefaultServer("gcm", "gcm-http.googleapis.com/gcm", true);
+		//return new DefaultServer("gcm", "localhost:8081/service/api/gcm", false);
 	}
 
 	@Override
