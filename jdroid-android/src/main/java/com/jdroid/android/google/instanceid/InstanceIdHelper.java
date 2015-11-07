@@ -1,12 +1,14 @@
-package com.jdroid.android.instanceid;
+package com.jdroid.android.google.instanceid;
 
 import com.google.android.gms.iid.InstanceID;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.google.GooglePlayServicesUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
 
+import java.io.IOException;
 import java.util.UUID;
 
 public class InstanceIdHelper {
@@ -46,6 +48,18 @@ public class InstanceIdHelper {
 	public static void clearInstanceId() {
 		instanceId = null;
 		SharedPreferencesHelper.get().removePreferences(INSTANCE_ID);
+	}
+
+	public static void removeInstanceId() {
+		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(AbstractApplication.get())) {
+			try {
+				InstanceID.getInstance(AbstractApplication.get()).deleteInstanceID();
+			} catch (IOException e) {
+				AbstractApplication.get().getExceptionHandler().logHandledException(e);
+			}
+		} else {
+			LOGGER.warn("Instance id not removed because Google Play Services is not available");
+		}
 	}
 
 }

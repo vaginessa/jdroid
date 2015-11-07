@@ -23,7 +23,7 @@
 		<service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
 
 		<!-- Service to handle the creation, rotation, and updating of registration tokens. -->
-		<service android:name="com.jdroid.android.instanceid.InstanceIdService" android:exported="false">
+		<service android:name="com.jdroid.android.google.instanceid.InstanceIdService" android:exported="false">
 			<intent-filter>
 				<action android:name="com.google.android.gms.iid.InstanceID"/>
 			</intent-filter>

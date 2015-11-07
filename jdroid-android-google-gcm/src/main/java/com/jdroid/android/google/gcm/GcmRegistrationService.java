@@ -1,14 +1,16 @@
 package com.jdroid.android.google.gcm;
 
-import android.content.Intent;
+import android.os.Bundle;
 
+import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmPubSub;
+import com.google.android.gms.gcm.GcmTaskService;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.android.gms.gcm.OneoffTask;
+import com.google.android.gms.gcm.TaskParams;
 import com.google.android.gms.iid.InstanceID;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.GooglePlayServicesUtils;
-import com.jdroid.android.intent.IntentRetryUtils;
-import com.jdroid.android.service.WorkerService;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
@@ -18,18 +20,20 @@ import org.slf4j.Logger;
 import java.io.IOException;
 import java.util.List;
 
-public class GcmRegistrationService extends WorkerService {
+public class GcmRegistrationService extends GcmTaskService {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(GcmRegistrationService.class);
 	public static final String FORCE_SERVER_REGISTRATION = "forceServerRegistration";
 
-	public GcmRegistrationService() {
-		super(GcmRegistrationService.class.getSimpleName());
-	}
-	
 	@Override
-	protected void doExecute(Intent intent) {
-		
+	public void onInitializeTasks() {
+		GcmRegistrationService.start();
+	}
+
+	@Override
+	public int onRunTask(TaskParams taskParams) {
+
+		LOGGER.info("Starting GCM registration");
 		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(this)) {
 
 			String registrationToken = null;
@@ -45,11 +49,10 @@ public class GcmRegistrationService extends WorkerService {
 				GcmPreferences.setRegistrationToken(registrationToken);
 			} catch (Exception e) {
 				LOGGER.warn("Failed to register the device on gcm. Will retry later.", e);
-				IntentRetryUtils.retry(intent);
-				return;
+				return GcmNetworkManager.RESULT_RESCHEDULE;
 			}
 
-			Boolean forceServerRegistration = intent.getBooleanExtra(FORCE_SERVER_REGISTRATION, false);
+			Boolean forceServerRegistration = taskParams.getExtras().getBoolean(FORCE_SERVER_REGISTRATION, false);
 			if (forceServerRegistration || !GcmPreferences.isRegisteredOnServer()) {
 				try {
 					LOGGER.info("Registering GCM token on server");
@@ -57,20 +60,21 @@ public class GcmRegistrationService extends WorkerService {
 					GcmPreferences.setRegisteredOnServer(true);
 				} catch (Exception e) {
 					LOGGER.warn("Failed to register the device on server. Will retry later.", e);
-					IntentRetryUtils.retry(intent);
+					return GcmNetworkManager.RESULT_RESCHEDULE;
 				}
 
 				try {
 					subscribeTopics(registrationToken);
 				} catch (Exception e) {
 					LOGGER.warn("Failed to subscribe to topic channels. Will retry later.", e);
-					IntentRetryUtils.retry(intent);
+					return GcmNetworkManager.RESULT_RESCHEDULE;
 				}
 			}
 
 		} else {
 			LOGGER.warn("GCM not initialized because Google Play Services is not available");
 		}
+		return GcmNetworkManager.RESULT_SUCCESS;
 	}
 
 	/**
@@ -90,9 +94,18 @@ public class GcmRegistrationService extends WorkerService {
 	}
 
 	public static void start(Boolean forceServerRegistration) {
-		Intent intent = new Intent();
-		intent.putExtra(FORCE_SERVER_REGISTRATION, forceServerRegistration);
-		WorkerService.runIntentInService(AbstractApplication.get(), intent, GcmRegistrationService.class);
+
+		Bundle bundle = new Bundle();
+		bundle.putBoolean(FORCE_SERVER_REGISTRATION, forceServerRegistration);
+
+		OneoffTask.Builder builder = new OneoffTask.Builder();
+		builder.setService(GcmRegistrationService.class);
+		builder.setExecutionWindow(0, 5);
+		builder.setPersisted(true);
+		builder.setTag(GcmRegistrationService.class.getSimpleName());
+		builder.setExtras(bundle);
+		builder.build();
+		GcmNetworkManager.getInstance(AbstractApplication.get()).schedule(builder.build());
 
 	}
 

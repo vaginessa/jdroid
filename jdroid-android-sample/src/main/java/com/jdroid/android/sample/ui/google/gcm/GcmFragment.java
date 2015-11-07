@@ -3,16 +3,13 @@ package com.jdroid.android.sample.ui.google.gcm;
 import android.os.Bundle;
 import android.view.View;
 
-import com.google.android.gms.iid.InstanceID;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.google.gcm.GcmPreferences;
 import com.jdroid.android.google.gcm.GcmRegistrationService;
+import com.jdroid.android.google.instanceid.InstanceIdHelper;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.api.SampleApiService;
 import com.jdroid.java.concurrent.ExecutorUtils;
-import com.jdroid.java.exception.UnexpectedException;
-
-import java.io.IOException;
 
 public class GcmFragment extends AbstractFragment {
 
@@ -50,12 +47,8 @@ public class GcmFragment extends AbstractFragment {
 				ExecutorUtils.execute(new Runnable() {
 					@Override
 					public void run() {
-						try {
-							InstanceID.getInstance(getActivity()).deleteInstanceID();
-							GcmPreferences.clearRegistrationToken();
-						} catch (IOException e) {
-							throw new UnexpectedException(e);
-						}
+						InstanceIdHelper.removeInstanceId();
+						GcmPreferences.clearRegistrationToken();
 					}
 				});
 			}

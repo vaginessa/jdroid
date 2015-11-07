@@ -1,4 +1,4 @@
-package com.jdroid.android.instanceid;
+package com.jdroid.android.google.instanceid;
 
 import com.google.android.gms.iid.InstanceIDListenerService;
 import com.jdroid.android.application.AbstractApplication;

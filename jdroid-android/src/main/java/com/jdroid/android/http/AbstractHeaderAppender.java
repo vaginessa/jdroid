@@ -1,7 +1,7 @@
 package com.jdroid.android.http;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.instanceid.InstanceIdHelper;
+import com.jdroid.android.google.instanceid.InstanceIdHelper;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.utils.AndroidUtils;
