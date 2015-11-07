@@ -11,6 +11,8 @@ import java.util.Map;
 
 public class GcmMessage implements PushMessage {
 
+	private String googleServerApiKey;
+
 	// Required. This parameter specifies the recipient of a message. The value must be a registration token, notification key, or topic
 	private String to;
 
@@ -174,5 +176,13 @@ public class GcmMessage implements PushMessage {
 				", timeToLive=" + timeToLive +
 				", data=" + data +
 				'}';
+	}
+
+	public String getGoogleServerApiKey() {
+		return googleServerApiKey;
+	}
+
+	public void setGoogleServerApiKey(String googleServerApiKey) {
+		this.googleServerApiKey = googleServerApiKey;
 	}
 }

@@ -10,8 +10,8 @@
 
 		var url = "api/gcm/send?";
 
-		url += "registrationToken="
-				+ document.getElementById("registrationToken").value;
+		url += "googleServerApiKey=" + document.getElementById("googleServerApiKey").value;
+		url += "&registrationToken=" + document.getElementById("registrationToken").value;
 		url += "&messageKeyExtraName=" + document.getElementById("messageKeyExtraName").value;
 		url += "&messageKey=" + document.getElementById("messageKey").value;
 		url += "&collapseKey=" + document.getElementById("collapseKey").value;
@@ -91,7 +91,9 @@
 </head>
 <body>
 	<h1>GCM Push Sender</h1>
-	Registration Token
+	Google Server Api Key
+	<input id="googleServerApiKey" type="text" />
+	<br />Registration Token
 	<input id="registrationToken" type="text" />
 	<br /> Message key extra name
 	<input id="messageKeyExtraName" type="text" value="messageKey" />

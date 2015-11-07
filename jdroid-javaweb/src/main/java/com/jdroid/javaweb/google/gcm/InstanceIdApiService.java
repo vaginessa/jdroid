@@ -5,15 +5,14 @@ import com.jdroid.java.http.HttpService;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.http.Server;
 import com.jdroid.javaweb.api.ServerApiService;
-import com.jdroid.javaweb.context.Application;
 
 public class InstanceIdApiService extends ServerApiService {
 
-	public void verify(String instanceIdToken) {
+	public void verify(String instanceIdToken, String googleServerApiKey) {
 		HttpService httpService = newGetService(instanceIdToken);
 		httpService.addQueryParameter("details", "true");
 		httpService.addHeader(HttpService.CONTENT_TYPE_HEADER, MimeType.JSON);
-		httpService.addHeader("Authorization", "key=" + Application.get().getAppContext().getGoogleServerApiKey());
+		httpService.addHeader("Authorization", "key=" + googleServerApiKey);
 		httpService.setSsl(true);
 		httpService.execute(new InstanceIdParser());
 	}

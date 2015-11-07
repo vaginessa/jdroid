@@ -5,6 +5,8 @@ import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.LoggerUtils;
+import com.jdroid.java.utils.StringUtils;
+import com.jdroid.javaweb.context.Application;
 import com.jdroid.javaweb.push.DeviceType;
 import com.jdroid.javaweb.push.PushMessage;
 import com.jdroid.javaweb.push.PushMessageSender;
@@ -78,8 +80,9 @@ public class GcmSender implements PushMessageSender {
 	
 
 	private PushResponse sendNoRetry(GcmMessage gcmMessage) {
-		
-		GcmResponse gcmResponse = gcmApiService.sendMessage(gcmMessage);
+
+		String googleServerApiKey = StringUtils.isNotBlank(gcmMessage.getGoogleServerApiKey()) ? gcmMessage.getGoogleServerApiKey() : Application.get().getAppContext().getGoogleServerApiKey();
+		GcmResponse gcmResponse = gcmApiService.sendMessage(gcmMessage, googleServerApiKey);
 
 		PushResponse pushResponse = new PushResponse(DeviceType.ANDROID);
 		if (!gcmResponse.isOk()) {

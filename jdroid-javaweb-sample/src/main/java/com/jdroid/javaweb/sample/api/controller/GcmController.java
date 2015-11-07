@@ -32,14 +32,15 @@ public class GcmController extends AbstractController {
 	private DeviceRepository deviceRepository;
 	
 	@RequestMapping(value = "/send", method = RequestMethod.GET)
-	public void send(@RequestParam(required = false) String registrationToken, @RequestParam String messageKeyExtraName,
+	public void send(@RequestParam(required = false) String googleServerApiKey, @RequestParam(required = false) String registrationToken,
+					 @RequestParam String messageKeyExtraName,
 					 @RequestParam String messageKey, @RequestParam(required = false) String collapseKey,
 					 @RequestParam(required = false) String highPriority, @RequestParam(required = false) String delayWhileIdle,
 					 @RequestParam(required = false) Integer timeToLive, @RequestParam(required = false) String timestampEnabled,
 					 @RequestParam(required = false) String params) {
 
 		GcmMessage pushMessage = new GcmMessage(messageKeyExtraName, messageKey);
-
+		pushMessage.setGoogleServerApiKey(googleServerApiKey);
 		if (StringUtils.isNotEmpty(registrationToken)) {
 			pushMessage.setTo(registrationToken);
 		} else {
@@ -76,7 +77,7 @@ public class GcmController extends AbstractController {
 		List<Device> devices = deviceRepository.getAll();
 //		InstanceIdApiService instanceIdApiService = new InstanceIdApiService();
 //		for(Device device : devices) {
-//			instanceIdApiService.verify(device.getRegistrationToken());
+//			instanceIdApiService.verify(device.getRegistrationToken(), Application.get().getAppContext().getGoogleServerApiKey());
 //		}
 		return marshall(devices);
 	}
