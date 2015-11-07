@@ -24,6 +24,13 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class OkHttpService extends AbstractHttpService {
 
+	static {
+		// This is to avoid exceptions like "java.net.ProtocolException: Unexpected status line:..." that occurs in some
+		// cases when HTTP connections are reused. This issue, according to the tests carried out, seems to happen in the app
+		// only in some cases when a connection is reused after a response code 204.
+		System.setProperty("http.keepAlive", "false");
+	}
+
 	public OkHttpService(Server server, List<Object> urlSegments, List<HttpServiceProcessor> httpServiceProcessors) {
 		super(server, urlSegments, httpServiceProcessors);
 	}
