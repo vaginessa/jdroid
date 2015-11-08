@@ -87,4 +87,9 @@ public abstract class AbstractGcmAppModule extends AbstractAppModule {
 		GcmPreferences.clearRegistrationToken();
 		GcmRegistrationService.start();
 	}
+
+	@Override
+	public void onGooglePlayServicesUpdated() {
+		GcmRegistrationService.start();
+	}
 }

@@ -24,6 +24,8 @@ public interface AppModule {
 
 	public void onInstanceIdTokenRefresh();
 
+	public void onGooglePlayServicesUpdated();
+
 	public List<? extends AnalyticsTracker> getAnalyticsTrackers();
 
 	public List<Kit> getFabricKits();

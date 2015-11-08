@@ -70,11 +70,11 @@ public class GcmRegistrationService extends GcmTaskService {
 					return GcmNetworkManager.RESULT_RESCHEDULE;
 				}
 			}
-
+			return GcmNetworkManager.RESULT_SUCCESS;
 		} else {
 			LOGGER.warn("GCM not initialized because Google Play Services is not available");
+			return GcmNetworkManager.RESULT_RESCHEDULE;
 		}
-		return GcmNetworkManager.RESULT_SUCCESS;
 	}
 
 	/**
@@ -105,7 +105,10 @@ public class GcmRegistrationService extends GcmTaskService {
 		builder.setTag(GcmRegistrationService.class.getSimpleName());
 		builder.setExtras(bundle);
 		builder.build();
+
+		LOGGER.info("Scheduling GCM Registration");
 		GcmNetworkManager.getInstance(AbstractApplication.get()).schedule(builder.build());
+
 
 	}
 

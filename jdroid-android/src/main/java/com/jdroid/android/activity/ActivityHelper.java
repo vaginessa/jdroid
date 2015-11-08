@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -27,10 +28,12 @@ import com.jdroid.android.R;
 import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.context.UsageStats;
 import com.jdroid.android.domain.User;
+import com.jdroid.android.google.GooglePlayServicesUtils;
 import com.jdroid.android.google.inappbilling.InAppBillingHelper;
 import com.jdroid.android.loading.ActivityLoading;
 import com.jdroid.android.loading.DefaultBlockingLoading;
@@ -65,7 +68,10 @@ public class ActivityHelper implements ActivityIf {
 	
 	private NavDrawer navDrawer;
 
+	private Dialog googlePlayServicesErrorDialog;
+
 	private static Boolean firstAppLoad;
+	private static Boolean isGooglePlayServicesAvailable;
 
 	public ActivityHelper(AbstractFragmentActivity activity) {
 		this.activity = activity;
@@ -261,6 +267,21 @@ public class ActivityHelper implements ActivityIf {
 		AbstractApplication.get().setInBackground(false);
 		AbstractApplication.get().setCurrentActivity(activity);
 
+		if (getActivityIf().googlePlayServicesVerificationEnabled()) {
+			if (googlePlayServicesErrorDialog != null) {
+				googlePlayServicesErrorDialog.dismiss();
+			}
+			Boolean oldIsGooglePlayServicesAvailable = isGooglePlayServicesAvailable;
+			GooglePlayServicesUtils.GooglePlayServicesResponse googlePlayServicesResponse = GooglePlayServicesUtils.verifyGooglePlayServices(activity);
+			googlePlayServicesErrorDialog = googlePlayServicesResponse.getDialog();
+			isGooglePlayServicesAvailable = googlePlayServicesResponse.isAvailable();
+			if (oldIsGooglePlayServicesAvailable != null && !oldIsGooglePlayServicesAvailable && isGooglePlayServicesAvailable) {
+				for (AppModule appModule : AbstractApplication.get().getAppModules()) {
+					appModule.onGooglePlayServicesUpdated();
+				}
+			}
+		}
+
 		if (adHelper != null) {
 			adHelper.onResume();
 		}
@@ -269,7 +290,12 @@ public class ActivityHelper implements ActivityIf {
 			navDrawer.onResume();
 		}
 	}
-	
+
+	@Override
+	public Boolean googlePlayServicesVerificationEnabled() {
+		return false;
+	}
+
 	public void onBeforePause() {
 		if (adHelper != null) {
 			adHelper.onPause();

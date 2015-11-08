@@ -364,6 +364,11 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 		return activityHelper.getUriHandler();
 	}
 
+	@Override
+	public Boolean googlePlayServicesVerificationEnabled() {
+		return activityHelper.googlePlayServicesVerificationEnabled();
+	}
+
 	// //////////////////////// Loading //////////////////////// //
 	
 	/**

@@ -20,17 +20,21 @@ public class GooglePlayServicesUtils {
 
 	private static String advertisingId;
 
-	public static Boolean verifyGooglePlayServices(Activity activity) {
+	public static GooglePlayServicesResponse verifyGooglePlayServices(Activity activity) {
 		Integer resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity);
 		if (resultCode == ConnectionResult.SUCCESS) {
-			return true;
+			return new GooglePlayServicesResponse();
 		} else {
-			Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, activity, 0);
-			if (dialog != null) {
-				//This dialog will help the user update to the latest GooglePlayServices
-				dialog.show();
+			LOGGER.info("Google Play Services result code: " +  resultCode);
+			Dialog dialog = null;
+			if (resultCode != ConnectionResult.SERVICE_MISSING) {
+				dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, activity, 0);
+				if (dialog != null) {
+					//This dialog will help the user update to the latest GooglePlayServices
+					dialog.show();
+				}
 			}
-			return false;
+			return new GooglePlayServicesResponse(dialog, resultCode);
 		}
 	}
 
@@ -51,5 +55,34 @@ public class GooglePlayServicesUtils {
 			}
 		}
 		return advertisingId;
+	}
+
+	public static class GooglePlayServicesResponse {
+
+		private Boolean isAvailable;
+		private Dialog dialog;
+		private Integer resultCode;
+
+		public GooglePlayServicesResponse() {
+			isAvailable = true;
+		}
+
+		public GooglePlayServicesResponse(Dialog dialog, Integer resultCode) {
+			isAvailable = false;
+			this.dialog = dialog;
+			this.resultCode = resultCode;
+		}
+
+		public Boolean isAvailable() {
+			return isAvailable;
+		}
+
+		public Dialog getDialog() {
+			return dialog;
+		}
+
+		public Integer getResultCode() {
+			return resultCode;
+		}
 	}
 }

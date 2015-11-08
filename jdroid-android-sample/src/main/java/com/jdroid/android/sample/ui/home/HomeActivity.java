@@ -44,4 +44,9 @@ public class HomeActivity extends FragmentContainerActivity {
 	public UriHandler getUriHandler() {
 		return new NoSegmentsUriHandler();
 	}
+
+	@Override
+	public Boolean googlePlayServicesVerificationEnabled() {
+		return true;
+	}
 }
