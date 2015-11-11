@@ -22,9 +22,19 @@ public class GcmListenerResolver {
 
 		GcmMessageResolver gcmResolver = AbstractGcmAppModule.get().getGcmMessageResolver();
 		if (gcmResolver != null) {
-			GcmMessage gcmMessage = gcmResolver.resolve(from, data);
+			GcmMessage gcmMessage = null;
+			try {
+				gcmMessage = gcmResolver.resolve(from, data);
+			} catch (Exception e) {
+				AbstractApplication.get().getExceptionHandler().logHandledException("Error when resolving gcm message", e);
+			}
+
 			if (gcmMessage != null) {
-				gcmMessage.handle(from, data);
+				try {
+					gcmMessage.handle(from, data);
+				} catch (Exception e) {
+					AbstractApplication.get().getExceptionHandler().logHandledException("Error when handling gcm message", e);
+				}
 			} else {
 				LOGGER.warn("The GCM message was not resolved");
 			}
