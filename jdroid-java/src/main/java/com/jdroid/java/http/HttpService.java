@@ -23,7 +23,7 @@ public interface HttpService {
 	
 	public <T> T execute(Parser parser);
 	
-	public <T> T execute();
+	public void execute();
 	
 	/**
 	 * @param name The header name.

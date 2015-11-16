@@ -82,13 +82,9 @@ public abstract class AbstractMockHttpService implements MultipartHttpService {
 		}
 	}
 	
-	/**
-	 * @see HttpService#execute()
-	 */
-	@SuppressWarnings("unchecked")
 	@Override
-	public <T> T execute() {
-		return (T)execute(null);
+	public void execute() {
+		execute(null);
 	}
 	
 	protected void simulateCrash() {

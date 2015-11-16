@@ -66,18 +66,12 @@ public abstract class AbstractHttpService implements HttpService {
 		}
 	}
 
-	/**
-	 * @see HttpService#execute()
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public final <T> T execute() {
-		return (T)execute(null);
+	public final void execute() {
+		execute(null);
 	}
 
-	/**
-	 * @see HttpService#execute(Parser)
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T execute(Parser parser) {

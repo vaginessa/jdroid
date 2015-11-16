@@ -51,12 +51,9 @@ public abstract class CachedHttpService implements BodyEnclosingHttpService {
 	
 	protected abstract File getHttpCacheDirectory(Cache cache);
 	
-	/**
-	 * @see HttpService#execute()
-	 */
 	@Override
-	public <T> T execute() {
-		return httpService.execute();
+	public void execute() {
+		httpService.execute();
 	}
 	
 	@SuppressWarnings({ "resource", "unchecked" })
