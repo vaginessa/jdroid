@@ -150,22 +150,24 @@ public class ApiExceptionHandler extends AbstractHandlerExceptionResolver {
 			} else {
 				error = handleException(exception);
 			}
+
+			setHeaderStatus(webRequest, error);
 			modelAndView = getModelAndView(webRequest, error);
 			
 		} catch (Exception invocationEx) {
 			LOGGER.error("Error resolving ModelAndView for Exception [" + exception + "]", invocationEx);
 			error = null;
-			modelAndView = new ModelAndView();
-		} finally {
 			setHeaderStatus(webRequest, error);
+			modelAndView = new ModelAndView();
 		}
 		return modelAndView;
 	}
 	
 	protected void setHeaderStatus(ServletWebRequest webRequest, ApiError error) {
 		if (!WebUtils.isIncludeRequest(webRequest.getRequest())) {
-			webRequest.getResponse().setStatus(
-				error != null ? error.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR.value());
+			int status = error != null ? error.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR.value();
+			webRequest.getResponse().setStatus(status);
+			LOGGER.info("Http Response Status: " + status);
 			webRequest.getResponse().setHeader(STATUS_CODE_HEADER, error != null ? error.getCode() : "500");
 		}
 	}
