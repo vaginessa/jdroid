@@ -168,7 +168,7 @@ public enum DataType {
 		@Override
 		public <T> void writeValue(ContentValues values, String columnName, T value) {
 			if (value != null) {
-				values.put(columnName, DateUtils.format((Date)value, DateTimeFormat.YYYYMMDDHHMMSS_DATE_FORMAT));
+				values.put(columnName, DateUtils.format((Date)value, DateTimeFormat.YYYYMMDDHHMMSS));
 			} else {
 				values.putNull(columnName);
 			}
@@ -182,7 +182,7 @@ public enum DataType {
 				return null;
 			}
 			String date = cursor.getString(columnIndex);
-			return DateUtils.parse(date, DateTimeFormat.YYYYMMDDHHMMSS_DATE_FORMAT);
+			return DateUtils.parse(date, DateTimeFormat.YYYYMMDDHHMMSS);
 		}
 		
 	},
@@ -191,7 +191,7 @@ public enum DataType {
 		@Override
 		public <T> void writeValue(ContentValues values, String columnName, T value) {
 			if (value != null) {
-				values.put(columnName, DateUtils.format((Date)value, DateTimeFormat.YYYYMMDDHHMMSSSSS_DATE_FORMAT));
+				values.put(columnName, DateUtils.format((Date)value, DateTimeFormat.YYYYMMDDHHMMSSSSS));
 			} else {
 				values.putNull(columnName);
 			}
@@ -205,7 +205,7 @@ public enum DataType {
 				return null;
 			}
 			String date = cursor.getString(columnIndex);
-			return DateUtils.parse(date, DateTimeFormat.YYYYMMDDHHMMSSSSS_DATE_FORMAT);
+			return DateUtils.parse(date, DateTimeFormat.YYYYMMDDHHMMSSSSS);
 		}
 		
 	},
@@ -214,7 +214,7 @@ public enum DataType {
 		@Override
 		public <T> void writeValue(ContentValues values, String columnName, T value) {
 			if (value != null) {
-				values.put(columnName, DateUtils.format((Date)value, DateTimeFormat.YYYYMMDDHHMMSSZ_DATE_FORMAT));
+				values.put(columnName, DateUtils.format((Date)value, DateTimeFormat.YYYYMMDDHHMMSSZ));
 			} else {
 				values.putNull(columnName);
 			}
@@ -228,7 +228,7 @@ public enum DataType {
 				return null;
 			}
 			String date = cursor.getString(columnIndex);
-			return DateUtils.parse(date, DateTimeFormat.YYYYMMDDHHMMSSZ_DATE_FORMAT);
+			return DateUtils.parse(date, DateTimeFormat.YYYYMMDDHHMMSSZ);
 		}
 		
 	},

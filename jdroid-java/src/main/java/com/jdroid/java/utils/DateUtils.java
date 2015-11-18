@@ -47,7 +47,7 @@ public abstract class DateUtils {
 	/** Number of hours in a day **/
 	public static final int HOURS_PER_DAY = 24;
 
-	public static String DEFAULT_DATE_TIME_FORMAT = DateTimeFormat.YYYYMMDDHHMMSSZ_DATE_FORMAT;
+	public static String DEFAULT_DATE_TIME_FORMAT = DateTimeFormat.YYYYMMDDHHMMSSZ;
 	
 	public enum DayOfWeek {
 		
@@ -147,7 +147,7 @@ public abstract class DateUtils {
 		int day = DateUtils.getDayOfMonth(date);
 		String ordinalSuffix = NumberUtils.getOrdinalSuffix(day);
 		StringBuilder builder = new StringBuilder();
-		builder.append(format(date, DateTimeFormat.EEEEMMMM_DATE_FORMAT));
+		builder.append(format(date, DateTimeFormat.EEEEMMMM));
 		builder.append(" ");
 		builder.append(day);
 		builder.append(ordinalSuffix);

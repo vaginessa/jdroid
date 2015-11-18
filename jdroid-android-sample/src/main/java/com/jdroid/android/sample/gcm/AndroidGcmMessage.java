@@ -32,7 +32,7 @@ public enum AndroidGcmMessage implements GcmMessage {
 			String description = LocalizationUtils.getString(R.string.notificationDescription);
 			Long timestamp = NumberUtils.getLong(data.getString("timestamp"));
 			if (timestamp != null) {
-				description = DateUtils.format(new Date(timestamp), DateTimeFormat.YYYYMMDDHHMMSSSSS_DATE_FORMAT);
+				description = DateUtils.format(new Date(timestamp), DateTimeFormat.YYYYMMDDHHMMSSSSS);
 			}
 			builder.setContentText(description);
 			builder.setWhen(System.currentTimeMillis());

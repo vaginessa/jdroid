@@ -56,7 +56,7 @@ public class DateButton extends Button {
 	
 	public void setDate(Date date) {
 		this.date = date;
-		setText(DateUtils.format(date, DateTimeFormat.EEMMMDYYYY_DATE_FORMAT));
+		setText(DateUtils.format(date, DateTimeFormat.EEMMMDYYYY));
 	}
 	
 	public Date getDate() {
