@@ -22,7 +22,7 @@ fi
 # jdroid javaweb sample
 # ************************
 
-./gradlew :jdroid-java:clean :jdroid-java:build :jdroid-java:test :jdroid-java-http-apache:build :jdroid-java-http-apache:test :jdroid-java-http-urlconnection:build :jdroid-java-http-urlconnection:test :jdroid-java-http-okhttp:build :jdroid-java-http-okhttp:test :jdroid-javaweb:clean :jdroid-javaweb:build :jdroid-javaweb:test :jdroid-javaweb-sample:build --configure-on-demand
+./gradlew :jdroid-java:clean :jdroid-java:build :jdroid-java:test :jdroid-java-http-okhttp:build :jdroid-java-http-okhttp:test :jdroid-javaweb:clean :jdroid-javaweb:build :jdroid-javaweb:test :jdroid-javaweb-sample:build --configure-on-demand
 
 # ************************
 # jdroid android sample
@@ -36,6 +36,6 @@ fi
 
 if [ "$UPLOAD" = "true" ]
 then
-	./gradlew :jdroid-gradle-plugin:uploadArchives :jdroid-java:uploadArchives :jdroid-java-http-apache:uploadArchives :jdroid-java-http-urlconnection:uploadArchives :jdroid-java-http-okhttp:uploadArchives :jdroid-javaweb:uploadArchives --configure-on-demand
+	./gradlew :jdroid-gradle-plugin:uploadArchives :jdroid-java:uploadArchives :jdroid-java-http-okhttp:uploadArchives :jdroid-javaweb:uploadArchives --configure-on-demand
 	#./gradlew :jdroid-android:uploadArchives :jdroid-android-facebook:uploadArchives :jdroid-android-google-maps:uploadArchives :jdroid-android-google-gcm:uploadArchives :jdroid-android-google-plus:uploadArchives :jdroid-android-about:uploadArchives
 fi
