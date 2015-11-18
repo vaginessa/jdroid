@@ -21,20 +21,10 @@ Dependency for both Android & Java apps
 * Exception handling
 * Utilities for Collections, Strings, Dates, Files, Encryption, Threads, [Logging](http://www.slf4j.org/), Validations, Reflection and more
 
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-http-apache](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
------------
-* HTTP Service Layer
- * [Apache HTTP Client implementation](https://hc.apache.org/)
-
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-http-okhttp](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
 -----------
 * HTTP Service Layer
  * [OkHttp Implementation](http://square.github.io/okhttp/)
-
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-http-urlconnection](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
------------
-* HTTP Service Layer
- * Url Connection implementation
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
