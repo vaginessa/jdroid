@@ -7,7 +7,7 @@ import org.gradle.api.tasks.TaskAction
 public class VerifyMissingTranslationsTask extends DefaultTask {
 
 	public VerifyMissingTranslationsTask() {
-		description = 'Verify if there are missing translations ("TODO") on any string resource.'n
+		description = 'Verify if there are missing translations ("TODO") on any string resource.'
 		group = JavaBasePlugin.VERIFICATION_GROUP
 	}
 
