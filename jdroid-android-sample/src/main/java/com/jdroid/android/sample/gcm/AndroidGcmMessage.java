@@ -8,6 +8,7 @@ import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
+import com.jdroid.java.utils.DateTimeFormat;
 import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.NumberUtils;
@@ -31,7 +32,7 @@ public enum AndroidGcmMessage implements GcmMessage {
 			String description = LocalizationUtils.getString(R.string.notificationDescription);
 			Long timestamp = NumberUtils.getLong(data.getString("timestamp"));
 			if (timestamp != null) {
-				description = DateUtils.format(new Date(timestamp), DateUtils.YYYYMMDDHHMMSSSSS_DATE_FORMAT);
+				description = DateUtils.format(new Date(timestamp), DateTimeFormat.YYYYMMDDHHMMSSSSS_DATE_FORMAT);
 			}
 			builder.setContentText(description);
 			builder.setWhen(System.currentTimeMillis());

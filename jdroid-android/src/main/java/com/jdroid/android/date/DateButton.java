@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 
+import com.jdroid.java.utils.DateTimeFormat;
 import com.jdroid.java.utils.DateUtils;
 
 import java.util.Date;
@@ -55,7 +56,7 @@ public class DateButton extends Button {
 	
 	public void setDate(Date date) {
 		this.date = date;
-		setText(DateUtils.format(date, DateUtils.EEMMMDYYYY_DATE_FORMAT));
+		setText(DateUtils.format(date, DateTimeFormat.EEMMMDYYYY_DATE_FORMAT));
 	}
 	
 	public Date getDate() {

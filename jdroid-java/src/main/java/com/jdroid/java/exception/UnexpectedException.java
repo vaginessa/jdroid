@@ -23,9 +23,6 @@ public class UnexpectedException extends ErrorCodeException {
 		useCause = true;
 	}
 	
-	/**
-	 * @see com.jdroid.java.exception.AbstractException#getThrowableToLog()
-	 */
 	@Override
 	public Throwable getThrowableToLog() {
 		return (getCause() != null) && useCause ? getCause() : super.getThrowableToLog();

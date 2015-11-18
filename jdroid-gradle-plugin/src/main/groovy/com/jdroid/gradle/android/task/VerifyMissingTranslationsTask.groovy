@@ -7,14 +7,14 @@ import org.gradle.api.tasks.TaskAction
 public class VerifyMissingTranslationsTask extends DefaultTask {
 
 	public VerifyMissingTranslationsTask() {
-		description = 'Verify if there are missing translations ("TODO") on any string resource.'
+		description = 'Verify if there are missing translations ("TODO") on any string resource.'n
 		group = JavaBasePlugin.VERIFICATION_GROUP
 	}
 
 	@TaskAction
 	public void doExecute() {
 
-		Boolean error = false;
+		String errorMessage = null;
 
 		for (String resourceDirPath in project.jdroid.resourcesDirsPaths) {
 			File resDirFile = project.file(resourceDirPath)
@@ -26,8 +26,7 @@ public class VerifyMissingTranslationsTask extends DefaultTask {
 						File resourceFile = new File(resourceFilePath)
 						if (resourceFile.exists()) {
 							if (resourceFile.text.contains("TODO")) {
-								println 'Missing translations (TODO) on ' + resourceFilePath
-								error = true
+								errorMessage = 'Missing translations (TODO) on ' + resourceFilePath
 							} else {
 								println "Not Missing translations (TODO) on " + resourceFilePath
 							}
@@ -37,8 +36,8 @@ public class VerifyMissingTranslationsTask extends DefaultTask {
 			}
 		}
 
-		if (error) {
-			throw new GradleException()
+		if (errorMessage != null) {
+			throw new GradleException(errorMessage)
 		}
 	}
 }

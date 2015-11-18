@@ -7,6 +7,7 @@ import com.jdroid.android.utils.AndroidEncryptionUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.json.JSONObject;
 import com.jdroid.java.http.parser.json.JsonParser;
+import com.jdroid.java.utils.DateTimeFormat;
 import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.StringUtils;
 
@@ -167,7 +168,7 @@ public enum DataType {
 		@Override
 		public <T> void writeValue(ContentValues values, String columnName, T value) {
 			if (value != null) {
-				values.put(columnName, DateUtils.format((Date)value, DateUtils.YYYYMMDDHHMMSS_DATE_FORMAT));
+				values.put(columnName, DateUtils.format((Date)value, DateTimeFormat.YYYYMMDDHHMMSS_DATE_FORMAT));
 			} else {
 				values.putNull(columnName);
 			}
@@ -181,7 +182,7 @@ public enum DataType {
 				return null;
 			}
 			String date = cursor.getString(columnIndex);
-			return DateUtils.parse(date, DateUtils.YYYYMMDDHHMMSS_DATE_FORMAT);
+			return DateUtils.parse(date, DateTimeFormat.YYYYMMDDHHMMSS_DATE_FORMAT);
 		}
 		
 	},
@@ -190,7 +191,7 @@ public enum DataType {
 		@Override
 		public <T> void writeValue(ContentValues values, String columnName, T value) {
 			if (value != null) {
-				values.put(columnName, DateUtils.format((Date)value, DateUtils.YYYYMMDDHHMMSSSSS_DATE_FORMAT));
+				values.put(columnName, DateUtils.format((Date)value, DateTimeFormat.YYYYMMDDHHMMSSSSS_DATE_FORMAT));
 			} else {
 				values.putNull(columnName);
 			}
@@ -204,7 +205,7 @@ public enum DataType {
 				return null;
 			}
 			String date = cursor.getString(columnIndex);
-			return DateUtils.parse(date, DateUtils.YYYYMMDDHHMMSSSSS_DATE_FORMAT);
+			return DateUtils.parse(date, DateTimeFormat.YYYYMMDDHHMMSSSSS_DATE_FORMAT);
 		}
 		
 	},
@@ -213,7 +214,7 @@ public enum DataType {
 		@Override
 		public <T> void writeValue(ContentValues values, String columnName, T value) {
 			if (value != null) {
-				values.put(columnName, DateUtils.format((Date)value, DateUtils.YYYYMMDDHHMMSSZ_DATE_FORMAT));
+				values.put(columnName, DateUtils.format((Date)value, DateTimeFormat.YYYYMMDDHHMMSSZ_DATE_FORMAT));
 			} else {
 				values.putNull(columnName);
 			}
@@ -227,7 +228,7 @@ public enum DataType {
 				return null;
 			}
 			String date = cursor.getString(columnIndex);
-			return DateUtils.parse(date, DateUtils.YYYYMMDDHHMMSSZ_DATE_FORMAT);
+			return DateUtils.parse(date, DateTimeFormat.YYYYMMDDHHMMSSZ_DATE_FORMAT);
 		}
 		
 	},

@@ -29,136 +29,25 @@ public abstract class DateUtils {
 	/** Seconds in a week */
 	public static final int WEEK = SECONDS_PER_DAY * 7;
 	
-	/** Number of milliseconds in a standard second. */
+	/** Number of milliseconds in a second. */
 	public static final long MILLIS_PER_SECOND = 1000;
 	
-	/** Number of milliseconds in a standard minute. */
+	/** Number of milliseconds in a minute. */
 	public static final long MILLIS_PER_MINUTE = 60 * MILLIS_PER_SECOND;
 	
-	/** Number of milliseconds in a standard hour. */
+	/** Number of milliseconds in a hour. */
 	public static final long MILLIS_PER_HOUR = 60 * MILLIS_PER_MINUTE;
 	
-	/** Number of milliseconds in a standard day. */
+	/** Number of milliseconds in a day. */
 	public static final long MILLIS_PER_DAY = 24 * MILLIS_PER_HOUR;
-	
-	/**
-	 * Date format like yyyy-MM-ddTHH:mm:ss Z
-	 */
-	public static final String YYYYMMDDTHHMMSSZ_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZZZZ";
-	
-	/**
-	 * Date format like yyyy-MM-dd HH:mm:ss Z
-	 */
-	public static final String YYYYMMDDHHMMSSZ_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss Z";
-	
-	/**
-	 * Date format like 2010-10-25 21:30:00
-	 */
-	public static final String YYYYMMDDHHMMSS_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-	/**
-	 * Date format like 2010-10-25 21:30:00.123
-	 */
-	public static final String YYYYMMDDHHMMSSSSS_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
-	
-	/**
-	 * Date format like 10/25/2010 21:30
-	 */
-	public static final String MMDDYYYYHHMM_DATE_FORMAT = "MM/dd/yyyy HH:mm";
-	
-	/**
-	 * Date format like 10/25/2010
-	 */
-	public static final String MMDDYYYY_DATE_FORMAT = "MM/dd/yyyy";
-	
-	/**
-	 * Date format like 10-25-2010
-	 */
-	public static final String MMDDYYYY_SLASH_DATE_FORMAT = "MM-dd-yyyy";
-	
-	/**
-	 * Date format like 2010-10-25
-	 */
-	public static final String YYYYMMDD_DATE_FORMAT = "yyyy-MM-dd";
-	
-	/**
-	 * Date format like Fri 5:15 AM
-	 */
-	public static final String EHHMMAA_DATE_FORMAT = "E hh:mm aa";
-	
-	/**
-	 * Date format like Fri
-	 */
-	public static final String E_DATE_FORMAT = "E";
-	
-	/**
-	 * Date format like Friday
-	 */
-	public static final String EEEE_DATE_FORMAT = "EEEE";
-	
-	/**
-	 * Date format like Nov 5 3:45 PM
-	 */
-	public static final String MMMDHHMMAA_DATE_FORMAT = "MMM d hh:mm aa";
-	
-	/**
-	 * Date format like Nov 5 1985 3:45 PM
-	 */
-	public static final String MMMDYYYYHHMMAA_DATE_FORMAT = "MMM d yyyy hh:mm aa";
-	
-	/**
-	 * Date format like Nov 5 1985
-	 */
-	public static final String MMMDYYYY_DATE_FORMAT = "MMM d yyyy";
-	
-	/**
-	 * Date format like Monday Nov 5 1985
-	 */
-	public static final String EEEE_MMMDYYYY_DATE_FORMAT = "EEEE MMM d yyyy";
-	
-	/**
-	 * Date format like Nov 5
-	 */
-	public static final String MMMD_DATE_FORMAT = "MMM d";
-	
-	/**
-	 * Date format like Monday Nov 5
-	 */
-	public static final String EEEE_MMMD_DATE_FORMAT = "EEEE MMM d";
-	
-	/**
-	 * Date format like November 5
-	 */
-	public static final String MMMMD_DATE_FORMAT = "MMMM d";
-	
-	/**
-	 * Date format like 03:45 PM
-	 */
-	public static final String HHMMAA_DATE_FORMAT = "hh:mm aa";
-	
-	/**
-	 * Date format like 21:45
-	 */
-	public static final String HHMM_DATE_FORMAT = "HH:mm";
-	
-	/**
-	 * Date format like 21:45:34
-	 */
-	public static final String HHMMSS_DATE_FORMAT = "HH:mm:ss";
-	
-	/**
-	 * Date format like Friday 5 November
-	 */
-	public static final String EEEEDMMMM_DATE_FORMAT = "EEEE d MMMM";
-	
-	/**
-	 * Date format like Friday November
-	 */
-	public static final String EEEEMMMM_DATE_FORMAT = "EEEE MMMM";
-	
-	/**
-	 * Date format like Sat, Dec 15, 2012
-	 */
-	public static final String EEMMMDYYYY_DATE_FORMAT = "EE, MMM d, yyyy";
+
+	/** Number of milliseconds in a week. */
+	public static final long MILLIS_PER_WEEK = 7 * MILLIS_PER_DAY;
+
+	/** Number of hours in a day **/
+	public static final int HOURS_PER_DAY = 24;
+
+	public static String DEFAULT_DATE_TIME_FORMAT = DateTimeFormat.YYYYMMDDHHMMSSZ_DATE_FORMAT;
 	
 	public enum DayOfWeek {
 		
@@ -258,7 +147,7 @@ public abstract class DateUtils {
 		int day = DateUtils.getDayOfMonth(date);
 		String ordinalSuffix = NumberUtils.getOrdinalSuffix(day);
 		StringBuilder builder = new StringBuilder();
-		builder.append(format(date, EEEEMMMM_DATE_FORMAT));
+		builder.append(format(date, DateTimeFormat.EEEEMMMM_DATE_FORMAT));
 		builder.append(" ");
 		builder.append(day);
 		builder.append(ordinalSuffix);

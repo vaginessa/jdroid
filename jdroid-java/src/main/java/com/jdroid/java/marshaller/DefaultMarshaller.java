@@ -1,9 +1,10 @@
 package com.jdroid.java.marshaller;
 
-import java.util.Date;
-import java.util.Map;
 import com.jdroid.java.utils.DateUtils;
 import com.jdroid.java.utils.StringUtils;
+
+import java.util.Date;
+import java.util.Map;
 
 public class DefaultMarshaller implements Marshaller<Object, Object> {
 	
@@ -18,7 +19,7 @@ public class DefaultMarshaller implements Marshaller<Object, Object> {
 			if (object instanceof Boolean) {
 				marshalled = object;
 			} else if (object instanceof Date) {
-				marshalled = DateUtils.format((Date)object, DateUtils.YYYYMMDDHHMMSSZ_DATE_FORMAT);
+				marshalled = DateUtils.format((Date)object, DateUtils.DEFAULT_DATE_TIME_FORMAT);
 			} else if (object instanceof Number) {
 				marshalled = object;
 			} else {

@@ -1502,7 +1502,7 @@ public class JSONObject {
 	}
 	
 	public Date getDate(String key) {
-		return getDate(key, DateUtils.YYYYMMDDHHMMSSZ_DATE_FORMAT);
+		return getDate(key, DateUtils.DEFAULT_DATE_TIME_FORMAT);
 	}
 	
 	public Date getDate(String key, String dateFormat) {
@@ -1511,7 +1511,7 @@ public class JSONObject {
 	}
 	
 	public Date optDate(String key) {
-		return optDate(key, DateUtils.YYYYMMDDHHMMSSZ_DATE_FORMAT);
+		return optDate(key, DateUtils.DEFAULT_DATE_TIME_FORMAT);
 	}
 	
 	public Date optDate(String key, String dateFormat) {
