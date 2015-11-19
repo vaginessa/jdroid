@@ -23,11 +23,11 @@ public class DateUtilsTest {
 	@DataProvider
 	public Iterator<Object[]> formatDataProvider() {
 		List<Object[]> cases = Lists.newArrayList();
-		cases.add(new Object[] { DateUtils.getDate(2010, Calendar.AUGUST, 10), DateUtils.MMDDYYYY_DATE_FORMAT,
+		cases.add(new Object[] { DateUtils.getDate(2010, Calendar.AUGUST, 10), DateTimeFormat.MMDDYYYY,
 				"08/10/2010" });
-		cases.add(new Object[] { DateUtils.getDate(2010, Calendar.AUGUST, 10), DateUtils.MMDDYYYY_SLASH_DATE_FORMAT,
+		cases.add(new Object[] { DateUtils.getDate(2010, Calendar.AUGUST, 10), DateTimeFormat.MMDDYYYY_SLASH,
 				"08-10-2010" });
-		cases.add(new Object[] { DateUtils.getTime(5, 30, true), DateUtils.HHMMAA_DATE_FORMAT, "05:30 AM" });
+		cases.add(new Object[] { DateUtils.getTime(5, 30, true), DateTimeFormat.HHMMAA, "05:30 AM" });
 		return cases.iterator();
 	}
 	
