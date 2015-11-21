@@ -138,6 +138,10 @@ public abstract class DateUtils {
 		}
 		return date != null ? dateFormat.format(date) : null;
 	}
+
+	public static String formatDateTime(Date date) {
+		return format(date, DateFormat.getDateTimeInstance());
+	}
 	
 	public static String formatDate(Date date) {
 		return format(date, DateFormat.getDateInstance());

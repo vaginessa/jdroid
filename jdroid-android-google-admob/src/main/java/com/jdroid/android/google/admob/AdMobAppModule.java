@@ -3,7 +3,6 @@ package com.jdroid.android.google.admob;
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.debug.PreferencesAppender;
-import com.jdroid.java.collections.Lists;
 
 import java.util.List;
 
@@ -16,6 +15,7 @@ public class AdMobAppModule extends AbstractAppModule {
 	}
 
 	private AdMobAppContext adMobAppContext;
+	private AdMobDebugContext adMobDebugContext;
 
 	public AdMobAppModule() {
 		adMobAppContext = createAdMobAppContext();
@@ -31,12 +31,19 @@ public class AdMobAppModule extends AbstractAppModule {
 
 	@Override
 	public List<PreferencesAppender> getPreferencesAppenders() {
-		List<PreferencesAppender> appenders = Lists.newArrayList();
-		appenders.add(createAdsDebugPrefsAppender());
-		return appenders;
+		return getGcmDebugContext().getPreferencesAppenders();
 	}
 
-	protected AdsDebugPrefsAppender createAdsDebugPrefsAppender() {
-		return new AdsDebugPrefsAppender();
+	public AdMobDebugContext getGcmDebugContext() {
+		synchronized (AbstractApplication.class) {
+			if (adMobDebugContext == null) {
+				adMobDebugContext = createAdMobDebugContext();
+			}
+		}
+		return adMobDebugContext;
+	}
+
+	protected AdMobDebugContext createAdMobDebugContext() {
+		return new AdMobDebugContext();
 	}
 }

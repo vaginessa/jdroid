@@ -4,6 +4,8 @@ import com.jdroid.android.context.AppContext;
 
 public class TestAppContext extends AppContext {
 
+	public static Boolean FAKE_HTTP_ENABLED = true;
+
 	@Override
 	protected String getServerName() {
 		return null;
@@ -16,7 +18,7 @@ public class TestAppContext extends AppContext {
 
 	@Override
 	public Boolean isGoogleAnalyticsEnabled() {
-		return null;
+		return false;
 	}
 
 	@Override
@@ -32,5 +34,10 @@ public class TestAppContext extends AppContext {
 	@Override
 	public String getLocalIp() {
 		return null;
+	}
+
+	@Override
+	public Boolean isHttpMockEnabled() {
+		return FAKE_HTTP_ENABLED;
 	}
 }

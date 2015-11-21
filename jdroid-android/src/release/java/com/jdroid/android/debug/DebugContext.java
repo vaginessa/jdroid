@@ -1,10 +1,13 @@
 package com.jdroid.android.debug;
 
+import android.util.Pair;
+
 import com.jdroid.android.sqlite.SQLiteHelper;
 import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.http.mock.AbstractMockHttpService;
 import com.jdroid.java.repository.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 public class DebugContext {
