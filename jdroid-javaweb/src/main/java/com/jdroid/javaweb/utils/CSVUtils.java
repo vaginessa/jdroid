@@ -2,7 +2,7 @@ package com.jdroid.javaweb.utils;
 
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.NumberUtils;
 import com.jdroid.java.utils.StringUtils;
 

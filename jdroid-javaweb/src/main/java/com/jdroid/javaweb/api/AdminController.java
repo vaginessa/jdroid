@@ -2,7 +2,7 @@ package com.jdroid.javaweb.api;
 
 import com.google.common.collect.Maps;
 import com.jdroid.java.http.MimeType;
-import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.date.DateUtils;
 import com.jdroid.javaweb.context.Application;
 
 import org.springframework.web.bind.annotation.RequestMapping;

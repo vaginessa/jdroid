@@ -1,6 +1,6 @@
 package com.jdroid.android.domain;
 
-import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.date.DateUtils;
 
 public interface User {
 	

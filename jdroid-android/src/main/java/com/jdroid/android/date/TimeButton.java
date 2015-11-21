@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 
-import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.date.DateUtils;
 
 import java.util.Date;
 

@@ -3,7 +3,7 @@ package com.jdroid.android.date;
 import java.text.DateFormat;
 import java.util.Date;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.date.DateUtils;
 
 /**
  * Date Utils that returns formatted times & dates according to the current locale and user preferences

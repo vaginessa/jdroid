@@ -2,7 +2,7 @@ package com.jdroid.android.repository;
 
 import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.repository.InMemoryRepository;
-import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.date.DateUtils;
 
 /**
  * 

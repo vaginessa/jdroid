@@ -5,7 +5,7 @@ import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;

@@ -1,6 +1,8 @@
 package com.jdroid.java.utils;
 
 import com.jdroid.java.collections.Lists;
+import com.jdroid.java.date.DateTimeFormat;
+import com.jdroid.java.date.DateUtils;
 
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -187,7 +189,7 @@ public class DateUtilsTest {
 			boolean expectedResult) {
 		Assert.assertEquals(
 			DateUtils.isAfterEquals(DateUtils.getDate(year, month, date),
-				DateUtils.getDate(yearToCompare, monthToCompare, dateToCompare)), expectedResult);
+					DateUtils.getDate(yearToCompare, monthToCompare, dateToCompare)), expectedResult);
 	}
 	
 	/**
@@ -216,7 +218,7 @@ public class DateUtilsTest {
 			boolean expectedResult) {
 		Assert.assertEquals(
 			DateUtils.isAfter(DateUtils.getDate(year, month, date),
-				DateUtils.getDate(yearToCompare, monthToCompare, dateToCompare)), expectedResult);
+					DateUtils.getDate(yearToCompare, monthToCompare, dateToCompare)), expectedResult);
 	}
 	
 	/**
@@ -245,7 +247,7 @@ public class DateUtilsTest {
 			boolean expectedResult) {
 		Assert.assertEquals(
 			DateUtils.isBeforeEquals(DateUtils.getDate(year, month, date),
-				DateUtils.getDate(yearToCompare, monthToCompare, dateToCompare)), expectedResult);
+					DateUtils.getDate(yearToCompare, monthToCompare, dateToCompare)), expectedResult);
 	}
 	
 	/**
@@ -274,7 +276,7 @@ public class DateUtilsTest {
 			boolean expectedResult) {
 		Assert.assertEquals(
 			DateUtils.isBefore(DateUtils.getDate(year, month, date),
-				DateUtils.getDate(yearToCompare, monthToCompare, dateToCompare)), expectedResult);
+					DateUtils.getDate(yearToCompare, monthToCompare, dateToCompare)), expectedResult);
 	}
 	
 	/**

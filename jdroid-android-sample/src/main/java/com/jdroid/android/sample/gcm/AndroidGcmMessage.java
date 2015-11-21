@@ -8,8 +8,8 @@ import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
-import com.jdroid.java.utils.DateTimeFormat;
-import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.date.DateTimeFormat;
+import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.NumberUtils;
 

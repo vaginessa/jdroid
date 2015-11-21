@@ -14,7 +14,7 @@ package com.jdroid.java.json;
  */
 
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.date.DateUtils;
 
 import java.io.IOException;
 import java.io.StringWriter;

@@ -1,6 +1,6 @@
 package com.jdroid.java.marshaller;
 
-import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.StringUtils;
 
 import java.util.Date;

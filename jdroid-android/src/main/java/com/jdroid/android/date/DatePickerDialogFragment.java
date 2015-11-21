@@ -95,9 +95,9 @@ public class DatePickerDialogFragment extends AbstractDialogFragment implements 
 		dialogBuilder.setView(view);
 		
 		final DatePicker datePicker = (DatePicker)view.findViewById(R.id.datePicker);
-		datePicker.init(com.jdroid.java.utils.DateUtils.getYear(defaultDate),
-			com.jdroid.java.utils.DateUtils.getMonth(defaultDate),
-			com.jdroid.java.utils.DateUtils.getDayOfMonth(defaultDate), this);
+		datePicker.init(com.jdroid.java.date.DateUtils.getYear(defaultDate),
+			com.jdroid.java.date.DateUtils.getMonth(defaultDate),
+			com.jdroid.java.date.DateUtils.getDayOfMonth(defaultDate), this);
 		
 		if (titleResId != null) {
 			dialogBuilder.setTitle(titleResId);
@@ -116,8 +116,8 @@ public class DatePickerDialogFragment extends AbstractDialogFragment implements 
 			
 			@Override
 			public void onClick(DialogInterface dialog, int whichButton) {
-				Date date = com.jdroid.java.utils.DateUtils.getDate(datePicker.getYear(), datePicker.getMonth(),
-					datePicker.getDayOfMonth());
+				Date date = com.jdroid.java.date.DateUtils.getDate(datePicker.getYear(), datePicker.getMonth(),
+						datePicker.getDayOfMonth());
 				int requestCode = getTargetRequestCode();
 				((OnDateSetListener)getTargetFragment()).onDateSet(date, requestCode);
 			}
@@ -153,7 +153,7 @@ public class DatePickerDialogFragment extends AbstractDialogFragment implements 
 	}
 	
 	private void updateTitle(int year, int month, int day) {
-		Date date = com.jdroid.java.utils.DateUtils.getDate(year, month, day);
+		Date date = com.jdroid.java.date.DateUtils.getDate(year, month, day);
 		updateTitle(getDialog(), date);
 	}
 	

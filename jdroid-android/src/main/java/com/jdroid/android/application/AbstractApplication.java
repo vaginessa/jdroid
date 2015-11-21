@@ -39,7 +39,7 @@ import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.context.GitContext;
 import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.repository.Repository;
-import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.ReflectionUtils;
 import com.jdroid.java.utils.StringUtils;

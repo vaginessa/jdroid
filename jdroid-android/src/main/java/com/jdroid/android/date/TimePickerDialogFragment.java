@@ -13,7 +13,7 @@ import android.widget.TimePicker;
 
 import com.jdroid.android.R;
 import com.jdroid.android.dialog.AbstractDialogFragment;
-import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.date.DateUtils;
 
 import java.util.Date;
 

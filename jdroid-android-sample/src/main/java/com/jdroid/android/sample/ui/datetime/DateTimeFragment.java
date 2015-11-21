@@ -7,7 +7,7 @@ import com.jdroid.android.date.DatePickerDialogFragment;
 import com.jdroid.android.date.TimePickerDialogFragment;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
-import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.date.DateUtils;
 
 public class DateTimeFragment extends AbstractFragment {
 	

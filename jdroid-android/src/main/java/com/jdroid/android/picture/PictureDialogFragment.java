@@ -15,7 +15,7 @@ import android.widget.Button;
 import com.jdroid.android.R;
 import com.jdroid.android.dialog.AbstractDialogFragment;
 import com.jdroid.android.utils.AndroidUtils;
-import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.date.DateUtils;
 
 import java.io.File;
 import java.util.Date;

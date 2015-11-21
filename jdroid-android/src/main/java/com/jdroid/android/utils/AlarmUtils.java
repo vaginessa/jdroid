@@ -5,7 +5,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
 public class AlarmUtils {

@@ -25,7 +25,7 @@ import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.collections.Maps;
-import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;

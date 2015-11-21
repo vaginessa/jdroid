@@ -8,8 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import com.google.common.collect.Lists;
-import com.jdroid.java.utils.DateUtils;
-import com.jdroid.javaweb.domain.DateRange;
+import com.jdroid.java.date.DateUtils;
 
 /**
  * Test the different methods of {@link DateRange}

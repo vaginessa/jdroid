@@ -1,7 +1,7 @@
 package com.jdroid.javaweb.domain;
 
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.date.DateUtils;
 
 import java.io.Serializable;
 import java.util.Date;

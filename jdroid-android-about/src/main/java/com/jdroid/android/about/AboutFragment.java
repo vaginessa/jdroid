@@ -15,7 +15,7 @@ import com.jdroid.android.rating.RatingHelper;
 import com.jdroid.android.share.ShareUtils;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.utils.DateUtils;
+import com.jdroid.java.date.DateUtils;
 
 import java.util.List;
 

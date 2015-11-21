@@ -1,14 +1,14 @@
-package com.jdroid.java.utils;
+package com.jdroid.java.date;
 
-import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.java.utils.NumberUtils;
+import com.jdroid.java.utils.StringUtils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -49,63 +49,6 @@ public abstract class DateUtils {
 
 	public static String DEFAULT_DATE_TIME_FORMAT = DateTimeFormat.YYYYMMDDHHMMSSZ;
 	
-	public enum DayOfWeek {
-		
-		SUNDAY("Sunday", 1, true),
-		MONDAY("Monday", 2, false),
-		TUESDAY("Tuesday", 3, false),
-		WEDNESDAY("Wednesday", 4, false),
-		THURSDAY("Thursday", 5, false),
-		FRIDAY("Friday", 6, false),
-		SATURDAY("Saturday", 7, true);
-		
-		private String name;
-		private int number;
-		private Boolean weekend;
-		
-		private DayOfWeek(String name, int number, Boolean weekend) {
-			this.name = name;
-			this.number = number;
-			this.weekend = weekend;
-		}
-		
-		public Boolean isWeekend() {
-			return weekend;
-		}
-		
-		public static DayOfWeek findByNumber(int number) {
-			for (DayOfWeek each : values()) {
-				if (each.getNumber() == number) {
-					return each;
-				}
-			}
-			return null;
-		}
-		
-		public DayOfWeek getNextDay() {
-			return findByNumber((number % 7) + 1);
-		}
-		
-		public static List<DayOfWeek> getWeekDays() {
-			List<DayOfWeek> weekDays = Lists.newArrayList();
-			for (DayOfWeek each : DayOfWeek.values()) {
-				if (!each.isWeekend()) {
-					weekDays.add(each);
-				}
-			}
-			return weekDays;
-		}
-		
-		@Override
-		public String toString() {
-			return name;
-		}
-		
-		public int getNumber() {
-			return number;
-		}
-	}
-	
 	public static void init() {
 		// nothing...
 	}
@@ -116,21 +59,32 @@ public abstract class DateUtils {
 	 * @return A date that represents the formatted string
 	 */
 	public static Date parse(String dateFormatted, String dateFormat) {
-		return DateUtils.parse(dateFormatted, new SimpleDateFormat(dateFormat));
+		return parse(dateFormatted, dateFormat, false);
 	}
-	
+
+	public static Date parse(String dateFormatted, String dateFormat, boolean useUtc) {
+		return parse(dateFormatted, new SimpleDateFormat(dateFormat), useUtc);
+	}
+
 	/**
 	 * @param dateFormatted The formatted string to parse
 	 * @param dateFormat
 	 * @return A date that represents the formatted string
 	 */
 	public static Date parse(String dateFormatted, SimpleDateFormat dateFormat) {
+		return parse(dateFormatted, dateFormat, false);
+	}
+
+	public static Date parse(String dateFormatted, SimpleDateFormat dateFormat, boolean useUtc) {
 		Date date = null;
 		if (StringUtils.isNotEmpty(dateFormatted)) {
 			try {
+				if (useUtc) {
+					dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+				}
 				date = dateFormat.parse(dateFormatted);
 			} catch (ParseException e) {
-				throw new UnexpectedException("Error parsing the date: '" + dateFormatted + "' with pattern: "
+				throw new UnexpectedException("Error parsing the dateFormatted: " + dateFormatted + " pattern: "
 						+ dateFormat.toPattern(), e);
 			}
 		}
@@ -160,22 +114,29 @@ public abstract class DateUtils {
 	 * @return A String that represent the date with the pattern
 	 */
 	public static String format(Date date, String dateFormat) {
-		return DateUtils.format(date, new SimpleDateFormat(dateFormat));
+		return format(date, dateFormat, false);
 	}
-	
+
+	public static String format(Date date, String dateFormat, boolean useUtc) {
+		return format(date, new SimpleDateFormat(dateFormat), useUtc);
+	}
+
 	/**
 	 * Transform the {@link Date} to a {@link String} using the received {@link SimpleDateFormat}
-	 * 
+	 *
 	 * @param date The {@link Date} to be formatted
 	 * @param dateFormat The {@link DateFormat} used to format the {@link Date}
 	 * @return A String that represent the date with the pattern
 	 */
 	public static String format(Date date, DateFormat dateFormat) {
-		return date != null ? dateFormat.format(date) : null;
+		return format(date, dateFormat, false);
 	}
-	
-	public static String formatDateTime(Date date) {
-		return format(date, DateFormat.getDateTimeInstance());
+
+	public static String format(Date date, DateFormat dateFormat, boolean useUtc) {
+		if (useUtc) {
+			dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+		}
+		return date != null ? dateFormat.format(date) : null;
 	}
 	
 	public static String formatDate(Date date) {
@@ -259,12 +220,6 @@ public abstract class DateUtils {
 		return calendar.get(Calendar.DAY_OF_MONTH);
 	}
 	
-	public static int getDayOfWeek(Date date) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		return calendar.get(Calendar.DAY_OF_WEEK);
-	}
-	
 	public static int getHour(Date date, Boolean is24Hour) {
 		return DateUtils.getHour(date, TimeZone.getDefault(), is24Hour);
 	}
@@ -287,21 +242,39 @@ public abstract class DateUtils {
 		return calendar.get(Calendar.MINUTE);
 	}
 	
-	public static DayOfWeek getWeekDay() {
-		return getWeekDay(DateUtils.now());
+	public static DayOfWeek getDayOfWeek() {
+		return getDayOfWeek(DateUtils.now());
 	}
 	
-	public static DayOfWeek getWeekDay(Date date) {
+	public static DayOfWeek getDayOfWeek(Date date) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 		return DayOfWeek.findByNumber(dayOfWeek);
+	}
+
+	public static boolean isDateOnWeekend(Date date) {
+		return getDayOfWeek(date).isWeekend();
+	}
+
+	public static Date setHour(Date date, int hours, Boolean is24Hour) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.set(is24Hour ? Calendar.HOUR_OF_DAY : Calendar.HOUR, hours);
+		return calendar.getTime();
 	}
 	
 	public static Date addSeconds(Date date, int seconds) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.add(Calendar.SECOND, seconds);
+		return calendar.getTime();
+	}
+
+	public static Date addHours(Date date, int hours) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.HOUR, hours);
 		return calendar.getTime();
 	}
 	
@@ -327,19 +300,6 @@ public abstract class DateUtils {
 	}
 	
 	/**
-	 * Truncate the date removing hours, minutes, seconds and milliseconds
-	 * 
-	 * @param date The {@link Date} to truncate
-	 * @return The truncated {@link Date}
-	 */
-	public static Date truncateTime(Date date) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		truncateTime(calendar);
-		return calendar.getTime();
-	}
-
-	/**
 	 * Truncate the date asigning it to 1st of January of 1980
 	 *
 	 * @param date The {@link Date} to truncate
@@ -361,6 +321,19 @@ public abstract class DateUtils {
 		calendar.set(Calendar.MONTH, 0);
 		calendar.set(Calendar.DAY_OF_MONTH, 1);
 		calendar.set(Calendar.YEAR, 1980);
+	}
+
+	/**
+	 * Truncate the date removing hours, minutes, seconds and milliseconds
+	 *
+	 * @param date The {@link Date} to truncate
+	 * @return The truncated {@link Date}
+	 */
+	public static Date truncateTime(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		truncateTime(calendar);
+		return calendar.getTime();
 	}
 
 	/**
@@ -467,7 +440,7 @@ public abstract class DateUtils {
 		return DateUtils.isBeforeEquals(startDate1, startDate2) && DateUtils.isAfterEquals(endDate1, endDate2);
 	}
 	
-	private static Calendar todayCalendar() {
+	public static Calendar todayCalendar() {
 		Calendar calendar = Calendar.getInstance();
 		DateUtils.truncateTime(calendar);
 		return calendar;
@@ -526,6 +499,39 @@ public abstract class DateUtils {
 		calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
 		DateUtils.truncateTime(calendar);
 		return calendar.getTime();
+	}
+
+	/**
+	 * @param fromDate the start date
+	 * @param toDate the end date
+	 * @return an integer representing the amount of days between fromDate and toDate
+	 */
+	public static Integer differenceInDays(Date fromDate, Date toDate) {
+		Long diff = toDate.getTime() - fromDate.getTime();
+		diff = diff / (DateUtils.MILLIS_PER_DAY);
+		return diff.intValue();
+	}
+
+	/**
+	 * @param fromDate the start date
+	 * @param toDate the end date
+	 * @return an double representing the amount of hours between fromDate and toDate
+	 */
+	public static double differenceInHours(Date fromDate, Date toDate) {
+		double diff = toDate.getTime() - fromDate.getTime();
+		diff = diff / (DateUtils.MILLIS_PER_HOUR);
+		return diff;
+	}
+
+	/**
+	 * @param fromDate the start date
+	 * @param toDate the end date
+	 * @return an integer representing the amount of minutes between fromDate and toDate
+	 */
+	public static Integer differenceInMinutes(Date fromDate, Date toDate) {
+		Long diff = toDate.getTime() - fromDate.getTime();
+		diff = diff / (DateUtils.MILLIS_PER_MINUTE);
+		return diff.intValue();
 	}
 	
 	public static String formatDuration(long duration) {
