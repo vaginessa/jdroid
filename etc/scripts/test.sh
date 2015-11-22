@@ -3,11 +3,12 @@
 # Note the set -ev at the top. The -e flag causes the script to exit as soon as one command
 # returns a non-zero exit code. The -v flag makes the shell print all lines in the script
 # before executing them, which helps identify which steps failed.
-set -ev
+set -e
 
 UPLOAD=$1
 ENABLE_JAVA_WEB=$2
 ENABLE_ANDROID=$3
+DEBUG=$4
 
 if [ -z "$ENABLE_JAVA_WEB" ]
 then
@@ -34,9 +35,14 @@ fi
 # jdroid javaweb sample
 # ************************
 
+cmd="./gradlew clean"
+
 if [ "$ENABLE_JAVA_WEB" = "true" ]
 then
-	./gradlew :jdroid-java:clean :jdroid-java:build :jdroid-java:test :jdroid-java-http-okhttp:build :jdroid-java-http-okhttp:test :jdroid-javaweb:clean :jdroid-javaweb:build :jdroid-javaweb:test :jdroid-javaweb-sample:build --configure-on-demand
+	cmd="${cmd} :jdroid-java:build :jdroid-java:test"
+	cmd="${cmd} :jdroid-java-http-okhttp:build :jdroid-java-http-okhttp:test"
+	cmd="${cmd} :jdroid-javaweb:build :jdroid-javaweb:test"
+	cmd="${cmd} :jdroid-javaweb-sample:build"
 fi
 
 # ************************
@@ -45,7 +51,15 @@ fi
 
 if [ "$ENABLE_ANDROID" = "true" ]
 then
-	./gradlew :jdroid-android:clean :jdroid-android:build :jdroid-android:testDebug :jdroid-android-crashlytics:clean :jdroid-android-crashlytics:build :jdroid-android-facebook:clean :jdroid-android-facebook:build :jdroid-android-facebook:testDebug :jdroid-android-google-admob:clean :jdroid-android-google-admob:build :jdroid-android-google-maps:clean :jdroid-android-google-maps:build :jdroid-android-google-maps:testDebug :jdroid-android-google-gcm:clean :jdroid-android-google-gcm:build :jdroid-android-google-gcm:testDebug :jdroid-android-google-plus:clean :jdroid-android-google-plus:build :jdroid-android-google-plus:testDebug :jdroid-android-about:clean :jdroid-android-about:build :jdroid-android-about:testDebug :jdroid-android-sample:check :jdroid-android-sample:assembleUat :jdroid-android-sample:countMethodsSummary
+	cmd="${cmd} :jdroid-android:assemble :jdroid-android:testDebug :jdroid-android:lintDebug"
+	cmd="${cmd} :jdroid-android-about:assemble :jdroid-android-about:testDebug :jdroid-android-about:lintDebug"
+	cmd="${cmd} :jdroid-android-crashlytics:assemble :jdroid-android-crashlytics:testDebug :jdroid-android-crashlytics:lintDebug"
+	cmd="${cmd} :jdroid-android-facebook:assemble :jdroid-android-facebook:testDebug :jdroid-android-facebook:lintDebug"
+	cmd="${cmd} :jdroid-android-google-admob:assemble :jdroid-android-google-admob:testDebug :jdroid-android-google-admob:lintDebug"
+	cmd="${cmd} :jdroid-android-google-gcm:assemble :jdroid-android-google-gcm:testDebug :jdroid-android-google-gcm:lintDebug"
+	cmd="${cmd} :jdroid-android-google-maps:assemble :jdroid-android-google-maps:testDebug :jdroid-android-google-maps:lintDebug"
+	cmd="${cmd} :jdroid-android-google-plus:assemble :jdroid-android-google-plus:testDebug :jdroid-android-google-plus:lintDebug"
+	cmd="${cmd} :jdroid-android-sample:assemble :jdroid-android-sample:testDebug :jdroid-android-sample:lintDebug :jdroid-android-sample:countMethodsSummary"
 fi
 
 # ************************
@@ -55,13 +69,36 @@ fi
 if [ "$UPLOAD" = "true" ]
 then
 
+	cmd="${cmd} :jdroid-gradle-plugin:uploadArchives"
+
 	if [ "$ENABLE_JAVA_WEB" = "true" ]
 	then
-		./gradlew :jdroid-gradle-plugin:uploadArchives :jdroid-java:uploadArchives :jdroid-java-http-okhttp:uploadArchives :jdroid-javaweb:uploadArchives --configure-on-demand
+		cmd="${cmd} :jdroid-java:uploadArchives"
+		cmd="${cmd} :jdroid-java-http-okhttp:uploadArchives"
+		cmd="${cmd} :jdroid-javaweb:uploadArchives"
 	fi
 
 	if [ "$ENABLE_ANDROID" = "true" ]
 	then
-		./gradlew :jdroid-android:uploadArchives :jdroid-android-about:uploadArchives :jdroid-android-crashlytics:uploadArchives :jdroid-android-facebook:uploadArchives :jdroid-android-google-maps:uploadArchives :jdroid-android-google-admob:uploadArchives :jdroid-android-google-gcm:uploadArchives :jdroid-android-google-maps:uploadArchives :jdroid-android-google-plus:uploadArchives
+		cmd="${cmd} :jdroid-android:uploadArchives"
+		cmd="${cmd} :jdroid-android-about:uploadArchives"
+		cmd="${cmd} :jdroid-android-crashlytics:uploadArchives"
+		cmd="${cmd} :jdroid-android-facebook:uploadArchives"
+		cmd="${cmd} :jdroid-android-google-admob:uploadArchives"
+		cmd="${cmd} :jdroid-android-google-gcm:uploadArchives"
+		cmd="${cmd} :jdroid-android-google-maps:uploadArchives"
+		cmd="${cmd} :jdroid-android-google-plus:uploadArchives"
 	fi
 fi
+
+if [ "$DEBUG" = "true" ]
+then
+	cmd="${cmd} --debug"
+fi
+
+echo "Executing the following command"
+echo "${cmd}"
+
+eval "${cmd}"
+
+
