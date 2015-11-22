@@ -91,6 +91,8 @@ then
 	fi
 fi
 
+cmd="${cmd} --configure-on-demand"
+
 if [ "$DEBUG" = "true" ]
 then
 	cmd="${cmd} --debug"
