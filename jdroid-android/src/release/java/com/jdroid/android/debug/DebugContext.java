@@ -1,6 +1,6 @@
 package com.jdroid.android.debug;
 
-import android.util.Pair;
+import android.support.v4.util.Pair;
 
 import com.jdroid.android.sqlite.SQLiteHelper;
 import com.jdroid.java.domain.Identifiable;

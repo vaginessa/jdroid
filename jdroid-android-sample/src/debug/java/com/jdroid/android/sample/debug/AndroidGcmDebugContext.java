@@ -12,7 +12,7 @@ import java.util.Map;
 public class AndroidGcmDebugContext extends GcmDebugContext {
 
 	@Override
-	public Map<GcmMessage, Bundle> getGcmMessagesMap() {
+	protected Map<GcmMessage, Bundle> getGcmMessagesMap() {
 		Map<GcmMessage, Bundle> gcmMessagesMap = Maps.newHashMap();
 		gcmMessagesMap.put(AndroidGcmMessage.SAMPLE_MESSAGE, null);
 		return gcmMessagesMap;
