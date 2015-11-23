@@ -6,9 +6,26 @@
 set -e
 
 UPLOAD=$1
-ENABLE_JAVA_WEB=$2
-ENABLE_ANDROID=$3
-DEBUG=$4
+LOCAL_UPLOAD=$2
+ENABLE_TESTS=$3
+ENABLE_JAVA_WEB=$4
+ENABLE_ANDROID=$5
+DEBUG=$6
+
+if [ -z "$UPLOAD" ]
+then
+	UPLOAD="false"
+fi
+
+if [ -z "$LOCAL_UPLOAD" ]
+then
+	LOCAL_UPLOAD="true"
+fi
+
+if [ -z "ENABLE_TESTS" ]
+then
+	ENABLE_TESTS="true"
+fi
 
 if [ -z "$ENABLE_JAVA_WEB" ]
 then
@@ -20,46 +37,45 @@ then
 	ENABLE_ANDROID="true"
 fi
 
-if [ -z "$UPLOAD" ]
-then
-	UPLOAD="false"
-fi
-
 # ************************
 # jdroid gradle plugin
 # ************************
 
-./gradlew :jdroid-java:clean :jdroid-java:uploadArchives :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=true
-
-# ************************
-# jdroid javaweb sample
-# ************************
-
-cmd="./gradlew clean"
-
-if [ "$ENABLE_JAVA_WEB" = "true" ]
+cmd="./gradlew clean :jdroid-java:clean :jdroid-java:uploadArchives :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=true"
+if [ "$DEBUG" = "true" ]
 then
-	cmd="${cmd} :jdroid-java:build :jdroid-java:test"
-	cmd="${cmd} :jdroid-java-http-okhttp:build :jdroid-java-http-okhttp:test"
-	cmd="${cmd} :jdroid-javaweb:build :jdroid-javaweb:test"
-	cmd="${cmd} :jdroid-javaweb-sample:build"
+	cmd="${cmd} --debug"
 fi
 
-# ************************
-# jdroid android sample
-# ************************
+echo "Executing the following command"
+echo "${cmd}"
 
-if [ "$ENABLE_ANDROID" = "true" ]
+eval "${cmd}"
+
+if [ "$ENABLE_TESTS" = "true" ]
 then
-	cmd="${cmd} :jdroid-android:assemble :jdroid-android:testDebug :jdroid-android:lintDebug"
-	cmd="${cmd} :jdroid-android-about:assemble :jdroid-android-about:testDebug :jdroid-android-about:lintDebug"
-	cmd="${cmd} :jdroid-android-crashlytics:assemble :jdroid-android-crashlytics:testDebug :jdroid-android-crashlytics:lintDebug"
-	cmd="${cmd} :jdroid-android-facebook:assemble :jdroid-android-facebook:testDebug :jdroid-android-facebook:lintDebug"
-	cmd="${cmd} :jdroid-android-google-admob:assemble :jdroid-android-google-admob:testDebug :jdroid-android-google-admob:lintDebug"
-	cmd="${cmd} :jdroid-android-google-gcm:assemble :jdroid-android-google-gcm:testDebug :jdroid-android-google-gcm:lintDebug"
-	cmd="${cmd} :jdroid-android-google-maps:assemble :jdroid-android-google-maps:testDebug :jdroid-android-google-maps:lintDebug"
-	cmd="${cmd} :jdroid-android-google-plus:assemble :jdroid-android-google-plus:testDebug :jdroid-android-google-plus:lintDebug"
-	cmd="${cmd} :jdroid-android-sample:assemble :jdroid-android-sample:testDebug :jdroid-android-sample:lintDebug :jdroid-android-sample:countMethodsSummary"
+
+	if [ "$ENABLE_JAVA_WEB" = "true" ]
+	then
+		cmd="${cmd} :jdroid-java:build :jdroid-java:test"
+		cmd="${cmd} :jdroid-java-http-okhttp:build :jdroid-java-http-okhttp:test"
+		cmd="${cmd} :jdroid-javaweb:build :jdroid-javaweb:test"
+		cmd="${cmd} :jdroid-javaweb-sample:build"
+	fi
+
+	if [ "$ENABLE_ANDROID" = "true" ]
+	then
+		cmd="${cmd} :jdroid-android:assemble :jdroid-android:testDebug :jdroid-android:lintDebug"
+		cmd="${cmd} :jdroid-android-about:assemble :jdroid-android-about:testDebug :jdroid-android-about:lintDebug"
+		cmd="${cmd} :jdroid-android-crashlytics:assemble :jdroid-android-crashlytics:testDebug :jdroid-android-crashlytics:lintDebug"
+		cmd="${cmd} :jdroid-android-facebook:assemble :jdroid-android-facebook:testDebug :jdroid-android-facebook:lintDebug"
+		cmd="${cmd} :jdroid-android-google-admob:assemble :jdroid-android-google-admob:testDebug :jdroid-android-google-admob:lintDebug"
+		cmd="${cmd} :jdroid-android-google-gcm:assemble :jdroid-android-google-gcm:testDebug :jdroid-android-google-gcm:lintDebug"
+		cmd="${cmd} :jdroid-android-google-maps:assemble :jdroid-android-google-maps:testDebug :jdroid-android-google-maps:lintDebug"
+		cmd="${cmd} :jdroid-android-google-plus:assemble :jdroid-android-google-plus:testDebug :jdroid-android-google-plus:lintDebug"
+		cmd="${cmd} :jdroid-android-sample:assemble :jdroid-android-sample:testDebug :jdroid-android-sample:lintDebug :jdroid-android-sample:countMethodsSummary"
+	fi
+
 fi
 
 # ************************
@@ -91,7 +107,7 @@ then
 	fi
 fi
 
-cmd="${cmd} --configure-on-demand"
+cmd="${cmd} -PLOCAL_UPLOAD=$LOCAL_UPLOAD --configure-on-demand --refresh-dependencies"
 
 if [ "$DEBUG" = "true" ]
 then
