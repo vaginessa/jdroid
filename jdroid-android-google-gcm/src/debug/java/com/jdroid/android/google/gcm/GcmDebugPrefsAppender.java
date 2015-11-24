@@ -59,6 +59,19 @@ public class GcmDebugPrefsAppender implements PreferencesAppender {
 			}
 		});
 		preferenceCategory.addPreference(preference);
+
+		Preference registerDevicePreference = new Preference(activity);
+		registerDevicePreference.setTitle(R.string.registerDeviceTitle);
+		registerDevicePreference.setSummary(R.string.registerDeviceTitle);
+		registerDevicePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				GcmRegistrationService.start(true);
+				return true;
+			}
+		});
+		preferenceCategory.addPreference(registerDevicePreference);
 	}
 	
 	/**

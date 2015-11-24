@@ -5,4 +5,6 @@
 	<string name="emulateGcmMessageTitle" tools:ignore="MissingTranslation">Emulate GCM Message</string>
 	<string name="emulateGcmMessageDescription" tools:ignore="MissingTranslation">Pick the GCM Message type to emulate</string>
 
+	<string name="registerDeviceTitle" tools:ignore="MissingTranslation">Register Device</string>
+
 </resources>
