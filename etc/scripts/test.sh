@@ -41,7 +41,7 @@ fi
 # jdroid gradle plugin
 # ************************
 
-cmd="./gradlew clean :jdroid-java:clean :jdroid-java:uploadArchives :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=true"
+cmd="./gradlew :jdroid-java:clean :jdroid-java:uploadArchives :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=true"
 if [ "$DEBUG" = "true" ]
 then
 	cmd="${cmd} --debug"
@@ -49,16 +49,17 @@ fi
 
 echo "Executing the following command"
 echo "${cmd}"
-
 eval "${cmd}"
 
+cmd="./gradlew clean"
 if [ "$ENABLE_TESTS" = "true" ]
 then
 
+	cmd="${cmd} :jdroid-java:build :jdroid-java:test"
+	cmd="${cmd} :jdroid-java-http-okhttp:build :jdroid-java-http-okhttp:test"
+
 	if [ "$ENABLE_JAVA_WEB" = "true" ]
 	then
-		cmd="${cmd} :jdroid-java:build :jdroid-java:test"
-		cmd="${cmd} :jdroid-java-http-okhttp:build :jdroid-java-http-okhttp:test"
 		cmd="${cmd} :jdroid-javaweb:build :jdroid-javaweb:test"
 		cmd="${cmd} :jdroid-javaweb-sample:build"
 	fi
@@ -116,7 +117,6 @@ fi
 
 echo "Executing the following command"
 echo "${cmd}"
-
 eval "${cmd}"
 
 
