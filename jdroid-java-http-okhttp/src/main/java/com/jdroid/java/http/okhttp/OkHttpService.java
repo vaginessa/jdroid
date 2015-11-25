@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import javax.net.ssl.SSLException;
+
 public abstract class OkHttpService extends AbstractHttpService {
 
 	static {
@@ -63,6 +65,7 @@ public abstract class OkHttpService extends AbstractHttpService {
 			throw new ConnectionException(e, false);
 		} catch (InterruptedIOException e) {
 			throw new ConnectionException(e, true);
+
 		} catch (SocketException e) {
 			Throwable cause = e.getCause();
 			if (cause != null) {
@@ -75,6 +78,14 @@ public abstract class OkHttpService extends AbstractHttpService {
 					} else if (message.contains("recvfrom failed: ECONNRESET (Connection reset by peer)")) {
 						throw new ConnectionException(e, false);
 					}
+				}
+			}
+			throw new UnexpectedException(e);
+		} catch (SSLException e) {
+			String message = e.getMessage();
+			if (message != null) {
+				if (message.startsWith("Read error:") && message.endsWith("I/O error during system call, Connection reset by peer")) {
+					throw new ConnectionException(e, true);
 				}
 			}
 			throw new UnexpectedException(e);
