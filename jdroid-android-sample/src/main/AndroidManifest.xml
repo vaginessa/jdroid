@@ -138,6 +138,9 @@
 		<activity android:name="com.jdroid.android.sample.ui.tablets.RightTabletActivity" android:label="@string/tablets"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<activity android:name="com.jdroid.android.sample.ui.sqlite.SQLiteActivity" android:label="@string/sqlite"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
 		<!-- Handles messages sent from GCM to your application -->
 		<receiver android:name="com.google.android.gms.gcm.GcmReceiver" android:exported="true"
 				  android:permission="com.google.android.c2dm.permission.SEND">

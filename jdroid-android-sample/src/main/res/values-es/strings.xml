@@ -98,6 +98,13 @@
 	<string name="recyclerView">Recycler View</string>
 	<string name="noResults">No Results</string>
 
+	<!-- SQLite -->
+	<string name="sqlite">SQLite</string>
+	<string name="sqliteAdd">Add</string>
+	<string name="sqliteUpdate">Update</string>
+	<string name="sqliteRemove">Remove</string>
+	<string name="sqliteGetAll">getAll</string>
+
 	<!-- Tablets -->
 	<string name="openDetail">Open Detail</string>
 

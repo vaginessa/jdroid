@@ -143,7 +143,7 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 		}
 		
 		AlertDialog dialog = dialogBuilder.create();
-		if ((positiveButtonText != null) && !dismissOnPossitiveButtonClick()) {
+		if ((positiveButtonText != null) && !dismissOnPositiveButtonClick()) {
 			// As workaround, to override default dismiss behavior the listener is directly set on the button.
 			dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 				
@@ -180,7 +180,7 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 		parameters.put(key, value);
 	}
 	
-	protected boolean dismissOnPossitiveButtonClick() {
+	protected boolean dismissOnPositiveButtonClick() {
 		return true;
 	}
 	
