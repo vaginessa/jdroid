@@ -261,7 +261,40 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 			}
 		});
 	}
-	
+
+	@Override
+	public void trackEnjoyingApp(final Boolean enjoying) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+
+			@Override
+			protected void track(T tracker) {
+				tracker.trackEnjoyingApp(enjoying);
+			}
+		});
+	}
+
+	@Override
+	public void trackRateOnGooglePlay(final Boolean rate) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+
+			@Override
+			protected void track(T tracker) {
+				tracker.trackRateOnGooglePlay(rate);
+			}
+		});
+	}
+
+	@Override
+	public void trackGiveFeedback(final Boolean feedback) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+
+			@Override
+			protected void track(T tracker) {
+				tracker.trackGiveFeedback(feedback);
+			}
+		});
+	}
+
 	/**
 	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackRemoveAdsBannerClicked()
 	 */
@@ -277,20 +310,6 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackRateMeBannerClicked()
-	 */
-	@Override
-	public void trackRateMeBannerClicked() {
-		ExecutorUtils.execute(new TrackerRunnable() {
-			
-			@Override
-			protected void track(T tracker) {
-				tracker.trackRateMeBannerClicked();
-			}
-		});
-	}
-	
-	/**
 	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackTiming(java.lang.String, java.lang.String,
 	 *      java.lang.String, long)
 	 */
@@ -301,20 +320,6 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 			@Override
 			protected void track(T tracker) {
 				tracker.trackTiming(category, variable, label, value);
-			}
-		});
-	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackRateUs()
-	 */
-	@Override
-	public void trackRateUs() {
-		ExecutorUtils.execute(new TrackerRunnable() {
-			
-			@Override
-			protected void track(T tracker) {
-				tracker.trackRateUs();
 			}
 		});
 	}

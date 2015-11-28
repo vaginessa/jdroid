@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.context.UsageStats;
 import com.jdroid.android.google.GooglePlayUtils;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.LocalizationUtils;
@@ -61,6 +62,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	protected void handleMainThreadException(Thread thread, Throwable throwable) {
 		try {
 			try {
+				UsageStats.setLastCrashTimestamp();
 				AbstractApplication.get().getAnalyticsSender().trackFatalException(throwable);
 			} catch (Exception e) {
 				wrappedExceptionHandler.uncaughtException(thread, e);

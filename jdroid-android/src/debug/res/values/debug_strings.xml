@@ -61,4 +61,12 @@
 	<string name="debugDatabase" tools:ignore="MissingTranslation">Debug Database</string>
 	<string name="cleanDebugData" tools:ignore="MissingTranslation">Clean debug data</string>
 
+	<!-- RateApp -->
+	<string name="rateApp" tools:ignore="MissingTranslation">Rate App</string>
+
+	<!-- Usage Stats -->
+	<string name="usageStats" tools:ignore="MissingTranslation">Usage Stats</string>
+
+	<string name="reset" tools:ignore="MissingTranslation">Reset</string>
+
 </resources>

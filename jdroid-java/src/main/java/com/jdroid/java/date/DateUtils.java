@@ -566,5 +566,13 @@ public abstract class DateUtils {
 		
 		return builder.toString();
 	}
+
+	public static Long millisecondsToDays(Long timestamp) {
+		if (timestamp != null) {
+			return (System.currentTimeMillis() - timestamp) / MILLIS_PER_DAY;
+		} else {
+			return 0L;
+		}
+	}
 	
 }

@@ -80,4 +80,13 @@
 	<string name="universalImageLoaderTitle">Universal Image Loader</string>
 	<string name="universalImageLoaderDescription">Powerful and flexible library for loading, caching and displaying images on Android.</string>
 
+	<!-- Rate App -->
+	<string name="rateAppEnjoying">¿Disfrutando %1$s?</string>
+	<string name="rateAppGooglePlay">¿Le gustaría calificarnos en Google Play?</string>
+	<string name="rateAppFeedback">¿Le gustaría dejarnos algún comentario?</string>
+	<string name="rateAppNotReally">No</string>
+	<string name="rateAppNotThanks">No, gracias</string>
+	<string name="rateAppOkSure">Si</string>
+	<string name="rateAppYes">Si</string>
+
 </resources>

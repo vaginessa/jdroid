@@ -15,18 +15,22 @@ public class InstanceIdHelper {
 
 	private final static Logger LOGGER = LoggerUtils.getLogger(InstanceIdHelper.class);
 
+	private static final String INSTANCE_ID_PREFERENCES = "usageStats";
+
 	private static final String INSTANCE_ID = "instanceId";
 	private static final String ANONYMOUS_INSTANCE_ID = "anonymousInstanceId";
+
+	private static SharedPreferencesHelper sharedPreferencesHelper;
 
 	private static String instanceId;
 	private static String anonymousInstanceId;
 
 	public static synchronized String getInstanceId() {
 		if (instanceId == null) {
-			instanceId = SharedPreferencesHelper.get().loadPreference(INSTANCE_ID);
+			instanceId = getSharedPreferencesHelper().loadPreference(INSTANCE_ID);
 			if (instanceId == null) {
 				instanceId = InstanceID.getInstance(AbstractApplication.get()).getId();
-				SharedPreferencesHelper.get().savePreferenceAsync(INSTANCE_ID, instanceId);
+				getSharedPreferencesHelper().savePreferenceAsync(INSTANCE_ID, instanceId);
 			}
 			LOGGER.debug("Instance id: " + instanceId);
 		}
@@ -34,10 +38,10 @@ public class InstanceIdHelper {
 			return instanceId;
 		} else {
 			if (anonymousInstanceId == null) {
-				anonymousInstanceId = SharedPreferencesHelper.get().loadPreference(ANONYMOUS_INSTANCE_ID);
+				anonymousInstanceId = getSharedPreferencesHelper().loadPreference(ANONYMOUS_INSTANCE_ID);
 				if (anonymousInstanceId == null) {
 					anonymousInstanceId = "anonymous" + UUID.randomUUID();
-					SharedPreferencesHelper.get().savePreferenceAsync(ANONYMOUS_INSTANCE_ID, anonymousInstanceId);
+					getSharedPreferencesHelper().savePreferenceAsync(ANONYMOUS_INSTANCE_ID, anonymousInstanceId);
 				}
 				LOGGER.debug("Anonymous Instance id: " + anonymousInstanceId);
 			}
@@ -47,7 +51,7 @@ public class InstanceIdHelper {
 
 	public static void clearInstanceId() {
 		instanceId = null;
-		SharedPreferencesHelper.get().removePreferences(INSTANCE_ID);
+		getSharedPreferencesHelper().removePreferences(INSTANCE_ID);
 	}
 
 	public static void removeInstanceId() {
@@ -60,6 +64,13 @@ public class InstanceIdHelper {
 		} else {
 			LOGGER.warn("Instance id not removed because Google Play Services is not available");
 		}
+	}
+
+	private static SharedPreferencesHelper getSharedPreferencesHelper() {
+		if (sharedPreferencesHelper == null) {
+			sharedPreferencesHelper = SharedPreferencesHelper.get(INSTANCE_ID_PREFERENCES);
+		}
+		return sharedPreferencesHelper;
 	}
 
 }

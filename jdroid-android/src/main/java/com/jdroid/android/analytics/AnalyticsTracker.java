@@ -46,7 +46,15 @@ public interface AnalyticsTracker extends BaseAnalyticsTracker {
 	public void trackNotificationDisplayed(String notificationName);
 
 	public void trackNotificationOpened(String notificationName);
-	
+
+	// Feedback
+
+	public void trackEnjoyingApp(Boolean enjoying);
+
+	public void trackRateOnGooglePlay(Boolean rate);
+
+	public void trackGiveFeedback(Boolean feedback);
+
 	// More
 
 	public void trackUriOpened(String uriType, String screenName);
@@ -55,11 +63,7 @@ public interface AnalyticsTracker extends BaseAnalyticsTracker {
 
 	public void trackRemoveAdsBannerClicked();
 	
-	public void trackRateMeBannerClicked();
-	
 	public void trackTiming(String category, String variable, String label, long value);
-	
-	public void trackRateUs();
 	
 	public void trackContactUs();
 	

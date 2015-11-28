@@ -39,6 +39,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	
 	public static final String NOTIFICATION_CATEGORY = "notification";
 	private static final String ABOUT_CATEGORY = "about";
+	private static final String FEEDBACK_CATEGORY = "feedback";
 	private static final String ADS_CATEGORY = "ads";
 	private static final String CLICK_ACTION = "click";
 	
@@ -201,7 +202,22 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	public void trackNotificationOpened(String notificationName) {
 		sendEvent(NOTIFICATION_CATEGORY, "open", notificationName);
 	}
-	
+
+	@Override
+	public void trackEnjoyingApp(Boolean enjoying) {
+		sendEvent(FEEDBACK_CATEGORY, "enjoying", enjoying.toString());
+	}
+
+	@Override
+	public void trackRateOnGooglePlay(Boolean rate) {
+		sendEvent(FEEDBACK_CATEGORY, "rate", rate.toString());
+	}
+
+	@Override
+	public void trackGiveFeedback(Boolean feedback) {
+		sendEvent(FEEDBACK_CATEGORY, "giveFeedback", feedback.toString());
+	}
+
 	/**
 	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackTiming(java.lang.String, java.lang.String,
 	 *      java.lang.String, long)
@@ -232,14 +248,6 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	@Override
 	public void trackRemoveAdsBannerClicked() {
 		sendEvent(ADS_CATEGORY, CLICK_ACTION, "removeAds");
-	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackRateMeBannerClicked()
-	 */
-	@Override
-	public void trackRateMeBannerClicked() {
-		sendEvent(ADS_CATEGORY, CLICK_ACTION, "rateMe");
 	}
 	
 	/**
@@ -276,14 +284,6 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackRateUs()
-	 */
-	@Override
-	public void trackRateUs() {
-		sendEvent(ABOUT_CATEGORY, "rateUs", "rateUs");
-	}
-	
-	/**
 	 * @see com.jdroid.android.analytics.AbstractAnalyticsTracker#trackContactUs()
 	 */
 	@Override
@@ -296,7 +296,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	 */
 	@Override
 	public void trackAboutLibraryOpen(String libraryKey) {
-		sendEvent(ABOUT_CATEGORY, "openLibary", libraryKey);
+		sendEvent(ABOUT_CATEGORY, "openLibrary", libraryKey);
 	}
 
 	@Override

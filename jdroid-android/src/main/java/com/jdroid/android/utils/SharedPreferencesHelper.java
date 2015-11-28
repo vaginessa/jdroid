@@ -22,6 +22,7 @@ public class SharedPreferencesHelper {
 	private static SharedPreferencesHelper defaultSharedPreferencesHelper = new SharedPreferencesHelper(null);
 	
 	private String name;
+	private SharedPreferences sharedPreferences;
 	
 	public static SharedPreferencesHelper get(String name) {
 		return new SharedPreferencesHelper(name);
@@ -33,10 +34,11 @@ public class SharedPreferencesHelper {
 
 	public SharedPreferencesHelper(String name) {
 		this.name = name;
+		this.sharedPreferences = getSharedPreferences();
 	}
 	
 	public Editor getEditor() {
-		return getSharedPreferences().edit();
+		return sharedPreferences.edit();
 	}
 	
 	public SharedPreferences getSharedPreferences() {
@@ -131,7 +133,7 @@ public class SharedPreferencesHelper {
 	 * @return The shared preferences.
 	 */
 	public Map<String, ?> loadAllPreferences() {
-		return getSharedPreferences().getAll();
+		return sharedPreferences.getAll();
 	}
 
 	private void logLoad(String key, Object value) {
@@ -150,7 +152,7 @@ public class SharedPreferencesHelper {
 	 * @return the preference value if it exists, or defaultValue.
 	 */
 	public String loadPreference(String key, String defaultValue) {
-		String value = getSharedPreferences().getString(key, defaultValue);
+		String value = sharedPreferences.getString(key, defaultValue);
 		logLoad(key, value);
 		return value;
 	}
@@ -175,7 +177,7 @@ public class SharedPreferencesHelper {
 	public Boolean loadPreferenceAsBoolean(String key, Boolean defaultValue) {
 		Boolean value = defaultValue;
 		if (hasPreference(key)) {
-			value = getSharedPreferences().getBoolean(key, false);
+			value = sharedPreferences.getBoolean(key, false);
 		}
 		logLoad(key, value);
 		return value;
@@ -201,7 +203,7 @@ public class SharedPreferencesHelper {
 	public Long loadPreferenceAsLong(String key, Long defaultValue) {
 		Long value = defaultValue;
 		if (hasPreference(key)) {
-			value = getSharedPreferences().getLong(key, 0L);
+			value = sharedPreferences.getLong(key, 0L);
 		}
 		logLoad(key, value);
 		return value;
@@ -228,7 +230,7 @@ public class SharedPreferencesHelper {
 	public Integer loadPreferenceAsInteger(String key, Integer defaultValue) {
 		Integer value = defaultValue;
 		if (hasPreference(key)) {
-			value = getSharedPreferences().getInt(key, 0);
+			value = sharedPreferences.getInt(key, 0);
 		}
 		logLoad(key, value);
 		return value;
@@ -254,7 +256,7 @@ public class SharedPreferencesHelper {
 	public Float loadPreferenceAsFloat(String key, Float defaultValue) {
 		Float value = defaultValue;
 		if (hasPreference(key)) {
-			value = getSharedPreferences().getFloat(key, 0);
+			value = sharedPreferences.getFloat(key, 0);
 		}
 		logLoad(key, value);
 		return value;
@@ -271,7 +273,7 @@ public class SharedPreferencesHelper {
 	}
 	
 	public boolean hasPreference(String key) {
-		return getSharedPreferences().contains(key);
+		return sharedPreferences.contains(key);
 	}
 	
 	public void removePreferences(String... keys) {

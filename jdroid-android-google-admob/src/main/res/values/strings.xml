@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-	<!-- Rate me -->
-	<string name="rateMeTitle">Are you enjoying this app?</string>
-	<string name="rateMeDescription">Rate it now !</string>
-
-</resources>

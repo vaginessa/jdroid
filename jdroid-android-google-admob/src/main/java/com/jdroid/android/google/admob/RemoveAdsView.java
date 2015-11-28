@@ -5,7 +5,10 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
+
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.context.UsageStats;
+import com.jdroid.java.date.DateUtils;
 
 public class RemoveAdsView extends RelativeLayout {
 	
@@ -44,6 +47,6 @@ public class RemoveAdsView extends RelativeLayout {
 	}
 	
 	public static Boolean displayRemoveAdsView() {
-		return AbstractApplication.get().getAppContext().getDaysSinceFirstSession() > 3;
+		return DateUtils.millisecondsToDays(UsageStats.getFirstAppLoadTimestamp()) > 3;
 	}
 }

@@ -130,7 +130,22 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	public void trackNotificationOpened(String notificationName) {
 		// Do Nothing
 	}
-	
+
+	@Override
+	public void trackEnjoyingApp(Boolean enjoying) {
+		// Do Nothing
+	}
+
+	@Override
+	public void trackRateOnGooglePlay(Boolean rate) {
+		// Do Nothing
+	}
+
+	@Override
+	public void trackGiveFeedback(Boolean feedback) {
+		// Do Nothing
+	}
+
 	/**
 	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackRemoveAdsBannerClicked()
 	 */
@@ -140,27 +155,11 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	}
 	
 	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackRateMeBannerClicked()
-	 */
-	@Override
-	public void trackRateMeBannerClicked() {
-		// Do Nothing
-	}
-	
-	/**
 	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackTiming(java.lang.String, java.lang.String,
 	 *      java.lang.String, long)
 	 */
 	@Override
 	public void trackTiming(String category, String variable, String label, long value) {
-		// Do Nothing
-	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackRateUs()
-	 */
-	@Override
-	public void trackRateUs() {
 		// Do Nothing
 	}
 	

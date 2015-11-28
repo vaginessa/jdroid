@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.feedback.RateAppStats;
 import com.jdroid.android.fragment.AbstractListFragment;
 import com.jdroid.android.intent.IntentUtils;
-import com.jdroid.android.rating.RatingHelper;
 import com.jdroid.android.share.ShareUtils;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.collections.Lists;
@@ -69,14 +69,6 @@ public class AboutFragment extends AbstractListFragment<AboutItem> {
 				}
 			});
 		}
-		aboutItems.add(new AboutItem(R.drawable.ic_rate_us, R.string.rateUs) {
-			
-			@Override
-			public void onSelected(Activity activity) {
-				RatingHelper.rateMe(activity);
-				AbstractApplication.get().getAnalyticsSender().trackRateUs();
-			}
-		});
 		aboutItems.add(new AboutItem(R.drawable.ic_libraries, R.string.libraries) {
 			
 			@Override
@@ -99,7 +91,7 @@ public class AboutFragment extends AbstractListFragment<AboutItem> {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		
-		View header = inflate(R.layout.about_header_fragment);
+		View header = inflate(R.layout.about_header_view);
 		TextView appName = (TextView)header.findViewById(R.id.appName);
 		appName.setText(AbstractApplication.get().getAppName());
 		
@@ -126,6 +118,14 @@ public class AboutFragment extends AbstractListFragment<AboutItem> {
 			}
 			getListView().addHeaderView(header);
 		}
+
+		if (rateAppViewEnabled() && RateAppStats.displayRateAppView() && getListView().getFooterViewsCount() == 0) {
+			if (getListAdapter() != null) {
+				setListAdapter(null);
+			}
+			getListView().addFooterView(inflate(R.layout.about_footer_view));
+		}
+
 		if (getListAdapter() == null) {
 			setListAdapter(new AboutItemsAdapter(getActivity(), aboutItems));
 		}
@@ -150,5 +150,9 @@ public class AboutFragment extends AbstractListFragment<AboutItem> {
 	
 	protected List<AboutItem> getCustomAboutItems() {
 		return Lists.newArrayList();
+	}
+
+	protected Boolean rateAppViewEnabled() {
+		return true;
 	}
 }

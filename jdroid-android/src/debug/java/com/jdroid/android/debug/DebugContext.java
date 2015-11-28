@@ -97,7 +97,15 @@ public class DebugContext {
 	public InfoDebugPrefsAppender createInfoDebugPrefsAppender() {
 		return new InfoDebugPrefsAppender();
 	}
-	
+
+	public RateAppDebugPrefsAppender createRateAppDebugPrefsAppender() {
+		return new RateAppDebugPrefsAppender();
+	}
+
+	public UsageStatsDebugPrefsAppender createUsageStatsDebugPrefsAppender() {
+		return new UsageStatsDebugPrefsAppender();
+	}
+
 	public List<PreferencesAppender> getCustomPreferencesAppenders() {
 		return Lists.newArrayList();
 	}

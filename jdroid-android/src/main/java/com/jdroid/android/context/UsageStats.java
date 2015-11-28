@@ -1,34 +1,39 @@
 package com.jdroid.android.context;
 
 import com.jdroid.android.utils.SharedPreferencesHelper;
-import com.jdroid.java.utils.LoggerUtils;
-
-import org.slf4j.Logger;
 
 public class UsageStats {
 
-	private static final Logger LOGGER = LoggerUtils.getLogger(UsageStats.class);
+	private static final String USAGE_STATS = "usageStats";
+	private static final String APP_LOADS = "appLoads";
+	private static final String FIRST_APP_LOAD_TIMESTAMP = "firstAppLoadTimestamp";
+	private static final String LAST_CRASH_TIMESTAMP = "lastCrashTimestamp";
 
-	private final static String USAGE_STATS = "usageStats";
-	private final static String APP_LOADS = "appLoads";
+	private static SharedPreferencesHelper sharedPreferencesHelper;
 
 	private static Long appLoads;
+	private static Long firstAppLoadTimestamp;
+	private static Long lastCrashTimestamp;
 	private static Long lastStopTime = System.currentTimeMillis();
 
 	public static void incrementAppLoad() {
-		loadAppLoad();
-		appLoads++;
-		SharedPreferencesHelper.get(USAGE_STATS).savePreferenceAsync(APP_LOADS, appLoads);
+		loadAppLoad(true);
+		loadFirstAppLoadTimestamp(true);
 	}
 
 	public static Long getAppLoads() {
-		loadAppLoad();
+		loadAppLoad(false);
 		return appLoads;
 	}
 
-	private static synchronized void loadAppLoad() {
+	private static synchronized void loadAppLoad(Boolean increment) {
 		if (appLoads == null) {
-			appLoads = SharedPreferencesHelper.get(USAGE_STATS).loadPreferenceAsLong(APP_LOADS, 0L);
+			appLoads = getSharedPreferencesHelper().loadPreferenceAsLong(APP_LOADS, 0L);
+		}
+
+		if (increment) {
+			appLoads++;
+			getSharedPreferencesHelper().savePreferenceAsync(APP_LOADS, appLoads);
 		}
 	}
 
@@ -38,5 +43,47 @@ public class UsageStats {
 
 	public static void setLastStopTime() {
 		lastStopTime = System.currentTimeMillis();
+	}
+
+	public static void setLastCrashTimestamp() {
+		lastCrashTimestamp = System.currentTimeMillis();
+		getSharedPreferencesHelper().savePreferenceAsync(LAST_CRASH_TIMESTAMP, lastCrashTimestamp);
+	}
+
+	public static Long getLastCrashTimestamp() {
+		loadLastCrashTimestamp();
+		return lastCrashTimestamp;
+	}
+
+	public static synchronized void loadLastCrashTimestamp() {
+		if (lastCrashTimestamp == null) {
+			lastCrashTimestamp = getSharedPreferencesHelper().loadPreferenceAsLong(LAST_CRASH_TIMESTAMP, 0L);
+		}
+	}
+
+	public static Long getFirstAppLoadTimestamp() {
+		loadFirstAppLoadTimestamp(false);
+		return firstAppLoadTimestamp;
+	}
+
+	public static synchronized void loadFirstAppLoadTimestamp(Boolean init) {
+		if (firstAppLoadTimestamp == null) {
+			firstAppLoadTimestamp = getSharedPreferencesHelper().loadPreferenceAsLong(FIRST_APP_LOAD_TIMESTAMP);
+			if (init && firstAppLoadTimestamp == null) {
+				firstAppLoadTimestamp = System.currentTimeMillis();
+				getSharedPreferencesHelper().savePreferenceAsync(FIRST_APP_LOAD_TIMESTAMP, firstAppLoadTimestamp);
+			}
+		}
+	}
+
+	public static void reset() {
+		getSharedPreferencesHelper().removeAllPreferences();
+	}
+
+	private static SharedPreferencesHelper getSharedPreferencesHelper() {
+		if (sharedPreferencesHelper == null) {
+			sharedPreferencesHelper = SharedPreferencesHelper.get(USAGE_STATS);
+		}
+		return sharedPreferencesHelper;
 	}
 }

@@ -8,6 +8,7 @@ import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.ui.google.gcm.GcmActivity;
 import com.jdroid.android.sample.ui.google.plus.GooglePlusActivity;
+import com.jdroid.android.sample.ui.rateme.RateAppActivity;
 import com.jdroid.android.sample.ui.sqlite.SQLiteActivity;
 import com.jdroid.android.utils.ScreenUtils;
 import com.jdroid.android.sample.ui.ads.AdsActivity;
@@ -42,6 +43,7 @@ public enum HomeItem implements ActionItem {
 	LOADING(R.string.loading, R.drawable.refresh, LoadingActivity.class),
 	NAVDRAWER(R.string.navDrawer, R.drawable.drawer, NavDrawerActivity.class),
 	NOTIFICATIONS(R.string.notifications, R.drawable.notifications, NotificationsActivity.class),
+	RATE_APP(R.string.rateApp, R.drawable.ic_rate_us, RateAppActivity.class),
 	RECYCLER_VIEW(R.string.recyclerView, R.drawable.list, RecyclerViewActivity.class),
 	SQLITE(R.string.sqlite, R.drawable.list, SQLiteActivity.class),
 	TABLETS(R.string.tablets, R.drawable.tablet, ScreenUtils.is10Inches() ? TabletActivity.class : LeftTabletActivity.class),

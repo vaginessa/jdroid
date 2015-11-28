@@ -10,9 +10,7 @@ public class HouseAdBuilder {
 	
 	public View build(Activity activity) {
 		View view = null;
-		if (RateAppView.displayRateMe()) {
-			view = new RateAppView(activity);
-		} else if (RemoveAdsView.displayRemoveAdsView() && (removeAdsClickListener != null)) {
+		if (RemoveAdsView.displayRemoveAdsView() && (removeAdsClickListener != null)) {
 			view = new RemoveAdsView(activity);
 			view.setOnClickListener(removeAdsClickListener);
 		}

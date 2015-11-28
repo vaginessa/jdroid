@@ -138,6 +138,9 @@
 		<activity android:name="com.jdroid.android.sample.ui.tablets.RightTabletActivity" android:label="@string/tablets"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<activity android:name="com.jdroid.android.sample.ui.rateme.RateAppActivity" android:label="@string/rateApp"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
 		<activity android:name="com.jdroid.android.sample.ui.sqlite.SQLiteActivity" android:label="@string/sqlite"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 

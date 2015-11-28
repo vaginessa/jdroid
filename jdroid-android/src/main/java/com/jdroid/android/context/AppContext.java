@@ -1,17 +1,14 @@
 package com.jdroid.android.context;
 
 import android.preference.PreferenceManager;
-import android.text.format.DateUtils;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.http.Server;
 
 import java.util.Locale;
 
 public abstract class AppContext {
 	
-	private static final String FIRST_SESSION_TIMESTAMP = "firstSessionTimestamp";
 	public static final String HTTP_MOCK_ENABLED = "httpMockEnabled";
 	public static final String HTTP_MOCK_SLEEP = "httpMockSleep";
 
@@ -113,26 +110,6 @@ public abstract class AppContext {
 
 	public Boolean isChromeInstallationSource() {
 		return getInstallationSource().equals("Chrome");
-	}
-	
-	public void saveFirstSessionTimestamp() {
-		Long firstSessionTimestamp = getFirstSessionTimestamp();
-		if (firstSessionTimestamp == null) {
-			SharedPreferencesHelper.get().savePreferenceAsync(FIRST_SESSION_TIMESTAMP, System.currentTimeMillis());
-		}
-	}
-	
-	public Long getFirstSessionTimestamp() {
-		return SharedPreferencesHelper.get().loadPreferenceAsLong(FIRST_SESSION_TIMESTAMP);
-	}
-	
-	public Long getDaysSinceFirstSession() {
-		Long firstSessionTimestamp = getFirstSessionTimestamp();
-		if (firstSessionTimestamp != null) {
-			return (System.currentTimeMillis() - getFirstSessionTimestamp()) / DateUtils.DAY_IN_MILLIS;
-		} else {
-			return 0L;
-		}
 	}
 	
 	public String getServerApiVersion() {
