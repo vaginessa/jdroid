@@ -11,30 +11,15 @@ public class UsageStats {
 
 	private static SharedPreferencesHelper sharedPreferencesHelper;
 
-	private static Long appLoads;
-	private static Long firstAppLoadTimestamp;
-	private static Long lastCrashTimestamp;
 	private static Long lastStopTime = System.currentTimeMillis();
 
 	public static void incrementAppLoad() {
-		loadAppLoad(true);
-		loadFirstAppLoadTimestamp(true);
+		Long appLoads = getSharedPreferencesHelper().loadPreferenceAsLong(APP_LOADS, 0L);
+		getSharedPreferencesHelper().savePreferenceAsync(APP_LOADS, appLoads++);
 	}
 
 	public static Long getAppLoads() {
-		loadAppLoad(false);
-		return appLoads;
-	}
-
-	private static synchronized void loadAppLoad(Boolean increment) {
-		if (appLoads == null) {
-			appLoads = getSharedPreferencesHelper().loadPreferenceAsLong(APP_LOADS, 0L);
-		}
-
-		if (increment) {
-			appLoads++;
-			getSharedPreferencesHelper().savePreferenceAsync(APP_LOADS, appLoads);
-		}
+		return getSharedPreferencesHelper().loadPreferenceAsLong(APP_LOADS, 0L);
 	}
 
 	public static Long getLastStopTime() {
@@ -46,34 +31,20 @@ public class UsageStats {
 	}
 
 	public static void setLastCrashTimestamp() {
-		lastCrashTimestamp = System.currentTimeMillis();
-		getSharedPreferencesHelper().savePreferenceAsync(LAST_CRASH_TIMESTAMP, lastCrashTimestamp);
+		getSharedPreferencesHelper().savePreferenceAsync(LAST_CRASH_TIMESTAMP, System.currentTimeMillis());
 	}
 
 	public static Long getLastCrashTimestamp() {
-		loadLastCrashTimestamp();
-		return lastCrashTimestamp;
-	}
-
-	public static synchronized void loadLastCrashTimestamp() {
-		if (lastCrashTimestamp == null) {
-			lastCrashTimestamp = getSharedPreferencesHelper().loadPreferenceAsLong(LAST_CRASH_TIMESTAMP, 0L);
-		}
+		return getSharedPreferencesHelper().loadPreferenceAsLong(LAST_CRASH_TIMESTAMP, 0L);
 	}
 
 	public static Long getFirstAppLoadTimestamp() {
-		loadFirstAppLoadTimestamp(false);
-		return firstAppLoadTimestamp;
-	}
-
-	public static synchronized void loadFirstAppLoadTimestamp(Boolean init) {
+		Long firstAppLoadTimestamp = getSharedPreferencesHelper().loadPreferenceAsLong(FIRST_APP_LOAD_TIMESTAMP);
 		if (firstAppLoadTimestamp == null) {
-			firstAppLoadTimestamp = getSharedPreferencesHelper().loadPreferenceAsLong(FIRST_APP_LOAD_TIMESTAMP);
-			if (init && firstAppLoadTimestamp == null) {
-				firstAppLoadTimestamp = System.currentTimeMillis();
-				getSharedPreferencesHelper().savePreferenceAsync(FIRST_APP_LOAD_TIMESTAMP, firstAppLoadTimestamp);
-			}
+			firstAppLoadTimestamp = System.currentTimeMillis();
+			getSharedPreferencesHelper().savePreferenceAsync(FIRST_APP_LOAD_TIMESTAMP, firstAppLoadTimestamp);
 		}
+		return firstAppLoadTimestamp;
 	}
 
 	public static void reset() {
@@ -82,15 +53,9 @@ public class UsageStats {
 
 	public static void simulateHeavyUsage() {
 		reset();
-
-		appLoads = 100L;
-		getSharedPreferencesHelper().savePreferenceAsync(APP_LOADS, appLoads);
-
-		firstAppLoadTimestamp = 0L;
-		getSharedPreferencesHelper().savePreferenceAsync(FIRST_APP_LOAD_TIMESTAMP, firstAppLoadTimestamp);
-
-		lastCrashTimestamp = 0L;
-		getSharedPreferencesHelper().savePreferenceAsync(LAST_CRASH_TIMESTAMP, lastCrashTimestamp);
+		getSharedPreferencesHelper().savePreferenceAsync(APP_LOADS, 100L);
+		getSharedPreferencesHelper().savePreferenceAsync(FIRST_APP_LOAD_TIMESTAMP, 0L);
+		getSharedPreferencesHelper().savePreferenceAsync(LAST_CRASH_TIMESTAMP, 0L);
 	}
 
 	private static SharedPreferencesHelper getSharedPreferencesHelper() {
