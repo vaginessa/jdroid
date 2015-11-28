@@ -1,42 +1,17 @@
 package com.jdroid.java.http.okhttp;
 
 import com.jdroid.java.http.HttpResponseWrapper;
-import com.jdroid.java.http.HttpService;
-import com.jdroid.java.utils.FileUtils;
 import com.squareup.okhttp.Response;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.zip.GZIPInputStream;
 
 public class OkHttpResponseWrapper extends HttpResponseWrapper {
 
 	private Response response;
-
 	private InputStream inputStream;
 
-	public OkHttpResponseWrapper(Response response) throws IOException {
+	public OkHttpResponseWrapper(Response response) {
 		this.response = response;
-		if (response.code() != 204) {
-			inputStream = response.body().byteStream();
-			String contentEncoding = response.header(HttpService.CONTENT_ENCODING_HEADER);
-			if (inputStream != null && (contentEncoding != null) && contentEncoding.equalsIgnoreCase(HttpService.GZIP_ENCODING)) {
-				inputStream = new GZIPInputStream(inputStream);
-			}
-		}
-	}
-
-	@Override
-	public String getContent() {
-		String content = null;
-		try {
-			if (inputStream != null) {
-				content = FileUtils.toString(inputStream);
-			}
-		} finally {
-			FileUtils.safeClose(inputStream);
-		}
-		return content;
 	}
 
 	@Override
@@ -56,6 +31,9 @@ public class OkHttpResponseWrapper extends HttpResponseWrapper {
 
 	@Override
 	public InputStream getInputStream() {
+		if (inputStream == null) {
+			inputStream = new ReadResponseCommand().execute(response);
+		}
 		return inputStream;
 	}
 }

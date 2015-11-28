@@ -10,8 +10,6 @@ public abstract class HttpResponseWrapper {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(HttpResponseWrapper.class);
 	
-	public abstract String getContent();
-	
 	public abstract int getStatusCode();
 	
 	public abstract String getStatusReason();
