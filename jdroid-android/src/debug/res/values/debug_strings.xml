@@ -63,6 +63,7 @@
 
 	<!-- RateApp -->
 	<string name="rateApp" tools:ignore="MissingTranslation">Rate App</string>
+	<string name="simulateHeavyUsage" tools:ignore="MissingTranslation">Simulate Heavy Usage</string>
 
 	<!-- Usage Stats -->
 	<string name="usageStats" tools:ignore="MissingTranslation">Usage Stats</string>

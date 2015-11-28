@@ -62,6 +62,6 @@ public class RateAppStats {
 		Boolean enoughDaysSinceFirstAppLoad = DateUtils.millisecondsToDays(UsageStats.getFirstAppLoadTimestamp()) > 7;
 		Boolean enoughAppLoads = UsageStats.getAppLoads() > 10;
 		Boolean enoughDaysSinceLastCrash = DateUtils.millisecondsToDays(UsageStats.getLastCrashTimestamp()) > 21;
-		return !alreadyRated && enoughDaysSinceLastResponse && enoughDaysSinceFirstAppLoad && enoughAppLoads && enoughDaysSinceLastCrash;
+		return (alreadyRated == null || !alreadyRated) && enoughDaysSinceLastResponse && enoughDaysSinceFirstAppLoad && enoughAppLoads && enoughDaysSinceLastCrash;
 	}
 }

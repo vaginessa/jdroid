@@ -80,6 +80,19 @@ public class UsageStats {
 		getSharedPreferencesHelper().removeAllPreferences();
 	}
 
+	public static void simulateHeavyUsage() {
+		reset();
+
+		appLoads = 100L;
+		getSharedPreferencesHelper().savePreferenceAsync(APP_LOADS, appLoads);
+
+		firstAppLoadTimestamp = 0L;
+		getSharedPreferencesHelper().savePreferenceAsync(FIRST_APP_LOAD_TIMESTAMP, firstAppLoadTimestamp);
+
+		lastCrashTimestamp = 0L;
+		getSharedPreferencesHelper().savePreferenceAsync(LAST_CRASH_TIMESTAMP, lastCrashTimestamp);
+	}
+
 	private static SharedPreferencesHelper getSharedPreferencesHelper() {
 		if (sharedPreferencesHelper == null) {
 			sharedPreferencesHelper = SharedPreferencesHelper.get(USAGE_STATS);

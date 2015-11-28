@@ -11,11 +11,9 @@ import android.widget.TextView;
 
 import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.context.UsageStats;
 import com.jdroid.android.google.GooglePlayUtils;
 import com.jdroid.android.intent.IntentUtils;
 import com.jdroid.android.share.ShareUtils;
-import com.jdroid.java.date.DateUtils;
 
 public class RateAppView extends RelativeLayout {
 
@@ -123,7 +121,7 @@ public class RateAppView extends RelativeLayout {
 			}
 
 		});
-		negativeButton.setText(R.string.rateAppNotReally);
+		negativeButton.setText(R.string.rateAppNotThanks);
 		negativeButton.setOnClickListener(new OnClickListener() {
 
 			@Override
