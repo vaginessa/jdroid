@@ -106,8 +106,8 @@
 	<string name="sqliteAdd">Add</string>
 	<string name="sqliteUpdate">Update</string>
 	<string name="sqliteRemove">Remove</string>
-	<string name="sqliteGetAll">getAll</string>
-
+	<string name="sqliteRemoveAll">Remove All</string>
+	<string name="sqliteGetAll">Get All</string>
 	<!-- Tablets -->
 	<string name="openDetail">Open Detail</string>
 

@@ -80,6 +80,19 @@ public class SQLiteFragment extends AbstractFragment {
 				});
 			}
 		});
+		findView(R.id.sqliteRemoveAll).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				ExecutorUtils.execute(new Runnable() {
+					@Override
+					public void run() {
+						Repository<SampleSQLiteEntity> repository = AndroidApplication.get().getRepositoryInstance(SampleSQLiteEntity.class);
+						repository.removeAll();
+					}
+				});
+			}
+		});
 		findView(R.id.sqliteGetAll).setOnClickListener(new OnClickListener() {
 			
 			@Override

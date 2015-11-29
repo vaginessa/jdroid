@@ -95,13 +95,21 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	}
 	
 	/**
-	 * Called after an entity is stored, allows to store/update entity children.
+	 * Called after an entity is stored, allows to store entity children.
 	 * 
 	 * @param item stored entity.
 	 */
 	protected void onStored(T item) {
 	}
-	
+
+	/**
+	 * Called after an entity is updated, allows to store/update entity children.
+	 *
+	 * @param item stored entity.
+	 */
+	protected void onUpdated(T item) {
+	}
+
 	/**
 	 * Called after an entity is loaded. It allows to populate entity children.
 	 * 
@@ -329,6 +337,18 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	@Override
 	public void update(T item) {
 		add(item);
+		@SuppressWarnings("resource")
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		boolean endTransaction = beginTransaction(db);
+		try {
+			ContentValues values = createContentValuesFromObject(item);
+			db.update(getTableName(), values, getIdColumnName() + "=?", new String[]{item.getId().toString()});
+			onUpdated(item);
+			LOGGER.trace("Updated object in database: " + item);
+			successTransaction(db, endTransaction);
+		} finally {
+			endTransaction(db, endTransaction);
+		}
 	}
 	
 	/**

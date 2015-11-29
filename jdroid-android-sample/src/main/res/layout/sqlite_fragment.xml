@@ -8,6 +8,8 @@
 		android:text="@string/sqliteUpdate" />
 	<Button android:id="@+id/sqliteRemove" android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:text="@string/sqliteRemove" />
+	<Button android:id="@+id/sqliteRemoveAll" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/sqliteRemoveAll" />
 	<Button android:id="@+id/sqliteGetAll" android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:text="@string/sqliteGetAll" />
 
