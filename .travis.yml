@@ -14,7 +14,4 @@ android:
     - extra-android-m2repository
     - extra-google-m2repository
 
-before_script:
-    - android list sdk --no-ui --all --extended
-
 script: sh ./etc/scripts/test.sh true false true true false
