@@ -1,5 +1,7 @@
 language: android
 
+sudo: false
+
 jdk:
   - oraclejdk7
 
@@ -7,9 +9,9 @@ android:
   components:
 
     # The BuildTools version used by your project
-    - build-tools-23.0.0-preview
+    - build-tools-23.0.2
 
     # The SDK version used to compile your project
-    - android-22
+    - android-23
 
 script: sh ./etc/scripts/test.sh true false true true false
