@@ -4,16 +4,16 @@
 
 	<TextView android:id="@+id/status" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
 
-	<TextView android:id="@+id/googlePlusSignInButton" style="@style/googlePlusSignInButton"
-			  android:layout_gravity="center_horizontal" android:minWidth="260dp" android:layout_marginTop="20dp"
-			  android:text="@string/signInWithGoogle" />
+	<com.google.android.gms.common.SignInButton android:id="@+id/googlePlusSignInButton" android:layout_width="260dp"
+												android:layout_height="wrap_content" android:layout_gravity="center_horizontal"
+												android:layout_marginTop="20dp" />
 
-	<TextView android:id="@+id/googlePlusLogoutButton" style="@style/googlePlusLogoutButton"
+	<Button android:id="@+id/googlePlusLogoutButton" android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/raisedButton"
 			  android:layout_gravity="center_horizontal" android:minWidth="260dp" android:layout_marginTop="20dp"
 			  android:text="@string/logout" />
 
-	<TextView android:id="@+id/googlePlusRevokeButton" style="@style/googlePlusRevokeButton"
+	<Button android:id="@+id/googlePlusRevokeButton" android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/raisedButton"
 			  android:layout_gravity="center_horizontal" android:minWidth="260dp" android:layout_marginTop="20dp"
-			  android:text="@string/revoke" />
+			  android:text="@string/revokeAccess" />
 
 </LinearLayout>

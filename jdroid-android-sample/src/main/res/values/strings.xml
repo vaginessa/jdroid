@@ -115,9 +115,4 @@
 	<string name="shareMessage">Jdroid - Application Framework for Android and Java apps. Download the sample app on your Android.
 		%1$s</string>
 
-	<!-- Google -->
-	<string name="signInWithGoogle">Sign in with Google</string>
-	<string name="logout">Logout</string>
-	<string name="revoke">Revoke</string>
-
 </resources>
