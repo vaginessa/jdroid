@@ -336,7 +336,6 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	 */
 	@Override
 	public void update(T item) {
-		add(item);
 		@SuppressWarnings("resource")
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		boolean endTransaction = beginTransaction(db);
