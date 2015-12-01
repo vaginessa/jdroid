@@ -9,20 +9,18 @@ import com.jdroid.android.google.GooglePlayUtils;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.ErrorCode;
 import com.jdroid.java.exception.ErrorCodeException;
 import com.jdroid.java.utils.LoggerUtils;
+import com.jdroid.java.utils.ReflectionUtils;
+import com.jdroid.java.utils.StringUtils;
 
 import org.slf4j.Logger;
 
 import java.lang.Thread.UncaughtExceptionHandler;
-import java.net.UnknownHostException;
 import java.util.List;
-
-import javax.net.ssl.SSLPeerUnverifiedException;
 
 public class DefaultExceptionHandler implements ExceptionHandler {
 	
@@ -63,7 +61,8 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 		try {
 			try {
 				UsageStats.setLastCrashTimestamp();
-				AbstractApplication.get().getAnalyticsSender().trackFatalException(throwable);
+				List<String> tags = getThrowableTags(throwable, null);
+				AbstractApplication.get().getAnalyticsSender().trackFatalException(throwable, tags);
 			} catch (Exception e) {
 				wrappedExceptionHandler.uncaughtException(thread, e);
 			}
@@ -118,41 +117,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	public void logHandledException(String errorMessage, Throwable throwable) {
 		
 		if (throwable instanceof ConnectionException) {
-			final ConnectionException connectionException = (ConnectionException)throwable;
-			
-			Boolean isSSLPeerUnverifiedError = false;
-			// Added to log at least the exception message, because Logcat does not show the stackTrace when it
-			// includes a UnknownHostException
-			errorMessage = throwable.getMessage();
-			Throwable cause = connectionException.getCause();
-			while (cause != null) {
-				if (cause instanceof UnknownHostException) {
-					errorMessage += ": " + cause.getMessage();
-					break;
-				} else if (cause instanceof SSLPeerUnverifiedException) {
-					isSSLPeerUnverifiedError = true;
-					break;
-				}
-				cause = cause.getCause();
-			}
-			
-			if (isSSLPeerUnverifiedError) {
-				LOGGER.error(errorMessage, throwable);
-				final Throwable sslCause = cause;
-				// This exception is logged on a new thread to always generate the exactly same stack trace, so
-				// Crittercism can group all of them.
-				ExecutorUtils.execute(new Runnable() {
-					
-					@Override
-					public void run() {
-						AbstractApplication.get().getAnalyticsSender().trackHandledException(
-								new SSLPeerUnverifiedException(sslCause.getMessage()), connectionException.getPriorityLevel());
-					}
-				});
-			} else {
-				LOGGER.warn(errorMessage, throwable);
-			}
-			
+			LOGGER.warn(errorMessage, throwable);
 		} else {
 			Boolean trackable = true;
 			Throwable throwableToLog = throwable;
@@ -174,7 +139,8 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 			
 			if (trackable) {
 				LOGGER.error(errorMessage, throwableToLog);
-				AbstractApplication.get().getAnalyticsSender().trackHandledException(throwableToLog, priorityLevel);
+				List<String> tags = getThrowableTags(throwable, priorityLevel);
+				AbstractApplication.get().getAnalyticsSender().trackHandledException(throwableToLog, tags);
 			} else {
 				LOGGER.warn(errorMessage);
 			}
@@ -282,6 +248,30 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	@Override
 	public void setDefaultExceptionHandler(UncaughtExceptionHandler uncaughtExceptionHandler) {
 		defautlExceptionHandler = uncaughtExceptionHandler;
+	}
+
+	protected List<String> getThrowableTags(Throwable throwable, Integer priorityLevel) {
+		List<String> tags = Lists.newArrayList();
+		if (priorityLevel != null) {
+			tags.add("level" + String.format("%02d", priorityLevel));
+		}
+		return tags;
+	}
+
+	public static void addTags(Throwable throwable, List<String> tags) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(StringUtils.join(tags, " "));
+
+		if (throwable.getMessage() != null) {
+			builder.append(" ");
+			builder.append(throwable.getMessage());
+		}
+
+		try {
+			ReflectionUtils.set(throwable, "detailMessage", builder.toString());
+		} catch (Exception e) {
+			// do nothing
+		}
 	}
 	
 }

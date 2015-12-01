@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.crashlytics.CrashlyticsTracker;
 
+import java.util.List;
 import java.util.Map;
 
 public class AndroidCrashlyticsTracker extends DefaultAnalyticsTracker {
@@ -26,8 +27,8 @@ public class AndroidCrashlyticsTracker extends DefaultAnalyticsTracker {
 	}
 	
 	@Override
-	public void trackHandledException(Throwable throwable, int priority) {
-		CrashlyticsTracker.get().trackHandledException(throwable, priority);
+	public void trackHandledException(Throwable throwable, List<String> tags) {
+		CrashlyticsTracker.get().trackHandledException(throwable, tags);
 	}
 	
 	/**

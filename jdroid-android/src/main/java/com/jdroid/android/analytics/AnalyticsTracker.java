@@ -7,6 +7,7 @@ import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.java.analytics.BaseAnalyticsTracker;
 
+import java.util.List;
 import java.util.Map;
 
 public interface AnalyticsTracker extends BaseAnalyticsTracker {
@@ -15,9 +16,9 @@ public interface AnalyticsTracker extends BaseAnalyticsTracker {
 	
 	public void onInitExceptionHandler(Map<String, String> metadata);
 
-	public void trackFatalException(Throwable throwable);
+	public void trackFatalException(Throwable throwable, List<String> tags);
 
-	public void trackHandledException(Throwable throwable, int priority);
+	public void trackHandledException(Throwable throwable, List<String> tags);
 
 	public void trackErrorBreadcrumb(String message);
 

@@ -6,8 +6,9 @@ import com.crashlytics.android.Crashlytics;
 import com.jdroid.android.analytics.AbstractAnalyticsTracker;
 import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.context.SecurityContext;
-import com.jdroid.java.utils.ReflectionUtils;
+import com.jdroid.android.exception.DefaultExceptionHandler;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -36,31 +37,15 @@ public class CrashlyticsTracker extends AbstractAnalyticsTracker {
 	}
 	
 	@Override
-	public void trackHandledException(Throwable throwable, int priority) {
-		if (isPriorityLevelEnabled()) {
-			assignPriorityLevel(throwable, priority);
+	public void trackHandledException(Throwable throwable, List<String> tags) {
+		if (areTagsEnabled()) {
+			DefaultExceptionHandler.addTags(throwable, tags);
 		}
 		Crashlytics.getInstance().core.logException(throwable);
 	}
 
-	protected Boolean isPriorityLevelEnabled() {
+	protected Boolean areTagsEnabled() {
 		return false;
-	}
-
-	protected Throwable assignPriorityLevel(Throwable throwable, int priorityLevel) {
-		StringBuilder builder = new StringBuilder();
-		builder.append("level");
-		builder.append(String.format("%02d", priorityLevel));
-		if (throwable.getMessage() != null) {
-			builder.append(" ");
-			builder.append(throwable.getMessage());
-		}
-		try {
-			ReflectionUtils.set(throwable, "detailMessage", builder.toString());
-		} catch (Exception e) {
-			// do nothing
-		}
-		return throwable;
 	}
 
 	@Override

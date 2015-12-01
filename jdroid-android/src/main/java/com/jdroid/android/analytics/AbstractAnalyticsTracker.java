@@ -6,6 +6,7 @@ import com.jdroid.android.google.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 
+import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
@@ -73,12 +74,12 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	}
 
 	@Override
-	public void trackFatalException(Throwable throwable) {
+	public void trackFatalException(Throwable throwable, List<String> tags) {
 		// Do Nothing
 	}
 
 	@Override
-	public void trackHandledException(Throwable throwable, int priority) {
+	public void trackHandledException(Throwable throwable, List<String> tags) {
 		// Do Nothing
 	}
 	

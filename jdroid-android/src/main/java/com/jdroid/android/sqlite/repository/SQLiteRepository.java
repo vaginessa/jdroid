@@ -223,6 +223,8 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 			}
 			sb.append(")");
 			selection = sb.toString();
+		} else {
+			selection = fieldName + " IS NULL";
 		}
 		Cursor cursor = null;
 		try {

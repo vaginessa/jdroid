@@ -145,13 +145,13 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 	}
 
 	@Override
-	public void trackFatalException(final Throwable throwable) {
+	public void trackFatalException(final Throwable throwable, final List<String> tags) {
 		ExecutorUtils.execute(new Runnable() {
 			@Override
 			public void run() {
 				for (T tracker : getTrackers()) {
 					if (tracker.isEnabled()) {
-						tracker.trackFatalException(throwable);
+						tracker.trackFatalException(throwable, tags);
 					}
 				}
 			}
@@ -159,14 +159,14 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 	}
 	
 	@Override
-	public void trackHandledException(final Throwable throwable, final int priority) {
+	public void trackHandledException(final Throwable throwable, final List<String> tags) {
 		ExecutorUtils.execute(new Runnable() {
 			@Override
 			public void run() {
 				for (T tracker : getTrackers()) {
 					try {
 						if (tracker.isEnabled()) {
-							tracker.trackHandledException(throwable, priority);
+							tracker.trackHandledException(throwable, tags);
 						}
 					} catch (Exception e) {
 						LOGGER.error("Error when trying to track the exception.", e);

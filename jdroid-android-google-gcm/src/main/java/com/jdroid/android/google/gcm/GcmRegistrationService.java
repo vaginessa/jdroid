@@ -48,7 +48,7 @@ public class GcmRegistrationService extends GcmTaskService {
 				registrationToken = instanceID.getToken(senderId, GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
 				GcmPreferences.setRegistrationToken(registrationToken);
 			} catch (Exception e) {
-				LOGGER.warn("Failed to register the device on gcm. Will retry later.", e);
+				AbstractApplication.get().getExceptionHandler().logHandledException("Failed to register the device on gcm. Will retry later.", e);
 				return GcmNetworkManager.RESULT_RESCHEDULE;
 			}
 
@@ -59,14 +59,14 @@ public class GcmRegistrationService extends GcmTaskService {
 					AbstractGcmAppModule.get().onRegisterOnServer(registrationToken);
 					GcmPreferences.setRegisteredOnServer(true);
 				} catch (Exception e) {
-					LOGGER.warn("Failed to register the device on server. Will retry later.", e);
+					AbstractApplication.get().getExceptionHandler().logHandledException("Failed to register the device on server. Will retry later.", e);
 					return GcmNetworkManager.RESULT_RESCHEDULE;
 				}
 
 				try {
 					subscribeTopics(registrationToken);
 				} catch (Exception e) {
-					LOGGER.warn("Failed to subscribe to topic channels. Will retry later.", e);
+					AbstractApplication.get().getExceptionHandler().logHandledException("Failed to subscribe to topic channels. Will retry later.", e);
 					return GcmNetworkManager.RESULT_RESCHEDULE;
 				}
 			}
@@ -108,8 +108,6 @@ public class GcmRegistrationService extends GcmTaskService {
 
 		LOGGER.info("Scheduling GCM Registration");
 		GcmNetworkManager.getInstance(AbstractApplication.get()).schedule(builder.build());
-
-
 	}
 
 	public static void start() {

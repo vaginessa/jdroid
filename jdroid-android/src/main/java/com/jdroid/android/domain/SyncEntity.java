@@ -2,7 +2,7 @@ package com.jdroid.android.domain;
 
 public class SyncEntity extends Entity {
 
-	private SyncStatus syncStatus = SyncStatus.PENDING;
+	private SyncStatus syncStatus;
 
 	public void markAsSynced() {
 		syncStatus = SyncStatus.SYNCED;

@@ -12,12 +12,12 @@ import com.google.android.gms.analytics.HitBuilders.TransactionBuilder;
 import com.google.android.gms.analytics.Logger.LogLevel;
 import com.google.android.gms.analytics.StandardExceptionParser;
 import com.google.android.gms.analytics.Tracker;
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.analytics.AbstractAnalyticsTracker;
 import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.analytics.ExperimentHelper;
 import com.jdroid.android.analytics.ExperimentHelper.Experiment;
 import com.jdroid.android.analytics.ExperimentHelper.ExperimentVariant;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.UsageStats;
 import com.jdroid.android.google.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
@@ -30,6 +30,7 @@ import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -300,7 +301,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 
 	@Override
-	public void trackFatalException(Throwable throwable) {
+	public void trackFatalException(Throwable throwable, List<String> tags) {
 		HitBuilders.ExceptionBuilder builder = new HitBuilders.ExceptionBuilder();
 		String description = new StandardExceptionParser(AbstractApplication.get(), null).getDescription(Thread.currentThread().getName(), throwable);
 		builder.setDescription(description);
@@ -311,7 +312,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 
 	@Override
-	public void trackHandledException(Throwable throwable, int priority) {
+	public void trackHandledException(Throwable throwable, List<String> tags) {
 		HitBuilders.ExceptionBuilder builder = new HitBuilders.ExceptionBuilder();
 		String description = new StandardExceptionParser(AbstractApplication.get(), null).getDescription(Thread.currentThread().getName(), throwable);
 		builder.setDescription(description);
