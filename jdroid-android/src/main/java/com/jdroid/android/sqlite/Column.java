@@ -22,7 +22,12 @@ public interface Column {
 	 * Default dtype column name.
 	 */
 	public final String DTYPE = "dtype";
-	
+
+	/**
+	 * Default syncStatus column name.
+	 */
+	public final String SYNC_STATUS = "syncStatus";
+
 	/**
 	 * Default value column name.
 	 */

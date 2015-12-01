@@ -1,13 +1,15 @@
 package com.jdroid.javaweb.domain;
 
+import com.jdroid.java.domain.Identifiable;
+
 import java.io.Serializable;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import com.jdroid.java.domain.Identifiable;
 
 /**
  * Domain Entity
@@ -15,7 +17,7 @@ import com.jdroid.java.domain.Identifiable;
 @MappedSuperclass
 @Access(AccessType.FIELD)
 public abstract class Entity implements Serializable, Identifiable {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -69,5 +71,10 @@ public abstract class Entity implements Serializable, Identifiable {
 	
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Entity{" + "id=" + id + '}';
 	}
 }

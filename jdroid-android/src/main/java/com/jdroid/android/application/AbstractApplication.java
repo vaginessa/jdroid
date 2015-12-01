@@ -146,6 +146,8 @@ public abstract class AbstractApplication extends Application {
 		DateUtils.init();
 
 		imageLoaderHelper = createImageLoaderHelper();
+		initRepositories();
+
 		ExecutorUtils.execute(new Runnable() {
 
 			@Override
@@ -162,8 +164,6 @@ public abstract class AbstractApplication extends Application {
 				}
 			}
 		});
-
-		initRepositories();
 	}
 
 	@Nullable
