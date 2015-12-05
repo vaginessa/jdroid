@@ -1,18 +1,21 @@
 package com.jdroid.android.fragment;
 
-import java.util.List;
 import android.os.Bundle;
+import android.support.annotation.WorkerThread;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import com.jdroid.android.application.AbstractApplication;
+
 import com.jdroid.android.R;
 import com.jdroid.android.adapter.BaseArrayAdapter;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.usecase.PaginatedUseCase;
 import com.jdroid.java.exception.AbstractException;
+
+import java.util.List;
 
 /**
  * 
@@ -99,9 +102,7 @@ public abstract class AbstractPaginatedListFragment<T> extends AbstractListFragm
 	
 	protected abstract BaseArrayAdapter<T> createBaseArrayAdapter(List<T> items);
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onStartUseCase()
-	 */
+	@WorkerThread
 	@Override
 	public void onStartUseCase() {
 		if (getPaginatedUseCase().isPaginating()) {
@@ -111,9 +112,7 @@ public abstract class AbstractPaginatedListFragment<T> extends AbstractListFragm
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractListFragment#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
-	 */
+	@WorkerThread
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		if (getPaginatedUseCase().isPaginating()) {
@@ -124,9 +123,7 @@ public abstract class AbstractPaginatedListFragment<T> extends AbstractListFragm
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onFinishUseCase()
-	 */
+	@WorkerThread
 	@Override
 	public void onFinishUseCase() {
 		executeOnUIThread(new Runnable() {

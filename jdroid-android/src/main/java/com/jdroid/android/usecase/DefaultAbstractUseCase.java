@@ -1,5 +1,7 @@
 package com.jdroid.android.usecase;
 
+import android.support.annotation.WorkerThread;
+
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 import com.jdroid.java.exception.AbstractException;
 
@@ -12,26 +14,19 @@ public abstract class DefaultAbstractUseCase extends AbstractUseCase<DefaultUseC
 	
 	private static final long serialVersionUID = -6915799187802671145L;
 	
-	/**
-	 * @see com.jdroid.android.usecase.AbstractUseCase#notifyFailedUseCase(com.jdroid.java.exception.AbstractException,
-	 *      java.lang.Object)
-	 */
+	@WorkerThread
 	@Override
 	protected void notifyFailedUseCase(AbstractException e, DefaultUseCaseListener listener) {
 		listener.onFinishFailedUseCase(e);
 	}
 	
-	/**
-	 * @see com.jdroid.android.usecase.AbstractUseCase#notifyFinishedUseCase(java.lang.Object)
-	 */
+	@WorkerThread
 	@Override
 	protected void notifyFinishedUseCase(DefaultUseCaseListener listener) {
 		listener.onFinishUseCase();
 	}
 	
-	/**
-	 * @see com.jdroid.android.usecase.AbstractUseCase#notifyUseCaseStart(java.lang.Object)
-	 */
+	@WorkerThread
 	@Override
 	protected void notifyUseCaseStart(DefaultUseCaseListener listener) {
 		listener.onStartUseCase();

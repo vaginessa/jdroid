@@ -3,6 +3,7 @@ package com.jdroid.android.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.WorkerThread;
 import android.support.v4.app.ListFragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -182,34 +183,26 @@ public abstract class AbstractListFragment<T> extends ListFragment implements Fr
 	public View inflate(int resource) {
 		return fragmentHelper.inflate(resource);
 	}
-	
-	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onStartUseCase()
-	 */
+
+	@WorkerThread
 	@Override
 	public void onStartUseCase() {
 		fragmentHelper.onStartUseCase();
 	}
 	
-	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onUpdateUseCase()
-	 */
+	@WorkerThread
 	@Override
 	public void onUpdateUseCase() {
 		fragmentHelper.onUpdateUseCase();
 	}
 	
-	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
-	 */
+	@WorkerThread
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		fragmentHelper.onFinishFailedUseCase(abstractException);
 	}
 	
-	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishUseCase()
-	 */
+	@WorkerThread
 	@Override
 	public void onFinishUseCase() {
 		fragmentHelper.onFinishUseCase();

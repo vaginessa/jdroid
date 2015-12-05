@@ -1,5 +1,7 @@
 package com.jdroid.android.usecase;
 
+import android.support.annotation.WorkerThread;
+
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
@@ -42,6 +44,7 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 	/**
 	 * Executes the use case.
 	 */
+	@WorkerThread
 	@Override
 	public final void run() {
 		
@@ -107,6 +110,7 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 	/**
 	 * Override this method with the use case functionality to be executed
 	 */
+	@WorkerThread
 	protected abstract void doExecute();
 	
 	/**
@@ -116,6 +120,7 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 	 * 
 	 * @param listener The listener to notify.
 	 */
+	@WorkerThread
 	protected abstract void notifyUseCaseStart(T listener);
 	
 	/**
@@ -125,6 +130,7 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 	 * 
 	 * @param listener The listener to notify.
 	 */
+	@WorkerThread
 	protected abstract void notifyFinishedUseCase(T listener);
 	
 	/**
@@ -134,6 +140,7 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 	 * 
 	 * @param listener The listener to notify.
 	 */
+	@WorkerThread
 	protected abstract void notifyFailedUseCase(AbstractException e, T listener);
 	
 	/**
