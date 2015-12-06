@@ -1,30 +1,60 @@
-package com.jdroid.javaweb.domain;
-
-import com.jdroid.java.domain.Identifiable;
+package com.jdroid.java.domain;
 
 import java.io.Serializable;
-
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
 
 /**
  * Domain Entity
  */
-@MappedSuperclass
-@Access(AccessType.FIELD)
 public abstract class Entity implements Serializable, Identifiable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+	private static final long serialVersionUID = 907671509045298947L;
+
+	private String id;
+	private String parentId;
+
+	public Entity(String id) {
+		this.id = id;
+	}
+
+	public Entity() {
+	}
+
+	/**
+	 * Gets the identification for this {@link Entity}
+	 *
+	 * @return the id of this {@link Entity}
+	 */
+	@Override
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getParentId() {
+		return parentId;
+	}
+
+	/**
+	 * @param parentId the parentId to set
+	 */
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+
+	@Override
+	public String toString() {
+		return "Entity {" + "id=" + id + '}';
+	}
+
 	/**
 	 * Since equality has been redefined, so must be the hashCode function.
-	 * 
+	 *
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -32,10 +62,10 @@ public abstract class Entity implements Serializable, Identifiable {
 		final int prime = 31;
 		return (id != null) ? prime * id.hashCode() : super.hashCode();
 	}
-	
+
 	/**
 	 * Redefines equality depending on the id of the entities being compared.
-	 * 
+	 *
 	 * @see java.lang.Object#equals(Object)
 	 */
 	@Override
@@ -47,34 +77,15 @@ public abstract class Entity implements Serializable, Identifiable {
 			return false;
 		}
 		Entity other = (Entity)obj;
-		
+
 		if (id != null) {
 			return id.equals(other.getId());
 		}
-		
+
 		if (other.getId() != null) {
 			return false;
 		}
-		
-		return super.equals(other);
-	}
-	
-	/**
-	 * Gets the identification for this {@link Entity}
-	 * 
-	 * @return the id of this {@link Entity}
-	 */
-	@Override
-	public Long getId() {
-		return id;
-	}
-	
-	public void setId(Long id) {
-		this.id = id;
-	}
 
-	@Override
-	public String toString() {
-		return "Entity{" + "id=" + id + '}';
+		return super.equals(other);
 	}
 }

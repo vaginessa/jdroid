@@ -26,7 +26,7 @@ public class SampleSQLiteRepository extends SQLiteRepository<SampleSQLiteEntity>
 	@Override
 	protected SampleSQLiteEntity createObjectFromCursor(Cursor cursor) {
 		SampleSQLiteEntity entity = new SampleSQLiteEntity();
-		entity.setId(SampleSQLiteEntityColumns.ID.<Long>readValue(cursor));
+		entity.setId(SampleSQLiteEntityColumns.ID.<String>readValue(cursor));
 		entity.setField(SampleSQLiteEntityColumns.FIELD.<String>readValue(cursor));
 		return entity;
 	}

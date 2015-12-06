@@ -1,17 +1,20 @@
 package com.jdroid.javaweb.filter;
 
+import com.jdroid.java.domain.Entity;
+import com.jdroid.java.utils.LoggerUtils;
+import com.jdroid.javaweb.context.AbstractSecurityContext;
+import com.jdroid.javaweb.context.Application;
+
+import org.apache.log4j.MDC;
+import org.slf4j.Logger;
+import org.springframework.web.filter.OncePerRequestFilter;
+
 import java.io.IOException;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.log4j.MDC;
-import org.slf4j.Logger;
-import org.springframework.web.filter.OncePerRequestFilter;
-import com.jdroid.java.utils.LoggerUtils;
-import com.jdroid.javaweb.context.AbstractSecurityContext;
-import com.jdroid.javaweb.context.Application;
-import com.jdroid.javaweb.domain.Entity;
 
 /**
  * Web Filter to add information to Log4J for logging

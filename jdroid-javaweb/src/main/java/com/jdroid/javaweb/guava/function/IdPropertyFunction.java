@@ -6,13 +6,13 @@ import com.jdroid.java.domain.Identifiable;
 /**
  * A Function implementation that extracts the ID of an {@link Identifiable} object
  */
-public class IdPropertyFunction implements Function<Identifiable, Long> {
+public class IdPropertyFunction implements Function<Identifiable, String> {
 	
 	/**
 	 * @see com.jdroid.javaweb.guava.function.PropertyFunction#apply(java.lang.Object)
 	 */
 	@Override
-	public Long apply(Identifiable from) {
+	public String apply(Identifiable from) {
 		return from.getId();
 	}
 }

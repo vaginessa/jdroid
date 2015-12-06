@@ -1,10 +1,10 @@
 package com.jdroid.javaweb.hibernate;
 
 import com.google.common.base.Function;
+import com.jdroid.java.domain.Entity;
 import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.repository.Repository;
 import com.jdroid.java.search.PagedResult;
-import com.jdroid.javaweb.domain.Entity;
 import com.jdroid.javaweb.search.Pager;
 import com.jdroid.javaweb.search.Sorting;
 
@@ -58,11 +58,8 @@ public class AbstractHibernateRepository<T extends Entity> extends HibernateDaoS
 		return this.entityClass;
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#get(java.lang.Long)
-	 */
 	@Override
-	public T get(Long id) {
+	public T get(String id) {
 		return getHibernateTemplate().get(this.entityClass, id);
 	}
 	
@@ -100,11 +97,8 @@ public class AbstractHibernateRepository<T extends Entity> extends HibernateDaoS
 		getHibernateTemplate().delete(entity);
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#remove(java.lang.Long)
-	 */
 	@Override
-	public void remove(Long id) {
+	public void remove(String id) {
 		this.remove(getHibernateTemplate().get(this.entityClass, id));
 	}
 	
@@ -136,7 +130,7 @@ public class AbstractHibernateRepository<T extends Entity> extends HibernateDaoS
 	 * @see com.jdroid.java.repository.Repository#getAll(java.util.List)
 	 */
 	@Override
-	public List<T> getAll(List<Long> ids) {
+	public List<T> getAll(List<String> ids) {
 		return findByField(Identifiable.ID_FIELD, ids);
 	}
 	

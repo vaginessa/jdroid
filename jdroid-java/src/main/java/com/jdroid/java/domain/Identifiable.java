@@ -13,6 +13,6 @@ public interface Identifiable {
 	 * 
 	 * @return the id of this {@link Identifiable}
 	 */
-	public Long getId();
+	public String getId();
 	
 }

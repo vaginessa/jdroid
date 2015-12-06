@@ -1,10 +1,11 @@
 package com.jdroid.javaweb.api;
 
-import java.util.Map;
 import com.jdroid.java.marshaller.MarshallerMode;
 import com.jdroid.java.marshaller.MarshallerProvider;
 import com.jdroid.java.utils.StringUtils;
 import com.jdroid.javaweb.context.Application;
+
+import java.util.Map;
 
 public abstract class AbstractController {
 	
@@ -28,7 +29,7 @@ public abstract class AbstractController {
 		return object != null ? MarshallerProvider.get().marshall(object, mode, extras).toString() : StringUtils.EMPTY;
 	}
 	
-	public Long getUserId() {
+	public String getUserId() {
 		return Application.get().getSecurityContext().isAuthenticated() ? Application.get().getSecurityContext().getUser().getId()
 				: null;
 	}

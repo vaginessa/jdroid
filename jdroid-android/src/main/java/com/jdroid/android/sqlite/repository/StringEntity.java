@@ -1,6 +1,7 @@
 package com.jdroid.android.sqlite.repository;
 
-import com.jdroid.android.domain.Entity;
+
+import com.jdroid.java.domain.Entity;
 
 /**
  * Generic entity to store {@link String} objects.

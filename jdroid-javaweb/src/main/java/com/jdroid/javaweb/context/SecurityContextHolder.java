@@ -1,6 +1,7 @@
 package com.jdroid.javaweb.context;
 
-import com.jdroid.javaweb.domain.Entity;
+
+import com.jdroid.java.domain.Entity;
 
 /**
  * Provides access to the {@link AbstractSecurityContext}

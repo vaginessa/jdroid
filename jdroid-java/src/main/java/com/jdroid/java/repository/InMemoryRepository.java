@@ -21,7 +21,7 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 	private static final Logger LOGGER = LoggerUtils.getLogger(InMemoryRepository.class);
 	
 	private long nextId = 1;
-	private Map<Long, T> items = Maps.newLinkedHashMap();
+	private Map<String, T> items = Maps.newLinkedHashMap();
 	
 	/**
 	 * @see com.jdroid.java.repository.Repository#add(com.jdroid.java.domain.Identifiable)
@@ -94,11 +94,8 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 		return results;
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#get(java.lang.Long)
-	 */
 	@Override
-	public T get(Long id) {
+	public T get(String id) {
 		return items.get(id);
 	}
 	
@@ -111,11 +108,8 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 		LOGGER.debug("Deleted from memory all objects from this repository");
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#remove(java.lang.Long)
-	 */
 	@Override
-	public void remove(Long id) {
+	public void remove(String id) {
 		items.remove(id);
 	}
 	
@@ -148,9 +142,9 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 	 * @see com.jdroid.java.repository.Repository#getAll(java.util.List)
 	 */
 	@Override
-	public List<T> getAll(List<Long> ids) {
+	public List<T> getAll(List<String> ids) {
 		List<T> itemsList = Lists.newArrayList();
-		for (Long each : ids) {
+		for (String each : ids) {
 			T item = items.get(each);
 			if (item != null) {
 				itemsList.add(item);

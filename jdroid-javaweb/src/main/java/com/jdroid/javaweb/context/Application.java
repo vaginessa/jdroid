@@ -1,7 +1,7 @@
 package com.jdroid.javaweb.context;
 
 import com.jdroid.java.context.GitContext;
-import com.jdroid.javaweb.domain.Entity;
+import com.jdroid.java.domain.Entity;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

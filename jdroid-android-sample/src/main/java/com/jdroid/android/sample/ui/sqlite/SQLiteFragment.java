@@ -14,7 +14,7 @@ import com.jdroid.java.utils.IdGenerator;
 
 public class SQLiteFragment extends AbstractFragment {
 
-	private static Long lastId;
+	private static String lastId;
 	
 	@Override
 	public Integer getContentFragmentLayout() {
@@ -37,7 +37,7 @@ public class SQLiteFragment extends AbstractFragment {
 					public void run() {
 						Repository<SampleSQLiteEntity> repository = AndroidApplication.get().getRepositoryInstance(SampleSQLiteEntity.class);
 						SampleSQLiteEntity entity = new SampleSQLiteEntity();
-						lastId = IdGenerator.getRandomLongId();
+						lastId = IdGenerator.getRandomLongId().toString();
 						entity.setId(lastId);
 						entity.setField(IdGenerator.getRandomLongId().toString());
 						repository.add(entity);

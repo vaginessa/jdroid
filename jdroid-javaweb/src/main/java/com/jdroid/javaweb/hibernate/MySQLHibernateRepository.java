@@ -1,15 +1,17 @@
 package com.jdroid.javaweb.hibernate;
 
-import java.util.List;
+import com.jdroid.java.domain.Entity;
+import com.jdroid.java.repository.RandomRepository;
+import com.jdroid.java.search.PagedResult;
+import com.jdroid.javaweb.search.Pager;
+import com.jdroid.javaweb.search.Sorting;
+
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import com.jdroid.java.repository.RandomRepository;
-import com.jdroid.java.search.PagedResult;
-import com.jdroid.javaweb.domain.Entity;
-import com.jdroid.javaweb.search.Pager;
-import com.jdroid.javaweb.search.Sorting;
+
+import java.util.List;
 
 /**
  * Hibernate Repository with additional implementation that works on MySQL engine only.

@@ -24,8 +24,8 @@ public abstract class MapRepository extends StringEntityRepository {
 	 * @param parentId of parent entity.
 	 * @return map of children
 	 */
-	public Map<Long, String> getChildrenMap(Long parentId) {
-		Map<Long, String> map = new HashMap<>();
+	public Map<String, String> getChildrenMap(String parentId) {
+		Map<String, String> map = new HashMap<>();
 		List<StringEntity> children = findByField(Column.PARENT_ID, parentId);
 		for (StringEntity stringEntity : children) {
 			map.put(stringEntity.getId(), stringEntity.getValue());
@@ -40,9 +40,9 @@ public abstract class MapRepository extends StringEntityRepository {
 	 * @param map map of list to replace.
 	 * @param parentId id of parent entity.
 	 */
-	public void replaceMapChildren(Map<Long, String> map, Long parentId) {
+	public void replaceMapChildren(Map<String, String> map, String parentId) {
 		ArrayList<StringEntity> entities = new ArrayList<>();
-		for (Long key : map.keySet()) {
+		for (String key : map.keySet()) {
 			StringEntity entity = new StringEntity();
 			entity.setParentId(parentId);
 			entity.setId(key);

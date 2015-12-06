@@ -1,6 +1,7 @@
 package com.jdroid.android.social;
 
-import com.jdroid.android.domain.Entity;
+
+import com.jdroid.java.domain.Entity;
 
 public class SocialUser extends Entity {
 	
@@ -12,7 +13,7 @@ public class SocialUser extends Entity {
 	private String lastName;
 	private String imageURL;
 	
-	public SocialUser(Long id, String socialId, AccountType socialNetwork, String firstName, String lastName,
+	public SocialUser(String id, String socialId, AccountType socialNetwork, String firstName, String lastName,
 			String imageURL) {
 		super(id);
 		this.socialId = socialId;

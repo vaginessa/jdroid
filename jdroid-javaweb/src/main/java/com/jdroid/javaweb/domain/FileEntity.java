@@ -1,5 +1,7 @@
 package com.jdroid.javaweb.domain;
 
+import com.jdroid.java.domain.Entity;
+
 @javax.persistence.Entity
 public class FileEntity extends Entity {
 	

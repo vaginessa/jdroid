@@ -1,6 +1,7 @@
 package com.jdroid.android.sample.ui.sqlite;
 
-import com.jdroid.android.domain.Entity;
+
+import com.jdroid.java.domain.Entity;
 
 public class SampleSQLiteEntity extends Entity {
 

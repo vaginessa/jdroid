@@ -25,17 +25,14 @@ public abstract class StringEntityRepository extends SQLiteRepository<StringEnti
 	@Override
 	protected StringEntity createObjectFromCursor(Cursor cursor) {
 		StringEntity entity = new StringEntity();
-		entity.setId((Long)getColumn(Column.ID).readValue(cursor));
+		entity.setId((String)getColumn(Column.ID).readValue(cursor));
 		if (cursor.getColumnIndex(Column.PARENT_ID) >= 0) {
-			entity.setParentId((Long)getColumn(Column.PARENT_ID).readValue(cursor));
+			entity.setParentId((String)getColumn(Column.PARENT_ID).readValue(cursor));
 		}
 		entity.setValue((String)getColumn(Column.VALUE).readValue(cursor));
 		return entity;
 	}
 	
-	/**
-	 * @see SQLiteRepository#createContentValuesFromObject(com.jdroid.android.domain.Entity)
-	 */
 	@Override
 	protected ContentValues createContentValuesFromObject(StringEntity item) {
 		ContentValues values = new ContentValues();
@@ -69,7 +66,7 @@ public abstract class StringEntityRepository extends SQLiteRepository<StringEnti
 	 * @param strings string children list to replace.
 	 * @param parentId id of parent entity.
 	 */
-	public void replaceStringChildren(List<String> strings, Long parentId) {
+	public void replaceStringChildren(List<String> strings, String parentId) {
 		ArrayList<StringEntity> entities = new ArrayList<>();
 		for (String string : strings) {
 			if (string != null) {

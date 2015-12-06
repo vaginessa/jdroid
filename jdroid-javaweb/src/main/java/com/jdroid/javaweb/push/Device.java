@@ -1,7 +1,7 @@
 package com.jdroid.javaweb.push;
 
+import com.jdroid.java.domain.Entity;
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.javaweb.domain.Entity;
 
 public class Device extends Entity {
 	

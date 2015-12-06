@@ -1,5 +1,7 @@
 package com.jdroid.android.domain;
 
+import com.jdroid.java.domain.Entity;
+
 public class SyncEntity extends Entity {
 
 	private SyncStatus syncStatus;

@@ -1,7 +1,7 @@
 package com.jdroid.javaweb.context;
 
+import com.jdroid.java.domain.Entity;
 import com.jdroid.java.utils.LoggerUtils;
-import com.jdroid.javaweb.domain.Entity;
 import com.jdroid.javaweb.exception.InvalidAuthenticationException;
 
 import org.slf4j.Logger;

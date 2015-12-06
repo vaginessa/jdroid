@@ -5,9 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.domain.Entity;
 import com.jdroid.android.sqlite.Column;
 import com.jdroid.android.sqlite.SQLiteHelper;
+import com.jdroid.java.domain.Entity;
 import com.jdroid.java.repository.Repository;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -177,17 +177,14 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#get(java.lang.Long)
-	 */
 	@Override
 	@SuppressWarnings("resource")
-	public T get(Long id) {
+	public T get(String id) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		Cursor cursor = null;
 		try {
 			cursor = db.query(getTableName(), getProjection(), getIdColumnName() + "=?",
-				new String[] { id.toString() }, null, null, null);
+				new String[] { id }, null, null, null);
 			T item = null;
 			if (cursor.moveToNext()) {
 				item = createObjectFromCursor(cursor);
@@ -252,7 +249,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	 * @see com.jdroid.java.repository.Repository#getAll(java.util.List)
 	 */
 	@Override
-	public List<T> getAll(List<Long> ids) {
+	public List<T> getAll(List<String> ids) {
 		return findByField(getIdColumnName(), ids);
 	}
 	
@@ -302,9 +299,9 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		boolean endTransaction = beginTransaction(db);
 		try {
 			ContentValues values = createContentValuesFromObject(item);
-			long id = db.insertOrThrow(getTableName(), null, values);
+			Long id = db.insertOrThrow(getTableName(), null, values);
 			if (item.getId() == null) {
-				item.setId(id);
+				item.setId(id.toString());
 			}
 			onStored(item);
 			LOGGER.trace("Stored object in database: " + item);
@@ -381,17 +378,14 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		remove(item.getId());
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#remove(java.lang.Long)
-	 */
 	@Override
-	public void remove(Long id) {
+	public void remove(String id) {
 		@SuppressWarnings("resource")
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		boolean endTransaction = beginTransaction(db);
 		try {
 			T item = get(id);
-			db.delete(getTableName(), getIdColumnName() + "=?", new String[] { id.toString() });
+			db.delete(getTableName(), getIdColumnName() + "=?", new String[] { id });
 			onRemoved(item);
 			LOGGER.trace("Deleted object in database: " + item);
 			successTransaction(db, endTransaction);
@@ -460,7 +454,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	 * @param list of children to replace.
 	 * @param parentId id of parent entity.
 	 */
-	public void replaceChildren(List<T> list, Long parentId) {
+	public void replaceChildren(List<T> list, String parentId) {
 		for (T item : list) {
 			item.setParentId(parentId);
 		}
@@ -485,7 +479,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	 * @param parentId id of parent entity.
 	 * @param clazz entity class.
 	 */
-	public static <T extends Entity> void replaceChildren(List<T> list, Long parentId, Class<T> clazz) {
+	public static <T extends Entity> void replaceChildren(List<T> list, String parentId, Class<T> clazz) {
 		SQLiteRepository<T> repository = (SQLiteRepository<T>)AbstractApplication.get().getRepositoryInstance(clazz);
 		repository.replaceChildren(list, parentId);
 	}

@@ -1,7 +1,7 @@
 package com.jdroid.android.log;
 
-import com.jdroid.android.domain.Entity;
 import com.jdroid.java.date.DateUtils;
+import com.jdroid.java.domain.Entity;
 
 import java.util.Date;
 

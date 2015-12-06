@@ -37,15 +37,12 @@ public class DatabaseLogsRepository extends SQLiteRepository<DatabaseLog> {
 	@Override
 	protected DatabaseLog createObjectFromCursor(Cursor cursor) {
 		DatabaseLog log = new DatabaseLog();
-		log.setId((Long)DatabaseLogsColumns.ID.readValue(cursor));
+		log.setId((String)DatabaseLogsColumns.ID.readValue(cursor));
 		log.setMessage(DatabaseLogsColumns.MESSAGE.readValue(cursor).toString());
 		log.setDateTime((Date)DatabaseLogsColumns.DATE_TIME.readValue(cursor));
 		return log;
 	}
 
-	/**
-	 * @see SQLiteRepository#createContentValuesFromObject(com.jdroid.android.domain.Entity)
-	 */
 	@Override
 	protected ContentValues createContentValuesFromObject(DatabaseLog item) {
 		ContentValues values = new ContentValues();

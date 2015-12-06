@@ -19,7 +19,7 @@ public interface Repository<T extends Identifiable> {
 	 * @param id the id for the {@link Identifiable} to retrieve
 	 * @return the {@link Identifiable} retrieved.
 	 */
-	public T get(Long id);
+	public T get(String id);
 	
 	/**
 	 * Adds an {@link Identifiable} to the repository.
@@ -74,14 +74,14 @@ public interface Repository<T extends Identifiable> {
 	 * @param ids
 	 * @return All the items with the ids
 	 */
-	public List<T> getAll(List<Long> ids);
+	public List<T> getAll(List<String> ids);
 	
 	/**
 	 * Removes the {@link Identifiable} with the id
 	 * 
 	 * @param id The {@link Identifiable} id to be removed
 	 */
-	public void remove(Long id);
+	public void remove(String id);
 	
 	/**
 	 * @return If the repository has data or not
