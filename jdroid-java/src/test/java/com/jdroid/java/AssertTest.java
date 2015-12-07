@@ -1,13 +1,15 @@
 package com.jdroid.java;
 
-import java.util.Collection;
-import java.util.List;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 import com.jdroid.java.collections.Iterables;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Sets;
 import com.jdroid.java.domain.Identifiable;
+
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Test class for {@link Assert} class.<br>
@@ -443,10 +445,10 @@ public class AssertTest {
 	@DataProvider
 	public Object[][] assertEntityIdsExceptionDataProvider() {
 		List<Identifiable> actualEntities = Lists.newArrayList();
-		List<Long> expectedIds = Lists.newArrayList();
+		List<String> expectedIds = Lists.newArrayList();
 		
 		// Case 1: Empty entity list. Single ID.
-		expectedIds.add(1L);
+		expectedIds.add("1");
 		Object[] case1 = { actualEntities, expectedIds };
 		
 		// Case 2: Single entity list. No IDs.
@@ -455,8 +457,8 @@ public class AssertTest {
 		actualEntities.add(new Identifiable() {
 			
 			@Override
-			public Long getId() {
-				return 1l;
+			public String getId() {
+				return "1";
 			}
 		});
 		Object[] case2 = { actualEntities, expectedIds };
@@ -467,11 +469,11 @@ public class AssertTest {
 		actualEntities.add(new Identifiable() {
 			
 			@Override
-			public Long getId() {
-				return 1l;
+			public String getId() {
+				return "1";
 			}
 		});
-		expectedIds.add(2L);
+		expectedIds.add("2");
 		Object[] case3 = { actualEntities, expectedIds };
 		
 		// Case 4: Multiple entities list. Multiple IDs. No match.
@@ -480,19 +482,19 @@ public class AssertTest {
 		actualEntities.add(new Identifiable() {
 			
 			@Override
-			public Long getId() {
-				return 1l;
+			public String getId() {
+				return "1";
 			}
 		});
 		actualEntities.add(new Identifiable() {
 			
 			@Override
-			public Long getId() {
-				return 2l;
+			public String getId() {
+				return "2";
 			}
 		});
-		expectedIds.add(3L);
-		expectedIds.add(4L);
+		expectedIds.add("3");
+		expectedIds.add("4");
 		Object[] case4 = { actualEntities, expectedIds };
 		
 		// Case 5: Multiple entities list. Multiple IDs. Partial match.
@@ -501,19 +503,19 @@ public class AssertTest {
 		actualEntities.add(new Identifiable() {
 			
 			@Override
-			public Long getId() {
-				return 1l;
+			public String getId() {
+				return "1";
 			}
 		});
 		actualEntities.add(new Identifiable() {
 			
 			@Override
-			public Long getId() {
-				return 2l;
+			public String getId() {
+				return "2";
 			}
 		});
-		expectedIds.add(2L);
-		expectedIds.add(3L);
+		expectedIds.add("2");
+		expectedIds.add("3");
 		Object[] case5 = { actualEntities, expectedIds };
 		
 		// Case 6: Multiple repeated entities list. Single IDs. Match.
@@ -522,18 +524,18 @@ public class AssertTest {
 		actualEntities.add(new Identifiable() {
 			
 			@Override
-			public Long getId() {
-				return 1l;
+			public String getId() {
+				return "1";
 			}
 		});
 		actualEntities.add(new Identifiable() {
 			
 			@Override
-			public Long getId() {
-				return 1l;
+			public String getId() {
+				return "1";
 			}
 		});
-		expectedIds.add(1L);
+		expectedIds.add("1");
 		Object[] case6 = { actualEntities, expectedIds };
 		
 		Object[][] result = { case1, case2, case3, case4, case5, case6 };
