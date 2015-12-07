@@ -1,26 +1,19 @@
 package com.jdroid.javaweb.domain;
 
-import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.date.DateUtils;
+import com.jdroid.java.exception.UnexpectedException;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import javax.persistence.Embeddable;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * This is a Date Range class to store a start date and an end date
  * 
  */
-@Embeddable
 public class DateRange implements Serializable, Comparable<DateRange> {
 	
-	@Temporal(TemporalType.DATE)
 	private Date startDate;
 	
-	@Temporal(TemporalType.DATE)
 	private Date endDate;
 	
 	/**
