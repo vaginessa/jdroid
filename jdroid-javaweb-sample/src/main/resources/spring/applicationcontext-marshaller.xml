@@ -5,10 +5,7 @@
 	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-	<bean id="marshallerTypeEvaluator" class="com.jdroid.javaweb.marshaller.HibernateMarshallerTypeEvaluator" />
-
 	<bean id="marshallerProvider" class="com.jdroid.java.marshaller.MarshallerProvider" factory-method="get">
-		<property name="marshallerTypeEvaluator" ref="marshallerTypeEvaluator" />
 		<property name="marshallers">
 			<util:map>
 				<entry key="com.jdroid.javaweb.sample.api.controller.SampleResponse">
