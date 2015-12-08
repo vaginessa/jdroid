@@ -57,6 +57,7 @@ then
 
 	cmd="${cmd} :jdroid-java:build :jdroid-java:test"
 	cmd="${cmd} :jdroid-java-http-okhttp:build :jdroid-java-http-okhttp:test"
+	cmd="${cmd} :jdroid-java-firebase:build :jdroid-java-firebase:test"
 
 	if [ "$ENABLE_JAVA_WEB" = "true" ]
 	then
@@ -92,6 +93,7 @@ then
 	then
 		cmd="${cmd} :jdroid-java:uploadArchives"
 		cmd="${cmd} :jdroid-java-http-okhttp:uploadArchives"
+		cmd="${cmd} :jdroid-java-firebase:uploadArchives"
 		cmd="${cmd} :jdroid-javaweb:uploadArchives"
 	fi
 

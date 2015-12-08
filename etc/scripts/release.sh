@@ -97,7 +97,32 @@ fi
 cd $PROJECT_HOME
 
 ./gradlew :jdroid-java:clean :jdroid-java:uploadArchives :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=true -PSNAPSHOT=false
-./gradlew clean :jdroid-gradle-plugin:uploadArchives :jdroid-java:uploadArchives :jdroid-java-http-okhttp:uploadArchives :jdroid-javaweb:uploadArchives :jdroid-android:uploadArchives :jdroid-android-crashlytics:uploadArchives :jdroid-android-facebook:uploadArchives :jdroid-android-google-admob:uploadArchives :jdroid-android-google-maps:uploadArchives :jdroid-android-google-gcm:uploadArchives :jdroid-android-google-plus:uploadArchives :jdroid-android-about:uploadArchives -PSNAPSHOT=false
+ -PSNAPSHOT=false
+
+cmd="./gradlew clean"
+
+cmd="${cmd} :jdroid-gradle-plugin:uploadArchives"
+
+cmd="${cmd} :jdroid-java:uploadArchives"
+cmd="${cmd} :jdroid-java-http-okhttp:uploadArchives"
+cmd="${cmd} :jdroid-java-firebase:uploadArchives"
+
+cmd="${cmd} :jdroid-javaweb:uploadArchives"
+
+cmd="${cmd} :jdroid-android:uploadArchives"
+cmd="${cmd} :jdroid-android-crashlytics:uploadArchives"
+cmd="${cmd} :jdroid-android-facebook:uploadArchives"
+cmd="${cmd} :jdroid-android-google-admob:uploadArchives"
+cmd="${cmd} :jdroid-android-google-maps:uploadArchives"
+cmd="${cmd} :jdroid-android-google-gcm:uploadArchives"
+cmd="${cmd} :jdroid-android-google-plus:uploadArchives"
+cmd="${cmd} :jdroid-android-about:uploadArchives"
+cmd="${cmd} -PSNAPSHOT=false"
+
+echo "Executing the following command"
+echo "${cmd}"
+eval "${cmd}"
+
 
 # ************************
 # Publish the Gradle Plugin to the Portal

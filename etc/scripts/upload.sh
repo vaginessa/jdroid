@@ -15,4 +15,24 @@ fi
 cd $JDROID_HOME
 ./gradlew :jdroid-gradle-plugin:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=$LOCAL_UPLOAD
 ./gradlew :jdroid-java:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=$LOCAL_UPLOAD --refresh-dependencies
-./gradlew :jdroid-java-http-okhttp:uploadArchives :jdroid-javaweb:uploadArchives :jdroid-android:uploadArchives :jdroid-android-crashlytics:uploadArchives :jdroid-android-facebook:uploadArchives :jdroid-android-google-admob:uploadArchives :jdroid-android-google-maps:uploadArchives :jdroid-android-google-gcm:uploadArchives :jdroid-android-google-plus:uploadArchives :jdroid-android-about:uploadArchives -PLOCAL_UPLOAD=$LOCAL_UPLOAD --refresh-dependencies
+
+cmd="./gradlew "
+
+cmd="${cmd} :jdroid-java-http-okhttp:uploadArchives"
+cmd="${cmd} :jdroid-java-firebase:uploadArchives"
+
+cmd="${cmd} :jdroid-javaweb:uploadArchives"
+
+cmd="${cmd} :jdroid-android:uploadArchives"
+cmd="${cmd} :jdroid-android-crashlytics:uploadArchives"
+cmd="${cmd} :jdroid-android-facebook:uploadArchives"
+cmd="${cmd} :jdroid-android-google-admob:uploadArchives"
+cmd="${cmd} :jdroid-android-google-maps:uploadArchives"
+cmd="${cmd} :jdroid-android-google-gcm:uploadArchives"
+cmd="${cmd} :jdroid-android-google-plus:uploadArchives"
+cmd="${cmd} :jdroid-android-about:uploadArchives"
+cmd="${cmd} -PLOCAL_UPLOAD=$LOCAL_UPLOAD --refresh-dependencies"
+
+echo "Executing the following command"
+echo "${cmd}"
+eval "${cmd}"
