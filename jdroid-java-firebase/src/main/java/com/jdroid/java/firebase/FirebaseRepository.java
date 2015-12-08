@@ -2,9 +2,7 @@ package com.jdroid.java.firebase;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.domain.Entity;
 import com.jdroid.java.exception.UnexpectedException;
@@ -14,7 +12,9 @@ import com.jdroid.java.utils.LoggerUtils;
 import org.slf4j.Logger;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class FirebaseRepository<T extends Entity> implements Repository<T> {
 
@@ -36,32 +36,12 @@ public abstract class FirebaseRepository<T extends Entity> implements Repository
 	public T get(String id) {
 		Firebase firebase = createFirebase();
 		firebase = firebase.child(id);
-		final FirebaseCountDownLatch done = new FirebaseCountDownLatch();
-		firebase.addListenerForSingleValueEvent(new ValueEventListener() {
-			@Override
-			public void onDataChange(DataSnapshot snapshot) {
-				done.setDataSnapshot(snapshot);
-				done.countDown();
-			}
-			@Override
-			public void onCancelled(FirebaseError firebaseError) {
-				done.setFirebaseException(new FirebaseException(firebaseError));
-				done.countDown();
-			}
-		});
-		try {
-			done.await();
-			if (done.getFirebaseException() != null) {
-				throw done.getFirebaseException();
-			} else {
-				T result = done.getDataSnapshot().getValue(getEntityClass());
-				LOGGER.info("Retrieved object from database of path: " + getPath() + ". [ " + result + " ]");
-				return result;
-			}
-
-		} catch (InterruptedException e) {
-			throw new UnexpectedException(e);
-		}
+		FirebaseValueEventListener listener = new FirebaseValueEventListener();
+		firebase.addListenerForSingleValueEvent(listener);
+		listener.waitOperation();
+		T result = listener.getDataSnapshot().getValue(getEntityClass());
+		LOGGER.info("Retrieved object from database of path: " + getPath() + ". [ " + result + " ]");
+		return result;
 	}
 
 	@Override
@@ -72,29 +52,29 @@ public abstract class FirebaseRepository<T extends Entity> implements Repository
 		} else {
 			firebase = firebase.push();
 		}
-		final FirebaseCountDownLatch done = new FirebaseCountDownLatch();
-		firebase.setValue(item, new Firebase.CompletionListener() {
-			@Override
-			public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-				if (firebaseError != null) {
-					done.setFirebaseException(new FirebaseException(firebaseError));
-				}
-				done.countDown();
-			}
-		});
 
-		try {
-			done.await();
-			if (done.getFirebaseException() != null) {
-				throw done.getFirebaseException();
-			} else {
-				item.setId(firebase.getKey());
-				LOGGER.info("Stored object in database: " + item);
-			}
+		FirebaseCompletionListener listener = new FirebaseCompletionListener();
+		firebase.setValue(item, listener);
 
-		} catch (InterruptedException e) {
-			throw new UnexpectedException(e);
+		listener.waitOperation();
+		if (item.getId() == null) {
+			// Add the id field
+			addIdField(firebase.getKey());
 		}
+		item.setId(firebase.getKey());
+		LOGGER.info("Stored object in database: " + item);
+	}
+
+	private void addIdField(String id) {
+		Firebase firebase = createFirebase();
+		firebase = firebase.child(id);
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+
+		FirebaseCompletionListener listener = new FirebaseCompletionListener();
+		firebase.updateChildren(map, listener);
+		listener.waitOperation();
 	}
 
 	@Override
@@ -106,6 +86,9 @@ public abstract class FirebaseRepository<T extends Entity> implements Repository
 
 	@Override
 	public void update(T item) {
+		if (item.getId() == null) {
+			throw new UnexpectedException("Item with null id can not be updated");
+		}
 		add(item);
 	}
 
@@ -134,106 +117,46 @@ public abstract class FirebaseRepository<T extends Entity> implements Repository
 			throw new UnexpectedException("Value type not supported");
 		}
 
-		final FirebaseCountDownLatch done = new FirebaseCountDownLatch();
-		query.addListenerForSingleValueEvent(new ValueEventListener() {
-			@Override
-			public void onDataChange(DataSnapshot snapshot) {
-				done.setDataSnapshot(snapshot);
-				done.countDown();
-			}
-			@Override
-			public void onCancelled(FirebaseError firebaseError) {
-				done.setFirebaseException(new FirebaseException(firebaseError));
-				done.countDown();
-			}
-		});
-		try {
-			done.await();
-			if (done.getFirebaseException() != null) {
-				throw done.getFirebaseException();
-			} else {
-				List<T> results = Lists.newArrayList();
-				for (DataSnapshot eachSnapshot: done.getDataSnapshot().getChildren()) {
-					results.add(eachSnapshot.getValue(getEntityClass()));
-				}
-				LOGGER.info("Retrieved objects [" + results.size() + "] from database of path: " + getPath() + " field: " + fieldName);
-				return results;
-			}
-
-		} catch (InterruptedException e) {
-			throw new UnexpectedException(e);
+		FirebaseValueEventListener listener = new FirebaseValueEventListener();
+		query.addListenerForSingleValueEvent(listener);
+		listener.waitOperation();
+		List<T> results = Lists.newArrayList();
+		for (DataSnapshot eachSnapshot: listener.getDataSnapshot().getChildren()) {
+			results.add(eachSnapshot.getValue(getEntityClass()));
 		}
+		LOGGER.info("Retrieved objects [" + results.size() + "] from database of path: " + getPath() + " field: " + fieldName);
+		return results;
 	}
 
 	@Override
 	public List<T> getAll() {
 		Firebase firebase = createFirebase();
-		final FirebaseCountDownLatch done = new FirebaseCountDownLatch();
-		firebase.addListenerForSingleValueEvent(new ValueEventListener() {
-			@Override
-			public void onDataChange(DataSnapshot snapshot) {
-				done.setDataSnapshot(snapshot);
-				done.countDown();
-			}
-
-			@Override
-			public void onCancelled(FirebaseError firebaseError) {
-				done.setFirebaseException(new FirebaseException(firebaseError));
-				done.countDown();
-			}
-		});
-		try {
-			done.await();
-			if (done.getFirebaseException() != null) {
-				throw done.getFirebaseException();
-			} else {
-				List<T> results = Lists.newArrayList();
-				for (DataSnapshot eachSnapshot: done.getDataSnapshot().getChildren()) {
-					results.add(eachSnapshot.getValue(getEntityClass()));
-				}
-				LOGGER.info("Retrieved all objects [" + results.size() + "] from path: " + getPath());
-				return results;
-			}
-
-		} catch (InterruptedException e) {
-			throw new UnexpectedException(e);
+		FirebaseValueEventListener listener = new FirebaseValueEventListener();
+		firebase.addListenerForSingleValueEvent(listener);
+		listener.waitOperation();
+		List<T> results = Lists.newArrayList();
+		for (DataSnapshot eachSnapshot: listener.getDataSnapshot().getChildren()) {
+			results.add(eachSnapshot.getValue(getEntityClass()));
 		}
+		LOGGER.info("Retrieved all objects [" + results.size() + "] from path: " + getPath());
+		return results;
 	}
 
 	@Override
 	public List<T> getAll(List<String> ids) {
 		Firebase firebase = createFirebase();
-		final FirebaseCountDownLatch done = new FirebaseCountDownLatch();
-		firebase.addListenerForSingleValueEvent(new ValueEventListener() {
-			@Override
-			public void onDataChange(DataSnapshot snapshot) {
-				done.setDataSnapshot(snapshot);
-				done.countDown();
+		FirebaseValueEventListener listener = new FirebaseValueEventListener();
+		firebase.addListenerForSingleValueEvent(listener);
+		listener.waitOperation();
+		List<T> results = Lists.newArrayList();
+		for (DataSnapshot eachSnapshot: listener.getDataSnapshot().getChildren()) {
+			T each = eachSnapshot.getValue(getEntityClass());
+			if (ids.contains(each.getId())) {
+				results.add(each);
 			}
-			@Override
-			public void onCancelled(FirebaseError firebaseError) {
-				done.setFirebaseException(new FirebaseException(firebaseError));
-				done.countDown();
-			}
-		});
-		try {
-			done.await();
-			if (done.getFirebaseException() != null) {
-				throw done.getFirebaseException();
-			} else {
-				List<T> results = Lists.newArrayList();
-				for (DataSnapshot eachSnapshot: done.getDataSnapshot().getChildren()) {
-					T each = eachSnapshot.getValue(getEntityClass());
-					if (ids.contains(each.getId())) {
-						results.add(each);
-					}
-				}
-				LOGGER.info("Retrieved all objects [" + results.size() + "] from path: " + getPath() + " and ids: " + ids);
-				return results;
-			}
-		} catch (InterruptedException e) {
-			throw new UnexpectedException(e);
 		}
+		LOGGER.info("Retrieved all objects [" + results.size() + "] from path: " + getPath() + " and ids: " + ids);
+		return results;
 	}
 
 
@@ -266,28 +189,11 @@ public abstract class FirebaseRepository<T extends Entity> implements Repository
 		if (id != null) {
 			firebase = firebase.child(id);
 		}
-		final FirebaseCountDownLatch done = new FirebaseCountDownLatch();
-		firebase.removeValue(new Firebase.CompletionListener() {
-			@Override
-			public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-				if (firebaseError != null) {
-					done.setFirebaseException(new FirebaseException(firebaseError));
-				}
-				done.countDown();
-			}
-		});
 
-		try {
-			done.await();
-			if (done.getFirebaseException() != null) {
-				throw done.getFirebaseException();
-			} else {
-				LOGGER.trace("Deleted object in database: with id: " + id);
-			}
-
-		} catch (InterruptedException e) {
-			throw new UnexpectedException(e);
-		}
+		FirebaseCompletionListener listener = new FirebaseCompletionListener();
+		firebase.removeValue(listener);
+		listener.waitOperation();
+		LOGGER.trace("Deleted object in database: with id: " + id);
 	}
 
 	@Override
@@ -298,30 +204,10 @@ public abstract class FirebaseRepository<T extends Entity> implements Repository
 	@Override
 	public Long getSize() {
 		Firebase firebase = createFirebase();
-		final FirebaseCountDownLatch done = new FirebaseCountDownLatch();
-		firebase.addListenerForSingleValueEvent(new ValueEventListener() {
-			@Override
-			public void onDataChange(DataSnapshot snapshot) {
-				done.setDataSnapshot(snapshot);
-				done.countDown();
-			}
-			@Override
-			public void onCancelled(FirebaseError firebaseError) {
-				done.setFirebaseException(new FirebaseException(firebaseError));
-				done.countDown();
-			}
-		});
-		try {
-			done.await();
-			if (done.getFirebaseException() != null) {
-				throw done.getFirebaseException();
-			} else {
-				return done.getDataSnapshot().getChildrenCount();
-			}
-
-		} catch (InterruptedException e) {
-			throw new UnexpectedException(e);
-		}
+		FirebaseValueEventListener listener = new FirebaseValueEventListener();
+		firebase.addListenerForSingleValueEvent(listener);
+		listener.waitOperation();
+		return listener.getDataSnapshot().getChildrenCount();
 	}
 
 	@Override
