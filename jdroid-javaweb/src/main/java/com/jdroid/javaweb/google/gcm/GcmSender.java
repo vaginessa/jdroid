@@ -127,7 +127,7 @@ public class GcmSender implements PushMessageSender {
 				}
 			}
 		} else {
-			LOGGER.info("Gcm message sent successfully");
+			LOGGER.info("Gcm message sent successfully. " + gcmMessage.toString());
 		}
 		return pushResponse;
 	}

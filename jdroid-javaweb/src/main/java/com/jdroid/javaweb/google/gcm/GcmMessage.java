@@ -165,24 +165,26 @@ public class GcmMessage implements PushMessage {
 		this.timeToLive = timeToLive;
 	}
 
-	@Override
-	public String toString() {
-		return "GcmMessage{" +
-				", to='" + to + '\'' +
-				", registrationIds=" + registrationIds +
-				", collapseKey='" + collapseKey + '\'' +
-				", priority=" + priority +
-				", delayWhileIdle=" + delayWhileIdle +
-				", timeToLive=" + timeToLive +
-				", data=" + data +
-				'}';
-	}
-
 	public String getGoogleServerApiKey() {
 		return googleServerApiKey;
 	}
 
 	public void setGoogleServerApiKey(String googleServerApiKey) {
 		this.googleServerApiKey = googleServerApiKey;
+	}
+
+	@Override
+	public String toString() {
+		final StringBuffer sb = new StringBuffer("GcmMessage{");
+		sb.append("googleServerApiKey='").append(googleServerApiKey).append('\'');
+		sb.append(", to='").append(to).append('\'');
+		sb.append(", registrationIds=").append(registrationIds);
+		sb.append(", collapseKey='").append(collapseKey).append('\'');
+		sb.append(", priority=").append(priority);
+		sb.append(", delayWhileIdle=").append(delayWhileIdle);
+		sb.append(", timeToLive=").append(timeToLive);
+		sb.append(", data=").append(data);
+		sb.append('}');
+		return sb.toString();
 	}
 }
