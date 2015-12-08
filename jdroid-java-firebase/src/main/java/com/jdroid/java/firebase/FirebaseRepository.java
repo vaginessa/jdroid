@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 public abstract class FirebaseRepository<T extends Entity> implements Repository<T> {
 
@@ -115,7 +114,11 @@ public abstract class FirebaseRepository<T extends Entity> implements Repository
 		Firebase firebase = createFirebase();
 		Query query = firebase.orderByChild(fieldName);
 
-		// TODO Just one value supported
+		if (values == null) {
+			throw new UnexpectedException("Null value type not supported");
+		} else if (values.length > 1) {
+			throw new UnexpectedException("Just one value is supported");
+		}
 		Object value = values[0];
 		if (value instanceof String) {
 			query = query.equalTo((String)value);
@@ -149,26 +152,12 @@ public abstract class FirebaseRepository<T extends Entity> implements Repository
 			if (done.getFirebaseException() != null) {
 				throw done.getFirebaseException();
 			} else {
-
-				Collection<T> results;
-
-				Object response = done.getDataSnapshot().getValue(getEntityClass());
-				if (response instanceof Map) {
-					results = (Collection<T>)(((Map)response).values());
-				} else if (response instanceof List) {
-					results = (List<T>)response;
-				} else {
-					throw new UnexpectedException("Not known return type: " + response.getClass());
+				List<T> results = Lists.newArrayList();
+				for (DataSnapshot eachSnapshot: done.getDataSnapshot().getChildren()) {
+					results.add(eachSnapshot.getValue(getEntityClass()));
 				}
-
-				List<T> filteredResults = Lists.newArrayList();
-				for(T each : results) {
-					if (each != null) {
-						filteredResults.add(each);
-					}
-				}
-				LOGGER.info("Retrieved objects from database of path: " + getPath() + " field: " + fieldName);
-				return filteredResults;
+				LOGGER.info("Retrieved objects [" + results.size() + "] from database of path: " + getPath() + " field: " + fieldName);
+				return results;
 			}
 
 		} catch (InterruptedException e) {
@@ -178,6 +167,41 @@ public abstract class FirebaseRepository<T extends Entity> implements Repository
 
 	@Override
 	public List<T> getAll() {
+		Firebase firebase = createFirebase();
+		final FirebaseCountDownLatch done = new FirebaseCountDownLatch();
+		firebase.addListenerForSingleValueEvent(new ValueEventListener() {
+			@Override
+			public void onDataChange(DataSnapshot snapshot) {
+				done.setDataSnapshot(snapshot);
+				done.countDown();
+			}
+
+			@Override
+			public void onCancelled(FirebaseError firebaseError) {
+				done.setFirebaseException(new FirebaseException(firebaseError));
+				done.countDown();
+			}
+		});
+		try {
+			done.await();
+			if (done.getFirebaseException() != null) {
+				throw done.getFirebaseException();
+			} else {
+				List<T> results = Lists.newArrayList();
+				for (DataSnapshot eachSnapshot: done.getDataSnapshot().getChildren()) {
+					results.add(eachSnapshot.getValue(getEntityClass()));
+				}
+				LOGGER.info("Retrieved all objects [" + results.size() + "] from path: " + getPath());
+				return results;
+			}
+
+		} catch (InterruptedException e) {
+			throw new UnexpectedException(e);
+		}
+	}
+
+	@Override
+	public List<T> getAll(List<String> ids) {
 		Firebase firebase = createFirebase();
 		final FirebaseCountDownLatch done = new FirebaseCountDownLatch();
 		firebase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -197,26 +221,19 @@ public abstract class FirebaseRepository<T extends Entity> implements Repository
 			if (done.getFirebaseException() != null) {
 				throw done.getFirebaseException();
 			} else {
-				Map map = (Map)done.getDataSnapshot().getValue();
-				List<T> results = null;
-				if (map != null) {
-					results = Lists.newArrayList(map.values());
-				} else {
-					results = Lists.newArrayList();
+				List<T> results = Lists.newArrayList();
+				for (DataSnapshot eachSnapshot: done.getDataSnapshot().getChildren()) {
+					T each = eachSnapshot.getValue(getEntityClass());
+					if (ids.contains(each.getId())) {
+						results.add(each);
+					}
 				}
-				LOGGER.info("Retrieved all objects [" + results.size() + "] from path: " + getPath());
+				LOGGER.info("Retrieved all objects [" + results.size() + "] from path: " + getPath() + " and ids: " + ids);
 				return results;
 			}
-
 		} catch (InterruptedException e) {
 			throw new UnexpectedException(e);
 		}
-	}
-
-	@Override
-	public List<T> getAll(List<String> ids) {
-		// TODO
-		return null;
 	}
 
 
