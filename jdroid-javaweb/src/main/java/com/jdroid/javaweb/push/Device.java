@@ -11,6 +11,11 @@ public class Device extends Entity {
 	private String deviceGroupId;
 	private String registrationToken;
 
+	private String deviceBrandName;
+	private String deviceModelName;
+	private String deviceOsVersion;
+	private String appVersionCode;
+
 	/**
 	 * Default constructor.
 	 */
@@ -19,7 +24,8 @@ public class Device extends Entity {
 		// Do nothing, is required by hibernate
 	}
 	
-	public Device(String instanceId, DeviceType deviceType, String registrationToken, String deviceGroupId) {
+	public Device(String instanceId, DeviceType deviceType, String registrationToken, String deviceGroupId,
+				  String deviceBrandName, String deviceModelName, String deviceOsVersion, String appVersionCode) {
 		
 		if (instanceId == null) {
 			throw new UnexpectedException("The instanceId is required");
@@ -34,6 +40,11 @@ public class Device extends Entity {
 
 		this.deviceGroupId = deviceGroupId;
 		this.registrationToken = registrationToken;
+
+		this.deviceBrandName = deviceBrandName;
+		this.deviceModelName = deviceModelName;
+		this.deviceOsVersion = deviceOsVersion;
+		this.appVersionCode = appVersionCode;
 	}
 
 	public void updateRegistrationToken(String registrationToken) {
@@ -73,5 +84,21 @@ public class Device extends Entity {
 	public String toString() {
 		return "Device [instanceId=" + instanceId + ", registrationToken=" + registrationToken + ", deviceType=" + deviceType
 				+ "]";
+	}
+
+	public String getDeviceBrandName() {
+		return deviceBrandName;
+	}
+
+	public String getDeviceModelName() {
+		return deviceModelName;
+	}
+
+	public String getDeviceOsVersion() {
+		return deviceOsVersion;
+	}
+
+	public String getAppVersionCode() {
+		return appVersionCode;
 	}
 }

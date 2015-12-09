@@ -13,6 +13,11 @@ public class DeviceMarshaller implements Marshaller<Device, JsonMap> {
 		JsonMap jsonMap = new JsonMap(mode, extras);
 		jsonMap.put("deviceGroupId", device.getDeviceGroupId());
 		jsonMap.put("registrationToken", device.getRegistrationToken());
+
+		jsonMap.put("deviceBrandName", device.getDeviceBrandName());
+		jsonMap.put("deviceModelName", device.getDeviceModelName());
+		jsonMap.put("deviceOsVersion", device.getDeviceOsVersion());
+		jsonMap.put("appVersionCode", device.getAppVersionCode());
 		return jsonMap;
 	}
 }

@@ -15,7 +15,16 @@ public class DeviceParser extends JsonParser<JSONObject> {
 
 	@Override
 	public Object parse(JSONObject json) {
-		return new Device(instanceId, DeviceType.find(userAgent),
-				json.optString("registrationToken"), json.optString("deviceGroupId"));
+
+		DeviceType deviceType = DeviceType.find(userAgent);
+		String registrationToken = json.optString("registrationToken");
+		String deviceGroupId = json.optString("deviceGroupId");
+		String deviceBrandName = json.optString("deviceBrandName");
+		String deviceModelName = json.optString("deviceModelName");
+		String deviceOsVersion = json.optString("deviceOsVersion");
+		String appVersionCode = json.optString("appVersionCode");
+
+		return new Device(instanceId, deviceType, registrationToken, deviceGroupId,
+				deviceBrandName, deviceModelName, deviceOsVersion, appVersionCode);
 	}
 }
