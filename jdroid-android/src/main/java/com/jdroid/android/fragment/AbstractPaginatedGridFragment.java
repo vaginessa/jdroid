@@ -1,7 +1,6 @@
 package com.jdroid.android.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.WorkerThread;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
@@ -101,7 +100,6 @@ public abstract class AbstractPaginatedGridFragment<T> extends AbstractGridFragm
 	
 	protected abstract BaseArrayAdapter<T> createBaseArrayAdapter(List<T> items);
 	
-	@WorkerThread
 	@Override
 	public void onStartUseCase() {
 		if (getPaginatedUseCase().isPaginating()) {
@@ -111,7 +109,6 @@ public abstract class AbstractPaginatedGridFragment<T> extends AbstractGridFragm
 		}
 	}
 	
-	@WorkerThread
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		if (getPaginatedUseCase().isPaginating()) {
@@ -122,7 +119,6 @@ public abstract class AbstractPaginatedGridFragment<T> extends AbstractGridFragm
 		}
 	}
 	
-	@WorkerThread
 	@Override
 	public void onFinishUseCase() {
 		executeOnUIThread(new Runnable() {

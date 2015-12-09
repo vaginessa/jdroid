@@ -1,7 +1,6 @@
 package com.jdroid.android.utils;
 
 import android.content.SharedPreferences;
-import android.support.annotation.WorkerThread;
 import android.util.Base64;
 
 import com.jdroid.java.exception.UnexpectedException;
@@ -37,7 +36,6 @@ public class AndroidEncryptionUtils {
 	 * @param cleartext
 	 * @return encrypted data
 	 */
-	@WorkerThread
 	public static String encrypt(String cleartext) {
 		if (cleartext != null) {
 			byte[] result = doFinal(Base64.decode(getBase64Key(), Base64.DEFAULT), Cipher.ENCRYPT_MODE,
@@ -54,7 +52,6 @@ public class AndroidEncryptionUtils {
 	 * @param base64Encrypted
 	 * @return the original data
 	 */
-	@WorkerThread
 	public static String decrypt(String base64Encrypted) {
 		if (base64Encrypted != null) {
 			byte[] enc = Base64.decode(base64Encrypted, Base64.DEFAULT);

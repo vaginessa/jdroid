@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.WorkerThread;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,41 +99,31 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 		return getFragmentIf().inflate(resource);
 	}
 	
-	@WorkerThread
 	@Override
 	public void onStartUseCase() {
 		getFragmentIf().onStartUseCase();
 	}
 	
-	@WorkerThread
 	@Override
 	public void onUpdateUseCase() {
 		getFragmentIf().onUpdateUseCase();
 	}
 	
-	@WorkerThread
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		getFragmentIf().onFinishFailedUseCase(abstractException);
 	}
 	
-	@WorkerThread
 	@Override
 	public void onFinishUseCase() {
 		getFragmentIf().onFinishUseCase();
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError(com.jdroid.java.exception.AbstractException)
-	 */
 	@Override
 	public Boolean goBackOnError(AbstractException abstractException) {
 		return getFragmentIf().goBackOnError(abstractException);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeOnUIThread(java.lang.Runnable)
-	 */
 	@Override
 	public void executeOnUIThread(Runnable runnable) {
 		FragmentIf fragmentIf = getFragmentIf();
