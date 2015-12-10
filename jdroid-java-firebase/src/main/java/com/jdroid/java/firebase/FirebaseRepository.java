@@ -6,6 +6,7 @@ import com.firebase.client.Query;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.domain.Entity;
 import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.java.firebase.auth.FirebaseAuthenticationStrategy;
 import com.jdroid.java.repository.Repository;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -20,6 +21,15 @@ public abstract class FirebaseRepository<T extends Entity> implements Repository
 
 	private static final Logger LOGGER = LoggerUtils.getLogger(FirebaseRepository.class);
 
+	private FirebaseAuthenticationStrategy firebaseAuthenticationStrategy;
+
+	public FirebaseRepository(FirebaseAuthenticationStrategy firebaseAuthenticationStrategy) {
+		this.firebaseAuthenticationStrategy = firebaseAuthenticationStrategy;
+	}
+
+	public FirebaseRepository() {
+	}
+
 	protected abstract String getFirebaseUrl();
 
 	protected abstract String getPath();
@@ -28,6 +38,9 @@ public abstract class FirebaseRepository<T extends Entity> implements Repository
 
 	private Firebase createFirebase() {
 		Firebase firebase = new Firebase(getFirebaseUrl());
+		if (firebaseAuthenticationStrategy != null) {
+			firebaseAuthenticationStrategy.authenticate(firebase);
+		}
 		firebase = firebase.child(getPath());
 		return firebase;
 	}

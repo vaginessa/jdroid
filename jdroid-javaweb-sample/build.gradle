@@ -39,6 +39,8 @@ dependencies {
 	//compile 'com.jdroidframework:jdroid-java-http-okhttp:' + jdroidVersion
 	compile project(':jdroid-java-http-okhttp')
 
+	compile project(':jdroid-java-firebase')
+
 	// Testing
 	testCompile "org.testng:testng:6.8.21"
 	testCompile "org.mockito:mockito-all:1.10.19"
@@ -70,6 +72,9 @@ project.afterEvaluate {
 			out.writeLine("twitterOAuthAccessToken=${jdroid.getProp('TWITTER_OAUTH_ACCESS_TOKEN')}")
 			out.writeLine("twitterOAuthAccessTokenSecret=${jdroid.getProp('TWITTER_OAUTH_ACCESS_TOKEN_SECRET')}")
 			out.writeLine("twitterEnabled=${jdroid.getProp('TWITTER_ENABLED', 'false')}")
+
+			out.writeLine("firebaseUrl=${jdroid.getProp('FIREBASE_URL')}")
+			out.writeLine("firebaseAuthToken=${jdroid.getProp('FIREBASE_AUTH_TOKEN')}")
 		}
 	}
 

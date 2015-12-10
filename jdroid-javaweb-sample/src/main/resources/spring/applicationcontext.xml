@@ -15,7 +15,7 @@
 		</property>
 	</bean>
 
-	<bean id="appContext" class="com.jdroid.javaweb.context.AppContext">
+	<bean id="appContext" class="com.jdroid.javaweb.sample.context.ServerAppContext">
 		<property name="appName" value="${appName}" />
 		<property name="appVersion" value="${appVersion}" />
 		<property name="buildType" value="${buildType}" />
@@ -32,6 +32,8 @@
 		<property name="twitterEnabled" value="${twitterEnabled}" />
 		<property name="rollBarEnabled" value="${rollBarEnabled}" />
 		<property name="rollBarAccessToken" value="${rollBarAccessToken}" />
+		<property name="firebaseUrl" value="${firebaseUrl}" />
+		<property name="firebaseAuthToken" value="${firebaseAuthToken}" />
 	</bean>
 
 	<bean id="gitContext" class="com.jdroid.javaweb.context.ServerGitContext">
@@ -39,7 +41,7 @@
 		<property name="sha" value="${gitSha}" />
 	</bean>
 
-	<bean id="application" class="com.jdroid.javaweb.context.Application">
+	<bean id="application" class="com.jdroid.javaweb.sample.context.ServerApplication">
 		<property name="appContext" ref="appContext" />
 		<property name="gitContext" ref="gitContext" />
 	</bean>
