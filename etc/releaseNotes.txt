@@ -1,20 +1,24 @@
+Upgraded to gradle 2.9
+
 jdroid Android
 --------------
-* Created jdroid-android-about library
-* Created jdroid-android-google-gcm library
-* Created jdroid-android-facebook library
-* Created jdroid-android-crashlytics library
-* Created jdroid-android-google-admob library
-* Changed target version to Android M
-* Added support to new Android M permissions scheme
-* Added Google+ sample
+* New Rate App Component
+* Instance ID support
+* GCM 3.0 support
+* Shared preferences helper improvements
+* Http error handling improvements
+* DateUtils improvements
+* UsageStats improvements
+* Upgraded build tools version
 * Upgraded dependencies versions
 * Bug fixing
 
 jdroid Java
 ---------------
+* Created jdroid-java-firebase library
 * Bug fixing
 
 jdroid Java Web
 ---------------
+* Removed Hibernate dependencies to a separated library
 * Bug fixing
