@@ -97,7 +97,6 @@ fi
 cd $PROJECT_HOME
 
 ./gradlew :jdroid-java:clean :jdroid-java:uploadArchives :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=true -PSNAPSHOT=false
- -PSNAPSHOT=false
 
 cmd="./gradlew clean"
 
