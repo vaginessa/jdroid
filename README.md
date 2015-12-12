@@ -19,7 +19,13 @@ Dependency for both Android & Java apps
  * Plain text parser
 * JSON marshallers
 * Exception handling
+* Repositories
 * Utilities for Collections, Strings, Dates, Files, Encryption, Threads, [Logging](http://www.slf4j.org/), Validations, Reflection and more
+
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-firebase](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
+-----------
+* Repositories
+ * [Firebase Implementation](https://www.firebase.com)
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-http-okhttp](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
 -----------
@@ -40,6 +46,7 @@ Dependency for Android apps. Support for Android 4.0 (api level 14) and higher v
 * Exception handling
 * [Lint support](http://developer.android.com/tools/help/lint.html)
 * [Strict mode support](http://developer.android.com/reference/android/os/StrictMode.html)
+* [Instance ID support](https://developers.google.com/instance-id/)
 * Parsers
  * XML Pull Parser
 * Debug settings support
@@ -53,7 +60,7 @@ Dependency for Android apps. Support for Android 4.0 (api level 14) and higher v
  * Non blocking loading component
  * [Swipe to refresh support] (http://developer.android.com/reference/android/support/v4/widget/SwipeRefreshLayout.html)
  * Refresh action provider component
-* Rate me component
+* Rate App component
 * Picture import (From camera or gallery) component
 * Barcode reading component
 * Voice Recognizer component
@@ -102,7 +109,6 @@ Dependency project for Java-based enterprise apps
  * Authentication filter
  * API version filter
 * [Spring MVC integration](http://projects.spring.io/spring-framework/)
-* [Hibernate ORM integration](http://hibernate.org/orm/)
 * [Restfb Facebook integration](http://restfb.com/)
 * [Twitter 4j integration](http://twitter4j.org/)
 * [Rollbar integration](https://rollbar.com/)
