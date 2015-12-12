@@ -19,12 +19,13 @@ Dependency for both Android & Java apps
  * Plain text parser
 * JSON marshallers
 * Exception handling
-* Repositories
+* Repository Pattern
+ * In Memory Implementation 
 * Utilities for Collections, Strings, Dates, Files, Encryption, Threads, [Logging](http://www.slf4j.org/), Validations, Reflection and more
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-firebase](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
 -----------
-* Repositories
+* Repository Pattern
  * [Firebase Implementation](https://www.firebase.com)
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-http-okhttp](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
