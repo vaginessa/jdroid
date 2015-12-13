@@ -15,7 +15,7 @@ allprojects {
 			mavenCentral()
 			if (project.hasProperty('LOCAL_MAVEN_REPO')) {
 				maven {
-					url LOCAL_MAVEN_REPO
+					url project.getProp('LOCAL_MAVEN_REPO')
 				}
 			}
 			maven {
