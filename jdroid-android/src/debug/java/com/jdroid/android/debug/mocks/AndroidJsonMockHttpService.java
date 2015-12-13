@@ -27,12 +27,9 @@ public class AndroidJsonMockHttpService extends JsonMockHttpService {
 		}
 	}
 	
-	/**
-	 * @see AbstractMockHttpService#getHttpMockSleepDuration(java.lang.Object[])
-	 */
 	@Override
 	protected Integer getHttpMockSleepDuration(Object... urlSegments) {
-		return AbstractApplication.get().getAppContext().getHttpMockSleepDuration();
+		return AbstractApplication.get().getDebugContext().getHttpMockSleepDuration();
 	}
 
 	private ExceptionType getHttpMockExceptionType() {

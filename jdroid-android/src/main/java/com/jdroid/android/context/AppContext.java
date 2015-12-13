@@ -9,9 +9,6 @@ import java.util.Locale;
 
 public abstract class AppContext {
 	
-	public static final String HTTP_MOCK_ENABLED = "httpMockEnabled";
-	public static final String HTTP_MOCK_SLEEP = "httpMockSleep";
-
 	// Environment
 	private Server server;
 
@@ -86,17 +83,6 @@ public abstract class AppContext {
 	
 	public  Boolean isGoogleAnalyticsDebugEnabled() {
 		return AbstractApplication.get().getBuildConfigValue("GOOGLE_ANALYTICS_DEBUG_ENABLED", false);
-	}
-	
-	public Boolean isHttpMockEnabled() {
-		return !isProductionEnvironment()
-				&& PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(
-					HTTP_MOCK_ENABLED, false);
-	}
-	
-	public Integer getHttpMockSleepDuration() {
-		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(HTTP_MOCK_SLEEP,
-			false) ? 10 : null;
 	}
 	
 	public String getLocalIp() {

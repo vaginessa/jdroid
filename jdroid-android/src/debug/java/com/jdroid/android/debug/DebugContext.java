@@ -1,5 +1,6 @@
 package com.jdroid.android.debug;
 
+import android.preference.PreferenceManager;
 import android.support.v4.util.Pair;
 
 import com.jdroid.android.activity.ActivityLauncher;
@@ -21,7 +22,21 @@ import java.util.Map;
 
 public class DebugContext {
 
+	public static final String HTTP_MOCK_ENABLED = "httpMockEnabled";
+	public static final String HTTP_MOCK_SLEEP = "httpMockSleep";
+
 	private List<Pair<String, Object>> customDebugInfoProperties = Lists.newArrayList();
+
+	public Boolean isHttpMockEnabled() {
+		return !AbstractApplication.get().getAppContext().isProductionEnvironment()
+				&& PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(
+				HTTP_MOCK_ENABLED, false);
+	}
+
+	public Integer getHttpMockSleepDuration() {
+		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(HTTP_MOCK_SLEEP,
+				false) ? 10 : null;
+	}
 
 	public void launchActivityDebugSettingsActivity() {
 		ActivityLauncher.launchActivity(DebugSettingsActivity.class);

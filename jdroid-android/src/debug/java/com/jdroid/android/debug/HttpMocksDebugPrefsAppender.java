@@ -26,13 +26,13 @@ public class HttpMocksDebugPrefsAppender implements PreferencesAppender {
 		preferenceGroup.addPreference(preferenceCategory);
 		
 		CheckBoxPreference checkBoxPreference = new CheckBoxPreference(activity);
-		checkBoxPreference.setKey(AppContext.HTTP_MOCK_ENABLED);
+		checkBoxPreference.setKey(DebugContext.HTTP_MOCK_ENABLED);
 		checkBoxPreference.setTitle(R.string.httpMockEnabledTitle);
 		checkBoxPreference.setSummary(R.string.httpMockEnabledDescription);
 		preferenceCategory.addPreference(checkBoxPreference);
 		
 		checkBoxPreference = new CheckBoxPreference(activity);
-		checkBoxPreference.setKey(AppContext.HTTP_MOCK_SLEEP);
+		checkBoxPreference.setKey(DebugContext.HTTP_MOCK_SLEEP);
 		checkBoxPreference.setTitle(R.string.httpMockSleepTitle);
 		checkBoxPreference.setSummary(R.string.httpMockSleepDescription);
 		// FIXME this is not working

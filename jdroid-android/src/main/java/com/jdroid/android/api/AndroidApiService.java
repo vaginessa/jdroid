@@ -10,33 +10,21 @@ import java.io.File;
 
 public abstract class AndroidApiService extends AbstractApiService {
 
-	/**
-	 * @see com.jdroid.java.api.AbstractApiService#getHttpCacheDirectory(com.jdroid.java.http.cache.Cache)
-	 */
 	@Override
 	protected File getHttpCacheDirectory(Cache cache) {
 		return AbstractApplication.get().getCacheManager().getFileSystemCacheDirectory(cache);
 	}
 	
-	/**
-	 * @see com.jdroid.java.api.AbstractApiService#isHttpMockEnabled()
-	 */
 	@Override
 	protected Boolean isHttpMockEnabled() {
-		return AbstractApplication.get().getAppContext().isHttpMockEnabled();
+		return AbstractApplication.get().getDebugContext().isHttpMockEnabled();
 	}
 	
-	/**
-	 * @see com.jdroid.java.api.AbstractApiService#getAbstractMockHttpServiceInstance(java.lang.Object[])
-	 */
 	@Override
 	protected AbstractMockHttpService getAbstractMockHttpServiceInstance(Object... urlSegments) {
 		return AbstractApplication.get().getDebugContext().getAbstractMockHttpServiceInstance(urlSegments);
 	}
 	
-	/**
-	 * @see com.jdroid.java.api.AbstractApiService#getServer()
-	 */
 	@Override
 	protected Server getServer() {
 		return AbstractApplication.get().getAppContext().getServer();
