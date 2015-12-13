@@ -13,9 +13,10 @@ allprojects {
 	buildscript {
 		repositories {
 			mavenCentral()
-			if (project.hasProperty('LOCAL_MAVEN_REPO')) {
+			String localMavenRepo = project.getProp('LOCAL_MAVEN_REPO')
+			if (localMavenRepo != null) {
 				maven {
-					url project.getProp('LOCAL_MAVEN_REPO')
+					url localMavenRepo
 				}
 			}
 			maven {
