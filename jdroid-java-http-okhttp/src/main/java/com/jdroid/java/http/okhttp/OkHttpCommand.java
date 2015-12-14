@@ -11,6 +11,7 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 import javax.net.ssl.SSLException;
+import javax.net.ssl.SSLHandshakeException;
 
 public abstract class OkHttpCommand<P, R> {
 
@@ -37,6 +38,14 @@ public abstract class OkHttpCommand<P, R> {
 					} else if (message.contains("recvfrom failed: ECONNRESET (Connection reset by peer)")) {
 						throw new ConnectionException(e, false);
 					}
+				}
+			}
+			throw new UnexpectedException(e);
+		} catch (SSLHandshakeException e) {
+			String message = e.getMessage();
+			if (message != null) {
+				if (message.equals("com.android.org.bouncycastle.jce.exception.ExtCertPathValidatorException: Could not validate certificate: null")) {
+					throw new ConnectionException(e, false);
 				}
 			}
 			throw new UnexpectedException(e);
