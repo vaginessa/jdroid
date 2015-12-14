@@ -30,25 +30,33 @@ public class ExternalAppsUtils {
 	}
 	
 	public static boolean isAppInstalled(Context context, String packageName, Integer minimumVersionCode) {
-		PackageManager pm = context.getPackageManager();
 		boolean installed = false;
-		try {
-			PackageInfo packageInfo = pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
-			if ((minimumVersionCode == null) || (packageInfo.versionCode >= minimumVersionCode)) {
+		Integer installedAppVersionCode = getInstalledAppVersionCode(context, packageName);
+		if (installedAppVersionCode != null) {
+			if ((minimumVersionCode == null) || (installedAppVersionCode >= minimumVersionCode)) {
 				installed = true;
 			}
+		}
+		return installed;
+	}
+
+	public static Integer getInstalledAppVersionCode(Context context, String packageName) {
+		PackageManager pm = context.getPackageManager();
+		try {
+			PackageInfo packageInfo = pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+			return packageInfo.versionCode;
 		} catch (PackageManager.NameNotFoundException e) {
-			installed = false;
+			return null;
 		} catch (RuntimeException e) {
 			if (e.getMessage().equals("Package manager has died")
 					|| e.getMessage().equals("Transaction has failed to Package manger")) {
 				AbstractApplication.get().getExceptionHandler().logWarningException(
-					"Runtime error while loading package info", e);
+						"Runtime error while loading package info", e);
+				return null;
 			} else {
 				throw e;
 			}
 		}
-		return installed;
 	}
 	
 	/**

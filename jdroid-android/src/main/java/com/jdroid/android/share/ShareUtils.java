@@ -1,6 +1,7 @@
 package com.jdroid.android.share;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.Html;
@@ -16,7 +17,7 @@ public class ShareUtils {
 	public static void shareTextContent(String shareKey, int shareTitle, int shareSubject, int shareText) {
 		Activity activity = AbstractApplication.get().getCurrentActivity();
 		shareTextContent(shareKey, activity.getString(shareTitle), activity.getString(shareSubject),
-			activity.getString(shareText));
+				activity.getString(shareText));
 		
 		AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(null, SocialAction.SHARE, shareKey);
 	}
@@ -68,9 +69,17 @@ public class ShareUtils {
 	private static void share(String packageName, AccountType accountType, String shareKey, String shareText) {
 		Intent intent = createShareTextContentIntent(null, shareText);
 		intent.setPackage(packageName);
-		AbstractApplication.get().getCurrentActivity().startActivity(intent);
-		
-		AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(accountType, SocialAction.SHARE, shareKey);
+		try {
+			AbstractApplication.get().getCurrentActivity().startActivity(intent);
+			AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(accountType, SocialAction.SHARE, shareKey);
+		} catch (ActivityNotFoundException e) {
+			Integer installedAppVersionCode = ExternalAppsUtils.getInstalledAppVersionCode(AbstractApplication.get(), packageName);
+			String message = "ACTION_SEND not supported by " + packageName;
+			if (installedAppVersionCode != null) {
+				message += " version " + installedAppVersionCode;
+			}
+			AbstractApplication.get().getExceptionHandler().logWarningException(message, e);
+		}
 	}
 	
 	public static Intent createShareTextContentIntent(String shareSubject, String shareText) {
