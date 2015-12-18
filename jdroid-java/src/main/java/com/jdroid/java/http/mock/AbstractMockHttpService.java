@@ -1,14 +1,15 @@
 package com.jdroid.java.http.mock;
 
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.http.HttpResponseWrapper;
+import com.jdroid.java.http.HttpService;
 import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.MultipartHttpService;
-import com.jdroid.java.http.HttpService;
-import com.jdroid.java.http.post.BodyEnclosingHttpService;
 import com.jdroid.java.http.parser.Parser;
+import com.jdroid.java.http.post.BodyEnclosingHttpService;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.StringUtils;
@@ -18,6 +19,7 @@ import org.slf4j.Logger;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,13 +33,18 @@ public abstract class AbstractMockHttpService implements MultipartHttpService {
 	private static final String SUFFIX_SEPARATOR = "-";
 	private static final String URL_SEPARATOR = "/";
 	
-	private Object[] urlSegments;
+	private List<Object> urlSegments;
 	private Map<String, String> parameters = Maps.newHashMap();
 	private Map<String, String> headers = Maps.newHashMap();
 	private String body;
 	
 	public AbstractMockHttpService(Object... urlSegments) {
-		this.urlSegments = urlSegments;
+		this.urlSegments = Lists.newArrayList();
+		if (urlSegments != null) {
+			for (Object segment : urlSegments) {
+				addUrlSegment(segment);
+			}
+		}
 	}
 	
 	/**
@@ -61,7 +68,7 @@ public abstract class AbstractMockHttpService implements MultipartHttpService {
 			LOGGER.warn("HTTP Entity Body: " + body);
 		}
 		
-		Integer httpMockSleep = getHttpMockSleepDuration(urlSegments);
+		Integer httpMockSleep = getHttpMockSleepDuration(urlSegments.toArray());
 		if ((httpMockSleep != null) && (httpMockSleep > 0)) {
 			ExecutorUtils.sleep(httpMockSleep);
 		}
@@ -149,7 +156,10 @@ public abstract class AbstractMockHttpService implements MultipartHttpService {
 	 */
 	@Override
 	public void addUrlSegment(Object segment) {
-		// Do Nothing
+		String segmentString = segment.toString();
+		if (StringUtils.isNotEmpty(segmentString)) {
+			urlSegments.add(segmentString);
+		}
 	}
 	
 	/**
@@ -218,7 +228,7 @@ public abstract class AbstractMockHttpService implements MultipartHttpService {
 		return null;
 	}
 	
-	protected String generateMockFilePath(Object... urlSegments) {
+	protected String generateMockFilePath(List<Object> urlSegments) {
 		StringBuilder sb = new StringBuilder(getMocksBasePath());
 		if (urlSegments != null) {
 			for (Object urlSegment : urlSegments) {

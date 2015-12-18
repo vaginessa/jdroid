@@ -1,6 +1,7 @@
 package com.jdroid.java.http.cache;
 
 import com.jdroid.java.concurrent.ExecutorUtils;
+import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.http.parser.Parser;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -107,6 +108,9 @@ public enum CachingStrategy {
 			}
 			if (response == null) {
 				response = cachedHttpService.readFromCache(parser);
+			}
+			if (response == null && parser != null) {
+				throw new UnexpectedException("The service was expecting a response, but it was null (CachingStrategy.REMOTE_FIRST)");
 			}
 			return response;
 		}

@@ -16,7 +16,7 @@ dependencies {
 	compile project(':jdroid-java')
 
 	// https://github.com/square/okhttp/blob/master/CHANGELOG.md
-	compile 'com.squareup.okhttp:okhttp-urlconnection:2.6.0'
+	compile 'com.squareup.okhttp:okhttp-urlconnection:2.7.0'
 
 	// Testing
 	testCompile "org.testng:testng:6.8.21"

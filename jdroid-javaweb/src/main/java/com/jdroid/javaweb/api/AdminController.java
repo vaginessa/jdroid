@@ -46,6 +46,9 @@ public class AdminController extends AbstractController {
 		infoMap.put("RollBar Enabled", Application.get().getAppContext().isRollBarEnabled());
 		infoMap.put("RollBar Access Token", Application.get().getAppContext().getRollBarAccessToken());
 
+		// Google
+		infoMap.put("Google Server API Key", Application.get().getAppContext().getGoogleServerApiKey());
+
 		infoMap.putAll(getCustomInfoMap());
 
 		StringBuilder builder = new StringBuilder();
