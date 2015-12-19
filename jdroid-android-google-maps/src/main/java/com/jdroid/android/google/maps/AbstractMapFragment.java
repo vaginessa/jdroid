@@ -1,66 +1,55 @@
 package com.jdroid.android.google.maps;
 
-import android.Manifest;
-import android.annotation.TargetApi;
-import android.content.pm.PackageManager;
-import android.content.res.TypedArray;
-import android.location.Location;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver.OnGlobalLayoutListener;
-import android.view.animation.Animation;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
-import com.google.android.gms.maps.GoogleMap.OnMyLocationChangeListener;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.ad.AdHelper;
-import com.jdroid.android.animation.FadeOutAnimation;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
-import com.jdroid.android.dialog.AlertDialogFragment;
-import com.jdroid.android.dialog.AppInfoDialogFragment;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.fragment.FragmentIf;
+import com.jdroid.android.google.GooglePlayServicesUtils;
 import com.jdroid.android.loading.FragmentLoading;
-import com.jdroid.android.location.LocationHelper;
-import com.jdroid.android.permission.PermissionDialogFragment;
 import com.jdroid.android.permission.PermissionHelper;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
 import com.jdroid.java.exception.AbstractException;
 
-public abstract class AbstractMapFragment extends SupportMapFragment implements FragmentIf, OnMyLocationChangeListener {
+public abstract class AbstractMapFragment extends SupportMapFragment implements FragmentIf {
 	
-	private static final int DELAY_MILLI = 500;
-	private static final int LOCATION_PERMISSION_REQUEST_CODE = 2;
-
 	private FragmentHelper fragmentHelper;
 	private GoogleMap map;
-	private View mapCover;
+
+	private ViewGroup mapContainer;
+	private View updateGoogleplayServicesContainer;
 
 	private Boolean locationPermissionGranted = false;
-
+	private PermissionHelper locationPermissionHelper;
 
 	protected FragmentIf getFragmentIf() {
 		return (FragmentIf)this.getActivity();
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -85,36 +74,75 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 			}
 		}
 
-
 		super.onCreate(savedInstanceState);
 		fragmentHelper = AbstractApplication.get().createFragmentHelper(this);
 		fragmentHelper.onCreate(savedInstanceState);
+
+		if (savedInstanceState == null) {
+			setRetainInstance(true);
+		}
+
+		if (isLocationEnabled()) {
+			locationPermissionHelper = PermissionHelper.createLocationPermissionHelper(this);
+			locationPermissionHelper.setOnRequestPermissionsResultListener(new PermissionHelper.OnRequestPermissionsResultListener() {
+				@Override
+				public void onRequestPermissionsGranted() {
+					locationPermissionGranted = true;
+					if (map != null) {
+						map.setMyLocationEnabled(true);
+					}
+				}
+
+				@Override
+				public void onRequestPermissionsDenied() {
+					// Nothing to do
+				}
+			});
+			locationPermissionGranted = locationPermissionHelper.verifyPermission();
+		}
+
+		getMapAsync(new OnMapReadyCallback() {
+
+			@Override
+			public void onMapReady(final GoogleMap googleMap) {
+				map = googleMap;
+
+				// Setting an info window adapter allows us to change the both the contents and look of the
+				// info window.
+				InfoWindowAdapter infoWindowAdapter = getInfoWindowAdapter();
+				if (infoWindowAdapter != null) {
+					map.setInfoWindowAdapter(infoWindowAdapter);
+				}
+				map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+				AbstractMapFragment.this.onMapReady(map);
+
+				getGoogleMap().setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+					@Override
+					public void onMapLoaded() {
+						AbstractMapFragment.this.onMapLoaded(googleMap);
+					}
+				});
+
+				if (locationPermissionHelper != null) {
+					locationPermissionGranted = locationPermissionHelper.checkPermission(false);
+					if (locationPermissionGranted) {
+						map.setMyLocationEnabled(true);
+					}
+				}
+			}
+		});
 	}
 
 	@Override
 	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-		switch (requestCode) {
-			case LOCATION_PERMISSION_REQUEST_CODE: {
-				if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-					locationPermissionGranted = true;
-					initMapLocation();
-				}
-				return;
-			}
-		}
+		locationPermissionHelper.onRequestPermissionsResult(requestCode, permissions, grantResults);
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = fragmentHelper.onCreateView(inflater, container, savedInstanceState);
-		ViewGroup mapContainer = (ViewGroup)view.findViewById(R.id.mapContainer);
+		mapContainer = (ViewGroup)view.findViewById(R.id.mapContainer);
 		View mapView = super.onCreateView(inflater, mapContainer, savedInstanceState);
-		if (map == null) {
-			mapView.setBackgroundResource(android.R.color.white);
-			mapCover = view.findViewById(R.id.mapCover);
-			TypedArray attributes = getActivity().getTheme().obtainStyledAttributes(new int[]{android.R.attr.colorBackground});
-			mapCover.setBackgroundResource(attributes.getResourceId(0, android.R.color.white));
-		}
 		mapContainer.addView(mapView);
 		return view;
 	}
@@ -123,6 +151,16 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		fragmentHelper.onViewCreated(view, savedInstanceState);
+
+		updateGoogleplayServicesContainer = findView(R.id.updateGoogleplayServicesContainer);
+	}
+
+	protected void onMapReady(@NonNull GoogleMap googleMap) {
+		// Do Nothing
+	}
+
+	protected void onMapLoaded(@NonNull GoogleMap googleMap) {
+		// Do Nothing
 	}
 
 	@Override
@@ -152,124 +190,43 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 		super.onResume();
 		
 		fragmentHelper.onResume();
-		setUpMap();
-	}
-	
-	protected abstract InfoWindowAdapter getInfoWindowAdapter();
-	
-	protected abstract void onMapSetup();
 
-	protected abstract void onMapSetupFinished();
-	
-	private void setUpMap() {
-
-		// Do a null check to confirm that we have not already instantiated the map.
-		if (map == null) {
-			// Try to obtain the map from the SupportMapFragment.
-			map = getMap();
-			// Check if we were successful in obtaining the map.
-			if (map != null) {
-				// Setting an info window adapter allows us to change the both the contents and look of the
-				// info window.
-				InfoWindowAdapter infoWindowAdapter = getInfoWindowAdapter();
-				if (infoWindowAdapter != null) {
-					map.setInfoWindowAdapter(infoWindowAdapter);
-				}
-				map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-				onMapSetup();
-
-				// Pan to see all markers in view. Cannot zoom to bounds until the map has a size.
-				final View mapView = getView();
-				if (mapView.getViewTreeObserver().isAlive()) {
-					mapView.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
-
-						@SuppressWarnings("deprecation")
-						@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-						@Override
-						public void onGlobalLayout() {
-
-							if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-								mapView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-							} else {
-								mapView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-							}
-							onMapSetupFinished();
-							showMap();
-						}
-					});
-				}
-			}
+		if (locationPermissionHelper != null) {
+			locationPermissionHelper.onResume();
 		}
-		locationPermissionGranted = PermissionHelper.verifyPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION);
-		initMapLocation();
+
+		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(getActivity())) {
+			displayMap();
+		} else {
+			showUpdateGooglePlayServices();
+		}
 	}
 
-	private void showMap() {
-		mapCover.postDelayed(new Runnable() {
+	private void displayMap() {
+		updateGoogleplayServicesContainer.setVisibility(View.GONE);
+		mapContainer.setVisibility(View.VISIBLE);
+	}
+
+	private void showUpdateGooglePlayServices() {
+		mapContainer.setVisibility(View.GONE);
+		updateGoogleplayServicesContainer.setVisibility(View.VISIBLE);
+
+		Button button = findView(R.id.button);
+		button.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void run() {
-				if (isResumed()) {
-					Animation fadeOut = new FadeOutAnimation(mapCover, DELAY_MILLI);
-					mapCover.startAnimation(fadeOut);
-
-					if (isLocationEnabled() && LocationHelper.get().isLocalizationEnabled()) {
-						locationPermissionGranted = PermissionHelper.checkPermission(getActivity(),
-								Manifest.permission.ACCESS_COARSE_LOCATION, LOCATION_PERMISSION_REQUEST_CODE);
-						initMapLocation();
-					}
-
-				}
+			public void onClick(View v) {
+				GooglePlayServicesUtils.launchGooglePlayServicesUpdate(getActivity());
 			}
-		}, DELAY_MILLI);
-	}
-
-	private void initMapLocation() {
-		if (map != null) {
-			map.setMyLocationEnabled(isLocationEnabled() && LocationHelper.get().isLocalizationEnabled());
-			if (locationPermissionGranted) {
-				map.setOnMyLocationChangeListener(this);
-				map.setOnMyLocationButtonClickListener(null);
-			} else {
-				map.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
-					@Override
-					public boolean onMyLocationButtonClick() {
-						locationPermissionGranted = PermissionHelper.checkPermission(getActivity(),
-								Manifest.permission.ACCESS_COARSE_LOCATION, LOCATION_PERMISSION_REQUEST_CODE);
-						if (!locationPermissionGranted && !PermissionHelper.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)) {
-
-							AppInfoDialogFragment fragment = new AppInfoDialogFragment();
-							String screenViewName = PermissionDialogFragment.class.getSimpleName() + "-" + Manifest.permission.ACCESS_COARSE_LOCATION;
-
-							String title = getActivity().getString(R.string.requiredPermission);
-							String message = getActivity().getString(R.string.locationPermissionRequired);
-
-							AlertDialogFragment.show(getActivity(), fragment, null, title, message, getActivity().getString(R.string.cancel),
-									null, getActivity().getString(R.string.ok), true, screenViewName, null);
-						}
-						return true;
-					}
-				});
-			}
-		}
+		});
 	}
 	
-	/**
-	 * @see com.google.android.gms.maps.GoogleMap.OnMyLocationChangeListener#onMyLocationChange(android.location.Location)
-	 */
-	@Override
-	public void onMyLocationChange(Location location) {
-		LocationHelper.get().onMapLocationChanged(location);
+	protected InfoWindowAdapter getInfoWindowAdapter() {
+		return null;
 	}
 	
 	protected Boolean isLocationEnabled() {
 		return false;
-	}
-	
-	public void hideMap() {
-		if (isResumed() && (mapCover != null)) {
-			mapCover.clearAnimation();
-		}
 	}
 	
 	public GoogleMap getGoogleMap() {

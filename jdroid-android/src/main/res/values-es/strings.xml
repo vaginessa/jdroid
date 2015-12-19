@@ -19,9 +19,12 @@
 	<string name="retry">Reintentar</string>
 	<string name="removeAdsNow">Ocultar publicidad</string>
 
+	<string name="deviceSettings">Configuración</string>
+
 	<!-- Permissions -->
 	<string name="requiredPermission">Permiso Requerido</string>
 	<string name="allow">Permitir</string>
+	<string name="locationPermissionRequired">Necesita habilitar el permiso <b>Ubicación</b> para poder visualizar su ubicación actual en el mapa.</string>
 
 	<!-- Navigation Drawer -->
 	<string name="drawerOpen">Abrir navigation drawer</string>

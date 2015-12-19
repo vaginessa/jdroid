@@ -422,4 +422,33 @@ public abstract class StringUtils {
 	public static boolean hasOnlyCharacters(String name) {
 		return !isEmpty(name) && name.matches("[A-Za-z\\s]*");
 	}
+
+	/**
+	 * @param charSequence a CharSequence, the charSequence to trim.
+	 * @return a CharSequence with whitespace characters removed from the end, including non-breaking spaces (&nbsp; or
+	 *         &#160;) and line separators.
+	 */
+	public static CharSequence removeTrailingWhitespaces(CharSequence charSequence) {
+		CharSequence result = charSequence;
+		if ((charSequence != null) && (charSequence.length() > 0)) {
+			int lastIndex = charSequence.length() - 1;
+			int index = lastIndex;
+			while ((index >= 0) && isAnySpaceChar(charSequence.charAt(index))) {
+				index--;
+			}
+			if (index < lastIndex) {
+				result = charSequence.subSequence(0, index + 1);
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * @param character a char
+	 * @return true if the character is a whitespace (including non-breaking spaces and line separators), false
+	 *         otherwise.
+	 */
+	private static boolean isAnySpaceChar(char character) {
+		return Character.isSpaceChar(character) || Character.isWhitespace(character);
+	}
 }

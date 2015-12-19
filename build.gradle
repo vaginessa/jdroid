@@ -65,7 +65,7 @@ if (isSnapshot) {
 ext.jdroidVersion = project.version
 
 // https://developers.google.com/android/guides/releases
-ext.googlePlayServicesVersion = '8.3.0'
+ext.googlePlayServicesVersion = '8.4.0'
 
 // http://developer.android.com/tools/support-library/index.html
 ext.androidSupportVersion = '23.1.1'

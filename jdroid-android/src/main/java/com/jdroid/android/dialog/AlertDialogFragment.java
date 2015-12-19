@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.Button;
 
@@ -21,6 +23,7 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 	
 	private static final String TITLE_EXTRA = "titleExtra";
 	private static final String MESSAGE_EXTRA = "messageExtra";
+	private static final String IS_HTML_MESSAGE_EXTRA = "isHtmlMessageExtra";
 	private static final String NEGATIVE_BUTTON_TEXT_EXTRA = "negativeButtonTextExtra";
 	private static final String NEUTRAL_BUTTON_TEXT_EXTRA = "neutralButtonTextExtra";
 	private static final String POSITIVE_BUTTON_TEXT_EXTRA = "positiveButtonTextExtra";
@@ -28,40 +31,45 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 
 	
 	private String title;
-	private String message;
+	private CharSequence message;
 	private String negativeButtonText;
 	private String neutralButtonText;
 	private String positiveButtonText;
 	private Map<String, Serializable> parameters = Maps.newHashMap();
 	private String screenViewName = null;
 
-	public static void show(Fragment fragment, String title, String message, String negativeButtonText,
+	public static void show(Fragment fragment, String title, CharSequence message, String negativeButtonText,
 			String neutralButtonText, String positiveButtonText, Boolean cancelable) {
 		show(fragment.getActivity(), new AlertDialogFragment(), title, message, negativeButtonText, neutralButtonText,
 			positiveButtonText, cancelable);
 	}
 	
 	public static void show(FragmentActivity fragmentActivity, AlertDialogFragment alertDialogFragment, String title,
-			String message, String negativeButtonText, String neutralButtonText, String positiveButtonText,
+			CharSequence message, String negativeButtonText, String neutralButtonText, String positiveButtonText,
 			Boolean cancelable) {
 		show(fragmentActivity.getSupportFragmentManager(), alertDialogFragment, null, title, message,
 			negativeButtonText, neutralButtonText, positiveButtonText, cancelable, null, null);
 	}
 	
 	public static void show(FragmentActivity fragmentActivity, AlertDialogFragment alertDialogFragment,
-			Fragment targetFragment, String title, String message, String negativeButtonText, String neutralButtonText,
+			Fragment targetFragment, String title, CharSequence message, String negativeButtonText, String neutralButtonText,
 			String positiveButtonText, Boolean cancelable, String screenViewName, String tag) {
 		show(fragmentActivity.getSupportFragmentManager(), alertDialogFragment, targetFragment, title, message,
 			negativeButtonText, neutralButtonText, positiveButtonText, cancelable, screenViewName, tag);
 	}
 	
 	public static void show(FragmentManager fragmentManager, AlertDialogFragment alertDialogFragment,
-			Fragment targetFragment, String title, String message, String negativeButtonText, String neutralButtonText,
+			Fragment targetFragment, String title, CharSequence message, String negativeButtonText, String neutralButtonText,
 			String positiveButtonText, Boolean cancelable, String screenViewName, String tag) {
 		
 		Bundle bundle = new Bundle();
 		bundle.putSerializable(TITLE_EXTRA, title);
-		bundle.putSerializable(MESSAGE_EXTRA, message);
+		if(message instanceof Spanned) {
+			bundle.putSerializable(MESSAGE_EXTRA, Html.toHtml((Spanned)message));
+			bundle.putBoolean(IS_HTML_MESSAGE_EXTRA, true);
+		} else if(message!=null) {
+			bundle.putSerializable(MESSAGE_EXTRA, message.toString());
+		}
 		bundle.putSerializable(NEGATIVE_BUTTON_TEXT_EXTRA, negativeButtonText);
 		bundle.putSerializable(NEUTRAL_BUTTON_TEXT_EXTRA, neutralButtonText);
 		bundle.putSerializable(POSITIVE_BUTTON_TEXT_EXTRA, positiveButtonText);
@@ -93,7 +101,11 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 		super.onCreate(savedInstanceState);
 		
 		title = getArgument(TITLE_EXTRA);
-		message = getArgument(MESSAGE_EXTRA);
+		if (getArgument(IS_HTML_MESSAGE_EXTRA, false)) {
+			message = StringUtils.removeTrailingWhitespaces(Html.fromHtml((String)getArgument(MESSAGE_EXTRA)));
+		} else {
+			message = getArgument(MESSAGE_EXTRA);
+		}
 		positiveButtonText = getArgument(POSITIVE_BUTTON_TEXT_EXTRA);
 		neutralButtonText = getArgument(NEUTRAL_BUTTON_TEXT_EXTRA);
 		negativeButtonText = getArgument(NEGATIVE_BUTTON_TEXT_EXTRA);

@@ -19,9 +19,12 @@
 	<string name="retry">Retry</string>
 	<string name="removeAdsNow">Remove ads now!</string>
 
+	<string name="deviceSettings">Settings</string>
+
 	<!-- Permissions -->
 	<string name="requiredPermission">Required Permission</string>
 	<string name="allow">Allow</string>
+	<string name="locationPermissionRequired">You need to allow the <b>Location</b> permission in order to see your current location.</string>
 
 	<!-- Navigation Drawer -->
 	<string name="drawerOpen">Open navigation drawer</string>

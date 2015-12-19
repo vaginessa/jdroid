@@ -59,8 +59,6 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	
 	private static Logger LOGGER = LoggerUtils.getLogger(GooglePlusHelperFragment.class);
 
-	private static final int ACCOUNTS_PERMISSION_REQUEST_CODE = 1;
-
 	private static final String RESOLVING_ERROR_KEY = "resolvingError";
 	private static final String SIGN_IN_CLICKED_KEY = "signInClicked";
 	private static final String SHARE_LINK_KEY = "shareLink";
@@ -83,7 +81,8 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	
 	private String shareLink;
 
-	private Boolean contactsPermissionEnabled;
+	private Boolean accountsPermissionEnabled;
+	private PermissionHelper accountsPermissionHelper;
 	
 	public static void add(FragmentActivity activity,
 			Class<? extends GooglePlusHelperFragment> googlePlusHelperFragmentClass, Fragment targetFragment) {
@@ -146,6 +145,21 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 		builder.addConnectionCallbacks(this);
 		builder.addOnConnectionFailedListener(this);
 		googleApiClient = builder.build();
+
+		accountsPermissionHelper = PermissionHelper.createAccountsPermissionHelper(this);
+		accountsPermissionHelper.setPermissionRationaleMessageResId(R.string.accountsPermissionRequired);
+		accountsPermissionHelper.setOnRequestPermissionsResultListener(new PermissionHelper.OnRequestPermissionsResultListener() {
+			@Override
+			public void onRequestPermissionsGranted() {
+				accountsPermissionEnabled = true;
+				signIn();
+			}
+
+			@Override
+			public void onRequestPermissionsDenied() {
+				// Nothing to do
+			}
+		});
 	}
 	
 	protected GooglePlusAuthenticationUseCase createGooglePlusAuthenticationUseCase() {
@@ -180,6 +194,8 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	public void onResume() {
 		super.onResume();
 		onResumeUseCase(googlePlusAuthenticationUseCase, this);
+
+		accountsPermissionHelper.onResume();
 	}
 	
 	/**
@@ -323,6 +339,11 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 	public void onStartUseCase() {
 		// Do Nothing
 	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		accountsPermissionHelper.onRequestPermissionsResult(requestCode, permissions, grantResults);
+	}
 	
 	/**
 	 * @see com.jdroid.android.fragment.AbstractFragment#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
@@ -411,10 +432,8 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 			return false;
 		} else {
 
-			contactsPermissionEnabled = PermissionHelper.checkPermission(getActivity(),
-					Manifest.permission.GET_ACCOUNTS, ACCOUNTS_PERMISSION_REQUEST_CODE);
-
-			if (contactsPermissionEnabled) {
+			accountsPermissionEnabled = accountsPermissionHelper.checkPermission();
+			if (accountsPermissionEnabled) {
 				signInClicked = true;
 				if (googleApiClient.isConnected()) {
 					// If user is connected but press sign in we start connection flow.
@@ -430,17 +449,6 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 					}
 				}
 				return true;
-			}
-
-			if (!contactsPermissionEnabled && !PermissionHelper.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.GET_ACCOUNTS)) {
-
-				AppInfoDialogFragment fragment = new AppInfoDialogFragment();
-				String screenViewName = PermissionDialogFragment.class.getSimpleName() + "-" + Manifest.permission.GET_ACCOUNTS;
-
-				String title = getActivity().getString(R.string.requiredPermission);
-				String message = getActivity().getString(R.string.accountsPermissionRequired);
-
-				AlertDialogFragment.show(getActivity(), fragment, null, title, message, getActivity().getString(R.string.cancel), null, getActivity().getString(R.string.ok), true, screenViewName, null);
 			}
 
 			return false;
@@ -658,18 +666,4 @@ public class GooglePlusHelperFragment extends AbstractFragment implements Connec
 			}
 		}
 	}
-
-	@Override
-	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-		switch (requestCode) {
-			case ACCOUNTS_PERMISSION_REQUEST_CODE: {
-				if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-					contactsPermissionEnabled = true;
-					signIn();
-				}
-				return;
-			}
-		}
-	}
-
 }

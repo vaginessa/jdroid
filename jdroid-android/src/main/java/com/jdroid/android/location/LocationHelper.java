@@ -60,7 +60,7 @@ public class LocationHelper implements LocationListener {
 			new IntentFilter(GPS_TIMEOUT_ACTION));
 	}
 	
-	public Boolean isLocalizationEnabled() {
+	public Boolean isLocationEnabled() {
 		return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 				|| locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 	}
