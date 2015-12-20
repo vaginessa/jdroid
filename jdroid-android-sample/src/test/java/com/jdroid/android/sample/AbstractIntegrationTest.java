@@ -8,7 +8,7 @@ public abstract class AbstractIntegrationTest {
 
 	@Before
 	public final void setUp() throws Exception {
-		TestAppContext.FAKE_HTTP_ENABLED = false;
+		TestDebugContext.FAKE_HTTP_ENABLED = false;
 		onSetup();
 	}
 

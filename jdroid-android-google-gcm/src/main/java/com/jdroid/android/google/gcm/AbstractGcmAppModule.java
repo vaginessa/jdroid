@@ -84,7 +84,6 @@ public abstract class AbstractGcmAppModule extends AbstractAppModule {
 
 	@Override
 	public void onInstanceIdTokenRefresh() {
-		GcmPreferences.clearRegistrationToken();
 		GcmRegistrationService.start();
 	}
 

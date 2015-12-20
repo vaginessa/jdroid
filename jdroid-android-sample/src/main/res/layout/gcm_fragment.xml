@@ -5,9 +5,6 @@
 	<Button android:id="@+id/registerDevice" android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:text="@string/registerDevice" />
 
-	<Button android:id="@+id/clearRegistrationToken" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:text="@string/clearRegistrationToken" />
-
 	<Button android:id="@+id/removeInstanceId" android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:text="@string/removeInstanceId" />
 

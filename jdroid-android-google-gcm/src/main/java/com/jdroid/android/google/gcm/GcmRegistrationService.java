@@ -1,6 +1,6 @@
 package com.jdroid.android.google.gcm;
 
-import android.os.Bundle;
+import android.content.Context;
 
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmPubSub;
@@ -23,7 +23,6 @@ import java.util.List;
 public class GcmRegistrationService extends GcmTaskService {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(GcmRegistrationService.class);
-	public static final String FORCE_SERVER_REGISTRATION = "forceServerRegistration";
 
 	@Override
 	public void onInitializeTasks() {
@@ -38,37 +37,25 @@ public class GcmRegistrationService extends GcmTaskService {
 
 			String registrationToken = null;
 			try {
-
-				String senderId = AbstractGcmAppModule.get().getGcmContext().getSenderId();
-				if (senderId == null) {
-					throw new UnexpectedException("Missing GCM Sender Id");
-				}
-
-				InstanceID instanceID = InstanceID.getInstance(this);
-				registrationToken = instanceID.getToken(senderId, GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
-				GcmPreferences.setRegistrationToken(registrationToken);
+				registrationToken = getRegistrationToken(this);
 			} catch (Exception e) {
 				AbstractApplication.get().getExceptionHandler().logHandledException("Failed to register the device on gcm. Will retry later.", e);
 				return GcmNetworkManager.RESULT_RESCHEDULE;
 			}
 
-			Boolean forceServerRegistration = taskParams.getExtras().getBoolean(FORCE_SERVER_REGISTRATION, false);
-			if (forceServerRegistration || !GcmPreferences.isRegisteredOnServer()) {
-				try {
-					LOGGER.info("Registering GCM token on server");
-					AbstractGcmAppModule.get().onRegisterOnServer(registrationToken);
-					GcmPreferences.setRegisteredOnServer(true);
-				} catch (Exception e) {
-					AbstractApplication.get().getExceptionHandler().logHandledException("Failed to register the device on server. Will retry later.", e);
-					return GcmNetworkManager.RESULT_RESCHEDULE;
-				}
+			try {
+				LOGGER.info("Registering GCM token on server");
+				AbstractGcmAppModule.get().onRegisterOnServer(registrationToken);
+			} catch (Exception e) {
+				AbstractApplication.get().getExceptionHandler().logHandledException("Failed to register the device on server. Will retry later.", e);
+				return GcmNetworkManager.RESULT_RESCHEDULE;
+			}
 
-				try {
-					subscribeTopics(registrationToken);
-				} catch (Exception e) {
-					AbstractApplication.get().getExceptionHandler().logHandledException("Failed to subscribe to topic channels. Will retry later.", e);
-					return GcmNetworkManager.RESULT_RESCHEDULE;
-				}
+			try {
+				subscribeTopics(registrationToken);
+			} catch (Exception e) {
+				AbstractApplication.get().getExceptionHandler().logHandledException("Failed to subscribe to topic channels. Will retry later.", e);
+				return GcmNetworkManager.RESULT_RESCHEDULE;
 			}
 			return GcmNetworkManager.RESULT_SUCCESS;
 		} else {
@@ -93,24 +80,25 @@ public class GcmRegistrationService extends GcmTaskService {
 		}
 	}
 
-	public static void start(Boolean forceServerRegistration) {
-
-		Bundle bundle = new Bundle();
-		bundle.putBoolean(FORCE_SERVER_REGISTRATION, forceServerRegistration);
-
+	public static void start() {
 		OneoffTask.Builder builder = new OneoffTask.Builder();
 		builder.setService(GcmRegistrationService.class);
 		builder.setExecutionWindow(0, 5);
 		builder.setPersisted(true);
 		builder.setTag(GcmRegistrationService.class.getSimpleName());
-		builder.setExtras(bundle);
 		builder.build();
 
 		LOGGER.info("Scheduling GCM Registration");
 		GcmNetworkManager.getInstance(AbstractApplication.get()).schedule(builder.build());
 	}
 
-	public static void start() {
-		start(false);
+	public static String getRegistrationToken(Context context) throws IOException {
+		String senderId = AbstractGcmAppModule.get().getGcmContext().getSenderId();
+		if (senderId == null) {
+			throw new UnexpectedException("Missing GCM Sender Id");
+		}
+
+		InstanceID instanceID = InstanceID.getInstance(context);
+		return instanceID.getToken(senderId, GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
 	}
 }

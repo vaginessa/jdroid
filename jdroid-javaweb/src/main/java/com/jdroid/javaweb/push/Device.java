@@ -16,6 +16,8 @@ public class Device extends Entity {
 	private String deviceOsVersion;
 	private String appVersionCode;
 
+	private Long lastActiveTimestamp;
+
 	/**
 	 * Default constructor.
 	 */
@@ -100,5 +102,13 @@ public class Device extends Entity {
 
 	public String getAppVersionCode() {
 		return appVersionCode;
+	}
+
+	public Long getLastActiveTimestamp() {
+		return lastActiveTimestamp;
+	}
+
+	public void setLastActiveTimestamp(Long lastActiveTimestamp) {
+		this.lastActiveTimestamp = lastActiveTimestamp;
 	}
 }
