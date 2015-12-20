@@ -20,12 +20,13 @@ public class PushServiceImpl implements PushService {
 	@Override
 	public void addDevice(Device device) {
 		Device deviceToUpdate = deviceRepository.findByInstanceId(device.getInstanceId(), device.getDeviceType());
-		deviceToUpdate.setLastActiveTimestamp(System.currentTimeMillis());
 		if (deviceToUpdate != null) {
+			deviceToUpdate.setLastActiveTimestamp(System.currentTimeMillis());
 			deviceToUpdate.updateRegistrationToken(device.getRegistrationToken());
 			deviceToUpdate.updateDeviceGroupId(device.getDeviceGroupId());
 			deviceRepository.update(deviceToUpdate);
 		} else {
+			device.setLastActiveTimestamp(System.currentTimeMillis());
 			deviceRepository.add(device);
 		}
 	}

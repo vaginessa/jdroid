@@ -79,15 +79,6 @@ public class Device extends Entity {
 		return deviceGroupId;
 	}
 
-	/**
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Device [instanceId=" + instanceId + ", registrationToken=" + registrationToken + ", deviceType=" + deviceType
-				+ "]";
-	}
-
 	public String getDeviceBrandName() {
 		return deviceBrandName;
 	}
@@ -110,5 +101,20 @@ public class Device extends Entity {
 
 	public void setLastActiveTimestamp(Long lastActiveTimestamp) {
 		this.lastActiveTimestamp = lastActiveTimestamp;
+	}
+
+	@Override
+	public String toString() {
+		return "Device{" +
+				"instanceId='" + instanceId + '\'' +
+				", deviceType=" + deviceType +
+				", deviceGroupId='" + deviceGroupId + '\'' +
+				", registrationToken='" + registrationToken + '\'' +
+				", deviceBrandName='" + deviceBrandName + '\'' +
+				", deviceModelName='" + deviceModelName + '\'' +
+				", deviceOsVersion='" + deviceOsVersion + '\'' +
+				", appVersionCode='" + appVersionCode + '\'' +
+				", lastActiveTimestamp=" + lastActiveTimestamp +
+				"} " + super.toString();
 	}
 }

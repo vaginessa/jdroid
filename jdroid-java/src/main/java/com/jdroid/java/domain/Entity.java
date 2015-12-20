@@ -49,7 +49,11 @@ public abstract class Entity implements Serializable, Identifiable {
 
 	@Override
 	public String toString() {
-		return "Entity {" + "id=" + id + '}';
+		final StringBuffer sb = new StringBuffer("Entity{");
+		sb.append("id='").append(id).append('\'');
+		sb.append(", parentId='").append(parentId).append('\'');
+		sb.append('}');
+		return sb.toString();
 	}
 
 	/**
