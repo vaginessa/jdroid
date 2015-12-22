@@ -365,8 +365,8 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	}
 
 	@Override
-	public Boolean googlePlayServicesVerificationEnabled() {
-		return activityHelper.googlePlayServicesVerificationEnabled();
+	public Boolean isGooglePlayServicesVerificationEnabled() {
+		return activityHelper.isGooglePlayServicesVerificationEnabled();
 	}
 
 	// //////////////////////// Loading //////////////////////// //

@@ -46,7 +46,7 @@ public class HomeActivity extends FragmentContainerActivity {
 	}
 
 	@Override
-	public Boolean googlePlayServicesVerificationEnabled() {
+	public Boolean isGooglePlayServicesVerificationEnabled() {
 		return true;
 	}
 }

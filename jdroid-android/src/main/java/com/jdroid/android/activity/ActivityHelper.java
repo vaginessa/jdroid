@@ -267,7 +267,7 @@ public class ActivityHelper implements ActivityIf {
 		AbstractApplication.get().setInBackground(false);
 		AbstractApplication.get().setCurrentActivity(activity);
 
-		if (getActivityIf().googlePlayServicesVerificationEnabled()) {
+		if (getActivityIf().isGooglePlayServicesVerificationEnabled()) {
 			if (googlePlayServicesErrorDialog != null) {
 				googlePlayServicesErrorDialog.dismiss();
 			}
@@ -292,7 +292,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 
 	@Override
-	public Boolean googlePlayServicesVerificationEnabled() {
+	public Boolean isGooglePlayServicesVerificationEnabled() {
 		return false;
 	}
 

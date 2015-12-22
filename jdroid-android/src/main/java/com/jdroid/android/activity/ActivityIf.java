@@ -46,7 +46,7 @@ public interface ActivityIf extends ComponentIf {
 	@Nullable
 	public UriHandler getUriHandler();
 
-	public Boolean googlePlayServicesVerificationEnabled();
+	public Boolean isGooglePlayServicesVerificationEnabled();
 	
 	// //////////////////////// Loading //////////////////////// //
 
