@@ -6,6 +6,7 @@ public class AndroidGradlePluginExtension extends BaseGradleExtension {
 
 	String[] resourcesDirsPaths = ['src/main/res/']
 	String[] notDefaultLanguages = []
+	String missingTranslationExpression = "#TODO#"
 
 	public AndroidGradlePluginExtension(AndroidGradlePlugin androidGradlePlugin) {
 		super(androidGradlePlugin)

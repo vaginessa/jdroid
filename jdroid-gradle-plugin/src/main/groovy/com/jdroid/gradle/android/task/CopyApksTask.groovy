@@ -24,6 +24,6 @@ public class CopyApksTask extends DefaultTask {
 			exclude('**/*unaligned.apk')
 		}
 
-		println "Copied APKs to " + targetApksDirPath
+		logger.info("Copied APKs to " + targetApksDirPath)
 	}
 }

@@ -33,7 +33,7 @@ public class VerifyMissingTranslationsBetweenLocalesTask extends DefaultTask {
 
 					if (defaultLanguageValuesFile.exists()) {
 						if (!notDefaultLanguageValuesFile.exists()) {
-							println 'Missing resources file ' + notDefaultLanguageValuesFile.getAbsolutePath()
+							logger.error('Missing resources file ' + notDefaultLanguageValuesFile.getAbsolutePath())
 							error = true
 						} else {
 							def defaultLanguageKeys = []
@@ -56,36 +56,36 @@ public class VerifyMissingTranslationsBetweenLocalesTask extends DefaultTask {
 
 							defaultLanguageKeys.removeAll(commons)
 							if (!defaultLanguageKeys.isEmpty()) {
-								println "The following keys are missing on " + notDefaultLanguageValuesFile.getAbsolutePath()
-								println "* " + defaultLanguageKeys
-								println ""
+								logger.error("The following keys are missing on " + notDefaultLanguageValuesFile.getAbsolutePath())
+								logger.error("* " + defaultLanguageKeys)
+								logger.error("")
 								error = true
 							}
 
 							notDefaultLanguageKeys.removeAll(commons)
 							if (!notDefaultLanguageKeys.isEmpty()) {
-								println "The following keys are missing on " + defaultLanguageValuesFile.getAbsolutePath()
-								println "* " + notDefaultLanguageKeys
-								println ""
+								logger.error("The following keys are missing on " + defaultLanguageValuesFile.getAbsolutePath())
+								logger.error("* " + notDefaultLanguageKeys)
+								logger.error("")
 								error = true
 							}
 
 							if (!error) {
-								println "The following i19n files match:"
-								println "* " + defaultLanguageValuesFile.getAbsolutePath()
-								println "* " + notDefaultLanguageValuesFile.getAbsolutePath()
-								println ""
+								logger.error("The following i19n files match:")
+								logger.error("* " + defaultLanguageValuesFile.getAbsolutePath())
+								logger.error("* " + notDefaultLanguageValuesFile.getAbsolutePath())
+								logger.error("")
 							}
 						}
 					} else {
-						println "Ignoring the following file because it doesn't exist: " + defaultLanguageValuesFile.getAbsolutePath()
+						logger.info("Ignoring the following file because it doesn't exist: " + defaultLanguageValuesFile.getAbsolutePath())
 					}
 				}
 			}
 		}
 
 		if (error) {
-			println "Remember that the i19n files should have the same keys on the same lines. If you don't have the translation for any language, please add the key on all the files, and 'TODO' as value"
+			logger.warn("Remember that the i19n files should have the same keys on the same lines. If you don't have the translation for any language, please add the key on all the files, and 'TODO' as value")
 			throw new GradleException("The translations between locales doesn't match")
 		}
 	}
