@@ -22,7 +22,7 @@ import com.jdroid.android.context.UsageStats;
 import com.jdroid.android.google.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
-import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.DeviceUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.date.DateUtils;
@@ -113,10 +113,10 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 				addCommonCustomDimension(CustomDimension.APP_LOADING_SOURCE.name(), AppLoadingSource.NORMAL.getName());
 			}
 
-			addCustomDimension(appViewBuilder, CustomDimension.DEVICE_YEAR_CLASS, AbstractApplication.get().getDeviceYearClass().toString());
+			addCustomDimension(appViewBuilder, CustomDimension.DEVICE_YEAR_CLASS, DeviceUtils.getDeviceYearClass().toString());
 
 			if (!firstTrackingSent) {
-				addCustomDimension(appViewBuilder, CustomDimension.DEVICE_TYPE, AndroidUtils.getDeviceType());
+				addCustomDimension(appViewBuilder, CustomDimension.DEVICE_TYPE, DeviceUtils.getDeviceType());
 				
 				for (Entry<Experiment, ExperimentVariant> entry : ExperimentHelper.getExperimentsMap().entrySet()) {
 					Experiment experiment = entry.getKey();

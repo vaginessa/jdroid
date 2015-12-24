@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.jdroid.android.fragment.AbstractFragment;
-import com.jdroid.android.google.gcm.GcmRegistrationService;
+import com.jdroid.android.google.gcm.GcmRegistrationCommand;
 import com.jdroid.android.google.instanceid.InstanceIdHelper;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.api.SampleApiService;
@@ -27,7 +27,7 @@ public class GcmFragment extends AbstractFragment {
 		findView(R.id.registerDevice).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				GcmRegistrationService.start();
+				new GcmRegistrationCommand().start();
 			}
 		});
 
@@ -63,7 +63,7 @@ public class GcmFragment extends AbstractFragment {
 					public void run() {
 						String registrationToken = null;
 						try {
-							registrationToken = GcmRegistrationService.getRegistrationToken(GcmFragment.this.getActivity());
+							registrationToken = GcmRegistrationCommand.getRegistrationToken(GcmFragment.this.getActivity());
 							new SampleApiService().sendPush(registrationToken);
 						} catch (IOException e) {
 							throw new UnexpectedException(e);

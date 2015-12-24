@@ -31,4 +31,6 @@ public interface AppModule {
 	public List<Kit> getFabricKits();
 
 	public List<PreferencesAppender> getPreferencesAppenders();
+
+	public void onInitializeGcmTasks();
 }

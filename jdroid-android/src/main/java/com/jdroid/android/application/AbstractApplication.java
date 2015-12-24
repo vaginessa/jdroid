@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import com.facebook.device.yearclass.YearClass;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
@@ -65,8 +64,6 @@ public abstract class AbstractApplication extends Application {
 	public static final String INSTALLATION_SOURCE = "installationSource";
 	private static final String VERSION_CODE_KEY = "versionCodeKey";
 	
-	private static final String DEVICE_YEAR_CLASS = "DeviceYearClass";
-
 	protected static AbstractApplication INSTANCE;
 	
 	private AppContext appContext;
@@ -85,8 +82,6 @@ public abstract class AbstractApplication extends Application {
 	private AppLaunchStatus appLaunchStatus;
 	
 	private Map<Class<? extends Identifiable>, Repository<? extends Identifiable>> repositories;
-
-	private Integer deviceYearClass = YearClass.CLASS_UNKNOWN;
 
 	private Map<String, AppModule> appModulesMap = Maps.newLinkedHashMap();
 
@@ -153,7 +148,6 @@ public abstract class AbstractApplication extends Application {
 			@Override
 			public void run() {
 				verifyAppLaunchStatus();
-				initDeviceYearClass();
 
 				if (getCacheManager() != null) {
 					getCacheManager().initFileSystemCache();
@@ -272,19 +266,6 @@ public abstract class AbstractApplication extends Application {
 		}
 	}
 	
-	protected void initDeviceYearClass() {
-		deviceYearClass = SharedPreferencesHelper.get().loadPreferenceAsInteger(DEVICE_YEAR_CLASS, YearClass.CLASS_UNKNOWN);
-		//Try again if device was previously unknown.
-		if (deviceYearClass == YearClass.CLASS_UNKNOWN) {
-			deviceYearClass = YearClass.get(getApplicationContext());
-			SharedPreferencesHelper.get().savePreferenceAsync(DEVICE_YEAR_CLASS, deviceYearClass);
-		}
-	}
-
-	public Integer getDeviceYearClass() {
-		return deviceYearClass;
-	}
-
 	public void initExceptionHandlers() {
 		getAnalyticsSender().onInitExceptionHandler(getExceptionHandlerMetadata());
 
@@ -504,5 +485,11 @@ public abstract class AbstractApplication extends Application {
 
 	public List<Kit> getFabricKits() {
 		return Lists.newArrayList();
+	}
+
+	public void initializeGcmTasks() {
+		for (AppModule each: appModulesMap.values()) {
+			each.onInitializeGcmTasks();
+		}
 	}
 }

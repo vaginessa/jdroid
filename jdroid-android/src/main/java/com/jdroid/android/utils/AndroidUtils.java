@@ -14,8 +14,6 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
-import android.provider.MediaStore;
-import android.provider.Settings.Secure;
 import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
 import android.view.View;
@@ -24,23 +22,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ScrollView;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.intent.IntentUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.FileUtils;
-import com.jdroid.java.utils.StringUtils;
 import com.jdroid.java.utils.ValidationUtils;
 
 import java.util.List;
 
 public class AndroidUtils {
-	
-	public static Boolean isEmulator() {
-		return "google_sdk".equals(Build.PRODUCT);
-	}
-	
-	public static String getAndroidId() {
-		return Secure.getString(AbstractApplication.get().getContentResolver(), Secure.ANDROID_ID);
-	}
 	
 	/**
 	 * @return The version name of the application
@@ -168,14 +156,6 @@ public class AndroidUtils {
 		return android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
 	}
 	
-	public static String getDeviceModel() {
-		return android.os.Build.MODEL;
-	}
-	
-	public static String getDeviceManufacturer() {
-		return android.os.Build.MANUFACTURER;
-	}
-	
 	public static Integer getApiLevel() {
 		return android.os.Build.VERSION.SDK_INT;
 	}
@@ -192,22 +172,6 @@ public class AndroidUtils {
 		return android.os.Build.VERSION.RELEASE;
 	}
 	
-	public static Boolean hasCamera() {
-		return IntentUtils.isIntentAvailable(MediaStore.ACTION_IMAGE_CAPTURE);
-	}
-	
-	public static String getDeviceName() {
-		String manufacturer = getDeviceManufacturer();
-		String model = getDeviceModel();
-		if ((model != null) && model.startsWith(manufacturer)) {
-			return StringUtils.capitalize(model);
-		} else if (manufacturer != null) {
-			return StringUtils.capitalize(manufacturer) + " " + model;
-		} else {
-			return "Unknown";
-		}
-	}
-
 	@RequiresPermission(Manifest.permission.GET_ACCOUNTS)
 	public static List<String> getAccountsEmails() {
 		List<String> emails = Lists.newArrayList();
@@ -225,16 +189,6 @@ public class AndroidUtils {
 		return wifiManager.getConnectionInfo().getMacAddress();
 	}
 	
-	public static String getDeviceType() {
-		if (ScreenUtils.is10Inches()) {
-			return "10\" tablet";
-		} else if (ScreenUtils.isBetween7And10Inches()) {
-			return "7\" tablet";
-		} else {
-			return "phone";
-		}
-	}
-
 	public static Boolean hasPermission(Context context, String permission) {
 		PackageManager pm = context.getPackageManager();
 		int hasPerm = pm.checkPermission(permission, context.getPackageName());

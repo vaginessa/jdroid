@@ -26,14 +26,16 @@ public abstract class WorkerService extends IntentService {
 	
 	@Override
 	protected final void onHandleIntent(Intent intent) {
-		LOGGER.info("Starting service: " + getClass().getSimpleName());
+		String trackingVariable = getTrackingVariable(intent);
+		String trackingLabel = getTrackingLabel(intent);
+		LOGGER.info("Starting service. Variable: " + trackingVariable + " - Label: " + trackingLabel);
 		if (intent != null) {
 			try {
 					long startTime = System.currentTimeMillis();
 					doExecute(intent);
 					long executionTime = System.currentTimeMillis() - startTime;
-					AbstractApplication.get().getAnalyticsSender().trackTiming("Service", getClass().getSimpleName(),
-							getClass().getSimpleName(), executionTime);
+					AbstractApplication.get().getAnalyticsSender().trackTiming("Service", getTrackingVariable(intent),
+							getTrackingLabel(intent), executionTime);
 
 
 			} catch (Exception e) {
@@ -49,7 +51,15 @@ public abstract class WorkerService extends IntentService {
 				"Null intent when starting the service: " + getClass().getName());
 		}
 	}
-	
+
+	protected String getTrackingVariable(Intent intent) {
+		return getClass().getSimpleName();
+	}
+
+	protected String getTrackingLabel(Intent intent) {
+		return getClass().getSimpleName();
+	}
+
 	protected abstract void doExecute(Intent intent);
 	
 	protected static void runIntentInService(Context context, Intent intent, Class<? extends WorkerService> serviceClass) {

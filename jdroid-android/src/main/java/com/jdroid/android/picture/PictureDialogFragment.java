@@ -15,6 +15,7 @@ import android.widget.Button;
 import com.jdroid.android.R;
 import com.jdroid.android.dialog.AbstractDialogFragment;
 import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.DeviceUtils;
 import com.jdroid.java.date.DateUtils;
 
 import java.io.File;
@@ -32,7 +33,7 @@ public class PictureDialogFragment extends AbstractDialogFragment {
 	private Uri outputFileUri;
 	
 	public static Boolean display() {
-		return AndroidUtils.hasCamera();
+		return DeviceUtils.hasCamera();
 	}
 	
 	public static void show(Fragment targetFragment) {
@@ -70,7 +71,7 @@ public class PictureDialogFragment extends AbstractDialogFragment {
 		
 		// Configure the take photo button.
 		Button camera = findView(R.id.camera);
-		if (AndroidUtils.hasCamera()) {
+		if (DeviceUtils.hasCamera()) {
 			camera.setOnClickListener(new OnClickListener() {
 				
 				@Override

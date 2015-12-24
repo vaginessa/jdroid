@@ -1,6 +1,7 @@
 package com.jdroid.android.google.gcm;
 
 import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.DeviceUtils;
 
 public class Device {
 
@@ -15,8 +16,8 @@ public class Device {
 	public Device(String registrationToken, String deviceGroupId) {
 		this.deviceGroupId = deviceGroupId;
 		this.registrationToken = registrationToken;
-		deviceBrandName = AndroidUtils.getDeviceManufacturer();
-		deviceModelName = AndroidUtils.getDeviceModel();
+		deviceBrandName = DeviceUtils.getDeviceManufacturer();
+		deviceModelName = DeviceUtils.getDeviceModel();
 		deviceOsVersion = AndroidUtils.getPlatformVersion();
 		appVersionCode = AndroidUtils.getVersionCode().toString();
 	}

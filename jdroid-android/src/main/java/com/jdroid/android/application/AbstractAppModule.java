@@ -61,4 +61,9 @@ public abstract class AbstractAppModule implements AppModule {
 	public List<PreferencesAppender> getPreferencesAppenders() {
 		return Lists.newArrayList();
 	}
+
+	@Override
+	public void onInitializeGcmTasks() {
+		// Do Nothing
+	}
 }

@@ -29,14 +29,6 @@
 			<!--</intent-filter>-->
 		<!--</receiver>-->
 
-		<service android:name="com.jdroid.android.google.gcm.GcmRegistrationService"
-				 android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE"
-				 android:exported="true">
-			<intent-filter>
-				<action android:name="com.google.android.gms.gcm.ACTION_TASK_READY"/>
-			</intent-filter>
-		</service>
-
 		<service android:name="com.jdroid.android.google.gcm.DefaultGcmListenerService" android:exported="false">
 			<intent-filter>
 				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
