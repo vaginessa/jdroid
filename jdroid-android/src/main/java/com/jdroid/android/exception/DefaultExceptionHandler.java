@@ -117,6 +117,9 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	public void logHandledException(String errorMessage, Throwable throwable) {
 		
 		if (throwable instanceof ConnectionException) {
+			if (errorMessage == null) {
+				errorMessage = "Connection error";
+			}
 			LOGGER.warn(errorMessage, throwable);
 		} else {
 			Boolean trackable = true;
