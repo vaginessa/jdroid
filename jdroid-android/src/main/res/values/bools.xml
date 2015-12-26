@@ -4,4 +4,8 @@
 	<bool name="isLessThan7Inches">true</bool>
 	<bool name="isBetween7And10Inches">false</bool>
 	<bool name="is10Inches">false</bool>
+
+	<!-- Disable collecting anonymous statistics on application events such as when a user first opens your application. -->
+	<integer name="google_app_measurement_enable">0</integer>
+
 </resources>
