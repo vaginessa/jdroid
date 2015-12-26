@@ -1,6 +1,7 @@
 package com.jdroid.javaweb.google.gcm;
 
 import com.jdroid.java.collections.Lists;
+import com.jdroid.java.http.BasicHttpResponseValidator;
 import com.jdroid.java.http.DefaultServer;
 import com.jdroid.java.http.HttpService;
 import com.jdroid.java.http.HttpServiceProcessor;
@@ -32,11 +33,10 @@ public class GcmApiService extends ServerApiService {
 	@Override
 	protected Server getServer() {
 		return new DefaultServer("gcm", "gcm-http.googleapis.com/gcm", true);
-		//return new DefaultServer("gcm", "localhost:8081/service/api/gcm", false);
 	}
 
 	@Override
 	protected List<HttpServiceProcessor> getHttpServiceProcessors() {
-		return Lists.<HttpServiceProcessor>newArrayList(GcmHttpResponseValidator.get());
+		return Lists.<HttpServiceProcessor>newArrayList(BasicHttpResponseValidator.get());
 	}
 }
