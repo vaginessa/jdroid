@@ -4,10 +4,16 @@ import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.java.firebase.FirebaseRepository;
+import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
 
 import java.util.concurrent.CountDownLatch;
 
 public abstract class FirebaseAuthenticationStrategy implements Firebase.AuthResultHandler {
+
+	private static final Logger LOGGER = LoggerUtils.getLogger(FirebaseRepository.class);
 
 	private CountDownLatch countDownLatch;
 
@@ -40,6 +46,7 @@ public abstract class FirebaseAuthenticationStrategy implements Firebase.AuthRes
 	@Override
 	public final void onAuthenticated(AuthData authData) {
 		getCountDownLatch().countDown();
+		LOGGER.info("Firebase authenticated. " + authData.toString());
 		doOnAuthenticated(authData);
 	}
 

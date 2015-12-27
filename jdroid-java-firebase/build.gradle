@@ -15,7 +15,7 @@ dependencies {
 	// Module dependencies
 	compile project(':jdroid-java')
 
-	compile 'com.firebase:firebase-client-jvm:2.4.1'
+	compile 'com.firebase:firebase-client-jvm:2.5.0'
 
 	// Testing
 	testCompile "org.testng:testng:6.8.21"
