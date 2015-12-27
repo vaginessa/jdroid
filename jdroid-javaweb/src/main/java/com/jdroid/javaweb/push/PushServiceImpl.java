@@ -2,6 +2,7 @@ package com.jdroid.javaweb.push;
 
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.LoggerUtils;
+import com.jdroid.javaweb.context.Application;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,24 @@ public class PushServiceImpl implements PushService {
 	public void addDevice(Device device) {
 		Device deviceToUpdate = deviceRepository.findByInstanceId(device.getInstanceId(), device.getDeviceType());
 		if (deviceToUpdate != null) {
-			deviceToUpdate.setLastActiveTimestamp(System.currentTimeMillis());
-			deviceToUpdate.updateRegistrationToken(device.getRegistrationToken());
-			deviceToUpdate.updateDeviceGroupId(device.getDeviceGroupId());
-			deviceRepository.update(deviceToUpdate);
+			if (isDeviceUpdateRequired(deviceToUpdate, device)) {
+				deviceToUpdate.setLastActiveTimestamp(System.currentTimeMillis());
+				deviceToUpdate.setRegistrationToken(device.getRegistrationToken());
+				deviceToUpdate.setDeviceGroupId(device.getDeviceGroupId());
+				deviceToUpdate.setAppVersionCode(device.getAppVersionCode());
+				deviceToUpdate.setDeviceOsVersion(device.getDeviceOsVersion());
+				deviceRepository.update(deviceToUpdate);
+			}
 		} else {
 			device.setLastActiveTimestamp(System.currentTimeMillis());
 			deviceRepository.add(device);
 		}
+	}
+
+	protected Boolean isDeviceUpdateRequired(Device oldDevice, Device newDevice) {
+		newDevice.setLastActiveTimestamp(oldDevice.getLastActiveTimestamp());
+		newDevice.setId(oldDevice.getId());
+		return !oldDevice.equals(newDevice) || System.currentTimeMillis() - oldDevice.getLastActiveTimestamp() > Application.get().getAppContext().getDeviceUpdateRequiredDuration();
 	}
 
 	@Override
@@ -56,7 +67,7 @@ public class PushServiceImpl implements PushService {
 		for (Entry<String, String> entry : pushResponse.getRegistrationTokensToReplace().entrySet()) {
 			Device deviceToUpdate = deviceRepository.findByRegistrationToken(entry.getKey(), pushResponse.getDeviceType());
 			if (deviceToUpdate != null) {
-				deviceToUpdate.updateRegistrationToken(entry.getValue());
+				deviceToUpdate.setRegistrationToken(entry.getValue());
 				deviceRepository.update(deviceToUpdate);
 			}
 		}

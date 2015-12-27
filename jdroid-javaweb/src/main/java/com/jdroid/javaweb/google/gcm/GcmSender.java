@@ -1,5 +1,6 @@
 package com.jdroid.javaweb.google.gcm;
 
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.UnexpectedException;
@@ -127,7 +128,14 @@ public class GcmSender implements PushMessageSender {
 				}
 			}
 		} else {
-			LOGGER.info("Gcm message sent successfully. " + gcmMessage.toString());
+			StringBuilder builder = new StringBuilder();
+			builder.append("Gcm message sent successfully. ");
+			builder.append(gcmMessage.toString());
+			if (!Lists.isNullOrEmpty(gcmResponse.getResults())) {
+				builder.append(". Message id: ");
+				builder.append(gcmResponse.getResults().get(0).getMessageId());
+			}
+			LOGGER.info(builder.toString());
 		}
 		return pushResponse;
 	}

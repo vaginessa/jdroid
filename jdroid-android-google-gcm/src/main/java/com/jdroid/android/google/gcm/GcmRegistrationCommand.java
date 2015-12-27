@@ -38,7 +38,7 @@ public class GcmRegistrationCommand extends ServiceCommand {
 	private int doRunTask() {
 		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(AbstractApplication.get())) {
 
-			String registrationToken = null;
+			String registrationToken;
 			try {
 				registrationToken = getRegistrationToken(AbstractApplication.get());
 			} catch (Exception e) {

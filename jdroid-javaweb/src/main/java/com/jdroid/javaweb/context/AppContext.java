@@ -1,5 +1,7 @@
 package com.jdroid.javaweb.context;
 
+import com.jdroid.java.date.DateUtils;
+
 /**
  * The {@link AppContext}
  */
@@ -235,5 +237,9 @@ public class AppContext {
 
 	public void setRollBarEnabled(Boolean rollBarEnabled) {
 		this.rollBarEnabled = rollBarEnabled;
+	}
+
+	public Long getDeviceUpdateRequiredDuration() {
+		return DateUtils.MILLIS_PER_DAY * 7;
 	}
 }

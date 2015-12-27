@@ -77,23 +77,31 @@ public abstract class AbstractGcmAppModule extends AbstractAppModule {
 	public void onCreate() {
 		super.onCreate();
 
-		new GcmRegistrationCommand().start();
+		startGcmRegistration();
 
 		AbstractApplication.get().getDebugContext().addCustomDebugInfoProperty(new Pair<String, Object>("GCM Sender Id", gcmContext.getSenderId()));
 	}
 
 	@Override
 	public void onInstanceIdTokenRefresh() {
-		new GcmRegistrationCommand().start();
+		startGcmRegistration();
 	}
 
 	@Override
 	public void onGooglePlayServicesUpdated() {
-		new GcmRegistrationCommand().start();
+		startGcmRegistration();
 	}
 
 	@Override
 	public void onInitializeGcmTasks() {
-		new GcmRegistrationCommand().start();
+		startGcmRegistration();
+	}
+
+	public void startGcmRegistration() {
+		createGcmRegistrationCommand().start();
+	}
+
+	protected GcmRegistrationCommand createGcmRegistrationCommand() {
+		return new GcmRegistrationCommand();
 	}
 }
