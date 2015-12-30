@@ -41,6 +41,8 @@ configurations {
 
 dependencies {
 
+	compile 'com.android.support:multidex:1.0.1'
+
 	// TODO Enable this when we discover how to publish both debug and release libraries
 //	debugCompile 'com.jdroidframework:jdroid-android:' + jdroidVersion + ':debug@aar'
 //	uatCompile 'com.jdroidframework:jdroid-android:' + jdroidVersion + ':debug@aar'
@@ -121,6 +123,14 @@ dependencies {
 //	compile ('com.jdroidframework:jdroid-java-http-okhttp:' + jdroidVersion) {
 //		exclude module: 'slf4j-api'
 //	}
+
+	compile 'com.firebase:firebase-client-android:2.5.0'
+
+	compile(project(':jdroid-java-firebase')) {
+		exclude module: 'slf4j-api'
+		exclude group:'com.firebase', module: 'firebase-client-jvm'
+	}
+
 	compile(project(':jdroid-java-http-okhttp')) {
 		exclude module: 'slf4j-api'
 	}
@@ -191,10 +201,16 @@ android {
 
 		jdroid.setString(defaultConfig, "GOOGLE_PLAY_PUBLIC_KEY", null)
 
+		jdroid.setString(defaultConfig, "FIREBASE_URL", null)
+		jdroid.setString(defaultConfig, "FIREBASE_AUTH_TOKEN", null)
+
 		manifestPlaceholders = [
 				googleMapsApiKey: "AIzaSyB3gW390UnlO7hCY79D4fZU4quvcw2p0mo",
 				fabricApiKey: "478dae49374362f33bc054fc44d1f4242c574ccb"
 		]
+
+		multiDexEnabled true
+
 	}
 
 	signingConfigs {
@@ -238,9 +254,11 @@ android {
 			jdroid.setString(buildTypes.release, "SERVER_NAME", "PROD")
 
 			// TODO Add GOOGLE_PLAY_PUBLIC_KEY
-
 			// TODO Add GOOGLE_ANALYTICS_TRACKING_ID
 			// TODO Add FACEBOOK_APP_ID
+			// TODO Add FIREBASE_URL
+			// TODO Add FIREBASE_AUTH_TOKEN
+
 			// TODO Add manifestPlaceholders = [googleMapsApiKey,crashlyticsApiKey
 
 		}

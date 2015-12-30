@@ -23,11 +23,12 @@ public abstract class FirebaseRepository<T extends Entity> implements Repository
 
 	private FirebaseAuthenticationStrategy firebaseAuthenticationStrategy;
 
-	public FirebaseRepository(FirebaseAuthenticationStrategy firebaseAuthenticationStrategy) {
-		this.firebaseAuthenticationStrategy = firebaseAuthenticationStrategy;
+	public FirebaseRepository() {
+		firebaseAuthenticationStrategy = createFirebaseAuthenticationStrategy();
 	}
 
-	public FirebaseRepository() {
+	protected FirebaseAuthenticationStrategy createFirebaseAuthenticationStrategy() {
+		return null;
 	}
 
 	protected abstract String getFirebaseUrl();

@@ -23,6 +23,13 @@
 	<string name="defaultErrorDisplayerNotGoBack">Default Error Displayer (Not go back on error)</string>
 	<string name="snackbarErrorDisplayer">Snackbar Error Displayer</string>
 
+	<!-- Firebase -->
+	<string name="firebase">Firebase</string>
+	<string name="firebaseCreate">Create</string>
+	<string name="firebaseUpdate">Update</string>
+	<string name="firebaseGetAll">Get All</string>
+	<string name="firebaseRemove">Remove</string>
+
 	<!-- Google Analytics -->
 	<string name="googleAnalytics">Google Analytics</string>
 	<string name="sendExampleEvent">Send Example Event</string>

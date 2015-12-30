@@ -2,6 +2,7 @@ package com.jdroid.javaweb.sample.repository;
 
 import com.jdroid.java.firebase.FirebaseRepository;
 import com.jdroid.java.firebase.auth.CustomTokenFirebaseAuthenticationStrategy;
+import com.jdroid.java.firebase.auth.FirebaseAuthenticationStrategy;
 import com.jdroid.javaweb.push.Device;
 import com.jdroid.javaweb.push.DeviceRepository;
 import com.jdroid.javaweb.push.DeviceType;
@@ -9,13 +10,14 @@ import com.jdroid.javaweb.sample.context.ServerApplication;
 
 public class DeviceFirebaseRepository extends FirebaseRepository<Device> implements DeviceRepository {
 
-	public DeviceFirebaseRepository() {
-		super(new CustomTokenFirebaseAuthenticationStrategy() {
+	@Override
+	protected FirebaseAuthenticationStrategy createFirebaseAuthenticationStrategy() {
+		return new CustomTokenFirebaseAuthenticationStrategy() {
 			@Override
 			protected String getAuthToken() {
 				return ServerApplication.get().getAppContext().getFirebaseAuthToken();
 			}
-		});
+		};
 	}
 
 	@Override

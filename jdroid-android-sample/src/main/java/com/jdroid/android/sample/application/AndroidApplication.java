@@ -1,9 +1,12 @@
 package com.jdroid.android.sample.application;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 
+import com.firebase.client.Firebase;
 import com.jdroid.android.about.AboutAppModule;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
@@ -57,6 +60,16 @@ public class AndroidApplication extends AbstractApplication {
 		getUriMapper().addUriHandler(new AdsUriHandler());
 
 		ExperimentHelper.registerExperiments(AndroidExperiment.SAMPLE_EXPERIMENT);
+
+		Firebase.setAndroidContext(this);
+	}
+
+	@Override
+	protected void attachBaseContext(Context base) {
+		super.attachBaseContext(base);
+
+		MultiDex.install(this);
+
 	}
 
 	@Override
@@ -68,6 +81,11 @@ public class AndroidApplication extends AbstractApplication {
 	@Override
 	protected AppContext createAppContext() {
 		return new AndroidAppContext();
+	}
+
+	@NonNull
+	public AndroidAppContext getAppContext() {
+		return (AndroidAppContext)super.getAppContext();
 	}
 
 	@Override

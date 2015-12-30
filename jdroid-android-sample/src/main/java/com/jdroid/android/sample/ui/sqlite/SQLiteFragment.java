@@ -12,6 +12,8 @@ import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.repository.Repository;
 import com.jdroid.java.utils.IdGenerator;
 
+import java.util.List;
+
 public class SQLiteFragment extends AbstractFragment {
 
 	private static String lastId;
@@ -101,10 +103,11 @@ public class SQLiteFragment extends AbstractFragment {
 					@Override
 					public void run() {
 						final Repository<SampleSQLiteEntity> repository = AndroidApplication.get().getRepositoryInstance(SampleSQLiteEntity.class);
+						final List<SampleSQLiteEntity> results = repository.getAll();
 						executeOnUIThread(new Runnable() {
 							@Override
 							public void run() {
-								((TextView)findView(R.id.results)).setText(repository.getAll().toString());
+								((TextView)findView(R.id.results)).setText(results.toString());
 							}
 						});
 					}

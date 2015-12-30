@@ -149,7 +149,7 @@ public abstract class CachedHttpService implements BodyEnclosingHttpService {
 
 	@Override
 	public void setReadTimeout(Integer readTimeout) {
-		// Do Nothing
+		httpService.setReadTimeout(readTimeout);
 	}
 	
 	/**

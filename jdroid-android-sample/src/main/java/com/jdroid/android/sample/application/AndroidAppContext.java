@@ -2,6 +2,7 @@ package com.jdroid.android.sample.application;
 
 
 import com.jdroid.android.context.AppContext;
+import com.jdroid.android.sample.BuildConfig;
 import com.jdroid.java.http.Server;
 import com.jdroid.android.sample.api.ApiServer;
 
@@ -30,11 +31,16 @@ public class AndroidAppContext extends AppContext {
 		return "jdroidsoft@gmail.com";
 	}
 
-	/**
-	 * @see com.jdroid.android.context.AppContext#getTwitterAccount()
-	 */
 	@Override
 	public String getTwitterAccount() {
 		return "jdroidframework";
+	}
+
+	public String getFirebaseUrl() {
+		return BuildConfig.FIREBASE_URL;
+	}
+
+	public String getFirebaseAuthToken() {
+		return BuildConfig.FIREBASE_AUTH_TOKEN;
 	}
 }

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import com.jdroid.android.ActionItem;
 import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.sample.R;
+import com.jdroid.android.sample.ui.firebase.FirebaseActivity;
 import com.jdroid.android.sample.ui.google.gcm.GcmActivity;
 import com.jdroid.android.sample.ui.google.plus.GooglePlusActivity;
 import com.jdroid.android.sample.ui.rateme.RateAppActivity;
@@ -34,6 +35,7 @@ public enum HomeItem implements ActionItem {
 	ANDROID_UNVERSAL_IMAGE_LOADER(R.string.universalImageLoader, R.drawable.photo, ImageLoaderActivity.class),
 	DATE_TIME(R.string.dateTime, R.drawable.datetime, DateTimeActivity.class),
 	EXCEPTION_HANDLING(R.string.exceptionHandling, R.drawable.bug, ExceptionHandlingActivity.class),
+	FIREBASE(R.string.firebase, R.drawable.analytics, FirebaseActivity.class),
 	GOOGLE_ANALYTCS(R.string.googleAnalytics, R.drawable.analytics, AnalyticsActivity.class),
 	GCM(R.string.gcm, R.drawable.cloud, GcmActivity.class),
 	GOOGLE_MAPS(R.string.googleMaps, R.drawable.map, MapActivity.class),

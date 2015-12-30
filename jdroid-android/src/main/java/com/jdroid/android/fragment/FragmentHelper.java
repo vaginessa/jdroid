@@ -102,13 +102,15 @@ public class FragmentHelper implements FragmentIf {
 			getFragmentIf().beforeInitAppBar(appBar);
 
 			if (getFragmentIf().isSecondaryFragment()) {
-				appBar.inflateMenu(getFragmentIf().getMenuResourceId());
-				appBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-					@Override
-					public boolean onMenuItemClick(MenuItem item) {
-						return getFragmentIf().onOptionsItemSelected(item);
-					}
-				});
+				if (getFragmentIf().getMenuResourceId() != null) {
+					appBar.inflateMenu(getFragmentIf().getMenuResourceId());
+					appBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+						@Override
+						public boolean onMenuItemClick(MenuItem item) {
+							return getFragmentIf().onOptionsItemSelected(item);
+						}
+					});
+				}
 			} else {
 				((AbstractFragmentActivity)getActivityIf()).setSupportActionBar(appBar);
 				appBar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
