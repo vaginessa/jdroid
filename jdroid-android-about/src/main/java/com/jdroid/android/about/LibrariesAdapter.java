@@ -20,9 +20,9 @@ public class LibrariesAdapter extends RecyclerViewAdapter<Library, LibrariesHold
 		holder.name.setText(item.getNameResId());
 		holder.description.setText(item.getDescriptionResId());
 	}
-	
+
 	@Override
-	protected LibrariesHolder createViewHolderFromView(View view) {
+	protected LibrariesHolder createViewHolderFromView(View view, int viewType) {
 		LibrariesHolder holder = new LibrariesHolder(view);
 		holder.name = findView(view, R.id.name);
 		holder.description = findView(view, R.id.description);

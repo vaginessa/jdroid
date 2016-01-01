@@ -22,7 +22,7 @@ public class DebugInfoAdapter extends RecyclerViewAdapter<Pair<String, Object>, 
 	}
 
 	@Override
-	protected DebugInfoHolder createViewHolderFromView(View view) {
+	protected DebugInfoHolder createViewHolderFromView(View view, int viewType) {
 		DebugInfoHolder holder = new DebugInfoHolder(view);
 		holder.name = findView(view, com.jdroid.android.R.id.name);
 		return holder;

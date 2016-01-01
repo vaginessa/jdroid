@@ -16,7 +16,7 @@ public class SampleRecyclerAdapter extends RecyclerViewAdapter<String, SampleRec
 	}
 
 	@Override
-	protected ViewHolder createViewHolderFromView(View view) {
+	protected ViewHolder createViewHolderFromView(View view, int viewType) {
 		ViewHolder viewHolder = new ViewHolder(view);
 		viewHolder.textView = (TextView)view.findViewById(R.id.name);
 		return viewHolder;

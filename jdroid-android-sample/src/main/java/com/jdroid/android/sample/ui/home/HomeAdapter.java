@@ -22,7 +22,7 @@ public class HomeAdapter extends RecyclerViewAdapter<HomeItem, HomeAdapter.HomeH
 	}
 
 	@Override
-	protected HomeHolder createViewHolderFromView(View view) {
+	protected HomeHolder createViewHolderFromView(View view, int viewType) {
 		HomeHolder holder = new HomeHolder(view);
 		holder.image = findView(view, com.jdroid.android.R.id.image);
 		holder.name = findView(view, com.jdroid.android.R.id.name);

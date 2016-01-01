@@ -27,7 +27,7 @@ public abstract class RecyclerViewAdapter<ITEM, VIEWHOLDER extends RecyclerView.
 		if (onClickListener != null) {
 			view.setOnClickListener(onClickListener);
 		}
-		return createViewHolderFromView(view);
+		return createViewHolderFromView(view, viewType);
 	}
 
 	/**
@@ -36,7 +36,7 @@ public abstract class RecyclerViewAdapter<ITEM, VIEWHOLDER extends RecyclerView.
 	 * @param view The view from the list.
 	 * @return The new VIEWHOLDER.
 	 */
-	protected abstract VIEWHOLDER createViewHolderFromView(View view);
+	protected abstract VIEWHOLDER createViewHolderFromView(View view, int viewType);
 
 	@Override
 	public void onBindViewHolder(VIEWHOLDER holder, int position) {

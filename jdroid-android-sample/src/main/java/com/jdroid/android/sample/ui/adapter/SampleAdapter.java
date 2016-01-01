@@ -21,7 +21,7 @@ public class SampleAdapter extends RecyclerViewAdapter<String, SampleAdapter.Sam
 	}
 
 	@Override
-	protected SampleHolder createViewHolderFromView(View view) {
+	protected SampleHolder createViewHolderFromView(View view, int viewType) {
 		SampleHolder holder = new SampleHolder(view);
 		holder.name = findView(view, com.jdroid.android.R.id.name);
 		return holder;
