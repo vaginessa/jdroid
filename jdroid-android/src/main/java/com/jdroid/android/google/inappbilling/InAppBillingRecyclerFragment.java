@@ -9,11 +9,8 @@ import com.jdroid.android.recycler.AbstractRecyclerFragment;
 
 import java.util.List;
 
-public abstract class InAppBillingRecyclerFragment extends AbstractRecyclerFragment<Product> implements InAppBillingListener {
+public abstract class InAppBillingRecyclerFragment extends AbstractRecyclerFragment implements InAppBillingListener {
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractGridFragment#onViewCreated(android.view.View, android.os.Bundle)
-	 */
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
@@ -39,18 +36,12 @@ public abstract class InAppBillingRecyclerFragment extends AbstractRecyclerFragm
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.android.google.inappbilling.InAppBillingListener#onConsumed(com.jdroid.android.google.inappbilling.Product)
-	 */
 	@Override
 	@SuppressWarnings("rawtypes")
 	public void onConsumed(Product product) {
 		getAdapter().notifyDataSetChanged();
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onActivityResult(int, int, android.content.Intent)
-	 */
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		InAppBillingHelperFragment inAppBillingHelperFragment = InAppBillingHelperFragment.get(getActivity());
@@ -59,9 +50,6 @@ public abstract class InAppBillingRecyclerFragment extends AbstractRecyclerFragm
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onDestroy()
-	 */
 	@Override
 	public void onDestroy() {
 		super.onDestroy();

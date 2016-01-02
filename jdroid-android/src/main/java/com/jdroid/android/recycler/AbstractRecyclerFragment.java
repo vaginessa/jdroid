@@ -5,24 +5,21 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.jdroid.android.R;
 import com.jdroid.android.fragment.AbstractFragment;
-import com.jdroid.java.utils.LoggerUtils;
+import com.jdroid.android.loading.FragmentLoading;
+import com.jdroid.android.loading.NonBlockingLoading;
 
-import org.slf4j.Logger;
-
-/**
- * @param <T>
- */
-public abstract class AbstractRecyclerFragment<T> extends AbstractFragment implements View.OnClickListener {
-
-	private final static Logger LOGGER = LoggerUtils.getLogger(AbstractRecyclerFragment.class);
+public abstract class AbstractRecyclerFragment extends AbstractFragment {
 
 	private RecyclerView recyclerView;
 	private RecyclerViewAdapter adapter;
-	private View emptyView;
+	private ViewGroup emptyViewContainer;
 	private RecyclerView.AdapterDataObserver adapterDataObserver;
+	private RecyclerView.LayoutManager layoutManager;
 
 	@Override
 	public Integer getContentFragmentLayout() {
@@ -35,10 +32,14 @@ public abstract class AbstractRecyclerFragment<T> extends AbstractFragment imple
 
 		recyclerView = findView(R.id.recyclerView);
 		recyclerView.setHasFixedSize(hasRecyclerViewFixedSize());
-		RecyclerView.LayoutManager layoutManager = createLayoutManager();
+		layoutManager = createLayoutManager();
 		recyclerView.setLayoutManager(layoutManager);
 
-		emptyView = findView(android.R.id.empty);
+		if (isDividerItemDecorationEnabled()) {
+			recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
+		}
+
+		emptyViewContainer = findView(R.id.emptyViewContainer);
 
 		if (adapterDataObserver == null) {
 			adapterDataObserver = new RecyclerView.AdapterDataObserver() {
@@ -58,6 +59,10 @@ public abstract class AbstractRecyclerFragment<T> extends AbstractFragment imple
 		}
 	}
 
+	protected Boolean isDividerItemDecorationEnabled() {
+		return false;
+	}
+
 	// use this setting to improve performance if you know that changes
 	// in content do not change the layout size of the RecyclerView
 	protected Boolean hasRecyclerViewFixedSize() {
@@ -72,9 +77,7 @@ public abstract class AbstractRecyclerFragment<T> extends AbstractFragment imple
 	public void setAdapter(RecyclerViewAdapter adapter) {
 		this.adapter = adapter;
 
-		adapter.setOnClickListener(this);
 		adapter.registerAdapterDataObserver(adapterDataObserver);
-
 		recyclerView.setAdapter(adapter);
 
 		refreshEmptyView();
@@ -89,28 +92,50 @@ public abstract class AbstractRecyclerFragment<T> extends AbstractFragment imple
 	}
 
 	private void refreshEmptyView() {
-		if (emptyView != null) {
-			emptyView.setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+		if (emptyViewContainer != null) {
+			int emptyViewContainerVisibility;
+			if (adapter.getItemCount() == 0) {
+				emptyViewContainerVisibility = View.VISIBLE;
+				if (emptyViewContainer.getChildCount() == 0) {
+					View emptyView = createEmptyView();
+					if (emptyView != null) {
+						emptyViewContainer.addView(emptyView);
+					} else {
+						emptyViewContainerVisibility = View.GONE;
+					}
+				}
+			} else {
+				emptyViewContainerVisibility = View.GONE;
+			}
+			emptyViewContainer.setVisibility(emptyViewContainerVisibility);
 		}
 	}
 
-	@Override
-	@SuppressWarnings("unchecked")
-	public void onClick(View view) {
-		int itemPosition = recyclerView.getChildAdapterPosition(view);
-		if (itemPosition != RecyclerView.NO_POSITION) {
-			onItemSelected((T)adapter.getItem(itemPosition), view);
-		} else {
-			LOGGER.warn("Ignored onClick for item with no position");
-		}
+	protected View createEmptyView() {
+		TextView emptyTextView = (TextView)inflate(R.layout.empty_view);
+		emptyTextView.setText(getNoResultsResId());
+		return emptyTextView;
 	}
 
-	public void onItemSelected(T item, View view) {
-		// Do Nothing
+	protected int getNoResultsResId() {
+		return R.string.noResults;
 	}
 
 	public RecyclerViewAdapter getAdapter() {
 		return adapter;
+	}
+
+	public RecyclerView getRecyclerView() {
+		return recyclerView;
+	}
+
+	public RecyclerView.LayoutManager getLayoutManager() {
+		return layoutManager;
+	}
+
+	@Override
+	public FragmentLoading getDefaultLoading() {
+		return new NonBlockingLoading();
 	}
 }
 

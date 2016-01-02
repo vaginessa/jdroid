@@ -2,11 +2,16 @@ package com.jdroid.android.debug;
 
 import android.os.Bundle;
 import android.support.v4.util.Pair;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
+import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
+import com.jdroid.android.recycler.RecyclerViewAdapter;
+import com.jdroid.android.recycler.RecyclerViewType;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.DeviceUtils;
 import com.jdroid.android.utils.ScreenUtils;
@@ -15,13 +20,10 @@ import com.jdroid.java.utils.StringUtils;
 
 import java.util.List;
 
-public class DebugInfoFragment extends AbstractRecyclerFragment<Pair<String, Object>> {
+public class DebugInfoFragment extends AbstractRecyclerFragment {
 
 	private List<Pair<String, Object>> properties = Lists.newArrayList();
 
-	/**
-	 * @see com.jdroid.android.fragment.AbstractListFragment#onCreate(android.os.Bundle)
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,9 +58,6 @@ public class DebugInfoFragment extends AbstractRecyclerFragment<Pair<String, Obj
 		properties.addAll(AbstractApplication.get().getDebugContext().getCustomDebugInfoProperties());
 	}
 
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onViewCreated(android.view.View, android.os.Bundle)
-	 */
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
@@ -69,6 +68,45 @@ public class DebugInfoFragment extends AbstractRecyclerFragment<Pair<String, Obj
 				filteredProperties.add(each);
 			}
 		}
-		setAdapter(new DebugInfoAdapter(filteredProperties));
+		setAdapter(new RecyclerViewAdapter(new DebugInfoRecyclerViewType(), filteredProperties));
+	}
+
+	public class DebugInfoRecyclerViewType extends RecyclerViewType<Pair, DebugInfoHolder> {
+
+		@Override
+		protected Class<Pair> getItemClass() {
+			return Pair.class;
+		}
+
+		@Override
+		protected Integer getLayoutResourceId() {
+			return R.layout.debug_info_item;
+		}
+
+		@Override
+		public RecyclerView.ViewHolder createViewHolderFromView(View view) {
+			DebugInfoHolder holder = new DebugInfoHolder(view);
+			holder.name = findView(view, com.jdroid.android.R.id.name);
+			return holder;
+		}
+
+		@Override
+		public void fillHolderFromItem(Pair item, DebugInfoHolder holder) {
+			holder.name.setText(item.first + ": " + item.second.toString());
+		}
+
+		@Override
+		public AbstractRecyclerFragment getAbstractRecyclerFragment() {
+			return DebugInfoFragment.this;
+		}
+	}
+
+	public static class DebugInfoHolder extends RecyclerView.ViewHolder {
+
+		protected TextView name;
+
+		public DebugInfoHolder(View itemView) {
+			super(itemView);
+		}
 	}
 }

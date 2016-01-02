@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<declare-styleable name="quickReturnLayout">
-		<!-- Identifier for the child that represents the header. -->
-		<attr name="header" format="reference" />
-		<!-- Identifier for the child that represents the list. -->
-		<attr name="list" format="reference" />
-	</declare-styleable>
 
 	<declare-styleable name="BezelImageView">
 		<attr name="maskDrawable" format="reference" />
@@ -16,7 +10,5 @@
 	<declare-styleable name="ScrimInsetsView">
 		<attr name="insetScrollForeground" format="reference|color" />
 	</declare-styleable>
-
-
 
 </resources>

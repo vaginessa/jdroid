@@ -4,10 +4,10 @@ import android.support.v4.app.Fragment;
 
 import com.jdroid.android.activity.FragmentContainerActivity;
 
-public class RecyclerViewActivity extends FragmentContainerActivity {
+public class SearchPaginatedRecyclerActivity extends FragmentContainerActivity {
 
 	@Override
 	protected Class<? extends Fragment> getFragmentClass() {
-		return RecyclerViewFragment.class;
+		return SearchPaginatedRecyclerFragment.class;
 	}
 }

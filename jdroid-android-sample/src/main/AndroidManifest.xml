@@ -129,6 +129,18 @@
 		<activity android:name="com.jdroid.android.sample.ui.recyclerview.RecyclerViewActivity" android:label="@string/recyclerView"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<activity android:name="com.jdroid.android.sample.ui.recyclerview.ComplexRecyclerActivity" android:label="@string/complexRecycler"
+				  android:parentActivityName="com.jdroid.android.sample.ui.recyclerview.RecyclerViewActivity" tools:ignore="UnusedAttribute"/>
+
+		<activity android:name="com.jdroid.android.sample.ui.recyclerview.SimpleRecyclerActivity" android:label="@string/simpleRecycler"
+				  android:parentActivityName="com.jdroid.android.sample.ui.recyclerview.RecyclerViewActivity" tools:ignore="UnusedAttribute"/>
+
+		<activity android:name="com.jdroid.android.sample.ui.recyclerview.PaginatedRecyclerActivity" android:label="@string/paginatedRecycler"
+				  android:parentActivityName="com.jdroid.android.sample.ui.recyclerview.RecyclerViewActivity" tools:ignore="UnusedAttribute"/>
+
+		<activity android:name="com.jdroid.android.sample.ui.recyclerview.SearchPaginatedRecyclerActivity" android:label="@string/searchPaginatedRecycler"
+				  android:parentActivityName="com.jdroid.android.sample.ui.recyclerview.RecyclerViewActivity" tools:ignore="UnusedAttribute"/>
+
 		<activity android:name="com.jdroid.android.sample.ui.tablets.TabletActivity" android:label="@string/tablets"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 

@@ -1,79 +1,51 @@
 package com.jdroid.android.sample.ui.recyclerview;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 
-import com.jdroid.android.fragment.FragmentHelper;
-import com.jdroid.android.recycler.AbstractRecyclerFragment;
+import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
-import com.jdroid.java.utils.IdGenerator;
-import com.jdroid.android.sample.usecase.SampleUseCase;
 
-public class RecyclerViewFragment extends AbstractRecyclerFragment<String> {
+public class RecyclerViewFragment extends AbstractFragment {
 
-	private SampleRecyclerAdapter adapter;
-
-	private SampleUseCase sampleUseCase;
-
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onCreate(android.os.Bundle)
-	 */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		sampleUseCase = getInstance(SampleUseCase.class);
-	}
-
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onResume()
-	 */
-	@Override
-	public void onResume() {
-		super.onResume();
-		onResumeUseCase(sampleUseCase, this, FragmentHelper.UseCaseTrigger.ONCE);
-	}
-
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onPause()
-	 */
-	@Override
-	public void onPause() {
-		super.onPause();
-		onPauseUseCase(sampleUseCase, this);
+	public Integer getContentFragmentLayout() {
+		return R.layout.recycler_view_fragment;
 	}
 
 	@Override
-	public void onFinishUseCase() {
-		executeOnUIThread(new Runnable() {
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+
+		findView(R.id.simpleRecycler).setOnClickListener(new View.OnClickListener() {
+
 			@Override
-			public void run() {
-				adapter = new SampleRecyclerAdapter(R.layout.home_item, sampleUseCase.getItems());
-				setAdapter(adapter);
-				dismissLoading();
+			public void onClick(View v) {
+				getActivity().startActivity(new Intent(getActivity(), SimpleRecyclerActivity.class));
+			}
+		});
+		findView(R.id.complexRecycler).setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				getActivity().startActivity(new Intent(getActivity(), ComplexRecyclerActivity.class));
+			}
+		});
+		findView(R.id.paginatedRecycler).setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				getActivity().startActivity(new Intent(getActivity(), PaginatedRecyclerActivity.class));
+			}
+		});
+		findView(R.id.searchPaginatedRecycler).setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				getActivity().startActivity(new Intent(getActivity(), SearchPaginatedRecyclerActivity.class));
 			}
 		});
 	}
-
-	@Override
-	public void onItemSelected(String item, View view) {
-		adapter.removeItem(item);
-	}
-
-	@Override
-	public Integer getMenuResourceId() {
-		return R.menu.recycler_menu;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.add:
-				adapter.addItem(IdGenerator.getIntId().toString());
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
-	}
 }
+

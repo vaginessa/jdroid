@@ -4,27 +4,31 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jdroid.android.recycler.RecyclerViewAdapter;
+import com.jdroid.android.recycler.RecyclerViewType;
 import com.jdroid.android.sample.R;
 
-import java.util.List;
+public abstract class SampleRecyclerViewType extends RecyclerViewType<String, SampleRecyclerViewType.SampleHolder> {
 
-public class SampleAdapter extends RecyclerViewAdapter<String, SampleAdapter.SampleHolder> {
-
-	public SampleAdapter(List<String> items) {
-		super(R.layout.home_item, items);
+	@Override
+	protected Class<String> getItemClass() {
+		return String.class;
 	}
 
 	@Override
-	protected void fillHolderFromItem(String item, SampleHolder holder) {
-		holder.name.setText(item);
+	protected Integer getLayoutResourceId() {
+		return R.layout.home_item;
 	}
 
 	@Override
-	protected SampleHolder createViewHolderFromView(View view, int viewType) {
+	public RecyclerView.ViewHolder createViewHolderFromView(View view) {
 		SampleHolder holder = new SampleHolder(view);
 		holder.name = findView(view, com.jdroid.android.R.id.name);
 		return holder;
+	}
+
+	@Override
+	public void fillHolderFromItem(String item, SampleHolder holder) {
+		holder.name.setText(item);
 	}
 
 	public static class SampleHolder extends RecyclerView.ViewHolder {

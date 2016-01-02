@@ -1,4 +1,4 @@
-package com.jdroid.android.search;
+package com.jdroid.android.recycler;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -7,13 +7,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.TextView;
+
 import com.jdroid.android.R;
-import com.jdroid.android.adapter.BaseArrayAdapter;
-import com.jdroid.android.fragment.AbstractPaginatedGridFragment;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.listener.OnEnterKeyListener;
-import com.jdroid.android.usecase.PaginatedUseCase;
 import com.jdroid.android.usecase.SearchUseCase;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.ToastUtils;
@@ -22,10 +19,8 @@ import com.jdroid.java.utils.StringUtils;
 
 /**
  * Base search Fragment. It has a search text and a list with the results.
- * 
- * @param <T> An item in the list.
  */
-public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFragment<T> {
+public abstract class AbstractSearchPaginatedRecyclerFragment extends AbstractPaginatedRecyclerFragment {
 	
 	private int threshold = 1;
 	private EditText searchText;
@@ -36,14 +31,9 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 		return R.layout.abstract_search_fragment;
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractListFragment#onViewCreated(android.view.View, android.os.Bundle)
-	 */
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		
-		getGridView().getEmptyView().setVisibility(View.GONE);
 		
 		searchText = findView(R.id.searchText);
 		searchText.setHint(getSearchEditTextHintResId());
@@ -101,16 +91,9 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 			cancelButton.setVisibility(View.GONE);
 		}
 		
-		TextView emptyLegend = findView(android.R.id.empty);
-		emptyLegend.setText(getNoResultsResId());
-		emptyLegend.setVisibility(View.GONE);
-		
 		loading = findView(R.id.loading);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractPaginatedGridFragment#onPause()
-	 */
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -142,7 +125,7 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 			
 			@Override
 			public void afterTextChanged(Editable prefix) {
-				AbstractSearchFragment.this.afterTextChanged(prefix.toString());
+				AbstractSearchPaginatedRecyclerFragment.this.afterTextChanged(prefix.toString());
 			}
 		};
 	}
@@ -151,8 +134,8 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 		if (enoughToFilter()) {
 			search();
 		} else {
-			if (getBaseArrayAdapter() != null) {
-				getBaseArrayAdapter().clear();
+			if (getAdapter() != null) {
+				getAdapter().clear();
 			}
 		}
 	}
@@ -165,9 +148,6 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 		return R.string.typeHere;
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractPaginatedListFragment#getUseCaseTrigger()
-	 */
 	@Override
 	protected UseCaseTrigger getUseCaseTrigger() {
 		return UseCaseTrigger.MANUAL;
@@ -190,8 +170,8 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 		getSearchUseCase().reset();
 		dismissLoading();
 		
-		if (getBaseArrayAdapter() != null) {
-			getBaseArrayAdapter().clear();
+		if (getAdapter() != null) {
+			getAdapter().clear();
 		}
 	}
 	
@@ -200,17 +180,13 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 		getSearchUseCase().reset();
 		
 		if (!isInstantSearchEnabled()) {
-			if (getBaseArrayAdapter() != null) {
-				getBaseArrayAdapter().clear();
+			if (getAdapter() != null) {
+				getAdapter().clear();
 			}
 		}
 		executeUseCase(getSearchUseCase());
-		
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#showLoading()
-	 */
 	@Override
 	public void showLoading() {
 		executeOnUIThread(new Runnable() {
@@ -224,17 +200,11 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 		});
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError(com.jdroid.java.exception.AbstractException)
-	 */
 	@Override
 	public Boolean goBackOnError(AbstractException abstractException) {
 		return false;
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#dismissLoading()
-	 */
 	@Override
 	public void dismissLoading() {
 		executeOnUIThread(new Runnable() {
@@ -247,16 +217,6 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 			}
 		});
 	}
-	
-	@SuppressWarnings("unchecked")
-	private BaseArrayAdapter<T> getBaseArrayAdapter() {
-		return (BaseArrayAdapter<T>)getListAdapter();
-	}
-	
-	/**
-	 * @return The {@link SearchUseCase} to use.
-	 */
-	protected abstract SearchUseCase<T> getSearchUseCase();
 	
 	protected boolean displayCancelButton() {
 		return true;
@@ -292,12 +252,13 @@ public abstract class AbstractSearchFragment<T> extends AbstractPaginatedGridFra
 	public EditText getSearchText() {
 		return searchText;
 	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractPaginatedListFragment#getPaginatedUseCase()
-	 */
+
 	@Override
-	protected PaginatedUseCase<T> getPaginatedUseCase() {
-		return getSearchUseCase();
+	protected SearchUseCase<Object> createPaginatedUseCase() {
+		return null;
+	}
+
+	private SearchUseCase<Object> getSearchUseCase() {
+		return (SearchUseCase<Object>)paginatedUseCase;
 	}
 }

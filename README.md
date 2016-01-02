@@ -53,8 +53,10 @@ Dependency for Android apps. Support for Android 4.0 (api level 14) and higher v
 * Debug settings support
 * Url handling support
 * Base Activity & Fragment implementations
-* ListView & GridView pagination support
-* Recycler View Support 
+* Recycler View Support
+ * Pagination
+ * Search
+ * Footer & Header
 * Hero image and parallax effect support
 * Loading & Refresh
  * Blocking loading dialog
@@ -66,7 +68,6 @@ Dependency for Android apps. Support for Android 4.0 (api level 14) and higher v
 * Barcode reading component
 * Voice Recognizer component
 * Date & Time picker components
-* QuickReturnLayout component
 * Animations
  * Fade in / Fade out
 * Utilities for Alarms, Bitmaps, [Notifications](http://developer.android.com/design/patterns/notifications.html), Shared Preferences, [Toasts](http://developer.android.com/guide/topics/ui/notifiers/toasts.html), GPS, and more

@@ -105,6 +105,10 @@
 
 	<!-- Recycler View -->
 	<string name="recyclerView">Recycler View</string>
+	<string name="simpleRecycler">Simple Recycler</string>
+	<string name="complexRecycler">Complex Recycler</string>
+	<string name="paginatedRecycler">Paginated Recycler</string>
+	<string name="searchPaginatedRecycler">Search Paginated Recycler</string>
 	<string name="noResults">No Results</string>
 
 	<!-- SQLite -->

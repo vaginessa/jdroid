@@ -1,22 +1,23 @@
 package com.jdroid.android.about;
 
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.images.loader.ImageLoaderHelper;
+import com.jdroid.android.recycler.AbstractRecyclerFragment;
+import com.jdroid.android.recycler.RecyclerViewAdapter;
+import com.jdroid.android.recycler.RecyclerViewType;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
 
-public class LibrariesFragment extends AbstractRecyclerFragment<Library> {
+public class LibrariesFragment extends AbstractRecyclerFragment {
 	
 	private List<Library> libraries = Lists.newArrayList();
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractListFragment#onCreate(android.os.Bundle)
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,27 +28,15 @@ public class LibrariesFragment extends AbstractRecyclerFragment<Library> {
 			ImageLoaderHelper imageLoaderHelper = AbstractApplication.get().getImageLoaderHelper();
 			Library library = new Library(imageLoaderHelper.getLibraryKey(), imageLoaderHelper.getLibraryNameResId(),
 					imageLoaderHelper.getLibraryDescriptionResId(), imageLoaderHelper.getLibraryUrl());
-			if (library != null) {
-				libraries.add(library);
-			}
+			libraries.add(library);
 		}
 		libraries.addAll(getCustomLibraries());
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onViewCreated(android.view.View, android.os.Bundle)
-	 */
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		setAdapter(new LibrariesAdapter(libraries));
-	}
-	
-	@Override
-	public void onItemSelected(Library item, View view) {
-		item.onSelected(getActivity());
-		AbstractApplication.get().getAnalyticsSender().trackAboutLibraryOpen(item.getLibraryKey());
-		
+		setAdapter(new RecyclerViewAdapter(new LibraryRecyclerViewType(), libraries));
 	}
 	
 	protected Boolean displayImageLoader() {
@@ -56,6 +45,54 @@ public class LibrariesFragment extends AbstractRecyclerFragment<Library> {
 	
 	protected List<Library> getCustomLibraries() {
 		return Lists.newArrayList();
+	}
+
+	public class LibraryRecyclerViewType extends RecyclerViewType<Library, LibrariesHolder> {
+
+		@Override
+		protected Integer getLayoutResourceId() {
+			return R.layout.library_item;
+		}
+
+		@Override
+		protected Class<Library> getItemClass() {
+			return Library.class;
+		}
+
+		@Override
+		public RecyclerView.ViewHolder createViewHolderFromView(View view) {
+			LibrariesHolder holder = new LibrariesHolder(view);
+			holder.name = findView(view, R.id.name);
+			holder.description = findView(view, R.id.description);
+			return holder;
+		}
+
+		@Override
+		public void fillHolderFromItem(Library item, LibrariesHolder holder) {
+			holder.name.setText(item.getNameResId());
+			holder.description.setText(item.getDescriptionResId());
+		}
+
+		@Override
+		public void onItemSelected(Library item, View view) {
+			item.onSelected(getActivity());
+			AbstractApplication.get().getAnalyticsSender().trackAboutLibraryOpen(item.getLibraryKey());
+		}
+
+		@Override
+		public AbstractRecyclerFragment getAbstractRecyclerFragment() {
+			return LibrariesFragment.this;
+		}
+	}
+
+	public static class LibrariesHolder extends RecyclerView.ViewHolder {
+
+		protected TextView name;
+		protected TextView description;
+
+		public LibrariesHolder(View itemView) {
+			super(itemView);
+		}
 	}
 	
 }

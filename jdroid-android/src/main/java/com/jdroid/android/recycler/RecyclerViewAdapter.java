@@ -5,91 +5,101 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jdroid.java.collections.Lists;
+import com.jdroid.java.collections.Maps;
+
 import java.util.List;
+import java.util.Map;
 
-public abstract class RecyclerViewAdapter<ITEM, VIEWHOLDER extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VIEWHOLDER> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-	private List<ITEM> items;
+	private Map<Integer, RecyclerViewType> recyclerViewTypeMap = Maps.newHashMap();
 
-	// The resource indicating what views to inflate to display the content of this adapter.
-	private Integer resource;
+	private List<Object> items;
 
-	private View.OnClickListener onClickListener;
-
-	public RecyclerViewAdapter(Integer resource, List<ITEM> items) {
-		this.resource = resource;
-		this.items = items;
+	public RecyclerViewAdapter(RecyclerViewType recyclerViewType, List<? extends Object> items) {
+		this(Lists.newArrayList(recyclerViewType), items);
 	}
 
-	@Override
-	public VIEWHOLDER onCreateViewHolder(ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(parent.getContext()).inflate(resource, parent, false);
-		if (onClickListener != null) {
-			view.setOnClickListener(onClickListener);
+	public RecyclerViewAdapter(List<RecyclerViewType> recyclerViewTypes, List<? extends Object> items) {
+		this.items = (List<Object>)items;
+		int i = 1;
+		for (RecyclerViewType each : recyclerViewTypes) {
+			recyclerViewTypeMap.put(i, each);
+			i++;
 		}
-		return createViewHolderFromView(view, viewType);
 	}
 
-	/**
-	 * Creates a VIEWHOLDER from the given view. Please declare the VIEWHOLDER class as static when possible
-	 *
-	 * @param view The view from the list.
-	 * @return The new VIEWHOLDER.
-	 */
-	protected abstract VIEWHOLDER createViewHolderFromView(View view, int viewType);
+	public int addRecyclerViewType(RecyclerViewType recyclerViewType) {
+		int viewType = recyclerViewTypeMap.size() + 1;
+		recyclerViewTypeMap.put(viewType, recyclerViewType);
+		return viewType;
+	}
 
 	@Override
-	public void onBindViewHolder(VIEWHOLDER holder, int position) {
-		fillHolderFromItem(items.get(position), holder);
+	public int getItemViewType(int position) {
+		Object item = items.get(position);
+		Class eachClass = item.getClass();
+		while (eachClass != null) {
+			for (Map.Entry<Integer, RecyclerViewType> entry : recyclerViewTypeMap.entrySet()) {
+				if (entry.getValue().getItemClass().equals(eachClass)) {
+					return entry.getKey();
+				}
+			}
+			eachClass = eachClass.getSuperclass();
+		}
+		return -1;
 	}
 
-	/**
-	 * Fills the VIEWHOLDER with the ITEM's data.
-	 *
-	 * @param item The ITEM.
-	 * @param holder The VIEWHOLDER.
-	 */
-	protected abstract void fillHolderFromItem(ITEM item, VIEWHOLDER holder);
+	@Override
+	public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+		LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+		View view = recyclerViewTypeMap.get(viewType).inflateView(inflater, parent);
+		return recyclerViewTypeMap.get(viewType).createViewHolderFromView(view);
+	}
+
+	@Override
+	public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+		recyclerViewTypeMap.get(holder.getItemViewType()).fillHolderFromItem(items.get(position), holder);
+	}
 
 	@Override
 	public int getItemCount() {
 		return items.size();
 	}
 
-	public void addItem(ITEM item) {
+	public void addItem(Object item) {
 		items.add(item);
 		notifyItemInserted(items.size() - 1);
 	}
 
-	public void removeItem(ITEM item) {
+	public void addItems(List<Object> newItems) {
+		items.addAll(newItems);
+		notifyItemRangeInserted(items.size() - newItems.size(), newItems.size());
+	}
+
+	public void removeItem(Object item) {
 		int pos = items.indexOf(item);
 		items.remove(item);
 		notifyItemRemoved(pos);
 	}
 
-	public List<ITEM> getItems() {
+	public void removeItemByPosition(int position) {
+		items.remove(position);
+		notifyItemRemoved(position);
+	}
+
+	public void clear() {
+		int size = items.size();
+		items.clear();
+		notifyItemRangeRemoved(0, size);
+	}
+
+	public List<Object> getItems() {
 		return items;
 	}
 
-	public ITEM getItem(Integer position) {
+	public Object getItem(Integer position) {
 		return items.get(position);
-	}
-
-	/**
-	 * Finds a view that was identified by the id attribute from the {@link View} view.
-	 *
-	 * @param containerView The view that contains the view to find.
-	 * @param id The id to search for.
-	 * @param <V> The {@link View} class.
-	 *
-	 * @return The view if found or null otherwise.
-	 */
-	@SuppressWarnings("unchecked")
-	public <V extends View> V findView(View containerView, int id) {
-		return (V)containerView.findViewById(id);
-	}
-
-	public void setOnClickListener(View.OnClickListener onClickListener) {
-		this.onClickListener = onClickListener;
 	}
 }

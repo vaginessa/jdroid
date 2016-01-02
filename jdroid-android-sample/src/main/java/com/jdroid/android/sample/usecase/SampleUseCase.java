@@ -11,9 +11,8 @@ public class SampleUseCase extends DefaultAbstractUseCase {
 	private static final long serialVersionUID = -3206803568176386530L;
 
 	private List<String> items;
-	/**
-	 * @see com.jdroid.android.usecase.AbstractUseCase#doExecute()
-	 */
+	private List<Object> complexItems;
+
 	@Override
 	protected void doExecute() {
 
@@ -21,9 +20,14 @@ public class SampleUseCase extends DefaultAbstractUseCase {
 		ExecutorUtils.sleep(3);
 
 		items = Lists.newArrayList("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen");
+		complexItems = Lists.<Object>newArrayList("one", "two", true, "three", 1, 2, "four", true, "five", "six", "seven", "eight", 3, "nine", "ten", "eleven", "twelve", 4, "thirteen", false, false, "fourteen", "fifteen", "sixteen");
 	}
 
 	public List<String> getItems() {
 		return items;
+	}
+
+	public List<Object> getComplexItems() {
+		return complexItems;
 	}
 }

@@ -64,39 +64,6 @@
 		<item name="android:minHeight">40dp</item>
 	</style>
 
-	<!-- Lists & Grids -->
-
-	<style name="parentList" parent="android:Widget.ListView">
-		<item name="android:divider">@android:color/transparent</item>
-		<item name="android:dividerHeight">0dp</item>
-		<item name="android:cacheColorHint">@android:color/transparent</item>
-		<item name="android:listSelector">@android:color/transparent</item>
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_height">match_parent</item>
-	</style>
-
-	<style name="list" parent="@style/parentList" />
-
-	<style name="parentSeparatedList" parent="@style/parentList">
-		<item name="android:divider">@color/grey</item>
-		<item name="android:dividerHeight">1dp</item>
-	</style>
-
-	<style name="separatedList" parent="@style/parentSeparatedList" />
-
-	<style name="parentGrid">
-		<item name="android:cacheColorHint">@android:color/transparent</item>
-		<item name="android:listSelector">@android:color/transparent</item>
-	</style>
-
-	<style name="grid" parent="@style/parentGrid" />
-
-	<style name="parentGridList" parent="@style/grid">
-		<item name="android:numColumns">1</item>
-	</style>
-
-	<style name="gridList" parent="@style/parentGridList" />
-
 	<!-- Dialogs -->
 
 	<style name="customDialog">
@@ -205,12 +172,6 @@
 	</style>
 
 	<!-- DEPRECATED -->
-
-	<style name="mediumButton" parent="textMediumBold">
-		<item name="android:paddingLeft">8dp</item>
-		<item name="android:paddingRight">8dp</item>
-		<item name="android:minWidth">180dp</item>
-	</style>
 
 	<style name="optionButton" parent="textMediumBold">
 		<item name="android:layout_height">wrap_content</item>
