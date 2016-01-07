@@ -1,5 +1,7 @@
 package com.jdroid.android.recycler;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,5 +76,13 @@ public abstract class RecyclerViewType<ITEM, VIEWHOLDER extends RecyclerView.Vie
 	@SuppressWarnings("unchecked")
 	public <V extends View> V findView(View containerView, int id) {
 		return (V)containerView.findViewById(id);
+	}
+
+	protected Context getContext() {
+		return getAbstractRecyclerFragment().getContext();
+	}
+
+	protected Activity getActivity() {
+		return getAbstractRecyclerFragment().getActivity();
 	}
 }

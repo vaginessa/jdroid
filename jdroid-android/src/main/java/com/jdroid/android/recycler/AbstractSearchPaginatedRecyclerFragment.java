@@ -173,6 +173,9 @@ public abstract class AbstractSearchPaginatedRecyclerFragment extends AbstractPa
 		if (getAdapter() != null) {
 			getAdapter().clear();
 		}
+		if (emptyViewContainer != null) {
+			emptyViewContainer.setVisibility(View.GONE);
+		}
 	}
 	
 	protected void doSearch() {

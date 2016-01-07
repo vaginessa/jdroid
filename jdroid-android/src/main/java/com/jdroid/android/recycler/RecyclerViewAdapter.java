@@ -17,10 +17,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 	private List<Object> items;
 
+	public RecyclerViewAdapter(RecyclerViewType recyclerViewType) {
+		this(Lists.newArrayList(recyclerViewType), Lists.newArrayList());
+	}
+
 	public RecyclerViewAdapter(RecyclerViewType recyclerViewType, List<? extends Object> items) {
 		this(Lists.newArrayList(recyclerViewType), items);
 	}
 
+	public RecyclerViewAdapter(List<RecyclerViewType> recyclerViewTypes) {
+		this(recyclerViewTypes, Lists.newArrayList());
+	}
 	public RecyclerViewAdapter(List<RecyclerViewType> recyclerViewTypes, List<? extends Object> items) {
 		this.items = (List<Object>)items;
 		int i = 1;
@@ -68,17 +75,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		return items.size();
 	}
 
-	public void addItem(Object item) {
+	public <T> void  addItem(T item) {
 		items.add(item);
 		notifyItemInserted(items.size() - 1);
 	}
 
-	public void addItems(List<Object> newItems) {
+	public <T> void addItems(List<T> newItems) {
 		items.addAll(newItems);
 		notifyItemRangeInserted(items.size() - newItems.size(), newItems.size());
 	}
 
-	public void removeItem(Object item) {
+	public <T> void removeItem(T item) {
 		int pos = items.indexOf(item);
 		items.remove(item);
 		notifyItemRemoved(pos);

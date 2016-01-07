@@ -17,7 +17,7 @@ public abstract class AbstractRecyclerFragment extends AbstractFragment {
 
 	private RecyclerView recyclerView;
 	private RecyclerViewAdapter adapter;
-	private ViewGroup emptyViewContainer;
+	protected ViewGroup emptyViewContainer;
 	private RecyclerView.AdapterDataObserver adapterDataObserver;
 	private RecyclerView.LayoutManager layoutManager;
 
@@ -53,9 +53,6 @@ public abstract class AbstractRecyclerFragment extends AbstractFragment {
 					refreshEmptyView();
 				}
 			};
-		}
-		if (adapter != null) {
-			setAdapter(adapter);
 		}
 	}
 

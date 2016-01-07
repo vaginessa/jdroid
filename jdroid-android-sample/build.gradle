@@ -205,7 +205,7 @@ android {
 		jdroid.setString(defaultConfig, "FIREBASE_AUTH_TOKEN", null)
 
 		manifestPlaceholders = [
-				googleMapsApiKey: "AIzaSyB3gW390UnlO7hCY79D4fZU4quvcw2p0mo",
+				googleMapsApiKey: "AIzaSyBiIX2Ays99BfiaAA3CcYtZ7bQ6ZOfzgog",
 				fabricApiKey: "478dae49374362f33bc054fc44d1f4242c574ccb"
 		]
 
