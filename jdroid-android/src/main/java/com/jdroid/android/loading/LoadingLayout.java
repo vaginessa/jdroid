@@ -20,7 +20,7 @@ public class LoadingLayout extends FrameLayout {
 	
 	private ProgressBar progressLoading;
 	private Button retryButton;
-	private Boolean isLoading = true;
+	private Boolean isLoading = false;
 	
 	public LoadingLayout(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);

@@ -54,6 +54,9 @@ public abstract class AbstractRecyclerFragment extends AbstractFragment {
 				}
 			};
 		}
+		if (adapter != null) {
+			setAdapter(adapter);
+		}
 	}
 
 	protected Boolean isDividerItemDecorationEnabled() {
