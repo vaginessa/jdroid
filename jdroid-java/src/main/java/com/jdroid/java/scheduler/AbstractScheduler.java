@@ -1,5 +1,7 @@
 package com.jdroid.java.scheduler;
 
+import com.jdroid.java.date.DateUtils;
+
 import java.util.Date;
 
 public class AbstractScheduler {
@@ -11,7 +13,7 @@ public class AbstractScheduler {
 	public synchronized Boolean acquireLock() {
 		if (!inProgress) {
 			inProgress = true;
-			executionStartDate = new Date();
+			executionStartDate = DateUtils.now();
 			return true;
 		}
 		return false;

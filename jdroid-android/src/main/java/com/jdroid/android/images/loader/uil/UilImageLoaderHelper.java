@@ -3,11 +3,12 @@ package com.jdroid.android.images.loader.uil;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
 
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.images.loader.ImageLoaderHelper;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.concurrent.ExecutorUtils;
+import com.jdroid.java.date.DateUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -93,7 +94,7 @@ public class UilImageLoaderHelper implements ImageLoaderHelper {
 				public void run() {
 					synchronized (UilImageLoaderHelper.class) {
 						if (!imagesExpirationMap.containsKey(url)) {
-							Long timestamp = System.currentTimeMillis() + timeToLive;
+							Long timestamp = DateUtils.nowMillis() + timeToLive;
 							sharedPreferencesHelper.savePreference(url, timestamp);
 							imagesExpirationMap.put(url, timestamp);
 						}
@@ -111,7 +112,7 @@ public class UilImageLoaderHelper implements ImageLoaderHelper {
 			public void run() {
 				synchronized (UilImageLoaderHelper.class) {
 					for (Map.Entry<String, Long> entry : imagesExpirationMap.entrySet()) {
-						if (System.currentTimeMillis() > entry.getValue()) {
+						if (DateUtils.nowMillis() > entry.getValue()) {
 							DiskCacheUtils.removeFromCache(entry.getKey(), ImageLoader.getInstance().getDiskCache());
 							sharedPreferencesHelper.removePreferences(entry.getKey());
 							imagesExpirationMap.remove(entry.getKey());

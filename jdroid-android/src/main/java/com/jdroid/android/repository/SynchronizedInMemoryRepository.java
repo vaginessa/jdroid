@@ -21,7 +21,7 @@ public class SynchronizedInMemoryRepository<T extends Identifiable> extends InMe
 	 */
 	@Override
 	public void refreshUpdateTimestamp() {
-		lastUpdateTimestamp = System.currentTimeMillis();
+		lastUpdateTimestamp = DateUtils.nowMillis();
 	}
 	
 	/**
@@ -30,7 +30,7 @@ public class SynchronizedInMemoryRepository<T extends Identifiable> extends InMe
 	@Override
 	public Boolean isOutdated() {
 		return (lastUpdateTimestamp == null)
-				|| ((lastUpdateTimestamp + getRefreshFrequency()) < System.currentTimeMillis());
+				|| ((lastUpdateTimestamp + getRefreshFrequency()) < DateUtils.nowMillis());
 	}
 	
 	/**

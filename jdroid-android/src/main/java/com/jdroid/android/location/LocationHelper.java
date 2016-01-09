@@ -15,6 +15,7 @@ import android.support.annotation.RequiresPermission;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.utils.AlarmUtils;
+import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
@@ -118,7 +119,7 @@ public class LocationHelper implements LocationListener {
 				if (location == null) {
 					location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 				}
-				locationTime = System.currentTimeMillis();
+				locationTime = DateUtils.nowMillis();
 			}
 			started = false;
 			LOGGER.info("Localization stopped");
@@ -133,7 +134,7 @@ public class LocationHelper implements LocationListener {
 		if (isBetterLocation(location, this.location)) {
 			LOGGER.info("Location changed");
 			this.location = location;
-			locationTime = System.currentTimeMillis();
+			locationTime = DateUtils.nowMillis();
 		} else {
 			LOGGER.info("Location discarded");
 		}
@@ -143,7 +144,7 @@ public class LocationHelper implements LocationListener {
 		if (location != null) {
 			LOGGER.info("Location changed");
 			this.location = location;
-			locationTime = System.currentTimeMillis();
+			locationTime = DateUtils.nowMillis();
 		} else {
 			LOGGER.info("Location discarded");
 		}
@@ -245,7 +246,7 @@ public class LocationHelper implements LocationListener {
 	
 	public Boolean hasSignificantlyOlderLocation() {
 		if (location != null) {
-			long timeDelta = System.currentTimeMillis() - locationTime;
+			long timeDelta = DateUtils.nowMillis() - locationTime;
 			return timeDelta > MAXIMUM_TIME_DELTA;
 		}
 		return true;

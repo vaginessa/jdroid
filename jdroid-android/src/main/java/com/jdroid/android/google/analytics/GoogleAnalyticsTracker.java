@@ -483,6 +483,6 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 	
 	public Boolean isSessionExpired() {
-		return (System.currentTimeMillis() - UsageStats.getLastStopTime()) > (4 * SESSION_TIMEOUT * DateUtils.MILLIS_PER_SECOND);
+		return (DateUtils.nowMillis() - UsageStats.getLastStopTime()) > (4 * SESSION_TIMEOUT * DateUtils.MILLIS_PER_SECOND);
 	}
 }

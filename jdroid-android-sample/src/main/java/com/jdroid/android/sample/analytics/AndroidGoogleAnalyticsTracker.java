@@ -2,6 +2,7 @@ package com.jdroid.android.sample.analytics;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.jdroid.android.google.analytics.GoogleAnalyticsTracker;
+import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.IdGenerator;
 
 import java.util.Map;
@@ -37,7 +38,7 @@ public class AndroidGoogleAnalyticsTracker extends GoogleAnalyticsTracker implem
 		transactionBuilder.setRevenue(1000);
 		transactionBuilder.setTax(10);
 		transactionBuilder.setShipping(5);
-		transactionBuilder.setTransactionId("tx" + System.currentTimeMillis());
+		transactionBuilder.setTransactionId("tx" + DateUtils.nowMillis());
 		sendTransaction(transactionBuilder);
 	}
 

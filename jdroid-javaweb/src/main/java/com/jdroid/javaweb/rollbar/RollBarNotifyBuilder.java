@@ -1,5 +1,6 @@
 package com.jdroid.javaweb.rollbar;
 
+import com.jdroid.java.date.DateUtils;
 import com.jdroid.javaweb.context.Application;
 
 import org.apache.log4j.helpers.LogLog;
@@ -49,7 +50,7 @@ public class RollBarNotifyBuilder {
         data.put("platform", getValue("platform", context, "java"));
         data.put("framework", "jdroid");
         data.put("language", "java");
-        data.put("timestamp", System.currentTimeMillis() / 1000);
+        data.put("timestamp", DateUtils.nowMillis() / 1000);
 
         // message data
         data.put("body", getBody(message, throwable));

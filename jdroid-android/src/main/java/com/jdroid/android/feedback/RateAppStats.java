@@ -16,7 +16,7 @@ public class RateAppStats {
 
 	public static void setEnjoyingApp(Boolean enjoying) {
 		getSharedPreferencesHelper().savePreferenceAsync(ENJOYING, enjoying);
-		getSharedPreferencesHelper().savePreferenceAsync(LAST_RESPONSE_TIMESTAMP, System.currentTimeMillis());
+		getSharedPreferencesHelper().savePreferenceAsync(LAST_RESPONSE_TIMESTAMP, DateUtils.nowMillis());
 	}
 
 	public static Boolean getEnjoyingApp() {
@@ -25,7 +25,7 @@ public class RateAppStats {
 
 	public static void setGiveFeedback(Boolean feedback) {
 		getSharedPreferencesHelper().savePreferenceAsync(GIVE_FEEDBACK, feedback);
-		getSharedPreferencesHelper().savePreferenceAsync(LAST_RESPONSE_TIMESTAMP, System.currentTimeMillis());
+		getSharedPreferencesHelper().savePreferenceAsync(LAST_RESPONSE_TIMESTAMP, DateUtils.nowMillis());
 	}
 
 	public static Boolean getGiveFeedback() {
@@ -34,7 +34,7 @@ public class RateAppStats {
 
 	public static void setRateOnGooglePlay(Boolean rate) {
 		getSharedPreferencesHelper().savePreferenceAsync(RATE_ON_GOOGLE_PLAY, rate);
-		getSharedPreferencesHelper().savePreferenceAsync(LAST_RESPONSE_TIMESTAMP, System.currentTimeMillis());
+		getSharedPreferencesHelper().savePreferenceAsync(LAST_RESPONSE_TIMESTAMP, DateUtils.nowMillis());
 	}
 
 	public static Boolean getRateOnGooglePlay() {

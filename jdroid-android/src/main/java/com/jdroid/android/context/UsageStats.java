@@ -1,6 +1,7 @@
 package com.jdroid.android.context;
 
 import com.jdroid.android.utils.SharedPreferencesHelper;
+import com.jdroid.java.date.DateUtils;
 
 public class UsageStats {
 
@@ -11,7 +12,7 @@ public class UsageStats {
 
 	private static SharedPreferencesHelper sharedPreferencesHelper;
 
-	private static Long lastStopTime = System.currentTimeMillis();
+	private static Long lastStopTime = DateUtils.nowMillis();
 
 	public static void incrementAppLoad() {
 		Long appLoads = getSharedPreferencesHelper().loadPreferenceAsLong(APP_LOADS, 0L);
@@ -27,11 +28,11 @@ public class UsageStats {
 	}
 
 	public static void setLastStopTime() {
-		lastStopTime = System.currentTimeMillis();
+		lastStopTime = DateUtils.nowMillis();
 	}
 
 	public static void setLastCrashTimestamp() {
-		getSharedPreferencesHelper().savePreferenceAsync(LAST_CRASH_TIMESTAMP, System.currentTimeMillis());
+		getSharedPreferencesHelper().savePreferenceAsync(LAST_CRASH_TIMESTAMP, DateUtils.nowMillis());
 	}
 
 	public static Long getLastCrashTimestamp() {
@@ -41,7 +42,7 @@ public class UsageStats {
 	public static Long getFirstAppLoadTimestamp() {
 		Long firstAppLoadTimestamp = getSharedPreferencesHelper().loadPreferenceAsLong(FIRST_APP_LOAD_TIMESTAMP);
 		if (firstAppLoadTimestamp == null) {
-			firstAppLoadTimestamp = System.currentTimeMillis();
+			firstAppLoadTimestamp = DateUtils.nowMillis();
 			getSharedPreferencesHelper().savePreferenceAsync(FIRST_APP_LOAD_TIMESTAMP, firstAppLoadTimestamp);
 		}
 		return firstAppLoadTimestamp;

@@ -10,6 +10,7 @@ import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.ui.home.HomeActivity;
+import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.IdGenerator;
 
 public class NotificationsFragment extends AbstractFragment {
@@ -37,7 +38,7 @@ public class NotificationsFragment extends AbstractFragment {
 				builder.setTicker(R.string.notificationTicker);
 				builder.setContentTitle(R.string.notificationTitle);
 				builder.setContentText(R.string.notificationDescription);
-				builder.setWhen(System.currentTimeMillis());
+				builder.setWhen(DateUtils.nowMillis());
 				builder.setBlueLight();
 				builder.setDefaultSound();
 

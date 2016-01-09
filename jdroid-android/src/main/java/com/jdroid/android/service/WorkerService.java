@@ -3,8 +3,10 @@ package com.jdroid.android.service;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.utils.WakeLockManager;
+import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
@@ -31,9 +33,9 @@ public abstract class WorkerService extends IntentService {
 		LOGGER.info("Starting service. Variable: " + trackingVariable + " - Label: " + trackingLabel);
 		if (intent != null) {
 			try {
-					long startTime = System.currentTimeMillis();
+					long startTime = DateUtils.nowMillis();
 					doExecute(intent);
-					long executionTime = System.currentTimeMillis() - startTime;
+					long executionTime = DateUtils.nowMillis() - startTime;
 					AbstractApplication.get().getAnalyticsSender().trackTiming("Service", getTrackingVariable(intent),
 							getTrackingLabel(intent), executionTime);
 

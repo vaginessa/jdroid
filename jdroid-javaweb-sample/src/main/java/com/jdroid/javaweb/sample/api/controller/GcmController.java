@@ -1,5 +1,6 @@
 package com.jdroid.javaweb.sample.api.controller;
 
+import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.utils.StringUtils;
 import com.jdroid.javaweb.api.AbstractController;
@@ -59,7 +60,7 @@ public class GcmController extends AbstractController {
 		pushMessage.setDelayWhileIdle(delayWhileIdle != null && delayWhileIdle.equalsIgnoreCase("true"));
 		pushMessage.setTimeToLive(timeToLive);
 		if (timestampEnabled != null && timestampEnabled.equalsIgnoreCase("true")) {
-			pushMessage.addParameter("timestamp", System.currentTimeMillis());
+			pushMessage.addParameter("timestamp", DateUtils.nowMillis());
 		}
 
 		if (params != null) {

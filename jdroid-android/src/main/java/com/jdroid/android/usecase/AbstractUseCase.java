@@ -53,9 +53,9 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 		try {
 			
 			LOGGER.debug("Started use case " + getClass().getSimpleName());
-			long startTime = System.currentTimeMillis();
+			long startTime = DateUtils.nowMillis();
 			doExecute();
-			executionTime = System.currentTimeMillis() - startTime;
+			executionTime = DateUtils.nowMillis() - startTime;
 			LOGGER.debug("Finished use case " + getClass().getSimpleName() + ". Execution time: "
 					+ DateUtils.formatDuration(executionTime));
 			

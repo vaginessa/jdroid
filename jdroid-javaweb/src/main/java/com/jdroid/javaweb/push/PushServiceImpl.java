@@ -1,6 +1,7 @@
 package com.jdroid.javaweb.push;
 
 import com.jdroid.java.concurrent.ExecutorUtils;
+import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.context.Application;
 
@@ -23,7 +24,7 @@ public class PushServiceImpl implements PushService {
 		Device deviceToUpdate = deviceRepository.findByInstanceId(device.getInstanceId(), device.getDeviceType());
 		if (deviceToUpdate != null) {
 			if (isDeviceUpdateRequired(deviceToUpdate, device)) {
-				deviceToUpdate.setLastActiveTimestamp(System.currentTimeMillis());
+				deviceToUpdate.setLastActiveTimestamp(DateUtils.nowMillis());
 				deviceToUpdate.setRegistrationToken(device.getRegistrationToken());
 				deviceToUpdate.setDeviceGroupId(device.getDeviceGroupId());
 				deviceToUpdate.setAppVersionCode(device.getAppVersionCode());
@@ -31,7 +32,7 @@ public class PushServiceImpl implements PushService {
 				deviceRepository.update(deviceToUpdate);
 			}
 		} else {
-			device.setLastActiveTimestamp(System.currentTimeMillis());
+			device.setLastActiveTimestamp(DateUtils.nowMillis());
 			deviceRepository.add(device);
 		}
 	}
@@ -39,7 +40,7 @@ public class PushServiceImpl implements PushService {
 	protected Boolean isDeviceUpdateRequired(Device oldDevice, Device newDevice) {
 		newDevice.setLastActiveTimestamp(oldDevice.getLastActiveTimestamp());
 		newDevice.setId(oldDevice.getId());
-		return !oldDevice.equals(newDevice) || System.currentTimeMillis() - oldDevice.getLastActiveTimestamp() > Application.get().getAppContext().getDeviceUpdateRequiredDuration();
+		return !oldDevice.equals(newDevice) || DateUtils.nowMillis() - oldDevice.getLastActiveTimestamp() > Application.get().getAppContext().getDeviceUpdateRequiredDuration();
 	}
 
 	@Override

@@ -35,7 +35,7 @@ public enum AndroidGcmMessage implements GcmMessage {
 				description = DateUtils.format(new Date(timestamp), DateTimeFormat.YYYYMMDDHHMMSSSSS);
 			}
 			builder.setContentText(description);
-			builder.setWhen(System.currentTimeMillis());
+			builder.setWhen(DateUtils.nowMillis());
 
 			NotificationUtils.sendNotification(IdGenerator.getIntId(), builder);
 		}

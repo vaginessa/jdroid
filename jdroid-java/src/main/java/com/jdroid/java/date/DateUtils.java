@@ -48,6 +48,8 @@ public abstract class DateUtils {
 	public static final int HOURS_PER_DAY = 24;
 
 	public static String DEFAULT_DATE_TIME_FORMAT = DateTimeFormat.YYYYMMDDHHMMSSZ;
+
+	private static Date fakeNow;
 	
 	public static void init() {
 		// nothing...
@@ -356,9 +358,13 @@ public abstract class DateUtils {
 	 * @return the current moment
 	 */
 	public static Date now() {
-		return new Date();
+		return fakeNow != null ? fakeNow : new Date();
 	}
-	
+
+	public static long nowMillis() {
+		return fakeNow != null ? fakeNow.getTime() : System.currentTimeMillis();
+	}
+
 	/**
 	 * @param date The date to compare
 	 * @param startDate The left between' side
@@ -569,10 +575,13 @@ public abstract class DateUtils {
 
 	public static Long millisecondsToDays(Long timestamp) {
 		if (timestamp != null) {
-			return (System.currentTimeMillis() - timestamp) / MILLIS_PER_DAY;
+			return (DateUtils.nowMillis() - timestamp) / MILLIS_PER_DAY;
 		} else {
 			return 0L;
 		}
 	}
 	
+	public static void setFakeNow(Date fakeNow) {
+		DateUtils.fakeNow = fakeNow;
+	}
 }

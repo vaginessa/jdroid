@@ -19,7 +19,6 @@ import com.jdroid.android.utils.DeviceUtils;
 import com.jdroid.java.date.DateUtils;
 
 import java.io.File;
-import java.util.Date;
 
 public class PictureDialogFragment extends AbstractDialogFragment {
 	
@@ -154,7 +153,7 @@ public class PictureDialogFragment extends AbstractDialogFragment {
 		}
 		
 		// Create a media file name
-		String timeStamp = DateUtils.format(new Date(), "yyyyMMdd_HHmmss");
+		String timeStamp = DateUtils.format(DateUtils.now(), "yyyyMMdd_HHmmss");
 		File mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".png");
 		
 		return Uri.fromFile(mediaFile);

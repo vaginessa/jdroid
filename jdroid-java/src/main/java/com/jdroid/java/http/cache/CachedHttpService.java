@@ -1,10 +1,11 @@
 package com.jdroid.java.http.cache;
 
+import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.http.HttpResponseWrapper;
-import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.HttpService;
-import com.jdroid.java.http.post.BodyEnclosingHttpService;
+import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.parser.Parser;
+import com.jdroid.java.http.post.BodyEnclosingHttpService;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.Hasher;
 import com.jdroid.java.utils.LoggerUtils;
@@ -62,7 +63,7 @@ public abstract class CachedHttpService implements BodyEnclosingHttpService {
 		File cacheFile = new File(getHttpCacheDirectory(cache), generateCacheFileName());
 		if (cacheFile.exists() && (cacheFile.length() > 0)) {
 			
-			long diff = System.currentTimeMillis() - cacheFile.lastModified();
+			long diff = DateUtils.nowMillis() - cacheFile.lastModified();
 			if ((timeToLive == null) || ((diff >= 0) && (diff < timeToLive))) {
 				FileInputStream fileInputStream = null;
 				try {
