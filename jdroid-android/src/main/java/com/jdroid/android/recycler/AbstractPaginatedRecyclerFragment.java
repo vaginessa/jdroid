@@ -145,7 +145,7 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 						int totalItemCount = getLayoutManager().getItemCount();
 						int firstVisibleItemPosition = ((LinearLayoutManager)getLayoutManager()).findFirstVisibleItemPosition();
 
-						if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount - 4 && firstVisibleItemPosition >= 0 && totalItemCount >= paginatedUseCase.getPageSize()) {
+						if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount - 4 && firstVisibleItemPosition >= 0) {
 							paginatedUseCase.markAsPaginating();
 							executeUseCase(paginatedUseCase);
 						}
