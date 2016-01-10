@@ -158,12 +158,16 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 	protected Integer getItemsToAutoPaginate() {
 		return null;
 	}
+
+	protected int getPaginationFooterResId() {
+		return R.layout.pagination_footer;
+	}
 	
 	public class LoadingRecyclerViewType extends SimpleRecyclerViewType {
 
 		@Override
 		protected Integer getLayoutResourceId() {
-			return R.layout.pagination_footer;
+			return AbstractPaginatedRecyclerFragment.this.getPaginationFooterResId();
 		}
 
 		@Override

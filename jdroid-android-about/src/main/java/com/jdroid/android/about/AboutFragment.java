@@ -33,7 +33,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 		super.onCreate(savedInstanceState);
 
 		// Header
-		aboutItems.add(new Object());
+		aboutItems.add(new String());
 
 		final String website = getWebsite();
 		if (website != null) {
@@ -126,11 +126,11 @@ public class AboutFragment extends AbstractRecyclerFragment {
 		return true;
 	}
 
-	public class HeaderRecyclerViewType extends RecyclerViewType<Object, HeaderItemHolder> {
+	public class HeaderRecyclerViewType extends RecyclerViewType<String, HeaderItemHolder> {
 
 		@Override
-		protected Class<Object> getItemClass() {
-			return Object.class;
+		protected Class<String> getItemClass() {
+			return String.class;
 		}
 
 		@Override
@@ -151,7 +151,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 		}
 
 		@Override
-		public void fillHolderFromItem(Object o, HeaderItemHolder holder) {
+		public void fillHolderFromItem(String item, HeaderItemHolder holder) {
 			holder.appName.setText(AbstractApplication.get().getAppName());
 			holder.version.setText(getString(R.string.version, AndroidUtils.getVersionName()));
 			holder.copyright.setText(getCopyRightLegend());
