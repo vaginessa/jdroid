@@ -19,6 +19,9 @@ public class PushServiceImpl implements PushService {
 	@Autowired
 	private DeviceRepository deviceRepository;
 
+	@Autowired
+	private PushServiceListener pushServiceListener;
+
 	@Override
 	public void addDevice(Device device) {
 		Device deviceToUpdate = deviceRepository.findByInstanceId(device.getInstanceId(), device.getDeviceType());
@@ -30,10 +33,17 @@ public class PushServiceImpl implements PushService {
 				deviceToUpdate.setAppVersionCode(device.getAppVersionCode());
 				deviceToUpdate.setDeviceOsVersion(device.getDeviceOsVersion());
 				deviceRepository.update(deviceToUpdate);
+				if (pushServiceListener != null) {
+					pushServiceListener.onUpdateDevice(deviceToUpdate.getInstanceId(), deviceToUpdate.getDeviceType());
+				}
+
 			}
 		} else {
 			device.setLastActiveTimestamp(DateUtils.nowMillis());
 			deviceRepository.add(device);
+			if (pushServiceListener != null) {
+				pushServiceListener.onAddDevice(device.getInstanceId(), device.getDeviceType());
+			}
 		}
 	}
 
@@ -48,6 +58,9 @@ public class PushServiceImpl implements PushService {
 		Device deviceToRemove = deviceRepository.findByInstanceId(instanceId, deviceType);
 		if (deviceToRemove != null) {
 			deviceRepository.remove(deviceToRemove);
+			if (pushServiceListener != null) {
+				pushServiceListener.onRemoveDevice(deviceToRemove.getInstanceId(), deviceToRemove.getDeviceType());
+			}
 		}
 	}
 
@@ -62,6 +75,9 @@ public class PushServiceImpl implements PushService {
 			Device deviceToRemove = deviceRepository.findByRegistrationToken(each, pushResponse.getDeviceType());
 			if (deviceToRemove != null) {
 				deviceRepository.remove(deviceToRemove);
+				if (pushServiceListener != null) {
+					pushServiceListener.onRemoveDevice(deviceToRemove.getInstanceId(), deviceToRemove.getDeviceType());
+				}
 			}
 		}
 
@@ -70,6 +86,9 @@ public class PushServiceImpl implements PushService {
 			if (deviceToUpdate != null) {
 				deviceToUpdate.setRegistrationToken(entry.getValue());
 				deviceRepository.update(deviceToUpdate);
+				if (pushServiceListener != null) {
+					pushServiceListener.onUpdateDevice(deviceToUpdate.getInstanceId(), deviceToUpdate.getDeviceType());
+				}
 			}
 		}
 	}
