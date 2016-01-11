@@ -37,7 +37,7 @@ public abstract class FirebaseRepository<T extends Entity> implements Repository
 
 	protected abstract Class<T> getEntityClass();
 
-	private Firebase createFirebase() {
+	protected Firebase createFirebase() {
 		Firebase firebase = new Firebase(getFirebaseUrl());
 		if (firebaseAuthenticationStrategy != null) {
 			firebaseAuthenticationStrategy.authenticate(firebase);
