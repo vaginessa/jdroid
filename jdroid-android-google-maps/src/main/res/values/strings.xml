@@ -4,5 +4,6 @@
 	<string name="driving">Driving</string>
 	<string name="walking">Walking</string>
 	<string name="updateGooglePlayServices">You need to update the <b>Google Play Services</b> app to see the map.</string>
+	<string name="locationPermissionSuggested"><b>Location</b> permission is suggested</string>
 
 </resources>

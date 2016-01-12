@@ -3,8 +3,6 @@ package com.jdroid.android.google.maps;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -12,24 +10,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
+import com.jdroid.android.exception.SnackbarErrorDisplayer;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.fragment.FragmentIf;
 import com.jdroid.android.google.GooglePlayServicesUtils;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.permission.PermissionHelper;
+import com.jdroid.android.snackbar.SnackbarBuilder;
 import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.usecase.UseCase;
 import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
@@ -98,7 +96,6 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 					// Nothing to do
 				}
 			});
-			locationPermissionGranted = locationPermissionHelper.verifyPermission();
 		}
 
 		getMapAsync(new OnMapReadyCallback() {
@@ -127,10 +124,37 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 					locationPermissionGranted = locationPermissionHelper.checkPermission(false);
 					if (locationPermissionGranted) {
 						map.setMyLocationEnabled(true);
+					} else if (snackbarToSuggestLocationPermissionEnabled()) {
+						locationPermissionHelper.setOnRequestPermissionsResultListener(new PermissionHelper.OnRequestPermissionsResultListener() {
+							@Override
+							public void onRequestPermissionsGranted() {
+								// Do nothing
+							}
+
+							@Override
+							public void onRequestPermissionsDenied() {
+								SnackbarBuilder snackbarBuilder = new SnackbarBuilder();
+								snackbarBuilder.setActionTextResId(R.string.allow);
+								snackbarBuilder.setDuration(5000);
+								snackbarBuilder.setOnClickListener(new View.OnClickListener() {
+									@Override
+									public void onClick(View v) {
+										locationPermissionHelper.setOnRequestPermissionsResultListener(null);
+										locationPermissionGranted = locationPermissionHelper.checkPermission(true);
+									}
+								});
+								snackbarBuilder.setDescription(R.string.locationPermissionSuggested);
+								snackbarBuilder.build(getActivity()).show();
+							}
+						});
 					}
 				}
 			}
 		});
+	}
+
+	protected Boolean snackbarToSuggestLocationPermissionEnabled() {
+		return false;
 	}
 
 	@Override

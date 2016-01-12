@@ -6,41 +6,36 @@ import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
-import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.snackbar.SnackbarBuilder;
 
 public class SnackbarErrorDisplayer implements ErrorDisplayer {
 
-	private int parentLayoutId = R.id.fragmentContainer;
-	private int duration = Snackbar.LENGTH_LONG;
-	private int actionTextResId;
-	private View.OnClickListener onClickListener;
+	private SnackbarBuilder snackbarBuilder = new SnackbarBuilder();
 
 	@Override
 	public void displayError(String title, String description, Throwable throwable) {
 		Activity activity = AbstractApplication.get().getCurrentActivity();
 		if (activity != null) {
-			Snackbar snackbar = Snackbar.make(activity.findViewById(parentLayoutId), description, duration);
-			if (onClickListener != null) {
-				snackbar.setAction(actionTextResId, onClickListener);
-			}
+			snackbarBuilder.setDescription(description);
+			Snackbar snackbar = snackbarBuilder.build(activity);
 			snackbar.show();
 		}
 	}
 
 	public void setActionTextResId(@StringRes int actionTextResId) {
-		this.actionTextResId = actionTextResId;
+		snackbarBuilder.setActionTextResId(actionTextResId);
 	}
 
 	public void setOnClickListener(View.OnClickListener onClickListener) {
-		this.onClickListener = onClickListener;
+		snackbarBuilder.setOnClickListener(onClickListener);
 	}
 
 	public void setParentLayoutId(@IdRes int parentLayoutId) {
-		this.parentLayoutId = parentLayoutId;
+		snackbarBuilder.setParentLayoutId(parentLayoutId);
 	}
 
-	public void setDuration(int duration) {
-		this.duration = duration;
+	public void setDuration(@Snackbar.Duration int duration) {
+		snackbarBuilder.setDuration(duration);
 	}
 }
