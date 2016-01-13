@@ -54,7 +54,7 @@ group = 'com.jdroidframework'
 
 Integer versionMajor = 0
 Integer versionMinor = 9
-Integer versionPatch = 3
+Integer versionPatch = 4
 Boolean isSnapshot = getBooleanProp('SNAPSHOT', true)
 
 version = "${versionMajor}.${versionMinor}.${versionPatch}"

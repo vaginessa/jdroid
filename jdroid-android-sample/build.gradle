@@ -6,7 +6,7 @@ ext.packaging = 'apk'
 jdroid {
 	versionMajor = 0
 	versionMinor = 9
-	versionPatch = 3
+	versionPatch = 4
 	notDefaultLanguages = ['es']
 }
 
