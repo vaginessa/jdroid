@@ -1,24 +1,19 @@
-Upgraded to gradle 2.9
-
 jdroid Android
 --------------
-* New Rate App Component
-* Instance ID support
-* GCM 3.0 support
-* Shared preferences helper improvements
-* Http error handling improvements
-* DateUtils improvements
-* UsageStats improvements
-* Upgraded build tools version
+* New App Rate Component
+* Support for command pattern inside services
+* Removed storage permissions from google maps module
+* Removed all the ListView/GridView support
+* Added Header and Footer support to Recycler View
 * Upgraded dependencies versions
 * Bug fixing
 
 jdroid Java
 ---------------
-* Created jdroid-java-firebase library
+* Upgraded dependencies versions
 * Bug fixing
 
 jdroid Java Web
 ---------------
-* Removed Hibernate dependencies to a separated library
+* Upgraded dependencies versions
 * Bug fixing
