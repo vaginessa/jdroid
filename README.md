@@ -53,10 +53,13 @@ Dependency for Android apps. Support for Android 4.0 (api level 14) and higher v
 * Debug settings support
 * Url handling support
 * Base Activity & Fragment implementations
+* Base Services implementations
 * Recycler View Support
  * Pagination
  * Search
  * Footer & Header
+ * Empty Viewl
+ * Loading
 * Hero image and parallax effect support
 * Loading & Refresh
  * Blocking loading dialog
@@ -70,7 +73,7 @@ Dependency for Android apps. Support for Android 4.0 (api level 14) and higher v
 * Date & Time picker components
 * Animations
  * Fade in / Fade out
-* Utilities for Alarms, Bitmaps, [Notifications](http://developer.android.com/design/patterns/notifications.html), Shared Preferences, [Toasts](http://developer.android.com/guide/topics/ui/notifiers/toasts.html), GPS, and more
+* Utilities for Alarms, Bitmaps, [Notifications](http://developer.android.com/design/patterns/notifications.html), Shared Preferences, [Toasts](http://developer.android.com/guide/topics/ui/notifiers/toasts.html), [Snackbars](http://developer.android.com/reference/android/support/design/widget/Snackbar.html), GPS, and more
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-about](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
