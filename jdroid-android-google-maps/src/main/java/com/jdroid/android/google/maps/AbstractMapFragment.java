@@ -47,12 +47,15 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	protected FragmentIf getFragmentIf() {
 		return (FragmentIf)this.getActivity();
 	}
-	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
 
+	/**
+	 Calling this before super.oncreate() when you try to use a toolbar and the view contains a map
+	 https://code.google.com/p/android/issues/detail?id=175140
+	 */
+	public static void doMapToolbarWorkaround(Bundle savedInstanceState){
 		// FIXME This is just a workaround to the following error: ClassNotFoundException when unmarshalling android.support.v7.widget.Toolbar$SavedState
 		// It seems to be a problem with the SupportMapFragment implementation
+		// https://code.google.com/p/android/issues/detail?id=175140
 		if (savedInstanceState != null) {
 			SparseArray sparseArray = (SparseArray)savedInstanceState.get("android:view_state");
 			if (sparseArray != null) {
@@ -71,7 +74,11 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 				}
 			}
 		}
-
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		doMapToolbarWorkaround(savedInstanceState);
 		super.onCreate(savedInstanceState);
 		fragmentHelper = AbstractApplication.get().createFragmentHelper(this);
 		fragmentHelper.onCreate(savedInstanceState);
@@ -82,6 +89,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 
 		if (isLocationEnabled()) {
 			locationPermissionHelper = PermissionHelper.createLocationPermissionHelper(this);
+			locationPermissionHelper.setAppInfoDialogMessageResId(R.string.locationPermissionRequired);
 			locationPermissionHelper.setOnRequestPermissionsResultListener(new PermissionHelper.OnRequestPermissionsResultListener() {
 				@Override
 				public void onRequestPermissionsGranted() {

@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 
 import com.jdroid.android.R;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.dialog.AppInfoDialogFragment;
 
 /**
@@ -56,7 +57,6 @@ public class PermissionHelper {
 
 	public static PermissionHelper createLocationPermissionHelper(Fragment fragment) {
 		PermissionHelper permissionHelper = new PermissionHelper(fragment, LOCATION_PERMISSION, LOCATION_PERMISSION_REQUEST_CODE);
-		permissionHelper.setAppInfoDialogMessageResId(R.string.locationPermissionRequired);
 		return permissionHelper;
 	}
 
@@ -106,25 +106,41 @@ public class PermissionHelper {
 	}
 
 	private static boolean checkPermission(PermissionDelegate permissionDelegate, String title, CharSequence message, String permission, int permissionRequestCode) {
-		if (permissionDelegate.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
-			if (permissionDelegate.shouldShowRequestPermissionRationale(permission)) {
-				permissionDelegate.showPermissionDialogFragment(title, message, permission, permissionRequestCode);
+		// Try catch added for exception occurred when checking permissions on some Lenovo 7" tablets
+		boolean hasPermission;
+		try {
+			if (permissionDelegate.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+				if (permissionDelegate.shouldShowRequestPermissionRationale(permission)) {
+					permissionDelegate.showPermissionDialogFragment(title, message, permission, permissionRequestCode);
+				} else {
+					permissionDelegate.requestPermissions(new String[]{permission}, permissionRequestCode);
+				}
+				hasPermission = false;
 			} else {
-				permissionDelegate.requestPermissions(new String[]{permission}, permissionRequestCode);
+				hasPermission = true;
 			}
-			return false;
-		} else {
-			return true;
+		} catch (Exception e) {
+			hasPermission = false;
+			AbstractApplication.get().getExceptionHandler().logWarningException("Exception checking permission", e);
 		}
+		return hasPermission;
 	}
 
 	private static boolean checkPermission(PermissionDelegate permissionDelegate, String permission, int permissionRequestCode) {
-		if (permissionDelegate.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
-			permissionDelegate.requestPermissions(new String[]{permission}, permissionRequestCode);
-			return false;
-		} else {
-			return true;
+		// Try catch added for exception occurred when checking permissions on some Lenovo 7" tablets
+		boolean hasPermission;
+		try {
+			if (permissionDelegate.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+				permissionDelegate.requestPermissions(new String[] {permission}, permissionRequestCode);
+				hasPermission = false;
+			} else {
+				hasPermission = true;
+			}
+		} catch (Exception e) {
+			hasPermission = false;
+			AbstractApplication.get().getExceptionHandler().logWarningException("Exception checking permission", e);
 		}
+		return hasPermission;
 	}
 
 	private static boolean shouldShowRequestPermissionRationale(PermissionDelegate permissionDelegate, String permission) {
@@ -132,7 +148,15 @@ public class PermissionHelper {
 	}
 
 	public static Boolean verifyPermission(Context context, String permission) {
-		return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
+		// Try catch added for exception occurred when checking permissions on some Lenovo 7" tablets
+		Boolean hasPermission;
+		try {
+			hasPermission = ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
+		} catch (Exception e) {
+			hasPermission = false;
+			AbstractApplication.get().getExceptionHandler().logWarningException("Exception checking permission", e);
+		}
+		return hasPermission;
 	}
 
 	protected static PermissionDelegate createPermissionDelegate(@NonNull FragmentActivity fragmentActivity) {

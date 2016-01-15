@@ -24,7 +24,6 @@
 	<!-- Permissions -->
 	<string name="requiredPermission">Required Permission</string>
 	<string name="allow">Allow</string>
-	<string name="locationPermissionRequired">You need to allow the <b>Location</b> permission in order to see your current location.</string>
 
 	<!-- Navigation Drawer -->
 	<string name="drawerOpen">Open navigation drawer</string>
