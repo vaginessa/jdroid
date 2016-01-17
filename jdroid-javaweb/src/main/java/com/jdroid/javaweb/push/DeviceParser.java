@@ -7,10 +7,12 @@ public class DeviceParser extends JsonParser<JSONObject> {
 
 	private String instanceId;
 	private String userAgent;
+	private String acceptLanguage;
 
-	public DeviceParser(String instanceId, String userAgent) {
+	public DeviceParser(String instanceId, String userAgent, String acceptLanguage) {
 		this.instanceId = instanceId;
 		this.userAgent = userAgent;
+		this.acceptLanguage = acceptLanguage;
 	}
 
 	@Override
@@ -25,6 +27,6 @@ public class DeviceParser extends JsonParser<JSONObject> {
 		String appVersionCode = json.optString("appVersionCode");
 
 		return new Device(instanceId, deviceType, registrationToken, deviceGroupId,
-				deviceBrandName, deviceModelName, deviceOsVersion, appVersionCode);
+				deviceBrandName, deviceModelName, deviceOsVersion, appVersionCode, acceptLanguage);
 	}
 }

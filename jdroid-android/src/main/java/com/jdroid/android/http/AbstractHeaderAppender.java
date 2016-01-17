@@ -1,21 +1,18 @@
 package com.jdroid.android.http;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.google.instanceid.InstanceIdHelper;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
+import com.jdroid.android.google.instanceid.InstanceIdHelper;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.http.HttpResponseWrapper;
 import com.jdroid.java.http.HttpService;
 import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.MimeType;
-import com.jdroid.java.utils.StringUtils;
-
-import java.util.Locale;
+import com.jdroid.java.utils.LocaleUtils;
 
 public class AbstractHeaderAppender implements HttpServiceProcessor {
 	
-	public static final String ACCEPT_LANGUAGE_HEADER = "Accept-Language";
 	private static final String API_VERSION_HEADER = "api-version";
 
 	private static final String USER_AGENT_HEADER_VALUE = "android";
@@ -53,12 +50,7 @@ public class AbstractHeaderAppender implements HttpServiceProcessor {
 	}
 
 	protected void addLanguageHeader(HttpService httpService) {
-		String language = Locale.getDefault().getLanguage();
-		String country = Locale.getDefault().getCountry();
-		if (StringUtils.isNotBlank(country)) {
-			language = language + "-" + country;
-		}
-		httpService.addHeader(ACCEPT_LANGUAGE_HEADER,  language);
+		httpService.addHeader(HttpService.ACCEPT_LANGUAGE_HEADER,  LocaleUtils.getAcceptLanguage());
 	}
 
 	protected void addApiVersionHeader(HttpService httpService) {

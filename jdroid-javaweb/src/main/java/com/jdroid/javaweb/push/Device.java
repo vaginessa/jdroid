@@ -17,6 +17,7 @@ public class Device extends Entity {
 	private String deviceOsVersion;
 	private String appVersionCode;
 
+	private String acceptLanguage;
 	private Long lastActiveTimestamp;
 
 	/**
@@ -28,7 +29,7 @@ public class Device extends Entity {
 	}
 	
 	public Device(String instanceId, DeviceType deviceType, String registrationToken, String deviceGroupId,
-				  String deviceBrandName, String deviceModelName, String deviceOsVersion, String appVersionCode) {
+				  String deviceBrandName, String deviceModelName, String deviceOsVersion, String appVersionCode, String acceptLanguage) {
 		
 		if (instanceId == null) {
 			throw new UnexpectedException("The instanceId is required");
@@ -48,6 +49,8 @@ public class Device extends Entity {
 		this.deviceModelName = deviceModelName;
 		this.deviceOsVersion = deviceOsVersion;
 		this.appVersionCode = appVersionCode;
+
+		this.acceptLanguage = acceptLanguage;
 	}
 
 	public String getInstanceId() {
@@ -112,6 +115,14 @@ public class Device extends Entity {
 		this.deviceGroupId = deviceGroupId;
 	}
 
+	public String getAcceptLanguage() {
+		return acceptLanguage;
+	}
+
+	public void setAcceptLanguage(String acceptLanguage) {
+		this.acceptLanguage = acceptLanguage;
+	}
+
 	@Override
 	public String toString() {
 		final StringBuffer sb = new StringBuffer("Device{");
@@ -123,6 +134,7 @@ public class Device extends Entity {
 		sb.append(", deviceModelName='").append(deviceModelName).append('\'');
 		sb.append(", deviceOsVersion='").append(deviceOsVersion).append('\'');
 		sb.append(", appVersionCode='").append(appVersionCode).append('\'');
+		sb.append(", acceptLanguage='").append(acceptLanguage).append('\'');
 		if (lastActiveTimestamp != null) {
 			sb.append(", lastActiveTimestamp=").append(DateUtils.getDate(lastActiveTimestamp));
 		}
@@ -152,6 +164,8 @@ public class Device extends Entity {
 		if (deviceOsVersion != null ? !deviceOsVersion.equals(device.deviceOsVersion) : device.deviceOsVersion != null)
 			return false;
 		if (appVersionCode != null ? !appVersionCode.equals(device.appVersionCode) : device.appVersionCode != null)
+			return false;
+		if (acceptLanguage != null ? !acceptLanguage.equals(device.acceptLanguage) : device.acceptLanguage != null)
 			return false;
 		return !(lastActiveTimestamp != null ? !lastActiveTimestamp.equals(device.lastActiveTimestamp) : device.lastActiveTimestamp != null);
 

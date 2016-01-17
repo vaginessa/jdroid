@@ -12,6 +12,7 @@ public interface HttpService {
 	
 	public static final String ACCEPT_ENCODING_HEADER = "Accept-Encoding";
 	public static final String CONTENT_ENCODING_HEADER = "Content-Encoding";
+	public static final String ACCEPT_LANGUAGE_HEADER = "Accept-Language";
 	public static final String GZIP_ENCODING = "gzip";
 	public static final String ACCEPT_HEADER = "accept";
 	public static final String CONTENT_TYPE_HEADER = "content-type";
