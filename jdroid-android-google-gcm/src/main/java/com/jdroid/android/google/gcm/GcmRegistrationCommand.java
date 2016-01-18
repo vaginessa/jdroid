@@ -2,6 +2,7 @@ package com.jdroid.android.google.gcm;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmPubSub;
@@ -24,18 +25,25 @@ public class GcmRegistrationCommand extends ServiceCommand {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(GcmRegistrationCommand.class);
 
+	private final static String UPDATE_LAST_ACTIVE_TIMESTAMP_EXTRA = "updateLastActiveTimestamp";
+
+	public void start(Boolean updateLastActiveTimestamp) {
+		Intent intent = new Intent();
+		intent.putExtra(UPDATE_LAST_ACTIVE_TIMESTAMP_EXTRA, updateLastActiveTimestamp);
+		start(intent);
+	}
 
 	@Override
 	protected int execute(Intent intent) {
-		return doRunTask();
+		return doRunTask(intent.getExtras());
 	}
 
 	@Override
 	protected int executeRetry(TaskParams taskParams) {
-		return doRunTask();
+		return doRunTask(taskParams.getExtras());
 	}
 
-	private int doRunTask() {
+	private int doRunTask(Bundle bundle) {
 		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(AbstractApplication.get())) {
 
 			String registrationToken;
@@ -48,7 +56,8 @@ public class GcmRegistrationCommand extends ServiceCommand {
 
 			try {
 				LOGGER.info("Registering GCM token on server");
-				AbstractGcmAppModule.get().onRegisterOnServer(registrationToken);
+				Boolean updateLastActiveTimestamp = bundle.getBoolean(UPDATE_LAST_ACTIVE_TIMESTAMP_EXTRA, false);
+				AbstractGcmAppModule.get().onRegisterOnServer(registrationToken, updateLastActiveTimestamp, bundle);
 			} catch (Exception e) {
 				AbstractApplication.get().getExceptionHandler().logHandledException("Failed to register the device on server. Will retry later.", e);
 				return GcmNetworkManager.RESULT_RESCHEDULE;

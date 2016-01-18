@@ -66,4 +66,9 @@ public abstract class AbstractAppModule implements AppModule {
 	public void onInitializeGcmTasks() {
 		// Do Nothing
 	}
+
+	@Override
+	public ActivityLifecycleListener getActivityLifecycleListener() {
+		return null;
+	}
 }

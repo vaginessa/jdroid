@@ -33,4 +33,6 @@ public interface AppModule {
 	public List<PreferencesAppender> getPreferencesAppenders();
 
 	public void onInitializeGcmTasks();
+
+	public ActivityLifecycleListener getActivityLifecycleListener();
 }

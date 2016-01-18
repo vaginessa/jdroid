@@ -84,10 +84,11 @@ public class GcmController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/device", method = RequestMethod.POST)
-	public void addDevice(@RequestHeader(value = "instanceId") String instanceId, @RequestHeader(value = "User-Agent") String userAgent, @RequestHeader(value="Accept-Language") String acceptLanguage, @RequestBody String deviceJSON) {
+	public void addDevice(@RequestHeader(value = "instanceId") String instanceId, @RequestHeader(value = "User-Agent") String userAgent,
+						  @RequestHeader(value="Accept-Language") String acceptLanguage, @RequestBody String deviceJSON, @RequestParam Boolean updateLastActiveTimestamp) {
 		DeviceParser parser = new DeviceParser(instanceId, userAgent, acceptLanguage);
 		Device device = (Device)parser.parse(deviceJSON);
-		pushService.addDevice(device);
+		pushService.addDevice(device, updateLastActiveTimestamp);
 	}
 
 	@RequestMapping(value = "/device", method = RequestMethod.DELETE)

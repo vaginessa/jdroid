@@ -222,7 +222,9 @@ public abstract class AbstractApplication extends Application {
 			}
 		}
 		LOGGER.debug("App launch status: " + appLaunchStatus);
-		SharedPreferencesHelper.get().savePreferenceAsync(VERSION_CODE_KEY, AndroidUtils.getVersionCode());
+		if (!appLaunchStatus.equals(AppLaunchStatus.NORMAL)) {
+			SharedPreferencesHelper.get().savePreferenceAsync(VERSION_CODE_KEY, AndroidUtils.getVersionCode());
+		}
 
 		if (appLaunchStatus.equals(AppLaunchStatus.VERSION_UPGRADE) && updateManager != null) {
 			updateManager.update(fromVersionCode);

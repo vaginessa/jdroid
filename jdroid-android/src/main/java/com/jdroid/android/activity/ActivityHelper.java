@@ -28,6 +28,7 @@ import com.jdroid.android.R;
 import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.application.ActivityLifecycleListener;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.SecurityContext;
@@ -80,7 +81,7 @@ public class ActivityHelper implements ActivityIf {
 	public ActivityIf getActivityIf() {
 		return activity;
 	}
-	
+
 	protected Activity getActivity() {
 		return activity;
 	}
@@ -161,6 +162,13 @@ public class ActivityHelper implements ActivityIf {
 
 		if (savedInstanceState == null) {
 			trackNotificationOpened(activity.getIntent());
+		}
+
+		for (AppModule each: AbstractApplication.get().getAppModules()) {
+			ActivityLifecycleListener activityLifecycleListener = each.getActivityLifecycleListener();
+			if (activityLifecycleListener != null) {
+				activityLifecycleListener.onCreateActivity(activity);
+			}
 		}
 	}
 
@@ -249,6 +257,13 @@ public class ActivityHelper implements ActivityIf {
 			};
 			locationHandler.sendMessage(Message.obtain(locationHandler, LOCATION_UPDATE_TIMER_CODE));
 		}
+
+		for (AppModule each: AbstractApplication.get().getAppModules()) {
+			ActivityLifecycleListener activityLifecycleListener = each.getActivityLifecycleListener();
+			if (activityLifecycleListener != null) {
+				activityLifecycleListener.onStartActivity(activity);
+			}
+		}
 	}
 
 	@Nullable
@@ -289,6 +304,13 @@ public class ActivityHelper implements ActivityIf {
 		if (navDrawer != null) {
 			navDrawer.onResume();
 		}
+
+		for (AppModule each: AbstractApplication.get().getAppModules()) {
+			ActivityLifecycleListener activityLifecycleListener = each.getActivityLifecycleListener();
+			if (activityLifecycleListener != null) {
+				activityLifecycleListener.onResumeActivity(activity);
+			}
+		}
 	}
 
 	@Override
@@ -305,6 +327,13 @@ public class ActivityHelper implements ActivityIf {
 	public void onPause() {
 		LOGGER.debug("Executing onPause on " + activity);
 		AbstractApplication.get().setInBackground(true);
+
+		for (AppModule each: AbstractApplication.get().getAppModules()) {
+			ActivityLifecycleListener activityLifecycleListener = each.getActivityLifecycleListener();
+			if (activityLifecycleListener != null) {
+				activityLifecycleListener.onPauseActivity(activity);
+			}
+		}
 	}
 	
 	public void onStop() {
@@ -316,6 +345,13 @@ public class ActivityHelper implements ActivityIf {
 		
 		if (locationHandler != null) {
 			locationHandler.removeCallbacksAndMessages(null);
+		}
+
+		for (AppModule each: AbstractApplication.get().getAppModules()) {
+			ActivityLifecycleListener activityLifecycleListener = each.getActivityLifecycleListener();
+			if (activityLifecycleListener != null) {
+				activityLifecycleListener.onStopActivity(activity);
+			}
 		}
 	}
 	
@@ -329,6 +365,13 @@ public class ActivityHelper implements ActivityIf {
 		isDestroyed = true;
 		LOGGER.debug("Executing onDestroy on " + activity);
 		dismissLoading();
+
+		for (AppModule each: AbstractApplication.get().getAppModules()) {
+			ActivityLifecycleListener activityLifecycleListener = each.getActivityLifecycleListener();
+			if (activityLifecycleListener != null) {
+				activityLifecycleListener.onDestroyActivity(activity);
+			}
+		}
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {

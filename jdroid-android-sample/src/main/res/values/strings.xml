@@ -39,6 +39,7 @@
 	<!-- Google Cloud Messaging -->
 	<string name="gcm">Google Cloud Messaging</string>
 	<string name="registerDevice">Register Device</string>
+	<string name="registerDeviceAndUpdateLastActiveTimestamp">Register Device &amp; Update Last Active Timestamp</string>
 	<string name="removeInstanceId">Remove Instance Id</string>
 	<string name="removeDevice">Remove Device</string>
 	<string name="sendPush">Send Push</string>

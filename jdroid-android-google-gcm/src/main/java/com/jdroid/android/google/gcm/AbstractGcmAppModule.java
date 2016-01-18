@@ -1,9 +1,13 @@
 package com.jdroid.android.google.gcm;
 
+import android.app.Activity;
+import android.os.Bundle;
 import android.support.v4.util.Pair;
 
+import com.jdroid.android.application.AbstractActivityLifecycleListener;
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.application.ActivityLifecycleListener;
 import com.jdroid.android.debug.PreferencesAppender;
 
 import java.util.List;
@@ -20,11 +24,14 @@ public abstract class AbstractGcmAppModule extends AbstractAppModule {
 	private GcmDebugContext gcmDebugContext;
 	private GcmMessageResolver gcmMessageResolver;
 	private GcmListenerResolver gcmListenerResolver;
+	private Boolean gcmInitialized = false;
+	private ActivityLifecycleListener activityLifecycleListener;
 
 	public AbstractGcmAppModule() {
 		gcmContext = createGcmContext();
 		gcmMessageResolver = createGcmMessageResolver();
 		gcmListenerResolver = createGcmListenerResolver();
+		activityLifecycleListener = createActivityLifecycleListener();
 	}
 
 	protected GcmContext createGcmContext() {
@@ -43,6 +50,7 @@ public abstract class AbstractGcmAppModule extends AbstractAppModule {
 		synchronized (AbstractApplication.class) {
 			if (gcmDebugContext == null) {
 				gcmDebugContext = createGcmDebugContext();
+				AbstractApplication.get().getDebugContext().addCustomDebugInfoProperty(new Pair<String, Object>("GCM Sender Id", gcmContext.getSenderId()));
 			}
 		}
 		return gcmDebugContext;
@@ -67,38 +75,45 @@ public abstract class AbstractGcmAppModule extends AbstractAppModule {
 		return gcmListenerResolver;
 	}
 
-	public abstract void onRegisterOnServer(String registrationToken);
+	protected ActivityLifecycleListener createActivityLifecycleListener() {
+		return new AbstractActivityLifecycleListener() {
+			@Override
+			public void onCreateActivity(Activity activity) {
+				if (!gcmInitialized) {
+					startGcmRegistration(true);
+				}
+			}
+		};
+	}
+
+	public abstract void onRegisterOnServer(String registrationToken, Boolean updateLastActiveTimestamp, Bundle bundle);
 
 	protected List<String> getSubscriptionTopics() {
 		return null;
 	}
 
 	@Override
-	public void onCreate() {
-		super.onCreate();
-
-		startGcmRegistration();
-
-		AbstractApplication.get().getDebugContext().addCustomDebugInfoProperty(new Pair<String, Object>("GCM Sender Id", gcmContext.getSenderId()));
-	}
-
-	@Override
 	public void onInstanceIdTokenRefresh() {
-		startGcmRegistration();
+		startGcmRegistration(false);
 	}
 
 	@Override
 	public void onGooglePlayServicesUpdated() {
-		startGcmRegistration();
+		startGcmRegistration(false);
 	}
 
 	@Override
 	public void onInitializeGcmTasks() {
-		startGcmRegistration();
+		startGcmRegistration(false);
 	}
 
-	public void startGcmRegistration() {
-		createGcmRegistrationCommand().start();
+	@Override
+	public ActivityLifecycleListener getActivityLifecycleListener() {
+		return activityLifecycleListener;
+	}
+
+	public void startGcmRegistration(Boolean updateLastActiveTimestamp) {
+		createGcmRegistrationCommand().start(updateLastActiveTimestamp);
 	}
 
 	protected GcmRegistrationCommand createGcmRegistrationCommand() {

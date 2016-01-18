@@ -67,7 +67,7 @@ public class GcmDebugPrefsAppender implements PreferencesAppender {
 
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				new GcmRegistrationCommand().start();
+				new GcmRegistrationCommand().start(true);
 				return true;
 			}
 		});

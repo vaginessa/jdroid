@@ -58,8 +58,9 @@ public class SampleApiService extends AndroidApiService {
 		httpService.execute();
 	}
 
-	public void addDevice(Device device) {
+	public void addDevice(Device device, Boolean updateLastActiveTimestamp) {
 		BodyEnclosingHttpService httpService = newPostService("gcm", "device");
+		httpService.addQueryParameter("updateLastActiveTimestamp", updateLastActiveTimestamp);
 		marshall(httpService, device);
 		httpService.execute();
 	}

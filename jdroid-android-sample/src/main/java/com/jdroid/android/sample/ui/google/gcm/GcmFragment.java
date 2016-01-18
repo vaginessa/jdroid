@@ -27,7 +27,13 @@ public class GcmFragment extends AbstractFragment {
 		findView(R.id.registerDevice).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				new GcmRegistrationCommand().start();
+				new GcmRegistrationCommand().start(false);
+			}
+		});
+		findView(R.id.registerDeviceAndUpdateLastActiveTimestamp).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				new GcmRegistrationCommand().start(true);
 			}
 		});
 

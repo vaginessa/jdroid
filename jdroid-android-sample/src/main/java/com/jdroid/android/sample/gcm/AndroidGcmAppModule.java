@@ -1,5 +1,7 @@
 package com.jdroid.android.sample.gcm;
 
+import android.os.Bundle;
+
 import com.jdroid.android.google.gcm.AbstractGcmAppModule;
 import com.jdroid.android.google.gcm.Device;
 import com.jdroid.android.google.gcm.GcmDebugContext;
@@ -20,10 +22,10 @@ public class AndroidGcmAppModule extends AbstractGcmAppModule {
 	}
 
 	@Override
-	public void onRegisterOnServer(String registrationToken) {
+	public void onRegisterOnServer(String registrationToken, Boolean updateLastActiveTimestamp, Bundle bundle) {
 		SampleApiService service = new SampleApiService();
 
 		Device device = new Device(registrationToken, null);
-		service.addDevice(device);
+		service.addDevice(device, updateLastActiveTimestamp);
 	}
 }

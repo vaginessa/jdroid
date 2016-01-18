@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.jdroid.android.google.gcm">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+		  package="com.jdroid.android.google.gcm">
 
 	<!-- The application can keep the processor from sleeping when a message is received -->
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -34,6 +35,12 @@
 				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
 			</intent-filter>
 		</service>
+
+		<receiver android:name="com.jdroid.android.google.gcm.LocaleChangedReceiver" android:exported="true" tools:ignore="ExportedReceiver">
+			<intent-filter>
+				<action android:name="android.intent.action.LOCALE_CHANGED" />
+			</intent-filter>
+		</receiver>
 
 	</application>
 

@@ -2,7 +2,7 @@ package com.jdroid.javaweb.push;
 
 public interface PushService {
 	
-	public void addDevice(Device device);
+	public void addDevice(Device device, Boolean updateLastActiveTimestamp);
 
 	public void removeDevice(String instanceId, DeviceType deviceType);
 	
