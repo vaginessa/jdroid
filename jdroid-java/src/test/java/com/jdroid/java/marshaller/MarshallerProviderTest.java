@@ -1,6 +1,7 @@
 package com.jdroid.java.marshaller;
 
 import com.jdroid.java.collections.Lists;
+import com.jdroid.java.collections.Maps;
 import com.jdroid.java.json.JsonMap;
 
 import org.testng.Assert;
@@ -20,9 +21,6 @@ public class MarshallerProviderTest {
 		marshallerProvider.addMarshaller(DummyClass.class, new DummyClassMarshaller());
 	}
 	
-	/**
-	 * @return The different cases
-	 */
 	@DataProvider
 	public Iterator<Object[]> marshallDataProvider() {
 		List<Object[]> cases = Lists.newArrayList();
@@ -31,8 +29,58 @@ public class MarshallerProviderTest {
 		cases.add(new Object[] { Lists.newArrayList(1, 2, 3), "[1,2,3]" });
 		cases.add(new Object[] { Lists.newArrayList("1", "2", "3"), "[\"1\",\"2\",\"3\"]" });
 		
-		DummyClass dummyClass = new DummyClass("1", 2L, Lists.newArrayList("3", "4"), Lists.newArrayList(5L, 6L));
-		String dummyJson = "{\"listLongProperty\":[5,6],\"listStringProperty\":[\"3\",\"4\"],\"stringProperty\":\"1\",\"longProperty\":2}";
+		DummyClass dummyClass = new DummyClass();
+		dummyClass.stringProperty = "1";
+		String dummyJson = "{\"stringProperty\":\"1\"}";
+		cases.add(new Object[] { dummyClass, dummyJson });
+		cases.add(new Object[] { Lists.newArrayList(dummyClass, dummyClass), "[" + dummyJson + "," + dummyJson + "]" });
+
+		dummyClass = new DummyClass();
+		dummyClass.longProperty = 2L;
+		dummyJson = "{\"longProperty\":2}";
+		cases.add(new Object[] { dummyClass, dummyJson });
+		cases.add(new Object[] { Lists.newArrayList(dummyClass, dummyClass), "[" + dummyJson + "," + dummyJson + "]" });
+
+		dummyClass = new DummyClass();
+		dummyClass.stringListProperty = Lists.newArrayList("3", "4");
+		dummyJson = "{\"stringListProperty\":[\"3\",\"4\"]}";
+		cases.add(new Object[] { Lists.newArrayList(dummyClass, dummyClass), "[" + dummyJson + "," + dummyJson + "]" });
+
+		dummyClass = new DummyClass();
+		dummyClass.longListProperty = Lists.newArrayList(5L, 6L);
+		dummyJson = "{\"longListProperty\":[5,6]}";
+		cases.add(new Object[] { dummyClass, dummyJson });
+		cases.add(new Object[] { Lists.newArrayList(dummyClass, dummyClass), "[" + dummyJson + "," + dummyJson + "]" });
+
+		dummyClass = new DummyClass();
+		dummyClass.stringMapProperty = Maps.newHashMap();
+		dummyJson = "{}";
+		cases.add(new Object[] { dummyClass, dummyJson });
+		cases.add(new Object[] { Lists.newArrayList(dummyClass, dummyClass), "[" + dummyJson + "," + dummyJson + "]" });
+
+		dummyClass = new DummyClass();
+		dummyClass.stringMapProperty = Maps.newHashMap();
+		dummyClass.stringMapProperty.put("a", "b");
+		dummyJson = "{\"stringMapProperty\":{\"a\":\"b\"}}";
+		cases.add(new Object[] { dummyClass, dummyJson });
+		cases.add(new Object[] { Lists.newArrayList(dummyClass, dummyClass), "[" + dummyJson + "," + dummyJson + "]" });
+
+		dummyClass = new DummyClass();
+		dummyClass.longMapProperty = Maps.newHashMap();
+		dummyClass.longMapProperty.put("a", 1L);
+		dummyJson = "{\"longMapProperty\":{\"a\":1}}";
+		cases.add(new Object[] { dummyClass, dummyJson });
+		cases.add(new Object[] { Lists.newArrayList(dummyClass, dummyClass), "[" + dummyJson + "," + dummyJson + "]" });
+
+		dummyClass = new DummyClass();
+		dummyClass.dummyClassMapProperty = Maps.newHashMap();
+
+		DummyClass innerDummyClass = new DummyClass();
+		innerDummyClass.stringProperty = "2";
+		innerDummyClass.longProperty = 1L;
+
+		dummyClass.dummyClassMapProperty.put("a", innerDummyClass);
+		dummyJson = "{\"dummyClassMapProperty\":{\"a\":{\"stringProperty\":\"2\",\"longProperty\":1}}}";
 		cases.add(new Object[] { dummyClass, dummyJson });
 		cases.add(new Object[] { Lists.newArrayList(dummyClass, dummyClass), "[" + dummyJson + "," + dummyJson + "]" });
 
@@ -49,21 +97,13 @@ public class MarshallerProviderTest {
 	
 	private class DummyClass {
 		
-		private String stringProperty;
-		private Long longProperty;
-		private List<String> listStringProperty;
-		private List<Long> listLongProperty;
-		
-		public DummyClass() {
-		}
-		
-		public DummyClass(String stringProperty, Long longProperty, List<String> listStringProperty,
-				List<Long> listLongProperty) {
-			this.stringProperty = stringProperty;
-			this.longProperty = longProperty;
-			this.listStringProperty = listStringProperty;
-			this.listLongProperty = listLongProperty;
-		}
+		protected String stringProperty;
+		protected Long longProperty;
+		protected List<String> stringListProperty;
+		protected List<Long> longListProperty;
+		protected Map<String, String> stringMapProperty;
+		protected Map<String, Long> longMapProperty;
+		protected Map<String, DummyClass> dummyClassMapProperty;
 	}
 	
 	public class DummyClassMarshaller implements Marshaller<DummyClass, JsonMap> {
@@ -73,8 +113,11 @@ public class MarshallerProviderTest {
 			JsonMap map = new JsonMap(mode, extras);
 			map.put("stringProperty", dummyClass.stringProperty);
 			map.put("longProperty", dummyClass.longProperty);
-			map.put("listStringProperty", dummyClass.listStringProperty);
-			map.put("listLongProperty", dummyClass.listLongProperty);
+			map.put("stringListProperty", dummyClass.stringListProperty);
+			map.put("longListProperty", dummyClass.longListProperty);
+			map.put("stringMapProperty", dummyClass.stringMapProperty);
+			map.put("longMapProperty", dummyClass.longMapProperty);
+			map.put("dummyClassMapProperty", dummyClass.dummyClassMapProperty);
 			return map;
 		}
 	}
