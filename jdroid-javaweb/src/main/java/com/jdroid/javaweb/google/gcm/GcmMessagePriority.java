@@ -14,4 +14,13 @@ public enum GcmMessagePriority {
 	public String getParameter() {
 		return parameter;
 	}
+
+	public static GcmMessagePriority findByParameter(String parameter) {
+		for (GcmMessagePriority each : values()) {
+			if (each.getParameter().equals(parameter)) {
+				return each;
+			}
+		}
+		return null;
+	}
 }

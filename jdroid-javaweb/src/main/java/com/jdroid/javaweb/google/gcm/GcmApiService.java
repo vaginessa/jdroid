@@ -11,14 +11,12 @@ import com.jdroid.java.http.post.BodyEnclosingHttpService;
 import com.jdroid.java.marshaller.MarshallerProvider;
 import com.jdroid.javaweb.api.ServerApiService;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class GcmApiService extends ServerApiService {
 
 	static {
 		MarshallerProvider.get().addMarshaller(GcmMessage.class, new GcmMessageMarshaller());
-		MarshallerProvider.get().addMarshaller(HashMap.class, new GcmDataMarshaller());
 	}
 
 	public GcmResponse sendMessage(GcmMessage gcmMessage, String googleServerApiKey) {
