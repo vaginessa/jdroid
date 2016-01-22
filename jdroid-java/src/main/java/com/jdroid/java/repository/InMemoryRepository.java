@@ -23,9 +23,6 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 	private long nextId = 1;
 	private Map<String, T> items = Maps.newLinkedHashMap();
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#add(com.jdroid.java.domain.Identifiable)
-	 */
 	@Override
 	public void add(T item) {
 		if (item.getId() == null) {
@@ -35,9 +32,6 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 		LOGGER.debug("Added object in memory: " + item);
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#addAll(java.util.Collection)
-	 */
 	@Override
 	public void addAll(Collection<T> items) {
 		for (T item : items) {
@@ -46,27 +40,18 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 		LOGGER.debug("Stored objects in memory:\n" + items);
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#update(com.jdroid.java.domain.Identifiable)
-	 */
 	@Override
 	public void update(T item) {
 		add(item);
 		LOGGER.debug("Updated object in memory: " + item);
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#remove(com.jdroid.java.domain.Identifiable)
-	 */
 	@Override
 	public void remove(T item) {
 		items.remove(item.getId());
 		LOGGER.debug("Deleted object from memory: " + item);
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#removeAll(java.util.Collection)
-	 */
 	@Override
 	public void removeAll(Collection<T> items) {
 		for (T item : items) {
@@ -75,18 +60,12 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 		LOGGER.debug("Deleted objects in memory: " + items);
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#replaceAll(java.util.Collection)
-	 */
 	@Override
 	public void replaceAll(Collection<T> items) {
 		removeAll();
 		addAll(items);
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#getAll()
-	 */
 	@Override
 	public List<T> getAll() {
 		List<T> results = Lists.newArrayList(items.values());
@@ -99,9 +78,6 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 		return items.get(id);
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#removeAll()
-	 */
 	@Override
 	public void removeAll() {
 		items.clear();
@@ -113,34 +89,22 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 		items.remove(id);
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#isEmpty()
-	 */
 	@Override
 	public Boolean isEmpty() {
 		return items.isEmpty();
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#getSize()
-	 */
 	@Override
 	public Long getSize() {
 		return (long)items.size();
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#findByField(java.lang.String, java.lang.Object[])
-	 */
 	@Override
 	public List<T> findByField(String fieldName, Object... values) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#getAll(java.util.List)
-	 */
 	@Override
 	public List<T> getAll(List<String> ids) {
 		List<T> itemsList = Lists.newArrayList();
@@ -153,9 +117,6 @@ public class InMemoryRepository<T extends Identifiable> implements Repository<T>
 		return itemsList;
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#getUniqueInstance()
-	 */
 	@Override
 	public T getUniqueInstance() {
 		return items.isEmpty() ? null : items.values().iterator().next();

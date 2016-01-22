@@ -41,7 +41,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	private ViewGroup mapContainer;
 	private View updateGoogleplayServicesContainer;
 
-	private Boolean locationPermissionGranted = false;
+	private Boolean snackbarDisplayed = false;
 	private PermissionHelper locationPermissionHelper;
 
 	protected FragmentIf getFragmentIf() {
@@ -93,7 +93,6 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 			locationPermissionHelper.setOnRequestPermissionsResultListener(new PermissionHelper.OnRequestPermissionsResultListener() {
 				@Override
 				public void onRequestPermissionsGranted() {
-					locationPermissionGranted = true;
 					if (map != null) {
 						map.setMyLocationEnabled(true);
 					}
@@ -129,30 +128,34 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 				});
 
 				if (locationPermissionHelper != null) {
-					locationPermissionGranted = locationPermissionHelper.checkPermission(false);
+					Boolean locationPermissionGranted = locationPermissionHelper.checkPermission(false);
 					if (locationPermissionGranted) {
 						map.setMyLocationEnabled(true);
 					} else if (snackbarToSuggestLocationPermissionEnabled()) {
 						locationPermissionHelper.setOnRequestPermissionsResultListener(new PermissionHelper.OnRequestPermissionsResultListener() {
 							@Override
 							public void onRequestPermissionsGranted() {
-								// Do nothing
+								if (map != null) {
+									map.setMyLocationEnabled(true);
+								}
 							}
 
 							@Override
 							public void onRequestPermissionsDenied() {
-								SnackbarBuilder snackbarBuilder = new SnackbarBuilder();
-								snackbarBuilder.setActionTextResId(R.string.allow);
-								snackbarBuilder.setDuration(5000);
-								snackbarBuilder.setOnClickListener(new View.OnClickListener() {
-									@Override
-									public void onClick(View v) {
-										locationPermissionHelper.setOnRequestPermissionsResultListener(null);
-										locationPermissionGranted = locationPermissionHelper.checkPermission(true);
-									}
-								});
-								snackbarBuilder.setDescription(R.string.locationPermissionSuggested);
-								snackbarBuilder.build(getActivity()).show();
+								if (!snackbarDisplayed) {
+									SnackbarBuilder snackbarBuilder = new SnackbarBuilder();
+									snackbarBuilder.setActionTextResId(R.string.allow);
+									snackbarBuilder.setDuration(5000);
+									snackbarBuilder.setOnClickListener(new View.OnClickListener() {
+										@Override
+										public void onClick(View v) {
+											locationPermissionHelper.checkPermission(true);
+											snackbarDisplayed = true;
+										}
+									});
+									snackbarBuilder.setDescription(R.string.locationPermissionSuggested);
+									snackbarBuilder.build(getActivity()).show();
+								}
 							}
 						});
 					}

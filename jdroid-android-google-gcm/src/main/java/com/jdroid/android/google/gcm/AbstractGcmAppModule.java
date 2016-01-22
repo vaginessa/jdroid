@@ -81,6 +81,7 @@ public abstract class AbstractGcmAppModule extends AbstractAppModule {
 			public void onCreateActivity(Activity activity) {
 				if (!gcmInitialized) {
 					startGcmRegistration(true);
+					gcmInitialized = true;
 				}
 			}
 		};

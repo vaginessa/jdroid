@@ -3,12 +3,17 @@ package com.jdroid.javaweb.sample.repository;
 import com.jdroid.java.firebase.FirebaseRepository;
 import com.jdroid.java.firebase.auth.CustomTokenFirebaseAuthenticationStrategy;
 import com.jdroid.java.firebase.auth.FirebaseAuthenticationStrategy;
+import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.javaweb.push.Device;
 import com.jdroid.javaweb.push.DeviceRepository;
 import com.jdroid.javaweb.push.DeviceType;
 import com.jdroid.javaweb.sample.context.ServerApplication;
 
+import org.slf4j.Logger;
+
 public class DeviceFirebaseRepository extends FirebaseRepository<Device> implements DeviceRepository {
+
+	private static final Logger LOGGER = LoggerUtils.getLogger(DeviceFirebaseRepository.class);
 
 	@Override
 	protected FirebaseAuthenticationStrategy createFirebaseAuthenticationStrategy() {
@@ -39,6 +44,7 @@ public class DeviceFirebaseRepository extends FirebaseRepository<Device> impleme
 	public Device findByRegistrationToken(String registrationToken, DeviceType deviceType) {
 		for(Device each : findByField("registrationToken", registrationToken)) {
 			if (each.getDeviceType().equals(deviceType)) {
+				LOGGER.info("Retrieved object from database of path: " + getPath() + ". [ " + each + " ]");
 				return each;
 			}
 		}
@@ -49,6 +55,7 @@ public class DeviceFirebaseRepository extends FirebaseRepository<Device> impleme
 	public Device findByInstanceId(String instanceId, DeviceType deviceType) {
 		for(Device each : findByField("instanceId", instanceId)) {
 			if (each.getDeviceType().equals(deviceType)) {
+				LOGGER.info("Retrieved object from database of path: " + getPath() + ". [ " + each + " ]");
 				return each;
 			}
 		}

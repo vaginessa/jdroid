@@ -2,6 +2,7 @@ package com.jdroid.java.collections;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Maps {
 	
@@ -21,5 +22,9 @@ public class Maps {
 	 */
 	public static <K, V> LinkedHashMap<K, V> newLinkedHashMap() {
 		return new LinkedHashMap<>();
+	}
+
+	public static <K, V> ConcurrentHashMap<K, V> newConcurrentHashMap() {
+		return new ConcurrentHashMap<>();
 	}
 }
