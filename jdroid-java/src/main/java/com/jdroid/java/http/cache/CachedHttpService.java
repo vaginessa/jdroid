@@ -1,6 +1,7 @@
 package com.jdroid.java.http.cache;
 
 import com.jdroid.java.date.DateUtils;
+import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.http.HttpResponseWrapper;
 import com.jdroid.java.http.HttpService;
 import com.jdroid.java.http.HttpServiceProcessor;
@@ -71,7 +72,7 @@ public abstract class CachedHttpService implements BodyEnclosingHttpService {
 					response = (T)(parser.parse(fileInputStream));
 					LOGGER.info("Reading http request from cache: " + cacheFile.getAbsolutePath());
 				} catch (FileNotFoundException e) {
-					LOGGER.warn("Error when opening cache file: " + cacheFile.getAbsolutePath(), e);
+					LoggerUtils.logHandledException(LOGGER, new UnexpectedException("Error when opening cache file: " + cacheFile.getAbsolutePath(), e));
 				} catch (Exception e) {
 					LoggerUtils.logHandledException(LOGGER, e);
 				} finally {

@@ -55,6 +55,33 @@ public enum CachingStrategy {
 			return response;
 		}
 	},
+
+	// First try with the cache. If it is a hit, return the cached response, else execute the request.
+	// If the request fail and the cache is expired but available, return also the cached response.
+	CACHE_FIRST_WITH_CACHE_FORCED_ON_FAIL {
+
+		@Override
+		public <T> T execute(CachedHttpService cachedHttpService, Parser parser) {
+			T response = cachedHttpService.readFromCache(parser);
+			if (response == null) {
+				try {
+					response = cachedHttpService.executeRequest(parser);
+				} catch (Exception e) {
+					LoggerUtils.logHandledException(LOGGER, e);
+				}
+			}
+			if (response == null) {
+				Long originalTimeToLive = cachedHttpService.getTimeToLive();
+				cachedHttpService.setTimeToLive(null);
+				response = cachedHttpService.readFromCache(parser);
+				cachedHttpService.setTimeToLive(originalTimeToLive);
+			}
+			if (response == null && parser != null) {
+				throw new UnexpectedException("The service was expecting a response, but it was null (CachingStrategy.CACHE_FIRST_WITH_CACHE_FORCED_ON_FAIL)");
+			}
+			return response;
+		}
+	},
 	
 	// If there isn't anything on the cache, then execute the request caching the response.
 	// If there is something in the cache (doesn't matter if it is expired or not) return the cache content. Then
@@ -75,6 +102,7 @@ public enum CachingStrategy {
 					@Override
 					public void run() {
 						try {
+							// FIXME: the response is read an parsed again from cache when the cache is not expired
 							CachingStrategy.CACHE_FIRST.execute(cachedHttpService, parser);
 						} catch (Exception e) {
 							LoggerUtils.logHandledException(LOGGER, e);

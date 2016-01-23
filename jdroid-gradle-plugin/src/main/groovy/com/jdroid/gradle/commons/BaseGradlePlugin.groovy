@@ -17,6 +17,12 @@ public class BaseGradlePlugin implements Plugin<Project> {
 		project.task('incrementMinorVersion', type: IncrementMinorVersionTask)
 		project.task('incrementPatchVersion', type: IncrementPatchVersionTask)
 
+		project.task('buildScriptDependencies') << {
+			project.buildscript.configurations.classpath.asPath.split(':').each {
+				println it
+			}
+		}
+
 		project.afterEvaluate {
 			project.tasks.withType(Test) {
 				scanForTestClasses = true
