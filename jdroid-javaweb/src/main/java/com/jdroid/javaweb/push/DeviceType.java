@@ -22,6 +22,10 @@ public enum DeviceType {
 		}
 		return null;
 	}
+
+	public String getUserAgent() {
+		return userAgent;
+	}
 	
 	public PushResponse send(PushMessage pushMessage) {
 		return pushMessageSender.send(pushMessage);

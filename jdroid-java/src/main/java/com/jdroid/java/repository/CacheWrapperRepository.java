@@ -180,4 +180,8 @@ public class CacheWrapperRepository<T extends Identifiable> implements Repositor
 			return item;
 		}
 	}
+
+	public void clearCache() {
+		cache.clear();
+	}
 }
