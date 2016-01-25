@@ -58,7 +58,7 @@ Dependency for Android apps. Support for Android 4.0 (api level 14) and higher v
  * Pagination
  * Search
  * Footer & Header
- * Empty Viewl
+ * Empty View
  * Loading
 * Hero image and parallax effect support
 * Loading & Refresh
