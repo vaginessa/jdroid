@@ -2333,8 +2333,12 @@ a {
   float:right
 }
 
-#breadcrumbs,.read-more span,.testimonial span.title,.entry .meta-info,.entry .meta-info a,.entry .meta-info a:hover,.subtitle,.comment_date,.comment-reply-link:before,.bottom-nav li.current_page_item a,#content .wp-pagenavi .nextpostslink,#content .wp-pagenavi .previouspostslink {
+#breadcrumbs,.read-more span,.entry .meta-info,.entry .meta-info a,.entry .meta-info a:hover,.subtitle,.comment_date,.comment-reply-link:before,.bottom-nav li.current_page_item a,#content .wp-pagenavi .nextpostslink,#content .wp-pagenavi .previouspostslink {
   color:#c3e54b
+}
+
+.testimonial span.title {
+  color: teal
 }
 
 .mobile_nav {
