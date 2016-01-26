@@ -1,8 +1,11 @@
 package com.jdroid.javaweb.push;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.domain.Entity;
 import com.jdroid.java.exception.UnexpectedException;
+
+import java.util.Map;
 
 public class Device extends Entity {
 	
@@ -18,7 +21,10 @@ public class Device extends Entity {
 	private String appVersionCode;
 
 	private String acceptLanguage;
+	private Long creationTimestamp;
 	private Long lastActiveTimestamp;
+
+	private Map<String, Object> transientExtras;
 
 	/**
 	 * Default constructor.
@@ -123,6 +129,23 @@ public class Device extends Entity {
 		this.acceptLanguage = acceptLanguage;
 	}
 
+	public Long getCreationTimestamp() {
+		return creationTimestamp;
+	}
+
+	public void setCreationTimestamp(Long creationTimestamp) {
+		this.creationTimestamp = creationTimestamp;
+	}
+
+	@JsonIgnore
+	public Map<String, Object> getTransientExtras() {
+		return transientExtras;
+	}
+
+	public void setTransientExtras(Map<String, Object> transientExtras) {
+		this.transientExtras = transientExtras;
+	}
+
 	@Override
 	public String toString() {
 		final StringBuffer sb = new StringBuffer("Device{");
@@ -135,9 +158,11 @@ public class Device extends Entity {
 		sb.append(", deviceOsVersion='").append(deviceOsVersion).append('\'');
 		sb.append(", appVersionCode='").append(appVersionCode).append('\'');
 		sb.append(", acceptLanguage='").append(acceptLanguage).append('\'');
+		sb.append(", creationTimestamp='").append(DateUtils.getDate(creationTimestamp)).append('\'');
 		if (lastActiveTimestamp != null) {
 			sb.append(", lastActiveTimestamp=").append(DateUtils.getDate(lastActiveTimestamp));
 		}
+		sb.append(", transientExtras='").append(transientExtras).append('\'');
 		sb.append("} ");
 		sb.append(super.toString());
 		return sb.toString();

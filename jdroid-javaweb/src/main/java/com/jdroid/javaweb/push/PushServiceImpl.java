@@ -40,7 +40,9 @@ public class PushServiceImpl implements PushService {
 
 			}
 		} else {
-			device.setLastActiveTimestamp(DateUtils.nowMillis());
+			Long now = DateUtils.nowMillis();
+			device.setCreationTimestamp(now);
+			device.setLastActiveTimestamp(now);
 			deviceRepository.add(device);
 			if (pushServiceListener != null) {
 				pushServiceListener.onAddDevice(device.getInstanceId(), device.getDeviceType());

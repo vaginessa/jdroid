@@ -33,6 +33,10 @@ public class CacheWrapperRepository<T extends Identifiable> implements Repositor
 		return cache;
 	}
 
+	public List<T> getCachedItems() {
+		return Lists.newArrayList(cache.values());
+	}
+
 	protected Repository<T> getWrappedRepository() {
 		return wrappedRepository;
 	}
