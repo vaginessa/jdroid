@@ -2,7 +2,6 @@ package com.jdroid.android.google.gcm;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.util.Pair;
 
 import com.jdroid.android.application.AbstractActivityLifecycleListener;
 import com.jdroid.android.application.AbstractAppModule;
@@ -20,7 +19,6 @@ public abstract class AbstractGcmAppModule extends AbstractAppModule {
 		return (AbstractGcmAppModule)AbstractApplication.get().getAppModule(MODULE_NAME);
 	}
 
-	private GcmContext gcmContext;
 	private GcmDebugContext gcmDebugContext;
 	private GcmMessageResolver gcmMessageResolver;
 	private GcmListenerResolver gcmListenerResolver;
@@ -28,18 +26,9 @@ public abstract class AbstractGcmAppModule extends AbstractAppModule {
 	private ActivityLifecycleListener activityLifecycleListener;
 
 	public AbstractGcmAppModule() {
-		gcmContext = createGcmContext();
 		gcmMessageResolver = createGcmMessageResolver();
 		gcmListenerResolver = createGcmListenerResolver();
 		activityLifecycleListener = createActivityLifecycleListener();
-	}
-
-	protected GcmContext createGcmContext() {
-		return new GcmContext();
-	}
-
-	public GcmContext getGcmContext() {
-		return gcmContext;
 	}
 
 	protected GcmDebugContext createGcmDebugContext() {
@@ -50,7 +39,6 @@ public abstract class AbstractGcmAppModule extends AbstractAppModule {
 		synchronized (AbstractApplication.class) {
 			if (gcmDebugContext == null) {
 				gcmDebugContext = createGcmDebugContext();
-				AbstractApplication.get().getDebugContext().addCustomDebugInfoProperty(new Pair<String, Object>("GCM Sender Id", gcmContext.getSenderId()));
 			}
 		}
 		return gcmDebugContext;
@@ -64,6 +52,8 @@ public abstract class AbstractGcmAppModule extends AbstractAppModule {
 	public GcmMessageResolver getGcmMessageResolver() {
 		return gcmMessageResolver;
 	}
+
+	public abstract GcmSender getGcmSender();
 
 	public abstract GcmMessageResolver createGcmMessageResolver();
 

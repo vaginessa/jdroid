@@ -82,62 +82,68 @@ subprojects {
 	group = rootProject.group
 	version = rootProject.version
 
-	afterEvaluate {
-		uploadArchives {
-			repositories {
-				mavenDeployer {
+	Boolean localUpload = getBooleanProp('LOCAL_UPLOAD', true)
+	def localMavenRepo = getProp('LOCAL_MAVEN_REPO')
 
-					beforeDeployment { MavenDeployment deployment ->
-						signing.signPom(deployment)
-					}
+	if (localUpload && localMavenRepo == null) {
+		project.logger.warn("LOCAL_MAVEN_REPO property is not defined. Skipping uploadArchives configuration")
+	} else {
+		afterEvaluate {
+			uploadArchives {
+				repositories {
+					mavenDeployer {
 
-					def localUpload = getProp('LOCAL_UPLOAD')
-					if (localUpload != null && localUpload == 'true') {
-						repository(url: uri(getProp('LOCAL_MAVEN_REPO')))
-					} else {
-						repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-							authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+						beforeDeployment { MavenDeployment deployment ->
+							signing.signPom(deployment)
 						}
-						snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-							authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-						}
-					}
 
-					pom.project {
-						name project.ext.projectName
-						description project.description
-						packaging project.packaging
-						url 'http://www.jdroidframework.com'
-						inceptionYear '2011'
-						organization {
-							name 'Jdroid'
-							url 'http://www.jdroidframework.com'
-						}
-						licenses {
-							license {
-								name 'The Apache License, Version 2.0'
-								url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-								distribution 'repo'
+						if (localUpload) {
+							repository(url: project.uri(localMavenRepo))
+						} else {
+							repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+								authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+							}
+							snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+								authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
 							}
 						}
-						developers {
-							developer {
-								name 'Maxi Rosson'
-								email 'jdroidsoft@gmail.com'
-								roles {
-									role 'architect'
-									role 'developer'
+
+						pom.project {
+							name project.ext.projectName
+							description project.description
+							packaging project.packaging
+							url 'http://www.jdroidframework.com'
+							inceptionYear '2011'
+							organization {
+								name 'Jdroid'
+								url 'http://www.jdroidframework.com'
+							}
+							licenses {
+								license {
+									name 'The Apache License, Version 2.0'
+									url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+									distribution 'repo'
 								}
 							}
-						}
-						scm {
-							connection 'scm:git:git@github.com:maxirosson/jdroid.git'
-							developerConnection 'scm:git:git@github.com:maxirosson/jdroid.git'
-							url 'git@github.com:maxirosson/jdroid.git'
-						}
-						issueManagement {
-							system 'GitHub'
-							url 'https://github.com/maxirosson/jdroid/issues'
+							developers {
+								developer {
+									name 'Maxi Rosson'
+									email 'jdroidsoft@gmail.com'
+									roles {
+										role 'architect'
+										role 'developer'
+									}
+								}
+							}
+							scm {
+								connection 'scm:git:git@github.com:maxirosson/jdroid.git'
+								developerConnection 'scm:git:git@github.com:maxirosson/jdroid.git'
+								url 'git@github.com:maxirosson/jdroid.git'
+							}
+							issueManagement {
+								system 'GitHub'
+								url 'https://github.com/maxirosson/jdroid/issues'
+							}
 						}
 					}
 				}
@@ -171,8 +177,10 @@ public Boolean getBooleanProp(String propertyName, Boolean defaultValue) {
 		return defaultValue
 	} else if (value == 'true') {
 		return true
-	} else {
+	} else if (value == 'false') {
 		return false
+	} else {
+		throw new GradleException('Invalid Boolean value: ' + value)
 	}
 }
 

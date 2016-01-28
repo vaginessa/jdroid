@@ -54,7 +54,7 @@ public class CacheWrapperRepository<T extends Identifiable> implements Repositor
 				cache.put(id, item);
 			}
 		} else {
-			LOGGER.info("Retrieved object from cache: " + item.getClass().getSimpleName() + ". [ " + item + " ]");
+			LOGGER.info("Retrieved object: " + item.getClass().getSimpleName() + ". [ " + item + " ]");
 		}
 		return item;
 	}

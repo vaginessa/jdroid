@@ -93,7 +93,7 @@ public class GcmRegistrationCommand extends ServiceCommand {
 	}
 
 	public static String getRegistrationToken(Context context) throws IOException {
-		String senderId = AbstractGcmAppModule.get().getGcmContext().getSenderId();
+		String senderId = AbstractGcmAppModule.get().getGcmSender().getSenderId();
 		if (senderId == null) {
 			throw new UnexpectedException("Missing GCM Sender Id");
 		}
