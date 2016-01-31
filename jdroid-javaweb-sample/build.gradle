@@ -41,6 +41,8 @@ dependencies {
 
 	compile project(':jdroid-java-firebase')
 
+	compile 'com.firebase:firebase-token-generator:2.0.0'
+
 	// Testing
 	testCompile "org.testng:testng:6.8.21"
 	testCompile "org.mockito:mockito-all:1.10.19"

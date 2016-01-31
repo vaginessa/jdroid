@@ -30,7 +30,7 @@ public abstract class FirebaseAuthenticationStrategy implements Firebase.AuthRes
 	protected abstract void doAuthenticate(Firebase firebase);
 
 	protected void doOnAuthenticationError(FirebaseError error) {
-		throw new UnexpectedException(error.getMessage());
+		throw error.toException();
 	}
 
 	protected void doOnAuthenticated(AuthData authData) {
