@@ -5,10 +5,13 @@ import com.jdroid.java.http.HttpResponseWrapper;
 import com.jdroid.java.http.HttpService;
 import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.Server;
+import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.StringUtils;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.ResponseBody;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -70,6 +73,16 @@ public abstract class OkHttpService extends AbstractHttpService {
 
 	@Override
 	protected void doFinally() {
-		// Do nothing
+		try {
+			OkHttpResponseWrapper okHttpResponseWrapper = ((OkHttpResponseWrapper)getHttpResponseWrapper());
+			if (okHttpResponseWrapper != null) {
+				ResponseBody body = okHttpResponseWrapper.getResponse().body();
+				if (body != null) {
+					body.close();
+				}
+			}
+		} catch (IOException e) {
+			LoggerUtils.logHandledException(LOGGER, e);
+		}
 	}
 }

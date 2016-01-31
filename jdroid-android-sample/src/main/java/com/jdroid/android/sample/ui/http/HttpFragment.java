@@ -6,6 +6,7 @@ import android.view.View;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
 import com.jdroid.java.concurrent.ExecutorUtils;
+import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.android.sample.api.SampleApiService;
 import com.jdroid.android.sample.api.SampleResponse;
@@ -89,5 +90,10 @@ public class HttpFragment extends AbstractFragment {
 			}
 		});
 
+	}
+
+	@Override
+	public Boolean goBackOnError(AbstractException abstractException) {
+		return false;
 	}
 }

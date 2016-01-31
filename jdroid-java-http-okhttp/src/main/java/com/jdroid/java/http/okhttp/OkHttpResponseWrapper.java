@@ -36,4 +36,8 @@ public class OkHttpResponseWrapper extends HttpResponseWrapper {
 		}
 		return inputStream;
 	}
+
+	public Response getResponse() {
+		return response;
+	}
 }
