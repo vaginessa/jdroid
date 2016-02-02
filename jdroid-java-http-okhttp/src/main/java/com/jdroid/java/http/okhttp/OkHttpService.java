@@ -11,7 +11,6 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.ResponseBody;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -81,7 +80,7 @@ public abstract class OkHttpService extends AbstractHttpService {
 					body.close();
 				}
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			LoggerUtils.logHandledException(LOGGER, e);
 		}
 	}
