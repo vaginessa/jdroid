@@ -86,7 +86,7 @@ public class ComplexRecyclerFragment extends AbstractRecyclerFragment {
 		@Override
 		public RecyclerView.ViewHolder createViewHolderFromView(View view) {
 			StringViewHolder viewHolder = new StringViewHolder(view);
-			viewHolder.textView = (TextView)view.findViewById(R.id.name);
+			viewHolder.textView = findView(view, R.id.name);
 			return viewHolder;
 		}
 
@@ -130,7 +130,7 @@ public class ComplexRecyclerFragment extends AbstractRecyclerFragment {
 		@Override
 		public RecyclerView.ViewHolder createViewHolderFromView(View view) {
 			IntegerViewHolder viewHolder = new IntegerViewHolder(view);
-			viewHolder.textView = (TextView)view.findViewById(R.id.name);
+			viewHolder.textView = findView(view, R.id.name);
 			return viewHolder;
 		}
 
@@ -174,7 +174,7 @@ public class ComplexRecyclerFragment extends AbstractRecyclerFragment {
 		@Override
 		public RecyclerView.ViewHolder createViewHolderFromView(View view) {
 			BooleanViewHolder viewHolder = new BooleanViewHolder(view);
-			viewHolder.textView = (TextView)view.findViewById(R.id.name);
+			viewHolder.textView = findView(view, R.id.name);
 			return viewHolder;
 		}
 

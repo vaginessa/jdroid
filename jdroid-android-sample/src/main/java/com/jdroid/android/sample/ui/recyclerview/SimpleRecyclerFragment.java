@@ -79,7 +79,7 @@ public class SimpleRecyclerFragment extends AbstractRecyclerFragment {
 		@Override
 		public RecyclerView.ViewHolder createViewHolderFromView(View view) {
 			StringViewHolder viewHolder = new StringViewHolder(view);
-			viewHolder.textView = (TextView)view.findViewById(R.id.name);
+			viewHolder.textView = findView(view, R.id.name);
 			return viewHolder;
 		}
 
