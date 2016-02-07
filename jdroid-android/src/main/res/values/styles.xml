@@ -151,10 +151,10 @@
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="cardBackgroundColor">@android:color/white</item>
-		<item name="android:layout_marginTop">0dp</item>
-		<item name="android:layout_marginBottom">0dp</item>
-		<item name="android:layout_marginLeft">8dp</item>
-		<item name="android:layout_marginRight">8dp</item>
+		<item name="android:layout_marginTop">@dimen/cardViewMarginTop</item>
+		<item name="android:layout_marginBottom">@dimen/cardViewMarginBottom</item>
+		<item name="android:layout_marginLeft">@dimen/cardViewMarginLeft</item>
+		<item name="android:layout_marginRight">@dimen/cardViewMarginRight</item>
 	</style>
 
 	<style name="cardViewClickableStyle" parent="@style/cardViewStyle">
@@ -164,22 +164,16 @@
 	<style name="cardViewInner">
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">wrap_content</item>
-		<item name="android:padding">12dp</item>
+		<item name="android:paddingTop">16dp</item>
+		<item name="android:paddingBottom">16dp</item>
+		<item name="android:paddingLeft">16dp</item>
+		<item name="android:paddingRight">16dp</item>
 	</style>
 
-	<style name="cardViewInnerClickable" parent="@style/cardViewInner">
-		<item name="android:background">@drawable/default_item_selector</item>
-	</style>
-
-	<!-- DEPRECATED -->
-
-	<style name="optionButton" parent="textMediumBold">
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_marginLeft">10dp</item>
-		<item name="android:layout_marginRight">10dp</item>
-		<item name="android:layout_marginTop">4dp</item>
+	<style name="cardViewTitle" parent="@style/textMedium">
+		<item name="android:textStyle">bold</item>
 		<item name="android:layout_marginBottom">4dp</item>
+		<item name="android:textColor">@color/textColor</item>
 	</style>
 
 </resources>

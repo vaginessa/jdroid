@@ -55,6 +55,11 @@
 	<string name="httpDelete">DELETE</string>
 	<string name="httpPatch">PATCH</string>
 
+	<!-- Card View -->
+	<string name="cardView">Card View</string>
+	<string name="simpleCardView">Simple Card View</string>
+	<string name="cardViewInsideRecyclerView">Card View inside Recycler View</string>
+
 	<!-- Nav Drawer -->
 	<string name="navDrawer">Nav Drawer</string>
 	<string name="leftCustomNavDrawer">Left Custom Nav Drawer</string>

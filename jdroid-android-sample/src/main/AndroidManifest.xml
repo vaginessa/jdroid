@@ -162,6 +162,15 @@
 		<activity android:name="com.jdroid.android.sample.ui.firebase.FirebaseActivity" android:label="@string/firebase"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<activity android:name="com.jdroid.android.sample.ui.cardview.CardViewActivity" android:label="@string/cardView"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
+		<activity android:name="com.jdroid.android.sample.ui.cardview.SimpleCardViewActivity" android:label="@string/cardView"
+				  android:parentActivityName="com.jdroid.android.sample.ui.cardview.CardViewActivity" tools:ignore="UnusedAttribute"/>
+
+		<activity android:name="com.jdroid.android.sample.ui.cardview.CardViewRecyclerViewActivity" android:label="@string/cardView"
+				  android:parentActivityName="com.jdroid.android.sample.ui.cardview.CardViewActivity" tools:ignore="UnusedAttribute"/>
+
 		<service android:name="com.jdroid.android.sample.ui.service.SampleWorkerService" android:exported="false" />
 		<service android:name="com.jdroid.android.sample.ui.service.SampleGcmTaskService" android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE"
 				 android:exported="true">

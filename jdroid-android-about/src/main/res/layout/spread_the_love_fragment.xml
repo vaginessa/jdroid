@@ -66,7 +66,7 @@
 
 		</android.support.v7.widget.CardView>
 
-		<android.support.v7.widget.CardView android:id="@+id/plusOneSection" style="@style/cardViewClickableStyle">
+		<android.support.v7.widget.CardView android:id="@+id/plusOneSection" style="@style/cardViewClickableStyle" android:layout_marginBottom="4dp">
 
 			<com.google.android.gms.plus.PlusOneButton xmlns:plus="http://schemas.android.com/apk/lib/com.google.android.gms.plus"
 				android:id="@+id/plusOneButton" android:layout_width="match_parent" android:layout_height="wrap_content"

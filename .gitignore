@@ -1,6 +1,7 @@
 .gradle
 build/
 .idea/libraries
+.idea/encodings.xml
 .idea/workspace.xml
 .idea/compiler.xml
 .idea/modules.xml

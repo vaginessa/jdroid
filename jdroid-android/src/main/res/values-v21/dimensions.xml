@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!-- CardView -->
+
+	<dimen name="cardViewMarginTop">8dp</dimen>
+	<dimen name="cardViewMarginBottom">0dp</dimen>
+	<dimen name="cardViewMarginLeft">8dp</dimen>
+	<dimen name="cardViewMarginRight">8dp</dimen>
+
+</resources>

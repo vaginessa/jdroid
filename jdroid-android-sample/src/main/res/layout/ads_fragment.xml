@@ -3,12 +3,10 @@
 	android:layout_height="wrap_content">
 
 	<LinearLayout android:layout_height="match_parent" android:layout_width="match_parent"
-		android:orientation="vertical" android:layout_margin="8dp" android:layout_above="@+id/adViewContainer">
+		android:orientation="vertical" android:layout_margin="8dp">
 		<Button android:id="@+id/displayInterstitial" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/displayInterstitial" />
 		<Button android:id="@+id/houseAds" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/houseAds" />
 	</LinearLayout>
-
-	<include layout="@layout/ad_view_container" />
 </RelativeLayout>
