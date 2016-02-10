@@ -4,9 +4,9 @@ import com.jdroid.android.R;
 
 public enum AccountType {
 	
-	GOOGLE_PLUS("googlePlus", "Google+", R.drawable.common_google_signin_btn_icon_light_normal),
+	GOOGLE_PLUS("googlePlus", "Google+", R.drawable.ic_google_plus),
 	FACEBOOK("facebook", "Facebook", R.drawable.ic_facebook),
-	TWITTER("twitter", "Twitter", null),
+	TWITTER("twitter", "Twitter", R.drawable.ic_twitter),
 	WHATSAPP("whatsapp", "WhatsApp", null),
 	TELEGRAM("telegram", "Telegram", null),
 	HANGOUTS("hangouts", "Hangouts", null),
@@ -24,23 +24,14 @@ public enum AccountType {
 		this.iconResId = iconResId;
 	}
 	
-	/**
-	 * @return the name
-	 */
 	public String getName() {
 		return name;
 	}
 	
-	/**
-	 * @return the friendlyName
-	 */
 	public String getFriendlyName() {
 		return friendlyName;
 	}
 	
-	/**
-	 * @return the iconResId
-	 */
 	public Integer getIconResId() {
 		return iconResId;
 	}

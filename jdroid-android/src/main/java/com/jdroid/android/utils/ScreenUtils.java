@@ -18,7 +18,6 @@ public class ScreenUtils {
 	public static final String LDPI_DENSITY_NAME = "ldpi";
 	public static final String MDPI_DENSITY_NAME = "mdpi";
 	public static final String HDPI_DENSITY_NAME = "hdpi";
-	public static final String TVDPI_DENSITY_NAME = "tvdpi";
 	public static final String XHDPI_DENSITY_NAME = "xhdpi";
 	public static final String XXHDPI_DENSITY_NAME = "xxhdpi";
 	public static final String XXXHDPI_DENSITY_NAME = "xxxhdpi";
@@ -76,49 +75,42 @@ public class ScreenUtils {
 		Configuration config = AbstractApplication.get().getResources().getConfiguration();
 		return config.screenWidthDp;
 	}
-	
-	public static Boolean isLdpiDensity() {
+
+	public static int getDensityDpi() {
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
-		return metrics.densityDpi == DisplayMetrics.DENSITY_LOW;
+		return metrics.densityDpi;
+	}
+	
+	public static Boolean isLdpiDensity() {
+		return getDensityDpi() <= DisplayMetrics.DENSITY_LOW;
 	}
 	
 	public static Boolean isMdpiDensity() {
-		DisplayMetrics metrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(metrics);
-		return metrics.densityDpi == DisplayMetrics.DENSITY_MEDIUM;
+		int densityDpi = getDensityDpi();
+		return densityDpi > DisplayMetrics.DENSITY_LOW && densityDpi <= DisplayMetrics.DENSITY_MEDIUM;
 	}
 	
 	public static Boolean isHdpiDensity() {
-		DisplayMetrics metrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(metrics);
-		return metrics.densityDpi == DisplayMetrics.DENSITY_HIGH;
+		int densityDpi = getDensityDpi();
+		return densityDpi > DisplayMetrics.DENSITY_MEDIUM && densityDpi <= DisplayMetrics.DENSITY_HIGH;
 	}
 	
 	public static Boolean isXhdpiDensity() {
-		DisplayMetrics metrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(metrics);
-		return metrics.densityDpi == DisplayMetrics.DENSITY_XHIGH;
-	}
-	
-	public static Boolean isTVdpiDensity() {
-		DisplayMetrics metrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(metrics);
-		return metrics.densityDpi == DisplayMetrics.DENSITY_TV;
+		int densityDpi = getDensityDpi();
+		return densityDpi > DisplayMetrics.DENSITY_HIGH && densityDpi <= DisplayMetrics.DENSITY_XHIGH;
 	}
 	
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	public static Boolean isXXhdpiDensity() {
-		DisplayMetrics metrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(metrics);
-		return metrics.densityDpi == DisplayMetrics.DENSITY_XXHIGH;
+		int densityDpi = getDensityDpi();
+		return densityDpi > DisplayMetrics.DENSITY_XHIGH && densityDpi <= DisplayMetrics.DENSITY_XXHIGH;
 	}
 	
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
 	public static Boolean isXXXhdpiDensity() {
-		DisplayMetrics metrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(metrics);
-		return metrics.densityDpi == DisplayMetrics.DENSITY_XXXHIGH;
+		int densityDpi = getDensityDpi();
+		return densityDpi > DisplayMetrics.DENSITY_XXHIGH && densityDpi <= DisplayMetrics.DENSITY_XXXHIGH;
 	}
 	
 	public static String getScreenDensity() {
@@ -131,8 +123,6 @@ public class ScreenUtils {
 			density = HDPI_DENSITY_NAME;
 		} else if (ScreenUtils.isXhdpiDensity()) {
 			density = XHDPI_DENSITY_NAME;
-		} else if (ScreenUtils.isTVdpiDensity()) {
-			density = TVDPI_DENSITY_NAME;
 		} else if (ScreenUtils.isXXhdpiDensity()) {
 			density = XXHDPI_DENSITY_NAME;
 		} else if (ScreenUtils.isXXXhdpiDensity()) {
