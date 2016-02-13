@@ -17,9 +17,8 @@ import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.FragmentLoading;
-import com.jdroid.android.usecase.DefaultAbstractUseCase;
-import com.jdroid.android.usecase.UseCase;
-import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
+import com.jdroid.android.usecase.AbstractUseCase;
+import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.exception.AbstractException;
 
 public abstract class AbstractPreferenceFragment extends PreferenceFragment implements FragmentIf {
@@ -164,48 +163,29 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 		return null;
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#onResumeUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
-	 *      com.jdroid.android.usecase.listener.DefaultUseCaseListener)
-	 */
 	@Override
-	public void onResumeUseCase(DefaultAbstractUseCase useCase, DefaultUseCaseListener listener) {
+	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener) {
 		getFragmentIf().onResumeUseCase(useCase, listener);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#onResumeUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
-	 *      com.jdroid.android.usecase.listener.DefaultUseCaseListener,
-	 *      com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger)
-	 */
 	@Override
-	public void onResumeUseCase(DefaultAbstractUseCase useCase, DefaultUseCaseListener listener,
+	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener,
 			UseCaseTrigger useCaseTrigger) {
 		getFragmentIf().onResumeUseCase(useCase, listener, useCaseTrigger);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#onPauseUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
-	 *      com.jdroid.android.usecase.listener.DefaultUseCaseListener)
-	 */
 	@Override
-	public void onPauseUseCase(DefaultAbstractUseCase useCase, DefaultUseCaseListener listener) {
+	public void onPauseUseCase(AbstractUseCase useCase, UseCaseListener listener) {
 		getFragmentIf().onPauseUseCase(useCase, listener);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeUseCase(com.jdroid.android.usecase.UseCase)
-	 */
 	@Override
-	public void executeUseCase(UseCase<?> useCase) {
+	public void executeUseCase(AbstractUseCase useCase) {
 		getFragmentIf().executeUseCase(useCase);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeUseCase(com.jdroid.android.usecase.UseCase, java.lang.Long)
-	 */
 	@Override
-	public void executeUseCase(UseCase<?> useCase, Long delaySeconds) {
+	public void executeUseCase(AbstractUseCase useCase, Long delaySeconds) {
 		getFragmentIf().executeUseCase(useCase, delaySeconds);
 	}
 	

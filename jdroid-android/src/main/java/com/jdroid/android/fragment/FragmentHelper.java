@@ -22,9 +22,8 @@ import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.exception.DialogErrorDisplayer;
 import com.jdroid.android.loading.FragmentLoading;
-import com.jdroid.android.usecase.DefaultAbstractUseCase;
-import com.jdroid.android.usecase.UseCase;
-import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
+import com.jdroid.android.usecase.AbstractUseCase;
+import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.utils.LoggerUtils;
@@ -172,7 +171,7 @@ public class FragmentHelper implements FragmentIf {
 	public void onStart() {
 		LOGGER.debug("Executing onStart on " + fragment);
 		FragmentIf fragmentIf = getFragmentIf();
-		if ((fragmentIf != null) && fragmentIf.shouldTrackOnFragmentStart()) {
+		if (fragmentIf.shouldTrackOnFragmentStart()) {
 			AbstractApplication.get().getAnalyticsSender().onFragmentStart(fragmentIf.getScreenViewName());
 		}
 	}
@@ -238,22 +237,13 @@ public class FragmentHelper implements FragmentIf {
 	
 	// Use case
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#onResumeUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
-	 *      com.jdroid.android.usecase.listener.DefaultUseCaseListener)
-	 */
 	@Override
-	public void onResumeUseCase(DefaultAbstractUseCase useCase, DefaultUseCaseListener listener) {
+	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener) {
 		onResumeUseCase(useCase, listener, UseCaseTrigger.MANUAL);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#onResumeUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
-	 *      com.jdroid.android.usecase.listener.DefaultUseCaseListener,
-	 *      com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger)
-	 */
 	@Override
-	public void onResumeUseCase(final DefaultAbstractUseCase useCase, final DefaultUseCaseListener listener,
+	public void onResumeUseCase(final AbstractUseCase useCase, final UseCaseListener listener,
 			final UseCaseTrigger useCaseTrigger) {
 		if (useCase != null) {
 			ExecutorUtils.execute(new Runnable() {
@@ -293,46 +283,33 @@ public class FragmentHelper implements FragmentIf {
 		ALWAYS;
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#onPauseUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
-	 *      com.jdroid.android.usecase.listener.DefaultUseCaseListener)
-	 */
 	@Override
-	public void onPauseUseCase(final DefaultAbstractUseCase userCase, final DefaultUseCaseListener listener) {
+	public void onPauseUseCase(final AbstractUseCase userCase, final UseCaseListener listener) {
 		if (userCase != null) {
 			userCase.removeListener(listener);
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeUseCase(com.jdroid.android.usecase.UseCase)
-	 */
 	@Override
-	public void executeUseCase(UseCase<?> useCase) {
+	public void executeUseCase(AbstractUseCase useCase) {
 		ExecutorUtils.execute(useCase);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeUseCase(com.jdroid.android.usecase.UseCase, java.lang.Long)
-	 */
 	@Override
-	public void executeUseCase(UseCase<?> useCase, Long delaySeconds) {
+	public void executeUseCase(AbstractUseCase useCase, Long delaySeconds) {
 		ExecutorUtils.schedule(useCase, delaySeconds);
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onStartUseCase()
+	 * @see UseCaseListener#onStartUseCase()
 	 */
 	@Override
 	public void onStartUseCase() {
-		FragmentIf fragmentIf = getFragmentIf();
-		if (fragmentIf != null) {
-			fragmentIf.showLoading();
-		}
+		getFragmentIf().showLoading();
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onUpdateUseCase()
+	 * @see UseCaseListener#onUpdateUseCase()
 	 */
 	@Override
 	public void onUpdateUseCase() {
@@ -340,30 +317,25 @@ public class FragmentHelper implements FragmentIf {
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishUseCase()
+	 * @see UseCaseListener#onFinishUseCase()
 	 */
 	@Override
 	public void onFinishUseCase() {
-		FragmentIf fragmentIf = getFragmentIf();
-		if (fragmentIf != null) {
-			fragmentIf.dismissLoading();
-		}
+		getFragmentIf().dismissLoading();
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
+	 * @see UseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
 	 */
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		FragmentIf fragmentIf = getFragmentIf();
-		if (fragmentIf != null) {
-			if (fragmentIf.goBackOnError(abstractException)) {
-				DialogErrorDisplayer.markAsGoBackOnError(abstractException);
-			} else {
-				DialogErrorDisplayer.markAsNotGoBackOnError(abstractException);
-			}
-			fragmentIf.dismissLoading();
+		if (fragmentIf.goBackOnError(abstractException)) {
+			DialogErrorDisplayer.markAsGoBackOnError(abstractException);
+		} else {
+			DialogErrorDisplayer.markAsNotGoBackOnError(abstractException);
 		}
+		fragmentIf.dismissLoading();
 		throw abstractException;
 	}
 	
@@ -452,49 +424,36 @@ public class FragmentHelper implements FragmentIf {
 	
 	// //////////////////////// Loading //////////////////////// //
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
-	 */
 	@Override
 	public void showLoading() {
 		final FragmentIf fragmentIf = getFragmentIf();
-		if (fragmentIf != null) {
-			
-			fragmentIf.executeOnUIThread(new Runnable() {
-				
-				@Override
-				public void run() {
-					if (loading != null) {
-						loading.show(fragmentIf);
-					} else {
-						getActivityIf().showLoading();
-					}
+		fragmentIf.executeOnUIThread(new Runnable() {
+
+			@Override
+			public void run() {
+				if (loading != null) {
+					loading.show(fragmentIf);
+				} else {
+					getActivityIf().showLoading();
 				}
-			});
-		}
+			}
+		});
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissLoading()
-	 */
 	@Override
 	public void dismissLoading() {
 		final FragmentIf fragmentIf = getFragmentIf();
-		if (fragmentIf != null) {
-			
-			fragmentIf.executeOnUIThread(new Runnable() {
+		fragmentIf.executeOnUIThread(new Runnable() {
 				
-				@Override
-				public void run() {
-					if (loading != null) {
-						loading.dismiss(fragmentIf);
-					} else {
-						getActivityIf().dismissLoading();
-					}
+			@Override
+			public void run() {
+				if (loading != null) {
+					loading.dismiss(fragmentIf);
+				} else {
+					getActivityIf().dismissLoading();
 				}
-			});
-			
-		}
+			}
+		});
 	}
 	
 	/**

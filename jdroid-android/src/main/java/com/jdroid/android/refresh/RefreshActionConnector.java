@@ -8,10 +8,10 @@ import android.view.MenuItem;
 import com.jdroid.android.R;
 import com.jdroid.android.exception.DialogErrorDisplayer;
 import com.jdroid.android.fragment.FragmentIf;
-import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
+import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.exception.AbstractException;
 
-public abstract class RefreshActionConnector implements RefreshActionProvider.OnRefreshListener, DefaultUseCaseListener {
+public abstract class RefreshActionConnector implements RefreshActionProvider.OnRefreshListener, UseCaseListener {
 	
 	private RefreshActionProvider refreshActionProvider;
 	
@@ -55,7 +55,7 @@ public abstract class RefreshActionConnector implements RefreshActionProvider.On
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onStartUseCase()
+	 * @see UseCaseListener#onStartUseCase()
 	 */
 	@Override
 	public void onStartUseCase() {
@@ -63,7 +63,7 @@ public abstract class RefreshActionConnector implements RefreshActionProvider.On
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onUpdateUseCase()
+	 * @see UseCaseListener#onUpdateUseCase()
 	 */
 	@Override
 	public void onUpdateUseCase() {
@@ -71,7 +71,7 @@ public abstract class RefreshActionConnector implements RefreshActionProvider.On
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
+	 * @see UseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
 	 */
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
@@ -89,7 +89,7 @@ public abstract class RefreshActionConnector implements RefreshActionProvider.On
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishUseCase()
+	 * @see UseCaseListener#onFinishUseCase()
 	 */
 	@Override
 	public void onFinishUseCase() {

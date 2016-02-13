@@ -5,7 +5,7 @@ import com.jdroid.java.exception.AbstractException;
 /**
  * Default Use Case Listener
  */
-public interface DefaultUseCaseListener {
+public interface UseCaseListener {
 	
 	/**
 	 * Called before the use case starts

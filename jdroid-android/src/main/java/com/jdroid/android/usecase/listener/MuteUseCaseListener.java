@@ -6,10 +6,10 @@ import com.jdroid.java.exception.AbstractException;
 /**
  * Default Use Case Listener that doesn't display loading or error dialogs
  */
-public class MuteUseCaseListener implements DefaultUseCaseListener {
+public class MuteUseCaseListener implements UseCaseListener {
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onStartUseCase()
+	 * @see UseCaseListener#onStartUseCase()
 	 */
 	@Override
 	public void onStartUseCase() {
@@ -17,7 +17,7 @@ public class MuteUseCaseListener implements DefaultUseCaseListener {
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onUpdateUseCase()
+	 * @see UseCaseListener#onUpdateUseCase()
 	 */
 	@Override
 	public void onUpdateUseCase() {
@@ -25,7 +25,7 @@ public class MuteUseCaseListener implements DefaultUseCaseListener {
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishUseCase()
+	 * @see UseCaseListener#onFinishUseCase()
 	 */
 	@Override
 	public void onFinishUseCase() {
@@ -34,7 +34,7 @@ public class MuteUseCaseListener implements DefaultUseCaseListener {
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
+	 * @see UseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
 	 */
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {

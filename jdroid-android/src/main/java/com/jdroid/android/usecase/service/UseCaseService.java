@@ -2,10 +2,11 @@ package com.jdroid.android.usecase.service;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.service.WorkerService;
-import com.jdroid.android.usecase.DefaultAbstractUseCase;
 import com.jdroid.android.notification.NotificationUtils;
+import com.jdroid.android.service.WorkerService;
+import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.java.concurrent.ExecutorUtils;
 
 @SuppressLint("Registered")
@@ -25,7 +26,7 @@ public class UseCaseService extends WorkerService {
 			NotificationUtils.cancelNotification(notificationToCancelId);
 		}
 		
-		DefaultAbstractUseCase useCase = (DefaultAbstractUseCase)intent.getSerializableExtra(USE_CASE);
+		AbstractUseCase useCase = (AbstractUseCase)intent.getSerializableExtra(USE_CASE);
 		useCase.run();
 		
 		if (useCase.isFinishFailed()) {
@@ -33,7 +34,7 @@ public class UseCaseService extends WorkerService {
 		}
 	}
 	
-	public static void schedule(final DefaultAbstractUseCase useCase, Long delaySeconds) {
+	public static void schedule(final AbstractUseCase useCase, Long delaySeconds) {
 		ExecutorUtils.schedule(new Runnable() {
 			
 			@Override
@@ -43,12 +44,12 @@ public class UseCaseService extends WorkerService {
 		}, delaySeconds);
 	}
 	
-	public static void execute(DefaultAbstractUseCase useCase) {
+	public static void execute(AbstractUseCase useCase) {
 		WorkerService.runIntentInService(AbstractApplication.get(), getServiceIntent(useCase, null),
 			UseCaseService.class, false);
 	}
 	
-	public static Intent getServiceIntent(DefaultAbstractUseCase useCase, Integer notificationToCancelId) {
+	public static Intent getServiceIntent(AbstractUseCase useCase, Integer notificationToCancelId) {
 		Intent intent = new Intent();
 		intent.putExtra(USE_CASE, useCase);
 		intent.putExtra(NOTIFICATION_TO_CANCEL_ID, notificationToCancelId);

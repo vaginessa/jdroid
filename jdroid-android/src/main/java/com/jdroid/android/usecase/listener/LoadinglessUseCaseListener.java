@@ -6,7 +6,7 @@ package com.jdroid.android.usecase.listener;
 public abstract class LoadinglessUseCaseListener extends AndroidUseCaseListener {
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onStartUseCase()
+	 * @see UseCaseListener#onStartUseCase()
 	 */
 	@Override
 	public void onStartUseCase() {
@@ -14,7 +14,7 @@ public abstract class LoadinglessUseCaseListener extends AndroidUseCaseListener 
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onUpdateUseCase()
+	 * @see UseCaseListener#onUpdateUseCase()
 	 */
 	@Override
 	public void onUpdateUseCase() {
@@ -22,7 +22,7 @@ public abstract class LoadinglessUseCaseListener extends AndroidUseCaseListener 
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishUseCase()
+	 * @see UseCaseListener#onFinishUseCase()
 	 */
 	@Override
 	public void onFinishUseCase() {

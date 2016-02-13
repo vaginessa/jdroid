@@ -2,21 +2,22 @@ package com.jdroid.android.listener;
 
 import android.view.View;
 import android.view.View.OnClickListener;
-import com.jdroid.android.usecase.UseCase;
+
+import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.java.concurrent.ExecutorUtils;
 
 /**
- * {@link OnClickListener} that execute a {@link UseCase}
+ * {@link OnClickListener} that execute a {@link AbstractUseCase}
  */
 public class UseCaseOnClickListener implements OnClickListener {
 	
-	private UseCase<?> defaultUseCase;
+	private AbstractUseCase useCase;
 	
 	/**
-	 * @param defaultUseCase The {@link UseCase} to execute
+	 * @param useCase The {@link AbstractUseCase} to execute
 	 */
-	public UseCaseOnClickListener(UseCase<?> defaultUseCase) {
-		this.defaultUseCase = defaultUseCase;
+	public UseCaseOnClickListener(AbstractUseCase useCase) {
+		this.useCase = useCase;
 	}
 	
 	/**
@@ -24,7 +25,7 @@ public class UseCaseOnClickListener implements OnClickListener {
 	 */
 	@Override
 	public final void onClick(final View view) {
-		ExecutorUtils.execute(defaultUseCase);
+		ExecutorUtils.execute(useCase);
 	}
 	
 }

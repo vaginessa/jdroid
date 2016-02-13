@@ -4,10 +4,10 @@ import com.jdroid.android.exception.DialogErrorDisplayer;
 import com.jdroid.android.fragment.FragmentIf;
 import com.jdroid.java.exception.AbstractException;
 
-public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
+public abstract class AndroidUseCaseListener implements UseCaseListener {
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onStartUseCase()
+	 * @see UseCaseListener#onStartUseCase()
 	 */
 	@Override
 	public void onStartUseCase() {
@@ -18,7 +18,7 @@ public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onUpdateUseCase()
+	 * @see UseCaseListener#onUpdateUseCase()
 	 */
 	@Override
 	public void onUpdateUseCase() {
@@ -26,7 +26,7 @@ public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
+	 * @see UseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
 	 */
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
@@ -53,7 +53,7 @@ public abstract class AndroidUseCaseListener implements DefaultUseCaseListener {
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishUseCase()
+	 * @see UseCaseListener#onFinishUseCase()
 	 */
 	@Override
 	public void onFinishUseCase() {

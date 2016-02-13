@@ -1,14 +1,15 @@
 package com.jdroid.android.fragment;
 
 import android.os.Bundle;
+
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
-import com.jdroid.android.usecase.DefaultAbstractUseCase;
+import com.jdroid.android.usecase.AbstractUseCase;
 
 /**
  * 
  * @param <T>
  */
-public abstract class UseCaseFragment<T extends DefaultAbstractUseCase> extends AbstractFragment {
+public abstract class UseCaseFragment<T extends AbstractUseCase> extends AbstractFragment {
 	
 	private T useCase;
 	

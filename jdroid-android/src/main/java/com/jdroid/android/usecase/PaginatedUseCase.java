@@ -1,16 +1,18 @@
 package com.jdroid.android.usecase;
 
-import java.util.List;
-import org.slf4j.Logger;
 import com.jdroid.android.search.SortingType;
 import com.jdroid.java.search.PagedResult;
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
+
+import java.util.List;
 
 /**
  * 
  * @param <T>
  */
-public abstract class PaginatedUseCase<T> extends DefaultAbstractUseCase {
+public abstract class PaginatedUseCase<T> extends AbstractUseCase {
 	
 	private static final long serialVersionUID = 4321782756459414981L;
 	

@@ -1,12 +1,12 @@
 package com.jdroid.android.sample.usecase;
 
-import com.jdroid.android.usecase.DefaultAbstractUseCase;
+import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
 
 import java.util.List;
 
-public class SampleUseCase extends DefaultAbstractUseCase {
+public class SampleUseCase extends AbstractUseCase {
 	
 	private static final long serialVersionUID = -3206803568176386530L;
 

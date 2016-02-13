@@ -1,7 +1,7 @@
 package com.jdroid.android.facebook;
 
 import com.facebook.model.GraphUser;
-import com.jdroid.android.usecase.DefaultAbstractUseCase;
+import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.android.utils.AndroidEncryptionUtils;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
@@ -9,7 +9,7 @@ import com.jdroid.java.utils.StringUtils;
 
 import org.slf4j.Logger;
 
-public class FacebookAuthenticationUseCase extends DefaultAbstractUseCase {
+public class FacebookAuthenticationUseCase extends AbstractUseCase {
 	
 	private static final long serialVersionUID = -2087611650376005398L;
 	

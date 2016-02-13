@@ -20,7 +20,6 @@ import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
-import com.jdroid.android.exception.SnackbarErrorDisplayer;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.fragment.FragmentIf;
@@ -28,9 +27,8 @@ import com.jdroid.android.google.GooglePlayServicesUtils;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.permission.PermissionHelper;
 import com.jdroid.android.snackbar.SnackbarBuilder;
-import com.jdroid.android.usecase.DefaultAbstractUseCase;
-import com.jdroid.android.usecase.UseCase;
-import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
+import com.jdroid.android.usecase.AbstractUseCase;
+import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.exception.AbstractException;
 
 public abstract class AbstractMapFragment extends SupportMapFragment implements FragmentIf {
@@ -356,7 +354,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onStartUseCase()
+	 * @see UseCaseListener#onStartUseCase()
 	 */
 	@Override
 	public void onStartUseCase() {
@@ -364,7 +362,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onUpdateUseCase()
+	 * @see UseCaseListener#onUpdateUseCase()
 	 */
 	@Override
 	public void onUpdateUseCase() {
@@ -372,7 +370,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
+	 * @see UseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
 	 */
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
@@ -380,7 +378,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	}
 	
 	/**
-	 * @see com.jdroid.android.usecase.listener.DefaultUseCaseListener#onFinishUseCase()
+	 * @see UseCaseListener#onFinishUseCase()
 	 */
 	@Override
 	public void onFinishUseCase() {
@@ -435,25 +433,16 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 		return fragmentHelper.<E>getArgument(key, defaultValue);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeUseCase(com.jdroid.android.usecase.UseCase)
-	 */
 	@Override
-	public void executeUseCase(UseCase<?> useCase) {
+	public void executeUseCase(AbstractUseCase useCase) {
 		fragmentHelper.executeUseCase(useCase);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeUseCase(com.jdroid.android.usecase.UseCase, java.lang.Long)
-	 */
 	@Override
-	public void executeUseCase(UseCase<?> useCase, Long delaySeconds) {
+	public void executeUseCase(AbstractUseCase useCase, Long delaySeconds) {
 		fragmentHelper.executeUseCase(useCase, delaySeconds);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getUser()
-	 */
 	@Override
 	public User getUser() {
 		return fragmentHelper.getUser();
@@ -474,32 +463,19 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 		return fragmentHelper.getAppBar();
 	}
 
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#onResumeUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
-	 *      com.jdroid.android.usecase.listener.DefaultUseCaseListener)
-	 */
 	@Override
-	public void onResumeUseCase(DefaultAbstractUseCase useCase, DefaultUseCaseListener listener) {
+	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener) {
 		fragmentHelper.onResumeUseCase(useCase, listener);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#onResumeUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
-	 *      com.jdroid.android.usecase.listener.DefaultUseCaseListener,
-	 *      com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger)
-	 */
 	@Override
-	public void onResumeUseCase(DefaultAbstractUseCase useCase, DefaultUseCaseListener listener,
+	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener,
 			UseCaseTrigger useCaseTrigger) {
 		fragmentHelper.onResumeUseCase(useCase, listener, useCaseTrigger);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#onPauseUseCase(com.jdroid.android.usecase.DefaultAbstractUseCase,
-	 *      com.jdroid.android.usecase.listener.DefaultUseCaseListener)
-	 */
 	@Override
-	public void onPauseUseCase(DefaultAbstractUseCase useCase, DefaultUseCaseListener listener) {
+	public void onPauseUseCase(AbstractUseCase useCase, UseCaseListener listener) {
 		fragmentHelper.onPauseUseCase(useCase, listener);
 	}
 	

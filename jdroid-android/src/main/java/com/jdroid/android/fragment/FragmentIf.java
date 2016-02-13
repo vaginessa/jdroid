@@ -12,12 +12,11 @@ import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.activity.ComponentIf;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.FragmentLoading;
-import com.jdroid.android.usecase.DefaultAbstractUseCase;
-import com.jdroid.android.usecase.UseCase;
-import com.jdroid.android.usecase.listener.DefaultUseCaseListener;
+import com.jdroid.android.usecase.AbstractUseCase;
+import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.exception.AbstractException;
 
-public interface FragmentIf extends ComponentIf, DefaultUseCaseListener, OnRefreshListener {
+public interface FragmentIf extends ComponentIf, UseCaseListener, OnRefreshListener {
 	
 	public ActivityIf getActivityIf();
 
@@ -54,16 +53,16 @@ public interface FragmentIf extends ComponentIf, DefaultUseCaseListener, OnRefre
 	
 	public <E> E getArgument(String key, E defaultValue);
 	
-	public void onResumeUseCase(DefaultAbstractUseCase useCase, DefaultUseCaseListener listener);
+	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener);
 	
-	public void onResumeUseCase(DefaultAbstractUseCase useCase, DefaultUseCaseListener listener,
+	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener,
 			UseCaseTrigger useCaseTrigger);
 	
-	public void onPauseUseCase(DefaultAbstractUseCase useCase, DefaultUseCaseListener listener);
+	public void onPauseUseCase(AbstractUseCase useCase, UseCaseListener listener);
 	
-	public void executeUseCase(UseCase<?> useCase);
+	public void executeUseCase(AbstractUseCase useCase);
 	
-	public void executeUseCase(UseCase<?> useCase, Long delaySeconds);
+	public void executeUseCase(AbstractUseCase useCase, Long delaySeconds);
 	
 	public Boolean goBackOnError(AbstractException abstractException);
 	

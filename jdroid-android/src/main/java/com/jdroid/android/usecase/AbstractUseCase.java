@@ -1,6 +1,7 @@
 package com.jdroid.android.usecase;
 
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.date.DateUtils;
@@ -13,11 +14,7 @@ import org.slf4j.Logger;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * 
- * @param <T> The Listener type
- */
-public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
+public abstract class AbstractUseCase implements Runnable, Serializable {
 	
 	private static final long serialVersionUID = 3732327346852606739L;
 	
@@ -30,7 +27,7 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 		FINISHED_FAILED;
 	}
 	
-	private List<T> listeners = Lists.newArrayList();
+	private List<UseCaseListener> listeners = Lists.newArrayList();
 	private UseCaseStatus useCaseStatus = UseCaseStatus.NOT_INVOKED;
 	private AbstractException abstractException;
 	private Boolean notified = false;
@@ -47,7 +44,7 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 		
 		LOGGER.debug("Executing " + getClass().getSimpleName());
 		markAsInProgress();
-		for (T listener : listeners) {
+		for (UseCaseListener listener : listeners) {
 			notifyUseCaseStart(listener);
 		}
 		try {
@@ -66,7 +63,7 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 			}
 			
 			markAsSuccessful();
-			for (T listener : listeners) {
+			for (UseCaseListener listener : listeners) {
 				notifyFinishedUseCase(listener);
 			}
 			AbstractApplication.get().getAnalyticsSender().trackTiming("UseCase", getClass().getSimpleName(),
@@ -80,7 +77,7 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 			}
 			abstractException.setPriorityLevel(exceptionPriorityLevel);
 			markAsFailed(abstractException);
-			for (T listener : listeners) {
+			for (UseCaseListener listener : listeners) {
 				notifyFailedUseCase(abstractException, listener);
 			}
 		} finally {
@@ -116,7 +113,9 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 	 * 
 	 * @param listener The listener to notify.
 	 */
-	protected abstract void notifyUseCaseStart(T listener);
+	protected void notifyUseCaseStart(UseCaseListener listener) {
+		listener.onStartUseCase();
+	}
 	
 	/**
 	 * Notifies the listener that the use case has finished successfully. <br/>
@@ -125,7 +124,9 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 	 * 
 	 * @param listener The listener to notify.
 	 */
-	protected abstract void notifyFinishedUseCase(T listener);
+	protected void notifyFinishedUseCase(UseCaseListener listener) {
+		listener.onFinishUseCase();
+	}
 	
 	/**
 	 * Notifies the listener that the use case has failed to execute. <br/>
@@ -134,20 +135,21 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 	 * 
 	 * @param listener The listener to notify.
 	 */
-	protected abstract void notifyFailedUseCase(AbstractException e, T listener);
+	protected void notifyFailedUseCase(AbstractException e, UseCaseListener listener) {
+		listener.onFinishFailedUseCase(e);
+	}
 	
 	/**
 	 * @return the listeners
 	 */
-	protected List<T> getListeners() {
+	protected List<UseCaseListener> getListeners() {
 		return listeners;
 	}
 	
 	/**
 	 * @param listener the listener to add
 	 */
-	@Override
-	public void addListener(T listener) {
+	public void addListener(UseCaseListener listener) {
 		if (!listeners.contains(listener)) {
 			this.listeners.add(listener);
 		}
@@ -156,8 +158,7 @@ public abstract class AbstractUseCase<T> implements UseCase<T>, Serializable {
 	/**
 	 * @param listener the listener to remove
 	 */
-	@Override
-	public void removeListener(T listener) {
+	public void removeListener(UseCaseListener listener) {
 		this.listeners.remove(listener);
 	}
 	
