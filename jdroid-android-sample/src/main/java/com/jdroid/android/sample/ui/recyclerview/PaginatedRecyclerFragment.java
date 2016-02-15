@@ -25,6 +25,11 @@ public class PaginatedRecyclerFragment extends AbstractPaginatedRecyclerFragment
 		return new RecyclerViewAdapter(new StringRecyclerViewType(), items);
 	}
 
+	@Override
+	protected Boolean isDividerItemDecorationEnabled() {
+		return true;
+	}
+
 	public class StringRecyclerViewType extends RecyclerViewType<String, StringViewHolder> {
 
 		@Override

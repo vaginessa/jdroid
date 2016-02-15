@@ -64,6 +64,11 @@ public class SimpleRecyclerFragment extends AbstractRecyclerFragment {
 		}
 	}
 
+	@Override
+	protected Boolean isDividerItemDecorationEnabled() {
+		return true;
+	}
+
 	public class StringRecyclerViewType extends RecyclerViewType<String, StringViewHolder> {
 
 		@Override

@@ -3,7 +3,6 @@
 
 	<LinearLayout style="@style/cardViewInner" android:orientation="vertical">
 		<TextView style="@style/cardViewTitle" android:text="Card View Clickable Title" />
-		<View style="@style/lineGrey" android:layout_marginBottom="12dp" />
 		<TextView style="@style/textSmall" android:text="Card View Clickable Content" />
 	</LinearLayout>
 

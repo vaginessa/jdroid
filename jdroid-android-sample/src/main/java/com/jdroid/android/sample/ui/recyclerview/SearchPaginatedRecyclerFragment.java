@@ -43,6 +43,11 @@ public class SearchPaginatedRecyclerFragment extends AbstractSearchPaginatedRecy
 		return true;
 	}
 
+	@Override
+	protected Boolean isDividerItemDecorationEnabled() {
+		return true;
+	}
+
 	public class StringRecyclerViewType extends RecyclerViewType<String, StringViewHolder> {
 
 		@Override

@@ -20,11 +20,6 @@ public class HomeFragment extends AbstractRecyclerFragment {
 		setAdapter(new RecyclerViewAdapter(new HomeRecyclerViewType(), Lists.newArrayList(HomeItem.values())));
 	}
 
-	@Override
-	protected Boolean isDividerItemDecorationEnabled() {
-		return true;
-	}
-
 	public class HomeRecyclerViewType extends RecyclerViewType<HomeItem, HomeHolder> {
 
 		@Override

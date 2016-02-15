@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView style="@style/cardViewClickableStyle" xmlns:android="http://schemas.android.com/apk/res/android">
+<android.support.v7.widget.CardView style="@style/cardViewClickableStyle"
+									xmlns:android="http://schemas.android.com/apk/res/android"
+									xmlns:tools="http://schemas.android.com/tools">
 
 	<LinearLayout android:orientation="vertical" style="@style/cardViewInner">
 
-		<TextView android:id="@+id/name" style="@style/textMedium" android:textStyle="bold" android:layout_marginBottom="4dp" />
-		<View style="@style/lineGrey" />
-
+		<TextView android:id="@+id/name" style="@style/cardViewTitle" tools:text="Title" />
 		<TextView android:id="@+id/description" android:layout_height="wrap_content" android:layout_width="match_parent"
-			style="@style/textSmall" android:layout_marginTop="8dp" />
+			style="@style/textSmall" tools:text="This is the description" />
 
 	</LinearLayout>
 
