@@ -34,10 +34,7 @@
 	<dimen name="shareItemWidth">64dp</dimen>
 
 	<!-- CardView -->
-
-	<dimen name="cardViewMarginTop">4dp</dimen>
-	<dimen name="cardViewMarginBottom">0dp</dimen>
-	<dimen name="cardViewMarginLeft">4dp</dimen>
-	<dimen name="cardViewMarginRight">4dp</dimen>
+	<dimen name="cardViewMargin">2dp</dimen>
+	<dimen name="cardViewHalfMargin">1dp</dimen>
 
 </resources>

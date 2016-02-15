@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" style="@style/cardViewStyle" android:layout_marginBottom="8dp">
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" style="@style/cardViewFullMarginStyle">
 
 	<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent"
 				  android:orientation="vertical" android:minHeight="48dp" android:paddingTop="8dp" android:paddingBottom="16dp"

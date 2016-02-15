@@ -140,14 +140,34 @@
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="cardBackgroundColor">@android:color/white</item>
-		<item name="android:layout_marginTop">@dimen/cardViewMarginTop</item>
-		<item name="android:layout_marginBottom">@dimen/cardViewMarginBottom</item>
-		<item name="android:layout_marginLeft">@dimen/cardViewMarginLeft</item>
-		<item name="android:layout_marginRight">@dimen/cardViewMarginRight</item>
+		<item name="android:layout_marginTop">@dimen/cardViewHalfMargin</item>
+		<item name="android:layout_marginBottom">@dimen/cardViewHalfMargin</item>
+		<item name="android:layout_marginLeft">@dimen/cardViewMargin</item>
+		<item name="android:layout_marginRight">@dimen/cardViewMargin</item>
+	</style>
+
+	<style name="cardViewFullMarginStyle" parent="@style/cardViewStyle">
+		<item name="android:layout_marginTop">@dimen/cardViewMargin</item>
+		<item name="android:layout_marginBottom">@dimen/cardViewMargin</item>
+	</style>
+
+	<style name="cardViewHalfMarginStyle" parent="@style/cardViewStyle">
+		<item name="android:layout_marginLeft">@dimen/cardViewHalfMargin</item>
+		<item name="android:layout_marginRight">@dimen/cardViewHalfMargin</item>
 	</style>
 
 	<style name="cardViewClickableStyle" parent="@style/cardViewStyle">
 		<item name="android:foreground">?android:attr/selectableItemBackground</item>
+	</style>
+
+	<style name="cardViewClickableFullMarginStyle" parent="@style/cardViewClickableStyle">
+		<item name="android:layout_marginTop">@dimen/cardViewMargin</item>
+		<item name="android:layout_marginBottom">@dimen/cardViewMargin</item>
+	</style>
+
+	<style name="cardViewClickableHalfMarginStyle" parent="@style/cardViewClickableStyle">
+		<item name="android:layout_marginLeft">@dimen/cardViewHalfMargin</item>
+		<item name="android:layout_marginRight">@dimen/cardViewHalfMargin</item>
 	</style>
 
 	<style name="cardViewInner">

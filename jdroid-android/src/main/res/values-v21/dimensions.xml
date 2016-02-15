@@ -3,9 +3,7 @@
 
 	<!-- CardView -->
 
-	<dimen name="cardViewMarginTop">8dp</dimen>
-	<dimen name="cardViewMarginBottom">0dp</dimen>
-	<dimen name="cardViewMarginLeft">8dp</dimen>
-	<dimen name="cardViewMarginRight">8dp</dimen>
+	<dimen name="cardViewMargin">8dp</dimen>
+	<dimen name="cardViewHalfMargin">4dp</dimen>
 
 </resources>
