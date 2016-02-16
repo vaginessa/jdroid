@@ -14,7 +14,7 @@ import android.widget.Button;
 
 import com.jdroid.android.R;
 import com.jdroid.android.dialog.AbstractDialogFragment;
-import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.DeviceUtils;
 import com.jdroid.java.date.DateUtils;
 
@@ -141,7 +141,7 @@ public class PictureDialogFragment extends AbstractDialogFragment {
 		
 		// This location works best if you want the created images to be shared between applications and persist after
 		// your app has been uninstalled.
-		String appName = AndroidUtils.getApplicationName().trim().replace(" ", "_");
+		String appName = AppUtils.getApplicationName().trim().replace(" ", "_");
 		File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
 				appName);
 		

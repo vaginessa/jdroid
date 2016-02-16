@@ -5,6 +5,7 @@ import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.google.instanceid.InstanceIdHelper;
 import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.AppUtils;
 import com.jdroid.java.http.HttpResponseWrapper;
 import com.jdroid.java.http.HttpService;
 import com.jdroid.java.http.HttpServiceProcessor;
@@ -45,7 +46,7 @@ public class AbstractHeaderAppender implements HttpServiceProcessor {
 		httpService.addHeader(HttpService.ACCEPT_ENCODING_HEADER, HttpService.GZIP_ENCODING);
 
 		httpService.addHeader(INSTANCE_ID_HEADER, InstanceIdHelper.getInstanceId());
-		httpService.addHeader(CLIENT_APP_VERSION_HEADER, AndroidUtils.getVersionCode().toString());
+		httpService.addHeader(CLIENT_APP_VERSION_HEADER, AppUtils.getVersionCode().toString());
 		httpService.addHeader(CLIENT_OS_VERSION_HEADER, AndroidUtils.getApiLevel().toString());
 	}
 

@@ -131,7 +131,7 @@ public class ExternalAppsUtils {
 	}
 
 	public static void openAppInfo(FragmentActivity fragmentActivity) {
-		Uri packageURI = Uri.parse("package:" + AndroidUtils.getApplicationId());
+		Uri packageURI = Uri.parse("package:" + AppUtils.getApplicationId());
 		Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
 		fragmentActivity.startActivity(intent);
 	}

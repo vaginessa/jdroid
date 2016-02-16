@@ -18,7 +18,7 @@ import com.jdroid.android.recycler.RecyclerViewAdapter;
 import com.jdroid.android.recycler.RecyclerViewType;
 import com.jdroid.android.recycler.SimpleRecyclerViewType;
 import com.jdroid.android.share.ShareUtils;
-import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.AppUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.date.DateUtils;
 
@@ -153,7 +153,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 		@Override
 		public void fillHolderFromItem(String item, HeaderItemHolder holder) {
 			holder.appName.setText(AbstractApplication.get().getAppName());
-			holder.version.setText(getString(R.string.version, AndroidUtils.getVersionName()));
+			holder.version.setText(getString(R.string.version, AppUtils.getVersionName()));
 			holder.copyright.setText(getCopyRightLegend());
 			if (getAppContext().displayDebugSettings()) {
 				holder.debugSettings.setOnClickListener(new OnClickListener() {

@@ -1,16 +1,19 @@
 package com.jdroid.android.sqlite;
 
-import java.io.File;
-import java.util.List;
-import java.util.Set;
-import org.slf4j.Logger;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import com.jdroid.android.utils.AndroidUtils;
+
+import com.jdroid.android.utils.AppUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Sets;
 import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
+
+import java.io.File;
+import java.util.List;
+import java.util.Set;
 
 public class SQLiteHelper extends SQLiteOpenHelper {
 	
@@ -21,7 +24,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	private List<SQLiteUpgradeStep> upgradeSteps = Lists.newArrayList();
 	
 	public SQLiteHelper(Context context) {
-		super(context, DB_NAME, null, AndroidUtils.getVersionCode());
+		super(context, DB_NAME, null, AppUtils.getVersionCode());
 	}
 	
 	/**

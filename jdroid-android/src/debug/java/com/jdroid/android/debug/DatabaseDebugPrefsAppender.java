@@ -1,8 +1,5 @@
 package com.jdroid.android.debug;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,13 +9,17 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.sqlite.SQLiteHelper;
-import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.AppUtils;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.utils.FileUtils;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class DatabaseDebugPrefsAppender implements PreferencesAppender {
 	
@@ -43,7 +44,7 @@ public class DatabaseDebugPrefsAppender implements PreferencesAppender {
 				File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 				dir.mkdirs();
 				
-				File file = new File(dir, AndroidUtils.getApplicationName() + ".sqlite");
+				File file = new File(dir, AppUtils.getApplicationName() + ".sqlite");
 				try {
 					FileUtils.copyStream(new FileInputStream(SQLiteHelper.getDatabaseFile(activity)), file);
 					Intent intent = new Intent(Intent.ACTION_SEND);

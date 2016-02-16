@@ -2,7 +2,8 @@ package com.jdroid.android.search;
 
 import android.annotation.SuppressLint;
 import android.content.SearchRecentSuggestionsProvider;
-import com.jdroid.android.utils.AndroidUtils;
+
+import com.jdroid.android.utils.AppUtils;
 
 /**
  * Declare on your manifest as:
@@ -16,7 +17,7 @@ import com.jdroid.android.utils.AndroidUtils;
 @SuppressLint("Registered")
 public class TwoLinesSuggestionsProvider extends SearchRecentSuggestionsProvider {
 	
-	public final static String AUTHORITY = AndroidUtils.getApplicationId() + ".TwoLinesSuggestionsProvider";
+	public final static String AUTHORITY = AppUtils.getApplicationId() + ".TwoLinesSuggestionsProvider";
 	public final static int MODE = DATABASE_MODE_QUERIES | DATABASE_MODE_2LINES;
 	
 	public TwoLinesSuggestionsProvider() {

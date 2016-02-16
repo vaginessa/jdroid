@@ -53,8 +53,6 @@ public class PermissionHelper {
 	private Boolean previouslyShouldShowRequestPermissionRationale;
 	private boolean firstTime;
 
-
-
 	public static PermissionHelper createLocationPermissionHelper(Fragment fragment) {
 		PermissionHelper permissionHelper = new PermissionHelper(fragment, LOCATION_PERMISSION, LOCATION_PERMISSION_REQUEST_CODE);
 		return permissionHelper;

@@ -7,6 +7,7 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.UsageStats;
 import com.jdroid.android.google.GooglePlayUtils;
 import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.AbstractException;
@@ -203,7 +204,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 		}
 		
 		if (title == null) {
-			title = LocalizationUtils.getString(R.string.defaultErrorTitle, AndroidUtils.getApplicationName());
+			title = LocalizationUtils.getString(R.string.defaultErrorTitle, AppUtils.getApplicationName());
 		}
 		
 		if (description == null) {

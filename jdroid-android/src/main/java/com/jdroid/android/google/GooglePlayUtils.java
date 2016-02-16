@@ -9,7 +9,7 @@ import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.dialog.AlertDialogFragment;
 import com.jdroid.android.intent.IntentUtils;
-import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.AppUtils;
 
 public class GooglePlayUtils {
 	
@@ -20,7 +20,7 @@ public class GooglePlayUtils {
 		@Override
 		protected void onPositiveClick() {
 			FragmentActivity fragmentActivity = (FragmentActivity)AbstractApplication.get().getCurrentActivity();
-			launchAppDetails(fragmentActivity, AndroidUtils.getApplicationId());
+			launchAppDetails(fragmentActivity, AppUtils.getApplicationId());
 			fragmentActivity.finish();
 		}
 	}
@@ -60,7 +60,7 @@ public class GooglePlayUtils {
 	}
 	
 	public static void launchAppDetails(Context context) {
-		launchAppDetails(context, AndroidUtils.getApplicationId());
+		launchAppDetails(context, AppUtils.getApplicationId());
 	}
 	
 	public static void launchAppDetails(Context context, String packageName) {
@@ -91,6 +91,6 @@ public class GooglePlayUtils {
 	}
 	
 	public static String getGooglePlayLink() {
-		return getGooglePlayLink(AndroidUtils.getApplicationId());
+		return getGooglePlayLink(AppUtils.getApplicationId());
 	}
 }

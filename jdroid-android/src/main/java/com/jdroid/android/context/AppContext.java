@@ -3,7 +3,7 @@ package com.jdroid.android.context;
 import android.preference.PreferenceManager;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.AppUtils;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.utils.ReflectionUtils;
 
@@ -20,7 +20,7 @@ public abstract class AppContext {
 	}
 
 	public Class<?> getBuildConfigClass() {
-		return ReflectionUtils.getClass(AndroidUtils.getApplicationId() + ".BuildConfig");
+		return ReflectionUtils.getClass(AppUtils.getApplicationId() + ".BuildConfig");
 	}
 
 	@SuppressWarnings("unchecked")

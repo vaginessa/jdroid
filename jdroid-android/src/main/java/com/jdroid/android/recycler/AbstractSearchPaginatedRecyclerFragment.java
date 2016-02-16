@@ -12,7 +12,7 @@ import com.jdroid.android.R;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.listener.OnEnterKeyListener;
 import com.jdroid.android.usecase.SearchUseCase;
-import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.utils.StringUtils;
@@ -42,9 +42,9 @@ public abstract class AbstractSearchPaginatedRecyclerFragment extends AbstractPa
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
-					AndroidUtils.showSoftInput(getActivity());
+					AppUtils.showSoftInput(getActivity());
 				} else {
-					AndroidUtils.hideSoftInput(v);
+					AppUtils.hideSoftInput(v);
 				}
 			}
 		});
@@ -97,7 +97,7 @@ public abstract class AbstractSearchPaginatedRecyclerFragment extends AbstractPa
 	@Override
 	public void onPause() {
 		super.onPause();
-		AndroidUtils.hideSoftInput(getView());
+		AppUtils.hideSoftInput(getView());
 	}
 	
 	public Boolean isInstantSearchEnabled() {

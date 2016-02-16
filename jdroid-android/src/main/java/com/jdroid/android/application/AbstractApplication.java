@@ -29,7 +29,7 @@ import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
 import com.jdroid.android.sqlite.SQLiteUpgradeStep;
 import com.jdroid.android.uri.UriMapper;
-import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.collections.Lists;
@@ -215,7 +215,7 @@ public abstract class AbstractApplication extends Application {
 		if (fromVersionCode == null) {
 			appLaunchStatus = AppLaunchStatus.NEW_INSTALLATION;
 		} else {
-			if (AndroidUtils.getVersionCode().equals(fromVersionCode)) {
+			if (AppUtils.getVersionCode().equals(fromVersionCode)) {
 				appLaunchStatus = AppLaunchStatus.NORMAL;
 			} else {
 				appLaunchStatus = AppLaunchStatus.VERSION_UPGRADE;
@@ -223,7 +223,7 @@ public abstract class AbstractApplication extends Application {
 		}
 		LOGGER.debug("App launch status: " + appLaunchStatus);
 		if (!appLaunchStatus.equals(AppLaunchStatus.NORMAL)) {
-			SharedPreferencesHelper.get().savePreferenceAsync(VERSION_CODE_KEY, AndroidUtils.getVersionCode());
+			SharedPreferencesHelper.get().savePreferenceAsync(VERSION_CODE_KEY, AppUtils.getVersionCode());
 		}
 
 		if (appLaunchStatus.equals(AppLaunchStatus.VERSION_UPGRADE) && updateManager != null) {

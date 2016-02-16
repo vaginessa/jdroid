@@ -19,6 +19,7 @@ import com.jdroid.android.R;
 import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.StringUtils;
@@ -169,7 +170,7 @@ public class NotificationBuilder {
 	}
 	
 	public void setSound(int soundResId) {
-		Uri notificationSound = Uri.parse("android.resource://" + AndroidUtils.getApplicationId() + "/" + soundResId);
+		Uri notificationSound = Uri.parse("android.resource://" + AppUtils.getApplicationId() + "/" + soundResId);
 		if (notificationSound != null) {
 			builder.setSound(notificationSound);
 		}

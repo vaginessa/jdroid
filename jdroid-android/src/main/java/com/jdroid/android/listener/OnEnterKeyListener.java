@@ -3,7 +3,8 @@ package com.jdroid.android.listener;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
-import com.jdroid.android.utils.AndroidUtils;
+
+import com.jdroid.android.utils.AppUtils;
 import com.jdroid.java.concurrent.ExecutorUtils;
 
 public abstract class OnEnterKeyListener implements OnKeyListener {
@@ -32,7 +33,7 @@ public abstract class OnEnterKeyListener implements OnKeyListener {
 				
 				@Override
 				public void run() {
-					AndroidUtils.hideSoftInput(v);
+					AppUtils.hideSoftInput(v);
 					onRun(v);
 				}
 			};
