@@ -20,6 +20,7 @@ import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
+import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.fragment.FragmentIf;
@@ -376,21 +377,18 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		fragmentHelper.onFinishFailedUseCase(abstractException);
 	}
-	
+
+	@Override
+	public ErrorDisplayer createErrorDisplayer(AbstractException abstractException) {
+		return fragmentHelper.createErrorDisplayer(abstractException);
+	}
+
 	/**
 	 * @see UseCaseListener#onFinishUseCase()
 	 */
 	@Override
 	public void onFinishUseCase() {
 		fragmentHelper.onFinishUseCase();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError(com.jdroid.java.exception.AbstractException)
-	 */
-	@Override
-	public Boolean goBackOnError(AbstractException abstractException) {
-		return fragmentHelper.goBackOnError(abstractException);
 	}
 	
 	/**

@@ -9,12 +9,12 @@ import android.view.View;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.snackbar.SnackbarBuilder;
 
-public class SnackbarErrorDisplayer implements ErrorDisplayer {
+public class SnackbarErrorDisplayer extends AbstractErrorDisplayer {
 
 	private SnackbarBuilder snackbarBuilder = new SnackbarBuilder();
 
 	@Override
-	public void displayError(String title, String description, Throwable throwable) {
+	public void onDisplayError(String title, String description, Throwable throwable) {
 		Activity activity = AbstractApplication.get().getCurrentActivity();
 		if (activity != null) {
 			snackbarBuilder.setDescription(description);

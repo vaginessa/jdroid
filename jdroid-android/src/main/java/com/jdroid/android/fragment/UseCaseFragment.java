@@ -2,8 +2,11 @@ package com.jdroid.android.fragment;
 
 import android.os.Bundle;
 
+import com.jdroid.android.exception.DialogErrorDisplayer;
+import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.usecase.AbstractUseCase;
+import com.jdroid.java.exception.AbstractException;
 
 /**
  * 
@@ -13,9 +16,6 @@ public abstract class UseCaseFragment<T extends AbstractUseCase> extends Abstrac
 	
 	private T useCase;
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onCreate(android.os.Bundle)
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,18 +35,12 @@ public abstract class UseCaseFragment<T extends AbstractUseCase> extends Abstrac
 	
 	protected abstract Class<T> getUseCaseClass();
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onResume()
-	 */
 	@Override
 	public void onResume() {
 		super.onResume();
 		onResumeUseCase(useCase, this, getUseCaseTrigger());
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onPause()
-	 */
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -59,5 +53,11 @@ public abstract class UseCaseFragment<T extends AbstractUseCase> extends Abstrac
 	
 	public void executeUseCase() {
 		executeUseCase(useCase);
+	}
+
+	@Override
+	public ErrorDisplayer createErrorDisplayer(AbstractException abstractException) {
+		DialogErrorDisplayer.markAsNotGoBackOnError(abstractException);
+		return super.createErrorDisplayer(abstractException);
 	}
 }

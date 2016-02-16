@@ -3,7 +3,6 @@ package com.jdroid.android.usecase;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.exception.UnexpectedException;
@@ -27,13 +26,12 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 		FINISHED_FAILED;
 	}
 	
-	private List<UseCaseListener> listeners = Lists.newArrayList();
-	private UseCaseStatus useCaseStatus = UseCaseStatus.NOT_INVOKED;
+	private volatile List<UseCaseListener> listeners = Lists.newArrayList();
+	private volatile UseCaseStatus useCaseStatus = UseCaseStatus.NOT_INVOKED;
 	private AbstractException abstractException;
-	private Boolean notified = false;
+	private volatile Boolean notified = false;
 	
 	private Long executionTime = 0L;
-	private Long minimumExecutionTime = 0L;
 	private int exceptionPriorityLevel = AbstractException.NORMAL_PRIORITY;
 
 	/**
@@ -56,12 +54,6 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 			LOGGER.debug("Finished use case " + getClass().getSimpleName() + ". Execution time: "
 					+ DateUtils.formatDuration(executionTime));
 			
-			if (executionTime < minimumExecutionTime) {
-				ExecutorUtils.sleepInMillis(minimumExecutionTime - executionTime);
-				LOGGER.debug("Delaying the use case to achieve the minimum execution time of " + minimumExecutionTime
-						+ "ms");
-			}
-			
 			markAsSuccessful();
 			for (UseCaseListener listener : listeners) {
 				notifyFinishedUseCase(listener);
@@ -77,6 +69,9 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 			}
 			abstractException.setPriorityLevel(exceptionPriorityLevel);
 			markAsFailed(abstractException);
+
+			logHandledException(abstractException);
+
 			for (UseCaseListener listener : listeners) {
 				notifyFailedUseCase(abstractException, listener);
 			}
@@ -86,12 +81,9 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 			}
 		}
 	}
-	
-	/**
-	 * @param minimumExecutionTime the minimumExecutionTime to set
-	 */
-	public void setMinimumExecutionTime(Long minimumExecutionTime) {
-		this.minimumExecutionTime = minimumExecutionTime;
+
+	protected void logHandledException(AbstractException abstractException) {
+		AbstractApplication.get().getExceptionHandler().logHandledException(abstractException);
 	}
 	
 	/**
@@ -150,7 +142,7 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 	 * @param listener the listener to add
 	 */
 	public void addListener(UseCaseListener listener) {
-		if (!listeners.contains(listener)) {
+		if (listener != null && !listeners.contains(listener)) {
 			this.listeners.add(listener);
 		}
 	}
@@ -159,7 +151,9 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 	 * @param listener the listener to remove
 	 */
 	public void removeListener(UseCaseListener listener) {
-		this.listeners.remove(listener);
+		if (listener != null) {
+			this.listeners.remove(listener);
+		}
 	}
 	
 	public Boolean isNotInvoked() {

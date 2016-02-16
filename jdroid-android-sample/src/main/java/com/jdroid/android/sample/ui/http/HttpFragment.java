@@ -3,6 +3,8 @@ package com.jdroid.android.sample.ui.http;
 import android.os.Bundle;
 import android.view.View;
 
+import com.jdroid.android.exception.DialogErrorDisplayer;
+import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
 import com.jdroid.java.concurrent.ExecutorUtils;
@@ -93,7 +95,8 @@ public class HttpFragment extends AbstractFragment {
 	}
 
 	@Override
-	public Boolean goBackOnError(AbstractException abstractException) {
-		return false;
+	public ErrorDisplayer createErrorDisplayer(AbstractException abstractException) {
+		DialogErrorDisplayer.markAsNotGoBackOnError(abstractException);
+		return super.createErrorDisplayer(abstractException);
 	}
 }

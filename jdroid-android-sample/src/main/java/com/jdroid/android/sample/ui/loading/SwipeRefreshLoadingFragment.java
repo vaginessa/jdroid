@@ -10,36 +10,36 @@ import com.jdroid.android.recycler.RecyclerViewAdapter;
 import com.jdroid.android.recycler.SwipeRecyclerFragment;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.ui.adapter.SampleRecyclerViewType;
-import com.jdroid.android.sample.usecase.SampleUseCase;
+import com.jdroid.android.sample.usecase.SampleItemsUseCase;
 import com.jdroid.java.utils.IdGenerator;
 
 public class SwipeRefreshLoadingFragment extends SwipeRecyclerFragment {
 	
-	private SampleUseCase sampleUseCase;
+	private SampleItemsUseCase sampleItemsUseCase;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		sampleUseCase = getInstance(SampleUseCase.class);
+		sampleItemsUseCase = getInstance(SampleItemsUseCase.class);
 	}
 	
 	@Override
 	public void onResume() {
 		super.onResume();
-		onResumeUseCase(sampleUseCase, this, UseCaseTrigger.ONCE);
+		onResumeUseCase(sampleItemsUseCase, this, UseCaseTrigger.ONCE);
 	}
 	
 	@Override
 	public void onPause() {
 		super.onPause();
-		onPauseUseCase(sampleUseCase, this);
+		onPauseUseCase(sampleItemsUseCase, this);
 	}
 	
 	@Override
 	public void onRefresh() {
-		if (!sampleUseCase.isInProgress()) {
-			executeUseCase(sampleUseCase);
+		if (!sampleItemsUseCase.isInProgress()) {
+			executeUseCase(sampleItemsUseCase);
 		}
 	}
 
@@ -59,7 +59,7 @@ public class SwipeRefreshLoadingFragment extends SwipeRecyclerFragment {
 					public AbstractRecyclerFragment getAbstractRecyclerFragment() {
 						return SwipeRefreshLoadingFragment.this;
 					}
-				}, sampleUseCase.getItems()));
+				}, sampleItemsUseCase.getItems()));
 				dismissLoading();
 			}
 		});

@@ -17,8 +17,21 @@
 	<!-- Image Loader -->
 	<string name="universalImageLoader">Universal Image Loader</string>
 
-	<!-- Exception Handling -->
-	<string name="exceptionHandling">Exception Handling</string>
+	<!-- Use Cases -->
+	<string name="useCases">Use Cases</string>
+	<string name="execute">Execute</string>
+	<string name="fail">Fail</string>
+	<string name="noListener">No Listener (Reload fragment if you change this)</string>
+	<string name="onStartUseCase">Starting Use Case</string>
+	<string name="onFinishedUseCase">On Finished Use Case</string>
+	<string name="onFinishedFailUseCase">On Finished Fail Use Case</string>
+	<string name="manualUseCaseTrigger">Manual Use Case Trigger</string>
+	<string name="onceUseCaseTrigger">Once Use Case Trigger</string>
+	<string name="alwaysUseCaseTrigger">Always Use Case Trigger</string>
+	<string name="useCaseTrigger">Use Case Trigger (Reload fragment if you change this)</string>
+
+	<!-- Error Displayer -->
+	<string name="errorDisplayer">Error Displayer</string>
 	<string name="defaultErrorDisplayer">Default Error Displayer</string>
 	<string name="defaultErrorDisplayerNotGoBack">Default Error Displayer (Not go back on error)</string>
 	<string name="snackbarErrorDisplayer">Snackbar Error Displayer</string>
@@ -129,6 +142,7 @@
 	<!-- Service -->
 	<string name="service">Service</string>
 	<string name="workerService">Worker Service</string>
+	<string name="useCaseService">Use Case Service</string>
 	<string name="gcmTaskService">Gcm Task Service</string>
 	<string name="commandService1">Command Service 1</string>
 	<string name="commandService2">Command Service 2</string>

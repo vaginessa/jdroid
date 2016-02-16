@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.activity.ComponentIf;
+import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.usecase.AbstractUseCase;
@@ -64,7 +65,7 @@ public interface FragmentIf extends ComponentIf, UseCaseListener, OnRefreshListe
 	
 	public void executeUseCase(AbstractUseCase useCase, Long delaySeconds);
 	
-	public Boolean goBackOnError(AbstractException abstractException);
+	public ErrorDisplayer createErrorDisplayer(AbstractException abstractException);
 	
 	public Boolean shouldRetainInstance();
 	

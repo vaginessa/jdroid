@@ -10,21 +10,28 @@ import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.service.AbstractGcmTaskService;
+import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.IdGenerator;
 
 public class SampleGcmTaskService extends AbstractGcmTaskService {
 
 	@Override
 	public int doRunTask(TaskParams taskParams) {
-		NotificationBuilder builder = new NotificationBuilder();
-		builder.setNotificationName("myNotification");
-		builder.setSmallIcon(R.drawable.ic_launcher);
-		builder.setTicker(R.string.notificationTicker);
-		builder.setContentTitle(getClass().getSimpleName());
-		builder.setContentText(taskParams.getExtras().get("a").toString());
 
-		NotificationUtils.sendNotification(IdGenerator.getIntId(), builder);
-		return GcmNetworkManager.RESULT_SUCCESS;
+		Boolean fail = taskParams.getExtras().getBoolean("fail");
+		if (fail) {
+			throw new UnexpectedException("Failing service");
+		} else {
+			NotificationBuilder builder = new NotificationBuilder();
+			builder.setNotificationName("myNotification");
+			builder.setSmallIcon(R.drawable.ic_launcher);
+			builder.setTicker(R.string.notificationTicker);
+			builder.setContentTitle(getClass().getSimpleName());
+			builder.setContentText(taskParams.getExtras().get("a").toString());
+
+			NotificationUtils.sendNotification(IdGenerator.getIntId(), builder);
+			return GcmNetworkManager.RESULT_SUCCESS;
+		}
 	}
 
 	public static void runIntentInService(Bundle bundle) {

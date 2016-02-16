@@ -226,7 +226,9 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	@Override
 	public void trackTiming(String category, String variable, String label, long value) {
 		// Avoid timing trackings when the app is in background to avoid session times data corruption.
-		if (!(ignoreBackgroundTimingTrackings() && AbstractApplication.get().isInBackground())) {
+		// TODO Improve this to track timings 30 seconds after of the last onResume,
+		// so we don´t lose the tracking when an use case finish in background
+ 		if (!(ignoreBackgroundTimingTrackings() && AbstractApplication.get().isInBackground())) {
 			HitBuilders.TimingBuilder timingBuilder = new HitBuilders.TimingBuilder();
 			timingBuilder.setCategory(category);
 			timingBuilder.setVariable(variable);

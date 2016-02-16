@@ -6,7 +6,7 @@ import com.jdroid.java.concurrent.ExecutorUtils;
 
 import java.util.List;
 
-public class SampleUseCase extends AbstractUseCase {
+public class SampleItemsUseCase extends AbstractUseCase {
 	
 	private static final long serialVersionUID = -3206803568176386530L;
 

@@ -15,9 +15,6 @@ public class UseCaseService extends WorkerService {
 	private final static String USE_CASE = "useCase";
 	private final static String NOTIFICATION_TO_CANCEL_ID = "notificationToCancelId";
 	
-	/**
-	 * @see com.jdroid.android.service.WorkerService#doExecute(android.content.Intent)
-	 */
 	@Override
 	protected void doExecute(Intent intent) {
 		
@@ -28,12 +25,13 @@ public class UseCaseService extends WorkerService {
 		
 		AbstractUseCase useCase = (AbstractUseCase)intent.getSerializableExtra(USE_CASE);
 		useCase.run();
-		
-		if (useCase.isFinishFailed()) {
-			AbstractApplication.get().getExceptionHandler().logHandledException(useCase.getAbstractException());
-		}
 	}
-	
+
+	@Override
+	protected Boolean enableTimingTracking() {
+		return false;
+	}
+
 	public static void schedule(final AbstractUseCase useCase, Long delaySeconds) {
 		ExecutorUtils.schedule(new Runnable() {
 			

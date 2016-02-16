@@ -14,6 +14,8 @@ import com.facebook.widget.WebDialog.FeedDialogBuilder;
 import com.facebook.widget.WebDialog.OnCompleteListener;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.activity.AbstractFragmentActivity;
+import com.jdroid.android.exception.DialogErrorDisplayer;
+import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
@@ -294,18 +296,13 @@ public class FacebookAuthenticationFragment<T extends FacebookAuthenticationUseC
 		});
 		super.onFinishFailedUseCase(abstractException);
 	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError(com.jdroid.java.exception.AbstractException)
-	 */
+
 	@Override
-	public Boolean goBackOnError(AbstractException abstractException) {
-		return false;
+	public ErrorDisplayer createErrorDisplayer(AbstractException abstractException) {
+		DialogErrorDisplayer.markAsNotGoBackOnError(abstractException);
+		return super.createErrorDisplayer(abstractException);
 	}
-	
-	/**
-	 * @see SessionStateListener#onSessionOpened()
-	 */
+
 	@Override
 	public void onSessionOpened() {
 		logger.debug("onSessionOpened()");

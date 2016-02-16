@@ -95,21 +95,14 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 		return (InAppBillingListener)getTargetFragment();
 	}
 	
-	/**
-	 * @see com.jdroid.android.google.inappbilling.InAppBillingClientListener#onSetupFailed(com.jdroid.java.exception.ErrorCodeException)
-	 */
 	@Override
 	public void onSetupFailed(ErrorCodeException errorCodeException) {
-		if (silentMode) {
-			AbstractApplication.get().getExceptionHandler().logHandledException(errorCodeException);
-		} else {
-			AbstractApplication.get().getExceptionHandler().handleThrowable(errorCodeException);
+		AbstractApplication.get().getExceptionHandler().logHandledException(errorCodeException);
+		if (!silentMode) {
+			createErrorDisplayer(errorCodeException).displayError(errorCodeException);
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.android.google.inappbilling.InAppBillingClientListener#onQueryInventoryFinished(com.jdroid.android.google.inappbilling.Inventory)
-	 */
 	@Override
 	public void onQueryInventoryFinished(Inventory inventory) {
 		InAppBillingListener inAppBillingListener = getInAppBillingListener();
@@ -121,16 +114,12 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.android.google.inappbilling.InAppBillingClientListener#onQueryInventoryFailed(com.jdroid.java.exception.ErrorCodeException)
-	 */
 	@Override
 	public void onQueryInventoryFailed(ErrorCodeException errorCodeException) {
-		if (silentMode) {
-			AbstractApplication.get().getExceptionHandler().logHandledException(errorCodeException);
-		} else {
+		AbstractApplication.get().getExceptionHandler().logHandledException(errorCodeException);
+		if (!silentMode) {
 			errorCodeException.setDescription(getString(R.string.failedToLoadPurchases));
-			AbstractApplication.get().getExceptionHandler().handleThrowable(errorCodeException);
+			createErrorDisplayer(errorCodeException).displayError(errorCodeException);
 		}
 	}
 	
@@ -139,9 +128,6 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 		AbstractApplication.get().getAnalyticsSender().trackInAppBillingPurchaseTry(product);
 	}
 	
-	/**
-	 * @see com.jdroid.android.google.inappbilling.InAppBillingClientListener#onPurchaseFinished(com.jdroid.android.google.inappbilling.Product)
-	 */
 	@Override
 	public void onPurchaseFinished(final Product product) {
 		InAppBillingListener inAppBillingListener = getInAppBillingListener();
@@ -153,9 +139,6 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.android.google.inappbilling.InAppBillingClientListener#onPurchaseFailed(com.jdroid.java.exception.ErrorCodeException)
-	 */
 	@Override
 	public void onPurchaseFailed(ErrorCodeException errorCodeException) {
 		if (DefaultExceptionHandler.matchAnyErrorCode(errorCodeException, InAppBillingErrorCode.USER_CANCELED)) {
@@ -165,13 +148,11 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 			AbstractApplication.get().getExceptionHandler().logHandledException(errorCodeException);
 		} else {
 			DialogErrorDisplayer.markAsNotGoBackOnError(errorCodeException);
-			AbstractApplication.get().getExceptionHandler().handleThrowable(errorCodeException);
+			AbstractApplication.get().getExceptionHandler().logHandledException(errorCodeException);
+			createErrorDisplayer(errorCodeException).displayError(errorCodeException);
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.android.google.inappbilling.InAppBillingClientListener#onConsumeFinished(com.jdroid.android.google.inappbilling.Product)
-	 */
 	@Override
 	public void onConsumeFinished(Product product) {
 		InAppBillingListener inAppBillingListener = getInAppBillingListener();
@@ -182,10 +163,9 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 	
 	@Override
 	public void onConsumeFailed(ErrorCodeException errorCodeException) {
-		if (silentMode) {
-			AbstractApplication.get().getExceptionHandler().handleThrowable(errorCodeException);
-		} else {
-			AbstractApplication.get().getExceptionHandler().logHandledException(errorCodeException);
+		AbstractApplication.get().getExceptionHandler().logHandledException(errorCodeException);
+		if (!silentMode) {
+			createErrorDisplayer(errorCodeException).displayError(errorCodeException);
 		}
 	}
 	

@@ -11,7 +11,7 @@ import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
 import com.jdroid.android.recycler.RecyclerViewType;
 import com.jdroid.android.sample.R;
-import com.jdroid.android.sample.usecase.SampleUseCase;
+import com.jdroid.android.sample.usecase.SampleItemsUseCase;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.IdGenerator;
 
@@ -21,25 +21,25 @@ public class ComplexRecyclerFragment extends AbstractRecyclerFragment {
 
 	private RecyclerViewAdapter adapter;
 
-	private SampleUseCase sampleUseCase;
+	private SampleItemsUseCase sampleItemsUseCase;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		sampleUseCase = getInstance(SampleUseCase.class);
+		sampleItemsUseCase = getInstance(SampleItemsUseCase.class);
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		onResumeUseCase(sampleUseCase, this, FragmentHelper.UseCaseTrigger.ONCE);
+		onResumeUseCase(sampleItemsUseCase, this, FragmentHelper.UseCaseTrigger.ONCE);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		onPauseUseCase(sampleUseCase, this);
+		onPauseUseCase(sampleItemsUseCase, this);
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class ComplexRecyclerFragment extends AbstractRecyclerFragment {
 			@Override
 			public void run() {
 				List<RecyclerViewType> recyclerViewTypes = Lists.<RecyclerViewType>newArrayList(new StringRecyclerViewType(), new IntegerRecyclerViewType(), new BooleanRecyclerViewType());
-				adapter = new RecyclerViewAdapter(recyclerViewTypes, sampleUseCase.getComplexItems());
+				adapter = new RecyclerViewAdapter(recyclerViewTypes, sampleItemsUseCase.getComplexItems());
 				setAdapter(adapter);
 				dismissLoading();
 			}

@@ -6,13 +6,23 @@ import android.support.v4.app.FragmentActivity;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.exception.AbstractException;
 
-public class DialogErrorDisplayer implements ErrorDisplayer {
+public class DialogErrorDisplayer extends AbstractErrorDisplayer {
 
 	private static final String GO_BACK_KEY = "goBack";
 	private static final String ERROR_DIALOG_STRATEGY_KEY = "errorDialogStrategy";
 
+	private Boolean goBackOnErrorByDefault;
+
+	public DialogErrorDisplayer() {
+		this(true);
+	}
+
+	public DialogErrorDisplayer(Boolean goBackOnErrorByDefault) {
+		this.goBackOnErrorByDefault = goBackOnErrorByDefault;
+	}
+
 	@Override
-	public void displayError(String title, String description, Throwable throwable) {
+	public void onDisplayError(String title, String description, Throwable throwable) {
 		Activity activity = AbstractApplication.get().getCurrentActivity();
 		if (activity != null) {
 			ErrorDialogFragment.show((FragmentActivity)activity, title, description, getErrorDialogStrategy(throwable));
@@ -45,7 +55,7 @@ public class DialogErrorDisplayer implements ErrorDisplayer {
 	}
 
 	protected Boolean goBackOnErrorByDefault(Throwable throwable) {
-		return true;
+		return goBackOnErrorByDefault;
 	}
 
 	public static void markAsGoBackOnError(AbstractException abstractException) {
@@ -55,4 +65,6 @@ public class DialogErrorDisplayer implements ErrorDisplayer {
 	public static void markAsNotGoBackOnError(AbstractException abstractException) {
 		abstractException.addParameter(GO_BACK_KEY, false);
 	}
+
+
 }

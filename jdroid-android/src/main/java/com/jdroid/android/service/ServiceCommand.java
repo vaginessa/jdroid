@@ -23,7 +23,7 @@ public abstract class ServiceCommand implements Serializable {
 	}
 
 	public void start(Intent intent) {
-		LOGGER.info("Scheduling Worker Service " + getClass().getSimpleName());
+		LOGGER.info("Scheduling Worker Service for " + getClass().getSimpleName());
 
 		intent = intent != null ? intent : new Intent();
 		intent.putExtra(CommandWorkerService.COMMAND_EXTRA, getClass().getName());
@@ -31,7 +31,7 @@ public abstract class ServiceCommand implements Serializable {
 	}
 
 	void startGcmTaskService(Bundle bundle) {
-		LOGGER.info("Scheduling GCM Task Service " + getClass().getSimpleName());
+		LOGGER.info("Scheduling GCM Task Service for " + getClass().getSimpleName());
 
 		Task.Builder builder = createBuilder();
 		builder.setExtras(bundle);

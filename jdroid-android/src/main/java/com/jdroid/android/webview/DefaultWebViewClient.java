@@ -13,18 +13,14 @@ import com.jdroid.java.exception.UnexpectedException;
 public class DefaultWebViewClient extends WebViewClient {
 	
 	private Boolean errorReceived = false;
-	
-	/**
-	 * @see android.webkit.WebViewClient#onReceivedError(android.webkit.WebView, int, java.lang.String,
-	 *      java.lang.String)
-	 */
+
 	@Override
 	public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
 		if ((errorCode != WebViewClient.ERROR_CONNECT) && (errorCode != WebViewClient.ERROR_HOST_LOOKUP)) {
-			AbstractApplication.get().getExceptionHandler().handleThrowable(
+			AbstractApplication.get().getExceptionHandler().logHandledException(
 				new UnexpectedException("WebView error: " + errorCode + ". " + description));
 		} else {
-			AbstractApplication.get().getExceptionHandler().handleThrowable(new ConnectionException(description));
+			AbstractApplication.get().getExceptionHandler().logHandledException(new ConnectionException(description));
 		}
 		view.setVisibility(View.GONE);
 		errorReceived = true;
@@ -32,7 +28,8 @@ public class DefaultWebViewClient extends WebViewClient {
 	
 	@Override
 	public void onReceivedSslError(WebView view, @NonNull SslErrorHandler handler, SslError error) {
-		handler.proceed();
+		AbstractApplication.get().getExceptionHandler().logHandledException(
+					new UnexpectedException("WebView Ssl error: " + error.getPrimaryError()));
 	}
 	
 	public Boolean isErrorReceived() {

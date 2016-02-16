@@ -11,30 +11,30 @@ import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
 import com.jdroid.android.recycler.RecyclerViewType;
 import com.jdroid.android.sample.R;
-import com.jdroid.android.sample.usecase.SampleUseCase;
+import com.jdroid.android.sample.usecase.SampleItemsUseCase;
 import com.jdroid.java.utils.IdGenerator;
 
 public class SimpleRecyclerFragment extends AbstractRecyclerFragment {
 
-	private SampleUseCase sampleUseCase;
+	private SampleItemsUseCase sampleItemsUseCase;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		sampleUseCase = getInstance(SampleUseCase.class);
+		sampleItemsUseCase = getInstance(SampleItemsUseCase.class);
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		onResumeUseCase(sampleUseCase, this, FragmentHelper.UseCaseTrigger.ONCE);
+		onResumeUseCase(sampleItemsUseCase, this, FragmentHelper.UseCaseTrigger.ONCE);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		onPauseUseCase(sampleUseCase, this);
+		onPauseUseCase(sampleItemsUseCase, this);
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class SimpleRecyclerFragment extends AbstractRecyclerFragment {
 		executeOnUIThread(new Runnable() {
 			@Override
 			public void run() {
-				setAdapter(new RecyclerViewAdapter(new StringRecyclerViewType(), sampleUseCase.getItems()));
+				setAdapter(new RecyclerViewAdapter(new StringRecyclerViewType(), sampleItemsUseCase.getItems()));
 				dismissLoading();
 			}
 		});

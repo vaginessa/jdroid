@@ -9,6 +9,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
 import com.jdroid.android.R;
+import com.jdroid.android.exception.DialogErrorDisplayer;
+import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.listener.OnEnterKeyListener;
 import com.jdroid.android.usecase.SearchUseCase;
@@ -206,12 +208,13 @@ public abstract class AbstractSearchPaginatedRecyclerFragment extends AbstractPa
 			}
 		});
 	}
-	
+
 	@Override
-	public Boolean goBackOnError(AbstractException abstractException) {
-		return false;
+	public ErrorDisplayer createErrorDisplayer(AbstractException abstractException) {
+		DialogErrorDisplayer.markAsNotGoBackOnError(abstractException);
+		return super.createErrorDisplayer(abstractException);
 	}
-	
+
 	@Override
 	public void dismissLoading() {
 		executeOnUIThread(new Runnable() {

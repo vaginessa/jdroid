@@ -8,11 +8,11 @@ import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.ActivityLoading;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.utils.ToastUtils;
-import com.jdroid.android.sample.usecase.SampleUseCase;
+import com.jdroid.android.sample.usecase.SampleItemsUseCase;
 
 public class CustomActivityLoadingFragment extends AbstractFragment {
 	
-	private SampleUseCase sampleUseCase;
+	private SampleItemsUseCase sampleItemsUseCase;
 	
 	/**
 	 * @see com.jdroid.android.fragment.AbstractFragment#onCreate(android.os.Bundle)
@@ -21,7 +21,7 @@ public class CustomActivityLoadingFragment extends AbstractFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		sampleUseCase = getInstance(SampleUseCase.class);
+		sampleItemsUseCase = getInstance(SampleItemsUseCase.class);
 		getActivityIf().setLoading(new ActivityLoading() {
 			
 			@Override
@@ -43,7 +43,7 @@ public class CustomActivityLoadingFragment extends AbstractFragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		onResumeUseCase(sampleUseCase, this, UseCaseTrigger.ONCE);
+		onResumeUseCase(sampleItemsUseCase, this, UseCaseTrigger.ONCE);
 	}
 	
 	/**
@@ -52,6 +52,6 @@ public class CustomActivityLoadingFragment extends AbstractFragment {
 	@Override
 	public void onPause() {
 		super.onPause();
-		onPauseUseCase(sampleUseCase, this);
+		onPauseUseCase(sampleItemsUseCase, this);
 	}
 }

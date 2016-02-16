@@ -3,17 +3,21 @@ package com.jdroid.android.sample.ui.exceptions;
 import android.os.Bundle;
 import android.view.View;
 
-import com.jdroid.android.exception.DefaultExceptionHandler;
+import com.jdroid.android.exception.AbstractErrorDisplayer;
 import com.jdroid.android.exception.DialogErrorDisplayer;
+import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.exception.SnackbarErrorDisplayer;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
+import com.jdroid.android.sample.ui.usecases.SampleUseCase;
 import com.jdroid.java.exception.AbstractException;
-import com.jdroid.android.sample.usecase.FailingUseCase;
 
-public class ExceptionHandlingFragment extends AbstractFragment {
+public class ErrorDisplayerFragment extends AbstractFragment {
 
-	private FailingUseCase failingUseCase;
+	private SampleUseCase failingUseCase;
+
+	private ErrorDisplayer errorDisplayer;
+	private Boolean goBackOnError = true;
 	
 	@Override
 	public Integer getContentFragmentLayout() {
@@ -24,7 +28,8 @@ public class ExceptionHandlingFragment extends AbstractFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		failingUseCase = new FailingUseCase();
+		failingUseCase = new SampleUseCase();
+		failingUseCase.setFail(true);
 	}
 
 	@Override
@@ -34,8 +39,8 @@ public class ExceptionHandlingFragment extends AbstractFragment {
 		findView(R.id.defaultErrorDisplayer).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				failingUseCase.setErrorDisplayer(null);
-				failingUseCase.setGoBackOnError(true);
+				ErrorDisplayerFragment.this.errorDisplayer = null;
+				ErrorDisplayerFragment.this.goBackOnError = true;
 				executeUseCase(failingUseCase);
 			}
 		});
@@ -43,8 +48,8 @@ public class ExceptionHandlingFragment extends AbstractFragment {
 		findView(R.id.defaultErrorDisplayerNotGoBack).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				failingUseCase.setErrorDisplayer(null);
-				failingUseCase.setGoBackOnError(false);
+				ErrorDisplayerFragment.this.errorDisplayer = null;
+				ErrorDisplayerFragment.this.goBackOnError = false;
 				executeUseCase(failingUseCase);
 			}
 		});
@@ -62,7 +67,7 @@ public class ExceptionHandlingFragment extends AbstractFragment {
 						executeUseCase(failingUseCase);
 					}
 				});
-				failingUseCase.setErrorDisplayer(errorDisplayer);
+				ErrorDisplayerFragment.this.errorDisplayer = errorDisplayer;
 				executeUseCase(failingUseCase);
 			}
 		});
@@ -88,13 +93,11 @@ public class ExceptionHandlingFragment extends AbstractFragment {
 	}
 
 	@Override
-	public void onFinishFailedUseCase(AbstractException abstractException) {
-		DefaultExceptionHandler.setErrorDisplayer(abstractException, failingUseCase.getErrorDisplayer());
-
-		if (failingUseCase.getErrorDisplayer() == null && !failingUseCase.getGoBackOnError()) {
+	public ErrorDisplayer createErrorDisplayer(AbstractException abstractException) {
+		AbstractErrorDisplayer.setErrorDisplayer(abstractException, errorDisplayer);
+		if (errorDisplayer == null && !goBackOnError) {
 			DialogErrorDisplayer.markAsNotGoBackOnError(abstractException);
 		}
-
-		throw abstractException;
+		return super.createErrorDisplayer(abstractException);
 	}
 }

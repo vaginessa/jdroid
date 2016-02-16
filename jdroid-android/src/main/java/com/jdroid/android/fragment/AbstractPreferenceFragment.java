@@ -15,6 +15,7 @@ import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
+import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.usecase.AbstractUseCase;
@@ -112,15 +113,15 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		getFragmentIf().onFinishFailedUseCase(abstractException);
 	}
-	
+
+	@Override
+	public ErrorDisplayer createErrorDisplayer(AbstractException abstractException) {
+		return getFragmentIf().createErrorDisplayer(abstractException);
+	}
+
 	@Override
 	public void onFinishUseCase() {
 		getFragmentIf().onFinishUseCase();
-	}
-	
-	@Override
-	public Boolean goBackOnError(AbstractException abstractException) {
-		return getFragmentIf().goBackOnError(abstractException);
 	}
 	
 	@Override

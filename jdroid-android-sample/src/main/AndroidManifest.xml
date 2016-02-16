@@ -80,7 +80,7 @@
 		<activity android:name="com.jdroid.android.sample.ui.hero.HeroActivity" android:label="@string/hero"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity"  tools:ignore="UnusedAttribute"/>
 
-		<activity android:name="com.jdroid.android.sample.ui.exceptions.ExceptionHandlingActivity" android:label="@string/exceptionHandling"
+		<activity android:name="com.jdroid.android.sample.ui.exceptions.ErrorDisplayerActivity" android:label="@string/errorDisplayer"
 			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<activity android:name="com.jdroid.android.sample.ui.google.plus.GooglePlusActivity" android:label="@string/loading"
@@ -173,6 +173,10 @@
 		<activity android:name="com.jdroid.android.sample.ui.cardview.CardViewRecyclerViewActivity" android:label="@string/cardView"
 				  android:parentActivityName="com.jdroid.android.sample.ui.cardview.CardViewActivity" tools:ignore="UnusedAttribute"/>
 
+		<activity android:name="com.jdroid.android.sample.ui.usecases.UseCasesActivity" android:label="@string/useCases"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
+		<service android:name="com.jdroid.android.usecase.service.UseCaseService" android:exported="false" />
 		<service android:name="com.jdroid.android.sample.ui.service.SampleWorkerService" android:exported="false" />
 		<service android:name="com.jdroid.android.sample.ui.service.SampleGcmTaskService" android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE"
 				 android:exported="true">

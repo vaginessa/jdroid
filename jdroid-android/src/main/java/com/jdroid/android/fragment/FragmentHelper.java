@@ -20,7 +20,8 @@ import com.jdroid.android.concurrent.SafeExecuteWrapperRunnable;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
-import com.jdroid.android.exception.DialogErrorDisplayer;
+import com.jdroid.android.exception.AbstractErrorDisplayer;
+import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.android.usecase.listener.UseCaseListener;
@@ -33,7 +34,7 @@ import org.slf4j.Logger;
 public class FragmentHelper implements FragmentIf {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(FragmentHelper.class);
-	
+
 	private Fragment fragment;
 	private AdHelper adHelper;
 	
@@ -242,35 +243,43 @@ public class FragmentHelper implements FragmentIf {
 		onResumeUseCase(useCase, listener, UseCaseTrigger.MANUAL);
 	}
 	
-	@Override
 	public void onResumeUseCase(final AbstractUseCase useCase, final UseCaseListener listener,
-			final UseCaseTrigger useCaseTrigger) {
+								final UseCaseTrigger useCaseTrigger) {
 		if (useCase != null) {
 			ExecutorUtils.execute(new Runnable() {
-				
+
 				@Override
 				public void run() {
 					useCase.addListener(listener);
-					if (useCase.isNotified()) {
+					if (useCase.isInProgress()) {
+						if (listener != null && !useCase.isNotified()) {
+							listener.onStartUseCase();
+						}
+					} else if (useCase.isFinishSuccessful()) {
+						if (listener != null && !useCase.isNotified()) {
+							listener.onFinishUseCase();
+							useCase.markAsNotified();
+						}
+
 						if (useCaseTrigger.equals(UseCaseTrigger.ALWAYS)) {
 							useCase.run();
 						}
-					} else {
-						if (useCase.isInProgress()) {
-							listener.onStartUseCase();
-						} else if (useCase.isFinishSuccessful()) {
-							listener.onFinishUseCase();
-							useCase.markAsNotified();
-						} else if (useCase.isFinishFailed()) {
+					} else if (useCase.isFinishFailed()) {
+						if (listener != null && !useCase.isNotified()) {
 							try {
 								listener.onFinishFailedUseCase(useCase.getAbstractException());
 							} finally {
 								useCase.markAsNotified();
 							}
-						} else if (useCase.isNotInvoked()
-								&& (useCaseTrigger.equals(UseCaseTrigger.ONCE) || useCaseTrigger.equals(UseCaseTrigger.ALWAYS))) {
+						}
+
+						if (useCaseTrigger.equals(UseCaseTrigger.ALWAYS)) {
 							useCase.run();
 						}
+
+					} else if (useCase.isNotInvoked()
+							&& (useCaseTrigger.equals(UseCaseTrigger.ONCE) || useCaseTrigger.equals(UseCaseTrigger.ALWAYS))) {
+						useCase.run();
 					}
 				}
 			});
@@ -329,22 +338,12 @@ public class FragmentHelper implements FragmentIf {
 	 */
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
-		FragmentIf fragmentIf = getFragmentIf();
-		if (fragmentIf.goBackOnError(abstractException)) {
-			DialogErrorDisplayer.markAsGoBackOnError(abstractException);
-		} else {
-			DialogErrorDisplayer.markAsNotGoBackOnError(abstractException);
-		}
-		fragmentIf.dismissLoading();
-		throw abstractException;
+		getFragmentIf().dismissLoading();
+		getFragmentIf().createErrorDisplayer(abstractException).displayError(abstractException);
 	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#goBackOnError(com.jdroid.java.exception.AbstractException)
-	 */
-	@Override
-	public Boolean goBackOnError(AbstractException abstractException) {
-		return true;
+
+	public ErrorDisplayer createErrorDisplayer(AbstractException abstractException) {
+		return AbstractErrorDisplayer.getErrorDisplayer(abstractException);
 	}
 	
 	/**

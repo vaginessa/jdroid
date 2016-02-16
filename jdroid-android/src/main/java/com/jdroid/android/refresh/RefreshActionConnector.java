@@ -6,7 +6,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.jdroid.android.R;
-import com.jdroid.android.exception.DialogErrorDisplayer;
+import com.jdroid.android.exception.AbstractErrorDisplayer;
+import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.fragment.FragmentIf;
 import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.exception.AbstractException;
@@ -70,27 +71,16 @@ public abstract class RefreshActionConnector implements RefreshActionProvider.On
 		getFragmentIf().onUpdateUseCase();
 	}
 	
-	/**
-	 * @see UseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
-	 */
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
-		if (goBackOnError(abstractException)) {
-			DialogErrorDisplayer.markAsGoBackOnError(abstractException);
-		} else {
-			DialogErrorDisplayer.markAsNotGoBackOnError(abstractException);
-		}
 		stopLoadingOnUIThread();
-		throw abstractException;
+		createErrorDisplayer(abstractException).displayError(abstractException);
 	}
-	
-	public Boolean goBackOnError(AbstractException abstractException) {
-		return getFragmentIf().goBackOnError(abstractException);
+
+	public ErrorDisplayer createErrorDisplayer(AbstractException abstractException) {
+		return AbstractErrorDisplayer.getErrorDisplayer(abstractException);
 	}
-	
-	/**
-	 * @see UseCaseListener#onFinishUseCase()
-	 */
+
 	@Override
 	public void onFinishUseCase() {
 		stopLoadingOnUIThread();

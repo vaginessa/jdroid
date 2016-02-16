@@ -7,6 +7,7 @@ import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.service.WorkerService;
+import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.IdGenerator;
 
 public class SampleWorkerService extends WorkerService {
@@ -14,14 +15,20 @@ public class SampleWorkerService extends WorkerService {
 	@Override
 	protected void doExecute(Intent intent) {
 
-		NotificationBuilder builder = new NotificationBuilder();
-		builder.setNotificationName("myNotification");
-		builder.setSmallIcon(R.drawable.ic_launcher);
-		builder.setTicker(R.string.notificationTicker);
-		builder.setContentTitle(getClass().getSimpleName());
-		builder.setContentText(intent.getExtras().get("a").toString());
+		Boolean fail = intent.getExtras().getBoolean("fail");
 
-		NotificationUtils.sendNotification(IdGenerator.getIntId(), builder);
+		if (fail) {
+			throw new UnexpectedException("Failing service");
+		} else {
+			NotificationBuilder builder = new NotificationBuilder();
+			builder.setNotificationName("myNotification");
+			builder.setSmallIcon(R.drawable.ic_launcher);
+			builder.setTicker(R.string.notificationTicker);
+			builder.setContentTitle(getClass().getSimpleName());
+			builder.setContentText(intent.getExtras().get("a").toString());
+
+			NotificationUtils.sendNotification(IdGenerator.getIntId(), builder);
+		}
 	}
 
 	public static void runIntentInService(Intent intent) {
