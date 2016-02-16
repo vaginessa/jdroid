@@ -11,6 +11,9 @@
 	<Button android:id="@+id/paginatedRecycler" android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:text="@string/paginatedRecycler" />
 
+	<Button android:id="@+id/paginatedGridRecycler" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:text="@string/paginatedGridRecycler" />
+
 	<Button android:id="@+id/searchPaginatedRecycler" android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:text="@string/searchPaginatedRecycler" />
 

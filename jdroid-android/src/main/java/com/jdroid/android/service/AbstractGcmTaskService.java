@@ -1,5 +1,6 @@
 package com.jdroid.android.service;
 
+import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmTaskService;
 import com.google.android.gms.gcm.TaskParams;
 import com.jdroid.android.application.AbstractApplication;
@@ -24,8 +25,10 @@ public abstract class AbstractGcmTaskService extends GcmTaskService {
 		LOGGER.info("Starting service. Variable: " + trackingVariable + " - Label: " + trackingLabel);
 		long startTime = DateUtils.nowMillis();
 		int result = doRunTask(taskParams);
-		long executionTime = DateUtils.nowMillis() - startTime;
-		AbstractApplication.get().getAnalyticsSender().trackTiming("Service", trackingVariable, trackingLabel, executionTime);
+		if (result == GcmNetworkManager.RESULT_SUCCESS) {
+			long executionTime = DateUtils.nowMillis() - startTime;
+			AbstractApplication.get().getAnalyticsSender().trackTiming("Service", trackingVariable, trackingLabel, executionTime);
+		}
 		return result;
 	}
 

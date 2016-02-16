@@ -114,6 +114,7 @@
 	<string name="simpleRecycler">Simple Recycler</string>
 	<string name="complexRecycler">Complex Recycler</string>
 	<string name="paginatedRecycler">Paginated Recycler</string>
+	<string name="paginatedGridRecycler">Paginated Grid Recycler</string>
 	<string name="searchPaginatedRecycler">Search Paginated Recycler</string>
 	<string name="noResults">No Results</string>
 

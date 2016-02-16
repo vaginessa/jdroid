@@ -137,6 +137,9 @@
 		<activity android:name="com.jdroid.android.sample.ui.recyclerview.PaginatedRecyclerActivity" android:label="@string/paginatedRecycler"
 				  android:parentActivityName="com.jdroid.android.sample.ui.recyclerview.RecyclerViewActivity" tools:ignore="UnusedAttribute"/>
 
+		<activity android:name="com.jdroid.android.sample.ui.recyclerview.PaginatedGridRecyclerActivity" android:label="@string/paginatedGridRecycler"
+				  android:parentActivityName="com.jdroid.android.sample.ui.recyclerview.RecyclerViewActivity" tools:ignore="UnusedAttribute"/>
+
 		<activity android:name="com.jdroid.android.sample.ui.recyclerview.SearchPaginatedRecyclerActivity" android:label="@string/searchPaginatedRecycler"
 				  android:parentActivityName="com.jdroid.android.sample.ui.recyclerview.RecyclerViewActivity" tools:ignore="UnusedAttribute"/>
 

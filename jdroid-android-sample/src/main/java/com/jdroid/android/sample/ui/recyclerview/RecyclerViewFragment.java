@@ -39,6 +39,13 @@ public class RecyclerViewFragment extends AbstractFragment {
 				getActivity().startActivity(new Intent(getActivity(), PaginatedRecyclerActivity.class));
 			}
 		});
+		findView(R.id.paginatedGridRecycler).setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				getActivity().startActivity(new Intent(getActivity(), PaginatedGridRecyclerActivity.class));
+			}
+		});
 		findView(R.id.searchPaginatedRecycler).setOnClickListener(new View.OnClickListener() {
 
 			@Override
