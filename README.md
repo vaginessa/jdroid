@@ -6,12 +6,12 @@ The jdroid Framework provides a programming and architectural model for modern J
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
 -----------
-Dependency for both Android & Java apps
+Library for Android & Java apps
 * HTTP Service Layer
  * GET, POST, PUT, PATCH & DELETE methods
  * Headers appender
  * Response validator
- * Response Mocks support
+ * Response mocks support
  * GZIP encoding
  * Cache support
 * Parsers
@@ -35,7 +35,7 @@ Dependency for both Android & Java apps
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
-Dependency for Android apps. Support for Android 4.0 (api level 14) and higher versions
+Libray for Android apps. Support for Android 4.0 (api level 14) and higher versions
 * Languages supported: english & spanish
 * Android M Permissions scheme support
 * [Navigation Drawer support](https://developer.android.com/design/patterns/navigation-drawer.html)
@@ -109,7 +109,7 @@ Dependency for Android apps. Support for Android 4.0 (api level 14) and higher v
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-javaweb](https://github.com/maxirosson/jdroid/wiki/jdroid-Java-Web)
 ---------------
-Dependency project for Java-based enterprise apps 
+Library for Java-based enterprise apps 
 * Http Filters
  * Authentication filter
  * API version filter
