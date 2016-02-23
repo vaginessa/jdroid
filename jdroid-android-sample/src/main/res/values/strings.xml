@@ -93,14 +93,10 @@
 
 	<!-- Toasts -->
 	<string name="toasts">Toasts</string>
-	<string name="displayNormalToast">Display Normal Toast</string>
-	<string name="displayInfoToast">Display Info Toast</string>
-	<string name="displayWarningToast">Display Warning Toast</string>
-	<string name="displayErrorToast">Display Error Toast</string>
-	<string name="normalToastMessage">This is a normal Toast</string>
-	<string name="infoToastMessage">This is an info Toast</string>
-	<string name="warningToastMessage">This is a warning Toast</string>
-	<string name="errorToastMessage">This is an error Toast</string>
+	<string name="displayToastFromUIThread">Display Toast From UI Thread</string>
+	<string name="toastFromUIThread">Toast From UI Thread</string>
+	<string name="displayToastFromWorkerThread">Display Toast From Worker Thread</string>
+	<string name="toastFromWorkerThread">Toast From Worker Thread</string>
 
 	<!-- Tablets -->
 	<string name="tablets">Tablets</string>

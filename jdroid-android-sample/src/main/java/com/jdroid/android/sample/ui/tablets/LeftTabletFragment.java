@@ -45,7 +45,7 @@ public class LeftTabletFragment extends AbstractFragment {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.leftAdd:
-				ToastUtils.showInfoToast(R.string.leftAction);
+				ToastUtils.showToast(R.string.leftAction);
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

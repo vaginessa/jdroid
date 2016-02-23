@@ -2,13 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
 	android:layout_height="match_parent" android:orientation="vertical" android:padding="8dp">
 
-	<Button android:id="@+id/normalToast" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:text="@string/displayNormalToast" />
-	<Button android:id="@+id/infoToast" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:text="@string/displayInfoToast" />
-	<Button android:id="@+id/warningToast" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:text="@string/displayWarningToast" />
-	<Button android:id="@+id/errorToast" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:text="@string/displayErrorToast" />
+	<Button android:id="@+id/displayToastFromUIThread" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:text="@string/displayToastFromUIThread" />
+	<Button android:id="@+id/displayToastFromWorkerThread" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:text="@string/displayToastFromWorkerThread" />
 
 </LinearLayout>

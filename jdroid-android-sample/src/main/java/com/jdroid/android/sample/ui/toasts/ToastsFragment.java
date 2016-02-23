@@ -7,6 +7,7 @@ import android.view.View.OnClickListener;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.utils.ToastUtils;
+import com.jdroid.java.concurrent.ExecutorUtils;
 
 public class ToastsFragment extends AbstractFragment {
 	
@@ -22,32 +23,23 @@ public class ToastsFragment extends AbstractFragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		
-		findView(R.id.normalToast).setOnClickListener(new OnClickListener() {
+		findView(R.id.displayToastFromUIThread).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				ToastUtils.showToast(R.string.normalToastMessage);
+				ToastUtils.showToast(R.string.toastFromUIThread);
 			}
 		});
-		findView(R.id.infoToast).setOnClickListener(new OnClickListener() {
+		findView(R.id.displayToastFromWorkerThread).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				ToastUtils.showInfoToast(R.string.infoToastMessage);
-			}
-		});
-		findView(R.id.warningToast).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				ToastUtils.showWarningToast(R.string.warningToastMessage);
-			}
-		});
-		findView(R.id.errorToast).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				ToastUtils.showErrorToast(R.string.errorToastMessage);
+				ExecutorUtils.execute(new Runnable() {
+					@Override
+					public void run() {
+						ToastUtils.showToastOnUIThread(R.string.toastFromWorkerThread);
+					}
+				});
 			}
 		});
 	}
