@@ -22,13 +22,13 @@ public class LibrariesFragment extends AbstractRecyclerFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		libraries.add(new Library("jdroid", R.string.jdroidTitle, R.string.jdroidDescription,
+		libraries.add(new Library("jdroid", R.string.jdroidTitle, R.string.jdroidDescription, "Maxi Rosson",
 				"http://jdroidframework.com"));
 		if (displayImageLoader()) {
 			ImageLoaderHelper imageLoaderHelper = AbstractApplication.get().getImageLoaderHelper();
 			Library library = new Library(imageLoaderHelper.getLibraryKey(), imageLoaderHelper.getLibraryNameResId(),
-					imageLoaderHelper.getLibraryDescriptionResId(), imageLoaderHelper.getLibraryUrl());
-			libraries.add(library);
+					imageLoaderHelper.getLibraryDescriptionResId(), "Sergey Tarasevich", imageLoaderHelper.getLibraryUrl());
+					libraries.add(library);
 		}
 		libraries.addAll(getCustomLibraries());
 	}
@@ -64,6 +64,7 @@ public class LibrariesFragment extends AbstractRecyclerFragment {
 			LibrariesHolder holder = new LibrariesHolder(view);
 			holder.name = findView(view, R.id.name);
 			holder.description = findView(view, R.id.description);
+			holder.author = findView(view, R.id.author);
 			return holder;
 		}
 
@@ -71,6 +72,7 @@ public class LibrariesFragment extends AbstractRecyclerFragment {
 		public void fillHolderFromItem(Library item, LibrariesHolder holder) {
 			holder.name.setText(item.getNameResId());
 			holder.description.setText(item.getDescriptionResId());
+			holder.author.setText(item.getAuthor());
 		}
 
 		@Override
@@ -89,6 +91,7 @@ public class LibrariesFragment extends AbstractRecyclerFragment {
 
 		protected TextView name;
 		protected TextView description;
+		protected TextView author;
 
 		public LibrariesHolder(View itemView) {
 			super(itemView);

@@ -9,9 +9,8 @@
 	<string name="website">Sitio Web</string>
 	<string name="contactUs">Contáctenos</string>
 	<string name="beta">Beta</string>
-	<string name="copyright">© %1$s %2$s - Todos los derechos reservados</string>
 	<string name="jdroidTitle">Jdroid</string>
-	<string name="jdroidDescription">Application Framework for Android and Java apps</string>
+	<string name="jdroidDescription">The jdroid Framework provides a programming and architectural model for modern Java-based enterprise and android applications.</string>
 
 	<!-- App Invite -->
 	<string name="appInvite">Invitar Amigos</string>

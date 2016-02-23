@@ -8,12 +8,14 @@ public class Library {
 	private String libraryKey;
 	private Integer nameResId;
 	private Integer descriptionResId;
+	private String author;
 	private String url;
 	
-	public Library(String libraryKey, Integer nameResId, Integer descriptionResId, String url) {
+	public Library(String libraryKey, Integer nameResId, Integer descriptionResId, String author, String url) {
 		this.libraryKey = libraryKey;
 		this.nameResId = nameResId;
 		this.descriptionResId = descriptionResId;
+		this.author = author;
 		this.url = url;
 	}
 	
@@ -35,5 +37,9 @@ public class Library {
 	
 	public String getLibraryKey() {
 		return libraryKey;
+	}
+
+	public String getAuthor() {
+		return author;
 	}
 }

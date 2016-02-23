@@ -20,7 +20,6 @@ import com.jdroid.android.recycler.SimpleRecyclerViewType;
 import com.jdroid.android.share.ShareUtils;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.date.DateUtils;
 
 import java.util.List;
 
@@ -110,10 +109,6 @@ public class AboutFragment extends AbstractRecyclerFragment {
 		setAdapter(new RecyclerViewAdapter(recyclerViewTypes, aboutItems));
 	}
 	
-	protected String getCopyRightLegend() {
-		return getString(R.string.copyright, DateUtils.getYear(), AbstractApplication.get().getAppName());
-	}
-	
 	protected String getWebsite() {
 		return AbstractApplication.get().getAppContext().getWebsite();
 	}
@@ -153,7 +148,6 @@ public class AboutFragment extends AbstractRecyclerFragment {
 			holder.appIcon = findView(view, R.id.appIcon);
 			holder.appName = findView(view, R.id.appName);
 			holder.version = findView(view, R.id.version);
-			holder.copyright = findView(view, R.id.copyright);
 			return holder;
 		}
 
@@ -162,7 +156,6 @@ public class AboutFragment extends AbstractRecyclerFragment {
 			holder.appIcon.setImageResource(AbstractApplication.get().getLauncherIconResId());
 			holder.appName.setText(AbstractApplication.get().getAppName());
 			holder.version.setText(getString(R.string.version, AppUtils.getVersionName()));
-			holder.copyright.setText(getCopyRightLegend());
 			if (getAppContext().displayDebugSettings()) {
 				holder.appIcon.setOnClickListener(new OnClickListener() {
 

@@ -12,7 +12,4 @@
 		</LinearLayout>
 	</LinearLayout>
 
-	<TextView android:id="@+id/copyright" style="@style/textSmall" android:text="@string/copyright"
-		android:layout_marginTop="4dp" android:layout_marginLeft="4dp" />
-
 </LinearLayout>
