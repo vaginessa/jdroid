@@ -37,7 +37,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 
 		final String website = getWebsite();
 		if (website != null) {
-			aboutItems.add(new AboutItem(R.drawable.ic_website, R.string.website) {
+			aboutItems.add(new AboutItem(R.drawable.ic_website_black_24dp, R.string.website) {
 				@Override
 				public void onSelected(Activity activity) {
 					IntentUtils.startUrl(activity, website);
@@ -47,7 +47,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 
 		final String contactUsEmailAddress = getContactUsEmail();
 		if (contactUsEmailAddress != null) {
-			aboutItems.add(new AboutItem(R.drawable.ic_contact_us, R.string.contactUs) {
+			aboutItems.add(new AboutItem(R.drawable.ic_contact_us_black_24dp, R.string.contactUs) {
 
 				@Override
 				public void onSelected(Activity activity) {
@@ -66,7 +66,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 		}
 
 		if (AboutAppModule.get().getAboutContext().getSpreadTheLoveFragmentClass() != null) {
-			aboutItems.add(new AboutItem(R.drawable.ic_spread_the_love, R.string.spreadTheLove) {
+			aboutItems.add(new AboutItem(R.drawable.ic_spread_the_love_black_24dp, R.string.spreadTheLove) {
 
 				@Override
 				public void onSelected(Activity activity) {
@@ -74,13 +74,22 @@ public class AboutFragment extends AbstractRecyclerFragment {
 				}
 			});
 		}
-		aboutItems.add(new AboutItem(R.drawable.ic_libraries, R.string.libraries) {
+		aboutItems.add(new AboutItem(R.drawable.ic_libraries_black_24dp, R.string.libraries) {
 			
 			@Override
 			public void onSelected(Activity activity) {
 				ActivityLauncher.launchActivity(LibrariesActivity.class);
 			}
 		});
+		if (AboutAppModule.get().getAboutContext().isBetaTestingEnabled()) {
+			aboutItems.add(new AboutItem(R.drawable.ic_beta_black_24dp, R.string.beta) {
+
+				@Override
+				public void onSelected(Activity activity) {
+					IntentUtils.startUrl(activity, AboutAppModule.get().getAboutContext().getBetaTestingUrl());
+				}
+			});
+		}
 		aboutItems.addAll(getCustomAboutItems());
 
 		if (rateAppViewEnabled() && RateAppStats.displayRateAppView()) {

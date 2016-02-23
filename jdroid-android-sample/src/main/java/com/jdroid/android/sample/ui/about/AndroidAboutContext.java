@@ -9,4 +9,9 @@ public class AndroidAboutContext extends AboutContext {
 	public Class<? extends AbstractFragment> getSpreadTheLoveFragmentClass() {
 		return AndroidSpreadTheLoveFragment.class;
 	}
+
+	@Override
+	public Boolean isBetaTestingEnabled() {
+		return true;
+	}
 }
