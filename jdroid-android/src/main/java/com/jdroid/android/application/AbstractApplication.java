@@ -480,4 +480,6 @@ public abstract class AbstractApplication extends Application {
 			each.onInitializeGcmTasks();
 		}
 	}
+
+	public abstract int getLauncherIconResId();
 }

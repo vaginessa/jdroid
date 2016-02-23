@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.jdroid.android.application.AbstractApplication;
@@ -28,7 +29,8 @@ public class RemoveAdsView extends RelativeLayout {
 	}
 	
 	private void init(final Context context) {
-		LayoutInflater.from(context).inflate(R.layout.remove_ads_view, this, true);
+		View view = LayoutInflater.from(context).inflate(R.layout.remove_ads_view, this, true);
+		((ImageView)view.findViewById(R.id.icon)).setImageResource(AbstractApplication.get().getLauncherIconResId());
 	}
 	
 	/**

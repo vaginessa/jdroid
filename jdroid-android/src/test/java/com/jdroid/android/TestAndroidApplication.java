@@ -46,4 +46,9 @@ public class TestAndroidApplication extends AbstractApplication {
 	public AnalyticsTracker createGoogleAnalyticsTracker() {
 		return null;
 	}
+
+	@Override
+	public int getLauncherIconResId() {
+		return 0;
+	}
 }

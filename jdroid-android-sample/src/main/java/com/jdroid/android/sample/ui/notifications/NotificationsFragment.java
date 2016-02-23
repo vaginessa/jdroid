@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
@@ -34,7 +35,7 @@ public class NotificationsFragment extends AbstractFragment {
 				
 				NotificationBuilder builder = new NotificationBuilder();
 				builder.setNotificationName("myNotification");
-				builder.setSmallIcon(R.drawable.ic_launcher);
+				builder.setSmallIcon(AbstractApplication.get().getLauncherIconResId());
 				builder.setTicker(R.string.notificationTicker);
 				builder.setContentTitle(R.string.notificationTitle);
 				builder.setContentText(R.string.notificationDescription);

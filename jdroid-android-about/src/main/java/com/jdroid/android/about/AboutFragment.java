@@ -150,22 +150,21 @@ public class AboutFragment extends AbstractRecyclerFragment {
 		@Override
 		public RecyclerView.ViewHolder createViewHolderFromView(View view) {
 			HeaderItemHolder holder = new HeaderItemHolder(view);
+			holder.appIcon = findView(view, R.id.appIcon);
 			holder.appName = findView(view, R.id.appName);
 			holder.version = findView(view, R.id.version);
 			holder.copyright = findView(view, R.id.copyright);
-			if (getAppContext().displayDebugSettings()) {
-				holder.debugSettings = findView(view, R.id.icon);
-			}
 			return holder;
 		}
 
 		@Override
 		public void fillHolderFromItem(String item, HeaderItemHolder holder) {
+			holder.appIcon.setImageResource(AbstractApplication.get().getLauncherIconResId());
 			holder.appName.setText(AbstractApplication.get().getAppName());
 			holder.version.setText(getString(R.string.version, AppUtils.getVersionName()));
 			holder.copyright.setText(getCopyRightLegend());
 			if (getAppContext().displayDebugSettings()) {
-				holder.debugSettings.setOnClickListener(new OnClickListener() {
+				holder.appIcon.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
@@ -183,10 +182,10 @@ public class AboutFragment extends AbstractRecyclerFragment {
 
 	public static class HeaderItemHolder extends RecyclerView.ViewHolder {
 
+		protected ImageView appIcon;
 		protected TextView appName;
 		protected TextView version;
 		protected TextView copyright;
-		protected View debugSettings;
 
 		public HeaderItemHolder(View itemView) {
 			super(itemView);

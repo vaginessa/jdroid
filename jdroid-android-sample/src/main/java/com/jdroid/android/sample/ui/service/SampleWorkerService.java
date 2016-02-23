@@ -22,7 +22,7 @@ public class SampleWorkerService extends WorkerService {
 		} else {
 			NotificationBuilder builder = new NotificationBuilder();
 			builder.setNotificationName("myNotification");
-			builder.setSmallIcon(R.drawable.ic_launcher);
+			builder.setSmallIcon(AbstractApplication.get().getLauncherIconResId());
 			builder.setTicker(R.string.notificationTicker);
 			builder.setContentTitle(getClass().getSimpleName());
 			builder.setContentText(intent.getExtras().get("a").toString());

@@ -23,6 +23,7 @@ import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.google.admob.AdMobAppModule;
 import com.jdroid.android.google.gcm.AbstractGcmAppModule;
 import com.jdroid.android.repository.UserRepository;
+import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.analytics.AndroidGoogleAnalyticsTracker;
 import com.jdroid.android.sample.analytics.AppAnalyticsSender;
 import com.jdroid.android.sample.analytics.AppAnalyticsTracker;
@@ -142,5 +143,10 @@ public class AndroidApplication extends AbstractApplication {
 		appModulesMap.put(FacebookAppModule.MODULE_NAME, new FacebookAppModule());
 		appModulesMap.put(AbstractGcmAppModule.MODULE_NAME, new AndroidGcmAppModule());
 		appModulesMap.put(AboutAppModule.MODULE_NAME,  new AndroidAboutAppModule());
+	}
+
+	@Override
+	public int getLauncherIconResId() {
+		return R.mipmap.ic_launcher;
 	}
 }

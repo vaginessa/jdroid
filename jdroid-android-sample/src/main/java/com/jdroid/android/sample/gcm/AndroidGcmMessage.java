@@ -2,6 +2,7 @@ package com.jdroid.android.sample.gcm;
 
 import android.os.Bundle;
 
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.gcm.GcmMessage;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
@@ -26,7 +27,7 @@ public enum AndroidGcmMessage implements GcmMessage {
 		public void handle(String from, Bundle data) {
 			NotificationBuilder builder = new NotificationBuilder();
 			builder.setNotificationName("pushNotification");
-			builder.setSmallIcon(R.drawable.ic_launcher);
+			builder.setSmallIcon(AbstractApplication.get().getLauncherIconResId());
 			builder.setTicker(R.string.notificationTicker);
 			builder.setContentTitle(R.string.notificationTitle);
 			String description = LocalizationUtils.getString(R.string.notificationDescription);

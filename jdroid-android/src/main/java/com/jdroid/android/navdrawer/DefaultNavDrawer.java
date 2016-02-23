@@ -80,7 +80,7 @@ public abstract class DefaultNavDrawer extends NavDrawer {
 			navDrawerHeader.setTitle(user.getFullname());
 			navDrawerHeader.setSubTitle(user.getEmail());
 		} else {
-			navDrawerHeader.setMainImage(R.drawable.ic_launcher);
+			navDrawerHeader.setMainImage(AbstractApplication.get().getLauncherIconResId());
 			navDrawerHeader.setTitle(getActivity().getString(R.string.appName));
 			String website = AbstractApplication.get().getAppContext().getWebsite();
 			if (website != null) {

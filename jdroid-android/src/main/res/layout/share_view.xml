@@ -3,7 +3,6 @@
 	android:layout_height="wrap_content" android:orientation="vertical" android:background="?android:attr/selectableItemBackground"
 	android:layout_margin="4dp" android:padding="4dp">
 
-	<ImageView android:id="@+id/shareAppIcon" android:layout_height="wrap_content" android:layout_width="wrap_content"
-		android:src="@drawable/ic_launcher" />
+	<ImageView android:id="@+id/shareAppIcon" android:layout_height="wrap_content" android:layout_width="wrap_content" />
 
 </LinearLayout>
