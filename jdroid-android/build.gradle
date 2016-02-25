@@ -34,7 +34,7 @@ configurations.all {
 dependencies {
 
 	// https://github.com/nostra13/Android-Universal-Image-Loader
-	compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+	compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 
 	compile 'org.slf4j:slf4j-android:1.6.1-RC1'
 
@@ -54,8 +54,9 @@ dependencies {
 	// https://github.com/facebook/device-year-class
 	compile 'com.facebook.device.yearclass:yearclass:1.0.1'
 
+	// https://docs.fabric.io/android/changelog.html#fabric
 	// https://twittersdk.artifactoryonline.com/twittersdk/public/io/fabric/sdk/android/fabric/
-	compile 'io.fabric.sdk.android:fabric:1.3.8'
+	compile 'io.fabric.sdk.android:fabric:1.3.10'
 
 	// Module dependencies
 	compile project(':jdroid-java')

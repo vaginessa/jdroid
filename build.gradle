@@ -68,7 +68,7 @@ ext.jdroidVersion = project.version
 ext.googlePlayServicesVersion = '8.4.0'
 
 // http://developer.android.com/tools/support-library/index.html
-ext.androidSupportVersion = '23.1.1'
+ext.androidSupportVersion = '23.2.0'
 
 ext.packaging = null
 
