@@ -71,6 +71,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 	}
 
 	@Override
+	public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
+		super.onViewDetachedFromWindow(holder);
+
+		// The view could be reused while an animation is been happening.
+		// In order to avoid that is recommendable to clear the animation when is detached.
+		holder.itemView.clearAnimation();
+	}
+
+	@Override
 	public int getItemCount() {
 		return items.size();
 	}
