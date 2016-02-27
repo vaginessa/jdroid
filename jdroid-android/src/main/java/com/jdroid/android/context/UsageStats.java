@@ -16,7 +16,7 @@ public class UsageStats {
 
 	public static void incrementAppLoad() {
 		Long appLoads = getSharedPreferencesHelper().loadPreferenceAsLong(APP_LOADS, 0L);
-		getSharedPreferencesHelper().savePreferenceAsync(APP_LOADS, appLoads++);
+		getSharedPreferencesHelper().savePreferenceAsync(APP_LOADS, appLoads + 1);
 	}
 
 	public static Long getAppLoads() {
