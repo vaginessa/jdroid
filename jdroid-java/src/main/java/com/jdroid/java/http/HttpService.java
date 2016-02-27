@@ -60,6 +60,8 @@ public interface HttpService {
 
 	public void setReadTimeout(Integer readTimeout);
 
+	public void setWriteTimeout(Integer writeTimeout);
+
 	/**
 	 * @param userAgent The user agent
 	 */

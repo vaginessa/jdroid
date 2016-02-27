@@ -28,6 +28,9 @@ public abstract class AbstractHttpService implements HttpService {
 	/** Read timeout in milliseconds. 60 seconds as default */
 	private Integer readTimeout = 60000;
 
+	/** Write timeout in milliseconds. 60 seconds as default */
+	private Integer writeTimeout = 60000;
+
 	private String userAgent;
 
 	private Server server;
@@ -164,6 +167,15 @@ public abstract class AbstractHttpService implements HttpService {
 	@Override
 	public void setReadTimeout(Integer readTimeout) {
 		this.readTimeout = readTimeout;
+	}
+
+	public Integer getWriteTimeout() {
+		return writeTimeout;
+	}
+
+	@Override
+	public void setWriteTimeout(Integer writeTimeout) {
+		this.writeTimeout = writeTimeout;
 	}
 
 	public String getUserAgent() {

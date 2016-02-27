@@ -5,11 +5,12 @@ import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.MultipartHttpService;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.http.okhttp.OkBodyEnclosingHttpService;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
+
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class OkPutHttpService extends OkBodyEnclosingHttpService implements MultipartHttpService {
 

@@ -1,11 +1,12 @@
 package com.jdroid.java.http.okhttp;
 
 import com.jdroid.java.http.HttpService;
-import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.GZIPInputStream;
+
+import okhttp3.Response;
 
 public class ReadResponseCommand extends OkHttpCommand<Response, InputStream> {
 

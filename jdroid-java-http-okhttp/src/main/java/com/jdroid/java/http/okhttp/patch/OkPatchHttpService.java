@@ -4,10 +4,11 @@ import com.jdroid.java.http.HttpMethod;
 import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.http.okhttp.OkBodyEnclosingHttpService;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
 
 import java.util.List;
+
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class OkPatchHttpService extends OkBodyEnclosingHttpService {
 

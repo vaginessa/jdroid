@@ -7,13 +7,14 @@ import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.StringUtils;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.ResponseBody;
 
 public abstract class OkHttpService extends AbstractHttpService {
 
@@ -23,6 +24,8 @@ public abstract class OkHttpService extends AbstractHttpService {
 		// only in some cases when a connection is reused after a response code 204.
 		System.setProperty("http.keepAlive", "false");
 	}
+
+	private static OkHttpClient OK_HTTP_CLIENT_PROTOTYPE;
 
 	protected OkHttpClient client;
 	protected Request request;
@@ -34,10 +37,19 @@ public abstract class OkHttpService extends AbstractHttpService {
 	@Override
 	protected HttpResponseWrapper doExecute(String urlString) {
 
-		client = new OkHttpClient();
-		client.setConnectTimeout(getConnectionTimeout(), TimeUnit.MILLISECONDS);
-		client.setWriteTimeout(getReadTimeout(), TimeUnit.MILLISECONDS);
-		client.setReadTimeout(getReadTimeout(), TimeUnit.MILLISECONDS);
+		if (OK_HTTP_CLIENT_PROTOTYPE == null) {
+			synchronized (OkHttpService.class) {
+				if (OK_HTTP_CLIENT_PROTOTYPE == null) {
+					OK_HTTP_CLIENT_PROTOTYPE = new OkHttpClient();
+				}
+			}
+		}
+
+		OkHttpClient.Builder clientBuilder = OK_HTTP_CLIENT_PROTOTYPE.newBuilder();
+		clientBuilder.connectTimeout(getConnectionTimeout(), TimeUnit.MILLISECONDS);
+		clientBuilder.writeTimeout(getWriteTimeout(), TimeUnit.MILLISECONDS);
+		clientBuilder.readTimeout(getReadTimeout(), TimeUnit.MILLISECONDS);
+		client = clientBuilder.build();
 
 		Request.Builder builder = new Request.Builder();
 		builder.url(urlString);

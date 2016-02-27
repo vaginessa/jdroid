@@ -5,11 +5,12 @@ import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.http.post.BodyEnclosingHttpService;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
 
 import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public abstract class OkBodyEnclosingHttpService extends OkHttpService implements BodyEnclosingHttpService {
 

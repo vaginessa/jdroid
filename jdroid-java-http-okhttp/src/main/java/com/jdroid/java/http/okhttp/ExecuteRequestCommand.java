@@ -1,8 +1,9 @@
 package com.jdroid.java.http.okhttp;
 
-import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+
+import okhttp3.Response;
 
 public class ExecuteRequestCommand extends OkHttpCommand<OkHttpService, OkHttpResponseWrapper> {
 

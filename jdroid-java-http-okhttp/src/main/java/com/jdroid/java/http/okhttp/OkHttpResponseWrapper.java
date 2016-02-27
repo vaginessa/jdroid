@@ -1,9 +1,10 @@
 package com.jdroid.java.http.okhttp;
 
 import com.jdroid.java.http.HttpResponseWrapper;
-import com.squareup.okhttp.Response;
 
 import java.io.InputStream;
+
+import okhttp3.Response;
 
 public class OkHttpResponseWrapper extends HttpResponseWrapper {
 

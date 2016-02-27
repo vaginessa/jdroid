@@ -153,7 +153,12 @@ public abstract class CachedHttpService implements BodyEnclosingHttpService {
 	public void setReadTimeout(Integer readTimeout) {
 		httpService.setReadTimeout(readTimeout);
 	}
-	
+
+	@Override
+	public void setWriteTimeout(Integer writeTimeout) {
+		httpService.setWriteTimeout(writeTimeout);
+	}
+
 	/**
 	 * @see HttpService#setUserAgent(java.lang.String)
 	 */

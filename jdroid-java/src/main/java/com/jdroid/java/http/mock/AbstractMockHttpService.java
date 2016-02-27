@@ -190,7 +190,12 @@ public abstract class AbstractMockHttpService implements MultipartHttpService {
 	public void setReadTimeout(Integer readTimeout) {
 		// Do Nothing
 	}
-	
+
+	@Override
+	public void setWriteTimeout(Integer writeTimeout) {
+		// Do Nothing
+	}
+
 	/**
 	 * @see HttpService#setUserAgent(java.lang.String)
 	 */
