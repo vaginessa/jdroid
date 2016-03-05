@@ -41,4 +41,9 @@ public class AndroidActivityHelper extends ActivityHelper {
 			}
 		};
 	}
+
+	@Override
+	public Boolean isGooglePlayServicesVerificationEnabled() {
+		return true;
+	}
 }

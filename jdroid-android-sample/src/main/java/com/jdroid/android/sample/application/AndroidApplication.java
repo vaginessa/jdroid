@@ -149,4 +149,9 @@ public class AndroidApplication extends AbstractApplication {
 	public int getLauncherIconResId() {
 		return R.mipmap.ic_launcher;
 	}
+
+	@Override
+	public Boolean isInAppBillingEnabled() {
+		return true;
+	}
 }

@@ -176,6 +176,9 @@
 		<activity android:name="com.jdroid.android.sample.ui.usecases.UseCasesActivity" android:label="@string/useCases"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<activity android:name="com.jdroid.android.sample.ui.google.playservices.GooglePlayServicesActivity" android:label="@string/googlePlayServices"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
 		<service android:name="com.jdroid.android.usecase.service.UseCaseService" android:exported="false" />
 		<service android:name="com.jdroid.android.sample.ui.service.SampleWorkerService" android:exported="false" />
 		<service android:name="com.jdroid.android.sample.ui.service.SampleGcmTaskService" android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE"

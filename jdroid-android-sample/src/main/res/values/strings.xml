@@ -60,6 +60,10 @@
 	<!-- Google Maps -->
 	<string name="googleMaps">Google Maps</string>
 
+	<!-- Google Play Services -->
+	<string name="googlePlayServices">Google Play Services</string>
+	<string name="checkGooglePlayServices">Check Google Play Services</string>
+
 	<!-- Http -->
 	<string name="http">Http</string>
 	<string name="httpGet">GET</string>

@@ -446,13 +446,21 @@ public abstract class AbstractApplication extends Application {
 		return (Repository<M>)repositories.get(persistentClass);
 	}
 
+	public Boolean isInAppBillingEnabled() {
+		return false;
+	}
+
 	public InAppBillingContext getInAppBillingContext() {
-		synchronized (AbstractApplication.class) {
-			if (inAppBillingContext == null) {
-				inAppBillingContext = createInAppBillingContext();
+		if (isInAppBillingEnabled()) {
+			synchronized (AbstractApplication.class) {
+				if (inAppBillingContext == null) {
+					inAppBillingContext = createInAppBillingContext();
+				}
 			}
+			return inAppBillingContext;
+		} else {
+			return null;
 		}
-		return inAppBillingContext;
 	}
 
 	protected InAppBillingContext createInAppBillingContext() {

@@ -58,10 +58,10 @@ public class RateAppStats {
 
 	public static Boolean displayRateAppView() {
 		Boolean alreadyRated = getRateOnGooglePlay();
-		Boolean enoughDaysSinceLastResponse =  DateUtils.millisecondsToDays(RateAppStats.getLastResponseTimestamp()) > 90;
-		Boolean enoughDaysSinceFirstAppLoad = DateUtils.millisecondsToDays(UsageStats.getFirstAppLoadTimestamp()) > 7;
-		Boolean enoughAppLoads = UsageStats.getAppLoads() > 10;
-		Boolean enoughDaysSinceLastCrash = DateUtils.millisecondsToDays(UsageStats.getLastCrashTimestamp()) > 21;
+		Boolean enoughDaysSinceLastResponse =  DateUtils.millisecondsToDays(RateAppStats.getLastResponseTimestamp()) >= 90;
+		Boolean enoughDaysSinceFirstAppLoad = DateUtils.millisecondsToDays(UsageStats.getFirstAppLoadTimestamp()) >= 7;
+		Boolean enoughAppLoads = UsageStats.getAppLoads() >= 10;
+		Boolean enoughDaysSinceLastCrash = DateUtils.millisecondsToDays(UsageStats.getLastCrashTimestamp()) >= 21;
 		return (alreadyRated == null || !alreadyRated) && enoughDaysSinceLastResponse && enoughDaysSinceFirstAppLoad && enoughAppLoads && enoughDaysSinceLastCrash;
 	}
 }

@@ -7,7 +7,7 @@ import android.content.Context;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
@@ -18,19 +18,22 @@ public class GooglePlayServicesUtils {
 
 	private static final String GOOGLE_PLAY_SERVICES = "com.google.android.gms";
 
+	private static final int GOOGLE_PLAY_SERVICES_RESOLUTION_REQUEST = 1;
+
 	private static String advertisingId;
 
 	public static GooglePlayServicesResponse verifyGooglePlayServices(Activity activity) {
-		Integer resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity);
+		GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+		int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(AbstractApplication.get());
+		LOGGER.info("Google Play Services result code: " +  resultCode);
 		if (resultCode == ConnectionResult.SUCCESS) {
 			return new GooglePlayServicesResponse();
 		} else {
-			LOGGER.info("Google Play Services result code: " +  resultCode);
 			Dialog dialog = null;
-			if (resultCode != ConnectionResult.SERVICE_MISSING) {
-				dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, activity, 0);
+			if (googleApiAvailability.isUserResolvableError(resultCode)) {
+				dialog = googleApiAvailability.getErrorDialog(activity, resultCode, GOOGLE_PLAY_SERVICES_RESOLUTION_REQUEST);
 				if (dialog != null) {
-					//This dialog will help the user update to the latest GooglePlayServices
+					// This dialog will help the user update to the latest GooglePlayServices
 					dialog.show();
 				}
 			}
@@ -38,8 +41,22 @@ public class GooglePlayServicesUtils {
 		}
 	}
 
-	public static boolean isGooglePlayServicesAvailable(Context c) {
-		return GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(c) == ConnectionResult.SUCCESS;
+	public static void checkGooglePlayServices(Activity activity) {
+		GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+		int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(activity);
+		LOGGER.info("Google Play Services result code: " + resultCode);
+		if (resultCode != ConnectionResult.SUCCESS) {
+			if (googleApiAvailability.isUserResolvableError(resultCode)) {
+				googleApiAvailability.showErrorDialogFragment(activity, resultCode, GOOGLE_PLAY_SERVICES_RESOLUTION_REQUEST);
+			}
+		}
+	}
+
+	public static boolean isGooglePlayServicesAvailable(Context context) {
+		GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+		int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(context);
+		LOGGER.info("Google Play Services result code: " + resultCode);
+		return resultCode == ConnectionResult.SUCCESS;
 	}
 
 	public static void launchGooglePlayServicesUpdate(Activity c) {

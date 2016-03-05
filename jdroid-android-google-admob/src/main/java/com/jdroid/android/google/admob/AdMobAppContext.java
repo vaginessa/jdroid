@@ -7,6 +7,7 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.UsageStats;
 import com.jdroid.java.collections.Sets;
 import com.jdroid.java.concurrent.ExecutorUtils;
+import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.StringUtils;
 
 import java.util.Set;
@@ -45,12 +46,17 @@ public class AdMobAppContext {
 	public Boolean areAdsEnabled() {
 		Boolean prefEnabled = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(ADS_ENABLED,
 				adsEnabled);
-		Boolean minAppLoadsReached = UsageStats.getAppLoads() >= getMinAppLoadsToDisplayAds() ;
-		return prefEnabled && minAppLoadsReached;
+		Boolean enoughDaysSinceFirstAppLoad = DateUtils.millisecondsToDays(UsageStats.getFirstAppLoadTimestamp()) >= getMinDaysSinceFirstAppLoad();
+		Boolean enoughAppLoads = UsageStats.getAppLoads() >= getMinAppLoadsToDisplayAds() ;
+		return prefEnabled && enoughAppLoads;
 	}
 
 	protected Long getMinAppLoadsToDisplayAds() {
 		return 5L;
+	}
+
+	protected Long getMinDaysSinceFirstAppLoad() {
+		return 7L;
 	}
 
 	/**
