@@ -59,6 +59,9 @@
 			</intent-filter>
 		</activity>
 
+		<activity android:name="com.jdroid.android.sample.ui.appinvite.AppInviteActivity" android:label="@string/appInvite"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
 		<activity android:name="com.jdroid.android.sample.ui.ads.HouseAdsActivity" android:label="@string/houseAds"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 

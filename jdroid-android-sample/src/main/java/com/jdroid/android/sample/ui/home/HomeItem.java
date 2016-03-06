@@ -8,6 +8,7 @@ import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.ui.ads.AdsActivity;
 import com.jdroid.android.sample.ui.analytics.AnalyticsActivity;
+import com.jdroid.android.sample.ui.appinvite.AppInviteActivity;
 import com.jdroid.android.sample.ui.cardview.CardViewActivity;
 import com.jdroid.android.sample.ui.datetime.DateTimeActivity;
 import com.jdroid.android.sample.ui.exceptions.ErrorDisplayerActivity;
@@ -35,6 +36,7 @@ import com.jdroid.android.utils.ScreenUtils;
 public enum HomeItem implements ActionItem {
 	
 	ADMOB(R.string.adMob, R.drawable.ic_admob, AdsActivity.class),
+	APP_INVITE(R.string.appInvite, R.drawable.ic_admob, AppInviteActivity.class),
 	CARD_VIEW(R.string.cardView, R.drawable.ic_cardview, CardViewActivity.class),
 	DATE_TIME(R.string.dateTime, R.drawable.ic_date_time, DateTimeActivity.class),
 	ERROR_DISPLAYER(R.string.errorDisplayer, R.drawable.ic_exception_handling, ErrorDisplayerActivity.class),

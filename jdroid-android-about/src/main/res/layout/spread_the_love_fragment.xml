@@ -58,7 +58,7 @@
 						  android:minHeight="@dimen/itemMinHeight">
 
 				<ImageView android:layout_width="@dimen/itemIconSize" android:layout_height="@dimen/itemIconSize"
-						   android:layout_marginRight="12dp" android:duplicateParentState="true" android:src="@drawable/ic_app_invite" />
+						   android:layout_marginRight="12dp" android:duplicateParentState="true" android:src="@drawable/ic_app_invite_24dp" />
 
 				<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/spreadTheLoveFollowUsItemText"
 						  android:duplicateParentState="true" android:text="@string/appInvite" />

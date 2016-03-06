@@ -46,6 +46,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	
 	// 30 minutes
 	private static final int SESSION_TIMEOUT = 1800;
+	public static final String SOCIAL = "social";
 	
 	private Map<String, Integer> customDimensionsMap = Maps.newHashMap();
 	private Map<String, Integer> customMetricsMap = Maps.newHashMap();
@@ -219,10 +220,11 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		sendEvent(FEEDBACK_CATEGORY, "giveFeedback", feedback.toString());
 	}
 
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackTiming(java.lang.String, java.lang.String,
-	 *      java.lang.String, long)
-	 */
+	@Override
+	public void trackSendAppInvitation(String invitationId) {
+		sendEvent(SOCIAL, "sendAppInvitation", invitationId);
+	}
+
 	@Override
 	public void trackTiming(String category, String variable, String label, long value) {
 		// Avoid timing trackings when the app is in background to avoid session times data corruption.
@@ -268,7 +270,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	@Override
 	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget) {
 		
-		String category = "social";
+		String category = SOCIAL;
 		String network = "Undefined";
 		if (accountType != null) {
 			category += accountType.getFriendlyName();

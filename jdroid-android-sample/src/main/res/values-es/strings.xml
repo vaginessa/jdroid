@@ -9,6 +9,9 @@
 	<string name="displayInterstitial">Display Interstitial</string>
 	<string name="houseAds">House Ads</string>
 
+	<!-- App Invite -->
+	<string name="appInvite">App Invite</string>
+
 	<!-- Date & Time -->
 	<string name="dateTime">Date &amp; Time</string>
 	<string name="datePickerDialog">Date Picker Dialog</string>

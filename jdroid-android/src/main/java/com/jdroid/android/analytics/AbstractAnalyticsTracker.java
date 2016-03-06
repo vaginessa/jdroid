@@ -147,34 +147,26 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 		// Do Nothing
 	}
 
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackRemoveAdsBannerClicked()
-	 */
+	@Override
+	public void trackSendAppInvitation(String invitationId) {
+		// Do Nothing
+	}
+
 	@Override
 	public void trackRemoveAdsBannerClicked() {
 		// Do Nothing
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackTiming(java.lang.String, java.lang.String,
-	 *      java.lang.String, long)
-	 */
 	@Override
 	public void trackTiming(String category, String variable, String label, long value) {
 		// Do Nothing
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackContactUs()
-	 */
 	@Override
 	public void trackContactUs() {
 		// Do Nothing
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackAboutLibraryOpen(java.lang.String)
-	 */
 	@Override
 	public void trackAboutLibraryOpen(String libraryKey) {
 		// Do Nothing

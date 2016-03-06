@@ -33,7 +33,7 @@ import java.util.List;
 
 public abstract class SpreadTheLoveFragment extends AbstractFragment {
 
-	private static final int REQUEST_INVITE = IdGenerator.getIntId();
+	private static final int REQUEST_INVITE = IdGenerator.getRandom16BitsIntId();
 
 	private GooglePlusOneButtonHelper googlePlusOneButtonHelper;
 
@@ -189,7 +189,6 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 
 				@Override
 				public void onClick(View v) {
-
 					AppInviteInvitation.IntentBuilder intentBuilder = new AppInviteInvitation.IntentBuilder(getAppInviteTitle());
 					intentBuilder.setMessage(getAppInviteMessage());
 					intentBuilder.setDeepLink(Uri.parse(getAppInviteDeeplink()));
@@ -233,13 +232,15 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 	}
 
 	protected String getAppInviteTitle() {
-		return getString(R.string.appInviteTitle, getString(R.string.appName));
+		return AboutAppModule.get().getAboutContext().getAppInviteTitle();
 	}
+
 	protected String getAppInviteMessage() {
-		return getString(R.string.appInviteTitle);
+		return AboutAppModule.get().getAboutContext().getAppInviteMessage();
 	}
+
 	protected String getAppInviteDeeplink() {
-		return AbstractApplication.get().getAppContext().getWebsite();
+		return AboutAppModule.get().getAboutContext().getAppInviteDeeplink();
 	}
 
 	protected Boolean displayGooglePlusOneButton() {
@@ -276,9 +277,6 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 		return getDefaultShareText();
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onResume()
-	 */
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -288,13 +286,12 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 		}
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onActivityResult(int, int, android.content.Intent)
-	 */
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		
+
+		AppInviteHelper.onActivityResult(REQUEST_INVITE, requestCode, resultCode, data);
+
 		if (googlePlusOneButtonHelper != null) {
 			googlePlusOneButtonHelper.onActivityResult(requestCode, resultCode, data);
 		}

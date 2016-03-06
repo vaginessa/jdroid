@@ -13,7 +13,12 @@ public class AndroidSpreadTheLoveFragment extends SpreadTheLoveFragment {
 	public static final String HANGOUTS_SHARE_URL = "http://goo.gl/vQfk3U";
 	public static final String SMS_SHARE_URL = "http://goo.gl/2rPlB3";
 	public static final String UNKNOWN_SHARE_URL = "http://goo.gl/6kex8n";
-	
+
+	@Override
+	protected Boolean displayAppInviteButton() {
+		return true;
+	}
+
 	/**
 	 * @see com.jdroid.android.about.SpreadTheLoveFragment#getDefaultShareText()
 	 */

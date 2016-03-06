@@ -23,6 +23,10 @@ public class IdGenerator {
 		return Math.abs(new Random().nextInt());
 	}
 
+	public static Integer getRandom16BitsIntId() {
+		return Math.abs(new Random().nextInt(16));
+	}
+
 	public static Integer getRandomIntId(int bound) {
 		return Math.abs(new Random().nextInt(bound));
 	}

@@ -1,0 +1,26 @@
+package com.jdroid.android.about;
+
+import android.app.Activity;
+import android.content.Intent;
+
+import com.google.android.gms.appinvite.AppInviteInvitation;
+import com.jdroid.android.application.AbstractApplication;
+
+public class AppInviteHelper {
+
+	public static void onActivityResult(int appInviteRequestCode, int requestCode, int resultCode, Intent data) {
+
+		if (requestCode == appInviteRequestCode) {
+			if (resultCode == Activity.RESULT_OK) {
+				// Check how many invitations were sent and log a message
+				// The ids array contains the unique invitation ids for each invitation sent
+				// (one for each contact select by the user). You can use these for analytics
+				// as the ID will be consistent on the sending and receiving devices.
+				String[] ids = AppInviteInvitation.getInvitationIds(resultCode, data);
+				for (String invitationId : ids) {
+					AbstractApplication.get().getAnalyticsSender().trackSendAppInvitation(invitationId);
+				}
+			}
+		}
+	}
+}
