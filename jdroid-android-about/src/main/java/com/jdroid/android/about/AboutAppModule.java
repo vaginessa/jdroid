@@ -2,6 +2,9 @@ package com.jdroid.android.about;
 
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.debug.PreferencesAppender;
+
+import java.util.List;
 
 public class AboutAppModule extends AbstractAppModule {
 
@@ -12,6 +15,7 @@ public class AboutAppModule extends AbstractAppModule {
 	}
 
 	private AboutContext aboutContext;
+	private AboutDebugContext aboutDebugContext;
 
 	public AboutAppModule() {
 		aboutContext = createAboutContext();
@@ -23,5 +27,23 @@ public class AboutAppModule extends AbstractAppModule {
 
 	public AboutContext getAboutContext() {
 		return aboutContext;
+	}
+
+	@Override
+	public List<PreferencesAppender> getPreferencesAppenders() {
+		return getGcmDebugContext().getPreferencesAppenders();
+	}
+
+	public AboutDebugContext getGcmDebugContext() {
+		synchronized (AbstractApplication.class) {
+			if (aboutDebugContext == null) {
+				aboutDebugContext = createAboutDebugContext();
+			}
+		}
+		return aboutDebugContext;
+	}
+
+	protected AboutDebugContext createAboutDebugContext() {
+		return new AboutDebugContext();
 	}
 }

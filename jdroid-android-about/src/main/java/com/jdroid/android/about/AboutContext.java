@@ -36,15 +36,15 @@ public class AboutContext {
 		return "https://play.google.com/apps/testing/" + AppUtils.getApplicationId();
 	}
 
-	protected String getAppInviteTitle() {
+	public String getAppInviteTitle() {
 		return LocalizationUtils.getString(R.string.appInviteTitle, LocalizationUtils.getString(R.string.appName));
 	}
 
-	protected String getAppInviteMessage() {
+	public String getAppInviteMessage() {
 		return LocalizationUtils.getString(R.string.appInviteMessage, LocalizationUtils.getString(R.string.appName));
 	}
 
-	protected String getAppInviteDeeplink() {
+	public String getAppInviteDeeplink() {
 		return AbstractApplication.get().getAppContext().getWebsite();
 	}
 

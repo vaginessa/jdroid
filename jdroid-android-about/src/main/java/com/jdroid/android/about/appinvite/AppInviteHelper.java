@@ -1,10 +1,11 @@
-package com.jdroid.android.about;
+package com.jdroid.android.about.appinvite;
 
 import android.app.Activity;
 import android.content.Intent;
 
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.java.collections.Lists;
 
 public class AppInviteHelper {
 
@@ -17,8 +18,11 @@ public class AppInviteHelper {
 				// (one for each contact select by the user). You can use these for analytics
 				// as the ID will be consistent on the sending and receiving devices.
 				String[] ids = AppInviteInvitation.getInvitationIds(resultCode, data);
-				for (String invitationId : ids) {
-					AbstractApplication.get().getAnalyticsSender().trackSendAppInvitation(invitationId);
+				if (ids != null) {
+					for (String invitationId : ids) {
+						AbstractApplication.get().getAnalyticsSender().trackSendAppInvitation(invitationId);
+					}
+					AppInviteStats.invitesSent(Lists.newArrayList(ids));
 				}
 			}
 		}

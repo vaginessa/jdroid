@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.plus.PlusOneButton;
+import com.jdroid.android.about.appinvite.AppInviteHelper;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.facebook.FacebookHelper;
 import com.jdroid.android.fragment.AbstractFragment;

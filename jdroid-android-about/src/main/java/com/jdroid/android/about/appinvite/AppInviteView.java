@@ -1,4 +1,4 @@
-package com.jdroid.android.about;
+package com.jdroid.android.about.appinvite;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,6 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.appinvite.AppInviteInvitation;
+import com.jdroid.android.about.AboutAppModule;
+import com.jdroid.android.about.R;
 import com.jdroid.java.utils.RandomUtils;
 
 public class AppInviteView extends RelativeLayout {
@@ -41,13 +43,13 @@ public class AppInviteView extends RelativeLayout {
 
 		TextView titleTextView = ((TextView)findViewById(R.id.title));
 		if (title == null) {
-			title = activity.getString(R.string.appInvite);
+			title = activity.getString(R.string.appInviteButtonTitle);
 		}
 		titleTextView.setText(title);
 
 		TextView subtitleTextView = ((TextView)findViewById(R.id.subTitle));
 		if (subtitle == null) {
-			subtitle = activity.getString(R.string.appInviteSubtitle, activity.getString(R.string.appName));
+			subtitle = activity.getString(R.string.appInviteButtonSubtitle, activity.getString(R.string.appName));
 		}
 		subtitleTextView.setText(subtitle);
 

@@ -13,8 +13,8 @@
 	<string name="jdroidDescription">The jdroid Framework provides a programming and architectural model for modern Java-based enterprise and android applications.</string>
 
 	<!-- App Invite -->
-	<string name="appInvite">Invitar Amigos</string>
-	<string name="appInviteSubtitle">Comparte %1$s con tus amigos</string>
+	<string name="appInviteButtonTitle">Invitar Amigos</string>
+	<string name="appInviteButtonSubtitle">Comparte %1$s con tus amigos</string>
 	<string name="appInviteTitle">Invitar Amigos a %1$s</string>
 	<string name="appInviteMessage">Instala %1$s en tu android</string>
 

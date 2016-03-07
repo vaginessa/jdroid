@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-	android:layout_height="wrap_content">
-	<com.jdroid.android.about.AppInviteView android:id="@+id/appInvite" android:layout_height="wrap_content" android:layout_width="match_parent" />
-</RelativeLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+	<com.jdroid.android.about.appinvite.AppInviteView android:id="@+id/appInvite" android:layout_height="wrap_content" android:layout_width="match_parent" />
+	<com.jdroid.android.about.appinvite.AppInviteView android:id="@+id/appInviteWithStats" android:layout_height="wrap_content" android:layout_width="match_parent" />
+</LinearLayout>

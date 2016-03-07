@@ -10,9 +10,9 @@
 		
 		<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
 			<TextView android:id="@+id/title" android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/textMedium" android:textStyle="bold"
-					  android:duplicateParentState="true" android:text="@string/appInvite" />
+					  android:duplicateParentState="true" android:text="@string/appInviteButtonTitle" />
 			<TextView android:id="@+id/subTitle" android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/textSmall"
-					  android:duplicateParentState="true" android:text="@string/appInvite" tools:text="@string/appInviteSubtitle" />
+					  android:duplicateParentState="true" tools:text="@string/appInviteButtonSubtitle" />
 		</LinearLayout>
 
 	</LinearLayout>
