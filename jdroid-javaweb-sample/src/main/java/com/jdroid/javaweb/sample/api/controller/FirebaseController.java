@@ -4,8 +4,8 @@ import com.firebase.security.token.TokenGenerator;
 import com.firebase.security.token.TokenOptions;
 import com.jdroid.java.http.AbstractHttpService;
 import com.jdroid.java.http.MimeType;
-import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.LoggerUtils;
+import com.jdroid.java.utils.RandomUtils;
 import com.jdroid.javaweb.api.AbstractController;
 import com.jdroid.javaweb.sample.firebase.SampleFirebaseEntity;
 import com.jdroid.javaweb.sample.firebase.SampleFirebaseRepository;
@@ -39,9 +39,9 @@ public class FirebaseController extends AbstractController {
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public void add() {
 		SampleFirebaseEntity entity = new SampleFirebaseEntity();
-		lastId = IdGenerator.getRandomLongId().toString();
+		lastId = RandomUtils.getLong().toString();
 		entity.setId(lastId);
-		entity.setField(IdGenerator.getRandomLongId().toString());
+		entity.setField(RandomUtils.getLong().toString());
 		repository.add(entity);
 	}
 
@@ -49,7 +49,7 @@ public class FirebaseController extends AbstractController {
 	public void update() {
 		SampleFirebaseEntity entity = new SampleFirebaseEntity();
 		entity.setId(lastId);
-		entity.setField(IdGenerator.getRandomLongId().toString());
+		entity.setField(RandomUtils.getLong().toString());
 		repository.update(entity);	}
 
 	@RequestMapping(value = "/remove", method = RequestMethod.GET)

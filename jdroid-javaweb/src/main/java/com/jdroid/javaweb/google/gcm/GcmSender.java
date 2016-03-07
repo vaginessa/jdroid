@@ -4,8 +4,8 @@ import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.LoggerUtils;
+import com.jdroid.java.utils.RandomUtils;
 import com.jdroid.java.utils.StringUtils;
 import com.jdroid.javaweb.context.Application;
 import com.jdroid.javaweb.push.DeviceType;
@@ -65,7 +65,7 @@ public class GcmSender implements PushMessageSender {
 				if (pushResponse != null && !pushResponse.getRegistrationTokensToRetry().isEmpty()) {
 					gcmMessage.setRegistrationIds(pushResponse.getRegistrationTokensToRetry());
 				}
-				int sleepTime = backoff / 2 + IdGenerator.getRandomIntId(backoff);
+				int sleepTime = backoff / 2 + RandomUtils.getInt(backoff);
 				LOGGER.debug("Next attempt on " + sleepTime / 1000 + " seconds");
 				ExecutorUtils.sleepInMillis(sleepTime);
 				if (2 * backoff < MAX_BACKOFF_DELAY) {
