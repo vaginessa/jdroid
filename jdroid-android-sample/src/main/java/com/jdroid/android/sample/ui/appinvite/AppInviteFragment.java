@@ -8,11 +8,11 @@ import com.jdroid.android.about.AppInviteHelper;
 import com.jdroid.android.about.AppInviteView;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
-import com.jdroid.java.utils.IdGenerator;
+import com.jdroid.java.utils.RandomUtils;
 
 public class AppInviteFragment extends AbstractFragment {
 
-	private static final int REQUEST_INVITE = IdGenerator.getRandom16BitsIntId();
+	private static final int REQUEST_INVITE = RandomUtils.get16BitsInt();
 	
 	@Override
 	public Integer getContentFragmentLayout() {

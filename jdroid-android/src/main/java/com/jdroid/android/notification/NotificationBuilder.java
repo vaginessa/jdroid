@@ -18,10 +18,9 @@ import android.widget.RemoteViews;
 import com.jdroid.android.R;
 import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.LocalizationUtils;
-import com.jdroid.java.utils.IdGenerator;
+import com.jdroid.java.utils.RandomUtils;
 import com.jdroid.java.utils.StringUtils;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
@@ -109,12 +108,12 @@ public class NotificationBuilder {
 			notificationIntent.setData(createUniqueNotificationUri());
 		}
 
-		builder.setContentIntent(PendingIntent.getActivity(AbstractApplication.get(), IdGenerator.getRandomIntId(),
+		builder.setContentIntent(PendingIntent.getActivity(AbstractApplication.get(), RandomUtils.get16BitsInt(),
 				notificationIntent, 0));
 	}
 
 	protected Uri createUniqueNotificationUri() {
-		return Uri.parse(NOTIFICATION_URI + IdGenerator.getRandomIntId());
+		return Uri.parse(NOTIFICATION_URI + RandomUtils.getInt());
 	}
 
 	public void setWhen(Long when) {
@@ -253,7 +252,7 @@ public class NotificationBuilder {
 	
 	public void addStartActivityAction(@DrawableRes int icon, String title, Intent intent) {
 		PendingIntent pendingIntent = PendingIntent.getActivity(AbstractApplication.get(),
-			IdGenerator.getRandomIntId(), intent, 0);
+				RandomUtils.get16BitsInt(), intent, 0);
 		builder.addAction(icon, title, pendingIntent);
 	}
 	
@@ -262,7 +261,7 @@ public class NotificationBuilder {
 	}
 	
 	public void addStartServiceAction(@DrawableRes int icon, String title, Intent intent) {
-		PendingIntent pendingIntent = PendingIntent.getService(AbstractApplication.get(), IdGenerator.getRandomIntId(),
+		PendingIntent pendingIntent = PendingIntent.getService(AbstractApplication.get(), RandomUtils.getInt(),
 			intent, 0);
 		builder.addAction(icon, title, pendingIntent);
 	}

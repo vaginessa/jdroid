@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import com.jdroid.android.activity.FragmentContainerActivity;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
-import com.jdroid.java.utils.IdGenerator;
+import com.jdroid.java.utils.RandomUtils;
 
 public class UserNavDrawerActivity extends FragmentContainerActivity {
 
@@ -19,7 +19,7 @@ public class UserNavDrawerActivity extends FragmentContainerActivity {
 		user = new User() {
 			@Override
 			public Long getId() {
-				return IdGenerator.getLongId();
+				return RandomUtils.getLong();
 			}
 
 			@Override

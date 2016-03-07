@@ -7,8 +7,8 @@ import android.widget.TextView;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
 import com.jdroid.java.concurrent.ExecutorUtils;
-import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.LoggerUtils;
+import com.jdroid.java.utils.RandomUtils;
 
 import org.slf4j.Logger;
 
@@ -40,9 +40,9 @@ public class FirebaseFragment extends AbstractFragment {
 					@Override
 					public void run() {
 						SampleFirebaseEntity entity = new SampleFirebaseEntity();
-						lastId = IdGenerator.getRandomLongId().toString();
+						lastId = RandomUtils.getLong().toString();
 						entity.setId(lastId);
-						entity.setField(IdGenerator.getRandomLongId().toString());
+						entity.setField(RandomUtils.getLong().toString());
 						repository.add(entity);
 					}
 				});
@@ -57,7 +57,7 @@ public class FirebaseFragment extends AbstractFragment {
 					public void run() {
 						SampleFirebaseEntity entity = new SampleFirebaseEntity();
 						entity.setId(lastId);
-						entity.setField(IdGenerator.getRandomLongId().toString());
+						entity.setField(RandomUtils.getLong().toString());
 						repository.update(entity);
 					}
 				});

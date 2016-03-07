@@ -10,7 +10,7 @@ import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.application.AndroidApplication;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.repository.Repository;
-import com.jdroid.java.utils.IdGenerator;
+import com.jdroid.java.utils.RandomUtils;
 
 import java.util.List;
 
@@ -39,9 +39,9 @@ public class SQLiteFragment extends AbstractFragment {
 					public void run() {
 						Repository<SampleSQLiteEntity> repository = AndroidApplication.get().getRepositoryInstance(SampleSQLiteEntity.class);
 						SampleSQLiteEntity entity = new SampleSQLiteEntity();
-						lastId = IdGenerator.getRandomLongId().toString();
+						lastId = RandomUtils.getLong().toString();
 						entity.setId(lastId);
-						entity.setField(IdGenerator.getRandomLongId().toString());
+						entity.setField(RandomUtils.getLong().toString());
 						repository.add(entity);
 					}
 				});
@@ -58,7 +58,7 @@ public class SQLiteFragment extends AbstractFragment {
 							Repository<SampleSQLiteEntity> repository = AndroidApplication.get().getRepositoryInstance(SampleSQLiteEntity.class);
 							SampleSQLiteEntity entity = repository.get(lastId);
 							if (entity != null) {
-								entity.setField(IdGenerator.getRandomLongId().toString());
+								entity.setField(RandomUtils.getLong().toString());
 								repository.update(entity);
 							}
 						}

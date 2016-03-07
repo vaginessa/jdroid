@@ -11,11 +11,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.appinvite.AppInviteInvitation;
-import com.jdroid.java.utils.IdGenerator;
+import com.jdroid.java.utils.RandomUtils;
 
 public class AppInviteView extends RelativeLayout {
 
-	private int requestCode = IdGenerator.getRandom16BitsIntId();
+	private int requestCode = RandomUtils.get16BitsInt();
 
 	private String title;
 	private String subtitle;

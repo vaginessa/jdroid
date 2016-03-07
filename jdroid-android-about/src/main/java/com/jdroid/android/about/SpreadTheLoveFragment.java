@@ -27,13 +27,13 @@ import com.jdroid.android.share.TwitterSharingItem;
 import com.jdroid.android.share.WhatsAppSharingItem;
 import com.jdroid.android.social.twitter.TwitterConnector;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.utils.IdGenerator;
+import com.jdroid.java.utils.RandomUtils;
 
 import java.util.List;
 
 public abstract class SpreadTheLoveFragment extends AbstractFragment {
 
-	private static final int REQUEST_INVITE = IdGenerator.getRandom16BitsIntId();
+	private static final int REQUEST_INVITE = RandomUtils.get16BitsInt();
 
 	private GooglePlusOneButtonHelper googlePlusOneButtonHelper;
 

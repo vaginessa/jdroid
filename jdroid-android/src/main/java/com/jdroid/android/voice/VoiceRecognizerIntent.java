@@ -1,14 +1,16 @@
 package com.jdroid.android.voice;
 
-import java.util.List;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
-import com.jdroid.android.application.AbstractApplication;
+
 import com.jdroid.android.R;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.GooglePlayUtils;
-import com.jdroid.java.utils.IdGenerator;
+import com.jdroid.java.utils.RandomUtils;
+
+import java.util.List;
 
 /**
  * <p>
@@ -23,7 +25,7 @@ import com.jdroid.java.utils.IdGenerator;
  */
 public class VoiceRecognizerIntent {
 	
-	private static final int REQUEST_CODE = IdGenerator.getIntId();
+	private static final int REQUEST_CODE = RandomUtils.get16BitsInt();
 	private static final String PACKAGE = "com.google.android.voicesearch";
 	
 	public static void initiateRecord() {

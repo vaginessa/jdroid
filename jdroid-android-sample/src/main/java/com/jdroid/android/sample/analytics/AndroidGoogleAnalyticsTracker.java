@@ -3,7 +3,7 @@ package com.jdroid.android.sample.analytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.jdroid.android.google.analytics.GoogleAnalyticsTracker;
 import com.jdroid.java.date.DateUtils;
-import com.jdroid.java.utils.IdGenerator;
+import com.jdroid.java.utils.RandomUtils;
 
 import java.util.Map;
 
@@ -44,7 +44,7 @@ public class AndroidGoogleAnalyticsTracker extends GoogleAnalyticsTracker implem
 
 	@Override
 	public void trackExampleTiming() {
-		trackTiming(EXAMPLE_CATEGORY, "exampleVariable", EXAMPLE_LABEL, IdGenerator.getRandomLongId());
+		trackTiming(EXAMPLE_CATEGORY, "exampleVariable", EXAMPLE_LABEL, RandomUtils.getLong());
 	}
 	
 }
