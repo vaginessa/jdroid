@@ -26,34 +26,40 @@ public class UilImageLoaderHelper implements ImageLoaderHelper {
 	private SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.get("imageLoader");
 	private Map<String, Long> imagesExpirationMap;
 
+	private Boolean initialized = false;
+
 	@Override
 	@SuppressWarnings("unchecked")
-	public void init() {
+	public synchronized void init() {
+		if (!initialized) {
 
-		// Create global configuration and initialize ImageLoader with this configuration
+			// Create global configuration and initialize ImageLoader with this configuration
 
-		DisplayImageOptions.Builder displayImageOptionsBuilder = new DisplayImageOptions.Builder();
-		displayImageOptionsBuilder.cacheInMemory(true);
-		displayImageOptionsBuilder.cacheOnDisk(true);
+			DisplayImageOptions.Builder displayImageOptionsBuilder = new DisplayImageOptions.Builder();
+			displayImageOptionsBuilder.cacheInMemory(true);
+			displayImageOptionsBuilder.cacheOnDisk(true);
 
-		ImageLoaderConfiguration.Builder configBuilder = new ImageLoaderConfiguration.Builder(
-				AbstractApplication.get().getApplicationContext());
-		configBuilder.tasksProcessingOrder(QueueProcessingType.LIFO);
-		configBuilder.defaultDisplayImageOptions(displayImageOptionsBuilder.build());
-		configBuilder.diskCacheSize(10 * 1024 * 1024);
-		// configBuilder.writeDebugLogs();
+			ImageLoaderConfiguration.Builder configBuilder = new ImageLoaderConfiguration.Builder(
+					AbstractApplication.get().getApplicationContext());
+			configBuilder.tasksProcessingOrder(QueueProcessingType.LIFO);
+			configBuilder.defaultDisplayImageOptions(displayImageOptionsBuilder.build());
+			configBuilder.diskCacheSize(10 * 1024 * 1024);
+			// configBuilder.writeDebugLogs();
 
-		ImageLoader.getInstance().init(configBuilder.build());
+			ImageLoader.getInstance().init(configBuilder.build());
 
-		imagesExpirationMap = new ConcurrentHashMap<>(
-				(Map<String, Long>)sharedPreferencesHelper.loadAllPreferences());
-		clearExpiredDiskCaches();
+			imagesExpirationMap = new ConcurrentHashMap<>(
+					(Map<String, Long>)sharedPreferencesHelper.loadAllPreferences());
+			clearExpiredDiskCaches();
+			initialized = true;
+		}
 	}
 
 	@Override
 	public void displayImage(String url, ImageView imageView, Integer defaultImage,
 									ImageLoadingListener imageLoadingListener, Long timeToLive) {
 
+		init();
 		DisplayImageOptions.Builder optionsBuilder = new DisplayImageOptions.Builder();
 		optionsBuilder.cacheInMemory(true);
 		optionsBuilder.cacheOnDisk(true);
@@ -75,6 +81,7 @@ public class UilImageLoaderHelper implements ImageLoaderHelper {
 	@Override
 	public Bitmap loadBitmap(String url, ImageScaleType imageScaleType, int width, int height, Long timeToLive) {
 
+		init();
 		DisplayImageOptions.Builder optionsBuilder = new DisplayImageOptions.Builder();
 		optionsBuilder.cacheInMemory(true);
 		optionsBuilder.cacheOnDisk(true);

@@ -4,19 +4,21 @@ import java.util.Random;
 
 public class RandomUtils {
 
+	private static final Random RANDOM = new Random();
+
 	public static Long getLong() {
-		return Math.abs(new Random().nextLong());
+		return Math.abs(RANDOM.nextLong());
 	}
 
 	public static Integer getInt() {
-		return Math.abs(new Random().nextInt());
+		return Math.abs(RANDOM.nextInt());
 	}
 
 	public static Integer get16BitsInt() {
-		return Math.abs(new Random().nextInt(16));
+		return Math.abs(RANDOM.nextInt(16));
 	}
 
 	public static Integer getInt(int bound) {
-		return Math.abs(new Random().nextInt(bound));
+		return Math.abs(RANDOM.nextInt(bound));
 	}
 }

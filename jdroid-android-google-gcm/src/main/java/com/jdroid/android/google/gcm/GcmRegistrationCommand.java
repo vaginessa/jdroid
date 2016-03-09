@@ -49,6 +49,9 @@ public class GcmRegistrationCommand extends ServiceCommand {
 			String registrationToken;
 			try {
 				registrationToken = getRegistrationToken(AbstractApplication.get());
+			} catch (IOException e) {
+				LOGGER.warn("Error when getting registration token", e);
+				return GcmNetworkManager.RESULT_RESCHEDULE;
 			} catch (Exception e) {
 				AbstractApplication.get().getExceptionHandler().logHandledException("Failed to register the device on gcm. Will retry later.", e);
 				return GcmNetworkManager.RESULT_RESCHEDULE;

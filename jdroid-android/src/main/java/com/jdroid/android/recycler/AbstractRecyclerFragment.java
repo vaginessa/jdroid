@@ -36,7 +36,7 @@ public abstract class AbstractRecyclerFragment extends AbstractFragment {
 		recyclerView.setLayoutManager(layoutManager);
 
 		if (isDividerItemDecorationEnabled()) {
-			recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
+			recyclerView.addItemDecoration(createDividerItemDecoration());
 		}
 
 		emptyViewContainer = findView(R.id.emptyViewContainer);
@@ -57,6 +57,10 @@ public abstract class AbstractRecyclerFragment extends AbstractFragment {
 		if (adapter != null) {
 			setAdapter(adapter);
 		}
+	}
+
+	protected RecyclerView.ItemDecoration createDividerItemDecoration(){
+		return new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST);
 	}
 
 	protected Boolean isDividerItemDecorationEnabled() {

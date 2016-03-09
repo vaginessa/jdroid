@@ -26,12 +26,12 @@ public class AppInviteFragment extends AbstractFragment {
 
 		AppInviteView appInviteView = findView(R.id.appInvite);
 		appInviteView.setRequestCode(REQUEST_INVITE);
-		appInviteView.init(getActivity());
+		appInviteView.configure(getActivity());
 
 		AppInviteView appInviteWithStats = findView(R.id.appInviteWithStats);
 		if (AppInviteStats.displayAppInviteView()) {
 			appInviteWithStats.setRequestCode(REQUEST_INVITE);
-			appInviteWithStats.init(getActivity());
+			appInviteWithStats.configure(getActivity());
 			appInviteWithStats.setVisibility(View.VISIBLE);
 		} else {
 			appInviteWithStats.setVisibility(View.GONE);

@@ -16,6 +16,6 @@
 	<string name="appInviteButtonTitle">Invite Friends</string>
 	<string name="appInviteButtonSubtitle">Share %1$s with your friends</string>
 	<string name="appInviteTitle">Invite Friends to %1$s</string>
-	<string name="appInviteMessage">Install %1$s on your android</string>
+	<string name="appInviteMessage">Download %1$s on your android</string>
 
 </resources>

@@ -19,35 +19,45 @@ public class AppInviteView extends RelativeLayout {
 
 	private int requestCode = RandomUtils.get16BitsInt();
 
+	private TextView titleTextView;
 	private String title;
+
+	private TextView subtitleTextView;
 	private String subtitle;
+
 	private String appInviteTitle;
 	private String appInviteMessage;
 	private String appInviteDeeplink;
 
 	public AppInviteView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+		init(context);
 	}
 
 	public AppInviteView(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		init(context);
 	}
 
 	public AppInviteView(Context context) {
 		super(context);
+		init(context);
 	}
 	
-	public void init(final Activity activity) {
+	private void init(Context context) {
+		LayoutInflater.from(context).inflate(R.layout.app_invite_view, this, true);
 
-		LayoutInflater.from(activity).inflate(R.layout.app_invite_view, this, true);
+		titleTextView = ((TextView)findViewById(R.id.title));
+		subtitleTextView = ((TextView)findViewById(R.id.subTitle));
+	}
 
-		TextView titleTextView = ((TextView)findViewById(R.id.title));
+	public void configure(final Activity activity) {
+
 		if (title == null) {
 			title = activity.getString(R.string.appInviteButtonTitle);
 		}
 		titleTextView.setText(title);
 
-		TextView subtitleTextView = ((TextView)findViewById(R.id.subTitle));
 		if (subtitle == null) {
 			subtitle = activity.getString(R.string.appInviteButtonSubtitle, activity.getString(R.string.appName));
 		}

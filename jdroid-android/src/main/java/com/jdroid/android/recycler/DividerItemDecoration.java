@@ -19,10 +19,21 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 	private Drawable mDivider;
 	private int mOrientation;
 
+	/**
+	 * Default divider will be used
+	 */
 	public DividerItemDecoration(Context context, int orientation) {
 		final TypedArray a = context.obtainStyledAttributes(ATTRS);
 		mDivider = a.getDrawable(0);
 		a.recycle();
+		setOrientation(orientation);
+	}
+
+	/**
+	 * Custom divider will be used
+	 */
+	public DividerItemDecoration(Drawable divider, int orientation) {
+		mDivider = divider;
 		setOrientation(orientation);
 	}
 
