@@ -14,4 +14,4 @@ android:
     - extra-android-m2repository
     - extra-google-m2repository
 
-script: sh ./etc/scripts/test.sh true false true true true true
+script: sh ./etc/scripts/test.sh true false true true false
