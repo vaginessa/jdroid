@@ -42,7 +42,7 @@ dependencies {
 	compile "org.twitter4j:twitter4j-core:4.0.3"
 
 	// Apache Commons
-	compile "commons-collections:commons-collections:3.2.1"
+	compile "commons-collections:commons-collections:3.2.2"
 	compile "commons-beanutils:commons-beanutils:1.8.3"
 
 	// Guava
