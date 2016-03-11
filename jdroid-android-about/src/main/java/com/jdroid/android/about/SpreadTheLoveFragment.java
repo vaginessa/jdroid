@@ -43,9 +43,6 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 		return R.layout.spread_the_love_fragment;
 	}
 
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onViewCreated(android.view.View, android.os.Bundle)
-	 */
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
@@ -185,7 +182,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 		}
 
 		View appInvite = findView(R.id.appInvite);
-		if (displayAppInviteButton()) {
+		if (displayAppInviteButton() && GooglePlayServicesUtils.isGooglePlayServicesAvailable(getActivity())) {
 			appInvite.setOnClickListener(new OnClickListener() {
 
 				@Override

@@ -10,4 +10,9 @@ public class GooglePlayServicesActivity extends FragmentContainerActivity {
 	protected Class<? extends Fragment> getFragmentClass() {
 		return GooglePlayServicesFragment.class;
 	}
+
+	@Override
+	public Boolean isGooglePlayServicesVerificationEnabled() {
+		return true;
+	}
 }

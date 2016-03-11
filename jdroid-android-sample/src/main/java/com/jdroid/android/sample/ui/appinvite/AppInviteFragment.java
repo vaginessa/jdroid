@@ -29,7 +29,7 @@ public class AppInviteFragment extends AbstractFragment {
 		appInviteView.configure(getActivity());
 
 		AppInviteView appInviteWithStats = findView(R.id.appInviteWithStats);
-		if (AppInviteStats.displayAppInviteView()) {
+		if (AppInviteStats.displayAppInviteView(getActivity())) {
 			appInviteWithStats.setRequestCode(REQUEST_INVITE);
 			appInviteWithStats.configure(getActivity());
 			appInviteWithStats.setVisibility(View.VISIBLE);

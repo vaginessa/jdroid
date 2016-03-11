@@ -1,6 +1,9 @@
 package com.jdroid.android.about.appinvite;
 
+import android.content.Context;
+
 import com.jdroid.android.context.UsageStats;
+import com.jdroid.android.google.GooglePlayServicesUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.StringUtils;
@@ -41,10 +44,10 @@ public class AppInviteStats {
 		return sharedPreferencesHelper;
 	}
 
-	public static Boolean displayAppInviteView() {
+	public static Boolean displayAppInviteView(Context context) {
 		Boolean enoughDaysSinceLastInvite =  DateUtils.millisecondsToDays(AppInviteStats.getLastInviteSentTimestamp()) >= 21;
 		Boolean enoughDaysSinceFirstAppLoad = DateUtils.millisecondsToDays(UsageStats.getFirstAppLoadTimestamp()) >= 7;
 		Boolean enoughAppLoads = UsageStats.getAppLoads() >= 10;
-		return enoughDaysSinceLastInvite && enoughDaysSinceFirstAppLoad && enoughAppLoads;
+		return enoughDaysSinceLastInvite && enoughDaysSinceFirstAppLoad && enoughAppLoads && GooglePlayServicesUtils.isGooglePlayServicesAvailable(context);
 	}
 }
