@@ -14,7 +14,7 @@
 
 	<!-- App Invite -->
 	<string name="appInviteButtonTitle">Invitar Amigos</string>
-	<string name="appInviteButtonSubtitle">Comparte %1$s con tus amigos</string>
+	<string name="appInviteButtonSubtitle">Recomienda %1$s a tus amigos</string>
 	<string name="appInviteTitle">Invitar Amigos a %1$s</string>
 	<string name="appInviteMessage">Descarga %1$s en tu android</string>
 
