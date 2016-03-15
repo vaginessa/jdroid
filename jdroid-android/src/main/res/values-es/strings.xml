@@ -70,8 +70,8 @@
 	<!-- Facebook -->
 	<string name="facebook">Facebook</string>
 
-	<!-- Google+ -->
-	<string name="googlePlus">Google+</string>
+	<!-- Google Sign In -->
+	<string name="googleSignIn">Google Sign In</string>
 
 	<!-- Twitter -->
 	<string name="twitter">Twitter</string>

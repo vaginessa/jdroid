@@ -1,13 +1,13 @@
-package com.jdroid.android.sample.ui.google.plus;
+package com.jdroid.android.sample.ui.google.signin;
 
 import android.support.v4.app.Fragment;
 
 import com.jdroid.android.activity.FragmentContainerActivity;
 
-public class GooglePlusActivity extends FragmentContainerActivity {
+public class GoogleSignInActivity extends FragmentContainerActivity {
 
 	@Override
 	protected Class<? extends Fragment> getFragmentClass() {
-		return GooglePlusFragment.class;
+		return GoogleSignInFragment.class;
 	}
 }

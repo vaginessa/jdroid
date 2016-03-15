@@ -112,6 +112,10 @@ public abstract class AppContext {
 	public Boolean isChromeInstallationSource() {
 		return getInstallationSource().equals("Chrome");
 	}
+
+	public String getServerClientId() {
+		return getBuildConfigValue("GOOGLE_SERVER_CLIENT_ID", null);
+	}
 	
 	public String getServerApiVersion() {
 		return null;

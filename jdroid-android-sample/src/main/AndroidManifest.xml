@@ -86,7 +86,7 @@
 		<activity android:name="com.jdroid.android.sample.ui.exceptions.ErrorDisplayerActivity" android:label="@string/errorDisplayer"
 			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
-		<activity android:name="com.jdroid.android.sample.ui.google.plus.GooglePlusActivity" android:label="@string/loading"
+		<activity android:name="com.jdroid.android.sample.ui.google.signin.GoogleSignInActivity" android:label="@string/googleSignIn"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<activity android:name="com.jdroid.android.sample.ui.loading.LoadingActivity" android:label="@string/loading"

@@ -145,6 +145,7 @@ cmd="${cmd} :jdroid-android-google-admob:uploadArchives"
 cmd="${cmd} :jdroid-android-google-gcm:uploadArchives"
 cmd="${cmd} :jdroid-android-google-maps:uploadArchives"
 cmd="${cmd} :jdroid-android-google-plus:uploadArchives"
+cmd="${cmd} :jdroid-android-google-signin:uploadArchives"
 cmd="${cmd} :jdroid-android-about:uploadArchives"
 cmd="${cmd} -PSNAPSHOT=false"
 

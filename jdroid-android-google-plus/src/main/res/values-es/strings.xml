@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="accountsPermissionRequired">Necesita habilitar el permiso <b>Contactos</b> para poder iniciar sesión con Google.</string>
+	<string name="googlePlus">Google+</string>
 
 </resources>

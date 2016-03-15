@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/container" android:layout_width="match_parent"
-	android:layout_height="match_parent" android:orientation="vertical" android:padding="8dp">
+<com.jdroid.android.loading.LoadingLayout android:id="@+id/loadingLayout" android:layout_width="match_parent" android:layout_height="match_parent"
+										  xmlns:android="http://schemas.android.com/apk/res/android">
+	<LinearLayout android:id="@+id/container" android:layout_width="match_parent"
+		android:layout_height="match_parent" android:orientation="vertical" android:padding="8dp">
 
-	<TextView android:id="@+id/status" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+		<com.google.android.gms.common.SignInButton android:id="@+id/signIn" android:layout_width="wrap_content"
+													android:layout_height="wrap_content" android:layout_gravity="center_horizontal"
+													android:layout_marginTop="20dp" />
 
-	<com.google.android.gms.common.SignInButton android:id="@+id/googlePlusSignInButton" android:layout_width="260dp"
-												android:layout_height="wrap_content" android:layout_gravity="center_horizontal"
-												android:layout_marginTop="20dp" />
+		<Button android:id="@+id/signOut" android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/raisedButton"
+				  android:layout_gravity="center_horizontal" android:minWidth="200dp" android:layout_marginTop="20dp"
+				  android:text="@string/logout" />
 
-	<Button android:id="@+id/googlePlusLogoutButton" android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/raisedButton"
-			  android:layout_gravity="center_horizontal" android:minWidth="260dp" android:layout_marginTop="20dp"
-			  android:text="@string/logout" />
+		<Button android:id="@+id/revoke" android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/raisedButton"
+				  android:layout_gravity="center_horizontal" android:minWidth="200dp" android:layout_marginTop="20dp"
+				  android:text="@string/revokeAccess" />
 
-	<Button android:id="@+id/googlePlusRevokeButton" android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/raisedButton"
-			  android:layout_gravity="center_horizontal" android:minWidth="260dp" android:layout_marginTop="20dp"
-			  android:text="@string/revokeAccess" />
+		<TextView android:id="@+id/status" android:layout_width="wrap_content" android:layout_height="wrap_content"
+				  android:layout_gravity="center_horizontal" android:layout_marginTop="20dp"/>
 
-</LinearLayout>
+	</LinearLayout>
+</com.jdroid.android.loading.LoadingLayout>

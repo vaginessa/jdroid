@@ -15,7 +15,7 @@ import com.jdroid.android.sample.ui.exceptions.ErrorDisplayerActivity;
 import com.jdroid.android.sample.ui.firebase.FirebaseActivity;
 import com.jdroid.android.sample.ui.google.gcm.GcmActivity;
 import com.jdroid.android.sample.ui.google.playservices.GooglePlayServicesActivity;
-import com.jdroid.android.sample.ui.google.plus.GooglePlusActivity;
+import com.jdroid.android.sample.ui.google.signin.GoogleSignInActivity;
 import com.jdroid.android.sample.ui.hero.HeroActivity;
 import com.jdroid.android.sample.ui.http.HttpActivity;
 import com.jdroid.android.sample.ui.imageloader.ImageLoaderActivity;
@@ -44,7 +44,7 @@ public enum HomeItem implements ActionItem {
 	GOOGLE_ANALYTCS(R.string.googleAnalytics, R.drawable.ic_analytics, AnalyticsActivity.class),
 	GCM(R.string.gcm, R.drawable.ic_gcm, GcmActivity.class),
 	GOOGLE_MAPS(R.string.googleMaps, R.drawable.ic_maps, MapActivity.class),
-	GOOGLE_PLUS(R.string.googlePlus, R.drawable.google_plus, GooglePlusActivity.class),
+	GOOGLE_SIGN_IN(R.string.googleSignIn, R.drawable.ic_sign_in_24dp, GoogleSignInActivity.class),
 	GOOGLE_PLAY_SERVICES(R.string.googlePlayServices, R.drawable.ic_gcm, GooglePlayServicesActivity.class),
 	HERO(R.string.hero, R.drawable.ic_photo, HeroActivity.class),
 	HTTP(R.string.http, R.drawable.ic_http, HttpActivity.class),
