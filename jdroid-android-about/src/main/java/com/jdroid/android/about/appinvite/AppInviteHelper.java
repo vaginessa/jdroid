@@ -24,6 +24,8 @@ public class AppInviteHelper {
 					}
 					AppInviteStats.invitesSent(Lists.newArrayList(ids));
 				}
+			} else if (resultCode != Activity.RESULT_CANCELED) {
+				AbstractApplication.get().getExceptionHandler().logWarningException("Error when sending app invite: " + resultCode);
 			}
 		}
 	}

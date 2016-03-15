@@ -45,7 +45,7 @@ public class AppInviteStats {
 	}
 
 	public static Boolean displayAppInviteView(Context context) {
-		Boolean enoughDaysSinceLastInvite =  DateUtils.millisecondsToDays(AppInviteStats.getLastInviteSentTimestamp()) >= 21;
+		Boolean enoughDaysSinceLastInvite = DateUtils.millisecondsToDays(AppInviteStats.getLastInviteSentTimestamp()) >= 21;
 		Boolean enoughDaysSinceFirstAppLoad = DateUtils.millisecondsToDays(UsageStats.getFirstAppLoadTimestamp()) >= 7;
 		Boolean enoughAppLoads = UsageStats.getAppLoads() >= 10;
 		return enoughDaysSinceLastInvite && enoughDaysSinceFirstAppLoad && enoughAppLoads && GooglePlayServicesUtils.isGooglePlayServicesAvailable(context);
