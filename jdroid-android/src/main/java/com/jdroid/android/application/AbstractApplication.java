@@ -113,6 +113,10 @@ public abstract class AbstractApplication extends Application {
 		LOGGER = LoggerUtils.getLogger(AbstractApplication.class);
 		LOGGER.debug("Executing onCreate on " + this);
 
+		// Strict mode
+		if (appContext.isStrictModeEnabled()) {
+			initStrictMode();
+		}
 
 		List<Kit> fabricKits = Lists.newArrayList();
 		initAppModule(appModulesMap);
@@ -134,8 +138,9 @@ public abstract class AbstractApplication extends Application {
 
 		initExceptionHandlers();
 		LoggerUtils.setExceptionLogger(getExceptionHandler());
-		initStrictMode();
-		
+
+
+
 		// This is required to initialize the statics fields of the utils classes.
 		ToastUtils.init();
 		DateUtils.init();
@@ -258,14 +263,8 @@ public abstract class AbstractApplication extends Application {
 		return analyticsSender;
 	}
 	
-	public Boolean isStrictModeEnabled() {
-		return true;
-	}
-	
-	private void initStrictMode() {
-		if (!appContext.isProductionEnvironment() && isStrictModeEnabled()) {
-			StrictMode.enableDefaults();
-		}
+	protected void initStrictMode() {
+		StrictMode.enableDefaults();
 	}
 	
 	public void initExceptionHandlers() {

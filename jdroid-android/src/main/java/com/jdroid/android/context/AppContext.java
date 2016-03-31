@@ -32,6 +32,10 @@ public abstract class AppContext {
 	public <T> T getBuildConfigValue(String property, Object defaultValue) {
 		return (T)ReflectionUtils.getStaticFieldValue(getBuildConfigClass(), property, defaultValue);
 	}
+
+	public Boolean getBuildConfigBoolean(String property, Boolean defaultValue) {
+		return (Boolean)getBuildConfigValue(property, defaultValue);
+	}
 	
 	protected Server findServerByName(String name) {
 		return null;
@@ -74,6 +78,10 @@ public abstract class AppContext {
 
 	public String getBuildTime() {
 		return getBuildConfigValue("BUILD_TIME", null);
+	}
+
+	public Boolean isStrictModeEnabled() {
+		return !isProductionEnvironment() && getBuildConfigBoolean("STRICT_MODE_ENABLED", false);
 	}
 
 	/**
