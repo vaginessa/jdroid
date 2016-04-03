@@ -16,9 +16,6 @@ import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.concurrent.SafeExecuteWrapperRunnable;
-import com.jdroid.android.context.AppContext;
-import com.jdroid.android.context.SecurityContext;
-import com.jdroid.android.domain.User;
 import com.jdroid.android.exception.AbstractErrorDisplayer;
 import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.loading.FragmentLoading;
@@ -86,9 +83,6 @@ public class FragmentHelper implements FragmentIf {
 		return fragmentDelegatesMap.get(appModule);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#shouldRetainInstance()
-	 */
 	@Override
 	public Boolean shouldRetainInstance() {
 		return true;
@@ -234,9 +228,6 @@ public class FragmentHelper implements FragmentIf {
 		return value != null ? value : defaultValue;
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeOnUIThread(java.lang.Runnable)
-	 */
 	@Override
 	public void executeOnUIThread(Runnable runnable) {
 		Activity activity = fragment.getActivity();
@@ -318,33 +309,21 @@ public class FragmentHelper implements FragmentIf {
 		ExecutorUtils.schedule(useCase, delaySeconds);
 	}
 	
-	/**
-	 * @see UseCaseListener#onStartUseCase()
-	 */
 	@Override
 	public void onStartUseCase() {
 		getFragmentIf().showLoading();
 	}
 	
-	/**
-	 * @see UseCaseListener#onUpdateUseCase()
-	 */
 	@Override
 	public void onUpdateUseCase() {
 		// Do nothing by default
 	}
 	
-	/**
-	 * @see UseCaseListener#onFinishUseCase()
-	 */
 	@Override
 	public void onFinishUseCase() {
 		getFragmentIf().dismissLoading();
 	}
 	
-	/**
-	 * @see UseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
-	 */
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		getFragmentIf().dismissLoading();
@@ -356,66 +335,26 @@ public class FragmentHelper implements FragmentIf {
 		return AbstractErrorDisplayer.getErrorDisplayer(abstractException);
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#findView(int)
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <V extends View> V findView(int id) {
 		return (V)fragment.getView().findViewById(id);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#findViewOnActivity(int)
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <V extends View> V findViewOnActivity(int id) {
 		return (V)fragment.getActivity().findViewById(id);
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#inflate(int)
-	 */
 	@Override
 	public View inflate(int resource) {
 		return getActivityIf().inflate(resource);
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#getInstance(java.lang.Class)
-	 */
-	@Override
-	public <I> I getInstance(Class<I> clazz) {
-		return getActivityIf().getInstance(clazz);
-	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#getExtra(java.lang.String)
-	 */
 	@Override
 	public <E> E getExtra(String key) {
 		return getActivityIf().getExtra(key);
-	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#getAppContext()
-	 */
-	@Override
-	public AppContext getAppContext() {
-		return getActivityIf().getAppContext();
-	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#getUser()
-	 */
-	@Override
-	public User getUser() {
-		return getActivityIf().getUser();
-	}
-	
-	public Boolean isAuthenticated() {
-		return SecurityContext.get().isAuthenticated();
 	}
 	
 	// //////////////////////// Analytics //////////////////////// //
@@ -465,30 +404,16 @@ public class FragmentHelper implements FragmentIf {
 		});
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getDefaultLoading()
-	 */
 	@Override
 	public FragmentLoading getDefaultLoading() {
 		return null;
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#setLoading(com.jdroid.android.loading.FragmentLoading)
-	 */
 	@Override
 	public void setLoading(FragmentLoading loading) {
 		this.loading = loading;
 	}
 	
-	/**
-	 * @see android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener#onRefresh()
-	 */
-	@Override
-	public void onRefresh() {
-		// Do nothing
-	}
-
 	@Override
 	public Integer getMenuResourceId() {
 		return null;

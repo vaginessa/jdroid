@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
-import com.jdroid.android.context.AppContext;
-import com.jdroid.android.domain.User;
 import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.fragment.FragmentDelegate;
 import com.jdroid.android.fragment.FragmentHelper;
@@ -28,17 +26,6 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	
 	private FragmentHelper fragmentHelper;
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getAppContext()
-	 */
-	@Override
-	public AppContext getAppContext() {
-		return fragmentHelper.getAppContext();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#shouldRetainInstance()
-	 */
 	@Override
 	public Boolean shouldRetainInstance() {
 		return fragmentHelper.shouldRetainInstance();
@@ -213,14 +200,6 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getInstance(java.lang.Class)
-	 */
-	@Override
-	public <I> I getInstance(Class<I> clazz) {
-		return fragmentHelper.<I>getInstance(clazz);
-	}
-	
-	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getExtra(java.lang.String)
 	 */
 	@Override
@@ -252,14 +231,6 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	@Override
 	public void executeUseCase(AbstractUseCase useCase, Long delaySeconds) {
 		fragmentHelper.executeUseCase(useCase, delaySeconds);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getUser()
-	 */
-	@Override
-	public User getUser() {
-		return fragmentHelper.getUser();
 	}
 
 	@Override
@@ -351,14 +322,6 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 		fragmentHelper.setLoading(loading);
 	}
 	
-	/**
-	 * @see android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener#onRefresh()
-	 */
-	@Override
-	public void onRefresh() {
-		fragmentHelper.onRefresh();
-	}
-
 	@Override
 	public Integer getMenuResourceId() {
 		return fragmentHelper.getMenuResourceId();

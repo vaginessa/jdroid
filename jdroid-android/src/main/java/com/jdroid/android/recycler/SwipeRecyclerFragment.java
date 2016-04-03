@@ -1,10 +1,12 @@
 package com.jdroid.android.recycler;
 
+import android.support.v4.widget.SwipeRefreshLayout;
+
 import com.jdroid.android.R;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.loading.SwipeRefreshLoading;
 
-public class SwipeRecyclerFragment extends AbstractRecyclerFragment {
+public class SwipeRecyclerFragment extends AbstractRecyclerFragment implements SwipeRefreshLayout.OnRefreshListener {
 
 	@Override
 	public Integer getContentFragmentLayout() {
@@ -14,5 +16,10 @@ public class SwipeRecyclerFragment extends AbstractRecyclerFragment {
 	@Override
 	public FragmentLoading getDefaultLoading() {
 		return new SwipeRefreshLoading();
+	}
+
+	@Override
+	public void onRefresh() {
+		// Do Nothing
 	}
 }

@@ -7,6 +7,7 @@ import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.java.exception.AbstractException;
+import com.jdroid.java.utils.ReflectionUtils;
 
 /**
  * 
@@ -21,7 +22,7 @@ public abstract class UseCaseFragment<T extends AbstractUseCase> extends Abstrac
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
 		
-		useCase = getInstance(getUseCaseClass());
+		useCase = ReflectionUtils.newInstance(getUseCaseClass());
 		initializeUseCase(useCase);
 	}
 	

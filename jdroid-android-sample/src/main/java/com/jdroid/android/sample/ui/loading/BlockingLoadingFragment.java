@@ -16,7 +16,7 @@ public class BlockingLoadingFragment extends AbstractFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		sampleItemsUseCase = getInstance(SampleItemsUseCase.class);
+		sampleItemsUseCase = new SampleItemsUseCase();
 	}
 	
 	/**

@@ -12,8 +12,6 @@ import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.application.AppModule;
-import com.jdroid.android.context.AppContext;
-import com.jdroid.android.domain.User;
 import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.FragmentLoading;
@@ -46,17 +44,6 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 		return (FragmentIf)this.getActivity();
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getAppContext()
-	 */
-	@Override
-	public AppContext getAppContext() {
-		return getFragmentIf().getAppContext();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#shouldRetainInstance()
-	 */
 	@Override
 	public Boolean shouldRetainInstance() {
 		return true;
@@ -132,14 +119,6 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getInstance(java.lang.Class)
-	 */
-	@Override
-	public <I> I getInstance(Class<I> clazz) {
-		return getFragmentIf().<I>getInstance(clazz);
-	}
-	
-	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getExtra(java.lang.String)
 	 */
 	@Override
@@ -189,17 +168,6 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 		getFragmentIf().executeUseCase(useCase, delaySeconds);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getUser()
-	 */
-	@Override
-	public User getUser() {
-		return getFragmentIf().getUser();
-	}
-
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getActivityIf()
-	 */
 	@Override
 	public ActivityIf getActivityIf() {
 		return (ActivityIf)getActivity();
@@ -266,13 +234,6 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	public void setLoading(FragmentLoading loading) {
 	}
 	
-	/**
-	 * @see android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener#onRefresh()
-	 */
-	@Override
-	public void onRefresh() {
-	}
-
 	@Override
 	public Integer getMenuResourceId() {
 		return null;

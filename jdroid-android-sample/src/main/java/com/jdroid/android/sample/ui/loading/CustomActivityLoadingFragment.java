@@ -21,7 +21,7 @@ public class CustomActivityLoadingFragment extends AbstractFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		sampleItemsUseCase = getInstance(SampleItemsUseCase.class);
+		sampleItemsUseCase = new SampleItemsUseCase();
 		getActivityIf().setLoading(new ActivityLoading() {
 			
 			@Override

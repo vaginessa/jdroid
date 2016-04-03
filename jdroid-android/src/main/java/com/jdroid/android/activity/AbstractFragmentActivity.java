@@ -15,8 +15,6 @@ import android.view.View;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
-import com.jdroid.android.context.AppContext;
-import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.UseCaseFragment;
 import com.jdroid.android.loading.ActivityLoading;
 import com.jdroid.android.navdrawer.NavDrawer;
@@ -31,17 +29,6 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	
 	private ActivityHelper activityHelper;
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getAppContext()
-	 */
-	@Override
-	public AppContext getAppContext() {
-		return activityHelper.getAppContext();
-	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#onBeforeSetContentView()
-	 */
 	@Override
 	public Boolean onBeforeSetContentView() {
 		return activityHelper.onBeforeSetContentView();
@@ -189,14 +176,6 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getInstance(java.lang.Class)
-	 */
-	@Override
-	public <I> I getInstance(Class<I> clazz) {
-		return activityHelper.getInstance(clazz);
-	}
-	
-	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getExtra(java.lang.String)
 	 */
 	@Override
@@ -210,18 +189,6 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	@Override
 	public Boolean requiresAuthentication() {
 		return activityHelper.requiresAuthentication();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getUser()
-	 */
-	@Override
-	public User getUser() {
-		return activityHelper.getUser();
-	}
-	
-	public Boolean isAuthenticated() {
-		return activityHelper.isAuthenticated();
 	}
 	
 	public void loadUseCaseFragment(Bundle savedInstanceState, Class<? extends UseCaseFragment<?>> useCaseFragmentClass) {

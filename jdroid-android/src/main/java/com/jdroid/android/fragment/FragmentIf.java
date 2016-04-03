@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -18,7 +17,7 @@ import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.exception.AbstractException;
 
-public interface FragmentIf extends ComponentIf, UseCaseListener, OnRefreshListener {
+public interface FragmentIf extends ComponentIf, UseCaseListener {
 	
 	public ActivityIf getActivityIf();
 

@@ -18,7 +18,7 @@ public class SwipeRefreshLoading implements FragmentLoading {
 	@Override
 	public void onViewCreated(FragmentIf fragmentIf) {
 		swipeRefreshLayout = fragmentIf.findView(R.id.swipeRefreshLayout);
-		swipeRefreshLayout.setOnRefreshListener(fragmentIf);
+		swipeRefreshLayout.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener)fragmentIf);
 	}
 
 	@Override

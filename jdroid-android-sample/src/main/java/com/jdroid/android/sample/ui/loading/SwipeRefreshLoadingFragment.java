@@ -21,7 +21,7 @@ public class SwipeRefreshLoadingFragment extends SwipeRecyclerFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		sampleItemsUseCase = getInstance(SampleItemsUseCase.class);
+		sampleItemsUseCase = new SampleItemsUseCase();
 	}
 	
 	@Override

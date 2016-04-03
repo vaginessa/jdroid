@@ -17,13 +17,13 @@ public class CommandGcmTaskService extends AbstractGcmTaskService {
 
 	@Override
 	protected String getTrackingLabel(TaskParams taskParams) {
-		String serviceCommandExtra = taskParams.getExtras().getString(COMMAND_EXTRA);
+		String serviceCommandExtra = taskParams.getExtras() != null ? taskParams.getExtras().getString(COMMAND_EXTRA) : null;
 		return serviceCommandExtra == null ? getTrackingVariable(taskParams) : serviceCommandExtra.substring(serviceCommandExtra.lastIndexOf(".") + 1);
 	}
 
 	@Override
 	public int doRunTask(TaskParams taskParams) {
-		String serviceCommandExtra = taskParams.getExtras().getString(COMMAND_EXTRA);
+		String serviceCommandExtra = taskParams.getExtras() != null ? taskParams.getExtras().getString(COMMAND_EXTRA) : null;
 		if (serviceCommandExtra != null) {
 			ServiceCommand serviceCommand = ReflectionUtils.newInstance(serviceCommandExtra);
 			return serviceCommand.executeRetry(taskParams);

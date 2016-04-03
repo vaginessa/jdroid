@@ -26,10 +26,7 @@ import android.view.View;
 import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
-import com.jdroid.android.context.AppContext;
-import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.context.UsageStats;
-import com.jdroid.android.domain.User;
 import com.jdroid.android.google.GooglePlayServicesUtils;
 import com.jdroid.android.google.inappbilling.InAppBillingHelper;
 import com.jdroid.android.loading.ActivityLoading;
@@ -44,7 +41,6 @@ import com.jdroid.java.collections.Maps;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.LoggerUtils;
-import com.jdroid.java.utils.ReflectionUtils;
 
 import org.slf4j.Logger;
 
@@ -86,33 +82,16 @@ public class ActivityHelper implements ActivityIf {
 		return activity;
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getAppContext()
-	 */
-	@Override
-	public AppContext getAppContext() {
-		return AbstractApplication.get().getAppContext();
-	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#getContentView()
-	 */
 	@Override
 	public int getContentView() {
 		return getActivityIf().getContentView();
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#onBeforeSetContentView()
-	 */
 	@Override
 	public Boolean onBeforeSetContentView() {
 		return true;
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#onAfterSetContentView(android.os.Bundle)
-	 */
 	@Override
 	public void onAfterSetContentView(Bundle savedInstanceState) {
 		// Do Nothing
@@ -200,9 +179,6 @@ public class ActivityHelper implements ActivityIf {
 		}
 	}
 
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#isLauncherActivity()
-	 */
 	@Override
 	public Boolean isLauncherActivity() {
 		return false;
@@ -365,9 +341,6 @@ public class ActivityHelper implements ActivityIf {
 		return null;
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#doOnCreateOptionsMenu(android.view.Menu)
-	 */
 	@Override
 	public void doOnCreateOptionsMenu(Menu menu) {
 		// Do nothing
@@ -423,17 +396,6 @@ public class ActivityHelper implements ActivityIf {
 		return null;
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#getInstance(java.lang.Class)
-	 */
-	@Override
-	public <I> I getInstance(Class<I> clazz) {
-		return ReflectionUtils.newInstance(clazz);
-	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#getExtra(java.lang.String)
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <E> E getExtra(String key) {
@@ -452,29 +414,11 @@ public class ActivityHelper implements ActivityIf {
 		return LayoutInflater.from(activity).inflate(resource, null);
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#requiresAuthentication()
-	 */
 	@Override
 	public Boolean requiresAuthentication() {
 		return true;
 	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#getUser()
-	 */
-	@Override
-	public User getUser() {
-		return SecurityContext.get().getUser();
-	}
-	
-	public Boolean isAuthenticated() {
-		return SecurityContext.get().isAuthenticated();
-	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#getMenuInflater()
-	 */
+
 	@Override
 	public MenuInflater getMenuInflater() {
 		return null;
@@ -500,9 +444,6 @@ public class ActivityHelper implements ActivityIf {
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#executeOnUIThread(java.lang.Runnable)
-	 */
 	@Override
 	public void executeOnUIThread(Runnable runnable) {
 		if (activity.equals(AbstractApplication.get().getCurrentActivity())) {
@@ -510,19 +451,23 @@ public class ActivityHelper implements ActivityIf {
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#isActivityDestroyed()
-	 */
 	@Override
 	public Boolean isActivityDestroyed() {
 		return isDestroyed;
 	}
+
+	// //////////////////////// Life cycle //////////////////////// //
+
+	@Override
+	public Boolean onBackPressedHandled() {
+		if (navDrawer != null) {
+			return navDrawer.onBackPressed();
+		}
+		return false;
+	}
 	
 	// //////////////////////// Loading //////////////////////// //
 	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#showLoading()
-	 */
 	@Override
 	public void showLoading() {
 		executeOnUIThread(new Runnable() {
@@ -537,9 +482,6 @@ public class ActivityHelper implements ActivityIf {
 		});
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#dismissLoading()
-	 */
 	@Override
 	public void dismissLoading() {
 		executeOnUIThread(new Runnable() {
@@ -564,14 +506,6 @@ public class ActivityHelper implements ActivityIf {
 		this.loading = loading;
 	}
 
-	@Override
-	public Boolean onBackPressedHandled() {
-		if (navDrawer != null) {
-			return navDrawer.onBackPressed();
-		}
-		return false;
-	}
-	
 	// //////////////////////// Navigation Drawer //////////////////////// //
 
 	public void initNavDrawer(Toolbar appBar) {

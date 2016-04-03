@@ -8,9 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.jdroid.android.context.AppContext;
-import com.jdroid.android.domain.User;
-
 public interface ComponentIf {
 	
 	/**
@@ -44,22 +41,11 @@ public interface ComponentIf {
 	public View inflate(@LayoutRes int resource);
 	
 	/**
-	 * @param clazz The {@link Class}
-	 * @param <I> The instance type
-	 * @return An instance of the clazz
-	 */
-	public <I> I getInstance(Class<I> clazz);
-	
-	/**
 	 * @param key The key of the intent extra
 	 * @param <E> The instance type
 	 * @return the entry with the given key as an object.
 	 */
 	public <E> E getExtra(String key);
-	
-	public AppContext getAppContext();
-	
-	public User getUser();
 	
 	public void showLoading();
 	

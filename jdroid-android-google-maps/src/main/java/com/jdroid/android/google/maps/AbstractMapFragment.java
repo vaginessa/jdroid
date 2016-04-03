@@ -2,7 +2,6 @@ package com.jdroid.android.google.maps;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -268,17 +267,6 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 		return map;
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getAppContext()
-	 */
-	@Override
-	public AppContext getAppContext() {
-		return fragmentHelper.getAppContext();
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#shouldRetainInstance()
-	 */
 	@Override
 	public Boolean shouldRetainInstance() {
 		return fragmentHelper.shouldRetainInstance();
@@ -401,14 +389,6 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	}
 	
 	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getInstance(java.lang.Class)
-	 */
-	@Override
-	public <I> I getInstance(Class<I> clazz) {
-		return fragmentHelper.<I>getInstance(clazz);
-	}
-	
-	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getExtra(java.lang.String)
 	 */
 	@Override
@@ -440,11 +420,6 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	@Override
 	public void executeUseCase(AbstractUseCase useCase, Long delaySeconds) {
 		fragmentHelper.executeUseCase(useCase, delaySeconds);
-	}
-	
-	@Override
-	public User getUser() {
-		return fragmentHelper.getUser();
 	}
 
 	@Override
@@ -536,14 +511,6 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 		fragmentHelper.setLoading(loading);
 	}
 	
-	/**
-	 * @see android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener#onRefresh()
-	 */
-	@Override
-	public void onRefresh() {
-		fragmentHelper.onRefresh();
-	}
-
 	@Override
 	public Integer getMenuResourceId() {
 		return fragmentHelper.getMenuResourceId();
