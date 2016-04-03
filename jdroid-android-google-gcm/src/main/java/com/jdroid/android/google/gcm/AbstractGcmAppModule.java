@@ -1,12 +1,11 @@
 package com.jdroid.android.google.gcm;
 
-import android.app.Activity;
 import android.os.Bundle;
 
-import com.jdroid.android.application.AbstractActivityLifecycleListener;
+import com.jdroid.android.activity.AbstractFragmentActivity;
+import com.jdroid.android.activity.ActivityDelegate;
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.application.ActivityLifecycleListener;
 import com.jdroid.android.debug.PreferencesAppender;
 
 import java.util.List;
@@ -23,12 +22,10 @@ public abstract class AbstractGcmAppModule extends AbstractAppModule {
 	private GcmMessageResolver gcmMessageResolver;
 	private GcmListenerResolver gcmListenerResolver;
 	private Boolean gcmInitialized = false;
-	private ActivityLifecycleListener activityLifecycleListener;
 
 	public AbstractGcmAppModule() {
 		gcmMessageResolver = createGcmMessageResolver();
 		gcmListenerResolver = createGcmListenerResolver();
-		activityLifecycleListener = createActivityLifecycleListener();
 	}
 
 	protected GcmDebugContext createGcmDebugContext() {
@@ -65,16 +62,18 @@ public abstract class AbstractGcmAppModule extends AbstractAppModule {
 		return gcmListenerResolver;
 	}
 
-	protected ActivityLifecycleListener createActivityLifecycleListener() {
-		return new AbstractActivityLifecycleListener() {
+	@Override
+	public ActivityDelegate createActivityDelegate(AbstractFragmentActivity abstractFragmentActivity) {
+		return !gcmInitialized ? new ActivityDelegate(abstractFragmentActivity) {
+
 			@Override
-			public void onCreateActivity(Activity activity) {
+			public void onCreate(Bundle savedInstanceState) {
 				if (!gcmInitialized) {
 					startGcmRegistration(true);
 					gcmInitialized = true;
 				}
 			}
-		};
+		} : null;
 	}
 
 	public abstract void onRegisterOnServer(String registrationToken, Boolean updateLastActiveTimestamp, Bundle bundle);
@@ -96,11 +95,6 @@ public abstract class AbstractGcmAppModule extends AbstractAppModule {
 	@Override
 	public void onInitializeGcmTasks() {
 		startGcmRegistration(false);
-	}
-
-	@Override
-	public ActivityLifecycleListener getActivityLifecycleListener() {
-		return activityLifecycleListener;
 	}
 
 	public void startGcmRegistration(Boolean updateLastActiveTimestamp) {

@@ -48,6 +48,8 @@
 			</intent-filter>
 		</activity>
 
+		<!-- Ads -->
+
 		<activity android:name="com.jdroid.android.sample.ui.ads.AdsActivity" android:label="@string/adMob"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute">
 			<intent-filter>
@@ -60,73 +62,107 @@
 		</activity>
 
 		<activity android:name="com.jdroid.android.sample.ui.appinvite.AppInviteActivity" android:label="@string/appInvite"
-				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+				  android:parentActivityName="com.jdroid.android.sample.ui.ads.AdsActivity" tools:ignore="UnusedAttribute"/>
 
 		<activity android:name="com.jdroid.android.sample.ui.ads.HouseAdsActivity" android:label="@string/houseAds"
-				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+				  android:parentActivityName="com.jdroid.android.sample.ui.ads.AdsActivity" tools:ignore="UnusedAttribute"/>
+
+		<activity android:name="com.jdroid.android.sample.ui.ads.ActivityBannerActivity" android:label="@string/houseAds"
+				  android:parentActivityName="com.jdroid.android.sample.ui.ads.AdsActivity" tools:ignore="UnusedAttribute"/>
+
+		<activity android:name="com.jdroid.android.sample.ui.ads.FragmentBannerActivity" android:label="@string/houseAds"
+				  android:parentActivityName="com.jdroid.android.sample.ui.ads.AdsActivity" tools:ignore="UnusedAttribute"/>
+
+		<!-- Image Loader -->
 
 		<activity android:name="com.jdroid.android.sample.ui.imageloader.ImageLoaderActivity" android:label="@string/universalImageLoader"
 			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<!-- Date Time -->
+
 		<activity android:name="com.jdroid.android.sample.ui.datetime.DateTimeActivity" android:label="@string/dateTime"
 			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
+		<!-- Notifications -->
 
 		<activity android:name="com.jdroid.android.sample.ui.notifications.NotificationsActivity" android:label="@string/notifications"
 			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<!-- Toasts -->
+
 		<activity android:name="com.jdroid.android.sample.ui.toasts.ToastsActivity" android:label="@string/toasts"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
+		<!-- Analytics -->
 
 		<activity android:name="com.jdroid.android.sample.ui.analytics.AnalyticsActivity" android:label="@string/googleAnalytics"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<!-- Hero -->
+
 		<activity android:name="com.jdroid.android.sample.ui.hero.HeroActivity" android:label="@string/hero"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity"  tools:ignore="UnusedAttribute"/>
+
+		<!-- Error -->
 
 		<activity android:name="com.jdroid.android.sample.ui.exceptions.ErrorDisplayerActivity" android:label="@string/errorDisplayer"
 			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<!-- Google Sign In -->
+
 		<activity android:name="com.jdroid.android.sample.ui.google.signin.GoogleSignInActivity" android:label="@string/googleSignIn"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
+		<!-- Loading -->
 
 		<activity android:name="com.jdroid.android.sample.ui.loading.LoadingActivity" android:label="@string/loading"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<activity android:name="com.jdroid.android.sample.ui.loading.BlockingLoadingActivity" android:label="@string/blockingLoading"
-			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+			android:parentActivityName="com.jdroid.android.sample.ui.loading.LoadingActivity" tools:ignore="UnusedAttribute"/>
 
 		<activity android:name="com.jdroid.android.sample.ui.loading.CustomActivityLoadingActivity" android:label="@string/customBlockingLoading"
-			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+			android:parentActivityName="com.jdroid.android.sample.ui.loading.LoadingActivity" tools:ignore="UnusedAttribute"/>
 
 		<activity android:name="com.jdroid.android.sample.ui.loading.NonBlockingLoadingActivity" android:label="@string/nonBlockingLoading"
 			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<activity android:name="com.jdroid.android.sample.ui.loading.SwipeRefreshLoadingActivity" android:label="@string/swipeRefresLoading"
-			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+			android:parentActivityName="com.jdroid.android.sample.ui.loading.LoadingActivity" tools:ignore="UnusedAttribute"/>
+
+		<!-- GCM -->
 
 		<activity android:name="com.jdroid.android.sample.ui.google.gcm.GcmActivity" android:label="@string/gcm"
 			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<!-- Google Maps -->
+
 		<activity android:name="com.jdroid.android.sample.ui.maps.MapActivity" android:label="@string/googleMaps"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
+		<!-- Nav Drawer -->
 
 		<activity android:name="com.jdroid.android.sample.ui.navdrawer.NavDrawerActivity" android:label="@string/navDrawer"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<activity android:name="com.jdroid.android.sample.ui.navdrawer.LeftCustomNavDrawerActivity" android:label="@string/leftCustomNavDrawer"
-				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+				  android:parentActivityName="com.jdroid.android.sample.ui.navdrawer.NavDrawerActivity" tools:ignore="UnusedAttribute"/>
 
 		<activity android:name="com.jdroid.android.sample.ui.navdrawer.RightCustomNavDrawerActivity" android:label="@string/rightCustomNavDrawer"
-				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+				  android:parentActivityName="com.jdroid.android.sample.ui.navdrawer.NavDrawerActivity" tools:ignore="UnusedAttribute"/>
 
 		<activity android:name="com.jdroid.android.sample.ui.navdrawer.NoNavDrawerActivity" android:label="@string/noNavDrawer"
-				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+				  android:parentActivityName="com.jdroid.android.sample.ui.navdrawer.NavDrawerActivity" tools:ignore="UnusedAttribute"/>
 
 		<activity android:name="com.jdroid.android.sample.ui.navdrawer.UserNavDrawerActivity" android:label="@string/userNavDrawer"
-				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+				  android:parentActivityName="com.jdroid.android.sample.ui.navdrawer.NavDrawerActivity" tools:ignore="UnusedAttribute"/>
+
+		<!-- Http -->
 
 		<activity android:name="com.jdroid.android.sample.ui.http.HttpActivity" android:label="@string/http"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
+		<!-- Recycler -->
 
 		<activity android:name="com.jdroid.android.sample.ui.recyclerview.RecyclerViewActivity" android:label="@string/recyclerView"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
@@ -146,6 +182,8 @@
 		<activity android:name="com.jdroid.android.sample.ui.recyclerview.SearchPaginatedRecyclerActivity" android:label="@string/searchPaginatedRecycler"
 				  android:parentActivityName="com.jdroid.android.sample.ui.recyclerview.RecyclerViewActivity" tools:ignore="UnusedAttribute"/>
 
+		<!-- Tablet -->
+
 		<activity android:name="com.jdroid.android.sample.ui.tablets.TabletActivity" android:label="@string/tablets"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
@@ -155,17 +193,27 @@
 		<activity android:name="com.jdroid.android.sample.ui.tablets.RightTabletActivity" android:label="@string/tablets"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<!-- Rate -->
+
 		<activity android:name="com.jdroid.android.sample.ui.rateme.RateAppActivity" android:label="@string/rateApp"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
+		<!-- SQLite -->
 
 		<activity android:name="com.jdroid.android.sample.ui.sqlite.SQLiteActivity" android:label="@string/sqlite"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<!-- Service -->
+
 		<activity android:name="com.jdroid.android.sample.ui.service.ServiceActivity" android:label="@string/service"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<!-- Firebase -->
+
 		<activity android:name="com.jdroid.android.sample.ui.firebase.FirebaseActivity" android:label="@string/firebase"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
+		<!-- Card View -->
 
 		<activity android:name="com.jdroid.android.sample.ui.cardview.CardViewActivity" android:label="@string/cardView"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
@@ -176,8 +224,12 @@
 		<activity android:name="com.jdroid.android.sample.ui.cardview.CardViewRecyclerViewActivity" android:label="@string/cardView"
 				  android:parentActivityName="com.jdroid.android.sample.ui.cardview.CardViewActivity" tools:ignore="UnusedAttribute"/>
 
+		<!-- Use Cases -->
+
 		<activity android:name="com.jdroid.android.sample.ui.usecases.UseCasesActivity" android:label="@string/useCases"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
+		<!-- Google Play Services -->
 
 		<activity android:name="com.jdroid.android.sample.ui.google.playservices.GooglePlayServicesActivity" android:label="@string/googlePlayServices"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>

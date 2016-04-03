@@ -3,7 +3,6 @@ package com.jdroid.android.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -14,8 +13,8 @@ import android.view.ViewGroup;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityIf;
-import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.application.AppModule;
 import com.jdroid.android.concurrent.SafeExecuteWrapperRunnable;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.SecurityContext;
@@ -25,19 +24,23 @@ import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.android.usecase.listener.UseCaseListener;
+import com.jdroid.java.collections.Maps;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
 
+import java.util.Map;
+
 public class FragmentHelper implements FragmentIf {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(FragmentHelper.class);
 
 	private Fragment fragment;
-	private AdHelper adHelper;
-	
+
+	private Map<AppModule, FragmentDelegate> fragmentDelegatesMap;
+
 	private FragmentLoading loading;
 
 	private Toolbar appBar;
@@ -62,6 +65,25 @@ public class FragmentHelper implements FragmentIf {
 	public void onCreate(Bundle savedInstanceState) {
 		LOGGER.debug("Executing onCreate on " + fragment);
 		fragment.setRetainInstance(getFragmentIf().shouldRetainInstance());
+
+		fragmentDelegatesMap = Maps.newHashMap();
+		for (AppModule appModule : AbstractApplication.get().getAppModules()) {
+			FragmentDelegate fragmentDelegate = getFragmentIf().createFragmentDelegate(appModule);
+			if (fragmentDelegate != null) {
+				fragmentDelegatesMap.put(appModule, fragmentDelegate);
+				fragmentDelegate.onCreate(savedInstanceState);
+			}
+		}
+	}
+
+	@Override
+	public FragmentDelegate createFragmentDelegate(AppModule appModule) {
+		return appModule.createFragmentDelegate(fragment);
+	}
+
+	@Override
+	public FragmentDelegate getFragmentDelegate(AppModule appModule) {
+		return fragmentDelegatesMap.get(appModule);
 	}
 	
 	/**
@@ -120,12 +142,10 @@ public class FragmentHelper implements FragmentIf {
 			getFragmentIf().afterInitAppBar(appBar);
 		}
 
-		adHelper = getFragmentIf().createAdHelper();
-		if (adHelper != null) {
-			adHelper.setAdViewContainer((ViewGroup)(fragment.getView().findViewById(R.id.adViewContainer)));
-			adHelper.loadBanner(fragment.getActivity());
+		for (FragmentDelegate each : fragmentDelegatesMap.values()) {
+			each.onViewCreated(view, savedInstanceState);
 		}
-		
+
 		if (loading == null) {
 			loading = getFragmentIf().getDefaultLoading();
 		}
@@ -153,18 +173,6 @@ public class FragmentHelper implements FragmentIf {
 		return appBar;
 	}
 
-	@Override
-	@Nullable
-	public AdHelper createAdHelper() {
-		return null;
-	}
-
-	@Nullable
-	@Override
-	public AdHelper getAdHelper() {
-		return adHelper;
-	}
-
 	public void onActivityCreated(Bundle savedInstanceState) {
 		LOGGER.debug("Executing onActivityCreated on " + fragment);
 	}
@@ -179,14 +187,15 @@ public class FragmentHelper implements FragmentIf {
 	
 	public void onResume() {
 		LOGGER.debug("Executing onResume on " + fragment);
-		if (adHelper != null) {
-			adHelper.onResume();
+
+		for (FragmentDelegate each : fragmentDelegatesMap.values()) {
+			each.onResume();
 		}
 	}
 	
 	public void onBeforePause() {
-		if (adHelper != null) {
-			adHelper.onPause();
+		for (FragmentDelegate each : fragmentDelegatesMap.values()) {
+			each.onBeforePause();
 		}
 	}
 	
@@ -203,8 +212,8 @@ public class FragmentHelper implements FragmentIf {
 	}
 	
 	public void onBeforeDestroy() {
-		if (adHelper != null) {
-			adHelper.onDestroy();
+		for (FragmentDelegate each : fragmentDelegatesMap.values()) {
+			each.onBeforeDestroy();
 		}
 	}
 	

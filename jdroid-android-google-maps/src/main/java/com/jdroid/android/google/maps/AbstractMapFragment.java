@@ -16,11 +16,12 @@ import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.jdroid.android.activity.ActivityIf;
-import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.exception.ErrorDisplayer;
+import com.jdroid.android.fragment.FragmentDelegate;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.fragment.FragmentIf;
@@ -558,15 +559,13 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 		return fragmentHelper.isSecondaryFragment();
 	}
 
-	@Nullable
 	@Override
-	public AdHelper createAdHelper() {
-		return fragmentHelper.createAdHelper();
+	public FragmentDelegate createFragmentDelegate(AppModule appModule) {
+		return fragmentHelper.createFragmentDelegate(appModule);
 	}
 
-	@Nullable
 	@Override
-	public AdHelper getAdHelper() {
-		return fragmentHelper.getAdHelper();
+	public FragmentDelegate getFragmentDelegate(AppModule appModule) {
+		return fragmentHelper.getFragmentDelegate(appModule);
 	}
 }

@@ -48,7 +48,7 @@ public class AdMobAppContext {
 				adsEnabled);
 		Boolean enoughDaysSinceFirstAppLoad = DateUtils.millisecondsToDays(UsageStats.getFirstAppLoadTimestamp()) >= getMinDaysSinceFirstAppLoad();
 		Boolean enoughAppLoads = UsageStats.getAppLoads() >= getMinAppLoadsToDisplayAds() ;
-		return prefEnabled && enoughAppLoads;
+		return prefEnabled && enoughDaysSinceFirstAppLoad && enoughAppLoads;
 	}
 
 	protected Long getMinAppLoadsToDisplayAds() {

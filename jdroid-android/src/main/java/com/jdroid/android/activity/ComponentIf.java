@@ -4,12 +4,10 @@ import android.app.Activity;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.MenuRes;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 
@@ -72,9 +70,4 @@ public interface ComponentIf {
 
 	public boolean onOptionsItemSelected(MenuItem item);
 
-	@Nullable
-	public AdHelper createAdHelper();
-
-	@Nullable
-	public AdHelper getAdHelper();
 }

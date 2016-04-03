@@ -2,9 +2,13 @@ package com.jdroid.android.application;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.support.v4.app.Fragment;
 
+import com.jdroid.android.activity.AbstractFragmentActivity;
+import com.jdroid.android.activity.ActivityDelegate;
 import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.debug.PreferencesAppender;
+import com.jdroid.android.fragment.FragmentDelegate;
 
 import java.util.List;
 
@@ -34,5 +38,7 @@ public interface AppModule {
 
 	public void onInitializeGcmTasks();
 
-	public ActivityLifecycleListener getActivityLifecycleListener();
+	public ActivityDelegate createActivityDelegate(AbstractFragmentActivity abstractFragmentActivity);
+
+	public FragmentDelegate createFragmentDelegate(Fragment fragment);
 }

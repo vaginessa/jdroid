@@ -1,9 +1,5 @@
 package com.jdroid.android.sample.ui.ads;
 
-import android.app.Activity;
-import android.view.View;
-import android.widget.TextView;
-
 import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.google.admob.AdHelper;
 import com.jdroid.android.application.AppModule;
@@ -12,16 +8,16 @@ import com.jdroid.android.fragment.FragmentDelegate;
 import com.jdroid.android.google.admob.AdMobAdHelper;
 import com.jdroid.android.google.admob.AdMobAppModule;
 import com.jdroid.android.google.admob.AdMobFragmentDelegate;
-import com.jdroid.android.google.admob.HouseAdBuilder;
 import com.jdroid.android.sample.R;
+import com.jdroid.android.sample.application.AndroidAppContext;
 
-public class HouseAdsFragment extends AbstractFragment {
-
+public class FragmentBannerFragment extends AbstractFragment {
+	
 	@Override
 	public Integer getContentFragmentLayout() {
-		return R.layout.house_ads_fragment;
+		return R.layout.empty_fragment;
 	}
-
+	
 	@Override
 	public FragmentDelegate createFragmentDelegate(AppModule appModule) {
 		if (appModule instanceof AdMobAppModule) {
@@ -30,17 +26,7 @@ public class HouseAdsFragment extends AbstractFragment {
 				public void initAdHelper(AdHelper adHelper) {
 					AdMobAdHelper adMobAdHelper = (AdMobAdHelper)adHelper;
 					adMobAdHelper.setAdSize(AdSize.BANNER);
-					adMobAdHelper.setHouseAdBuilder(new HouseAdBuilder() {
-						@Override
-						public View build(Activity activity) {
-							View view = super.build(activity);
-							if (view == null) {
-								view = new TextView(getActivity());
-								((TextView)view).setText("House ad");
-							}
-							return view;
-						}
-					});
+					adMobAdHelper.setBannerAdUnitId(AndroidAppContext.SAMPLE_BANNER_AD_UNIT_ID);
 				}
 			};
 		} else {

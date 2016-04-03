@@ -22,13 +22,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.jdroid.android.R;
-import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.application.ActivityLifecycleListener;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.SecurityContext;
@@ -44,12 +40,15 @@ import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.uri.UriHandler;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.ToastUtils;
+import com.jdroid.java.collections.Maps;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.ReflectionUtils;
 
 import org.slf4j.Logger;
+
+import java.util.Map;
 
 public class ActivityHelper implements ActivityIf {
 	
@@ -60,7 +59,6 @@ public class ActivityHelper implements ActivityIf {
 	
 	private AbstractFragmentActivity activity;
 	private Handler locationHandler;
-	private AdHelper adHelper;
 	private boolean isDestroyed = false;
 	
 	private ActivityLoading loading;
@@ -70,6 +68,8 @@ public class ActivityHelper implements ActivityIf {
 	private NavDrawer navDrawer;
 
 	private Dialog googlePlayServicesErrorDialog;
+
+	private Map<AppModule, ActivityDelegate> activityDelegatesMap;
 
 	private static Boolean firstAppLoad;
 	private static Boolean isGooglePlayServicesAvailable;
@@ -121,11 +121,26 @@ public class ActivityHelper implements ActivityIf {
 	public void beforeOnCreate() {
 		// Do nothing
 	}
-	
+
+	public ActivityDelegate createActivityDelegate(AppModule appModule) {
+		return appModule.createActivityDelegate(activity);
+	}
+
+	public ActivityDelegate getActivityDelegate(AppModule appModule) {
+		return activityDelegatesMap.get(appModule);
+	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		LOGGER.debug("Executing onCreate on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
+
+		activityDelegatesMap = Maps.newHashMap();
+		for (AppModule appModule : AbstractApplication.get().getAppModules()) {
+			ActivityDelegate activityDelegate = getActivityIf().createActivityDelegate(appModule);
+			if (activityDelegate != null) {
+				activityDelegatesMap.put(appModule, activityDelegate);
+			}
+		}
 
 		if (firstAppLoad == null) {
 			firstAppLoad = true;
@@ -151,24 +166,13 @@ public class ActivityHelper implements ActivityIf {
 				getActivityIf().onAfterSetContentView(savedInstanceState);
 			}
 		}
-		
-		// Ads
-		adHelper = getActivityIf().createAdHelper();
-		if (adHelper != null) {
-			adHelper.setAdViewContainer((ViewGroup)(activity.findViewById(R.id.adViewContainer)));
-			adHelper.loadBanner(activity);
-			adHelper.loadInterstitial(activity);
-		}
 
+		for (ActivityDelegate each : activityDelegatesMap.values()) {
+			each.onCreate(savedInstanceState);
+		}
+		
 		if (savedInstanceState == null) {
 			trackNotificationOpened(activity.getIntent());
-		}
-
-		for (AppModule each: AbstractApplication.get().getAppModules()) {
-			ActivityLifecycleListener activityLifecycleListener = each.getActivityLifecycleListener();
-			if (activityLifecycleListener != null) {
-				activityLifecycleListener.onCreateActivity(activity);
-			}
 		}
 	}
 
@@ -194,18 +198,6 @@ public class ActivityHelper implements ActivityIf {
 		if (navDrawer != null) {
 			navDrawer.onConfigurationChanged(newConfig);
 		}
-	}
-
-	@Override
-	@Nullable
-	public AdHelper createAdHelper() {
-		return null;
-	}
-
-	@Nullable
-	@Override
-	public AdHelper getAdHelper() {
-		return adHelper;
 	}
 
 	/**
@@ -258,11 +250,8 @@ public class ActivityHelper implements ActivityIf {
 			locationHandler.sendMessage(Message.obtain(locationHandler, LOCATION_UPDATE_TIMER_CODE));
 		}
 
-		for (AppModule each: AbstractApplication.get().getAppModules()) {
-			ActivityLifecycleListener activityLifecycleListener = each.getActivityLifecycleListener();
-			if (activityLifecycleListener != null) {
-				activityLifecycleListener.onStartActivity(activity);
-			}
+		for (ActivityDelegate each : activityDelegatesMap.values()) {
+			each.onStart();
 		}
 	}
 
@@ -297,19 +286,12 @@ public class ActivityHelper implements ActivityIf {
 			}
 		}
 
-		if (adHelper != null) {
-			adHelper.onResume();
+		for (ActivityDelegate each : activityDelegatesMap.values()) {
+			each.onResume();
 		}
 
 		if (navDrawer != null) {
 			navDrawer.onResume();
-		}
-
-		for (AppModule each: AbstractApplication.get().getAppModules()) {
-			ActivityLifecycleListener activityLifecycleListener = each.getActivityLifecycleListener();
-			if (activityLifecycleListener != null) {
-				activityLifecycleListener.onResumeActivity(activity);
-			}
 		}
 	}
 
@@ -319,8 +301,8 @@ public class ActivityHelper implements ActivityIf {
 	}
 
 	public void onBeforePause() {
-		if (adHelper != null) {
-			adHelper.onPause();
+		for (ActivityDelegate each : activityDelegatesMap.values()) {
+			each.onBeforePause();
 		}
 	}
 	
@@ -328,11 +310,8 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.debug("Executing onPause on " + activity);
 		AbstractApplication.get().setInBackground(true);
 
-		for (AppModule each: AbstractApplication.get().getAppModules()) {
-			ActivityLifecycleListener activityLifecycleListener = each.getActivityLifecycleListener();
-			if (activityLifecycleListener != null) {
-				activityLifecycleListener.onPauseActivity(activity);
-			}
+		for (ActivityDelegate each : activityDelegatesMap.values()) {
+			each.onPause();
 		}
 	}
 	
@@ -347,17 +326,14 @@ public class ActivityHelper implements ActivityIf {
 			locationHandler.removeCallbacksAndMessages(null);
 		}
 
-		for (AppModule each: AbstractApplication.get().getAppModules()) {
-			ActivityLifecycleListener activityLifecycleListener = each.getActivityLifecycleListener();
-			if (activityLifecycleListener != null) {
-				activityLifecycleListener.onStopActivity(activity);
-			}
+		for (ActivityDelegate each : activityDelegatesMap.values()) {
+			each.onStop();
 		}
 	}
 	
 	public void onBeforeDestroy() {
-		if (adHelper != null) {
-			adHelper.onDestroy();
+		for (ActivityDelegate each : activityDelegatesMap.values()) {
+			each.onBeforeDestroy();
 		}
 	}
 	
@@ -366,11 +342,8 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.debug("Executing onDestroy on " + activity);
 		dismissLoading();
 
-		for (AppModule each: AbstractApplication.get().getAppModules()) {
-			ActivityLifecycleListener activityLifecycleListener = each.getActivityLifecycleListener();
-			if (activityLifecycleListener != null) {
-				activityLifecycleListener.onDestroyActivity(activity);
-			}
+		for (ActivityDelegate each : activityDelegatesMap.values()) {
+			each.onDestroy();
 		}
 	}
 	

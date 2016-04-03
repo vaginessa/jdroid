@@ -1,4 +1,4 @@
-package com.jdroid.android.ad;
+package com.jdroid.android.google.admob;
 
 import android.app.Activity;
 import android.view.ViewGroup;
@@ -11,8 +11,6 @@ public interface AdHelper {
 
 	public void onDestroy();
 
-	public AdHelper setAdViewContainer(ViewGroup adViewContainer);
-
 	public AdHelper setBannerAdUnitId(String bannerAdUnitId);
 
 	public AdHelper setInterstitialAdUnitId(String interstitialAdUnitId);
@@ -21,7 +19,7 @@ public interface AdHelper {
 
 	public void displayInterstitial(Boolean retryIfNotLoaded);
 
-	public void loadBanner(Activity activity);
+	public void loadBanner(Activity activity, ViewGroup adViewContainer);
 
 	public void loadInterstitial(Activity activity);
 

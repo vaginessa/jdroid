@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 
+import com.jdroid.android.application.AppModule;
 import com.jdroid.android.loading.ActivityLoading;
 import com.jdroid.android.navdrawer.NavDrawer;
 import com.jdroid.android.uri.UriHandler;
@@ -47,7 +48,11 @@ public interface ActivityIf extends ComponentIf {
 	public UriHandler getUriHandler();
 
 	public Boolean isGooglePlayServicesVerificationEnabled();
-	
+
+	public ActivityDelegate createActivityDelegate(AppModule appModule);
+
+	public ActivityDelegate getActivityDelegate(AppModule appModule);
+
 	// //////////////////////// Loading //////////////////////// //
 
 	@NonNull

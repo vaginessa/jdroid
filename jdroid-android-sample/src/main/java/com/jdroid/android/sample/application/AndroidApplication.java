@@ -36,6 +36,7 @@ import com.jdroid.android.sample.ui.AndroidActivityHelper;
 import com.jdroid.android.sample.ui.AndroidFragmentHelper;
 import com.jdroid.android.sample.ui.about.AndroidAboutAppModule;
 import com.jdroid.android.sample.ui.ads.AdsUriHandler;
+import com.jdroid.android.sample.ui.ads.SampleAdMobAppModule;
 import com.jdroid.android.sample.ui.home.HomeActivity;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteEntity;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteRepository;
@@ -139,7 +140,7 @@ public class AndroidApplication extends AbstractApplication {
 	@Override
 	protected void initAppModule(Map<String, AppModule> appModulesMap) {
 		appModulesMap.put(CrashlyticsAppModule.MODULE_NAME, new AndroidCrashlyticsAppModule());
-		appModulesMap.put(AdMobAppModule.MODULE_NAME, new AdMobAppModule());
+		appModulesMap.put(AdMobAppModule.MODULE_NAME, new SampleAdMobAppModule());
 		appModulesMap.put(FacebookAppModule.MODULE_NAME, new FacebookAppModule());
 		appModulesMap.put(AbstractGcmAppModule.MODULE_NAME, new AndroidGcmAppModule());
 		appModulesMap.put(AboutAppModule.MODULE_NAME,  new AndroidAboutAppModule());

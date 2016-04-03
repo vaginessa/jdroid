@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.activity.ComponentIf;
+import com.jdroid.android.application.AppModule;
 import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.FragmentLoading;
@@ -77,4 +78,8 @@ public interface FragmentIf extends ComponentIf, UseCaseListener, OnRefreshListe
 
 	@NonNull
 	public String getScreenViewName();
+
+	public FragmentDelegate createFragmentDelegate(AppModule appModule);
+
+	public FragmentDelegate getFragmentDelegate(AppModule appModule);
 }

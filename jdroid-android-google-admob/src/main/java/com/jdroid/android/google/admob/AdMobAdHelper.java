@@ -11,7 +11,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
-import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.location.LocationHelper;
@@ -40,15 +39,12 @@ public class AdMobAdHelper implements AdHelper {
 	}
 
 	@Override
-	public void loadBanner(final Activity activity) {
-
-		AppContext applicationContext = AbstractApplication.get().getAppContext();
-
+	public void loadBanner(final Activity activity, ViewGroup adViewContainer) {
 		if (adViewContainer != null) {
 			if ((adSize == null) || !AdMobAppModule.get().getAdMobAppContext().areAdsEnabled()) {
 				adViewContainer.setVisibility(View.GONE);
 			} else {
-
+				adViewContainer.setVisibility(View.VISIBLE);
 				adView = new AdView(activity);
 
 				if (bannerAdUnitId == null) {
@@ -102,6 +98,7 @@ public class AdMobAdHelper implements AdHelper {
 					});
 				}
 
+				AppContext applicationContext = AbstractApplication.get().getAppContext();
 				AdRequest.Builder builder = createBuilder(applicationContext);
 				adView.loadAd(builder.build());
 				adViewContainer.addView(adView);
@@ -123,7 +120,6 @@ public class AdMobAdHelper implements AdHelper {
 
 	@Override
 	public void loadInterstitial(Activity activity) {
-		AppContext applicationContext = AbstractApplication.get().getAppContext();
 		if (isInterstitialEnabled && AdMobAppModule.get().getAdMobAppContext().areAdsEnabled()) {
 			interstitial = new InterstitialAd(activity);
 
@@ -133,6 +129,7 @@ public class AdMobAdHelper implements AdHelper {
 
 			interstitial.setAdUnitId(interstitialAdUnitId);
 
+			AppContext applicationContext = AbstractApplication.get().getAppContext();
 			AdRequest.Builder builder = createBuilder(applicationContext);
 			interstitial.loadAd(builder.build());
 			interstitial.setAdListener(new AdListener() {
@@ -175,6 +172,9 @@ public class AdMobAdHelper implements AdHelper {
 	public void onResume() {
 		if (adView != null) {
 			if (AdMobAppModule.get().getAdMobAppContext().areAdsEnabled()) {
+				if (adViewContainer != null) {
+					adViewContainer.setVisibility(View.VISIBLE);
+				}
 				adView.resume();
 			} else if (adViewContainer != null) {
 				adViewContainer.removeView(adView);
@@ -202,12 +202,6 @@ public class AdMobAdHelper implements AdHelper {
 
 	public AdHelper setHouseAdBuilder(HouseAdBuilder houseAdBuilder) {
 		this.houseAdBuilder = houseAdBuilder;
-		return this;
-	}
-
-	@Override
-	public AdHelper setAdViewContainer(ViewGroup adViewContainer) {
-		this.adViewContainer = adViewContainer;
 		return this;
 	}
 

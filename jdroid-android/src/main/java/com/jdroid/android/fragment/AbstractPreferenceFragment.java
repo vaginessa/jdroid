@@ -3,7 +3,6 @@ package com.jdroid.android.fragment;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,7 @@ import android.view.ViewGroup;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityIf;
-import com.jdroid.android.ad.AdHelper;
+import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.exception.ErrorDisplayer;
@@ -284,15 +283,13 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 		return null;
 	}
 
-	@Nullable
 	@Override
-	public AdHelper createAdHelper() {
+	public FragmentDelegate createFragmentDelegate(AppModule appModule) {
 		return null;
 	}
 
-	@Nullable
 	@Override
-	public AdHelper getAdHelper() {
+	public FragmentDelegate getFragmentDelegate(AppModule appModule) {
 		return null;
 	}
 }

@@ -2,7 +2,6 @@ package com.jdroid.android.dialog;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -11,11 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jdroid.android.activity.ActivityIf;
-import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.exception.ErrorDisplayer;
+import com.jdroid.android.fragment.FragmentDelegate;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.fragment.FragmentIf;
@@ -374,15 +374,13 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 		return fragmentHelper.isSecondaryFragment();
 	}
 
-	@Nullable
 	@Override
-	public AdHelper createAdHelper() {
-		return fragmentHelper.createAdHelper();
+	public FragmentDelegate createFragmentDelegate(AppModule appModule) {
+		return fragmentHelper.createFragmentDelegate(appModule);
 	}
 
-	@Nullable
 	@Override
-	public AdHelper getAdHelper() {
-		return fragmentHelper.getAdHelper();
+	public FragmentDelegate getFragmentDelegate(AppModule appModule) {
+		return fragmentHelper.getFragmentDelegate(appModule);
 	}
 }

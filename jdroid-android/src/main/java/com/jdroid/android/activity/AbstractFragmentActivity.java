@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -14,8 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.jdroid.android.ad.AdHelper;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.domain.User;
 import com.jdroid.android.fragment.UseCaseFragment;
@@ -429,15 +428,13 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 		return activityHelper.isNavDrawerEnabled();
 	}
 
-	@Nullable
 	@Override
-	public AdHelper createAdHelper() {
-		return activityHelper.createAdHelper();
+	public ActivityDelegate createActivityDelegate(AppModule appModule) {
+		return activityHelper.createActivityDelegate(appModule);
 	}
 
-	@Nullable
 	@Override
-	public AdHelper getAdHelper() {
-		return activityHelper.getAdHelper();
+	public ActivityDelegate getActivityDelegate(AppModule appModule) {
+		return activityHelper.getActivityDelegate(appModule);
 	}
 }
