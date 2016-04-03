@@ -82,31 +82,39 @@ public class ActivityHelper implements ActivityIf {
 		return activity;
 	}
 	
+	// //////////////////////// Layout //////////////////////// //
+
 	@Override
 	public int getContentView() {
 		return getActivityIf().getContentView();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <V extends View> V findView(int id) {
+		return (V)activity.findViewById(id);
+	}
+
+	@Override
+	public View inflate(int resource) {
+		return LayoutInflater.from(activity).inflate(resource, null);
+	}
+
 	
+	// //////////////////////// Life cycle //////////////////////// //
+
 	@Override
 	public Boolean onBeforeSetContentView() {
 		return true;
 	}
-	
+
 	@Override
 	public void onAfterSetContentView(Bundle savedInstanceState) {
 		// Do Nothing
 	}
-	
+
 	public void beforeOnCreate() {
 		// Do nothing
-	}
-
-	public ActivityDelegate createActivityDelegate(AppModule appModule) {
-		return appModule.createActivityDelegate(activity);
-	}
-
-	public ActivityDelegate getActivityDelegate(AppModule appModule) {
-		return activityDelegatesMap.get(appModule);
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -149,7 +157,7 @@ public class ActivityHelper implements ActivityIf {
 		for (ActivityDelegate each : activityDelegatesMap.values()) {
 			each.onCreate(savedInstanceState);
 		}
-		
+
 		if (savedInstanceState == null) {
 			trackNotificationOpened(activity.getIntent());
 		}
@@ -162,17 +170,12 @@ public class ActivityHelper implements ActivityIf {
 		}
 	}
 
-	@Override
-	public UriHandler getUriHandler() {
-		return null;
-	}
-
 	public void onPostCreate(Bundle savedInstanceState) {
 		if (navDrawer != null) {
 			navDrawer.onPostCreate(savedInstanceState);
 		}
 	}
-	
+
 	public void onConfigurationChanged(Configuration newConfig) {
 		if (navDrawer != null) {
 			navDrawer.onConfigurationChanged(newConfig);
@@ -183,25 +186,25 @@ public class ActivityHelper implements ActivityIf {
 	public Boolean isLauncherActivity() {
 		return false;
 	}
-	
+
 	public void onSaveInstanceState(Bundle outState) {
 		LOGGER.debug("Executing onSaveInstanceState on " + activity);
 		dismissLoading();
 		outState.putString(TITLE_KEY, title);
 	}
-	
+
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
 		LOGGER.debug("Executing onRestoreInstanceState on " + activity);
 		title = savedInstanceState.getString(TITLE_KEY);
 	}
-	
+
 	@SuppressLint("HandlerLeak")
 	public void onStart() {
 		LOGGER.debug("Executing onStart on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 
 		ExecutorUtils.execute(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				AbstractApplication.get().saveInstallationSource();
@@ -210,17 +213,17 @@ public class ActivityHelper implements ActivityIf {
 						getOnActivityStartData());
 			}
 		});
-		
+
 		final Long locationFrequency = getActivityIf().getLocationFrequency();
 		if (locationFrequency != null) {
 			locationHandler = new Handler() {
-				
+
 				@Override
 				@RequiresPermission(anyOf = { Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION})
 				public void handleMessage(Message m) {
 					LocationHelper.get().startLocalization();
 					locationHandler.sendMessageDelayed(Message.obtain(locationHandler, LOCATION_UPDATE_TIMER_CODE),
-						locationFrequency);
+							locationFrequency);
 				}
 			};
 			locationHandler.sendMessage(Message.obtain(locationHandler, LOCATION_UPDATE_TIMER_CODE));
@@ -235,14 +238,9 @@ public class ActivityHelper implements ActivityIf {
 	protected Object getOnActivityStartData() {
 		return null;
 	}
-	
-	@Override
-	public Long getLocationFrequency() {
-		return null;
-	}
-	
+
 	public void onResume() {
-		
+
 		LOGGER.debug("Executing onResume on " + activity);
 		AbstractApplication.get().setInBackground(false);
 		AbstractApplication.get().setCurrentActivity(activity);
@@ -271,17 +269,13 @@ public class ActivityHelper implements ActivityIf {
 		}
 	}
 
-	@Override
-	public Boolean isGooglePlayServicesVerificationEnabled() {
-		return false;
-	}
-
 	public void onBeforePause() {
 		for (ActivityDelegate each : activityDelegatesMap.values()) {
 			each.onBeforePause();
 		}
 	}
-	
+
+
 	public void onPause() {
 		LOGGER.debug("Executing onPause on " + activity);
 		AbstractApplication.get().setInBackground(true);
@@ -290,14 +284,14 @@ public class ActivityHelper implements ActivityIf {
 			each.onPause();
 		}
 	}
-	
+
 	public void onStop() {
 		LOGGER.debug("Executing onStop on " + activity);
 
 		UsageStats.setLastStopTime();
 		ToastUtils.cancelCurrentToast();
 		AbstractApplication.get().getAnalyticsSender().onActivityStop(activity);
-		
+
 		if (locationHandler != null) {
 			locationHandler.removeCallbacksAndMessages(null);
 		}
@@ -306,13 +300,13 @@ public class ActivityHelper implements ActivityIf {
 			each.onStop();
 		}
 	}
-	
+
 	public void onBeforeDestroy() {
 		for (ActivityDelegate each : activityDelegatesMap.values()) {
 			each.onBeforeDestroy();
 		}
 	}
-	
+
 	public void onDestroy() {
 		isDestroyed = true;
 		LOGGER.debug("Executing onDestroy on " + activity);
@@ -322,11 +316,11 @@ public class ActivityHelper implements ActivityIf {
 			each.onDestroy();
 		}
 	}
-	
+
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		AbstractApplication.get().setCurrentActivity(activity);
 	}
-	
+
 	public boolean onCreateOptionsMenu(Menu menu) {
 		if (getActivityIf().getMenuResourceId() != null) {
 			MenuInflater inflater = getActivityIf().getMenuInflater();
@@ -335,17 +329,17 @@ public class ActivityHelper implements ActivityIf {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public Integer getMenuResourceId() {
 		return null;
 	}
-	
+
 	@Override
 	public void doOnCreateOptionsMenu(Menu menu) {
 		// Do nothing
 	}
-	
+
 	public void onPrepareOptionsMenu(Menu menu) {
 		// Do nothing
 	}
@@ -354,82 +348,54 @@ public class ActivityHelper implements ActivityIf {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (navDrawer != null && navDrawer.onOptionsItemSelected(item)) {
 			return true;
+		} else if (item.getItemId() == android.R.id.home) {
+			return onHomeOptionItemSelected();
 		} else {
-			return onOptionsItemSelected(item.getItemId());
+			return false;
 		}
 	}
-	
-	private boolean onOptionsItemSelected(int itemId) {
-		if (itemId == android.R.id.home) {
-			
-			Intent upIntent = getActivityIf().getUpIntent();
-			if (upIntent == null) {
-				upIntent = NavUtils.getParentActivityIntent(activity);
-			}
-			if (upIntent != null && NavUtils.shouldUpRecreateTask(activity, upIntent)) {
-				// This activity is NOT part of this app's task, so create a new task
-				// when navigating up, with a synthesized back stack.
-				TaskStackBuilder builder = TaskStackBuilder.create(activity);
-				// Add all of this activity's parents to the back stack
-				builder.addNextIntentWithParentStack(upIntent);
-				// Navigate up to the closest parent
-				builder.startActivities();
+
+	protected boolean onHomeOptionItemSelected() {
+		Intent upIntent = getActivityIf().getUpIntent();
+		if (upIntent == null) {
+			upIntent = NavUtils.getParentActivityIntent(activity);
+		}
+		if (upIntent != null && NavUtils.shouldUpRecreateTask(activity, upIntent)) {
+			// This activity is NOT part of this app's task, so create a new task
+			// when navigating up, with a synthesized back stack.
+			TaskStackBuilder builder = TaskStackBuilder.create(activity);
+			// Add all of this activity's parents to the back stack
+			builder.addNextIntentWithParentStack(upIntent);
+			// Navigate up to the closest parent
+			builder.startActivities();
+		} else {
+			// This activity is part of this app's task, so simply
+			// navigate up to the logical parent activity.
+			// NavUtils.navigateUpTo(activity, upIntent);
+			if (upIntent != null) {
+				upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				activity.startActivity(upIntent);
+				activity.finish();
 			} else {
-				// This activity is part of this app's task, so simply
-				// navigate up to the logical parent activity.
-				// NavUtils.navigateUpTo(activity, upIntent);
-				if (upIntent != null) {
-					upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					activity.startActivity(upIntent);
-					activity.finish();
-				} else {
-					ActivityLauncher.launchHomeActivity();
-				}
+				ActivityLauncher.launchHomeActivity();
 			}
-			return true;
 		}
-		return false;
+		return true;
 	}
-	
-	@Override
-	public Intent getUpIntent() {
-		return null;
-	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public <E> E getExtra(String key) {
 		Bundle extras = activity.getIntent().getExtras();
 		return extras != null ? (E)extras.get(key) : null;
 	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public <V extends View> V findView(int id) {
-		return (V)activity.findViewById(id);
-	}
-	
-	@Override
-	public View inflate(int resource) {
-		return LayoutInflater.from(activity).inflate(resource, null);
-	}
-	
-	@Override
-	public Boolean requiresAuthentication() {
-		return true;
-	}
 
-	@Override
-	public MenuInflater getMenuInflater() {
-		return null;
-	}
-	
 	public void onNewIntent(Intent intent) {
 		LOGGER.debug("Executing onNewIntent on " + activity);
-		
+
 		trackNotificationOpened(intent);
 	}
-	
+
 	private void trackNotificationOpened(Intent intent) {
 		try {
 			AppLoadingSource appLoadingSource = AppLoadingSource.getAppLoadingSource(intent);
@@ -443,20 +409,21 @@ public class ActivityHelper implements ActivityIf {
 			AbstractApplication.get().getExceptionHandler().logHandledException(e);
 		}
 	}
-	
+
 	@Override
-	public void executeOnUIThread(Runnable runnable) {
-		if (activity.equals(AbstractApplication.get().getCurrentActivity())) {
-			activity.runOnUiThread(runnable);
-		}
+	public Intent getUpIntent() {
+		return null;
 	}
-	
+
+	@Override
+	public MenuInflater getMenuInflater() {
+		return null;
+	}
+
 	@Override
 	public Boolean isActivityDestroyed() {
 		return isDestroyed;
 	}
-
-	// //////////////////////// Life cycle //////////////////////// //
 
 	@Override
 	public Boolean onBackPressedHandled() {
@@ -465,13 +432,23 @@ public class ActivityHelper implements ActivityIf {
 		}
 		return false;
 	}
-	
+
+	// //////////////////////// Delegates //////////////////////// //
+
+	public ActivityDelegate createActivityDelegate(AppModule appModule) {
+		return appModule.createActivityDelegate(activity);
+	}
+
+	public ActivityDelegate getActivityDelegate(AppModule appModule) {
+		return activityDelegatesMap.get(appModule);
+	}
+
 	// //////////////////////// Loading //////////////////////// //
-	
+
 	@Override
 	public void showLoading() {
 		executeOnUIThread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				if (loading == null) {
@@ -481,11 +458,11 @@ public class ActivityHelper implements ActivityIf {
 			}
 		});
 	}
-	
+
 	@Override
 	public void dismissLoading() {
 		executeOnUIThread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				if (loading != null) {
@@ -494,17 +471,18 @@ public class ActivityHelper implements ActivityIf {
 			}
 		});
 	}
-	
+
 	@NonNull
 	@Override
 	public ActivityLoading getDefaultLoading() {
 		return new DefaultBlockingLoading();
 	}
-	
+
 	@Override
 	public void setLoading(ActivityLoading loading) {
 		this.loading = loading;
 	}
+
 
 	// //////////////////////// Navigation Drawer //////////////////////// //
 
@@ -523,5 +501,36 @@ public class ActivityHelper implements ActivityIf {
 	@Override
 	public NavDrawer createNavDrawer(AbstractFragmentActivity activity, Toolbar appBar) {
 		return null;
+	}
+
+	// //////////////////////// Location //////////////////////// //
+
+	@Override
+	public Long getLocationFrequency() {
+		return null;
+	}
+
+	// //////////////////////// Others //////////////////////// //
+
+	@Override
+	public void executeOnUIThread(Runnable runnable) {
+		if (activity.equals(AbstractApplication.get().getCurrentActivity())) {
+			activity.runOnUiThread(runnable);
+		}
+	}
+
+	@Override
+	public UriHandler getUriHandler() {
+		return null;
+	}
+
+	@Override
+	public Boolean isGooglePlayServicesVerificationEnabled() {
+		return false;
+	}
+
+	@Override
+	public Boolean requiresAuthentication() {
+		return true;
 	}
 }

@@ -59,6 +59,46 @@ public class FragmentHelper implements FragmentIf {
 		return (ActivityIf)fragment.getActivity();
 	}
 	
+	// //////////////////////// Layout //////////////////////// //
+
+	@Override
+	public Integer getBaseFragmentLayout() {
+		return R.layout.base_fragment;
+	}
+
+	@Override
+	public Integer getContentFragmentLayout() {
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <V extends View> V findView(int id) {
+		return (V)fragment.getView().findViewById(id);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <V extends View> V findViewOnActivity(int id) {
+		return (V)fragment.getActivity().findViewById(id);
+	}
+
+	@Override
+	public Integer getMenuResourceId() {
+		return null;
+	}
+
+	@Override
+	public View inflate(int resource) {
+		return getActivityIf().inflate(resource);
+	}
+
+	public Boolean isSecondaryFragment() {
+		return false;
+	}
+
+	// //////////////////////// Life cycle //////////////////////// //
+
 	public void onCreate(Bundle savedInstanceState) {
 		LOGGER.debug("Executing onCreate on " + fragment);
 		fragment.setRetainInstance(getFragmentIf().shouldRetainInstance());
@@ -73,16 +113,6 @@ public class FragmentHelper implements FragmentIf {
 		}
 	}
 
-	@Override
-	public FragmentDelegate createFragmentDelegate(AppModule appModule) {
-		return appModule.createFragmentDelegate(fragment);
-	}
-
-	@Override
-	public FragmentDelegate getFragmentDelegate(AppModule appModule) {
-		return fragmentDelegatesMap.get(appModule);
-	}
-	
 	@Override
 	public Boolean shouldRetainInstance() {
 		return true;
@@ -100,16 +130,7 @@ public class FragmentHelper implements FragmentIf {
 		return null;
 	}
 
-	@Override
-	public Integer getBaseFragmentLayout() {
-		return R.layout.base_fragment;
-	}
 
-	@Override
-	public Integer getContentFragmentLayout() {
-		return null;
-	}
-	
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		LOGGER.debug("Executing onViewCreated on " + fragment);
 
@@ -148,9 +169,78 @@ public class FragmentHelper implements FragmentIf {
 		}
 	}
 
-	public Boolean isSecondaryFragment() {
+	public void onActivityCreated(Bundle savedInstanceState) {
+		LOGGER.debug("Executing onActivityCreated on " + fragment);
+	}
+
+	public void onStart() {
+		LOGGER.debug("Executing onStart on " + fragment);
+		FragmentIf fragmentIf = getFragmentIf();
+		if (fragmentIf.shouldTrackOnFragmentStart()) {
+			AbstractApplication.get().getAnalyticsSender().onFragmentStart(fragmentIf.getScreenViewName());
+		}
+	}
+
+	public void onResume() {
+		LOGGER.debug("Executing onResume on " + fragment);
+
+		for (FragmentDelegate each : fragmentDelegatesMap.values()) {
+			each.onResume();
+		}
+	}
+
+	public void onBeforePause() {
+		for (FragmentDelegate each : fragmentDelegatesMap.values()) {
+			each.onBeforePause();
+		}
+	}
+
+	public void onPause() {
+		LOGGER.debug("Executing onPause on " + fragment);
+	}
+
+	public void onStop() {
+		LOGGER.debug("Executing onStop on " + fragment);
+	}
+
+	public void onDestroyView() {
+		LOGGER.debug("Executing onDestroyView on " + fragment);
+	}
+
+	public void onBeforeDestroy() {
+		for (FragmentDelegate each : fragmentDelegatesMap.values()) {
+			each.onBeforeDestroy();
+		}
+	}
+
+	public void onDestroy() {
+		LOGGER.debug("Executing onDestroy on " + fragment);
+	}
+
+	@Override
+	public <E> E getExtra(String key) {
+		return getActivityIf().getExtra(key);
+	}
+
+	@Override
+	public <E> E getArgument(String key) {
+		return getArgument(key, null);
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public <E> E getArgument(String key, E defaultValue) {
+		Bundle arguments = fragment.getArguments();
+		E value = (arguments != null) && arguments.containsKey(key) ? (E)arguments.get(key) : null;
+		return value != null ? value : defaultValue;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
 		return false;
 	}
+
+	// //////////////////////// App bar //////////////////////// //
 
 	@Override
 	public void beforeInitAppBar(Toolbar appBar) {
@@ -167,82 +257,20 @@ public class FragmentHelper implements FragmentIf {
 		return appBar;
 	}
 
-	public void onActivityCreated(Bundle savedInstanceState) {
-		LOGGER.debug("Executing onActivityCreated on " + fragment);
-	}
-	
-	public void onStart() {
-		LOGGER.debug("Executing onStart on " + fragment);
-		FragmentIf fragmentIf = getFragmentIf();
-		if (fragmentIf.shouldTrackOnFragmentStart()) {
-			AbstractApplication.get().getAnalyticsSender().onFragmentStart(fragmentIf.getScreenViewName());
-		}
-	}
-	
-	public void onResume() {
-		LOGGER.debug("Executing onResume on " + fragment);
+	// //////////////////////// Error Handling //////////////////////// //
 
-		for (FragmentDelegate each : fragmentDelegatesMap.values()) {
-			each.onResume();
-		}
-	}
-	
-	public void onBeforePause() {
-		for (FragmentDelegate each : fragmentDelegatesMap.values()) {
-			each.onBeforePause();
-		}
-	}
-	
-	public void onPause() {
-		LOGGER.debug("Executing onPause on " + fragment);
-	}
-	
-	public void onStop() {
-		LOGGER.debug("Executing onStop on " + fragment);
-	}
-	
-	public void onDestroyView() {
-		LOGGER.debug("Executing onDestroyView on " + fragment);
-	}
-	
-	public void onBeforeDestroy() {
-		for (FragmentDelegate each : fragmentDelegatesMap.values()) {
-			each.onBeforeDestroy();
-		}
-	}
-	
-	public void onDestroy() {
-		LOGGER.debug("Executing onDestroy on " + fragment);
-	}
-	
 	@Override
-	public <E> E getArgument(String key) {
-		return getArgument(key, null);
+	public ErrorDisplayer createErrorDisplayer(AbstractException abstractException) {
+		return AbstractErrorDisplayer.getErrorDisplayer(abstractException);
 	}
-	
-	@Override
-	@SuppressWarnings("unchecked")
-	public <E> E getArgument(String key, E defaultValue) {
-		Bundle arguments = fragment.getArguments();
-		E value = (arguments != null) && arguments.containsKey(key) ? (E)arguments.get(key) : null;
-		return value != null ? value : defaultValue;
-	}
-	
-	@Override
-	public void executeOnUIThread(Runnable runnable) {
-		Activity activity = fragment.getActivity();
-		if ((activity != null) && activity.equals(AbstractApplication.get().getCurrentActivity())) {
-			activity.runOnUiThread(new SafeExecuteWrapperRunnable(fragment, runnable));
-		}
-	}
-	
-	// Use case
-	
+
+	// //////////////////////// Use cases //////////////////////// //
+
 	@Override
 	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener) {
 		onResumeUseCase(useCase, listener, UseCaseTrigger.MANUAL);
 	}
-	
+
 	public void onResumeUseCase(final AbstractUseCase useCase, final UseCaseListener listener,
 								final UseCaseTrigger useCaseTrigger) {
 		if (useCase != null) {
@@ -285,93 +313,53 @@ public class FragmentHelper implements FragmentIf {
 			});
 		}
 	}
-	
+
 	public enum UseCaseTrigger {
 		MANUAL,
 		ONCE,
 		ALWAYS;
 	}
-	
+
 	@Override
 	public void onPauseUseCase(final AbstractUseCase userCase, final UseCaseListener listener) {
 		if (userCase != null) {
 			userCase.removeListener(listener);
 		}
 	}
-	
+
 	@Override
 	public void executeUseCase(AbstractUseCase useCase) {
 		ExecutorUtils.execute(useCase);
 	}
-	
+
 	@Override
 	public void executeUseCase(AbstractUseCase useCase, Long delaySeconds) {
 		ExecutorUtils.schedule(useCase, delaySeconds);
 	}
-	
+
 	@Override
 	public void onStartUseCase() {
 		getFragmentIf().showLoading();
 	}
-	
+
 	@Override
 	public void onUpdateUseCase() {
 		// Do nothing by default
 	}
-	
+
 	@Override
 	public void onFinishUseCase() {
 		getFragmentIf().dismissLoading();
 	}
-	
+
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		getFragmentIf().dismissLoading();
 		getFragmentIf().createErrorDisplayer(abstractException).displayError(abstractException);
 	}
 
-	@Override
-	public ErrorDisplayer createErrorDisplayer(AbstractException abstractException) {
-		return AbstractErrorDisplayer.getErrorDisplayer(abstractException);
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public <V extends View> V findView(int id) {
-		return (V)fragment.getView().findViewById(id);
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public <V extends View> V findViewOnActivity(int id) {
-		return (V)fragment.getActivity().findViewById(id);
-	}
-	
-	@Override
-	public View inflate(int resource) {
-		return getActivityIf().inflate(resource);
-	}
-	
-	@Override
-	public <E> E getExtra(String key) {
-		return getActivityIf().getExtra(key);
-	}
-	
-	// //////////////////////// Analytics //////////////////////// //
-	
-	@Override
-	public Boolean shouldTrackOnFragmentStart() {
-		return false;
-	}
-	
-	@NonNull
-	@Override
-	public String getScreenViewName() {
-		return fragment.getClass().getSimpleName();
-	}
-	
 	// //////////////////////// Loading //////////////////////// //
-	
+
 	@Override
 	public void showLoading() {
 		final FragmentIf fragmentIf = getFragmentIf();
@@ -387,12 +375,12 @@ public class FragmentHelper implements FragmentIf {
 			}
 		});
 	}
-	
+
 	@Override
 	public void dismissLoading() {
 		final FragmentIf fragmentIf = getFragmentIf();
 		fragmentIf.executeOnUIThread(new Runnable() {
-				
+
 			@Override
 			public void run() {
 				if (loading != null) {
@@ -403,24 +391,49 @@ public class FragmentHelper implements FragmentIf {
 			}
 		});
 	}
-	
+
 	@Override
 	public FragmentLoading getDefaultLoading() {
 		return null;
 	}
-	
+
 	@Override
 	public void setLoading(FragmentLoading loading) {
 		this.loading = loading;
 	}
-	
+
+	// //////////////////////// Delegates //////////////////////// //
+
 	@Override
-	public Integer getMenuResourceId() {
-		return null;
+	public FragmentDelegate createFragmentDelegate(AppModule appModule) {
+		return appModule.createFragmentDelegate(fragment);
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public FragmentDelegate getFragmentDelegate(AppModule appModule) {
+		return fragmentDelegatesMap.get(appModule);
+	}
+
+	// //////////////////////// Analytics //////////////////////// //
+
+	@Override
+	public Boolean shouldTrackOnFragmentStart() {
 		return false;
+	}
+
+	@NonNull
+	@Override
+	public String getScreenViewName() {
+		return fragment.getClass().getSimpleName();
+	}
+
+	// //////////////////////// Others //////////////////////// //
+
+	@Override
+	public void executeOnUIThread(Runnable runnable) {
+		Activity activity = fragment.getActivity();
+		if ((activity != null) && activity.equals(AbstractApplication.get().getCurrentActivity())) {
+			activity.runOnUiThread(new SafeExecuteWrapperRunnable(fragment, runnable));
+		}
 	}
 }

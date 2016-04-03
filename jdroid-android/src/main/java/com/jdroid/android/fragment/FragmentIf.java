@@ -11,39 +11,36 @@ import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.activity.ComponentIf;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.exception.ErrorDisplayer;
-import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.exception.AbstractException;
 
 public interface FragmentIf extends ComponentIf, UseCaseListener {
-	
+
 	public ActivityIf getActivityIf();
 
+	// //////////////////////// Layout //////////////////////// //
+
 	public Boolean isSecondaryFragment();
-
-	public Toolbar getAppBar();
-
-	public void beforeInitAppBar(Toolbar appBar);
-
-	public void afterInitAppBar(Toolbar appBar);
 
 	@LayoutRes
 	public Integer getBaseFragmentLayout();
 
 	@LayoutRes
 	public Integer getContentFragmentLayout();
-	
+
 	/**
 	 * Finds a view that was identified by the id attribute from the XML that was processed in {@link Activity#onCreate}
-	 * 
+	 *
 	 * @param id The id to search for.
 	 * @param <V> The {@link View} class
-	 * 
+	 *
 	 * @return The view if found or null otherwise.
 	 */
 	public <V extends View> V findViewOnActivity(@IdRes int id);
+
+	// //////////////////////// Life cycle //////////////////////// //
 	
 	/**
 	 * @param key The key of the argument extra
@@ -54,31 +51,49 @@ public interface FragmentIf extends ComponentIf, UseCaseListener {
 	
 	public <E> E getArgument(String key, E defaultValue);
 	
-	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener);
-	
-	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener,
-			UseCaseTrigger useCaseTrigger);
-	
-	public void onPauseUseCase(AbstractUseCase useCase, UseCaseListener listener);
-	
-	public void executeUseCase(AbstractUseCase useCase);
-	
-	public void executeUseCase(AbstractUseCase useCase, Long delaySeconds);
-	
-	public ErrorDisplayer createErrorDisplayer(AbstractException abstractException);
-	
 	public Boolean shouldRetainInstance();
+
+	// //////////////////////// App bar //////////////////////// //
+
+	public Toolbar getAppBar();
+
+	public void beforeInitAppBar(Toolbar appBar);
+
+	public void afterInitAppBar(Toolbar appBar);
+
+	// //////////////////////// Error Handling //////////////////////// //
+
+	public ErrorDisplayer createErrorDisplayer(AbstractException abstractException);
+
+	// //////////////////////// Use cases //////////////////////// //
+
+	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener);
+
+	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener,
+								FragmentHelper.UseCaseTrigger useCaseTrigger);
+
+	public void onPauseUseCase(AbstractUseCase useCase, UseCaseListener listener);
+
+	public void executeUseCase(AbstractUseCase useCase);
+
+	public void executeUseCase(AbstractUseCase useCase, Long delaySeconds);
+
+	// //////////////////////// Loading //////////////////////// //
 	
 	public FragmentLoading getDefaultLoading();
 	
 	public void setLoading(FragmentLoading loading);
 	
-	public Boolean shouldTrackOnFragmentStart();
-
-	@NonNull
-	public String getScreenViewName();
+	// //////////////////////// Delegates //////////////////////// //
 
 	public FragmentDelegate createFragmentDelegate(AppModule appModule);
 
 	public FragmentDelegate getFragmentDelegate(AppModule appModule);
+
+	// //////////////////////// Analytics //////////////////////// //
+
+	public Boolean shouldTrackOnFragmentStart();
+
+	@NonNull
+	public String getScreenViewName();
 }

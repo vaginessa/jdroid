@@ -16,38 +16,31 @@ import com.jdroid.android.navdrawer.NavDrawer;
 import com.jdroid.android.uri.UriHandler;
 
 public interface ActivityIf extends ComponentIf {
+
+	// //////////////////////// Layout //////////////////////// //
+
+	@LayoutRes
+	public int getContentView();
+
+	// //////////////////////// Life cycle //////////////////////// //
 	
 	public Boolean onBeforeSetContentView();
 	
 	public void onAfterSetContentView(Bundle savedInstanceState);
 
-	@LayoutRes
-	public int getContentView();
-	
 	public void doOnCreateOptionsMenu(Menu menu);
-	
-	/**
-	 * @return Whether this {@link Activity} requires authentication or not
-	 */
-	public Boolean requiresAuthentication();
 	
 	public MenuInflater getMenuInflater();
 	
 	public Boolean isLauncherActivity();
 
-	@Nullable
-	public Long getLocationFrequency();
-	
 	public Intent getUpIntent();
 
 	public Boolean isActivityDestroyed();
 
 	public Boolean onBackPressedHandled();
 
-	@Nullable
-	public UriHandler getUriHandler();
-
-	public Boolean isGooglePlayServicesVerificationEnabled();
+	// //////////////////////// Delegates //////////////////////// //
 
 	public ActivityDelegate createActivityDelegate(AppModule appModule);
 
@@ -67,5 +60,22 @@ public interface ActivityIf extends ComponentIf {
 	public Boolean isNavDrawerEnabled();
 
 	public NavDrawer createNavDrawer(AbstractFragmentActivity activity, Toolbar appBar);
+
+	// //////////////////////// Location //////////////////////// //
+
+	@Nullable
+	public Long getLocationFrequency();
+
+	// //////////////////////// Others //////////////////////// //
+
+	@Nullable
+	public UriHandler getUriHandler();
+
+	public Boolean isGooglePlayServicesVerificationEnabled();
+
+	/**
+	 * @return Whether this {@link Activity} requires authentication or not
+	 */
+	public Boolean requiresAuthentication();
 	
 }
