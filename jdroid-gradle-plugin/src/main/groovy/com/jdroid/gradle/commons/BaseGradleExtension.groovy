@@ -1,6 +1,7 @@
 package com.jdroid.gradle.commons
 
 import com.jdroid.java.exception.UnexpectedException
+import org.gradle.api.Project
 
 public class BaseGradleExtension {
 
@@ -39,8 +40,15 @@ public class BaseGradleExtension {
 	}
 
 	public def getProp(String propertyName, def defaultValue) {
-		def value = baseGradlePlugin.project.hasProperty(propertyName) ? baseGradlePlugin.project.ext.get(propertyName) : System.getenv(propertyName)
+		def value = getProp(baseGradlePlugin.project, propertyName)
+		if (value == null) {
+			value = System.getenv(propertyName)
+		}
 		return value != null ? value : defaultValue
+	}
+
+	public def getProp(Project project, String propertyName) {
+		return project != null && project.hasProperty(propertyName) ? project.ext.get(propertyName) : null
 	}
 
 	public Boolean getBooleanProp(String propertyName, Boolean defaultValue) {

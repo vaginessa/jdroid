@@ -1,4 +1,5 @@
-package com.jdroid.gradle.commons
+package com.jdroid.gradle.commons.tasks
+
 import org.gradle.api.DefaultTask
 
 public class AbstractIncrementVersionTask extends DefaultTask {

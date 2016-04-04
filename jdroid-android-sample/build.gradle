@@ -177,10 +177,6 @@ android {
 			}
 		}
 
-		// Common
-		jdroid.setString(defaultConfig, "GIT_SHA", jdroid.getGitSha())
-		jdroid.setString(defaultConfig, "GIT_BRANCH", jdroid.getGitBranch())
-
 		jdroid.setBoolean(defaultConfig, "GOOGLE_ANALYTICS_ENABLED", true)
 		jdroid.setString(defaultConfig, "GOOGLE_ANALYTICS_TRACKING_ID", "UA-9898638-5")
 		jdroid.setBoolean(defaultConfig, "GOOGLE_ANALYTICS_DEBUG_ENABLED", true)
@@ -234,7 +230,6 @@ android {
 		debug {
 			signingConfig signingConfigs.debug
 
-			jdroid.setString(buildTypes.debug, "BUILD_TIME", null)
 			jdroid.setBoolean(buildTypes.debug, "CRASHLYTICS_ENABLED", false)
 			jdroid.setString(buildTypes.debug, "SERVER_NAME", "DEV")
 		}
@@ -244,7 +239,6 @@ android {
 
 			debuggable true
 
-			jdroid.setString(buildTypes.uat, "BUILD_TIME", jdroid.getBuildTime())
 			jdroid.setString(buildTypes.uat, "SERVER_NAME", "UAT")
 
 		}

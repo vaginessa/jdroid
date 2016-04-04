@@ -3,15 +3,21 @@ package com.jdroid.gradle.commons
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
+import com.jdroid.gradle.commons.tasks.IncrementMajorVersionTask
+import com.jdroid.gradle.commons.tasks.IncrementMinorVersionTask
+import com.jdroid.gradle.commons.tasks.IncrementPatchVersionTask
 
 public class BaseGradlePlugin implements Plugin<Project> {
 
 	protected Project project;
 
+	protected jdroid
+
 	public void apply(Project project) {
 		this.project = project
 
 		project.extensions.create("jdroid", getExtensionClass(), this)
+		jdroid = project.jdroid
 
 		project.task('incrementMajorVersion', type: IncrementMajorVersionTask)
 		project.task('incrementMinorVersion', type: IncrementMinorVersionTask)
@@ -27,8 +33,8 @@ public class BaseGradlePlugin implements Plugin<Project> {
 			project.tasks.withType(Test) {
 				scanForTestClasses = true
 
-				if (project.jdroid.getProp('INTEGRATION_TESTS_ENABLED', true) == 'false') {
-					exclude project.jdroid.integrationTestsPattern
+				if (jdroid.getProp('INTEGRATION_TESTS_ENABLED', true) == 'false') {
+					exclude jdroid.integrationTestsPattern
 				}
 			}
 		}
