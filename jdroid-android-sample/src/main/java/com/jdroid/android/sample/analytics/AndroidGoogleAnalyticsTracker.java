@@ -1,6 +1,7 @@
 package com.jdroid.android.sample.analytics;
 
 import com.google.android.gms.analytics.HitBuilders;
+import com.jdroid.android.google.analytics.GoogleAnalyticsHelper;
 import com.jdroid.android.google.analytics.GoogleAnalyticsTracker;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.RandomUtils;
@@ -11,24 +12,23 @@ public class AndroidGoogleAnalyticsTracker extends GoogleAnalyticsTracker implem
 	
 	public static final String EXAMPLE_CATEGORY = "exampleCategory";
 	public static final String EXAMPLE_LABEL = "exampleLabel";
-	
-	/**
-	 * @see GoogleAnalyticsTracker#init(java.util.Map, java.util.Map)
-	 */
+
 	@Override
-	protected void init(Map<String, Integer> customDimensionsMap, Map<String, Integer> customMetricsMap) {
-		customDimensionsMap.put(CustomDimension.INSTALLATION_SOURCE.name(), 1);
-		customDimensionsMap.put(CustomDimension.DEVICE_TYPE.name(), 2);
-		customDimensionsMap.put(CustomDimension.APP_LOADING_SOURCE.name(), 3);
-		customDimensionsMap.put(CustomDimension.DEVICE_YEAR_CLASS.name(), 4);
+	protected GoogleAnalyticsHelper createGoogleAnalyticsHelper() {
+		return new GoogleAnalyticsHelper() {
+			@Override
+			protected void init(Map<String, Integer> customDimensionsMap, Map<String, Integer> customMetricsMap) {
+				customDimensionsMap.put(CustomDimension.INSTALLATION_SOURCE.name(), 1);
+				customDimensionsMap.put(CustomDimension.DEVICE_TYPE.name(), 2);
+				customDimensionsMap.put(CustomDimension.APP_LOADING_SOURCE.name(), 3);
+				customDimensionsMap.put(CustomDimension.DEVICE_YEAR_CLASS.name(), 4);
+			}
+		};
 	}
-	
-	/**
-	 * @see AppAnalyticsTracker#trackExampleEvent()
-	 */
+
 	@Override
 	public void trackExampleEvent() {
-		sendEvent(EXAMPLE_CATEGORY, "exampleAction", EXAMPLE_LABEL);
+		getGoogleAnalyticsHelper().sendEvent(EXAMPLE_CATEGORY, "exampleAction", EXAMPLE_LABEL);
 	}
 
 	@Override
@@ -39,12 +39,12 @@ public class AndroidGoogleAnalyticsTracker extends GoogleAnalyticsTracker implem
 		transactionBuilder.setTax(10);
 		transactionBuilder.setShipping(5);
 		transactionBuilder.setTransactionId("tx" + DateUtils.nowMillis());
-		sendTransaction(transactionBuilder);
+		getGoogleAnalyticsHelper().sendTransaction(transactionBuilder);
 	}
 
 	@Override
 	public void trackExampleTiming() {
-		trackTiming(EXAMPLE_CATEGORY, "exampleVariable", EXAMPLE_LABEL, RandomUtils.getLong());
+		getGoogleAnalyticsHelper().trackTiming(EXAMPLE_CATEGORY, "exampleVariable", EXAMPLE_LABEL, RandomUtils.getLong());
 	}
 	
 }

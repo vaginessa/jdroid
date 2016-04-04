@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.jdroid.android.google.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
+import com.jdroid.android.usecase.AbstractUseCase;
 
 import java.util.List;
 import java.util.Map;
@@ -158,10 +159,15 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	}
 	
 	@Override
-	public void trackTiming(String category, String variable, String label, long value) {
+	public void trackUseCaseTiming(Class<? extends  AbstractUseCase> useCaseClass, long executionTime) {
 		// Do Nothing
 	}
-	
+
+	@Override
+	public void trackServiceTiming(String trackingVariable, String trackingLabel, long executionTime) {
+		// Do Nothing
+	}
+
 	@Override
 	public void trackContactUs() {
 		// Do Nothing

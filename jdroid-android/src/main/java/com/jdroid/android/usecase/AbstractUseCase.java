@@ -58,8 +58,7 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 			for (UseCaseListener listener : listeners) {
 				notifyFinishedUseCase(listener);
 			}
-			AbstractApplication.get().getAnalyticsSender().trackTiming("UseCase", getClass().getSimpleName(),
-					getClass().getSimpleName(), executionTime);
+			AbstractApplication.get().getAnalyticsSender().trackUseCaseTiming(getClass(), executionTime);
 		} catch (RuntimeException e) {
 			AbstractException abstractException;
 			if (e instanceof AbstractException) {

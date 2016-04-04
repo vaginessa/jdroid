@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.jdroid.android.google.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
+import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.java.analytics.BaseAnalyticsSender;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.LoggerUtils;
@@ -319,22 +320,29 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 			}
 		});
 	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackTiming(java.lang.String, java.lang.String,
-	 *      java.lang.String, long)
-	 */
+
 	@Override
-	public void trackTiming(final String category, final String variable, final String label, final long value) {
+	public void trackUseCaseTiming(final Class<? extends AbstractUseCase> useCaseClass, final long executionTime) {
 		ExecutorUtils.execute(new TrackerRunnable() {
-			
+
 			@Override
 			protected void track(T tracker) {
-				tracker.trackTiming(category, variable, label, value);
+				tracker.trackUseCaseTiming(useCaseClass, executionTime);
 			}
 		});
 	}
-	
+
+	@Override
+	public void trackServiceTiming(final String trackingVariable, final String trackingLabel, final long executionTime) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+
+			@Override
+			protected void track(T tracker) {
+				tracker.trackServiceTiming(trackingVariable, trackingLabel, executionTime);
+			}
+		});
+	}
+
 	/**
 	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackContactUs()
 	 */

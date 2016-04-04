@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.jdroid.android.google.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
+import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.java.analytics.BaseAnalyticsTracker;
 
 import java.util.List;
@@ -68,8 +69,10 @@ public interface AnalyticsTracker extends BaseAnalyticsTracker {
 
 	public void trackRemoveAdsBannerClicked();
 	
-	public void trackTiming(String category, String variable, String label, long value);
-	
+	public void trackUseCaseTiming(Class<? extends AbstractUseCase> useCaseClass, long executionTime);
+
+	public void trackServiceTiming(String trackingVariable, String trackingLabel, long executionTime);
+
 	public void trackContactUs();
 	
 	public void trackAboutLibraryOpen(String libraryKey);
