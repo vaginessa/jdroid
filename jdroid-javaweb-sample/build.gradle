@@ -3,15 +3,6 @@ apply plugin: 'com.jdroid.javaweb'
 description = 'Jdroid Sample Server'
 ext.packaging = 'war'
 
-//jdroid {
-//
-//	versionMajor = a
-//	versionMinor = b
-//	versionPatch = c
-//}
-//version = jdroid.getVersion()
-version = project.version
-
 buildscript {
 	repositories {
 		mavenCentral()

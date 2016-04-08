@@ -8,24 +8,33 @@ import org.gradle.api.Project
 
 public abstract class AndroidGradlePlugin extends BaseGradlePlugin {
 
+	protected android
+
+	public Integer minimumSdkVersion
+
 	public void apply(Project project) {
 		super.apply(project)
 
 //		project.apply plugin: 'android-sdk-manager'
 		applyAndroidPlugin()
 
-		def android = project.extensions.findByName("android")
+		android = project.android
+
+		minimumSdkVersion = jdroid.getProp('MIN_SDK_VERSION', 14)
 
 		android.compileSdkVersion 23
 		// http://developer.android.com/tools/revisions/build-tools.html
-		android.buildToolsVersion "23.0.2"
+		android.buildToolsVersion "23.0.3"
+
 
 		android.defaultConfig {
-			minSdkVersion project.jdroid.getProp('MIN_SDK_VERSION', 14)
+			minSdkVersion minimumSdkVersion
 			targetSdkVersion 23
 
 			// TODO See if this BUILD_TIME can disable the incremental build enhancements
-			jdroid.setString(android.defaultConfig, "BUILD_TIME", jdroid.getBuildTime())
+			if (jdroid.getBooleanProp("BUILD_TIME_CONFIG_ENABLED", true)) {
+				jdroid.setString(android.defaultConfig, "BUILD_TIME", jdroid.getBuildTime())
+			}
 			jdroid.setString(android.defaultConfig, "GIT_SHA", jdroid.getGitSha())
 			jdroid.setString(android.defaultConfig, "GIT_BRANCH", jdroid.getGitBranch())
 		}

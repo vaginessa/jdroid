@@ -8,6 +8,10 @@ public class AndroidLibraryGradlePlugin extends AndroidGradlePlugin {
 	public void apply(Project project) {
 		super.apply(project);
 
+		android.defaultConfig {
+			jdroid.setString(android.defaultConfig, "VERSION", project.version)
+		}
+
 	}
 
 	protected Class<? extends AndroidGradlePluginExtension> getExtensionClass() {

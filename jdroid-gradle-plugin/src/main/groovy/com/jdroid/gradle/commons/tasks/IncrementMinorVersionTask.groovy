@@ -10,8 +10,9 @@ public class IncrementMinorVersionTask extends AbstractIncrementVersionTask {
 
 	@TaskAction
 	public void doExecute() {
-		project.jdroid.versionMinor = changeVersion("versionMinor", null)
-		project.jdroid.versionPatch = changeVersion("versionPatch", 0)
+		project.jdroid.versionMinor = changeVersion("VERSION_MINOR", null)
+		project.jdroid.versionPatch = changeVersion("VERSION_PATCH", 0)
+		project.version = project.jdroid.generateVersionName()
 		commitVersionChange()
 	}
 }

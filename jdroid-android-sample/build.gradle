@@ -4,9 +4,6 @@ description = 'Jdroid Sample Android'
 ext.packaging = 'apk'
 
 jdroid {
-	versionMajor = 0
-	versionMinor = 9
-	versionPatch = 4
 	notDefaultLanguages = ['es']
 }
 
@@ -162,9 +159,6 @@ dependencies {
 android {
 
 	defaultConfig {
-
-		versionCode 140000000 + jdroid.versionMajor * 10000 + jdroid.versionMinor * 100 + jdroid.versionPatch
-		versionName "${jdroid.versionMajor}.${jdroid.versionMinor}.${jdroid.versionPatch}"
 
 		applicationVariants.all { variant ->
 

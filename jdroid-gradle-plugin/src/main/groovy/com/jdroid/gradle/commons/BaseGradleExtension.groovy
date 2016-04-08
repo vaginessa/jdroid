@@ -7,18 +7,20 @@ public class BaseGradleExtension {
 
 	protected final BaseGradlePlugin baseGradlePlugin
 
-	def versionMajor
-	def versionMinor
-	def versionPatch
-	def versionClassifier = ""
 	def integrationTestsPattern = "**/integration/**/*Test.class"
+
+	public Integer versionMajor
+	public Integer versionMinor
+	public Integer versionPatch
+	public String versionClassifier
 
 	public BaseGradleExtension(BaseGradlePlugin baseGradlePlugin) {
 		this.baseGradlePlugin = baseGradlePlugin
-	}
 
-	public String getVersion() {
-		return "${versionMajor}.${versionMinor}.${versionPatch}${versionClassifier}"
+		versionMajor = getProp('VERSION_MAJOR')
+		versionMinor = getProp('VERSION_MINOR')
+		versionPatch = getProp('VERSION_PATCH')
+		versionClassifier = getProp('VERSION_CLASSIFIER', "")
 	}
 
 	public String getGitSha() {
@@ -55,12 +57,20 @@ public class BaseGradleExtension {
 		def value = getProp(propertyName)
 		if (value == null) {
 			return defaultValue
-		} else if (value == 'true') {
+		} else if (value.toString() == 'true') {
 			return true
-		} else if (value == 'false') {
+		} else if (value.toString() == 'false') {
 			return false
 		} else {
 			throw new UnexpectedException("Invalid Boolean value: " + value)
 		}
+	}
+
+	public String generateVersionName() {
+		String versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
+		if (versionClassifier != null && !versionClassifier.isEmpty()) {
+			versionName = versionName + "-" + versionClassifier
+		}
+		return versionName;
 	}
 }

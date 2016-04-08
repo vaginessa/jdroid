@@ -10,7 +10,8 @@ public class IncrementPatchVersionTask extends AbstractIncrementVersionTask {
 
 	@TaskAction
 	public void doExecute() {
-		project.jdroid.versionPatch = changeVersion("versionPatch", null)
+		project.jdroid.versionPatch = changeVersion("VERSION_PATCH", null)
+		project.version = project.jdroid.generateVersionName()
 		commitVersionChange()
 	}
 }

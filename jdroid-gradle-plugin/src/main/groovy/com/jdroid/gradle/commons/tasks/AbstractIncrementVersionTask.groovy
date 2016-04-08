@@ -1,5 +1,4 @@
 package com.jdroid.gradle.commons.tasks
-
 import org.gradle.api.DefaultTask
 
 public class AbstractIncrementVersionTask extends DefaultTask {
@@ -29,7 +28,7 @@ public class AbstractIncrementVersionTask extends DefaultTask {
 		}
 
 		project.exec {
-			commandLine 'git', 'commit', '-m', "Changed app version to v${project.jdroid.versionMajor}.${project.jdroid.versionMinor}.${project.jdroid.versionPatch}"
+			commandLine 'git', 'commit', '-m', "Changed app version to v${project.version}"
 		}
 	}
 }
