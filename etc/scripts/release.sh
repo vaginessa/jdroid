@@ -100,24 +100,26 @@ fi
 read -p "Verify that the milestone is closed on Milestones [https://github.com/maxirosson/jdroid/milestones] and press [Enter] key to continue..."
 
 # ************************
-# Generate Change Log
-# ************************
-
-github_changelog_generator --no-unreleased --no-pull-requests --no-pr-wo-labels --exclude-labels task -t $GIT_HUB_READ_ONLY_TOKEN
-
-read -p "Please verify the $PROJECT_HOME/CHANGELOG.md and press [Enter] key to continue..."
-
-git add CHANGELOG.md
-git commit -m "Updated CHANGELOG.md"
-git push origin HEAD:production
-
-# ************************
 # Upload Release on GitHub
 # ************************
 
 ./gradlew :createGitHubRelease --configure-on-demand -PSNAPSHOT=false -PGITHUB_OATH_TOKEN=$GIT_HUB_TOKEN
 
 read -p "Verify that the release is present on Releases [https://github.com/maxirosson/jdroid/releases] and press [Enter] key to continue..."
+
+# ************************
+# Generate Change Log
+# ************************
+
+github_changelog_generator --no-unreleased --no-pull-requests --no-pr-wo-labels --exclude-labels task -t $GIT_HUB_READ_ONLY_TOKEN
+
+git add CHANGELOG.md
+git commit -m "Updated CHANGELOG.md"
+git diff HEAD
+
+read -p "Please verify the $PROJECT_HOME/CHANGELOG.md and press [Enter] key to continue..."
+
+git push origin HEAD:production
 
 # ************************
 # Deploy to Sonatype repository
@@ -178,7 +180,10 @@ git pull
 sed -i '' 's/v[0-9].[0-9].[0-9]/v'$VERSION'/g' index.html
 git add index.html
 git commit -m 'Updated jdroid version to v'$VERSION
+
+git diff HEAD
+read -p "Verify the Jdroid GitHub page diff and press [Enter] key to continue..."
+
 git push origin HEAD:gh-pages
 
-read -p "Verify the Jdroid GitHub page on gh-pages branch [https://github.com/maxirosson/jdroid/tree/gh-pages] and press [Enter] key to continue..."
 read -p "Verify the Jdroid Site [http://jdroidframework.com/] and press [Enter] key to continue..."
