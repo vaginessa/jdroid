@@ -134,7 +134,7 @@ Gradle Plugin for Java & Android projects
 * Android
  * Default Google Android Plugin configuration
  * [SDK Manager Plugin](https://github.com/JakeWharton/sdk-manager-plugin) integration
- * Versioning configuration
+ * Versioning scheme
  * Android Tasks
     * Verify Missing Translations Between Locales
     * Verify Missing Translations
