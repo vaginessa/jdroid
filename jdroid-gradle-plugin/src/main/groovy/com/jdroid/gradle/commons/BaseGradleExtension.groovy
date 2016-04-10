@@ -17,9 +17,9 @@ public class BaseGradleExtension {
 	public BaseGradleExtension(BaseGradlePlugin baseGradlePlugin) {
 		this.baseGradlePlugin = baseGradlePlugin
 
-		versionMajor = getProp('VERSION_MAJOR')
-		versionMinor = getProp('VERSION_MINOR')
-		versionPatch = getProp('VERSION_PATCH')
+		versionMajor = getProp('VERSION_MAJOR', 1)
+		versionMinor = getProp('VERSION_MINOR', 0)
+		versionPatch = getProp('VERSION_PATCH', 0)
 		versionClassifier = getProp('VERSION_CLASSIFIER', "")
 	}
 
@@ -63,6 +63,15 @@ public class BaseGradleExtension {
 			return false
 		} else {
 			throw new UnexpectedException("Invalid Boolean value: " + value)
+		}
+	}
+
+	public Integer getIntegerProp(String propertyName, Integer defaultValue) {
+		def value = getProp(propertyName)
+		if (value == null) {
+			return defaultValue
+		} else {
+			return Integer.parseInt(value);
 		}
 	}
 
