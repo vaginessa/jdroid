@@ -35,7 +35,7 @@ Library for Android & Java apps
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
-Libray for Android apps. Support for Android 4.0 (api level 14) and higher versions
+Libray for Android apps. Support for Android 4.0 (api level 15) and higher versions
 * Languages supported: english & spanish
 * Android M Permissions scheme support
 * [Navigation Drawer support](https://developer.android.com/design/patterns/navigation-drawer.html)
@@ -105,7 +105,12 @@ Libray for Android apps. Support for Android 4.0 (api level 14) and higher versi
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-google-plus](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
  * [Google+ integration](http://developer.android.com/google/play-services/plus.html)
-  * +1 button, friends, sign in, sign out, revoke access, share
+  * +1 button, share
+
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-google-signin](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
+--------------
+ * [Google Sign In integration](https://developers.google.com/identity/sign-in/android/)
+  * sign in, sign out, revoke access
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-javaweb](https://github.com/maxirosson/jdroid/wiki/jdroid-Java-Web)
 ---------------
@@ -128,6 +133,7 @@ Gradle Plugin for Java & Android projects
 * Android
  * Default Google Android Plugin configuration
  * [SDK Manager Plugin](https://github.com/JakeWharton/sdk-manager-plugin) integration
+ * Versioning configuration
  * Android Tasks
     * Verify Missing Translations Between Locales
     * Verify Missing Translations
