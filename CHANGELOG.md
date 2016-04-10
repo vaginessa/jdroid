@@ -1,5 +1,30 @@
 # Change Log
 
+## [v0.9.4](https://github.com/maxirosson/jdroid/tree/v0.9.4) (2016-04-10)
+[Full Changelog](https://github.com/maxirosson/jdroid/compare/v0.9.3...v0.9.4)
+
+**Implemented enhancements:**
+
+- Add Activity and fragment delegate concepts [\#312](https://github.com/maxirosson/jdroid/issues/312)
+- Create CacheWrapperRepository [\#311](https://github.com/maxirosson/jdroid/issues/311)
+- Android Versioning Scheme support [\#307](https://github.com/maxirosson/jdroid/issues/307)
+- Add beta testing link to About screen [\#303](https://github.com/maxirosson/jdroid/issues/303)
+- Migrate to ok http v3.x [\#302](https://github.com/maxirosson/jdroid/issues/302)
+- Upgrade android gradle plugin to v2.0.0 [\#301](https://github.com/maxirosson/jdroid/issues/301)
+- Add support to App Invites [\#261](https://github.com/maxirosson/jdroid/issues/261)
+- Migrate PNGs to vector drawables [\#207](https://github.com/maxirosson/jdroid/issues/207)
+
+**Fixed bugs:**
+
+- Google+ login is not working [\#287](https://github.com/maxirosson/jdroid/issues/287)
+
+**Closed issues:**
+
+- Changed min api level support to 15 [\#313](https://github.com/maxirosson/jdroid/issues/313)
+- Android Utils refactor [\#305](https://github.com/maxirosson/jdroid/issues/305)
+- Use cases refactor [\#304](https://github.com/maxirosson/jdroid/issues/304)
+- Sample Android - Use cases sample [\#165](https://github.com/maxirosson/jdroid/issues/165)
+
 ## [v0.9.3](https://github.com/maxirosson/jdroid/tree/v0.9.3) (2016-01-13)
 [Full Changelog](https://github.com/maxirosson/jdroid/compare/v0.9.2...v0.9.3)
 
