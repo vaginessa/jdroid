@@ -14,7 +14,7 @@ allprojects {
 
 	ext.VERSION_MAJOR = 0
 	ext.VERSION_MINOR = 9
-	ext.VERSION_PATCH = 4
+	ext.VERSION_PATCH = 5
 	ext.VERSION_CLASSIFIER = isSnapshot ? "SNAPSHOT" : null
 
 	project.version = "${ext.VERSION_MAJOR}.${ext.VERSION_MINOR}.${ext.VERSION_PATCH}"
