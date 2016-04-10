@@ -79,6 +79,7 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 --------------
 * About dialog component
  * Contact Us, Spread the Word, Rate Us & Libraries
+* [App Invite integration](https://developers.google.com/app-invites/android/)
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-crashlytics](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
