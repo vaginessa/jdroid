@@ -149,7 +149,7 @@ cmd="${cmd} :jdroid-android-google-maps:uploadArchives"
 cmd="${cmd} :jdroid-android-google-plus:uploadArchives"
 cmd="${cmd} :jdroid-android-google-signin:uploadArchives"
 cmd="${cmd} :jdroid-android-about:uploadArchives"
-cmd="${cmd} -PSNAPSHOT=false"
+cmd="${cmd} -PSNAPSHOT=false -PLOCAL_UPLOAD=false"
 
 echo "Executing the following command"
 echo "${cmd}"
