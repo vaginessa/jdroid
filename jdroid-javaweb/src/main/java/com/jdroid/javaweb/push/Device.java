@@ -1,12 +1,15 @@
 package com.jdroid.javaweb.push;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.jdroid.java.collections.Maps;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.domain.Entity;
 import com.jdroid.java.exception.UnexpectedException;
 
 import java.util.Map;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Device extends Entity {
 	
 	private String instanceId;
@@ -23,6 +26,8 @@ public class Device extends Entity {
 	private String acceptLanguage;
 	private Long creationTimestamp;
 	private Long lastActiveTimestamp;
+
+	private Map<String, Object> extras;
 
 	private Map<String, Object> transientExtras;
 
@@ -162,6 +167,7 @@ public class Device extends Entity {
 		if (lastActiveTimestamp != null) {
 			sb.append(", lastActiveTimestamp=").append(DateUtils.getDate(lastActiveTimestamp));
 		}
+		sb.append(", extras='").append(extras).append('\'');
 		sb.append(", transientExtras='").append(transientExtras).append('\'');
 		sb.append("} ");
 		sb.append(super.toString());
@@ -192,7 +198,28 @@ public class Device extends Entity {
 			return false;
 		if (acceptLanguage != null ? !acceptLanguage.equals(device.acceptLanguage) : device.acceptLanguage != null)
 			return false;
+		if (extras != null ? !extras.equals(device.extras) : device.extras != null)
+			return false;
 		return !(lastActiveTimestamp != null ? !lastActiveTimestamp.equals(device.lastActiveTimestamp) : device.lastActiveTimestamp != null);
 
+	}
+
+	public Map<String, Object> getExtras() {
+		return extras;
+	}
+
+	public Object getExtra(String key) {
+		return extras != null ? extras.get(key) : null;
+	}
+
+	public void addExtra(String key, Object value) {
+		if (extras == null) {
+			this.extras = Maps.newHashMap();
+		}
+		extras.put(key, value);
+	}
+
+	public void setExtras(Map<String, Object> extras) {
+		this.extras = extras;
 	}
 }

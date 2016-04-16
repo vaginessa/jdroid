@@ -33,6 +33,7 @@ public class PushServiceImpl implements PushService {
 				deviceToUpdate.setAppVersionCode(device.getAppVersionCode());
 				deviceToUpdate.setDeviceOsVersion(device.getDeviceOsVersion());
 				deviceToUpdate.setAcceptLanguage(device.getAcceptLanguage());
+				deviceToUpdate.setExtras(device.getExtras());
 				deviceRepository.update(deviceToUpdate);
 				if (pushServiceListener != null) {
 					pushServiceListener.onUpdateDevice(deviceToUpdate.getInstanceId(), deviceToUpdate.getDeviceType());
