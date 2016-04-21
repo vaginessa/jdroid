@@ -369,8 +369,6 @@ public class FragmentHelper implements FragmentIf {
 			public void run() {
 				if (loading != null) {
 					loading.show(fragmentIf);
-				} else {
-					getActivityIf().showLoading();
 				}
 			}
 		});
@@ -385,8 +383,6 @@ public class FragmentHelper implements FragmentIf {
 			public void run() {
 				if (loading != null) {
 					loading.dismiss(fragmentIf);
-				} else {
-					getActivityIf().dismissLoading();
 				}
 			}
 		});

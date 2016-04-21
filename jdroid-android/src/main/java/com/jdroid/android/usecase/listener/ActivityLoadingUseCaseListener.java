@@ -4,13 +4,13 @@ import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.fragment.FragmentIf;
 import com.jdroid.java.exception.AbstractException;
 
-public abstract class AndroidUseCaseListener implements UseCaseListener {
+public abstract class ActivityLoadingUseCaseListener implements UseCaseListener {
 	
 	@Override
 	public void onStartUseCase() {
 		FragmentIf fragmentIf = getFragmentIf();
 		if (fragmentIf != null) {
-			fragmentIf.showLoading();
+			fragmentIf.getActivityIf().showLoading();
 		}
 	}
 	
@@ -26,7 +26,7 @@ public abstract class AndroidUseCaseListener implements UseCaseListener {
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		FragmentIf fragmentIf = getFragmentIf();
 		if (fragmentIf != null) {
-			fragmentIf.dismissLoading();
+			fragmentIf.getActivityIf().dismissLoading();
 			createErrorDisplayer(abstractException).displayError(abstractException);
 		}
 	}
@@ -40,7 +40,7 @@ public abstract class AndroidUseCaseListener implements UseCaseListener {
 	public void onFinishUseCase() {
 		FragmentIf fragmentIf = getFragmentIf();
 		if (fragmentIf != null) {
-			fragmentIf.onFinishUseCase();
+			fragmentIf.getActivityIf().dismissLoading();
 		}
 	}
 	

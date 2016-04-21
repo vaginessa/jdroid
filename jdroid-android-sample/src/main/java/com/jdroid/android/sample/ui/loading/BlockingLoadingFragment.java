@@ -1,39 +1,63 @@
 package com.jdroid.android.sample.ui.loading;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
-import com.jdroid.android.sample.usecase.SampleItemsUseCase;
+import com.jdroid.android.fragment.FragmentIf;
+import com.jdroid.android.sample.R;
+import com.jdroid.android.sample.ui.usecases.SampleUseCase;
+import com.jdroid.android.usecase.listener.ActivityLoadingUseCaseListener;
 
 public class BlockingLoadingFragment extends AbstractFragment {
 	
-	private SampleItemsUseCase sampleItemsUseCase;
-	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onCreate(android.os.Bundle)
-	 */
+	private SampleUseCase sampleUseCase;
+	private ActivityLoadingUseCaseListener sampleUseCaseListener;
+
+	@Override
+	public Integer getContentFragmentLayout() {
+		return R.layout.blocking_loading_fragment;
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		sampleItemsUseCase = new SampleItemsUseCase();
+		sampleUseCase = new SampleUseCase();
+		sampleUseCase.setDelayInSeconds(5);
+		sampleUseCaseListener = new ActivityLoadingUseCaseListener() {
+			@Override
+			protected FragmentIf getFragmentIf() {
+				return BlockingLoadingFragment.this;
+			}
+		};
 	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onResume()
-	 */
+
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+
+		Button fail = findView(R.id.fail);
+		fail.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				sampleUseCase.setFail(true);
+				executeUseCase(sampleUseCase);
+			}
+		});
+	}
+
 	@Override
 	public void onResume() {
 		super.onResume();
-		onResumeUseCase(sampleItemsUseCase, this, UseCaseTrigger.ONCE);
+		onResumeUseCase(sampleUseCase, sampleUseCaseListener, UseCaseTrigger.ONCE);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onPause()
-	 */
 	@Override
 	public void onPause() {
 		super.onPause();
-		onPauseUseCase(sampleItemsUseCase, this);
+		onPauseUseCase(sampleUseCase, sampleUseCaseListener);
 	}
 }

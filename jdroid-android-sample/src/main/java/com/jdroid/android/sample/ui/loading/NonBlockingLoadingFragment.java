@@ -22,7 +22,7 @@ public class NonBlockingLoadingFragment extends AbstractFragment {
 
 	@Override
 	public Integer getContentFragmentLayout() {
-		return R.layout.non_bloacking_loading_fragment;
+		return R.layout.non_blocking_loading_fragment;
 	}
 
 	@Override
