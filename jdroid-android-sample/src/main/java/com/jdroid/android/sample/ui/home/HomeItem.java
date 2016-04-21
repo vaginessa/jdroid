@@ -12,6 +12,7 @@ import com.jdroid.android.sample.ui.appinvite.AppInviteActivity;
 import com.jdroid.android.sample.ui.cardview.CardViewActivity;
 import com.jdroid.android.sample.ui.datetime.DateTimeActivity;
 import com.jdroid.android.sample.ui.exceptions.ErrorDisplayerActivity;
+import com.jdroid.android.sample.ui.facebook.FacebookSignInActivity;
 import com.jdroid.android.sample.ui.firebase.FirebaseActivity;
 import com.jdroid.android.sample.ui.google.gcm.GcmActivity;
 import com.jdroid.android.sample.ui.google.playservices.GooglePlayServicesActivity;
@@ -40,6 +41,7 @@ public enum HomeItem implements ActionItem {
 	CARD_VIEW(R.string.cardView, R.drawable.ic_cardview, CardViewActivity.class),
 	DATE_TIME(R.string.dateTime, R.drawable.ic_date_time, DateTimeActivity.class),
 	ERROR_DISPLAYER(R.string.errorDisplayer, R.drawable.ic_exception_handling, ErrorDisplayerActivity.class),
+	FACEBOOK(R.string.facebook, R.drawable.ic_firebase, FacebookSignInActivity.class),
 	FIREBASE(R.string.firebase, R.drawable.ic_firebase, FirebaseActivity.class),
 	GOOGLE_ANALYTCS(R.string.googleAnalytics, R.drawable.ic_analytics, AnalyticsActivity.class),
 	GCM(R.string.gcm, R.drawable.ic_gcm, GcmActivity.class),

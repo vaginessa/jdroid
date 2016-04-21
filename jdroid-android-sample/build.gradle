@@ -179,9 +179,6 @@ android {
 
 		jdroid.setString(defaultConfig, "GOOGLE_SERVER_CLIENT_ID", "852072465140-ksbqqoidt2jl2nqqvffnc6ic07fqb6g8.apps.googleusercontent.com")
 
-		// TODO Add FACEBOOK_APP_ID
-		jdroid.setString(defaultConfig, "FACEBOOK_APP_ID", "????????")
-
 		jdroid.setBoolean(defaultConfig, "CRASHLYTICS_ENABLED", true)
 
 		jdroid.setString(defaultConfig, "LOCAL_IP", null)
@@ -197,12 +194,20 @@ android {
 		jdroid.setString(defaultConfig, "FIREBASE_URL", null)
 		jdroid.setString(defaultConfig, "FIREBASE_AUTH_TOKEN", null)
 
+		resValue "string", "facebook_app_id", '"967462636672870"'
+
+
 		manifestPlaceholders = [
 				googleMapsApiKey: "AIzaSyBiIX2Ays99BfiaAA3CcYtZ7bQ6ZOfzgog",
 				fabricApiKey: "478dae49374362f33bc054fc44d1f4242c574ccb"
 		]
 
 		multiDexEnabled true
+	}
+
+	dexOptions {
+		incremental true
+		javaMaxHeapSize "4g"
 	}
 
 	signingConfigs {
@@ -247,7 +252,6 @@ android {
 
 			// TODO Add GOOGLE_PLAY_PUBLIC_KEY
 			// TODO Add GOOGLE_ANALYTICS_TRACKING_ID
-			// TODO Add FACEBOOK_APP_ID
 			// TODO Add FIREBASE_URL
 			// TODO Add FIREBASE_AUTH_TOKEN
 			// TODO Add GOOGLE_SERVER_CLIENT_ID

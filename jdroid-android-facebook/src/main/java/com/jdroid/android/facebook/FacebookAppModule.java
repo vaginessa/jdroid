@@ -1,5 +1,7 @@
 package com.jdroid.android.facebook;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
 
@@ -11,17 +13,15 @@ public class FacebookAppModule extends AbstractAppModule {
 		return (FacebookAppModule)AbstractApplication.get().getAppModule(MODULE_NAME);
 	}
 
-	private FacebookContext facebookContext;
-
-	public FacebookAppModule() {
-		facebookContext = createFacebookContext();
+	@Override
+	public void onCreate() {
+		FacebookSdk.sdkInitialize(AbstractApplication.get().getApplicationContext());
+		if (analyticsEnabled()) {
+			AppEventsLogger.activateApp(AbstractApplication.get());
+		}
 	}
 
-	protected FacebookContext createFacebookContext() {
-		return new FacebookContext();
-	}
-
-	public FacebookContext getFacebookContext() {
-		return facebookContext;
+	protected Boolean analyticsEnabled() {
+		return true;
 	}
 }
