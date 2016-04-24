@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.google.android.gms.appinvite.AppInviteInvitation;
+import com.jdroid.android.about.AboutAppModule;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.collections.Lists;
 
@@ -20,7 +21,7 @@ public class AppInviteHelper {
 				String[] ids = AppInviteInvitation.getInvitationIds(resultCode, data);
 				if (ids != null) {
 					for (String invitationId : ids) {
-						AbstractApplication.get().getAnalyticsSender().trackSendAppInvitation(invitationId);
+						AboutAppModule.get().getAnalyticsSender().trackSendAppInvitation(invitationId);
 					}
 					AppInviteStats.invitesSent(Lists.newArrayList(ids));
 				}

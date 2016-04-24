@@ -57,10 +57,6 @@ public interface AnalyticsTracker extends BaseAnalyticsTracker {
 
 	public void trackGiveFeedback(Boolean feedback);
 
-	// App Invitations
-
-	public void trackSendAppInvitation(String invitationId);
-
 	// More
 
 	public void trackUriOpened(String uriType, String screenName);
@@ -73,8 +69,4 @@ public interface AnalyticsTracker extends BaseAnalyticsTracker {
 
 	public void trackServiceTiming(String trackingVariable, String trackingLabel, long executionTime);
 
-	public void trackContactUs();
-	
-	public void trackAboutLibraryOpen(String libraryKey);
-	
 }

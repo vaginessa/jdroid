@@ -9,6 +9,8 @@ import com.jdroid.android.activity.ActivityDelegate;
 import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.android.fragment.FragmentDelegate;
+import com.jdroid.java.analytics.BaseAnalyticsSender;
+import com.jdroid.java.analytics.BaseAnalyticsTracker;
 
 import java.util.List;
 
@@ -41,4 +43,12 @@ public interface AppModule {
 	public ActivityDelegate createActivityDelegate(AbstractFragmentActivity abstractFragmentActivity);
 
 	public FragmentDelegate createFragmentDelegate(Fragment fragment);
+
+	// Analytics
+
+	public BaseAnalyticsSender<? extends BaseAnalyticsTracker> createModuleAnalyticsSender(List<? extends BaseAnalyticsTracker> analyticsTrackers);
+
+	public List<? extends BaseAnalyticsTracker> createModuleAnalyticsTrackers();
+
+	public BaseAnalyticsSender<? extends BaseAnalyticsTracker> getAnalyticsSender();
 }

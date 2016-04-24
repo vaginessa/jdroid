@@ -36,11 +36,14 @@ public class GoogleAnalyticsHelper {
 		tracker = analytics.newTracker(AbstractApplication.get().getAppContext().getGoogleAnalyticsTrackingId());
 		tracker.setSessionTimeout(SESSION_TIMEOUT);
 		tracker.enableAdvertisingIdCollection(isAdvertisingIdCollectionEnabled());
-		init(customDimensionsMap, customMetricsMap);
 	}
 
-	protected void init(Map<String, Integer> customDimensionsMap, Map<String, Integer> customMetricsMap) {
-		// Do nothing
+	public void addCustomDimensionDefinition(String dimensionName, Integer index) {
+		customDimensionsMap.put(dimensionName, index);
+	}
+
+	public void addCustomMetricDefinition(String metricName, Integer index) {
+		customMetricsMap.put(metricName, index);
 	}
 
 	protected Boolean isAdvertisingIdCollectionEnabled() {
@@ -114,6 +117,9 @@ public class GoogleAnalyticsHelper {
 			timingBuilder.setVariable(variable);
 			timingBuilder.setLabel(label);
 			timingBuilder.setValue(value);
+
+			addCustomDimension(timingBuilder, commonCustomDimensionsValues);
+
 			tracker.send(timingBuilder.build());
 			LOGGER.debug("Timing sent. Category [" + category + "] Variable [" + variable + "] Label [" + label
 					+ "] Value [" + value + "]");
@@ -155,6 +161,13 @@ public class GoogleAnalyticsHelper {
 			}
 		}
 	}
+	protected void addCustomDimension(HitBuilders.TimingBuilder timingBuilder, Map<String, String> customDimensions) {
+		if (customDimensions != null) {
+			for (Map.Entry<String, String> entry : customDimensions.entrySet()) {
+				addCustomDimension(timingBuilder, entry.getKey(), entry.getValue());
+			}
+		}
+	}
 
 	protected void addCustomDimension(HitBuilders.EventBuilder eventBuilder, GoogleAnalyticsTracker.CustomDimension customDimension, String dimension) {
 		addCustomDimension(eventBuilder, customDimension.name(), dimension);
@@ -170,6 +183,17 @@ public class GoogleAnalyticsHelper {
 			LOGGER.debug("Added custom dimension: " + index + " - " + dimension);
 			eventBuilder.setCustomDimension(index, dimension);
 		}
+	}
+
+	protected void addCustomDimension(HitBuilders.TimingBuilder timingBuilder, Integer index, String dimension) {
+		if (index != null) {
+			LOGGER.debug("Added custom dimension: " + index + " - " + dimension);
+			timingBuilder.setCustomDimension(index, dimension);
+		}
+	}
+	protected void addCustomDimension(HitBuilders.TimingBuilder timingBuilder, String customDimensionKey, String dimension) {
+		Integer index = customDimensionsMap.get(customDimensionKey);
+		addCustomDimension(timingBuilder, index, dimension);
 	}
 
 	protected void addCustomDimension(HitBuilders.TransactionBuilder transactionBuilder, Map<String, String> customDimensions) {

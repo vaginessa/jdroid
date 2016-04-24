@@ -20,6 +20,7 @@ import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.fragment.FragmentHelper;
+import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsTracker;
 import com.jdroid.android.google.inappbilling.InAppBillingContext;
 import com.jdroid.android.http.cache.CacheManager;
@@ -119,6 +120,7 @@ public abstract class AbstractApplication extends Application {
 		}
 
 		List<Kit> fabricKits = Lists.newArrayList();
+		appModulesMap.put(GoogleAnalyticsAppModule.MODULE_NAME,  new GoogleAnalyticsAppModule());
 		initAppModule(appModulesMap);
 		for (AppModule each: appModulesMap.values()) {
 			each.onCreate();
@@ -253,7 +255,7 @@ public abstract class AbstractApplication extends Application {
 		return analyticsTrackers;
 	}
 
-	public AnalyticsTracker createGoogleAnalyticsTracker() {
+	protected AnalyticsTracker createGoogleAnalyticsTracker() {
 		return new GoogleAnalyticsTracker();
 	}
 	

@@ -149,11 +149,6 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	}
 
 	@Override
-	public void trackSendAppInvitation(String invitationId) {
-		// Do Nothing
-	}
-
-	@Override
 	public void trackRemoveAdsBannerClicked() {
 		// Do Nothing
 	}
@@ -167,15 +162,4 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	public void trackServiceTiming(String trackingVariable, String trackingLabel, long executionTime) {
 		// Do Nothing
 	}
-
-	@Override
-	public void trackContactUs() {
-		// Do Nothing
-	}
-	
-	@Override
-	public void trackAboutLibraryOpen(String libraryKey) {
-		// Do Nothing
-	}
-	
 }

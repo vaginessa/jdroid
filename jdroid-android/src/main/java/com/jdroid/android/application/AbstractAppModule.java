@@ -2,6 +2,7 @@ package com.jdroid.android.application;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import com.jdroid.android.activity.AbstractFragmentActivity;
@@ -9,6 +10,8 @@ import com.jdroid.android.activity.ActivityDelegate;
 import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.android.fragment.FragmentDelegate;
+import com.jdroid.java.analytics.BaseAnalyticsSender;
+import com.jdroid.java.analytics.BaseAnalyticsTracker;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
@@ -17,9 +20,27 @@ import io.fabric.sdk.android.Kit;
 
 public abstract class AbstractAppModule implements AppModule {
 
+	private BaseAnalyticsSender<? extends BaseAnalyticsTracker> analyticsSender;
+
 	@Override
 	public void onCreate() {
-		// Do Nothing
+		analyticsSender = createModuleAnalyticsSender(createModuleAnalyticsTrackers());
+	}
+
+	@NonNull
+	@Override
+	public BaseAnalyticsSender<? extends BaseAnalyticsTracker> createModuleAnalyticsSender(List<? extends BaseAnalyticsTracker> analyticsTrackers) {
+		return new BaseAnalyticsSender<>(analyticsTrackers);
+	}
+
+	@Override
+	public List<? extends BaseAnalyticsTracker> createModuleAnalyticsTrackers() {
+		return Lists.newArrayList();
+	}
+
+	@Override
+	public BaseAnalyticsSender<? extends BaseAnalyticsTracker> getAnalyticsSender() {
+		return analyticsSender;
 	}
 
 	@Override

@@ -30,7 +30,6 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	private static final Logger LOGGER = LoggerUtils.getLogger(GoogleAnalyticsTracker.class);
 	
 	public static final String NOTIFICATION_CATEGORY = "notification";
-	private static final String ABOUT_CATEGORY = "about";
 	private static final String FEEDBACK_CATEGORY = "feedback";
 	private static final String ADS_CATEGORY = "ads";
 	private static final String CLICK_ACTION = "click";
@@ -40,26 +39,20 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	private Boolean firstTrackingSent = false;
 
 	private GoogleAnalyticsHelper googleAnalyticsHelper;
-	
+
 	public enum CustomDimension {
 		LOGIN_SOURCE,
 		IS_LOGGED,
-		INSTALLATION_SOURCE,
-		APP_LOADING_SOURCE,
-		DEVICE_TYPE,
-		DEVICE_YEAR_CLASS;
+		INSTALLATION_SOURCE, // User scope
+		APP_LOADING_SOURCE, // Hit scope
+		DEVICE_TYPE, // User scope
+		DEVICE_YEAR_CLASS; // User scope
 	}
 	
 	public GoogleAnalyticsTracker() {
-		if (isEnabled()) {
-			googleAnalyticsHelper = createGoogleAnalyticsHelper();
-		}
+		googleAnalyticsHelper = GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper();
 	}
 
-	protected GoogleAnalyticsHelper createGoogleAnalyticsHelper() {
-		return new GoogleAnalyticsHelper();
-	}
-	
 	@Override
 	public Boolean isEnabled() {
 		return AbstractApplication.get().getAppContext().isGoogleAnalyticsEnabled();
@@ -79,9 +72,9 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 				googleAnalyticsHelper.addCommonCustomDimension(CustomDimension.APP_LOADING_SOURCE.name(), AppLoadingSource.NORMAL.getName());
 			}
 
-			googleAnalyticsHelper.addCustomDimension(appViewBuilder, CustomDimension.DEVICE_YEAR_CLASS, DeviceUtils.getDeviceYearClass().toString());
 
 			if (!firstTrackingSent) {
+				googleAnalyticsHelper.addCustomDimension(appViewBuilder, CustomDimension.DEVICE_YEAR_CLASS, DeviceUtils.getDeviceYearClass().toString());
 				googleAnalyticsHelper.addCustomDimension(appViewBuilder, CustomDimension.DEVICE_TYPE, DeviceUtils.getDeviceType());
 				
 				for (Entry<Experiment, ExperimentVariant> entry : ExperimentHelper.getExperimentsMap().entrySet()) {
@@ -171,11 +164,6 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 
 	@Override
-	public void trackSendAppInvitation(String invitationId) {
-		googleAnalyticsHelper.sendEvent(SOCIAL, "sendAppInvitation", invitationId);
-	}
-
-	@Override
 	public void trackUseCaseTiming(Class<? extends AbstractUseCase> useCaseClass, long executionTime) {
 		googleAnalyticsHelper.trackTiming("UseCase", useCaseClass.getSimpleName(), useCaseClass.getSimpleName(), executionTime);
 	}
@@ -216,16 +204,6 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 				+ "] Target [" + socialTarget + "]");
 	}
 	
-	@Override
-	public void trackContactUs() {
-		googleAnalyticsHelper.sendEvent(ABOUT_CATEGORY, "contactUs", "contactUs");
-	}
-	
-	@Override
-	public void trackAboutLibraryOpen(String libraryKey) {
-		googleAnalyticsHelper.sendEvent(ABOUT_CATEGORY, "openLibrary", libraryKey);
-	}
-
 	@Override
 	public void trackFatalException(Throwable throwable, List<String> tags) {
 		HitBuilders.ExceptionBuilder builder = new HitBuilders.ExceptionBuilder();

@@ -297,20 +297,6 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 	}
 
 	@Override
-	public void trackSendAppInvitation(final String invitationId) {
-		ExecutorUtils.execute(new TrackerRunnable() {
-
-			@Override
-			protected void track(T tracker) {
-				tracker.trackSendAppInvitation(invitationId);
-			}
-		});
-	}
-
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackRemoveAdsBannerClicked()
-	 */
-	@Override
 	public void trackRemoveAdsBannerClicked() {
 		ExecutorUtils.execute(new TrackerRunnable() {
 			
@@ -342,33 +328,4 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 			}
 		});
 	}
-
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackContactUs()
-	 */
-	@Override
-	public void trackContactUs() {
-		ExecutorUtils.execute(new TrackerRunnable() {
-			
-			@Override
-			protected void track(T tracker) {
-				tracker.trackContactUs();
-			}
-		});
-	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackAboutLibraryOpen(java.lang.String)
-	 */
-	@Override
-	public void trackAboutLibraryOpen(final String libraryKey) {
-		ExecutorUtils.execute(new TrackerRunnable() {
-			
-			@Override
-			protected void track(T tracker) {
-				tracker.trackAboutLibraryOpen(libraryKey);
-			}
-		});
-	}
-	
 }

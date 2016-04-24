@@ -21,6 +21,8 @@ import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.facebook.FacebookAppModule;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.google.admob.AdMobAppModule;
+import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
+import com.jdroid.android.google.analytics.GoogleAnalyticsTracker;
 import com.jdroid.android.google.gcm.AbstractGcmAppModule;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sample.R;
@@ -64,6 +66,11 @@ public class AndroidApplication extends AbstractApplication {
 		ExperimentHelper.registerExperiments(AndroidExperiment.SAMPLE_EXPERIMENT);
 
 		Firebase.setAndroidContext(this);
+
+		GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleAnalyticsTracker.CustomDimension.INSTALLATION_SOURCE.name(), 1);
+		GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleAnalyticsTracker.CustomDimension.DEVICE_TYPE.name(), 2);
+		GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleAnalyticsTracker.CustomDimension.APP_LOADING_SOURCE.name(), 3);
+		GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleAnalyticsTracker.CustomDimension.DEVICE_YEAR_CLASS.name(), 4);
 	}
 
 	@Override
@@ -107,7 +114,7 @@ public class AndroidApplication extends AbstractApplication {
 	}
 
 	@Override
-	public AnalyticsTracker createGoogleAnalyticsTracker() {
+	protected AnalyticsTracker createGoogleAnalyticsTracker() {
 		return new AndroidGoogleAnalyticsTracker();
 	}
 

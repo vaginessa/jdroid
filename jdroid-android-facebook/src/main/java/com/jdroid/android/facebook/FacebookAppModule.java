@@ -15,6 +15,7 @@ public class FacebookAppModule extends AbstractAppModule {
 
 	@Override
 	public void onCreate() {
+		super.onCreate();
 		FacebookSdk.sdkInitialize(AbstractApplication.get().getApplicationContext());
 		if (analyticsEnabled()) {
 			AppEventsLogger.activateApp(AbstractApplication.get());
