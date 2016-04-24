@@ -149,11 +149,6 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	}
 
 	@Override
-	public void trackRemoveAdsBannerClicked() {
-		// Do Nothing
-	}
-	
-	@Override
 	public void trackUseCaseTiming(Class<? extends  AbstractUseCase> useCaseClass, long executionTime) {
 		// Do Nothing
 	}

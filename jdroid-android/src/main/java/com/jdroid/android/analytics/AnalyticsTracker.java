@@ -63,8 +63,6 @@ public interface AnalyticsTracker extends BaseAnalyticsTracker {
 
 	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget);
 
-	public void trackRemoveAdsBannerClicked();
-	
 	public void trackUseCaseTiming(Class<? extends AbstractUseCase> useCaseClass, long executionTime);
 
 	public void trackServiceTiming(String trackingVariable, String trackingLabel, long executionTime);

@@ -31,9 +31,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	
 	public static final String NOTIFICATION_CATEGORY = "notification";
 	private static final String FEEDBACK_CATEGORY = "feedback";
-	private static final String ADS_CATEGORY = "ads";
-	private static final String CLICK_ACTION = "click";
-	
+
 	public static final String SOCIAL = "social";
 	
 	private Boolean firstTrackingSent = false;
@@ -173,11 +171,6 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		googleAnalyticsHelper.trackTiming("Service", trackingVariable, trackingLabel, executionTime);
 	}
 
-	@Override
-	public void trackRemoveAdsBannerClicked() {
-		googleAnalyticsHelper.sendEvent(ADS_CATEGORY, CLICK_ACTION, "removeAds");
-	}
-	
 	@Override
 	public void trackUriOpened(String uriType, String screenName) {
 		googleAnalyticsHelper.sendEvent(uriType, "open", screenName);

@@ -33,9 +33,6 @@ public class RemoveAdsView extends RelativeLayout {
 		((ImageView)view.findViewById(R.id.icon)).setImageResource(AbstractApplication.get().getLauncherIconResId());
 	}
 	
-	/**
-	 * @see android.view.View#setOnClickListener(android.view.View.OnClickListener)
-	 */
 	@Override
 	public void setOnClickListener(final OnClickListener removeAdsClickListener) {
 		super.setOnClickListener(new OnClickListener() {
@@ -43,7 +40,7 @@ public class RemoveAdsView extends RelativeLayout {
 			@Override
 			public void onClick(View v) {
 				removeAdsClickListener.onClick(v);
-				AbstractApplication.get().getAnalyticsSender().trackRemoveAdsBannerClicked();
+				AdMobAppModule.get().getAnalyticsSender().trackRemoveAdsBannerClicked();
 			}
 		});
 	}

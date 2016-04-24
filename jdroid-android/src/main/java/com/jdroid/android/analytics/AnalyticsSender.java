@@ -297,17 +297,6 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 	}
 
 	@Override
-	public void trackRemoveAdsBannerClicked() {
-		ExecutorUtils.execute(new TrackerRunnable() {
-			
-			@Override
-			protected void track(T tracker) {
-				tracker.trackRemoveAdsBannerClicked();
-			}
-		});
-	}
-
-	@Override
 	public void trackUseCaseTiming(final Class<? extends AbstractUseCase> useCaseClass, final long executionTime) {
 		ExecutorUtils.execute(new TrackerRunnable() {
 
