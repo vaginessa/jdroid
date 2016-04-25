@@ -36,14 +36,6 @@
 	<string name="navDrawerManuallyUsedTitle" tools:ignore="MissingTranslation">Nav drawer manually used</string>
 	<string name="navDrawerManuallyUsedDescription" tools:ignore="MissingTranslation">Whether the user actively expanded or closed the navigation drawer manually</string>
 
-	<!-- In App Billing -->
-	<string name="inAppBillingSettings" tools:ignore="MissingTranslation">In App Billing</string>
-	<string name="inAppBillingMockEnabledTitle" tools:ignore="MissingTranslation">In App Billing Mocks</string>
-	<string name="inAppBillingMockEnabledDescription" tools:ignore="MissingTranslation">Enable/disable In App Billing mocks</string>
-	<string name="inAppBillingTestProductIdsTitle" tools:ignore="MissingTranslation">Test Product Id</string>
-	<string name="inAppBillingTestProductIdsDescription" tools:ignore="MissingTranslation">Pick the Test Product Id</string>
-	<string name="inAppBillingPurchasedProductTypeTitle" tools:ignore="MissingTranslation">Purchased products ids</string>
-
 	<!-- Experiments -->
 	<string name="experimentsSettings" tools:ignore="MissingTranslation">Experiments</string>
 	<string name="experimentTitle" tools:ignore="MissingTranslation">Experiment id: %1$s</string>

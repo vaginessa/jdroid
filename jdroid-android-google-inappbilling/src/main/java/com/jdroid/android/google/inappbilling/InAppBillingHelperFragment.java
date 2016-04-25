@@ -36,8 +36,8 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 	public static void add(FragmentActivity activity,
 			Class<? extends InAppBillingHelperFragment> inAppBillingHelperFragmentClass, Boolean silentMode,
 			Fragment targetFragment) {
-		add(activity, inAppBillingHelperFragmentClass, AbstractApplication.get().getInAppBillingContext().getManagedProductTypes(),
-				AbstractApplication.get().getInAppBillingContext().getSubscriptionsProductTypes(), silentMode, targetFragment);
+		add(activity, inAppBillingHelperFragmentClass, InAppBillingAppModule.get().getInAppBillingContext().getManagedProductTypes(),
+				InAppBillingAppModule.get().getInAppBillingContext().getSubscriptionsProductTypes(), silentMode, targetFragment);
 	}
 	
 	public static void add(FragmentActivity activity,
@@ -125,7 +125,7 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 	
 	public void launchPurchaseFlow(Product product) {
 		inAppBillingClient.launchInAppPurchaseFlow(getActivity(), product.getId(), product.getDeveloperPayload());
-		AbstractApplication.get().getAnalyticsSender().trackInAppBillingPurchaseTry(product);
+		InAppBillingAppModule.get().getAnalyticsSender().trackInAppBillingPurchaseTry(product);
 	}
 	
 	@Override

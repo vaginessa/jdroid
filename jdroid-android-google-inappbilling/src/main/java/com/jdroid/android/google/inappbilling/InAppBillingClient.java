@@ -118,7 +118,7 @@ public class InAppBillingClient {
 	 */
 	public InAppBillingClient(Context ctx) {
 		context = ctx.getApplicationContext();
-		signatureBase64 = AbstractApplication.get().getInAppBillingContext().getGooglePlayPublicKey();
+		signatureBase64 = InAppBillingAppModule.get().getInAppBillingContext().getGooglePlayPublicKey();
 		LOGGER.debug("InAppBillingClient created.");
 	}
 	
@@ -232,7 +232,7 @@ public class InAppBillingClient {
 						Inventory inventory = null;
 						try {
 							inventory = queryInventoryInner(managedProductTypes, subscriptionsProductTypes);
-							AbstractApplication.get().getInAppBillingContext().setPurchasedProductTypes(inventory);
+							InAppBillingAppModule.get().getInAppBillingContext().setPurchasedProductTypes(inventory);
 						} catch (ErrorCodeException e) {
 							errorCodeException = e;
 						}
@@ -387,7 +387,7 @@ public class InAppBillingClient {
 					for (ProductType each : productTypes) {
 						SkuDetails skuDetails = map.get(each.getProductId());
 						if (skuDetails != null) {
-							InAppBillingContext inAppBillingContext = AbstractApplication.get().getInAppBillingContext();
+							InAppBillingContext inAppBillingContext = InAppBillingAppModule.get().getInAppBillingContext();
 							ProductType productType = inAppBillingContext.isInAppBillingMockEnabled() ? inAppBillingContext.getTestProductType()
 									: each;
 							
@@ -545,8 +545,8 @@ public class InAppBillingClient {
 				try {
 					product.setPurchase(signatureBase64, purchaseData, signature);
 					LOGGER.debug("Purchase signature successfully verified.");
-					AbstractApplication.get().getInAppBillingContext().addPurchasedProductType(product.getProductType());
-					AbstractApplication.get().getAnalyticsSender().trackInAppBillingPurchase(product);
+					InAppBillingAppModule.get().getInAppBillingContext().addPurchasedProductType(product.getProductType());
+					InAppBillingAppModule.get().getAnalyticsSender().trackInAppBillingPurchase(product);
 					if (listener != null) {
 						listener.onPurchaseFinished(product);
 					}

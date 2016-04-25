@@ -2,7 +2,6 @@ package com.jdroid.android.analytics;
 
 import android.app.Activity;
 
-import com.jdroid.android.google.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.usecase.AbstractUseCase;
@@ -191,38 +190,6 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 		});
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackInAppBillingPurchaseTry(com.jdroid.android.google.inappbilling.Product)
-	 */
-	@Override
-	public void trackInAppBillingPurchaseTry(final Product product) {
-		ExecutorUtils.execute(new TrackerRunnable() {
-			
-			@Override
-			protected void track(T tracker) {
-				tracker.trackInAppBillingPurchaseTry(product);
-			}
-		});
-	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackInAppBillingPurchase(com.jdroid.android.google.inappbilling.Product)
-	 */
-	@Override
-	public void trackInAppBillingPurchase(final Product product) {
-		ExecutorUtils.execute(new TrackerRunnable() {
-			
-			@Override
-			protected void track(T tracker) {
-				tracker.trackInAppBillingPurchase(product);
-			}
-		});
-	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackSocialInteraction(com.jdroid.android.social.AccountType,
-	 *      com.jdroid.android.social.SocialAction, java.lang.String)
-	 */
 	@Override
 	public void trackSocialInteraction(final AccountType accountType, final SocialAction socialAction,
 			final String socialTarget) {

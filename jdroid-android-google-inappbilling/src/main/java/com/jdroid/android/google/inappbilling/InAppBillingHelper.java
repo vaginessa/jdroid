@@ -11,7 +11,7 @@ public class InAppBillingHelper {
 
 	public static void onCreate(FragmentActivity activity, Bundle savedInstanceState) {
 
-		if ((savedInstanceState == null) && AbstractApplication.get().getInAppBillingContext() != null && !inAppBillingLoaded) {
+		if ((savedInstanceState == null) && InAppBillingAppModule.get().getInAppBillingContext() != null && !inAppBillingLoaded) {
 			InAppBillingHelperFragment.add(activity, InAppBillingHelperFragment.class, true, null);
 			inAppBillingLoaded = true;
 		}

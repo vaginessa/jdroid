@@ -2,7 +2,6 @@ package com.jdroid.android.analytics;
 
 import android.app.Activity;
 
-import com.jdroid.android.google.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.usecase.AbstractUseCase;
@@ -92,26 +91,6 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 		// Do Nothing
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackInAppBillingPurchaseTry(com.jdroid.android.google.inappbilling.Product)
-	 */
-	@Override
-	public void trackInAppBillingPurchaseTry(Product product) {
-		// Do Nothing
-	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackInAppBillingPurchase(com.jdroid.android.google.inappbilling.Product)
-	 */
-	@Override
-	public void trackInAppBillingPurchase(Product product) {
-		// Do Nothing
-	}
-	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackSocialInteraction(com.jdroid.android.social.AccountType,
-	 *      com.jdroid.android.social.SocialAction, java.lang.String)
-	 */
 	@Override
 	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget) {
 		// Do Nothing

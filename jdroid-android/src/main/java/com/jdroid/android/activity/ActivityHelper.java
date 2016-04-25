@@ -28,7 +28,6 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.UsageStats;
 import com.jdroid.android.google.GooglePlayServicesUtils;
-import com.jdroid.android.google.inappbilling.InAppBillingHelper;
 import com.jdroid.android.loading.ActivityLoading;
 import com.jdroid.android.loading.DefaultBlockingLoading;
 import com.jdroid.android.location.LocationHelper;
@@ -144,8 +143,6 @@ public class ActivityHelper implements ActivityIf {
 		if (uriHandler != null) {
 			AbstractApplication.get().getUriMapper().handleUri(activity, savedInstanceState, uriHandler);
 		}
-
-		InAppBillingHelper.onCreate(activity, savedInstanceState);
 
 		if (getActivityIf().onBeforeSetContentView()) {
 			if (getContentView() != 0) {

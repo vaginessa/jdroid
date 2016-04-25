@@ -2,7 +2,6 @@ package com.jdroid.android.analytics;
 
 import android.app.Activity;
 
-import com.jdroid.android.google.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.usecase.AbstractUseCase;
@@ -36,12 +35,6 @@ public interface AnalyticsTracker extends BaseAnalyticsTracker {
 	public void onActivityDestroy(Activity activity);
 	
 	public void onFragmentStart(String screenViewName);
-
-	// In App Billing
-
-	public void trackInAppBillingPurchaseTry(Product product);
-
-	public void trackInAppBillingPurchase(Product product);
 
 	// Notifications
 

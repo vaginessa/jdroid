@@ -1,4 +1,4 @@
-package com.jdroid.android.debug;
+package com.jdroid.android.google.inappbilling;
 
 import android.app.Activity;
 import android.preference.CheckBoxPreference;
@@ -6,20 +6,13 @@ import android.preference.ListPreference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
-import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.R;
-import com.jdroid.android.google.inappbilling.InAppBillingContext;
-import com.jdroid.android.google.inappbilling.ProductType;
-import com.jdroid.android.google.inappbilling.TestProductType;
+import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
 
 public class InAppBillingDebugPrefsAppender implements PreferencesAppender {
 	
-	/**
-	 * @see PreferencesAppender#initPreferences(Activity, PreferenceGroup)
-	 */
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		
@@ -47,14 +40,14 @@ public class InAppBillingDebugPrefsAppender implements PreferencesAppender {
 		preferenceCategory.addPreference(preference);
 		
 		// Purchased products
-		List<ProductType> purchasedProductTypes = AbstractApplication.get().getInAppBillingContext().getPurchasedProductTypes();
+		List<ProductType> purchasedProductTypes = InAppBillingAppModule.get().getInAppBillingContext().getPurchasedProductTypes();
 		if (!purchasedProductTypes.isEmpty()) {
 			preference = new ListPreference(activity);
 			preference.setTitle(R.string.inAppBillingPurchasedProductTypeTitle);
 			preference.setDialogTitle(R.string.inAppBillingPurchasedProductTypeTitle);
 			preference.setSummary(R.string.inAppBillingPurchasedProductTypeTitle);
 			entries = Lists.newArrayList();
-			for (ProductType each : AbstractApplication.get().getInAppBillingContext().getPurchasedProductTypes()) {
+			for (ProductType each : InAppBillingAppModule.get().getInAppBillingContext().getPurchasedProductTypes()) {
 				entries.add(each.getProductId());
 			}
 			preference.setEntries(entries.toArray(new CharSequence[0]));
@@ -63,12 +56,9 @@ public class InAppBillingDebugPrefsAppender implements PreferencesAppender {
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.android.debug.PreferencesAppender#isEnabled()
-	 */
 	@Override
 	public Boolean isEnabled() {
-		return !AbstractApplication.get().getInAppBillingContext().getManagedProductTypes().isEmpty()
-				|| !AbstractApplication.get().getInAppBillingContext().getSubscriptionsProductTypes().isEmpty();
+		return !InAppBillingAppModule.get().getInAppBillingContext().getManagedProductTypes().isEmpty()
+				|| !InAppBillingAppModule.get().getInAppBillingContext().getSubscriptionsProductTypes().isEmpty();
 	}
 }

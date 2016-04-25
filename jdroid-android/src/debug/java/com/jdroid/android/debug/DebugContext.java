@@ -73,10 +73,6 @@ public class DebugContext {
 		return Maps.newHashMap();
 	}
 	
-	public InAppBillingDebugPrefsAppender createInAppBillingDebugPrefsAppender() {
-		return new InAppBillingDebugPrefsAppender();
-	}
-	
 	public ExceptionHandlingDebugPrefsAppender createExceptionHandlingDebugPrefsAppender() {
 		return new ExceptionHandlingDebugPrefsAppender();
 	}

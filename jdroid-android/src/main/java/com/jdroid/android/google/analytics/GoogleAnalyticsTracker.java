@@ -12,7 +12,6 @@ import com.jdroid.android.analytics.ExperimentHelper;
 import com.jdroid.android.analytics.ExperimentHelper.Experiment;
 import com.jdroid.android.analytics.ExperimentHelper.ExperimentVariant;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.google.inappbilling.Product;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.usecase.AbstractUseCase;
@@ -109,31 +108,6 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 			AppViewBuilder appViewBuilder = new HitBuilders.AppViewBuilder();
 			googleAnalyticsHelper.sendScreenView(appViewBuilder, screenViewName);
 		}
-	}
-	
-	@Override
-	public void trackInAppBillingPurchaseTry(Product product) {
-		googleAnalyticsHelper.sendEvent("inAppBilling", "purchaseTry", product.getProductType().getProductId());
-	}
-	
-	@Override
-	public void trackInAppBillingPurchase(Product product) {
-		HitBuilders.TransactionBuilder transactionBuilder = new HitBuilders.TransactionBuilder();
-		transactionBuilder.setTransactionId(product.getPurchase().getOrderId());
-		transactionBuilder.setAffiliation("Google Play");
-		transactionBuilder.setRevenue(product.getPrice());
-		transactionBuilder.setCurrencyCode(product.getCurrencyCode());
-		googleAnalyticsHelper.sendTransaction(transactionBuilder);
-		
-		HitBuilders.ItemBuilder itemBuilder = new HitBuilders.ItemBuilder();
-		itemBuilder.setTransactionId(product.getPurchase().getOrderId());
-		itemBuilder.setName(product.getProductType().getProductId());
-		itemBuilder.setCategory(product.getProductType().isConsumable() ? "consumable" : "notConsumable");
-		itemBuilder.setSku(product.getProductType().getProductId());
-		itemBuilder.setQuantity(1);
-		itemBuilder.setPrice(product.getPrice());
-		itemBuilder.setCurrencyCode(product.getCurrencyCode());
-		googleAnalyticsHelper.sendTransactionItem(itemBuilder);
 	}
 	
 	@Override

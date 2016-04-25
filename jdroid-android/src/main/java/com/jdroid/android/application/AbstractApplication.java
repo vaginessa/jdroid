@@ -22,7 +22,6 @@ import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsTracker;
-import com.jdroid.android.google.inappbilling.InAppBillingContext;
 import com.jdroid.android.http.cache.CacheManager;
 import com.jdroid.android.images.loader.ImageLoaderHelper;
 import com.jdroid.android.images.loader.uil.UilImageLoaderHelper;
@@ -70,7 +69,6 @@ public abstract class AbstractApplication extends Application {
 	private AppContext appContext;
 	private GitContext gitContext;
 	private DebugContext debugContext;
-	private InAppBillingContext inAppBillingContext;
 
 	private AnalyticsSender<? extends AnalyticsTracker> analyticsSender;
 	private UriMapper uriMapper;
@@ -447,27 +445,6 @@ public abstract class AbstractApplication extends Application {
 		return (Repository<M>)repositories.get(persistentClass);
 	}
 
-	public Boolean isInAppBillingEnabled() {
-		return false;
-	}
-
-	public InAppBillingContext getInAppBillingContext() {
-		if (isInAppBillingEnabled()) {
-			synchronized (AbstractApplication.class) {
-				if (inAppBillingContext == null) {
-					inAppBillingContext = createInAppBillingContext();
-				}
-			}
-			return inAppBillingContext;
-		} else {
-			return null;
-		}
-	}
-
-	protected InAppBillingContext createInAppBillingContext() {
-		return new InAppBillingContext();
-	}
-	
 	public AppLaunchStatus getAppLaunchStatus() {
 		return appLaunchStatus;
 	}
