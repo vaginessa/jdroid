@@ -161,11 +161,11 @@ subprojects {
 }
 
 def getRepositoryUsername() {
-	return getProp('NEXUS_USERNAME')
+	return getProp('JDROID_NEXUS_USERNAME')
 }
 
 def getRepositoryPassword() {
-	getProp('NEXUS_PASSWORD')
+	getProp('JDROID_NEXUS_PASSWORD')
 }
 
 public def getProp(String propertyName) {
