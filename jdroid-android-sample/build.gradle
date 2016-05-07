@@ -210,19 +210,6 @@ android {
 		javaMaxHeapSize "3g"
 	}
 
-	signingConfigs {
-
-		debug {
-			storeFile file('./debug.keystore')
-		}
-
-		release {
-			storeFile file(jdroid.getProp('STORE_FILE', './debug.keystore'))
-			storePassword jdroid.getProp('STORE_PASSWORD')
-			keyAlias jdroid.getProp('KEY_ALIAS')
-			keyPassword jdroid.getProp('KEY_PASSWORD')
-		}
-	}
 
 	buildTypes {
 
