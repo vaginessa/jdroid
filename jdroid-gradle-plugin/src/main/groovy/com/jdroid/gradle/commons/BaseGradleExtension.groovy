@@ -20,7 +20,18 @@ public class BaseGradleExtension {
 		versionMajor = getProp('VERSION_MAJOR', 1)
 		versionMinor = getProp('VERSION_MINOR', 0)
 		versionPatch = getProp('VERSION_PATCH', 0)
-		versionClassifier = getProp('VERSION_CLASSIFIER', "")
+		versionClassifier = getProp('VERSION_CLASSIFIER', null)
+		if (versionClassifier == null) {
+			versionClassifier = getBooleanProp('SNAPSHOT', true) ? "SNAPSHOT" : null
+		}
+	}
+
+	public String generateVersionName() {
+		String versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
+		if (versionClassifier != null && !versionClassifier.isEmpty()) {
+			versionName = versionName + "-" + versionClassifier
+		}
+		return versionName;
 	}
 
 	public String getGitSha() {
@@ -75,11 +86,12 @@ public class BaseGradleExtension {
 		}
 	}
 
-	public String generateVersionName() {
-		String versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
-		if (versionClassifier != null && !versionClassifier.isEmpty()) {
-			versionName = versionName + "-" + versionClassifier
+	public Long getLongProp(String propertyName, Long defaultValue) {
+		def value = getProp(propertyName)
+		if (value == null) {
+			return defaultValue
+		} else {
+			return Long.parseLong(value);
 		}
-		return versionName;
 	}
 }
