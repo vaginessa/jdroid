@@ -205,11 +205,6 @@ android {
 		multiDexEnabled true
 	}
 
-	dexOptions {
-		incremental true
-		javaMaxHeapSize "3g"
-	}
-
 
 	buildTypes {
 

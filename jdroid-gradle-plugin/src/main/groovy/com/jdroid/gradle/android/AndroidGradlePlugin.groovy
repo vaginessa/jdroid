@@ -44,6 +44,15 @@ public abstract class AndroidGradlePlugin extends BaseGradlePlugin {
 			targetCompatibility JavaVersion.VERSION_1_7
 		}
 
+		// https://google.github.io/android-gradle-dsl/current/com.android.build.gradle.internal.dsl.DexOptions.html
+		android.dexOptions {
+			incremental jdroid.getBooleanProp('INCREMENTAL_DEX_ENABLED', true)
+			javaMaxHeapSize jdroid.getProp('JAVA_MAX_HEAP_SIZE', "3g")
+			maxProcessCount jdroid.getIntegerProp('MAX_PROCESS_COUNT', 1)
+			preDexLibraries jdroid.getBooleanProp('PRE_DEX_LIBRARIES', true)
+			dexInProcess jdroid.getBooleanProp('DEX_IN_PROCESS', false)
+		}
+
 		android.lintOptions {
 			checkReleaseBuilds false
 			// Or, if you prefer, you can continue to check for errors in release builds,
