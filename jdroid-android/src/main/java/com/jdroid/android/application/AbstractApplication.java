@@ -139,8 +139,6 @@ public abstract class AbstractApplication extends Application {
 		initExceptionHandlers();
 		LoggerUtils.setExceptionLogger(getExceptionHandler());
 
-
-
 		// This is required to initialize the statics fields of the utils classes.
 		ToastUtils.init();
 		DateUtils.init();

@@ -4,9 +4,6 @@ import com.jdroid.android.application.AbstractApplication;
 
 public abstract class SafeRunnable implements Runnable {
 	
-	/**
-	 * @see java.lang.Runnable#run()
-	 */
 	@Override
 	public final void run() {
 		try {

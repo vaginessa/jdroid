@@ -11,9 +11,9 @@ import android.preference.PreferenceManager;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
-import com.jdroid.android.analytics.ExperimentHelper;
-import com.jdroid.android.analytics.ExperimentHelper.Experiment;
-import com.jdroid.android.analytics.ExperimentHelper.ExperimentVariant;
+import com.jdroid.android.experiments.ExperimentHelper;
+import com.jdroid.android.experiments.ExperimentHelper.Experiment;
+import com.jdroid.android.experiments.ExperimentHelper.ExperimentVariant;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;

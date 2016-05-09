@@ -9,25 +9,16 @@ import android.view.animation.Animation.AnimationListener;
  */
 public class DefaultAnimationListener implements AnimationListener {
 	
-	/**
-	 * @see android.view.animation.Animation.AnimationListener#onAnimationStart(android.view.animation.Animation)
-	 */
 	@Override
 	public void onAnimationStart(Animation animation) {
 		// nothing by default
 	}
 	
-	/**
-	 * @see android.view.animation.Animation.AnimationListener#onAnimationEnd(android.view.animation.Animation)
-	 */
 	@Override
 	public void onAnimationEnd(Animation animation) {
 		// nothing by default
 	}
 	
-	/**
-	 * @see android.view.animation.Animation.AnimationListener#onAnimationRepeat(android.view.animation.Animation)
-	 */
 	@Override
 	public void onAnimationRepeat(Animation animation) {
 		// nothing by default

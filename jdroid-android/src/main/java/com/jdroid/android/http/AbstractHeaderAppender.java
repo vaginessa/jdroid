@@ -28,9 +28,6 @@ public class AbstractHeaderAppender implements HttpServiceProcessor {
 		// Do Nothing
 	}
 
-	/**
-	 * @see HttpServiceProcessor#beforeExecute(HttpService)
-	 */
 	@Override
 	public void beforeExecute(HttpService httpService) {
 		
@@ -65,11 +62,6 @@ public class AbstractHeaderAppender implements HttpServiceProcessor {
 		}
 	}
 
-
-	/**
-	 * @see HttpServiceProcessor#afterExecute(HttpService,
-	 *      com.jdroid.java.http.HttpResponseWrapper)
-	 */
 	@Override
 	public void afterExecute(HttpService httpService, HttpResponseWrapper httpResponse) {
 		// Do Nothing

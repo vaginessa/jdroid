@@ -12,7 +12,7 @@ import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
-import com.jdroid.android.analytics.ExperimentHelper;
+import com.jdroid.android.experiments.ExperimentHelper;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.AppContext;

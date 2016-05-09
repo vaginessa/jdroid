@@ -1,6 +1,5 @@
 package com.jdroid.android.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -72,10 +71,4 @@ public interface ActivityIf extends ComponentIf {
 	public UriHandler getUriHandler();
 
 	public Boolean isGooglePlayServicesVerificationEnabled();
-
-	/**
-	 * @return Whether this {@link Activity} requires authentication or not
-	 */
-	public Boolean requiresAuthentication();
-	
 }

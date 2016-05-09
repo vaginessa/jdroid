@@ -1,4 +1,4 @@
-package com.jdroid.android.analytics;
+package com.jdroid.android.experiments;
 
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;

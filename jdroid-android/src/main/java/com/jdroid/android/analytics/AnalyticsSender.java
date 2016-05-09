@@ -31,9 +31,6 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 		super(trackers);
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onInitExceptionHandler(java.util.Map)
-	 */
 	@Override
 	public void onInitExceptionHandler(Map<String, String> metadata) {
 		try {
@@ -58,10 +55,6 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 		});
 	}
 
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStart(java.lang.Class,
-	 *      com.jdroid.android.analytics.AppLoadingSource, java.lang.Object)
-	 */
 	@Override
 	public void onActivityStart(final Class<? extends Activity> activityClass, final AppLoadingSource appLoadingSource,
 			final Object data) {
@@ -74,9 +67,6 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 		});
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityResume(android.app.Activity)
-	 */
 	@Override
 	public void onActivityResume(final Activity activity) {
 		ExecutorUtils.execute(new TrackerRunnable() {
@@ -88,9 +78,6 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 		});
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityPause(android.app.Activity)
-	 */
 	@Override
 	public void onActivityPause(final Activity activity) {
 		ExecutorUtils.execute(new TrackerRunnable() {
@@ -102,9 +89,6 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 		});
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStop(android.app.Activity)
-	 */
 	@Override
 	public void onActivityStop(final Activity activity) {
 		ExecutorUtils.execute(new TrackerRunnable() {
@@ -116,9 +100,6 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 		});
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityDestroy(android.app.Activity)
-	 */
 	@Override
 	public void onActivityDestroy(final Activity activity) {
 		ExecutorUtils.execute(new TrackerRunnable() {
@@ -130,9 +111,6 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 		});
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onFragmentStart(java.lang.String)
-	 */
 	@Override
 	public void onFragmentStart(final String screenViewName) {
 		ExecutorUtils.execute(new TrackerRunnable() {
@@ -176,9 +154,6 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 		});
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackUriOpened(java.lang.String, java.lang.String)
-	 */
 	@Override
 	public void trackUriOpened(final String uriType, final String screenName) {
 		ExecutorUtils.execute(new TrackerRunnable() {
@@ -202,9 +177,6 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 		});
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackNotificationDisplayed(java.lang.String)
-	 */
 	@Override
 	public void trackNotificationDisplayed(final String notificationName) {
 		ExecutorUtils.execute(new TrackerRunnable() {
@@ -216,9 +188,6 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 		});
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackNotificationOpened(java.lang.String)
-	 */
 	@Override
 	public void trackNotificationOpened(final String notificationName) {
 		ExecutorUtils.execute(new TrackerRunnable() {

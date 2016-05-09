@@ -1,7 +1,7 @@
 package com.jdroid.android.sample.experiment;
 
-import com.jdroid.android.analytics.ExperimentHelper;
-import com.jdroid.android.analytics.SimpleExperimentVariant;
+import com.jdroid.android.experiments.ExperimentHelper;
+import com.jdroid.android.experiments.SimpleExperimentVariant;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;

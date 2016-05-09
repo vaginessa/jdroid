@@ -1,7 +1,8 @@
 package com.jdroid.android.domain;
 
-import java.io.Serializable;
 import android.location.Location;
+
+import java.io.Serializable;
 
 public class GeoLocation implements Serializable {
 	
@@ -44,9 +45,6 @@ public class GeoLocation implements Serializable {
 		return (latitude != null) && (longitude != null);
 	}
 	
-	/**
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return Double.toString(getLatitude()) + "," + Double.toString(getLongitude());

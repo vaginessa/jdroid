@@ -11,9 +11,6 @@ import java.util.Map;
 
 public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onInitExceptionHandler(java.util.Map)
-	 */
 	@Override
 	public void onInitExceptionHandler(Map<String, String> metadata) {
 		// Do Nothing
@@ -24,50 +21,31 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 		// Do Nothing
 	}
 
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStart(java.lang.Class,
-	 *      com.jdroid.android.analytics.AppLoadingSource, java.lang.Object)
-	 */
 	@Override
 	public void onActivityStart(Class<? extends Activity> activityClass, AppLoadingSource appLoadingSource, Object data) {
 		// Do Nothing
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityResume(android.app.Activity)
-	 */
 	@Override
 	public void onActivityResume(Activity activity) {
 		// Do Nothing
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityPause(android.app.Activity)
-	 */
 	@Override
 	public void onActivityPause(Activity activity) {
 		// Do Nothing
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityStop(android.app.Activity)
-	 */
 	@Override
 	public void onActivityStop(Activity activity) {
 		// Do Nothing
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onActivityDestroy(android.app.Activity)
-	 */
 	@Override
 	public void onActivityDestroy(Activity activity) {
 		// Do Nothing
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#onFragmentStart(java.lang.String)
-	 */
 	@Override
 	public void onFragmentStart(String screenViewName) {
 		// Do Nothing
@@ -83,9 +61,6 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 		// Do Nothing
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackUriOpened(java.lang.String, java.lang.String)
-	 */
 	@Override
 	public void trackUriOpened(String uriType, String screenName) {
 		// Do Nothing
@@ -96,17 +71,11 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 		// Do Nothing
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackNotificationDisplayed(java.lang.String)
-	 */
 	@Override
 	public void trackNotificationDisplayed(String notificationName) {
 		// Do Nothing
 	}
 	
-	/**
-	 * @see com.jdroid.android.analytics.AnalyticsTracker#trackNotificationOpened(java.lang.String)
-	 */
 	@Override
 	public void trackNotificationOpened(String notificationName) {
 		// Do Nothing

@@ -31,9 +31,6 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 		return fragmentHelper.shouldRetainInstance();
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,45 +53,30 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 		return fragmentHelper.getContentFragmentLayout();
 	}
 
-	/**
-	 * @see android.support.v4.app.Fragment#onViewCreated(android.view.View, android.os.Bundle)
-	 */
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		fragmentHelper.onViewCreated(view, savedInstanceState);
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
-	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		fragmentHelper.onActivityCreated(savedInstanceState);
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onStart()
-	 */
 	@Override
 	public void onStart() {
 		super.onStart();
 		fragmentHelper.onStart();
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onResume()
-	 */
 	@Override
 	public void onResume() {
 		super.onResume();
 		fragmentHelper.onResume();
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onPause()
-	 */
 	@Override
 	public void onPause() {
 		fragmentHelper.onBeforePause();
@@ -102,27 +84,18 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 		fragmentHelper.onPause();
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onStop()
-	 */
 	@Override
 	public void onStop() {
 		super.onStop();
 		fragmentHelper.onStop();
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onDestroyView()
-	 */
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
 		fragmentHelper.onDestroyView();
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onDestroy()
-	 */
 	@Override
 	public void onDestroy() {
 		fragmentHelper.onBeforeDestroy();
@@ -130,49 +103,31 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 		fragmentHelper.onDestroy();
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#findView(int)
-	 */
 	@Override
 	public <V extends View> V findView(int id) {
 		return fragmentHelper.findView(id);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#findViewOnActivity(int)
-	 */
 	@Override
 	public <V extends View> V findViewOnActivity(int id) {
 		return fragmentHelper.findViewOnActivity(id);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#inflate(int)
-	 */
 	@Override
 	public View inflate(int resource) {
 		return fragmentHelper.inflate(resource);
 	}
 	
-	/**
-	 * @see UseCaseListener#onStartUseCase()
-	 */
 	@Override
 	public void onStartUseCase() {
 		fragmentHelper.onStartUseCase();
 	}
 	
-	/**
-	 * @see UseCaseListener#onUpdateUseCase()
-	 */
 	@Override
 	public void onUpdateUseCase() {
 		fragmentHelper.onUpdateUseCase();
 	}
 	
-	/**
-	 * @see UseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
-	 */
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		fragmentHelper.onFinishFailedUseCase(abstractException);
@@ -183,41 +138,26 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 		return fragmentHelper.createErrorDisplayer(abstractException);
 	}
 	
-	/**
-	 * @see UseCaseListener#onFinishUseCase()
-	 */
 	@Override
 	public void onFinishUseCase() {
 		fragmentHelper.onFinishUseCase();
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeOnUIThread(java.lang.Runnable)
-	 */
 	@Override
 	public void executeOnUIThread(Runnable runnable) {
 		fragmentHelper.executeOnUIThread(runnable);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getExtra(java.lang.String)
-	 */
 	@Override
 	public <E> E getExtra(String key) {
 		return fragmentHelper.<E>getExtra(key);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getArgument(java.lang.String)
-	 */
 	@Override
 	public <E> E getArgument(String key) {
 		return fragmentHelper.<E>getArgument(key);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getArgument(java.lang.String, java.lang.Object)
-	 */
 	@Override
 	public <E> E getArgument(String key, E defaultValue) {
 		return fragmentHelper.<E>getArgument(key, defaultValue);
@@ -290,33 +230,21 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	
 	// //////////////////////// Loading //////////////////////// //
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
-	 */
 	@Override
 	public void showLoading() {
 		fragmentHelper.showLoading();
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissLoading()
-	 */
 	@Override
 	public void dismissLoading() {
 		fragmentHelper.dismissLoading();
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getDefaultLoading()
-	 */
 	@Override
 	public FragmentLoading getDefaultLoading() {
 		return fragmentHelper.getDefaultLoading();
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#setLoading(com.jdroid.android.loading.FragmentLoading)
-	 */
 	@Override
 	public void setLoading(FragmentLoading loading) {
 		fragmentHelper.setLoading(loading);

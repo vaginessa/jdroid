@@ -1,4 +1,4 @@
-package com.jdroid.android.analytics;
+package com.jdroid.android.experiments;
 
 public enum SimpleExperimentVariant implements ExperimentHelper.ExperimentVariant {
 

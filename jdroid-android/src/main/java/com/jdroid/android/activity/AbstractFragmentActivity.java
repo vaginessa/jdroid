@@ -34,17 +34,11 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 		return activityHelper.onBeforeSetContentView();
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#onAfterSetContentView(android.os.Bundle)
-	 */
 	@Override
 	public void onAfterSetContentView(Bundle savedInstanceState) {
 		activityHelper.onAfterSetContentView(savedInstanceState);
 	}
 	
-	/**
-	 * @see android.app.Activity#onCreate(android.os.Bundle)
-	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		activityHelper = AbstractApplication.get().createActivityHelper(this);
@@ -53,9 +47,6 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 		activityHelper.onCreate(savedInstanceState);
 	}
 	
-	/**
-	 * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)
-	 */
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
@@ -68,27 +59,18 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 		activityHelper.onRestoreInstanceState(savedInstanceState);
 	}
 	
-	/**
-	 * @see android.app.Activity#onStart()
-	 */
 	@Override
 	protected void onStart() {
 		super.onStart();
 		activityHelper.onStart();
 	}
 	
-	/**
-	 * @see android.app.Activity#onResume()
-	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
 		activityHelper.onResume();
 	}
 	
-	/**
-	 * @see android.app.Activity#onPause()
-	 */
 	@Override
 	protected void onPause() {
 		activityHelper.onBeforePause();
@@ -96,18 +78,12 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 		activityHelper.onPause();
 	}
 	
-	/**
-	 * @see android.app.Activity#onStop()
-	 */
 	@Override
 	protected void onStop() {
 		super.onStop();
 		activityHelper.onStop();
 	}
 	
-	/**
-	 * @see android.app.Activity#onDestroy()
-	 */
 	@Override
 	protected void onDestroy() {
 		activityHelper.onBeforeDestroy();
@@ -115,26 +91,17 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 		activityHelper.onDestroy();
 	}
 	
-	/**
-	 * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
-	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		activityHelper.onActivityResult(requestCode, resultCode, data);
 	}
 	
-	/**
-	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
-	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		return activityHelper.onCreateOptionsMenu(menu);
 	}
 	
-	/**
-	 * @see android.app.Activity#onPrepareOptionsMenu(android.view.Menu)
-	 */
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		activityHelper.onPrepareOptionsMenu(menu);
@@ -151,44 +118,24 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 		activityHelper.doOnCreateOptionsMenu(menu);
 	}
 	
-	/**
-	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
-	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		return activityHelper.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#findView(int)
-	 */
 	@Override
 	public <V extends View> V findView(int id) {
 		return activityHelper.findView(id);
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#inflate(int)
-	 */
 	@Override
 	public View inflate(int resource) {
 		return activityHelper.inflate(resource);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getExtra(java.lang.String)
-	 */
 	@Override
 	public <E> E getExtra(String key) {
 		return activityHelper.<E>getExtra(key);
-	}
-	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#requiresAuthentication()
-	 */
-	@Override
-	public Boolean requiresAuthentication() {
-		return activityHelper.requiresAuthentication();
 	}
 	
 	public void loadUseCaseFragment(Bundle savedInstanceState, Class<? extends UseCaseFragment<?>> useCaseFragmentClass) {
@@ -258,68 +205,44 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 		fragmentTransaction.commit();
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#isLauncherActivity()
-	 */
 	@Override
 	public Boolean isLauncherActivity() {
 		return activityHelper.isLauncherActivity();
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#getLocationFrequency()
-	 */
 	@Override
 	public Long getLocationFrequency() {
 		return activityHelper.getLocationFrequency();
 	}
 
-	/**
-	 * @see android.app.Activity#onPostCreate(android.os.Bundle)
-	 */
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
 		activityHelper.onPostCreate(savedInstanceState);
 	}
 	
-	/**
-	 * @see android.app.Activity#onConfigurationChanged(android.content.res.Configuration)
-	 */
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		activityHelper.onConfigurationChanged(newConfig);
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#getUpIntent()
-	 */
 	@Override
 	public Intent getUpIntent() {
 		return activityHelper.getUpIntent();
 	}
 	
-	/**
-	 * @see android.app.Activity#onNewIntent(android.content.Intent)
-	 */
 	@Override
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
 		activityHelper.onNewIntent(intent);
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#executeOnUIThread(java.lang.Runnable)
-	 */
 	@Override
 	public void executeOnUIThread(Runnable runnable) {
 		activityHelper.executeOnUIThread(runnable);
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#isActivityDestroyed()
-	 */
 	@Override
 	public Boolean isActivityDestroyed() {
 		return activityHelper.isActivityDestroyed();
@@ -337,17 +260,11 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 
 	// //////////////////////// Loading //////////////////////// //
 	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#showLoading()
-	 */
 	@Override
 	public void showLoading() {
 		activityHelper.showLoading();
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ComponentIf#dismissLoading()
-	 */
 	@Override
 	public void dismissLoading() {
 		activityHelper.dismissLoading();
@@ -359,9 +276,6 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 		return activityHelper.getDefaultLoading();
 	}
 	
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#setLoading(com.jdroid.android.loading.ActivityLoading)
-	 */
 	@Override
 	public void setLoading(ActivityLoading loading) {
 		activityHelper.setLoading(loading);

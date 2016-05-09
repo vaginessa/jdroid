@@ -11,17 +11,11 @@ import com.jdroid.java.exception.UnexpectedException;
 
 public class DebugSettingsActivity extends AbstractFragmentActivity {
 
-	/**
-	 * @see com.jdroid.android.activity.ActivityIf#getContentView()
-	 */
 	@Override
 	public int getContentView() {
 		return R.layout.fragment_container_activity;
 	}
 
-	/**
-	 * @see android.preference.PreferenceActivity#onCreate(android.os.Bundle)
-	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,19 +45,9 @@ public class DebugSettingsActivity extends AbstractFragmentActivity {
 		return fragment;
 	}
 
-	/**
-	 * @see com.jdroid.android.activity.AbstractFragmentActivity#getMenuResourceId()
-	 */
 	@Override
 	public Integer getMenuResourceId() {
 		return null;
 	}
 
-	/**
-	 * @see com.jdroid.android.activity.AbstractFragmentActivity#requiresAuthentication()
-	 */
-	@Override
-	public Boolean requiresAuthentication() {
-		return false;
-	}
 }

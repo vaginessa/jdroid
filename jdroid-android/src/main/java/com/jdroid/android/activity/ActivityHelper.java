@@ -525,9 +525,4 @@ public class ActivityHelper implements ActivityIf {
 	public Boolean isGooglePlayServicesVerificationEnabled() {
 		return false;
 	}
-
-	@Override
-	public Boolean requiresAuthentication() {
-		return true;
-	}
 }
