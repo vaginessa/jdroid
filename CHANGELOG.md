@@ -1,5 +1,19 @@
 # Change Log
 
+## [v0.9.5](https://github.com/maxirosson/jdroid/tree/v0.9.5) (2016-05-09)
+[Full Changelog](https://github.com/maxirosson/jdroid/compare/v0.9.4...v0.9.5)
+
+**Implemented enhancements:**
+
+- Creat jdroid-android-google-inappbilling module [\#316](https://github.com/maxirosson/jdroid/issues/316)
+- Add signing config and snapshot versioning on gradle plugin [\#315](https://github.com/maxirosson/jdroid/issues/315)
+- Upgrade to android gradle plugin v2.1.0 [\#314](https://github.com/maxirosson/jdroid/issues/314)
+- Sample Android - Facebook sample [\#174](https://github.com/maxirosson/jdroid/issues/174)
+
+**Fixed bugs:**
+
+- Facebook integration is not working properly [\#222](https://github.com/maxirosson/jdroid/issues/222)
+
 ## [v0.9.4](https://github.com/maxirosson/jdroid/tree/v0.9.4) (2016-04-10)
 [Full Changelog](https://github.com/maxirosson/jdroid/compare/v0.9.3...v0.9.4)
 
