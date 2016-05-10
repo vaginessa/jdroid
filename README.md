@@ -40,7 +40,6 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 * Android M Permissions scheme support
 * [Navigation Drawer support](https://developer.android.com/design/patterns/navigation-drawer.html)
 * [Google Analytics v4 integration](https://developers.google.com/analytics/devguides/collection/android/v4/). A/B testing support
-* [Google Play In App Billing v3 integration](http://developer.android.com/google/play/billing/index.html)
 * [Sqlite integration](https://sqlite.org/)
 * [Android Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader)
 * [Device year class integration](https://github.com/facebook/device-year-class)
@@ -98,6 +97,10 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-google-gcm](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
  * [Google Cloud Messaging integration](http://developer.android.com/google/gcm/index.html)
+
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-google-inappbilling](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
+--------------
+* [Google Play In App Billing v3 integration](http://developer.android.com/google/play/billing/index.html)
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-google-maps](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
