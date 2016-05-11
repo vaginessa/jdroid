@@ -34,7 +34,7 @@ public class BaseGradlePlugin implements Plugin<Project> {
 			project.tasks.withType(Test) {
 				scanForTestClasses = true
 
-				if (jdroid.getProp('INTEGRATION_TESTS_ENABLED', true) == 'false') {
+				if (!jdroid.getBooleanProp('INTEGRATION_TESTS_ENABLED', true)) {
 					exclude jdroid.integrationTestsPattern
 				}
 			}

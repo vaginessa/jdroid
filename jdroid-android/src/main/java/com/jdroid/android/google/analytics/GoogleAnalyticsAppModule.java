@@ -16,7 +16,9 @@ public class GoogleAnalyticsAppModule extends AbstractAppModule {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		googleAnalyticsHelper = createGoogleAnalyticsHelper();
+		if (AbstractApplication.get().getAppContext().isGoogleAnalyticsEnabled()) {
+			googleAnalyticsHelper = createGoogleAnalyticsHelper();
+		}
 	}
 
 	protected GoogleAnalyticsHelper createGoogleAnalyticsHelper() {

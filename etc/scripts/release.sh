@@ -182,7 +182,7 @@ sed -i '' 's/v[0-9].[0-9].[0-9]/v'$VERSION'/g' index.html
 git add index.html
 git commit -m 'Updated jdroid version to v'$VERSION
 
-git diff HEAD
+git diff origin/gh-pages HEAD
 read -p "Verify the Jdroid GitHub page diff and press [Enter] key to continue..."
 
 git push origin HEAD:gh-pages

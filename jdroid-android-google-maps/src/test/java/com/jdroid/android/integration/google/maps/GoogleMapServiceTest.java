@@ -1,7 +1,10 @@
-package com.jdroid.android.google.maps;
+package com.jdroid.android.integration.google.maps;
 
 import com.jdroid.android.AbstractIntegrationTest;
 import com.jdroid.android.domain.GeoLocation;
+import com.jdroid.android.google.maps.GoogleMapService;
+import com.jdroid.android.google.maps.Route;
+import com.jdroid.android.google.maps.RouteMode;
 
 import org.junit.Test;
 
