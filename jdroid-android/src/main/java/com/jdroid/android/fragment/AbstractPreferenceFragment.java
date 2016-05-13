@@ -253,4 +253,9 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	public FragmentDelegate getFragmentDelegate(AppModule appModule) {
 		return null;
 	}
+
+	@Override
+	public Boolean onBackPressedHandled() {
+		return false;
+	}
 }

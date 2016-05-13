@@ -45,6 +45,8 @@ public interface ComponentIf {
 
 	public boolean onOptionsItemSelected(MenuItem item);
 
+	public Boolean onBackPressedHandled();
+
 	// //////////////////////// Loading //////////////////////// //
 	
 	public void showLoading();

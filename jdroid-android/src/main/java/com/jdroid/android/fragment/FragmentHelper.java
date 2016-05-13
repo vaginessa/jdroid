@@ -240,6 +240,11 @@ public class FragmentHelper implements FragmentIf {
 		return false;
 	}
 
+	@Override
+	public Boolean onBackPressedHandled() {
+		return false;
+	}
+
 	// //////////////////////// App bar //////////////////////// //
 
 	@Override

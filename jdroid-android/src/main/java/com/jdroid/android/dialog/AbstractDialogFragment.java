@@ -274,4 +274,9 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	public FragmentDelegate getFragmentDelegate(AppModule appModule) {
 		return fragmentHelper.getFragmentDelegate(appModule);
 	}
+
+	@Override
+	public Boolean onBackPressedHandled() {
+		return fragmentHelper.onBackPressedHandled();
+	}
 }

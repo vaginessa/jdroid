@@ -37,8 +37,6 @@ public interface ActivityIf extends ComponentIf {
 
 	public Boolean isActivityDestroyed();
 
-	public Boolean onBackPressedHandled();
-
 	// //////////////////////// Delegates //////////////////////// //
 
 	public ActivityDelegate createActivityDelegate(AppModule appModule);

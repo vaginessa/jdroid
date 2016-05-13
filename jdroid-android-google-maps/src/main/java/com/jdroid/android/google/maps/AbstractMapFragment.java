@@ -535,4 +535,9 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	public FragmentDelegate getFragmentDelegate(AppModule appModule) {
 		return fragmentHelper.getFragmentDelegate(appModule);
 	}
+
+	@Override
+	public Boolean onBackPressedHandled() {
+		return fragmentHelper.onBackPressedHandled();
+	}
 }

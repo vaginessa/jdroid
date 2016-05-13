@@ -55,6 +55,14 @@ public abstract class FragmentContainerActivity extends AbstractFragmentActivity
 		return getSupportFragmentManager().findFragmentById(getFragmentContainerId());
 	}
 
+	public FragmentIf getFragmentIf() {
+		Fragment fragment = getFragment();
+		if (fragment != null && fragment instanceof FragmentIf) {
+			return (FragmentIf)fragment;
+		}
+		return null;
+	}
+
 	@Override
 	public Integer getMenuResourceId() {
 		Integer menuResourceId = super.getMenuResourceId();
@@ -80,5 +88,17 @@ public abstract class FragmentContainerActivity extends AbstractFragmentActivity
 		if (fragment != null) {
 			fragment.onActivityResult(requestCode, resultCode, data);
 		}
+	}
+
+	@Override
+	public Boolean onBackPressedHandled() {
+		Boolean handled = super.onBackPressedHandled();
+		if (!handled) {
+			FragmentIf fragment = getFragmentIf();
+			if (fragment != null) {
+				handled = fragment.onBackPressedHandled();
+			}
+		}
+		return handled;
 	}
 }
