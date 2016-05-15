@@ -34,7 +34,14 @@
 	<dimen name="shareItemWidth">64dp</dimen>
 
 	<!-- CardView -->
+
 	<dimen name="cardViewMargin">2dp</dimen>
 	<dimen name="cardViewHalfMargin">1dp</dimen>
+
+
+	<!-- Floating Action Button -->
+
+	<dimen name="fabElevation">4dp</dimen>
+	<dimen name="fabSpacing">0dp</dimen>
 
 </resources>

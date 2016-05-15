@@ -20,9 +20,6 @@ public class ParallaxScrollView extends NotifyingScrollView {
 		super(context);
 	}
 	
-	/**
-	 * @see com.jdroid.android.view.NotifyingScrollView#onScrollChanged(int, int, int, int)
-	 */
 	@Override
 	protected void onScrollChanged(int l, int t, int oldl, int oldt) {
 		super.onScrollChanged(l, t, oldl, oldt);

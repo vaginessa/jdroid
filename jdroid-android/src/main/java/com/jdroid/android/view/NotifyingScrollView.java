@@ -1,14 +1,14 @@
 package com.jdroid.android.view;
 
 import android.content.Context;
+import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
-import android.widget.ScrollView;
 
-public class NotifyingScrollView extends ScrollView {
+public class NotifyingScrollView extends NestedScrollView {
 	
 	public interface OnScrollChangedListener {
 		
-		void onScrollChanged(ScrollView who, int l, int t, int oldl, int oldt);
+		void onScrollChanged(NestedScrollView who, int l, int t, int oldl, int oldt);
 	}
 	
 	private OnScrollChangedListener onScrollChangedListener;

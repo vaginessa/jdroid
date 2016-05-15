@@ -35,6 +35,11 @@
 	<string name="alwaysUseCaseTrigger">Always Use Case Trigger</string>
 	<string name="useCaseTrigger">Use Case Trigger (Reload fragment if you change this)</string>
 
+	<!-- Floating Action Button -->
+
+	<string name="fab">Fab</string>
+	<string name="floatingActionButton">Floating Action Button</string>
+
 	<!-- Error Displayer -->
 	<string name="errorDisplayer">Error Displayer</string>
 	<string name="defaultErrorDisplayer">Default Error Displayer</string>

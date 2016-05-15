@@ -4,12 +4,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 
 import com.jdroid.android.R;
 import com.jdroid.android.activity.ActivityIf;
@@ -96,7 +96,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 					parallaxScrollView.setOnScrollChangedListener(new NotifyingScrollView.OnScrollChangedListener() {
 
 						@Override
-						public void onScrollChanged(ScrollView who, int l, int t, int oldl, int oldt) {
+						public void onScrollChanged(NestedScrollView who, int l, int t, int oldl, int oldt) {
 							final int headerHeight = findView(getHeroImageId()).getHeight() - appBar.getHeight();
 							final float ratio = (float)Math.min(Math.max(t, 0), headerHeight) / headerHeight;
 							actionBarAlpha = (int)(ratio * 255);

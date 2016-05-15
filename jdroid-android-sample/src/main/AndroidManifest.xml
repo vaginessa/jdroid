@@ -109,6 +109,11 @@
 		<activity android:name="com.jdroid.android.sample.ui.exceptions.ErrorDisplayerActivity" android:label="@string/errorDisplayer"
 			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<!-- Floating Action Button -->
+
+		<activity android:name="com.jdroid.android.sample.ui.fab.FabActivity" android:label="@string/fab"
+			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
 		<!-- Facebook Sign In -->
 
 		<activity android:name="com.jdroid.android.sample.ui.facebook.FacebookSignInActivity" android:label="@string/facebook"
