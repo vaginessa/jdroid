@@ -239,7 +239,6 @@ public class ActivityHelper implements ActivityIf {
 	public void onResume() {
 
 		LOGGER.debug("Executing onResume on " + activity);
-		AbstractApplication.get().setInBackground(false);
 		AbstractApplication.get().setCurrentActivity(activity);
 
 		if (getActivityIf().isGooglePlayServicesVerificationEnabled()) {
@@ -275,7 +274,6 @@ public class ActivityHelper implements ActivityIf {
 
 	public void onPause() {
 		LOGGER.debug("Executing onPause on " + activity);
-		AbstractApplication.get().setInBackground(true);
 
 		for (ActivityDelegate each : activityDelegatesMap.values()) {
 			each.onPause();

@@ -15,10 +15,13 @@
 	<color name="textColor">#444444</color>
 
 	<!-- Nav Drawer -->
-	<color name="navDrawerHeaderTitle">#deffffff</color>
-	<color name="navDrawerHeaderSubTitle">#aaffffff</color>
+	<color name="navDrawerHeaderTitle">#DEFFFFFF</color>
+	<color name="navDrawerHeaderSubTitle">#AAFFFFFF</color>
 
 	<!-- Buttons -->
 	<color name="grey">#DBDBDB</color>
+
+	<!-- Card View -->
+	<color name="cardViewBackground">#FFFFFF</color>
 
 </resources>

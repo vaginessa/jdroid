@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
+import com.jdroid.android.activity.ActivityLifecycleHandler;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.context.AndroidGitContext;
@@ -76,8 +77,6 @@ public abstract class AbstractApplication extends Application {
 	/** Current activity in the top stack. */
 	private Activity currentActivity;
 	
-	private Boolean inBackground = true;
-	
 	private AppLaunchStatus appLaunchStatus;
 	
 	private Map<Class<? extends Identifiable>, Repository<? extends Identifiable>> repositories;
@@ -89,7 +88,9 @@ public abstract class AbstractApplication extends Application {
 	private UpdateManager updateManager;
 	private CacheManager cacheManager;
 
-	private UncaughtExceptionHandler deafaultAndroidExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
+	private UncaughtExceptionHandler defaultAndroidExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
+
+	private ActivityLifecycleHandler activityLifecycleHandler;
 
 	public AbstractApplication() {
 		INSTANCE = this;
@@ -161,6 +162,10 @@ public abstract class AbstractApplication extends Application {
 				}
 			}
 		});
+
+		activityLifecycleHandler = new ActivityLifecycleHandler();
+		registerActivityLifecycleCallbacks(activityLifecycleHandler);
+
 	}
 
 	@Nullable
@@ -269,7 +274,7 @@ public abstract class AbstractApplication extends Application {
 		getAnalyticsSender().onInitExceptionHandler(getExceptionHandlerMetadata());
 
 		ExceptionHandler exceptionHandler = ReflectionUtils.newInstance(getExceptionHandlerClass());
-		exceptionHandler.setDefaultExceptionHandler(deafaultAndroidExceptionHandler);
+		exceptionHandler.setDefaultExceptionHandler(defaultAndroidExceptionHandler);
 		Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);
 		LOGGER.info("Custom exception handler initialized");
 	}
@@ -382,14 +387,7 @@ public abstract class AbstractApplication extends Application {
 	 * @return the inBackground
 	 */
 	public Boolean isInBackground() {
-		return inBackground;
-	}
-	
-	/**
-	 * @param inBackground the inBackground to set
-	 */
-	public void setInBackground(Boolean inBackground) {
-		this.inBackground = inBackground;
+		return activityLifecycleHandler == null || activityLifecycleHandler.isInBackground();
 	}
 	
 	public Boolean isLoadingCancelable() {
