@@ -27,7 +27,7 @@ public abstract class ServiceCommand implements Serializable {
 
 		intent = intent != null ? intent : new Intent();
 		intent.putExtra(CommandWorkerService.COMMAND_EXTRA, getClass().getName());
-		CommandWorkerService.runIntentInService(AbstractApplication.get(), intent, CommandWorkerService.class, false);
+		CommandWorkerService.runIntentInService(AbstractApplication.get(), intent, CommandWorkerService.class);
 	}
 
 	void startGcmTaskService(Bundle bundle) {

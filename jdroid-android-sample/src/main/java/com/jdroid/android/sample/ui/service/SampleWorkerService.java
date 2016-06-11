@@ -32,6 +32,6 @@ public class SampleWorkerService extends WorkerService {
 	}
 
 	public static void runIntentInService(Intent intent) {
-		WorkerService.runIntentInService(AbstractApplication.get(), intent, SampleWorkerService.class, false);
+		WorkerService.runIntentInService(AbstractApplication.get(), intent, SampleWorkerService.class);
 	}
 }

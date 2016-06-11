@@ -43,15 +43,14 @@ public class UseCaseService extends WorkerService {
 	}
 	
 	public static void execute(AbstractUseCase useCase) {
-		WorkerService.runIntentInService(AbstractApplication.get(), getServiceIntent(useCase, null),
-			UseCaseService.class, false);
+		WorkerService.runIntentInService(AbstractApplication.get(), getServiceIntent(useCase, null), UseCaseService.class);
 	}
 	
 	public static Intent getServiceIntent(AbstractUseCase useCase, Integer notificationToCancelId) {
 		Intent intent = new Intent();
 		intent.putExtra(USE_CASE, useCase);
 		intent.putExtra(NOTIFICATION_TO_CANCEL_ID, notificationToCancelId);
-		return WorkerService.getServiceIntent(AbstractApplication.get(), intent, UseCaseService.class, false);
+		return WorkerService.getServiceIntent(AbstractApplication.get(), intent, UseCaseService.class);
 	}
 	
 }
