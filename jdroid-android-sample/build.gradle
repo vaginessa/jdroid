@@ -125,7 +125,7 @@ dependencies {
 
 	compile 'com.firebase:firebase-client-android:2.5.0'
 
-	compile(project(':jdroid-java-firebase')) {
+	compile(project(':jdroid-java-firebase-database')) {
 		exclude module: 'slf4j-api'
 		exclude group:'com.firebase', module: 'firebase-client-jvm'
 	}

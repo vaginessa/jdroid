@@ -135,7 +135,7 @@ cmd="${cmd} :jdroid-gradle-plugin:uploadArchives"
 
 cmd="${cmd} :jdroid-java:uploadArchives"
 cmd="${cmd} :jdroid-java-http-okhttp:uploadArchives"
-cmd="${cmd} :jdroid-java-firebase:uploadArchives"
+cmd="${cmd} :jdroid-java-firebase-databse:uploadArchives"
 
 cmd="${cmd} :jdroid-javaweb:uploadArchives"
 

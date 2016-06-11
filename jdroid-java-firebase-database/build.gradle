@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
-ext.projectName = 'Jdroid Java Firebase'
-description = 'Firebase Repository for Jdroid'
+ext.projectName = 'Jdroid Java Firebase Database'
+description = 'Firebase Database Repository for Jdroid'
 ext.packaging = 'jar'
 
 buildscript {

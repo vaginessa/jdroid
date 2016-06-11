@@ -19,7 +19,7 @@ cd $JDROID_HOME
 cmd="./gradlew "
 
 cmd="${cmd} :jdroid-java-http-okhttp:uploadArchives"
-cmd="${cmd} :jdroid-java-firebase:uploadArchives"
+cmd="${cmd} :jdroid-java-firebase-database:uploadArchives"
 
 cmd="${cmd} :jdroid-javaweb:uploadArchives"
 

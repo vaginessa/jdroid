@@ -30,7 +30,7 @@ dependencies {
 	//compile 'com.jdroidframework:jdroid-java-http-okhttp:' + jdroidVersion
 	compile project(':jdroid-java-http-okhttp')
 
-	compile project(':jdroid-java-firebase')
+	compile project(':jdroid-java-firebase-database')
 
 	compile 'com.firebase:firebase-token-generator:2.0.0'
 
