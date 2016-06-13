@@ -143,19 +143,19 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	}
 	
 	@Override
-	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener) {
-		getFragmentIf().onResumeUseCase(useCase, listener);
+	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener) {
+		getFragmentIf().registerUseCase(useCase, listener);
 	}
 	
 	@Override
-	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener,
-			UseCaseTrigger useCaseTrigger) {
-		getFragmentIf().onResumeUseCase(useCase, listener, useCaseTrigger);
+	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener,
+								UseCaseTrigger useCaseTrigger) {
+		getFragmentIf().registerUseCase(useCase, listener, useCaseTrigger);
 	}
 	
 	@Override
-	public void onPauseUseCase(AbstractUseCase useCase, UseCaseListener listener) {
-		getFragmentIf().onPauseUseCase(useCase, listener);
+	public void unregisterUseCase(AbstractUseCase useCase, UseCaseListener listener) {
+		getFragmentIf().unregisterUseCase(useCase, listener);
 	}
 	
 	@Override

@@ -23,11 +23,11 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 		
 		paginatedUseCase = createPaginatedUseCase();
 	}
-	
+
 	@Override
-	public void onResume() {
-		super.onResume();
-		onResumeUseCase(paginatedUseCase, this, getUseCaseTrigger());
+	public void onStart() {
+		super.onStart();
+		registerUseCase(paginatedUseCase, this, getUseCaseTrigger());
 	}
 
 	protected FragmentHelper.UseCaseTrigger getUseCaseTrigger() {
@@ -35,9 +35,9 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 	}
 
 	@Override
-	public void onPause() {
-		super.onPause();
-		onPauseUseCase(paginatedUseCase, this);
+	public void onStop() {
+		super.onStop();
+		unregisterUseCase(paginatedUseCase, this);
 	}
 
 	protected abstract PaginatedUseCase<Object> createPaginatedUseCase();

@@ -74,17 +74,17 @@ public class ErrorDisplayerFragment extends AbstractFragment {
 	}
 
 	@Override
-	public void onResume() {
-		super.onResume();
+	public void onStart() {
+		super.onStart();
 
-		onResumeUseCase(failingUseCase, this);
+		registerUseCase(failingUseCase, this);
 	}
 
 	@Override
-	public void onPause() {
-		super.onPause();
+	public void onStop() {
+		super.onStop();
 
-		onPauseUseCase(failingUseCase, this);
+		unregisterUseCase(failingUseCase, this);
 	}
 
 	@Override

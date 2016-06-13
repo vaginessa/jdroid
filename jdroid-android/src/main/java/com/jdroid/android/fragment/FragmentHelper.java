@@ -272,11 +272,11 @@ public class FragmentHelper implements FragmentIf {
 	// //////////////////////// Use cases //////////////////////// //
 
 	@Override
-	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener) {
-		onResumeUseCase(useCase, listener, UseCaseTrigger.MANUAL);
+	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener) {
+		registerUseCase(useCase, listener, UseCaseTrigger.MANUAL);
 	}
 
-	public void onResumeUseCase(final AbstractUseCase useCase, final UseCaseListener listener,
+	public void registerUseCase(final AbstractUseCase useCase, final UseCaseListener listener,
 								final UseCaseTrigger useCaseTrigger) {
 		if (useCase != null) {
 			ExecutorUtils.execute(new Runnable() {
@@ -326,7 +326,7 @@ public class FragmentHelper implements FragmentIf {
 	}
 
 	@Override
-	public void onPauseUseCase(final AbstractUseCase userCase, final UseCaseListener listener) {
+	public void unregisterUseCase(final AbstractUseCase userCase, final UseCaseListener listener) {
 		if (userCase != null) {
 			userCase.removeListener(listener);
 		}

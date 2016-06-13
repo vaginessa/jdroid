@@ -35,17 +35,18 @@ public abstract class UseCaseFragment<T extends AbstractUseCase> extends Abstrac
 	}
 	
 	protected abstract Class<T> getUseCaseClass();
-	
+
+
 	@Override
-	public void onResume() {
-		super.onResume();
-		onResumeUseCase(useCase, this, getUseCaseTrigger());
+	public void onStart() {
+		super.onStart();
+		registerUseCase(useCase, this, getUseCaseTrigger());
 	}
-	
+
 	@Override
-	public void onPause() {
-		super.onPause();
-		onPauseUseCase(useCase, this);
+	public void onStop() {
+		super.onStop();
+		unregisterUseCase(useCase, this);
 	}
 	
 	protected UseCaseTrigger getUseCaseTrigger() {

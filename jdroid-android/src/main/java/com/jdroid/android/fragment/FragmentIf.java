@@ -67,12 +67,12 @@ public interface FragmentIf extends ComponentIf, UseCaseListener {
 
 	// //////////////////////// Use cases //////////////////////// //
 
-	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener);
+	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener);
 
-	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener,
+	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener,
 								FragmentHelper.UseCaseTrigger useCaseTrigger);
 
-	public void onPauseUseCase(AbstractUseCase useCase, UseCaseListener listener);
+	public void unregisterUseCase(AbstractUseCase useCase, UseCaseListener listener);
 
 	public void executeUseCase(AbstractUseCase useCase);
 

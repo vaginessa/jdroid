@@ -17,8 +17,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
-import com.jdroid.android.context.AppContext;
-import com.jdroid.android.domain.User;
 import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.fragment.FragmentDelegate;
 import com.jdroid.android.fragment.FragmentHelper;
@@ -438,19 +436,19 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	}
 
 	@Override
-	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener) {
-		fragmentHelper.onResumeUseCase(useCase, listener);
+	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener) {
+		fragmentHelper.registerUseCase(useCase, listener);
 	}
 	
 	@Override
-	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener,
-			UseCaseTrigger useCaseTrigger) {
-		fragmentHelper.onResumeUseCase(useCase, listener, useCaseTrigger);
+	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener,
+								UseCaseTrigger useCaseTrigger) {
+		fragmentHelper.registerUseCase(useCase, listener, useCaseTrigger);
 	}
 	
 	@Override
-	public void onPauseUseCase(AbstractUseCase useCase, UseCaseListener listener) {
-		fragmentHelper.onPauseUseCase(useCase, listener);
+	public void unregisterUseCase(AbstractUseCase useCase, UseCaseListener listener) {
+		fragmentHelper.unregisterUseCase(useCase, listener);
 	}
 	
 	/**

@@ -60,17 +60,15 @@ public class UseCasesFragment extends AbstractFragment {
 	}
 
 	@Override
-	public void onResume() {
-		super.onResume();
-
-		onResumeUseCase(sampleUseCase, noListener ? null : this, useCaseTrigger);
+	public void onStart() {
+		super.onStart();
+		registerUseCase(sampleUseCase, noListener ? null : this, useCaseTrigger);
 	}
 
 	@Override
-	public void onPause() {
-		super.onPause();
-
-		onPauseUseCase(sampleUseCase, this);
+	public void onStop() {
+		super.onStop();
+		unregisterUseCase(sampleUseCase, this);
 	}
 
 	@Override

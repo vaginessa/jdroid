@@ -50,14 +50,14 @@ public class BlockingLoadingFragment extends AbstractFragment {
 	}
 
 	@Override
-	public void onResume() {
-		super.onResume();
-		onResumeUseCase(sampleUseCase, sampleUseCaseListener, UseCaseTrigger.ONCE);
+	public void onStart() {
+		super.onStart();
+		registerUseCase(sampleUseCase, sampleUseCaseListener, UseCaseTrigger.ONCE);
 	}
-	
+
 	@Override
-	public void onPause() {
-		super.onPause();
-		onPauseUseCase(sampleUseCase, sampleUseCaseListener);
+	public void onStop() {
+		super.onStop();
+		unregisterUseCase(sampleUseCase, sampleUseCaseListener);
 	}
 }

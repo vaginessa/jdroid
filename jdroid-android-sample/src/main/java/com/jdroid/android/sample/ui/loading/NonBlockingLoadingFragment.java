@@ -26,15 +26,15 @@ public class NonBlockingLoadingFragment extends AbstractFragment {
 	}
 
 	@Override
-	public void onResume() {
-		super.onResume();
-		onResumeUseCase(sampleItemsUseCase, this, UseCaseTrigger.ONCE);
+	public void onStart() {
+		super.onStart();
+		registerUseCase(sampleItemsUseCase, this, UseCaseTrigger.ONCE);
 	}
-	
+
 	@Override
-	public void onPause() {
-		super.onPause();
-		onPauseUseCase(sampleItemsUseCase, this);
+	public void onStop() {
+		super.onStop();
+		unregisterUseCase(sampleItemsUseCase, this);
 	}
 	
 	@Override

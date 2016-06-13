@@ -189,19 +189,19 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	}
 
 	@Override
-	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener) {
-		fragmentHelper.onResumeUseCase(useCase, listener);
+	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener) {
+		fragmentHelper.registerUseCase(useCase, listener);
 	}
 	
 	@Override
-	public void onResumeUseCase(AbstractUseCase useCase, UseCaseListener listener,
-			UseCaseTrigger useCaseTrigger) {
-		fragmentHelper.onResumeUseCase(useCase, listener, useCaseTrigger);
+	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener,
+								UseCaseTrigger useCaseTrigger) {
+		fragmentHelper.registerUseCase(useCase, listener, useCaseTrigger);
 	}
 	
 	@Override
-	public void onPauseUseCase(AbstractUseCase useCase, UseCaseListener listener) {
-		fragmentHelper.onPauseUseCase(useCase, listener);
+	public void unregisterUseCase(AbstractUseCase useCase, UseCaseListener listener) {
+		fragmentHelper.unregisterUseCase(useCase, listener);
 	}
 	
 	/**
