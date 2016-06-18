@@ -41,7 +41,7 @@ fi
 # jdroid gradle plugin
 # ************************
 
-cmd="./gradlew :jdroid-java:clean :jdroid-java:uploadArchives :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=true"
+cmd="./gradlew :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=true"
 if [ "$DEBUG" = "true" ]
 then
 	cmd="${cmd} --debug"
@@ -90,12 +90,12 @@ if [ "$UPLOAD" = "true" ]
 then
 
 	cmd="${cmd} :jdroid-gradle-plugin:uploadArchives"
+	cmd="${cmd} :jdroid-java:uploadArchives"
+	cmd="${cmd} :jdroid-java-http-okhttp:uploadArchives"
+	cmd="${cmd} :jdroid-java-firebase-database:uploadArchives"
 
 	if [ "$ENABLE_JAVA_WEB" = "true" ]
 	then
-		cmd="${cmd} :jdroid-java:uploadArchives"
-		cmd="${cmd} :jdroid-java-http-okhttp:uploadArchives"
-		cmd="${cmd} :jdroid-java-firebase-database:uploadArchives"
 		cmd="${cmd} :jdroid-javaweb:uploadArchives"
 	fi
 
@@ -114,7 +114,7 @@ then
 	fi
 fi
 
-cmd="${cmd} -PLOCAL_UPLOAD=$LOCAL_UPLOAD --configure-on-demand --refresh-dependencies"
+cmd="${cmd} -PLOCAL_UPLOAD=$LOCAL_UPLOAD --configure-on-demand --refresh-dependencies --stacktrace"
 
 if [ "$DEBUG" = "true" ]
 then

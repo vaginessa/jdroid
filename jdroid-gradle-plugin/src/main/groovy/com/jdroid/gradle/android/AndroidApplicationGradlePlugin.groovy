@@ -22,6 +22,10 @@ public class AndroidApplicationGradlePlugin extends AndroidGradlePlugin {
 		android.defaultConfig {
 			versionCode generateVersionCode()
 			versionName project.version
+
+			jackOptions {
+				enabled jdroid.getBooleanProp('JACK_ENABLED', false)
+			}
 		}
 
 		android.signingConfigs {

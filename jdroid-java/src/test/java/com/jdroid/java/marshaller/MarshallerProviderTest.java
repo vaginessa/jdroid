@@ -53,34 +53,34 @@ public class MarshallerProviderTest {
 		cases.add(new Object[] { Lists.newArrayList(dummyClass, dummyClass), "[" + dummyJson + "," + dummyJson + "]" });
 
 		dummyClass = new DummyClass();
-		dummyClass.stringMapProperty = Maps.newHashMap();
+		dummyClass.stringMapProperty = Maps.newLinkedHashMap();
 		dummyJson = "{}";
 		cases.add(new Object[] { dummyClass, dummyJson });
 		cases.add(new Object[] { Lists.newArrayList(dummyClass, dummyClass), "[" + dummyJson + "," + dummyJson + "]" });
 
 		dummyClass = new DummyClass();
-		dummyClass.stringMapProperty = Maps.newHashMap();
+		dummyClass.stringMapProperty = Maps.newLinkedHashMap();
 		dummyClass.stringMapProperty.put("a", "b");
 		dummyJson = "{\"stringMapProperty\":{\"a\":\"b\"}}";
 		cases.add(new Object[] { dummyClass, dummyJson });
 		cases.add(new Object[] { Lists.newArrayList(dummyClass, dummyClass), "[" + dummyJson + "," + dummyJson + "]" });
 
 		dummyClass = new DummyClass();
-		dummyClass.longMapProperty = Maps.newHashMap();
+		dummyClass.longMapProperty = Maps.newLinkedHashMap();
 		dummyClass.longMapProperty.put("a", 1L);
 		dummyJson = "{\"longMapProperty\":{\"a\":1}}";
 		cases.add(new Object[] { dummyClass, dummyJson });
 		cases.add(new Object[] { Lists.newArrayList(dummyClass, dummyClass), "[" + dummyJson + "," + dummyJson + "]" });
 
 		dummyClass = new DummyClass();
-		dummyClass.dummyClassMapProperty = Maps.newHashMap();
+		dummyClass.dummyClassMapProperty = Maps.newLinkedHashMap();
 
 		DummyClass innerDummyClass = new DummyClass();
 		innerDummyClass.stringProperty = "2";
 		innerDummyClass.longProperty = 1L;
 
 		dummyClass.dummyClassMapProperty.put("a", innerDummyClass);
-		dummyJson = "{\"dummyClassMapProperty\":{\"a\":{\"stringProperty\":\"2\",\"longProperty\":1}}}";
+		dummyJson = "{\"dummyClassMapProperty\":{\"a\":{\"longProperty\":1,\"stringProperty\":\"2\"}}}";
 		cases.add(new Object[] { dummyClass, dummyJson });
 		cases.add(new Object[] { Lists.newArrayList(dummyClass, dummyClass), "[" + dummyJson + "," + dummyJson + "]" });
 

@@ -31,6 +31,7 @@ public class NotificationBuilder {
 	public static String NOTIFICATION_URI = "notification://";
 	
 	private String notificationName;
+
 	private NotificationCompat.Builder builder;
 	
 	public NotificationBuilder() {
@@ -38,6 +39,10 @@ public class NotificationBuilder {
 		builder = new NotificationCompat.Builder(context);
 		builder.setAutoCancel(true);
 		setColor(R.color.colorPrimary);
+	}
+
+	public NotificationCompat.Builder getNotificationCompatBuilder() {
+		return builder;
 	}
 	
 	public Notification build() {

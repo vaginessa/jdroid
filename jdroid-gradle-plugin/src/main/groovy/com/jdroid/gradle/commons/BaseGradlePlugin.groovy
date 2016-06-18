@@ -1,5 +1,6 @@
 package com.jdroid.gradle.commons
 
+import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
@@ -39,6 +40,19 @@ public class BaseGradlePlugin implements Plugin<Project> {
 				}
 			}
 		}
+
+		if (org.gradle.api.JavaVersion.current().isJava8Compatible()) {
+			project.tasks.withType(org.gradle.api.tasks.javadoc.Javadoc) {
+				options.addStringOption('Xdoclint:none', '-quiet')
+			}
+		}
+	}
+
+	protected String getJavaSourceCompatibility() {
+		return JavaVersion.VERSION_1_7.toString()
+	}
+	protected String getJavaTargetCompatibility() {
+		return JavaVersion.VERSION_1_7.toString()
 	}
 
 	protected Class<? extends BaseGradleExtension> getExtensionClass() {

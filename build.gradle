@@ -25,6 +25,7 @@ allprojects {
 	buildscript {
 		repositories {
 			mavenCentral()
+			jcenter()
 			String localMavenRepo = project.getProp('LOCAL_MAVEN_REPO')
 			if (localMavenRepo != null) {
 				maven {

@@ -3,7 +3,6 @@ package com.jdroid.gradle.android
 import com.jdroid.gradle.android.task.VerifyMissingTranslationsBetweenLocalesTask
 import com.jdroid.gradle.android.task.VerifyMissingTranslationsTask
 import com.jdroid.gradle.commons.BaseGradlePlugin
-import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 
 public abstract class AndroidGradlePlugin extends BaseGradlePlugin {
@@ -22,14 +21,14 @@ public abstract class AndroidGradlePlugin extends BaseGradlePlugin {
 
 		minimumSdkVersion = jdroid.getIntegerProp('MIN_SDK_VERSION', 15)
 
-		android.compileSdkVersion 23
+		android.compileSdkVersion 24
 		// http://developer.android.com/tools/revisions/build-tools.html
-		android.buildToolsVersion "23.0.3"
+		android.buildToolsVersion "24.0.0"
 
 
 		android.defaultConfig {
 			minSdkVersion minimumSdkVersion
-			targetSdkVersion 23
+			targetSdkVersion 24
 
 			// TODO See if this BUILD_TIME can disable the incremental build enhancements
 			if (jdroid.getBooleanProp("BUILD_TIME_CONFIG_ENABLED", true)) {
@@ -41,8 +40,8 @@ public abstract class AndroidGradlePlugin extends BaseGradlePlugin {
 
 		android.compileOptions {
 			incremental jdroid.getBooleanProp('INCREMENTAL_COMPILATION_ENABLED', true)
-			sourceCompatibility JavaVersion.VERSION_1_7
-			targetCompatibility JavaVersion.VERSION_1_7
+			sourceCompatibility getJavaSourceCompatibility()
+			targetCompatibility getJavaTargetCompatibility()
 		}
 
 		// https://google.github.io/android-gradle-dsl/current/com.android.build.gradle.internal.dsl.DexOptions.html

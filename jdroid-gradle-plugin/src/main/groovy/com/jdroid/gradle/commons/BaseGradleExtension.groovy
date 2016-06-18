@@ -77,6 +77,15 @@ public class BaseGradleExtension {
 		}
 	}
 
+	public String getStringProp(String propertyName, String defaultValue) {
+		def value = getProp(propertyName)
+		if (value == null) {
+			return defaultValue
+		} else {
+			return value.toString();
+		}
+	}
+
 	public Integer getIntegerProp(String propertyName, Integer defaultValue) {
 		def value = getProp(propertyName)
 		if (value == null) {

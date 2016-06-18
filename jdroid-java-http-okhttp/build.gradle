@@ -1,12 +1,12 @@
-apply plugin: 'java'
+apply plugin: 'com.jdroid.java'
 
 ext.projectName = 'Jdroid Java Http OKHttp'
 description = 'OKHttp Http Layer Implementation for Jdroid'
 ext.packaging = 'jar'
 
 buildscript {
-	repositories {
-		jcenter()
+	dependencies {
+		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + project.version
 	}
 }
 
