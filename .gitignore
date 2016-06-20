@@ -1,14 +1,6 @@
 .gradle
 build/
-.idea/libraries
-.idea/encodings.xml
-.idea/workspace.xml
-.idea/compiler.xml
-.idea/modules.xml
-.idea/gradle.xml
-.idea/misc.xml
-.idea/runConfigurations.xml
-
+.idea
 *.iml
 /local.properties
 /captures

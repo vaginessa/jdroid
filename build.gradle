@@ -130,7 +130,7 @@ subprojects {
 							developers {
 								developer {
 									name 'Maxi Rosson'
-									email 'jdroidsoft@gmail.com'
+									email 'jdroidframework@gmail.com'
 									roles {
 										role 'architect'
 										role 'developer'
