@@ -154,6 +154,13 @@ A set of useful shell scripts to
  * Start/stop and deploy on [Apache Tomcat](http://tomcat.apache.org/)
  * Automatically restart [Apache Tomcat](http://tomcat.apache.org/)
 
+External Jdroid Components
+--------------
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-github](https://github.com/maxirosson/jdroid-java-github)
+--------------
+
+
+
 Apps using jdroid
 --------------
 
