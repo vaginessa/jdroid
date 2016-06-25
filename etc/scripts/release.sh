@@ -5,6 +5,7 @@ set -e
 BUILD_DIRECTORY=$1
 GIT_HUB_TOKEN=$2
 GIT_HUB_READ_ONLY_TOKEN=$3
+GIT_HUB_EMAIL=$4
 
 BUILD_SAMPLES=false
 
@@ -53,7 +54,7 @@ then
 	echo Cloning git@github.com:maxirosson/jdroid.git
 	git clone git@github.com:maxirosson/jdroid.git jdroid
 fi
-
+git config user.email $GIT_HUB_EMAIL
 
 # ************************
 # Synch production branch
