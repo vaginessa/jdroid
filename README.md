@@ -156,10 +156,9 @@ A set of useful shell scripts to
 
 External Jdroid Components
 --------------
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-github](https://github.com/maxirosson/jdroid-java-github)
---------------
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-googleplay-publisher-plugin](https://github.com/maxirosson/jdroid-googleplay-publisher-plugin)
---------------
+* [jdroid-java-github](https://github.com/maxirosson/jdroid-java-github)
+* [jdroid-googleplay-publisher-plugin](https://github.com/maxirosson/jdroid-googleplay-publisher-plugin)
+
 
 
 Apps using jdroid
