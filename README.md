@@ -157,9 +157,8 @@ A set of useful shell scripts to
 External Jdroid Components
 --------------
 * [jdroid-java-github](https://github.com/maxirosson/jdroid-java-github)
+* [jdroid-java-google-drive](https://github.com/maxirosson/jdroid-java-google-drive)
 * [jdroid-googleplay-publisher-plugin](https://github.com/maxirosson/jdroid-googleplay-publisher-plugin)
-
-
 
 Apps using jdroid
 --------------
