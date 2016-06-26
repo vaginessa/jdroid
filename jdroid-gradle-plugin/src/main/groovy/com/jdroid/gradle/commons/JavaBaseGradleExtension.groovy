@@ -6,6 +6,8 @@ import org.gradle.api.Project
 
 public class JavaBaseGradleExtension extends BaseGradleExtension {
 
+	def integrationTestsPattern = "**/integration/**/*Test.class"
+
 	public JavaBaseGradleExtension(JavaBaseGradlePlugin javaBaseGradlePlugin) {
 		super(javaBaseGradlePlugin)
 	}

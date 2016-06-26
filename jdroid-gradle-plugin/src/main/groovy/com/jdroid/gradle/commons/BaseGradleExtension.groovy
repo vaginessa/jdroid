@@ -7,8 +7,6 @@ public class BaseGradleExtension {
 
 	protected final BaseGradlePlugin baseGradlePlugin
 
-	def integrationTestsPattern = "**/integration/**/*Test.class"
-
 	public Integer versionMajor
 	public Integer versionMinor
 	public Integer versionPatch
