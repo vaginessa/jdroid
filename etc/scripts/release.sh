@@ -12,10 +12,13 @@ BUILD_SAMPLES=false
 # Whether the source code and assemblies on the build directory should be cleaned or not
 CLEAN=false
 
-PROJECT_DIRECTORY=$BUILD_DIRECTORY/jdroid
+REPOSITORY_OWNER=maxirosson
+PROJECT_NAME=jdroid
+
+PROJECT_DIRECTORY=$BUILD_DIRECTORY/$PROJECT_NAME
 SOURCE_DIRECTORY=$PROJECT_DIRECTORY/sources
 ASSEMBLIES_DIRECTORY=$PROJECT_DIRECTORY/assemblies
-PROJECT_HOME=$SOURCE_DIRECTORY/jdroid
+PROJECT_HOME=$SOURCE_DIRECTORY/$PROJECT_NAME
 
 # ************************
 # Parameters validation
@@ -51,16 +54,16 @@ then
 
 	# Checkout the project
 	cd $SOURCE_DIRECTORY
-	echo Cloning git@github.com:maxirosson/jdroid.git
-	git clone git@github.com:maxirosson/jdroid.git jdroid
+	echo Cloning git@github.com:$REPOSITORY_OWNER/$PROJECT_NAME.git
+	git clone git@github.com:$REPOSITORY_OWNER/$PROJECT_NAME.git $PROJECT_NAME
 fi
+cd $PROJECT_HOME
 git config user.email $GIT_HUB_EMAIL
 
 # ************************
 # Synch production branch
 # ************************
 
-cd $PROJECT_HOME
 git add -A
 git stash
 git checkout production
@@ -96,17 +99,17 @@ fi
 # Close Milestone on GitHub
 # ************************
 
-./gradlew :closeGitHubMilestone --configure-on-demand -PSNAPSHOT=false -PGITHUB_OATH_TOKEN=$GIT_HUB_TOKEN
+./gradlew :closeGitHubMilestone --configure-on-demand -PSNAPSHOT=false -PREPOSITORY_OWNER=$REPOSITORY_OWNER -PREPOSITORY_NAME=$PROJECT_NAME -PGITHUB_OATH_TOKEN=$GIT_HUB_TOKEN
 
-read -p "Verify that the milestone is closed on Milestones [https://github.com/maxirosson/jdroid/milestones] and press [Enter] key to continue..."
+read -p "Verify that the milestone is closed on Milestones [https://github.com/$REPOSITORY_OWNER/$PROJECT_NAME/milestones] and press [Enter] key to continue..."
 
 # ************************
 # Upload Release on GitHub
 # ************************
 
-./gradlew :createGitHubRelease --configure-on-demand -PSNAPSHOT=false -PGITHUB_OATH_TOKEN=$GIT_HUB_TOKEN
+./gradlew :createGitHubRelease --configure-on-demand -PSNAPSHOT=false -PREPOSITORY_OWNER=$REPOSITORY_OWNER -PREPOSITORY_NAME=$PROJECT_NAME -PGITHUB_OATH_TOKEN=$GIT_HUB_TOKEN
 
-read -p "Verify that the release is present on Releases [https://github.com/maxirosson/jdroid/releases] and press [Enter] key to continue..."
+read -p "Verify that the release is present on Releases [https://github.com/$REPOSITORY_OWNER/$PROJECT_NAME/releases] and press [Enter] key to continue..."
 
 # ************************
 # Generate Change Log
@@ -181,10 +184,10 @@ git pull
 
 sed -i '' 's/v[0-9].[0-9].[0-9]/v'$VERSION'/g' index.html
 git add index.html
-git commit -m 'Updated jdroid version to v'$VERSION
+git commit -m 'Updated $PROJECT_NAME version to v'$VERSION
 
 git diff origin/gh-pages HEAD
-read -p "Verify the Jdroid GitHub page diff and press [Enter] key to continue..."
+read -p "Verify the $PROJECT_NAME GitHub page diff and press [Enter] key to continue..."
 
 git push origin HEAD:gh-pages
 
