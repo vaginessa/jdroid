@@ -1,9 +1,9 @@
 package com.jdroid.gradle.java
 
-import com.jdroid.gradle.commons.BaseGradlePlugin
+import com.jdroid.gradle.commons.JavaBaseGradlePlugin
 import org.gradle.api.Project
 
-public class JavaGradlePlugin extends BaseGradlePlugin {
+public class JavaGradlePlugin extends JavaBaseGradlePlugin {
 
 	public void apply(Project project) {
 		super.apply(project)

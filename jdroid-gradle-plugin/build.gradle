@@ -66,14 +66,14 @@ pluginBundle {
 
 	plugins {
 		javaPlugin {
-			id = 'com.jdroid.java'
-			displayName = 'Jdroid Java Gradle Plugin'
+			id = 'com.jdroid.java.library'
+			displayName = 'Jdroid Java Library Gradle Plugin'
 			description = 'Gradle Plugin for Java libraries'
 			tags = ['jdroid', 'java']
 		}
 		javaWebPlugin {
-			id = 'com.jdroid.javaweb'
-			displayName = 'Jdroid Java Gradle Plugin'
+			id = 'com.jdroid.java.webapp'
+			displayName = 'Jdroid Java WebApp Gradle Plugin'
 			description = 'Gradle Plugin for Java Web apps'
 			tags = ['jdroid', 'java']
 		}

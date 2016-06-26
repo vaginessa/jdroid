@@ -1,4 +1,4 @@
-apply plugin: 'com.jdroid.javaweb'
+apply plugin: 'com.jdroid.java.webapp'
 
 description = 'Jdroid Sample Server'
 ext.packaging = 'war'

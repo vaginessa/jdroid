@@ -1,4 +1,4 @@
-apply plugin: 'com.jdroid.java'
+apply plugin: 'com.jdroid.java.library'
 
 ext.projectName = 'Jdroid Java Web'
 description = 'Jdroid dependency project for Java Web apps'
@@ -61,20 +61,6 @@ dependencies {
 	// Testing
 	testCompile "org.testng:testng:6.8.21"
 	testCompile "org.mockito:mockito-all:1.10.19"
-}
-
-task javadocJar(type: Jar) {
-	classifier = 'javadoc'
-	from javadoc
-}
-
-task sourcesJar(type: Jar) {
-	classifier = 'sources'
-	from sourceSets.main.allSource
-}
-
-artifacts {
-	archives javadocJar, sourcesJar
 }
 
 test {

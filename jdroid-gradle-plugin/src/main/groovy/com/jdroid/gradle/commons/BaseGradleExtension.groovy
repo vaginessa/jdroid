@@ -13,6 +13,7 @@ public class BaseGradleExtension {
 	public Integer versionMinor
 	public Integer versionPatch
 	public String versionClassifier
+	public Boolean isSnapshot
 
 	public BaseGradleExtension(BaseGradlePlugin baseGradlePlugin) {
 		this.baseGradlePlugin = baseGradlePlugin
@@ -21,8 +22,9 @@ public class BaseGradleExtension {
 		versionMinor = getProp('VERSION_MINOR', 0)
 		versionPatch = getProp('VERSION_PATCH', 0)
 		versionClassifier = getProp('VERSION_CLASSIFIER', null)
+		isSnapshot = getBooleanProp('SNAPSHOT', true)
 		if (versionClassifier == null) {
-			versionClassifier = getBooleanProp('SNAPSHOT', true) ? "SNAPSHOT" : null
+			versionClassifier =  isSnapshot ? "SNAPSHOT" : null
 		}
 	}
 

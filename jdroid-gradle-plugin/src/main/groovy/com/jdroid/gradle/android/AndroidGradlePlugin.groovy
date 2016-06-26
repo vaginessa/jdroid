@@ -2,10 +2,10 @@ package com.jdroid.gradle.android
 
 import com.jdroid.gradle.android.task.VerifyMissingTranslationsBetweenLocalesTask
 import com.jdroid.gradle.android.task.VerifyMissingTranslationsTask
-import com.jdroid.gradle.commons.BaseGradlePlugin
+import com.jdroid.gradle.commons.JavaBaseGradlePlugin
 import org.gradle.api.Project
 
-public abstract class AndroidGradlePlugin extends BaseGradlePlugin {
+public abstract class AndroidGradlePlugin extends JavaBaseGradlePlugin {
 
 	protected android
 
