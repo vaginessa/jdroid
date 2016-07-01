@@ -146,10 +146,8 @@ public class PictureDialogFragment extends AbstractDialogFragment {
 				appName);
 		
 		// Create the storage directory if it does not exist
-		if (!mediaStorageDir.exists()) {
-			if (!mediaStorageDir.mkdirs()) {
-				return null;
-			}
+		if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
+			return null;
 		}
 		
 		// Create a media file name

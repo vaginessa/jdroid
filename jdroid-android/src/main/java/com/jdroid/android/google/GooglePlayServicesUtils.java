@@ -45,10 +45,8 @@ public class GooglePlayServicesUtils {
 		GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
 		int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(activity);
 		LOGGER.info("Google Play Services result code: " + resultCode);
-		if (resultCode != ConnectionResult.SUCCESS) {
-			if (googleApiAvailability.isUserResolvableError(resultCode)) {
-				googleApiAvailability.showErrorDialogFragment(activity, resultCode, GOOGLE_PLAY_SERVICES_RESOLUTION_REQUEST);
-			}
+		if (resultCode != ConnectionResult.SUCCESS && googleApiAvailability.isUserResolvableError(resultCode)) {
+			googleApiAvailability.showErrorDialogFragment(activity, resultCode, GOOGLE_PLAY_SERVICES_RESOLUTION_REQUEST);
 		}
 	}
 

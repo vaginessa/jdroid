@@ -379,10 +379,9 @@ public class SystemBarTintManager {
 		private int getNavigationBarWidth(Context context) {
 			Resources res = context.getResources();
 			int result = 0;
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-				if (!ViewConfiguration.get(context).hasPermanentMenuKey()) {
-					return getInternalDimensionSize(res, NAV_BAR_WIDTH_RES_NAME);
-				}
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH &&
+					!ViewConfiguration.get(context).hasPermanentMenuKey()) {
+				return getInternalDimensionSize(res, NAV_BAR_WIDTH_RES_NAME);
 			}
 			return result;
 		}

@@ -9,10 +9,8 @@ public class DefaultErrorDialogStrategy implements ErrorDialogStrategy {
 	
 	@Override
 	public void onPositiveClick(Activity activity) {
-		if (goBackOnError) {
-			if (activity != null) {
-				activity.finish();
-			}
+		if (goBackOnError && activity != null) {
+			activity.finish();
 		}
 	}
 	

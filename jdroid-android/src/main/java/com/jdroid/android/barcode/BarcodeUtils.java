@@ -57,12 +57,10 @@ public final class BarcodeUtils {
 	 *         containing the result of the scan. If the user cancelled scanning, the fields will be null.
 	 */
 	public static BarcodeIntentResult parseActivityResult(int requestCode, int resultCode, Intent intent) {
-		if (requestCode == REQUEST_CODE) {
-			if (resultCode == Activity.RESULT_OK) {
-				String contents = intent.getStringExtra(SCAN_RESULT);
-				String formatName = intent.getStringExtra(SCAN_RESULT_FORMAT);
-				return new BarcodeIntentResult(contents, formatName);
-			}
+		if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+			String contents = intent.getStringExtra(SCAN_RESULT);
+			String formatName = intent.getStringExtra(SCAN_RESULT_FORMAT);
+			return new BarcodeIntentResult(contents, formatName);
 		}
 		return null;
 	}
