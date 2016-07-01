@@ -188,10 +188,8 @@ public abstract class AbstractSearchPaginatedRecyclerFragment extends AbstractPa
 		getSearchUseCase().setSearchValue(searchValue);
 		getSearchUseCase().reset();
 		
-		if (!isInstantSearchEnabled()) {
-			if (getAdapter() != null) {
-				getAdapter().clear();
-			}
+		if (!isInstantSearchEnabled() && getAdapter() != null) {
+			getAdapter().clear();
 		}
 		executeUseCase(getSearchUseCase());
 	}

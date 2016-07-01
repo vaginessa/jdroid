@@ -47,10 +47,9 @@ public abstract class OkHttpCommand<P, R> {
 			throw new UnexpectedException(e);
 		} catch (SSLHandshakeException e) {
 			String message = e.getMessage();
-			if (message != null) {
-				if (message.equals("com.android.org.bouncycastle.jce.exception.ExtCertPathValidatorException: Could not validate certificate: null")) {
-					throw new ConnectionException(e, false);
-				}
+			if (message != null &&
+					message.equals("com.android.org.bouncycastle.jce.exception.ExtCertPathValidatorException: Could not validate certificate: null")) {
+				throw new ConnectionException(e, false);
 			}
 			throw new UnexpectedException(e);
 		} catch (SSLException e) {

@@ -54,16 +54,13 @@ public class VoiceRecognizerIntent {
 	 *         result of the voice record. If the user canceled recording, the fields will be null.
 	 */
 	public static String parseActivityResult(int requestCode, int resultCode, Intent intent) {
-		if (requestCode == REQUEST_CODE) {
-			if (resultCode == Activity.RESULT_OK) {
-				
-				String result = null;
-				List<String> matches = intent.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-				if (!matches.isEmpty()) {
-					result = matches.get(0);
-				}
-				return result;
+		if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+			String result = null;
+			List<String> matches = intent.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+			if (!matches.isEmpty()) {
+				result = matches.get(0);
 			}
+			return result;
 		}
 		return null;
 	}

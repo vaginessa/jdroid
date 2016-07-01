@@ -144,11 +144,9 @@ public class ActivityHelper implements ActivityIf {
 			AbstractApplication.get().getUriMapper().handleUri(activity, savedInstanceState, uriHandler);
 		}
 
-		if (getActivityIf().onBeforeSetContentView()) {
-			if (getContentView() != 0) {
-				activity.setContentView(getContentView());
-				getActivityIf().onAfterSetContentView(savedInstanceState);
-			}
+		if (getActivityIf().onBeforeSetContentView() && getContentView() != 0) {
+			activity.setContentView(getContentView());
+			getActivityIf().onAfterSetContentView(savedInstanceState);
 		}
 
 		for (ActivityDelegate each : activityDelegatesMap.values()) {
