@@ -1,7 +1,6 @@
 apply plugin: 'com.jdroid.java.webapp'
 
 description = 'Jdroid Sample Server'
-ext.packaging = 'war'
 
 buildscript {
 	repositories {

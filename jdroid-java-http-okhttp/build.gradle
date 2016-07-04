@@ -2,7 +2,6 @@ apply plugin: 'com.jdroid.java.library'
 
 ext.projectName = 'Jdroid Java Http OKHttp'
 description = 'OKHttp Http Layer Implementation for Jdroid'
-ext.packaging = 'jar'
 
 buildscript {
 	dependencies {

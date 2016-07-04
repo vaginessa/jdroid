@@ -7,6 +7,8 @@ public class JavaWebAppGradlePlugin extends JavaGradlePlugin {
 	public void apply(Project project) {
 		super.apply(project)
 
+		project.ext.packaging = 'war'
+
 		project.apply plugin: 'jetty'
 	}
 

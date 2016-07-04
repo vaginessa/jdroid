@@ -1,7 +1,6 @@
 apply plugin: 'com.jdroid.android.application'
 
 description = 'Jdroid Sample Android'
-ext.packaging = 'apk'
 
 jdroid {
 	notDefaultLanguages = ['es']

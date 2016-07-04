@@ -1,14 +1,22 @@
-package com.jdroid.gradle.java
+package com.jdroid.gradle
 
-import org.gradle.api.Project
+import com.jdroid.gradle.commons.JavaBaseGradlePlugin
 import org.gradle.api.tasks.bundling.Jar
+import org.gradle.api.Project
 
-public class JavaLibraryGradlePlugin extends JavaGradlePlugin {
+public class GradleProjectPlugin extends JavaBaseGradlePlugin {
 
 	public void apply(Project project) {
 		super.apply(project)
 
 		project.ext.packaging = 'jar'
+
+		project.apply plugin: 'groovy'
+		project.apply plugin: 'java-gradle-plugin'
+
+		project.dependencies {
+			compile localGroovy()
+		}
 
 		Boolean isOpenSourceEnabled = jdroid.getBooleanProp("OPEN_SOURCE_ENABLED", true)
 		if (isOpenSourceEnabled) {
@@ -28,7 +36,7 @@ public class JavaLibraryGradlePlugin extends JavaGradlePlugin {
 		}
 	}
 
-	protected Class<? extends JavaLibraryGradleExtension> getExtensionClass() {
-		return JavaLibraryGradleExtension.class;
+	protected Class<? extends GradleProjectExtension> getExtensionClass() {
+		return GradleProjectExtension.class;
 	}
 }

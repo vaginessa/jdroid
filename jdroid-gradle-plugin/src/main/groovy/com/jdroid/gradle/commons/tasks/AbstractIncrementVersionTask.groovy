@@ -28,7 +28,7 @@ public class AbstractIncrementVersionTask extends DefaultTask {
 		}
 
 		project.exec {
-			commandLine 'git', 'commit', '-m', "Changed app version to v${project.version}"
+			commandLine 'git', 'commit', '-m', "Changed version to v${project.version}"
 		}
 	}
 }

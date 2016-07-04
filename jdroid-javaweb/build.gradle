@@ -2,7 +2,6 @@ apply plugin: 'com.jdroid.java.library'
 
 ext.projectName = 'Jdroid Java Web'
 description = 'Jdroid dependency project for Java Web apps'
-ext.packaging = 'jar'
 
 def springVersion = '3.2.4.RELEASE'
 

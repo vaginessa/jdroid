@@ -41,7 +41,7 @@ fi
 # jdroid gradle plugin
 # ************************
 
-cmd="./gradlew :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=true"
+cmd="./gradlew :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=true --stacktrace"
 if [ "$DEBUG" = "true" ]
 then
 	cmd="${cmd} --debug"

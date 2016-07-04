@@ -2,7 +2,6 @@ apply plugin: 'com.jdroid.java.library'
 
 ext.projectName = 'Jdroid Java Firebase Database'
 description = 'Firebase Database Repository for Jdroid'
-ext.packaging = 'jar'
 
 buildscript {
 	dependencies {
