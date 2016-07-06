@@ -1,8 +1,21 @@
 [![JDROID](https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/logoDark.png)](http://jdroidframework.com/)
-[![Build Status](https://api.travis-ci.org/maxirosson/jdroid.svg?branch=master)](https://travis-ci.org/maxirosson/jdroid)
-======
+-----------
 
 The jdroid Framework provides a programming and architectural model for modern Java-based enterprise and android applications.
+
+Continuous Integration
+-----------
+
+|Branch|Status|
+| ------------- | ------------- |
+|Master|[![Build Status](https://api.travis-ci.org/maxirosson/jdroid.svg?branch=master)](https://travis-ci.org/maxirosson/jdroid)|
+|Staging|[![Build Status](https://api.travis-ci.org/maxirosson/jdroid.svg?branch=staging)](https://travis-ci.org/maxirosson/jdroid)|
+|Production|[![Build Status](https://api.travis-ci.org/maxirosson/jdroid.svg?branch=production)](https://travis-ci.org/maxirosson/jdroid)|
+
+
+
+Components
+--------------
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
 -----------
