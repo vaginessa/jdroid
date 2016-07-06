@@ -77,7 +77,7 @@ then
 		cmd="${cmd} :jdroid-android-google-maps:assemble :jdroid-android-google-maps:testDebug :jdroid-android-google-maps:lintDebug"
 		cmd="${cmd} :jdroid-android-google-plus:assemble :jdroid-android-google-plus:testDebug :jdroid-android-google-plus:lintDebug"
 		cmd="${cmd} :jdroid-android-google-signin:assemble :jdroid-android-google-signin:testDebug :jdroid-android-google-signin:lintDebug"
-		cmd="${cmd} :jdroid-android-sample:assembleUat :jdroid-android-sample:testDebug :jdroid-android-sample:lintDebug :jdroid-android-sample:countMethodsSummary"
+		cmd="${cmd} :jdroid-android-sample:assembleUat :jdroid-android-sample:testDebug :jdroid-android-sample:lintDebug"
 	fi
 
 fi
