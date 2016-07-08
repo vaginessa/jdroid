@@ -105,4 +105,14 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	public void trackServiceTiming(String trackingVariable, String trackingLabel, long executionTime) {
 		// Do Nothing
 	}
+
+	// Widgets
+
+	public void trackWidgetAdded(String widgetName) {
+		// Do Nothing
+	}
+
+	public void trackWidgetRemoved(String widgetName) {
+		// Do Nothing
+	}
 }

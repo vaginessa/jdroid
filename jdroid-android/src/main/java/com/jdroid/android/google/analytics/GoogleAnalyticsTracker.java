@@ -30,6 +30,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	
 	public static final String NOTIFICATION_CATEGORY = "notification";
 	private static final String FEEDBACK_CATEGORY = "feedback";
+	private static final String WIDGET_CATEGORY = "widget";
 
 	public static final String SOCIAL = "social";
 	
@@ -148,6 +149,16 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	@Override
 	public void trackUriOpened(String uriType, String screenName) {
 		googleAnalyticsHelper.sendEvent(uriType, "open", screenName);
+	}
+
+	// Widgets
+
+	public void trackWidgetAdded(String widgetName) {
+		googleAnalyticsHelper.sendEvent(WIDGET_CATEGORY, "add", widgetName);
+	}
+
+	public void trackWidgetRemoved(String widgetName) {
+		googleAnalyticsHelper.sendEvent(WIDGET_CATEGORY, "remove", widgetName);
 	}
 	
 	@Override

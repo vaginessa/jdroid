@@ -6,10 +6,13 @@ import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.LoggerUtils;
+import com.jdroid.java.utils.StringUtils;
 
 import org.slf4j.Logger;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -120,13 +123,27 @@ public class SharedPreferencesHelper {
 		logSave(key, value);
 	}
 
+	public void savePreference(String key, List<String> values) {
+		savePreference(key, StringUtils.join(values));
+	}
+
 	public void savePreferenceAsync(String key, Float value) {
 		Editor editor = getEditor();
 		editor.putFloat(key, value);
 		editor.apply();
 		logSave(key, value);
 	}
-	
+
+	public void savePreferenceAsync(String key, List<String> values) {
+		savePreferenceAsync(key, StringUtils.join(values));
+	}
+
+	public void appendPreference(String key, String value) {
+		List<String> values = loadPreferenceAsStringList(key);
+		values.add(value);
+		savePreferenceAsync(key, values);
+	}
+
 	/**
 	 * Retrieves all the existent shared preferences.
 	 * 
@@ -270,6 +287,14 @@ public class SharedPreferencesHelper {
 	 */
 	public Float loadPreferenceAsFloat(String key) {
 		return loadPreferenceAsFloat(key, null);
+	}
+
+	public List<String> loadPreferenceAsStringList(String key) {
+		String value = loadPreference(key);
+		if (value != null) {
+			return StringUtils.splitToListWithCommaSeparator(value);
+		}
+		return Lists.newArrayList();
 	}
 	
 	public boolean hasPreference(String key) {

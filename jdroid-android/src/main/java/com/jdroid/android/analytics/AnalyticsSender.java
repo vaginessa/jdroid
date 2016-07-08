@@ -253,4 +253,28 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 			}
 		});
 	}
+
+	// Widgets
+
+	@Override
+	public void trackWidgetAdded(final String widgetName) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+
+			@Override
+			protected void track(T tracker) {
+				tracker.trackWidgetAdded(widgetName);
+			}
+		});
+	}
+
+	@Override
+	public void trackWidgetRemoved(final String widgetName) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+
+			@Override
+			protected void track(T tracker) {
+				tracker.trackWidgetRemoved(widgetName);
+			}
+		});
+	}
 }

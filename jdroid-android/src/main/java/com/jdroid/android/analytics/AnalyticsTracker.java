@@ -50,6 +50,12 @@ public interface AnalyticsTracker extends BaseAnalyticsTracker {
 
 	public void trackGiveFeedback(Boolean feedback);
 
+	// Widgets
+
+	public void trackWidgetAdded(String widgetName);
+
+	public void trackWidgetRemoved(String widgetName);
+
 	// More
 
 	public void trackUriOpened(String uriType, String screenName);
