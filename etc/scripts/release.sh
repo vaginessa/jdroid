@@ -66,7 +66,7 @@ git config user.email $GIT_HUB_EMAIL
 
 git add -A
 git stash
-git checkout production
+git co production
 git pull
 
 VERSION=`./gradlew :printVersion -q --configure-on-demand -PSNAPSHOT=false`
