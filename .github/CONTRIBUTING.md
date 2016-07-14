@@ -20,7 +20,7 @@ and [submitting pull requests](#pull-requests), but please respect the following
 restrictions:
 
 * Please **do not** use the issue tracker for personal support requests.
-* Assign the **Backlog** milestone to issue
+* Assign the **Backlog** milestone to the issue
 
 
 ## Bug reports
