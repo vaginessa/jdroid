@@ -8,9 +8,8 @@ set -e
 UPLOAD=$1
 LOCAL_UPLOAD=$2
 ENABLE_TESTS=$3
-ENABLE_JAVA_WEB=$4
-ENABLE_ANDROID=$5
-DEBUG=$6
+ENABLE_ANDROID=$4
+DEBUG=$5
 
 if [ -z "$UPLOAD" ]
 then
@@ -59,12 +58,6 @@ then
 	cmd="${cmd} :jdroid-java-http-okhttp:build :jdroid-java-http-okhttp:test"
 	cmd="${cmd} :jdroid-java-firebase-database:build :jdroid-java-firebase-database:test"
 
-	if [ "$ENABLE_JAVA_WEB" = "true" ]
-	then
-		cmd="${cmd} :jdroid-javaweb:build :jdroid-javaweb:test"
-		cmd="${cmd} :jdroid-javaweb-sample:build"
-	fi
-
 	if [ "$ENABLE_ANDROID" = "true" ]
 	then
 		cmd="${cmd} :jdroid-android:assemble :jdroid-android:testDebug :jdroid-android:lintDebug"
@@ -93,11 +86,6 @@ then
 	cmd="${cmd} :jdroid-java:uploadArchives"
 	cmd="${cmd} :jdroid-java-http-okhttp:uploadArchives"
 	cmd="${cmd} :jdroid-java-firebase-database:uploadArchives"
-
-	if [ "$ENABLE_JAVA_WEB" = "true" ]
-	then
-		cmd="${cmd} :jdroid-javaweb:uploadArchives"
-	fi
 
 	if [ "$ENABLE_ANDROID" = "true" ]
 	then

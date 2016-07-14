@@ -129,21 +129,6 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
  * [Google Sign In integration](https://developers.google.com/identity/sign-in/android/)
   * sign in, sign out, revoke access
 
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-javaweb](https://github.com/maxirosson/jdroid/wiki/jdroid-Java-Web)
----------------
-Library for Java-based enterprise apps 
-* Http Filters
- * Authentication filter
- * API version filter
-* [Spring MVC integration](http://projects.spring.io/spring-framework/)
-* [Restfb Facebook integration](http://restfb.com/)
-* [Twitter 4j integration](http://twitter4j.org/)
-* [Rollbar integration](https://rollbar.com/)
-* Generic push framework. [Google Cloud Messaging implementation](http://developer.android.com/google/gcm/index.html)
-* Pagination and filtering support
-* [Log4j logging support](http://logging.apache.org/log4j/1.2/)
-* Utilities for Collections, CSV, Files, Reflection, [Guava](https://code.google.com/p/guava-libraries/) and more
-
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/gradle.png" width="25" height="25"/> jdroid-gradle-plugin](https://github.com/maxirosson/jdroid/wiki/jdroid-Gradle-Plugin)
 --------------
 Gradle Plugin for Java & Android projects
@@ -169,6 +154,7 @@ A set of useful shell scripts to
 
 External Jdroid Components
 --------------
+* [jdroid-java-webapp](https://github.com/maxirosson/jdroid-java-webapp)
 * [jdroid-java-github](https://github.com/maxirosson/jdroid-java-github)
 * [jdroid-java-google-drive](https://github.com/maxirosson/jdroid-java-google-drive)
 * [jdroid-googleplay-publisher-plugin](https://github.com/maxirosson/jdroid-googleplay-publisher-plugin)

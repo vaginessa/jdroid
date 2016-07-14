@@ -141,8 +141,6 @@ cmd="${cmd} :jdroid-java:uploadArchives"
 cmd="${cmd} :jdroid-java-http-okhttp:uploadArchives"
 cmd="${cmd} :jdroid-java-firebase-databse:uploadArchives"
 
-cmd="${cmd} :jdroid-javaweb:uploadArchives"
-
 cmd="${cmd} :jdroid-android:uploadArchives"
 cmd="${cmd} :jdroid-android-about:uploadArchives"
 cmd="${cmd} :jdroid-android-crashlytics:uploadArchives"
