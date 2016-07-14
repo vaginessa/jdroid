@@ -1,4 +1,0 @@
-build/
-*.iml
-gradle.properties
-src/main/resources/settings.properties
