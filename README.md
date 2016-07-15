@@ -66,6 +66,8 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 * Url handling support
 * Base Activity & Fragment implementations
 * Base Services implementations
+* App Widgets support
+* Floating Action Button support
 * Recycler View Support
  * Pagination
  * Search
