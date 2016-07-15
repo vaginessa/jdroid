@@ -136,7 +136,6 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 Gradle Plugin for Java & Android projects
 * Android
  * Default Google Android Plugin configuration
- * [SDK Manager Plugin](https://github.com/JakeWharton/sdk-manager-plugin) integration
  * Versioning scheme
  * Android Tasks
     * Verify Missing Translations Between Locales
@@ -145,7 +144,6 @@ Gradle Plugin for Java & Android projects
     * Copy generated APKs to a target directory
 * Java Web
  * [Jetty](http://eclipse.org/jetty) integration
- * [Heroku](https://www.heroku.com) integration
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/genericNews.png" width="25" height="25"/> jdroid-scripts](https://github.com/maxirosson/jdroid/wiki/jdroid-Scripts)
 --------------
