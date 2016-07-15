@@ -36,7 +36,7 @@ Library for Android & Java apps
  * In Memory Implementation 
 * Utilities for Collections, Strings, Dates, Files, Encryption, Threads, [Logging](http://www.slf4j.org/), Validations, Reflection and more
 
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-firebase](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-firebase-database](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
 -----------
 * Repository Pattern
  * [Firebase Implementation](https://www.firebase.com)
