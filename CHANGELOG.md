@@ -1,11 +1,31 @@
 # Change Log
 
+## [v0.9.6](https://github.com/maxirosson/jdroid/tree/v0.9.6) (2016-07-14)
+[Full Changelog](https://github.com/maxirosson/jdroid/compare/v0.9.5...v0.9.6)
+
+**Implemented enhancements:**
+
+- Moved uses cases registration / unregistration to onStart & onStop methods [\#349](https://github.com/maxirosson/jdroid/issues/349)
+- Plugins add ext.packaging config [\#347](https://github.com/maxirosson/jdroid/issues/347)
+- New 'com.jdroid.gradle.GradleProjectPlugin' plugin [\#346](https://github.com/maxirosson/jdroid/issues/346)
+- App Widgets support [\#345](https://github.com/maxirosson/jdroid/issues/345)
+- Added sources and javadoc publish on gradle plugin [\#338](https://github.com/maxirosson/jdroid/issues/338)
+- Renamed 'com.jdroid.javaweb' plugin to 'com.jdroid.java.webapp' [\#337](https://github.com/maxirosson/jdroid/issues/337)
+- Renamed 'com.jdroid.java' plugin to 'com.jdroid.java.library' [\#336](https://github.com/maxirosson/jdroid/issues/336)
+- Change target version to Android N [\#324](https://github.com/maxirosson/jdroid/issues/324)
+- Floating Action Button support [\#317](https://github.com/maxirosson/jdroid/issues/317)
+
+**Closed issues:**
+
+- Renamed 'jdroid-java-firebase' component to 'jdroid-java-firebase-database' [\#350](https://github.com/maxirosson/jdroid/issues/350)
+- Removed DEX methods counter plugin tasks [\#348](https://github.com/maxirosson/jdroid/issues/348)
+
 ## [v0.9.5](https://github.com/maxirosson/jdroid/tree/v0.9.5) (2016-05-09)
 [Full Changelog](https://github.com/maxirosson/jdroid/compare/v0.9.4...v0.9.5)
 
 **Implemented enhancements:**
 
-- Creat jdroid-android-google-inappbilling module [\#316](https://github.com/maxirosson/jdroid/issues/316)
+- Create jdroid-android-google-inappbilling module [\#316](https://github.com/maxirosson/jdroid/issues/316)
 - Add signing config and snapshot versioning on gradle plugin [\#315](https://github.com/maxirosson/jdroid/issues/315)
 - Upgrade to android gradle plugin v2.1.0 [\#314](https://github.com/maxirosson/jdroid/issues/314)
 - Sample Android - Facebook sample [\#174](https://github.com/maxirosson/jdroid/issues/174)
@@ -58,7 +78,7 @@
 
 **Implemented enhancements:**
 
-- Firebase support [\#297](https://github.com/maxirosson/jdroid/issues/297)
+- Firebase Databse support [\#297](https://github.com/maxirosson/jdroid/issues/297)
 - Rate App Component [\#296](https://github.com/maxirosson/jdroid/issues/296)
 - Instance ID support [\#294](https://github.com/maxirosson/jdroid/issues/294)
 - GCM - Add support to gcm v3.0 [\#265](https://github.com/maxirosson/jdroid/issues/265)
