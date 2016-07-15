@@ -131,7 +131,7 @@ git push origin HEAD:production
 
 cd $PROJECT_HOME
 
-./gradlew :jdroid-java:clean :jdroid-java:uploadArchives :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=true -PSNAPSHOT=false
+./gradlew :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=true -PSNAPSHOT=false
 
 cmd="./gradlew clean"
 
@@ -139,7 +139,7 @@ cmd="${cmd} :jdroid-gradle-plugin:uploadArchives"
 
 cmd="${cmd} :jdroid-java:uploadArchives"
 cmd="${cmd} :jdroid-java-http-okhttp:uploadArchives"
-cmd="${cmd} :jdroid-java-firebase-databse:uploadArchives"
+cmd="${cmd} :jdroid-java-firebase-database:uploadArchives"
 
 cmd="${cmd} :jdroid-android:uploadArchives"
 cmd="${cmd} :jdroid-android-about:uploadArchives"
