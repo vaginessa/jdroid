@@ -1,12 +1,10 @@
 package com.jdroid.gradle.commons
 
-import org.gradle.api.JavaVersion
-import org.gradle.api.Plugin
-import org.gradle.api.Project
-import org.gradle.api.tasks.testing.Test
 import com.jdroid.gradle.commons.tasks.IncrementMajorVersionTask
 import com.jdroid.gradle.commons.tasks.IncrementMinorVersionTask
 import com.jdroid.gradle.commons.tasks.IncrementPatchVersionTask
+import org.gradle.api.Plugin
+import org.gradle.api.Project
 
 public class BaseGradlePlugin implements Plugin<Project> {
 
@@ -20,6 +18,10 @@ public class BaseGradlePlugin implements Plugin<Project> {
 		project.extensions.create("jdroid", getExtensionClass(), this)
 		jdroid = project.jdroid
 		project.version = jdroid.generateVersionName()
+
+		project.task('printVersion') << {
+			println project.version
+		}
 
 		project.task('incrementMajorVersion', type: IncrementMajorVersionTask)
 		project.task('incrementMinorVersion', type: IncrementMinorVersionTask)
