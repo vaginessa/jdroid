@@ -9,7 +9,7 @@ public class AndroidLibraryGradlePlugin extends AndroidGradlePlugin {
 	public void apply(Project project) {
 		super.apply(project);
 
-		project.ext.packaging = 'aar'
+		project.ext.PACKAGING = 'aar'
 
 		android.defaultConfig {
 			jdroid.setString(android.defaultConfig, "VERSION", project.version)

@@ -1,6 +1,6 @@
 apply plugin: 'com.jdroid.android.library'
 
-ext.projectName = 'Jdroid Android - Google Maps'
+ext.PROJECT_NAME = 'Jdroid Android - Google Maps'
 description = 'Jdroid dependency project for Google Maps'
 
 buildscript {

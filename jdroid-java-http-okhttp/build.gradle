@@ -1,6 +1,6 @@
 apply plugin: 'com.jdroid.java.library'
 
-ext.projectName = 'Jdroid Java Http OKHttp'
+ext.PROJECT_NAME = 'Jdroid Java Http OKHttp'
 description = 'OKHttp Http Layer Implementation for Jdroid'
 
 buildscript {

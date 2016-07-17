@@ -1,6 +1,6 @@
 apply plugin: 'com.jdroid.java.library'
 
-ext.projectName = 'Jdroid Java'
+ext.PROJECT_NAME = 'Jdroid Java'
 description = 'Jdroid dependency project for both Android & Java apps'
 
 buildscript {

@@ -1,6 +1,6 @@
 apply plugin: 'com.jdroid.android.library'
 
-ext.projectName = 'Jdroid Android - Google AdMob'
+ext.PROJECT_NAME = 'Jdroid Android - Google AdMob'
 description = 'Jdroid dependency project for Google AdMob'
 
 buildscript {

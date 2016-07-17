@@ -9,7 +9,7 @@ public class GradleProjectPlugin extends JavaBaseGradlePlugin {
 	public void apply(Project project) {
 		super.apply(project)
 
-		project.ext.packaging = 'jar'
+		project.ext.PACKAGING = 'jar'
 
 		project.apply plugin: 'groovy'
 		project.apply plugin: 'java-gradle-plugin'

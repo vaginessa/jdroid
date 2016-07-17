@@ -1,6 +1,6 @@
 apply plugin: 'com.jdroid.android.library'
 
-ext.projectName = 'Jdroid Android - Google In App Billing'
+ext.PROJECT_NAME = 'Jdroid Android - Google In App Billing'
 description = 'Jdroid dependency project for Google In Ap Billing'
 
 buildscript {

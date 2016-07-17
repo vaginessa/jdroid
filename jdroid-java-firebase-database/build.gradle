@@ -1,6 +1,6 @@
 apply plugin: 'com.jdroid.java.library'
 
-ext.projectName = 'Jdroid Java Firebase Database'
+ext.PROJECT_NAME = 'Jdroid Java Firebase Database'
 description = 'Firebase Database Repository for Jdroid'
 
 buildscript {

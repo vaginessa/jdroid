@@ -1,6 +1,6 @@
 apply plugin: 'com.jdroid.android.library'
 
-ext.projectName = 'Jdroid Android - Crashlytics'
+ext.PROJECT_NAME = 'Jdroid Android - Crashlytics'
 description = 'Jdroid dependency project for Crashlytics'
 
 buildscript {

@@ -8,7 +8,7 @@ public class JavaLibraryGradlePlugin extends JavaGradlePlugin {
 	public void apply(Project project) {
 		super.apply(project)
 
-		project.ext.packaging = 'jar'
+		project.ext.PACKAGING = 'jar'
 
 		Boolean isOpenSourceEnabled = jdroid.getBooleanProp("OPEN_SOURCE_ENABLED", true)
 		if (isOpenSourceEnabled) {

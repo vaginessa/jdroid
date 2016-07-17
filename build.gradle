@@ -73,14 +73,14 @@ ext.googlePlayServicesVersion = '8.4.0'
 // http://developer.android.com/tools/support-library/index.html
 ext.androidSupportVersion = '23.4.0'
 
-ext.packaging = null
+ext.PACKAGING = null
 
 subprojects {
 
 	apply plugin: 'maven'
 	apply plugin: 'signing'
 
-	ext.projectName = null
+	ext.PROJECT_NAME = null
 
 	group = rootProject.group
 
@@ -111,9 +111,9 @@ subprojects {
 						}
 
 						pom.project {
-							name project.ext.projectName
+							name project.ext.PROJECT_NAME
 							description project.description
-							packaging project.packaging
+							packaging project.PACKAGING
 							url 'http://www.jdroidframework.com'
 							inceptionYear '2011'
 							organization {
