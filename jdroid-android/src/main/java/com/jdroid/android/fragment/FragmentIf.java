@@ -1,6 +1,7 @@
 package com.jdroid.android.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -41,6 +42,8 @@ public interface FragmentIf extends ComponentIf, UseCaseListener {
 	public <V extends View> V findViewOnActivity(@IdRes int id);
 
 	// //////////////////////// Life cycle //////////////////////// //
+
+	public void onNewIntent(Intent intent);
 	
 	/**
 	 * @param key The key of the argument extra

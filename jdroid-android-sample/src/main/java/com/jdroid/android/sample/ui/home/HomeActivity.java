@@ -6,7 +6,6 @@ import android.support.v7.widget.Toolbar;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.FragmentContainerActivity;
 import com.jdroid.android.navdrawer.NavDrawer;
-import com.jdroid.android.uri.NoSegmentsUriHandler;
 import com.jdroid.android.uri.UriHandler;
 
 public class HomeActivity extends FragmentContainerActivity {
@@ -25,7 +24,7 @@ public class HomeActivity extends FragmentContainerActivity {
 
 	@Override
 	public UriHandler getUriHandler() {
-		return new NoSegmentsUriHandler();
+		return new HomeUriHandler();
 	}
 
 	@Override

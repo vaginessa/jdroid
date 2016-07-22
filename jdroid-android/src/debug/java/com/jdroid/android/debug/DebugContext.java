@@ -117,6 +117,10 @@ public class DebugContext {
 		return new UsageStatsDebugPrefsAppender();
 	}
 
+	public UriMapperPrefsAppender createUriMapperPrefsAppender() {
+		return new UriMapperPrefsAppender();
+	}
+
 	public List<PreferencesAppender> getCustomPreferencesAppenders() {
 		return Lists.newArrayList();
 	}

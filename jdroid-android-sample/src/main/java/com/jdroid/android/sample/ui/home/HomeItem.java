@@ -32,6 +32,7 @@ import com.jdroid.android.sample.ui.sqlite.SQLiteActivity;
 import com.jdroid.android.sample.ui.tablets.LeftTabletActivity;
 import com.jdroid.android.sample.ui.tablets.TabletActivity;
 import com.jdroid.android.sample.ui.toasts.ToastsActivity;
+import com.jdroid.android.sample.ui.uri.UriMapperActivity;
 import com.jdroid.android.sample.ui.usecases.UseCasesActivity;
 import com.jdroid.android.utils.ScreenUtils;
 
@@ -63,6 +64,7 @@ public enum HomeItem implements ActionItem {
 	TABLETS(R.string.tablets, R.drawable.ic_tablets, ScreenUtils.is10Inches() ? TabletActivity.class : LeftTabletActivity.class),
 	TOASTS(R.string.toasts, R.drawable.ic_toasts, ToastsActivity.class),
 	UNVERSAL_IMAGE_LOADER(R.string.universalImageLoader, R.drawable.ic_photo, ImageLoaderActivity.class),
+	URI_MAPPER(R.string.uriMapper, R.drawable.ic_photo, UriMapperActivity.class),
 	USE_CASES(R.string.useCases, R.drawable.ic_service, UseCasesActivity.class);
 
 	private Integer resourceId;

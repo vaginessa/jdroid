@@ -1,5 +1,6 @@
 package com.jdroid.android.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.annotation.NonNull;
@@ -38,6 +39,11 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 			appBar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
 
 		}
+	}
+
+	@Override
+	public void onNewIntent(Intent intent) {
+		// Do nothing
 	}
 
 	protected FragmentIf getFragmentIf() {

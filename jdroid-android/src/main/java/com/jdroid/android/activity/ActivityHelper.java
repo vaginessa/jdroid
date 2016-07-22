@@ -386,6 +386,13 @@ public class ActivityHelper implements ActivityIf {
 	public void onNewIntent(Intent intent) {
 		LOGGER.debug("Executing onNewIntent on " + activity);
 
+		activity.setIntent(intent);
+
+		UriHandler uriHandler = getActivityIf().getUriHandler();
+		if (uriHandler != null) {
+			AbstractApplication.get().getUriMapper().handleUri(activity, null, uriHandler);
+		}
+
 		trackNotificationOpened(intent);
 	}
 

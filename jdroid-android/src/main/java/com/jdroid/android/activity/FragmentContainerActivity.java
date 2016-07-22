@@ -91,6 +91,16 @@ public abstract class FragmentContainerActivity extends AbstractFragmentActivity
 	}
 
 	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+
+		FragmentIf fragment = getFragmentIf();
+		if (fragment != null) {
+			fragment.onNewIntent(intent);
+		}
+	}
+
+	@Override
 	public Boolean onBackPressedHandled() {
 		Boolean handled = super.onBackPressedHandled();
 		if (!handled) {

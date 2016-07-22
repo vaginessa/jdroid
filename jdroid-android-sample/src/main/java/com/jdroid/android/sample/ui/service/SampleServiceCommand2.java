@@ -25,8 +25,7 @@ public class SampleServiceCommand2 extends ServiceCommand {
 		if (fail) {
 			throw new UnexpectedException("Failing service");
 		} else {
-			NotificationBuilder builder = new NotificationBuilder();
-			builder.setNotificationName("myNotification");
+			NotificationBuilder builder = new NotificationBuilder("myNotification");
 			builder.setSmallIcon(AbstractApplication.get().getLauncherIconResId());
 			builder.setTicker(R.string.notificationTicker);
 			builder.setContentTitle(getClass().getSimpleName());

@@ -4,13 +4,12 @@ import android.support.v4.app.Fragment;
 
 import com.jdroid.android.activity.ActivityDelegate;
 import com.jdroid.android.activity.FragmentContainerActivity;
-import com.jdroid.android.google.admob.AdHelper;
 import com.jdroid.android.application.AppModule;
+import com.jdroid.android.google.admob.AdHelper;
 import com.jdroid.android.google.admob.AdMobActivityDelegate;
 import com.jdroid.android.google.admob.AdMobAdHelper;
 import com.jdroid.android.google.admob.AdMobAppModule;
 import com.jdroid.android.sample.application.AndroidAppContext;
-import com.jdroid.android.uri.UriHandler;
 
 public class AdsActivity extends FragmentContainerActivity {
 	
@@ -33,10 +32,5 @@ public class AdsActivity extends FragmentContainerActivity {
 		} else {
 			return super.createActivityDelegate(appModule);
 		}
-	}
-
-	@Override
-	public UriHandler getUriHandler() {
-		return new AdsUriHandler();
 	}
 }

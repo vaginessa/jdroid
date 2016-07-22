@@ -6,8 +6,7 @@ public enum AppLoadingSource {
 	
 	NORMAL("normal"),
 	NOTIFICATION("notification"),
-	URL("url"),
-	DEEPLINK("deeplink");
+	URL("url");
 	
 	private static final String APP_LOADING_SOURCE = "appLoadingSource";
 	

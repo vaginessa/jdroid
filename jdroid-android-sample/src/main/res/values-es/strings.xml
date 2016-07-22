@@ -100,6 +100,7 @@
 	<!-- Notifications -->
 	<string name="notifications">Notifications</string>
 	<string name="createNotification">Create Notification</string>
+	<string name="createNotificationFromBundle">Create Notification from Bundle</string>
 	<string name="cancelNotifications">Cancel Notifications</string>
 	<string name="notificationTicker">Ticker example</string>
 	<string name="notificationTitle">Title example</string>
@@ -113,7 +114,11 @@
 	<!-- Tablets -->
 	<string name="tablets">Tablets</string>
 	<string name="leftAction">Left Action</string>
-	<string name="rightAction">Right Action</string>
+
+	<!-- Uri Mapper -->
+	<string name="uriMapper">Uri Mapper</string>
+	<string name="uriMapperSingleTop">Single Top</string>
+	<string name="uriMapperNoFlags">No Flags</string>
 
 	<!-- Loading -->
 	<string name="loading">Loading &amp; Refresh</string>

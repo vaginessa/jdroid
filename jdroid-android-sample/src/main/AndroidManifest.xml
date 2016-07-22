@@ -39,28 +39,14 @@
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
 				<data android:scheme="http" android:host="jdroidframework.com" android:path="/" />
-				<data android:scheme="jdroid" android:host="app" android:path="/" />
-			</intent-filter>
-			<intent-filter>
-				<action android:name="com.google.android.apps.plus.VIEW_DEEP_LINK" />
-				<data android:scheme="vnd.google.deeplink" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="https" android:host="jdroidframework.com" android:path="/" />
 			</intent-filter>
 		</activity>
 
 		<!-- Ads -->
 
 		<activity android:name="com.jdroid.android.sample.ui.ads.AdsActivity" android:label="@string/adMob"
-				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="http" android:host="jdroidframework.com" android:path="/ads" />
-				<data android:scheme="jdroid" android:host="app" android:path="/ads" />
-			</intent-filter>
-		</activity>
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<activity android:name="com.jdroid.android.sample.ui.appinvite.AppInviteActivity" android:label="@string/appInvite"
 				  android:parentActivityName="com.jdroid.android.sample.ui.ads.AdsActivity" tools:ignore="UnusedAttribute"/>
@@ -234,6 +220,41 @@
 
 		<activity android:name="com.jdroid.android.sample.ui.cardview.CardViewRecyclerViewActivity" android:label="@string/cardView"
 				  android:parentActivityName="com.jdroid.android.sample.ui.cardview.CardViewActivity" tools:ignore="UnusedAttribute"/>
+
+		<!-- Uri Mapper -->
+
+		<activity android:name="com.jdroid.android.sample.ui.uri.UriMapperActivity" android:label="@string/uriMapper"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="http" android:host="jdroidframework.com" android:path="/uri" />
+				<data android:scheme="https" android:host="jdroidframework.com" android:path="/uri" />
+			</intent-filter>
+		</activity>
+
+		<activity android:name="com.jdroid.android.sample.ui.uri.UriMapperSingleTopActivity" android:label="@string/uriMapperSingleTop"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute" android:launchMode="singleTop">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="http" android:host="jdroidframework.com" android:pathPrefix="/uri/singletop" />
+				<data android:scheme="https" android:host="jdroidframework.com" android:pathPrefix="/uri/singletop" />
+			</intent-filter>
+		</activity>
+
+		<activity android:name="com.jdroid.android.sample.ui.uri.UriMapperNoFlagsActivity" android:label="@string/uriMapperNoFlags"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="http" android:host="jdroidframework.com" android:pathPrefix="/uri/noflags" />
+				<data android:scheme="https" android:host="jdroidframework.com" android:pathPrefix="/uri/noflags" />
+			</intent-filter>
+		</activity>
 
 		<!-- Use Cases -->
 

@@ -25,8 +25,7 @@ public enum AndroidGcmMessage implements GcmMessage {
 		
 		@Override
 		public void handle(String from, Bundle data) {
-			NotificationBuilder builder = new NotificationBuilder();
-			builder.setNotificationName("pushNotification");
+			NotificationBuilder builder = new NotificationBuilder("pushNotification");
 			builder.setSmallIcon(AbstractApplication.get().getLauncherIconResId());
 			builder.setTicker(R.string.notificationTicker);
 			builder.setContentTitle(R.string.notificationTitle);

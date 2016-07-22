@@ -9,11 +9,12 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.Settings;
-import android.support.v4.app.FragmentActivity;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.GooglePlayUtils;
 import com.jdroid.android.intent.IntentUtils;
+
+import java.io.File;
 
 public class ExternalAppsUtils {
 	
@@ -130,9 +131,17 @@ public class ExternalAppsUtils {
 		}
 	}
 
-	public static void openAppInfo(FragmentActivity fragmentActivity) {
+	public static void openAppInfo(Activity activity) {
 		Uri packageURI = Uri.parse("package:" + AppUtils.getApplicationId());
 		Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
-		fragmentActivity.startActivity(intent);
+		activity.startActivity(intent);
+	}
+
+	public static void openOnChrome(Activity activity, File file) {
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.setData(Uri.fromFile(file));
+		intent.setClassName("com.android.chrome", "com.google.android.apps.chrome.Main");
+		activity.startActivity(intent);
 	}
 }

@@ -60,6 +60,10 @@
 	<!-- Usage Stats -->
 	<string name="usageStats" tools:ignore="MissingTranslation">Usage Stats</string>
 
+	<!-- Uri Mapper -->
+	<string name="uriMapper" tools:ignore="MissingTranslation">Uri Mapper</string>
+	<string name="downloadUrlSample" tools:ignore="MissingTranslation">Download Url Sample</string>
+
 	<string name="reset" tools:ignore="MissingTranslation">Reset</string>
 
 </resources>

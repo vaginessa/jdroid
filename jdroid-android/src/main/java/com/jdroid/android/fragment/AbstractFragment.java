@@ -1,5 +1,6 @@
 package com.jdroid.android.fragment;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -40,14 +41,16 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 		return fragmentHelper.shouldRetainInstance();
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		fragmentHelper = AbstractApplication.get().createFragmentHelper(this);
 		fragmentHelper.onCreate(savedInstanceState);
+	}
+
+	@Override
+	public void onNewIntent(Intent intent) {
+		fragmentHelper.onNewIntent(intent);
 	}
 	
 	protected Boolean isHeroImageEnabled() {

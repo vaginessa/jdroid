@@ -12,12 +12,12 @@ import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.analytics.AnalyticsSender;
 import com.jdroid.android.analytics.AnalyticsTracker;
-import com.jdroid.android.experiments.ExperimentHelper;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.crashlytics.CrashlyticsAppModule;
 import com.jdroid.android.debug.DebugContext;
+import com.jdroid.android.experiments.ExperimentHelper;
 import com.jdroid.android.facebook.FacebookAppModule;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.google.admob.AdMobAppModule;
@@ -37,13 +37,15 @@ import com.jdroid.android.sample.repository.UserRepositoryImpl;
 import com.jdroid.android.sample.ui.AndroidActivityHelper;
 import com.jdroid.android.sample.ui.AndroidFragmentHelper;
 import com.jdroid.android.sample.ui.about.AndroidAboutAppModule;
-import com.jdroid.android.sample.ui.ads.AdsUriHandler;
 import com.jdroid.android.sample.ui.ads.SampleAdMobAppModule;
 import com.jdroid.android.sample.ui.home.HomeActivity;
+import com.jdroid.android.sample.ui.home.HomeUriHandler;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteEntity;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteRepository;
+import com.jdroid.android.sample.ui.uri.UriMapperNoFlagsUriHandler;
+import com.jdroid.android.sample.ui.uri.UriMapperSingleTopUriHandler;
+import com.jdroid.android.sample.ui.uri.UriMapperUriHandler;
 import com.jdroid.android.sqlite.SQLiteHelper;
-import com.jdroid.android.uri.NoSegmentsUriHandler;
 import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.repository.Repository;
 
@@ -60,8 +62,10 @@ public class AndroidApplication extends AbstractApplication {
 	public void onCreate() {
 		super.onCreate();
 
-		getUriMapper().addUriHandler(new NoSegmentsUriHandler());
-		getUriMapper().addUriHandler(new AdsUriHandler());
+		getUriMapper().addUriHandler(new HomeUriHandler());
+		getUriMapper().addUriHandler(new UriMapperUriHandler());
+		getUriMapper().addUriHandler(new UriMapperSingleTopUriHandler());
+		getUriMapper().addUriHandler(new UriMapperNoFlagsUriHandler());
 
 		ExperimentHelper.registerExperiments(AndroidExperiment.SAMPLE_EXPERIMENT);
 

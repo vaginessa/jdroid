@@ -1,5 +1,6 @@
 package com.jdroid.android.google.maps;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
@@ -203,6 +204,11 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	@Override
 	public Integer getContentFragmentLayout() {
 		return R.layout.map_fragment;
+	}
+
+	@Override
+	public void onNewIntent(Intent intent) {
+		fragmentHelper.onNewIntent(intent);
 	}
 
 	/**

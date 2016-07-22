@@ -1,6 +1,7 @@
 package com.jdroid.android.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -111,6 +112,10 @@ public class FragmentHelper implements FragmentIf {
 				fragmentDelegate.onCreate(savedInstanceState);
 			}
 		}
+	}
+
+	public void onNewIntent(Intent intent) {
+		LOGGER.debug("Executing onNewIntent on " + fragment);
 	}
 
 	@Override

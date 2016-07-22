@@ -15,9 +15,6 @@ public class ImageLoaderFragment extends AbstractFragment {
 		return R.layout.imageloader_fragment;
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onViewCreated(android.view.View, android.os.Bundle)
-	 */
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
@@ -25,6 +22,5 @@ public class ImageLoaderFragment extends AbstractFragment {
 		ImageView imageView = findView(R.id.image);
 		AbstractApplication.get().getImageLoaderHelper().displayImage("http://jdroidframework.com/images/mainImage.png", imageView,
 				R.drawable.hero);
-		
 	}
 }

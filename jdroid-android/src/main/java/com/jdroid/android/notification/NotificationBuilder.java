@@ -20,25 +20,68 @@ import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.LocalizationUtils;
+import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.RandomUtils;
 import com.jdroid.java.utils.StringUtils;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 public class NotificationBuilder {
-	
-	public static final String NOTIFICATION_NAME = "notificationName";
 
+	public static final String TICKER = "ticker";
+	public static final String CONTENT_TITLE = "contentTitle";
+	public static final String CONTENT_TEXT = "contentText";
+	public static final String URL = "url";
+
+	public static final String NOTIFICATION_NAME = "notificationName";
 	public static String NOTIFICATION_URI = "notification://";
-	
+
 	private String notificationName;
 
 	private NotificationCompat.Builder builder;
 	
-	public NotificationBuilder() {
+	public NotificationBuilder(String notificationName) {
+		this(notificationName, null);
+	}
+
+	public NotificationBuilder(String notificationName, Bundle bundle) {
+		this.notificationName = notificationName;
 		Context context = AbstractApplication.get();
 		builder = new NotificationCompat.Builder(context);
 		builder.setAutoCancel(true);
 		setColor(R.color.colorPrimary);
+		if (bundle != null) {
+
+			String ticker = bundle.getString(TICKER);
+			if (ticker != null) {
+				setTicker(ticker);
+			} else {
+				throw new UnexpectedException("Missing ticker extra");
+			}
+
+			String contentTitle = bundle.getString(CONTENT_TITLE);
+			if (contentTitle != null) {
+				setContentTitle(contentTitle);
+			} else {
+				throw new UnexpectedException("Missing contentTitle extra");
+			}
+
+			String contentText = bundle.getString(CONTENT_TEXT);
+			if (contentText != null) {
+				setContentText(contentText);
+			} else {
+				throw new UnexpectedException("Missing contentText extra");
+			}
+
+			String url = bundle.getString(URL);
+			if (url != null) {
+				Intent intent = AbstractApplication.get().getUriMapper().getIntentFromUri(context, url);
+				if (intent != null) {
+					setContentIntentSingleTop(intent);
+				}
+			} else {
+				throw new UnexpectedException("Missing url extra");
+			}
+		}
 	}
 
 	public NotificationCompat.Builder getNotificationCompatBuilder() {
@@ -48,7 +91,7 @@ public class NotificationBuilder {
 	public Notification build() {
 		return builder.build();
 	}
-	
+
 	public void setSmallIcon(@DrawableRes int icon) {
 		builder.setSmallIcon(icon);
 	}

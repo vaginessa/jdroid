@@ -1,5 +1,6 @@
 package com.jdroid.android.dialog;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -63,6 +64,11 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		fragmentHelper.onActivityCreated(savedInstanceState);
+	}
+
+	@Override
+	public void onNewIntent(Intent intent) {
+		fragmentHelper.onNewIntent(intent);
 	}
 	
 	@Override
