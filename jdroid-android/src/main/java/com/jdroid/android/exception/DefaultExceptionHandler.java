@@ -8,6 +8,7 @@ import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.ErrorCode;
 import com.jdroid.java.exception.ErrorCodeException;
+import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.ReflectionUtils;
 import com.jdroid.java.utils.StringUtils;
@@ -58,6 +59,10 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 		} catch (Exception e) {
 			logHandledException("Error when trying to handle an exception", e);
 		}
+	}
+
+	public void logHandledException(String errorMessage) {
+		logHandledException(new UnexpectedException(errorMessage));
 	}
 
 	@Override

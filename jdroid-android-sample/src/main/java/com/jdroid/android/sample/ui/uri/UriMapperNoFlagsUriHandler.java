@@ -1,5 +1,6 @@
 package com.jdroid.android.sample.ui.uri;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -27,5 +28,10 @@ public class UriMapperNoFlagsUriHandler extends AbstractUriHandler {
 	@Override
 	public Intent createDefaultIntent(Context context, Uri uri) {
 		return new Intent(context, HomeActivity.class);
+	}
+
+	@Override
+	public String getUrl(Activity activity) {
+		return "http://jdroidframework.com/uri/noflags?a=1";
 	}
 }

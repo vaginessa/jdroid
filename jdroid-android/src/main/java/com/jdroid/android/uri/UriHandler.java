@@ -1,8 +1,11 @@
 package com.jdroid.android.uri;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+
+import com.google.android.gms.appindexing.Action;
 
 /**
  * Handler which parse the parameters and create an intent based on an uri
@@ -29,4 +32,8 @@ public interface UriHandler {
 	public Intent createMainIntent(Context context, Uri uri);
 
 	public Intent createDefaultIntent(Context context, Uri uri);
+
+	public Action getAppIndexingAction(Activity activity);
+
+	public String getUrl(Activity activity);
 }

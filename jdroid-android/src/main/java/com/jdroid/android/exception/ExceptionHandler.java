@@ -9,7 +9,9 @@ public interface ExceptionHandler extends UncaughtExceptionHandler, ExceptionLog
 	public void setDefaultExceptionHandler(UncaughtExceptionHandler uncaughtExceptionHandler);
 	
 	public void logHandledException(String errorMessage, Throwable throwable);
-	
+
+	public void logHandledException(String errorMessage);
+
 	public void logWarningException(String errorMessage, Throwable throwable);
 	
 	public void logWarningException(String errorMessage);

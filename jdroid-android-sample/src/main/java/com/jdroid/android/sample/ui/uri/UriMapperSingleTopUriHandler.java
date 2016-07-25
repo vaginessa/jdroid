@@ -1,5 +1,6 @@
 package com.jdroid.android.sample.ui.uri;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -21,5 +22,10 @@ public class UriMapperSingleTopUriHandler extends AbstractUriHandler {
 	@Override
 	public Intent createMainIntent(Context context, Uri uri) {
 		return new Intent(context, UriMapperSingleTopActivity.class);
+	}
+
+	@Override
+	public String getUrl(Activity activity) {
+		return "http://jdroidframework.com/uri/singletop?a=1";
 	}
 }

@@ -23,6 +23,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
@@ -65,6 +71,9 @@ public class ActivityHelper implements ActivityIf {
 	private Dialog googlePlayServicesErrorDialog;
 
 	private Map<AppModule, ActivityDelegate> activityDelegatesMap;
+
+	private GoogleApiClient googleApiClient;
+	private Action appIndexingAction;
 
 	private static Boolean firstAppLoad;
 	private static Boolean isGooglePlayServicesAvailable;
@@ -142,6 +151,11 @@ public class ActivityHelper implements ActivityIf {
 		UriHandler uriHandler = getActivityIf().getUriHandler();
 		if (uriHandler != null) {
 			AbstractApplication.get().getUriMapper().handleUri(activity, savedInstanceState, uriHandler);
+
+			appIndexingAction = uriHandler.getAppIndexingAction(activity);
+			if (appIndexingAction != null) {
+				googleApiClient = new GoogleApiClient.Builder(activity).addApi(AppIndex.API).build();
+			}
 		}
 
 		if (getActivityIf().onBeforeSetContentView() && getContentView() != 0) {
@@ -227,6 +241,21 @@ public class ActivityHelper implements ActivityIf {
 		for (ActivityDelegate each : activityDelegatesMap.values()) {
 			each.onStart();
 		}
+
+		if (googleApiClient != null && appIndexingAction != null) {
+			googleApiClient.connect();
+			PendingResult<Status> result = AppIndex.AppIndexApi.start(googleApiClient, appIndexingAction);
+			result.setResultCallback(new ResultCallback<Status>() {
+				@Override
+				public void onResult(Status status) {
+					if (status.isSuccess()) {
+						LOGGER.debug("App Indexing API started successfully on " + activity);
+					} else {
+						AbstractApplication.get().getExceptionHandler().logHandledException("App Indexing API started with error on " + activity);
+					}
+				}
+			});
+		}
 	}
 
 	@Nullable
@@ -291,6 +320,21 @@ public class ActivityHelper implements ActivityIf {
 
 		for (ActivityDelegate each : activityDelegatesMap.values()) {
 			each.onStop();
+		}
+
+		if (googleApiClient != null && appIndexingAction != null) {
+			googleApiClient.disconnect();
+			PendingResult<Status> result = AppIndex.AppIndexApi.end(googleApiClient, appIndexingAction);
+			result.setResultCallback(new ResultCallback<Status>() {
+				@Override
+				public void onResult(Status status) {
+					if (status.isSuccess()) {
+						LOGGER.debug("App Indexing API ended successfully on " + activity);
+					} else {
+						AbstractApplication.get().getExceptionHandler().logHandledException("App Indexing API ended with error on " + activity);
+					}
+				}
+			});
 		}
 	}
 
