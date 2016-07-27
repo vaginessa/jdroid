@@ -51,4 +51,9 @@ public class TestAndroidApplication extends AbstractApplication {
 	public int getLauncherIconResId() {
 		return 0;
 	}
+
+	@Override
+	public void initExceptionHandlers() {
+		// Do Nothing
+	}
 }

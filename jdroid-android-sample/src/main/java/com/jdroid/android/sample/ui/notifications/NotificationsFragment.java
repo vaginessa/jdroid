@@ -17,8 +17,12 @@ import com.jdroid.java.utils.IdGenerator;
 
 public class NotificationsFragment extends AbstractFragment {
 
+	private EditText notificationName;
+	private EditText ticker;
+	private EditText contentTitle;
+	private EditText contentText;
 	private EditText urlEditText;
-	
+
 	@Override
 	public Integer getContentFragmentLayout() {
 		return R.layout.notifications_fragment;
@@ -27,17 +31,29 @@ public class NotificationsFragment extends AbstractFragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		
-		findView(R.id.createNotification).setOnClickListener(new OnClickListener() {
+
+		notificationName = findView(R.id.notificationName);
+		notificationName.setText("myNotification");
+
+		ticker = findView(R.id.ticker);
+		ticker.setText("Ticker example");
+
+		contentTitle = findView(R.id.contentTitle);
+		contentTitle.setText("Title example");
+
+		contentText = findView(R.id.contentText);
+		contentText.setText("Description example");
+
+		findView(R.id.sendNotification).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				
-				NotificationBuilder builder = new NotificationBuilder("myNotification");
+				NotificationBuilder builder = new NotificationBuilder(notificationName.getText().toString());
 				builder.setSmallIcon(AbstractApplication.get().getLauncherIconResId());
-				builder.setTicker(R.string.notificationTicker);
-				builder.setContentTitle(R.string.notificationTitle);
-				builder.setContentText(R.string.notificationDescription);
+				builder.setTicker(ticker.getText().toString());
+				builder.setContentTitle(contentTitle.getText().toString());
+				builder.setContentText(contentText.getText().toString());
 				builder.setWhen(DateUtils.nowMillis());
 				builder.setBlueLight();
 				builder.setDefaultSound();
@@ -51,17 +67,17 @@ public class NotificationsFragment extends AbstractFragment {
 		});
 
 		urlEditText = findView(R.id.url);
-		urlEditText.setText("http://jdroidframework.com/images");
+		urlEditText.setText("http://jdroidframework.com/uri");
 
-		findView(R.id.createNotificationFromBundle).setOnClickListener(new OnClickListener() {
+		findView(R.id.sendNotificationFromBundle).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
 				Bundle bundle = new Bundle();
-				bundle.putString(NotificationBuilder.TICKER, getString(R.string.notificationTicker));
-				bundle.putString(NotificationBuilder.CONTENT_TITLE, getString(R.string.notificationTitle));
-				bundle.putString(NotificationBuilder.CONTENT_TEXT, getString(R.string.notificationDescription));
+				bundle.putString(NotificationBuilder.TICKER, ticker.getText().toString());
+				bundle.putString(NotificationBuilder.CONTENT_TITLE, contentTitle.getText().toString());
+				bundle.putString(NotificationBuilder.CONTENT_TEXT, urlEditText.getText().toString());
 				bundle.putString(NotificationBuilder.URL, urlEditText.getText().toString());
 
 				NotificationBuilder builder = new NotificationBuilder("notificationFromBundle", bundle);

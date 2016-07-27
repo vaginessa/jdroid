@@ -6,8 +6,6 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.gcm.GcmMessage;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
-import com.jdroid.android.sample.R;
-import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.date.DateTimeFormat;
 import com.jdroid.java.date.DateUtils;
@@ -27,9 +25,9 @@ public enum AndroidGcmMessage implements GcmMessage {
 		public void handle(String from, Bundle data) {
 			NotificationBuilder builder = new NotificationBuilder("pushNotification");
 			builder.setSmallIcon(AbstractApplication.get().getLauncherIconResId());
-			builder.setTicker(R.string.notificationTicker);
-			builder.setContentTitle(R.string.notificationTitle);
-			String description = LocalizationUtils.getString(R.string.notificationDescription);
+			builder.setTicker("Sample Ticker");
+			builder.setContentTitle("Sample Content Title");
+			String description = "Sample Content Description";
 			Long timestamp = NumberUtils.getLong(data.getString("timestamp"));
 			if (timestamp != null) {
 				description = DateUtils.format(new Date(timestamp), DateTimeFormat.YYYYMMDDHHMMSSSSS);

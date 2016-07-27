@@ -10,11 +10,6 @@ import com.jdroid.android.uri.AbstractUriHandler;
 public class UriMapperUriHandler extends AbstractUriHandler {
 
 	@Override
-	public Boolean matchesIntentFilter(Uri uri) {
-		return uri.getPath().equals("/uri");
-	}
-
-	@Override
 	public Boolean matches(Uri uri) {
 		return true;
 	}

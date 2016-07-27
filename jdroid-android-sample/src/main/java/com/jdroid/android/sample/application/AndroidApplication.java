@@ -39,12 +39,8 @@ import com.jdroid.android.sample.ui.AndroidFragmentHelper;
 import com.jdroid.android.sample.ui.about.AndroidAboutAppModule;
 import com.jdroid.android.sample.ui.ads.SampleAdMobAppModule;
 import com.jdroid.android.sample.ui.home.HomeActivity;
-import com.jdroid.android.sample.ui.home.HomeUriHandler;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteEntity;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteRepository;
-import com.jdroid.android.sample.ui.uri.UriMapperNoFlagsUriHandler;
-import com.jdroid.android.sample.ui.uri.UriMapperSingleTopUriHandler;
-import com.jdroid.android.sample.ui.uri.UriMapperUriHandler;
 import com.jdroid.android.sqlite.SQLiteHelper;
 import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.repository.Repository;
@@ -61,11 +57,6 @@ public class AndroidApplication extends AbstractApplication {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-
-		getUriMapper().addUriHandler(new HomeUriHandler());
-		getUriMapper().addUriHandler(new UriMapperUriHandler());
-		getUriMapper().addUriHandler(new UriMapperSingleTopUriHandler());
-		getUriMapper().addUriHandler(new UriMapperNoFlagsUriHandler());
 
 		ExperimentHelper.registerExperiments(AndroidExperiment.SAMPLE_EXPERIMENT);
 

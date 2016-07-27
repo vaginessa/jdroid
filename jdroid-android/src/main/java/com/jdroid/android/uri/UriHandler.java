@@ -13,11 +13,6 @@ import com.google.android.gms.appindexing.Action;
 public interface UriHandler {
 
 	/**
-	 * @return Whether the uri matches the Intent Filter defined on manifest
-	 */
-	public Boolean matchesIntentFilter(Uri uri);
-
-	/**
 	 * @return Whether the uri should be transformed to a main or a default intent
 	 */
 	public Boolean matches(Uri uri);

@@ -8,7 +8,6 @@ import com.google.android.gms.gcm.TaskParams;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
-import com.jdroid.android.sample.R;
 import com.jdroid.android.service.AbstractGcmTaskService;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.IdGenerator;
@@ -24,7 +23,7 @@ public class SampleGcmTaskService extends AbstractGcmTaskService {
 		} else {
 			NotificationBuilder builder = new NotificationBuilder("myNotification");
 			builder.setSmallIcon(AbstractApplication.get().getLauncherIconResId());
-			builder.setTicker(R.string.notificationTicker);
+			builder.setTicker("Sample Ticker");
 			builder.setContentTitle(getClass().getSimpleName());
 			builder.setContentText(taskParams.getExtras().get("a").toString());
 

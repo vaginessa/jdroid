@@ -16,7 +16,9 @@ public class NotificationUtils {
 	}
 	
 	public static void sendNotification(int id, Notification notification) {
-		NOTIFICATION_MANAGER.notify(id, notification);
+		if (notification != null) {
+			NOTIFICATION_MANAGER.notify(id, notification);
+		}
 	}
 	
 	public static void cancelNotification(int id) {

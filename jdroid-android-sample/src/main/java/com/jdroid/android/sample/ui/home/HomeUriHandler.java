@@ -9,11 +9,6 @@ import com.jdroid.android.uri.AbstractUriHandler;
 public class HomeUriHandler extends AbstractUriHandler {
 
 	@Override
-	public Boolean matchesIntentFilter(Uri uri) {
-		return uri.getPathSegments().isEmpty();
-	}
-
-	@Override
 	public Boolean matches(Uri uri) {
 		return true;
 	}

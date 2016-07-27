@@ -11,11 +11,6 @@ import com.jdroid.android.uri.AbstractUriHandler;
 public class UriMapperNoFlagsUriHandler extends AbstractUriHandler {
 
 	@Override
-	public Boolean matchesIntentFilter(Uri uri) {
-		return uri.getPath().startsWith("/uri/noflags");
-	}
-
-	@Override
 	public Boolean matches(Uri uri) {
 		return uri.getQueryParameter("a").equals("1") || uri.getQueryParameter("a").equals("2");
 	}

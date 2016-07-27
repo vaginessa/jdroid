@@ -99,12 +99,9 @@
 
 	<!-- Notifications -->
 	<string name="notifications">Notifications</string>
-	<string name="createNotification">Create Notification</string>
-	<string name="createNotificationFromBundle">Create Notification from Bundle</string>
+	<string name="sendNotification">Send Notification</string>
+	<string name="sendNotificationFromBundle">Send Notification from Bundle</string>
 	<string name="cancelNotifications">Cancel Notifications</string>
-	<string name="notificationTicker">Ticker example</string>
-	<string name="notificationTitle">Title example</string>
-	<string name="notificationDescription">Description example</string>
 
 	<!-- Toasts -->
 	<string name="toasts">Toasts</string>

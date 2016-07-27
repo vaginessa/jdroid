@@ -18,6 +18,8 @@ import android.widget.RemoteViews;
 import com.jdroid.android.R;
 import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.intent.IntentUtils;
+import com.jdroid.android.uri.UriUtils;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.java.exception.UnexpectedException;
@@ -33,9 +35,12 @@ public class NotificationBuilder {
 	public static final String URL = "url";
 
 	public static final String NOTIFICATION_NAME = "notificationName";
+	public static final String ORIGINAL_URL = "originalUrl";
 	public static String NOTIFICATION_URI = "notification://";
 
 	private String notificationName;
+
+	private Boolean isValid = true;
 
 	private NotificationCompat.Builder builder;
 	
@@ -45,6 +50,9 @@ public class NotificationBuilder {
 
 	public NotificationBuilder(String notificationName, Bundle bundle) {
 		this.notificationName = notificationName;
+		if (notificationName == null) {
+			throw new UnexpectedException("Missing notificationName");
+		}
 		Context context = AbstractApplication.get();
 		builder = new NotificationCompat.Builder(context);
 		builder.setAutoCancel(true);
@@ -52,35 +60,45 @@ public class NotificationBuilder {
 		if (bundle != null) {
 
 			String ticker = bundle.getString(TICKER);
-			if (ticker != null) {
+			if (StringUtils.isNotEmpty(ticker)) {
 				setTicker(ticker);
 			} else {
-				throw new UnexpectedException("Missing ticker extra");
+				isValid = false;
+				AbstractApplication.get().getExceptionHandler().logHandledException("Missing ticker extra for " + notificationName);
 			}
 
 			String contentTitle = bundle.getString(CONTENT_TITLE);
-			if (contentTitle != null) {
+			if (StringUtils.isNotEmpty(contentTitle)) {
 				setContentTitle(contentTitle);
 			} else {
-				throw new UnexpectedException("Missing contentTitle extra");
+				isValid = false;
+				AbstractApplication.get().getExceptionHandler().logHandledException("Missing contentTitle extra for " + notificationName);
 			}
 
 			String contentText = bundle.getString(CONTENT_TEXT);
-			if (contentText != null) {
+			if (StringUtils.isNotEmpty(contentText)) {
 				setContentText(contentText);
 			} else {
-				throw new UnexpectedException("Missing contentText extra");
+				isValid = false;
+				AbstractApplication.get().getExceptionHandler().logHandledException("Missing contentText extra for " + notificationName);
 			}
 
+			Intent intent = null;
 			String url = bundle.getString(URL);
 			if (url != null) {
-				Intent intent = AbstractApplication.get().getUriMapper().getIntentFromUri(context, url);
-				if (intent != null) {
-					setContentIntentSingleTop(intent);
+				intent = new Intent();
+				intent.putExtra(ORIGINAL_URL, url);
+				intent.setData(UriUtils.addRandomParam(Uri.parse(url)));
+				intent.setPackage(AppUtils.getApplicationId());
+				if (!IntentUtils.isIntentAvailable(intent)) {
+					intent = new Intent(context, AbstractApplication.get().getHomeActivityClass());
+					AbstractApplication.get().getExceptionHandler().logHandledException("Notification url is not valid: " + url);
 				}
 			} else {
-				throw new UnexpectedException("Missing url extra");
+				intent = new Intent(context, AbstractApplication.get().getHomeActivityClass());
+				AbstractApplication.get().getExceptionHandler().logHandledException("Missing url extra for " + notificationName);
 			}
+			setContentIntentSingleTop(intent);
 		}
 	}
 
@@ -89,7 +107,7 @@ public class NotificationBuilder {
 	}
 	
 	public Notification build() {
-		return builder.build();
+		return isValid ? builder.build() : null;
 	}
 
 	public void setSmallIcon(@DrawableRes int icon) {
@@ -145,11 +163,9 @@ public class NotificationBuilder {
 	public void setContentIntent(Intent notificationIntent) {
 
 		AppLoadingSource.NOTIFICATION.flagIntent(notificationIntent);
-		if (notificationName != null) {
-			// TODO Disabled to avoid session creation on Google Analytics
-			//	AbstractApplication.get().getAnalyticsSender().trackNotificationDisplayed(notificationName);
-			notificationIntent.putExtra(NOTIFICATION_NAME, notificationName);
-		}
+		// TODO Disabled to avoid session creation on Google Analytics
+		//	AbstractApplication.get().getAnalyticsSender().trackNotificationDisplayed(notificationName);
+		notificationIntent.putExtra(NOTIFICATION_NAME, notificationName);
 
 		// This is a hack to avoid the notification caching
 		if (notificationIntent.getData() == null) {

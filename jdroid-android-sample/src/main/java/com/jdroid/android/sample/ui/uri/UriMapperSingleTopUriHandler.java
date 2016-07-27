@@ -10,11 +10,6 @@ import com.jdroid.android.uri.AbstractUriHandler;
 public class UriMapperSingleTopUriHandler extends AbstractUriHandler {
 
 	@Override
-	public Boolean matchesIntentFilter(Uri uri) {
-		return uri.getPath().startsWith("/uri/singletop");
-	}
-
-	@Override
 	public Boolean matches(Uri uri) {
 		return uri.getQueryParameter("a").equals("1") || uri.getQueryParameter("a").equals("2");
 	}
