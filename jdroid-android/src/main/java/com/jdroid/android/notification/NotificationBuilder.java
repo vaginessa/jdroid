@@ -16,12 +16,11 @@ import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 import com.jdroid.android.R;
-import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.intent.IntentUtils;
 import com.jdroid.android.uri.UriUtils;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.LocalizationUtils;
+import com.jdroid.android.utils.ReferrerUtils;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.RandomUtils;
 import com.jdroid.java.utils.StringUtils;
@@ -35,7 +34,6 @@ public class NotificationBuilder {
 	public static final String URL = "url";
 
 	public static final String NOTIFICATION_NAME = "notificationName";
-	public static final String ORIGINAL_URL = "originalUrl";
 	public static String NOTIFICATION_URI = "notification://";
 
 	private String notificationName;
@@ -83,22 +81,8 @@ public class NotificationBuilder {
 				AbstractApplication.get().getExceptionHandler().logHandledException("Missing contentText extra for " + notificationName);
 			}
 
-			Intent intent = null;
 			String url = bundle.getString(URL);
-			if (url != null) {
-				intent = new Intent();
-				intent.putExtra(ORIGINAL_URL, url);
-				intent.setData(UriUtils.addRandomParam(Uri.parse(url)));
-				intent.setPackage(AppUtils.getApplicationId());
-				if (!IntentUtils.isIntentAvailable(intent)) {
-					intent = new Intent(context, AbstractApplication.get().getHomeActivityClass());
-					AbstractApplication.get().getExceptionHandler().logHandledException("Notification url is not valid: " + url);
-				}
-			} else {
-				intent = new Intent(context, AbstractApplication.get().getHomeActivityClass());
-				AbstractApplication.get().getExceptionHandler().logHandledException("Missing url extra for " + notificationName);
-			}
-			setContentIntentSingleTop(intent);
+			setContentIntentSingleTop(UriUtils.createIntent(context, url, generateNotificationsReferrer()));
 		}
 	}
 
@@ -162,7 +146,6 @@ public class NotificationBuilder {
 
 	public void setContentIntent(Intent notificationIntent) {
 
-		AppLoadingSource.NOTIFICATION.flagIntent(notificationIntent);
 		// TODO Disabled to avoid session creation on Google Analytics
 		//	AbstractApplication.get().getAnalyticsSender().trackNotificationDisplayed(notificationName);
 		notificationIntent.putExtra(NOTIFICATION_NAME, notificationName);
@@ -172,8 +155,14 @@ public class NotificationBuilder {
 			notificationIntent.setData(createUniqueNotificationUri());
 		}
 
+		ReferrerUtils.setReferrer(notificationIntent, generateNotificationsReferrer());
+
 		builder.setContentIntent(PendingIntent.getActivity(AbstractApplication.get(), RandomUtils.get16BitsInt(),
 				notificationIntent, 0));
+	}
+
+	public static String generateNotificationsReferrer() {
+		return "notification://" + AppUtils.getApplicationId();
 	}
 
 	protected Uri createUniqueNotificationUri() {

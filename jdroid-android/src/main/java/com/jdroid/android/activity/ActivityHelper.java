@@ -29,7 +29,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.UsageStats;
@@ -41,6 +40,7 @@ import com.jdroid.android.navdrawer.NavDrawer;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.uri.UriHandler;
 import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.ReferrerUtils;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.utils.IdGenerator;
@@ -77,7 +77,7 @@ public class ActivityHelper implements ActivityIf {
 	private static Boolean firstAppLoad;
 	private static Boolean isGooglePlayServicesAvailable;
 
-	private AppLoadingSource appLoadingSource;
+	private String referrer;
 
 	public ActivityHelper(AbstractFragmentActivity activity) {
 		this.activity = activity;
@@ -145,10 +145,6 @@ public class ActivityHelper implements ActivityIf {
 			firstAppLoad = false;
 		}
 
-		if (appLoadingSource == null) {
-			appLoadingSource = AppLoadingSource.getAppLoadingSource(activity.getIntent());
-		}
-
 		overrideStatusBarColor();
 
 		AbstractApplication.get().initExceptionHandlers();
@@ -161,6 +157,9 @@ public class ActivityHelper implements ActivityIf {
 			if (appIndexingAction != null) {
 				googleApiClient = new GoogleApiClient.Builder(activity).addApi(AppIndex.API).build();
 			}
+		}
+		if (referrer == null) {
+			referrer = ReferrerUtils.getReferrerCategory(activity);
 		}
 
 		if (getActivityIf().onBeforeSetContentView() && getContentView() != 0) {
@@ -217,7 +216,7 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.debug("Executing onStart on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 
-		AbstractApplication.get().getAnalyticsSender().onActivityStart(activity.getClass(), appLoadingSource, getOnActivityStartData());
+		AbstractApplication.get().getAnalyticsSender().onActivityStart(activity.getClass(), referrer, getOnActivityStartData());
 
 		final Long locationFrequency = getActivityIf().getLocationFrequency();
 		if (locationFrequency != null) {
@@ -427,7 +426,7 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.debug("Executing onNewIntent on " + activity);
 
 		activity.setIntent(intent);
-		appLoadingSource = AppLoadingSource.getAppLoadingSource(intent);
+		referrer = ReferrerUtils.getReferrerCategory(activity);
 
 
 		UriHandler uriHandler = getActivityIf().getUriHandler();
@@ -440,7 +439,7 @@ public class ActivityHelper implements ActivityIf {
 
 	private void trackNotificationOpened(Intent intent) {
 		try {
-			if (AppLoadingSource.NOTIFICATION.equals(appLoadingSource)) {
+			if (NotificationBuilder.generateNotificationsReferrer().equals(referrer)) {
 				String notificationName = intent.getStringExtra(NotificationBuilder.NOTIFICATION_NAME);
 				if (notificationName != null) {
 					AbstractApplication.get().getAnalyticsSender().trackNotificationOpened(notificationName);

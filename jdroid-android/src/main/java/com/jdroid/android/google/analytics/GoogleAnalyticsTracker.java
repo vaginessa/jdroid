@@ -7,7 +7,6 @@ import com.google.android.gms.analytics.HitBuilders.AppViewBuilder;
 import com.google.android.gms.analytics.HitBuilders.SocialBuilder;
 import com.google.android.gms.analytics.StandardExceptionParser;
 import com.jdroid.android.analytics.AbstractAnalyticsTracker;
-import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.experiments.ExperimentHelper;
 import com.jdroid.android.experiments.ExperimentHelper.Experiment;
@@ -41,7 +40,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		LOGIN_SOURCE,
 		IS_LOGGED,
 		INSTALLATION_SOURCE, // User scope
-		APP_LOADING_SOURCE, // Hit scope
+		REFERRER, // Hit scope
 		DEVICE_TYPE, // User scope
 		DEVICE_YEAR_CLASS; // User scope
 	}
@@ -56,17 +55,17 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 	
 	@Override
-	public void onActivityStart(Class<? extends Activity> activityClass, AppLoadingSource appLoadingSource, Object data) {
+	public void onActivityStart(Class<? extends Activity> activityClass, String referrer, Object data) {
 		
 		synchronized (GoogleAnalyticsTracker.class) {
 			
 			AppViewBuilder appViewBuilder = new HitBuilders.AppViewBuilder();
-			if (appLoadingSource != null) {
-				if (!googleAnalyticsHelper.hasCommonCustomDimension(CustomDimension.APP_LOADING_SOURCE.name()) || googleAnalyticsHelper.isSessionExpired()) {
-					googleAnalyticsHelper.addCommonCustomDimension(CustomDimension.APP_LOADING_SOURCE.name(), appLoadingSource.getName());
+			if (referrer != null) {
+				if (!googleAnalyticsHelper.hasCommonCustomDimension(CustomDimension.REFERRER.name()) || googleAnalyticsHelper.isSessionExpired()) {
+					googleAnalyticsHelper.addCommonCustomDimension(CustomDimension.REFERRER.name(), referrer);
 				}
-			} else if (!googleAnalyticsHelper.hasCommonCustomDimension(CustomDimension.APP_LOADING_SOURCE.name())) {
-				googleAnalyticsHelper.addCommonCustomDimension(CustomDimension.APP_LOADING_SOURCE.name(), AppLoadingSource.NORMAL.getName());
+			} else if (!googleAnalyticsHelper.hasCommonCustomDimension(CustomDimension.REFERRER.name())) {
+				googleAnalyticsHelper.addCommonCustomDimension(CustomDimension.REFERRER.name(), "normal");
 			}
 
 
@@ -145,8 +144,8 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 
 	@Override
-	public void trackUriOpened(String uriType, String screenName) {
-		googleAnalyticsHelper.sendEvent(uriType, "open", screenName);
+	public void trackUriOpened(String referrerCategory, String screenName) {
+		googleAnalyticsHelper.sendEvent("uri", "open" + screenName, referrerCategory);
 	}
 
 	// Widgets

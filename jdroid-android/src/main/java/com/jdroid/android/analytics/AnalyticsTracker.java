@@ -24,7 +24,7 @@ public interface AnalyticsTracker extends BaseAnalyticsTracker {
 
 	// Activity/fragment life cycle
 	
-	public void onActivityStart(Class<? extends Activity> activityClass, AppLoadingSource appLoadingSource, Object data);
+	public void onActivityStart(Class<? extends Activity> activityClass, String referrer, Object data);
 	
 	public void onActivityResume(Activity activity);
 	
@@ -58,7 +58,7 @@ public interface AnalyticsTracker extends BaseAnalyticsTracker {
 
 	// More
 
-	public void trackUriOpened(String uriType, String screenName);
+	public void trackUriOpened(String referrerCategory, String screenName);
 
 	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget);
 

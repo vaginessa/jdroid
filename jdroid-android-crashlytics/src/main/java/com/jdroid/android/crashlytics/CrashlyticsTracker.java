@@ -4,7 +4,6 @@ import android.app.Activity;
 
 import com.crashlytics.android.Crashlytics;
 import com.jdroid.android.analytics.AbstractAnalyticsTracker;
-import com.jdroid.android.analytics.AppLoadingSource;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 
@@ -54,9 +53,9 @@ public class CrashlyticsTracker extends AbstractAnalyticsTracker {
 	}
 
 	@Override
-	public void onActivityStart(Class<? extends Activity> activityClass, AppLoadingSource appLoadingSource, Object data) {
-		if (appLoadingSource != null) {
-			Crashlytics.getInstance().core.setString(AppLoadingSource.class.getSimpleName(), appLoadingSource.getName());
+	public void onActivityStart(Class<? extends Activity> activityClass, String referrer, Object data) {
+		if (referrer != null) {
+			Crashlytics.getInstance().core.setString("Referrer", referrer);
 		}
 		
 		Crashlytics.getInstance().core.setString("UserId",

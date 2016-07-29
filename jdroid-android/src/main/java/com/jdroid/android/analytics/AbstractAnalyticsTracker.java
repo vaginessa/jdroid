@@ -22,7 +22,7 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	}
 
 	@Override
-	public void onActivityStart(Class<? extends Activity> activityClass, AppLoadingSource appLoadingSource, Object data) {
+	public void onActivityStart(Class<? extends Activity> activityClass, String referrer, Object data) {
 		// Do Nothing
 	}
 	
@@ -62,7 +62,7 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	}
 	
 	@Override
-	public void trackUriOpened(String uriType, String screenName) {
+	public void trackUriOpened(String referrerCategory, String screenName) {
 		// Do Nothing
 	}
 	
