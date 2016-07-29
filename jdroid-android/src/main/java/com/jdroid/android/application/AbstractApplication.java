@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.WorkerThread;
 import android.support.v4.app.Fragment;
 
 import com.jdroid.android.R;
@@ -88,6 +89,8 @@ public abstract class AbstractApplication extends Application {
 	private UpdateManager updateManager;
 	private CacheManager cacheManager;
 
+	private String installationSource;
+
 	private UncaughtExceptionHandler defaultAndroidExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
 
 	private ActivityLifecycleHandler activityLifecycleHandler;
@@ -151,6 +154,7 @@ public abstract class AbstractApplication extends Application {
 
 			@Override
 			public void run() {
+				fetchInstallationSource();
 				verifyAppLaunchStatus();
 
 				if (getCacheManager() != null) {
@@ -291,14 +295,22 @@ public abstract class AbstractApplication extends Application {
 		return DefaultExceptionHandler.class;
 	}
 	
-	public void saveInstallationSource() {
-		String installationSource = SharedPreferencesHelper.get().loadPreference(INSTALLATION_SOURCE);
+	@WorkerThread
+	public String getInstallationSource() {
+		if (installationSource == null) {
+			fetchInstallationSource();
+		}
+		return installationSource;
+	}
+
+	private synchronized void fetchInstallationSource() {
+		installationSource = SharedPreferencesHelper.get().loadPreference(INSTALLATION_SOURCE);
 		if (StringUtils.isBlank(installationSource)) {
 			installationSource = appContext.getInstallationSource();
 			SharedPreferencesHelper.get().savePreference(INSTALLATION_SOURCE, installationSource);
 		}
 	}
-	
+
 	public abstract Class<? extends Activity> getHomeActivityClass();
 
 	@NonNull

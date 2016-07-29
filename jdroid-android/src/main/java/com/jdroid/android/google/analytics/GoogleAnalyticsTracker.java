@@ -8,15 +8,14 @@ import com.google.android.gms.analytics.HitBuilders.SocialBuilder;
 import com.google.android.gms.analytics.StandardExceptionParser;
 import com.jdroid.android.analytics.AbstractAnalyticsTracker;
 import com.jdroid.android.analytics.AppLoadingSource;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.experiments.ExperimentHelper;
 import com.jdroid.android.experiments.ExperimentHelper.Experiment;
 import com.jdroid.android.experiments.ExperimentHelper.ExperimentVariant;
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.android.utils.DeviceUtils;
-import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
@@ -81,8 +80,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 					googleAnalyticsHelper.sendEvent("abTesting", "load", experiment.getId() + "-" + experimentVariant.getId());
 				}
 				
-				String installationSource = SharedPreferencesHelper.get().loadPreference(
-					AbstractApplication.INSTALLATION_SOURCE);
+				String installationSource = AbstractApplication.get().getInstallationSource();
 				if (installationSource != null) {
 					googleAnalyticsHelper.addCustomDimension(appViewBuilder, CustomDimension.INSTALLATION_SOURCE, installationSource);
 					

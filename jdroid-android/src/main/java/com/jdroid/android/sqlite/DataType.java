@@ -79,7 +79,7 @@ public enum DataType {
 			return cursor.getLong(columnIndex);
 		}
 	},
-	REAL("REAL") {
+	DOUBLE("REAL") {
 		
 		@Override
 		public <T> void writeValue(ContentValues values, String columnName, T value) {

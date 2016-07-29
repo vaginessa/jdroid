@@ -43,7 +43,6 @@ import com.jdroid.android.uri.UriHandler;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.collections.Maps;
-import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -77,6 +76,8 @@ public class ActivityHelper implements ActivityIf {
 
 	private static Boolean firstAppLoad;
 	private static Boolean isGooglePlayServicesAvailable;
+
+	private AppLoadingSource appLoadingSource;
 
 	public ActivityHelper(AbstractFragmentActivity activity) {
 		this.activity = activity;
@@ -142,6 +143,10 @@ public class ActivityHelper implements ActivityIf {
 			UsageStats.incrementAppLoad();
 		} else {
 			firstAppLoad = false;
+		}
+
+		if (appLoadingSource == null) {
+			appLoadingSource = AppLoadingSource.getAppLoadingSource(activity.getIntent());
 		}
 
 		overrideStatusBarColor();
@@ -212,16 +217,7 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.debug("Executing onStart on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 
-		ExecutorUtils.execute(new Runnable() {
-
-			@Override
-			public void run() {
-				AbstractApplication.get().saveInstallationSource();
-				AppLoadingSource appLoadingSource = AppLoadingSource.getAppLoadingSource(activity.getIntent());
-				AbstractApplication.get().getAnalyticsSender().onActivityStart(activity.getClass(), appLoadingSource,
-						getOnActivityStartData());
-			}
-		});
+		AbstractApplication.get().getAnalyticsSender().onActivityStart(activity.getClass(), appLoadingSource, getOnActivityStartData());
 
 		final Long locationFrequency = getActivityIf().getLocationFrequency();
 		if (locationFrequency != null) {
@@ -431,6 +427,8 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.debug("Executing onNewIntent on " + activity);
 
 		activity.setIntent(intent);
+		appLoadingSource = AppLoadingSource.getAppLoadingSource(intent);
+
 
 		UriHandler uriHandler = getActivityIf().getUriHandler();
 		if (uriHandler != null) {
@@ -442,7 +440,6 @@ public class ActivityHelper implements ActivityIf {
 
 	private void trackNotificationOpened(Intent intent) {
 		try {
-			AppLoadingSource appLoadingSource = AppLoadingSource.getAppLoadingSource(intent);
 			if (AppLoadingSource.NOTIFICATION.equals(appLoadingSource)) {
 				String notificationName = intent.getStringExtra(NotificationBuilder.NOTIFICATION_NAME);
 				if (notificationName != null) {
