@@ -1,0 +1,4 @@
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android" android:previewImage="@drawable/hero"
+	android:minWidth="@dimen/appWidgetMinWidth" android:minHeight="@dimen/appWidgetMinHeight" android:updatePeriodMillis="0"
+	android:initialLayout="@layout/sample_widget" android:resizeMode="none" android:widgetCategory="home_screen">
+</appwidget-provider>

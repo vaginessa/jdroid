@@ -338,6 +338,7 @@ public abstract class StringUtils {
 	public static List<String> splitToListWithCommaSeparator(String text) {
 		return Lists.newArrayList(splitToCollectionWithCommaSeparator(text, COMMA));
 	}
+
 	public static Collection<String> splitToCollectionWithCommaSeparator(String text) {
 		return splitToCollectionWithCommaSeparator(text, COMMA);
 	}

@@ -138,7 +138,7 @@ public class SharedPreferencesHelper {
 		savePreferenceAsync(key, StringUtils.join(values));
 	}
 
-	public void appendPreference(String key, String value) {
+	public void appendPreferenceAsync(String key, String value) {
 		List<String> values = loadPreferenceAsStringList(key);
 		values.add(value);
 		savePreferenceAsync(key, values);

@@ -302,6 +302,14 @@
 			android:authorities="com.google.android.gms.measurement.google_measurement_service_${applicationId}"
 			android:exported="false" tools:replace="android:authorities" />
 
+		<!-- Widgets -->
+		<receiver android:name="com.jdroid.android.sample.ui.widget.SampleWidgetProvider" android:label="@string/sampleWidget">
+			<intent-filter>
+				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+			</intent-filter>
+			<meta-data android:name="android.appwidget.provider" android:resource="@xml/sample_appwidget_info" />
+		</receiver>
+
 	</application>
 
 </manifest>

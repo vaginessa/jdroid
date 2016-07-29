@@ -160,6 +160,9 @@
 	<!-- Tablets -->
 	<string name="openDetail">Open Detail</string>
 
+	<!-- Widgets -->
+	<string name="sampleWidget">Sample Widget</string>
+
 	<string name="shareMessage">Jdroid - Application Framework for Android and Java apps. Descargue la aplicación de ejemplo en su
 		Android. %1$s</string>
 

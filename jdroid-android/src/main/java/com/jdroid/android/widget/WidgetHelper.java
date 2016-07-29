@@ -34,7 +34,7 @@ public class WidgetHelper {
 				SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.get(WIDGET_PREFERENCES);
 				List<String> widgets = sharedPreferencesHelper.loadPreferenceAsStringList(WIDGET_NAMES);
 				if (!widgets.contains(widgetName)) {
-					sharedPreferencesHelper.appendPreference(WIDGET_NAMES, widgetName);
+					sharedPreferencesHelper.appendPreferenceAsync(WIDGET_NAMES, widgetName);
 					AbstractApplication.get().getAnalyticsSender().trackWidgetAdded(widgetName);
 				}
 			}
