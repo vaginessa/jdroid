@@ -36,7 +36,7 @@ public class UriUtils {
 		return intent;
 	}
 
-	private static Uri addRandomParam(Uri uri) {
+	public static Uri addRandomParam(Uri uri) {
 		String uriString = uri.toString();
 		StringBuilder builder = new StringBuilder(uriString);
 		if (uri.getPathSegments().isEmpty() && StringUtils.isEmpty(uri.getQuery()) && !uriString.endsWith("/")) {
