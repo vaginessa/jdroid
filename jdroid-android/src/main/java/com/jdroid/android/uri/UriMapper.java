@@ -4,13 +4,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.utils.ReferrerUtils;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
+
+import java.util.List;
 
 /**
  * Mapper which allows to navigate the application using a Uri.
@@ -21,10 +26,13 @@ public class UriMapper {
 
 	private static final String HTTP_UNDEFINED = "http://undefined";
 
-	public void handleUri(Activity activity, Bundle savedInstanceState, UriHandler uriHandler) {
+	private List<UriWatcher> uriWatchers = Lists.newArrayList();
+
+	public void handleUri(@NonNull Activity activity, @Nullable Bundle savedInstanceState, @Nullable UriHandler uriHandler) {
 		if (savedInstanceState == null) {
 			Uri uri = UriUtils.getUri(activity);
 			if (uri != null && !uri.getScheme().equals("notification")) {
+				notifyToUriWatchers(uri);
 				if (uriHandler != null) {
 					String referrerCategory = ReferrerUtils.getReferrerCategory(activity);
 					if (referrerCategory == null) {
@@ -72,5 +80,22 @@ public class UriMapper {
 		} else {
 			AbstractApplication.get().getAnalyticsSender().trackUriOpened(referrerCategory, activity.getClass().getSimpleName());
 		}
+	}
+
+	private void notifyToUriWatchers(final Uri uri) {
+		if (!Lists.isNullOrEmpty(uriWatchers)) {
+			for (UriWatcher each : uriWatchers) {
+				LOGGER.debug("Notifying opened Uri to " + each.getClass().getSimpleName());
+				try {
+					each.onUriOpened(uri);
+				} catch (Exception e) {
+					AbstractApplication.get().getExceptionHandler().logHandledException(e);
+				}
+			}
+		}
+	}
+
+	public void addUriWatcher(@NonNull UriWatcher uriWatcher) {
+		this.uriWatchers.add(uriWatcher);
 	}
 }

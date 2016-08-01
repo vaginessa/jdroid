@@ -41,6 +41,7 @@ import com.jdroid.android.sample.ui.ads.SampleAdMobAppModule;
 import com.jdroid.android.sample.ui.home.HomeActivity;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteEntity;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteRepository;
+import com.jdroid.android.sample.ui.uri.SampleUriWatcher;
 import com.jdroid.android.sqlite.SQLiteHelper;
 import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.repository.Repository;
@@ -57,6 +58,8 @@ public class AndroidApplication extends AbstractApplication {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+
+		getUriMapper().addUriWatcher(new SampleUriWatcher());
 
 		ExperimentHelper.registerExperiments(AndroidExperiment.SAMPLE_EXPERIMENT);
 

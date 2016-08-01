@@ -19,8 +19,21 @@ import java.io.InputStream;
 
 public class UriMapperPrefsAppender implements PreferencesAppender {
 
+	private Integer htmlRawId;
+
+	public UriMapperPrefsAppender(Integer htmlRawId) {
+		this.htmlRawId = htmlRawId;
+	}
+	public UriMapperPrefsAppender() {
+		this(null);
+	}
+
 	@Override
 	public void initPreferences(final Activity activity, PreferenceGroup preferenceGroup) {
+
+		if (htmlRawId == null) {
+			htmlRawId = activity.getResources().getIdentifier("url_samples", "raw", activity.getPackageName());
+		}
 
 		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
 		preferenceCategory.setTitle(R.string.uriMapper);
@@ -33,13 +46,11 @@ public class UriMapperPrefsAppender implements PreferencesAppender {
 
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-
 				try {
 					File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 					dir.mkdirs();
 
-					InputStream openInputStream = activity.getResources().openRawResource(activity.getResources().getIdentifier("url_samples",
-							"raw", activity.getPackageName()));
+					InputStream openInputStream = activity.getResources().openRawResource(htmlRawId);
 					File file = new File(dir, AppUtils.getApplicationId() + "_url_samples.html");
 					FileUtils.copyStream(openInputStream, file);
 					openInputStream.close();
