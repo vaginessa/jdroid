@@ -1,5 +1,6 @@
 package com.jdroid.android.sample.ui.home;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,5 +17,10 @@ public class HomeUriHandler extends AbstractUriHandler {
 	@Override
 	public Intent createMainIntent(Context context, Uri uri) {
 		return new Intent(context, HomeActivity.class);
+	}
+
+	@Override
+	public Boolean isAppIndexingEnabled(Activity activity) {
+		return false;
 	}
 }

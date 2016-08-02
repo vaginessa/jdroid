@@ -153,8 +153,7 @@ public class ActivityHelper implements ActivityIf {
 		if (uriHandler != null) {
 			AbstractApplication.get().getUriMapper().handleUri(activity, savedInstanceState, uriHandler);
 
-			appIndexingAction = uriHandler.getAppIndexingAction(activity);
-			if (appIndexingAction != null) {
+			if (uriHandler.isAppIndexingEnabled(activity)) {
 				googleApiClient = new GoogleApiClient.Builder(activity).addApi(AppIndex.API).build();
 			}
 		}
@@ -237,19 +236,25 @@ public class ActivityHelper implements ActivityIf {
 			each.onStart();
 		}
 
-		if (googleApiClient != null && appIndexingAction != null) {
-			googleApiClient.connect();
-			PendingResult<Status> result = AppIndex.AppIndexApi.start(googleApiClient, appIndexingAction);
-			result.setResultCallback(new ResultCallback<Status>() {
-				@Override
-				public void onResult(Status status) {
-					if (status.isSuccess()) {
-						LOGGER.debug("App Indexing API started successfully on " + activity);
-					} else {
-						AbstractApplication.get().getExceptionHandler().logHandledException("App Indexing API started with error on " + activity);
+		UriHandler uriHandler = getActivityIf().getUriHandler();
+		if (uriHandler != null) {
+			if (appIndexingAction == null) {
+				appIndexingAction = uriHandler.getAppIndexingAction(activity);
+			}
+			if (googleApiClient != null && appIndexingAction != null) {
+				googleApiClient.connect();
+				PendingResult<Status> result = AppIndex.AppIndexApi.start(googleApiClient, appIndexingAction);
+				result.setResultCallback(new ResultCallback<Status>() {
+					@Override
+					public void onResult(Status status) {
+						if (status.isSuccess()) {
+							LOGGER.debug("App Indexing API started successfully on " + activity);
+						} else {
+							AbstractApplication.get().getExceptionHandler().logHandledException("App Indexing API started with error on " + activity);
+						}
 					}
-				}
-			});
+				});
+			}
 		}
 	}
 

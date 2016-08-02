@@ -30,10 +30,12 @@ public abstract class AbstractUriHandler implements UriHandler {
 		return null;
 	}
 
+	@Override
 	public Boolean isAppIndexingEnabled(Activity activity) {
 		return true;
 	}
 
+	@Override
 	public Action getAppIndexingAction(Activity activity) {
 		if (isAppIndexingEnabled(activity)) {
 			String url = getUrl(activity);

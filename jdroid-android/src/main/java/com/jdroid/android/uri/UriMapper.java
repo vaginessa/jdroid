@@ -68,6 +68,7 @@ public class UriMapper {
 	private void handleDefaultIntent(Activity activity, UriHandler uriHandler, Uri uri, String referrerCategory) {
 		Intent intent = uriHandler.createDefaultIntent(activity, uri);
 		if (intent != null) {
+			intent.setData(uri);
 			ReferrerUtils.setReferrer(intent, referrerCategory);
 			String className = intent.getComponent().getShortClassName();
 			int dot = className.lastIndexOf('.');
@@ -75,8 +76,12 @@ public class UriMapper {
 				className = className.substring(dot + 1);
 			}
 			AbstractApplication.get().getAnalyticsSender().trackUriOpened(referrerCategory, className);
-			activity.finish();
-			activity.startActivity(intent);
+			if (activity.getIntent().getComponent().equals(intent.getComponent())) {
+				activity.setIntent(intent);
+			} else {
+				activity.finish();
+				activity.startActivity(intent);
+			}
 		} else {
 			AbstractApplication.get().getAnalyticsSender().trackUriOpened(referrerCategory, activity.getClass().getSimpleName());
 		}
