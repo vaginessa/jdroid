@@ -64,6 +64,9 @@
 	<string name="uriMapper" tools:ignore="MissingTranslation">Uri Mapper</string>
 	<string name="downloadUrlSample" tools:ignore="MissingTranslation">Download Url Sample</string>
 
+	<!-- Notifications -->
+	<string name="notifications" tools:ignore="MissingTranslation">Notifications</string>
+
 	<string name="reset" tools:ignore="MissingTranslation">Reset</string>
 
 </resources>

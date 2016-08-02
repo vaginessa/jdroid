@@ -116,7 +116,15 @@ public class DebugContext {
 		return new UriMapperPrefsAppender();
 	}
 
+	public NotificationsDebugPrefsAppender createNotificationsDebugPrefsAppender() {
+		return new NotificationsDebugPrefsAppender();
+	}
+
 	public List<PreferencesAppender> getCustomPreferencesAppenders() {
+		return Lists.newArrayList();
+	}
+
+	public List<String> getUrlsToTest() {
 		return Lists.newArrayList();
 	}
 }

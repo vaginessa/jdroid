@@ -37,6 +37,7 @@ public class DebugSettingsFragment extends AbstractRecyclerFragment {
 		addAppender(appenders, debugContext.createRateAppDebugPrefsAppender());
 		addAppender(appenders, debugContext.createUsageStatsDebugPrefsAppender());
 		addAppender(appenders, debugContext.createUriMapperPrefsAppender());
+		addAppender(appenders, debugContext.createNotificationsDebugPrefsAppender());
 
 		appenders.addAll(debugContext.getCustomPreferencesAppenders());
 
