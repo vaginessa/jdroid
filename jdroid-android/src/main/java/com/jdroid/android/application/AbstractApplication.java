@@ -275,12 +275,15 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	public void initExceptionHandlers() {
-		getAnalyticsSender().onInitExceptionHandler(getExceptionHandlerMetadata());
+		Class<? extends ExceptionHandler> exceptionHandlerClass = getExceptionHandlerClass();
+		if (!Thread.getDefaultUncaughtExceptionHandler().getClass().equals(exceptionHandlerClass)) {
+			getAnalyticsSender().onInitExceptionHandler(getExceptionHandlerMetadata());
 
-		ExceptionHandler exceptionHandler = ReflectionUtils.newInstance(getExceptionHandlerClass());
-		exceptionHandler.setDefaultExceptionHandler(defaultAndroidExceptionHandler);
-		Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);
-		LOGGER.info("Custom exception handler initialized");
+			ExceptionHandler exceptionHandler = ReflectionUtils.newInstance(exceptionHandlerClass);
+			exceptionHandler.setDefaultExceptionHandler(defaultAndroidExceptionHandler);
+			Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);
+			LOGGER.info(exceptionHandlerClass.getSimpleName() + " initialized");
+		}
 	}
 	
 	protected Map<String, String> getExceptionHandlerMetadata() {
