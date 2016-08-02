@@ -1,28 +1,22 @@
 package com.jdroid.android.debug;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
-import com.jdroid.android.fragment.AbstractPreferenceFragment;
-import com.jdroid.android.permission.PermissionHelper;
+import com.jdroid.android.recycler.AbstractRecyclerFragment;
+import com.jdroid.android.recycler.RecyclerViewAdapter;
+import com.jdroid.android.recycler.RecyclerViewType;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
 
-public class DebugSettingsFragment extends AbstractPreferenceFragment {
+public class DebugSettingsFragment extends AbstractRecyclerFragment {
 
-	private List<PermissionHelper> permissionHelpers = Lists.newArrayList();
-	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.debug_preferences);
-	}
-	
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
@@ -47,26 +41,61 @@ public class DebugSettingsFragment extends AbstractPreferenceFragment {
 		appenders.addAll(debugContext.getCustomPreferencesAppenders());
 
 		for (AppModule each : AbstractApplication.get().getAppModules()) {
-			appenders.addAll(each.getPreferencesAppenders());
-		}
-
-		for (PreferencesAppender preferencesAppender : appenders) {
-			if (preferencesAppender.isEnabled()) {
-				for (String each : preferencesAppender.getRequiredPermissions()) {
-					permissionHelpers.add(new PermissionHelper((FragmentActivity)getActivity(), each, 1));
-				}
-				preferencesAppender.initPreferences(getActivity(), getPreferenceScreen());
+			for (PreferencesAppender preferencesAppender : each.getPreferencesAppenders()) {
+				addAppender(appenders, preferencesAppender);
 			}
 		}
 
-		for (PermissionHelper each : permissionHelpers) {
-			each.checkPermission(true);
+		setAdapter(new RecyclerViewAdapter(new PreferencesAppenderRecyclerViewType(), Lists.newArrayList(appenders)));
+	}
+
+	private void addAppender(List<PreferencesAppender> appenders, PreferencesAppender preferencesAppender) {
+		if (preferencesAppender != null && preferencesAppender.isEnabled()) {
+			appenders.add(preferencesAppender);
 		}
 	}
-	
-	private void addAppender(List<PreferencesAppender> appenders, PreferencesAppender preferencesAppender) {
-		if (preferencesAppender != null) {
-			appenders.add(preferencesAppender);
+
+	public class PreferencesAppenderRecyclerViewType extends RecyclerViewType<PreferencesAppender, PreferenceAppenderHolder> {
+
+		@Override
+		protected Class getItemClass() {
+			return PreferencesAppender.class;
+		}
+
+		@Override
+		protected Integer getLayoutResourceId() {
+			return R.layout.default_item;
+		}
+
+		@Override
+		public RecyclerView.ViewHolder createViewHolderFromView(View view) {
+			PreferenceAppenderHolder holder = new PreferenceAppenderHolder(view);
+			holder.name = findView(view, R.id.name);
+			return holder;
+		}
+
+		@Override
+		public void fillHolderFromItem(PreferencesAppender item, PreferenceAppenderHolder holder) {
+			holder.name.setText(item.getNameResId());
+		}
+
+		@Override
+		public void onItemSelected(PreferencesAppender item, View view) {
+			PreferenceAppenderActivity.startActivity(getActivity(), item);
+		}
+
+		@Override
+		public AbstractRecyclerFragment getAbstractRecyclerFragment() {
+			return DebugSettingsFragment.this;
+		}
+	}
+
+	public static class PreferenceAppenderHolder extends RecyclerView.ViewHolder {
+
+		protected TextView name;
+
+		public PreferenceAppenderHolder(View itemView) {
+			super(itemView);
 		}
 	}
 }

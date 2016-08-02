@@ -3,11 +3,10 @@ package com.jdroid.android.debug;
 import android.app.Activity;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.log.DatabaseLog;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.repository.Repository;
@@ -15,9 +14,14 @@ import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
 
-public class LogsDebugPrefsAppender extends AbstractPreferencesAppender {
+public class LogsDebugPrefsAppender extends PreferencesAppender {
 
 	private static final Logger LOGGER_UTILS = LoggerUtils.getLogger(LogsDebugPrefsAppender.class);
+
+	@Override
+	public int getNameResId() {
+		return R.string.debugDatabase;
+	}
 	
 	public static void clean() {
 		ExecutorUtils.execute(new Runnable() {
@@ -38,10 +42,6 @@ public class LogsDebugPrefsAppender extends AbstractPreferencesAppender {
 	@Override
 	public void initPreferences(final Activity activity, PreferenceGroup preferenceGroup) {
 		
-		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
-		preferenceCategory.setTitle(R.string.debugDatabase);
-		preferenceGroup.addPreference(preferenceCategory);
-		
 		Preference preference = new Preference(activity);
 		preference.setTitle(R.string.cleanDebugData);
 		preference.setSummary(R.string.cleanDebugData);
@@ -53,7 +53,7 @@ public class LogsDebugPrefsAppender extends AbstractPreferencesAppender {
 				return true;
 			}
 		});
-		preferenceCategory.addPreference(preference);
+		preferenceGroup.addPreference(preference);
 	}
 	
 	@Override

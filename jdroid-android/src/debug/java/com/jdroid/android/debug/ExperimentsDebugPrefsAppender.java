@@ -5,12 +5,11 @@ import android.content.SharedPreferences.Editor;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.experiments.ExperimentHelper;
 import com.jdroid.android.experiments.ExperimentHelper.Experiment;
 import com.jdroid.android.experiments.ExperimentHelper.ExperimentVariant;
@@ -19,14 +18,16 @@ import com.jdroid.java.collections.Lists;
 import java.util.List;
 import java.util.Map.Entry;
 
-public class ExperimentsDebugPrefsAppender extends AbstractPreferencesAppender {
+public class ExperimentsDebugPrefsAppender extends PreferencesAppender {
+
+	@Override
+	public int getNameResId() {
+		return R.string.experimentsSettings;
+	}
 	
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		
-		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
-		preferenceCategory.setTitle(R.string.experimentsSettings);
-		preferenceGroup.addPreference(preferenceCategory);
 		for (Entry<Experiment, ExperimentVariant> entry : ExperimentHelper.getExperimentsMap().entrySet()) {
 			
 			Experiment experiment = entry.getKey();
@@ -68,7 +69,7 @@ public class ExperimentsDebugPrefsAppender extends AbstractPreferencesAppender {
 					return false;
 				}
 			});
-			preferenceCategory.addPreference(preference);
+			preferenceGroup.addPreference(preference);
 		}
 	}
 	

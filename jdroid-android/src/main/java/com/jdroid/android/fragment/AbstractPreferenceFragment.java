@@ -124,28 +124,22 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getExtra(java.lang.String)
-	 */
 	@Override
 	public <E> E getExtra(String key) {
 		return getFragmentIf().<E>getExtra(key);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getArgument(java.lang.String, java.lang.Object)
-	 */
-	@Override
-	public <E> E getArgument(String key, E defaultValue) {
-		return null;
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getArgument(java.lang.String)
-	 */
 	@Override
 	public <E> E getArgument(String key) {
-		return null;
+		return getArgument(key, null);
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public <E> E getArgument(String key, E defaultValue) {
+		Bundle arguments = getArguments();
+		E value = (arguments != null) && arguments.containsKey(key) ? (E)arguments.get(key) : null;
+		return value != null ? value : defaultValue;
 	}
 	
 	@Override

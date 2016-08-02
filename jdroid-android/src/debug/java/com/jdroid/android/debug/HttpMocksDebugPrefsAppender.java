@@ -3,7 +3,6 @@ package com.jdroid.android.debug;
 import android.app.Activity;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
 import com.jdroid.android.R;
@@ -12,20 +11,20 @@ import com.jdroid.java.collections.Lists;
 
 import java.util.List;
 
-public class HttpMocksDebugPrefsAppender extends AbstractPreferencesAppender {
+public class HttpMocksDebugPrefsAppender extends PreferencesAppender {
+
+	@Override
+	public int getNameResId() {
+		return R.string.httpMocksSettings;
+	}
 	
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
-		
-		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
-		preferenceCategory.setTitle(R.string.httpMocksSettings);
-		preferenceGroup.addPreference(preferenceCategory);
-		
 		CheckBoxPreference checkBoxPreference = new CheckBoxPreference(activity);
 		checkBoxPreference.setKey(DebugContext.HTTP_MOCK_ENABLED);
 		checkBoxPreference.setTitle(R.string.httpMockEnabledTitle);
 		checkBoxPreference.setSummary(R.string.httpMockEnabledDescription);
-		preferenceCategory.addPreference(checkBoxPreference);
+		preferenceGroup.addPreference(checkBoxPreference);
 		
 		checkBoxPreference = new CheckBoxPreference(activity);
 		checkBoxPreference.setKey(DebugContext.HTTP_MOCK_SLEEP);
@@ -33,7 +32,7 @@ public class HttpMocksDebugPrefsAppender extends AbstractPreferencesAppender {
 		checkBoxPreference.setSummary(R.string.httpMockSleepDescription);
 		// FIXME this is not working
 		// checkBoxPreference.setDependency(AppContext.HTTP_MOCK_ENABLED);
-		preferenceCategory.addPreference(checkBoxPreference);
+		preferenceGroup.addPreference(checkBoxPreference);
 		
 		ListPreference preference = new ListPreference(activity);
 		preference.setKey(AndroidJsonMockHttpService.HTTP_MOCK_CRASH_TYPE);
@@ -49,12 +48,12 @@ public class HttpMocksDebugPrefsAppender extends AbstractPreferencesAppender {
 		preference.setEntryValues(entries.toArray(new CharSequence[0]));
 		// FIXME this is not working
 		// preference.setDependency(AppContext.HTTP_MOCK_ENABLED);
-		preferenceCategory.addPreference(preference);
+		preferenceGroup.addPreference(preference);
 
-		onInitPreferenceCategory(activity, preferenceCategory);
+		onInitPreferenceCategory(activity, preferenceGroup);
 	}
 
-	protected void onInitPreferenceCategory(Activity activity, PreferenceCategory preferenceCategory) {
+	protected void onInitPreferenceCategory(Activity activity, PreferenceGroup preferenceGroup) {
 		// Do nothing
 	}
 }

@@ -3,21 +3,20 @@ package com.jdroid.android.about;
 import android.app.Activity;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
 import com.jdroid.android.about.appinvite.AppInviteStats;
-import com.jdroid.android.debug.AbstractPreferencesAppender;
+import com.jdroid.android.debug.PreferencesAppender;
 
-public class AppInviteDebugPrefsAppender extends AbstractPreferencesAppender {
+public class AppInviteDebugPrefsAppender extends PreferencesAppender {
+
+	@Override
+	public int getNameResId() {
+		return R.string.debugAppInvite;
+	}
 
 	@Override
 	public void initPreferences(final Activity activity, PreferenceGroup preferenceGroup) {
-
-		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
-		preferenceCategory.setTitle(R.string.debugAppInvite);
-		preferenceGroup.addPreference(preferenceCategory);
-
 		Preference preference = new Preference(activity);
 		preference.setTitle(R.string.reset);
 		preference.setSummary(R.string.reset);
@@ -29,6 +28,6 @@ public class AppInviteDebugPrefsAppender extends AbstractPreferencesAppender {
 				return true;
 			}
 		});
-		preferenceCategory.addPreference(preference);
+		preferenceGroup.addPreference(preference);
 	}
 }

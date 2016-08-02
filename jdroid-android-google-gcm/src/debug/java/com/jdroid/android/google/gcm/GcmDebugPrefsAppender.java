@@ -5,31 +5,30 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
-import com.jdroid.android.debug.AbstractPreferencesAppender;
+import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class GcmDebugPrefsAppender extends AbstractPreferencesAppender {
+public class GcmDebugPrefsAppender extends PreferencesAppender {
 	
 	private Map<GcmMessage, Bundle> gcmMessagesMap;
 	
 	public GcmDebugPrefsAppender(Map<GcmMessage, Bundle> gcmMessagesMap) {
 		this.gcmMessagesMap = gcmMessagesMap;
 	}
+
+	@Override
+	public int getNameResId() {
+		return R.string.gcmSettings;
+	}
 	
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
-		
-		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
-		preferenceCategory.setTitle(R.string.gcmSettings);
-		preferenceGroup.addPreference(preferenceCategory);
-		
 		ListPreference preference = new ListPreference(activity);
 		preference.setTitle(R.string.emulateGcmMessageTitle);
 		preference.setDialogTitle(R.string.emulateGcmMessageTitle);
@@ -55,7 +54,7 @@ public class GcmDebugPrefsAppender extends AbstractPreferencesAppender {
 				return false;
 			}
 		});
-		preferenceCategory.addPreference(preference);
+		preferenceGroup.addPreference(preference);
 
 		Preference registerDevicePreference = new Preference(activity);
 		registerDevicePreference.setTitle(R.string.registerDeviceTitle);
@@ -68,7 +67,7 @@ public class GcmDebugPrefsAppender extends AbstractPreferencesAppender {
 				return true;
 			}
 		});
-		preferenceCategory.addPreference(registerDevicePreference);
+		preferenceGroup.addPreference(registerDevicePreference);
 	}
 	
 	@Override

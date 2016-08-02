@@ -3,21 +3,20 @@ package com.jdroid.android.debug;
 import android.app.Activity;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
+import com.jdroid.android.application.AbstractApplication;
 
-public class HttpCacheDebugPrefsAppender extends AbstractPreferencesAppender {
+public class HttpCacheDebugPrefsAppender extends PreferencesAppender {
+
+	@Override
+	public int getNameResId() {
+		return R.string.httpCacheSettings;
+	}
 	
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
-		
-		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
-		preferenceCategory.setTitle(R.string.httpCacheSettings);
-		preferenceGroup.addPreference(preferenceCategory);
-		
 		Preference preference = new Preference(activity);
 		preference.setTitle(R.string.clearHttpCache);
 		preference.setSummary(R.string.clearHttpCache);
@@ -29,6 +28,6 @@ public class HttpCacheDebugPrefsAppender extends AbstractPreferencesAppender {
 				return true;
 			}
 		});
-		preferenceCategory.addPreference(preference);
+		preferenceGroup.addPreference(preference);
 	}
 }

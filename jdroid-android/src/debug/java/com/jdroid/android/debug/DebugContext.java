@@ -6,7 +6,6 @@ import android.support.v4.util.Pair;
 import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.debug.mocks.AndroidJsonMockHttpService;
-import com.jdroid.android.fragment.AbstractPreferenceFragment;
 import com.jdroid.android.log.DatabaseLog;
 import com.jdroid.android.log.DatabaseLogsRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
@@ -40,10 +39,6 @@ public class DebugContext {
 
 	public void launchActivityDebugSettingsActivity() {
 		ActivityLauncher.launchActivity(DebugSettingsActivity.class);
-	}
-
-	public Class<? extends AbstractPreferenceFragment> getDebugSettingsFragmentClass() {
-		return DebugSettingsFragment.class;
 	}
 
 	public AbstractMockHttpService getAbstractMockHttpServiceInstance(Object... urlSegments) {

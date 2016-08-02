@@ -6,9 +6,14 @@
 	<application>
 
 		<activity android:name="com.jdroid.android.debug.DebugSettingsActivity"
-				  android:label="@string/debugSettings" android:theme="@style/Jdroid.Theme.Light.Debug" />
+				  android:label="@string/debugSettings" />
+
+		<activity android:name="com.jdroid.android.debug.PreferenceAppenderActivity"
+				  android:parentActivityName="com.jdroid.android.debug.DebugSettingsActivity"
+				  android:theme="@style/Jdroid.Theme.Light.Debug" />
 
 		<activity android:name="com.jdroid.android.debug.DebugInfoActivity"
+				  android:parentActivityName="com.jdroid.android.debug.DebugSettingsActivity"
 				  android:label="@string/debugInfoSettings" />
 
 	</application>

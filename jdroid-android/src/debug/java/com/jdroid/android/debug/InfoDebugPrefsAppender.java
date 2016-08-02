@@ -3,21 +3,20 @@ package com.jdroid.android.debug;
 import android.app.Activity;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
-import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.R;
+import com.jdroid.android.activity.ActivityLauncher;
 
-public class InfoDebugPrefsAppender extends AbstractPreferencesAppender {
+public class InfoDebugPrefsAppender extends PreferencesAppender {
+
+	@Override
+	public int getNameResId() {
+		return R.string.debugInfoCategory;
+	}
 
 	@Override
 	public void initPreferences(final Activity activity, PreferenceGroup preferenceGroup) {
-
-		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
-		preferenceCategory.setTitle(R.string.debugInfoCategory);
-		preferenceGroup.addPreference(preferenceCategory);
-
 		Preference crashPreference = new Preference(activity);
 		crashPreference.setTitle(R.string.debugInfo);
 		crashPreference.setSummary(R.string.debugInfo);
@@ -29,6 +28,6 @@ public class InfoDebugPrefsAppender extends AbstractPreferencesAppender {
 				return true;
 			}
 		});
-		preferenceCategory.addPreference(crashPreference);
+		preferenceGroup.addPreference(crashPreference);
 	}
 }

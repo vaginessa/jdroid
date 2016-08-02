@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
 import com.jdroid.android.R;
@@ -16,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class ServersDebugPrefsAppender extends AbstractPreferencesAppender {
+public class ServersDebugPrefsAppender extends PreferencesAppender {
 	
 	private Map<Class<? extends Server>, List<? extends Server>> serversMap = Maps.newHashMap();
 	
@@ -24,16 +23,13 @@ public class ServersDebugPrefsAppender extends AbstractPreferencesAppender {
 		this.serversMap = serversMap;
 	}
 	
-	/**
-	 * @see PreferencesAppender#initPreferences(Activity, PreferenceGroup)
-	 */
+	@Override
+	public int getNameResId() {
+		return R.string.serversSettings;
+	}
+
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
-		
-		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
-		preferenceCategory.setTitle(R.string.serversSettings);
-		preferenceGroup.addPreference(preferenceCategory);
-		
 		for (final Entry<Class<? extends Server>, List<? extends Server>> entry : serversMap.entrySet()) {
 			ListPreference preference = new ListPreference(activity);
 			preference.setKey(entry.getKey().getSimpleName());
@@ -60,18 +56,14 @@ public class ServersDebugPrefsAppender extends AbstractPreferencesAppender {
 					return true;
 				}
 			});
-			preferenceCategory.addPreference(preference);
+			preferenceGroup.addPreference(preference);
 		}
-		
 	}
 
 	protected void onServerPreferenceChange(Server each) {
 		// Do nothing
 	}
 	
-	/**
-	 * @see com.jdroid.android.debug.PreferencesAppender#isEnabled()
-	 */
 	@Override
 	public Boolean isEnabled() {
 		return (serversMap != null) && !serversMap.isEmpty();

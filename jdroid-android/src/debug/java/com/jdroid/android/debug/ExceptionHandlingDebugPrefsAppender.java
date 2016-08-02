@@ -5,7 +5,6 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 
@@ -15,17 +14,18 @@ import com.jdroid.java.collections.Lists;
 
 import java.util.List;
 
-public class ExceptionHandlingDebugPrefsAppender extends AbstractPreferencesAppender {
+public class ExceptionHandlingDebugPrefsAppender extends PreferencesAppender {
 	
 	private static final String UI_THREAD_KEY = "uiThread";
 	private static final String CRASH_TYPE_KEY = "crashType";
+
+	@Override
+	public int getNameResId() {
+		return R.string.exceptionHandlingSettings;
+	}
 	
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
-		
-		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
-		preferenceCategory.setTitle(R.string.exceptionHandlingSettings);
-		preferenceGroup.addPreference(preferenceCategory);
 		
 		ListPreference preference = new ListPreference(activity);
 		preference.setKey(CRASH_TYPE_KEY);
@@ -38,13 +38,13 @@ public class ExceptionHandlingDebugPrefsAppender extends AbstractPreferencesAppe
 		}
 		preference.setEntries(entries.toArray(new CharSequence[0]));
 		preference.setEntryValues(entries.toArray(new CharSequence[0]));
-		preferenceCategory.addPreference(preference);
+		preferenceGroup.addPreference(preference);
 		
 		CheckBoxPreference checkBoxPreference = new CheckBoxPreference(activity);
 		checkBoxPreference.setKey(UI_THREAD_KEY);
 		checkBoxPreference.setTitle(R.string.uiThread);
 		checkBoxPreference.setSummary(R.string.uiThread);
-		preferenceCategory.addPreference(checkBoxPreference);
+		preferenceGroup.addPreference(checkBoxPreference);
 		
 		Preference crashPreference = new Preference(activity);
 		crashPreference.setTitle(R.string.crash);
@@ -62,6 +62,6 @@ public class ExceptionHandlingDebugPrefsAppender extends AbstractPreferencesAppe
 				return true;
 			}
 		});
-		preferenceCategory.addPreference(crashPreference);
+		preferenceGroup.addPreference(crashPreference);
 	}
 }

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Environment;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
 import com.jdroid.android.R;
@@ -20,7 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class UriMapperPrefsAppender extends AbstractPreferencesAppender {
+public class UriMapperPrefsAppender extends PreferencesAppender {
 
 	private Integer htmlRawId;
 
@@ -32,15 +31,16 @@ public class UriMapperPrefsAppender extends AbstractPreferencesAppender {
 	}
 
 	@Override
+	public int getNameResId() {
+		return R.string.uriMapper;
+	}
+
+	@Override
 	public void initPreferences(final Activity activity, PreferenceGroup preferenceGroup) {
 
 		if (htmlRawId == null) {
 			htmlRawId = activity.getResources().getIdentifier("url_samples", "raw", activity.getPackageName());
 		}
-
-		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
-		preferenceCategory.setTitle(R.string.uriMapper);
-		preferenceGroup.addPreference(preferenceCategory);
 
 		Preference preference = new Preference(activity);
 		preference.setTitle(R.string.downloadUrlSample);
@@ -66,7 +66,7 @@ public class UriMapperPrefsAppender extends AbstractPreferencesAppender {
 				return true;
 			}
 		});
-		preferenceCategory.addPreference(preference);
+		preferenceGroup.addPreference(preference);
 	}
 
 	@Override

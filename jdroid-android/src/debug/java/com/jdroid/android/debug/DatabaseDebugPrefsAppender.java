@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
 import com.jdroid.android.R;
@@ -21,14 +20,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class DatabaseDebugPrefsAppender extends AbstractPreferencesAppender {
+public class DatabaseDebugPrefsAppender extends PreferencesAppender {
+
+	@Override
+	public int getNameResId() {
+		return R.string.database;
+	}
 	
 	@Override
 	public void initPreferences(final Activity activity, PreferenceGroup preferenceGroup) {
-		
-		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
-		preferenceCategory.setTitle(R.string.database);
-		preferenceGroup.addPreference(preferenceCategory);
 		
 		Preference preference = new Preference(activity);
 		preference.setTitle(R.string.downloadDatabase);
@@ -54,7 +54,7 @@ public class DatabaseDebugPrefsAppender extends AbstractPreferencesAppender {
 				return true;
 			}
 		});
-		preferenceCategory.addPreference(preference);
+		preferenceGroup.addPreference(preference);
 	}
 	
 	@Override

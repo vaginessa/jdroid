@@ -3,28 +3,28 @@ package com.jdroid.android.google.inappbilling;
 import android.app.Activity;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
-import com.jdroid.android.debug.AbstractPreferencesAppender;
+import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
 
-public class InAppBillingDebugPrefsAppender extends AbstractPreferencesAppender {
+public class InAppBillingDebugPrefsAppender extends PreferencesAppender {
+
+	@Override
+	public int getNameResId() {
+		return R.string.inAppBillingSettings;
+	}
 	
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
-		
-		PreferenceCategory preferenceCategory = new PreferenceCategory(activity);
-		preferenceCategory.setTitle(R.string.inAppBillingSettings);
-		preferenceGroup.addPreference(preferenceCategory);
 		
 		CheckBoxPreference checkBoxPreference = new CheckBoxPreference(activity);
 		checkBoxPreference.setKey(InAppBillingContext.MOCK_ENABLED);
 		checkBoxPreference.setTitle(R.string.inAppBillingMockEnabledTitle);
 		checkBoxPreference.setSummary(R.string.inAppBillingMockEnabledDescription);
-		preferenceCategory.addPreference(checkBoxPreference);
+		preferenceGroup.addPreference(checkBoxPreference);
 		
 		ListPreference preference = new ListPreference(activity);
 		preference.setKey(InAppBillingContext.TEST_PRODUCT_IDS);
@@ -37,7 +37,7 @@ public class InAppBillingDebugPrefsAppender extends AbstractPreferencesAppender 
 		}
 		preference.setEntries(entries.toArray(new CharSequence[0]));
 		preference.setEntryValues(entries.toArray(new CharSequence[0]));
-		preferenceCategory.addPreference(preference);
+		preferenceGroup.addPreference(preference);
 		
 		// Purchased products
 		List<ProductType> purchasedProductTypes = InAppBillingAppModule.get().getInAppBillingContext().getPurchasedProductTypes();
@@ -52,7 +52,7 @@ public class InAppBillingDebugPrefsAppender extends AbstractPreferencesAppender 
 			}
 			preference.setEntries(entries.toArray(new CharSequence[0]));
 			preference.setEntryValues(entries.toArray(new CharSequence[0]));
-			preferenceCategory.addPreference(preference);
+			preferenceGroup.addPreference(preference);
 		}
 	}
 	
