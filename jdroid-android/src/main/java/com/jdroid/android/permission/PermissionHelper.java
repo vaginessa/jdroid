@@ -33,11 +33,12 @@ public class PermissionHelper {
 	public static final String LOCATION_PERMISSION = Manifest.permission.ACCESS_COARSE_LOCATION;
 	public static final String CAMERA_PERMISSION = Manifest.permission.CAMERA;
 	public static final String ACCOUNTS_PERMISSION = Manifest.permission.GET_ACCOUNTS;
+	public static final String WRITE_EXTERNAL_STORAGE_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 	public static final int LOCATION_PERMISSION_REQUEST_CODE = 91;
 	public static final int CAMERA_PERMISSION_REQUEST_CODE = 92;
 	public static final int ACCOUNTS_PERMISSION_REQUEST_CODE = 93;
-
+	public static final int WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 94;
 
 	private PermissionDelegate permissionDelegate;
 	private int permissionRequestCode;
@@ -66,6 +67,9 @@ public class PermissionHelper {
 		return new PermissionHelper(fragment, ACCOUNTS_PERMISSION, ACCOUNTS_PERMISSION_REQUEST_CODE);
 	}
 
+	public static PermissionHelper createWriteExternalStoragePermissionHelper(Fragment fragment) {
+		return new PermissionHelper(fragment, WRITE_EXTERNAL_STORAGE_PERMISSION, WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE);
+	}
 
 	public static Boolean checkPermission(FragmentActivity fragmentActivity, @StringRes int titleResId, @StringRes int messageResId, String permission, int permissionRequestCode) {
 		return checkPermission(createPermissionDelegate(fragmentActivity), titleResId, messageResId, permission, permissionRequestCode);

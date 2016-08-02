@@ -1,6 +1,5 @@
 package com.jdroid.android.debug;
 
-import java.util.List;
 import android.app.Activity;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -10,18 +9,17 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.collections.Lists;
 
-public class ExceptionHandlingDebugPrefsAppender implements PreferencesAppender {
+import java.util.List;
+
+public class ExceptionHandlingDebugPrefsAppender extends AbstractPreferencesAppender {
 	
 	private static final String UI_THREAD_KEY = "uiThread";
 	private static final String CRASH_TYPE_KEY = "crashType";
 	
-	/**
-	 * @see PreferencesAppender#initPreferences(Activity, PreferenceGroup)
-	 */
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		
@@ -65,13 +63,5 @@ public class ExceptionHandlingDebugPrefsAppender implements PreferencesAppender 
 			}
 		});
 		preferenceCategory.addPreference(crashPreference);
-	}
-	
-	/**
-	 * @see com.jdroid.android.debug.PreferencesAppender#isEnabled()
-	 */
-	@Override
-	public Boolean isEnabled() {
-		return true;
 	}
 }

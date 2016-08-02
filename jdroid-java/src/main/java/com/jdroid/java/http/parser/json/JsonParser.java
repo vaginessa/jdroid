@@ -46,7 +46,7 @@ public abstract class JsonParser<T> implements com.jdroid.java.http.parser.Parse
 			return parse(json);
 		} catch (JSONException e) {
 			String message = e.getMessage();
-			if (message != null && input != null && message.equals("A JSONObject text must begin with '{' at 1 [character 2 line 1]")) {
+			if (message != null && input != null && message.startsWith("A JSONObject text must begin with '{'")) {
 				throw new JSONException("Invalid json [" + input.substring(0, Math.min(input.length(), 50)) + "]");
 			} else {
 				throw e;

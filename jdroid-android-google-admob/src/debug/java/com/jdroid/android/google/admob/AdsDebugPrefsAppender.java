@@ -5,13 +5,10 @@ import android.preference.CheckBoxPreference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
-import com.jdroid.android.debug.PreferencesAppender;
+import com.jdroid.android.debug.AbstractPreferencesAppender;
 
-public class AdsDebugPrefsAppender implements PreferencesAppender {
+public class AdsDebugPrefsAppender extends AbstractPreferencesAppender {
 	
-	/**
-	 * @see PreferencesAppender#initPreferences(Activity, PreferenceGroup)
-	 */
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		
@@ -24,13 +21,5 @@ public class AdsDebugPrefsAppender implements PreferencesAppender {
 		checkBoxPreference.setTitle(R.string.adsEnabledTitle);
 		checkBoxPreference.setSummary(R.string.adsEnabledDescription);
 		preferenceCategory.addPreference(checkBoxPreference);
-	}
-	
-	/**
-	 * @see com.jdroid.android.debug.PreferencesAppender#isEnabled()
-	 */
-	@Override
-	public Boolean isEnabled() {
-		return true;
 	}
 }

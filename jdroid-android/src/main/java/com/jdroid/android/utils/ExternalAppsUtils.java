@@ -137,11 +137,19 @@ public class ExternalAppsUtils {
 		activity.startActivity(intent);
 	}
 
-	public static void openOnChrome(Activity activity, File file) {
+	public static void openOnBrowser(Activity activity, File file) {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.setData(Uri.fromFile(file));
 		intent.setClassName("com.android.chrome", "com.google.android.apps.chrome.Main");
-		activity.startActivity(intent);
+		if (IntentUtils.isIntentAvailable(intent)) {
+			activity.startActivity(intent);
+		} else {
+			intent = new Intent(Intent.ACTION_VIEW);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			intent.setData(Uri.fromFile(file));
+			intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity");
+			activity.startActivity(intent);
+		}
 	}
 }

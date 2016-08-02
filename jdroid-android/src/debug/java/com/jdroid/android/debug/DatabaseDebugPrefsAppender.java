@@ -21,11 +21,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class DatabaseDebugPrefsAppender implements PreferencesAppender {
+public class DatabaseDebugPrefsAppender extends AbstractPreferencesAppender {
 	
-	/**
-	 * @see PreferencesAppender#initPreferences(Activity, PreferenceGroup)
-	 */
 	@Override
 	public void initPreferences(final Activity activity, PreferenceGroup preferenceGroup) {
 		
@@ -60,9 +57,6 @@ public class DatabaseDebugPrefsAppender implements PreferencesAppender {
 		preferenceCategory.addPreference(preference);
 	}
 	
-	/**
-	 * @see com.jdroid.android.debug.PreferencesAppender#isEnabled()
-	 */
 	@Override
 	public Boolean isEnabled() {
 		return AbstractApplication.get().isDatabaseEnabled();

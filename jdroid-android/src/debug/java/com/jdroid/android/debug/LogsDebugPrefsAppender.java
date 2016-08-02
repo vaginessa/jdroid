@@ -15,7 +15,7 @@ import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
 
-public class LogsDebugPrefsAppender implements PreferencesAppender {
+public class LogsDebugPrefsAppender extends AbstractPreferencesAppender {
 
 	private static final Logger LOGGER_UTILS = LoggerUtils.getLogger(LogsDebugPrefsAppender.class);
 	
@@ -35,9 +35,6 @@ public class LogsDebugPrefsAppender implements PreferencesAppender {
 		});
 	}
 
-	/**
-	 * @see PreferencesAppender#initPreferences(Activity, PreferenceGroup)
-	 */
 	@Override
 	public void initPreferences(final Activity activity, PreferenceGroup preferenceGroup) {
 		
@@ -59,9 +56,6 @@ public class LogsDebugPrefsAppender implements PreferencesAppender {
 		preferenceCategory.addPreference(preference);
 	}
 	
-	/**
-	 * @see com.jdroid.android.debug.PreferencesAppender#isEnabled()
-	 */
 	@Override
 	public Boolean isEnabled() {
 		return AbstractApplication.get().isDebugLogRepositoryEnabled();

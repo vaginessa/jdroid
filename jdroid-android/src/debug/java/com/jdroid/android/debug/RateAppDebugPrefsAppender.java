@@ -9,7 +9,7 @@ import android.preference.PreferenceGroup;
 import com.jdroid.android.R;
 import com.jdroid.android.feedback.RateAppStats;
 
-public class RateAppDebugPrefsAppender implements PreferencesAppender {
+public class RateAppDebugPrefsAppender extends AbstractPreferencesAppender {
 
 	@Override
 	public void initPreferences(final Activity activity, PreferenceGroup preferenceGroup) {
@@ -30,10 +30,5 @@ public class RateAppDebugPrefsAppender implements PreferencesAppender {
 			}
 		});
 		preferenceCategory.addPreference(preference);
-	}
-
-	@Override
-	public Boolean isEnabled() {
-		return true;
 	}
 }

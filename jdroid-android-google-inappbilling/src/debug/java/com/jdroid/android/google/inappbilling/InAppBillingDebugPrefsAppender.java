@@ -6,12 +6,12 @@ import android.preference.ListPreference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
-import com.jdroid.android.debug.PreferencesAppender;
+import com.jdroid.android.debug.AbstractPreferencesAppender;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
 
-public class InAppBillingDebugPrefsAppender implements PreferencesAppender {
+public class InAppBillingDebugPrefsAppender extends AbstractPreferencesAppender {
 	
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {

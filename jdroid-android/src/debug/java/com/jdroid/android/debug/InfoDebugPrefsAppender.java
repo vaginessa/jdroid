@@ -9,11 +9,8 @@ import android.preference.PreferenceGroup;
 import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.R;
 
-public class InfoDebugPrefsAppender implements PreferencesAppender {
+public class InfoDebugPrefsAppender extends AbstractPreferencesAppender {
 
-	/**
-	 * @see PreferencesAppender#initPreferences(Activity, PreferenceGroup)
-	 */
 	@Override
 	public void initPreferences(final Activity activity, PreferenceGroup preferenceGroup) {
 
@@ -33,13 +30,5 @@ public class InfoDebugPrefsAppender implements PreferencesAppender {
 			}
 		});
 		preferenceCategory.addPreference(crashPreference);
-	}
-
-	/**
-	 * @see PreferencesAppender#isEnabled()
-	 */
-	@Override
-	public Boolean isEnabled() {
-		return true;
 	}
 }

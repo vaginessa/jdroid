@@ -7,17 +7,13 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
 import com.jdroid.android.R;
-import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.mocks.AndroidJsonMockHttpService;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
 
-public class HttpMocksDebugPrefsAppender implements PreferencesAppender {
+public class HttpMocksDebugPrefsAppender extends AbstractPreferencesAppender {
 	
-	/**
-	 * @see PreferencesAppender#initPreferences(Activity, PreferenceGroup)
-	 */
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		
@@ -60,13 +56,5 @@ public class HttpMocksDebugPrefsAppender implements PreferencesAppender {
 
 	protected void onInitPreferenceCategory(Activity activity, PreferenceCategory preferenceCategory) {
 		// Do nothing
-	}
-	
-	/**
-	 * @see com.jdroid.android.debug.PreferencesAppender#isEnabled()
-	 */
-	@Override
-	public Boolean isEnabled() {
-		return true;
 	}
 }

@@ -8,14 +8,14 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
-import com.jdroid.android.debug.PreferencesAppender;
+import com.jdroid.android.debug.AbstractPreferencesAppender;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class GcmDebugPrefsAppender implements PreferencesAppender {
+public class GcmDebugPrefsAppender extends AbstractPreferencesAppender {
 	
 	private Map<GcmMessage, Bundle> gcmMessagesMap;
 	
@@ -23,9 +23,6 @@ public class GcmDebugPrefsAppender implements PreferencesAppender {
 		this.gcmMessagesMap = gcmMessagesMap;
 	}
 	
-	/**
-	 * @see PreferencesAppender#initPreferences(Activity, PreferenceGroup)
-	 */
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		
@@ -74,9 +71,6 @@ public class GcmDebugPrefsAppender implements PreferencesAppender {
 		preferenceCategory.addPreference(registerDevicePreference);
 	}
 	
-	/**
-	 * @see com.jdroid.android.debug.PreferencesAppender#isEnabled()
-	 */
 	@Override
 	public Boolean isEnabled() {
 		return (gcmMessagesMap != null) && !gcmMessagesMap.isEmpty();

@@ -9,11 +9,8 @@ import android.preference.PreferenceGroup;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
 
-public class ImageLoaderDebugPrefsAppender implements PreferencesAppender {
+public class ImageLoaderDebugPrefsAppender extends AbstractPreferencesAppender {
 	
-	/**
-	 * @see PreferencesAppender#initPreferences(Activity, PreferenceGroup)
-	 */
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		
@@ -48,9 +45,6 @@ public class ImageLoaderDebugPrefsAppender implements PreferencesAppender {
 		preferenceCategory.addPreference(preference);
 	}
 	
-	/**
-	 * @see com.jdroid.android.debug.PreferencesAppender#isEnabled()
-	 */
 	@Override
 	public Boolean isEnabled() {
 		return AbstractApplication.get().getImageLoaderHelper() != null;

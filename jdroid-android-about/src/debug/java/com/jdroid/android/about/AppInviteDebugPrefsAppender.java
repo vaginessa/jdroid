@@ -7,9 +7,9 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
 import com.jdroid.android.about.appinvite.AppInviteStats;
-import com.jdroid.android.debug.PreferencesAppender;
+import com.jdroid.android.debug.AbstractPreferencesAppender;
 
-public class AppInviteDebugPrefsAppender implements PreferencesAppender {
+public class AppInviteDebugPrefsAppender extends AbstractPreferencesAppender {
 
 	@Override
 	public void initPreferences(final Activity activity, PreferenceGroup preferenceGroup) {
@@ -30,10 +30,5 @@ public class AppInviteDebugPrefsAppender implements PreferencesAppender {
 			}
 		});
 		preferenceCategory.addPreference(preference);
-	}
-
-	@Override
-	public Boolean isEnabled() {
-		return true;
 	}
 }

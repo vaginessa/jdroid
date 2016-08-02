@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class ServersDebugPrefsAppender implements PreferencesAppender {
+public class ServersDebugPrefsAppender extends AbstractPreferencesAppender {
 	
 	private Map<Class<? extends Server>, List<? extends Server>> serversMap = Maps.newHashMap();
 	

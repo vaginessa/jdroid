@@ -8,16 +8,19 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 
 import com.jdroid.android.R;
+import com.jdroid.android.permission.PermissionHelper;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.ExternalAppsUtils;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
-public class UriMapperPrefsAppender implements PreferencesAppender {
+public class UriMapperPrefsAppender extends AbstractPreferencesAppender {
 
 	private Integer htmlRawId;
 
@@ -55,7 +58,7 @@ public class UriMapperPrefsAppender implements PreferencesAppender {
 					FileUtils.copyStream(openInputStream, file);
 					openInputStream.close();
 
-					ExternalAppsUtils.openOnChrome(activity, file);
+					ExternalAppsUtils.openOnBrowser(activity, file);
 				} catch (IOException e) {
 					throw new UnexpectedException(e);
 				}
@@ -67,7 +70,7 @@ public class UriMapperPrefsAppender implements PreferencesAppender {
 	}
 
 	@Override
-	public Boolean isEnabled() {
-		return true;
+	public List<String> getRequiredPermissions() {
+		return Lists.newArrayList(PermissionHelper.WRITE_EXTERNAL_STORAGE_PERMISSION);
 	}
 }

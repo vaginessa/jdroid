@@ -9,7 +9,7 @@ import android.preference.PreferenceGroup;
 import com.jdroid.android.R;
 import com.jdroid.android.context.UsageStats;
 
-public class UsageStatsDebugPrefsAppender implements PreferencesAppender {
+public class UsageStatsDebugPrefsAppender extends AbstractPreferencesAppender {
 
 	@Override
 	public void initPreferences(final Activity activity, PreferenceGroup preferenceGroup) {
@@ -43,10 +43,5 @@ public class UsageStatsDebugPrefsAppender implements PreferencesAppender {
 			}
 		});
 		preferenceCategory.addPreference(preference);
-	}
-
-	@Override
-	public Boolean isEnabled() {
-		return true;
 	}
 }

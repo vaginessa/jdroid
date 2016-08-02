@@ -8,11 +8,8 @@ import android.preference.PreferenceGroup;
 import com.jdroid.android.R;
 import com.jdroid.android.navdrawer.NavDrawer;
 
-public class NavDrawerDebugPrefsAppender implements PreferencesAppender {
+public class NavDrawerDebugPrefsAppender extends AbstractPreferencesAppender {
 	
-	/**
-	 * @see PreferencesAppender#initPreferences(Activity, PreferenceGroup)
-	 */
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		
@@ -25,13 +22,5 @@ public class NavDrawerDebugPrefsAppender implements PreferencesAppender {
 		checkBoxPreference.setTitle(R.string.navDrawerManuallyUsedTitle);
 		checkBoxPreference.setSummary(R.string.navDrawerManuallyUsedDescription);
 		preferenceCategory.addPreference(checkBoxPreference);
-	}
-	
-	/**
-	 * @see com.jdroid.android.debug.PreferencesAppender#isEnabled()
-	 */
-	@Override
-	public Boolean isEnabled() {
-		return true;
 	}
 }

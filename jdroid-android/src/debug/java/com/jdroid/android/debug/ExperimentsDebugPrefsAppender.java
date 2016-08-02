@@ -19,11 +19,8 @@ import com.jdroid.java.collections.Lists;
 import java.util.List;
 import java.util.Map.Entry;
 
-public class ExperimentsDebugPrefsAppender implements PreferencesAppender {
+public class ExperimentsDebugPrefsAppender extends AbstractPreferencesAppender {
 	
-	/**
-	 * @see PreferencesAppender#initPreferences(Activity, PreferenceGroup)
-	 */
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		
@@ -75,9 +72,6 @@ public class ExperimentsDebugPrefsAppender implements PreferencesAppender {
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.android.debug.PreferencesAppender#isEnabled()
-	 */
 	@Override
 	public Boolean isEnabled() {
 		return !ExperimentHelper.getExperimentsMap().isEmpty();

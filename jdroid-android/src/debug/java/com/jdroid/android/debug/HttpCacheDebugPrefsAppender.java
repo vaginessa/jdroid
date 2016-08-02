@@ -9,11 +9,8 @@ import android.preference.PreferenceGroup;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
 
-public class HttpCacheDebugPrefsAppender implements PreferencesAppender {
+public class HttpCacheDebugPrefsAppender extends AbstractPreferencesAppender {
 	
-	/**
-	 * @see PreferencesAppender#initPreferences(Activity, PreferenceGroup)
-	 */
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		
@@ -33,13 +30,5 @@ public class HttpCacheDebugPrefsAppender implements PreferencesAppender {
 			}
 		});
 		preferenceCategory.addPreference(preference);
-	}
-	
-	/**
-	 * @see com.jdroid.android.debug.PreferencesAppender#isEnabled()
-	 */
-	@Override
-	public Boolean isEnabled() {
-		return true;
 	}
 }
