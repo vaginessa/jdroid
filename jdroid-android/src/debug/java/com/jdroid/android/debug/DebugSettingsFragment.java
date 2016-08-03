@@ -39,13 +39,13 @@ public class DebugSettingsFragment extends AbstractRecyclerFragment {
 		addAppender(appenders, debugContext.createUriMapperPrefsAppender());
 		addAppender(appenders, debugContext.createNotificationsDebugPrefsAppender());
 
-		appenders.addAll(debugContext.getCustomPreferencesAppenders());
-
 		for (AppModule each : AbstractApplication.get().getAppModules()) {
 			for (PreferencesAppender preferencesAppender : each.getPreferencesAppenders()) {
 				addAppender(appenders, preferencesAppender);
 			}
 		}
+
+		appenders.addAll(debugContext.getCustomPreferencesAppenders());
 
 		setAdapter(new RecyclerViewAdapter(new PreferencesAppenderRecyclerViewType(), Lists.newArrayList(appenders)));
 	}

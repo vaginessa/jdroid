@@ -23,12 +23,19 @@ public abstract class AbstractGcmMessageResolver implements GcmMessageResolver {
 	
 	public AbstractGcmMessageResolver(List<GcmMessage> gcmMessages) {
 		this.gcmMessages = gcmMessages;
+		if (includeNotificationGcmMessage()) {
+			this.gcmMessages.add(new NotificationGcmMessage());
+		}
 	}
 	
 	public AbstractGcmMessageResolver(GcmMessage... gcmMessages) {
 		this(Lists.newArrayList(gcmMessages));
 	}
-	
+
+	protected Boolean includeNotificationGcmMessage() {
+		return true;
+	}
+
 	@Override
 	public GcmMessage resolve(String from, Bundle data) {
 		String messageKey = data.getString(getMessageKeyExtraName());

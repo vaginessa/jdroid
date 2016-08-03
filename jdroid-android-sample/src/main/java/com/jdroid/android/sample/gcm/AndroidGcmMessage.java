@@ -6,7 +6,6 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.gcm.GcmMessage;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
-import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.date.DateTimeFormat;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.IdGenerator;
@@ -49,9 +48,4 @@ public enum AndroidGcmMessage implements GcmMessage {
 	public String getMessageKey() {
 		return messageKey;
 	}
-	
-	public Boolean isNotificationEnabled() {
-		return SharedPreferencesHelper.get().loadPreferenceAsBoolean(messageKey, true);
-	}
-	
 }
