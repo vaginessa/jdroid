@@ -31,6 +31,9 @@ public class NotificationBuilder {
 	public static final String TICKER = "ticker";
 	public static final String CONTENT_TITLE = "contentTitle";
 	public static final String CONTENT_TEXT = "contentText";
+	public static final String SOUND_ENABLED = "soundEnabled";
+	public static final String VIBRATION_ENABLED = "vibrationEnabled";
+	public static final String LIGHT_ENABLED = "lightEnabled";
 	public static final String URL = "url";
 
 	public static final String NOTIFICATION_NAME = "notificationName";
@@ -62,7 +65,7 @@ public class NotificationBuilder {
 				setTicker(ticker);
 			} else {
 				isValid = false;
-				AbstractApplication.get().getExceptionHandler().logHandledException("Missing ticker extra for " + notificationName);
+				AbstractApplication.get().getExceptionHandler().logHandledException("Missing " + TICKER + " extra for " + notificationName);
 			}
 
 			String contentTitle = bundle.getString(CONTENT_TITLE);
@@ -70,7 +73,7 @@ public class NotificationBuilder {
 				setContentTitle(contentTitle);
 			} else {
 				isValid = false;
-				AbstractApplication.get().getExceptionHandler().logHandledException("Missing contentTitle extra for " + notificationName);
+				AbstractApplication.get().getExceptionHandler().logHandledException("Missing " + CONTENT_TITLE + " extra for " + notificationName);
 			}
 
 			String contentText = bundle.getString(CONTENT_TEXT);
@@ -78,7 +81,17 @@ public class NotificationBuilder {
 				setContentText(contentText);
 			} else {
 				isValid = false;
-				AbstractApplication.get().getExceptionHandler().logHandledException("Missing contentText extra for " + notificationName);
+				AbstractApplication.get().getExceptionHandler().logHandledException("Missing " + CONTENT_TEXT + " extra for " + notificationName);
+			}
+
+			if (bundle.getBoolean(SOUND_ENABLED, false)) {
+				setDefaultSound();
+			}
+			if (bundle.getBoolean(VIBRATION_ENABLED, false)) {
+				setDefaultVibration();
+			}
+			if (bundle.getBoolean(LIGHT_ENABLED, false)) {
+				setWhiteLight();
 			}
 
 			String url = bundle.getString(URL);

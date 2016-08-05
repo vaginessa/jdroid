@@ -15,12 +15,22 @@ public class NotificationGcmMessage implements GcmMessage {
 	@Override
 	public void handle(String from, Bundle data) {
 		NotificationBuilder builder = new NotificationBuilder(getMessageKey(), data);
-		builder.setSmallIcon(AbstractApplication.get().getLauncherIconResId());
+		builder.setSmallIcon(getSmallIconResId());
+		builder.setPublicVisibility();
 		builder.setWhen(DateUtils.nowMillis());
+		configureBuilder(builder);
 
 		NotificationUtils.sendNotification(IdGenerator.getIntId(), builder);
 	}
-	
+
+	protected void configureBuilder(NotificationBuilder notificationBuilder) {
+		// Do Nothing
+	}
+
+	protected int getSmallIconResId() {
+		return AbstractApplication.get().getLauncherIconResId();
+	}
+
 	@Override
 	public String getMessageKey() {
 		return MESSAGE_KEY;

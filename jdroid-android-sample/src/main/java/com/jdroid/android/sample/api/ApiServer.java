@@ -79,6 +79,6 @@ public enum ApiServer implements GcmSender {
 
 	@Override
 	public String getSenderId() {
-		return "847633592014";
+		return "696640780381";
 	}
 }
