@@ -46,7 +46,7 @@ public abstract class AbstractGcmAppModule extends AbstractAppModule {
 		return getGcmDebugContext().getPreferencesAppenders();
 	}
 
-	public GcmMessageResolver getGcmMessageResolver() {
+	public GcmMessageResolver getGcmMessageResolver(String from) {
 		return gcmMessageResolver;
 	}
 

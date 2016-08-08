@@ -1,8 +1,8 @@
 package com.jdroid.android.sample.api;
 
 import com.jdroid.android.api.AndroidApiService;
-import com.jdroid.android.google.gcm.Device;
-import com.jdroid.android.google.gcm.DeviceMarshaller;
+import com.jdroid.android.google.gcm.device.Device;
+import com.jdroid.android.google.gcm.device.DeviceMarshaller;
 import com.jdroid.java.http.HttpService;
 import com.jdroid.java.http.HttpServiceFactory;
 import com.jdroid.java.http.okhttp.OkHttpServiceFactory;

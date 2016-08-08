@@ -20,7 +20,7 @@ public class GcmListenerResolver {
 	public void onMessageReceived(String from, Bundle data) {
 		LOGGER.info("Message received from : " + from + ", with data: " + data.toString());
 
-		GcmMessageResolver gcmResolver = AbstractGcmAppModule.get().getGcmMessageResolver();
+		GcmMessageResolver gcmResolver = AbstractGcmAppModule.get().getGcmMessageResolver(from);
 		if (gcmResolver != null) {
 			GcmMessage gcmMessage = null;
 			try {

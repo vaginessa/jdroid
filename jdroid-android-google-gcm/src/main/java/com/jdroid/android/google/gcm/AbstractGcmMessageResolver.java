@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.SecurityContext;
+import com.jdroid.android.google.gcm.notification.NotificationGcmMessage;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.NumberUtils;

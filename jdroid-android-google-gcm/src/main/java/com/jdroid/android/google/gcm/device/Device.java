@@ -1,4 +1,4 @@
-package com.jdroid.android.google.gcm;
+package com.jdroid.android.google.gcm.device;
 
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.AppUtils;

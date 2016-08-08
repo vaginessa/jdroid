@@ -1,8 +1,9 @@
-package com.jdroid.android.google.gcm;
+package com.jdroid.android.google.gcm.notification;
 
 import android.os.Bundle;
 
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.google.gcm.GcmMessage;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.java.date.DateUtils;

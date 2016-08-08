@@ -3,7 +3,7 @@ package com.jdroid.android.sample.gcm;
 import android.os.Bundle;
 
 import com.jdroid.android.google.gcm.AbstractGcmAppModule;
-import com.jdroid.android.google.gcm.Device;
+import com.jdroid.android.google.gcm.device.Device;
 import com.jdroid.android.google.gcm.GcmDebugContext;
 import com.jdroid.android.google.gcm.GcmMessageResolver;
 import com.jdroid.android.google.gcm.GcmSender;
