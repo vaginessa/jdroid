@@ -57,7 +57,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 		try {
 			logHandledException(throwable);
 		} catch (Exception e) {
-			logHandledException("Error when trying to handle an exception", e);
+			logHandledExceptionSafe("Error when trying to handle an exception", e);
 		}
 	}
 
@@ -106,6 +106,15 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 			}
 		}
 	}
+
+	private void logHandledExceptionSafe(String errorMessage, Throwable throwable) {
+		LOGGER.error(errorMessage, throwable);
+		AbstractApplication.get().getAnalyticsSender().trackHandledException(throwable, getDefaultThrowableTags());
+	}
+
+	protected List<String> getDefaultThrowableTags() {
+		return Lists.newArrayList();
+	}
 	
 	public static Boolean matchAnyErrorCode(Throwable throwable, ErrorCode... errorCodes) {
 		List<ErrorCode> errorCodesList = Lists.newArrayList(errorCodes);
@@ -125,18 +134,20 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 	}
 
 	public static void addTags(Throwable throwable, List<String> tags) {
-		StringBuilder builder = new StringBuilder();
-		builder.append(StringUtils.join(tags, " "));
+		if (!Lists.isNullOrEmpty(tags)) {
+			StringBuilder builder = new StringBuilder();
+			builder.append(StringUtils.join(tags, " "));
 
-		if (throwable.getMessage() != null) {
-			builder.append(" ");
-			builder.append(throwable.getMessage());
-		}
+			if (throwable.getMessage() != null) {
+				builder.append(" ");
+				builder.append(throwable.getMessage());
+			}
 
-		try {
-			ReflectionUtils.set(throwable, "detailMessage", builder.toString());
-		} catch (Exception e) {
-			// do nothing
+			try {
+				ReflectionUtils.set(throwable, "detailMessage", builder.toString());
+			} catch (Exception e) {
+				// do nothing
+			}
 		}
 	}
 

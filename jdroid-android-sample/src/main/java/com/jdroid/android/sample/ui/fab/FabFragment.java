@@ -22,6 +22,7 @@ public class FabFragment extends AbstractFragment {
 			@Override
 			public void onClick(View v) {
 				SnackbarBuilder snackbarBuilder = new SnackbarBuilder();
+				snackbarBuilder.setParentLayoutId(R.id.container);
 				snackbarBuilder.setDescription(R.string.ok);
 				snackbarBuilder.build(getActivity()).show();
 			}
