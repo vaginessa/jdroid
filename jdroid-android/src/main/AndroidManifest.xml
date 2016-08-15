@@ -24,6 +24,13 @@
 				 android:enabled="true"
 				 android:exported="false"/>
 
+		<!-- Used for install referral measurement -->
+		<receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver" android:exported="true"
+				  tools:ignore="ExportedReceiver">
+			<intent-filter>
+				<action android:name="com.android.vending.INSTALL_REFERRER" />
+			</intent-filter>
+		</receiver>
 		<service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
 
 		<!-- Service to handle the creation, rotation, and updating of registration tokens. -->

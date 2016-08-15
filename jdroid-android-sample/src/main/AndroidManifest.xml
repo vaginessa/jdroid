@@ -287,14 +287,6 @@
 			</intent-filter>
 		</receiver>
 
-		<!-- Used for install referral measurement -->
-		<receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver" android:exported="true"
-			tools:ignore="ExportedReceiver">
-			<intent-filter>
-				<action android:name="com.android.vending.INSTALL_REFERRER" />
-			</intent-filter>
-		</receiver>
-
 		<!-- Widgets -->
 		<receiver android:name="com.jdroid.android.sample.ui.widget.SampleWidgetProvider" android:label="@string/sampleWidget">
 			<intent-filter>
