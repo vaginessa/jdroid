@@ -17,7 +17,6 @@ PROJECT_NAME=jdroid
 
 PROJECT_DIRECTORY=$BUILD_DIRECTORY/$PROJECT_NAME
 SOURCE_DIRECTORY=$PROJECT_DIRECTORY/sources
-ASSEMBLIES_DIRECTORY=$PROJECT_DIRECTORY/assemblies
 PROJECT_HOME=$SOURCE_DIRECTORY/$PROJECT_NAME
 
 # ************************
@@ -70,30 +69,6 @@ git co production
 git pull
 
 VERSION=`./gradlew :printVersion -q --configure-on-demand -PSNAPSHOT=false`
-
-# ************************
-# Samples Assemblies Generation
-# ************************
-
-if [ "$BUILD_SAMPLES" = "true" ]
-then
-
-    # Cleaning the assemblies
-    rm -r -f $ASSEMBLIES_DIRECTORY
-    mkdir -p $ASSEMBLIES_DIRECTORY
-
-	# Generate the jdroid sample server war
-	cd $PROJECT_HOME/jdroid-sample-server
-	mvn clean dependency:resolve -P $PROFILE assembly:assembly -Dmaven.test.skip=true
-	cp ./target/*.war $ASSEMBLIES_DIRECTORY/
-
-	# Generate the jdroid sample android apk
-	ANDROID_APP_DIR=$PROJECT_HOMEjdroid-sample-android
-	cd $ANDROID_APP_DIR
-	mvn clean dependency:resolve -P $PROFILE install -Dmaven.test.skip=true
-	cp ./target/*.apk $ASSEMBLIES_DIRECTORY/
-	sh $JDROID_HOME/jdroid-scripts/android/validateDex.sh $ANDROID_APP_DIR/target/classes.dex
-fi
 
 # ************************
 # Close Milestone on GitHub

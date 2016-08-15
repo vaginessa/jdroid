@@ -24,5 +24,12 @@ public class GooglePlayServicesFragment extends AbstractFragment {
 				GooglePlayServicesUtils.checkGooglePlayServices(getActivity());
 			}
 		});
+
+		findView(R.id.openGooglePlayServices).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				GooglePlayServicesUtils.launchGooglePlayServicesUpdate(getActivity());
+			}
+		});
 	}
 }

@@ -295,13 +295,6 @@
 			</intent-filter>
 		</receiver>
 
-		<!-- Provider override to change the authorities. Remove when the following bug is fixed
-			https://code.google.com/p/android/issues/detail?id=193567 -->
-		<provider
-			android:name="com.google.android.gms.measurement.AppMeasurementContentProvider"
-			android:authorities="com.google.android.gms.measurement.google_measurement_service_${applicationId}"
-			android:exported="false" tools:replace="android:authorities" />
-
 		<!-- Widgets -->
 		<receiver android:name="com.jdroid.android.sample.ui.widget.SampleWidgetProvider" android:label="@string/sampleWidget">
 			<intent-filter>

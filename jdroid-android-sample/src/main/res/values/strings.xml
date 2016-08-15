@@ -73,6 +73,7 @@
 	<!-- Google Play Services -->
 	<string name="googlePlayServices">Google Play Services</string>
 	<string name="checkGooglePlayServices">Check Google Play Services</string>
+	<string name="openGooglePlayServices">Open Google Play Services</string>
 
 	<!-- Http -->
 	<string name="http">Http</string>

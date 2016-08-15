@@ -159,6 +159,8 @@ android {
 
 	defaultConfig {
 
+		applicationId 'com.jdroid.android.sample'
+
 		applicationVariants.all { variant ->
 
 			variant.outputs.each { output ->
@@ -197,7 +199,7 @@ android {
 
 
 		manifestPlaceholders = [
-				googleMapsApiKey: "AIzaSyBiIX2Ays99BfiaAA3CcYtZ7bQ6ZOfzgog",
+				googleMapsApiKey: "AIzaSyCNHUOkUfSUKOlPnyfzYdPRPiwRApGl-X8",
 				fabricApiKey: "478dae49374362f33bc054fc44d1f4242c574ccb"
 		]
 
