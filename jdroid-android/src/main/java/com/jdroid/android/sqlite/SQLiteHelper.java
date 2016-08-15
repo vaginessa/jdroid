@@ -52,19 +52,14 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 		this.upgradeSteps.addAll(upgradeSteps);
 	}
 	
-	/**
-	 * @see android.database.sqlite.SQLiteOpenHelper#onCreate(android.database.sqlite.SQLiteDatabase)
-	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		for (String createSQL : createSQLs) {
+			LOGGER.debug("Executing create SQL: " + createSQL);
 			db.execSQL(createSQL);
 		}
 	}
 	
-	/**
-	 * @see android.database.sqlite.SQLiteOpenHelper#onUpgrade(android.database.sqlite.SQLiteDatabase, int, int)
-	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		LOGGER.debug("Upgrading DB from version " + oldVersion + " to " + newVersion);
@@ -76,9 +71,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 		}
 	}
 	
-	/**
-	 * @see android.database.sqlite.SQLiteOpenHelper#onOpen(android.database.sqlite.SQLiteDatabase)
-	 */
 	@Override
 	public void onOpen(SQLiteDatabase db) {
 		super.onOpen(db);

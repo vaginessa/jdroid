@@ -2,6 +2,7 @@ package com.jdroid.android.service;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.WorkerThread;
 
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.OneoffTask;
@@ -22,7 +23,7 @@ public abstract class ServiceCommand implements Serializable {
 		start(null);
 	}
 
-	public void start(Intent intent) {
+	public final void start(Intent intent) {
 		LOGGER.info("Scheduling Worker Service for " + getClass().getSimpleName());
 
 		intent = intent != null ? intent : new Intent();
@@ -47,7 +48,9 @@ public abstract class ServiceCommand implements Serializable {
 		return builder;
 	}
 
+	@WorkerThread
 	protected abstract int execute(Intent intent);
 
+	@WorkerThread
 	protected abstract int executeRetry(TaskParams taskParams);
 }

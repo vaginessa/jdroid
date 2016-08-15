@@ -550,13 +550,12 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		builder.append(column.getDataType().getType());
 		Boolean optional = column.isOptional();
 		if (optional != null) {
-			builder.append(optional ? " NULL " : " NOT NULL ");
+			builder.append(optional ? " NULL" : " NOT NULL");
 		}
 		String extraQualifier = column.getExtraQualifier();
 		if (extraQualifier != null) {
 			builder.append(" ");
 			builder.append(extraQualifier);
-			builder.append(" ");
 		}
 	}
 	
