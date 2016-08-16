@@ -56,4 +56,9 @@ public class TestAndroidApplication extends AbstractApplication {
 	public void initExceptionHandlers() {
 		// Do Nothing
 	}
+
+	@Override
+	protected void verifyAppLaunchStatus() {
+		// Do Nothing
+	}
 }

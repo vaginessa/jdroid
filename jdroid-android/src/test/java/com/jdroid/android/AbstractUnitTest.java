@@ -1,19 +1,9 @@
 package com.jdroid.android;
 
-import org.junit.Before;
-import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
+public abstract class AbstractUnitTest extends AbstractTest {
 
-@RunWith(CustomRobolectricRunner.class)
-public abstract class AbstractUnitTest {
-
-	@Before
-	public final void setUp() throws Exception {
-		Robolectric.getFakeHttpLayer().interceptHttpRequests(true);
-		onSetup();
-	}
-
-	protected void onSetup() {
-		// Do nothing
+	@Override
+	protected Boolean isHttpMockEnabled() {
+		return true;
 	}
 }

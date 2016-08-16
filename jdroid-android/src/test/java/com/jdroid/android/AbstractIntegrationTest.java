@@ -1,18 +1,9 @@
 package com.jdroid.android;
 
-import org.junit.Before;
-import org.junit.runner.RunWith;
+public abstract class AbstractIntegrationTest extends AbstractTest {
 
-@RunWith(CustomRobolectricRunner.class)
-public abstract class AbstractIntegrationTest {
-
-	@Before
-	public final void setUp() throws Exception {
-		TestDebugContext.FAKE_HTTP_ENABLED = false;
-		onSetup();
-	}
-
-	protected void onSetup() {
-		// Do nothing
+	@Override
+	protected Boolean isHttpMockEnabled() {
+		return false;
 	}
 }
