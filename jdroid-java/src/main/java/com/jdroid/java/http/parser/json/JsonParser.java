@@ -23,9 +23,6 @@ public abstract class JsonParser<T> implements com.jdroid.java.http.parser.Parse
 	private static final Logger LOGGER = LoggerUtils.getLogger(JsonParser.class);
 	private static final String ARRAY_PREFIX = "[";
 	
-	/**
-	 * @see com.jdroid.java.http.parser.Parser#parse(java.lang.String)
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public Object parse(String input) {
@@ -56,9 +53,6 @@ public abstract class JsonParser<T> implements com.jdroid.java.http.parser.Parse
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.java.http.parser.Parser#parse(java.io.InputStream)
-	 */
 	@Override
 	public Object parse(InputStream inputStream) {
 		String content = FileUtils.toString(inputStream);

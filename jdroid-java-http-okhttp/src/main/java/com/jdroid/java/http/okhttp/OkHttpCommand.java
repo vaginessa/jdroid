@@ -6,6 +6,7 @@ import com.jdroid.java.exception.UnexpectedException;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.ConnectException;
+import java.net.ProtocolException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
@@ -66,6 +67,12 @@ public abstract class OkHttpCommand<P, R> {
 				} else if (message.equals("Connection closed by peer")) {
 					throw new ConnectionException(e, false);
 				}
+			}
+			throw new UnexpectedException(e);
+		} catch (ProtocolException e) {
+			String message = e.getMessage();
+			if (message != null && message.equals("Too many follow-up requests: 21")) {
+				throw new ConnectionException(e, false);
 			}
 			throw new UnexpectedException(e);
 		} catch (IOException e) {
