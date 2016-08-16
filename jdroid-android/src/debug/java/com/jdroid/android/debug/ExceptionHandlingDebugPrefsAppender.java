@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.collections.Lists;
+import com.jdroid.java.utils.IdGenerator;
 
 import java.util.List;
 
@@ -63,5 +64,18 @@ public class ExceptionHandlingDebugPrefsAppender extends PreferencesAppender {
 			}
 		});
 		preferenceGroup.addPreference(crashPreference);
+
+		Preference breadcrumbPreference = new Preference(activity);
+		breadcrumbPreference.setTitle(R.string.trackErrorBreadcrumb);
+		breadcrumbPreference.setSummary(R.string.trackErrorBreadcrumb);
+		breadcrumbPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				AbstractApplication.get().getAnalyticsSender().trackErrorBreadcrumb("Sample message " + IdGenerator.getIntId());
+				return true;
+			}
+		});
+		preferenceGroup.addPreference(breadcrumbPreference);
 	}
 }

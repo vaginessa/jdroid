@@ -30,6 +30,7 @@
 	<string name="exceptionType" tools:ignore="MissingTranslation">Exception type</string>
 	<string name="uiThread" tools:ignore="MissingTranslation">UI Thread</string>
 	<string name="crash" tools:ignore="MissingTranslation">Crash</string>
+	<string name="trackErrorBreadcrumb" tools:ignore="MissingTranslation">Track Error Breadcrumb</string>
 
 	<!-- Nav Drawer -->
 	<string name="navDrawerSettings" tools:ignore="MissingTranslation">Nav Drawer</string>
