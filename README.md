@@ -63,7 +63,7 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 * Parsers
  * XML Pull Parser
 * Debug settings support
-* Url handling support
+* Url handling / referrer support
 * Base Activity & Fragment implementations
 * Base Services implementations
 * App Widgets support
