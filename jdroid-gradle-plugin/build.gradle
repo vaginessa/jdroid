@@ -65,6 +65,12 @@ pluginBundle {
 	vcsUrl = 'https://github.com/maxirosson/jdroid'
 
 	plugins {
+		androidLibPlugin {
+			id = 'com.jdroid.root'
+			displayName = 'Jdroid Root Gradle Plugin'
+			description = 'Gradle Plugin for root projects'
+			tags = ['jdroid']
+		}
 		javaPlugin {
 			id = 'com.jdroid.java.library'
 			displayName = 'Jdroid Java Library Gradle Plugin'
