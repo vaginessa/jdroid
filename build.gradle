@@ -227,7 +227,7 @@ task createGitHubRelease << {
 
 	IRepositoryIdProvider repositoryIdProvider = RepositoryId.create(getProp('REPOSITORY_OWNER'), getProp('REPOSITORY_NAME'));
 
-	def releaseNotesFile = project.file("./etc/releaseNotes.txt")
+	def releaseNotesFile = project.file("./etc/releaseNotes.md")
 
 	createRelease(client, repositoryIdProvider, "v${version}", releaseNotesFile.getText());
 }
