@@ -272,6 +272,7 @@ public abstract class AbstractApplication extends Application {
 	
 	protected void initStrictMode() {
 		StrictMode.enableDefaults();
+		LOGGER.info("StrictMode initialized");
 	}
 	
 	public void initExceptionHandlers() {
