@@ -16,7 +16,6 @@ public class SampleGcmTaskService extends AbstractGcmTaskService {
 
 	@Override
 	public int doRunTask(TaskParams taskParams) {
-
 		Boolean fail = taskParams.getExtras().getBoolean("fail");
 		if (fail) {
 			throw new UnexpectedException("Failing service");

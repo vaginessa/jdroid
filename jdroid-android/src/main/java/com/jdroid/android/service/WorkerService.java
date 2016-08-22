@@ -3,6 +3,7 @@ package com.jdroid.android.service;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.date.DateUtils;
@@ -61,10 +62,16 @@ public abstract class WorkerService extends IntentService {
 
 	protected abstract void doExecute(Intent intent);
 	
+	protected static void runIntentInService(Context context, Bundle bundle, Class<? extends WorkerService> serviceClass) {
+		Intent intent = new Intent();
+		intent.putExtras(bundle);
+		context.startService(getServiceIntent(context, intent, serviceClass));
+	}
+
 	protected static void runIntentInService(Context context, Intent intent, Class<? extends WorkerService> serviceClass) {
 		context.startService(getServiceIntent(context, intent, serviceClass));
 	}
-	
+
 	protected static Intent getServiceIntent(Context context, Intent intent, Class<? extends WorkerService> serviceClass) {
 		intent.setClass(context, serviceClass);
 		return intent;

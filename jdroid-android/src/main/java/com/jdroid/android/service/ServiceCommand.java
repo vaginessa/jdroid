@@ -1,13 +1,10 @@
 package com.jdroid.android.service;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.WorkerThread;
 
-import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.OneoffTask;
 import com.google.android.gms.gcm.Task;
-import com.google.android.gms.gcm.TaskParams;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -23,24 +20,11 @@ public abstract class ServiceCommand implements Serializable {
 		start(null);
 	}
 
-	public final void start(Intent intent) {
-		LOGGER.info("Scheduling Worker Service for " + getClass().getSimpleName());
-
-		intent = intent != null ? intent : new Intent();
-		intent.putExtra(CommandWorkerService.COMMAND_EXTRA, getClass().getName());
-		CommandWorkerService.runIntentInService(AbstractApplication.get(), intent, CommandWorkerService.class);
+	public final void start(Bundle bundle) {
+		CommandWorkerService.runService(AbstractApplication.get(), bundle, this);
 	}
 
-	void startGcmTaskService(Bundle bundle) {
-		LOGGER.info("Scheduling GCM Task Service for " + getClass().getSimpleName());
-
-		Task.Builder builder = createBuilder();
-		builder.setExtras(bundle);
-		builder.setService(CommandGcmTaskService.class);
-		GcmNetworkManager.getInstance(AbstractApplication.get()).schedule(builder.build());
-	}
-
-	protected Task.Builder createBuilder() {
+	protected Task.Builder createRetryTaskBuilder() {
 		OneoffTask.Builder builder = new OneoffTask.Builder();
 		builder.setPersisted(true);
 		builder.setExecutionWindow(0, 5);
@@ -49,8 +33,10 @@ public abstract class ServiceCommand implements Serializable {
 	}
 
 	@WorkerThread
-	protected abstract int execute(Intent intent);
+	protected abstract int execute(Bundle bundle);
 
 	@WorkerThread
-	protected abstract int executeRetry(TaskParams taskParams);
+	protected int executeRetry(Bundle bundle) {
+		return execute(bundle);
+	}
 }
