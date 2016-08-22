@@ -2,7 +2,6 @@ package com.jdroid.android.google.analytics;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Logger;
 import com.google.android.gms.analytics.Tracker;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.UsageStats;
@@ -28,11 +27,6 @@ public class GoogleAnalyticsHelper {
 
 	public GoogleAnalyticsHelper() {
 		GoogleAnalytics analytics = GoogleAnalytics.getInstance(AbstractApplication.get());
-		if (AbstractApplication.get().getAppContext().isGoogleAnalyticsDebugEnabled()) {
-			analytics.getLogger().setLogLevel(Logger.LogLevel.VERBOSE);
-		} else {
-			analytics.getLogger().setLogLevel(Logger.LogLevel.ERROR);
-		}
 		tracker = analytics.newTracker(AbstractApplication.get().getAppContext().getGoogleAnalyticsTrackingId());
 		tracker.setSessionTimeout(SESSION_TIMEOUT);
 		tracker.enableAdvertisingIdCollection(isAdvertisingIdCollectionEnabled());
@@ -77,15 +71,15 @@ public class GoogleAnalyticsHelper {
 	}
 
 	public void sendScreenView(String screenName) {
-		sendScreenView(new HitBuilders.AppViewBuilder(), screenName);
+		sendScreenView(new HitBuilders.ScreenViewBuilder(), screenName);
 	}
 
-	public void sendScreenView(HitBuilders.AppViewBuilder appViewBuilder, String screenName) {
+	public void sendScreenView(HitBuilders.ScreenViewBuilder screenViewBuilder, String screenName) {
 
-		addCustomDimension(appViewBuilder, commonCustomDimensionsValues);
+		addCustomDimension(screenViewBuilder, commonCustomDimensionsValues);
 
 		tracker.setScreenName(screenName);
-		tracker.send(appViewBuilder.build());
+		tracker.send(screenViewBuilder.build());
 		LOGGER.debug("Screen view sent. Screen name [" + screenName + "]");
 	}
 
@@ -130,26 +124,26 @@ public class GoogleAnalyticsHelper {
 		return true;
 	}
 
-	protected void addCustomDimension(HitBuilders.AppViewBuilder appViewBuilder, GoogleAnalyticsTracker.CustomDimension customDimension, String dimension) {
-		addCustomDimension(appViewBuilder, customDimension.name(), dimension);
+	protected void addCustomDimension(HitBuilders.ScreenViewBuilder screenViewBuilder, GoogleAnalyticsTracker.CustomDimension customDimension, String dimension) {
+		addCustomDimension(screenViewBuilder, customDimension.name(), dimension);
 	}
 
-	protected void addCustomDimension(HitBuilders.AppViewBuilder appViewBuilder, String customDimension, String dimension) {
+	protected void addCustomDimension(HitBuilders.ScreenViewBuilder screenViewBuilder, String customDimension, String dimension) {
 		Integer index = customDimensionsMap.get(customDimension);
-		addCustomDimension(appViewBuilder, index, dimension);
+		addCustomDimension(screenViewBuilder, index, dimension);
 	}
 
-	protected void addCustomDimension(HitBuilders.AppViewBuilder appViewBuilder, Integer index, String dimension) {
+	protected void addCustomDimension(HitBuilders.ScreenViewBuilder screenViewBuilder, Integer index, String dimension) {
 		if (index != null) {
 			LOGGER.debug("Added custom dimension: " + index + " - " + dimension);
-			appViewBuilder.setCustomDimension(index, dimension);
+			screenViewBuilder.setCustomDimension(index, dimension);
 		}
 	}
 
-	protected void addCustomDimension(HitBuilders.AppViewBuilder appViewBuilder, Map<String, String> customDimensions) {
+	protected void addCustomDimension(HitBuilders.ScreenViewBuilder screenViewBuilder, Map<String, String> customDimensions) {
 		if (customDimensions != null) {
 			for (Map.Entry<String, String> entry : customDimensions.entrySet()) {
-				addCustomDimension(appViewBuilder, entry.getKey(), entry.getValue());
+				addCustomDimension(screenViewBuilder, entry.getKey(), entry.getValue());
 			}
 		}
 	}
@@ -216,15 +210,15 @@ public class GoogleAnalyticsHelper {
 		}
 	}
 
-	protected void addCustomMetric(HitBuilders.AppViewBuilder appViewBuilder, String customDimensionKey, Float metric) {
+	protected void addCustomMetric(HitBuilders.ScreenViewBuilder screenViewBuilder, String customDimensionKey, Float metric) {
 		Integer index = customMetricsMap.get(customDimensionKey);
-		addCustomMetric(appViewBuilder, index, metric);
+		addCustomMetric(screenViewBuilder, index, metric);
 	}
 
-	protected void addCustomMetric(HitBuilders.AppViewBuilder appViewBuilder, Integer index, Float metric) {
+	protected void addCustomMetric(HitBuilders.ScreenViewBuilder screenViewBuilder, Integer index, Float metric) {
 		if (index != null) {
 			LOGGER.debug("Added custom metric: " + index + " - " + metric);
-			appViewBuilder.setCustomMetric(index, metric);
+			screenViewBuilder.setCustomMetric(index, metric);
 		}
 	}
 

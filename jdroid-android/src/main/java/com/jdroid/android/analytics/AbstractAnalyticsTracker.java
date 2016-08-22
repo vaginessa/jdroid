@@ -62,7 +62,7 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	}
 	
 	@Override
-	public void trackUriOpened(String referrerCategory, String screenName) {
+	public void trackUriOpened(String screenName) {
 		// Do Nothing
 	}
 	

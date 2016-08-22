@@ -3,7 +3,6 @@ package com.jdroid.android.google.analytics;
 import android.app.Activity;
 
 import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.HitBuilders.AppViewBuilder;
 import com.google.android.gms.analytics.HitBuilders.SocialBuilder;
 import com.google.android.gms.analytics.StandardExceptionParser;
 import com.jdroid.android.analytics.AbstractAnalyticsTracker;
@@ -59,19 +58,16 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		
 		synchronized (GoogleAnalyticsTracker.class) {
 			
-			AppViewBuilder appViewBuilder = new HitBuilders.AppViewBuilder();
+			HitBuilders.ScreenViewBuilder screenViewBuilder = new HitBuilders.ScreenViewBuilder();
 			if (referrer != null) {
-				if (!googleAnalyticsHelper.hasCommonCustomDimension(CustomDimension.REFERRER.name()) || googleAnalyticsHelper.isSessionExpired()) {
-					googleAnalyticsHelper.addCommonCustomDimension(CustomDimension.REFERRER.name(), referrer);
-				}
+				googleAnalyticsHelper.addCommonCustomDimension(CustomDimension.REFERRER.name(), referrer);
 			} else if (!googleAnalyticsHelper.hasCommonCustomDimension(CustomDimension.REFERRER.name())) {
 				googleAnalyticsHelper.addCommonCustomDimension(CustomDimension.REFERRER.name(), "normal");
 			}
 
-
 			if (!firstTrackingSent) {
-				googleAnalyticsHelper.addCustomDimension(appViewBuilder, CustomDimension.DEVICE_YEAR_CLASS, DeviceUtils.getDeviceYearClass().toString());
-				googleAnalyticsHelper.addCustomDimension(appViewBuilder, CustomDimension.DEVICE_TYPE, DeviceUtils.getDeviceType());
+				googleAnalyticsHelper.addCustomDimension(screenViewBuilder, CustomDimension.DEVICE_YEAR_CLASS, DeviceUtils.getDeviceYearClass().toString());
+				googleAnalyticsHelper.addCustomDimension(screenViewBuilder, CustomDimension.DEVICE_TYPE, DeviceUtils.getDeviceType());
 				
 				for (Entry<Experiment, ExperimentVariant> entry : ExperimentHelper.getExperimentsMap().entrySet()) {
 					Experiment experiment = entry.getKey();
@@ -81,30 +77,30 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 				
 				String installationSource = AbstractApplication.get().getInstallationSource();
 				if (installationSource != null) {
-					googleAnalyticsHelper.addCustomDimension(appViewBuilder, CustomDimension.INSTALLATION_SOURCE, installationSource);
+					googleAnalyticsHelper.addCustomDimension(screenViewBuilder, CustomDimension.INSTALLATION_SOURCE, installationSource);
 					
-					onAppLoadTrack(appViewBuilder, data);
+					onAppLoadTrack(screenViewBuilder, data);
 					firstTrackingSent = true;
 				}
 			}
-			onActivityStartTrack(appViewBuilder, data);
-			googleAnalyticsHelper.sendScreenView(appViewBuilder, activityClass.getSimpleName());
+			onActivityStartTrack(screenViewBuilder, data);
+			googleAnalyticsHelper.sendScreenView(screenViewBuilder, activityClass.getSimpleName());
 		}
 	}
 	
-	protected void onAppLoadTrack(AppViewBuilder appViewBuilder, Object data) {
+	protected void onAppLoadTrack(HitBuilders.ScreenViewBuilder screenViewBuilder, Object data) {
 		// Do nothing
 	}
 	
-	protected void onActivityStartTrack(AppViewBuilder appViewBuilder, Object data) {
+	protected void onActivityStartTrack(HitBuilders.ScreenViewBuilder screenViewBuilder, Object data) {
 		// Do nothing
 	}
 	
 	@Override
 	public void onFragmentStart(String screenViewName) {
 		synchronized (GoogleAnalyticsTracker.class) {
-			AppViewBuilder appViewBuilder = new HitBuilders.AppViewBuilder();
-			googleAnalyticsHelper.sendScreenView(appViewBuilder, screenViewName);
+			HitBuilders.ScreenViewBuilder screenViewBuilder = new HitBuilders.ScreenViewBuilder();
+			googleAnalyticsHelper.sendScreenView(screenViewBuilder, screenViewName);
 		}
 	}
 	
@@ -144,8 +140,8 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 
 	@Override
-	public void trackUriOpened(String referrerCategory, String screenName) {
-		googleAnalyticsHelper.sendEvent("uri", "open" + screenName, referrerCategory);
+	public void trackUriOpened(String screenName) {
+		googleAnalyticsHelper.sendEvent("uri", "open", screenName);
 	}
 
 	// Widgets
