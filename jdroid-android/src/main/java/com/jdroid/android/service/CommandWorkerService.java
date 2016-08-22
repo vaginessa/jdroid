@@ -21,7 +21,9 @@ public class CommandWorkerService extends WorkerService {
 	protected static void runService(Context context, Bundle bundle, ServiceCommand serviceCommand) {
 		LOGGER.info("Scheduling Worker Service for " + serviceCommand.getClass().getSimpleName());
 		Intent intent = new Intent();
-		intent.putExtras(bundle);
+		if (bundle != null) {
+			intent.putExtras(bundle);	
+		}
 		intent.putExtra(CommandWorkerService.COMMAND_EXTRA, serviceCommand.getClass().getName());
 		CommandWorkerService.runIntentInService(context, intent, CommandWorkerService.class);
 	}
