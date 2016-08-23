@@ -1,8 +1,8 @@
 package com.jdroid.gradle.android
 
-import com.jdroid.gradle.commons.BaseGradleExtension
+import com.jdroid.gradle.commons.JavaBaseGradleExtension
 
-public class AndroidGradlePluginExtension extends BaseGradleExtension {
+public class AndroidGradlePluginExtension extends JavaBaseGradleExtension {
 
 	String[] resourcesDirsPaths = ['src/main/res/']
 	String[] notDefaultLanguages = []

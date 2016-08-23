@@ -28,7 +28,7 @@ public class AndroidLibraryGradlePlugin extends AndroidGradlePlugin {
 		}
 	}
 
-	protected Class<? extends AndroidGradlePluginExtension> getExtensionClass() {
+	protected Class<? extends AndroidLibraryGradlePluginExtension> getExtensionClass() {
 		return AndroidLibraryGradlePluginExtension.class;
 	}
 

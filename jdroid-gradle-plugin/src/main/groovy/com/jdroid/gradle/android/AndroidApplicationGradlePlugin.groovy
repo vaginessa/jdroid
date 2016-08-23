@@ -43,7 +43,7 @@ public class AndroidApplicationGradlePlugin extends AndroidGradlePlugin {
 		return versionCodePrefix * 10000000 + jdroid.versionCodeExtraBit * 1000000 + jdroid.versionMajor * 10000 + jdroid.versionMinor * 100 + jdroid.versionPatch
 	}
 
-	protected Class<? extends AndroidGradlePluginExtension> getExtensionClass() {
+	protected Class<? extends AndroidApplicationGradlePluginExtension> getExtensionClass() {
 		return AndroidApplicationGradlePluginExtension.class;
 	}
 
