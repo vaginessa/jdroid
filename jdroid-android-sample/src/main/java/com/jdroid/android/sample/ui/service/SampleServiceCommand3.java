@@ -10,15 +10,10 @@ import com.jdroid.android.service.ServiceCommand;
 import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.utils.IdGenerator;
 
-public class SampleServiceCommand2 extends ServiceCommand {
+public class SampleServiceCommand3 extends ServiceCommand {
 
 	@Override
 	protected int execute(Bundle bundle) {
-		return GcmNetworkManager.RESULT_RESCHEDULE;
-	}
-
-	@Override
-	protected int executeRetry(Bundle bundle) {
 		Boolean fail = bundle.getBoolean("fail");
 		if (fail) {
 			throw new ConnectionException("Failing service");
@@ -32,5 +27,17 @@ public class SampleServiceCommand2 extends ServiceCommand {
 			NotificationUtils.sendNotification(IdGenerator.getIntId(), builder);
 			return GcmNetworkManager.RESULT_SUCCESS;
 		}
+	}
+
+	@Override
+	protected int executeRetry(Bundle bundle) {
+		NotificationBuilder builder = new NotificationBuilder("myNotification");
+		builder.setSmallIcon(AbstractApplication.get().getLauncherIconResId());
+		builder.setTicker("Sample Ticker");
+		builder.setContentTitle(getClass().getSimpleName());
+		builder.setContentText(bundle.get("a").toString());
+
+		NotificationUtils.sendNotification(IdGenerator.getIntId(), builder);
+		return GcmNetworkManager.RESULT_SUCCESS;
 	}
 }

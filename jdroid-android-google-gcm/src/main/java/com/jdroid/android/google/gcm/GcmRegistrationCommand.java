@@ -1,13 +1,11 @@
 package com.jdroid.android.google.gcm;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.google.android.gms.gcm.TaskParams;
 import com.google.android.gms.iid.InstanceID;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.GooglePlayServicesUtils;
@@ -28,22 +26,13 @@ public class GcmRegistrationCommand extends ServiceCommand {
 	private final static String UPDATE_LAST_ACTIVE_TIMESTAMP_EXTRA = "updateLastActiveTimestamp";
 
 	public void start(Boolean updateLastActiveTimestamp) {
-		Intent intent = new Intent();
-		intent.putExtra(UPDATE_LAST_ACTIVE_TIMESTAMP_EXTRA, updateLastActiveTimestamp);
-		start(intent);
+		Bundle bundle = new Bundle();
+		bundle.putBoolean(UPDATE_LAST_ACTIVE_TIMESTAMP_EXTRA, updateLastActiveTimestamp);
+		start(bundle);
 	}
 
 	@Override
-	protected int execute(Intent intent) {
-		return doRunTask(intent.getExtras());
-	}
-
-	@Override
-	protected int executeRetry(TaskParams taskParams) {
-		return doRunTask(taskParams.getExtras());
-	}
-
-	private int doRunTask(Bundle bundle) {
+	protected int execute(Bundle bundle) {
 		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(AbstractApplication.get())) {
 
 			String registrationToken;

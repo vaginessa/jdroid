@@ -59,20 +59,40 @@ public class ServiceFragment extends AbstractFragment {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent();
-				intent.putExtra("a", "3");
-				intent.putExtra("fail", failCheckBox.isChecked());
-				new SampleServiceCommand1().start(intent);
+				Bundle bundle = new Bundle();
+				bundle.putString("a", "3");
+				bundle.putBoolean("fail", failCheckBox.isChecked());
+				new SampleServiceCommand1().start(bundle);
 			}
 		});
 		findView(R.id.commandService2).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent();
-				intent.putExtra("a", "4");
-				intent.putExtra("fail", failCheckBox.isChecked());
-				new SampleServiceCommand2().start(intent);
+				Bundle bundle = new Bundle();
+				bundle.putString("a", "4");
+				bundle.putBoolean("fail", failCheckBox.isChecked());
+				new SampleServiceCommand2().start(bundle);
+			}
+		});
+		findView(R.id.commandService3).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Bundle bundle = new Bundle();
+				bundle.putString("a", "5");
+				bundle.putBoolean("fail", failCheckBox.isChecked());
+				new SampleServiceCommand3().start(bundle);
+			}
+		});
+		findView(R.id.commandService4).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Bundle bundle = new Bundle();
+				bundle.putString("a", "6");
+				bundle.putBoolean("fail", failCheckBox.isChecked());
+				new SampleServiceCommand4().start(bundle);
 			}
 		});
 	}

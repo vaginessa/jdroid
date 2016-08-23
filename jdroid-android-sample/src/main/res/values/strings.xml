@@ -160,6 +160,8 @@
 	<string name="gcmTaskService">Gcm Task Service</string>
 	<string name="commandService1">Command Service 1</string>
 	<string name="commandService2">Command Service 2</string>
+	<string name="commandService3">Command Service 3</string>
+	<string name="commandService4">Command Service 4</string>
 
 	<!-- Tablets -->
 	<string name="openDetail">Open Detail</string>

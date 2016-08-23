@@ -7,8 +7,6 @@ import com.jdroid.java.utils.ReflectionUtils;
 
 public class CommandGcmTaskService extends AbstractGcmTaskService {
 
-	public final static String COMMAND_EXTRA = "command";
-
 	@Override
 	public void onInitializeTasks() {
 		super.onInitializeTasks();
@@ -17,16 +15,16 @@ public class CommandGcmTaskService extends AbstractGcmTaskService {
 
 	@Override
 	protected String getTrackingLabel(TaskParams taskParams) {
-		String serviceCommandExtra = taskParams.getExtras() != null ? taskParams.getExtras().getString(COMMAND_EXTRA) : null;
+		String serviceCommandExtra = taskParams.getExtras() != null ? taskParams.getExtras().getString(CommandWorkerService.COMMAND_EXTRA) : null;
 		return serviceCommandExtra == null ? getTrackingVariable(taskParams) : serviceCommandExtra.substring(serviceCommandExtra.lastIndexOf(".") + 1);
 	}
 
 	@Override
 	public int doRunTask(TaskParams taskParams) {
-		String serviceCommandExtra = taskParams.getExtras() != null ? taskParams.getExtras().getString(COMMAND_EXTRA) : null;
+		String serviceCommandExtra = taskParams.getExtras() != null ? taskParams.getExtras().getString(CommandWorkerService.COMMAND_EXTRA) : null;
 		if (serviceCommandExtra != null) {
 			ServiceCommand serviceCommand = ReflectionUtils.newInstance(serviceCommandExtra);
-			return serviceCommand.executeRetry(taskParams);
+			return serviceCommand.executeRetry(taskParams.getExtras());
 		} else {
 			AbstractApplication.get().getExceptionHandler().logWarningException("Service command not found on " + getClass().getSimpleName());
 			return GcmNetworkManager.RESULT_FAILURE;

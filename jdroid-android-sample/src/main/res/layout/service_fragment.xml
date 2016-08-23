@@ -15,5 +15,9 @@
 		android:text="@string/commandService1" />
 	<Button android:id="@+id/commandService2" android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:text="@string/commandService2" />
+	<Button android:id="@+id/commandService3" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:text="@string/commandService3" />
+	<Button android:id="@+id/commandService4" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:text="@string/commandService4" />
 
 </LinearLayout>

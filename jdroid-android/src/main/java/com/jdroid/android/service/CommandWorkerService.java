@@ -1,9 +1,13 @@
 package com.jdroid.android.service;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.google.android.gms.gcm.GcmNetworkManager;
+import com.google.android.gms.gcm.Task;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.ReflectionUtils;
 
@@ -13,7 +17,17 @@ public class CommandWorkerService extends WorkerService {
 
 	private final static Logger LOGGER = LoggerUtils.getLogger(CommandWorkerService.class);
 
-	public final static String COMMAND_EXTRA = "command";
+	final static String COMMAND_EXTRA = "com.jdroid.android.service.CommandWorkerService.command";
+
+	protected static void runService(Context context, Bundle bundle, ServiceCommand serviceCommand) {
+		LOGGER.info("Scheduling Worker Service for " + serviceCommand.getClass().getSimpleName());
+		Intent intent = new Intent();
+		if (bundle != null) {
+			intent.putExtras(bundle);	
+		}
+		intent.putExtra(CommandWorkerService.COMMAND_EXTRA, serviceCommand.getClass().getName());
+		CommandWorkerService.runIntentInService(context, intent, CommandWorkerService.class);
+	}
 
 	@Override
 	protected String getTrackingLabel(Intent intent) {
@@ -26,13 +40,32 @@ public class CommandWorkerService extends WorkerService {
 		String serviceCommandExtra = intent.getStringExtra(COMMAND_EXTRA);
 		if (serviceCommandExtra != null) {
 			ServiceCommand serviceCommand = ReflectionUtils.newInstance(serviceCommandExtra);
-			int result = serviceCommand.execute(intent);
-			LOGGER.info(serviceCommand.getClass().getSimpleName() + " executed with result " + result);
+			int result;
+			try {
+				result = serviceCommand.execute(intent.getExtras());
+				LOGGER.info(serviceCommand.getClass().getSimpleName() + " executed with result " + result);
+
+			} catch (ConnectionException e) {
+				AbstractApplication.get().getExceptionHandler().logHandledException(e);
+				result = GcmNetworkManager.RESULT_RESCHEDULE;
+			} catch (Exception e) {
+				AbstractApplication.get().getExceptionHandler().logHandledException(e);
+				result = GcmNetworkManager.RESULT_FAILURE;
+			}
 			if (result == GcmNetworkManager.RESULT_RESCHEDULE) {
-				serviceCommand.startGcmTaskService(intent.getExtras());
+				startGcmTaskService(intent.getExtras(), serviceCommand);
 			}
 		} else {
 			AbstractApplication.get().getExceptionHandler().logWarningException("Service command not found on " + getClass().getSimpleName());
 		}
+	}
+
+	private void startGcmTaskService(Bundle bundle, ServiceCommand serviceCommand) {
+		LOGGER.info("Scheduling GCM Task Service for " + serviceCommand.getClass().getSimpleName());
+
+		Task.Builder builder = serviceCommand.createRetryTaskBuilder();
+		builder.setExtras(bundle);
+		builder.setService(CommandGcmTaskService.class);
+		GcmNetworkManager.getInstance(AbstractApplication.get()).schedule(builder.build());
 	}
 }
