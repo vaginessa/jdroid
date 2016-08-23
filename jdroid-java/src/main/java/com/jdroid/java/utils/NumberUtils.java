@@ -29,9 +29,13 @@ public class NumberUtils {
 	}
 	
 	public static Long getLong(String value) {
-		return StringUtils.isNotEmpty(value) ? Long.valueOf(value) : null;
+		return getLong(value, null);
 	}
-	
+
+	public static Long getLong(String value, Long defaultValue) {
+		return StringUtils.isNotEmpty(value) ? Long.valueOf(value) : defaultValue;
+	}
+
 	public static Long getSafeLong(String value) {
 		try {
 			return getLong(value);

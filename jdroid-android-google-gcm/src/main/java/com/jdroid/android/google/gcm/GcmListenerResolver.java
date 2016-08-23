@@ -27,6 +27,7 @@ public class GcmListenerResolver {
 				gcmMessage = gcmResolver.resolve(from, data);
 			} catch (Exception e) {
 				AbstractApplication.get().getExceptionHandler().logHandledException("Error when resolving gcm message", e);
+				return;
 			}
 
 			if (gcmMessage != null) {

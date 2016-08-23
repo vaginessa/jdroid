@@ -9,6 +9,8 @@ import com.jdroid.java.http.okhttp.OkHttpServiceFactory;
 import com.jdroid.java.http.post.BodyEnclosingHttpService;
 import com.jdroid.java.marshaller.MarshallerProvider;
 
+import java.util.Map;
+
 public class SampleApiService extends AndroidApiService {
 
 	static {
@@ -70,12 +72,28 @@ public class SampleApiService extends AndroidApiService {
 		httpService.execute();
 	}
 
-	public void sendPush(String registrationToken) {
+	public void sendPush(String registrationToken, String messageKey, Map<String, String> params) {
 		HttpService httpService = newGetService("gcm", "send");
 		httpService.addQueryParameter("registrationToken", registrationToken);
 		httpService.addQueryParameter("messageKeyExtraName", "messageKey");
-		httpService.addQueryParameter("messageKey", "sampleMessage");
+		httpService.addQueryParameter("messageKey", messageKey);
 		httpService.addQueryParameter("timestampEnabled", "true");
+
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("[");
+		Boolean firstItem = true;
+		for(Map.Entry<String, String> entry : params.entrySet()) {
+			if (firstItem) {
+				firstItem = false;
+			} else {
+				stringBuilder.append(",");
+			}
+			stringBuilder.append(entry.getKey());
+			stringBuilder.append("|");
+			stringBuilder.append(entry.getValue());
+		}
+		stringBuilder.append("]");
+		httpService.addQueryParameter("params", stringBuilder.toString());
 		httpService.execute();
 	}
 
