@@ -75,5 +75,25 @@ public class ServiceFragment extends AbstractFragment {
 				new SampleServiceCommand2().start(bundle);
 			}
 		});
+		findView(R.id.commandService3).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Bundle bundle = new Bundle();
+				bundle.putString("a", "5");
+				bundle.putBoolean("fail", failCheckBox.isChecked());
+				new SampleServiceCommand3().start(bundle);
+			}
+		});
+		findView(R.id.commandService4).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Bundle bundle = new Bundle();
+				bundle.putString("a", "6");
+				bundle.putBoolean("fail", failCheckBox.isChecked());
+				new SampleServiceCommand4().start(bundle);
+			}
+		});
 	}
 }

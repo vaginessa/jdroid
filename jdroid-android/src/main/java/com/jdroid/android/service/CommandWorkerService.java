@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.Task;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.ReflectionUtils;
 
@@ -39,8 +40,18 @@ public class CommandWorkerService extends WorkerService {
 		String serviceCommandExtra = intent.getStringExtra(COMMAND_EXTRA);
 		if (serviceCommandExtra != null) {
 			ServiceCommand serviceCommand = ReflectionUtils.newInstance(serviceCommandExtra);
-			int result = serviceCommand.execute(intent.getExtras());
-			LOGGER.info(serviceCommand.getClass().getSimpleName() + " executed with result " + result);
+			int result;
+			try {
+				result = serviceCommand.execute(intent.getExtras());
+				LOGGER.info(serviceCommand.getClass().getSimpleName() + " executed with result " + result);
+
+			} catch (ConnectionException e) {
+				AbstractApplication.get().getExceptionHandler().logHandledException(e);
+				result = GcmNetworkManager.RESULT_RESCHEDULE;
+			} catch (Exception e) {
+				AbstractApplication.get().getExceptionHandler().logHandledException(e);
+				result = GcmNetworkManager.RESULT_FAILURE;
+			}
 			if (result == GcmNetworkManager.RESULT_RESCHEDULE) {
 				startGcmTaskService(intent.getExtras(), serviceCommand);
 			}
