@@ -143,25 +143,3 @@ cd $PROJECT_HOME
 
 read -p "Verify the plugins on the Portal [https://plugins.gradle.org/search?term=jdroid] and press [Enter] key to continue..."
 
-# ************************
-# Update the Jdroid GitHub page
-# ************************
-
-cd $PROJECT_HOME
-git add -A
-git stash
-git checkout gh-pages
-git add -A
-git stash
-git pull
-
-sed -i '' 's/v[0-9].[0-9].[0-9]/v'$VERSION'/g' index.html
-git add index.html
-git commit -m 'Updated $PROJECT_NAME version to v'$VERSION
-
-git diff origin/gh-pages HEAD
-read -p "Verify the $PROJECT_NAME GitHub page diff and press [Enter] key to continue..."
-
-git push origin HEAD:gh-pages
-
-read -p "Verify the Jdroid Site [http://jdroidframework.com/] and press [Enter] key to continue..."
