@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.10.1](https://github.com/maxirosson/jdroid/tree/v0.10.1) (2016-08-24)
+[Full Changelog](https://github.com/maxirosson/jdroid/compare/v0.10.0...v0.10.1)
+
+**Fixed bugs:**
+
+- Plugins hierarchy fixes [\#369](https://github.com/maxirosson/jdroid/issues/369)
+
 ## [v0.10.0](https://github.com/maxirosson/jdroid/tree/v0.10.0) (2016-08-21)
 [Full Changelog](https://github.com/maxirosson/jdroid/compare/v0.9.6...v0.10.0)
 
