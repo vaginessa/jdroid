@@ -17,6 +17,7 @@ public abstract class AbstractGcmTaskService extends GcmTaskService {
 	@Override
 	public void onInitializeTasks() {
 		LOGGER.info("Initializing task: " + getClass().getSimpleName());
+		AbstractApplication.get().initializeGcmTasks();
 	}
 
 	@Override

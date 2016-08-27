@@ -8,12 +8,6 @@ import com.jdroid.java.utils.ReflectionUtils;
 public class CommandGcmTaskService extends AbstractGcmTaskService {
 
 	@Override
-	public void onInitializeTasks() {
-		super.onInitializeTasks();
-		AbstractApplication.get().initializeGcmTasks();
-	}
-
-	@Override
 	protected String getTrackingLabel(TaskParams taskParams) {
 		String serviceCommandExtra = taskParams.getExtras() != null ? taskParams.getExtras().getString(CommandWorkerService.COMMAND_EXTRA) : null;
 		return serviceCommandExtra == null ? getTrackingVariable(taskParams) : serviceCommandExtra.substring(serviceCommandExtra.lastIndexOf(".") + 1);

@@ -331,5 +331,9 @@ public class NotificationBuilder {
 			intent, 0);
 		builder.addAction(icon, title, pendingIntent);
 	}
+
+	public void setShowWhen(boolean show) {
+		builder.setShowWhen(show);
+	}
 	
 }

@@ -182,12 +182,10 @@ android {
 		jdroid.setString(defaultConfig, "FIREBASE_URL", null)
 		jdroid.setString(defaultConfig, "FIREBASE_AUTH_TOKEN", null)
 
-		resValue "string", "facebook_app_id", '"967462636672870"'
-
-
 		manifestPlaceholders = [
 				googleMapsApiKey: "AIzaSyCNHUOkUfSUKOlPnyfzYdPRPiwRApGl-X8",
-				fabricApiKey: "478dae49374362f33bc054fc44d1f4242c574ccb"
+				fabricApiKey: "478dae49374362f33bc054fc44d1f4242c574ccb",
+				facebookAppId: "fb1048902711862195"
 		]
 
 		multiDexEnabled true
@@ -226,8 +224,11 @@ android {
 			// TODO Add FIREBASE_AUTH_TOKEN
 			// TODO Add GOOGLE_SERVER_CLIENT_ID
 
-			// TODO Add manifestPlaceholders = [googleMapsApiKey,crashlyticsApiKey
-
+			manifestPlaceholders = [
+					googleMapsApiKey: jdroid.getProp("GOOGLE_MAPS_API_KEY", ""),
+					fabricApiKey: jdroid.getProp("FABRIC_API_KEY", ""),
+					facebookAppId: jdroid.getProp("FACEBOOK_APP_ID", "")
+			]
 		}
 	}
 
