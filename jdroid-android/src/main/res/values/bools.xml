@@ -4,4 +4,6 @@
 	<bool name="isLessThan7Inches">true</bool>
 	<bool name="isBetween7And10Inches">false</bool>
 	<bool name="is10Inches">false</bool>
+
+	<bool name="navDrawerHeaderCircleImage">false</bool>
 </resources>

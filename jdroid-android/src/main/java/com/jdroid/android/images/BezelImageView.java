@@ -33,7 +33,7 @@ public class BezelImageView extends ImageView {
     private RectF mBoundsF;
 
     private Drawable mBorderDrawable;
-    private Drawable mMaskDrawable;
+    protected Drawable mMaskDrawable;
 
     private ColorMatrixColorFilter mDesaturateColorFilter;
     private boolean mDesaturateOnPress = false;
@@ -54,24 +54,7 @@ public class BezelImageView extends ImageView {
     public BezelImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        // Attribute initialization
-        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BezelImageView,
-                defStyle, 0);
-
-        mMaskDrawable = a.getDrawable(R.styleable.BezelImageView_maskDrawable);
-        if (mMaskDrawable != null) {
-            mMaskDrawable.setCallback(this);
-        }
-
-        mBorderDrawable = a.getDrawable(R.styleable.BezelImageView_borderDrawable);
-        if (mBorderDrawable != null) {
-            mBorderDrawable.setCallback(this);
-        }
-
-        mDesaturateOnPress = a.getBoolean(R.styleable.BezelImageView_desaturateOnPress,
-                mDesaturateOnPress);
-
-        a.recycle();
+        attributeInitialization(context, attrs, defStyle);
 
         // Other initialization
         mBlackPaint = new Paint();
@@ -89,6 +72,28 @@ public class BezelImageView extends ImageView {
             cm.setSaturation(0);
             mDesaturateColorFilter = new ColorMatrixColorFilter(cm);
         }
+    }
+
+    protected void attributeInitialization(Context context, AttributeSet attrs, int defStyle) {
+        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BezelImageView,
+                defStyle, 0);
+
+        if (mMaskDrawable == null) {
+            mMaskDrawable = a.getDrawable(R.styleable.BezelImageView_maskDrawable);
+            if (mMaskDrawable != null) {
+                mMaskDrawable.setCallback(this);
+            }
+        }
+
+        mBorderDrawable = a.getDrawable(R.styleable.BezelImageView_borderDrawable);
+        if (mBorderDrawable != null) {
+            mBorderDrawable.setCallback(this);
+        }
+
+        mDesaturateOnPress = a.getBoolean(R.styleable.BezelImageView_desaturateOnPress,
+                mDesaturateOnPress);
+
+        a.recycle();
     }
 
     @Override

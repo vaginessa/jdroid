@@ -7,6 +7,10 @@
 		<attr name="desaturateOnPress" format="boolean" />
 	</declare-styleable>
 
+	<declare-styleable name="NavDrawerHeaderImageView">
+		<attr name="circleImage" format="boolean" />
+	</declare-styleable>
+
 	<declare-styleable name="ScrimInsetsView">
 		<attr name="insetScrollForeground" format="reference|color" />
 	</declare-styleable>

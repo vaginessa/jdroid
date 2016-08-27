@@ -10,14 +10,9 @@
 	android:fitsSystemWindows="true"
 	app:insetScrollForeground="#4000">
 
-	<LinearLayout android:layout_width="match_parent"
-				  android:layout_height="wrap_content"
-				  android:orientation="vertical">
+	<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
 
-		<FrameLayout
-			android:id="@+id/chosen_account_view"
-			android:layout_width="match_parent"
-			android:layout_height="@dimen/navdrawerHeaderHeight">
+		<FrameLayout android:id="@+id/chosen_account_view" android:layout_width="match_parent" android:layout_height="@dimen/navdrawerHeaderHeight">
 
 			<ImageView android:layout_width="match_parent"
 					   android:layout_height="match_parent"
@@ -33,13 +28,13 @@
 				android:paddingTop="@dimen/navdrawerHeaderTopPadding"
 				android:id="@+id/chosen_account_content_view">
 
-				<com.jdroid.android.images.BezelImageView
+				<com.jdroid.android.navdrawer.NavDrawerHeaderImageView
 					android:id="@+id/photo"
 					android:layout_width="@dimen/navdrawerHeaderImageSize"
 					android:layout_height="@dimen/navdrawerHeaderImageSize"
 					android:src="@drawable/person_default"
 					android:scaleType="centerCrop"
-					app:maskDrawable="@drawable/circle_mask" />
+					app:circleImage="@bool/navDrawerHeaderCircleImage" />
 
 				<ImageView
 					android:id="@+id/expand_account_box_indicator"
