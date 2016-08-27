@@ -39,84 +39,61 @@ dependencies {
 
 	compile 'com.android.support:multidex:1.0.1'
 
-	// TODO Enable this when we discover how to publish both debug and release libraries
 //	debugCompile 'com.jdroidframework:jdroid-android:' + jdroidVersion + ':debug@aar'
 //	uatCompile 'com.jdroidframework:jdroid-android:' + jdroidVersion + ':debug@aar'
 //	releaseCompile 'com.jdroidframework:jdroid-android:' + jdroidVersion + ':release@aar'
-//	debugCompile project(path: ":jdroid-android", configuration: 'debug')
-//	uatCompile project(path: ":jdroid-android", configuration: 'debug')
-//	releaseCompile project(path: ":jdroid-android", configuration: 'release')
+	debugCompile project(path: ":jdroid-android", configuration: 'debug')
+	uatCompile project(path: ":jdroid-android", configuration: 'debug')
+	releaseCompile project(path: ":jdroid-android", configuration: 'release')
 
-	//compile 'com.jdroidframework:jdroid-android:' + jdroidVersion
-	compile project(':jdroid-android')
-
-	// TODO Enable this when we discover how to publish both debug and release libraries
 //	debugCompile 'com.jdroidframework:jdroid-android-about:' + jdroidVersion + ':debug@aar'
 //	uatCompile 'com.jdroidframework:jdroid-android-about:' + jdroidVersion + ':debug@aar'
 //	releaseCompile 'com.jdroidframework:jdroid-android-about:' + jdroidVersion + ':release@aar'
-//	debugCompile project(path: ":jdroid-android-about", configuration: 'debug')
-//	uatCompile project(path: ":jdroid-android-about", configuration: 'debug')
-//	releaseCompile project(path: ":jdroid-android-about", configuration: 'release')
+	debugCompile project(path: ":jdroid-android-about", configuration: 'debug')
+	uatCompile project(path: ":jdroid-android-about", configuration: 'debug')
+	releaseCompile project(path: ":jdroid-android-about", configuration: 'release')
 
-	//compile 'com.jdroidframework:jdroid-android-about:' + jdroidVersion
-	compile project(':jdroid-android-about')
-
-	// TODO Enable this when we discover how to publish both debug and release libraries
 //	debugCompile 'com.jdroidframework:jdroid-android-crashlytics:' + jdroidVersion + ':debug@aar'
 //	uatCompile 'com.jdroidframework:jdroid-android-crashlytics:' + jdroidVersion + ':debug@aar'
 //	releaseCompile 'com.jdroidframework:jdroid-android-crashlytics:' + jdroidVersion + ':release@aar'
-//	debugCompile project(path: ":jdroid-android-crashlytics", configuration: 'debug')
-//	uatCompile project(path: ":jdroid-android-crashlytics", configuration: 'debug')
-//	releaseCompile project(path: ":jdroid-android-crashlytics", configuration: 'release')
+	debugCompile project(path: ":jdroid-android-crashlytics", configuration: 'debug')
+	uatCompile project(path: ":jdroid-android-crashlytics", configuration: 'debug')
+	releaseCompile project(path: ":jdroid-android-crashlytics", configuration: 'release')
 
-	//compile 'com.jdroidframework:jdroid-android-crashlytics:' + jdroidVersion
-	compile project(':jdroid-android-crashlytics')
-
-	// TODO Enable this when we discover how to publish both debug and release libraries
 //	debugCompile 'com.jdroidframework:jdroid-android-facebook:' + jdroidVersion + ':debug@aar'
 //	uatCompile 'com.jdroidframework:jdroid-android-facebook:' + jdroidVersion + ':debug@aar'
 //	releaseCompile 'com.jdroidframework:jdroid-android-facebook:' + jdroidVersion + ':release@aar'
-//	debugCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
-//	uatCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
-//	releaseCompile project(path: ":jdroid-android-facebook", configuration: 'release')
+	debugCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
+	uatCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
+	releaseCompile project(path: ":jdroid-android-facebook", configuration: 'release')
 
-	//compile 'com.jdroidframework:jdroid-android-facebook:' + jdroidVersion
-	compile project(':jdroid-android-facebook')
-
-	// TODO Enable this when we discover how to publish both debug and release libraries
 //	debugCompile 'com.jdroidframework:jdroid-android-google-admob:' + jdroidVersion + ':debug@aar'
 //	uatCompile 'com.jdroidframework:jdroid-android-google-admob:' + jdroidVersion + ':debug@aar'
 //	releaseCompile 'com.jdroidframework:jdroid-android-google-admob:' + jdroidVersion + ':release@aar'
-//	debugCompile project(path: ":jdroid-android-google-admob", configuration: 'debug')
-//	uatCompile project(path: ":jdroid-android-google-admob", configuration: 'debug')
-//	releaseCompile project(path: ":jdroid-android-google-admob", configuration: 'release')
+	debugCompile project(path: ":jdroid-android-google-admob", configuration: 'debug')
+	uatCompile project(path: ":jdroid-android-google-admob", configuration: 'debug')
+	releaseCompile project(path: ":jdroid-android-google-admob", configuration: 'release')
 
-	//compile 'com.jdroidframework:jdroid-android-google-admob:' + jdroidVersion
-	compile project(':jdroid-android-google-admob')
-
-	// TODO Enable this when we discover how to publish both debug and release libraries
 //	debugCompile 'com.jdroidframework:jdroid-android-google-maps:' + jdroidVersion + ':debug@aar'
 //	uatCompile 'com.jdroidframework:jdroid-android-google-maps:' + jdroidVersion + ':debug@aar'
 //	releaseCompile 'com.jdroidframework:jdroid-android-google-maps:' + jdroidVersion + ':release@aar'
-//	debugCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
-//	uatCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
-//	releaseCompile project(path: ":jdroid-android-google-maps", configuration: 'release')
+	debugCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
+	uatCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
+	releaseCompile project(path: ":jdroid-android-google-maps", configuration: 'release')
 
-	//compile 'com.jdroidframework:jdroid-android-google-maps:' + jdroidVersion
-	compile project(':jdroid-android-google-maps')
-
-	// TODO Enable this when we discover how to publish both debug and release libraries
 //	debugCompile 'com.jdroidframework:jdroid-android-google-gcm:' + jdroidVersion + ':debug@aar'
 //	uatCompile 'com.jdroidframework:jdroid-android-google-gcm:' + jdroidVersion + ':debug@aar'
 //	releaseCompile 'com.jdroidframework:jdroid-android-google-gcm:' + jdroidVersion + ':release@aar'
-//	debugCompile project(path: ":jdroid-android-google-gcm", configuration: 'debug')
-//	uatCompile project(path: ":jdroid-android-google-gcm", configuration: 'debug')
-//	releaseCompile project(path: ":jdroid-android-google-gcm", configuration: 'release')
+	debugCompile project(path: ":jdroid-android-google-gcm", configuration: 'debug')
+	uatCompile project(path: ":jdroid-android-google-gcm", configuration: 'debug')
+	releaseCompile project(path: ":jdroid-android-google-gcm", configuration: 'release')
 
-	//compile 'com.jdroidframework:jdroid-android-google-gcm:' + jdroidVersion
-	compile project(':jdroid-android-google-gcm')
-
-	compile project(':jdroid-android-google-signin')
+	//	debugCompile 'com.jdroidframework:jdroid-android-google-signin:' + jdroidVersion + ':debug@aar'
+//	uatCompile 'com.jdroidframework:jdroid-android-google-signin:' + jdroidVersion + ':debug@aar'
+//	releaseCompile 'com.jdroidframework:jdroid-android-google-signin:' + jdroidVersion + ':release@aar'
+	debugCompile project(path: ":jdroid-android-google-signin", configuration: 'debug')
+	uatCompile project(path: ":jdroid-android-google-signin", configuration: 'debug')
+	releaseCompile project(path: ":jdroid-android-google-signin", configuration: 'release')
 
 //	compile ('com.jdroidframework:jdroid-java-http-okhttp:' + jdroidVersion) {
 //		exclude module: 'slf4j-api'

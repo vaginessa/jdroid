@@ -28,9 +28,8 @@ configurations.all {
 
 dependencies {
 
-//	debugCompile project(path: ":jdroid-android", configuration: 'debug')
-//	releaseCompile project(path: ":jdroid-android", configuration: 'release')
-	compile project(':jdroid-android')
+	debugCompile project(path: ":jdroid-android", configuration: 'debug')
+	releaseCompile project(path: ":jdroid-android", configuration: 'release')
 
 	compile 'com.google.android.gms:play-services-plus:' + googlePlayServicesVersion
 
@@ -67,9 +66,7 @@ android {
 		disable 'ContentDescription', 'RtlEnabled', 'RtlHardcoded', 'RtlSymmetry', 'UseCompoundDrawables', 'UnknownIdInLayout'
 	}
 
-	// TODO We will publish the debug version until we discover how to publish both debug and release
-	//publishNonDefault true
-	defaultPublishConfig "debug"
+	publishNonDefault true
 
 	sourceSets.test.java.srcDirs += "build/generated/source/r/debug"
 	sourceSets.test.java.srcDirs += sourceSets.main.java.srcDirs
