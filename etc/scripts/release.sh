@@ -126,6 +126,7 @@ cmd="${cmd} :jdroid-android-google-inappbilling:uploadArchives"
 cmd="${cmd} :jdroid-android-google-maps:uploadArchives"
 cmd="${cmd} :jdroid-android-google-plus:uploadArchives"
 cmd="${cmd} :jdroid-android-google-signin:uploadArchives"
+cmd="${cmd} :jdroid-android-twitter:uploadArchives"
 cmd="${cmd} :jdroid-android-about:uploadArchives"
 cmd="${cmd} -PSNAPSHOT=false -PLOCAL_UPLOAD=false"
 

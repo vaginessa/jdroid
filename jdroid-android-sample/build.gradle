@@ -39,65 +39,41 @@ dependencies {
 
 	compile 'com.android.support:multidex:1.0.1'
 
-//	debugCompile 'com.jdroidframework:jdroid-android:' + jdroidVersion + ':debug@aar'
-//	uatCompile 'com.jdroidframework:jdroid-android:' + jdroidVersion + ':debug@aar'
-//	releaseCompile 'com.jdroidframework:jdroid-android:' + jdroidVersion + ':release@aar'
 	debugCompile project(path: ":jdroid-android", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android", configuration: 'debug')
 	releaseCompile project(path: ":jdroid-android", configuration: 'release')
 
-//	debugCompile 'com.jdroidframework:jdroid-android-about:' + jdroidVersion + ':debug@aar'
-//	uatCompile 'com.jdroidframework:jdroid-android-about:' + jdroidVersion + ':debug@aar'
-//	releaseCompile 'com.jdroidframework:jdroid-android-about:' + jdroidVersion + ':release@aar'
 	debugCompile project(path: ":jdroid-android-about", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-about", configuration: 'debug')
 	releaseCompile project(path: ":jdroid-android-about", configuration: 'release')
 
-//	debugCompile 'com.jdroidframework:jdroid-android-crashlytics:' + jdroidVersion + ':debug@aar'
-//	uatCompile 'com.jdroidframework:jdroid-android-crashlytics:' + jdroidVersion + ':debug@aar'
-//	releaseCompile 'com.jdroidframework:jdroid-android-crashlytics:' + jdroidVersion + ':release@aar'
 	debugCompile project(path: ":jdroid-android-crashlytics", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-crashlytics", configuration: 'debug')
 	releaseCompile project(path: ":jdroid-android-crashlytics", configuration: 'release')
 
-//	debugCompile 'com.jdroidframework:jdroid-android-facebook:' + jdroidVersion + ':debug@aar'
-//	uatCompile 'com.jdroidframework:jdroid-android-facebook:' + jdroidVersion + ':debug@aar'
-//	releaseCompile 'com.jdroidframework:jdroid-android-facebook:' + jdroidVersion + ':release@aar'
 	debugCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
 	releaseCompile project(path: ":jdroid-android-facebook", configuration: 'release')
 
-//	debugCompile 'com.jdroidframework:jdroid-android-google-admob:' + jdroidVersion + ':debug@aar'
-//	uatCompile 'com.jdroidframework:jdroid-android-google-admob:' + jdroidVersion + ':debug@aar'
-//	releaseCompile 'com.jdroidframework:jdroid-android-google-admob:' + jdroidVersion + ':release@aar'
 	debugCompile project(path: ":jdroid-android-google-admob", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-google-admob", configuration: 'debug')
 	releaseCompile project(path: ":jdroid-android-google-admob", configuration: 'release')
 
-//	debugCompile 'com.jdroidframework:jdroid-android-google-maps:' + jdroidVersion + ':debug@aar'
-//	uatCompile 'com.jdroidframework:jdroid-android-google-maps:' + jdroidVersion + ':debug@aar'
-//	releaseCompile 'com.jdroidframework:jdroid-android-google-maps:' + jdroidVersion + ':release@aar'
 	debugCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
 	releaseCompile project(path: ":jdroid-android-google-maps", configuration: 'release')
 
-//	debugCompile 'com.jdroidframework:jdroid-android-google-gcm:' + jdroidVersion + ':debug@aar'
-//	uatCompile 'com.jdroidframework:jdroid-android-google-gcm:' + jdroidVersion + ':debug@aar'
-//	releaseCompile 'com.jdroidframework:jdroid-android-google-gcm:' + jdroidVersion + ':release@aar'
 	debugCompile project(path: ":jdroid-android-google-gcm", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-google-gcm", configuration: 'debug')
 	releaseCompile project(path: ":jdroid-android-google-gcm", configuration: 'release')
 
-	//	debugCompile 'com.jdroidframework:jdroid-android-google-signin:' + jdroidVersion + ':debug@aar'
-//	uatCompile 'com.jdroidframework:jdroid-android-google-signin:' + jdroidVersion + ':debug@aar'
-//	releaseCompile 'com.jdroidframework:jdroid-android-google-signin:' + jdroidVersion + ':release@aar'
 	debugCompile project(path: ":jdroid-android-google-signin", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-google-signin", configuration: 'debug')
 	releaseCompile project(path: ":jdroid-android-google-signin", configuration: 'release')
 
-//	compile ('com.jdroidframework:jdroid-java-http-okhttp:' + jdroidVersion) {
-//		exclude module: 'slf4j-api'
-//	}
+	debugCompile project(path: ":jdroid-android-twitter", configuration: 'debug')
+	uatCompile project(path: ":jdroid-android-twitter", configuration: 'debug')
+	releaseCompile project(path: ":jdroid-android-twitter", configuration: 'release')
 
 	compile 'com.firebase:firebase-client-android:2.5.0'
 
@@ -158,6 +134,9 @@ android {
 
 		jdroid.setString(defaultConfig, "FIREBASE_URL", null)
 		jdroid.setString(defaultConfig, "FIREBASE_AUTH_TOKEN", null)
+
+		jdroid.setString(defaultConfig, "TWITTER_OAUTH_CONSUMER_KEY", null)
+		jdroid.setString(defaultConfig, "TWITTER_OAUTH_CONSUMER_SECRET", null)
 
 		manifestPlaceholders = [
 				googleMapsApiKey: "AIzaSyCNHUOkUfSUKOlPnyfzYdPRPiwRApGl-X8",

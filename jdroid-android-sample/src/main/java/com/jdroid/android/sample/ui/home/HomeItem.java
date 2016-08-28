@@ -32,6 +32,7 @@ import com.jdroid.android.sample.ui.sqlite.SQLiteActivity;
 import com.jdroid.android.sample.ui.tablets.LeftTabletActivity;
 import com.jdroid.android.sample.ui.tablets.TabletActivity;
 import com.jdroid.android.sample.ui.toasts.ToastsActivity;
+import com.jdroid.android.sample.ui.twitter.TwitterActivity;
 import com.jdroid.android.sample.ui.uri.UriMapperActivity;
 import com.jdroid.android.sample.ui.usecases.UseCasesActivity;
 import com.jdroid.android.utils.ScreenUtils;
@@ -63,6 +64,7 @@ public enum HomeItem implements ActionItem {
 	SQLITE(R.string.sqlite, R.drawable.ic_sqlite, SQLiteActivity.class),
 	TABLETS(R.string.tablets, R.drawable.ic_tablets, ScreenUtils.is10Inches() ? TabletActivity.class : LeftTabletActivity.class),
 	TOASTS(R.string.toasts, R.drawable.ic_toasts, ToastsActivity.class),
+	TWITTER(R.string.twitter, R.drawable.ic_twitter, TwitterActivity.class),
 	UNVERSAL_IMAGE_LOADER(R.string.universalImageLoader, R.drawable.ic_photo, ImageLoaderActivity.class),
 	URI_MAPPER(R.string.uriMapper, R.drawable.ic_photo, UriMapperActivity.class),
 	USE_CASES(R.string.useCases, R.drawable.ic_service, UseCasesActivity.class);
@@ -77,57 +79,36 @@ public enum HomeItem implements ActionItem {
 		this.activityClass = activityClass;
 	}
 	
-	/**
-	 * @see com.jdroid.android.ActionItem#getNameResource()
-	 */
 	@Override
 	public Integer getNameResource() {
 		return resourceId;
 	}
 	
-	/**
-	 * @see com.jdroid.android.ActionItem#getIconResource()
-	 */
 	@Override
 	public Integer getIconResource() {
 		return iconId;
 	}
 	
-	/**
-	 * @see com.jdroid.android.ActionItem#startActivity(android.support.v4.app.FragmentActivity)
-	 */
 	@Override
 	public void startActivity(FragmentActivity fragmentActivity) {
 		ActivityLauncher.launchActivity(activityClass);
 	}
 	
-	/**
-	 * @see com.jdroid.android.ActionItem#matchesActivity(android.support.v4.app.FragmentActivity)
-	 */
 	@Override
 	public Boolean matchesActivity(FragmentActivity fragmentActivity) {
 		return activityClass.equals(fragmentActivity.getClass());
 	}
 	
-	/**
-	 * @see com.jdroid.android.ActionItem#createFragment(java.lang.Object)
-	 */
 	@Override
 	public Fragment createFragment(Object args) {
 		return null;
 	}
 	
-	/**
-	 * @see com.jdroid.android.ActionItem#getName()
-	 */
 	@Override
 	public String getName() {
 		return name();
 	}
 	
-	/**
-	 * @see com.jdroid.android.ActionItem#getDescriptionResource()
-	 */
 	@Override
 	public Integer getDescriptionResource() {
 		return null;

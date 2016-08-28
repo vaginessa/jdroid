@@ -1,0 +1,82 @@
+apply plugin: 'com.jdroid.android.library'
+
+ext.PROJECT_NAME = 'Jdroid Android - Twitter SDK'
+description = 'Jdroid dependency project for Twitter SDK'
+
+buildscript {
+
+	repositories {
+		jcenter()
+	}
+
+	dependencies {
+		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + project.version
+	}
+}
+
+repositories {
+	// TODO See how to remove this dependency
+	maven {
+		url 'https://maven.fabric.io/public'
+	}
+}
+
+configurations.all {
+	// check for updates every build
+	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+dependencies {
+
+	debugCompile project(path: ":jdroid-android", configuration: 'debug')
+	releaseCompile project(path: ":jdroid-android", configuration: 'release')
+
+	// https://docs.fabric.io/android/changelog.html#tweetui
+	// https://twittersdk.artifactoryonline.com/twittersdk/public/com/twitter/sdk/android/tweet-ui/
+	compile('com.twitter.sdk.android:tweet-ui:2.0.0@aar') {
+		transitive = true;
+	}
+
+	testCompile 'junit:junit:4.12'
+	testCompile "org.mockito:mockito-all:1.10.19"
+
+	// https://github.com/robolectric/robolectric
+	testCompile('org.robolectric:robolectric:2.4') {
+		exclude module: 'classworlds'
+		exclude module: 'commons-logging'
+		exclude module: 'httpclient'
+		exclude module: 'maven-artifact'
+		exclude module: 'maven-artifact-manager'
+		exclude module: 'maven-error-diagnostics'
+		exclude module: 'maven-model'
+		exclude module: 'maven-project'
+		exclude module: 'maven-settings'
+		exclude module: 'plexus-container-default'
+		exclude module: 'plexus-interpolation'
+		exclude module: 'plexus-utils'
+		exclude module: 'wagon-file'
+		exclude module: 'wagon-http-lightweight'
+		exclude module: 'wagon-provider-api'
+	}
+}
+
+jdroid {
+	notDefaultLanguages = ['es']
+}
+
+android {
+
+	lintOptions {
+		disable 'ContentDescription', 'RtlEnabled', 'RtlHardcoded', 'RtlSymmetry', 'UseCompoundDrawables', 'UnknownIdInLayout'
+	}
+
+	publishNonDefault true
+
+	sourceSets.test.java.srcDirs += "build/generated/source/r/debug"
+	sourceSets.test.java.srcDirs += sourceSets.main.java.srcDirs
+	sourceSets.test.java.srcDirs += sourceSets.debug.java.srcDirs
+	sourceSets.test.resources.srcDirs += sourceSets.main.resources.srcDirs
+	sourceSets.test.resources.srcDirs += sourceSets.debug.resources.srcDirs
+	sourceSets.test.res.srcDirs += sourceSets.main.res.srcDirs
+	sourceSets.test.res.srcDirs += sourceSets.debug.res.srcDirs
+}

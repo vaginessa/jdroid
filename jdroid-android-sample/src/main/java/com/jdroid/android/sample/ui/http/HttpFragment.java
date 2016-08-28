@@ -24,9 +24,6 @@ public class HttpFragment extends AbstractFragment {
 		return R.layout.http_fragment;
 	}
 
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onViewCreated(android.view.View, android.os.Bundle)
-	 */
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);

@@ -116,6 +116,9 @@
 	<string name="leftAction">Left Action</string>
 	<string name="rightAction">Right Action</string>
 
+	<!-- Twitter -->
+	<string name="twitter">Twitter</string>
+
 	<!-- Uri Mapper -->
 	<string name="uriMapper">Uri Mapper</string>
 	<string name="uriMapperSingleTop">Single Top</string>

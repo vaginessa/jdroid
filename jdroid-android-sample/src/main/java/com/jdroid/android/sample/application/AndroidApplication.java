@@ -25,6 +25,7 @@ import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsTracker;
 import com.jdroid.android.google.gcm.AbstractGcmAppModule;
 import com.jdroid.android.repository.UserRepository;
+import com.jdroid.android.sample.BuildConfig;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.analytics.AndroidGoogleAnalyticsTracker;
 import com.jdroid.android.sample.analytics.AppAnalyticsSender;
@@ -43,6 +44,7 @@ import com.jdroid.android.sample.ui.sqlite.SampleSQLiteEntity;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteRepository;
 import com.jdroid.android.sample.ui.uri.SampleUriWatcher;
 import com.jdroid.android.sqlite.SQLiteHelper;
+import com.jdroid.android.twitter.TwitterAppModule;
 import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.repository.Repository;
 
@@ -151,6 +153,7 @@ public class AndroidApplication extends AbstractApplication {
 		appModulesMap.put(FacebookAppModule.MODULE_NAME, new FacebookAppModule());
 		appModulesMap.put(AbstractGcmAppModule.MODULE_NAME, new AndroidGcmAppModule());
 		appModulesMap.put(AboutAppModule.MODULE_NAME,  new AndroidAboutAppModule());
+		appModulesMap.put(TwitterAppModule.MODULE_NAME,  new TwitterAppModule(BuildConfig.TWITTER_OAUTH_CONSUMER_KEY, BuildConfig.TWITTER_OAUTH_CONSUMER_SECRET));
 	}
 
 	@Override
