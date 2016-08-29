@@ -1,4 +1,4 @@
-package com.jdroid.android.sample.ui.firebase;
+package com.jdroid.android.sample.ui.firebase.database;
 
 import android.os.Bundle;
 import android.view.View;
@@ -14,9 +14,9 @@ import org.slf4j.Logger;
 
 import java.util.List;
 
-public class FirebaseFragment extends AbstractFragment {
+public class FirebaseDatabaseFragment extends AbstractFragment {
 
-	private static final Logger LOGGER = LoggerUtils.getLogger(FirebaseFragment.class);
+	private static final Logger LOGGER = LoggerUtils.getLogger(FirebaseDatabaseFragment.class);
 
 	private SampleFirebaseRepository repository;
 
@@ -24,7 +24,7 @@ public class FirebaseFragment extends AbstractFragment {
 
 	@Override
 	public Integer getContentFragmentLayout() {
-		return R.layout.firebase_fragment;
+		return R.layout.firebase_database_fragment;
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package com.jdroid.android.sample.ui.firebase;
+package com.jdroid.android.sample.ui.firebase.database;
 
 import com.jdroid.java.domain.Entity;
 

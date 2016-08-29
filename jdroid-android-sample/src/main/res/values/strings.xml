@@ -47,7 +47,7 @@
 	<string name="snackbarErrorDisplayer">Snackbar Error Displayer</string>
 
 	<!-- Firebase -->
-	<string name="firebase">Firebase</string>
+	<string name="firebaseDatabase">Firebase Database</string>
 	<string name="firebaseCreate">Create</string>
 	<string name="firebaseUpdate">Update</string>
 	<string name="firebaseGetAll">Get All</string>

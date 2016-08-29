@@ -207,7 +207,7 @@
 
 		<!-- Firebase -->
 
-		<activity android:name="com.jdroid.android.sample.ui.firebase.FirebaseActivity" android:label="@string/firebase"
+		<activity android:name="com.jdroid.android.sample.ui.firebase.database.FirebaseDatabaseActivity" android:label="@string/firebaseDatabase"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<!-- Card View -->

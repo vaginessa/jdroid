@@ -14,7 +14,7 @@ import com.jdroid.android.sample.ui.datetime.DateTimeActivity;
 import com.jdroid.android.sample.ui.exceptions.ErrorDisplayerActivity;
 import com.jdroid.android.sample.ui.fab.FabActivity;
 import com.jdroid.android.sample.ui.facebook.FacebookSignInActivity;
-import com.jdroid.android.sample.ui.firebase.FirebaseActivity;
+import com.jdroid.android.sample.ui.firebase.database.FirebaseDatabaseActivity;
 import com.jdroid.android.sample.ui.google.gcm.GcmActivity;
 import com.jdroid.android.sample.ui.google.playservices.GooglePlayServicesActivity;
 import com.jdroid.android.sample.ui.google.signin.GoogleSignInActivity;
@@ -46,7 +46,7 @@ public enum HomeItem implements ActionItem {
 	ERROR_DISPLAYER(R.string.errorDisplayer, R.drawable.ic_exception_handling, ErrorDisplayerActivity.class),
 	FAB(R.string.floatingActionButton, R.drawable.ic_firebase, FabActivity.class),
 	FACEBOOK(R.string.facebook, R.drawable.ic_firebase, FacebookSignInActivity.class),
-	FIREBASE(R.string.firebase, R.drawable.ic_firebase, FirebaseActivity.class),
+	FIREBASE_DATABASE(R.string.firebaseDatabase, R.drawable.ic_firebase, FirebaseDatabaseActivity.class),
 	GOOGLE_ANALYTCS(R.string.googleAnalytics, R.drawable.ic_analytics, AnalyticsActivity.class),
 	GCM(R.string.gcm, R.drawable.ic_gcm, GcmActivity.class),
 	GOOGLE_MAPS(R.string.googleMaps, R.drawable.ic_maps, MapActivity.class),
