@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.DialogErrorDisplayer;

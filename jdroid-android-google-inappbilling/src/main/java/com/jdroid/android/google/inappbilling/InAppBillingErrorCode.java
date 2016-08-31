@@ -1,6 +1,5 @@
 package com.jdroid.android.google.inappbilling;
 
-import com.jdroid.android.R;
 import com.jdroid.java.exception.ErrorCode;
 import com.jdroid.java.exception.ErrorCodeException;
 
