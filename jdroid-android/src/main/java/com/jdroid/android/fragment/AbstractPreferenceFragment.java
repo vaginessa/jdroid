@@ -23,7 +23,7 @@ import com.jdroid.java.exception.AbstractException;
 public abstract class AbstractPreferenceFragment extends PreferenceFragment implements FragmentIf {
 
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.base_fragment, container, false);
+		View view = inflater.inflate(R.layout.jdroid_base_fragment, container, false);
 		ViewGroup viewGroup = (ViewGroup)view.findViewById(R.id.content);
 		viewGroup.addView(super.onCreateView(inflater, null, savedInstanceState));
 		return view;
@@ -36,7 +36,7 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 		Toolbar appBar = findView(R.id.appBar);
 		if (appBar != null && getActivityIf() instanceof AbstractFragmentActivity) {
 			((AbstractFragmentActivity)getActivityIf()).setSupportActionBar(appBar);
-			appBar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+			appBar.setNavigationIcon(R.drawable.jdroid_ic_arrow_back_white_24dp);
 
 		}
 	}

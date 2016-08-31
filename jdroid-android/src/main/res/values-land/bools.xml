@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<bool name="isOrientationLandscape">true</bool>
+	<bool name="jdroid_isOrientationLandscape">true</bool>
 </resources>

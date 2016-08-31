@@ -10,7 +10,7 @@ import java.util.Collection;
 
 public enum CommonErrorCode implements ErrorCode {
 	
-	INVALID_CREDENTIALS(R.string.invalidCredentials, 401),
+	INVALID_CREDENTIALS(R.string.jdroid_invalidCredentials, 401),
 	INVALID_USER_TOKEN(null, 402),
 	
 	// The app is not compatible with the API anymore and needs to be upgraded.

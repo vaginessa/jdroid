@@ -4,8 +4,8 @@ import com.jdroid.android.dialog.ChoiceItem;
 
 public enum RouteMode implements ChoiceItem {
 	
-	WALKING(R.color.walkingColor, R.string.walking, "walking"),
-	DRIVING(R.color.drivingColor, R.string.driving, "driving");
+	WALKING(R.color.jdroid_walkingColor, R.string.jdroid_walking, "walking"),
+	DRIVING(R.color.jdroid_drivingColor, R.string.jdroid_driving, "driving");
 	
 	private int colorId;
 	private int resourceTitleId;

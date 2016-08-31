@@ -38,7 +38,7 @@ public class RateAppView extends RelativeLayout {
 	
 	private void init(final Context context) {
 		
-		LayoutInflater.from(context).inflate(R.layout.rate_app_view, this, true);
+		LayoutInflater.from(context).inflate(R.layout.jdroid_rate_app_view, this, true);
 		
 		rateAppTitle = (TextView)findViewById(R.id.rateAppTitle);
 		positiveButton = (Button)findViewById(R.id.positive);
@@ -48,8 +48,8 @@ public class RateAppView extends RelativeLayout {
 	}
 
 	private void enjoyingAppView(final Context context) {
-		rateAppTitle.setText(context.getString(R.string.rateAppEnjoying, context.getString(R.string.appName)));
-		positiveButton.setText(R.string.rateAppYes);
+		rateAppTitle.setText(context.getString(R.string.jdroid_rateAppEnjoying, context.getString(R.string.jdroid_appName)));
+		positiveButton.setText(R.string.jdroid_rateAppYes);
 		positiveButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -60,7 +60,7 @@ public class RateAppView extends RelativeLayout {
 			}
 
 		});
-		negativeButton.setText(R.string.rateAppNotReally);
+		negativeButton.setText(R.string.jdroid_rateAppNotReally);
 		negativeButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -73,8 +73,8 @@ public class RateAppView extends RelativeLayout {
 	}
 
 	private void feedbackView(final Context context) {
-		rateAppTitle.setText(context.getString(R.string.rateAppFeedback));
-		positiveButton.setText(R.string.rateAppOkSure);
+		rateAppTitle.setText(context.getString(R.string.jdroid_rateAppFeedback));
+		positiveButton.setText(R.string.jdroid_rateAppOkSure);
 		positiveButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -94,7 +94,7 @@ public class RateAppView extends RelativeLayout {
 			}
 
 		});
-		negativeButton.setText(R.string.rateAppNotThanks);
+		negativeButton.setText(R.string.jdroid_rateAppNotThanks);
 		negativeButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -108,8 +108,8 @@ public class RateAppView extends RelativeLayout {
 	}
 
 	private void googlePlayView(final Context context) {
-		rateAppTitle.setText(context.getString(R.string.rateAppGooglePlay));
-		positiveButton.setText(R.string.rateAppOkSure);
+		rateAppTitle.setText(context.getString(R.string.jdroid_rateAppGooglePlay));
+		positiveButton.setText(R.string.jdroid_rateAppOkSure);
 		positiveButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -121,7 +121,7 @@ public class RateAppView extends RelativeLayout {
 			}
 
 		});
-		negativeButton.setText(R.string.rateAppNotThanks);
+		negativeButton.setText(R.string.jdroid_rateAppNotThanks);
 		negativeButton.setOnClickListener(new OnClickListener() {
 
 			@Override

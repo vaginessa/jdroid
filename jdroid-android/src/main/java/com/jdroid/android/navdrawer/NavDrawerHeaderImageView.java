@@ -23,12 +23,12 @@ public class NavDrawerHeaderImageView extends BezelImageView {
 
 	@Override
 	protected void attributeInitialization(Context context, AttributeSet attrs, int defStyle) {
-		final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.NavDrawerHeaderImageView,
+		final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.jdroid_navDrawerHeaderImageView,
 				defStyle, 0);
 
-		Boolean circleImage = a.getBoolean(R.styleable.NavDrawerHeaderImageView_circleImage, false);
+		Boolean circleImage = a.getBoolean(R.styleable.jdroid_navDrawerHeaderImageView_circleImage, false);
 		if (circleImage) {
-			mMaskDrawable = context.getResources().getDrawable(R.drawable.circle_mask);
+			mMaskDrawable = context.getResources().getDrawable(R.drawable.jdroid_circle_mask);
 			mMaskDrawable.setCallback(this);
 		}
 

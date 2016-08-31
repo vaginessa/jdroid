@@ -18,7 +18,7 @@ public class LoadingDialog extends Dialog {
 	 * @param context The Context in which the Dialog should run.
 	 */
 	public LoadingDialog(Context context) {
-		this(context, R.style.customDialog);
+		this(context, R.style.jdroid_customDialog);
 	}
 	
 	/**
@@ -30,6 +30,6 @@ public class LoadingDialog extends Dialog {
 	public LoadingDialog(Context context, int theme) {
 		super(context, theme);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.loading_dialog);
+		setContentView(R.layout.jdroid_loading_dialog);
 	}
 }

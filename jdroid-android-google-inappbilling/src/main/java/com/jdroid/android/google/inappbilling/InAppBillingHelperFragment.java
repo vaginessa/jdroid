@@ -118,7 +118,7 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 	public void onQueryInventoryFailed(ErrorCodeException errorCodeException) {
 		AbstractApplication.get().getExceptionHandler().logHandledException(errorCodeException);
 		if (!silentMode) {
-			errorCodeException.setDescription(getString(R.string.failedToLoadPurchases));
+			errorCodeException.setDescription(getString(R.string.jdroid_failedToLoadPurchases));
 			createErrorDisplayer(errorCodeException).displayError(errorCodeException);
 		}
 	}

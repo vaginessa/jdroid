@@ -29,7 +29,7 @@ public class RemoveAdsView extends RelativeLayout {
 	}
 	
 	private void init(final Context context) {
-		View view = LayoutInflater.from(context).inflate(R.layout.remove_ads_view, this, true);
+		View view = LayoutInflater.from(context).inflate(R.layout.jdroid_remove_ads_view, this, true);
 		((ImageView)view.findViewById(R.id.icon)).setImageResource(AbstractApplication.get().getLauncherIconResId());
 	}
 	

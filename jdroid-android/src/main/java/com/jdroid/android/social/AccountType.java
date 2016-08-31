@@ -4,9 +4,9 @@ import com.jdroid.android.R;
 
 public enum AccountType {
 	
-	GOOGLE_PLUS("googlePlus", "Google+", R.drawable.ic_google_plus),
-	FACEBOOK("facebook", "Facebook", R.drawable.ic_facebook),
-	TWITTER("twitter", "Twitter", R.drawable.ic_twitter),
+	GOOGLE_PLUS("googlePlus", "Google+", R.drawable.jdroid_ic_google_plus),
+	FACEBOOK("facebook", "Facebook", R.drawable.jdroid_ic_facebook),
+	TWITTER("twitter", "Twitter", R.drawable.jdroid_ic_twitter),
 	WHATSAPP("whatsapp", "WhatsApp", null),
 	TELEGRAM("telegram", "Telegram", null),
 	HANGOUTS("hangouts", "Hangouts", null),

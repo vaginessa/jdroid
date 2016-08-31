@@ -27,7 +27,7 @@ public class ShareView extends FrameLayout {
 	}
 	
 	public void init(Context context, final SharingItem sharingCommand) {
-		LayoutInflater.from(context).inflate(R.layout.share_view, this, true);
+		LayoutInflater.from(context).inflate(R.layout.jdroid_share_view, this, true);
 		((ImageView)findViewById(R.id.shareAppIcon)).setImageDrawable(sharingCommand.getAppIcon());
 		
 		setOnClickListener(new OnClickListener() {
@@ -44,7 +44,7 @@ public class ShareView extends FrameLayout {
 		ViewGroup shareSection = (ViewGroup)activity.findViewById(R.id.shareSection);
 		ViewGroup shareItemsContainer = (ViewGroup)activity.findViewById(R.id.shareItemsContainer);
 		
-		int itemWidth = ScreenUtils.convertDimenToPixel(R.dimen.shareItemWidth);
+		int itemWidth = ScreenUtils.convertDimenToPixel(R.dimen.jdroid_shareItemWidth);
 		int itemsToDisplay = (ScreenUtils.getScreenWidthPx() / itemWidth) - 1;
 		for (SharingItem each : sharingItems) {
 			if (each.isEnabled() && (itemsToDisplay > 0)) {

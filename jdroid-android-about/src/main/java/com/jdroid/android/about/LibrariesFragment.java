@@ -22,7 +22,7 @@ public class LibrariesFragment extends AbstractRecyclerFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		libraries.add(new Library("jdroid", R.string.jdroidTitle, R.string.jdroidDescription, "Maxi Rosson",
+		libraries.add(new Library("jdroid", R.string.jdroid_jdroidTitle, R.string.jdroid_jdroidDescription, "Maxi Rosson",
 				"http://jdroidframework.com"));
 		if (displayImageLoader()) {
 			ImageLoaderHelper imageLoaderHelper = AbstractApplication.get().getImageLoaderHelper();
@@ -51,7 +51,7 @@ public class LibrariesFragment extends AbstractRecyclerFragment {
 
 		@Override
 		protected Integer getLayoutResourceId() {
-			return R.layout.library_item;
+			return R.layout.jdroid_library_item;
 		}
 
 		@Override

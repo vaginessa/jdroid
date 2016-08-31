@@ -4,6 +4,6 @@
 
 	<com.jdroid.android.feedback.RateAppView android:layout_height="wrap_content" android:layout_width="match_parent"/>
 
-	<LinearLayout android:layout_width="match_parent" android:layout_height="50dp" android:background="@color/accentColor"></LinearLayout>
+	<LinearLayout android:layout_width="match_parent" android:layout_height="50dp" android:background="@color/jdroid_accentColor"></LinearLayout>
 
 </LinearLayout>

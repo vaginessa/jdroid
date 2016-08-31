@@ -40,7 +40,7 @@ public final class BarcodeUtils {
 		try {
 			activity.startActivityForResult(intentScan, REQUEST_CODE);
 		} catch (ActivityNotFoundException e) {
-			GooglePlayUtils.showDownloadDialog(R.string.barcodeScanner, PACKAGE);
+			GooglePlayUtils.showDownloadDialog(R.string.jdroid_barcodeScanner, PACKAGE);
 		}
 	}
 	

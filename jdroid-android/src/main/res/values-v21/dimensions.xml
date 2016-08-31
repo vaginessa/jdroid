@@ -3,11 +3,11 @@
 
 	<!-- CardView -->
 
-	<dimen name="cardViewMargin">8dp</dimen>
-	<dimen name="cardViewHalfMargin">4dp</dimen>
+	<dimen name="jdroid_cardViewMargin">8dp</dimen>
+	<dimen name="jdroid_cardViewHalfMargin">4dp</dimen>
 
 	<!-- Floating Action Button -->
 
-	<dimen name="fabSpacing">16dp</dimen>
+	<dimen name="jdroid_fabSpacing">16dp</dimen>
 
 </resources>

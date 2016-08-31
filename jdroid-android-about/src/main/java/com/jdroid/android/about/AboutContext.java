@@ -37,11 +37,11 @@ public class AboutContext {
 	}
 
 	public String getAppInviteTitle() {
-		return LocalizationUtils.getString(R.string.appInviteTitle, LocalizationUtils.getString(R.string.appName));
+		return LocalizationUtils.getString(R.string.jdroid_appInviteTitle, LocalizationUtils.getString(R.string.jdroid_appName));
 	}
 
 	public String getAppInviteMessage() {
-		return LocalizationUtils.getString(R.string.appInviteMessage, LocalizationUtils.getString(R.string.appName));
+		return LocalizationUtils.getString(R.string.jdroid_appInviteMessage, LocalizationUtils.getString(R.string.jdroid_appName));
 	}
 
 	public String getAppInviteDeeplink() {

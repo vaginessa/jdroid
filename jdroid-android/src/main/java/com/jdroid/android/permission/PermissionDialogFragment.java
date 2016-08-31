@@ -34,8 +34,8 @@ public class PermissionDialogFragment extends AlertDialogFragment {
 
 		String screenViewName = PermissionDialogFragment.class.getSimpleName() + "-" + permission;
 
-		AlertDialogFragment.show(fragmentActivity, fragment, null, title, message, fragmentActivity.getString(R.string.cancel), null,
-				fragmentActivity.getString(R.string.ok), true, screenViewName, null);
+		AlertDialogFragment.show(fragmentActivity, fragment, null, title, message, fragmentActivity.getString(R.string.jdroid_cancel), null,
+				fragmentActivity.getString(R.string.jdroid_ok), true, screenViewName, null);
 	}
 
 	@Override

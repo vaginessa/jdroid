@@ -30,7 +30,7 @@ public class RefreshActionProvider extends ActionProvider {
 	public RefreshActionProvider(final Context context) {
 		super(context);
 		
-		viewSwitcher = (ViewSwitcher)LayoutInflater.from(context).inflate(R.layout.refresh_action_item, null);
+		viewSwitcher = (ViewSwitcher)LayoutInflater.from(context).inflate(R.layout.jdroid_refresh_action_item, null);
 		
 		ImageButton refreshButton = (ImageButton)viewSwitcher.findViewById(R.id.refresh_button);
 		refreshButton.setOnClickListener(new OnClickListener() {

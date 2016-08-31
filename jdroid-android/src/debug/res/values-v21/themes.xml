@@ -2,7 +2,7 @@
 <resources>
 
 	<style name="Jdroid.Theme.Light.Debug" parent="@style/Jdroid.Theme.Light.NoActionBar">
-		<item name="android:statusBarColor">@color/colorPrimaryDark</item>
+		<item name="android:statusBarColor">@color/jdroid_colorPrimaryDark</item>
 	</style>
 
 </resources>

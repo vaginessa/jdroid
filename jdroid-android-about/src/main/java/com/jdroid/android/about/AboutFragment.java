@@ -36,7 +36,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 
 		final String website = getWebsite();
 		if (website != null) {
-			aboutItems.add(new AboutItem(R.drawable.ic_website_black_24dp, R.string.website) {
+			aboutItems.add(new AboutItem(R.drawable.jdroid_ic_website_black_24dp, R.string.jdroid_website) {
 				@Override
 				public void onSelected(Activity activity) {
 					IntentUtils.startUrl(activity, website);
@@ -46,7 +46,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 
 		final String contactUsEmailAddress = getContactUsEmail();
 		if (contactUsEmailAddress != null) {
-			aboutItems.add(new AboutItem(R.drawable.ic_contact_us_black_24dp, R.string.contactUs) {
+			aboutItems.add(new AboutItem(R.drawable.jdroid_ic_contact_us_black_24dp, R.string.jdroid_contactUs) {
 
 				@Override
 				public void onSelected(Activity activity) {
@@ -65,7 +65,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 		}
 
 		if (AboutAppModule.get().getAboutContext().getSpreadTheLoveFragmentClass() != null) {
-			aboutItems.add(new AboutItem(R.drawable.ic_spread_the_love_black_24dp, R.string.spreadTheLove) {
+			aboutItems.add(new AboutItem(R.drawable.jdroid_ic_spread_the_love_black_24dp, R.string.jdroid_spreadTheLove) {
 
 				@Override
 				public void onSelected(Activity activity) {
@@ -73,7 +73,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 				}
 			});
 		}
-		aboutItems.add(new AboutItem(R.drawable.ic_libraries_black_24dp, R.string.libraries) {
+		aboutItems.add(new AboutItem(R.drawable.jdroid_ic_libraries_black_24dp, R.string.jdroid_libraries) {
 			
 			@Override
 			public void onSelected(Activity activity) {
@@ -81,7 +81,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 			}
 		});
 		if (AboutAppModule.get().getAboutContext().isBetaTestingEnabled()) {
-			aboutItems.add(new AboutItem(R.drawable.ic_beta_black_24dp, R.string.beta) {
+			aboutItems.add(new AboutItem(R.drawable.jdroid_ic_beta_black_24dp, R.string.jdroid_beta) {
 
 				@Override
 				public void onSelected(Activity activity) {
@@ -139,7 +139,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 
 		@Override
 		protected Integer getLayoutResourceId() {
-			return R.layout.about_header_view;
+			return R.layout.jdroid_about_header_view;
 		}
 
 		@Override
@@ -155,7 +155,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 		public void fillHolderFromItem(String item, HeaderItemHolder holder) {
 			holder.appIcon.setImageResource(AbstractApplication.get().getLauncherIconResId());
 			holder.appName.setText(AbstractApplication.get().getAppName());
-			holder.version.setText(getString(R.string.version, AppUtils.getVersionName()));
+			holder.version.setText(getString(R.string.jdroid_version, AppUtils.getVersionName()));
 			if (AbstractApplication.get().getAppContext().displayDebugSettings()) {
 				holder.appIcon.setOnClickListener(new OnClickListener() {
 
@@ -189,7 +189,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 
 		@Override
 		protected Integer getLayoutResourceId() {
-			return R.layout.about_footer_view;
+			return R.layout.jdroid_about_footer_view;
 		}
 
 		@Override
@@ -207,7 +207,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 
 		@Override
 		protected Integer getLayoutResourceId() {
-			return R.layout.default_item;
+			return R.layout.jdroid_default_item;
 		}
 
 		@Override

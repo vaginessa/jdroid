@@ -81,7 +81,7 @@ public abstract class DefaultNavDrawer extends NavDrawer {
 			navDrawerHeader.setSubTitle(user.getEmail());
 		} else {
 			navDrawerHeader.setMainImage(AbstractApplication.get().getLauncherIconResId());
-			navDrawerHeader.setTitle(getActivity().getString(R.string.appName));
+			navDrawerHeader.setTitle(getActivity().getString(R.string.jdroid_appName));
 			String website = AbstractApplication.get().getAppContext().getWebsite();
 			if (website != null) {
 				navDrawerHeader.setSubTitle(website.replaceAll("http://", ""));

@@ -411,7 +411,7 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	public String getAppName() {
-		return getString(R.string.appName);
+		return getString(R.string.jdroid_appName);
 	}
 	
 	public UserRepository getUserRepository() {

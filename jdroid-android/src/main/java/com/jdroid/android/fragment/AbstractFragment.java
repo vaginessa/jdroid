@@ -65,7 +65,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 
 	@Override
 	public Integer getBaseFragmentLayout() {
-		return isHeroImageEnabled() ? R.layout.base_hero_fragment : fragmentHelper.getBaseFragmentLayout();
+		return isHeroImageEnabled() ? R.layout.jdroid_base_hero_fragment : fragmentHelper.getBaseFragmentLayout();
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 					actionBarAlpha = savedInstanceState.getInt(ACTION_BAR_ALPHA);
 				}
 
-				Drawable appBarBackgroundDrawable = getResources().getDrawable(R.color.colorPrimary).mutate();
+				Drawable appBarBackgroundDrawable = getResources().getDrawable(R.color.jdroid_colorPrimary).mutate();
 				appBar.setBackgroundDrawable(appBarBackgroundDrawable);
 				appBarBackgroundDrawable.setAlpha(actionBarAlpha);
 

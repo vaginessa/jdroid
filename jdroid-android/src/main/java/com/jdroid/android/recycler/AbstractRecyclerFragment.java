@@ -23,7 +23,7 @@ public abstract class AbstractRecyclerFragment extends AbstractFragment {
 
 	@Override
 	public Integer getContentFragmentLayout() {
-		return R.layout.recycler_vertical_fragment;
+		return R.layout.jdroid_recycler_vertical_fragment;
 	}
 
 	@Override
@@ -116,13 +116,13 @@ public abstract class AbstractRecyclerFragment extends AbstractFragment {
 	}
 
 	protected View createEmptyView() {
-		TextView emptyTextView = (TextView)inflate(R.layout.empty_view);
+		TextView emptyTextView = (TextView)inflate(R.layout.jdroid_empty_view);
 		emptyTextView.setText(getNoResultsResId());
 		return emptyTextView;
 	}
 
 	protected int getNoResultsResId() {
-		return R.string.noResults;
+		return R.string.jdroid_noResults;
 	}
 
 	public RecyclerViewAdapter getAdapter() {

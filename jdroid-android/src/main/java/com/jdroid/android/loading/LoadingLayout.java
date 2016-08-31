@@ -39,7 +39,7 @@ public class LoadingLayout extends FrameLayout {
 	
 	private void init() {
 		LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		inflater.inflate(R.layout.non_blocking_loading, this, true);
+		inflater.inflate(R.layout.jdroid_non_blocking_loading, this, true);
 		progressLoading = (ProgressBar)this.findViewById(R.id.loadingProgressBar);
 	}
 	
@@ -64,7 +64,7 @@ public class LoadingLayout extends FrameLayout {
 	private void setRetry() {
 		if (retryButton != null) {
 			LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			inflater.inflate(R.layout.retry, this, true);
+			inflater.inflate(R.layout.jdroid_retry, this, true);
 			retryButton = (Button)this.findViewById(R.id.retry);
 		}
 		retryButton.setVisibility(View.VISIBLE);

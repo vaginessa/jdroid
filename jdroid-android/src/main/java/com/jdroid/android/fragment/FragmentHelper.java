@@ -64,7 +64,7 @@ public class FragmentHelper implements FragmentIf {
 
 	@Override
 	public Integer getBaseFragmentLayout() {
-		return R.layout.base_fragment;
+		return R.layout.jdroid_base_fragment;
 	}
 
 	@Override
@@ -155,7 +155,7 @@ public class FragmentHelper implements FragmentIf {
 				}
 			} else {
 				((AbstractFragmentActivity)getActivityIf()).setSupportActionBar(appBar);
-				appBar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+				appBar.setNavigationIcon(R.drawable.jdroid_ic_arrow_back_white_24dp);
 				getActivityIf().initNavDrawer(appBar);
 			}
 

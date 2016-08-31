@@ -40,7 +40,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 
 	@Override
 	public Integer getContentFragmentLayout() {
-		return R.layout.spread_the_love_fragment;
+		return R.layout.jdroid_spread_the_love_fragment;
 	}
 
 	@Override
@@ -172,7 +172,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 			
 			@Override
 			public void share() {
-				ShareUtils.shareTextContent(SpreadTheLoveFragment.this.getShareKey(), getString(R.string.share),
+				ShareUtils.shareTextContent(SpreadTheLoveFragment.this.getShareKey(), getString(R.string.jdroid_share),
 						getShareTitle(), SpreadTheLoveFragment.this.getDefaultShareText());
 			}
 		});
@@ -210,7 +210,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 	}
 	
 	protected String getShareTitle() {
-		return getString(R.string.appName);
+		return getString(R.string.jdroid_appName);
 	}
 	
 	protected String getFacebookPageId() {

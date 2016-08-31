@@ -57,7 +57,7 @@ public class NotificationBuilder {
 		Context context = AbstractApplication.get();
 		builder = new NotificationCompat.Builder(context);
 		builder.setAutoCancel(true);
-		setColor(R.color.colorPrimary);
+		setColor(R.color.jdroid_colorPrimary);
 		if (bundle != null) {
 
 			String ticker = bundle.getString(TICKER);
@@ -205,7 +205,7 @@ public class NotificationBuilder {
 		
 		Context context = AbstractApplication.get();
 		
-		RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.notification_inprogress);
+		RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.jdroid_notification_inprogress);
 		remoteViews.setTextViewText(R.id.title, context.getString(contentTitle));
 		remoteViews.setTextViewText(R.id.action, context.getString(actionText));
 		remoteViews.setTextViewText(R.id.progressPercentage, progress + "%");

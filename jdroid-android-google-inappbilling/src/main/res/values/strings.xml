@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="jdroid_notSupportedInAppBillingError">Your device doesn\'t support in app billing.</string>
+	<string name="jdroid_failedToLoadPurchases">We could\'t load the items to purchase. Please try again later.</string>
+</resources>

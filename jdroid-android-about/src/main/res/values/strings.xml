@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="about">About</string>
-	<string name="spreadTheLove">Spread the love</string>
-	<string name="libraries">Libraries</string>
-	<string name="version">Version %1$s</string>
-	<string name="followUs">Follow Us</string>
-	<string name="website">Web Site</string>
-	<string name="contactUs">Contact Us</string>
-	<string name="beta">Beta</string>
-	<string name="jdroidTitle">Jdroid</string>
-	<string name="jdroidDescription">The jdroid Framework provides a programming and architectural model for modern Java-based enterprise and android applications.</string>
+	<string name="jdroid_about">About</string>
+	<string name="jdroid_spreadTheLove">Spread the love</string>
+	<string name="jdroid_libraries">Libraries</string>
+	<string name="jdroid_version">Version %1$s</string>
+	<string name="jdroid_followUs">Follow Us</string>
+	<string name="jdroid_website">Web Site</string>
+	<string name="jdroid_contactUs">Contact Us</string>
+	<string name="jdroid_beta">Beta</string>
+	<string name="jdroid_jdroidTitle">Jdroid</string>
+	<string name="jdroid_jdroidDescription">The jdroid Framework provides a programming and architectural model for modern Java-based enterprise and android applications.</string>
 
 	<!-- App Invite -->
-	<string name="appInviteButtonTitle">Invite Friends</string>
-	<string name="appInviteButtonSubtitle">Recommend %1$s to your friends</string>
-	<string name="appInviteTitle">Invite Friends to %1$s</string>
-	<string name="appInviteMessage">Download %1$s on your android</string>
+	<string name="jdroid_appInviteButtonTitle">Invite Friends</string>
+	<string name="jdroid_appInviteButtonSubtitle">Recommend %1$s to your friends</string>
+	<string name="jdroid_appInviteTitle">Invite Friends to %1$s</string>
+	<string name="jdroid_appInviteMessage">Download %1$s on your android</string>
 
 </resources>

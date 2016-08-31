@@ -1,89 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="appName">jdroid</string>
+	<string name="jdroid_appName">jdroid</string>
 
-	<string name="ok">OK</string>
-	<string name="cancel">Cancel</string>
-	<string name="yes">Yes</string>
-	<string name="no">No</string>
-	<string name="noResults">There are no results available</string>
-	<string name="zeroPercent">0%</string>
-	<string name="refresh">Refresh</string>
-	<string name="update">Update</string>
-	<string name="logout">Logout</string>
-	<string name="revokeAccess">Revoke</string>
-	<string name="signIn">Sign in</string>
-	<string name="retry">Retry</string>
-	<string name="removeAdsNow">Remove ads now!</string>
-
-	<string name="deviceSettings">Settings</string>
+	<string name="jdroid_ok">OK</string>
+	<string name="jdroid_cancel">Cancel</string>
+	<string name="jdroid_yes">Yes</string>
+	<string name="jdroid_no">No</string>
+	<string name="jdroid_noResults">There are no results available</string>
+	<string name="jdroid_zeroPercent">0%</string>
+	<string name="jdroid_refresh">Refresh</string>
+	<string name="jdroid_update">Update</string>
+	<string name="jdroid_retry">Retry</string>
+	<string name="jdroid_removeAdsNow">Remove ads now!</string>
 
 	<!-- Permissions -->
-	<string name="requiredPermission">Required Permission</string>
-	<string name="allow">Allow</string>
+	<string name="jdroid_requiredPermission">Required Permission</string>
+	<string name="jdroid_allow">Allow</string>
+	<string name="jdroid_deviceSettings">Settings</string>
 
 	<!-- Navigation Drawer -->
-	<string name="drawerOpen">Open navigation drawer</string>
-	<string name="drawerClose">Close navigation drawer</string>
+	<string name="jdroid_drawerOpen">Open navigation drawer</string>
+	<string name="jdroid_drawerClose">Close navigation drawer</string>
 
 	<!-- Errors -->
-	<string name="defaultErrorTitle">%1$s error</string>
-	<string name="defaultErrorDescription">Oops! We\'re having technical problems. Please try again later.</string>
+	<string name="jdroid_defaultErrorTitle">%1$s error</string>
+	<string name="jdroid_defaultErrorDescription">Oops! We\'re having technical problems. Please try again later.</string>
 
-	<string name="connectionErrorTitle">Connection Error</string>
-	<string name="connectionErrorDescription">Please check your internet connection and try again.</string>
+	<string name="jdroid_connectionErrorTitle">Connection Error</string>
+	<string name="jdroid_connectionErrorDescription">Please check your internet connection and try again.</string>
 
-	<string name="facebookError">There was a problem connecting to Facebook. Please try again later.</string>
-	<string name="notSupportedInAppBillingError">Your device doesn\'t support in app billing.</string>
-	<string name="failedToLoadPurchases">We could\'t load the items to purchase. Please try again later.</string>
-	<string name="invalidCredentials">Invalid Credentials</string>
+	<string name="jdroid_invalidCredentials">Invalid Credentials</string>
 
 	<!-- Google Play Utils -->
-	<string name="updateAppTitle">Update required</string>
-	<string name="updateAppMessage">You are using an outdated version of this app. Please update it and try again.</string>
-	<string name="installAppTitle">%1$s required</string>
-	<string name="installAppMessage">You need to install the %1$s application to continue. Would you like to download it?</string>
+	<string name="jdroid_updateAppTitle">Update required</string>
+	<string name="jdroid_updateAppMessage">You are using an outdated version of this app. Please update it and try again.</string>
+	<string name="jdroid_installAppTitle">%1$s required</string>
+	<string name="jdroid_installAppMessage">You need to install the %1$s application to continue. Would you like to download it?</string>
 
 	<!-- Abstract Search Activity -->
-	<string name="typeHere">Type Here</string>
-	<string name="noResultsSearch">Your search did not match any result.</string>
-	<string name="requiredSearchTerm">Search term is required</string>
+	<string name="jdroid_typeHere">Type Here</string>
+	<string name="jdroid_noResultsSearch">Your search did not match any result.</string>
+	<string name="jdroid_requiredSearchTerm">Search term is required</string>
 
 	<!-- Time Picker Dialog Fragment -->
-	<string name="selectTime">Select Time</string>
+	<string name="jdroid_selectTime">Select Time</string>
 
 	<!-- Picture Dialog Fragment -->
-	<string name="selectPhoto">Photo Source</string>
-	<string name="camera">Camera</string>
-	<string name="gallery">Gallery</string>
+	<string name="jdroid_selectPhoto">Photo Source</string>
+	<string name="jdroid_camera">Camera</string>
+	<string name="jdroid_gallery">Gallery</string>
 
 	<!-- External Apps -->
-	<string name="barcodeScanner">Barcode Scanner</string>
-	<string name="voiceSearch">Voice Search</string>
+	<string name="jdroid_barcodeScanner">Barcode Scanner</string>
+	<string name="jdroid_voiceSearch">Voice Search</string>
 
 	<!-- Sharing -->
-	<string name="share">Share</string>
-	<string name="sharingFailed">The sharing failed</string>
+	<string name="jdroid_share">Share</string>
+	<string name="jdroid_sharingFailed">The sharing failed</string>
+
+	<!-- Sign In -->
+	<string name="jdroid_logout">Logout</string>
+	<string name="jdroid_signIn">Sign in</string>
 
 	<!-- Facebook -->
-	<string name="facebook">Facebook</string>
+	<string name="jdroid_facebook">Facebook</string>
 
 	<!-- Google Sign In -->
-	<string name="googleSignIn">Google Sign In</string>
+	<string name="jdroid_googleSignIn">Google Sign In</string>
 
 	<!-- Twitter -->
-	<string name="twitter">Twitter</string>
+	<string name="jdroid_twitter">Twitter</string>
 
-	<string name="universalImageLoaderTitle">Universal Image Loader</string>
-	<string name="universalImageLoaderDescription">Powerful and flexible library for loading, caching and displaying images on Android.</string>
+	<string name="jdroid_universalImageLoaderTitle">Universal Image Loader</string>
+	<string name="jdroid_universalImageLoaderDescription">Powerful and flexible library for loading, caching and displaying images on Android.</string>
 
 	<!-- Rate App -->
-	<string name="rateAppEnjoying">Enjoying %1$s?</string>
-	<string name="rateAppGooglePlay">How about a rating on Google Play, then?</string>
-	<string name="rateAppFeedback">Would you mind giving us some feedback?</string>
-	<string name="rateAppNotReally">Not really</string>
-	<string name="rateAppNotThanks">No, thanks</string>
-	<string name="rateAppOkSure">OK, sure</string>
-	<string name="rateAppYes">Yes!</string>
+	<string name="jdroid_rateAppEnjoying">Enjoying %1$s?</string>
+	<string name="jdroid_rateAppGooglePlay">How about a rating on Google Play, then?</string>
+	<string name="jdroid_rateAppFeedback">Would you mind giving us some feedback?</string>
+	<string name="jdroid_rateAppNotReally">Not really</string>
+	<string name="jdroid_rateAppNotThanks">No, thanks</string>
+	<string name="jdroid_rateAppOkSure">OK, sure</string>
+	<string name="jdroid_rateAppYes">Yes!</string>
 
 </resources>

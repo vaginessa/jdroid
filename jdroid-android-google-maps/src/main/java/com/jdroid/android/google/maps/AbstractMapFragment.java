@@ -87,7 +87,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 
 		if (isLocationEnabled()) {
 			locationPermissionHelper = PermissionHelper.createLocationPermissionHelper(this);
-			locationPermissionHelper.setAppInfoDialogMessageResId(R.string.locationPermissionRequired);
+			locationPermissionHelper.setAppInfoDialogMessageResId(R.string.jdroid_locationPermissionRequired);
 			locationPermissionHelper.setOnRequestPermissionsResultListener(new PermissionHelper.OnRequestPermissionsResultListener() {
 				@Override
 				public void onRequestPermissionsGranted() {
@@ -142,7 +142,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 							public void onRequestPermissionsDenied() {
 								if (!snackbarDisplayed) {
 									SnackbarBuilder snackbarBuilder = new SnackbarBuilder();
-									snackbarBuilder.setActionTextResId(R.string.allow);
+									snackbarBuilder.setActionTextResId(R.string.jdroid_allow);
 									snackbarBuilder.setDuration(5000);
 									snackbarBuilder.setOnClickListener(new View.OnClickListener() {
 										@Override
@@ -151,7 +151,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 											snackbarDisplayed = true;
 										}
 									});
-									snackbarBuilder.setDescription(R.string.locationPermissionSuggested);
+									snackbarBuilder.setDescription(R.string.jdroid_locationPermissionSuggested);
 									snackbarBuilder.build(getActivity()).show();
 								}
 							}
@@ -203,7 +203,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 
 	@Override
 	public Integer getContentFragmentLayout() {
-		return R.layout.map_fragment;
+		return R.layout.jdroid_map_fragment;
 	}
 
 	@Override

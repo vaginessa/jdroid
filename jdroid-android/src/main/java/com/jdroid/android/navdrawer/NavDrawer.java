@@ -42,7 +42,7 @@ public abstract class NavDrawer {
 
 		// Set the adapter for the list view
 		// set a custom shadow that overlays the main content when the drawer opens
-		drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+		drawerLayout.setDrawerShadow(R.drawable.jdroid_drawer_shadow, GravityCompat.START);
 
 		final DrawerLayout.DrawerListener drawerListener = new DrawerLayout.DrawerListener() {
 
@@ -70,8 +70,8 @@ public abstract class NavDrawer {
 		};
 
 		if (isNavDrawerTopLevelView && appBar != null) {
-			drawerToggle = new ActionBarDrawerToggle(activity, drawerLayout, appBar, R.string.drawerOpen,
-					R.string.drawerClose) {
+			drawerToggle = new ActionBarDrawerToggle(activity, drawerLayout, appBar, R.string.jdroid_drawerOpen,
+					R.string.jdroid_drawerClose) {
 
 				@Override
 				public void onDrawerStateChanged(int newState) {

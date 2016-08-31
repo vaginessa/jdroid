@@ -56,7 +56,7 @@ public class PictureDialogFragment extends AbstractDialogFragment {
 	
 	@Override
 	public Integer getContentFragmentLayout() {
-		return R.layout.picture_dialog_fragment;
+		return R.layout.jdroid_picture_dialog_fragment;
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class PictureDialogFragment extends AbstractDialogFragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		
-		getDialog().setTitle(R.string.selectPhoto);
+		getDialog().setTitle(R.string.jdroid_selectPhoto);
 		
 		// Configure the take photo button.
 		Button camera = findView(R.id.camera);

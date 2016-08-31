@@ -20,7 +20,7 @@ public class NavDrawerHeader {
 
 	@LayoutRes
 	protected int getNavDrawerHeaderLayout() {
-		return R.layout.nav_drawer_header;
+		return R.layout.jdroid_nav_drawer_header;
 	}
 
 	public void setTitle(String title) {
@@ -46,7 +46,7 @@ public class NavDrawerHeader {
 
 	public void setMainImage(String imageUrl, Long ttl) {
 		AbstractApplication.get().getImageLoaderHelper().displayImage(imageUrl,
-				(ImageView)navDrawerHeader.findViewById(R.id.photo), R.drawable.profile_default, null,
+				(ImageView)navDrawerHeader.findViewById(R.id.photo), R.drawable.jdroid_person_default, null,
 				ttl);
 	}
 }

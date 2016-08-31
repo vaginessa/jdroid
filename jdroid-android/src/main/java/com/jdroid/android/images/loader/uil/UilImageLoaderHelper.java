@@ -141,12 +141,12 @@ public class UilImageLoaderHelper implements ImageLoaderHelper {
 
 	@Override
 	public Integer getLibraryNameResId() {
-		return R.string.universalImageLoaderTitle;
+		return R.string.jdroid_universalImageLoaderTitle;
 	}
 
 	@Override
 	public Integer getLibraryDescriptionResId() {
-		return R.string.universalImageLoaderDescription;
+		return R.string.jdroid_universalImageLoaderDescription;
 	}
 
 	@Override

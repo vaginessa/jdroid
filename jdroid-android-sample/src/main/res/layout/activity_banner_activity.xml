@@ -8,9 +8,9 @@
 		<LinearLayout android:id="@+id/fragmentContainer" android:layout_width="match_parent"
 					  android:layout_height="match_parent" android:orientation="horizontal" android:layout_above="@+id/adViewContainer" />
 
-		<LinearLayout android:id="@+id/adViewContainer" style="@style/adsViewContainer"/>
+		<LinearLayout android:id="@+id/adViewContainer" style="@style/jdroid_adsViewContainer"/>
 
 	</RelativeLayout>
 
-	<include android:id="@+id/drawer" layout="@layout/nav_drawer" />
+	<include android:id="@+id/drawer" layout="@layout/jdroid_nav_drawer" />
 </android.support.v4.widget.DrawerLayout>

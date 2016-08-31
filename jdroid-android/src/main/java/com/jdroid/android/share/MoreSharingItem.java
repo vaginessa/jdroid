@@ -13,8 +13,8 @@ public abstract class MoreSharingItem extends SharingItem {
 	 */
 	@Override
 	public Drawable getAppIcon() {
-		Drawable drawable = DrawableCompat.wrap(AbstractApplication.get().getResources().getDrawable(R.drawable.more_selector));
-		DrawableCompat.setTint(drawable, AbstractApplication.get().getResources().getColor(R.color.colorPrimary));
+		Drawable drawable = DrawableCompat.wrap(AbstractApplication.get().getResources().getDrawable(R.drawable.jdroid_more_selector));
+		DrawableCompat.setTint(drawable, AbstractApplication.get().getResources().getColor(R.color.jdroid_colorPrimary));
 		return drawable;
 	}
 	

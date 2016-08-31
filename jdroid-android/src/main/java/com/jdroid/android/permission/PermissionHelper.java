@@ -197,7 +197,7 @@ public class PermissionHelper {
 
 	/**
 	 * Sets the title to be displayed in the permission rationale dialog, from a resource.
-	 * If not set, the default title is used {@link R.string#requiredPermission} is used.
+	 * If not set, the default title is used {@link R.string#jdroid_requiredPermission} is used.
 	 *
 	 * @param permissionRationaleTitleResId  the resource id for the title
 	 */
@@ -385,7 +385,7 @@ public class PermissionHelper {
 		if(permissionRationaleTitleResId!=0) {
 			return permissionRationaleTitleResId;
 		}
-		return R.string.requiredPermission;
+		return R.string.jdroid_requiredPermission;
 	}
 
 	private void showAppInfoDialog() {

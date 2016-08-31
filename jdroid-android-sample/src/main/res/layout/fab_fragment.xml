@@ -8,23 +8,23 @@
 		<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent"
 					  android:orientation="vertical" android:layout_marginTop="220dp" android:paddingBottom="4dp">
 			<TextView android:layout_width="match_parent"
-					  android:layout_height="wrap_content" android:layout_marginTop="200dp" android:text="@string/share"/>
+					  android:layout_height="wrap_content" android:layout_marginTop="200dp" android:text="@string/jdroid_share"/>
 			<TextView android:layout_width="match_parent"
-					  android:layout_height="wrap_content" android:layout_marginTop="200dp" android:text="@string/share"/>
+					  android:layout_height="wrap_content" android:layout_marginTop="200dp" android:text="@string/jdroid_share"/>
 			<TextView android:layout_width="match_parent"
-					  android:layout_height="wrap_content" android:layout_marginTop="200dp" android:text="@string/share"/>
+					  android:layout_height="wrap_content" android:layout_marginTop="200dp" android:text="@string/jdroid_share"/>
 			<TextView android:layout_width="match_parent"
-					  android:layout_height="wrap_content" android:layout_marginTop="200dp" android:text="@string/share"/>
+					  android:layout_height="wrap_content" android:layout_marginTop="200dp" android:text="@string/jdroid_share"/>
 			<TextView android:layout_width="match_parent"
-					  android:layout_height="wrap_content" android:layout_marginTop="200dp" android:text="@string/share"/>
+					  android:layout_height="wrap_content" android:layout_marginTop="200dp" android:text="@string/jdroid_share"/>
 			<TextView android:layout_width="match_parent"
-					  android:layout_height="wrap_content" android:layout_marginTop="200dp" android:text="@string/share"/>
+					  android:layout_height="wrap_content" android:layout_marginTop="200dp" android:text="@string/jdroid_share"/>
 			<TextView android:layout_width="match_parent"
-					  android:layout_height="wrap_content" android:layout_marginTop="200dp" android:text="@string/share"/>
+					  android:layout_height="wrap_content" android:layout_marginTop="200dp" android:text="@string/jdroid_share"/>
 			<TextView android:layout_width="match_parent"
-					  android:layout_height="wrap_content" android:layout_marginTop="200dp" android:text="@string/share"/>
+					  android:layout_height="wrap_content" android:layout_marginTop="200dp" android:text="@string/jdroid_share"/>
 			<TextView android:layout_width="match_parent"
-					  android:layout_height="wrap_content" android:layout_marginTop="200dp" android:text="@string/share"/>
+					  android:layout_height="wrap_content" android:layout_marginTop="200dp" android:text="@string/jdroid_share"/>
 
 		</LinearLayout>
 
@@ -32,7 +32,7 @@
 
 	<android.support.design.widget.FloatingActionButton
 		android:id="@+id/fab"
-		style="@style/floatingActionButton"
+		style="@style/jdroid_floatingActionButton"
 		android:src="@drawable/ic_cardview"
 		app:layout_anchor="@id/scrollView"
 		app:layout_anchorGravity="bottom|right|end"

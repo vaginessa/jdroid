@@ -12,7 +12,7 @@ public enum InAppBillingErrorCode implements ErrorCode {
 	// Indicates that in-app billing is not available because the API_VERSION that you specified is not recognized by
 	// the Google Play app or the user is ineligible for in-app billing (for example, the user resides in a
 	// country that prohibits in-app purchases).
-	BILLING_UNAVAILABLE(R.string.notSupportedInAppBillingError, 3, false),
+	BILLING_UNAVAILABLE(R.string.jdroid_notSupportedInAppBillingError, 3, false),
 	
 	// Indicates that the Google Play app cannot find the requested item in the application's product list. This can
 	// happen

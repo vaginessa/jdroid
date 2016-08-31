@@ -52,7 +52,7 @@ public abstract class TwoStateActionProvider extends ActionProvider {
 	}
 	
 	protected Integer getLayoutResId() {
-		return R.layout.two_state_action_item;
+		return R.layout.jdroid_two_state_action_item;
 	}
 	
 	protected abstract Integer getFirstStateImageResId();

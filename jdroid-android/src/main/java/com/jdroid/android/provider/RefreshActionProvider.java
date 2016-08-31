@@ -11,11 +11,11 @@ public class RefreshActionProvider extends TwoStateActionProvider {
 	
 	@Override
 	protected Integer getFirstStateImageResId() {
-		return R.drawable.ic_refresh_white_24dp;
+		return R.drawable.jdroid_ic_refresh_white_24dp;
 	}
 	
 	@Override
 	protected Integer getFirstStateCheatSheetResId() {
-		return R.string.refresh;
+		return R.string.jdroid_refresh;
 	}
 }

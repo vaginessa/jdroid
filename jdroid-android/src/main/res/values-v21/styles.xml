@@ -3,13 +3,13 @@
 
 	<!-- Buttons -->
 
-	<style name="raisedButton">
+	<style name="jdroid_raisedButton">
 		<item name="android:paddingLeft">8dp</item>
 		<item name="android:paddingRight">8dp</item>
 		<item name="android:paddingTop">4dp</item>
 		<item name="android:paddingBottom">4dp</item>
 		<item name="android:textColor">@android:color/white</item>
-		<item name="android:background">@color/colorPrimary</item>
+		<item name="android:background">@color/jdroid_colorPrimary</item>
 		<item name="android:foreground">?android:attr/selectableItemBackground</item>
 		<item name="android:minWidth">100dp</item>
 		<item name="android:minHeight">40dp</item>

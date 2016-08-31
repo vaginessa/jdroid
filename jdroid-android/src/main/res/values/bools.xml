@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<bool name="isOrientationLandscape">false</bool>
-	<bool name="isLessThan7Inches">true</bool>
-	<bool name="isBetween7And10Inches">false</bool>
-	<bool name="is10Inches">false</bool>
+	<bool name="jdroid_isOrientationLandscape">false</bool>
+	<bool name="jdroid_isLessThan7Inches">true</bool>
+	<bool name="jdroid_isBetween7And10Inches">false</bool>
+	<bool name="jdroid_is10Inches">false</bool>
 
-	<bool name="navDrawerHeaderCircleImage">false</bool>
+	<bool name="jdroid_navDrawerHeaderCircleImage">false</bool>
 </resources>

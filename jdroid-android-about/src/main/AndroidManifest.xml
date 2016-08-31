@@ -3,12 +3,12 @@
 
 	<application>
 
-		<activity android:name="com.jdroid.android.about.AboutActivity" android:label="@string/about" />
+		<activity android:name="com.jdroid.android.about.AboutActivity" android:label="@string/jdroid_about" />
 
-		<activity android:name="com.jdroid.android.about.SpreadTheLoveActivity" android:label="@string/spreadTheLove"
+		<activity android:name="com.jdroid.android.about.SpreadTheLoveActivity" android:label="@string/jdroid_spreadTheLove"
 				  android:parentActivityName="com.jdroid.android.about.AboutActivity" tools:ignore="UnusedAttribute"/>
 
-		<activity android:name="com.jdroid.android.about.LibrariesActivity" android:label="@string/libraries"
+		<activity android:name="com.jdroid.android.about.LibrariesActivity" android:label="@string/jdroid_libraries"
 				  android:parentActivityName="com.jdroid.android.about.AboutActivity" tools:ignore="UnusedAttribute"/>
 
 	</application>

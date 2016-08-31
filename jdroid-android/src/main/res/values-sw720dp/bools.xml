@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<bool name="isLessThan7Inches">false</bool>
-	<bool name="isBetween7And10Inches">false</bool>
-	<bool name="is10Inches">true</bool>
+	<bool name="jdroid_isLessThan7Inches">false</bool>
+	<bool name="jdroid_isBetween7And10Inches">false</bool>
+	<bool name="jdroid_is10Inches">true</bool>
 </resources>

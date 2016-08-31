@@ -92,7 +92,7 @@ public class DatePickerDialogFragment extends AbstractDialogFragment implements 
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		
 		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-		View view = inflate(R.layout.date_picker_dialog_fragment);
+		View view = inflate(R.layout.jdroid_date_picker_dialog_fragment);
 		dialogBuilder.setView(view);
 		
 		final DatePicker datePicker = (DatePicker)view.findViewById(R.id.datePicker);
@@ -113,7 +113,7 @@ public class DatePickerDialogFragment extends AbstractDialogFragment implements 
 			datePicker.setMaxDate(maxDate.getTime());
 		}
 		
-		dialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+		dialogBuilder.setPositiveButton(getString(R.string.jdroid_ok), new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int whichButton) {
@@ -124,7 +124,7 @@ public class DatePickerDialogFragment extends AbstractDialogFragment implements 
 			}
 		});
 		
-		dialogBuilder.setNegativeButton(getString(R.string.cancel), null);
+		dialogBuilder.setNegativeButton(getString(R.string.jdroid_cancel), null);
 		
 		Dialog dialog = dialogBuilder.create();
 		updateTitle(dialog, defaultDate);

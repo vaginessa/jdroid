@@ -5,7 +5,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.jdroid.android.R;
 import com.jdroid.android.exception.AbstractErrorDisplayer;
 import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.fragment.FragmentIf;
@@ -17,7 +16,7 @@ public abstract class RefreshActionConnector implements RefreshActionProvider.On
 	private RefreshActionProvider refreshActionProvider;
 	
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		MenuItem menuItem = menu.findItem(R.id.refresh_action_item);
+		MenuItem menuItem = menu.findItem(getMenuItemResId());
 		refreshActionProvider = (RefreshActionProvider)MenuItemCompat.getActionProvider(menuItem);
 		refreshActionProvider.setTitle(menuItem.getTitle());
 		refreshActionProvider.setOnRefreshListener(this);
@@ -55,17 +54,11 @@ public abstract class RefreshActionConnector implements RefreshActionProvider.On
 		});
 	}
 	
-	/**
-	 * @see UseCaseListener#onStartUseCase()
-	 */
 	@Override
 	public void onStartUseCase() {
 		startLoadingOnUIThread();
 	}
 	
-	/**
-	 * @see UseCaseListener#onUpdateUseCase()
-	 */
 	@Override
 	public void onUpdateUseCase() {
 		getFragmentIf().onUpdateUseCase();
@@ -87,4 +80,6 @@ public abstract class RefreshActionConnector implements RefreshActionProvider.On
 	}
 	
 	protected abstract FragmentIf getFragmentIf();
+
+	protected abstract int getMenuItemResId();
 }

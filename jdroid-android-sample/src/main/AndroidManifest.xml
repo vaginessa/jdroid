@@ -21,7 +21,7 @@
 	<uses-feature android:name="android.hardware.location.NETWORK" android:required="false" />
 	<uses-feature android:name="android.hardware.location.GPS" android:required="false" />
 
-	<application android:icon="@mipmap/ic_launcher" android:logo="@mipmap/ic_launcher" android:label="@string/appName"
+	<application android:icon="@mipmap/ic_launcher" android:logo="@mipmap/ic_launcher" android:label="@string/jdroid_appName"
 		android:allowBackup="false" android:name="com.jdroid.android.sample.application.AndroidApplication" android:hardwareAccelerated="true"
 		android:theme="@style/App.Theme">
 
@@ -102,12 +102,12 @@
 
 		<!-- Facebook Sign In -->
 
-		<activity android:name="com.jdroid.android.sample.ui.facebook.FacebookSignInActivity" android:label="@string/facebook"
+		<activity android:name="com.jdroid.android.sample.ui.facebook.FacebookSignInActivity" android:label="@string/jdroid_facebook"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<!-- Google Sign In -->
 
-		<activity android:name="com.jdroid.android.sample.ui.google.signin.GoogleSignInActivity" android:label="@string/googleSignIn"
+		<activity android:name="com.jdroid.android.sample.ui.google.signin.GoogleSignInActivity" android:label="@string/jdroid_googleSignIn"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<!-- Loading -->
@@ -223,7 +223,7 @@
 
 		<!-- Twitter -->
 
-		<activity android:name="com.jdroid.android.sample.ui.twitter.TwitterActivity" android:label="@string/twitter"
+		<activity android:name="com.jdroid.android.sample.ui.twitter.TwitterActivity" android:label="@string/jdroid_twitter"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<!-- Uri Mapper -->

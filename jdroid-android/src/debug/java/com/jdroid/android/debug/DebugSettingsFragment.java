@@ -65,7 +65,7 @@ public class DebugSettingsFragment extends AbstractRecyclerFragment {
 
 		@Override
 		protected Integer getLayoutResourceId() {
-			return R.layout.default_item;
+			return R.layout.jdroid_default_item;
 		}
 
 		@Override

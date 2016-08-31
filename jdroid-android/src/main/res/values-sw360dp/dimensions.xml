@@ -3,14 +3,14 @@
 
 	<!-- Texts -->
 
-	<dimen name="textMicro">12sp</dimen>
-	<dimen name="textSmall">14sp</dimen>
-	<dimen name="textMedium">18sp</dimen>
-	<dimen name="textLarge">22sp</dimen>
+	<dimen name="jdroid_textMicro">12sp</dimen>
+	<dimen name="jdroid_textSmall">14sp</dimen>
+	<dimen name="jdroid_textMedium">18sp</dimen>
+	<dimen name="jdroid_textLarge">22sp</dimen>
 
 	<!-- Nav Drawer -->
 
-	<dimen name="navdrawerHeaderHeight">164dp</dimen>
-	<dimen name="navdrawerHeaderImageSize">64dp</dimen>
+	<dimen name="jdroid_navdrawerHeaderHeight">164dp</dimen>
+	<dimen name="jdroid_navdrawerHeaderImageSize">64dp</dimen>
 
 </resources>

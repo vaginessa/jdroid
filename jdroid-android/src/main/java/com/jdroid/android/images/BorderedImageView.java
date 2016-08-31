@@ -25,14 +25,14 @@ public class BorderedImageView extends LinearLayout {
 		super(context);
 		LayoutParams lp = new LayoutParams(getResources().getDimensionPixelSize(widthResId),
 				getResources().getDimensionPixelSize(heightResId));
-		int margin = getResources().getDimensionPixelSize(R.dimen.borderedImageViewMargin);
+		int margin = getResources().getDimensionPixelSize(R.dimen.jdroid_borderedImageViewMargin);
 		lp.setMargins(margin, margin, margin, margin);
 		setLayoutParams(lp);
 		setBackgroundColor(Color.WHITE);
 		
 		imageView = new ImageView(getContext());
 		lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-		margin = getResources().getDimensionPixelSize(R.dimen.borderedImageViewPadding);
+		margin = getResources().getDimensionPixelSize(R.dimen.jdroid_borderedImageViewPadding);
 		lp.setMargins(margin, margin, margin, margin);
 		imageView.setLayoutParams(lp);
 		imageView.setImageResource(defaultImageResId);

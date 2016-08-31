@@ -59,7 +59,7 @@ public class TimePickerDialogFragment extends AbstractDialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		
 		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-		View view = inflate(R.layout.time_picker_dialog_fragment);
+		View view = inflate(R.layout.jdroid_time_picker_dialog_fragment);
 		dialogBuilder.setView(view);
 		
 		final TimePicker timePicker = (TimePicker)view.findViewById(R.id.timePicker);
@@ -67,7 +67,7 @@ public class TimePickerDialogFragment extends AbstractDialogFragment {
 		timePicker.setCurrentHour(DateUtils.getHour(defaultTime, true));
 		timePicker.setCurrentMinute(DateUtils.getMinute(defaultTime));
 		
-		dialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+		dialogBuilder.setPositiveButton(getString(R.string.jdroid_ok), new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int whichButton) {
@@ -77,7 +77,7 @@ public class TimePickerDialogFragment extends AbstractDialogFragment {
 			}
 		});
 		
-		dialogBuilder.setNegativeButton(getString(R.string.cancel), null);
+		dialogBuilder.setNegativeButton(getString(R.string.jdroid_cancel), null);
 		
 		return dialogBuilder.create();
 	}

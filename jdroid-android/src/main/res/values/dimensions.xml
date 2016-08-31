@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<dimen name="leftFragmentWidth">360dp</dimen>
+	<dimen name="jdroid_leftFragmentWidth">360dp</dimen>
 
-	<dimen name="itemMinHeight">48dp</dimen>
-	<dimen name="itemIconSize">24dp</dimen>
+	<dimen name="jdroid_itemMinHeight">48dp</dimen>
+	<dimen name="jdroid_itemIconSize">24dp</dimen>
 
 	<!-- Texts -->
 
-	<dimen name="textMicro">12sp</dimen>
-	<dimen name="textSmall">14sp</dimen>
-	<dimen name="textMedium">16sp</dimen>
-	<dimen name="textLarge">20sp</dimen>
+	<dimen name="jdroid_textMicro">12sp</dimen>
+	<dimen name="jdroid_textSmall">14sp</dimen>
+	<dimen name="jdroid_textMedium">16sp</dimen>
+	<dimen name="jdroid_textLarge">20sp</dimen>
 
 	<!-- Images -->
 
-	<dimen name="borderedImageViewMargin">3dp</dimen>
-	<dimen name="borderedImageViewPadding">2dp</dimen>
+	<dimen name="jdroid_borderedImageViewMargin">3dp</dimen>
+	<dimen name="jdroid_borderedImageViewPadding">2dp</dimen>
 
 	<!-- Social -->
 
-	<dimen name="socialButtonText">16sp</dimen>
+	<dimen name="jdroid_socialButtonText">16sp</dimen>
 
 	<!-- Nav Drawer -->
 
-	<dimen name="navdrawerHeaderHorizontalPadding">16dp</dimen>
-	<dimen name="navdrawerHeaderTopPadding">28dp</dimen>
-	<dimen name="navdrawerHeaderHeight">140dp</dimen>
-	<dimen name="navdrawerHeaderImageSize">40dp</dimen>
+	<dimen name="jdroid_navdrawerHeaderHorizontalPadding">16dp</dimen>
+	<dimen name="jdroid_navdrawerHeaderTopPadding">28dp</dimen>
+	<dimen name="jdroid_navdrawerHeaderHeight">140dp</dimen>
+	<dimen name="jdroid_navdrawerHeaderImageSize">40dp</dimen>
 
 	<!-- Share -->
 
-	<dimen name="shareItemWidth">64dp</dimen>
+	<dimen name="jdroid_shareItemWidth">64dp</dimen>
 
 	<!-- CardView -->
 
-	<dimen name="cardViewMargin">2dp</dimen>
-	<dimen name="cardViewHalfMargin">1dp</dimen>
+	<dimen name="jdroid_cardViewMargin">2dp</dimen>
+	<dimen name="jdroid_cardViewHalfMargin">1dp</dimen>
 
 
 	<!-- Floating Action Button -->
 
-	<dimen name="fabElevation">4dp</dimen>
-	<dimen name="fabSpacing">0dp</dimen>
+	<dimen name="jdroid_fabElevation">4dp</dimen>
+	<dimen name="jdroid_fabSpacing">0dp</dimen>
 
 </resources>

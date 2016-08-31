@@ -160,7 +160,7 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 	}
 
 	protected int getPaginationFooterResId() {
-		return R.layout.pagination_footer;
+		return R.layout.jdroid_pagination_footer;
 	}
 	
 	public class LoadingRecyclerViewType extends SimpleRecyclerViewType {

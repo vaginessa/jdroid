@@ -30,7 +30,7 @@ public abstract class AbstractSearchPaginatedRecyclerFragment extends AbstractPa
 	
 	@Override
 	public Integer getContentFragmentLayout() {
-		return R.layout.abstract_search_fragment;
+		return R.layout.jdroid_abstract_search_fragment;
 	}
 	
 	@Override
@@ -146,11 +146,11 @@ public abstract class AbstractSearchPaginatedRecyclerFragment extends AbstractPa
 	}
 	
 	protected int getNoResultsResId() {
-		return R.string.noResultsSearch;
+		return R.string.jdroid_noResultsSearch;
 	}
 	
 	protected int getSearchEditTextHintResId() {
-		return R.string.typeHere;
+		return R.string.jdroid_typeHere;
 	}
 	
 	@Override
@@ -166,7 +166,7 @@ public abstract class AbstractSearchPaginatedRecyclerFragment extends AbstractPa
 				searchText.clearFocus();
 			}
 		} else {
-			ToastUtils.showToast(R.string.requiredSearchTerm);
+			ToastUtils.showToast(R.string.jdroid_requiredSearchTerm);
 		}
 	}
 	

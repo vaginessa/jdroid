@@ -60,7 +60,7 @@ public class ErrorDisplayerFragment extends AbstractFragment {
 			public void onClick(View v) {
 				SnackbarErrorDisplayer errorDisplayer = new SnackbarErrorDisplayer();
 				errorDisplayer.setParentLayoutId(R.id.container);
-				errorDisplayer.setActionTextResId(R.string.retry);
+				errorDisplayer.setActionTextResId(R.string.jdroid_retry);
 				errorDisplayer.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {

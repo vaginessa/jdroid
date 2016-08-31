@@ -30,7 +30,7 @@ public abstract class AbstractErrorDisplayer implements ErrorDisplayer {
 						if ((title == null)
 								&& errorCodeException.getErrorCode().equals(
 								com.jdroid.java.exception.CommonErrorCode.CONNECTION_ERROR)) {
-							title = LocalizationUtils.getString(R.string.connectionErrorTitle);
+							title = LocalizationUtils.getString(R.string.jdroid_connectionErrorTitle);
 						}
 					}
 					if (description == null) {
@@ -39,18 +39,18 @@ public abstract class AbstractErrorDisplayer implements ErrorDisplayer {
 						if ((description == null)
 								&& errorCodeException.getErrorCode().equals(
 								com.jdroid.java.exception.CommonErrorCode.CONNECTION_ERROR)) {
-							description = LocalizationUtils.getString(R.string.connectionErrorDescription);
+							description = LocalizationUtils.getString(R.string.jdroid_connectionErrorDescription);
 						}
 					}
 				}
 			}
 
 			if (title == null) {
-				title = LocalizationUtils.getString(R.string.defaultErrorTitle, AppUtils.getApplicationName());
+				title = LocalizationUtils.getString(R.string.jdroid_defaultErrorTitle, AppUtils.getApplicationName());
 			}
 
 			if (description == null) {
-				description = LocalizationUtils.getString(R.string.defaultErrorDescription);
+				description = LocalizationUtils.getString(R.string.jdroid_defaultErrorDescription);
 			}
 
 			onDisplayError(title, description, throwable);

@@ -22,7 +22,7 @@ public class PreferenceAppenderActivity extends AbstractFragmentActivity {
 
 	@Override
 	public int getContentView() {
-		return R.layout.fragment_container_activity;
+		return R.layout.jdroid_fragment_container_activity;
 	}
 
 	@Override

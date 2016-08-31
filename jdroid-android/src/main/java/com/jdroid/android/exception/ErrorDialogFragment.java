@@ -25,7 +25,7 @@ public class ErrorDialogFragment extends AlertDialogFragment {
 		ErrorDialogFragment fragment = new ErrorDialogFragment();
 		fragment.addParameter(ERROR_DIALOG_STRATEGY_EXTRA, errorDialogStrategy);
 
-		String okButton = activity.getString(R.string.ok);
+		String okButton = activity.getString(R.string.jdroid_ok);
 		String dialogTag = generateDialogTag(title, message, errorDialogStrategy);
 		Fragment currentErrorDialogFragment = activity.getSupportFragmentManager().findFragmentByTag(dialogTag);
 		if (currentErrorDialogFragment == null) {

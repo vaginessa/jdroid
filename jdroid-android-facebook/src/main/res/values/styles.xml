@@ -3,16 +3,16 @@
 
 	<!-- Facebook -->
 
-	<style name="facebookButton" parent="@style/socialButton">
-		<item name="android:background">@drawable/facebook_button_selector</item>
+	<style name="jdroid_facebookButton" parent="@style/jdroid_socialButton">
+		<item name="android:background">@drawable/jdroid_facebook_button_selector</item>
 	</style>
 
-	<style name="facebookLoginButton" parent="@style/facebookButton">
-		<item name="android:text">@string/signIn</item>
+	<style name="jdroid_facebookLoginButton" parent="@style/jdroid_facebookButton">
+		<item name="android:text">@string/jdroid_signIn</item>
 	</style>
 
-	<style name="facebookLogoutButton" parent="@style/facebookButton">
-		<item name="android:text">@string/logout</item>
+	<style name="jdroid_facebookLogoutButton" parent="@style/jdroid_facebookButton">
+		<item name="android:text">@string/jdroid_logout</item>
 	</style>
 
 </resources>

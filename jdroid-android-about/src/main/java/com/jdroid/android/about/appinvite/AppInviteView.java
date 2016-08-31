@@ -45,7 +45,7 @@ public class AppInviteView extends RelativeLayout {
 	}
 	
 	private void init(Context context) {
-		LayoutInflater.from(context).inflate(R.layout.app_invite_view, this, true);
+		LayoutInflater.from(context).inflate(R.layout.jdroid_app_invite_view, this, true);
 
 		titleTextView = (TextView)findViewById(R.id.title);
 		subtitleTextView = (TextView)findViewById(R.id.subTitle);
@@ -54,12 +54,12 @@ public class AppInviteView extends RelativeLayout {
 	public void configure(final Activity activity) {
 
 		if (title == null) {
-			title = activity.getString(R.string.appInviteButtonTitle);
+			title = activity.getString(R.string.jdroid_appInviteButtonTitle);
 		}
 		titleTextView.setText(title);
 
 		if (subtitle == null) {
-			subtitle = activity.getString(R.string.appInviteButtonSubtitle, activity.getString(R.string.appName));
+			subtitle = activity.getString(R.string.jdroid_appInviteButtonSubtitle, activity.getString(R.string.jdroid_appName));
 		}
 		subtitleTextView.setText(subtitle);
 

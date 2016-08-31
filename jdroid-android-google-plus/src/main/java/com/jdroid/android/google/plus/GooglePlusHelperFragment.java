@@ -103,7 +103,7 @@ public class GooglePlusHelperFragment extends AbstractFragment {
 		if (IntentUtils.isIntentAvailable(intent)) {
 			getActivity().startActivityForResult(intent, SHARE_REQUEST_CODE);
 		} else {
-			GooglePlayUtils.showDownloadDialog(R.string.googlePlus, ExternalAppsUtils.GOOGLE_PLUS_PACKAGE_NAME);
+			GooglePlayUtils.showDownloadDialog(R.string.jdroid_googlePlus, ExternalAppsUtils.GOOGLE_PLUS_PACKAGE_NAME);
 		}
 	}
 	
@@ -118,7 +118,7 @@ public class GooglePlusHelperFragment extends AbstractFragment {
 		if (IntentUtils.isIntentAvailable(intent)) {
 			getActivity().startActivityForResult(intent, SHARE_REQUEST_CODE);
 		} else {
-			GooglePlayUtils.showDownloadDialog(R.string.googlePlus, ExternalAppsUtils.GOOGLE_PLUS_PACKAGE_NAME);
+			GooglePlayUtils.showDownloadDialog(R.string.jdroid_googlePlus, ExternalAppsUtils.GOOGLE_PLUS_PACKAGE_NAME);
 		}
 	}
 	

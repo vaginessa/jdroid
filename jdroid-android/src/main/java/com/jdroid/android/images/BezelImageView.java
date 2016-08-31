@@ -75,22 +75,22 @@ public class BezelImageView extends ImageView {
     }
 
     protected void attributeInitialization(Context context, AttributeSet attrs, int defStyle) {
-        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BezelImageView,
+        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.jdroid_bezelImageView,
                 defStyle, 0);
 
         if (mMaskDrawable == null) {
-            mMaskDrawable = a.getDrawable(R.styleable.BezelImageView_maskDrawable);
+            mMaskDrawable = a.getDrawable(R.styleable.jdroid_bezelImageView_maskDrawable);
             if (mMaskDrawable != null) {
                 mMaskDrawable.setCallback(this);
             }
         }
 
-        mBorderDrawable = a.getDrawable(R.styleable.BezelImageView_borderDrawable);
+        mBorderDrawable = a.getDrawable(R.styleable.jdroid_bezelImageView_borderDrawable);
         if (mBorderDrawable != null) {
             mBorderDrawable.setCallback(this);
         }
 
-        mDesaturateOnPress = a.getBoolean(R.styleable.BezelImageView_desaturateOnPress,
+        mDesaturateOnPress = a.getBoolean(R.styleable.jdroid_bezelImageView_desaturateOnPress,
                 mDesaturateOnPress);
 
         a.recycle();

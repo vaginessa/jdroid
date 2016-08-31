@@ -37,7 +37,7 @@ public class VoiceRecognizerIntent {
 		try {
 			activity.startActivityForResult(intent, REQUEST_CODE);
 		} catch (ActivityNotFoundException e) {
-			GooglePlayUtils.showDownloadDialog(R.string.voiceSearch, PACKAGE);
+			GooglePlayUtils.showDownloadDialog(R.string.jdroid_voiceSearch, PACKAGE);
 		}
 	}
 	

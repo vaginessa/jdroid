@@ -46,20 +46,20 @@ public class ScreenUtils {
 	}
 	
 	public static Boolean isLessThan7Inches() {
-		return AbstractApplication.get().getResources().getBoolean(R.bool.isLessThan7Inches);
+		return AbstractApplication.get().getResources().getBoolean(R.bool.jdroid_isLessThan7Inches);
 	}
 	
 	public static Boolean isBetween7And10Inches() {
-		return AbstractApplication.get().getResources().getBoolean(R.bool.isBetween7And10Inches);
+		return AbstractApplication.get().getResources().getBoolean(R.bool.jdroid_isBetween7And10Inches);
 	}
 	
 	public static Boolean is10Inches() {
-		return AbstractApplication.get().getResources().getBoolean(R.bool.is10Inches);
+		return AbstractApplication.get().getResources().getBoolean(R.bool.jdroid_is10Inches);
 	}
 	
 	public static Boolean is10InchesLand() {
 		Resources resources = AbstractApplication.get().getResources();
-		return resources.getBoolean(R.bool.is10Inches) && resources.getBoolean(R.bool.isOrientationLandscape);
+		return resources.getBoolean(R.bool.jdroid_is10Inches) && resources.getBoolean(R.bool.jdroid_isOrientationLandscape);
 	}
 	
 	public static Boolean is7InchesOrLarger() {

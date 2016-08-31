@@ -2,26 +2,26 @@
 <resources>
 
 	<!-- your app branding color for the app bar -->
-	<color name="colorPrimary">#2196F3</color>
+	<color name="jdroid_colorPrimary">#2196F3</color>
 
 	<!-- darker variant for the status bar and contextual app bars -->
-	<color name="colorPrimaryDark">#1976D2</color>
+	<color name="jdroid_colorPrimaryDark">#1976D2</color>
 
 	<!-- theme UI controls like checkboxes and text fields -->
-	<color name="accentColor">#1E88E5</color>
-	<color name="accentColorPressed">#448AFF</color>
+	<color name="jdroid_accentColor">#1E88E5</color>
+	<color name="jdroid_accentColorPressed">#448AFF</color>
 
 	<!-- Text -->
-	<color name="textColor">#444444</color>
+	<color name="jdroid_textColor">#444444</color>
 
 	<!-- Nav Drawer -->
-	<color name="navDrawerHeaderTitle">#DEFFFFFF</color>
-	<color name="navDrawerHeaderSubTitle">#AAFFFFFF</color>
+	<color name="jdroid_navDrawerHeaderTitle">#DEFFFFFF</color>
+	<color name="jdroid_navDrawerHeaderSubTitle">#AAFFFFFF</color>
 
 	<!-- Buttons -->
-	<color name="grey">#DBDBDB</color>
+	<color name="jdroid_grey">#DBDBDB</color>
 
 	<!-- Card View -->
-	<color name="cardViewBackground">#FFFFFF</color>
+	<color name="jdroid_cardViewBackground">#FFFFFF</color>
 
 </resources>

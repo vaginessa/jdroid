@@ -42,21 +42,21 @@ public class GooglePlayUtils {
 	
 	public static void showUpdateDialog() {
 		FragmentActivity fragmentActivity = (FragmentActivity)AbstractApplication.get().getCurrentActivity();
-		String title = fragmentActivity.getString(R.string.updateAppTitle);
-		String message = fragmentActivity.getString(R.string.updateAppMessage);
+		String title = fragmentActivity.getString(R.string.jdroid_updateAppTitle);
+		String message = fragmentActivity.getString(R.string.jdroid_updateAppMessage);
 		AlertDialogFragment.show(fragmentActivity, new UpdateAppDialogFragment(), title, message, null, null,
-			fragmentActivity.getString(R.string.ok), false);
+			fragmentActivity.getString(R.string.jdroid_ok), false);
 	}
 	
 	public static void showDownloadDialog(int appNameResId, String packageName) {
 		FragmentActivity fragmentActivity = (FragmentActivity)AbstractApplication.get().getCurrentActivity();
 		String appName = fragmentActivity.getString(appNameResId);
-		String title = fragmentActivity.getString(R.string.installAppTitle, appName);
-		String message = fragmentActivity.getString(R.string.installAppMessage, appName);
+		String title = fragmentActivity.getString(R.string.jdroid_installAppTitle, appName);
+		String message = fragmentActivity.getString(R.string.jdroid_installAppMessage, appName);
 		DownloadAppDialogFragment fragment = new DownloadAppDialogFragment();
 		fragment.setPackageName(packageName);
-		AlertDialogFragment.show(fragmentActivity, fragment, title, message, fragmentActivity.getString(R.string.no),
-			null, fragmentActivity.getString(R.string.yes), true);
+		AlertDialogFragment.show(fragmentActivity, fragment, title, message, fragmentActivity.getString(R.string.jdroid_no),
+			null, fragmentActivity.getString(R.string.jdroid_yes), true);
 	}
 	
 	public static void launchAppDetails(Context context) {
