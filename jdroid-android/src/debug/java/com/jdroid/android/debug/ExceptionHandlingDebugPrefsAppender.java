@@ -22,7 +22,7 @@ public class ExceptionHandlingDebugPrefsAppender extends PreferencesAppender {
 
 	@Override
 	public int getNameResId() {
-		return R.string.exceptionHandlingSettings;
+		return R.string.jdroid_exceptionHandlingSettings;
 	}
 	
 	@Override
@@ -30,9 +30,9 @@ public class ExceptionHandlingDebugPrefsAppender extends PreferencesAppender {
 		
 		ListPreference preference = new ListPreference(activity);
 		preference.setKey(CRASH_TYPE_KEY);
-		preference.setTitle(R.string.exceptionType);
-		preference.setDialogTitle(R.string.exceptionType);
-		preference.setSummary(R.string.exceptionType);
+		preference.setTitle(R.string.jdroid_exceptionType);
+		preference.setDialogTitle(R.string.jdroid_exceptionType);
+		preference.setSummary(R.string.jdroid_exceptionType);
 		List<CharSequence> entries = Lists.newArrayList();
 		for (ExceptionType each : ExceptionType.values()) {
 			entries.add(each.name());
@@ -43,13 +43,13 @@ public class ExceptionHandlingDebugPrefsAppender extends PreferencesAppender {
 		
 		CheckBoxPreference checkBoxPreference = new CheckBoxPreference(activity);
 		checkBoxPreference.setKey(UI_THREAD_KEY);
-		checkBoxPreference.setTitle(R.string.uiThread);
-		checkBoxPreference.setSummary(R.string.uiThread);
+		checkBoxPreference.setTitle(R.string.jdroid_uiThread);
+		checkBoxPreference.setSummary(R.string.jdroid_uiThread);
 		preferenceGroup.addPreference(checkBoxPreference);
 		
 		Preference crashPreference = new Preference(activity);
-		crashPreference.setTitle(R.string.crash);
-		crashPreference.setSummary(R.string.crash);
+		crashPreference.setTitle(R.string.jdroid_crash);
+		crashPreference.setSummary(R.string.jdroid_crash);
 		crashPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			
 			@Override
@@ -66,8 +66,8 @@ public class ExceptionHandlingDebugPrefsAppender extends PreferencesAppender {
 		preferenceGroup.addPreference(crashPreference);
 
 		Preference breadcrumbPreference = new Preference(activity);
-		breadcrumbPreference.setTitle(R.string.trackErrorBreadcrumb);
-		breadcrumbPreference.setSummary(R.string.trackErrorBreadcrumb);
+		breadcrumbPreference.setTitle(R.string.jdroid_trackErrorBreadcrumb);
+		breadcrumbPreference.setSummary(R.string.jdroid_trackErrorBreadcrumb);
 		breadcrumbPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			@Override

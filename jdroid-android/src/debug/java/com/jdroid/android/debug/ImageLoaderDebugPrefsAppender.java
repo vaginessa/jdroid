@@ -12,14 +12,14 @@ public class ImageLoaderDebugPrefsAppender extends PreferencesAppender {
 
 	@Override
 	public int getNameResId() {
-		return R.string.imageLoaderSettings;
+		return R.string.jdroid_imageLoaderSettings;
 	}
 	
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		Preference preference = new Preference(activity);
-		preference.setTitle(R.string.clearImagesDiskCache);
-		preference.setSummary(R.string.clearImagesDiskCache);
+		preference.setTitle(R.string.jdroid_clearImagesDiskCache);
+		preference.setSummary(R.string.jdroid_clearImagesDiskCache);
 		preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			
 			@Override
@@ -31,8 +31,8 @@ public class ImageLoaderDebugPrefsAppender extends PreferencesAppender {
 		preferenceGroup.addPreference(preference);
 		
 		preference = new Preference(activity);
-		preference.setTitle(R.string.clearImagesMemoryCache);
-		preference.setSummary(R.string.clearImagesMemoryCache);
+		preference.setTitle(R.string.jdroid_clearImagesMemoryCache);
+		preference.setSummary(R.string.jdroid_clearImagesMemoryCache);
 		preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			
 			@Override

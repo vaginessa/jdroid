@@ -12,14 +12,14 @@ public class InfoDebugPrefsAppender extends PreferencesAppender {
 
 	@Override
 	public int getNameResId() {
-		return R.string.debugInfoCategory;
+		return R.string.jdroid_debugInfoCategory;
 	}
 
 	@Override
 	public void initPreferences(final Activity activity, PreferenceGroup preferenceGroup) {
 		Preference crashPreference = new Preference(activity);
-		crashPreference.setTitle(R.string.debugInfo);
-		crashPreference.setSummary(R.string.debugInfo);
+		crashPreference.setTitle(R.string.jdroid_debugInfo);
+		crashPreference.setSummary(R.string.jdroid_debugInfo);
 		crashPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			@Override

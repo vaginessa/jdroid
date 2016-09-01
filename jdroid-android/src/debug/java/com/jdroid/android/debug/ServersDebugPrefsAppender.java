@@ -25,7 +25,7 @@ public class ServersDebugPrefsAppender extends PreferencesAppender {
 	
 	@Override
 	public int getNameResId() {
-		return R.string.serversSettings;
+		return R.string.jdroid_serversSettings;
 	}
 
 	@Override

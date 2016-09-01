@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+	<string name="jdroid_debugSettings" tools:ignore="MissingTranslation">Debug Settings</string>
+	<string name="jdroid_debugInfoSettings" tools:ignore="MissingTranslation">Debug Info Settings</string>
+
+	<!-- Server -->
+	<string name="jdroid_serversSettings" tools:ignore="MissingTranslation">Servers</string>
+
+	<!-- Http Mocks -->
+	<string name="jdroid_httpMocksSettings" tools:ignore="MissingTranslation">HTTP Mocks</string>
+	<string name="jdroid_httpMockEnabledTitle" tools:ignore="MissingTranslation">Http Mocks</string>
+	<string name="jdroid_httpMockEnabledDescription" tools:ignore="MissingTranslation">Enable/disable http mocks</string>
+	<string name="jdroid_httpMockSleepTitle" tools:ignore="MissingTranslation">Http Mocks sleep</string>
+	<string name="jdroid_httpMockSleepDescription" tools:ignore="MissingTranslation">Enable/disable http mocks sleep</string>
+	<string name="jdroid_httpMockCrashType" tools:ignore="MissingTranslation">Http Mocks Crash Type</string>
+	<string name="jdroid_httpMockCrashTypeDescription" tools:ignore="MissingTranslation">Pick the crash type for your mocks calls</string>
+
+	<!-- Http Cache -->
+	<string name="jdroid_httpCacheSettings" tools:ignore="MissingTranslation">Http cache</string>
+	<string name="jdroid_clearHttpCache" tools:ignore="MissingTranslation">Clear Http cache</string>
+
+	<!-- Image Loader -->
+	<string name="jdroid_imageLoaderSettings" tools:ignore="MissingTranslation">Image Loader</string>
+	<string name="jdroid_clearImagesDiskCache" tools:ignore="MissingTranslation">Clear images disk cache</string>
+	<string name="jdroid_clearImagesMemoryCache" tools:ignore="MissingTranslation">Clear images memory cache</string>
+
+	<!-- Exception Handling -->
+	<string name="jdroid_exceptionHandlingSettings" tools:ignore="MissingTranslation">Exception Handling</string>
+	<string name="jdroid_exceptionType" tools:ignore="MissingTranslation">Exception type</string>
+	<string name="jdroid_uiThread" tools:ignore="MissingTranslation">UI Thread</string>
+	<string name="jdroid_crash" tools:ignore="MissingTranslation">Crash</string>
+	<string name="jdroid_trackErrorBreadcrumb" tools:ignore="MissingTranslation">Track Error Breadcrumb</string>
+
+	<!-- Nav Drawer -->
+	<string name="jdroid_navDrawerSettings" tools:ignore="MissingTranslation">Nav Drawer</string>
+	<string name="jdroid_navDrawerManuallyUsedTitle" tools:ignore="MissingTranslation">Nav drawer manually used</string>
+	<string name="jdroid_navDrawerManuallyUsedDescription" tools:ignore="MissingTranslation">Whether the user actively expanded or closed the navigation drawer manually</string>
+
+	<!-- Experiments -->
+	<string name="jdroid_experimentsSettings" tools:ignore="MissingTranslation">Experiments</string>
+	<string name="jdroid_experimentTitle" tools:ignore="MissingTranslation">Experiment id: %1$s</string>
+	<string name="jdroid_experimentDescription" tools:ignore="MissingTranslation">Pick the experiment variant</string>
+
+	<!-- Database -->
+	<string name="jdroid_database" tools:ignore="MissingTranslation">Database</string>
+	<string name="jdroid_downloadDatabase" tools:ignore="MissingTranslation">Download database</string>
+
+	<!-- Debug Info -->
+	<string name="jdroid_debugInfoCategory" tools:ignore="MissingTranslation">Debug Info</string>
+	<string name="jdroid_debugInfo" tools:ignore="MissingTranslation">Debug Info</string>
+
+	<!-- Debug Database -->
+	<string name="jdroid_debugDatabase" tools:ignore="MissingTranslation">Debug Database</string>
+	<string name="jdroid_cleanDebugData" tools:ignore="MissingTranslation">Clean debug data</string>
+
+	<!-- RateApp -->
+	<string name="jdroid_rateApp" tools:ignore="MissingTranslation">Rate App</string>
+	<string name="jdroid_simulateHeavyUsage" tools:ignore="MissingTranslation">Simulate Heavy Usage</string>
+
+	<!-- Usage Stats -->
+	<string name="jdroid_usageStats" tools:ignore="MissingTranslation">Usage Stats</string>
+
+	<!-- Uri Mapper -->
+	<string name="jdroid_uriMapper" tools:ignore="MissingTranslation">Uri Mapper</string>
+	<string name="jdroid_downloadUrlSample" tools:ignore="MissingTranslation">Download Url Sample</string>
+
+	<!-- Notifications -->
+	<string name="jdroid_notifications" tools:ignore="MissingTranslation">Notifications</string>
+
+	<string name="jdroid_reset" tools:ignore="MissingTranslation">Reset</string>
+
+</resources>

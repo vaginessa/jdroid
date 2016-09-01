@@ -14,7 +14,7 @@ public class InAppBillingDebugPrefsAppender extends PreferencesAppender {
 
 	@Override
 	public int getNameResId() {
-		return R.string.inAppBillingSettings;
+		return R.string.jdroid_inAppBillingSettings;
 	}
 	
 	@Override
@@ -22,15 +22,15 @@ public class InAppBillingDebugPrefsAppender extends PreferencesAppender {
 		
 		CheckBoxPreference checkBoxPreference = new CheckBoxPreference(activity);
 		checkBoxPreference.setKey(InAppBillingContext.MOCK_ENABLED);
-		checkBoxPreference.setTitle(R.string.inAppBillingMockEnabledTitle);
-		checkBoxPreference.setSummary(R.string.inAppBillingMockEnabledDescription);
+		checkBoxPreference.setTitle(R.string.jdroid_inAppBillingMockEnabledTitle);
+		checkBoxPreference.setSummary(R.string.jdroid_inAppBillingMockEnabledDescription);
 		preferenceGroup.addPreference(checkBoxPreference);
 		
 		ListPreference preference = new ListPreference(activity);
 		preference.setKey(InAppBillingContext.TEST_PRODUCT_IDS);
-		preference.setTitle(R.string.inAppBillingTestProductIdsTitle);
-		preference.setDialogTitle(R.string.inAppBillingTestProductIdsTitle);
-		preference.setSummary(R.string.inAppBillingTestProductIdsDescription);
+		preference.setTitle(R.string.jdroid_inAppBillingTestProductIdsTitle);
+		preference.setDialogTitle(R.string.jdroid_inAppBillingTestProductIdsTitle);
+		preference.setSummary(R.string.jdroid_inAppBillingTestProductIdsDescription);
 		List<CharSequence> entries = Lists.newArrayList();
 		for (TestProductType each : TestProductType.values()) {
 			entries.add(each.name());
@@ -43,9 +43,9 @@ public class InAppBillingDebugPrefsAppender extends PreferencesAppender {
 		List<ProductType> purchasedProductTypes = InAppBillingAppModule.get().getInAppBillingContext().getPurchasedProductTypes();
 		if (!purchasedProductTypes.isEmpty()) {
 			preference = new ListPreference(activity);
-			preference.setTitle(R.string.inAppBillingPurchasedProductTypeTitle);
-			preference.setDialogTitle(R.string.inAppBillingPurchasedProductTypeTitle);
-			preference.setSummary(R.string.inAppBillingPurchasedProductTypeTitle);
+			preference.setTitle(R.string.jdroid_inAppBillingPurchasedProductTypeTitle);
+			preference.setDialogTitle(R.string.jdroid_inAppBillingPurchasedProductTypeTitle);
+			preference.setSummary(R.string.jdroid_inAppBillingPurchasedProductTypeTitle);
 			entries = Lists.newArrayList();
 			for (ProductType each : InAppBillingAppModule.get().getInAppBillingContext().getPurchasedProductTypes()) {
 				entries.add(each.getProductId());

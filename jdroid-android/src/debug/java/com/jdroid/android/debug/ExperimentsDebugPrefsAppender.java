@@ -22,7 +22,7 @@ public class ExperimentsDebugPrefsAppender extends PreferencesAppender {
 
 	@Override
 	public int getNameResId() {
-		return R.string.experimentsSettings;
+		return R.string.jdroid_experimentsSettings;
 	}
 	
 	@Override
@@ -35,9 +35,9 @@ public class ExperimentsDebugPrefsAppender extends PreferencesAppender {
 			
 			ListPreference preference = new ListPreference(activity);
 			preference.setKey(experiment.getId());
-			preference.setTitle(activity.getString(R.string.experimentTitle, experiment.getId()));
-			preference.setDialogTitle(activity.getString(R.string.experimentTitle, experiment.getId()));
-			preference.setSummary(R.string.experimentDescription);
+			preference.setTitle(activity.getString(R.string.jdroid_experimentTitle, experiment.getId()));
+			preference.setDialogTitle(activity.getString(R.string.jdroid_experimentTitle, experiment.getId()));
+			preference.setSummary(R.string.jdroid_experimentDescription);
 			
 			List<CharSequence> entries = Lists.newArrayList();
 			for (ExperimentVariant each : experiment.getVariants()) {

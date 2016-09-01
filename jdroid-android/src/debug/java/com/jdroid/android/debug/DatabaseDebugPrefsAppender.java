@@ -24,15 +24,15 @@ public class DatabaseDebugPrefsAppender extends PreferencesAppender {
 
 	@Override
 	public int getNameResId() {
-		return R.string.database;
+		return R.string.jdroid_database;
 	}
 	
 	@Override
 	public void initPreferences(final Activity activity, PreferenceGroup preferenceGroup) {
 		
 		Preference preference = new Preference(activity);
-		preference.setTitle(R.string.downloadDatabase);
-		preference.setSummary(R.string.downloadDatabase);
+		preference.setTitle(R.string.jdroid_downloadDatabase);
+		preference.setSummary(R.string.jdroid_downloadDatabase);
 		preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			
 			@SuppressWarnings("resource")

@@ -103,4 +103,13 @@ public class BaseGradleExtension {
 			return Long.parseLong(value);
 		}
 	}
+
+	public List<String> getStringListProp(String propertyName, List<String> defaultValue) {
+		def value = getProp(propertyName)
+		if (value == null) {
+			return []
+		} else {
+			return (List)value;
+		}
+	}
 }

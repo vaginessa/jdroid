@@ -72,7 +72,7 @@
 
 		<!-- Notifications -->
 
-		<activity android:name="com.jdroid.android.sample.ui.notifications.NotificationsActivity" android:label="@string/notifications"
+		<activity android:name="com.jdroid.android.sample.ui.notifications.NotificationsActivity" android:label="@string/jdroid_notifications"
 			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<!-- Toasts -->
@@ -192,7 +192,7 @@
 
 		<!-- Rate -->
 
-		<activity android:name="com.jdroid.android.sample.ui.rateme.RateAppActivity" android:label="@string/rateApp"
+		<activity android:name="com.jdroid.android.sample.ui.rateme.RateAppActivity" android:label="@string/jdroid_rateApp"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<!-- SQLite -->
@@ -228,7 +228,7 @@
 
 		<!-- Uri Mapper -->
 
-		<activity android:name="com.jdroid.android.sample.ui.uri.UriMapperActivity" android:label="@string/uriMapper"
+		<activity android:name="com.jdroid.android.sample.ui.uri.UriMapperActivity" android:label="@string/jdroid_uriMapper"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />

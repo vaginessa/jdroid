@@ -6,7 +6,7 @@
 	<application>
 
 		<activity android:name="com.jdroid.android.debug.DebugSettingsActivity"
-				  android:label="@string/debugSettings" />
+				  android:label="@string/jdroid_debugSettings" />
 
 		<activity android:name="com.jdroid.android.debug.PreferenceAppenderActivity"
 				  android:parentActivityName="com.jdroid.android.debug.DebugSettingsActivity"
@@ -14,7 +14,7 @@
 
 		<activity android:name="com.jdroid.android.debug.DebugInfoActivity"
 				  android:parentActivityName="com.jdroid.android.debug.DebugSettingsActivity"
-				  android:label="@string/debugInfoSettings" />
+				  android:label="@string/jdroid_debugInfoSettings" />
 
 	</application>
 </manifest>

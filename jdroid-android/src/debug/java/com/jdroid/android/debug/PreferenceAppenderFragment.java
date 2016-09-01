@@ -16,7 +16,7 @@ public class PreferenceAppenderFragment extends AbstractPreferenceFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.debug_preferences);
+		addPreferencesFromResource(R.xml.jdroid_debug_preferences);
 	}
 	
 	@Override

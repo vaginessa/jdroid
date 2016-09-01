@@ -32,7 +32,7 @@ public class UriMapperPrefsAppender extends PreferencesAppender {
 
 	@Override
 	public int getNameResId() {
-		return R.string.uriMapper;
+		return R.string.jdroid_uriMapper;
 	}
 
 	@Override
@@ -43,8 +43,8 @@ public class UriMapperPrefsAppender extends PreferencesAppender {
 		}
 
 		Preference preference = new Preference(activity);
-		preference.setTitle(R.string.downloadUrlSample);
-		preference.setSummary(R.string.downloadUrlSample);
+		preference.setTitle(R.string.jdroid_downloadUrlSample);
+		preference.setSummary(R.string.jdroid_downloadUrlSample);
 		preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			@Override

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-	<string name="adsSettings" tools:ignore="MissingTranslation">Ads</string>
-	<string name="adsEnabledTitle" tools:ignore="MissingTranslation">Ads Enabled</string>
-	<string name="adsEnabledDescription" tools:ignore="MissingTranslation">Enable/disable the ads</string>
+	<string name="jdroid_adsSettings" tools:ignore="MissingTranslation">Ads</string>
+	<string name="jdroid_adsEnabledTitle" tools:ignore="MissingTranslation">Ads Enabled</string>
+	<string name="jdroid_adsEnabledDescription" tools:ignore="MissingTranslation">Enable/disable the ads</string>
 
 </resources>

@@ -26,7 +26,7 @@ public class NotificationsDebugPrefsAppender extends PreferencesAppender {
 
 	@Override
 	public int getNameResId() {
-		return R.string.notifications;
+		return R.string.jdroid_notifications;
 	}
 	
 	@Override

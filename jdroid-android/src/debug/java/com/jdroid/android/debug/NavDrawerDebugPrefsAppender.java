@@ -11,15 +11,15 @@ public class NavDrawerDebugPrefsAppender extends PreferencesAppender {
 
 	@Override
 	public int getNameResId() {
-		return R.string.navDrawerSettings;
+		return R.string.jdroid_navDrawerSettings;
 	}
 	
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		CheckBoxPreference checkBoxPreference = new CheckBoxPreference(activity);
 		checkBoxPreference.setKey(NavDrawer.NAV_DRAWER_MANUALLY_USED);
-		checkBoxPreference.setTitle(R.string.navDrawerManuallyUsedTitle);
-		checkBoxPreference.setSummary(R.string.navDrawerManuallyUsedDescription);
+		checkBoxPreference.setTitle(R.string.jdroid_navDrawerManuallyUsedTitle);
+		checkBoxPreference.setSummary(R.string.jdroid_navDrawerManuallyUsedDescription);
 		preferenceGroup.addPreference(checkBoxPreference);
 	}
 }

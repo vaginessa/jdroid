@@ -10,15 +10,15 @@ public class AdsDebugPrefsAppender extends PreferencesAppender {
 
 	@Override
 	public int getNameResId() {
-		return R.string.adsSettings;
+		return R.string.jdroid_adsSettings;
 	}
 	
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		CheckBoxPreference checkBoxPreference = new CheckBoxPreference(activity);
 		checkBoxPreference.setKey(AdMobAppContext.ADS_ENABLED);
-		checkBoxPreference.setTitle(R.string.adsEnabledTitle);
-		checkBoxPreference.setSummary(R.string.adsEnabledDescription);
+		checkBoxPreference.setTitle(R.string.jdroid_adsEnabledTitle);
+		checkBoxPreference.setSummary(R.string.jdroid_adsEnabledDescription);
 		preferenceGroup.addPreference(checkBoxPreference);
 	}
 }

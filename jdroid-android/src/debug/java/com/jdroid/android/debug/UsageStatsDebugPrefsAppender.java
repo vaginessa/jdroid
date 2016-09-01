@@ -12,14 +12,14 @@ public class UsageStatsDebugPrefsAppender extends PreferencesAppender {
 
 	@Override
 	public int getNameResId() {
-		return R.string.usageStats;
+		return R.string.jdroid_usageStats;
 	}
 
 	@Override
 	public void initPreferences(final Activity activity, PreferenceGroup preferenceGroup) {
 		Preference preference = new Preference(activity);
-		preference.setTitle(R.string.reset);
-		preference.setSummary(R.string.reset);
+		preference.setTitle(R.string.jdroid_reset);
+		preference.setSummary(R.string.jdroid_reset);
 		preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			@Override
@@ -31,8 +31,8 @@ public class UsageStatsDebugPrefsAppender extends PreferencesAppender {
 		preferenceGroup.addPreference(preference);
 
 		preference = new Preference(activity);
-		preference.setTitle(R.string.simulateHeavyUsage);
-		preference.setSummary(R.string.simulateHeavyUsage);
+		preference.setTitle(R.string.jdroid_simulateHeavyUsage);
+		preference.setSummary(R.string.jdroid_simulateHeavyUsage);
 		preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			@Override

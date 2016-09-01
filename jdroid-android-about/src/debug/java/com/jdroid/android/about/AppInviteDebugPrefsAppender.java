@@ -12,14 +12,14 @@ public class AppInviteDebugPrefsAppender extends PreferencesAppender {
 
 	@Override
 	public int getNameResId() {
-		return R.string.debugAppInvite;
+		return R.string.jdroid_debugAppInvite;
 	}
 
 	@Override
 	public void initPreferences(final Activity activity, PreferenceGroup preferenceGroup) {
 		Preference preference = new Preference(activity);
-		preference.setTitle(R.string.reset);
-		preference.setSummary(R.string.reset);
+		preference.setTitle(R.string.jdroid_reset);
+		preference.setSummary(R.string.jdroid_reset);
 		preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			@Override

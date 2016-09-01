@@ -12,14 +12,14 @@ public class RateAppDebugPrefsAppender extends PreferencesAppender {
 
 	@Override
 	public int getNameResId() {
-		return R.string.rateApp;
+		return R.string.jdroid_rateApp;
 	}
 
 	@Override
 	public void initPreferences(final Activity activity, PreferenceGroup preferenceGroup) {
 		Preference preference = new Preference(activity);
-		preference.setTitle(R.string.reset);
-		preference.setSummary(R.string.reset);
+		preference.setTitle(R.string.jdroid_reset);
+		preference.setSummary(R.string.jdroid_reset);
 		preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			@Override

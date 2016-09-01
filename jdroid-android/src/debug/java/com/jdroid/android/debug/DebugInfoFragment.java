@@ -83,7 +83,7 @@ public class DebugInfoFragment extends AbstractRecyclerFragment {
 
 		@Override
 		protected Integer getLayoutResourceId() {
-			return R.layout.debug_info_item;
+			return R.layout.jdroid_debug_info_item;
 		}
 
 		@Override

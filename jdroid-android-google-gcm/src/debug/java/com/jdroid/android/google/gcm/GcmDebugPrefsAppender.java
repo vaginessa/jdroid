@@ -24,15 +24,15 @@ public class GcmDebugPrefsAppender extends PreferencesAppender {
 
 	@Override
 	public int getNameResId() {
-		return R.string.gcmSettings;
+		return R.string.jdroid_gcmSettings;
 	}
 	
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		ListPreference preference = new ListPreference(activity);
-		preference.setTitle(R.string.emulateGcmMessageTitle);
-		preference.setDialogTitle(R.string.emulateGcmMessageTitle);
-		preference.setSummary(R.string.emulateGcmMessageDescription);
+		preference.setTitle(R.string.jdroid_emulateGcmMessageTitle);
+		preference.setDialogTitle(R.string.jdroid_emulateGcmMessageTitle);
+		preference.setSummary(R.string.jdroid_emulateGcmMessageDescription);
 		List<CharSequence> entries = Lists.newArrayList();
 		for (GcmMessage entry : gcmMessagesMap.keySet()) {
 			entries.add(entry.getMessageKey());
@@ -57,8 +57,8 @@ public class GcmDebugPrefsAppender extends PreferencesAppender {
 		preferenceGroup.addPreference(preference);
 
 		Preference registerDevicePreference = new Preference(activity);
-		registerDevicePreference.setTitle(R.string.registerDeviceTitle);
-		registerDevicePreference.setSummary(R.string.registerDeviceTitle);
+		registerDevicePreference.setTitle(R.string.jdroid_registerDeviceTitle);
+		registerDevicePreference.setSummary(R.string.jdroid_registerDeviceTitle);
 		registerDevicePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 
 			@Override

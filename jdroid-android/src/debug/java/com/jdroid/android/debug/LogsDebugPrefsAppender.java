@@ -20,7 +20,7 @@ public class LogsDebugPrefsAppender extends PreferencesAppender {
 
 	@Override
 	public int getNameResId() {
-		return R.string.debugDatabase;
+		return R.string.jdroid_debugDatabase;
 	}
 	
 	public static void clean() {
@@ -43,8 +43,8 @@ public class LogsDebugPrefsAppender extends PreferencesAppender {
 	public void initPreferences(final Activity activity, PreferenceGroup preferenceGroup) {
 		
 		Preference preference = new Preference(activity);
-		preference.setTitle(R.string.cleanDebugData);
-		preference.setSummary(R.string.cleanDebugData);
+		preference.setTitle(R.string.jdroid_cleanDebugData);
+		preference.setSummary(R.string.jdroid_cleanDebugData);
 		preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			
 			@Override
