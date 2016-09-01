@@ -179,6 +179,9 @@
 		<activity android:name="com.jdroid.android.sample.ui.recyclerview.SearchPaginatedRecyclerActivity" android:label="@string/searchPaginatedRecycler"
 				  android:parentActivityName="com.jdroid.android.sample.ui.recyclerview.RecyclerViewActivity" tools:ignore="UnusedAttribute"/>
 
+		<activity android:name="com.jdroid.android.sample.ui.recyclerview.AutofitGridLayoutRecyclerActivity" android:label="@string/autofitGridLayoutRecycler"
+				  android:parentActivityName="com.jdroid.android.sample.ui.recyclerview.RecyclerViewActivity" tools:ignore="UnusedAttribute"/>
+
 		<!-- Tablet -->
 
 		<activity android:name="com.jdroid.android.sample.ui.tablets.TabletActivity" android:label="@string/tablets"

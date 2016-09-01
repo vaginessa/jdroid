@@ -17,4 +17,7 @@
 	<Button android:id="@+id/searchPaginatedRecycler" android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:text="@string/searchPaginatedRecycler" />
 
+	<Button android:id="@+id/autofitGridLayoutRecycler" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:text="@string/autofitGridLayoutRecycler" />
+
 </LinearLayout>

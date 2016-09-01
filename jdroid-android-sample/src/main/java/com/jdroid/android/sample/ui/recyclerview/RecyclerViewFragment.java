@@ -53,6 +53,13 @@ public class RecyclerViewFragment extends AbstractFragment {
 				getActivity().startActivity(new Intent(getActivity(), SearchPaginatedRecyclerActivity.class));
 			}
 		});
+		findView(R.id.autofitGridLayoutRecycler).setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				getActivity().startActivity(new Intent(getActivity(), AutofitGridLayoutRecyclerActivity.class));
+			}
+		});
 	}
 }
 

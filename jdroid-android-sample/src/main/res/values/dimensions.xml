@@ -4,4 +4,6 @@
 	<dimen name="appWidgetMinHeight">40dp</dimen>
 	<dimen name="appWidgetMinWidth">110dp</dimen>
 
+	<dimen name="autoGridItemWidth">100dp</dimen>
+
 </resources>

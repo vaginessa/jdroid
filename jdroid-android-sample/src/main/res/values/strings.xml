@@ -149,6 +149,7 @@
 	<string name="paginatedRecycler">Paginated Recycler</string>
 	<string name="paginatedGridRecycler">Paginated Grid Recycler</string>
 	<string name="searchPaginatedRecycler">Search Paginated Recycler</string>
+	<string name="autofitGridLayoutRecycler">Autofit Grid Recycler</string>
 	<string name="noResults">No Results</string>
 
 	<!-- SQLite -->
