@@ -22,6 +22,9 @@ buildscript {
 
 	dependencies {
 		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + jdroidVersion
+
+		// https://developers.google.com/android/guides/google-services-plugin
+		classpath 'com.google.gms:google-services:3.0.0'
 	}
 }
 
@@ -111,6 +114,7 @@ android {
 		}
 
 		jdroid.setBoolean(defaultConfig, "STRICT_MODE_ENABLED", false)
+		jdroid.setBoolean(defaultConfig, "FIREBASE_ANALYTICS_ENABLED", true)
 
 		jdroid.setBoolean(defaultConfig, "GOOGLE_ANALYTICS_ENABLED", true)
 		jdroid.setString(defaultConfig, "GOOGLE_ANALYTICS_TRACKING_ID", "UA-9898638-5")
@@ -202,3 +206,5 @@ android {
 	sourceSets.test.res.srcDirs += sourceSets.main.res.srcDirs
 	sourceSets.test.res.srcDirs += sourceSets.debug.res.srcDirs
 }
+
+apply plugin: 'com.google.gms.google-services'

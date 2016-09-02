@@ -48,6 +48,11 @@ public class TestAndroidApplication extends AbstractApplication {
 	}
 
 	@Override
+	protected AnalyticsTracker createFirebaseAnalyticsTracker() {
+		return null;
+	}
+
+	@Override
 	public int getLauncherIconResId() {
 		return 0;
 	}

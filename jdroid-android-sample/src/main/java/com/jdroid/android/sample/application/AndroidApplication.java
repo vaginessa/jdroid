@@ -23,10 +23,12 @@ import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.google.admob.AdMobAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsTracker;
+import com.jdroid.android.google.firebase.FirebaseAppModule;
 import com.jdroid.android.google.gcm.AbstractGcmAppModule;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sample.BuildConfig;
 import com.jdroid.android.sample.R;
+import com.jdroid.android.sample.analytics.AndroidFirebaseAnalyticsTracker;
 import com.jdroid.android.sample.analytics.AndroidGoogleAnalyticsTracker;
 import com.jdroid.android.sample.analytics.AppAnalyticsSender;
 import com.jdroid.android.sample.analytics.AppAnalyticsTracker;
@@ -39,6 +41,7 @@ import com.jdroid.android.sample.ui.AndroidActivityHelper;
 import com.jdroid.android.sample.ui.AndroidFragmentHelper;
 import com.jdroid.android.sample.ui.about.AndroidAboutAppModule;
 import com.jdroid.android.sample.ui.ads.SampleAdMobAppModule;
+import com.jdroid.android.sample.ui.firebase.AndroidFirebaseAppModule;
 import com.jdroid.android.sample.ui.home.HomeActivity;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteEntity;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteRepository;
@@ -120,6 +123,11 @@ public class AndroidApplication extends AbstractApplication {
 		return new AndroidGoogleAnalyticsTracker();
 	}
 
+	@Override
+	protected AnalyticsTracker createFirebaseAnalyticsTracker() {
+		return new AndroidFirebaseAnalyticsTracker();
+	}
+
 	@NonNull
 	@Override
 	public AppAnalyticsSender getAnalyticsSender() {
@@ -148,6 +156,8 @@ public class AndroidApplication extends AbstractApplication {
 
 	@Override
 	protected void initAppModule(Map<String, AppModule> appModulesMap) {
+		appModulesMap.put(GoogleAnalyticsAppModule.MODULE_NAME,  new GoogleAnalyticsAppModule());
+		appModulesMap.put(FirebaseAppModule.MODULE_NAME,  new AndroidFirebaseAppModule());
 		appModulesMap.put(CrashlyticsAppModule.MODULE_NAME, new AndroidCrashlyticsAppModule());
 		appModulesMap.put(AdMobAppModule.MODULE_NAME, new SampleAdMobAppModule());
 		appModulesMap.put(FacebookAppModule.MODULE_NAME, new FacebookAppModule());

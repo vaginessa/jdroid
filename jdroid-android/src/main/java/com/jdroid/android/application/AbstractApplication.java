@@ -22,8 +22,8 @@ import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.fragment.FragmentHelper;
-import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsTracker;
+import com.jdroid.android.google.firebase.analytics.FirebaseAnalyticsTracker;
 import com.jdroid.android.http.cache.CacheManager;
 import com.jdroid.android.images.loader.ImageLoaderHelper;
 import com.jdroid.android.images.loader.uil.UilImageLoaderHelper;
@@ -122,7 +122,6 @@ public abstract class AbstractApplication extends Application {
 		}
 
 		List<Kit> fabricKits = Lists.newArrayList();
-		appModulesMap.put(GoogleAnalyticsAppModule.MODULE_NAME,  new GoogleAnalyticsAppModule());
 		initAppModule(appModulesMap);
 		for (AppModule each: appModulesMap.values()) {
 			each.onCreate();
@@ -254,6 +253,10 @@ public abstract class AbstractApplication extends Application {
 		if (googleAnalyticsTracker != null) {
 			analyticsTrackers.add(googleAnalyticsTracker);
 		}
+		AnalyticsTracker firebaseAnalyticsTracker = createFirebaseAnalyticsTracker();
+		if (firebaseAnalyticsTracker != null) {
+			analyticsTrackers.add(firebaseAnalyticsTracker);
+		}
 		for (AppModule each: appModulesMap.values()) {
 			analyticsTrackers.addAll(each.getAnalyticsTrackers());
 		}
@@ -263,7 +266,11 @@ public abstract class AbstractApplication extends Application {
 	protected AnalyticsTracker createGoogleAnalyticsTracker() {
 		return new GoogleAnalyticsTracker();
 	}
-	
+
+	protected AnalyticsTracker createFirebaseAnalyticsTracker() {
+		return new FirebaseAnalyticsTracker();
+	}
+
 	@SuppressWarnings("unchecked")
 	@NonNull
 	public AnalyticsSender<? extends AnalyticsTracker> getAnalyticsSender() {

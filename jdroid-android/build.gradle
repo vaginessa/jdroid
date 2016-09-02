@@ -51,6 +51,8 @@ dependencies {
 	compile 'com.google.android.gms:play-services-identity:' + googlePlayServicesVersion
 	compile 'com.google.android.gms:play-services-location:' + googlePlayServicesVersion
 
+	compile 'com.google.firebase:firebase-core:' + googlePlayServicesVersion
+	compile 'com.google.firebase:firebase-analytics:' + googlePlayServicesVersion
 	// https://github.com/facebook/device-year-class
 	compile 'com.facebook.device.yearclass:yearclass:1.0.1'
 
