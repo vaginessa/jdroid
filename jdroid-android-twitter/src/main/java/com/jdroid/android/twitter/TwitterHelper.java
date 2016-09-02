@@ -4,6 +4,7 @@ import android.support.annotation.MainThread;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.fragment.AbstractFragment;
+import com.jdroid.java.exception.ConnectionException;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterApiException;
@@ -43,8 +44,12 @@ public abstract class TwitterHelper {
 						String errorMessage = twitterApiException.getErrorCode() + " " + twitterApiException.getErrorMessage();
 						AbstractApplication.get().getAnalyticsSender().trackErrorBreadcrumb(errorMessage);
 					}
+				} else if (e.getMessage().equals("Request Failure") && e.getCause() != null && e.getCause().getMessage().equals("Unable to resolve host \"api.twitter.com\": No address associated with hostname")) {
+					connectionError = true;
 				}
-				if (!connectionError) {
+				if (connectionError) {
+					AbstractApplication.get().getExceptionHandler().logHandledException(new ConnectionException(e));
+				} else {
 					AbstractApplication.get().getExceptionHandler().logHandledException(e);
 				}
 				TwitterHelper.this.onFailure();
