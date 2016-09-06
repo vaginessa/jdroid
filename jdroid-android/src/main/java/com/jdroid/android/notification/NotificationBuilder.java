@@ -22,9 +22,12 @@ import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.android.utils.ReferrerUtils;
 import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.java.utils.NumberUtils;
 import com.jdroid.java.utils.RandomUtils;
 import com.jdroid.java.utils.StringUtils;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+
+import java.util.Map;
 
 public class NotificationBuilder {
 
@@ -49,7 +52,7 @@ public class NotificationBuilder {
 		this(notificationName, null);
 	}
 
-	public NotificationBuilder(String notificationName, Bundle bundle) {
+	public NotificationBuilder(String notificationName, Map<String, String> data) {
 		this.notificationName = notificationName;
 		if (notificationName == null) {
 			throw new UnexpectedException("Missing notificationName");
@@ -58,9 +61,9 @@ public class NotificationBuilder {
 		builder = new NotificationCompat.Builder(context);
 		builder.setAutoCancel(true);
 		setColor(R.color.jdroid_colorPrimary);
-		if (bundle != null) {
+		if (data != null) {
 
-			String ticker = bundle.getString(TICKER);
+			String ticker = data.get(TICKER);
 			if (StringUtils.isNotEmpty(ticker)) {
 				setTicker(ticker);
 			} else {
@@ -68,7 +71,7 @@ public class NotificationBuilder {
 				AbstractApplication.get().getExceptionHandler().logHandledException("Missing " + TICKER + " extra for " + notificationName);
 			}
 
-			String contentTitle = bundle.getString(CONTENT_TITLE);
+			String contentTitle = data.get(CONTENT_TITLE);
 			if (StringUtils.isNotEmpty(contentTitle)) {
 				setContentTitle(contentTitle);
 			} else {
@@ -76,7 +79,7 @@ public class NotificationBuilder {
 				AbstractApplication.get().getExceptionHandler().logHandledException("Missing " + CONTENT_TITLE + " extra for " + notificationName);
 			}
 
-			String contentText = bundle.getString(CONTENT_TEXT);
+			String contentText = data.get(CONTENT_TEXT);
 			if (StringUtils.isNotEmpty(contentText)) {
 				setContentText(contentText);
 			} else {
@@ -84,17 +87,17 @@ public class NotificationBuilder {
 				AbstractApplication.get().getExceptionHandler().logHandledException("Missing " + CONTENT_TEXT + " extra for " + notificationName);
 			}
 
-			if (bundle.getBoolean(SOUND_ENABLED, false)) {
+			if (NumberUtils.getBoolean(data.get(SOUND_ENABLED), false)) {
 				setDefaultSound();
 			}
-			if (bundle.getBoolean(VIBRATION_ENABLED, false)) {
+			if (NumberUtils.getBoolean(data.get(VIBRATION_ENABLED), false)) {
 				setDefaultVibration();
 			}
-			if (bundle.getBoolean(LIGHT_ENABLED, false)) {
+			if (NumberUtils.getBoolean(data.get(LIGHT_ENABLED), false)) {
 				setWhiteLight();
 			}
 
-			String url = bundle.getString(URL);
+			String url = data.get(URL);
 			setContentIntentSingleTop(UriUtils.createIntent(context, url, generateNotificationsReferrer()));
 		}
 	}

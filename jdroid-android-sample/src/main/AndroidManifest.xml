@@ -5,9 +5,6 @@
 	<permission android:name="${applicationId}.permission.MAPS_RECEIVE" android:protectionLevel="signature" />
 	<uses-permission android:name="${applicationId}.permission.MAPS_RECEIVE" />
 
-	<permission android:name="${applicationId}.permission.C2D_MESSAGE" android:protectionLevel="signature" />
-	<uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
-
 	<uses-permission android:name="com.android.vending.BILLING" />
 
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -282,18 +279,6 @@
 				<action android:name="com.google.android.gms.gcm.ACTION_TASK_READY"/>
 			</intent-filter>
 		</service>
-
-		<!-- Handles messages sent from GCM to your application -->
-		<receiver android:name="com.google.android.gms.gcm.GcmReceiver" android:exported="true"
-				  android:permission="com.google.android.c2dm.permission.SEND">
-			<intent-filter>
-				<!-- Receive the actual messages -->
-				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
-				<!-- Receives the registration id. -->
-				<action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-				<category android:name="${applicationId}" />
-			</intent-filter>
-		</receiver>
 
 		<!-- Widgets -->
 		<receiver android:name="com.jdroid.android.sample.ui.widget.SampleWidgetProvider" android:label="@string/sampleWidget">

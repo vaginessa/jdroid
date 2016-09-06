@@ -48,11 +48,13 @@ dependencies {
 	compile 'com.google.android.gms:play-services-appindexing:' + googlePlayServicesVersion
 	compile 'com.google.android.gms:play-services-base:' + googlePlayServicesVersion
 	compile 'com.google.android.gms:play-services-gcm:' + googlePlayServicesVersion
-	compile 'com.google.android.gms:play-services-identity:' + googlePlayServicesVersion
 	compile 'com.google.android.gms:play-services-location:' + googlePlayServicesVersion
 
 	compile 'com.google.firebase:firebase-core:' + googlePlayServicesVersion
 	compile 'com.google.firebase:firebase-analytics:' + googlePlayServicesVersion
+	compile 'com.google.firebase:firebase-messaging:' + googlePlayServicesVersion
+
+
 	// https://github.com/facebook/device-year-class
 	compile 'com.facebook.device.yearclass:yearclass:1.0.1'
 

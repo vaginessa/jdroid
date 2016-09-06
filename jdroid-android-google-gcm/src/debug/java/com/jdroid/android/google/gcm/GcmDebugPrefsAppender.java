@@ -1,12 +1,12 @@
 package com.jdroid.android.google.gcm;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceGroup;
 
+import com.google.firebase.messaging.RemoteMessage;
 import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.java.collections.Lists;
 
@@ -16,9 +16,9 @@ import java.util.Map.Entry;
 
 public class GcmDebugPrefsAppender extends PreferencesAppender {
 	
-	private Map<GcmMessage, Bundle> gcmMessagesMap;
+	private Map<GcmMessage, Map<String, String>> gcmMessagesMap;
 	
-	public GcmDebugPrefsAppender(Map<GcmMessage, Bundle> gcmMessagesMap) {
+	public GcmDebugPrefsAppender(Map<GcmMessage, Map<String, String>> gcmMessagesMap) {
 		this.gcmMessagesMap = gcmMessagesMap;
 	}
 
@@ -45,9 +45,15 @@ public class GcmDebugPrefsAppender extends PreferencesAppender {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				
-				for (Entry<GcmMessage, Bundle> entry : gcmMessagesMap.entrySet()) {
+				for (Entry<GcmMessage, Map<String, String>> entry : gcmMessagesMap.entrySet()) {
 					if (entry.getKey().getMessageKey().equals(newValue.toString())) {
-						entry.getKey().handle("1", entry.getValue());
+						RemoteMessage.Builder builder = new RemoteMessage.Builder("to");
+						if (entry.getValue() != null) {
+							for(Map.Entry<String, String> each : entry.getValue().entrySet()) {
+								builder.addData(each.getKey(), each.getValue());
+							}
+						}
+						entry.getKey().handle(builder.build());
 						break;
 					}
 				}

@@ -1,7 +1,6 @@
 package com.jdroid.android.debug;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceGroup;
@@ -11,10 +10,12 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.java.collections.Lists;
+import com.jdroid.java.collections.Maps;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.IdGenerator;
 
 import java.util.List;
+import java.util.Map;
 
 public class NotificationsDebugPrefsAppender extends PreferencesAppender {
 
@@ -39,13 +40,13 @@ public class NotificationsDebugPrefsAppender extends PreferencesAppender {
 
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
-					Bundle bundle = new Bundle();
-					bundle.putString(NotificationBuilder.TICKER, "Sample Ticker");
-					bundle.putString(NotificationBuilder.CONTENT_TITLE, "Sample Content Title");
-					bundle.putString(NotificationBuilder.CONTENT_TEXT, url);
-					bundle.putString(NotificationBuilder.URL, url);
+					Map<String, String> data = Maps.newHashMap();
+					data.put(NotificationBuilder.TICKER, "Sample Ticker");
+					data.put(NotificationBuilder.CONTENT_TITLE, "Sample Content Title");
+					data.put(NotificationBuilder.CONTENT_TEXT, url);
+					data.put(NotificationBuilder.URL, url);
 
-					NotificationBuilder builder = new NotificationBuilder("notificationFromBundle", bundle);
+					NotificationBuilder builder = new NotificationBuilder("notificationFromBundle", data);
 					builder.setSmallIcon(AbstractApplication.get().getLauncherIconResId());
 					builder.setWhen(DateUtils.nowMillis());
 

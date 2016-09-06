@@ -1,7 +1,6 @@
 package com.jdroid.android.google.gcm;
 
-import android.os.Bundle;
-
+import com.google.firebase.messaging.RemoteMessage;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.google.gcm.notification.NotificationGcmMessage;
@@ -44,28 +43,28 @@ public abstract class AbstractGcmMessageResolver implements GcmMessageResolver {
 	}
 
 	@Override
-	public GcmMessage resolve(String from, Bundle data) {
-		String messageKey = data.getString(getMessageKeyExtraName());
-		LOGGER.debug("GCM message received. / Message Key: " + messageKey);
-		Long minAppVersionCode =  NumberUtils.getLong(data.getString(MIN_APP_VERSION_CODE_KEY), 0L);
+	public GcmMessage resolve(RemoteMessage remoteMessage) {
+		String messageKey = remoteMessage.getData().get(getMessageKeyExtraName());
+		LOGGER.debug("FCM message received. / Message Key: " + messageKey);
+		Long minAppVersionCode =  NumberUtils.getLong(remoteMessage.getData().get(MIN_APP_VERSION_CODE_KEY), 0L);
 		if (AppUtils.getVersionCode() >= minAppVersionCode) {
 			for (GcmMessage each : gcmMessages) {
 				if (each.getMessageKey().equalsIgnoreCase(messageKey)) {
 
-					Long userId = NumberUtils.getLong(data.getString(USER_ID_KEY));
+					Long userId = NumberUtils.getLong(remoteMessage.getData().get(USER_ID_KEY));
 
 					// We should ignore messages received for previously logged users
 					if ((userId != null) && (!SecurityContext.get().isAuthenticated() || !SecurityContext.get().getUser().getId().equals(userId))) {
-						LOGGER.warn("The GCM message is ignored because it was sent to another user: " + userId);
+						LOGGER.warn("The FCM message is ignored because it was sent to another user: " + userId);
 						onNotAuthenticatedUser(userId);
 						return null;
 					}
 					return each;
 				}
 			}
-			AbstractApplication.get().getExceptionHandler().logWarningException("The GCM message key [" + messageKey + "] is unknown");
+			AbstractApplication.get().getExceptionHandler().logWarningException("The FCM message key [" + messageKey + "] is unknown");
 		} else {
-			LOGGER.debug("Ignoring GCM message [" + messageKey + "]. minAppVersionCode: " + minAppVersionCode);
+			LOGGER.debug("Ignoring FCM message [" + messageKey + "]. minAppVersionCode: " + minAppVersionCode);
 		}
 		return null;
 	}

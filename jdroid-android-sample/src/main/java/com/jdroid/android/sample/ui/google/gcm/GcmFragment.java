@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.jdroid.android.fragment.AbstractFragment;
+import com.jdroid.android.google.gcm.AbstractGcmAppModule;
 import com.jdroid.android.google.gcm.GcmRegistrationCommand;
 import com.jdroid.android.google.instanceid.InstanceIdHelper;
 import com.jdroid.android.sample.R;
@@ -78,7 +79,7 @@ public class GcmFragment extends AbstractFragment {
 					public void run() {
 						String registrationToken = null;
 						try {
-							registrationToken = GcmRegistrationCommand.getRegistrationToken(GcmFragment.this.getActivity());
+							registrationToken = GcmRegistrationCommand.getRegistrationToken(AbstractGcmAppModule.get().getGcmSenders().get(0).getSenderId());
 							Map<String, String> params = Maps.newHashMap();
 							if (minAppVersionCode.getText().length() > 0) {
 								params.put("minAppVersionCode", minAppVersionCode.getText().toString());

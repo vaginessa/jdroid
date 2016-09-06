@@ -1,9 +1,9 @@
 package com.jdroid.android.google.gcm;
 
-import android.os.Bundle;
+import com.google.firebase.messaging.RemoteMessage;
 
 public interface GcmMessageResolver {
 	
-	public GcmMessage resolve(String from, Bundle data);
+	public GcmMessage resolve(RemoteMessage remoteMessage);
 	
 }

@@ -50,7 +50,7 @@ public abstract class AbstractGcmAppModule extends AbstractAppModule {
 		return gcmMessageResolver;
 	}
 
-	public abstract GcmSender getGcmSender();
+	public abstract List<GcmSender> getGcmSenders();
 
 	public abstract GcmMessageResolver createGcmMessageResolver();
 

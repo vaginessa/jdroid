@@ -1,7 +1,6 @@
 package com.jdroid.android.google.gcm.notification;
 
-import android.os.Bundle;
-
+import com.google.firebase.messaging.RemoteMessage;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.gcm.GcmMessage;
 import com.jdroid.android.notification.NotificationBuilder;
@@ -14,8 +13,8 @@ public class NotificationGcmMessage implements GcmMessage {
 	private static final String MESSAGE_KEY = "notificationMessage";
 
 	@Override
-	public void handle(String from, Bundle data) {
-		NotificationBuilder builder = new NotificationBuilder(getMessageKey(), data);
+	public void handle(RemoteMessage remoteMessage) {
+		NotificationBuilder builder = new NotificationBuilder(getMessageKey(), remoteMessage.getData());
 		builder.setSmallIcon(getSmallIconResId());
 		builder.setPublicVisibility();
 		builder.setWhen(DateUtils.nowMillis());

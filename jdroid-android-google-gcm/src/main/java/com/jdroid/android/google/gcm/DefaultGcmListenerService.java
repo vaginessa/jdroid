@@ -1,17 +1,17 @@
 package com.jdroid.android.google.gcm;
 
-import android.os.Bundle;
+import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
 
-import com.google.android.gms.gcm.GcmListenerService;
 
 /**
  * Service to handle Google Cloud Messaging (GCM) messages.
  */
-public class DefaultGcmListenerService extends GcmListenerService {
-	
+public class DefaultGcmListenerService extends FirebaseMessagingService {
+
 	@Override
-	public void onMessageReceived(String from, Bundle data) {
-		AbstractGcmAppModule.get().getGcmListenerResolver().onMessageReceived(from, data);
+	public void onMessageReceived(RemoteMessage remoteMessage) {
+		AbstractGcmAppModule.get().getGcmListenerResolver().onMessageReceived(remoteMessage);
 	}
 
 	@Override
@@ -20,8 +20,8 @@ public class DefaultGcmListenerService extends GcmListenerService {
 	}
 
 	@Override
-	public void onSendError(String msgId, String error) {
-		AbstractGcmAppModule.get().getGcmListenerResolver().onSendError(msgId, error);
+	public void onSendError(String msgId, Exception exception) {
+		AbstractGcmAppModule.get().getGcmListenerResolver().onSendError(msgId, exception);
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package com.jdroid.android.google.gcm;
 
-import android.os.Bundle;
-
+import com.google.firebase.messaging.RemoteMessage;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -13,18 +12,15 @@ public class GcmListenerResolver {
 
 	/**
 	 * Called when message is received.
-	 *
-	 * @param from SenderID of the sender.
-	 * @param data Data bundle containing message data as key/value pairs. For Set of keys use data.keySet().
 	 */
-	public void onMessageReceived(String from, Bundle data) {
-		LOGGER.info("Message received from : " + from + ", with data: " + data.toString());
+	public void onMessageReceived(RemoteMessage remoteMessage) {
+		LOGGER.info("Message received from : " + remoteMessage.getFrom() + ", with data: " + remoteMessage.getData());
 
-		GcmMessageResolver gcmResolver = AbstractGcmAppModule.get().getGcmMessageResolver(from);
+		GcmMessageResolver gcmResolver = AbstractGcmAppModule.get().getGcmMessageResolver(remoteMessage.getFrom());
 		if (gcmResolver != null) {
 			GcmMessage gcmMessage = null;
 			try {
-				gcmMessage = gcmResolver.resolve(from, data);
+				gcmMessage = gcmResolver.resolve(remoteMessage);
 			} catch (Exception e) {
 				AbstractApplication.get().getExceptionHandler().logHandledException("Error when resolving gcm message", e);
 				return;
@@ -32,7 +28,7 @@ public class GcmListenerResolver {
 
 			if (gcmMessage != null) {
 				try {
-					gcmMessage.handle(from, data);
+					gcmMessage.handle(remoteMessage);
 				} catch (Exception e) {
 					AbstractApplication.get().getExceptionHandler().logHandledException("Error when handling gcm message", e);
 				}
@@ -48,8 +44,8 @@ public class GcmListenerResolver {
 		LOGGER.info("Message sent with id: " + msgId);
 	}
 
-	public void onSendError(String msgId, String error) {
-		AbstractApplication.get().getExceptionHandler().logWarningException("Send error. Message id: " + msgId + ", Error: " + error);
+	public void onSendError(String msgId, Exception exception) {
+		AbstractApplication.get().getExceptionHandler().logWarningException("Send error. Message id: " + msgId, exception);
 	}
 
 	public void onDeletedMessages() {

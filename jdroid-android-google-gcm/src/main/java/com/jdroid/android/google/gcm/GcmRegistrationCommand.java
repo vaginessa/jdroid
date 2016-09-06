@@ -1,12 +1,10 @@
 package com.jdroid.android.google.gcm;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmPubSub;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.google.android.gms.iid.InstanceID;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.GooglePlayServicesUtils;
 import com.jdroid.android.service.ServiceCommand;
@@ -34,36 +32,37 @@ public class GcmRegistrationCommand extends ServiceCommand {
 	@Override
 	protected int execute(Bundle bundle) {
 		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(AbstractApplication.get())) {
+			for (GcmSender gcmSender : AbstractGcmAppModule.get().getGcmSenders()) {
+				String registrationToken;
+				try {
+					registrationToken = getRegistrationToken(gcmSender.getSenderId());
+				} catch (IOException e) {
+					LOGGER.warn("Error when getting registration token", e);
+					return GcmNetworkManager.RESULT_RESCHEDULE;
+				} catch (Exception e) {
+					AbstractApplication.get().getExceptionHandler().logHandledException("Error when getting registration token. Will retry later.", e);
+					return GcmNetworkManager.RESULT_RESCHEDULE;
+				}
 
-			String registrationToken;
-			try {
-				registrationToken = getRegistrationToken(AbstractApplication.get());
-			} catch (IOException e) {
-				LOGGER.warn("Error when getting registration token", e);
-				return GcmNetworkManager.RESULT_RESCHEDULE;
-			} catch (Exception e) {
-				AbstractApplication.get().getExceptionHandler().logHandledException("Failed to register the device on gcm. Will retry later.", e);
-				return GcmNetworkManager.RESULT_RESCHEDULE;
-			}
+				try {
+					LOGGER.info("Registering GCM token on server");
+					Boolean updateLastActiveTimestamp = bundle.getBoolean(UPDATE_LAST_ACTIVE_TIMESTAMP_EXTRA, false);
+					AbstractGcmAppModule.get().onRegisterOnServer(registrationToken, updateLastActiveTimestamp, bundle);
+				} catch (Exception e) {
+					AbstractApplication.get().getExceptionHandler().logHandledException("Failed to register the device on server. Will retry later.", e);
+					return GcmNetworkManager.RESULT_RESCHEDULE;
+				}
 
-			try {
-				LOGGER.info("Registering GCM token on server");
-				Boolean updateLastActiveTimestamp = bundle.getBoolean(UPDATE_LAST_ACTIVE_TIMESTAMP_EXTRA, false);
-				AbstractGcmAppModule.get().onRegisterOnServer(registrationToken, updateLastActiveTimestamp, bundle);
-			} catch (Exception e) {
-				AbstractApplication.get().getExceptionHandler().logHandledException("Failed to register the device on server. Will retry later.", e);
-				return GcmNetworkManager.RESULT_RESCHEDULE;
-			}
-
-			try {
-				subscribeTopics(registrationToken);
-			} catch (Exception e) {
-				AbstractApplication.get().getExceptionHandler().logHandledException("Failed to subscribe to topic channels. Will retry later.", e);
-				return GcmNetworkManager.RESULT_RESCHEDULE;
+				try {
+					subscribeTopics(registrationToken);
+				} catch (Exception e) {
+					AbstractApplication.get().getExceptionHandler().logHandledException("Failed to subscribe to topic channels. Will retry later.", e);
+					return GcmNetworkManager.RESULT_RESCHEDULE;
+				}
 			}
 			return GcmNetworkManager.RESULT_SUCCESS;
 		} else {
-			LOGGER.warn("GCM not initialized because Google Play Services is not available");
+			LOGGER.warn("FCM not initialized because Google Play Services is not available");
 			return GcmNetworkManager.RESULT_RESCHEDULE;
 		}
 	}
@@ -84,13 +83,10 @@ public class GcmRegistrationCommand extends ServiceCommand {
 		}
 	}
 
-	public static String getRegistrationToken(Context context) throws IOException {
-		String senderId = AbstractGcmAppModule.get().getGcmSender().getSenderId();
+	public static String getRegistrationToken(String senderId) throws IOException {
 		if (senderId == null) {
-			throw new UnexpectedException("Missing GCM Sender Id");
+			throw new UnexpectedException("Missing FCM Sender Id");
 		}
-
-		InstanceID instanceID = InstanceID.getInstance(context);
-		return instanceID.getToken(senderId, GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+		return FirebaseInstanceId.getInstance().getToken(senderId, "FCM");
 	}
 }

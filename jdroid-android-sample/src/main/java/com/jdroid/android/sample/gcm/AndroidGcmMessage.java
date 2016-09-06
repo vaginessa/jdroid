@@ -1,7 +1,6 @@
 package com.jdroid.android.sample.gcm;
 
-import android.os.Bundle;
-
+import com.google.firebase.messaging.RemoteMessage;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.gcm.GcmMessage;
 import com.jdroid.android.notification.NotificationBuilder;
@@ -21,13 +20,13 @@ public enum AndroidGcmMessage implements GcmMessage {
 	SAMPLE_MESSAGE("sampleMessage") {
 		
 		@Override
-		public void handle(String from, Bundle data) {
+		public void handle(RemoteMessage remoteMessage) {
 			NotificationBuilder builder = new NotificationBuilder("pushNotification");
 			builder.setSmallIcon(AbstractApplication.get().getLauncherIconResId());
 			builder.setTicker("Sample Ticker");
 			builder.setContentTitle("Sample Content Title");
 			String description = "Sample Content Description";
-			Long timestamp = NumberUtils.getLong(data.getString("timestamp"));
+			Long timestamp = NumberUtils.getLong(remoteMessage.getData().get("timestamp"));
 			if (timestamp != null) {
 				description = DateUtils.format(new Date(timestamp), DateTimeFormat.YYYYMMDDHHMMSSSSS);
 			}

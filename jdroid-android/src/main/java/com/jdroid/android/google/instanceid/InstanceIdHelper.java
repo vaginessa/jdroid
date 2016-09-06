@@ -1,6 +1,6 @@
 package com.jdroid.android.google.instanceid;
 
-import com.google.android.gms.iid.InstanceID;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.GooglePlayServicesUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
@@ -29,7 +29,7 @@ public class InstanceIdHelper {
 		if (instanceId == null) {
 			instanceId = getSharedPreferencesHelper().loadPreference(INSTANCE_ID);
 			if (instanceId == null) {
-				instanceId = InstanceID.getInstance(AbstractApplication.get()).getId();
+				instanceId = FirebaseInstanceId.getInstance().getId();
 				getSharedPreferencesHelper().savePreferenceAsync(INSTANCE_ID, instanceId);
 			}
 			LOGGER.debug("Instance id: " + instanceId);
@@ -57,7 +57,7 @@ public class InstanceIdHelper {
 	public static void removeInstanceId() {
 		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(AbstractApplication.get())) {
 			try {
-				InstanceID.getInstance(AbstractApplication.get()).deleteInstanceID();
+				FirebaseInstanceId.getInstance().deleteInstanceId();
 			} catch (IOException e) {
 				AbstractApplication.get().getExceptionHandler().logHandledException(e);
 			}

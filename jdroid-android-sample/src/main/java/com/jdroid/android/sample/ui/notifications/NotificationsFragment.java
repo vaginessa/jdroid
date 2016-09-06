@@ -12,8 +12,11 @@ import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.ui.home.HomeActivity;
+import com.jdroid.java.collections.Maps;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.IdGenerator;
+
+import java.util.Map;
 
 public class NotificationsFragment extends AbstractFragment {
 
@@ -74,13 +77,13 @@ public class NotificationsFragment extends AbstractFragment {
 			@Override
 			public void onClick(View v) {
 
-				Bundle bundle = new Bundle();
-				bundle.putString(NotificationBuilder.TICKER, ticker.getText().toString());
-				bundle.putString(NotificationBuilder.CONTENT_TITLE, contentTitle.getText().toString());
-				bundle.putString(NotificationBuilder.CONTENT_TEXT, urlEditText.getText().toString());
-				bundle.putString(NotificationBuilder.URL, urlEditText.getText().toString());
+				Map<String, String> data = Maps.newHashMap();
+				data.put(NotificationBuilder.TICKER, ticker.getText().toString());
+				data.put(NotificationBuilder.CONTENT_TITLE, contentTitle.getText().toString());
+				data.put(NotificationBuilder.CONTENT_TEXT, urlEditText.getText().toString());
+				data.put(NotificationBuilder.URL, urlEditText.getText().toString());
 
-				NotificationBuilder builder = new NotificationBuilder("notificationFromBundle", bundle);
+				NotificationBuilder builder = new NotificationBuilder("notificationFromBundle", data);
 				builder.setSmallIcon(AbstractApplication.get().getLauncherIconResId());
 				builder.setWhen(DateUtils.nowMillis());
 				builder.setBlueLight();

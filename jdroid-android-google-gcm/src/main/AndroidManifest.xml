@@ -2,37 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
 		  package="com.jdroid.android.google.gcm">
 
-	<!-- The application can keep the processor from sleeping when a message is received -->
-	<uses-permission android:name="android.permission.WAKE_LOCK" />
-
-	<!-- TODO: Enabled this when https://code.google.com/p/android/issues/detail?id=178409 is fixed -->
-	<!-- Permission to prevent other Android applications from registering and receiving the Android application's messages -->
-	<!-- <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" /> -->
-
 	<!-- Permission so the Android application can register and receive messages. -->
 	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-	<!-- TODO: Enabled this when https://code.google.com/p/android/issues/detail?id=178409 is fixed -->
-	<!-- <permission android:name="${applicationId}.permission.C2D_MESSAGE" android:protectionLevel="signature" /> -->
-
 	<application>
 
-		<!-- TODO: Enabled this when https://code.google.com/p/android/issues/detail?id=178409 is fixed -->
-		<!-- Handles messages sent from GCM to your application -->
-		<!--<receiver android:name="com.google.android.gms.gcm.GcmReceiver" android:exported="true"-->
-				  <!--android:permission="com.google.android.c2dm.permission.SEND">-->
-			<!--<intent-filter>-->
-				<!--&lt;!&ndash; Receive the actual messages &ndash;&gt;-->
-		<!--<action android:name="com.google.android.c2dm.intent.RECEIVE" />-->
-		<!--&lt;!&ndash; Receives the registration id. &ndash;&gt;-->
-		<!--<action android:name="com.google.android.c2dm.intent.REGISTRATION" />-->
-		<!--<category android:name="${applicationId}" />-->
-			<!--</intent-filter>-->
-		<!--</receiver>-->
-
-		<service android:name="com.jdroid.android.google.gcm.DefaultGcmListenerService" android:exported="false">
+		<service android:name="com.jdroid.android.google.gcm.DefaultGcmListenerService">
 			<intent-filter>
-				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
+				<action android:name="com.google.firebase.MESSAGING_EVENT" />
 			</intent-filter>
 		</service>
 

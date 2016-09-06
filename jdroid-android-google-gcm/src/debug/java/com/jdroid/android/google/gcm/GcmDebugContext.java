@@ -1,7 +1,5 @@
 package com.jdroid.android.google.gcm;
 
-import android.os.Bundle;
-
 import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
@@ -21,7 +19,7 @@ public class GcmDebugContext {
 		return new GcmDebugPrefsAppender(getGcmMessagesMap());
 	}
 
-	protected Map<GcmMessage, Bundle> getGcmMessagesMap() {
+	protected Map<GcmMessage, Map<String, String>> getGcmMessagesMap() {
 		return Maps.newHashMap();
 	}
 	
