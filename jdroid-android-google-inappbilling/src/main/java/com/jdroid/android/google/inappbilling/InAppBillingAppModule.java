@@ -29,10 +29,10 @@ public class InAppBillingAppModule extends AbstractAppModule {
 
 	@Override
 	public List<PreferencesAppender> getPreferencesAppenders() {
-		return getGcmDebugContext().getPreferencesAppenders();
+		return getInAppBillingDebugContext().getPreferencesAppenders();
 	}
 
-	public InAppBillingDebugContext getGcmDebugContext() {
+	public InAppBillingDebugContext getInAppBillingDebugContext() {
 		synchronized (AbstractApplication.class) {
 			if (inAppBillingDebugContext == null) {
 				inAppBillingDebugContext = createInAppBillingDebugContext();

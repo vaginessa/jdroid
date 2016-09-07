@@ -3,7 +3,7 @@ package com.jdroid.android.http;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
-import com.jdroid.android.google.instanceid.InstanceIdHelper;
+import com.jdroid.android.firebase.instanceid.InstanceIdHelper;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.java.http.HttpResponseWrapper;

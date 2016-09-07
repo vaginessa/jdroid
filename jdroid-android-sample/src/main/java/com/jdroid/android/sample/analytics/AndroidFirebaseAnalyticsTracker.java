@@ -2,7 +2,7 @@ package com.jdroid.android.sample.analytics;
 
 import android.os.Bundle;
 
-import com.jdroid.android.google.firebase.analytics.FirebaseAnalyticsTracker;
+import com.jdroid.android.firebase.analytics.FirebaseAnalyticsTracker;
 
 public class AndroidFirebaseAnalyticsTracker extends FirebaseAnalyticsTracker implements AppAnalyticsTracker {
 	

@@ -39,10 +39,10 @@ public class AboutAppModule extends AbstractAppModule {
 
 	@Override
 	public List<PreferencesAppender> getPreferencesAppenders() {
-		return getGcmDebugContext().getPreferencesAppenders();
+		return getAboutDebugContext().getPreferencesAppenders();
 	}
 
-	public AboutDebugContext getGcmDebugContext() {
+	public AboutDebugContext getAboutDebugContext() {
 		synchronized (AbstractApplication.class) {
 			if (aboutDebugContext == null) {
 				aboutDebugContext = createAboutDebugContext();

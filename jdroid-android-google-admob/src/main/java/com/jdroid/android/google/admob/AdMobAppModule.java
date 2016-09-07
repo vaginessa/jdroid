@@ -43,10 +43,10 @@ public class AdMobAppModule extends AbstractAppModule {
 
 	@Override
 	public List<PreferencesAppender> getPreferencesAppenders() {
-		return getGcmDebugContext().getPreferencesAppenders();
+		return getAdMobDebugContext().getPreferencesAppenders();
 	}
 
-	public AdMobDebugContext getGcmDebugContext() {
+	public AdMobDebugContext getAdMobDebugContext() {
 		synchronized (AbstractApplication.class) {
 			if (adMobDebugContext == null) {
 				adMobDebugContext = createAdMobDebugContext();

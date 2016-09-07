@@ -23,8 +23,8 @@ import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.google.admob.AdMobAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsTracker;
-import com.jdroid.android.google.firebase.FirebaseAppModule;
-import com.jdroid.android.google.gcm.AbstractGcmAppModule;
+import com.jdroid.android.firebase.FirebaseAppModule;
+import com.jdroid.android.firebase.fcm.AbstractFcmAppModule;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sample.BuildConfig;
 import com.jdroid.android.sample.R;
@@ -35,7 +35,7 @@ import com.jdroid.android.sample.analytics.AppAnalyticsTracker;
 import com.jdroid.android.sample.debug.AndroidDebugContext;
 import com.jdroid.android.sample.exception.AndroidCrashlyticsAppModule;
 import com.jdroid.android.sample.experiment.AndroidExperiment;
-import com.jdroid.android.sample.gcm.AndroidGcmAppModule;
+import com.jdroid.android.sample.fcm.AndroidFcmAppModule;
 import com.jdroid.android.sample.repository.UserRepositoryImpl;
 import com.jdroid.android.sample.ui.AndroidActivityHelper;
 import com.jdroid.android.sample.ui.AndroidFragmentHelper;
@@ -161,7 +161,7 @@ public class AndroidApplication extends AbstractApplication {
 		appModulesMap.put(CrashlyticsAppModule.MODULE_NAME, new AndroidCrashlyticsAppModule());
 		appModulesMap.put(AdMobAppModule.MODULE_NAME, new SampleAdMobAppModule());
 		appModulesMap.put(FacebookAppModule.MODULE_NAME, new FacebookAppModule());
-		appModulesMap.put(AbstractGcmAppModule.MODULE_NAME, new AndroidGcmAppModule());
+		appModulesMap.put(AbstractFcmAppModule.MODULE_NAME, new AndroidFcmAppModule());
 		appModulesMap.put(AboutAppModule.MODULE_NAME,  new AndroidAboutAppModule());
 		appModulesMap.put(TwitterAppModule.MODULE_NAME,  new TwitterAppModule(BuildConfig.TWITTER_OAUTH_CONSUMER_KEY, BuildConfig.TWITTER_OAUTH_CONSUMER_SECRET));
 	}

@@ -124,9 +124,9 @@
 		<activity android:name="com.jdroid.android.sample.ui.loading.SwipeRefreshLoadingActivity" android:label="@string/swipeRefresLoading"
 			android:parentActivityName="com.jdroid.android.sample.ui.loading.LoadingActivity" tools:ignore="UnusedAttribute"/>
 
-		<!-- GCM -->
+		<!-- FCM -->
 
-		<activity android:name="com.jdroid.android.sample.ui.google.gcm.GcmActivity" android:label="@string/gcm"
+		<activity android:name="com.jdroid.android.sample.ui.firebase.fcm.FcmActivity" android:label="@string/fcm"
 			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<!-- Google Maps -->

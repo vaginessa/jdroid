@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+	<string name="jdroid_fcmSettings" tools:ignore="MissingTranslation">FCM</string>
+	<string name="jdroid_emulateFcmMessageTitle" tools:ignore="MissingTranslation">Emulate FCM Message</string>
+	<string name="jdroid_emulateFcmMessageDescription" tools:ignore="MissingTranslation">Pick the FCM Message type to emulate</string>
+
+	<string name="jdroid_registerDeviceTitle" tools:ignore="MissingTranslation">Register Device</string>
+
+</resources>

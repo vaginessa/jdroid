@@ -15,7 +15,7 @@ import com.jdroid.android.sample.ui.exceptions.ErrorDisplayerActivity;
 import com.jdroid.android.sample.ui.fab.FabActivity;
 import com.jdroid.android.sample.ui.facebook.FacebookSignInActivity;
 import com.jdroid.android.sample.ui.firebase.database.FirebaseDatabaseActivity;
-import com.jdroid.android.sample.ui.google.gcm.GcmActivity;
+import com.jdroid.android.sample.ui.firebase.fcm.FcmActivity;
 import com.jdroid.android.sample.ui.google.playservices.GooglePlayServicesActivity;
 import com.jdroid.android.sample.ui.google.signin.GoogleSignInActivity;
 import com.jdroid.android.sample.ui.hero.HeroActivity;
@@ -47,10 +47,10 @@ public enum HomeItem implements ActionItem {
 	FAB(R.string.floatingActionButton, R.drawable.ic_firebase, FabActivity.class),
 	FACEBOOK(R.string.jdroid_facebook, R.drawable.ic_firebase, FacebookSignInActivity.class),
 	FIREBASE_DATABASE(R.string.firebaseDatabase, R.drawable.ic_firebase, FirebaseDatabaseActivity.class),
+	FIREBASE_FCM(R.string.fcm, R.drawable.ic_fcm, FcmActivity.class),
 	GOOGLE_ANALYTCS(R.string.googleAnalytics, R.drawable.ic_analytics, AnalyticsActivity.class),
-	GCM(R.string.gcm, R.drawable.ic_gcm, GcmActivity.class),
 	GOOGLE_MAPS(R.string.googleMaps, R.drawable.ic_maps, MapActivity.class),
-	GOOGLE_PLAY_SERVICES(R.string.googlePlayServices, R.drawable.ic_gcm, GooglePlayServicesActivity.class),
+	GOOGLE_PLAY_SERVICES(R.string.googlePlayServices, R.drawable.ic_fcm, GooglePlayServicesActivity.class),
 	GOOGLE_SIGN_IN(R.string.jdroid_googleSignIn, R.drawable.ic_sign_in_24dp, GoogleSignInActivity.class),
 	HERO(R.string.hero, R.drawable.ic_photo, HeroActivity.class),
 	HTTP(R.string.http, R.drawable.ic_http, HttpActivity.class),

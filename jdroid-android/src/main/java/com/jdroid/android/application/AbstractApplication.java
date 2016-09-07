@@ -23,7 +23,7 @@ import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.google.analytics.GoogleAnalyticsTracker;
-import com.jdroid.android.google.firebase.analytics.FirebaseAnalyticsTracker;
+import com.jdroid.android.firebase.analytics.FirebaseAnalyticsTracker;
 import com.jdroid.android.http.cache.CacheManager;
 import com.jdroid.android.images.loader.ImageLoaderHelper;
 import com.jdroid.android.images.loader.uil.UilImageLoaderHelper;

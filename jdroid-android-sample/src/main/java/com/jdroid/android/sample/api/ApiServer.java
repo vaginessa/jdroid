@@ -1,14 +1,14 @@
 package com.jdroid.android.sample.api;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.google.gcm.GcmSender;
+import com.jdroid.android.firebase.fcm.FcmSender;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.Server;
 
 import java.util.List;
 
-public enum ApiServer implements GcmSender {
+public enum ApiServer implements FcmSender {
 	
 	PROD("url", ":8080", "/api", true, true) {
 		@Override
