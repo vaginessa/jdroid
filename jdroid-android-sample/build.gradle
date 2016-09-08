@@ -70,6 +70,10 @@ dependencies {
 	uatCompile project(path: ':jdroid-android-firebase-fcm', configuration: 'debug')
 	releaseCompile project(path: ':jdroid-android-firebase-fcm', configuration: 'release')
 
+	debugCompile project(path: ':jdroid-android-firebase-remoteconfig', configuration: 'debug')
+	uatCompile project(path: ':jdroid-android-firebase-remoteconfig', configuration: 'debug')
+	releaseCompile project(path: ':jdroid-android-firebase-remoteconfig', configuration: 'release')
+
 	debugCompile project(path: ":jdroid-android-google-signin", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-google-signin", configuration: 'debug')
 	releaseCompile project(path: ":jdroid-android-google-signin", configuration: 'release')

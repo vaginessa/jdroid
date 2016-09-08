@@ -210,6 +210,9 @@
 		<activity android:name="com.jdroid.android.sample.ui.firebase.database.FirebaseDatabaseActivity" android:label="@string/firebaseDatabase"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<activity android:name="com.jdroid.android.sample.ui.firebase.remoteconfig.FirebaseRemoteConfigActivity" android:label="@string/firebaseRemoteConfig"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
 		<!-- Card View -->
 
 		<activity android:name="com.jdroid.android.sample.ui.cardview.CardViewActivity" android:label="@string/cardView"

@@ -19,12 +19,13 @@ import com.jdroid.android.crashlytics.CrashlyticsAppModule;
 import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.experiments.ExperimentHelper;
 import com.jdroid.android.facebook.FacebookAppModule;
+import com.jdroid.android.firebase.FirebaseAppModule;
+import com.jdroid.android.firebase.fcm.AbstractFcmAppModule;
+import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigAppModule;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.google.admob.AdMobAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsTracker;
-import com.jdroid.android.firebase.FirebaseAppModule;
-import com.jdroid.android.firebase.fcm.AbstractFcmAppModule;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sample.BuildConfig;
 import com.jdroid.android.sample.R;
@@ -41,7 +42,7 @@ import com.jdroid.android.sample.ui.AndroidActivityHelper;
 import com.jdroid.android.sample.ui.AndroidFragmentHelper;
 import com.jdroid.android.sample.ui.about.AndroidAboutAppModule;
 import com.jdroid.android.sample.ui.ads.SampleAdMobAppModule;
-import com.jdroid.android.sample.ui.firebase.AndroidFirebaseAppModule;
+import com.jdroid.android.sample.ui.firebase.remoteconfig.AndroidFirebaseRemoteConfigAppModule;
 import com.jdroid.android.sample.ui.home.HomeActivity;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteEntity;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteRepository;
@@ -157,11 +158,12 @@ public class AndroidApplication extends AbstractApplication {
 	@Override
 	protected void initAppModule(Map<String, AppModule> appModulesMap) {
 		appModulesMap.put(GoogleAnalyticsAppModule.MODULE_NAME,  new GoogleAnalyticsAppModule());
-		appModulesMap.put(FirebaseAppModule.MODULE_NAME,  new AndroidFirebaseAppModule());
+		appModulesMap.put(FirebaseAppModule.MODULE_NAME,  new FirebaseAppModule());
 		appModulesMap.put(CrashlyticsAppModule.MODULE_NAME, new AndroidCrashlyticsAppModule());
 		appModulesMap.put(AdMobAppModule.MODULE_NAME, new SampleAdMobAppModule());
 		appModulesMap.put(FacebookAppModule.MODULE_NAME, new FacebookAppModule());
 		appModulesMap.put(AbstractFcmAppModule.MODULE_NAME, new AndroidFcmAppModule());
+		appModulesMap.put(FirebaseRemoteConfigAppModule.MODULE_NAME, new AndroidFirebaseRemoteConfigAppModule());
 		appModulesMap.put(AboutAppModule.MODULE_NAME,  new AndroidAboutAppModule());
 		appModulesMap.put(TwitterAppModule.MODULE_NAME,  new TwitterAppModule(BuildConfig.TWITTER_OAUTH_CONSUMER_KEY, BuildConfig.TWITTER_OAUTH_CONSUMER_SECRET));
 	}

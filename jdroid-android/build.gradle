@@ -54,7 +54,6 @@ dependencies {
 	compile 'com.google.firebase:firebase-analytics:' + googlePlayServicesVersion
 	compile 'com.google.firebase:firebase-messaging:' + googlePlayServicesVersion
 
-
 	// https://github.com/facebook/device-year-class
 	compile 'com.facebook.device.yearclass:yearclass:1.0.1'
 

@@ -48,6 +48,7 @@
 
 	<!-- Firebase -->
 	<string name="firebaseDatabase">Firebase Database</string>
+	<string name="firebaseRemoteConfig">Firebase Remote Config</string>
 	<string name="firebaseCreate">Create</string>
 	<string name="firebaseUpdate">Update</string>
 	<string name="firebaseGetAll">Get All</string>

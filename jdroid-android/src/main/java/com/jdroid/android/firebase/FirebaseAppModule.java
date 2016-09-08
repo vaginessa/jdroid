@@ -34,7 +34,6 @@ public class FirebaseAppModule extends AbstractAppModule {
 		if (firebaseAppContext.isFirebaseAnalyticsEnabled()) {
 			firebaseAnalyticsHelper = createFirebaseAnalyticsHelper();
 		}
-
 	}
 
 	protected FirebaseAnalyticsHelper createFirebaseAnalyticsHelper() {

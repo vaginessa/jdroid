@@ -10,5 +10,4 @@ public class FirebaseAppContext {
 	public Boolean isFirebaseAnalyticsEnabled() {
 		return AbstractApplication.get().getAppContext().getBuildConfigValue("FIREBASE_ANALYTICS_ENABLED", false);
 	}
-
 }
