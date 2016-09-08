@@ -123,6 +123,15 @@
 	<string name="uriMapper">Uri Mapper</string>
 	<string name="uriMapperSingleTop">Single Top</string>
 	<string name="uriMapperNoFlags">No Flags</string>
+	<string name="matchError">Match Error</string>
+	<string name="mainIntentError">Main Intent Error</string>
+	<string name="defaultIntentError">Default Intent Error</string>
+	<string name="matchNewActivity">Match New Activity</string>
+	<string name="noMatchNewActivity">No Match New Activity</string>
+	<string name="matchSameActivity">Match Same Activity</string>
+	<string name="noMatchSameActivity">No Match Same Activity</string>
+	<string name="matchNullIntent">Match Null Intent</string>
+	<string name="noMatchNullIntent">No Match Null Intent</string>
 
 	<!-- Loading -->
 	<string name="loading">Loading &amp; Refresh</string>
