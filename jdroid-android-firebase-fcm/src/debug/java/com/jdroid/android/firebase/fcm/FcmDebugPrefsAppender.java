@@ -8,7 +8,6 @@ import android.preference.PreferenceGroup;
 
 import com.google.firebase.messaging.RemoteMessage;
 import com.jdroid.android.debug.PreferencesAppender;
-import com.jdroid.android.google.gcm.R;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;

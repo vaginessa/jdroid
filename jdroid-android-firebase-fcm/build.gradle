@@ -1,7 +1,7 @@
 apply plugin: 'com.jdroid.android.library'
 
-ext.PROJECT_NAME = 'Jdroid Android - Google GCM'
-description = 'Jdroid dependency project for Google GCM'
+ext.PROJECT_NAME = 'Jdroid Android - Firebase FCM'
+description = 'Jdroid dependency project for Firebase FCM'
 
 buildscript {
 
