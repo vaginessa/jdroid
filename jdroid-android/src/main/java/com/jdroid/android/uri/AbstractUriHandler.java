@@ -21,6 +21,11 @@ public abstract class AbstractUriHandler implements UriHandler {
 	}
 
 	@Override
+	public Intent createMainIntent(Context context, Uri uri) {
+		return null;
+	}
+
+	@Override
 	public Intent createDefaultIntent(Context context, Uri uri) {
 		return new Intent(context, AbstractApplication.get().getHomeActivityClass());
 	}

@@ -16,11 +16,6 @@ public class UriMapperNoFlagsUriHandler extends AbstractUriHandler {
 	}
 
 	@Override
-	public Intent createMainIntent(Context context, Uri uri) {
-		return new Intent(context, UriMapperNoFlagsActivity.class);
-	}
-
-	@Override
 	public Intent createDefaultIntent(Context context, Uri uri) {
 		return new Intent(context, HomeActivity.class);
 	}
