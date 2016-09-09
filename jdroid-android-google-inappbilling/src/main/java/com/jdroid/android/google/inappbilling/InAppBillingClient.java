@@ -729,7 +729,7 @@ public class InAppBillingClient {
 			LOGGER.debug("Bundle/Intent with null response code, assuming OK (known issue)");
 			return null;
 		} else if (responseCode instanceof Integer) {
-			return InAppBillingErrorCode.findByErrorResponseCode(((Integer)responseCode).intValue());
+			return InAppBillingErrorCode.findByErrorResponseCode(((Integer)responseCode));
 		} else if (responseCode instanceof Long) {
 			return InAppBillingErrorCode.findByErrorResponseCode((int)((Long)responseCode).longValue());
 		} else {

@@ -246,11 +246,11 @@ public class ActivityHelper implements ActivityIf {
 				PendingResult<Status> result = AppIndex.AppIndexApi.start(googleApiClient, appIndexingAction);
 				result.setResultCallback(new ResultCallback<Status>() {
 					@Override
-					public void onResult(Status status) {
+					public void onResult(@NonNull Status status) {
 						if (status.isSuccess()) {
 							LOGGER.debug("App Indexing API started successfully on " + activity);
 						} else {
-							AbstractApplication.get().getExceptionHandler().logHandledException("App Indexing API started with error on " + activity);
+							AbstractApplication.get().getExceptionHandler().logHandledException("App Indexing API started with error [" + status.getStatusCode() + "] on " + activity.getClass());
 						}
 					}
 				});
@@ -327,7 +327,7 @@ public class ActivityHelper implements ActivityIf {
 			PendingResult<Status> result = AppIndex.AppIndexApi.end(googleApiClient, appIndexingAction);
 			result.setResultCallback(new ResultCallback<Status>() {
 				@Override
-				public void onResult(Status status) {
+				public void onResult(@NonNull Status status) {
 					if (status.isSuccess()) {
 						LOGGER.debug("App Indexing API ended successfully on " + activity);
 					} else {

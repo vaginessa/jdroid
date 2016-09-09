@@ -1,5 +1,6 @@
 package com.jdroid.android.date;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -19,6 +20,7 @@ public class DateButton extends Button {
 	
 	private Date date;
 	
+	@SuppressLint("SetTextI18n")
 	public DateButton(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		if (isInEditMode()) {

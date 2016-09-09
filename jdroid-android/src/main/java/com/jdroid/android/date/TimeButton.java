@@ -1,5 +1,6 @@
 package com.jdroid.android.date;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -18,6 +19,7 @@ public class TimeButton extends Button {
 	
 	private Date time;
 	
+	@SuppressLint("SetTextI18n")
 	public TimeButton(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		if (isInEditMode()) {

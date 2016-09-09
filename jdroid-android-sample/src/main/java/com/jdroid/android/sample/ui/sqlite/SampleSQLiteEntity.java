@@ -17,10 +17,10 @@ public class SampleSQLiteEntity extends Entity {
 
 	@Override
 	public String toString() {
-		final StringBuffer sb = new StringBuffer("{");
-		sb.append("id='").append(getId()).append("\', ");
-		sb.append("field='").append(field).append('\'');
-		sb.append('}');
-		return sb.toString();
+		StringBuilder builder = new StringBuilder("{");
+		builder.append("id='").append(getId()).append("\', ");
+		builder.append("field='").append(field).append('\'');
+		builder.append('}');
+		return builder.toString();
 	}
 }

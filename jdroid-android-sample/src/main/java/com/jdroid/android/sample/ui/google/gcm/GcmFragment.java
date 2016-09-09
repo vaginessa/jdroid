@@ -76,9 +76,8 @@ public class GcmFragment extends AbstractFragment {
 				ExecutorUtils.execute(new Runnable() {
 					@Override
 					public void run() {
-						String registrationToken = null;
 						try {
-							registrationToken = GcmRegistrationCommand.getRegistrationToken(GcmFragment.this.getActivity());
+							String registrationToken = GcmRegistrationCommand.getRegistrationToken(GcmFragment.this.getActivity());
 							Map<String, String> params = Maps.newHashMap();
 							if (minAppVersionCode.getText().length() > 0) {
 								params.put("minAppVersionCode", minAppVersionCode.getText().toString());

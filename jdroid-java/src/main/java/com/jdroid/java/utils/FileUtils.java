@@ -41,12 +41,11 @@ public abstract class FileUtils {
 	 * @throws IOException The exception thrown when an error reading the inputStream happens
 	 */
 	public static byte[] readAsBytes(InputStream inputStream) throws IOException {
-		int cnt = 0;
 		byte[] buffer = new byte[BUFFER_SIZE];
 		InputStream is = new BufferedInputStream(inputStream);
 		try {
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-			cnt = is.read(buffer);
+			int cnt = is.read(buffer);
 			while (cnt != -1) {
 				outputStream.write(buffer, 0, cnt);
 				cnt = is.read(buffer);

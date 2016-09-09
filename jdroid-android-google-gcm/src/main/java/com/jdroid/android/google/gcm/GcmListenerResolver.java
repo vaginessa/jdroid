@@ -22,7 +22,7 @@ public class GcmListenerResolver {
 
 		GcmMessageResolver gcmResolver = AbstractGcmAppModule.get().getGcmMessageResolver(from);
 		if (gcmResolver != null) {
-			GcmMessage gcmMessage = null;
+			GcmMessage gcmMessage;
 			try {
 				gcmMessage = gcmResolver.resolve(from, data);
 			} catch (Exception e) {

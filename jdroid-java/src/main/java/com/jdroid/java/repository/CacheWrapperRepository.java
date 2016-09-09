@@ -158,7 +158,7 @@ public class CacheWrapperRepository<T extends Identifiable> implements Repositor
 	@Override
 	public Long getSize() {
 		if (synced) {
-			return Long.valueOf(cache.size());
+			return (long)cache.size();
 		} else {
 			Long size = wrappedRepository.getSize();
 			synced = size == 0;

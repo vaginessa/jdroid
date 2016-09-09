@@ -32,7 +32,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 		super.onCreate(savedInstanceState);
 
 		// Header
-		aboutItems.add(new String());
+		aboutItems.add("");
 
 		final String website = getWebsite();
 		if (website != null) {

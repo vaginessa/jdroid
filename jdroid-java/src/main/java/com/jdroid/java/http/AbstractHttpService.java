@@ -110,7 +110,7 @@ public abstract class AbstractHttpService implements HttpService {
 				if (inputStream != null) {
 					return (T)parser.parse(inputStream);
 				} else {
-					throw new UnexpectedException("The web service was expecting a response, but it was null");
+					throw new UnexpectedException("The http service was expecting a response, but it was null");
 				}
 			}
 			return null;
