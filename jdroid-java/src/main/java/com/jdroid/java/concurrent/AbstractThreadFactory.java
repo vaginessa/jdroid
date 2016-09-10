@@ -16,9 +16,6 @@ public abstract class AbstractThreadFactory implements ThreadFactory {
 		this.namePrefix = namePrefix + "-pool-" + poolNumber.getAndIncrement() + "-thread-";
 	}
 	
-	/**
-	 * @see java.util.concurrent.ThreadFactory#newThread(java.lang.Runnable)
-	 */
 	@Override
 	public Thread newThread(Runnable runnable) {
 		Thread thread = new Thread(group, runnable, namePrefix + threadNumber.getAndIncrement(), 0);

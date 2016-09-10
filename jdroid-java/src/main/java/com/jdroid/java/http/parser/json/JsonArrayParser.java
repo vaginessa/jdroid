@@ -11,9 +11,6 @@ public class JsonArrayParser extends JsonParser<JSONArray> {
 		this.parser = parser;
 	}
 	
-	/**
-	 * @see JsonParser#parse(java.lang.Object)
-	 */
 	@Override
 	public Object parse(JSONArray json) {
 		return parseList(json, parser);

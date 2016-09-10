@@ -25,9 +25,6 @@ public class NotifyingScrollView extends NestedScrollView {
 		super(context, attrs, defStyle);
 	}
 	
-	/**
-	 * @see android.view.View#onScrollChanged(int, int, int, int)
-	 */
 	@Override
 	protected void onScrollChanged(int l, int t, int oldl, int oldt) {
 		super.onScrollChanged(l, t, oldl, oldt);

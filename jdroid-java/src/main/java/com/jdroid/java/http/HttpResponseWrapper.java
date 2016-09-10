@@ -16,7 +16,7 @@ public abstract class HttpResponseWrapper {
 	
 	public abstract String getHeader(String name);
 	
-	public String logStatusCode() {
+	protected String logStatusCode() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("HTTP Status code: ");
 		sb.append(getStatusCode());

@@ -351,6 +351,7 @@
 				<data android:scheme="https" android:host="jdroidframework.com" android:pathPrefix="/uri/matchNullIntent" />
 			</intent-filter>
 		</activity>
+
 		<activity android:name="com.jdroid.android.sample.ui.uri.NoMatchNullIntentActivity" android:label="@string/noMatchNullIntent"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute">
 			<intent-filter>

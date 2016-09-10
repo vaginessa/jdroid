@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.utils.ReferrerUtils;
+import com.jdroid.java.annotation.Internal;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
@@ -28,6 +29,7 @@ public class UriMapper {
 
 	private List<UriWatcher> uriWatchers = Lists.newArrayList();
 
+	@Internal
 	public void handleUri(@NonNull Activity activity, @Nullable Bundle savedInstanceState, @Nullable UriHandler uriHandler) {
 		if (savedInstanceState == null) {
 			Uri uri = UriUtils.getUri(activity);

@@ -10,9 +10,6 @@ public class NormalPriorityThreadFactory extends AbstractThreadFactory {
 		super("normal-prio");
 	}
 	
-	/**
-	 * @see com.jdroid.java.concurrent.AbstractThreadFactory#getThreadsPriority()
-	 */
 	@Override
 	protected int getThreadsPriority() {
 		return Thread.NORM_PRIORITY;
