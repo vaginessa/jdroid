@@ -55,15 +55,12 @@ public class ActivityHelper implements ActivityIf {
 	private final static Logger LOGGER = LoggerUtils.getLogger(ActivityHelper.class);
 	
 	private static final int LOCATION_UPDATE_TIMER_CODE = IdGenerator.getIntId();
-	private static final String TITLE_KEY = "title";
-	
+
 	private AbstractFragmentActivity activity;
 	private Handler locationHandler;
 	private boolean isDestroyed = false;
 	
 	private ActivityLoading loading;
-	
-	private String title;
 	
 	private NavDrawer navDrawer;
 
@@ -202,12 +199,10 @@ public class ActivityHelper implements ActivityIf {
 	public void onSaveInstanceState(Bundle outState) {
 		LOGGER.debug("Executing onSaveInstanceState on " + activity);
 		dismissLoading();
-		outState.putString(TITLE_KEY, title);
 	}
 
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
 		LOGGER.debug("Executing onRestoreInstanceState on " + activity);
-		title = savedInstanceState.getString(TITLE_KEY);
 	}
 
 	@SuppressLint("HandlerLeak")
@@ -246,11 +241,11 @@ public class ActivityHelper implements ActivityIf {
 				PendingResult<Status> result = AppIndex.AppIndexApi.start(googleApiClient, appIndexingAction);
 				result.setResultCallback(new ResultCallback<Status>() {
 					@Override
-					public void onResult(Status status) {
+					public void onResult(@NonNull Status status) {
 						if (status.isSuccess()) {
 							LOGGER.debug("App Indexing API started successfully on " + activity);
 						} else {
-							AbstractApplication.get().getExceptionHandler().logHandledException("App Indexing API started with error on " + activity);
+							AbstractApplication.get().getExceptionHandler().logHandledException("App Indexing API started with error [" + status.getStatusCode() + "] on " + activity.getClass());
 						}
 					}
 				});
@@ -327,7 +322,7 @@ public class ActivityHelper implements ActivityIf {
 			PendingResult<Status> result = AppIndex.AppIndexApi.end(googleApiClient, appIndexingAction);
 			result.setResultCallback(new ResultCallback<Status>() {
 				@Override
-				public void onResult(Status status) {
+				public void onResult(@NonNull Status status) {
 					if (status.isSuccess()) {
 						LOGGER.debug("App Indexing API ended successfully on " + activity);
 					} else {

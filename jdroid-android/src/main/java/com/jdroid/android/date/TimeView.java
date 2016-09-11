@@ -1,5 +1,6 @@
 package com.jdroid.android.date;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Handler.Callback;
@@ -39,6 +40,7 @@ public class TimeView extends TextView implements Callback {
 		return true;
 	}
 	
+	@SuppressLint("SetTextI18n")
 	private void updateTime() {
 		if ((visible != null) && (visible)) {
 			if (isInEditMode()) {

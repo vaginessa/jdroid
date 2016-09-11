@@ -2,6 +2,7 @@ package com.jdroid.android.sample.ui.google.signin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.TextView;
@@ -144,7 +145,7 @@ public class GoogleSignInFragment extends AbstractFragment implements GoogleSign
 	}
 
 	@Override
-	public void onConnectionFailed(ConnectionResult connectionResult) {
+	public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 		status.setText("Connection Failed");
 
 		signInButton.setVisibility(View.VISIBLE);

@@ -8,8 +8,6 @@ import com.jdroid.github.service.ReleaseService;
 
 Boolean isSnapshot = getBooleanProp('SNAPSHOT', true)
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 allprojects {
 
 	ext.PREFIX_TO_VALIDATE = "jdroid"

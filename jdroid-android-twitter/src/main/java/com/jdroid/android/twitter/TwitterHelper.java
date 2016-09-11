@@ -13,7 +13,10 @@ import com.twitter.sdk.android.core.models.Tweet;
 import com.twitter.sdk.android.tweetui.SearchTimeline;
 import com.twitter.sdk.android.tweetui.TimelineResult;
 
+import java.net.SocketTimeoutException;
 import java.util.List;
+
+import javax.net.ssl.SSLHandshakeException;
 
 // TODO Add support to rotation. The helper is called on each screen rotation
 public abstract class TwitterHelper {
@@ -44,8 +47,16 @@ public abstract class TwitterHelper {
 						String errorMessage = twitterApiException.getErrorCode() + " " + twitterApiException.getErrorMessage();
 						AbstractApplication.get().getAnalyticsSender().trackErrorBreadcrumb(errorMessage);
 					}
-				} else if (e.getMessage().equals("Request Failure") && e.getCause() != null && e.getCause().getMessage().equals("Unable to resolve host \"api.twitter.com\": No address associated with hostname")) {
-					connectionError = true;
+				} else if (e.getMessage().equals("Request Failure")) {
+					if (e.getCause() != null) {
+						if (e.getCause().getMessage().equals("Unable to resolve host \"api.twitter.com\": No address associated with hostname")) {
+							connectionError = true;
+						} else if (e.getCause() instanceof SocketTimeoutException) {
+							connectionError = true;
+						} else if (e.getCause() instanceof SSLHandshakeException) {
+							connectionError = true;
+						}
+					}
 				}
 				if (connectionError) {
 					AbstractApplication.get().getExceptionHandler().logHandledException(new ConnectionException(e));

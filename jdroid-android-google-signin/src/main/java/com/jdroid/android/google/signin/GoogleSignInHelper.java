@@ -1,6 +1,7 @@
 package com.jdroid.android.google.signin;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -76,7 +77,7 @@ public class GoogleSignInHelper {
 			showLoading();
 			pendingResult.setResultCallback(new ResultCallback<GoogleSignInResult>() {
 				@Override
-				public void onResult(GoogleSignInResult googleSignInResult) {
+				public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
 					handleSignInResult(googleSignInResult);
 					dismissLoading();
 				}
@@ -101,7 +102,7 @@ public class GoogleSignInHelper {
 		Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
 				new ResultCallback<Status>() {
 					@Override
-					public void onResult(Status status) {
+					public void onResult(@NonNull Status status) {
 						LOGGER.debug("signOut: " + status.getStatusMessage());
 						if (googleSignInListener != null) {
 							googleSignInListener.onGoogleSignOut();
@@ -114,7 +115,7 @@ public class GoogleSignInHelper {
 		Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(
 				new ResultCallback<Status>() {
 					@Override
-					public void onResult(Status status) {
+					public void onResult(@NonNull Status status) {
 						LOGGER.debug("revokeAccess: " + status.getStatusMessage());
 						if (googleSignInListener != null) {
 							googleSignInListener.onGoogleAccessRevoked();

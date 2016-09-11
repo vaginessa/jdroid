@@ -2,8 +2,8 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" style="@style/jdroid_cardViewStyle">
 
 	<LinearLayout style="@style/jdroid_cardViewInner" android:orientation="vertical">
-		<TextView style="@style/jdroid_cardViewTitle" android:text="Card View Title" />
-		<TextView style="@style/jdroid_textSmall" android:text="Card View Content" />
+		<TextView style="@style/jdroid_cardViewTitle" android:text="@string/cardViewTitle" />
+		<TextView style="@style/jdroid_textSmall" android:text="@string/cardViewContent" />
 	</LinearLayout>
 
 </android.support.v7.widget.CardView>

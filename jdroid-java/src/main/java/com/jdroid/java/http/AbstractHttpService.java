@@ -110,7 +110,7 @@ public abstract class AbstractHttpService implements HttpService {
 				if (inputStream != null) {
 					return (T)parser.parse(inputStream);
 				} else {
-					throw new UnexpectedException("The web service was expecting a response, but it was null");
+					throw new UnexpectedException("The http service was expecting a response, but it was null");
 				}
 			}
 			return null;
@@ -182,9 +182,6 @@ public abstract class AbstractHttpService implements HttpService {
 		return userAgent;
 	}
 
-	/**
-	 * @see HttpService#getUrl()
-	 */
 	@Override
 	public String getUrl() {
 		StringBuilder builder = new StringBuilder();
@@ -195,9 +192,6 @@ public abstract class AbstractHttpService implements HttpService {
 		return builder.toString();
 	}
 
-	/**
-	 * @see HttpService#getUrlSuffix()
-	 */
 	@Override
 	public String getUrlSuffix() {
 		StringBuilder builder = new StringBuilder();
@@ -225,17 +219,11 @@ public abstract class AbstractHttpService implements HttpService {
 		return params.toString();
 	}
 
-	/**
-	 * @see HttpService#addQueryParameter(java.lang.String, java.util.Collection)
-	 */
 	@Override
 	public void addQueryParameter(String name, Collection<?> values) {
 		addQueryParameter(name, StringUtils.join(values));
 	}
 
-	/**
-	 * @see HttpService#addQueryParameter(java.lang.String, java.lang.Object)
-	 */
 	@Override
 	public void addQueryParameter(String name, Object value) {
 		if (value != null) {
@@ -254,9 +242,6 @@ public abstract class AbstractHttpService implements HttpService {
 		return server;
 	}
 
-	/**
-	 * @see HttpService#addUrlSegment(java.lang.Object)
-	 */
 	@Override
 	public void addUrlSegment(Object segment) {
 		String segmentString = segment.toString();
@@ -279,9 +264,6 @@ public abstract class AbstractHttpService implements HttpService {
 		return headers.get(key);
 	}
 
-	/**
-	 * @see HttpService#addHeader(java.lang.String, java.lang.String)
-	 */
 	@Override
 	public void addHeader(String name, String value) {
 		if (value != null) {
@@ -289,18 +271,12 @@ public abstract class AbstractHttpService implements HttpService {
 		}
 	}
 
-	/**
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return getClass().getSimpleName() + " - " + server.getBaseUrl();
 	}
 
 
-	/**
-	 * @see HttpService#addHttpServiceProcessor(HttpServiceProcessor)
-	 */
 	@Override
 	public void addHttpServiceProcessor(HttpServiceProcessor httpServiceProcessor) {
 		httpServiceProcessors.add(httpServiceProcessor);

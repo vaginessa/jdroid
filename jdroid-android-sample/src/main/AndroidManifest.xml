@@ -264,6 +264,105 @@
 			</intent-filter>
 		</activity>
 
+		<activity android:name="com.jdroid.android.sample.ui.uri.MatchErrorActivity" android:label="@string/matchError"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="http" android:host="jdroidframework.com" android:pathPrefix="/uri/matchError" />
+				<data android:scheme="https" android:host="jdroidframework.com" android:pathPrefix="/uri/matchError" />
+			</intent-filter>
+		</activity>
+
+		<activity android:name="com.jdroid.android.sample.ui.uri.MainIntentErrorActivity" android:label="@string/mainIntentError"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="http" android:host="jdroidframework.com" android:pathPrefix="/uri/mainIntentError" />
+				<data android:scheme="https" android:host="jdroidframework.com" android:pathPrefix="/uri/mainIntentError" />
+			</intent-filter>
+		</activity>
+
+		<activity android:name="com.jdroid.android.sample.ui.uri.DefaulItntentErrorActivity" android:label="@string/defaultIntentError"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="http" android:host="jdroidframework.com" android:pathPrefix="/uri/defaultIntentError" />
+				<data android:scheme="https" android:host="jdroidframework.com" android:pathPrefix="/uri/defaultIntentError" />
+			</intent-filter>
+		</activity>
+
+		<activity android:name="com.jdroid.android.sample.ui.uri.MatchNewActivity" android:label="@string/matchNewActivity"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="http" android:host="jdroidframework.com" android:pathPrefix="/uri/matchNewActivity" />
+				<data android:scheme="https" android:host="jdroidframework.com" android:pathPrefix="/uri/matchNewActivity" />
+			</intent-filter>
+		</activity>
+
+		<activity android:name="com.jdroid.android.sample.ui.uri.NoMatchNewActivity" android:label="@string/noMatchNewActivity"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="http" android:host="jdroidframework.com" android:pathPrefix="/uri/noMatchNewActivity" />
+				<data android:scheme="https" android:host="jdroidframework.com" android:pathPrefix="/uri/noMatchNewActivity" />
+			</intent-filter>
+		</activity>
+
+		<activity android:name="com.jdroid.android.sample.ui.uri.MatchSameActivity" android:label="@string/matchSameActivity"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="http" android:host="jdroidframework.com" android:pathPrefix="/uri/matchSameActivity" />
+				<data android:scheme="https" android:host="jdroidframework.com" android:pathPrefix="/uri/matchSameActivity" />
+			</intent-filter>
+		</activity>
+
+		<activity android:name="com.jdroid.android.sample.ui.uri.NoMatchSameActivity" android:label="@string/noMatchSameActivity"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="http" android:host="jdroidframework.com" android:pathPrefix="/uri/noMatchSameActivity" />
+				<data android:scheme="https" android:host="jdroidframework.com" android:pathPrefix="/uri/noMatchSameActivity" />
+			</intent-filter>
+		</activity>
+
+		<activity android:name="com.jdroid.android.sample.ui.uri.MatchNullIntentActivity" android:label="@string/matchNullIntent"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="http" android:host="jdroidframework.com" android:pathPrefix="/uri/matchNullIntent" />
+				<data android:scheme="https" android:host="jdroidframework.com" android:pathPrefix="/uri/matchNullIntent" />
+			</intent-filter>
+		</activity>
+
+		<activity android:name="com.jdroid.android.sample.ui.uri.NoMatchNullIntentActivity" android:label="@string/noMatchNullIntent"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="http" android:host="jdroidframework.com" android:pathPrefix="/uri/noMatchNullIntent" />
+				<data android:scheme="https" android:host="jdroidframework.com" android:pathPrefix="/uri/noMatchNullIntent" />
+			</intent-filter>
+		</activity>
+
 		<!-- Use Cases -->
 
 		<activity android:name="com.jdroid.android.sample.ui.usecases.UseCasesActivity" android:label="@string/useCases"

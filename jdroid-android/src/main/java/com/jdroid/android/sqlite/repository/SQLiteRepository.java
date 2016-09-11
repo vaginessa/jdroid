@@ -206,7 +206,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	@Override
 	public List<T> findByField(String fieldName, Object... values) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		String selection = null;
+		String selection;
 		String[] selectionArgs = null;
 		if ((values != null) && (values.length > 0)) {
 			selectionArgs = new String[values.length];
@@ -340,7 +340,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		boolean endTransaction = beginTransaction(db);
 		try {
 			ContentValues values = createContentValuesFromObject(item);
-			db.update(getTableName(), values, getIdColumnName() + "=?", new String[]{item.getId().toString()});
+			db.update(getTableName(), values, getIdColumnName() + "=?", new String[]{item.getId()});
 			onUpdated(item);
 			LOGGER.trace("Updated object in database: " + item);
 			successTransaction(db, endTransaction);
@@ -462,7 +462,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		boolean endTransaction = beginTransaction(db);
 		try {
-			db.delete(getTableName(), getParentIdColumnName() + "=?", new String[] { parentId.toString() });
+			db.delete(getTableName(), getParentIdColumnName() + "=?", new String[] { parentId });
 			addAll(list);
 			LOGGER.trace("Replaced children of parent " + parentId + " and type " + getTableName());
 			successTransaction(db, endTransaction);

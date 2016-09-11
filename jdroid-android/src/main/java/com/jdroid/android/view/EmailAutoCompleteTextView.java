@@ -45,17 +45,11 @@ public class EmailAutoCompleteTextView extends AutoCompleteTextView {
 		}
 	}
 	
-	/**
-	 * @see android.widget.AutoCompleteTextView#enoughToFilter()
-	 */
 	@Override
 	public boolean enoughToFilter() {
 		return true;
 	}
 	
-	/**
-	 * @see android.widget.AutoCompleteTextView#onFocusChanged(boolean, int, android.graphics.Rect)
-	 */
 	@Override
 	protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
 		super.onFocusChanged(focused, direction, previouslyFocusedRect);

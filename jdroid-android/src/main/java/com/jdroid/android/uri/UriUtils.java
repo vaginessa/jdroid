@@ -18,7 +18,7 @@ public class UriUtils {
 	private static String RANDOM_PARAMETER = "rnd";
 
 	public static Intent createIntent(Context context, String url, String referrer) {
-		Intent intent = null;
+		Intent intent;
 		if (url != null) {
 			intent = new Intent();
 			intent.putExtra(ORIGINAL_URI, url);

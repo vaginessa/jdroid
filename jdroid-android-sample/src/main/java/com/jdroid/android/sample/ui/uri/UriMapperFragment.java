@@ -33,5 +33,77 @@ public class UriMapperFragment extends AbstractFragment {
 
 			}
 		});
+
+		findView(R.id.matchError).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				ActivityLauncher.launchActivity(MatchErrorActivity.class);
+
+			}
+		});
+
+		findView(R.id.mainIntentError).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				ActivityLauncher.launchActivity(MainIntentErrorActivity.class);
+
+			}
+		});
+
+		findView(R.id.defaultIntentError).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				ActivityLauncher.launchActivity(DefaulItntentErrorActivity.class);
+
+			}
+		});
+
+		findView(R.id.matchNewActivity).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				ActivityLauncher.launchActivity(MatchNewActivity.class);
+
+			}
+		});
+
+		findView(R.id.noMatchNewActivity).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				ActivityLauncher.launchActivity(NoMatchNewActivity.class);
+
+			}
+		});
+
+		findView(R.id.matchSameActivity).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				ActivityLauncher.launchActivity(MatchSameActivity.class);
+
+			}
+		});
+
+		findView(R.id.noMatchSameActivity).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				ActivityLauncher.launchActivity(NoMatchSameActivity.class);
+
+			}
+		});
+
+		findView(R.id.matchNullIntent).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				ActivityLauncher.launchActivity(MatchNullIntentActivity.class);
+
+			}
+		});
+
+		findView(R.id.noMatchNullIntent).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				ActivityLauncher.launchActivity(NoMatchNullIntentActivity.class);
+
+			}
+		});
 	}
 }

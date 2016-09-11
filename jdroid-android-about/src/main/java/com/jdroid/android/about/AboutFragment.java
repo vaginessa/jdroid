@@ -32,7 +32,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 		super.onCreate(savedInstanceState);
 
 		// Header
-		aboutItems.add(new String());
+		aboutItems.add("");
 
 		final String website = getWebsite();
 		if (website != null) {
@@ -178,7 +178,6 @@ public class AboutFragment extends AbstractRecyclerFragment {
 		protected ImageView appIcon;
 		protected TextView appName;
 		protected TextView version;
-		protected TextView copyright;
 
 		public HeaderItemHolder(View itemView) {
 			super(itemView);
