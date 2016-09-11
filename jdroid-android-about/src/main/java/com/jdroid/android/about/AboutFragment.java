@@ -178,7 +178,6 @@ public class AboutFragment extends AbstractRecyclerFragment {
 		protected ImageView appIcon;
 		protected TextView appName;
 		protected TextView version;
-		protected TextView copyright;
 
 		public HeaderItemHolder(View itemView) {
 			super(itemView);
