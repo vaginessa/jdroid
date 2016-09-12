@@ -36,10 +36,6 @@ public class AndroidAppContext extends AppContext {
 		return "jdroidframework";
 	}
 
-	public String getFirebaseUrl() {
-		return BuildConfig.FIREBASE_URL;
-	}
-
 	public String getFirebaseAuthToken() {
 		return BuildConfig.FIREBASE_AUTH_TOKEN;
 	}
