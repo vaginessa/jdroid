@@ -13,7 +13,7 @@ public class NoMatchSameActivityUriHandler extends AbstractUriHandler {
 	}
 
 	@Override
-	public Intent createMainIntent(Context context, Uri uri) {
+	public Intent createDefaultIntent(Context context, Uri uri) {
 		return new Intent(context, NoMatchSameActivity.class);
 	}
 }
