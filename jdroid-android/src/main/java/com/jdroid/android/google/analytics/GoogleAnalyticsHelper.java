@@ -102,26 +102,18 @@ public class GoogleAnalyticsHelper {
 	}
 
 	public void trackTiming(String category, String variable, String label, long value) {
-		// Avoid timing trackings when the app is in background to avoid session times data corruption.
-		// TODO Improve this to track timings 30 seconds after of the last onResume,
-		// so we don´t lose the tracking when an use case finish in background
-		if (!(ignoreBackgroundTimingTrackings() && AbstractApplication.get().isInBackground())) {
-			HitBuilders.TimingBuilder timingBuilder = new HitBuilders.TimingBuilder();
-			timingBuilder.setCategory(category);
-			timingBuilder.setVariable(variable);
-			timingBuilder.setLabel(label);
-			timingBuilder.setValue(value);
+		HitBuilders.TimingBuilder timingBuilder = new HitBuilders.TimingBuilder();
+		timingBuilder.setCategory(category);
+		timingBuilder.setVariable(variable);
+		timingBuilder.setLabel(label);
+		timingBuilder.setValue(value);
+		timingBuilder.setNonInteraction(true);
 
-			addCustomDimension(timingBuilder, commonCustomDimensionsValues);
+		addCustomDimension(timingBuilder, commonCustomDimensionsValues);
 
-			tracker.send(timingBuilder.build());
-			LOGGER.debug("Timing sent. Category [" + category + "] Variable [" + variable + "] Label [" + label
-					+ "] Value [" + value + "]");
-		}
-	}
-
-	protected Boolean ignoreBackgroundTimingTrackings() {
-		return true;
+		tracker.send(timingBuilder.build());
+		LOGGER.debug("Timing sent. Category [" + category + "] Variable [" + variable + "] Label [" + label
+				+ "] Value [" + value + "]");
 	}
 
 	protected void addCustomDimension(HitBuilders.ScreenViewBuilder screenViewBuilder, GoogleAnalyticsTracker.CustomDimension customDimension, String dimension) {

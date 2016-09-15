@@ -155,12 +155,12 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 	}
 	
 	@Override
-	public void trackUriOpened(final String screenName) {
+	public void trackUriOpened(final String screenName, final String referrer) {
 		ExecutorUtils.execute(new TrackerRunnable() {
 			
 			@Override
 			protected void track(T tracker) {
-				tracker.trackUriOpened(screenName);
+				tracker.trackUriOpened(screenName, referrer);
 			}
 		});
 	}

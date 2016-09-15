@@ -59,11 +59,8 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		synchronized (GoogleAnalyticsTracker.class) {
 			
 			HitBuilders.ScreenViewBuilder screenViewBuilder = new HitBuilders.ScreenViewBuilder();
-			if (referrer != null) {
-				googleAnalyticsHelper.addCommonCustomDimension(CustomDimension.REFERRER.name(), referrer);
-			} else if (!googleAnalyticsHelper.hasCommonCustomDimension(CustomDimension.REFERRER.name())) {
-				googleAnalyticsHelper.addCommonCustomDimension(CustomDimension.REFERRER.name(), "normal");
-			}
+			initReferrerCustomDimension(referrer);
+
 
 			if (!firstTrackingSent) {
 				googleAnalyticsHelper.addCustomDimension(screenViewBuilder, CustomDimension.DEVICE_YEAR_CLASS, DeviceUtils.getDeviceYearClass().toString());
@@ -94,6 +91,14 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	
 	protected void onActivityStartTrack(HitBuilders.ScreenViewBuilder screenViewBuilder, Object data) {
 		// Do nothing
+	}
+
+	private void initReferrerCustomDimension(String referrer) {
+		if (referrer != null) {
+			googleAnalyticsHelper.addCommonCustomDimension(CustomDimension.REFERRER.name(), referrer);
+		} else if (!googleAnalyticsHelper.hasCommonCustomDimension(CustomDimension.REFERRER.name())) {
+			googleAnalyticsHelper.addCommonCustomDimension(CustomDimension.REFERRER.name(), "normal");
+		}
 	}
 	
 	@Override
@@ -140,7 +145,8 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	}
 
 	@Override
-	public void trackUriOpened(String screenName) {
+	public void trackUriOpened(String screenName, String referrer) {
+		initReferrerCustomDimension(referrer);
 		googleAnalyticsHelper.sendEvent("uri", "open", screenName);
 	}
 
@@ -181,6 +187,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		String description = new StandardExceptionParser(AbstractApplication.get(), null).getDescription(Thread.currentThread().getName(), throwable);
 		builder.setDescription(description);
 		builder.setFatal(true);
+		builder.setNonInteraction(true);
 		googleAnalyticsHelper.getTracker().send(builder.build());
 		googleAnalyticsHelper.dispatchLocalHits();
 		LOGGER.debug("Fatal exception sent. Description [" + description + "]");
@@ -192,6 +199,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		String description = new StandardExceptionParser(AbstractApplication.get(), null).getDescription(Thread.currentThread().getName(), throwable);
 		builder.setDescription(description);
 		builder.setFatal(false);
+		builder.setNonInteraction(true);
 		googleAnalyticsHelper.getTracker().send(builder.build());
 		LOGGER.debug("Non fatal exception sent. Description [" + description + "]");
 	}
