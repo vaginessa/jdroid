@@ -58,7 +58,7 @@ public interface AnalyticsTracker extends BaseAnalyticsTracker {
 
 	// More
 
-	public void trackUriOpened(String screenName);
+	public void trackUriOpened(String screenName, String referrer);
 
 	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget);
 
