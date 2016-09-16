@@ -10,13 +10,10 @@
 
 	<EditText android:id="@+id/contentText" android:layout_width="match_parent" android:layout_height="wrap_content"/>
 
-	<Button android:id="@+id/sendNotification" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:text="@string/sendNotification" />
-
 	<EditText android:id="@+id/url" android:layout_width="match_parent" android:layout_height="wrap_content"/>
 
-	<Button android:id="@+id/sendNotificationFromBundle" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:text="@string/sendNotificationFromBundle" />
+	<Button android:id="@+id/sendNotification" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:text="@string/sendNotification" />
 
 	<Button android:id="@+id/cancelNotifications" android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:text="@string/cancelNotifications" />

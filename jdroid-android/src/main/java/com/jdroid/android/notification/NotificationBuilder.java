@@ -22,37 +22,20 @@ import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.android.utils.ReferrerUtils;
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.utils.NumberUtils;
 import com.jdroid.java.utils.RandomUtils;
 import com.jdroid.java.utils.StringUtils;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
-import java.util.Map;
-
 public class NotificationBuilder {
-
-	public static final String TICKER = "ticker";
-	public static final String CONTENT_TITLE = "contentTitle";
-	public static final String CONTENT_TEXT = "contentText";
-	public static final String SOUND_ENABLED = "soundEnabled";
-	public static final String VIBRATION_ENABLED = "vibrationEnabled";
-	public static final String LIGHT_ENABLED = "lightEnabled";
-	public static final String URL = "url";
 
 	public static final String NOTIFICATION_NAME = "notificationName";
 	public static String NOTIFICATION_URI = "notification://";
 
 	private String notificationName;
 
-	private Boolean isValid = true;
-
 	private NotificationCompat.Builder builder;
 	
 	public NotificationBuilder(String notificationName) {
-		this(notificationName, null);
-	}
-
-	public NotificationBuilder(String notificationName, Map<String, String> data) {
 		this.notificationName = notificationName;
 		if (notificationName == null) {
 			throw new UnexpectedException("Missing notificationName");
@@ -61,45 +44,6 @@ public class NotificationBuilder {
 		builder = new NotificationCompat.Builder(context);
 		builder.setAutoCancel(true);
 		setColor(R.color.jdroid_colorPrimary);
-		if (data != null) {
-
-			String ticker = data.get(TICKER);
-			if (StringUtils.isNotEmpty(ticker)) {
-				setTicker(ticker);
-			} else {
-				isValid = false;
-				AbstractApplication.get().getExceptionHandler().logHandledException("Missing " + TICKER + " extra for " + notificationName);
-			}
-
-			String contentTitle = data.get(CONTENT_TITLE);
-			if (StringUtils.isNotEmpty(contentTitle)) {
-				setContentTitle(contentTitle);
-			} else {
-				isValid = false;
-				AbstractApplication.get().getExceptionHandler().logHandledException("Missing " + CONTENT_TITLE + " extra for " + notificationName);
-			}
-
-			String contentText = data.get(CONTENT_TEXT);
-			if (StringUtils.isNotEmpty(contentText)) {
-				setContentText(contentText);
-			} else {
-				isValid = false;
-				AbstractApplication.get().getExceptionHandler().logHandledException("Missing " + CONTENT_TEXT + " extra for " + notificationName);
-			}
-
-			if (NumberUtils.getBoolean(data.get(SOUND_ENABLED), false)) {
-				setDefaultSound();
-			}
-			if (NumberUtils.getBoolean(data.get(VIBRATION_ENABLED), false)) {
-				setDefaultVibration();
-			}
-			if (NumberUtils.getBoolean(data.get(LIGHT_ENABLED), false)) {
-				setWhiteLight();
-			}
-
-			String url = data.get(URL);
-			setContentIntentSingleTop(UriUtils.createIntent(context, url, generateNotificationsReferrer()));
-		}
 	}
 
 	public NotificationCompat.Builder getNotificationCompatBuilder() {
@@ -107,7 +51,7 @@ public class NotificationBuilder {
 	}
 	
 	public Notification build() {
-		return isValid ? builder.build() : null;
+		return builder.build();
 	}
 
 	public void setSmallIcon(@DrawableRes int icon) {
@@ -175,6 +119,12 @@ public class NotificationBuilder {
 
 		builder.setContentIntent(PendingIntent.getActivity(AbstractApplication.get(), RandomUtils.get16BitsInt(),
 				notificationIntent, 0));
+	}
+
+	public void setUrl(String url) {
+		if (StringUtils.isNotEmpty(url)) {
+			setContentIntentSingleTop(UriUtils.createIntent(AbstractApplication.get(), url, generateNotificationsReferrer()));
+		}
 	}
 
 	public static String generateNotificationsReferrer() {

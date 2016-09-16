@@ -14,7 +14,26 @@ public class FcmListenerResolver {
 	 * Called when message is received.
 	 */
 	public void onMessageReceived(RemoteMessage remoteMessage) {
-		LOGGER.info("Message received from : " + remoteMessage.getFrom() + ", with data: " + remoteMessage.getData());
+
+		if (LoggerUtils.isEnabled()) {
+			StringBuilder builder = new StringBuilder();
+			builder.append("Message received. ");
+			builder.append("from: ");
+			builder.append(remoteMessage.getFrom());
+
+			if (remoteMessage.getMessageType() != null ) {
+				builder.append(", ");
+				builder.append("message type: ");
+				builder.append(remoteMessage.getMessageType());
+			}
+
+			if (remoteMessage.getData() != null & !remoteMessage.getData().isEmpty()) {
+				builder.append(", ");
+				builder.append("data: ");
+				builder.append(remoteMessage.getData());
+			}
+			LOGGER.info(builder.toString());
+		}
 
 		FcmMessageResolver fcmResolver = AbstractFcmAppModule.get().getFcmMessageResolver(remoteMessage.getFrom());
 		if (fcmResolver != null) {

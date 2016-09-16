@@ -109,7 +109,6 @@
 	<!-- Notifications -->
 	<string name="notifications">Notifications</string>
 	<string name="sendNotification">Send Notification</string>
-	<string name="sendNotificationFromBundle">Send Notification from Bundle</string>
 	<string name="cancelNotifications">Cancel Notifications</string>
 
 	<!-- Toasts -->

@@ -10,12 +10,10 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.collections.Maps;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.IdGenerator;
 
 import java.util.List;
-import java.util.Map;
 
 public class NotificationsDebugPrefsAppender extends PreferencesAppender {
 
@@ -40,13 +38,11 @@ public class NotificationsDebugPrefsAppender extends PreferencesAppender {
 
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
-					Map<String, String> data = Maps.newHashMap();
-					data.put(NotificationBuilder.TICKER, "Sample Ticker");
-					data.put(NotificationBuilder.CONTENT_TITLE, "Sample Content Title");
-					data.put(NotificationBuilder.CONTENT_TEXT, url);
-					data.put(NotificationBuilder.URL, url);
-
-					NotificationBuilder builder = new NotificationBuilder("notificationFromBundle", data);
+					NotificationBuilder builder = new NotificationBuilder("notificationFromBundle");
+					builder.setTicker("Sample Ticker");
+					builder.setContentTitle("Sample Content Title");
+					builder.setContentText(url);
+					builder.setUrl(url);
 					builder.setSmallIcon(AbstractApplication.get().getLauncherIconResId());
 					builder.setWhen(DateUtils.nowMillis());
 
