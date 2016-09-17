@@ -1,10 +1,10 @@
 package com.jdroid.android.firebase.remoteconfig;
 
-import java.util.Map;
+import java.util.List;
 
 public class FirebaseRemoteConfigAppContext {
 
-	public Map<String, Object> getRemoteConfigDefaults() {
+	public List<RemoteConfigParameter> getRemoteConfigParameters() {
 		return null;
 	}
 }

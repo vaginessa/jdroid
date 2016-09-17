@@ -17,7 +17,6 @@ import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.crashlytics.CrashlyticsAppModule;
 import com.jdroid.android.debug.DebugContext;
-import com.jdroid.android.experiments.ExperimentHelper;
 import com.jdroid.android.facebook.FacebookAppModule;
 import com.jdroid.android.firebase.FirebaseAppModule;
 import com.jdroid.android.firebase.fcm.AbstractFcmAppModule;
@@ -35,7 +34,6 @@ import com.jdroid.android.sample.analytics.AppAnalyticsSender;
 import com.jdroid.android.sample.analytics.AppAnalyticsTracker;
 import com.jdroid.android.sample.debug.AndroidDebugContext;
 import com.jdroid.android.sample.exception.AndroidCrashlyticsAppModule;
-import com.jdroid.android.sample.experiment.AndroidExperiment;
 import com.jdroid.android.sample.fcm.AndroidFcmAppModule;
 import com.jdroid.android.sample.repository.UserRepositoryImpl;
 import com.jdroid.android.sample.ui.AndroidActivityHelper;
@@ -66,8 +64,6 @@ public class AndroidApplication extends AbstractApplication {
 		super.onCreate();
 
 		getUriMapper().addUriWatcher(new SampleUriWatcher());
-
-		ExperimentHelper.registerExperiments(AndroidExperiment.SAMPLE_EXPERIMENT);
 
 		Firebase.setAndroidContext(this);
 

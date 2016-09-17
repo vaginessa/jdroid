@@ -1,18 +1,16 @@
 package com.jdroid.android.sample.ui.firebase.remoteconfig;
 
 import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigAppContext;
-import com.jdroid.java.collections.Maps;
+import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
+import com.jdroid.android.sample.experiment.AndroidRemoteConfigParameter;
+import com.jdroid.java.collections.Lists;
 
-import java.util.Map;
+import java.util.List;
 
 public class AndroidFirebaseRemoteConfigAppContext extends FirebaseRemoteConfigAppContext {
 
 	@Override
-	public Map<String, Object> getRemoteConfigDefaults() {
-		Map<String, Object> defaults = Maps.newHashMap();
-		defaults.put("sampleConfig1", "defaultConfigValue1");
-		defaults.put("sampleConfig2", "defaultConfigValue2");
-		defaults.put("sampleConfig3", "defaultConfigValue3");
-		return defaults;
+	public List<RemoteConfigParameter> getRemoteConfigParameters() {
+		return Lists.<RemoteConfigParameter>newArrayList(AndroidRemoteConfigParameter.values());
 	}
 }

@@ -4,7 +4,7 @@ import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.concurrent.ExecutorUtils;
 
-import java.util.Map;
+import java.util.List;
 
 public class FirebaseRemoteConfigAppModule extends AbstractAppModule {
 
@@ -32,12 +32,12 @@ public class FirebaseRemoteConfigAppModule extends AbstractAppModule {
 	public void onCreate() {
 		super.onCreate();
 
-		final Map<String, Object> defaults = firebaseRemoteConfigAppContext.getRemoteConfigDefaults();
-		if (defaults != null) {
+		final List<RemoteConfigParameter> remoteConfigParameters = firebaseRemoteConfigAppContext.getRemoteConfigParameters();
+		if (remoteConfigParameters != null) {
 			ExecutorUtils.execute(new Runnable() {
 				@Override
 				public void run() {
-					FirebaseRemoteConfigHelper.init(defaults);
+					FirebaseRemoteConfigHelper.init(remoteConfigParameters);
 				}
 			});
 		}

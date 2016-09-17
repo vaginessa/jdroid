@@ -7,9 +7,6 @@ import com.google.android.gms.analytics.HitBuilders.SocialBuilder;
 import com.google.android.gms.analytics.StandardExceptionParser;
 import com.jdroid.android.analytics.AbstractAnalyticsTracker;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.experiments.ExperimentHelper;
-import com.jdroid.android.experiments.ExperimentHelper.Experiment;
-import com.jdroid.android.experiments.ExperimentHelper.ExperimentVariant;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.usecase.AbstractUseCase;
@@ -19,7 +16,6 @@ import com.jdroid.java.utils.LoggerUtils;
 import org.slf4j.Logger;
 
 import java.util.List;
-import java.util.Map.Entry;
 
 public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	
@@ -65,12 +61,6 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 			if (!firstTrackingSent) {
 				googleAnalyticsHelper.addCustomDimension(screenViewBuilder, CustomDimension.DEVICE_YEAR_CLASS, DeviceUtils.getDeviceYearClass().toString());
 				googleAnalyticsHelper.addCustomDimension(screenViewBuilder, CustomDimension.DEVICE_TYPE, DeviceUtils.getDeviceType());
-				
-				for (Entry<Experiment, ExperimentVariant> entry : ExperimentHelper.getExperimentsMap().entrySet()) {
-					Experiment experiment = entry.getKey();
-					ExperimentVariant experimentVariant = entry.getValue();
-					googleAnalyticsHelper.sendEvent("abTesting", "load", experiment.getId() + "-" + experimentVariant.getId());
-				}
 				
 				String installationSource = AbstractApplication.get().getInstallationSource();
 				if (installationSource != null) {

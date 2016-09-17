@@ -27,7 +27,6 @@ public class DebugSettingsFragment extends AbstractRecyclerFragment {
 		addAppender(appenders, debugContext.createServersDebugPrefsAppender());
 		addAppender(appenders, debugContext.createHttpMocksDebugPrefsAppender());
 		addAppender(appenders, debugContext.createNavDrawerDebugPrefsAppender());
-		addAppender(appenders, debugContext.createExperimentsDebugPrefsAppender());
 		addAppender(appenders, debugContext.createDatabaseDebugPrefsAppender());
 		addAppender(appenders, debugContext.createLogsDebugPrefsAppender());
 		addAppender(appenders, debugContext.createImageLoaderDebugPrefsAppender());

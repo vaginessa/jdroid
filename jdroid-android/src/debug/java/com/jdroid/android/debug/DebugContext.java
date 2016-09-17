@@ -88,10 +88,6 @@ public class DebugContext {
 		return new LogsDebugPrefsAppender();
 	}
 	
-	public ExperimentsDebugPrefsAppender createExperimentsDebugPrefsAppender() {
-		return new ExperimentsDebugPrefsAppender();
-	}
-	
 	public NavDrawerDebugPrefsAppender createNavDrawerDebugPrefsAppender() {
 		return new NavDrawerDebugPrefsAppender();
 	}

@@ -37,11 +37,6 @@
 	<string name="jdroid_navDrawerManuallyUsedTitle" tools:ignore="MissingTranslation">Nav drawer manually used</string>
 	<string name="jdroid_navDrawerManuallyUsedDescription" tools:ignore="MissingTranslation">Whether the user actively expanded or closed the navigation drawer manually</string>
 
-	<!-- Experiments -->
-	<string name="jdroid_experimentsSettings" tools:ignore="MissingTranslation">Experiments</string>
-	<string name="jdroid_experimentTitle" tools:ignore="MissingTranslation">Experiment id: %1$s</string>
-	<string name="jdroid_experimentDescription" tools:ignore="MissingTranslation">Pick the experiment variant</string>
-
 	<!-- Database -->
 	<string name="jdroid_database" tools:ignore="MissingTranslation">Database</string>
 	<string name="jdroid_downloadDatabase" tools:ignore="MissingTranslation">Download database</string>
