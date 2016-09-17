@@ -302,21 +302,7 @@ public class ActivityHelper implements ActivityIf {
 		}
 	}
 
-	public void onStop() {
-		LOGGER.debug("Executing onStop on " + activity);
-
-		UsageStats.setLastStopTime();
-		ToastUtils.cancelCurrentToast();
-		AbstractApplication.get().getAnalyticsSender().onActivityStop(activity);
-
-		if (locationHandler != null) {
-			locationHandler.removeCallbacksAndMessages(null);
-		}
-
-		for (ActivityDelegate each : activityDelegatesMap.values()) {
-			each.onStop();
-		}
-
+	public void onBeforeStop() {
 		if (googleApiClient != null && appIndexingAction != null) {
 			googleApiClient.disconnect();
 			PendingResult<Status> result = AppIndex.AppIndexApi.end(googleApiClient, appIndexingAction);
@@ -330,6 +316,22 @@ public class ActivityHelper implements ActivityIf {
 					}
 				}
 			});
+		}
+	}
+
+	public void onStop() {
+		LOGGER.debug("Executing onStop on " + activity);
+
+		UsageStats.setLastStopTime();
+		ToastUtils.cancelCurrentToast();
+		AbstractApplication.get().getAnalyticsSender().onActivityStop(activity);
+
+		if (locationHandler != null) {
+			locationHandler.removeCallbacksAndMessages(null);
+		}
+
+		for (ActivityDelegate each : activityDelegatesMap.values()) {
+			each.onStop();
 		}
 	}
 

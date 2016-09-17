@@ -80,6 +80,7 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	
 	@Override
 	protected void onStop() {
+		activityHelper.onBeforeStop();
 		super.onStop();
 		activityHelper.onStop();
 	}
