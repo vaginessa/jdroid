@@ -46,13 +46,16 @@
 	<string name="defaultErrorDisplayerNotGoBack">Default Error Displayer (Not go back on error)</string>
 	<string name="snackbarErrorDisplayer">Snackbar Error Displayer</string>
 
-	<!-- Firebase -->
+	<!-- Firebase Database -->
 	<string name="firebaseDatabase">Firebase Database</string>
-	<string name="firebaseRemoteConfig">Firebase Remote Config</string>
 	<string name="firebaseCreate">Create</string>
 	<string name="firebaseUpdate">Update</string>
 	<string name="firebaseGetAll">Get All</string>
 	<string name="firebaseRemove">Remove</string>
+
+	<!-- Firebase Remote Config -->
+	<string name="firebaseRemoteConfig">Firebase Remote Config</string>
+	<string name="firebaseRemoteConfigFetchNow">Fetch Now</string>
 
 	<!-- Google Analytics -->
 	<string name="googleAnalytics">Google Analytics</string>
