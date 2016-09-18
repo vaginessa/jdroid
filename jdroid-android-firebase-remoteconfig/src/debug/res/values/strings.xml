@@ -2,6 +2,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
 	<string name="jdroid_firebaseRemoteConfigSettings">Firebase Remote Config</string>
-	<string name="firebaseRemoteConfigFetchNow">Fetch Now</string>
+	<string name="jdroid_firebaseRemoteConfigFetchNow">Fetch Now</string>
 
 </resources>

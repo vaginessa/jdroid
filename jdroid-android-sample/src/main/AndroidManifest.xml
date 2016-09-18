@@ -79,7 +79,7 @@
 
 		<!-- Analytics -->
 
-		<activity android:name="com.jdroid.android.sample.ui.analytics.AnalyticsActivity" android:label="@string/googleAnalytics"
+		<activity android:name="com.jdroid.android.sample.ui.analytics.AnalyticsActivity" android:label="@string/analytics"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<!-- Hero -->

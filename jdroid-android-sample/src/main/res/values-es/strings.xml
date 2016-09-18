@@ -53,8 +53,8 @@
 	<string name="firebaseGetAll">Get All</string>
 	<string name="firebaseRemove">Remove</string>
 
-	<!-- Google Analytics -->
-	<string name="googleAnalytics">Google Analytics</string>
+	<!-- Analytics -->
+	<string name="analytics">Analytics</string>
 	<string name="sendExampleEvent">Send Example Event</string>
 	<string name="sendExampleTransaction">Send Example Transaction</string>
 	<string name="sendExampleTiming">Send Example Timing</string>

@@ -6,7 +6,6 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceGroup;
 
 import com.jdroid.android.activity.ActivityLauncher;
-import com.jdroid.android.debug.DebugInfoActivity;
 import com.jdroid.android.debug.PreferencesAppender;
 
 public class FirebaseRemoteConfigPrefsAppender extends PreferencesAppender {

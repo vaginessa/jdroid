@@ -40,6 +40,7 @@ import com.jdroid.android.utils.ScreenUtils;
 public enum HomeItem implements ActionItem {
 	
 	ADMOB(R.string.adMob, R.drawable.ic_admob, AdsActivity.class),
+	ANALYTCS(R.string.googleAnalytics, R.drawable.ic_analytics, AnalyticsActivity.class),
 	APP_INVITE(R.string.appInvite, R.drawable.ic_admob, AppInviteActivity.class),
 	CARD_VIEW(R.string.cardView, R.drawable.ic_cardview, CardViewActivity.class),
 	DATE_TIME(R.string.dateTime, R.drawable.ic_date_time, DateTimeActivity.class),
@@ -48,7 +49,6 @@ public enum HomeItem implements ActionItem {
 	FACEBOOK(R.string.jdroid_facebook, R.drawable.ic_firebase, FacebookSignInActivity.class),
 	FIREBASE_DATABASE(R.string.firebaseDatabase, R.drawable.ic_firebase, FirebaseDatabaseActivity.class),
 	FIREBASE_FCM(R.string.fcm, R.drawable.ic_fcm, FcmActivity.class),
-	GOOGLE_ANALYTCS(R.string.googleAnalytics, R.drawable.ic_analytics, AnalyticsActivity.class),
 	GOOGLE_MAPS(R.string.googleMaps, R.drawable.ic_maps, MapActivity.class),
 	GOOGLE_PLAY_SERVICES(R.string.googlePlayServices, R.drawable.ic_fcm, GooglePlayServicesActivity.class),
 	GOOGLE_SIGN_IN(R.string.jdroid_googleSignIn, R.drawable.ic_sign_in_24dp, GoogleSignInActivity.class),
