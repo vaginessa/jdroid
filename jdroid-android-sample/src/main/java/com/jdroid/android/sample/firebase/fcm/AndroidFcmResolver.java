@@ -1,4 +1,4 @@
-package com.jdroid.android.sample.fcm;
+package com.jdroid.android.sample.firebase.fcm;
 
 
 import com.jdroid.android.firebase.fcm.AbstractFcmMessageResolver;

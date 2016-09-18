@@ -1,4 +1,4 @@
-package com.jdroid.android.sample.ui.firebase.remoteconfig;
+package com.jdroid.android.sample.firebase.remoteconfig;
 
 import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigAppContext;
 import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigAppModule;

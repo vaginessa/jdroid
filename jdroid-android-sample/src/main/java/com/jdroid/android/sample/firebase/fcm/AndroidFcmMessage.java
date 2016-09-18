@@ -1,4 +1,4 @@
-package com.jdroid.android.sample.fcm;
+package com.jdroid.android.sample.firebase.fcm;
 
 import com.google.firebase.messaging.RemoteMessage;
 import com.jdroid.android.application.AbstractApplication;

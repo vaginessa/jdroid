@@ -53,10 +53,6 @@
 	<string name="firebaseGetAll">Get All</string>
 	<string name="firebaseRemove">Remove</string>
 
-	<!-- Firebase Remote Config -->
-	<string name="firebaseRemoteConfig">Firebase Remote Config</string>
-	<string name="firebaseRemoteConfigFetchNow">Fetch Now</string>
-
 	<!-- Google Analytics -->
 	<string name="googleAnalytics">Google Analytics</string>
 	<string name="sendExampleEvent">Send Example Event</string>

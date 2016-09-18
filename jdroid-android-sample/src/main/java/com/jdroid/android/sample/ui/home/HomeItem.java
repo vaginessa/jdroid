@@ -16,7 +16,6 @@ import com.jdroid.android.sample.ui.fab.FabActivity;
 import com.jdroid.android.sample.ui.facebook.FacebookSignInActivity;
 import com.jdroid.android.sample.ui.firebase.database.FirebaseDatabaseActivity;
 import com.jdroid.android.sample.ui.firebase.fcm.FcmActivity;
-import com.jdroid.android.sample.ui.firebase.remoteconfig.FirebaseRemoteConfigActivity;
 import com.jdroid.android.sample.ui.google.playservices.GooglePlayServicesActivity;
 import com.jdroid.android.sample.ui.google.signin.GoogleSignInActivity;
 import com.jdroid.android.sample.ui.hero.HeroActivity;
@@ -49,7 +48,6 @@ public enum HomeItem implements ActionItem {
 	FACEBOOK(R.string.jdroid_facebook, R.drawable.ic_firebase, FacebookSignInActivity.class),
 	FIREBASE_DATABASE(R.string.firebaseDatabase, R.drawable.ic_firebase, FirebaseDatabaseActivity.class),
 	FIREBASE_FCM(R.string.fcm, R.drawable.ic_fcm, FcmActivity.class),
-	FIREBASE_REMOTE_CONFIG(R.string.firebaseRemoteConfig, R.drawable.ic_firebase, FirebaseRemoteConfigActivity.class),
 	GOOGLE_ANALYTCS(R.string.googleAnalytics, R.drawable.ic_analytics, AnalyticsActivity.class),
 	GOOGLE_MAPS(R.string.googleMaps, R.drawable.ic_maps, MapActivity.class),
 	GOOGLE_PLAY_SERVICES(R.string.googlePlayServices, R.drawable.ic_fcm, GooglePlayServicesActivity.class),

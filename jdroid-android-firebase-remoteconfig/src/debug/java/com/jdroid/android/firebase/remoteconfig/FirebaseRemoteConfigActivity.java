@@ -1,4 +1,4 @@
-package com.jdroid.android.sample.ui.firebase.remoteconfig;
+package com.jdroid.android.firebase.remoteconfig;
 
 import android.support.v4.app.Fragment;
 

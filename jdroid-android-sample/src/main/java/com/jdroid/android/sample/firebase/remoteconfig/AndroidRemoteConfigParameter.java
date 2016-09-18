@@ -1,4 +1,4 @@
-package com.jdroid.android.sample.experiment;
+package com.jdroid.android.sample.firebase.remoteconfig;
 
 import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
 

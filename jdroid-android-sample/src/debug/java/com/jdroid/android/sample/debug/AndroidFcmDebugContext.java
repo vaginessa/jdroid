@@ -2,7 +2,7 @@ package com.jdroid.android.sample.debug;
 
 import com.jdroid.android.firebase.fcm.FcmDebugContext;
 import com.jdroid.android.firebase.fcm.FcmMessage;
-import com.jdroid.android.sample.fcm.AndroidFcmMessage;
+import com.jdroid.android.sample.firebase.fcm.AndroidFcmMessage;
 import com.jdroid.java.collections.Maps;
 
 import java.util.Map;

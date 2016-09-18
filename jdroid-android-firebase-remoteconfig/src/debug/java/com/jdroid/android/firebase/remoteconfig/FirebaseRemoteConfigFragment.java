@@ -1,4 +1,4 @@
-package com.jdroid.android.sample.ui.firebase.remoteconfig;
+package com.jdroid.android.firebase.remoteconfig;
 
 import android.os.Bundle;
 import android.support.v4.util.Pair;
@@ -7,13 +7,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jdroid.android.debug.PairItemRecyclerViewType;
-import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigAppModule;
-import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigHelper;
-import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
 import com.jdroid.android.recycler.RecyclerViewType;
-import com.jdroid.android.sample.R;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.date.DateUtils;
 
