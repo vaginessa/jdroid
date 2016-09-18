@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.jdroid.android.application.AbstractApplication;
@@ -40,15 +41,16 @@ public class FirebaseRemoteConfigHelper {
 			firebaseRemoteConfig.setDefaults(defaults);
 		}
 
-		fetchNow();
+		fetch(0, true);
 	}
 
 	public static void fetchNow() {
-		fetch(0);
+		fetch(0, false);
 	}
 
-	public static void fetch(long cacheExpirationSeconds) {
-		firebaseRemoteConfig.fetch(cacheExpirationSeconds).addOnSuccessListener(new OnSuccessListener<Void>() {
+	public static void fetch(long cacheExpirationSeconds, final Boolean setExperimentUserProperty) {
+		Task<Void> task = firebaseRemoteConfig.fetch(cacheExpirationSeconds);
+		task.addOnSuccessListener(new OnSuccessListener<Void>() {
 			@Override
 			public void onSuccess(Void aVoid) {
 				LOGGER.debug("Firebase Remote Config fetch succeeded");
@@ -58,22 +60,25 @@ public class FirebaseRemoteConfigHelper {
 				// true if there was a Fetched Config, and it was activated. false if no Fetched Config was found, or the Fetched Config was already activated.
 				LOGGER.debug("Firebase Remote Config activate fetched result: " + result);
 
-				final List<RemoteConfigParameter> remoteConfigParameters = FirebaseRemoteConfigAppModule.get().getFirebaseRemoteConfigAppContext().getRemoteConfigParameters();
-				if (remoteConfigParameters != null) {
-					ExecutorUtils.execute(new Runnable() {
-						@Override
-						public void run() {
-							for (RemoteConfigParameter each : remoteConfigParameters) {
-								if (each.isABTestingExperiment()) {
-									String experimentVariant = FirebaseRemoteConfig.getInstance().getString(each.getKey());
-									FirebaseAppModule.get().getFirebaseAnalyticsHelper().setUserProperty(each.getKey(), experimentVariant);
+				if (setExperimentUserProperty) {
+					final List<RemoteConfigParameter> remoteConfigParameters = FirebaseRemoteConfigAppModule.get().getFirebaseRemoteConfigAppContext().getRemoteConfigParameters();
+					if (remoteConfigParameters != null) {
+						ExecutorUtils.execute(new Runnable() {
+							@Override
+							public void run() {
+								for (RemoteConfigParameter each : remoteConfigParameters) {
+									if (each.isABTestingExperiment()) {
+										String experimentVariant = FirebaseRemoteConfig.getInstance().getString(each.getKey());
+										FirebaseAppModule.get().getFirebaseAnalyticsHelper().setUserProperty(each.getKey(), experimentVariant);
+									}
 								}
 							}
-						}
-					});
+						});
+					}
 				}
 			}
-		}).addOnFailureListener(new OnFailureListener() {
+		});
+		task.addOnFailureListener(new OnFailureListener() {
 			@Override
 			public void onFailure(@NonNull Exception exception) {
 				LOGGER.debug("Firebase Remote Config fetch failed");

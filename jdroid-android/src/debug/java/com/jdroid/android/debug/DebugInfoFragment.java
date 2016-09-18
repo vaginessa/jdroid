@@ -2,16 +2,12 @@ package com.jdroid.android.debug;
 
 import android.os.Bundle;
 import android.support.v4.util.Pair;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 
-import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
-import com.jdroid.android.recycler.RecyclerViewType;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.DeviceUtils;
@@ -71,45 +67,11 @@ public class DebugInfoFragment extends AbstractRecyclerFragment {
 				filteredProperties.add(each);
 			}
 		}
-		setAdapter(new RecyclerViewAdapter(new DebugInfoRecyclerViewType(), filteredProperties));
-	}
-
-	public class DebugInfoRecyclerViewType extends RecyclerViewType<Pair, DebugInfoHolder> {
-
-		@Override
-		protected Class<Pair> getItemClass() {
-			return Pair.class;
-		}
-
-		@Override
-		protected Integer getLayoutResourceId() {
-			return R.layout.jdroid_debug_info_item;
-		}
-
-		@Override
-		public RecyclerView.ViewHolder createViewHolderFromView(View view) {
-			DebugInfoHolder holder = new DebugInfoHolder(view);
-			holder.name = findView(view, com.jdroid.android.R.id.name);
-			return holder;
-		}
-
-		@Override
-		public void fillHolderFromItem(Pair item, DebugInfoHolder holder) {
-			holder.name.setText(item.first + ": " + item.second.toString());
-		}
-
-		@Override
-		public AbstractRecyclerFragment getAbstractRecyclerFragment() {
-			return DebugInfoFragment.this;
-		}
-	}
-
-	public static class DebugInfoHolder extends RecyclerView.ViewHolder {
-
-		protected TextView name;
-
-		public DebugInfoHolder(View itemView) {
-			super(itemView);
-		}
+		setAdapter(new RecyclerViewAdapter(new PairItemRecyclerViewType() {
+			@Override
+			public AbstractRecyclerFragment getAbstractRecyclerFragment() {
+				return DebugInfoFragment.this;
+			}
+		}, filteredProperties));
 	}
 }
