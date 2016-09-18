@@ -41,7 +41,7 @@ public class FirebaseRemoteConfigFragment extends AbstractRecyclerFragment {
 
 		@Override
 		protected Integer getLayoutResourceId() {
-			return R.layout.firebase_remote_config_header;
+			return R.layout.jdroid_firebase_remote_config_header;
 		}
 
 		@Override
