@@ -151,7 +151,7 @@ android {
 		jdroid.setString(defaultConfig, "TWITTER_OAUTH_CONSUMER_SECRET", null)
 
 		manifestPlaceholders = [
-				googleMapsApiKey: "AIzaSyCNHUOkUfSUKOlPnyfzYdPRPiwRApGl-X8",
+				googleMapsApiKey: "AIzaSyA2UZNjUMaw7kFk9qvHeGLTppXxcgI3l1Y",
 				fabricApiKey: "478dae49374362f33bc054fc44d1f4242c574ccb",
 				facebookAppId: "fb1048902711862195"
 		]
@@ -165,12 +165,16 @@ android {
 		debug {
 			signingConfig signingConfigs.debug
 
+			applicationIdSuffix ".debug"
+
 			jdroid.setBoolean(buildTypes.debug, "CRASHLYTICS_ENABLED", false)
 			jdroid.setString(buildTypes.debug, "SERVER_NAME", "DEV")
 		}
 
 		uat {
 			signingConfig signingConfigs.debug
+
+			applicationIdSuffix ".debug"
 
 			debuggable true
 

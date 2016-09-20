@@ -20,7 +20,11 @@ public abstract class AppContext {
 	}
 
 	public Class<?> getBuildConfigClass() {
-		return ReflectionUtils.getClass(AppUtils.getApplicationId() + ".BuildConfig");
+		String applicationId = AppUtils.getApplicationId();
+		if (applicationId.endsWith(".debug")) {
+			applicationId = applicationId.replace(".debug", "");
+		}
+		return ReflectionUtils.getClass(applicationId + ".BuildConfig");
 	}
 
 	@SuppressWarnings("unchecked")

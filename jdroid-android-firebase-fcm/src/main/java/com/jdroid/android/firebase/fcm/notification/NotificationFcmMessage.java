@@ -40,7 +40,7 @@ public class NotificationFcmMessage implements FcmMessage {
 			builder.setWhiteLight();
 		}
 
-		String url = remoteMessage.getData().get(URL);
+		String url = notification.getClickAction() != null ? notification.getClickAction() : remoteMessage.getData().get(URL);
 		if (StringUtils.isNotEmpty(url)) {
 			builder.setUrl(url);
 		} else {
