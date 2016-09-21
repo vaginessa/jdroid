@@ -37,7 +37,6 @@
 
 	<!-- Floating Action Button -->
 
-	<string name="fab">Fab</string>
 	<string name="floatingActionButton">Floating Action Button</string>
 
 	<!-- Error Displayer -->

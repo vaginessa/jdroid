@@ -31,6 +31,8 @@ dependencies {
 	// https://jcenter.bintray.com/com/android/tools/build/gradle/
  	compile 'com.android.tools.build:gradle:2.2.0'
 
+	// https://developers.google.com/android/guides/google-services-plugin
+	compile 'com.google.gms:google-services:3.0.0'
 
 	// https://github.com/JakeWharton/sdk-manager-plugin
 	// compile 'com.jakewharton.sdkmanager:gradle-plugin:0.12.0'

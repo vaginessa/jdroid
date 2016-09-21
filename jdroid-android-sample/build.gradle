@@ -7,7 +7,7 @@ jdroid {
 }
 
 repositories {
-	mavenCentral()
+	jcenter()
 	maven {
 		url 'https://maven.fabric.io/public'
 	}
@@ -16,15 +16,11 @@ repositories {
 
 buildscript {
 	repositories {
-		mavenCentral()
 		jcenter()
 	}
 
 	dependencies {
 		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + jdroidVersion
-
-		// https://developers.google.com/android/guides/google-services-plugin
-		classpath 'com.google.gms:google-services:3.0.0'
 	}
 }
 

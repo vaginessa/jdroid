@@ -94,7 +94,7 @@
 
 		<!-- Floating Action Button -->
 
-		<activity android:name="com.jdroid.android.sample.ui.fab.FabActivity" android:label="@string/fab"
+		<activity android:name="com.jdroid.android.sample.ui.fab.FabActivity" android:label="@string/floatingActionButton"
 			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<!-- Facebook Sign In -->
