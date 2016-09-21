@@ -121,10 +121,8 @@ android {
 		jdroid.setBoolean(defaultConfig, "FIREBASE_ANALYTICS_ENABLED", true)
 
 		jdroid.setBoolean(defaultConfig, "GOOGLE_ANALYTICS_ENABLED", true)
-		jdroid.setString(defaultConfig, "GOOGLE_ANALYTICS_TRACKING_ID", "UA-9898638-5")
+		jdroid.setString(defaultConfig, "GOOGLE_ANALYTICS_TRACKING_ID", "UA-84573310-1")
 		jdroid.setBoolean(defaultConfig, "GOOGLE_ANALYTICS_DEBUG_ENABLED", true)
-
-		jdroid.setString(defaultConfig, "GOOGLE_ANALYTICS_TRACKING_ID", "UA-9898638-5")
 
 		jdroid.setString(defaultConfig, "GOOGLE_SERVER_CLIENT_ID", "852072465140-ksbqqoidt2jl2nqqvffnc6ic07fqb6g8.apps.googleusercontent.com")
 
