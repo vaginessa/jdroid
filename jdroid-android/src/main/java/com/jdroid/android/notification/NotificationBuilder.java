@@ -95,7 +95,7 @@ public class NotificationBuilder {
 	}
 	
 	public void setContentIntentSingleTop(Intent notificationIntent) {
-		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		setContentIntent(notificationIntent);
 	}
 
@@ -105,7 +105,6 @@ public class NotificationBuilder {
 	}
 
 	public void setContentIntent(Intent notificationIntent) {
-
 		// TODO Disabled to avoid session creation on Google Analytics
 		//	AbstractApplication.get().getAnalyticsSender().trackNotificationDisplayed(notificationName);
 		notificationIntent.putExtra(NOTIFICATION_NAME, notificationName);
@@ -121,9 +120,25 @@ public class NotificationBuilder {
 				notificationIntent, 0));
 	}
 
+	public void setNewTaskUrl(String url) {
+		setUrl(url, Intent.FLAG_ACTIVITY_NEW_TASK);
+	}
+
+	public void setSingleTopUrl(String url) {
+		setUrl(url, Intent.FLAG_ACTIVITY_SINGLE_TOP);
+	}
+
 	public void setUrl(String url) {
+		setUrl(url, null);
+	}
+
+	public void setUrl(String url, Integer flags) {
 		if (StringUtils.isNotEmpty(url)) {
-			setContentIntentSingleTop(UriUtils.createIntent(AbstractApplication.get(), url, generateNotificationsReferrer()));
+			Intent notificationIntent = UriUtils.createIntent(AbstractApplication.get(), url, generateNotificationsReferrer());
+			if (flags != null) {
+				notificationIntent.setFlags(flags);
+			}
+			setContentIntent(notificationIntent);
 		}
 	}
 
@@ -250,10 +265,6 @@ public class NotificationBuilder {
 				NotificationUtils.getNotificationLargeIconHeightPx(), null);
 		}
 		return largeIconBitmap;
-	}
-	
-	public void setNotificationName(String notificationName) {
-		this.notificationName = notificationName;
 	}
 	
 	public void setBigTextStyle(String title, String text) {

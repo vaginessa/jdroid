@@ -60,7 +60,7 @@ public class NotificationMessage implements FcmMessage {
 
 		String url = remoteMessage.getData().get(URL);
 		if (StringUtils.isNotEmpty(url)) {
-			builder.setUrl(url);
+			builder.setSingleTopUrl(url);
 		} else {
 			throw new UnexpectedException("Missing " + URL + " extra for " + getMessageKey());
 		}

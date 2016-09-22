@@ -55,7 +55,7 @@ public class NotificationsFragment extends AbstractFragment {
 				builder.setTicker(ticker.getText().toString());
 				builder.setContentTitle(contentTitle.getText().toString());
 				builder.setContentText(contentText.getText().toString());
-				builder.setUrl(urlEditText.getText().toString());
+				builder.setSingleTopUrl(urlEditText.getText().toString());
 				builder.setWhen(DateUtils.nowMillis());
 				builder.setBlueLight();
 				builder.setDefaultSound();
