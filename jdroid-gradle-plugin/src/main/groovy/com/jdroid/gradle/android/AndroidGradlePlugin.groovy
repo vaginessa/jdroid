@@ -32,10 +32,10 @@ public abstract class AndroidGradlePlugin extends JavaBaseGradlePlugin {
 
 			// TODO See if this BUILD_TIME can disable the incremental build enhancements
 			if (jdroid.getBooleanProp("BUILD_TIME_CONFIG_ENABLED", true)) {
-				jdroid.setString(android.defaultConfig, "BUILD_TIME", jdroid.getBuildTime())
+				jdroid.setBuildConfigString(android.defaultConfig, "BUILD_TIME", jdroid.getBuildTime())
 			}
-			jdroid.setString(android.defaultConfig, "GIT_SHA", jdroid.getGitSha())
-			jdroid.setString(android.defaultConfig, "GIT_BRANCH", jdroid.getGitBranch())
+			jdroid.setBuildConfigString(android.defaultConfig, "GIT_SHA", jdroid.getGitSha())
+			jdroid.setBuildConfigString(android.defaultConfig, "GIT_BRANCH", jdroid.getGitBranch())
 		}
 
 		android.compileOptions {

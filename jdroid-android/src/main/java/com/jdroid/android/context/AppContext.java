@@ -125,6 +125,9 @@ public abstract class AppContext {
 		return getInstallationSource().equals("Chrome");
 	}
 
+	/*
+	 * Used by Google Sign In
+	 */
 	public String getServerClientId() {
 		return getBuildConfigValue("GOOGLE_SERVER_CLIENT_ID", null);
 	}

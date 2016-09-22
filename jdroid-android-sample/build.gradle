@@ -117,32 +117,32 @@ android {
 			}
 		}
 
-		jdroid.setBoolean(defaultConfig, "STRICT_MODE_ENABLED", false)
-		jdroid.setBoolean(defaultConfig, "FIREBASE_ANALYTICS_ENABLED", true)
+		jdroid.setBuildConfigBoolean(defaultConfig, "STRICT_MODE_ENABLED", false)
+		jdroid.setBuildConfigBoolean(defaultConfig, "FIREBASE_ANALYTICS_ENABLED", true)
 
-		jdroid.setBoolean(defaultConfig, "GOOGLE_ANALYTICS_ENABLED", true)
-		jdroid.setString(defaultConfig, "GOOGLE_ANALYTICS_TRACKING_ID", "UA-84573310-1")
-		jdroid.setBoolean(defaultConfig, "GOOGLE_ANALYTICS_DEBUG_ENABLED", true)
+		jdroid.setBuildConfigBoolean(defaultConfig, "GOOGLE_ANALYTICS_ENABLED", true)
+		jdroid.setBuildConfigString(defaultConfig, "GOOGLE_ANALYTICS_TRACKING_ID", "UA-84573310-1")
+		jdroid.setBuildConfigBoolean(defaultConfig, "GOOGLE_ANALYTICS_DEBUG_ENABLED", true)
 
-		jdroid.setString(defaultConfig, "GOOGLE_SERVER_CLIENT_ID", "852072465140-ksbqqoidt2jl2nqqvffnc6ic07fqb6g8.apps.googleusercontent.com")
+		jdroid.setBuildConfigString(defaultConfig, "GOOGLE_SERVER_CLIENT_ID", "852072465140-ksbqqoidt2jl2nqqvffnc6ic07fqb6g8.apps.googleusercontent.com")
 
-		jdroid.setBoolean(defaultConfig, "CRASHLYTICS_ENABLED", true)
+		jdroid.setBuildConfigBoolean(defaultConfig, "CRASHLYTICS_ENABLED", true)
 
-		jdroid.setString(defaultConfig, "LOCAL_IP", null)
+		jdroid.setBuildConfigString(defaultConfig, "LOCAL_IP")
 
-		jdroid.setString(defaultConfig, "INSTALLATION_SOURCE", "GooglePlay")
+		jdroid.setBuildConfigString(defaultConfig, "INSTALLATION_SOURCE", "GooglePlay")
 
-		jdroid.setBoolean(defaultConfig, "ADS_ENABLED", true)
-		jdroid.setString(defaultConfig, "AD_UNIT_ID", "ca-app-pub-4654922738884963/8672724544")
-		jdroid.setString(defaultConfig, "ADS_TEST_DEVICES_IDS", null)
+		jdroid.setBuildConfigBoolean(defaultConfig, "ADS_ENABLED", true)
+		jdroid.setBuildConfigString(defaultConfig, "AD_UNIT_ID", "ca-app-pub-4654922738884963/8672724544")
+		jdroid.setBuildConfigString(defaultConfig, "ADS_TEST_DEVICES_IDS")
 
-		jdroid.setString(defaultConfig, "GOOGLE_PLAY_PUBLIC_KEY", null)
+		jdroid.setBuildConfigString(defaultConfig, "GOOGLE_PLAY_PUBLIC_KEY")
 
-		jdroid.setString(defaultConfig, "FIREBASE_URL", null)
-		jdroid.setString(defaultConfig, "FIREBASE_AUTH_TOKEN", null)
+		jdroid.setBuildConfigString(defaultConfig, "FIREBASE_URL")
+		jdroid.setBuildConfigString(defaultConfig, "FIREBASE_AUTH_TOKEN")
 
-		jdroid.setString(defaultConfig, "TWITTER_OAUTH_CONSUMER_KEY", null)
-		jdroid.setString(defaultConfig, "TWITTER_OAUTH_CONSUMER_SECRET", null)
+		jdroid.setBuildConfigString(defaultConfig, "TWITTER_OAUTH_CONSUMER_KEY")
+		jdroid.setBuildConfigString(defaultConfig, "TWITTER_OAUTH_CONSUMER_SECRET")
 
 		manifestPlaceholders = [
 				googleMapsApiKey: "AIzaSyA2UZNjUMaw7kFk9qvHeGLTppXxcgI3l1Y",
@@ -161,8 +161,8 @@ android {
 
 			applicationIdSuffix ".debug"
 
-			jdroid.setBoolean(buildTypes.debug, "CRASHLYTICS_ENABLED", false)
-			jdroid.setString(buildTypes.debug, "SERVER_NAME", "DEV")
+			jdroid.setBuildConfigBoolean(buildTypes.debug, "CRASHLYTICS_ENABLED", false)
+			jdroid.setBuildConfigString(buildTypes.debug, "SERVER_NAME", "DEV")
 		}
 
 		uat {
@@ -172,7 +172,7 @@ android {
 
 			debuggable true
 
-			jdroid.setString(buildTypes.uat, "SERVER_NAME", "UAT")
+			jdroid.setBuildConfigString(buildTypes.uat, "SERVER_NAME", "UAT")
 
 		}
 
@@ -180,9 +180,9 @@ android {
 
 			signingConfig signingConfigs.release
 
-			jdroid.setBoolean(buildTypes.release, "GOOGLE_ANALYTICS_DEBUG_ENABLED", false)
+			jdroid.setBuildConfigBoolean(buildTypes.release, "GOOGLE_ANALYTICS_DEBUG_ENABLED", false)
 
-			jdroid.setString(buildTypes.release, "SERVER_NAME", "PROD")
+			jdroid.setBuildConfigString(buildTypes.release, "SERVER_NAME", "PROD")
 
 			// TODO Add GOOGLE_PLAY_PUBLIC_KEY
 			// TODO Add GOOGLE_ANALYTICS_TRACKING_ID

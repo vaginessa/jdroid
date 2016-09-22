@@ -13,7 +13,7 @@ public class AndroidLibraryGradlePlugin extends AndroidGradlePlugin {
 		project.ext.PACKAGING = 'aar'
 
 		android.defaultConfig {
-			jdroid.setString(android.defaultConfig, "VERSION", project.version)
+			jdroid.setBuildConfigString(android.defaultConfig, "VERSION", project.version)
 		}
 
 		Boolean isOpenSourceEnabled = jdroid.getBooleanProp("OPEN_SOURCE_ENABLED", true)
