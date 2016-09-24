@@ -34,7 +34,7 @@ public class AndroidGradlePluginExtension extends JavaBaseGradleExtension {
 
 	public void setResValueString(def flavor, String propertyName, String defaultValue) {
 		def value = getProp(propertyName, defaultValue)
-		def stringValue = value == null ? "null" : '"' + value + '"'
-		flavor.buildConfigField "string", propertyName, stringValue
+		def stringValue = value == null ? "" : value
+		flavor.resValue "string", propertyName, stringValue
 	}
 }

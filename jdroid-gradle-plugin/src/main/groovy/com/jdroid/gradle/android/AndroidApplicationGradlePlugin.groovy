@@ -11,6 +11,22 @@ public class AndroidApplicationGradlePlugin extends AndroidGradlePlugin {
 
 		project.task('copyApks', type: CopyApksTask)
 
+		Boolean ribbonizerEnabled = jdroid.getBooleanProp("RIBBONIZER_ENABLED", true)
+		if (ribbonizerEnabled) {
+			project.apply plugin: 'com.github.gfx.ribbonizer'
+
+			project.ribbonizer {
+				builder { variant, iconFile ->
+					// change ribbon colors by product flavors
+					if (variant.buildType.name == "debug") {
+						return yellowRibbonFilter(variant, iconFile)
+					} else {
+						return greenRibbonFilter(variant, iconFile)
+					}
+				}
+			}
+		}
+
 		android.defaultConfig {
 			versionCode generateVersionCode()
 			versionName project.version

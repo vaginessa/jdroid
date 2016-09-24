@@ -1,5 +1,6 @@
 apply plugin: 'com.jdroid.android.application'
 
+
 description = 'Jdroid Sample Android'
 
 jdroid {
@@ -144,6 +145,15 @@ android {
 		jdroid.setBuildConfigString(defaultConfig, "TWITTER_OAUTH_CONSUMER_KEY")
 		jdroid.setBuildConfigString(defaultConfig, "TWITTER_OAUTH_CONSUMER_SECRET")
 
+		// Used by Google Sign In
+		jdroid.setResValueString(defaultConfig, "default_web_client_id", "527857945512-qr7kk98nntlt44po5cblnrgq41ief65s.apps.googleusercontent.com")
+		jdroid.setResValueString(defaultConfig, "firebase_database_url", "https://jdroid-staging.firebaseio.com")
+		jdroid.setResValueString(defaultConfig, "gcm_defaultSenderId", "527857945512")
+		jdroid.setResValueString(defaultConfig, "google_api_key", "AIzaSyDNAyitlL4PWxNCjf63Quf0ruvcFSzs6D0")
+		jdroid.setResValueString(defaultConfig, "google_app_id", "1:527857945512:android:04da523460c0b69f")
+		jdroid.setResValueString(defaultConfig, "google_crash_reporting_api_key", "AIzaSyDNAyitlL4PWxNCjf63Quf0ruvcFSzs6D0")
+		jdroid.setResValueString(defaultConfig, "google_storage_bucket", "jdroid-staging.appspot.com")
+
 		manifestPlaceholders = [
 				googleMapsApiKey: "AIzaSyA2UZNjUMaw7kFk9qvHeGLTppXxcgI3l1Y",
 				fabricApiKey: "478dae49374362f33bc054fc44d1f4242c574ccb",
@@ -190,6 +200,8 @@ android {
 			// TODO Add FIREBASE_AUTH_TOKEN
 			// TODO Add GOOGLE_SERVER_CLIENT_ID
 
+			// TODO Add setResValueString
+
 			manifestPlaceholders = [
 					googleMapsApiKey: jdroid.getProp("GOOGLE_MAPS_API_KEY", ""),
 					fabricApiKey: jdroid.getProp("FABRIC_API_KEY", ""),
@@ -212,5 +224,3 @@ android {
 	sourceSets.test.res.srcDirs += sourceSets.main.res.srcDirs
 	sourceSets.test.res.srcDirs += sourceSets.debug.res.srcDirs
 }
-
-apply plugin: 'com.google.gms.google-services'

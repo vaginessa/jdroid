@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
+import com.jdroid.android.context.UsageStats;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
 import com.jdroid.android.utils.AndroidUtils;
@@ -53,6 +54,8 @@ public class DebugInfoFragment extends AbstractRecyclerFragment {
 
 		properties.add(new Pair<String, Object>("Network Operator Name", DeviceUtils.getNetworkOperatorName()));
 		properties.add(new Pair<String, Object>("Sim Operator Name", DeviceUtils.getSimOperatorName()));
+
+		properties.add(new Pair<String, Object>("App Loads", UsageStats.getAppLoads()));
 
 		properties.addAll(AbstractApplication.get().getDebugContext().getCustomDebugInfoProperties());
 	}

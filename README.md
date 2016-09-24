@@ -137,6 +137,7 @@ Gradle Plugin for Java & Android projects
 * Android
  * Default Google Android Plugin configuration
  * Versioning scheme
+ * [Google Android Ribbonizer plugin](https://github.com/gfx/gradle-android-ribbonizer-plugin) integration
  * Android Tasks
     * Verify Missing Translations Between Locales
     * Verify Missing Translations
