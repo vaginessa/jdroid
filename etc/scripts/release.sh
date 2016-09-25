@@ -74,7 +74,7 @@ VERSION=`./gradlew :printVersion -q --configure-on-demand -PSNAPSHOT=false`
 # Close Milestone on GitHub
 # ************************
 
-./gradlew :closeGitHubMilestone --configure-on-demand -PSNAPSHOT=false -PREPOSITORY_OWNER=$REPOSITORY_OWNER -PREPOSITORY_NAME=$PROJECT_NAME -PGITHUB_OATH_TOKEN=$GIT_HUB_TOKEN
+./gradlew :closeGitHubMilestone --configure-on-demand -PSNAPSHOT=false -PRELEASE_BUILD_TYPE_ENABLED=true -PREPOSITORY_OWNER=$REPOSITORY_OWNER -PREPOSITORY_NAME=$PROJECT_NAME -PGITHUB_OATH_TOKEN=$GIT_HUB_TOKEN
 
 read -p "Verify that the milestone is closed on Milestones [https://github.com/$REPOSITORY_OWNER/$PROJECT_NAME/milestones] and press [Enter] key to continue..."
 
@@ -82,7 +82,7 @@ read -p "Verify that the milestone is closed on Milestones [https://github.com/$
 # Upload Release on GitHub
 # ************************
 
-./gradlew :createGitHubRelease --configure-on-demand -PSNAPSHOT=false -PREPOSITORY_OWNER=$REPOSITORY_OWNER -PREPOSITORY_NAME=$PROJECT_NAME -PGITHUB_OATH_TOKEN=$GIT_HUB_TOKEN
+./gradlew :createGitHubRelease --configure-on-demand -PSNAPSHOT=false -PRELEASE_BUILD_TYPE_ENABLED=true -PREPOSITORY_OWNER=$REPOSITORY_OWNER -PREPOSITORY_NAME=$PROJECT_NAME -PGITHUB_OATH_TOKEN=$GIT_HUB_TOKEN
 
 read -p "Verify that the release is present on Releases [https://github.com/$REPOSITORY_OWNER/$PROJECT_NAME/releases] and press [Enter] key to continue..."
 
@@ -106,7 +106,7 @@ git push origin HEAD:production
 
 cd $PROJECT_HOME
 
-./gradlew :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=true -PSNAPSHOT=false
+./gradlew :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=true -PSNAPSHOT=false -PRELEASE_BUILD_TYPE_ENABLED=true
 
 cmd="./gradlew clean"
 
@@ -142,7 +142,7 @@ eval "${cmd}"
 # ************************
 
 cd $PROJECT_HOME
-./gradlew :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:publishPlugins --configure-on-demand -PSNAPSHOT=false -PSIGNING_ENABLED=false
+./gradlew :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:publishPlugins --configure-on-demand -PSNAPSHOT=false -PRELEASE_BUILD_TYPE_ENABLED=true -PSIGNING_ENABLED=false
 
 read -p "Verify the plugins on the Portal [https://plugins.gradle.org/search?term=jdroid] and press [Enter] key to continue..."
 

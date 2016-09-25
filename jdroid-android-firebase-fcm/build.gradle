@@ -29,7 +29,9 @@ configurations.all {
 dependencies {
 
 	debugCompile project(path: ":jdroid-android", configuration: 'debug')
-	releaseCompile project(path: ":jdroid-android", configuration: 'release')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ":jdroid-android", configuration: 'release')
+	}
 
 	testCompile 'junit:junit:4.12'
 	testCompile "org.mockito:mockito-all:1.10.19"
@@ -63,8 +65,6 @@ android {
 	lintOptions {
 		disable 'ContentDescription', 'RtlEnabled', 'RtlHardcoded', 'RtlSymmetry', 'UseCompoundDrawables', 'UnknownIdInLayout'
 	}
-
-	publishNonDefault true
 
 	sourceSets.test.java.srcDirs += "build/generated/source/r/debug"
 	sourceSets.test.java.srcDirs += sourceSets.main.java.srcDirs

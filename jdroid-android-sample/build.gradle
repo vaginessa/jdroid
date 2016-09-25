@@ -41,47 +41,69 @@ dependencies {
 
 	debugCompile project(path: ":jdroid-android", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android", configuration: 'debug')
-	releaseCompile project(path: ":jdroid-android", configuration: 'release')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ":jdroid-android", configuration: 'release')
+	}
 
 	debugCompile project(path: ":jdroid-android-about", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-about", configuration: 'debug')
-	releaseCompile project(path: ":jdroid-android-about", configuration: 'release')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ":jdroid-android-about", configuration: 'release')
+	}
 
 	debugCompile project(path: ":jdroid-android-crashlytics", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-crashlytics", configuration: 'debug')
-	releaseCompile project(path: ":jdroid-android-crashlytics", configuration: 'release')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ":jdroid-android-crashlytics", configuration: 'release')
+	}
 
 	debugCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
-	releaseCompile project(path: ":jdroid-android-facebook", configuration: 'release')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ":jdroid-android-facebook", configuration: 'release')
+	}
 
 	debugCompile project(path: ":jdroid-android-google-admob", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-google-admob", configuration: 'debug')
-	releaseCompile project(path: ":jdroid-android-google-admob", configuration: 'release')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ":jdroid-android-google-admob", configuration: 'release')
+	}
 
 	debugCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
-	releaseCompile project(path: ":jdroid-android-google-maps", configuration: 'release')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ":jdroid-android-google-maps", configuration: 'release')
+	}
 
 	debugCompile project(path: ':jdroid-android-firebase-database', configuration: 'debug')
 	uatCompile project(path: ':jdroid-android-firebase-database', configuration: 'debug')
-	releaseCompile project(path: ':jdroid-android-firebase-database', configuration: 'release')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ':jdroid-android-firebase-database', configuration: 'release')
+	}
 
 	debugCompile project(path: ':jdroid-android-firebase-fcm', configuration: 'debug')
 	uatCompile project(path: ':jdroid-android-firebase-fcm', configuration: 'debug')
-	releaseCompile project(path: ':jdroid-android-firebase-fcm', configuration: 'release')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ':jdroid-android-firebase-fcm', configuration: 'release')
+	}
 
 	debugCompile project(path: ':jdroid-android-firebase-remoteconfig', configuration: 'debug')
 	uatCompile project(path: ':jdroid-android-firebase-remoteconfig', configuration: 'debug')
-	releaseCompile project(path: ':jdroid-android-firebase-remoteconfig', configuration: 'release')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ':jdroid-android-firebase-remoteconfig', configuration: 'release')
+	}
 
 	debugCompile project(path: ":jdroid-android-google-signin", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-google-signin", configuration: 'debug')
-	releaseCompile project(path: ":jdroid-android-google-signin", configuration: 'release')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ":jdroid-android-google-signin", configuration: 'release')
+	}
 
 	debugCompile project(path: ":jdroid-android-twitter", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-twitter", configuration: 'debug')
-	releaseCompile project(path: ":jdroid-android-twitter", configuration: 'release')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ":jdroid-android-twitter", configuration: 'release')
+	}
 
 	compile 'com.firebase:firebase-client-android:2.5.0'
 
@@ -186,27 +208,29 @@ android {
 
 		}
 
-		release {
+		if (jdroid.isReleaseBuildTypeEnabled()) {
+			release {
 
-			signingConfig signingConfigs.release
+				signingConfig signingConfigs.release
 
-			jdroid.setBuildConfigBoolean(buildTypes.release, "GOOGLE_ANALYTICS_DEBUG_ENABLED", false)
+				jdroid.setBuildConfigBoolean(buildTypes.release, "GOOGLE_ANALYTICS_DEBUG_ENABLED", false)
 
-			jdroid.setBuildConfigString(buildTypes.release, "SERVER_NAME", "PROD")
+				jdroid.setBuildConfigString(buildTypes.release, "SERVER_NAME", "PROD")
 
-			// TODO Add GOOGLE_PLAY_PUBLIC_KEY
-			// TODO Add GOOGLE_ANALYTICS_TRACKING_ID
-			// TODO Add FIREBASE_URL
-			// TODO Add FIREBASE_AUTH_TOKEN
-			// TODO Add GOOGLE_SERVER_CLIENT_ID
+				// TODO Add GOOGLE_PLAY_PUBLIC_KEY
+				// TODO Add GOOGLE_ANALYTICS_TRACKING_ID
+				// TODO Add FIREBASE_URL
+				// TODO Add FIREBASE_AUTH_TOKEN
+				// TODO Add GOOGLE_SERVER_CLIENT_ID
 
-			// TODO Add setResValueString
+				// TODO Add setResValueString
 
-			manifestPlaceholders = [
-					googleMapsApiKey: jdroid.getProp("GOOGLE_MAPS_API_KEY", ""),
-					fabricApiKey: jdroid.getProp("FABRIC_API_KEY", ""),
-					facebookAppId: jdroid.getProp("FACEBOOK_APP_ID", "")
-			]
+				manifestPlaceholders = [
+						googleMapsApiKey: jdroid.getProp("GOOGLE_MAPS_API_KEY", ""),
+						fabricApiKey: jdroid.getProp("FABRIC_API_KEY", ""),
+						facebookAppId: jdroid.getProp("FACEBOOK_APP_ID", "")
+				]
+			}
 		}
 	}
 

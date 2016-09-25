@@ -81,8 +81,6 @@ android {
 		disable 'ContentDescription', 'RtlEnabled', 'RtlHardcoded', 'RtlSymmetry', 'UseCompoundDrawables', 'UnknownIdInLayout'
 	}
 
-	publishNonDefault true
-
 	sourceSets.test.java.srcDirs += "build/generated/source/r/debug"
 	sourceSets.test.java.srcDirs += sourceSets.main.java.srcDirs
 	sourceSets.test.java.srcDirs += sourceSets.debug.java.srcDirs
@@ -90,5 +88,4 @@ android {
 	sourceSets.test.resources.srcDirs += sourceSets.debug.resources.srcDirs
 	sourceSets.test.res.srcDirs += sourceSets.main.res.srcDirs
 	sourceSets.test.res.srcDirs += sourceSets.debug.res.srcDirs
-
 }

@@ -19,6 +19,14 @@ public abstract class AndroidGradlePlugin extends JavaBaseGradlePlugin {
 
 		android = project.android
 
+		if (!jdroid.isReleaseBuildTypeEnabled()) {
+			project.android.variantFilter { variant ->
+				if(variant.buildType.name.equals('release')) {
+					variant.setIgnore(true);
+				}
+			}
+		}
+
 		minimumSdkVersion = jdroid.getIntegerProp('MIN_SDK_VERSION', 15)
 
 		android.compileSdkVersion 24

@@ -8,8 +8,16 @@ public class AndroidGradlePluginExtension extends JavaBaseGradleExtension {
 	String[] notDefaultLanguages = []
 	String missingTranslationExpression = "#TODO#"
 
+	private boolean isReleaseBuildTypeEnabled
+
 	public AndroidGradlePluginExtension(AndroidGradlePlugin androidGradlePlugin) {
 		super(androidGradlePlugin)
+
+		isReleaseBuildTypeEnabled = getBooleanProp('RELEASE_BUILD_TYPE_ENABLED', false)
+	}
+
+	public boolean isReleaseBuildTypeEnabled() {
+		return isReleaseBuildTypeEnabled
 	}
 
 	public void setBuildConfigString(def flavor, String propertyName) {

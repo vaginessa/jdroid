@@ -10,7 +10,7 @@ Boolean isSnapshot = getBooleanProp('SNAPSHOT', true)
 
 allprojects {
 
-	ext.PREFIX_TO_VALIDATE = "jdroid"
+	ext.RESOURCE_PREFIX = "jdroid_"
 	ext.RESOURCE_FILES_TO_SKIP_PREFIX_VALIDATION = ["analytics.xml", "com_crashlytics_export_strings.xml"]
 
 	ext.VERSION_MAJOR = 0

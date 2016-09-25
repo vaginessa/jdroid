@@ -16,6 +16,12 @@ public class AndroidLibraryGradlePlugin extends AndroidGradlePlugin {
 			jdroid.setBuildConfigString(android.defaultConfig, "VERSION", project.version)
 		}
 
+		if (jdroid.getResourcePrefix() != null) {
+			android.resourcePrefix jdroid.getResourcePrefix()
+		}
+
+		android.publishNonDefault jdroid.getPublishNonDefault()
+
 		Boolean isOpenSourceEnabled = jdroid.getBooleanProp("OPEN_SOURCE_ENABLED", true)
 		if (isOpenSourceEnabled) {
 			project.task('androidSourcesJar', type: Jar) {

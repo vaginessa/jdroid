@@ -42,11 +42,13 @@ public class AndroidApplicationGradlePlugin extends AndroidGradlePlugin {
 				storeFile project.file('./debug.keystore')
 			}
 
-			release {
-				storeFile project.file(jdroid.getProp('STORE_FILE', './debug.keystore'))
-				storePassword jdroid.getProp('STORE_PASSWORD')
-				keyAlias jdroid.getProp('KEY_ALIAS')
-				keyPassword jdroid.getProp('KEY_PASSWORD')
+			if (jdroid.isReleaseBuildTypeEnabled()) {
+				release {
+					storeFile project.file(jdroid.getProp('STORE_FILE', './debug.keystore'))
+					storePassword jdroid.getProp('STORE_PASSWORD')
+					keyAlias jdroid.getProp('KEY_ALIAS')
+					keyPassword jdroid.getProp('KEY_PASSWORD')
+				}
 			}
 		}
 	}

@@ -15,7 +15,7 @@ public class PrefixVerificationTask extends DefaultTask {
 
 	@TaskAction
 	public void doExecute() {
-		String prefix = project.jdroid.getProp('PREFIX_TO_VALIDATE')
+		String prefix = project.jdroid.getProp('RESOURCE_PREFIX')
 
 		if (prefix != null) {
 
