@@ -81,7 +81,7 @@ public class FcmFragment extends AbstractFragment {
 					@Override
 					public void run() {
 						try {
-							String registrationToken = FcmRegistrationCommand.getRegistrationToken(minAppVersionCode.getText().toString());
+							String registrationToken = FcmRegistrationCommand.getRegistrationToken(senderId.getText().toString());
 							Map<String, String> params = Maps.newHashMap();
 							if (minAppVersionCode.getText().length() > 0) {
 								params.put("minAppVersionCode", minAppVersionCode.getText().toString());

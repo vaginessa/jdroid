@@ -61,7 +61,7 @@ public class SampleApiService extends AndroidApiService {
 	}
 
 	public void addDevice(Device device, Boolean updateLastActiveTimestamp) {
-		BodyEnclosingHttpService httpService = newPostService("gcm", "device");
+		BodyEnclosingHttpService httpService = newPostService("fcm", "device");
 		httpService.addQueryParameter("updateLastActiveTimestamp", updateLastActiveTimestamp);
 		marshall(httpService, device);
 		httpService.execute();
@@ -73,7 +73,7 @@ public class SampleApiService extends AndroidApiService {
 	}
 
 	public void sendPush(String registrationToken, String messageKey, Map<String, String> params) {
-		HttpService httpService = newGetService("gcm", "send");
+		HttpService httpService = newGetService("fcm", "send");
 		httpService.addQueryParameter("registrationToken", registrationToken);
 		httpService.addQueryParameter("messageKeyExtraName", "messageKey");
 		httpService.addQueryParameter("messageKey", messageKey);

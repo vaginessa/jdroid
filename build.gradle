@@ -68,7 +68,7 @@ group = 'com.jdroidframework'
 ext.jdroidVersion = project.version
 
 // https://developers.google.com/android/guides/releases
-ext.googlePlayServicesVersion = '9.4.0'
+ext.googlePlayServicesVersion = '9.6.0'
 
 // https://developer.android.com/topic/libraries/support-library/revisions.html
 ext.androidSupportVersion = '24.2.1'

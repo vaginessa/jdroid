@@ -18,7 +18,7 @@ public enum ApiServer implements FcmSender {
 		}
 	},
 	UAT("staging-jdroid.rhcloud.com", null, "/api", true, false),
-	DEV(null, ":8080", "/jdroid-javaweb-sample/api", true, false),
+	DEV(null, ":8080", "/sample/api", true, false),
 	MOCKEY_LOCAL(null, ":8081", "/service/api", false, false);
 
 	private String domain;
