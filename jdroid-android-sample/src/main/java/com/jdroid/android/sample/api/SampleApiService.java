@@ -72,8 +72,9 @@ public class SampleApiService extends AndroidApiService {
 		httpService.execute();
 	}
 
-	public void sendPush(String registrationToken, String messageKey, Map<String, String> params) {
+	public void sendPush(String googleServerApiKey, String registrationToken, String messageKey, Map<String, String> params) {
 		HttpService httpService = newGetService("fcm", "send");
+		httpService.addQueryParameter("googleServerApiKey", googleServerApiKey);
 		httpService.addQueryParameter("registrationToken", registrationToken);
 		httpService.addQueryParameter("messageKeyExtraName", "messageKey");
 		httpService.addQueryParameter("messageKey", messageKey);

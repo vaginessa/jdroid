@@ -65,6 +65,8 @@ public class FcmFragment extends AbstractFragment {
 			}
 		});
 
+		final EditText googleServerApiKey = findView(R.id.googleServerApiKey);
+
 		final EditText messageKey = findView(R.id.messageKey);
 		messageKey.setText("sampleMessage");
 
@@ -86,7 +88,7 @@ public class FcmFragment extends AbstractFragment {
 							if (minAppVersionCode.getText().length() > 0) {
 								params.put("minAppVersionCode", minAppVersionCode.getText().toString());
 							}
-							new SampleApiService().sendPush(registrationToken, messageKey.getText().toString(), params);
+							new SampleApiService().sendPush(googleServerApiKey.getText().length() > 0 ? googleServerApiKey.getText().toString() : null, registrationToken, messageKey.getText().toString(), params);
 						} catch (IOException e) {
 							throw new UnexpectedException(e);
 						}

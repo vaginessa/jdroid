@@ -68,6 +68,7 @@
 	<string name="messageKey">Message Key</string>
 	<string name="minAppVersionCode">MinAppVersionCode</string>
 	<string name="senderId">Sender Id</string>
+	<string name="googleServerApiKey">Google Server Api Key</string>
 
 	<!-- Google Maps -->
 	<string name="googleMaps">Google Maps</string>
