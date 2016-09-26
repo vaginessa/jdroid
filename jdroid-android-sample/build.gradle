@@ -167,13 +167,25 @@ android {
 		jdroid.setBuildConfigString(defaultConfig, "TWITTER_OAUTH_CONSUMER_KEY")
 		jdroid.setBuildConfigString(defaultConfig, "TWITTER_OAUTH_CONSUMER_SECRET")
 
-		// Used by Google Sign In
+		// Used by Google Sign In. {YOUR_CLIENT}/oauth_client/client_id (client_type == 3)
 		jdroid.setResValueString(defaultConfig, "default_web_client_id", "527857945512-qr7kk98nntlt44po5cblnrgq41ief65s.apps.googleusercontent.com")
+
+		// Used by Firebase Database. project_info/firebase_url
 		jdroid.setResValueString(defaultConfig, "firebase_database_url", "https://jdroid-staging.firebaseio.com")
+
+		// project_info/project_number
 		jdroid.setResValueString(defaultConfig, "gcm_defaultSenderId", "527857945512")
+
+		// {YOUR_CLIENT}/api_key/current_key
 		jdroid.setResValueString(defaultConfig, "google_api_key", "AIzaSyDNAyitlL4PWxNCjf63Quf0ruvcFSzs6D0")
+
+		// {YOUR_CLIENT}/client_info/mobilesdk_app_id
 		jdroid.setResValueString(defaultConfig, "google_app_id", "1:527857945512:android:04da523460c0b69f")
+
+		// Used by Firebase Crash. {YOUR_CLIENT}/api_key/current_key
 		jdroid.setResValueString(defaultConfig, "google_crash_reporting_api_key", "AIzaSyDNAyitlL4PWxNCjf63Quf0ruvcFSzs6D0")
+
+		// project_info/storage_bucket
 		jdroid.setResValueString(defaultConfig, "google_storage_bucket", "jdroid-staging.appspot.com")
 
 		manifestPlaceholders = [
@@ -219,11 +231,29 @@ android {
 
 				// TODO Add GOOGLE_PLAY_PUBLIC_KEY
 				// TODO Add GOOGLE_ANALYTICS_TRACKING_ID
-				// TODO Add FIREBASE_URL
 				// TODO Add FIREBASE_AUTH_TOKEN
 				// TODO Add GOOGLE_SERVER_CLIENT_ID
 
-				// TODO Add setResValueString
+				// Used by Google Sign In. {YOUR_CLIENT}/oauth_client/client_id (client_type == 3)
+				jdroid.setResValueString(defaultConfig, "default_web_client_id", "361779001695-1h1mk78pnrvlfvti8mfpcs7hbgrpcddu.apps.googleusercontent.com")
+
+				// Used by Firebase Database. project_info/firebase_url
+				jdroid.setResValueString(defaultConfig, "firebase_database_url", "https://fir-jdroid-production.firebaseio.com")
+
+				// project_info/project_number
+				jdroid.setResValueString(defaultConfig, "gcm_defaultSenderId", "361779001695")
+
+				// {YOUR_CLIENT}/api_key/current_key
+				jdroid.setResValueString(defaultConfig, "google_api_key", "AIzaSyDe-x-lkKP2VyeMYq8i0I5mbeDAElY6Pks")
+
+				// {YOUR_CLIENT}/client_info/mobilesdk_app_id
+				jdroid.setResValueString(defaultConfig, "google_app_id", "1:361779001695:android:85398d20b5634ada")
+
+				// Used by Firebase Crash. {YOUR_CLIENT}/api_key/current_key
+				jdroid.setResValueString(defaultConfig, "google_crash_reporting_api_key", "AIzaSyDe-x-lkKP2VyeMYq8i0I5mbeDAElY6Pks")
+
+				// project_info/storage_bucket
+				jdroid.setResValueString(defaultConfig, "google_storage_bucket", "fir-jdroid-production.appspot.com")
 
 				manifestPlaceholders = [
 						googleMapsApiKey: jdroid.getProp("GOOGLE_MAPS_API_KEY", ""),
