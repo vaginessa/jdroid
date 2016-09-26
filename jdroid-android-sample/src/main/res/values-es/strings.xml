@@ -65,6 +65,9 @@
 	<string name="removeInstanceId">Remove Instance Id</string>
 	<string name="removeDevice">Remove Device</string>
 	<string name="sendPush">Send Push</string>
+	<string name="messageKey">Message Key</string>
+	<string name="minAppVersionCode">MinAppVersionCode</string>
+	<string name="senderId">Sender Id</string>
 
 	<!-- Google Maps -->
 	<string name="googleMaps">Google Maps</string>

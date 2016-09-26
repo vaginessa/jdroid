@@ -38,8 +38,8 @@ public abstract class AndroidGradlePlugin extends JavaBaseGradlePlugin {
 			minSdkVersion minimumSdkVersion
 			targetSdkVersion 24
 
-			// TODO See if this BUILD_TIME can disable the incremental build enhancements
-			if (jdroid.getBooleanProp("BUILD_TIME_CONFIG_ENABLED", true)) {
+			// Disabled by default, because it affects Instant Run
+			if (jdroid.getBooleanProp("BUILD_TIME_CONFIG_ENABLED", false)) {
 				jdroid.setBuildConfigString(android.defaultConfig, "BUILD_TIME", jdroid.getBuildTime())
 			}
 			jdroid.setBuildConfigString(android.defaultConfig, "GIT_SHA", jdroid.getGitSha())

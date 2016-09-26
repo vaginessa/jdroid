@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.firebase.fcm.AbstractFcmAppModule;
 import com.jdroid.android.firebase.fcm.FcmRegistrationCommand;
 import com.jdroid.android.firebase.instanceid.InstanceIdHelper;
+import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.api.SampleApiService;
 import com.jdroid.java.collections.Maps;
@@ -71,6 +71,9 @@ public class FcmFragment extends AbstractFragment {
 		final EditText minAppVersionCode = findView(R.id.minAppVersionCode);
 		minAppVersionCode.setText("0");
 
+		final EditText senderId = findView(R.id.senderId);
+		senderId.setText(AbstractFcmAppModule.get().getFcmSenders().get(0).getSenderId());
+
 		findView(R.id.sendPush).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -78,7 +81,7 @@ public class FcmFragment extends AbstractFragment {
 					@Override
 					public void run() {
 						try {
-							String registrationToken = FcmRegistrationCommand.getRegistrationToken(AbstractFcmAppModule.get().getFcmSenders().get(0).getSenderId());
+							String registrationToken = FcmRegistrationCommand.getRegistrationToken(minAppVersionCode.getText().toString());
 							Map<String, String> params = Maps.newHashMap();
 							if (minAppVersionCode.getText().length() > 0) {
 								params.put("minAppVersionCode", minAppVersionCode.getText().toString());

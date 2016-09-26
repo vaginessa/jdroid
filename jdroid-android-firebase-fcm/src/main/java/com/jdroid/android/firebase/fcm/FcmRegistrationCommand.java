@@ -61,6 +61,8 @@ public class FcmRegistrationCommand extends ServiceCommand {
 		if (senderId == null) {
 			throw new UnexpectedException("Missing FCM Sender Id");
 		}
-		return FirebaseInstanceId.getInstance().getToken(senderId, "FCM");
+		String registrationToken = FirebaseInstanceId.getInstance().getToken(senderId, "FCM");
+		LOGGER.info("Registration token for sender id [" + senderId + "]: " + registrationToken);
+		return registrationToken;
 	}
 }
