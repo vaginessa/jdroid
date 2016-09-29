@@ -1,4 +1,4 @@
-package com.jdroid.gradle
+package com.jdroid.gradle.root
 
 import com.jdroid.gradle.commons.BaseGradlePlugin
 import org.gradle.api.Project
