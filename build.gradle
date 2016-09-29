@@ -77,6 +77,13 @@ ext.PACKAGING = null
 
 subprojects {
 
+	buildscript {
+		dependencies {
+			classpath 'com.jdroidframework:jdroid-gradle-plugin:0.11.0-SNAPSHOT'
+		}
+	}
+
+
 	apply plugin: 'maven'
 	apply plugin: 'signing'
 

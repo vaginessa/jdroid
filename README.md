@@ -131,21 +131,6 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
  * [Google Sign In integration](https://developers.google.com/identity/sign-in/android/)
   * sign in, sign out, revoke access
 
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/gradle.png" width="25" height="25"/> jdroid-gradle-plugin](https://github.com/maxirosson/jdroid/wiki/jdroid-Gradle-Plugin)
---------------
-Gradle Plugin for Java & Android projects
-* Android
- * Default Google Android Plugin configuration
- * Versioning scheme
- * [Google Android Ribbonizer plugin](https://github.com/gfx/gradle-android-ribbonizer-plugin) integration
- * Android Tasks
-    * Verify Missing Translations Between Locales
-    * Verify Missing Translations
-    * Increment app version according to [Semantic Versioning](http://semver.org/)
-    * Copy generated APKs to a target directory
-* Java Web
- * [Jetty](http://eclipse.org/jetty) integration
-
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/genericNews.png" width="25" height="25"/> jdroid-scripts](https://github.com/maxirosson/jdroid/wiki/jdroid-Scripts)
 --------------
 A set of useful shell scripts to
@@ -155,6 +140,7 @@ A set of useful shell scripts to
 
 External Jdroid Components
 --------------
+* [jdroid-gradle-plugin](https://github.com/maxirosson/jdroid-gradle-plugin)
 * [jdroid-java-webapp](https://github.com/maxirosson/jdroid-java-webapp)
 * [jdroid-java-github](https://github.com/maxirosson/jdroid-java-github)
 * [jdroid-java-google-drive](https://github.com/maxirosson/jdroid-java-google-drive)

@@ -106,11 +106,7 @@ git push origin HEAD:production
 
 cd $PROJECT_HOME
 
-./gradlew :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=true -PSNAPSHOT=false -PRELEASE_BUILD_TYPE_ENABLED=true
-
 cmd="./gradlew clean"
-
-cmd="${cmd} :jdroid-gradle-plugin:uploadArchives"
 
 cmd="${cmd} :jdroid-java:uploadArchives"
 cmd="${cmd} :jdroid-java-http-okhttp:uploadArchives"
@@ -135,14 +131,3 @@ cmd="${cmd} -PSNAPSHOT=false -PLOCAL_UPLOAD=false"
 echo "Executing the following command"
 echo "${cmd}"
 eval "${cmd}"
-
-
-# ************************
-# Publish the Gradle Plugin to the Portal
-# ************************
-
-cd $PROJECT_HOME
-./gradlew :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:publishPlugins --configure-on-demand -PSNAPSHOT=false -PRELEASE_BUILD_TYPE_ENABLED=true -PSIGNING_ENABLED=false
-
-read -p "Verify the plugins on the Portal [https://plugins.gradle.org/search?term=jdroid] and press [Enter] key to continue..."
-

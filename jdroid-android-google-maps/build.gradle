@@ -3,17 +3,6 @@ apply plugin: 'com.jdroid.android.library'
 ext.PROJECT_NAME = 'Jdroid Android - Google Maps'
 description = 'Jdroid dependency project for Google Maps'
 
-buildscript {
-
-	repositories {
-		jcenter()
-	}
-
-	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + project.version
-	}
-}
-
 repositories {
 	// TODO See how to remove this dependency
 	maven {

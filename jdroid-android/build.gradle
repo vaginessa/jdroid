@@ -9,17 +9,6 @@ repositories {
 	}
 }
 
-buildscript {
-
-	repositories {
-		jcenter()
-	}
-
-	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + project.version
-	}
-}
-
 configurations {
 	compile.exclude group: "org.apache.httpcomponents",  module: "httpclient"
 	compile.exclude group: "org.slf4j",  module: "slf4j-api"

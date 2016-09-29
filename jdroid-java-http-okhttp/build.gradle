@@ -3,12 +3,6 @@ apply plugin: 'com.jdroid.java.library'
 ext.PROJECT_NAME = 'Jdroid Java Http OKHttp'
 description = 'OKHttp Http Layer Implementation for Jdroid'
 
-buildscript {
-	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-plugin:' + project.version
-	}
-}
-
 dependencies {
 
 	// Module dependencies

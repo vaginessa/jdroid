@@ -37,18 +37,8 @@ then
 fi
 
 # ************************
-# jdroid gradle plugin
+# Execute the tests
 # ************************
-
-cmd="./gradlew :jdroid-gradle-plugin:clean :jdroid-gradle-plugin:uploadArchives --configure-on-demand -PLOCAL_UPLOAD=true --stacktrace"
-if [ "$DEBUG" = "true" ]
-then
-	cmd="${cmd} --debug"
-fi
-
-echo "Executing the following command"
-echo "${cmd}"
-eval "${cmd}"
 
 cmd="./gradlew clean"
 if [ "$ENABLE_TESTS" = "true" ]
@@ -85,7 +75,6 @@ fi
 if [ "$UPLOAD" = "true" ]
 then
 
-	cmd="${cmd} :jdroid-gradle-plugin:uploadArchives"
 	cmd="${cmd} :jdroid-java:uploadArchives"
 	cmd="${cmd} :jdroid-java-http-okhttp:uploadArchives"
 	cmd="${cmd} :jdroid-java-firebase-database:uploadArchives"
