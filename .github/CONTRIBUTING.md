@@ -15,13 +15,12 @@ patches and features.
 ## Using the issue tracker
 
 The [issue tracker](https://github.com/maxirosson/jdroid/issues) is
-the preferred channel for [bug reports](#bug-reports), [features requests](#feature-requests)
-and [submitting pull requests](#pull-requests), but please respect the following
+the preferred channel for [bug reports](#bug-reports) and [features or improvement requests](#feature-or-improvement-requests), but please respect the following
 restrictions:
 
 * Please **do not** use the issue tracker for personal support requests.
 * Assign the **Backlog** milestone to the issue
-
+* Assign the proper **labels** to the issue
 
 ## Bug reports
 
@@ -63,9 +62,9 @@ Example:
 > merits).
 
 
-## Feature requests
+## Feature or improvement requests
 
-Feature requests are welcome. But take a moment to find out whether your idea
+Feature or improvement requests are welcome. But take a moment to find out whether your idea
 fits with the scope and aims of the project. It's up to *you* to make a strong
 case to convince the project's developers of the merits of this feature. Please
 provide as much detail and context as possible.
