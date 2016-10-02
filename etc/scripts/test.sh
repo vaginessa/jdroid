@@ -97,7 +97,7 @@ then
 	fi
 fi
 
-cmd="${cmd} -PLOCAL_UPLOAD=$LOCAL_UPLOAD --configure-on-demand --refresh-dependencies --stacktrace"
+cmd="${cmd} -PLOCAL_UPLOAD=$LOCAL_UPLOAD -PRELEASE_BUILD_TYPE_ENABLED=true --configure-on-demand --refresh-dependencies --stacktrace"
 
 if [ "$DEBUG" = "true" ]
 then
