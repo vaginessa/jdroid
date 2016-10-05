@@ -211,18 +211,12 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 		fragmentHelper.onNewIntent(intent);
 	}
 
-	/**
-	 * @see android.support.v4.app.Fragment#onStart()
-	 */
 	@Override
 	public void onStart() {
 		super.onStart();
 		fragmentHelper.onStart();
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onResume()
-	 */
 	@Override
 	public void onResume() {
 		super.onResume();

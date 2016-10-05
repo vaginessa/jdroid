@@ -65,27 +65,18 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 		return null;
 	}
 
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#findView(int)
-	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public <V extends View> V findView(int id) {
 		return (V)getView().findViewById(id);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#findViewOnActivity(int)
-	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public <V extends View> V findViewOnActivity(int id) {
 		return (V)getActivity().findViewById(id);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#inflate(int)
-	 */
 	@Override
 	public View inflate(int resource) {
 		return getFragmentIf().inflate(resource);
@@ -205,31 +196,19 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	
 	// //////////////////////// Loading //////////////////////// //
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
-	 */
 	@Override
 	public void showLoading() {
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissLoading()
-	 */
 	@Override
 	public void dismissLoading() {
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getDefaultLoading()
-	 */
 	@Override
 	public FragmentLoading getDefaultLoading() {
 		return null;
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#setLoading(com.jdroid.android.loading.FragmentLoading)
-	 */
 	@Override
 	public void setLoading(FragmentLoading loading) {
 	}
