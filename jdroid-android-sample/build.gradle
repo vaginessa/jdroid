@@ -147,8 +147,8 @@ android {
 		jdroid.setBuildConfigString(defaultConfig, "INSTALLATION_SOURCE", "GooglePlay")
 
 		jdroid.setBuildConfigBoolean(defaultConfig, "ADS_ENABLED", true)
-		jdroid.setBuildConfigString(defaultConfig, "AD_UNIT_ID", "ca-app-pub-4654922738884963/8672724544")
-		jdroid.setBuildConfigString(defaultConfig, "ADS_TEST_DEVICES_IDS")
+		jdroid.setBuildConfigString(defaultConfig, "ADMOB_APP_ID", "ca-app-pub-4654922738884963~4242524943")
+		jdroid.setBuildConfigString(defaultConfig, "DEFAULT_AD_UNIT_ID", "ca-app-pub-4654922738884963/8672724544")
 
 		jdroid.setBuildConfigString(defaultConfig, "GOOGLE_PLAY_PUBLIC_KEY")
 

@@ -4,5 +4,7 @@
 	<string name="jdroid_adsSettings" tools:ignore="MissingTranslation">Ads</string>
 	<string name="jdroid_adsEnabledTitle" tools:ignore="MissingTranslation">Ads Enabled</string>
 	<string name="jdroid_adsEnabledDescription" tools:ignore="MissingTranslation">Enable/disable the ads</string>
+	<string name="jdroid_testAdUnitEnabledTitle" tools:ignore="MissingTranslation">Test Ad Unit Enabled</string>
+	<string name="jdroid_testAdUnitEnabledDescription" tools:ignore="MissingTranslation">Enable/disable the Test Ad Unit</string>
 
 </resources>

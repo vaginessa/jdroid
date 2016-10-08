@@ -18,6 +18,8 @@ import com.jdroid.java.exception.UnexpectedException;
 
 public class AdMobAdHelper implements AdHelper {
 
+	private static final String TEST_AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111";
+
 	private View customView;
 	private Boolean displayAds = false;
 
@@ -51,7 +53,11 @@ public class AdMobAdHelper implements AdHelper {
 					throw new UnexpectedException("Missing banner ad unit ID");
 				}
 
-				adView.setAdUnitId(bannerAdUnitId);
+				if (!AbstractApplication.get().getAppContext().isProductionEnvironment() && AdMobAppModule.get().getAdMobAppContext().isTestAdUnitIdEnabled()) {
+					adView.setAdUnitId(TEST_AD_UNIT_ID);
+				} else {
+					adView.setAdUnitId(bannerAdUnitId);
+				}
 				adView.setAdSize(adSize);
 				customView = houseAdBuilder != null ? houseAdBuilder.build(activity) : null;
 				if (customView != null) {
@@ -127,7 +133,11 @@ public class AdMobAdHelper implements AdHelper {
 				throw new UnexpectedException("Missing interstitial ad unit ID");
 			}
 
-			interstitial.setAdUnitId(interstitialAdUnitId);
+			if (!AbstractApplication.get().getAppContext().isProductionEnvironment() && AdMobAppModule.get().getAdMobAppContext().isTestAdUnitIdEnabled()) {
+				interstitial.setAdUnitId(TEST_AD_UNIT_ID);
+			} else {
+				interstitial.setAdUnitId(interstitialAdUnitId);
+			}
 
 			AppContext applicationContext = AbstractApplication.get().getAppContext();
 			AdRequest.Builder builder = createBuilder(applicationContext);

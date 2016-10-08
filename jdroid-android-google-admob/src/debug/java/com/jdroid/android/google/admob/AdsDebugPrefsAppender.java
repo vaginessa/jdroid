@@ -20,5 +20,11 @@ public class AdsDebugPrefsAppender extends PreferencesAppender {
 		checkBoxPreference.setTitle(R.string.jdroid_adsEnabledTitle);
 		checkBoxPreference.setSummary(R.string.jdroid_adsEnabledDescription);
 		preferenceGroup.addPreference(checkBoxPreference);
+
+		checkBoxPreference = new CheckBoxPreference(activity);
+		checkBoxPreference.setKey(AdMobAppContext.TEST_AD_UNIT_ID_ENABLED);
+		checkBoxPreference.setTitle(R.string.jdroid_testAdUnitEnabledTitle);
+		checkBoxPreference.setSummary(R.string.jdroid_testAdUnitEnabledDescription);
+		preferenceGroup.addPreference(checkBoxPreference);
 	}
 }

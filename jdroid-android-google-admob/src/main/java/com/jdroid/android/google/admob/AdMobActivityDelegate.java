@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.ViewGroup;
 
+import com.google.android.gms.ads.MobileAds;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityDelegate;
 
 public class AdMobActivityDelegate extends ActivityDelegate {
+
+	private static Boolean initialized = false;
 
 	private AdHelper adHelper;
 
@@ -18,6 +21,12 @@ public class AdMobActivityDelegate extends ActivityDelegate {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		if (AdMobAppModule.get().getAdMobAppContext().areAdsEnabled()) {
+
+			if (!initialized) {
+				MobileAds.initialize(getActivity().getApplicationContext(), AdMobAppModule.get().getAdMobAppContext().getAdMobAppId());
+				initialized = true;
+			}
+
 			adHelper = createAdHelper();
 			if (adHelper != null) {
 				initAdHelper(adHelper);
