@@ -4,8 +4,8 @@
 	<string name="home">Home</string>
 	<string name="add">Add</string>
 
-	<!-- Ads -->
-	<string name="adMob">AdMob</string>
+	<!-- Google AdMob -->
+	<string name="adMob">Google AdMob</string>
 	<string name="fragmentBanner">Fragment Banner</string>
 	<string name="nativeAdExpress">Native Ad Express</string>
 	<string name="activityBanner">Activity Banner</string>

@@ -1,18 +1,17 @@
-package com.jdroid.android.sample.ui.ads;
+package com.jdroid.android.sample.ui.google.admob;
 
 import android.app.Activity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdSize;
-import com.jdroid.android.google.admob.helpers.AdHelper;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.fragment.FragmentDelegate;
-import com.jdroid.android.google.admob.helpers.BaseAdViewHelper;
 import com.jdroid.android.google.admob.AdMobAppModule;
 import com.jdroid.android.google.admob.AdMobFragmentDelegate;
 import com.jdroid.android.google.admob.HouseAdBuilder;
+import com.jdroid.android.google.admob.helpers.BaseAdViewHelper;
 import com.jdroid.android.sample.R;
 
 public class HouseAdsFragment extends AbstractFragment {
@@ -27,8 +26,7 @@ public class HouseAdsFragment extends AbstractFragment {
 		if (appModule instanceof AdMobAppModule) {
 			return new AdMobFragmentDelegate(this) {
 				@Override
-				public void initAdHelper(AdHelper adHelper) {
-					BaseAdViewHelper baseAdViewHelper = (BaseAdViewHelper)adHelper;
+				public void initBaseAdViewHelper(BaseAdViewHelper baseAdViewHelper) {
 					baseAdViewHelper.setAdSize(AdSize.BANNER);
 					baseAdViewHelper.setHouseAdBuilder(new HouseAdBuilder() {
 						@Override

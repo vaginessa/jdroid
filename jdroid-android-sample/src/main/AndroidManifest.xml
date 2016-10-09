@@ -47,20 +47,20 @@
 
 		<!-- Ads -->
 
-		<activity android:name="com.jdroid.android.sample.ui.ads.AdsActivity" android:label="@string/adMob"
+		<activity android:name="com.jdroid.android.sample.ui.google.admob.AdsActivity" android:label="@string/adMob"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
-		<activity android:name="com.jdroid.android.sample.ui.ads.HouseAdsActivity" android:label="@string/houseAds"
-				  android:parentActivityName="com.jdroid.android.sample.ui.ads.AdsActivity" tools:ignore="UnusedAttribute"/>
+		<activity android:name="com.jdroid.android.sample.ui.google.admob.HouseAdsActivity" android:label="@string/houseAds"
+				  android:parentActivityName="com.jdroid.android.sample.ui.google.admob.AdsActivity" tools:ignore="UnusedAttribute"/>
 
-		<activity android:name="com.jdroid.android.sample.ui.ads.ActivityBannerActivity" android:label="@string/activityBanner"
-				  android:parentActivityName="com.jdroid.android.sample.ui.ads.AdsActivity" tools:ignore="UnusedAttribute"/>
+		<activity android:name="com.jdroid.android.sample.ui.google.admob.ActivityBannerActivity" android:label="@string/activityBanner"
+				  android:parentActivityName="com.jdroid.android.sample.ui.google.admob.AdsActivity" tools:ignore="UnusedAttribute"/>
 
-		<activity android:name="com.jdroid.android.sample.ui.ads.FragmentBannerActivity" android:label="@string/fragmentBanner"
-				  android:parentActivityName="com.jdroid.android.sample.ui.ads.AdsActivity" tools:ignore="UnusedAttribute"/>
+		<activity android:name="com.jdroid.android.sample.ui.google.admob.FragmentBannerActivity" android:label="@string/fragmentBanner"
+				  android:parentActivityName="com.jdroid.android.sample.ui.google.admob.AdsActivity" tools:ignore="UnusedAttribute"/>
 
-		<activity android:name="com.jdroid.android.sample.ui.ads.FragmentNativeAdExpressActivity" android:label="@string/nativeAdExpress"
-				  android:parentActivityName="com.jdroid.android.sample.ui.ads.AdsActivity" tools:ignore="UnusedAttribute"/>
+		<activity android:name="com.jdroid.android.sample.ui.google.admob.FragmentNativeAdExpressActivity" android:label="@string/nativeAdExpress"
+				  android:parentActivityName="com.jdroid.android.sample.ui.google.admob.AdsActivity" tools:ignore="UnusedAttribute"/>
 
 		<!-- Image Loader -->
 

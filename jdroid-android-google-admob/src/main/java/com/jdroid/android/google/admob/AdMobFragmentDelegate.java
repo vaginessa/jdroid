@@ -9,10 +9,11 @@ import android.view.ViewGroup;
 import com.jdroid.android.fragment.FragmentDelegate;
 import com.jdroid.android.google.admob.helpers.AdHelper;
 import com.jdroid.android.google.admob.helpers.AdViewHelper;
+import com.jdroid.android.google.admob.helpers.BaseAdViewHelper;
 
 public class AdMobFragmentDelegate extends FragmentDelegate {
 
-	private AdHelper adHelper;
+	private BaseAdViewHelper baseAdViewHelper;
 
 	public AdMobFragmentDelegate(Fragment fragment) {
 		super(fragment);
@@ -21,46 +22,46 @@ public class AdMobFragmentDelegate extends FragmentDelegate {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		if (AdMobAppModule.get().getAdMobAppContext().areAdsEnabled()) {
-			adHelper = createAdHelper();
-			if (adHelper != null) {
-				initAdHelper(adHelper);
-				adHelper.loadAd(getFragment().getActivity(), (ViewGroup)(view.findViewById(R.id.adViewContainer)));
+			baseAdViewHelper = createBaseAdViewHelper();
+			if (baseAdViewHelper != null) {
+				initBaseAdViewHelper(baseAdViewHelper);
+				baseAdViewHelper.loadAd(getFragment().getActivity(), (ViewGroup)(view.findViewById(R.id.adViewContainer)));
 			}
 		}
 	}
 
 	@Override
 	public void onResume() {
-		if (adHelper != null) {
-			adHelper.onResume();
+		if (baseAdViewHelper != null) {
+			baseAdViewHelper.onResume();
 		}
 	}
 
 	@Override
 	public void onBeforePause() {
-		if (adHelper != null) {
-			adHelper.onPause();
+		if (baseAdViewHelper != null) {
+			baseAdViewHelper.onPause();
 		}
 	}
 
 	@Override
 	public void onBeforeDestroy() {
-		if (adHelper != null) {
-			adHelper.onDestroy();
+		if (baseAdViewHelper != null) {
+			baseAdViewHelper.onDestroy();
 		}
 	}
 
 	@Nullable
-	public AdHelper createAdHelper() {
+	public BaseAdViewHelper createBaseAdViewHelper() {
 		return new AdViewHelper();
 	}
 
-	public void initAdHelper(AdHelper adHelper) {
+	public void initBaseAdViewHelper(BaseAdViewHelper adHelper) {
 		// Do nothing
 	}
 
 	@Nullable
-	public AdHelper getAdHelper() {
-		return adHelper;
+	public AdHelper getBaseAdViewHelper() {
+		return baseAdViewHelper;
 	}
 }

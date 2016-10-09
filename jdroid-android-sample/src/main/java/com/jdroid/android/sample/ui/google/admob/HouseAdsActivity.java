@@ -1,4 +1,4 @@
-package com.jdroid.android.sample.ui.ads;
+package com.jdroid.android.sample.ui.google.admob;
 
 import android.support.v4.app.Fragment;
 

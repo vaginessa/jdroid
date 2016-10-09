@@ -145,14 +145,12 @@ public abstract class BaseAdViewHelper implements AdHelper {
 		return defaultAdUnitId;
 	}
 
-	@Override
 	public void onPause() {
 		if (baseAdViewWrapper != null) {
 			baseAdViewWrapper.pause();
 		}
 	}
 
-	@Override
 	public void onResume() {
 		if (baseAdViewWrapper != null) {
 			if (AdMobAppModule.get().getAdMobAppContext().areAdsEnabled()) {
@@ -170,7 +168,6 @@ public abstract class BaseAdViewHelper implements AdHelper {
 
 	}
 
-	@Override
 	public void onDestroy() {
 		if (baseAdViewWrapper != null) {
 			baseAdViewWrapper.destroy();

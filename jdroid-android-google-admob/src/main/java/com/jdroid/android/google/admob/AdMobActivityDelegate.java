@@ -8,15 +8,16 @@ import com.google.android.gms.ads.MobileAds;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityDelegate;
 import com.jdroid.android.google.admob.helpers.AdHelper;
-import com.jdroid.android.google.admob.helpers.AdMobInterstitialAdHelper;
 import com.jdroid.android.google.admob.helpers.AdViewHelper;
+import com.jdroid.android.google.admob.helpers.BaseAdViewHelper;
+import com.jdroid.android.google.admob.helpers.InterstitialAdHelper;
 
 public class AdMobActivityDelegate extends ActivityDelegate {
 
 	private static Boolean initialized = false;
 
-	private AdHelper bannerAdHelper;
-	private AdMobInterstitialAdHelper interstitialAdHelper;
+	private BaseAdViewHelper baseAdViewHelper;
+	private InterstitialAdHelper interstitialAdHelper;
 
 	public AdMobActivityDelegate(AbstractFragmentActivity activity) {
 		super(activity);
@@ -31,10 +32,10 @@ public class AdMobActivityDelegate extends ActivityDelegate {
 				initialized = true;
 			}
 
-			bannerAdHelper = createBannerAdHelper();
-			if (bannerAdHelper != null) {
-				initBannerAdHelper(bannerAdHelper);
-				bannerAdHelper.loadAd(getActivity(), (ViewGroup)(getActivity().findViewById(R.id.adViewContainer)));
+			baseAdViewHelper = createBaseAdViewHelper();
+			if (baseAdViewHelper != null) {
+				initBaseAdViewHelper(baseAdViewHelper);
+				baseAdViewHelper.loadAd(getActivity(), (ViewGroup)(getActivity().findViewById(R.id.adViewContainer)));
 			}
 
 			interstitialAdHelper = createInterstitialAdHelper();
@@ -48,59 +49,50 @@ public class AdMobActivityDelegate extends ActivityDelegate {
 
 	@Override
 	public void onResume() {
-		if (bannerAdHelper != null) {
-			bannerAdHelper.onResume();
-		}
-		if (interstitialAdHelper != null) {
-			interstitialAdHelper.onResume();
+		if (baseAdViewHelper != null) {
+			baseAdViewHelper.onResume();
 		}
 	}
 
 	@Override
 	public void onBeforePause() {
-		if (bannerAdHelper != null) {
-			bannerAdHelper.onPause();
-		}
-		if (interstitialAdHelper != null) {
-			interstitialAdHelper.onPause();
+		if (baseAdViewHelper != null) {
+			baseAdViewHelper.onPause();
 		}
 	}
 
 	@Override
 	public void onBeforeDestroy() {
-		if (bannerAdHelper != null) {
-			bannerAdHelper.onDestroy();
-		}
-		if (interstitialAdHelper != null) {
-			interstitialAdHelper.onDestroy();
+		if (baseAdViewHelper != null) {
+			baseAdViewHelper.onDestroy();
 		}
 	}
 
 	@Nullable
-	public AdHelper createBannerAdHelper() {
+	public BaseAdViewHelper createBaseAdViewHelper() {
 		return new AdViewHelper();
 	}
 
 	@Nullable
-	public AdMobInterstitialAdHelper createInterstitialAdHelper() {
+	public InterstitialAdHelper createInterstitialAdHelper() {
 		return null;
 	}
 
-	public void initBannerAdHelper(AdHelper adHelper) {
+	public void initBaseAdViewHelper(BaseAdViewHelper adHelper) {
 		// Do nothing
 	}
 
-	public void initInterstitialAdHelper(AdMobInterstitialAdHelper adHelper) {
+	public void initInterstitialAdHelper(InterstitialAdHelper adHelper) {
 		// Do nothing
 	}
 
 	@Nullable
-	public AdHelper getBannerAdHelper() {
-		return bannerAdHelper;
+	public AdHelper getBaseAdViewHelper() {
+		return baseAdViewHelper;
 	}
 
 	@Nullable
-	public AdMobInterstitialAdHelper getInterstitialAdHelper() {
+	public InterstitialAdHelper getInterstitialAdHelper() {
 		return interstitialAdHelper;
 	}
 }

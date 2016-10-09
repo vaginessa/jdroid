@@ -39,7 +39,7 @@ import com.jdroid.android.sample.repository.UserRepositoryImpl;
 import com.jdroid.android.sample.ui.AndroidActivityHelper;
 import com.jdroid.android.sample.ui.AndroidFragmentHelper;
 import com.jdroid.android.sample.ui.about.AndroidAboutAppModule;
-import com.jdroid.android.sample.ui.ads.SampleAdMobAppModule;
+import com.jdroid.android.sample.ui.google.admob.SampleAdMobAppModule;
 import com.jdroid.android.sample.firebase.remoteconfig.AndroidFirebaseRemoteConfigAppModule;
 import com.jdroid.android.sample.ui.home.HomeActivity;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteEntity;

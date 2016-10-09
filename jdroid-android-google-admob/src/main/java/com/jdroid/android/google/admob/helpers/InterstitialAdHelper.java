@@ -13,7 +13,7 @@ import com.jdroid.android.google.admob.AdMobAppModule;
 import com.jdroid.android.location.LocationHelper;
 import com.jdroid.java.exception.UnexpectedException;
 
-public class AdMobInterstitialAdHelper implements AdHelper {
+public class InterstitialAdHelper implements AdHelper {
 
 	private static final String TEST_AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111";
 
@@ -21,7 +21,7 @@ public class AdMobInterstitialAdHelper implements AdHelper {
 	private Boolean displayInterstitial = false;
 	private String interstitialAdUnitId;
 
-	public AdMobInterstitialAdHelper() {
+	public InterstitialAdHelper() {
 		interstitialAdUnitId = AdMobAppModule.get().getAdMobAppContext().getDefaultAdUnitId();
 	}
 
@@ -81,21 +81,6 @@ public class AdMobInterstitialAdHelper implements AdHelper {
 			interstitial.show();
 			displayInterstitial = false;
 		}
-	}
-
-	@Override
-	public void onResume() {
-
-	}
-
-	@Override
-	public void onPause() {
-
-	}
-
-	@Override
-	public void onDestroy() {
-
 	}
 
 	@Override
