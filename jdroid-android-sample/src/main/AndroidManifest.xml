@@ -59,6 +59,9 @@
 		<activity android:name="com.jdroid.android.sample.ui.ads.FragmentBannerActivity" android:label="@string/fragmentBanner"
 				  android:parentActivityName="com.jdroid.android.sample.ui.ads.AdsActivity" tools:ignore="UnusedAttribute"/>
 
+		<activity android:name="com.jdroid.android.sample.ui.ads.FragmentNativeAdExpressActivity" android:label="@string/nativeAdExpress"
+				  android:parentActivityName="com.jdroid.android.sample.ui.ads.AdsActivity" tools:ignore="UnusedAttribute"/>
+
 		<!-- Image Loader -->
 
 		<activity android:name="com.jdroid.android.sample.ui.imageloader.ImageLoaderActivity" android:label="@string/universalImageLoader"

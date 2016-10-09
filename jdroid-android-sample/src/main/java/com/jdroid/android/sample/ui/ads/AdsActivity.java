@@ -1,14 +1,14 @@
 package com.jdroid.android.sample.ui.ads;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.jdroid.android.activity.ActivityDelegate;
 import com.jdroid.android.activity.FragmentContainerActivity;
 import com.jdroid.android.application.AppModule;
-import com.jdroid.android.google.admob.AdHelper;
 import com.jdroid.android.google.admob.AdMobActivityDelegate;
-import com.jdroid.android.google.admob.AdMobAdHelper;
 import com.jdroid.android.google.admob.AdMobAppModule;
+import com.jdroid.android.google.admob.helpers.AdMobInterstitialAdHelper;
 import com.jdroid.android.sample.application.AndroidAppContext;
 
 public class AdsActivity extends FragmentContainerActivity {
@@ -22,11 +22,16 @@ public class AdsActivity extends FragmentContainerActivity {
 	public ActivityDelegate createActivityDelegate(AppModule appModule) {
 		if (appModule instanceof AdMobAppModule) {
 			return new AdMobActivityDelegate(this) {
+
+				@Nullable
 				@Override
-				public void initAdHelper(AdHelper adHelper) {
-					AdMobAdHelper adMobAdHelper = (AdMobAdHelper)adHelper;
-					adMobAdHelper.setInterstitialAdUnitId(AndroidAppContext.SAMPLE_INTERSTITIAL_AD_UNIT_ID);
-					adMobAdHelper.setIsInterstitialEnabled(true);
+				public AdMobInterstitialAdHelper createInterstitialAdHelper() {
+					return new AdMobInterstitialAdHelper();
+				}
+
+				@Override
+				public void initInterstitialAdHelper(AdMobInterstitialAdHelper adHelper) {
+					adHelper.setAdUnitId(AndroidAppContext.SAMPLE_INTERSTITIAL_AD_UNIT_ID);
 				}
 			};
 		} else {

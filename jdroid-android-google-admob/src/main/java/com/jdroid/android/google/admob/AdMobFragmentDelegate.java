@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jdroid.android.fragment.FragmentDelegate;
+import com.jdroid.android.google.admob.helpers.AdHelper;
+import com.jdroid.android.google.admob.helpers.AdViewHelper;
 
 public class AdMobFragmentDelegate extends FragmentDelegate {
 
@@ -22,7 +24,7 @@ public class AdMobFragmentDelegate extends FragmentDelegate {
 			adHelper = createAdHelper();
 			if (adHelper != null) {
 				initAdHelper(adHelper);
-				adHelper.loadBanner(getFragment().getActivity(), (ViewGroup)(view.findViewById(R.id.adViewContainer)));
+				adHelper.loadAd(getFragment().getActivity(), (ViewGroup)(view.findViewById(R.id.adViewContainer)));
 			}
 		}
 	}
@@ -50,7 +52,7 @@ public class AdMobFragmentDelegate extends FragmentDelegate {
 
 	@Nullable
 	public AdHelper createAdHelper() {
-		return new AdMobAdHelper();
+		return new AdViewHelper();
 	}
 
 	public void initAdHelper(AdHelper adHelper) {

@@ -29,6 +29,14 @@ public class AdsFragment extends AbstractFragment {
 			}
 		});
 
+		findView(R.id.nativeAdExpress).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				ActivityLauncher.launchActivity(FragmentNativeAdExpressActivity.class);
+			}
+		});
+
 		findView(R.id.activityBanner).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -41,7 +49,7 @@ public class AdsFragment extends AbstractFragment {
 			
 			@Override
 			public void onClick(View v) {
-				((AdMobActivityDelegate)getActivityIf().getActivityDelegate(AdMobAppModule.get())).getAdHelper().displayInterstitial(false);
+				((AdMobActivityDelegate)getActivityIf().getActivityDelegate(AdMobAppModule.get())).getInterstitialAdHelper().displayInterstitial(false);
 			}
 		});
 

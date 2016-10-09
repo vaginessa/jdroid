@@ -7,12 +7,16 @@ import android.view.ViewGroup;
 import com.google.android.gms.ads.MobileAds;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityDelegate;
+import com.jdroid.android.google.admob.helpers.AdHelper;
+import com.jdroid.android.google.admob.helpers.AdMobInterstitialAdHelper;
+import com.jdroid.android.google.admob.helpers.AdViewHelper;
 
 public class AdMobActivityDelegate extends ActivityDelegate {
 
 	private static Boolean initialized = false;
 
-	private AdHelper adHelper;
+	private AdHelper bannerAdHelper;
+	private AdMobInterstitialAdHelper interstitialAdHelper;
 
 	public AdMobActivityDelegate(AbstractFragmentActivity activity) {
 		super(activity);
@@ -27,47 +31,76 @@ public class AdMobActivityDelegate extends ActivityDelegate {
 				initialized = true;
 			}
 
-			adHelper = createAdHelper();
-			if (adHelper != null) {
-				initAdHelper(adHelper);
-				adHelper.loadBanner(getActivity(), (ViewGroup)(getActivity().findViewById(R.id.adViewContainer)));
-				adHelper.loadInterstitial(getActivity());
+			bannerAdHelper = createBannerAdHelper();
+			if (bannerAdHelper != null) {
+				initBannerAdHelper(bannerAdHelper);
+				bannerAdHelper.loadAd(getActivity(), (ViewGroup)(getActivity().findViewById(R.id.adViewContainer)));
 			}
+
+			interstitialAdHelper = createInterstitialAdHelper();
+			if (interstitialAdHelper != null) {
+				initInterstitialAdHelper(interstitialAdHelper);
+				interstitialAdHelper.loadAd(getActivity(), null);
+			}
+
 		}
 	}
 
 	@Override
 	public void onResume() {
-		if (adHelper != null) {
-			adHelper.onResume();
+		if (bannerAdHelper != null) {
+			bannerAdHelper.onResume();
+		}
+		if (interstitialAdHelper != null) {
+			interstitialAdHelper.onResume();
 		}
 	}
 
 	@Override
 	public void onBeforePause() {
-		if (adHelper != null) {
-			adHelper.onPause();
+		if (bannerAdHelper != null) {
+			bannerAdHelper.onPause();
+		}
+		if (interstitialAdHelper != null) {
+			interstitialAdHelper.onPause();
 		}
 	}
 
 	@Override
 	public void onBeforeDestroy() {
-		if (adHelper != null) {
-			adHelper.onDestroy();
+		if (bannerAdHelper != null) {
+			bannerAdHelper.onDestroy();
+		}
+		if (interstitialAdHelper != null) {
+			interstitialAdHelper.onDestroy();
 		}
 	}
 
 	@Nullable
-	public AdHelper createAdHelper() {
-		return new AdMobAdHelper();
+	public AdHelper createBannerAdHelper() {
+		return new AdViewHelper();
 	}
 
-	public void initAdHelper(AdHelper adHelper) {
+	@Nullable
+	public AdMobInterstitialAdHelper createInterstitialAdHelper() {
+		return null;
+	}
+
+	public void initBannerAdHelper(AdHelper adHelper) {
+		// Do nothing
+	}
+
+	public void initInterstitialAdHelper(AdMobInterstitialAdHelper adHelper) {
 		// Do nothing
 	}
 
 	@Nullable
-	public AdHelper getAdHelper() {
-		return adHelper;
+	public AdHelper getBannerAdHelper() {
+		return bannerAdHelper;
+	}
+
+	@Nullable
+	public AdMobInterstitialAdHelper getInterstitialAdHelper() {
+		return interstitialAdHelper;
 	}
 }

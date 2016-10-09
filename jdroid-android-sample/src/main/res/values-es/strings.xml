@@ -7,6 +7,7 @@
 	<!-- Ads -->
 	<string name="adMob">AdMob</string>
 	<string name="fragmentBanner">Fragment Banner</string>
+	<string name="nativeAdExpress">Native Ad Express</string>
 	<string name="activityBanner">Activity Banner</string>
 	<string name="displayInterstitial">Display Interstitial</string>
 	<string name="houseAds">House Ads</string>

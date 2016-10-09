@@ -5,11 +5,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdSize;
-import com.jdroid.android.google.admob.AdHelper;
+import com.jdroid.android.google.admob.helpers.AdHelper;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.fragment.FragmentDelegate;
-import com.jdroid.android.google.admob.AdMobAdHelper;
+import com.jdroid.android.google.admob.helpers.BaseAdViewHelper;
 import com.jdroid.android.google.admob.AdMobAppModule;
 import com.jdroid.android.google.admob.AdMobFragmentDelegate;
 import com.jdroid.android.google.admob.HouseAdBuilder;
@@ -28,9 +28,9 @@ public class HouseAdsFragment extends AbstractFragment {
 			return new AdMobFragmentDelegate(this) {
 				@Override
 				public void initAdHelper(AdHelper adHelper) {
-					AdMobAdHelper adMobAdHelper = (AdMobAdHelper)adHelper;
-					adMobAdHelper.setAdSize(AdSize.BANNER);
-					adMobAdHelper.setHouseAdBuilder(new HouseAdBuilder() {
+					BaseAdViewHelper baseAdViewHelper = (BaseAdViewHelper)adHelper;
+					baseAdViewHelper.setAdSize(AdSize.BANNER);
+					baseAdViewHelper.setHouseAdBuilder(new HouseAdBuilder() {
 						@Override
 						public View build(Activity activity) {
 							View view = super.build(activity);

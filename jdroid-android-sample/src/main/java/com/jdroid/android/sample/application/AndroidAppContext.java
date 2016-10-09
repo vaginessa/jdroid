@@ -10,6 +10,7 @@ public class AndroidAppContext extends AppContext {
 
 	public static final String SAMPLE_BANNER_AD_UNIT_ID = "ca-app-pub-4654922738884963/2999432948";
 	public static final String SAMPLE_INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-4654922738884963/4476166148";
+	public static final String SAMPLE_NATIVE_AD_EXPRESS_AD_UNIT_ID = "ca-app-pub-4654922738884963/4852674542";
 
 	@Override
 	protected Server findServerByName(String name) {
