@@ -87,7 +87,7 @@ public class AdMobActivityDelegate extends ActivityDelegate {
 	}
 
 	@Nullable
-	public AdHelper getBaseAdViewHelper() {
+	public BaseAdViewHelper getBaseAdViewHelper() {
 		return baseAdViewHelper;
 	}
 

@@ -8,6 +8,9 @@
 	<Button android:id="@+id/nativeAdExpress" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/nativeAdExpress" />
 
+	<Button android:id="@+id/largeNativeAdExpress" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/largeNativeAdExpress" />
+
 	<Button android:id="@+id/activityBanner" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/activityBanner" />
 

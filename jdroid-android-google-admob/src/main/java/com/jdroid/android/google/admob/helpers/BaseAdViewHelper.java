@@ -59,8 +59,6 @@ public abstract class BaseAdViewHelper implements AdHelper {
 
 						@Override
 						public void onAdLoaded() {
-							super.onAdLoaded();
-
 							if (displayAds) {
 								baseAdViewWrapper.getBaseAdView().setVisibility(View.VISIBLE);
 								customView.setVisibility(View.GONE);
@@ -81,16 +79,32 @@ public abstract class BaseAdViewHelper implements AdHelper {
 
 						@Override
 						public void onAdClosed() {
-							super.onAdClosed();
 							baseAdViewWrapper.getBaseAdView().setVisibility(View.GONE);
 							customView.setVisibility(View.VISIBLE);
 						}
 
 						@Override
 						public void onAdFailedToLoad(int errorCode) {
-							super.onAdFailedToLoad(errorCode);
 							baseAdViewWrapper.getBaseAdView().setVisibility(View.GONE);
 							customView.setVisibility(View.VISIBLE);
+						}
+					});
+				} else {
+					baseAdViewWrapper.setAdListener(new AdListener() {
+
+						@Override
+						public void onAdLoaded() {
+							baseAdViewWrapper.getBaseAdView().setVisibility(View.VISIBLE);
+						}
+
+						@Override
+						public void onAdClosed() {
+							baseAdViewWrapper.getBaseAdView().setVisibility(View.GONE);
+						}
+
+						@Override
+						public void onAdFailedToLoad(int errorCode) {
+							baseAdViewWrapper.getBaseAdView().setVisibility(View.GONE);
 						}
 					});
 				}

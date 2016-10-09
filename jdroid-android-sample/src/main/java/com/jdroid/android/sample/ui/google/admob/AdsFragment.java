@@ -37,6 +37,14 @@ public class AdsFragment extends AbstractFragment {
 			}
 		});
 
+		findView(R.id.largeNativeAdExpress).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				ActivityLauncher.launchActivity(LargeNativeAdExpressActivity.class);
+			}
+		});
+
 		findView(R.id.activityBanner).setOnClickListener(new OnClickListener() {
 
 			@Override

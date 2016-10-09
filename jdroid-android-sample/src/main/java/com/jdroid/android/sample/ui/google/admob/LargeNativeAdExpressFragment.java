@@ -13,17 +13,22 @@ import com.jdroid.android.google.admob.helpers.NativeExpressAdViewHelper;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.application.AndroidAppContext;
 
-public class FragmentNativeAdExpressFragment extends AbstractFragment {
+public class LargeNativeAdExpressFragment extends AbstractFragment {
 	
 	@Override
 	public Integer getContentFragmentLayout() {
-		return R.layout.empty_fragment;
+		return R.layout.large_native_ad_express_fragment;
 	}
 	
 	@Override
 	public FragmentDelegate createFragmentDelegate(AppModule appModule) {
 		if (appModule instanceof AdMobAppModule) {
 			return new AdMobFragmentDelegate(this) {
+
+				@Override
+				protected int getAdViewContainerId() {
+					return R.id.adViewContainer2;
+				}
 
 				@Nullable
 				@Override
@@ -33,8 +38,8 @@ public class FragmentNativeAdExpressFragment extends AbstractFragment {
 
 				@Override
 				public void initBaseAdViewHelper(BaseAdViewHelper baseAdViewHelper) {
-					baseAdViewHelper.setAdSize(new AdSize(AdSize.FULL_WIDTH, 80));
-					baseAdViewHelper.setAdUnitId(AndroidAppContext.SAMPLE_SMALL_NATIVE_AD_EXPRESS_AD_UNIT_ID);
+					baseAdViewHelper.setAdSize(new AdSize(AdSize.FULL_WIDTH, 250));
+					baseAdViewHelper.setAdUnitId(AndroidAppContext.SAMPLE_LARGE_NATIVE_AD_EXPRESS_AD_UNIT_ID);
 				}
 			};
 		} else {
