@@ -31,12 +31,11 @@ public abstract class BaseAdViewHelper implements AdHelper {
 	}
 
 	@Override
-	public void loadAd(Activity activity, ViewGroup adViewContainer) {
+	public void loadAd(Activity activity, final ViewGroup adViewContainer) {
 		if (adViewContainer != null) {
 			if ((getAdSize() != null) && AdMobAppModule.get().getAdMobAppContext().areAdsEnabled()) {
 				if (adUnitId != null) {
 
-					adViewContainer.setVisibility(View.VISIBLE);
 					baseAdViewWrapper = createBaseAdViewWrapper(activity);
 
 					if (!AbstractApplication.get().getAppContext().isProductionEnvironment() && AdMobAppModule.get().getAdMobAppContext().isTestAdUnitIdEnabled()) {
@@ -48,6 +47,7 @@ public abstract class BaseAdViewHelper implements AdHelper {
 					final View customView = getHouseAdBuilder() != null ? getHouseAdBuilder().build(activity) : null;
 					if (customView != null) {
 
+						adViewContainer.setVisibility(View.VISIBLE);
 						adViewContainer.addView(customView);
 
 						baseAdViewWrapper.setAdListener(new AdListener() {
@@ -89,16 +89,19 @@ public abstract class BaseAdViewHelper implements AdHelper {
 
 							@Override
 							public void onAdLoaded() {
+								adViewContainer.setVisibility(View.VISIBLE);
 								baseAdViewWrapper.getBaseAdView().setVisibility(View.VISIBLE);
 							}
 
 							@Override
 							public void onAdClosed() {
+								adViewContainer.setVisibility(View.GONE);
 								baseAdViewWrapper.getBaseAdView().setVisibility(View.GONE);
 							}
 
 							@Override
 							public void onAdFailedToLoad(int errorCode) {
+								adViewContainer.setVisibility(View.GONE);
 								baseAdViewWrapper.getBaseAdView().setVisibility(View.GONE);
 							}
 						});
@@ -165,9 +168,6 @@ public abstract class BaseAdViewHelper implements AdHelper {
 	public void onResume() {
 		if (baseAdViewWrapper != null) {
 			if (AdMobAppModule.get().getAdMobAppContext().areAdsEnabled()) {
-				if (adViewContainer != null) {
-					adViewContainer.setVisibility(View.VISIBLE);
-				}
 				baseAdViewWrapper.resume();
 			} else if (adViewContainer != null) {
 				adViewContainer.removeView(baseAdViewWrapper.getBaseAdView());
