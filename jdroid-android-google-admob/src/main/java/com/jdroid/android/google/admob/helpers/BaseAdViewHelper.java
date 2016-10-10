@@ -13,106 +13,107 @@ import com.jdroid.android.context.AppContext;
 import com.jdroid.android.google.admob.AdMobAppModule;
 import com.jdroid.android.google.admob.HouseAdBuilder;
 import com.jdroid.android.location.LocationHelper;
-import com.jdroid.java.exception.UnexpectedException;
 
 public abstract class BaseAdViewHelper implements AdHelper {
 
-	protected static final String TEST_AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111";
+	public static final String TEST_AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111";
 
 	private BaseAdViewWrapper baseAdViewWrapper;
 	private ViewGroup adViewContainer;
 	private AdSize adSize;
-	private String defaultAdUnitId;
+	private String adUnitId;
 	private HouseAdBuilder houseAdBuilder;
 
 	private Boolean displayAds = false;
 
 	public BaseAdViewHelper() {
-		defaultAdUnitId = AdMobAppModule.get().getAdMobAppContext().getDefaultAdUnitId();
+		adUnitId = AdMobAppModule.get().getAdMobAppContext().getDefaultAdUnitId();
 	}
 
 	@Override
 	public void loadAd(Activity activity, ViewGroup adViewContainer) {
 		if (adViewContainer != null) {
-			if ((getAdSize() == null) || !AdMobAppModule.get().getAdMobAppContext().areAdsEnabled()) {
-				adViewContainer.setVisibility(View.GONE);
-			} else {
-				adViewContainer.setVisibility(View.VISIBLE);
-				baseAdViewWrapper = createBaseAdViewWrapper(activity);
+			if ((getAdSize() != null) && AdMobAppModule.get().getAdMobAppContext().areAdsEnabled()) {
+				if (adUnitId != null) {
 
-				if (getDefaultAdUnitId() == null) {
-					throw new UnexpectedException("Missing ad unit ID");
-				}
+					adViewContainer.setVisibility(View.VISIBLE);
+					baseAdViewWrapper = createBaseAdViewWrapper(activity);
 
-				if (!AbstractApplication.get().getAppContext().isProductionEnvironment() && AdMobAppModule.get().getAdMobAppContext().isTestAdUnitIdEnabled()) {
-					baseAdViewWrapper.setAdUnitId(BaseAdViewHelper.TEST_AD_UNIT_ID);
-				} else {
-					baseAdViewWrapper.setAdUnitId(getDefaultAdUnitId());
-				}
-				baseAdViewWrapper.setAdSize(getAdSize());
-				final View customView = getHouseAdBuilder() != null ? getHouseAdBuilder().build(activity) : null;
-				if (customView != null) {
+					if (!AbstractApplication.get().getAppContext().isProductionEnvironment() && AdMobAppModule.get().getAdMobAppContext().isTestAdUnitIdEnabled()) {
+						baseAdViewWrapper.setAdUnitId(BaseAdViewHelper.TEST_AD_UNIT_ID);
+					} else {
+						baseAdViewWrapper.setAdUnitId(adUnitId);
+					}
+					baseAdViewWrapper.setAdSize(getAdSize());
+					final View customView = getHouseAdBuilder() != null ? getHouseAdBuilder().build(activity) : null;
+					if (customView != null) {
 
-					adViewContainer.addView(customView);
+						adViewContainer.addView(customView);
 
-					baseAdViewWrapper.setAdListener(new AdListener() {
+						baseAdViewWrapper.setAdListener(new AdListener() {
 
-						@Override
-						public void onAdLoaded() {
-							if (displayAds) {
-								baseAdViewWrapper.getBaseAdView().setVisibility(View.VISIBLE);
-								customView.setVisibility(View.GONE);
-							} else {
-								baseAdViewWrapper.getBaseAdView().postDelayed(new Runnable() {
+							@Override
+							public void onAdLoaded() {
+								if (displayAds) {
+									baseAdViewWrapper.getBaseAdView().setVisibility(View.VISIBLE);
+									customView.setVisibility(View.GONE);
+								} else {
+									baseAdViewWrapper.getBaseAdView().postDelayed(new Runnable() {
 
-									@Override
-									public void run() {
-										displayAds = true;
-										if ((baseAdViewWrapper != null) && (customView != null)) {
-											baseAdViewWrapper.getBaseAdView().setVisibility(View.VISIBLE);
-											customView.setVisibility(View.GONE);
+										@Override
+										public void run() {
+											displayAds = true;
+											if ((baseAdViewWrapper != null) && (customView != null)) {
+												baseAdViewWrapper.getBaseAdView().setVisibility(View.VISIBLE);
+												customView.setVisibility(View.GONE);
+											}
 										}
-									}
-								}, DateUtils.SECOND_IN_MILLIS * 10);
+									}, DateUtils.SECOND_IN_MILLIS * 10);
+								}
 							}
-						}
 
-						@Override
-						public void onAdClosed() {
-							baseAdViewWrapper.getBaseAdView().setVisibility(View.GONE);
-							customView.setVisibility(View.VISIBLE);
-						}
+							@Override
+							public void onAdClosed() {
+								baseAdViewWrapper.getBaseAdView().setVisibility(View.GONE);
+								customView.setVisibility(View.VISIBLE);
+							}
 
-						@Override
-						public void onAdFailedToLoad(int errorCode) {
-							baseAdViewWrapper.getBaseAdView().setVisibility(View.GONE);
-							customView.setVisibility(View.VISIBLE);
-						}
-					});
+							@Override
+							public void onAdFailedToLoad(int errorCode) {
+								baseAdViewWrapper.getBaseAdView().setVisibility(View.GONE);
+								customView.setVisibility(View.VISIBLE);
+							}
+						});
+					} else {
+						baseAdViewWrapper.setAdListener(new AdListener() {
+
+							@Override
+							public void onAdLoaded() {
+								baseAdViewWrapper.getBaseAdView().setVisibility(View.VISIBLE);
+							}
+
+							@Override
+							public void onAdClosed() {
+								baseAdViewWrapper.getBaseAdView().setVisibility(View.GONE);
+							}
+
+							@Override
+							public void onAdFailedToLoad(int errorCode) {
+								baseAdViewWrapper.getBaseAdView().setVisibility(View.GONE);
+							}
+						});
+					}
+
+					AppContext applicationContext = AbstractApplication.get().getAppContext();
+					AdRequest.Builder builder = createBuilder(applicationContext);
+					baseAdViewWrapper.loadAd(builder.build());
+					adViewContainer.addView(baseAdViewWrapper.getBaseAdView());
+
 				} else {
-					baseAdViewWrapper.setAdListener(new AdListener() {
-
-						@Override
-						public void onAdLoaded() {
-							baseAdViewWrapper.getBaseAdView().setVisibility(View.VISIBLE);
-						}
-
-						@Override
-						public void onAdClosed() {
-							baseAdViewWrapper.getBaseAdView().setVisibility(View.GONE);
-						}
-
-						@Override
-						public void onAdFailedToLoad(int errorCode) {
-							baseAdViewWrapper.getBaseAdView().setVisibility(View.GONE);
-						}
-					});
+					AbstractApplication.get().getExceptionHandler().logWarningException("Missing ad unit ID on activity " + activity.getClass().getSimpleName());
 				}
-
-				AppContext applicationContext = AbstractApplication.get().getAppContext();
-				AdRequest.Builder builder = createBuilder(applicationContext);
-				baseAdViewWrapper.loadAd(builder.build());
-				adViewContainer.addView(baseAdViewWrapper.getBaseAdView());
+			} else {
+				adViewContainer.setVisibility(View.GONE);
 			}
 		}
 	}
@@ -151,12 +152,8 @@ public abstract class BaseAdViewHelper implements AdHelper {
 
 	@Override
 	public AdHelper setAdUnitId(String adUnitId) {
-		this.defaultAdUnitId = adUnitId;
+		this.adUnitId = adUnitId;
 		return this;
-	}
-
-	public String getDefaultAdUnitId() {
-		return defaultAdUnitId;
 	}
 
 	public void onBeforePause() {

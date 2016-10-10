@@ -10,6 +10,7 @@ import com.jdroid.android.activity.ActivityDelegate;
 import com.jdroid.android.google.admob.helpers.AdViewHelper;
 import com.jdroid.android.google.admob.helpers.BaseAdViewHelper;
 import com.jdroid.android.google.admob.helpers.InterstitialAdHelper;
+import com.jdroid.java.exception.UnexpectedException;
 
 public class AdMobActivityDelegate extends ActivityDelegate {
 
@@ -27,7 +28,11 @@ public class AdMobActivityDelegate extends ActivityDelegate {
 		if (AdMobAppModule.get().getAdMobAppContext().areAdsEnabled()) {
 
 			if (!initialized) {
-				MobileAds.initialize(getActivity().getApplicationContext(), AdMobAppModule.get().getAdMobAppContext().getAdMobAppId());
+				String adMobAppId = AdMobAppModule.get().getAdMobAppContext().getAdMobAppId();
+				if (adMobAppId == null) {
+					throw new UnexpectedException("Missing AdMob App Id");
+				}
+				MobileAds.initialize(getActivity().getApplicationContext(), adMobAppId);
 				initialized = true;
 			}
 
