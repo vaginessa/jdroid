@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import com.google.android.gms.ads.MobileAds;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityDelegate;
-import com.jdroid.android.google.admob.helpers.AdHelper;
 import com.jdroid.android.google.admob.helpers.AdViewHelper;
 import com.jdroid.android.google.admob.helpers.BaseAdViewHelper;
 import com.jdroid.android.google.admob.helpers.InterstitialAdHelper;
@@ -57,14 +56,14 @@ public class AdMobActivityDelegate extends ActivityDelegate {
 	@Override
 	public void onBeforePause() {
 		if (baseAdViewHelper != null) {
-			baseAdViewHelper.onPause();
+			baseAdViewHelper.onBeforePause();
 		}
 	}
 
 	@Override
 	public void onBeforeDestroy() {
 		if (baseAdViewHelper != null) {
-			baseAdViewHelper.onDestroy();
+			baseAdViewHelper.onBeforeDestroy();
 		}
 	}
 

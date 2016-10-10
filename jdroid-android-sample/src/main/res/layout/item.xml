@@ -3,6 +3,6 @@
 				android:layout_height="wrap_content" android:foreground="?android:attr/selectableItemBackground"
 				android:background="@color/jdroid_grey" android:layout_margin="4dp" >
 
-	<TextView android:id="@+id/name" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="16dp"/>
+	<TextView android:id="@+id/name" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="20dp"/>
 
 </RelativeLayout>

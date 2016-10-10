@@ -11,6 +11,9 @@
 	<Button android:id="@+id/largeNativeAdExpress" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/largeNativeAdExpress" />
 
+	<Button android:id="@+id/adReycler" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/adReycler" />
+
 	<Button android:id="@+id/activityBanner" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/activityBanner" />
 

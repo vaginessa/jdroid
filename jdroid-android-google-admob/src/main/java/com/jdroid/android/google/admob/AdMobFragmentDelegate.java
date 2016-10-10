@@ -43,14 +43,14 @@ public class AdMobFragmentDelegate extends FragmentDelegate {
 	@Override
 	public void onBeforePause() {
 		if (baseAdViewHelper != null) {
-			baseAdViewHelper.onPause();
+			baseAdViewHelper.onBeforePause();
 		}
 	}
 
 	@Override
 	public void onBeforeDestroy() {
 		if (baseAdViewHelper != null) {
-			baseAdViewHelper.onDestroy();
+			baseAdViewHelper.onBeforeDestroy();
 		}
 	}
 

@@ -45,6 +45,14 @@ public class AdsFragment extends AbstractFragment {
 			}
 		});
 
+		findView(R.id.adReycler).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				ActivityLauncher.launchActivity(AdRecyclerActivity.class);
+			}
+		});
+
 		findView(R.id.activityBanner).setOnClickListener(new OnClickListener() {
 
 			@Override

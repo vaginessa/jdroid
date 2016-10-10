@@ -159,7 +159,7 @@ public abstract class BaseAdViewHelper implements AdHelper {
 		return defaultAdUnitId;
 	}
 
-	public void onPause() {
+	public void onBeforePause() {
 		if (baseAdViewWrapper != null) {
 			baseAdViewWrapper.pause();
 		}
@@ -182,7 +182,7 @@ public abstract class BaseAdViewHelper implements AdHelper {
 
 	}
 
-	public void onDestroy() {
+	public void onBeforeDestroy() {
 		if (baseAdViewWrapper != null) {
 			baseAdViewWrapper.destroy();
 			baseAdViewWrapper = null;
