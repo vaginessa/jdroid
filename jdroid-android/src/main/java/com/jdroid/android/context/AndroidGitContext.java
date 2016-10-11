@@ -1,17 +1,16 @@
 package com.jdroid.android.context;
 
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.context.GitContext;
 
-public class AndroidGitContext implements GitContext {
+public class AndroidGitContext extends AbstractAppContext implements GitContext {
 
 	@Override
 	public String getBranch() {
-		return AbstractApplication.get().getAppContext().getBuildConfigValue("GIT_BRANCH");
+		return getBuildConfigValue("GIT_BRANCH");
 	}
 
 	@Override
 	public String getSha() {
-		return AbstractApplication.get().getAppContext().getBuildConfigValue("GIT_SHA");
+		return getBuildConfigValue("GIT_SHA");
 	}
 }

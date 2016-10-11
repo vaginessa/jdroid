@@ -5,12 +5,13 @@ import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.context.AbstractAppContext;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.StringUtils;
 
 import java.util.List;
 
-public class InAppBillingContext {
+public class InAppBillingContext extends AbstractAppContext {
 	
 	public static final String MOCK_ENABLED = "inAppBillingMockEnabled";
 	public static final String TEST_PRODUCT_IDS = "inAppBillingTestProductIds";
@@ -25,7 +26,7 @@ public class InAppBillingContext {
 		// runtime from pieces or use bit manipulation (for example, XOR with some other string) to hide the actual key.
 		// The key itself is not secret information, but we don't want to make it easy for an attacker to replace the
 		// public key with one of their own and then fake messages from the server.
-		googlePlayPublicKey = AbstractApplication.get().getAppContext().getBuildConfigValue("GOOGLE_PLAY_PUBLIC_KEY");
+		googlePlayPublicKey = getBuildConfigValue("GOOGLE_PLAY_PUBLIC_KEY");
 		
 	}
 	

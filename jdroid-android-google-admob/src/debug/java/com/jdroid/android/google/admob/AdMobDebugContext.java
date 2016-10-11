@@ -10,7 +10,6 @@ import com.jdroid.java.concurrent.ExecutorUtils;
 
 import java.util.List;
 
-import static com.jdroid.android.google.admob.AdMobAppContext.ADS_ENABLED;
 import static com.jdroid.android.google.admob.AdMobAppContext.TEST_AD_UNIT_ID_ENABLED;
 
 public class AdMobDebugContext {
@@ -21,9 +20,9 @@ public class AdMobDebugContext {
 			public void run() {
 				// This is required to initialize the prefs to display on the debug settings
 				SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
-				if (!sharedPreferences.contains(ADS_ENABLED)) {
+				if (!sharedPreferences.contains(AdMobRemoteConfigParameter.ADS_ENABLED.getKey())) {
 					SharedPreferences.Editor editor = sharedPreferences.edit();
-					editor.putBoolean(ADS_ENABLED, AdMobAppModule.get().getAdMobAppContext().areAdsEnabledByDefault());
+					editor.putBoolean(AdMobRemoteConfigParameter.ADS_ENABLED.getKey(), AdMobAppModule.get().getAdMobAppContext().areAdsEnabledByDefault());
 					editor.apply();
 				}
 				if (!sharedPreferences.contains(TEST_AD_UNIT_ID_ENABLED)) {

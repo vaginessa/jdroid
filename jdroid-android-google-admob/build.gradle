@@ -22,6 +22,11 @@ dependencies {
 		releaseCompile project(path: ":jdroid-android", configuration: 'release')
 	}
 
+	debugCompile project(path: ':jdroid-android-firebase-remoteconfig', configuration: 'debug')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ':jdroid-android-firebase-remoteconfig', configuration: 'release')
+	}
+
 	compile 'com.google.firebase:firebase-ads:' + googlePlayServicesVersion
 
 	testCompile 'junit:junit:4.12'

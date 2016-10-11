@@ -1,12 +1,12 @@
 package com.jdroid.android.crashlytics;
 
 import com.jdroid.android.analytics.AnalyticsTracker;
-import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.context.AbstractAppContext;
 
-public class CrashlyticsAppContext {
+public class CrashlyticsAppContext extends AbstractAppContext {
 
 	public Boolean isCrashlyticsEnabled() {
-		return AbstractApplication.get().getAppContext().getBuildConfigValue("CRASHLYTICS_ENABLED", false);
+		return getBuildConfigValue("CRASHLYTICS_ENABLED", false);
 	}
 
 	public AnalyticsTracker getAnalyticsTracker() {

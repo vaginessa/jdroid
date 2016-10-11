@@ -3,13 +3,11 @@ package com.jdroid.android.context;
 import android.preference.PreferenceManager;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.utils.AppUtils;
 import com.jdroid.java.http.Server;
-import com.jdroid.java.utils.ReflectionUtils;
 
 import java.util.Locale;
 
-public abstract class AppContext {
+public abstract class AppContext extends AbstractAppContext {
 	
 	// Environment
 	private Server server;
@@ -19,28 +17,6 @@ public abstract class AppContext {
 		server = findServerByName(getServerName());
 	}
 
-	public Class<?> getBuildConfigClass() {
-		String applicationId = AppUtils.getApplicationId();
-		if (applicationId.endsWith(".debug")) {
-			applicationId = applicationId.replace(".debug", "");
-		}
-		return ReflectionUtils.getClass(applicationId + ".BuildConfig");
-	}
-
-	@SuppressWarnings("unchecked")
-	public <T> T getBuildConfigValue(String property) {
-		return (T)ReflectionUtils.getStaticFieldValue(getBuildConfigClass(), property);
-	}
-
-	@SuppressWarnings("unchecked")
-	public <T> T getBuildConfigValue(String property, Object defaultValue) {
-		return (T)ReflectionUtils.getStaticFieldValue(getBuildConfigClass(), property, defaultValue);
-	}
-
-	public Boolean getBuildConfigBoolean(String property, Boolean defaultValue) {
-		return (Boolean)getBuildConfigValue(property, defaultValue);
-	}
-	
 	protected Server findServerByName(String name) {
 		return null;
 	}

@@ -1,13 +1,13 @@
 package com.jdroid.android.firebase;
 
-import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.context.AbstractAppContext;
 
-public class FirebaseAppContext {
+public class FirebaseAppContext extends AbstractAppContext {
 
 	/**
 	 * @return Whether the application has Firebase Analytics enabled or not
 	 */
 	public Boolean isFirebaseAnalyticsEnabled() {
-		return AbstractApplication.get().getAppContext().getBuildConfigValue("FIREBASE_ANALYTICS_ENABLED", false);
+		return getBuildConfigValue("FIREBASE_ANALYTICS_ENABLED", false);
 	}
 }

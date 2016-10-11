@@ -3,27 +3,28 @@ package com.jdroid.android.google.admob;
 import android.preference.PreferenceManager;
 
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.context.AbstractAppContext;
 import com.jdroid.android.context.UsageStats;
+import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigHelper;
 import com.jdroid.java.collections.Sets;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.StringUtils;
 
 import java.util.Set;
 
-public class AdMobAppContext {
+public class AdMobAppContext extends AbstractAppContext {
 
-	public static final String ADS_ENABLED = "ADS_ENABLED";
 	public static final String TEST_AD_UNIT_ID_ENABLED = "TEST_AD_UNIT_ID_ENABLED";
 
 	public Boolean areAdsEnabledByDefault() {
-		return AbstractApplication.get().getAppContext().getBuildConfigValue(ADS_ENABLED, false);
+		return FirebaseRemoteConfigHelper.getBoolean(AdMobRemoteConfigParameter.ADS_ENABLED);
 	}
 
 	/**
 	 * @return Whether the application has ads enabled or not
 	 */
 	public Boolean areAdsEnabled() {
-		Boolean prefEnabled = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(ADS_ENABLED, areAdsEnabledByDefault());
+		Boolean prefEnabled = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(AdMobRemoteConfigParameter.ADS_ENABLED.getKey(), areAdsEnabledByDefault());
 		Boolean enoughDaysSinceFirstAppLoad = DateUtils.millisecondsToDays(UsageStats.getFirstAppLoadTimestamp()) >= getMinDaysSinceFirstAppLoad();
 		Boolean enoughAppLoads = UsageStats.getAppLoads() >= getMinAppLoadsToDisplayAds() ;
 		return prefEnabled && enoughDaysSinceFirstAppLoad && enoughAppLoads;
@@ -45,7 +46,7 @@ public class AdMobAppContext {
 	 * @return The MD5-hashed ID of the devices that should display mocked ads
 	 */
 	public Set<String> getTestDevicesIds() {
-		String testDevicesIds = AbstractApplication.get().getAppContext().getBuildConfigValue("ADS_TEST_DEVICES_IDS", null);
+		String testDevicesIds = getBuildConfigValue("ADS_TEST_DEVICES_IDS", null);
 		return testDevicesIds != null ? Sets.newHashSet(StringUtils.splitToCollectionWithCommaSeparator(testDevicesIds)) : Sets.<String>newHashSet();
 	}
 
@@ -53,10 +54,10 @@ public class AdMobAppContext {
 	 * @return The AdMob Publisher ID
 	 */
 	public String getDefaultAdUnitId() {
-		return AbstractApplication.get().getAppContext().getBuildConfigValue("DEFAULT_AD_UNIT_ID", null);
+		return FirebaseRemoteConfigHelper.getString(AdMobRemoteConfigParameter.DEFAULT_AD_UNIT_ID);
 	}
 
 	public String getAdMobAppId() {
-		return AbstractApplication.get().getAppContext().getBuildConfigValue("ADMOB_APP_ID", null);
+		return FirebaseRemoteConfigHelper.getString(AdMobRemoteConfigParameter.ADMOB_APP_ID);
 	}
 }

@@ -4,12 +4,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.context.AbstractAppContext;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.java.utils.ReflectionUtils;
 
-public class AboutContext {
+public class AboutContext extends AbstractAppContext {
 
 	@NonNull
 	@SuppressWarnings("unchecked")
