@@ -27,7 +27,7 @@ public class FirebaseRemoteConfigHelper {
 	static void init() {
 		firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
 
-		FirebaseRemoteConfigSettings.Builder configSettingsBuilder =new FirebaseRemoteConfigSettings.Builder();
+		FirebaseRemoteConfigSettings.Builder configSettingsBuilder = new FirebaseRemoteConfigSettings.Builder();
 		configSettingsBuilder.setDeveloperModeEnabled(!AbstractApplication.get().getAppContext().isProductionEnvironment());
 
 		firebaseRemoteConfig.setConfigSettings(configSettingsBuilder.build());

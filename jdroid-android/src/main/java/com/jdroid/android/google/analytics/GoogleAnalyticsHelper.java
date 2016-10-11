@@ -25,11 +25,14 @@ public class GoogleAnalyticsHelper {
 
 	private Map<String, String> commonCustomDimensionsValues = Maps.newHashMap();
 
-	public GoogleAnalyticsHelper() {
-		GoogleAnalytics analytics = GoogleAnalytics.getInstance(AbstractApplication.get());
-		tracker = analytics.newTracker(AbstractApplication.get().getAppContext().getGoogleAnalyticsTrackingId());
-		tracker.setSessionTimeout(SESSION_TIMEOUT);
-		tracker.enableAdvertisingIdCollection(isAdvertisingIdCollectionEnabled());
+	public synchronized Tracker getTracker() {
+		if (tracker == null) {
+			GoogleAnalytics analytics = GoogleAnalytics.getInstance(AbstractApplication.get());
+			tracker = analytics.newTracker(AbstractApplication.get().getAppContext().getGoogleAnalyticsTrackingId());
+			tracker.setSessionTimeout(SESSION_TIMEOUT);
+			tracker.enableAdvertisingIdCollection(isAdvertisingIdCollectionEnabled());
+		}
+		return tracker;
 	}
 
 	public void addCustomDimensionDefinition(String dimensionName, Integer index) {
@@ -65,7 +68,7 @@ public class GoogleAnalyticsHelper {
 			eventBuilder.setValue(value);
 		}
 
-		tracker.send(eventBuilder.build());
+		getTracker().send(eventBuilder.build());
 		LOGGER.debug("Event sent. Category [" + category + "] Action [" + action + "] Label [" + label + "]"
 				+ (value != null ? " Value" + value + "]" : ""));
 	}
@@ -78,8 +81,8 @@ public class GoogleAnalyticsHelper {
 
 		addCustomDimension(screenViewBuilder, commonCustomDimensionsValues);
 
-		tracker.setScreenName(screenName);
-		tracker.send(screenViewBuilder.build());
+		getTracker().setScreenName(screenName);
+		getTracker().send(screenViewBuilder.build());
 		LOGGER.debug("Screen view sent. Screen name [" + screenName + "]");
 	}
 
@@ -92,12 +95,12 @@ public class GoogleAnalyticsHelper {
 		addCustomDimension(transactionBuilder, commonCustomDimensionsValues);
 		addCustomDimension(transactionBuilder, customDimensions);
 
-		tracker.send(transactionBuilder.build());
+		getTracker().send(transactionBuilder.build());
 		LOGGER.debug("Transaction sent. " + transactionBuilder.build());
 	}
 
 	public void sendTransactionItem(HitBuilders.ItemBuilder itemBuilder) {
-		tracker.send(itemBuilder.build());
+		getTracker().send(itemBuilder.build());
 		LOGGER.debug("Transaction item sent. " + itemBuilder.build());
 	}
 
@@ -111,7 +114,7 @@ public class GoogleAnalyticsHelper {
 
 		addCustomDimension(timingBuilder, commonCustomDimensionsValues);
 
-		tracker.send(timingBuilder.build());
+		getTracker().send(timingBuilder.build());
 		LOGGER.debug("Timing sent. Category [" + category + "] Variable [" + variable + "] Label [" + label
 				+ "] Value [" + value + "]");
 	}
@@ -228,9 +231,5 @@ public class GoogleAnalyticsHelper {
 
 	public Boolean hasCommonCustomDimension(String key) {
 		return commonCustomDimensionsValues.containsKey(key);
-	}
-
-	public Tracker getTracker() {
-		return tracker;
 	}
 }
