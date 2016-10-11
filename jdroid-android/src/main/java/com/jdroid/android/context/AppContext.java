@@ -85,10 +85,6 @@ public abstract class AppContext extends AbstractAppContext {
 		return getBuildConfigValue("GOOGLE_ANALYTICS_TRACKING_ID", null);
 	}
 	
-	public  Boolean isGoogleAnalyticsDebugEnabled() {
-		return getBuildConfigValue("GOOGLE_ANALYTICS_DEBUG_ENABLED", false);
-	}
-	
 	public String getLocalIp() {
 		return getBuildConfigValue("LOCAL_IP", null);
 	}
