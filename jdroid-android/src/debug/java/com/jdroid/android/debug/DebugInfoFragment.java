@@ -7,6 +7,7 @@ import android.view.View;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.UsageStats;
+import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
 import com.jdroid.android.utils.AndroidUtils;
@@ -31,8 +32,9 @@ public class DebugInfoFragment extends AbstractRecyclerFragment {
 		properties.add(new Pair<String, Object>("Build Type", appContext.getBuildType()));
 		properties.add(new Pair<String, Object>("Build Time", appContext.getBuildTime()));
 
-		properties.add(new Pair<String, Object>("Analytics Enabled", appContext.isGoogleAnalyticsEnabled()));
-		properties.add(new Pair<String, Object>("Analytics Tracking Id", appContext.getGoogleAnalyticsTrackingId()));
+		properties.add(new Pair<String, Object>("Google Analytics Enabled", GoogleAnalyticsAppModule.get().getGoogleAnalyticsAppContext().isGoogleAnalyticsEnabled()));
+		properties.add(new Pair<String, Object>("Google Analytics Tracking Id", GoogleAnalyticsAppModule.get().getGoogleAnalyticsAppContext().getGoogleAnalyticsTrackingId()));
+
 		properties.add(new Pair<String, Object>("Installation Source", appContext.getInstallationSource()));
 
 		properties.add(new Pair<String, Object>("Smallest Screen Width Dp", ScreenUtils.getSmallestScreenWidthDp()));

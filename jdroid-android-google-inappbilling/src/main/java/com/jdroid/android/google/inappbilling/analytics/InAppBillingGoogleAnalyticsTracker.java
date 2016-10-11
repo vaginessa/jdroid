@@ -1,7 +1,6 @@
 package com.jdroid.android.google.inappbilling.analytics;
 
 import com.google.android.gms.analytics.HitBuilders;
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsHelper;
 import com.jdroid.android.google.inappbilling.Product;
@@ -16,7 +15,7 @@ public class InAppBillingGoogleAnalyticsTracker implements InAppBillingAnalytics
 
 	@Override
 	public Boolean isEnabled() {
-		return AbstractApplication.get().getAppContext().isGoogleAnalyticsEnabled();
+		return GoogleAnalyticsAppModule.get().getGoogleAnalyticsAppContext().isGoogleAnalyticsEnabled();
 	}
 
 	@Override

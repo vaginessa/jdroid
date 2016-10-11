@@ -24,18 +24,17 @@ import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigAppModule;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.google.admob.AdMobAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
-import com.jdroid.android.google.analytics.GoogleAnalyticsTracker;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sample.BuildConfig;
 import com.jdroid.android.sample.R;
-import com.jdroid.android.sample.analytics.AndroidFirebaseAnalyticsTracker;
-import com.jdroid.android.sample.analytics.AndroidGoogleAnalyticsTracker;
 import com.jdroid.android.sample.analytics.AppAnalyticsSender;
 import com.jdroid.android.sample.analytics.AppAnalyticsTracker;
 import com.jdroid.android.sample.debug.AndroidDebugContext;
 import com.jdroid.android.sample.exception.AndroidCrashlyticsAppModule;
+import com.jdroid.android.sample.firebase.AndroidFirebaseAppModule;
 import com.jdroid.android.sample.firebase.fcm.AndroidFcmAppModule;
 import com.jdroid.android.sample.firebase.remoteconfig.AndroidFirebaseRemoteConfigAppModule;
+import com.jdroid.android.sample.google.analytics.AndroidGoogleAnalyticsAppModule;
 import com.jdroid.android.sample.repository.UserRepositoryImpl;
 import com.jdroid.android.sample.ui.AndroidActivityHelper;
 import com.jdroid.android.sample.ui.AndroidFragmentHelper;
@@ -66,13 +65,6 @@ public class AndroidApplication extends AbstractApplication {
 		getUriMapper().addUriWatcher(new SampleUriWatcher());
 
 		Firebase.setAndroidContext(this);
-
-		if (AbstractApplication.get().getAppContext().isGoogleAnalyticsEnabled()) {
-			GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleAnalyticsTracker.CustomDimension.INSTALLATION_SOURCE.name(), 1);
-			GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleAnalyticsTracker.CustomDimension.DEVICE_TYPE.name(), 2);
-			GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleAnalyticsTracker.CustomDimension.REFERRER.name(), 3);
-			GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleAnalyticsTracker.CustomDimension.DEVICE_YEAR_CLASS.name(), 4);
-		}
 	}
 
 	@Override
@@ -115,16 +107,6 @@ public class AndroidApplication extends AbstractApplication {
 		return new AppAnalyticsSender((List<AppAnalyticsTracker>)analyticsTrackers);
 	}
 
-	@Override
-	protected AnalyticsTracker createGoogleAnalyticsTracker() {
-		return new AndroidGoogleAnalyticsTracker();
-	}
-
-	@Override
-	protected AnalyticsTracker createFirebaseAnalyticsTracker() {
-		return new AndroidFirebaseAnalyticsTracker();
-	}
-
 	@NonNull
 	@Override
 	public AppAnalyticsSender getAnalyticsSender() {
@@ -153,15 +135,15 @@ public class AndroidApplication extends AbstractApplication {
 
 	@Override
 	protected void initAppModule(Map<String, AppModule> appModulesMap) {
-		appModulesMap.put(GoogleAnalyticsAppModule.MODULE_NAME,  new GoogleAnalyticsAppModule());
-		appModulesMap.put(FirebaseAppModule.MODULE_NAME,  new FirebaseAppModule());
+		appModulesMap.put(GoogleAnalyticsAppModule.MODULE_NAME, new AndroidGoogleAnalyticsAppModule());
+		appModulesMap.put(FirebaseAppModule.MODULE_NAME, new AndroidFirebaseAppModule());
 		appModulesMap.put(CrashlyticsAppModule.MODULE_NAME, new AndroidCrashlyticsAppModule());
 		appModulesMap.put(AdMobAppModule.MODULE_NAME, new SampleAdMobAppModule());
 		appModulesMap.put(FacebookAppModule.MODULE_NAME, new FacebookAppModule());
 		appModulesMap.put(AbstractFcmAppModule.MODULE_NAME, new AndroidFcmAppModule());
 		appModulesMap.put(FirebaseRemoteConfigAppModule.MODULE_NAME, new AndroidFirebaseRemoteConfigAppModule());
-		appModulesMap.put(AboutAppModule.MODULE_NAME,  new AndroidAboutAppModule());
-		appModulesMap.put(TwitterAppModule.MODULE_NAME,  new TwitterAppModule(BuildConfig.TWITTER_OAUTH_CONSUMER_KEY, BuildConfig.TWITTER_OAUTH_CONSUMER_SECRET));
+		appModulesMap.put(AboutAppModule.MODULE_NAME, new AndroidAboutAppModule());
+		appModulesMap.put(TwitterAppModule.MODULE_NAME, new TwitterAppModule(BuildConfig.TWITTER_OAUTH_CONSUMER_KEY, BuildConfig.TWITTER_OAUTH_CONSUMER_SECRET));
 	}
 
 	@Override

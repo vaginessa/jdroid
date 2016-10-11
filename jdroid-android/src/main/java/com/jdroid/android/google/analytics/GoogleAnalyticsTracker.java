@@ -46,7 +46,7 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 
 	@Override
 	public Boolean isEnabled() {
-		return AbstractApplication.get().getAppContext().isGoogleAnalyticsEnabled();
+		return GoogleAnalyticsAppModule.get().getGoogleAnalyticsAppContext().isGoogleAnalyticsEnabled();
 	}
 	
 	@Override

@@ -1,6 +1,5 @@
 package com.jdroid.android.google.admob.analytics;
 
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsHelper;
 
@@ -17,7 +16,7 @@ public class AdMobGoogleAnalyticsTracker implements AdMobAnalyticsTracker {
 
 	@Override
 	public Boolean isEnabled() {
-		return AbstractApplication.get().getAppContext().isGoogleAnalyticsEnabled();
+		return GoogleAnalyticsAppModule.get().getGoogleAnalyticsAppContext().isGoogleAnalyticsEnabled();
 	}
 
 	@Override

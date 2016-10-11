@@ -22,8 +22,6 @@ import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.fragment.FragmentHelper;
-import com.jdroid.android.google.analytics.GoogleAnalyticsTracker;
-import com.jdroid.android.firebase.analytics.FirebaseAnalyticsTracker;
 import com.jdroid.android.http.cache.CacheManager;
 import com.jdroid.android.images.loader.ImageLoaderHelper;
 import com.jdroid.android.images.loader.uil.UilImageLoaderHelper;
@@ -249,26 +247,10 @@ public abstract class AbstractApplication extends Application {
 
 	public List<? extends AnalyticsTracker> createAnalyticsTrackers() {
 		List<AnalyticsTracker> analyticsTrackers = Lists.newArrayList();
-		AnalyticsTracker googleAnalyticsTracker = createGoogleAnalyticsTracker();
-		if (googleAnalyticsTracker != null) {
-			analyticsTrackers.add(googleAnalyticsTracker);
-		}
-		AnalyticsTracker firebaseAnalyticsTracker = createFirebaseAnalyticsTracker();
-		if (firebaseAnalyticsTracker != null) {
-			analyticsTrackers.add(firebaseAnalyticsTracker);
-		}
 		for (AppModule each: appModulesMap.values()) {
 			analyticsTrackers.addAll(each.getAnalyticsTrackers());
 		}
 		return analyticsTrackers;
-	}
-
-	protected AnalyticsTracker createGoogleAnalyticsTracker() {
-		return new GoogleAnalyticsTracker();
-	}
-
-	protected AnalyticsTracker createFirebaseAnalyticsTracker() {
-		return new FirebaseAnalyticsTracker();
 	}
 
 	@SuppressWarnings("unchecked")

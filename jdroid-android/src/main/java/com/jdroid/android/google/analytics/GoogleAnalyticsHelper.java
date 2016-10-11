@@ -28,7 +28,7 @@ public class GoogleAnalyticsHelper {
 	public synchronized Tracker getTracker() {
 		if (tracker == null) {
 			GoogleAnalytics analytics = GoogleAnalytics.getInstance(AbstractApplication.get());
-			tracker = analytics.newTracker(AbstractApplication.get().getAppContext().getGoogleAnalyticsTrackingId());
+			tracker = analytics.newTracker(GoogleAnalyticsAppModule.get().getGoogleAnalyticsAppContext().getGoogleAnalyticsTrackingId());
 			tracker.setSessionTimeout(SESSION_TIMEOUT);
 			tracker.enableAdvertisingIdCollection(isAdvertisingIdCollectionEnabled());
 		}
