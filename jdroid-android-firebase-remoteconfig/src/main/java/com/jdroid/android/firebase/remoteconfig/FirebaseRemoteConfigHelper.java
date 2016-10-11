@@ -7,6 +7,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigValue;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.firebase.FirebaseAppModule;
 import com.jdroid.java.collections.Maps;
@@ -89,6 +90,68 @@ public class FirebaseRemoteConfigHelper {
 
 	public static FirebaseRemoteConfig getFirebaseRemoteConfig() {
 		return firebaseRemoteConfig;
+	}
+
+	public static String getString(RemoteConfigParameter remoteConfigParameter) {
+		FirebaseRemoteConfigValue firebaseRemoteConfigValue = firebaseRemoteConfig.getValue(remoteConfigParameter.getKey());
+		Object value;
+		if (firebaseRemoteConfigValue.getSource() == FirebaseRemoteConfig.VALUE_SOURCE_STATIC) {
+			value = remoteConfigParameter.getDefaultValue();
+		} else {
+			value = firebaseRemoteConfigValue.asString();
+		}
+		log(remoteConfigParameter, firebaseRemoteConfigValue, value);
+		return (String)value;
+	}
+
+	public static Boolean getBoolean(RemoteConfigParameter remoteConfigParameter) {
+		FirebaseRemoteConfigValue firebaseRemoteConfigValue = firebaseRemoteConfig.getValue(remoteConfigParameter.getKey());
+		Object value;
+		if (firebaseRemoteConfigValue.getSource() == FirebaseRemoteConfig.VALUE_SOURCE_STATIC) {
+			value = remoteConfigParameter.getDefaultValue();
+		} else {
+			value = firebaseRemoteConfigValue.asBoolean();
+		}
+		log(remoteConfigParameter, firebaseRemoteConfigValue, value);
+		return (Boolean)value;
+	}
+
+	public static Double getDouble(RemoteConfigParameter remoteConfigParameter) {
+		FirebaseRemoteConfigValue firebaseRemoteConfigValue = firebaseRemoteConfig.getValue(remoteConfigParameter.getKey());
+		Object value;
+		if (firebaseRemoteConfigValue.getSource() == FirebaseRemoteConfig.VALUE_SOURCE_STATIC) {
+			value = remoteConfigParameter.getDefaultValue();
+		} else {
+			value = firebaseRemoteConfigValue.asDouble();
+		}
+		log(remoteConfigParameter, firebaseRemoteConfigValue, value);
+		return (Double)value;
+	}
+
+	public static Long getLong(RemoteConfigParameter remoteConfigParameter) {
+		FirebaseRemoteConfigValue firebaseRemoteConfigValue = firebaseRemoteConfig.getValue(remoteConfigParameter.getKey());
+		Object value;
+		if (firebaseRemoteConfigValue.getSource() == FirebaseRemoteConfig.VALUE_SOURCE_STATIC) {
+			value = remoteConfigParameter.getDefaultValue();
+		} else {
+			value = firebaseRemoteConfigValue.asLong();
+		}
+		log(remoteConfigParameter, firebaseRemoteConfigValue, value);
+		return (Long)value;
+	}
+
+	private static void log(RemoteConfigParameter remoteConfigParameter, FirebaseRemoteConfigValue firebaseRemoteConfigValue, Object value) {
+		if (LoggerUtils.isEnabled()) {
+			String source = null;
+			if (firebaseRemoteConfigValue.getSource() == FirebaseRemoteConfig.VALUE_SOURCE_STATIC) {
+				source = "Static";
+			} else if (firebaseRemoteConfigValue.getSource() == FirebaseRemoteConfig.VALUE_SOURCE_REMOTE) {
+				source = "Remote";
+			} else if (firebaseRemoteConfigValue.getSource() == FirebaseRemoteConfig.VALUE_SOURCE_DEFAULT) {
+				source = "Default";
+			}
+			LOGGER.info("Loaded Firebase Remote Config. Source [" + source + "] Key [" + remoteConfigParameter.getKey() + "] Value [" + value + "]");
+		}
 	}
 
 }

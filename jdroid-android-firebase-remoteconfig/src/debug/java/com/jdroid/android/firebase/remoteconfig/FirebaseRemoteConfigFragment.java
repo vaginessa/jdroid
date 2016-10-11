@@ -25,7 +25,7 @@ public class FirebaseRemoteConfigFragment extends AbstractRecyclerFragment {
 		List<Object> items = Lists.newArrayList();
 		items.add("");
 		for(RemoteConfigParameter each: FirebaseRemoteConfigAppModule.get().getFirebaseRemoteConfigAppContext().getRemoteConfigParameters()) {
-			items.add(new Pair<String, Object>(each.getKey(), FirebaseRemoteConfigHelper.getFirebaseRemoteConfig().getString(each.getKey())));
+			items.add(new Pair<String, Object>(each.getKey(), FirebaseRemoteConfigHelper.getString(each)));
 		}
 
 		List<RecyclerViewType> recyclerViewTypes = Lists.<RecyclerViewType>newArrayList(new HeaderRecyclerViewType(), new PairItemRecyclerViewType() {
