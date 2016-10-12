@@ -15,21 +15,6 @@ public class TestAppContext extends AppContext {
 	}
 
 	@Override
-	public Boolean isGoogleAnalyticsEnabled() {
-		return false;
-	}
-
-	@Override
-	public String getGoogleAnalyticsTrackingId() {
-		return null;
-	}
-
-	@Override
-	public Boolean isGoogleAnalyticsDebugEnabled() {
-		return null;
-	}
-
-	@Override
 	public String getLocalIp() {
 		return null;
 	}

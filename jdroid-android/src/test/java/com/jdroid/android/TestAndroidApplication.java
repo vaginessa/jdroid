@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
@@ -40,16 +39,6 @@ public class TestAndroidApplication extends AbstractApplication {
 	@Override
 	public Class<? extends ExceptionHandler> getExceptionHandlerClass() {
 		return TestExceptionHandler.class;
-	}
-
-	@Override
-	public AnalyticsTracker createGoogleAnalyticsTracker() {
-		return null;
-	}
-
-	@Override
-	protected AnalyticsTracker createFirebaseAnalyticsTracker() {
-		return null;
 	}
 
 	@Override
