@@ -1,5 +1,7 @@
 package com.jdroid.android.google.analytics;
 
+import android.support.annotation.WorkerThread;
+
 import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
@@ -30,20 +32,16 @@ public class GoogleAnalyticsAppModule extends AbstractAppModule {
 		return googleAnalyticsAppContext;
 	}
 
-	@Override
-	public void onCreate() {
-		super.onCreate();
-		if (googleAnalyticsAppContext.isGoogleAnalyticsEnabled()) {
+	@WorkerThread
+	public synchronized GoogleAnalyticsHelper getGoogleAnalyticsHelper() {
+		if (googleAnalyticsHelper == null) {
 			googleAnalyticsHelper = createGoogleAnalyticsHelper();
 		}
+		return googleAnalyticsHelper;
 	}
 
 	protected GoogleAnalyticsHelper createGoogleAnalyticsHelper() {
 		return new GoogleAnalyticsHelper();
-	}
-
-	public GoogleAnalyticsHelper getGoogleAnalyticsHelper() {
-		return googleAnalyticsHelper;
 	}
 
 	@Override

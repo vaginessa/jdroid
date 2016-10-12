@@ -1,26 +1,14 @@
 package com.jdroid.android.google.admob.analytics;
 
-import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
-import com.jdroid.android.google.analytics.GoogleAnalyticsHelper;
+import com.jdroid.android.google.analytics.AbstractGoogleAnalyticsTracker;
 
-public class AdMobGoogleAnalyticsTracker implements AdMobAnalyticsTracker {
+public class AdMobGoogleAnalyticsTracker extends AbstractGoogleAnalyticsTracker implements AdMobAnalyticsTracker {
 
 	private static final String ADS_CATEGORY = "ads";
 	private static final String CLICK_ACTION = "click";
 
-	private GoogleAnalyticsHelper googleAnalyticsHelper;
-
-	public AdMobGoogleAnalyticsTracker() {
-		googleAnalyticsHelper = GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper();
-	}
-
-	@Override
-	public Boolean isEnabled() {
-		return GoogleAnalyticsAppModule.get().getGoogleAnalyticsAppContext().isGoogleAnalyticsEnabled();
-	}
-
 	@Override
 	public void trackRemoveAdsBannerClicked() {
-		googleAnalyticsHelper.sendEvent(ADS_CATEGORY, CLICK_ACTION, "removeAds");
+		getGoogleAnalyticsHelper().sendEvent(ADS_CATEGORY, CLICK_ACTION, "removeAds");
 	}
 }

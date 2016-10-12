@@ -1,5 +1,7 @@
 package com.jdroid.android.firebase;
 
+import android.support.annotation.WorkerThread;
+
 import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
@@ -33,20 +35,16 @@ public class FirebaseAppModule extends AbstractAppModule {
 		return firebaseAppContext;
 	}
 
-	@Override
-	public void onCreate() {
-		super.onCreate();
-		if (firebaseAppContext.isFirebaseAnalyticsEnabled()) {
+	@WorkerThread
+	public synchronized FirebaseAnalyticsHelper getFirebaseAnalyticsHelper() {
+		if (firebaseAnalyticsHelper == null) {
 			firebaseAnalyticsHelper = createFirebaseAnalyticsHelper();
 		}
+		return firebaseAnalyticsHelper;
 	}
 
 	protected FirebaseAnalyticsHelper createFirebaseAnalyticsHelper() {
 		return new FirebaseAnalyticsHelper();
-	}
-
-	public FirebaseAnalyticsHelper getFirebaseAnalyticsHelper() {
-		return firebaseAnalyticsHelper;
 	}
 
 	@Override

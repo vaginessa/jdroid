@@ -1,26 +1,14 @@
 package com.jdroid.android.google.inappbilling.analytics;
 
 import com.google.android.gms.analytics.HitBuilders;
-import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
-import com.jdroid.android.google.analytics.GoogleAnalyticsHelper;
+import com.jdroid.android.google.analytics.AbstractGoogleAnalyticsTracker;
 import com.jdroid.android.google.inappbilling.Product;
 
-public class InAppBillingGoogleAnalyticsTracker implements InAppBillingAnalyticsTracker {
-
-	private GoogleAnalyticsHelper googleAnalyticsHelper;
-
-	public InAppBillingGoogleAnalyticsTracker() {
-		googleAnalyticsHelper = GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper();
-	}
-
-	@Override
-	public Boolean isEnabled() {
-		return GoogleAnalyticsAppModule.get().getGoogleAnalyticsAppContext().isGoogleAnalyticsEnabled();
-	}
+public class InAppBillingGoogleAnalyticsTracker extends AbstractGoogleAnalyticsTracker implements InAppBillingAnalyticsTracker {
 
 	@Override
 	public void trackInAppBillingPurchaseTry(Product product) {
-		googleAnalyticsHelper.sendEvent("inAppBilling", "purchaseTry", product.getProductType().getProductId());
+		getGoogleAnalyticsHelper().sendEvent("inAppBilling", "purchaseTry", product.getProductType().getProductId());
 	}
 
 	@Override
@@ -30,7 +18,7 @@ public class InAppBillingGoogleAnalyticsTracker implements InAppBillingAnalytics
 		transactionBuilder.setAffiliation("Google Play");
 		transactionBuilder.setRevenue(product.getPrice());
 		transactionBuilder.setCurrencyCode(product.getCurrencyCode());
-		googleAnalyticsHelper.sendTransaction(transactionBuilder);
+		getGoogleAnalyticsHelper().sendTransaction(transactionBuilder);
 
 		HitBuilders.ItemBuilder itemBuilder = new HitBuilders.ItemBuilder();
 		itemBuilder.setTransactionId(product.getPurchase().getOrderId());
@@ -40,6 +28,6 @@ public class InAppBillingGoogleAnalyticsTracker implements InAppBillingAnalytics
 		itemBuilder.setQuantity(1);
 		itemBuilder.setPrice(product.getPrice());
 		itemBuilder.setCurrencyCode(product.getCurrencyCode());
-		googleAnalyticsHelper.sendTransactionItem(itemBuilder);
+		getGoogleAnalyticsHelper().sendTransactionItem(itemBuilder);
 	}
 }

@@ -5,7 +5,7 @@ import android.app.Activity;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.HitBuilders.SocialBuilder;
 import com.google.android.gms.analytics.StandardExceptionParser;
-import com.jdroid.android.analytics.AbstractAnalyticsTracker;
+import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
@@ -16,8 +16,9 @@ import com.jdroid.java.utils.LoggerUtils;
 import org.slf4j.Logger;
 
 import java.util.List;
+import java.util.Map;
 
-public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
+public class GoogleAnalyticsTracker extends AbstractGoogleAnalyticsTracker implements AnalyticsTracker {
 	
 	private static final Logger LOGGER = LoggerUtils.getLogger(GoogleAnalyticsTracker.class);
 	
@@ -29,8 +30,6 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	
 	private Boolean firstTrackingSent = false;
 
-	private GoogleAnalyticsHelper googleAnalyticsHelper;
-
 	public enum CustomDimension {
 		LOGIN_SOURCE,
 		IS_LOGGED,
@@ -38,15 +37,6 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		REFERRER, // Hit scope
 		DEVICE_TYPE, // User scope
 		DEVICE_YEAR_CLASS; // User scope
-	}
-	
-	public GoogleAnalyticsTracker() {
-		googleAnalyticsHelper = GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper();
-	}
-
-	@Override
-	public Boolean isEnabled() {
-		return GoogleAnalyticsAppModule.get().getGoogleAnalyticsAppContext().isGoogleAnalyticsEnabled();
 	}
 	
 	@Override
@@ -59,20 +49,40 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 
 
 			if (!firstTrackingSent) {
-				googleAnalyticsHelper.addCustomDimension(screenViewBuilder, CustomDimension.DEVICE_YEAR_CLASS, DeviceUtils.getDeviceYearClass().toString());
-				googleAnalyticsHelper.addCustomDimension(screenViewBuilder, CustomDimension.DEVICE_TYPE, DeviceUtils.getDeviceType());
+				getGoogleAnalyticsHelper().addCustomDimension(screenViewBuilder, CustomDimension.DEVICE_YEAR_CLASS, DeviceUtils.getDeviceYearClass().toString());
+				getGoogleAnalyticsHelper().addCustomDimension(screenViewBuilder, CustomDimension.DEVICE_TYPE, DeviceUtils.getDeviceType());
 				
 				String installationSource = AbstractApplication.get().getInstallationSource();
 				if (installationSource != null) {
-					googleAnalyticsHelper.addCustomDimension(screenViewBuilder, CustomDimension.INSTALLATION_SOURCE, installationSource);
+					getGoogleAnalyticsHelper().addCustomDimension(screenViewBuilder, CustomDimension.INSTALLATION_SOURCE, installationSource);
 					
 					onAppLoadTrack(screenViewBuilder, data);
 					firstTrackingSent = true;
 				}
 			}
 			onActivityStartTrack(screenViewBuilder, data);
-			googleAnalyticsHelper.sendScreenView(screenViewBuilder, activityClass.getSimpleName());
+			getGoogleAnalyticsHelper().sendScreenView(screenViewBuilder, activityClass.getSimpleName());
 		}
+	}
+
+	@Override
+	public void onActivityResume(Activity activity) {
+		// Do nothing
+	}
+
+	@Override
+	public void onActivityPause(Activity activity) {
+		// Do nothing
+	}
+
+	@Override
+	public void onActivityStop(Activity activity) {
+		// Do nothing
+	}
+
+	@Override
+	public void onActivityDestroy(Activity activity) {
+		// Do nothing
 	}
 	
 	protected void onAppLoadTrack(HitBuilders.ScreenViewBuilder screenViewBuilder, Object data) {
@@ -85,9 +95,9 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 
 	private void initReferrerCustomDimension(String referrer) {
 		if (referrer != null) {
-			googleAnalyticsHelper.addCommonCustomDimension(CustomDimension.REFERRER.name(), referrer);
-		} else if (!googleAnalyticsHelper.hasCommonCustomDimension(CustomDimension.REFERRER.name())) {
-			googleAnalyticsHelper.addCommonCustomDimension(CustomDimension.REFERRER.name(), "normal");
+			getGoogleAnalyticsHelper().addCommonCustomDimension(CustomDimension.REFERRER.name(), referrer);
+		} else if (!getGoogleAnalyticsHelper().hasCommonCustomDimension(CustomDimension.REFERRER.name())) {
+			getGoogleAnalyticsHelper().addCommonCustomDimension(CustomDimension.REFERRER.name(), "normal");
 		}
 	}
 	
@@ -95,59 +105,59 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 	public void onFragmentStart(String screenViewName) {
 		synchronized (GoogleAnalyticsTracker.class) {
 			HitBuilders.ScreenViewBuilder screenViewBuilder = new HitBuilders.ScreenViewBuilder();
-			googleAnalyticsHelper.sendScreenView(screenViewBuilder, screenViewName);
+			getGoogleAnalyticsHelper().sendScreenView(screenViewBuilder, screenViewName);
 		}
 	}
 	
 	@Override
 	public void trackNotificationDisplayed(String notificationName) {
-		googleAnalyticsHelper.sendEvent(NOTIFICATION_CATEGORY, "display", notificationName);
+		getGoogleAnalyticsHelper().sendEvent(NOTIFICATION_CATEGORY, "display", notificationName);
 	}
 	
 	@Override
 	public void trackNotificationOpened(String notificationName) {
-		googleAnalyticsHelper.sendEvent(NOTIFICATION_CATEGORY, "open", notificationName);
+		getGoogleAnalyticsHelper().sendEvent(NOTIFICATION_CATEGORY, "open", notificationName);
 	}
 
 	@Override
 	public void trackEnjoyingApp(Boolean enjoying) {
-		googleAnalyticsHelper.sendEvent(FEEDBACK_CATEGORY, "enjoying", enjoying.toString());
+		getGoogleAnalyticsHelper().sendEvent(FEEDBACK_CATEGORY, "enjoying", enjoying.toString());
 	}
 
 	@Override
 	public void trackRateOnGooglePlay(Boolean rate) {
-		googleAnalyticsHelper.sendEvent(FEEDBACK_CATEGORY, "rate", rate.toString());
+		getGoogleAnalyticsHelper().sendEvent(FEEDBACK_CATEGORY, "rate", rate.toString());
 	}
 
 	@Override
 	public void trackGiveFeedback(Boolean feedback) {
-		googleAnalyticsHelper.sendEvent(FEEDBACK_CATEGORY, "giveFeedback", feedback.toString());
+		getGoogleAnalyticsHelper().sendEvent(FEEDBACK_CATEGORY, "giveFeedback", feedback.toString());
 	}
 
 	@Override
 	public void trackUseCaseTiming(Class<? extends AbstractUseCase> useCaseClass, long executionTime) {
-		googleAnalyticsHelper.trackTiming("UseCase", useCaseClass.getSimpleName(), useCaseClass.getSimpleName(), executionTime);
+		getGoogleAnalyticsHelper().trackTiming("UseCase", useCaseClass.getSimpleName(), useCaseClass.getSimpleName(), executionTime);
 	}
 
 	@Override
 	public void trackServiceTiming(String trackingVariable, String trackingLabel, long executionTime) {
-		googleAnalyticsHelper.trackTiming("Service", trackingVariable, trackingLabel, executionTime);
+		getGoogleAnalyticsHelper().trackTiming("Service", trackingVariable, trackingLabel, executionTime);
 	}
 
 	@Override
 	public void trackUriOpened(String screenName, String referrer) {
 		initReferrerCustomDimension(referrer);
-		googleAnalyticsHelper.sendEvent("uri", "open", screenName);
+		getGoogleAnalyticsHelper().sendEvent("uri", "open", screenName);
 	}
 
 	// Widgets
 
 	public void trackWidgetAdded(String widgetName) {
-		googleAnalyticsHelper.sendEvent(WIDGET_CATEGORY, "add", widgetName);
+		getGoogleAnalyticsHelper().sendEvent(WIDGET_CATEGORY, "add", widgetName);
 	}
 
 	public void trackWidgetRemoved(String widgetName) {
-		googleAnalyticsHelper.sendEvent(WIDGET_CATEGORY, "remove", widgetName);
+		getGoogleAnalyticsHelper().sendEvent(WIDGET_CATEGORY, "remove", widgetName);
 	}
 	
 	@Override
@@ -159,18 +169,23 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 			category += accountType.getFriendlyName();
 			network = accountType.getFriendlyName();
 		}
-		googleAnalyticsHelper.sendEvent(category, socialAction.getName(), socialTarget);
+		getGoogleAnalyticsHelper().sendEvent(category, socialAction.getName(), socialTarget);
 		
 		SocialBuilder socialBuilder = new SocialBuilder();
 		socialBuilder.setNetwork(network);
 		socialBuilder.setAction(socialAction.getName());
 		socialBuilder.setTarget(socialTarget);
 		
-		googleAnalyticsHelper.getTracker().send(socialBuilder.build());
+		getGoogleAnalyticsHelper().getTracker().send(socialBuilder.build());
 		LOGGER.debug("Social interaction sent. Network [" + network + "] Action [" + socialAction.getName()
 				+ "] Target [" + socialTarget + "]");
 	}
 	
+	@Override
+	public void onInitExceptionHandler(Map<String, String> metadata) {
+		// Do nothing
+	}
+
 	@Override
 	public void trackFatalException(Throwable throwable, List<String> tags) {
 		HitBuilders.ExceptionBuilder builder = new HitBuilders.ExceptionBuilder();
@@ -178,8 +193,8 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		builder.setDescription(description);
 		builder.setFatal(true);
 		builder.setNonInteraction(true);
-		googleAnalyticsHelper.getTracker().send(builder.build());
-		googleAnalyticsHelper.dispatchLocalHits();
+		getGoogleAnalyticsHelper().getTracker().send(builder.build());
+		getGoogleAnalyticsHelper().dispatchLocalHits();
 		LOGGER.debug("Fatal exception sent. Description [" + description + "]");
 	}
 
@@ -190,8 +205,13 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		builder.setDescription(description);
 		builder.setFatal(false);
 		builder.setNonInteraction(true);
-		googleAnalyticsHelper.getTracker().send(builder.build());
+		getGoogleAnalyticsHelper().getTracker().send(builder.build());
 		LOGGER.debug("Non fatal exception sent. Description [" + description + "]");
+	}
+
+	@Override
+	public void trackErrorBreadcrumb(String message) {
+		// Do nothing
 	}
 
 	public void sendSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget) {
@@ -201,12 +221,8 @@ public class GoogleAnalyticsTracker extends AbstractAnalyticsTracker {
 		socialBuilder.setAction(socialAction.getName());
 		socialBuilder.setTarget(socialTarget);
 		
-		googleAnalyticsHelper.getTracker().send(socialBuilder.build());
+		getGoogleAnalyticsHelper().getTracker().send(socialBuilder.build());
 		LOGGER.debug("Social interaction sent. Network [" + accountType.getFriendlyName() + "] Action ["
 				+ socialAction.getName() + "] Target [" + socialTarget + "]");
-	}
-
-	public GoogleAnalyticsHelper getGoogleAnalyticsHelper() {
-		return googleAnalyticsHelper;
 	}
 }
