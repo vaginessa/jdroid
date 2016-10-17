@@ -150,4 +150,9 @@ public class AndroidApplication extends AbstractApplication {
 	public int getLauncherIconResId() {
 		return R.mipmap.ic_launcher;
 	}
+
+	@Override
+	public String getManifestPackageName() {
+		return "com.jdroid.android.sample";
+	}
 }

@@ -10,19 +10,17 @@ import java.util.Locale;
 public abstract class AppContext extends AbstractAppContext {
 	
 	// Environment
-	private Server server;
-
-	public AppContext() {
-
-		server = findServerByName(getServerName());
-	}
+	private Server defaultServer;
 
 	protected Server findServerByName(String name) {
 		return null;
 	}
 	
 	public Server getServer() {
-		return getServer(server);
+		if (defaultServer == null) {
+			defaultServer = findServerByName(getServerName());
+		}
+		return getServer(defaultServer);
 	}
 	
 	@SuppressWarnings("unchecked")

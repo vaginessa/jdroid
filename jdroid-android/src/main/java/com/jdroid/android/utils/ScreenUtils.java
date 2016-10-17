@@ -76,7 +76,12 @@ public class ScreenUtils {
 		return config.screenWidthDp;
 	}
 
-	public static int getDensityDpi() {
+	public static Integer getScreenHeightDp() {
+		Configuration config = AbstractApplication.get().getResources().getConfiguration();
+		return config.screenHeightDp;
+	}
+
+	public static Integer getDensityDpi() {
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		return metrics.densityDpi;

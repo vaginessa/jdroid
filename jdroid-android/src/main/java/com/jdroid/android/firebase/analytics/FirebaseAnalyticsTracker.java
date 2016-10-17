@@ -10,6 +10,7 @@ import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.android.utils.DeviceUtils;
+import com.jdroid.android.utils.ScreenUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 
 import java.util.List;
@@ -19,6 +20,11 @@ public class FirebaseAnalyticsTracker extends AbstractFirebaseAnalyticsTracker i
 
 	private static final String INSTALLATION_SOURCE_USER_PROPERTY = "InstallationSource";
 	private static final String DEVICE_YEAR_CLASS_USER_PROPERTY = "DeviceYearClass";
+	private static final String DEVICE_TYPE = "DeviceType";
+	private static final String SCREEN_WIDTH = "ScreenWidth";
+	private static final String SCREEN_HEIGHT = "ScreenHeight";
+	private static final String SCREEN_DENSITY = "ScreenDensity";
+	private static final String SCREEN_DENSITY_DPI = "ScreenDensityDpi";
 
 	private Boolean firstTrackingSent = false;
 
@@ -46,6 +52,12 @@ public class FirebaseAnalyticsTracker extends AbstractFirebaseAnalyticsTracker i
 	public void onActivityStart(Class<? extends Activity> activityClass, String referrer, Object data) {
 		if (firstTrackingSent) {
 			getFirebaseAnalyticsHelper().setUserProperty(DEVICE_YEAR_CLASS_USER_PROPERTY, DeviceUtils.getDeviceYearClass().toString());
+			getFirebaseAnalyticsHelper().setUserProperty(DEVICE_TYPE, DeviceUtils.getDeviceType());
+			getFirebaseAnalyticsHelper().setUserProperty(SCREEN_WIDTH, ScreenUtils.getScreenWidthDp().toString());
+			getFirebaseAnalyticsHelper().setUserProperty(SCREEN_HEIGHT, ScreenUtils.getScreenHeightDp().toString());
+			getFirebaseAnalyticsHelper().setUserProperty(SCREEN_DENSITY, ScreenUtils.getScreenDensity());
+			getFirebaseAnalyticsHelper().setUserProperty(SCREEN_DENSITY_DPI, ScreenUtils.getDensityDpi().toString());
+
 			String installationSource = SharedPreferencesHelper.get().loadPreference(AbstractApplication.INSTALLATION_SOURCE);
 			if (installationSource != null) {
 				getFirebaseAnalyticsHelper().setUserProperty(INSTALLATION_SOURCE_USER_PROPERTY, installationSource);
@@ -115,17 +127,24 @@ public class FirebaseAnalyticsTracker extends AbstractFirebaseAnalyticsTracker i
 
 	@Override
 	public void trackWidgetAdded(String widgetName) {
-		// TODO
+		Bundle bundle = new Bundle();
+		bundle.putString("widgetName", widgetName);
+		getFirebaseAnalyticsHelper().sendEvent("AddWidget", bundle);
 	}
 
 	@Override
 	public void trackWidgetRemoved(String widgetName) {
-		// TODO
+		Bundle bundle = new Bundle();
+		bundle.putString("widgetName", widgetName);
+		getFirebaseAnalyticsHelper().sendEvent("RemoveWidget", bundle);
 	}
 
 	@Override
 	public void trackUriOpened(String screenName, String referrer) {
-		// TODO
+		Bundle bundle = new Bundle();
+		bundle.putString("screenName", screenName);
+		bundle.putString("referrer", referrer);
+		getFirebaseAnalyticsHelper().sendEvent("OpenUri", bundle);
 	}
 
 	@Override

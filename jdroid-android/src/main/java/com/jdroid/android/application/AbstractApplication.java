@@ -469,4 +469,6 @@ public abstract class AbstractApplication extends Application {
 	}
 
 	public abstract int getLauncherIconResId();
+
+	public abstract String getManifestPackageName();
 }

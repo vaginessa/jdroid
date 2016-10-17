@@ -36,6 +36,19 @@ public class AppUtils {
 	}
 
 	/**
+	 * @return The application id of the application on release mode. This method removes the .debug suffix
+	 */
+	public static String getReleaseApplicationId() {
+		String applicationId = getApplicationId();
+		if (!AbstractApplication.get().getAppContext().isProductionEnvironment()) {
+			if (applicationId.endsWith(".debug")) {
+				applicationId = applicationId.replace(".debug", "");
+			}
+		}
+		return  applicationId;
+	}
+
+	/**
 	 * @return The name of the application
 	 */
 	public static String getApplicationName() {

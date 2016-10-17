@@ -1,16 +1,12 @@
 package com.jdroid.android.context;
 
-import com.jdroid.android.utils.AppUtils;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.utils.ReflectionUtils;
 
 public abstract class AbstractAppContext {
 
 	public Class<?> getBuildConfigClass() {
-		String applicationId = AppUtils.getApplicationId();
-		if (applicationId.endsWith(".debug")) {
-			applicationId = applicationId.replace(".debug", "");
-		}
-		return ReflectionUtils.getClass(applicationId + ".BuildConfig");
+		return ReflectionUtils.getClass(AbstractApplication.get().getManifestPackageName() + ".BuildConfig");
 	}
 
 	@SuppressWarnings("unchecked")

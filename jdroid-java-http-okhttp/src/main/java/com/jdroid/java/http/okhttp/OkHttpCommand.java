@@ -6,6 +6,7 @@ import com.jdroid.java.exception.UnexpectedException;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.ConnectException;
+import java.net.NoRouteToHostException;
 import java.net.ProtocolException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
@@ -27,6 +28,8 @@ public abstract class OkHttpCommand<P, R> {
 			throw new ConnectionException(e, false);
 		} catch (InterruptedIOException e) {
 			throw new ConnectionException(e, true);
+		}  catch (NoRouteToHostException e) {
+			throw new ConnectionException(e, false);
 		} catch (SocketException e) {
 			Throwable cause = e.getCause();
 			if (cause != null) {

@@ -37,8 +37,8 @@ public class DebugInfoFragment extends AbstractRecyclerFragment {
 
 		properties.add(new Pair<String, Object>("Installation Source", appContext.getInstallationSource()));
 
-		properties.add(new Pair<String, Object>("Smallest Screen Width Dp", ScreenUtils.getSmallestScreenWidthDp()));
 		properties.add(new Pair<String, Object>("Screen Width Dp", ScreenUtils.getScreenWidthDp()));
+		properties.add(new Pair<String, Object>("Screen Height Dp", ScreenUtils.getScreenHeightDp()));
 		properties.add(new Pair<String, Object>("Screen Density", ScreenUtils.getScreenDensity()));
 		properties.add(new Pair<String, Object>("Screen Density DPI", ScreenUtils.getDensityDpi()));
 
