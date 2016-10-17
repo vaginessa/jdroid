@@ -47,6 +47,11 @@ public class TestAndroidApplication extends AbstractApplication {
 	}
 
 	@Override
+	public String getManifestPackageName() {
+		return null;
+	}
+
+	@Override
 	public void initExceptionHandlers() {
 		// Do Nothing
 	}

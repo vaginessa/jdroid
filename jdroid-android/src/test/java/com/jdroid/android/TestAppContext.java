@@ -18,4 +18,14 @@ public class TestAppContext extends AppContext {
 	public String getLocalIp() {
 		return null;
 	}
+
+	@Override
+	public Boolean isStrictModeEnabled() {
+		return false;
+	}
+
+	@Override
+	public Boolean isLoggingEnabled() {
+		return false;
+	}
 }
