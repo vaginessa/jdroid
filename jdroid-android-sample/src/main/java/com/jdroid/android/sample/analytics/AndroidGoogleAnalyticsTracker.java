@@ -7,8 +7,8 @@ import com.jdroid.java.utils.RandomUtils;
 
 public class AndroidGoogleAnalyticsTracker extends GoogleAnalyticsTracker implements AppAnalyticsTracker {
 	
-	public static final String EXAMPLE_CATEGORY = "exampleCategory";
-	public static final String EXAMPLE_LABEL = "exampleLabel";
+	private static final String EXAMPLE_CATEGORY = "exampleCategory";
+	private static final String EXAMPLE_LABEL = "exampleLabel";
 
 	@Override
 	public void trackExampleEvent() {
