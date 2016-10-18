@@ -7,6 +7,7 @@ import android.view.View;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.UsageStats;
+import com.jdroid.android.firebase.FirebaseAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
@@ -31,6 +32,8 @@ public class DebugInfoFragment extends AbstractRecyclerFragment {
 
 		properties.add(new Pair<String, Object>("Build Type", appContext.getBuildType()));
 		properties.add(new Pair<String, Object>("Build Time", appContext.getBuildTime()));
+
+		properties.add(new Pair<String, Object>("Firebase Analytics Enabled", FirebaseAppModule.get().getFirebaseAppContext().isFirebaseAnalyticsEnabled()));
 
 		properties.add(new Pair<String, Object>("Google Analytics Enabled", GoogleAnalyticsAppModule.get().getGoogleAnalyticsAppContext().isGoogleAnalyticsEnabled()));
 		properties.add(new Pair<String, Object>("Google Analytics Tracking Id", GoogleAnalyticsAppModule.get().getGoogleAnalyticsAppContext().getGoogleAnalyticsTrackingId()));
