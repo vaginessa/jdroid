@@ -20,7 +20,6 @@ public class FirebaseAnalyticsTracker extends AbstractFirebaseAnalyticsTracker i
 
 	private static final String INSTALLATION_SOURCE_USER_PROPERTY = "InstallationSource";
 	private static final String DEVICE_YEAR_CLASS_USER_PROPERTY = "DeviceYearClass";
-	private static final String DEVICE_TYPE = "DeviceType";
 	private static final String SCREEN_WIDTH = "ScreenWidth";
 	private static final String SCREEN_HEIGHT = "ScreenHeight";
 	private static final String SCREEN_DENSITY = "ScreenDensity";
@@ -52,7 +51,6 @@ public class FirebaseAnalyticsTracker extends AbstractFirebaseAnalyticsTracker i
 	public void onActivityStart(Class<? extends Activity> activityClass, String referrer, Object data) {
 		if (firstTrackingSent) {
 			getFirebaseAnalyticsHelper().setUserProperty(DEVICE_YEAR_CLASS_USER_PROPERTY, DeviceUtils.getDeviceYearClass().toString());
-			getFirebaseAnalyticsHelper().setUserProperty(DEVICE_TYPE, DeviceUtils.getDeviceType());
 			getFirebaseAnalyticsHelper().setUserProperty(SCREEN_WIDTH, ScreenUtils.getScreenWidthDp().toString());
 			getFirebaseAnalyticsHelper().setUserProperty(SCREEN_HEIGHT, ScreenUtils.getScreenHeightDp().toString());
 			getFirebaseAnalyticsHelper().setUserProperty(SCREEN_DENSITY, ScreenUtils.getScreenDensity());

@@ -1,6 +1,7 @@
 package com.jdroid.android.firebase.remoteconfig;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -50,50 +51,63 @@ public class FirebaseRemoteConfigHelper {
 	}
 
 	public static void fetch(long cacheExpirationSeconds, final Boolean setExperimentUserProperty) {
-		Task<Void> task = firebaseRemoteConfig.fetch(cacheExpirationSeconds);
-		task.addOnSuccessListener(new OnSuccessListener<Void>() {
-			@Override
-			public void onSuccess(Void aVoid) {
-				LOGGER.debug("Firebase Remote Config fetch succeeded");
-				// Once the config is successfully fetched it must be activated before newly fetched values are returned.
+		if (firebaseRemoteConfig != null) {
+			Task<Void> task = firebaseRemoteConfig.fetch(cacheExpirationSeconds);
+			task.addOnSuccessListener(new OnSuccessListener<Void>() {
+				@Override
+				public void onSuccess(Void aVoid) {
+					LOGGER.debug("Firebase Remote Config fetch succeeded");
+					// Once the config is successfully fetched it must be activated before newly fetched values are returned.
 
-				Boolean result = firebaseRemoteConfig.activateFetched();
-				// true if there was a Fetched Config, and it was activated. false if no Fetched Config was found, or the Fetched Config was already activated.
-				LOGGER.debug("Firebase Remote Config activate fetched result: " + result);
+					Boolean result = firebaseRemoteConfig.activateFetched();
+					// true if there was a Fetched Config, and it was activated. false if no Fetched Config was found, or the Fetched Config was already activated.
+					LOGGER.debug("Firebase Remote Config activate fetched result: " + result);
 
-				if (setExperimentUserProperty) {
-					final List<RemoteConfigParameter> remoteConfigParameters = FirebaseRemoteConfigAppModule.get().getFirebaseRemoteConfigAppContext().getRemoteConfigParameters();
-					if (remoteConfigParameters != null) {
-						ExecutorUtils.execute(new Runnable() {
-							@Override
-							public void run() {
-								for (RemoteConfigParameter each : remoteConfigParameters) {
-									if (each.isABTestingExperiment()) {
-										String experimentVariant = FirebaseRemoteConfig.getInstance().getString(each.getKey());
-										FirebaseAppModule.get().getFirebaseAnalyticsHelper().setUserProperty(each.getKey(), experimentVariant);
+					if (setExperimentUserProperty) {
+						final List<RemoteConfigParameter> remoteConfigParameters = FirebaseRemoteConfigAppModule.get().getFirebaseRemoteConfigAppContext().getRemoteConfigParameters();
+						if (remoteConfigParameters != null) {
+							ExecutorUtils.execute(new Runnable() {
+								@Override
+								public void run() {
+									for (RemoteConfigParameter each : remoteConfigParameters) {
+										if (each.isABTestingExperiment()) {
+											String experimentVariant = FirebaseRemoteConfig.getInstance().getString(each.getKey());
+											FirebaseAppModule.get().getFirebaseAnalyticsHelper().setUserProperty(each.getKey(), experimentVariant);
+										}
 									}
 								}
-							}
-						});
+							});
+						}
 					}
 				}
-			}
-		});
-		task.addOnFailureListener(new OnFailureListener() {
-			@Override
-			public void onFailure(@NonNull Exception exception) {
-				LOGGER.debug("Firebase Remote Config fetch failed");
-				AbstractApplication.get().getExceptionHandler().logHandledException(exception);
-			}
-		});
+			});
+			task.addOnFailureListener(new OnFailureListener() {
+				@Override
+				public void onFailure(@NonNull Exception exception) {
+					LOGGER.debug("Firebase Remote Config fetch failed");
+					AbstractApplication.get().getExceptionHandler().logHandledException(exception);
+				}
+			});
+		} else {
+			AbstractApplication.get().getExceptionHandler().logWarningException("Ignoring Firebase Remote Config fetch, because it wasn't initialized yet.");
+		}
 	}
 
+	@Nullable
 	public static FirebaseRemoteConfig getFirebaseRemoteConfig() {
 		return firebaseRemoteConfig;
 	}
 
+	private static FirebaseRemoteConfigValue getFirebaseRemoteConfigValue(RemoteConfigParameter remoteConfigParameter) {
+		if (firebaseRemoteConfig == null) {
+			return new StaticFirebaseRemoteConfigValue(remoteConfigParameter);
+		} else {
+			return firebaseRemoteConfig.getValue(remoteConfigParameter.getKey());
+		}
+	}
+
 	public static String getString(RemoteConfigParameter remoteConfigParameter) {
-		FirebaseRemoteConfigValue firebaseRemoteConfigValue = firebaseRemoteConfig.getValue(remoteConfigParameter.getKey());
+		FirebaseRemoteConfigValue firebaseRemoteConfigValue = getFirebaseRemoteConfigValue(remoteConfigParameter);
 		Object value;
 		if (firebaseRemoteConfigValue.getSource() == FirebaseRemoteConfig.VALUE_SOURCE_STATIC) {
 			value = remoteConfigParameter.getDefaultValue();
@@ -105,7 +119,7 @@ public class FirebaseRemoteConfigHelper {
 	}
 
 	public static Boolean getBoolean(RemoteConfigParameter remoteConfigParameter) {
-		FirebaseRemoteConfigValue firebaseRemoteConfigValue = firebaseRemoteConfig.getValue(remoteConfigParameter.getKey());
+		FirebaseRemoteConfigValue firebaseRemoteConfigValue = getFirebaseRemoteConfigValue(remoteConfigParameter);
 		Object value;
 		if (firebaseRemoteConfigValue.getSource() == FirebaseRemoteConfig.VALUE_SOURCE_STATIC) {
 			value = remoteConfigParameter.getDefaultValue();
@@ -117,7 +131,7 @@ public class FirebaseRemoteConfigHelper {
 	}
 
 	public static Double getDouble(RemoteConfigParameter remoteConfigParameter) {
-		FirebaseRemoteConfigValue firebaseRemoteConfigValue = firebaseRemoteConfig.getValue(remoteConfigParameter.getKey());
+		FirebaseRemoteConfigValue firebaseRemoteConfigValue = getFirebaseRemoteConfigValue(remoteConfigParameter);
 		Object value;
 		if (firebaseRemoteConfigValue.getSource() == FirebaseRemoteConfig.VALUE_SOURCE_STATIC) {
 			value = remoteConfigParameter.getDefaultValue();
@@ -129,7 +143,7 @@ public class FirebaseRemoteConfigHelper {
 	}
 
 	public static Long getLong(RemoteConfigParameter remoteConfigParameter) {
-		FirebaseRemoteConfigValue firebaseRemoteConfigValue = firebaseRemoteConfig.getValue(remoteConfigParameter.getKey());
+		FirebaseRemoteConfigValue firebaseRemoteConfigValue = getFirebaseRemoteConfigValue(remoteConfigParameter);
 		Object value;
 		if (firebaseRemoteConfigValue.getSource() == FirebaseRemoteConfig.VALUE_SOURCE_STATIC) {
 			value = remoteConfigParameter.getDefaultValue();
