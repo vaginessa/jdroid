@@ -84,8 +84,7 @@ public class FirebaseRemoteConfigHelper {
 			task.addOnFailureListener(new OnFailureListener() {
 				@Override
 				public void onFailure(@NonNull Exception exception) {
-					LOGGER.debug("Firebase Remote Config fetch failed");
-					AbstractApplication.get().getExceptionHandler().logHandledException(exception);
+					LOGGER.error("Firebase Remote Config fetch failed", exception);
 				}
 			});
 		} else {

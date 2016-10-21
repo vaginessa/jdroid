@@ -13,6 +13,7 @@ import android.widget.Button;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.jdroid.android.activity.ActivityIf;
@@ -72,6 +73,10 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 				}
 			}
 		}
+	}
+
+	public static void setGoogleMapOptions(Bundle bundle, GoogleMapOptions googleMapOptions) {
+		bundle.putParcelable("MapOptions", googleMapOptions);
 	}
 	
 	@Override
