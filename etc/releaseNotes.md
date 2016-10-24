@@ -1,3 +1,16 @@
-**Fixed bugs:**
+**Implemented enhancements:**
 
-- Plugins hierarchy fixes [\#369](https://github.com/maxirosson/jdroid/issues/369)
+- Upgrade to Google Play Services v9.6.1 [\#385](https://github.com/maxirosson/jdroid/issues/385)
+- Support to ads inside a recycler view [\#384](https://github.com/maxirosson/jdroid/issues/384)
+- AdMob Native Ads Express Support [\#383](https://github.com/maxirosson/jdroid/issues/383)
+- Upgrade to Android Support Library v25.0.0 [\#376](https://github.com/maxirosson/jdroid/issues/376)
+- Firebase A/B Testing Support [\#374](https://github.com/maxirosson/jdroid/issues/374)
+- Create AutofitGridLayoutManager [\#372](https://github.com/maxirosson/jdroid/issues/372)
+- Add "jdroid" prefix to all the android resources [\#371](https://github.com/maxirosson/jdroid/issues/371)
+- New jdroid-android-twitter component [\#370](https://github.com/maxirosson/jdroid/issues/370)
+- Firebase Analytics integration [\#327](https://github.com/maxirosson/jdroid/issues/327)
+- Firebase Notifications support [\#322](https://github.com/maxirosson/jdroid/issues/322)
+- Firebase Remote Config support [\#321](https://github.com/maxirosson/jdroid/issues/321)
+- Migrate to Firebase Cloud Messaging [\#319](https://github.com/maxirosson/jdroid/issues/319)
+- Configure jdroid-android to generate one .aar for debug and other for release [\#236](https://github.com/maxirosson/jdroid/issues/236)
+- Migrate to Firebase AdMob [\#47](https://github.com/maxirosson/jdroid/issues/47)
