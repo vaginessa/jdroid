@@ -126,7 +126,7 @@ cmd="${cmd} :jdroid-android-google-plus:uploadArchives"
 cmd="${cmd} :jdroid-android-google-signin:uploadArchives"
 cmd="${cmd} :jdroid-android-twitter:uploadArchives"
 cmd="${cmd} :jdroid-android-about:uploadArchives"
-cmd="${cmd} -PSNAPSHOT=false -PLOCAL_UPLOAD=false"
+cmd="${cmd} -PSNAPSHOT=false -PLOCAL_UPLOAD=false -PRELEASE_BUILD_TYPE_ENABLED=true"
 
 echo "Executing the following command"
 echo "${cmd}"
