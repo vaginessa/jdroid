@@ -53,10 +53,10 @@ dependencies {
 		releaseCompile project(path: ":jdroid-android-facebook", configuration: 'release')
 	}
 
-	debugCompile project(path: ":jdroid-android-google-admob", configuration: 'debug')
-	uatCompile project(path: ":jdroid-android-google-admob", configuration: 'debug')
+	debugCompile project(path: ':jdroid-android-firebase-admob', configuration: 'debug')
+	uatCompile project(path: ':jdroid-android-firebase-admob', configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
-		releaseCompile project(path: ":jdroid-android-google-admob", configuration: 'release')
+		releaseCompile project(path: ":jdroid-android-firebase-admob", configuration: 'release')
 	}
 
 	debugCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
