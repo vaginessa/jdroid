@@ -138,7 +138,7 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-twitter](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
- * [Fabric TweetUi](https://docs.fabric.io/android/twitter/overview.html)
+ * [Fabric TweetUi integration](https://docs.fabric.io/android/twitter/overview.html)
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/genericNews.png" width="25" height="25"/> jdroid-scripts](https://github.com/maxirosson/jdroid/wiki/jdroid-Scripts)
 --------------
