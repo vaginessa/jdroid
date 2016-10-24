@@ -52,7 +52,10 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 * Languages supported: english & spanish
 * Android M Permissions scheme support
 * [Navigation Drawer support](https://developer.android.com/design/patterns/navigation-drawer.html)
-* [Google Analytics v4 integration](https://developers.google.com/analytics/devguides/collection/android/v4/). A/B testing support
+* [Google Analytics v4 integration](https://developers.google.com/analytics/devguides/collection/android/v4/)
+* [Firebase Analytics Integration](https://firebase.google.com/docs/analytics/)
+* [Firebase Remote Config Integration](https://firebase.google.com/docs/remote-config/)
+ * A/B Testing support
 * [Sqlite integration](https://sqlite.org/)
 * [Android Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader)
 * [Device year class integration](https://github.com/facebook/device-year-class)
@@ -104,14 +107,15 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 * [Facebook SDK integration](https://developers.facebook.com/docs/android/)
  * Sign in, sign out, share with deep link
 
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-google-admob](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-firebase-admob](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
-* [Google Mobile Ads (AdMob) integration](http://developer.android.com/google/play-services/ads.html): banners & interstitials support
+* [Firebase AdMob integration](https://firebase.google.com/docs/admob/)
+ * Banners, interstitials & Native Ads Express support
 * House ads support
 
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-google-gcm](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-firebase-fcm](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
- * [Google Cloud Messaging integration](http://developer.android.com/google/gcm/index.html)
+ * [Firebase Cloud Messaging integration](https://firebase.google.com/docs/cloud-messaging/)
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-google-inappbilling](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
@@ -130,6 +134,11 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 --------------
  * [Google Sign In integration](https://developers.google.com/identity/sign-in/android/)
   * sign in, sign out, revoke access
+  
+
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-twitter](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
+--------------
+ * [Fabric TweetUi](https://docs.fabric.io/android/twitter/overview.html)
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/genericNews.png" width="25" height="25"/> jdroid-scripts](https://github.com/maxirosson/jdroid/wiki/jdroid-Scripts)
 --------------
