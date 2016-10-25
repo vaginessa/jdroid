@@ -1,7 +1,10 @@
 package com.jdroid.android.sample.api;
 
+import android.os.Bundle;
+
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.firebase.fcm.FcmSender;
+import com.jdroid.android.firebase.fcm.device.Device;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.Server;
@@ -80,5 +83,13 @@ public enum ApiServer implements FcmSender {
 	@Override
 	public String getSenderId() {
 		return "987303188435";
+	}
+
+	@Override
+	public void onRegisterOnServer(String registrationToken, Boolean updateLastActiveTimestamp, Bundle bundle) {
+		SampleApiService service = new SampleApiService();
+
+		Device device = new Device(registrationToken, null);
+		service.addDevice(device, updateLastActiveTimestamp);
 	}
 }

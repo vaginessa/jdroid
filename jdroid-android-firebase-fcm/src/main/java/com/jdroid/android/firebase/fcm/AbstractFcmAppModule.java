@@ -76,8 +76,6 @@ public abstract class AbstractFcmAppModule extends AbstractAppModule {
 		} : null;
 	}
 
-	public abstract void onRegisterOnServer(String registrationToken, Boolean updateLastActiveTimestamp, Bundle bundle);
-
 	protected List<String> getSubscriptionTopics() {
 		return null;
 	}

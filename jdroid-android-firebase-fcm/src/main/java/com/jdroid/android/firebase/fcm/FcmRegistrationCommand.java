@@ -44,7 +44,7 @@ public class FcmRegistrationCommand extends ServiceCommand {
 				try {
 					LOGGER.info("Registering FCM token on server");
 					Boolean updateLastActiveTimestamp = bundle.getBoolean(UPDATE_LAST_ACTIVE_TIMESTAMP_EXTRA, false);
-					AbstractFcmAppModule.get().onRegisterOnServer(registrationToken, updateLastActiveTimestamp, bundle);
+					fcmSender.onRegisterOnServer(registrationToken, updateLastActiveTimestamp, bundle);
 				} catch (Exception e) {
 					AbstractApplication.get().getExceptionHandler().logHandledException("Failed to register the device on server. Will retry later.", e);
 					return GcmNetworkManager.RESULT_RESCHEDULE;

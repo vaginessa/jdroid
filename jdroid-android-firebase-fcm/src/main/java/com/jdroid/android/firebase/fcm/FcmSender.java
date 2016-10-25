@@ -1,5 +1,7 @@
 package com.jdroid.android.firebase.fcm;
 
+import android.os.Bundle;
+
 import com.jdroid.java.http.Server;
 
 public interface FcmSender extends Server {
@@ -10,4 +12,7 @@ public interface FcmSender extends Server {
 	 * to send messages to the client app.
 	 */
 	String getSenderId();
+
+	void onRegisterOnServer(String registrationToken, Boolean updateLastActiveTimestamp, Bundle bundle);
+
 }

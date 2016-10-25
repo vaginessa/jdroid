@@ -61,7 +61,7 @@
 	<string name="sendExampleTransaction">Send Example Transaction</string>
 	<string name="sendExampleTiming">Send Example Timing</string>
 
-	<!-- Google Cloud Messaging -->
+	<!-- Firebase Cloud Messaging -->
 	<string name="fcm">Firebase Cloud Messaging</string>
 	<string name="registerDevice">Register Device</string>
 	<string name="registerDeviceAndUpdateLastActiveTimestamp">Register Device &amp; Update Last Active Timestamp</string>
