@@ -34,7 +34,7 @@ public class FirebaseRemoteConfigHelper {
 
 		firebaseRemoteConfig.setConfigSettings(configSettingsBuilder.build());
 
-		List<RemoteConfigParameter> remoteConfigParameters = FirebaseRemoteConfigAppModule.get().getFirebaseRemoteConfigAppContext().getRemoteConfigParameters();
+		List<RemoteConfigParameter> remoteConfigParameters = AbstractApplication.get().getRemoteConfigParameters();
 		if (remoteConfigParameters != null) {
 			Map<String, Object> defaults = Maps.newHashMap();
 			for (RemoteConfigParameter each : remoteConfigParameters) {
@@ -64,7 +64,7 @@ public class FirebaseRemoteConfigHelper {
 					LOGGER.debug("Firebase Remote Config activate fetched result: " + result);
 
 					if (setExperimentUserProperty) {
-						final List<RemoteConfigParameter> remoteConfigParameters = FirebaseRemoteConfigAppModule.get().getFirebaseRemoteConfigAppContext().getRemoteConfigParameters();
+						final List<RemoteConfigParameter> remoteConfigParameters = AbstractApplication.get().getRemoteConfigParameters();
 						if (remoteConfigParameters != null) {
 							ExecutorUtils.execute(new Runnable() {
 								@Override

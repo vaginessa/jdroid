@@ -3,8 +3,10 @@ package com.jdroid.android.context;
 import android.preference.PreferenceManager;
 
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
 import com.jdroid.java.http.Server;
 
+import java.util.List;
 import java.util.Locale;
 
 public abstract class AppContext extends AbstractAppContext {
@@ -31,7 +33,7 @@ public abstract class AppContext extends AbstractAppContext {
 			Class<?> clazz = defaultServer.getClass().getEnclosingClass() != null ? defaultServer.getClass().getEnclosingClass()
 					: defaultServer.getClass();
 			return (T)defaultServer.instance(PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
-				clazz.getSimpleName(), defaultServer.getName()).toUpperCase(Locale.US));
+					clazz.getSimpleName(), defaultServer.getName()).toUpperCase(Locale.US));
 		}
 	}
 
@@ -109,6 +111,10 @@ public abstract class AppContext extends AbstractAppContext {
 	}
 	
 	public String getGooglePlusCommunityId() {
+		return null;
+	}
+
+	public List<RemoteConfigParameter> getRemoteConfigParameters() {
 		return null;
 	}
 }

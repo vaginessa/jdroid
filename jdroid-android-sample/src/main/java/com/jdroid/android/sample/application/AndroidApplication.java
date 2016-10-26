@@ -33,7 +33,6 @@ import com.jdroid.android.sample.debug.AndroidDebugContext;
 import com.jdroid.android.sample.exception.AndroidCrashlyticsAppModule;
 import com.jdroid.android.sample.firebase.AndroidFirebaseAppModule;
 import com.jdroid.android.sample.firebase.fcm.AndroidFcmAppModule;
-import com.jdroid.android.sample.firebase.remoteconfig.AndroidFirebaseRemoteConfigAppModule;
 import com.jdroid.android.sample.google.analytics.AndroidGoogleAnalyticsAppModule;
 import com.jdroid.android.sample.repository.UserRepositoryImpl;
 import com.jdroid.android.sample.ui.AndroidActivityHelper;
@@ -141,7 +140,7 @@ public class AndroidApplication extends AbstractApplication {
 		appModulesMap.put(AdMobAppModule.MODULE_NAME, new SampleAdMobAppModule());
 		appModulesMap.put(FacebookAppModule.MODULE_NAME, new FacebookAppModule());
 		appModulesMap.put(AbstractFcmAppModule.MODULE_NAME, new AndroidFcmAppModule());
-		appModulesMap.put(FirebaseRemoteConfigAppModule.MODULE_NAME, new AndroidFirebaseRemoteConfigAppModule());
+		appModulesMap.put(FirebaseRemoteConfigAppModule.MODULE_NAME, new FirebaseRemoteConfigAppModule());
 		appModulesMap.put(AboutAppModule.MODULE_NAME, new AndroidAboutAppModule());
 		appModulesMap.put(TwitterAppModule.MODULE_NAME, new TwitterAppModule(BuildConfig.TWITTER_OAUTH_CONSUMER_KEY, BuildConfig.TWITTER_OAUTH_CONSUMER_SECRET));
 	}

@@ -9,6 +9,7 @@ import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityDelegate;
 import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.debug.PreferencesAppender;
+import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
 import com.jdroid.android.fragment.FragmentDelegate;
 import com.jdroid.java.analytics.BaseAnalyticsSender;
 import com.jdroid.java.analytics.BaseAnalyticsTracker;
@@ -99,6 +100,11 @@ public abstract class AbstractAppModule implements AppModule {
 
 	@Override
 	public FragmentDelegate createFragmentDelegate(Fragment fragment) {
+		return null;
+	}
+
+	@Override
+	public List<RemoteConfigParameter> getRemoteConfigParameters() {
 		return null;
 	}
 }

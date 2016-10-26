@@ -8,6 +8,7 @@ import com.jdroid.android.activity.ActivityDelegate;
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.debug.PreferencesAppender;
+import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
 import com.jdroid.android.fragment.FragmentDelegate;
 import com.jdroid.android.google.admob.analytics.AdMobAnalyticsSender;
 import com.jdroid.android.google.admob.analytics.AdMobAnalyticsTracker;
@@ -84,5 +85,10 @@ public class AdMobAppModule extends AbstractAppModule {
 	@Override
 	public AdMobAnalyticsSender getAnalyticsSender() {
 		return (AdMobAnalyticsSender)super.getAnalyticsSender();
+	}
+
+	@Override
+	public List<RemoteConfigParameter> getRemoteConfigParameters() {
+		return Lists.<RemoteConfigParameter>newArrayList(AdMobRemoteConfigParameter.values());
 	}
 }

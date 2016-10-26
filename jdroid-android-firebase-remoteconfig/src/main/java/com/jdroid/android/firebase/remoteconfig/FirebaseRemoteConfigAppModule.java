@@ -15,21 +15,7 @@ public class FirebaseRemoteConfigAppModule extends AbstractAppModule {
 		return (FirebaseRemoteConfigAppModule)AbstractApplication.get().getAppModule(MODULE_NAME);
 	}
 
-	private FirebaseRemoteConfigAppContext firebaseRemoteConfigAppContext;
 	private FirebaseRemoteConfigDebugContext firebaseRemoteConfigDebugContext;
-
-
-	public FirebaseRemoteConfigAppModule() {
-		firebaseRemoteConfigAppContext = createFirebaseRemoteConfigAppContext();
-	}
-
-	protected FirebaseRemoteConfigAppContext createFirebaseRemoteConfigAppContext() {
-		return new FirebaseRemoteConfigAppContext();
-	}
-
-	public FirebaseRemoteConfigAppContext getFirebaseRemoteConfigAppContext() {
-		return firebaseRemoteConfigAppContext;
-	}
 
 	@Override
 	public void onCreate() {

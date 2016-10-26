@@ -2,9 +2,14 @@ package com.jdroid.android.sample.application;
 
 
 import com.jdroid.android.context.AppContext;
+import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
 import com.jdroid.android.sample.BuildConfig;
+import com.jdroid.android.sample.firebase.remoteconfig.AndroidRemoteConfigParameter;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.http.Server;
 import com.jdroid.android.sample.api.ApiServer;
+
+import java.util.List;
 
 public class AndroidAppContext extends AppContext {
 
@@ -41,5 +46,10 @@ public class AndroidAppContext extends AppContext {
 
 	public String getFirebaseAuthToken() {
 		return BuildConfig.FIREBASE_AUTH_TOKEN;
+	}
+
+	@Override
+	public List<RemoteConfigParameter> getRemoteConfigParameters() {
+		return Lists.<RemoteConfigParameter>newArrayList(AndroidRemoteConfigParameter.values());
 	}
 }

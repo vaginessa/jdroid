@@ -21,6 +21,7 @@ import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.ExceptionHandler;
+import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.http.cache.CacheManager;
 import com.jdroid.android.images.loader.ImageLoaderHelper;
@@ -93,6 +94,8 @@ public abstract class AbstractApplication extends Application {
 
 	private ActivityLifecycleHandler activityLifecycleHandler;
 
+	private List<RemoteConfigParameter> remoteConfigParameters;
+
 	public AbstractApplication() {
 		INSTANCE = this;
 	}
@@ -119,8 +122,10 @@ public abstract class AbstractApplication extends Application {
 			initStrictMode();
 		}
 
-		List<Kit> fabricKits = Lists.newArrayList();
 		initAppModule(appModulesMap);
+		remoteConfigParameters = createRemoteConfigParameters();
+
+		List<Kit> fabricKits = Lists.newArrayList();
 		for (AppModule each: appModulesMap.values()) {
 			each.onCreate();
 			fabricKits.addAll(each.getFabricKits());
@@ -471,4 +476,23 @@ public abstract class AbstractApplication extends Application {
 	public abstract int getLauncherIconResId();
 
 	public abstract String getManifestPackageName();
+
+	private List<RemoteConfigParameter> createRemoteConfigParameters() {
+		List<RemoteConfigParameter> remoteConfigParameters = Lists.newArrayList();
+		List<RemoteConfigParameter> params = appContext.getRemoteConfigParameters();
+		if (params != null) {
+			remoteConfigParameters.addAll(params);
+		}
+		for (AppModule each: appModulesMap.values()) {
+			params = each.getRemoteConfigParameters();
+			if (params != null) {
+				remoteConfigParameters.addAll(params);
+			}
+		}
+		return remoteConfigParameters;
+	}
+
+	public List<RemoteConfigParameter> getRemoteConfigParameters() {
+		return remoteConfigParameters;
+	}
 }

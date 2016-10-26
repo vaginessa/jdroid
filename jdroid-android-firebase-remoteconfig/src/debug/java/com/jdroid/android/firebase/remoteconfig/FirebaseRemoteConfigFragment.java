@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.debug.PairItemRecyclerViewType;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
@@ -24,7 +25,7 @@ public class FirebaseRemoteConfigFragment extends AbstractRecyclerFragment {
 
 		List<Object> items = Lists.newArrayList();
 		items.add("");
-		for(RemoteConfigParameter each: FirebaseRemoteConfigAppModule.get().getFirebaseRemoteConfigAppContext().getRemoteConfigParameters()) {
+		for(RemoteConfigParameter each: AbstractApplication.get().getRemoteConfigParameters()) {
 			items.add(new Pair<String, Object>(each.getKey(), FirebaseRemoteConfigHelper.getString(each)));
 		}
 
