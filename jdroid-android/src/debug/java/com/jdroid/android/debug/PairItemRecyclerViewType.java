@@ -29,7 +29,7 @@ public abstract class PairItemRecyclerViewType extends RecyclerViewType<Pair, Pa
 
 	@Override
 	public void fillHolderFromItem(Pair item, PairItemHolder holder) {
-		holder.name.setText(item.first + ": " + item.second.toString());
+		holder.name.setText(item.first + ": " + item.second);
 	}
 
 	public static class PairItemHolder extends RecyclerView.ViewHolder {

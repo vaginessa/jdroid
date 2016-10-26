@@ -6,7 +6,7 @@ public enum AndroidRemoteConfigParameter implements RemoteConfigParameter {
 
 	SAMPLE_CONFIG_1("sampleConfig1", "defaultConfigValue1"),
 	SAMPLE_CONFIG_2("sampleConfig2", "default", true),
-	SAMPLE_CONFIG_3("sampleConfig3", "defaultConfigValue3");
+	SAMPLE_CONFIG_3("sampleConfig3", null);
 
 	private String key;
 	private Object defaultValue;

@@ -38,7 +38,10 @@ public class FirebaseRemoteConfigHelper {
 		if (remoteConfigParameters != null) {
 			Map<String, Object> defaults = Maps.newHashMap();
 			for (RemoteConfigParameter each : remoteConfigParameters) {
-				defaults.put(each.getKey(), each.getDefaultValue());
+				Object defaultValue = each.getDefaultValue();
+				if (defaultValue != null) {
+					defaults.put(each.getKey(), defaultValue);
+				}
 			}
 			firebaseRemoteConfig.setDefaults(defaults);
 		}
