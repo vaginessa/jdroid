@@ -1,6 +1,7 @@
 package com.jdroid.android.sample.api;
 
 import com.jdroid.android.api.AndroidApiService;
+import com.jdroid.android.firebase.fcm.AbstractFcmMessageResolver;
 import com.jdroid.android.firebase.fcm.device.Device;
 import com.jdroid.android.firebase.fcm.device.DeviceMarshaller;
 import com.jdroid.java.http.HttpService;
@@ -76,8 +77,8 @@ public class SampleApiService extends AndroidApiService {
 		HttpService httpService = newGetService("fcm", "send");
 		httpService.addQueryParameter("googleServerApiKey", googleServerApiKey);
 		httpService.addQueryParameter("registrationToken", registrationToken);
-		httpService.addQueryParameter("messageKeyExtraName", "messageKey");
-		httpService.addQueryParameter("messageKey", messageKey);
+		httpService.addQueryParameter("messageKeyExtraName", AbstractFcmMessageResolver.MESSAGE_KEY_EXTRA);
+		httpService.addQueryParameter(AbstractFcmMessageResolver.MESSAGE_KEY_EXTRA, messageKey);
 		httpService.addQueryParameter("timestampEnabled", "true");
 
 		StringBuilder stringBuilder = new StringBuilder();

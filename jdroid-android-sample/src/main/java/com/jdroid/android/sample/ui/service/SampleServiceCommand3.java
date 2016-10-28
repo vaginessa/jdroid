@@ -19,7 +19,7 @@ public class SampleServiceCommand3 extends ServiceCommand {
 			throw new ConnectionException("Failing service");
 		} else {
 			NotificationBuilder builder = new NotificationBuilder("myNotification");
-			builder.setSmallIcon(AbstractApplication.get().getLauncherIconResId());
+			builder.setSmallIcon(AbstractApplication.get().getNotificationIconResId());
 			builder.setTicker("Sample Ticker");
 			builder.setContentTitle(getClass().getSimpleName());
 			builder.setContentText(bundle.get("a").toString());
@@ -32,7 +32,7 @@ public class SampleServiceCommand3 extends ServiceCommand {
 	@Override
 	protected int executeRetry(Bundle bundle) {
 		NotificationBuilder builder = new NotificationBuilder("myNotification");
-		builder.setSmallIcon(AbstractApplication.get().getLauncherIconResId());
+		builder.setSmallIcon(AbstractApplication.get().getNotificationIconResId());
 		builder.setTicker("Sample Ticker");
 		builder.setContentTitle(getClass().getSimpleName());
 		builder.setContentText(bundle.get("a").toString());

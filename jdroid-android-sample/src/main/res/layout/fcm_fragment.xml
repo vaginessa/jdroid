@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-			android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
 	<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="8dp">
 
 		<Button android:id="@+id/registerDevice" android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -24,12 +23,15 @@
 		</android.support.design.widget.TextInputLayout>
 
 		<android.support.design.widget.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-			<EditText android:id="@+id/minAppVersionCode" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/minAppVersionCode" />
+			<EditText android:id="@+id/minAppVersionCode" android:inputType="number" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/minAppVersionCode" />
 		</android.support.design.widget.TextInputLayout>
 
 		<android.support.design.widget.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+			<EditText android:id="@+id/minDeviceOsVersion" android:inputType="number" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/minDeviceOsVersion" />
+		</android.support.design.widget.TextInputLayout>
 
-			<EditText android:id="@+id/senderId" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/senderId" />
+		<android.support.design.widget.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+			<EditText android:id="@+id/senderId" android:inputType="number" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/senderId" />
 		</android.support.design.widget.TextInputLayout>
 
 		<Button android:id="@+id/sendPush" android:layout_width="wrap_content" android:layout_height="wrap_content"

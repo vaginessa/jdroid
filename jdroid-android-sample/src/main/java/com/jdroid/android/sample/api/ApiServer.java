@@ -82,7 +82,7 @@ public enum ApiServer implements FcmSender {
 
 	@Override
 	public String getSenderId() {
-		return "987303188435";
+		return "527857945512";
 	}
 
 	@Override

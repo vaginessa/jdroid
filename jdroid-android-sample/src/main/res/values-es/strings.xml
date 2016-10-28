@@ -70,6 +70,7 @@
 	<string name="sendPush">Send Push</string>
 	<string name="messageKey">Message Key</string>
 	<string name="minAppVersionCode">MinAppVersionCode</string>
+	<string name="minDeviceOsVersion">MinDeviceOsVersion</string>
 	<string name="senderId">Sender Id</string>
 	<string name="googleServerApiKey">Google Server Api Key</string>
 
@@ -113,6 +114,13 @@
 
 	<!-- Notifications -->
 	<string name="notifications">Notifications</string>
+	<string name="notificationName">Notification name</string>
+	<string name="ticker">Ticker</string>
+	<string name="contentTitle">Content title</string>
+	<string name="contentText">Notifications</string>
+	<string name="url">Url</string>
+	<string name="largeIconUrl">Large icon url</string>
+	<string name="largeIconDrawable">Large icon drawable</string>
 	<string name="sendNotification">Send Notification</string>
 	<string name="cancelNotifications">Cancel Notifications</string>
 

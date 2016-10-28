@@ -1,21 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-	android:layout_height="match_parent" android:orientation="vertical" android:padding="8dp">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content">
 
-	<EditText android:id="@+id/notificationName" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+	<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="8dp">
 
-	<EditText android:id="@+id/ticker" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+		<android.support.design.widget.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp">
+			<EditText android:id="@+id/notificationName" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/notificationName" />
+		</android.support.design.widget.TextInputLayout>
 
-	<EditText android:id="@+id/contentTitle" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+		<android.support.design.widget.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp">
+			<EditText android:id="@+id/ticker" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/ticker" />
+		</android.support.design.widget.TextInputLayout>
 
-	<EditText android:id="@+id/contentText" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+		<android.support.design.widget.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp">
+			<EditText android:id="@+id/contentTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/contentTitle" />
+		</android.support.design.widget.TextInputLayout>
 
-	<EditText android:id="@+id/url" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+		<android.support.design.widget.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp">
+			<EditText android:id="@+id/contentText" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/contentText" />
+		</android.support.design.widget.TextInputLayout>
 
-	<Button android:id="@+id/sendNotification" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:text="@string/sendNotification" />
+		<android.support.design.widget.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp">
+			<EditText android:id="@+id/url" android:inputType="textUri" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/url" />
+		</android.support.design.widget.TextInputLayout>
 
-	<Button android:id="@+id/cancelNotifications" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:text="@string/cancelNotifications" />
+		<android.support.design.widget.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp">
+			<EditText android:id="@+id/largeIconUrl" android:inputType="textUri" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/largeIconUrl" />
+		</android.support.design.widget.TextInputLayout>
 
-</LinearLayout>
+		<android.support.design.widget.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp">
+			<CheckBox android:id="@+id/largeIconDrawable" android:layout_width="wrap_content" android:layout_height="wrap_content" android:hint="@string/largeIconDrawable" />
+		</android.support.design.widget.TextInputLayout>
+
+		<Button android:id="@+id/sendNotification" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/sendNotification" />
+
+		<Button android:id="@+id/cancelNotifications" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/cancelNotifications" />
+
+	</LinearLayout>
+
+</ScrollView>

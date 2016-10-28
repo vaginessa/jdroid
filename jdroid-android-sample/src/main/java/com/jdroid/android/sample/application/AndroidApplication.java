@@ -151,6 +151,11 @@ public class AndroidApplication extends AbstractApplication {
 	}
 
 	@Override
+	public int getNotificationIconResId() {
+		return R.drawable.ic_notification;
+	}
+
+	@Override
 	public String getManifestPackageName() {
 		return "com.jdroid.android.sample";
 	}

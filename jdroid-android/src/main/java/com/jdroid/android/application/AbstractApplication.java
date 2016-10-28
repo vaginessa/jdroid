@@ -475,6 +475,8 @@ public abstract class AbstractApplication extends Application {
 
 	public abstract int getLauncherIconResId();
 
+	public abstract int getNotificationIconResId();
+
 	public abstract String getManifestPackageName();
 
 	private List<RemoteConfigParameter> createRemoteConfigParameters() {

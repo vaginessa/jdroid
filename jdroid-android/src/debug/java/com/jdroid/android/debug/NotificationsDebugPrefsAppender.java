@@ -43,7 +43,7 @@ public class NotificationsDebugPrefsAppender extends PreferencesAppender {
 					builder.setContentTitle("Sample Content Title");
 					builder.setContentText(url);
 					builder.setSingleTopUrl(url);
-					builder.setSmallIcon(AbstractApplication.get().getLauncherIconResId());
+					builder.setSmallIcon(AbstractApplication.get().getNotificationIconResId());
 					builder.setWhen(DateUtils.nowMillis());
 
 					NotificationUtils.sendNotification(IdGenerator.getIntId(), builder);

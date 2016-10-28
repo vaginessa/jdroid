@@ -20,6 +20,8 @@ public class AbstractHeaderAppender implements HttpServiceProcessor {
 	
 	public static final String USER_TOKEN_HEADER = "x-user-token";
 	public static final String INSTANCE_ID_HEADER = "instanceId";
+
+	// TODO Review these name to unify them with Device class
 	public static final String CLIENT_APP_VERSION_HEADER = "clientAppVersion";
 	public static final String CLIENT_OS_VERSION_HEADER = "clientOsVersion";
 

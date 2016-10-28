@@ -12,11 +12,13 @@ import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.annotation.WorkerThread;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.images.BitmapUtils;
 import com.jdroid.android.uri.UriUtils;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.LocalizationUtils;
@@ -155,13 +157,18 @@ public class NotificationBuilder {
 			builder.setWhen(when);
 		}
 	}
+
+	public void setLargeIcon(@DrawableRes int resId) {
+		builder.setLargeIcon(BitmapUtils.toBitmap(resId));
+	}
 	
 	public void setLargeIcon(Bitmap largeIcon) {
 		if (largeIcon != null) {
 			builder.setLargeIcon(largeIcon);
 		}
 	}
-	
+
+	@WorkerThread
 	public void setLargeIcon(String largeIconUrl) {
 		if (largeIconUrl != null) {
 			builder.setLargeIcon(createLargeIconBitmap(largeIconUrl));

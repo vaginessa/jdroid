@@ -22,7 +22,7 @@ public enum AndroidFcmMessage implements FcmMessage {
 		@Override
 		public void handle(RemoteMessage remoteMessage) {
 			NotificationBuilder builder = new NotificationBuilder("pushNotification");
-			builder.setSmallIcon(AbstractApplication.get().getLauncherIconResId());
+			builder.setSmallIcon(AbstractApplication.get().getNotificationIconResId());
 			builder.setTicker("Sample Ticker");
 			builder.setContentTitle("Sample Content Title");
 			String description = "Sample Content Description";

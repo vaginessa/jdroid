@@ -1,25 +1,32 @@
 package com.jdroid.android.images;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.net.Uri;
+import android.support.annotation.DrawableRes;
 import android.util.Log;
+
 import com.jdroid.android.application.AbstractApplication;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
 public class BitmapUtils {
 	
-	public static Bitmap toBitmap(int resId, Integer maxWidth, Integer maxHeight) {
+	public static Bitmap toBitmap(@DrawableRes int resId) {
+		return BitmapFactory.decodeResource(AbstractApplication.get().getResources(), resId);
+	}
+
+	public static Bitmap toBitmap(@DrawableRes int resId, Integer maxWidth, Integer maxHeight) {
 		Bitmap bitmap = BitmapFactory.decodeResource(AbstractApplication.get().getResources(), resId);
 		Bitmap scaled = Bitmap.createScaledBitmap(bitmap, maxWidth, maxHeight, true);
 		bitmap.recycle();
 		return scaled;
 	}
-	
+
 	public static Bitmap toBitmap(InputStream input, Integer maxWidth, Integer maxHeight) {
 		
 		Options options = new Options();

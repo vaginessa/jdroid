@@ -21,7 +21,7 @@ public class SampleGcmTaskService extends AbstractGcmTaskService {
 			throw new UnexpectedException("Failing service");
 		} else {
 			NotificationBuilder builder = new NotificationBuilder("myNotification");
-			builder.setSmallIcon(AbstractApplication.get().getLauncherIconResId());
+			builder.setSmallIcon(AbstractApplication.get().getNotificationIconResId());
 			builder.setTicker("Sample Ticker");
 			builder.setContentTitle(getClass().getSimpleName());
 			builder.setContentText(taskParams.getExtras().get("a").toString());

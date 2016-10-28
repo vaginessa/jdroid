@@ -20,52 +20,27 @@ public class NotificationMessage implements FcmMessage {
 	public static final String VIBRATION_ENABLED = "vibrationEnabled";
 	public static final String LIGHT_ENABLED = "lightEnabled";
 	public static final String URL = "url";
+	public static final String LARGE_ICON_URL = "largeIconUrl";
 
-	private static final String MESSAGE_KEY = "notificationMessage";
+	public static final String MESSAGE_KEY = "notificationMessage";
 
 	@Override
 	public void handle(RemoteMessage remoteMessage) {
 		NotificationBuilder builder = new NotificationBuilder(getMessageKey());
 
-		String ticker = remoteMessage.getData().get(TICKER);
-		if (StringUtils.isNotEmpty(ticker)) {
-			builder.setTicker(ticker);
-		} else {
-			throw new UnexpectedException("Missing " + TICKER + " extra for " + getMessageKey());
-		}
+		initTicker(remoteMessage, builder);
+		initContentTitle(remoteMessage, builder);
+		initContentText(remoteMessage, builder);
 
-		String contentTitle = remoteMessage.getData().get(CONTENT_TITLE);
-		if (StringUtils.isNotEmpty(contentTitle)) {
-			builder.setContentTitle(contentTitle);
-		} else {
-			throw new UnexpectedException("Missing " + CONTENT_TITLE + " extra for " + getMessageKey());
-		}
+		initSmallIcon(remoteMessage, builder);
+		initLargeIcon(remoteMessage, builder);
 
-		String contentText = remoteMessage.getData().get(CONTENT_TEXT);
-		if (StringUtils.isNotEmpty(contentText)) {
-			builder.setContentText(contentText);
-		} else {
-			throw new UnexpectedException("Missing " + CONTENT_TEXT + " extra for " + getMessageKey());
-		}
+		initSound(remoteMessage, builder);
+		initVibration(remoteMessage, builder);
+		initLight(remoteMessage, builder);
 
-		if (NumberUtils.getBoolean(remoteMessage.getData().get(SOUND_ENABLED), false)) {
-			builder.setDefaultSound();
-		}
-		if (NumberUtils.getBoolean(remoteMessage.getData().get(VIBRATION_ENABLED), false)) {
-			builder.setDefaultVibration();
-		}
-		if (NumberUtils.getBoolean(remoteMessage.getData().get(LIGHT_ENABLED), false)) {
-			builder.setWhiteLight();
-		}
+		initContentIntent(remoteMessage, builder);
 
-		String url = remoteMessage.getData().get(URL);
-		if (StringUtils.isNotEmpty(url)) {
-			builder.setSingleTopUrl(url);
-		} else {
-			throw new UnexpectedException("Missing " + URL + " extra for " + getMessageKey());
-		}
-
-		builder.setSmallIcon(getSmallIconResId());
 		builder.setPublicVisibility();
 		builder.setWhen(DateUtils.nowMillis());
 		configureBuilder(builder);
@@ -73,12 +48,71 @@ public class NotificationMessage implements FcmMessage {
 		NotificationUtils.sendNotification(IdGenerator.getIntId(), builder);
 	}
 
-	protected void configureBuilder(NotificationBuilder notificationBuilder) {
-		// Do Nothing
+	protected void initTicker(RemoteMessage remoteMessage, NotificationBuilder builder) {
+		String ticker = remoteMessage.getData().get(TICKER);
+		if (StringUtils.isNotEmpty(ticker)) {
+			builder.setTicker(ticker);
+		} else {
+			throw new UnexpectedException("Missing " + TICKER + " extra for " + getMessageKey());
+		}
 	}
 
-	protected int getSmallIconResId() {
-		return AbstractApplication.get().getLauncherIconResId();
+	protected void initContentTitle(RemoteMessage remoteMessage, NotificationBuilder builder) {
+		String contentTitle = remoteMessage.getData().get(CONTENT_TITLE);
+		if (StringUtils.isNotEmpty(contentTitle)) {
+			builder.setContentTitle(contentTitle);
+		} else {
+			throw new UnexpectedException("Missing " + CONTENT_TITLE + " extra for " + getMessageKey());
+		}
+	}
+
+	protected void initContentText(RemoteMessage remoteMessage, NotificationBuilder builder) {
+		String contentText = remoteMessage.getData().get(CONTENT_TEXT);
+		if (StringUtils.isNotEmpty(contentText)) {
+			builder.setContentText(contentText);
+		} else {
+			throw new UnexpectedException("Missing " + CONTENT_TEXT + " extra for " + getMessageKey());
+		}
+	}
+
+	protected void initSound(RemoteMessage remoteMessage, NotificationBuilder builder) {
+		if (NumberUtils.getBoolean(remoteMessage.getData().get(SOUND_ENABLED), false)) {
+			builder.setDefaultSound();
+		}
+	}
+
+	protected void initVibration(RemoteMessage remoteMessage, NotificationBuilder builder) {
+		if (NumberUtils.getBoolean(remoteMessage.getData().get(VIBRATION_ENABLED), false)) {
+			builder.setDefaultVibration();
+		}
+	}
+
+	protected void initLight(RemoteMessage remoteMessage, NotificationBuilder builder) {
+		if (NumberUtils.getBoolean(remoteMessage.getData().get(LIGHT_ENABLED), false)) {
+			builder.setWhiteLight();
+		}
+	}
+
+	protected void initContentIntent(RemoteMessage remoteMessage, NotificationBuilder builder) {
+		String url = remoteMessage.getData().get(URL);
+		if (StringUtils.isNotEmpty(url)) {
+			builder.setSingleTopUrl(url);
+		} else {
+			throw new UnexpectedException("Missing " + URL + " extra for " + getMessageKey());
+		}
+	}
+
+	protected void initSmallIcon(RemoteMessage remoteMessage, NotificationBuilder builder) {
+		builder.setSmallIcon(AbstractApplication.get().getNotificationIconResId());
+	}
+
+	protected void initLargeIcon(RemoteMessage remoteMessage, NotificationBuilder builder) {
+		String largeIconUrl = remoteMessage.getData().get(LARGE_ICON_URL);
+		builder.setLargeIcon(largeIconUrl);
+	}
+
+	protected void configureBuilder(NotificationBuilder notificationBuilder) {
+		// Do Nothing
 	}
 
 	@Override

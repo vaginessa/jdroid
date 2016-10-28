@@ -5,7 +5,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.jdroid.android.firebase.fcm.AbstractFcmAppModule;
+import com.jdroid.android.firebase.fcm.AbstractFcmMessageResolver;
 import com.jdroid.android.firebase.fcm.FcmRegistrationCommand;
+import com.jdroid.android.firebase.fcm.notification.NotificationMessage;
 import com.jdroid.android.firebase.instanceid.InstanceIdHelper;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
@@ -65,13 +67,17 @@ public class FcmFragment extends AbstractFragment {
 			}
 		});
 
-		final EditText googleServerApiKey = findView(R.id.googleServerApiKey);
+		final EditText googleServerApiKeyEditText = findView(R.id.googleServerApiKey);
+		googleServerApiKeyEditText.setText("AIzaSyBhf3imq3mldsdlh65nJqIIjXxLYPjh9fs");
 
-		final EditText messageKey = findView(R.id.messageKey);
-		messageKey.setText("sampleMessage");
+		final EditText messageKeyEditText = findView(R.id.messageKey);
+		messageKeyEditText.setText("sampleMessage");
 
 		final EditText minAppVersionCode = findView(R.id.minAppVersionCode);
 		minAppVersionCode.setText("0");
+
+		final EditText minDeviceOsVersion = findView(R.id.minDeviceOsVersion);
+		minDeviceOsVersion.setText("0");
 
 		final EditText senderId = findView(R.id.senderId);
 		senderId.setText(AbstractFcmAppModule.get().getFcmSenders().get(0).getSenderId());
@@ -83,12 +89,31 @@ public class FcmFragment extends AbstractFragment {
 					@Override
 					public void run() {
 						try {
+
+							String googleServerApiKey = googleServerApiKeyEditText.getText().length() > 0 ? googleServerApiKeyEditText.getText().toString() : null;
 							String registrationToken = FcmRegistrationCommand.getRegistrationToken(senderId.getText().toString());
+
 							Map<String, String> params = Maps.newHashMap();
 							if (minAppVersionCode.getText().length() > 0) {
-								params.put("minAppVersionCode", minAppVersionCode.getText().toString());
+								params.put(AbstractFcmMessageResolver.MIN_APP_VERSION_CODE_KEY, minAppVersionCode.getText().toString());
 							}
-							new SampleApiService().sendPush(googleServerApiKey.getText().length() > 0 ? googleServerApiKey.getText().toString() : null, registrationToken, messageKey.getText().toString(), params);
+							if (minDeviceOsVersion.getText().length() > 0) {
+								params.put(AbstractFcmMessageResolver.MIN_DEVICE_OS_VERSION_KEY, minDeviceOsVersion.getText().toString());
+							}
+
+							String messageKey = messageKeyEditText.getText().toString();
+							if (NotificationMessage.MESSAGE_KEY.equals(messageKey)) {
+								params.put(NotificationMessage.TICKER, "Sample Ticker");
+								params.put(NotificationMessage.CONTENT_TITLE, "Sample Content Title");
+								params.put(NotificationMessage.CONTENT_TEXT, "Sample Content Text");
+								params.put(NotificationMessage.LIGHT_ENABLED, "true");
+								params.put(NotificationMessage.SOUND_ENABLED, "false");
+								params.put(NotificationMessage.VIBRATION_ENABLED, "true");
+								params.put(NotificationMessage.URL, "http://jdroidframework.com/uri/noflags?a=1");
+								params.put(NotificationMessage.LARGE_ICON_URL, "http://jdroidframework.com/images/gradle.png");
+							}
+
+							new SampleApiService().sendPush(googleServerApiKey, registrationToken, messageKey, params);
 						} catch (IOException e) {
 							throw new UnexpectedException(e);
 						}
