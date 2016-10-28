@@ -4,27 +4,25 @@ import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
 
 public enum AndroidRemoteConfigParameter implements RemoteConfigParameter {
 
-	SAMPLE_CONFIG_1("sampleConfig1", "defaultConfigValue1"),
-	SAMPLE_CONFIG_2("sampleConfig2", "default", true),
-	SAMPLE_CONFIG_3("sampleConfig3", null);
+	SAMPLE_CONFIG_1("defaultConfigValue1"),
+	SAMPLE_CONFIG_2("default", true),
+	SAMPLE_CONFIG_3(null);
 
-	private String key;
 	private Object defaultValue;
 	private Boolean isABTestingExperiment;
 
-	AndroidRemoteConfigParameter(String key, Object defaultValue) {
-		this(key, defaultValue, false);
+	AndroidRemoteConfigParameter(Object defaultValue) {
+		this(defaultValue, false);
 	}
 
-	AndroidRemoteConfigParameter(String key, Object defaultValue, Boolean isABTestingExperiment) {
-		this.key = key;
+	AndroidRemoteConfigParameter(Object defaultValue, Boolean isABTestingExperiment) {
 		this.defaultValue = defaultValue;
 		this.isABTestingExperiment = isABTestingExperiment;
 	}
 
 	@Override
 	public String getKey() {
-		return key;
+		return name();
 	}
 
 	@Override
