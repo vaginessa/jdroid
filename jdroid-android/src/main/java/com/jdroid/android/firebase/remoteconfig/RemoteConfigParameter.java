@@ -6,5 +6,5 @@ public interface RemoteConfigParameter {
 
 	Object getDefaultValue();
 
-	Boolean isABTestingExperiment();
+	Boolean isUserProperty();
 }

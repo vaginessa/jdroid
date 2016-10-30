@@ -73,7 +73,7 @@ public class FirebaseRemoteConfigHelper {
 								@Override
 								public void run() {
 									for (RemoteConfigParameter each : remoteConfigParameters) {
-										if (each.isABTestingExperiment()) {
+										if (each.isUserProperty()) {
 											String experimentVariant = FirebaseRemoteConfig.getInstance().getString(each.getKey());
 											FirebaseAppModule.get().getFirebaseAnalyticsHelper().setUserProperty(each.getKey(), experimentVariant);
 										}

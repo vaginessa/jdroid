@@ -31,7 +31,7 @@ public enum AndroidRemoteConfigParameter implements RemoteConfigParameter {
 	}
 
 	@Override
-	public Boolean isABTestingExperiment() {
+	public Boolean isUserProperty() {
 		return isABTestingExperiment;
 	}
 }

@@ -29,7 +29,7 @@ public enum AdMobRemoteConfigParameter implements RemoteConfigParameter {
 	}
 
 	@Override
-	public Boolean isABTestingExperiment() {
+	public Boolean isUserProperty() {
 		return false;
 	}
 }
