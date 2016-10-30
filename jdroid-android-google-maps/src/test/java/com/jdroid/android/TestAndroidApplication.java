@@ -47,6 +47,11 @@ public class TestAndroidApplication extends AbstractApplication {
 	}
 
 	@Override
+	public int getNotificationIconResId() {
+		return 0;
+	}
+
+	@Override
 	public String getManifestPackageName() {
 		return null;
 	}
