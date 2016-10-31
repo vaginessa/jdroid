@@ -109,8 +109,12 @@ public abstract class BaseAdViewHelper implements AdHelper {
 
 					AppContext applicationContext = AbstractApplication.get().getAppContext();
 					AdRequest.Builder builder = createBuilder(applicationContext);
-					baseAdViewWrapper.loadAd(builder.build());
-					adViewContainer.addView(baseAdViewWrapper.getBaseAdView());
+					try {
+						baseAdViewWrapper.loadAd(builder.build());
+						adViewContainer.addView(baseAdViewWrapper.getBaseAdView());
+					} catch (Exception e) {
+						AbstractApplication.get().getExceptionHandler().logWarningException("Error when loading ad", e);
+					}
 
 				} else {
 					AbstractApplication.get().getExceptionHandler().logWarningException("Missing ad unit ID on activity " + activity.getClass().getSimpleName());
