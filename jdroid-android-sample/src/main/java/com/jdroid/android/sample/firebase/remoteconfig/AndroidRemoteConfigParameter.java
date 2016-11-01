@@ -9,15 +9,15 @@ public enum AndroidRemoteConfigParameter implements RemoteConfigParameter {
 	SAMPLE_CONFIG_3(null);
 
 	private Object defaultValue;
-	private Boolean isABTestingExperiment;
+	private Boolean isUserProperty;
 
 	AndroidRemoteConfigParameter(Object defaultValue) {
 		this(defaultValue, false);
 	}
 
-	AndroidRemoteConfigParameter(Object defaultValue, Boolean isABTestingExperiment) {
+	AndroidRemoteConfigParameter(Object defaultValue, Boolean isUserProperty) {
 		this.defaultValue = defaultValue;
-		this.isABTestingExperiment = isABTestingExperiment;
+		this.isUserProperty = isUserProperty;
 	}
 
 	@Override
@@ -32,6 +32,6 @@ public enum AndroidRemoteConfigParameter implements RemoteConfigParameter {
 
 	@Override
 	public Boolean isUserProperty() {
-		return isABTestingExperiment;
+		return isUserProperty;
 	}
 }

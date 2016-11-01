@@ -117,7 +117,7 @@
 	<string name="notificationName">Notification name</string>
 	<string name="ticker">Ticker</string>
 	<string name="contentTitle">Content title</string>
-	<string name="contentText">Notifications</string>
+	<string name="contentText">Content text</string>
 	<string name="url">Url</string>
 	<string name="largeIconUrl">Large icon url</string>
 	<string name="largeIconDrawable">Large icon drawable</string>
