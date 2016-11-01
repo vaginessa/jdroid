@@ -115,7 +115,6 @@
 	<!-- Notifications -->
 	<string name="notifications">Notifications</string>
 	<string name="notificationName">Notification name</string>
-	<string name="ticker">Ticker</string>
 	<string name="contentTitle">Content title</string>
 	<string name="contentText">Content text</string>
 	<string name="url">Url</string>

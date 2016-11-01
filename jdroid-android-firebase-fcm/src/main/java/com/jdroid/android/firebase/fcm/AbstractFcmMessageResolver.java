@@ -3,7 +3,6 @@ package com.jdroid.android.firebase.fcm;
 import com.google.firebase.messaging.RemoteMessage;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.SecurityContext;
-import com.jdroid.android.firebase.fcm.notification.NotificationMessage;
 import com.jdroid.android.firebase.fcm.notification.NotificationFcmMessage;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.AppUtils;
@@ -28,9 +27,6 @@ public abstract class AbstractFcmMessageResolver implements FcmMessageResolver {
 	
 	public AbstractFcmMessageResolver(List<FcmMessage> fcmMessages) {
 		this.fcmMessages = fcmMessages;
-		if (includeNotificationMessage()) {
-			this.fcmMessages.add(createNotificationMessage());
-		}
 		if (includeNotificationFcmMessage()) {
 			this.fcmMessages.add(createNotificationFcmMessage());
 		}
@@ -38,14 +34,6 @@ public abstract class AbstractFcmMessageResolver implements FcmMessageResolver {
 	
 	public AbstractFcmMessageResolver(FcmMessage... fcmMessages) {
 		this(Lists.newArrayList(fcmMessages));
-	}
-
-	protected Boolean includeNotificationMessage() {
-		return true;
-	}
-
-	protected NotificationMessage createNotificationMessage() {
-		return new NotificationMessage();
 	}
 
 	protected Boolean includeNotificationFcmMessage() {

@@ -7,7 +7,7 @@ import android.widget.EditText;
 import com.jdroid.android.firebase.fcm.AbstractFcmAppModule;
 import com.jdroid.android.firebase.fcm.AbstractFcmMessageResolver;
 import com.jdroid.android.firebase.fcm.FcmRegistrationCommand;
-import com.jdroid.android.firebase.fcm.notification.NotificationMessage;
+import com.jdroid.android.firebase.fcm.notification.NotificationFcmMessage;
 import com.jdroid.android.firebase.instanceid.InstanceIdHelper;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
@@ -102,15 +102,14 @@ public class FcmFragment extends AbstractFragment {
 							}
 
 							String messageKey = messageKeyEditText.getText().toString();
-							if (NotificationMessage.MESSAGE_KEY.equals(messageKey)) {
-								params.put(NotificationMessage.TICKER, "Sample Ticker");
-								params.put(NotificationMessage.CONTENT_TITLE, "Sample Content Title");
-								params.put(NotificationMessage.CONTENT_TEXT, "Sample Content Text");
-								params.put(NotificationMessage.LIGHT_ENABLED, "true");
-								params.put(NotificationMessage.SOUND_ENABLED, "false");
-								params.put(NotificationMessage.VIBRATION_ENABLED, "true");
-								params.put(NotificationMessage.URL, "http://jdroidframework.com/uri/noflags?a=1");
-								params.put(NotificationMessage.LARGE_ICON_URL, "http://jdroidframework.com/images/gradle.png");
+							if (NotificationFcmMessage.MESSAGE_KEY.equals(messageKey)) {
+								params.put(NotificationFcmMessage.CONTENT_TITLE, "Sample Content Title");
+								params.put(NotificationFcmMessage.CONTENT_TEXT, "Sample Content Text");
+								params.put(NotificationFcmMessage.LIGHT_ENABLED, "true");
+								params.put(NotificationFcmMessage.SOUND_ENABLED, "false");
+								params.put(NotificationFcmMessage.VIBRATION_ENABLED, "true");
+								params.put(NotificationFcmMessage.URL, "http://jdroidframework.com/uri/noflags?a=1");
+								params.put(NotificationFcmMessage.LARGE_ICON_URL, "http://jdroidframework.com/images/gradle.png");
 							}
 
 							new SampleApiService().sendPush(googleServerApiKey, registrationToken, messageKey, params);

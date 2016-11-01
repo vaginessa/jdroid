@@ -19,7 +19,6 @@ import com.jdroid.java.utils.StringUtils;
 public class NotificationsFragment extends AbstractFragment {
 
 	private EditText notificationName;
-	private EditText ticker;
 	private EditText contentTitle;
 	private EditText contentText;
 	private EditText largeIconUrlEditText;
@@ -37,9 +36,6 @@ public class NotificationsFragment extends AbstractFragment {
 
 		notificationName = findView(R.id.notificationName);
 		notificationName.setText("myNotification");
-
-		ticker = findView(R.id.ticker);
-		ticker.setText("Ticker example");
 
 		contentTitle = findView(R.id.contentTitle);
 		contentTitle.setText("Title example");
@@ -76,7 +72,6 @@ public class NotificationsFragment extends AbstractFragment {
 							}
 						}
 
-						builder.setTicker(ticker.getText().toString());
 						builder.setContentTitle(contentTitle.getText().toString());
 						builder.setContentText(contentText.getText().toString());
 						builder.setSingleTopUrl(urlEditText.getText().toString());
