@@ -67,7 +67,7 @@ public class AdMobAppModule extends AbstractAppModule {
 
 	@Override
 	public FragmentDelegate createFragmentDelegate(Fragment fragment) {
-		return new AdMobFragmentDelegate(fragment);
+		return null;
 	}
 
 	@NonNull
