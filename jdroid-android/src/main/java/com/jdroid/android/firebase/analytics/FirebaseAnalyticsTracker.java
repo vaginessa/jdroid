@@ -165,7 +165,9 @@ public class FirebaseAnalyticsTracker extends AbstractFirebaseAnalyticsTracker i
 	@Override
 	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget) {
 		Bundle bundle = new Bundle();
-		bundle.putString("accountType", accountType.getFriendlyName());
+		if (accountType != null) {
+			bundle.putString("accountType", accountType.getFriendlyName());
+		}
 		bundle.putString("socialTarget", socialTarget);
 		getFirebaseAnalyticsHelper().sendEvent(socialAction.getName(), bundle);
 	}
