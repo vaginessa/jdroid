@@ -31,9 +31,16 @@ public abstract class OkHttpCommand<P, R> {
 		}  catch (NoRouteToHostException e) {
 			throw new ConnectionException(e, false);
 		} catch (SocketException e) {
+			String message = e.getMessage();
+			if (message != null) {
+				if (message.equals("Software caused connection abort")) {
+					throw new ConnectionException(e, false);
+				}
+			}
+
 			Throwable cause = e.getCause();
 			if (cause != null) {
-				String message = cause.getMessage();
+				message = cause.getMessage();
 				if (message != null) {
 					if (message.contains("isConnected failed: EHOSTUNREACH (No route to host)")) {
 						throw new ConnectionException(e, false);

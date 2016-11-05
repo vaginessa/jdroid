@@ -55,6 +55,8 @@ public abstract class TwitterHelper {
 							connectionError = true;
 						} else if (e.getCause() instanceof SSLHandshakeException) {
 							connectionError = true;
+						} else if (e.getCause().getMessage().startsWith("Failed to connect to api.twitter.com")) {
+							connectionError = true;
 						}
 					}
 				}
