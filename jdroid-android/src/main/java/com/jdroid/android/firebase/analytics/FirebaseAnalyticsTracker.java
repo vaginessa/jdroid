@@ -18,12 +18,12 @@ import java.util.Map;
 
 public class FirebaseAnalyticsTracker extends AbstractFirebaseAnalyticsTracker implements AnalyticsTracker {
 
-	private static final String INSTALLATION_SOURCE_USER_PROPERTY = "InstallationSource";
-	private static final String DEVICE_YEAR_CLASS_USER_PROPERTY = "DeviceYearClass";
-	private static final String SCREEN_WIDTH = "ScreenWidth";
-	private static final String SCREEN_HEIGHT = "ScreenHeight";
-	private static final String SCREEN_DENSITY = "ScreenDensity";
-	private static final String SCREEN_DENSITY_DPI = "ScreenDensityDpi";
+	private static final String INSTALLATION_SOURCE_USER_PROPERTY = "INSTALLATION_SOURCE";
+	private static final String DEVICE_YEAR_CLASS_USER_PROPERTY = "DEVICE_YEAR_CLASS";
+	private static final String SCREEN_WIDTH = "SCREEN_WIDTH";
+	private static final String SCREEN_HEIGHT = "SCREEN_HEIGHT";
+	private static final String SCREEN_DENSITY = "SCREEN_DENSITY";
+	private static final String SCREEN_DENSITY_DPI = "SCREEN_DENSITY_DPI";
 
 	private Boolean firstTrackingSent = false;
 

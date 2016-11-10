@@ -29,8 +29,12 @@ public class FirebaseAnalyticsHelper {
 	}
 
 	public void setUserProperty(String name, String value) {
-		firebaseAnalytics.setUserProperty(name, value);
-		LOGGER.debug("User Property [" + name + "] added. Value [" + value + "]");
+		if (value == null) {
+			removeUserProperty(name);
+		} else {
+			firebaseAnalytics.setUserProperty(name, value);
+			LOGGER.debug("User Property [" + name + "] added. Value [" + value + "]");
+		}
 	}
 
 	public void removeUserProperty(String name) {
