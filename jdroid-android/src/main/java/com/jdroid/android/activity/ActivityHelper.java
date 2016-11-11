@@ -3,10 +3,10 @@ package com.jdroid.android.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +14,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +26,11 @@ import android.view.View;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appinvite.AppInvite;
+import com.google.android.gms.appinvite.AppInviteInvitationResult;
+import com.google.android.gms.appinvite.AppInviteReferral;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -33,6 +39,7 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.UsageStats;
 import com.jdroid.android.google.GooglePlayServicesUtils;
+import com.jdroid.android.google.SafeResultCallback;
 import com.jdroid.android.loading.ActivityLoading;
 import com.jdroid.android.loading.DefaultBlockingLoading;
 import com.jdroid.android.location.LocationHelper;
@@ -40,21 +47,26 @@ import com.jdroid.android.navdrawer.NavDrawer;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.uri.UriHandler;
 import com.jdroid.android.utils.AndroidUtils;
+import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.ReferrerUtils;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.collections.Maps;
+import com.jdroid.java.collections.Sets;
 import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
 
 import java.util.Map;
+import java.util.Set;
 
 public class ActivityHelper implements ActivityIf {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(ActivityHelper.class);
 	
 	private static final int LOCATION_UPDATE_TIMER_CODE = IdGenerator.getIntId();
+
+	private static final String URI_HANDLED = "uriHandled";
 
 	private AbstractFragmentActivity activity;
 	private Handler locationHandler;
@@ -76,6 +88,8 @@ public class ActivityHelper implements ActivityIf {
 
 	private String referrer;
 
+	private Boolean uriHandled;
+
 	public ActivityHelper(AbstractFragmentActivity activity) {
 		this.activity = activity;
 	}
@@ -84,7 +98,7 @@ public class ActivityHelper implements ActivityIf {
 		return activity;
 	}
 
-	protected Activity getActivity() {
+	protected AbstractFragmentActivity getActivity() {
 		return activity;
 	}
 	
@@ -123,7 +137,7 @@ public class ActivityHelper implements ActivityIf {
 		// Do nothing
 	}
 
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(final Bundle savedInstanceState) {
 		LOGGER.debug("Executing onCreate on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 
@@ -146,16 +160,68 @@ public class ActivityHelper implements ActivityIf {
 
 		AbstractApplication.get().initExceptionHandlers();
 
-		UriHandler uriHandler = getActivityIf().getUriHandler();
-		if (uriHandler != null) {
-			AbstractApplication.get().getUriMapper().handleUri(activity, savedInstanceState, uriHandler);
+		Set<Api<? extends Api.ApiOptions.NotRequiredOptions>> googleApis = Sets.newHashSet();
+		final UriHandler uriHandler = getActivityIf().getUriHandler();
 
-			if (uriHandler.isAppIndexingEnabled(activity)) {
-				googleApiClient = new GoogleApiClient.Builder(activity).addApi(AppIndex.API).build();
+		if (isAppInviteEnabled()) {
+			googleApis.add(AppInvite.API);
+		}
+		if (uriHandler != null && uriHandler.isAppIndexingEnabled(activity)) {
+			googleApis.add(AppIndex.API);
+		}
+		if (!googleApis.isEmpty()) {
+			GoogleApiClient.Builder builder = new GoogleApiClient.Builder(activity);
+			for(Api<? extends Api.ApiOptions.NotRequiredOptions> api : googleApis) {
+				builder.addApi(api);
 			}
+			builder.enableAutoManage(getActivity(), getActivityIf());
+			onInitGoogleApiClientBuilder(builder);
+			googleApiClient = builder.build();
+		}
+
+		if (savedInstanceState != null) {
+			uriHandled = savedInstanceState.getBoolean(URI_HANDLED);
+		}
+		if (uriHandled == null) {
+			uriHandled = AbstractApplication.get().getUriMapper().handleUri(activity, uriHandler);
 		}
 		if (referrer == null) {
 			referrer = ReferrerUtils.getReferrerCategory(activity);
+		}
+
+		if (savedInstanceState == null && isAppInviteEnabled() && (uriHandled || isHomeActivity())) {
+			PendingResult<AppInviteInvitationResult> pendingResult = AppInvite.AppInviteApi.getInvitation(googleApiClient, getActivity(), false);
+			pendingResult.setResultCallback(new SafeResultCallback<AppInviteInvitationResult>() {
+
+				@Override
+				public void onSafeResult(@NonNull AppInviteInvitationResult result) {
+					if (result.getStatus().isSuccess()) {
+						String deepLink = AppInviteReferral.getDeepLink(result.getInvitationIntent());
+						LOGGER.debug("AppInvite invitation deep link: " + deepLink);
+
+						String invitationId = AppInviteReferral.getInvitationId(result.getInvitationIntent());
+						LOGGER.debug("AppInvite invitation id: " + invitationId);
+
+						getActivityIf().onAppInvite(deepLink, invitationId);
+
+						if (!uriHandled && isHomeActivity()) {
+							if (uriHandler != null && deepLink.equals(uriHandler.getUrl(activity))) {
+								LOGGER.debug("Skipping reopening invitation deepLink");
+							} else {
+								Intent targetIntent = new Intent();
+								targetIntent.setData(Uri.parse(deepLink));
+								targetIntent.setPackage(AppUtils.getApplicationId());
+								ReferrerUtils.setReferrer(targetIntent, ActivityCompat.getReferrer(activity));
+								activity.finish();
+								activity.startActivity(targetIntent);
+							}
+						}
+
+					} else {
+						LOGGER.debug("AppInvite invitation not found. Status code: " + result.getStatus().getStatusCode());
+					}
+				}
+			});
 		}
 
 		if (getActivityIf().onBeforeSetContentView() && getContentView() != 0) {
@@ -170,6 +236,23 @@ public class ActivityHelper implements ActivityIf {
 		if (savedInstanceState == null) {
 			trackNotificationOpened(activity.getIntent());
 		}
+	}
+
+	protected Boolean isAppInviteEnabled() {
+		return true;
+	}
+
+	private Boolean isHomeActivity() {
+		return AbstractApplication.get().getHomeActivityClass().equals(getActivity().getClass());
+	}
+
+	protected void onInitGoogleApiClientBuilder(GoogleApiClient.Builder builder) {
+		// Do Nothing
+	}
+
+	@Override
+	public void onAppInvite(String deepLink, String invitationId) {
+		// Do Nothing
 	}
 
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -198,6 +281,7 @@ public class ActivityHelper implements ActivityIf {
 
 	public void onSaveInstanceState(Bundle outState) {
 		LOGGER.debug("Executing onSaveInstanceState on " + activity);
+		outState.putBoolean(URI_HANDLED, uriHandled);
 		dismissLoading();
 	}
 
@@ -236,8 +320,7 @@ public class ActivityHelper implements ActivityIf {
 			if (appIndexingAction == null) {
 				appIndexingAction = uriHandler.getAppIndexingAction(activity);
 			}
-			if (googleApiClient != null && appIndexingAction != null) {
-				googleApiClient.connect();
+			if (appIndexingAction != null) {
 				PendingResult<Status> result = AppIndex.AppIndexApi.start(googleApiClient, appIndexingAction);
 				result.setResultCallback(new ResultCallback<Status>() {
 					@Override
@@ -303,8 +386,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 
 	public void onBeforeStop() {
-		if (googleApiClient != null && appIndexingAction != null) {
-			googleApiClient.disconnect();
+		if (appIndexingAction != null) {
 			PendingResult<Status> result = AppIndex.AppIndexApi.end(googleApiClient, appIndexingAction);
 			result.setResultCallback(new ResultCallback<Status>() {
 				@Override
@@ -433,7 +515,7 @@ public class ActivityHelper implements ActivityIf {
 
 		UriHandler uriHandler = getActivityIf().getUriHandler();
 		if (uriHandler != null) {
-			AbstractApplication.get().getUriMapper().handleUri(activity, null, uriHandler);
+			AbstractApplication.get().getUriMapper().handleUri(activity, uriHandler);
 		}
 
 		trackNotificationOpened(intent);
@@ -569,5 +651,10 @@ public class ActivityHelper implements ActivityIf {
 	@Override
 	public Boolean isGooglePlayServicesVerificationEnabled() {
 		return false;
+	}
+
+	@Override
+	public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+		AbstractApplication.get().getExceptionHandler().logHandledException(connectionResult.getErrorMessage());
 	}
 }

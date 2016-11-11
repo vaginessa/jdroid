@@ -1,5 +1,7 @@
 package com.jdroid.android.firebase.instanceid;
 
+import android.support.annotation.WorkerThread;
+
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.GooglePlayServicesUtils;
@@ -25,6 +27,7 @@ public class InstanceIdHelper {
 	private static String instanceId;
 	private static String anonymousInstanceId;
 
+	@WorkerThread
 	public static synchronized String getInstanceId() {
 		if (instanceId == null) {
 			instanceId = getSharedPreferencesHelper().loadPreference(INSTANCE_ID);
@@ -58,6 +61,7 @@ public class InstanceIdHelper {
 		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(AbstractApplication.get())) {
 			try {
 				FirebaseInstanceId.getInstance().deleteInstanceId();
+				clearInstanceId();
 			} catch (IOException e) {
 				AbstractApplication.get().getExceptionHandler().logHandledException(e);
 			}

@@ -20,6 +20,8 @@ public class InstanceIdService extends FirebaseInstanceIdService {
 	@Override
 	public void onTokenRefresh() {
 		LOGGER.info("Refreshing Instance Id Tokens");
+
+		// TODO Is this required? It seems that the instance id is not changed here
 		InstanceIdHelper.clearInstanceId();
 
 		for (AppModule appModule : AbstractApplication.get().getAppModules()) {

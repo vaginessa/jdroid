@@ -39,7 +39,12 @@ public class ReferrerUtils {
 		return referrerCategory;
 	}
 
+	public static void setReferrer(Intent intent, Uri referrer) {
+		intent.putExtra(EXTRA_REFERRER, referrer);
+	}
 	public static void setReferrer(Intent intent, String referrer) {
-		intent.putExtra(EXTRA_REFERRER, Uri.parse(referrer));
+		if (referrer != null) {
+			setReferrer(intent, Uri.parse(referrer));
+		}
 	}
 }

@@ -27,8 +27,6 @@ dependencies {
 		releaseCompile project(path: ":jdroid-android-google-plus", configuration: 'release')
 	}
 
-	compile 'com.google.android.gms:play-services-appinvite:' + googlePlayServicesVersion
-
 	testCompile 'junit:junit:4.12'
 	testCompile "org.mockito:mockito-all:1.10.19"
 

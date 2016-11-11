@@ -44,6 +44,7 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// TODO Should we create a new instance on rotation?
 		fragmentHelper = AbstractApplication.get().createFragmentHelper(this);
 		fragmentHelper.onCreate(savedInstanceState);
 	}
