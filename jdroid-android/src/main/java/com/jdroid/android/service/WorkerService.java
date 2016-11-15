@@ -43,8 +43,7 @@ public abstract class WorkerService extends IntentService {
 				AbstractApplication.get().getExceptionHandler().logHandledException(e);
 			}
 		} else {
-			AbstractApplication.get().getExceptionHandler().logWarningException(
-				"Null intent when starting the service: " + getClass().getName());
+			LOGGER.warn("Null intent when starting the service: " + getClass().getName());
 		}
 	}
 

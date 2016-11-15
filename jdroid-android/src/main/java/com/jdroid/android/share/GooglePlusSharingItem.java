@@ -13,4 +13,9 @@ public abstract class GooglePlusSharingItem extends AppSharingItem {
 	public String getPackageName() {
 		return ExternalAppsUtils.GOOGLE_PLUS_PACKAGE_NAME;
 	}
+
+	@Override
+	public Integer getMinimumVersionCode() {
+		return 416583705;
+	}
 }
