@@ -55,6 +55,23 @@
 	<string name="firebaseGetAll">Get All</string>
 	<string name="firebaseRemove">Remove</string>
 
+	<!-- Firebase Dynamic Links -->
+	<string name="firebaseDynamicLinks">Firebase Dynamic Links</string>
+	<string name="linkUrl">Link Url</string>
+	<string name="minVersionCode">Min Version Code</string>
+	<string name="fallbackLink">Fallback Link</string>
+	<string name="customAppLocation">Custom app location</string>
+	<string name="utmMedium">UTM medium</string>
+	<string name="utmSource">UTM source</string>
+	<string name="utmCampaign">UTM campaign</string>
+	<string name="utmTerm">UTM term</string>
+	<string name="utmContent">UTM Content</string>
+	<string name="shortLink">Short Link</string>
+	<string name="longLink">Long Link</string>
+	<string name="unguessable">Unguessable short link</string>
+	<string name="buildLink">Build Link</string>
+	<string name="shortenLink">Shorten Link</string>
+
 	<!-- Analytics -->
 	<string name="analytics">Analytics</string>
 	<string name="sendExampleEvent">Send Example Event</string>

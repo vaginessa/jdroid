@@ -145,6 +145,11 @@
 		<activity android:name="com.jdroid.android.sample.ui.firebase.fcm.FcmActivity" android:label="@string/fcm"
 			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<!-- Firebase Dynamic Links -->
+
+		<activity android:name="com.jdroid.android.sample.ui.firebase.dynamiclinks.DynamicLinksActivity" android:label="@string/firebaseDynamicLinks"
+			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
 		<!-- Google Maps -->
 
 		<activity android:name="com.jdroid.android.sample.ui.maps.MapActivity" android:label="@string/googleMaps"

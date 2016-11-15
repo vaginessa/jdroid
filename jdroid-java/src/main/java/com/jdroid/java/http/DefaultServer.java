@@ -1,5 +1,7 @@
 package com.jdroid.java.http;
 
+import com.jdroid.java.collections.Lists;
+
 import java.util.List;
 
 public class DefaultServer implements Server {
@@ -18,49 +20,31 @@ public class DefaultServer implements Server {
 		this(DefaultServer.class.getSimpleName(), baseUrl, true);
 	}
 	
-	/**
-	 * @see com.jdroid.java.http.Server#getName()
-	 */
 	@Override
 	public String getName() {
 		return name;
 	}
 	
-	/**
-	 * @see com.jdroid.java.http.Server#getBaseUrl()
-	 */
 	@Override
 	public String getBaseUrl() {
 		return baseUrl;
 	}
 	
-	/**
-	 * @see com.jdroid.java.http.Server#supportsSsl()
-	 */
 	@Override
 	public Boolean supportsSsl() {
 		return supportsSsl;
 	}
 	
-	/**
-	 * @see com.jdroid.java.http.Server#isProduction()
-	 */
 	@Override
 	public Boolean isProduction() {
 		return true;
 	}
 	
-	/**
-	 * @see com.jdroid.java.http.Server#getHttpServiceProcessors()
-	 */
 	@Override
 	public List<HttpServiceProcessor> getHttpServiceProcessors() {
-		return null;
+		return Lists.<HttpServiceProcessor>newArrayList(DefaultHttpResponseValidator.get());
 	}
 	
-	/**
-	 * @see com.jdroid.java.http.Server#instance(java.lang.String)
-	 */
 	@Override
 	public Server instance(String name) {
 		return null;

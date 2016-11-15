@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import com.jdroid.android.ActionItem;
 import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.sample.R;
+import com.jdroid.android.sample.ui.firebase.dynamiclinks.DynamicLinksActivity;
 import com.jdroid.android.sample.ui.google.admob.AdsActivity;
 import com.jdroid.android.sample.ui.analytics.AnalyticsActivity;
 import com.jdroid.android.sample.ui.appinvite.AppInviteActivity;
@@ -47,6 +48,7 @@ public enum HomeItem implements ActionItem {
 	FAB(R.string.floatingActionButton, R.drawable.ic_firebase, FabActivity.class),
 	FACEBOOK(R.string.jdroid_facebook, R.drawable.ic_firebase, FacebookSignInActivity.class),
 	FIREBASE_DATABASE(R.string.firebaseDatabase, R.drawable.ic_firebase, FirebaseDatabaseActivity.class),
+	FIREBASE_DYNAMIC_LINKS(R.string.firebaseDynamicLinks, R.drawable.ic_fcm, DynamicLinksActivity.class),
 	FIREBASE_FCM(R.string.fcm, R.drawable.ic_fcm, FcmActivity.class),
 	GOOGLE_ADMOB(R.string.adMob, R.drawable.ic_admob, AdsActivity.class),
 	GOOGLE_MAPS(R.string.googleMaps, R.drawable.ic_maps, MapActivity.class),

@@ -10,4 +10,12 @@ public class FirebaseAppContext extends AbstractAppContext {
 	public Boolean isFirebaseAnalyticsEnabled() {
 		return getBuildConfigValue("FIREBASE_ANALYTICS_ENABLED", false);
 	}
+
+	public String getDynamicLinksDomain() {
+		return getBuildConfigValue("FIREBASE_DYNAMIC_LINKS_DOMAIN");
+	}
+
+	public String getWebApiKey() {
+		return getBuildConfigValue("FIREBASE_WEB_API_KEY");
+	}
 }

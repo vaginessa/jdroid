@@ -58,11 +58,14 @@ public class FcmRegistrationCommand extends ServiceCommand {
 	}
 
 	public static String getRegistrationToken(String senderId) throws IOException {
-		if (senderId == null) {
-			throw new UnexpectedException("Missing FCM Sender Id");
+		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(AbstractApplication.get())) {
+			if (senderId == null) {
+				throw new UnexpectedException("Missing FCM Sender Id");
+			}
+			String registrationToken = FirebaseInstanceId.getInstance().getToken(senderId, "FCM");
+			LOGGER.info("Registration token for sender id [" + senderId + "]: " + registrationToken);
+			return registrationToken;
 		}
-		String registrationToken = FirebaseInstanceId.getInstance().getToken(senderId, "FCM");
-		LOGGER.info("Registration token for sender id [" + senderId + "]: " + registrationToken);
-		return registrationToken;
+		return null;
 	}
 }

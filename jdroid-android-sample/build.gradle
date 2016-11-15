@@ -157,6 +157,9 @@ android {
 		jdroid.setBuildConfigString(defaultConfig, "TWITTER_OAUTH_CONSUMER_KEY")
 		jdroid.setBuildConfigString(defaultConfig, "TWITTER_OAUTH_CONSUMER_SECRET")
 
+		jdroid.setBuildConfigString(defaultConfig, "FIREBASE_DYNAMIC_LINKS_DOMAIN", "euv8z.app.goo.gl")
+		jdroid.setBuildConfigString(defaultConfig, "FIREBASE_WEB_API_KEY", "AIzaSyCcwMZ25CMtubXhcW3I7NVTybckPu0Dwtg")
+
 		// Used by Google Sign In. {YOUR_CLIENT}/oauth_client/client_id (client_type == 3)
 		jdroid.setResValueString(defaultConfig, "default_web_client_id", "527857945512-qr7kk98nntlt44po5cblnrgq41ief65s.apps.googleusercontent.com")
 

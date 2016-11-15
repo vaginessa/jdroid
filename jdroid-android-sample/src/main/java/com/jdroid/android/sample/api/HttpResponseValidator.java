@@ -16,9 +16,6 @@ public class HttpResponseValidator extends AbstractAndroidHttpResponseValidator 
 		return INSTANCE;
 	}
 	
-	/**
-	 * @see AbstractAndroidHttpResponseValidator#findByStatusCode(java.lang.String)
-	 */
 	@Override
 	protected ErrorCode findByStatusCode(String statusCode) {
 		return AndroidErrorCode.findByStatusCode(statusCode);
