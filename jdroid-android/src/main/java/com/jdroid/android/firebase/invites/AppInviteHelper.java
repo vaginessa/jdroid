@@ -1,17 +1,18 @@
-package com.jdroid.android.about.appinvite;
+package com.jdroid.android.firebase.invites;
 
 import android.app.Activity;
 import android.content.Intent;
 
 import com.google.android.gms.appinvite.AppInviteInvitation;
-import com.jdroid.android.about.AboutAppModule;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.collections.Lists;
+import com.jdroid.java.utils.RandomUtils;
 
 public class AppInviteHelper {
 
-	public static void onActivityResult(int appInviteRequestCode, int requestCode, int resultCode, Intent data) {
+	public static final int REQUEST_CODE = RandomUtils.get16BitsInt();
 
+	public static void onActivityResult(int appInviteRequestCode, int requestCode, int resultCode, Intent data) {
 		if (requestCode == appInviteRequestCode) {
 			if (resultCode == Activity.RESULT_OK) {
 				// Check how many invitations were sent and log a message
@@ -21,7 +22,7 @@ public class AppInviteHelper {
 				String[] ids = AppInviteInvitation.getInvitationIds(resultCode, data);
 				if (ids != null) {
 					for (String invitationId : ids) {
-						AboutAppModule.get().getAnalyticsSender().trackSendAppInvitation(invitationId);
+						AbstractApplication.get().getAnalyticsSender().trackSendAppInvitation(invitationId);
 					}
 					AppInviteStats.invitesSent(Lists.newArrayList(ids));
 				}
@@ -29,5 +30,9 @@ public class AppInviteHelper {
 				AbstractApplication.get().getExceptionHandler().logWarningException("Error when sending app invite: " + resultCode);
 			}
 		}
+	}
+
+	public static void onActivityResult(int requestCode, int resultCode, Intent data) {
+		onActivityResult(REQUEST_CODE, requestCode, resultCode, data);
 	}
 }

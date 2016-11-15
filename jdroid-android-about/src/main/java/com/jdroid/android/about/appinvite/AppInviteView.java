@@ -2,22 +2,16 @@ package com.jdroid.android.about.appinvite;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.appinvite.AppInviteInvitation;
-import com.jdroid.android.about.AboutAppModule;
 import com.jdroid.android.about.R;
-import com.jdroid.java.utils.RandomUtils;
+import com.jdroid.android.firebase.invites.AppInviteSender;
 
 public class AppInviteView extends RelativeLayout {
-
-	private int requestCode = RandomUtils.get16BitsInt();
 
 	private TextView titleTextView;
 	private String title;
@@ -25,9 +19,7 @@ public class AppInviteView extends RelativeLayout {
 	private TextView subtitleTextView;
 	private String subtitle;
 
-	private String appInviteTitle;
-	private String appInviteMessage;
-	private String appInviteDeeplink;
+	private AppInviteSender appInviteSender;
 
 	public AppInviteView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -63,33 +55,17 @@ public class AppInviteView extends RelativeLayout {
 		}
 		subtitleTextView.setText(subtitle);
 
-		if (appInviteTitle == null) {
-			appInviteTitle = AboutAppModule.get().getAboutContext().getAppInviteTitle();
-		}
-
-		if (appInviteMessage == null) {
-			appInviteMessage = AboutAppModule.get().getAboutContext().getAppInviteMessage();
-		}
-
-		if (appInviteDeeplink == null) {
-			appInviteDeeplink = AboutAppModule.get().getAboutContext().getAppInviteDeeplink();
-		}
-
 		setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				AppInviteInvitation.IntentBuilder intentBuilder = new AppInviteInvitation.IntentBuilder(appInviteTitle);
-				intentBuilder.setMessage(appInviteMessage);
-				intentBuilder.setDeepLink(Uri.parse(appInviteDeeplink));
-				Intent intent = intentBuilder.build();
-				activity.startActivityForResult(intent, requestCode);
+				if (appInviteSender == null) {
+					appInviteSender = new AppInviteSender();
+					appInviteSender.setActivity(activity);
+				}
+				appInviteSender.sendInvitation();
 			}
 		});
-	}
-
-	public void setRequestCode(int requestCode) {
-		this.requestCode = requestCode;
 	}
 
 	public void setTitle(String title) {
@@ -100,15 +76,7 @@ public class AppInviteView extends RelativeLayout {
 		this.subtitle = subtitle;
 	}
 
-	public void setAppInviteTitle(String appInviteTitle) {
-		this.appInviteTitle = appInviteTitle;
-	}
-
-	public void setAppInviteMessage(String appInviteMessage) {
-		this.appInviteMessage = appInviteMessage;
-	}
-
-	public void setAppInviteDeeplink(String appInviteDeeplink) {
-		this.appInviteDeeplink = appInviteDeeplink;
+	public void setAppInviteSender(AppInviteSender appInviteSender) {
+		this.appInviteSender = appInviteSender;
 	}
 }

@@ -277,4 +277,15 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 			}
 		});
 	}
+
+	@Override
+	public void trackSendAppInvitation(final String invitationId) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+
+			@Override
+			protected void track(T tracker) {
+				tracker.trackSendAppInvitation(invitationId);
+			}
+		});
+	}
 }

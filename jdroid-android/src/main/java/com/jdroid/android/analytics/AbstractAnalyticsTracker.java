@@ -115,4 +115,9 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	public void trackWidgetRemoved(String widgetName) {
 		// Do Nothing
 	}
+
+	@Override
+	public void trackSendAppInvitation(String invitationId) {
+		// Do Nothing
+	}
 }

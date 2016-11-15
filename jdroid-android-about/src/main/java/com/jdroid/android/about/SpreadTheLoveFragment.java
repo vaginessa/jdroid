@@ -1,16 +1,15 @@
 package com.jdroid.android.about;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.plus.PlusOneButton;
-import com.jdroid.android.about.appinvite.AppInviteHelper;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.facebook.FacebookHelper;
+import com.jdroid.android.firebase.invites.AppInviteHelper;
+import com.jdroid.android.firebase.invites.AppInviteSender;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.google.GooglePlayServicesUtils;
 import com.jdroid.android.google.GooglePlayUtils;
@@ -28,13 +27,10 @@ import com.jdroid.android.share.TwitterSharingItem;
 import com.jdroid.android.share.WhatsAppSharingItem;
 import com.jdroid.android.social.twitter.TwitterConnector;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.utils.RandomUtils;
 
 import java.util.List;
 
 public abstract class SpreadTheLoveFragment extends AbstractFragment {
-
-	private static final int REQUEST_INVITE = RandomUtils.get16BitsInt();
 
 	private GooglePlusOneButtonHelper googlePlusOneButtonHelper;
 
@@ -187,11 +183,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 
 				@Override
 				public void onClick(View v) {
-					AppInviteInvitation.IntentBuilder intentBuilder = new AppInviteInvitation.IntentBuilder(getAppInviteTitle());
-					intentBuilder.setMessage(getAppInviteMessage());
-					intentBuilder.setDeepLink(Uri.parse(getAppInviteDeeplink()));
-					Intent intent = intentBuilder.build();
-					startActivityForResult(intent, REQUEST_INVITE);
+					createAppInviteSender().sendInvitation();
 				}
 			});
 		} else {
@@ -229,16 +221,8 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 		return false;
 	}
 
-	protected String getAppInviteTitle() {
-		return AboutAppModule.get().getAboutContext().getAppInviteTitle();
-	}
-
-	protected String getAppInviteMessage() {
-		return AboutAppModule.get().getAboutContext().getAppInviteMessage();
-	}
-
-	protected String getAppInviteDeeplink() {
-		return AboutAppModule.get().getAboutContext().getAppInviteDeeplink();
+	protected AppInviteSender createAppInviteSender() {
+		return new AppInviteSender();
 	}
 
 	protected Boolean displayGooglePlusOneButton() {
@@ -288,7 +272,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
-		AppInviteHelper.onActivityResult(REQUEST_INVITE, requestCode, resultCode, data);
+		AppInviteHelper.onActivityResult(requestCode, resultCode, data);
 
 		if (googlePlusOneButtonHelper != null) {
 			googlePlusOneButtonHelper.onActivityResult(requestCode, resultCode, data);

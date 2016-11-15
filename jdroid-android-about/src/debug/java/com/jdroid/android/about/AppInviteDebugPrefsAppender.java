@@ -5,7 +5,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceGroup;
 
-import com.jdroid.android.about.appinvite.AppInviteStats;
+import com.jdroid.android.firebase.invites.AppInviteStats;
 import com.jdroid.android.debug.PreferencesAppender;
 
 public class AppInviteDebugPrefsAppender extends PreferencesAppender {

@@ -1,9 +1,11 @@
 package com.jdroid.android.sample.ui;
 
+import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
+import com.jdroid.android.firebase.invites.AppInviteHelper;
 import com.jdroid.android.navdrawer.DefaultNavDrawer;
 import com.jdroid.android.navdrawer.NavDrawer;
 import com.jdroid.android.navdrawer.NavDrawerHeader;
@@ -40,5 +42,12 @@ public class AndroidActivityHelper extends ActivityHelper {
 				navDrawerHeader.setBackground(R.drawable.hero);
 			}
 		};
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		AppInviteHelper.onActivityResult(requestCode, resultCode, data);
 	}
 }

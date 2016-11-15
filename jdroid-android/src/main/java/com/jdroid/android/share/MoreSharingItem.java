@@ -8,9 +8,6 @@ import com.jdroid.android.R;
 
 public abstract class MoreSharingItem extends SharingItem {
 	
-	/**
-	 * @see com.jdroid.android.share.SharingItem#getAppIcon()
-	 */
 	@Override
 	public Drawable getAppIcon() {
 		Drawable drawable = DrawableCompat.wrap(AbstractApplication.get().getResources().getDrawable(R.drawable.jdroid_more_selector));
@@ -18,17 +15,11 @@ public abstract class MoreSharingItem extends SharingItem {
 		return drawable;
 	}
 	
-	/**
-	 * @see com.jdroid.android.share.SharingItem#isEnabled()
-	 */
 	@Override
 	public Boolean isEnabled() {
 		return true;
 	}
 	
-	/**
-	 * @see com.jdroid.android.share.SharingItem#getPackageName()
-	 */
 	@Override
 	public String getPackageName() {
 		return null;

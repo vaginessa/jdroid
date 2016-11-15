@@ -1,4 +1,4 @@
-package com.jdroid.android.about.appinvite;
+package com.jdroid.android.firebase.invites;
 
 import android.content.Context;
 

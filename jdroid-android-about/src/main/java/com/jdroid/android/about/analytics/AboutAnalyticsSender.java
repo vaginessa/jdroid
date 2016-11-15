@@ -32,15 +32,4 @@ public class AboutAnalyticsSender extends BaseAnalyticsSender<AboutAnalyticsTrac
 			}
 		});
 	}
-
-	@Override
-	public void trackSendAppInvitation(final String invitationId) {
-		ExecutorUtils.execute(new TrackerRunnable() {
-
-			@Override
-			protected void track(AboutAnalyticsTracker tracker) {
-				tracker.trackSendAppInvitation(invitationId);
-			}
-		});
-	}
 }

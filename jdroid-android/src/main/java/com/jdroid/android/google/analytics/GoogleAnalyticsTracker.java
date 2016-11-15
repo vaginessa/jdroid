@@ -159,6 +159,11 @@ public class GoogleAnalyticsTracker extends AbstractGoogleAnalyticsTracker imple
 	public void trackWidgetRemoved(String widgetName) {
 		getGoogleAnalyticsHelper().sendEvent(WIDGET_CATEGORY, "remove", widgetName);
 	}
+
+	@Override
+	public void trackSendAppInvitation(String invitationId) {
+		getGoogleAnalyticsHelper().sendEvent(GoogleAnalyticsTracker.SOCIAL, "sendAppInvitation", invitationId);
+	}
 	
 	@Override
 	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget) {

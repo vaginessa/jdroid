@@ -4,6 +4,7 @@ import android.support.v4.app.FragmentActivity;
 
 import com.jdroid.android.about.AboutActivity;
 import com.jdroid.android.activity.ActivityLauncher;
+import com.jdroid.android.firebase.invites.AppInviteSender;
 import com.jdroid.android.navdrawer.NavDrawerItem;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.ui.home.HomeActivity;
@@ -11,13 +12,22 @@ import com.jdroid.android.sample.ui.home.HomeActivity;
 public enum AndroidNavDrawerItem implements NavDrawerItem {
 	
 	HOME(R.id.home, HomeActivity.class),
-	ABOUT(R.id.about, AboutActivity.class);
-	
+	ABOUT(R.id.about, AboutActivity.class),
+	INVITE_FRIENDS(R.id.inviteFriends) {
+		@Override
+		public void startActivity() {
+			new AppInviteSender().sendInvitation();
+		}
+	};
+
 	private Integer itemId;
 	private Class<? extends FragmentActivity> activityClass;
 
-	AndroidNavDrawerItem(Integer itemId,
-			Class<? extends FragmentActivity> activityClass) {
+	AndroidNavDrawerItem(Integer itemId) {
+		this(itemId, null);
+	}
+
+	AndroidNavDrawerItem(Integer itemId, Class<? extends FragmentActivity> activityClass) {
 		this.itemId = itemId;
 		this.activityClass = activityClass;
 	}

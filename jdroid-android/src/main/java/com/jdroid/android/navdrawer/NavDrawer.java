@@ -99,9 +99,9 @@ public abstract class NavDrawer {
 				}
 			};
 			// Set the drawer toggle as the DrawerListener
-			drawerLayout.setDrawerListener(drawerToggle);
+			drawerLayout.addDrawerListener(drawerToggle);
 		} else {
-			drawerLayout.setDrawerListener(drawerListener);
+			drawerLayout.removeDrawerListener(drawerListener);
 		}
 
 		contentView = createContentView();

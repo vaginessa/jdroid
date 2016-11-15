@@ -58,7 +58,7 @@
 						  android:minHeight="@dimen/jdroid_itemMinHeight">
 
 				<ImageView android:layout_width="@dimen/jdroid_itemIconSize" android:layout_height="@dimen/jdroid_itemIconSize"
-						   android:layout_marginRight="12dp" android:duplicateParentState="true" android:src="@drawable/jdroid_ic_app_invite_24dp" />
+						   android:layout_marginRight="12dp" android:duplicateParentState="true" android:src="@drawable/jdroid_ic_mail_outline_black_24dp" />
 
 				<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/jdroid_spreadTheLoveFollowUsItemText"
 						  android:duplicateParentState="true" android:text="@string/jdroid_appInviteButtonTitle" />

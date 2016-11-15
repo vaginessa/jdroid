@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.jdroid.android.about.analytics.AboutAnalyticsSender;
 import com.jdroid.android.about.analytics.AboutAnalyticsTracker;
+import com.jdroid.android.about.analytics.AboutFirebaseAnalyticsTracker;
 import com.jdroid.android.about.analytics.AboutGoogleAnalyticsTracker;
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
@@ -63,7 +64,7 @@ public class AboutAppModule extends AbstractAppModule {
 
 	@Override
 	public List<? extends BaseAnalyticsTracker> createModuleAnalyticsTrackers() {
-		return Lists.newArrayList(new AboutGoogleAnalyticsTracker());
+		return Lists.newArrayList(new AboutGoogleAnalyticsTracker(), new AboutFirebaseAnalyticsTracker());
 	}
 
 	@NonNull

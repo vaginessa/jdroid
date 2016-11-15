@@ -2,8 +2,10 @@ package com.jdroid.android.context;
 
 import android.preference.PreferenceManager;
 
+import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
+import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.java.http.Server;
 
 import java.util.List;
@@ -116,5 +118,17 @@ public abstract class AppContext extends AbstractAppContext {
 
 	public List<RemoteConfigParameter> getRemoteConfigParameters() {
 		return null;
+	}
+
+	public String getAppInviteTitle() {
+		return LocalizationUtils.getString(R.string.jdroid_appInviteTitle, LocalizationUtils.getString(R.string.jdroid_appName));
+	}
+
+	public String getAppInviteMessage() {
+		return LocalizationUtils.getString(R.string.jdroid_appInviteMessage, LocalizationUtils.getString(R.string.jdroid_appName));
+	}
+
+	public String getAppInviteDeeplink() {
+		return AbstractApplication.get().getAppContext().getWebsite();
 	}
 }

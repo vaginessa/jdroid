@@ -171,4 +171,11 @@ public class FirebaseAnalyticsTracker extends AbstractFirebaseAnalyticsTracker i
 		bundle.putString("socialTarget", socialTarget);
 		getFirebaseAnalyticsHelper().sendEvent(socialAction.getName(), bundle);
 	}
+
+	@Override
+	public void trackSendAppInvitation(String invitationId) {
+		Bundle bundle = new Bundle();
+		bundle.putString(FirebaseAnalytics.Param.ITEM_ID, invitationId);
+		getFirebaseAnalyticsHelper().sendEvent("sendAppInvitation", bundle);
+	}
 }

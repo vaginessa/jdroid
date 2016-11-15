@@ -3,11 +3,9 @@ package com.jdroid.android.about;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AbstractAppContext;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.utils.AppUtils;
-import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.java.utils.ReflectionUtils;
 
 public class AboutContext extends AbstractAppContext {
@@ -36,17 +34,4 @@ public class AboutContext extends AbstractAppContext {
 	public String getBetaTestingUrl() {
 		return "https://play.google.com/apps/testing/" + AppUtils.getReleaseApplicationId();
 	}
-
-	public String getAppInviteTitle() {
-		return LocalizationUtils.getString(R.string.jdroid_appInviteTitle, LocalizationUtils.getString(R.string.jdroid_appName));
-	}
-
-	public String getAppInviteMessage() {
-		return LocalizationUtils.getString(R.string.jdroid_appInviteMessage, LocalizationUtils.getString(R.string.jdroid_appName));
-	}
-
-	public String getAppInviteDeeplink() {
-		return AbstractApplication.get().getAppContext().getWebsite();
-	}
-
 }
