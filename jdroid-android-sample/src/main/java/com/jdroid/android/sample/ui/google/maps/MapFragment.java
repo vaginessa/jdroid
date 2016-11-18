@@ -1,4 +1,4 @@
-package com.jdroid.android.sample.ui.maps;
+package com.jdroid.android.sample.ui.google.maps;
 
 import android.support.annotation.NonNull;
 import android.view.View;

@@ -256,25 +256,16 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 		fragmentHelper.executeOnUIThread(runnable);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getExtra(java.lang.String)
-	 */
 	@Override
 	public <E> E getExtra(String key) {
 		return fragmentHelper.<E>getExtra(key);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getArgument(java.lang.String)
-	 */
 	@Override
 	public <E> E getArgument(String key) {
 		return fragmentHelper.<E>getArgument(key);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getArgument(java.lang.String, java.lang.Object)
-	 */
 	@Override
 	public <E> E getArgument(String key, E defaultValue) {
 		return fragmentHelper.<E>getArgument(key, defaultValue);

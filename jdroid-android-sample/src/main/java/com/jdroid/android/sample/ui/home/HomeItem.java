@@ -6,8 +6,6 @@ import android.support.v4.app.FragmentActivity;
 import com.jdroid.android.ActionItem;
 import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.sample.R;
-import com.jdroid.android.sample.ui.firebase.dynamiclinks.DynamicLinksActivity;
-import com.jdroid.android.sample.ui.google.admob.AdsActivity;
 import com.jdroid.android.sample.ui.analytics.AnalyticsActivity;
 import com.jdroid.android.sample.ui.appinvite.AppInviteActivity;
 import com.jdroid.android.sample.ui.cardview.CardViewActivity;
@@ -16,14 +14,16 @@ import com.jdroid.android.sample.ui.exceptions.ErrorDisplayerActivity;
 import com.jdroid.android.sample.ui.fab.FabActivity;
 import com.jdroid.android.sample.ui.facebook.FacebookSignInActivity;
 import com.jdroid.android.sample.ui.firebase.database.FirebaseDatabaseActivity;
+import com.jdroid.android.sample.ui.firebase.dynamiclinks.DynamicLinksActivity;
 import com.jdroid.android.sample.ui.firebase.fcm.FcmActivity;
+import com.jdroid.android.sample.ui.google.admob.AdsActivity;
+import com.jdroid.android.sample.ui.google.maps.GoogleMapsActivity;
 import com.jdroid.android.sample.ui.google.playservices.GooglePlayServicesActivity;
 import com.jdroid.android.sample.ui.google.signin.GoogleSignInActivity;
 import com.jdroid.android.sample.ui.hero.HeroActivity;
 import com.jdroid.android.sample.ui.http.HttpActivity;
 import com.jdroid.android.sample.ui.imageloader.ImageLoaderActivity;
 import com.jdroid.android.sample.ui.loading.LoadingActivity;
-import com.jdroid.android.sample.ui.maps.MapActivity;
 import com.jdroid.android.sample.ui.navdrawer.NavDrawerActivity;
 import com.jdroid.android.sample.ui.notifications.NotificationsActivity;
 import com.jdroid.android.sample.ui.rateme.RateAppActivity;
@@ -51,7 +51,7 @@ public enum HomeItem implements ActionItem {
 	FIREBASE_DYNAMIC_LINKS(R.string.firebaseDynamicLinks, R.drawable.ic_fcm, DynamicLinksActivity.class),
 	FIREBASE_FCM(R.string.fcm, R.drawable.ic_fcm, FcmActivity.class),
 	GOOGLE_ADMOB(R.string.adMob, R.drawable.ic_admob, AdsActivity.class),
-	GOOGLE_MAPS(R.string.googleMaps, R.drawable.ic_maps, MapActivity.class),
+	GOOGLE_MAPS(R.string.googleMaps, R.drawable.ic_maps, GoogleMapsActivity.class),
 	GOOGLE_PLAY_SERVICES(R.string.googlePlayServices, R.drawable.ic_fcm, GooglePlayServicesActivity.class),
 	GOOGLE_SIGN_IN(R.string.jdroid_googleSignIn, R.drawable.ic_sign_in_24dp, GoogleSignInActivity.class),
 	HERO(R.string.hero, R.drawable.ic_photo, HeroActivity.class),

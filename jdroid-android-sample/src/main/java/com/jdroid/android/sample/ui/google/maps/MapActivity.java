@@ -1,4 +1,4 @@
-package com.jdroid.android.sample.ui.maps;
+package com.jdroid.android.sample.ui.google.maps;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

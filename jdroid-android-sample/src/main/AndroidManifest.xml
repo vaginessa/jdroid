@@ -152,7 +152,13 @@
 
 		<!-- Google Maps -->
 
-		<activity android:name="com.jdroid.android.sample.ui.maps.MapActivity" android:label="@string/googleMaps"
+		<activity android:name="com.jdroid.android.sample.ui.google.maps.GoogleMapsActivity" android:label="@string/googleMaps"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
+		<activity android:name="com.jdroid.android.sample.ui.google.maps.LiteModeMapActivity" android:label="@string/googleMaps"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
+		<activity android:name="com.jdroid.android.sample.ui.google.maps.MapActivity" android:label="@string/googleMaps"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<!-- Nav Drawer -->
