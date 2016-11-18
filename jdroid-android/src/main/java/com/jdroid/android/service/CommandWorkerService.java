@@ -1,6 +1,5 @@
 package com.jdroid.android.service;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -19,14 +18,12 @@ public class CommandWorkerService extends WorkerService {
 
 	final static String COMMAND_EXTRA = "com.jdroid.android.service.CommandWorkerService.command";
 
-	protected static void runService(Context context, Bundle bundle, ServiceCommand serviceCommand) {
-		LOGGER.info("Scheduling Worker Service for " + serviceCommand.getClass().getSimpleName());
-		Intent intent = new Intent();
-		if (bundle != null) {
-			intent.putExtras(bundle);	
+	protected static void runService(Bundle bundle, ServiceCommand serviceCommand, Boolean requiresInstantExecution) {
+		if (requiresInstantExecution) {
+			startWorkerService(bundle, serviceCommand);
+		} else {
+			startGcmTaskService(bundle, serviceCommand);
 		}
-		intent.putExtra(CommandWorkerService.COMMAND_EXTRA, serviceCommand.getClass().getName());
-		CommandWorkerService.runIntentInService(context, intent, CommandWorkerService.class);
 	}
 
 	@Override
@@ -60,8 +57,20 @@ public class CommandWorkerService extends WorkerService {
 		}
 	}
 
-	private void startGcmTaskService(Bundle bundle, ServiceCommand serviceCommand) {
+	private static void startWorkerService(Bundle bundle, ServiceCommand serviceCommand) {
+		LOGGER.info("Scheduling Worker Service for " + serviceCommand.getClass().getSimpleName());
+		Intent intent = new Intent();
+		if (bundle != null) {
+			intent.putExtras(bundle);
+		}
+		intent.putExtra(CommandWorkerService.COMMAND_EXTRA, serviceCommand.getClass().getName());
+		WorkerService.runIntentInService(AbstractApplication.get(), intent, CommandWorkerService.class);
+	}
+
+	private static void startGcmTaskService(Bundle bundle, ServiceCommand serviceCommand) {
 		LOGGER.info("Scheduling GCM Task Service for " + serviceCommand.getClass().getSimpleName());
+
+		bundle.putSerializable(CommandWorkerService.COMMAND_EXTRA, serviceCommand.getClass().getName());
 
 		Task.Builder builder = serviceCommand.createRetryTaskBuilder();
 		builder.setExtras(bundle);

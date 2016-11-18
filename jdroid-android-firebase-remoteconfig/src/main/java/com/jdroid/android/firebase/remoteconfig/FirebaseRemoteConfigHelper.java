@@ -1,5 +1,6 @@
 package com.jdroid.android.firebase.remoteconfig;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -25,6 +26,8 @@ public class FirebaseRemoteConfigHelper {
 	private static final Logger LOGGER = LoggerUtils.getLogger(FirebaseRemoteConfigHelper.class);
 
 	private static FirebaseRemoteConfig firebaseRemoteConfig;
+
+	private static int retryCount = 0;
 
 	static void init() {
 		firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
@@ -53,12 +56,15 @@ public class FirebaseRemoteConfigHelper {
 		fetch(0, false);
 	}
 
-	public static void fetch(long cacheExpirationSeconds, final Boolean setExperimentUserProperty) {
+	public static void fetch(final long cacheExpirationSeconds, final Boolean setExperimentUserProperty) {
 		if (firebaseRemoteConfig != null) {
 			Task<Void> task = firebaseRemoteConfig.fetch(cacheExpirationSeconds);
 			task.addOnSuccessListener(new OnSuccessListener<Void>() {
 				@Override
 				public void onSuccess(Void aVoid) {
+
+					retryCount = 0;
+
 					LOGGER.debug("Firebase Remote Config fetch succeeded");
 					// Once the config is successfully fetched it must be activated before newly fetched values are returned.
 
@@ -87,7 +93,15 @@ public class FirebaseRemoteConfigHelper {
 			task.addOnFailureListener(new OnFailureListener() {
 				@Override
 				public void onFailure(@NonNull Exception exception) {
-					LOGGER.error("Firebase Remote Config fetch failed", exception);
+					retryCount++;
+
+					if (retryCount <= 3) {
+						LOGGER.error("Firebase Remote Config fetch failed", exception);
+						Bundle bundle = new Bundle();
+						bundle.putLong(FirebaseRemoteConfigFetchCommand.CACHE_EXPIRATION_SECONDS, cacheExpirationSeconds);
+						bundle.putBoolean(FirebaseRemoteConfigFetchCommand.SET_EXPERIMENT_USER_PROPERTY, setExperimentUserProperty);
+						new FirebaseRemoteConfigFetchCommand().start(bundle);
+					}
 				}
 			});
 		} else {

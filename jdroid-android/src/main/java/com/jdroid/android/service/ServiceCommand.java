@@ -5,7 +5,6 @@ import android.support.annotation.WorkerThread;
 
 import com.google.android.gms.gcm.OneoffTask;
 import com.google.android.gms.gcm.Task;
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
@@ -21,7 +20,7 @@ public abstract class ServiceCommand implements Serializable {
 	}
 
 	public final void start(Bundle bundle) {
-		CommandWorkerService.runService(AbstractApplication.get(), bundle, this);
+		CommandWorkerService.runService(bundle, this, requiresInstantExecution());
 	}
 
 	protected Task.Builder createRetryTaskBuilder() {
@@ -30,6 +29,10 @@ public abstract class ServiceCommand implements Serializable {
 		builder.setExecutionWindow(0, 5);
 		builder.setTag(getClass().getSimpleName());
 		return builder;
+	}
+
+	protected Boolean requiresInstantExecution() {
+		return true;
 	}
 
 	@WorkerThread

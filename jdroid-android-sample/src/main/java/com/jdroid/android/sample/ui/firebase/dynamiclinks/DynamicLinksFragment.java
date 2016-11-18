@@ -41,7 +41,7 @@ public class DynamicLinksFragment extends AbstractFragment {
 
 
 		linkUrlTextView = findView(R.id.linkUrl);
-		linkUrlTextView.setText("http://www.despegar.com/");
+		linkUrlTextView.setText("http://www.jdroidframework.com/");
 
 		minVersionCodeTextView = findView(R.id.minVersionCode);
 		fallbackLinkTextView = findView(R.id.fallbackLink);
