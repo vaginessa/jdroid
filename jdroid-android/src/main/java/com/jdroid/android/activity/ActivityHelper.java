@@ -45,6 +45,7 @@ import com.jdroid.android.location.LocationHelper;
 import com.jdroid.android.navdrawer.NavDrawer;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.uri.UriHandler;
+import com.jdroid.android.uri.UriHandlingResult;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.ReferrerUtils;
@@ -64,8 +65,6 @@ public class ActivityHelper implements ActivityIf {
 	private final static Logger LOGGER = LoggerUtils.getLogger(ActivityHelper.class);
 	
 	private static final int LOCATION_UPDATE_TIMER_CODE = IdGenerator.getIntId();
-
-	private static final String URI_HANDLED = "uriHandled";
 
 	private AbstractFragmentActivity activity;
 	private Handler locationHandler;
@@ -87,7 +86,7 @@ public class ActivityHelper implements ActivityIf {
 
 	private String referrer;
 
-	private Boolean uriHandled;
+	private UriHandlingResult uriHandlingResult;
 
 	public ActivityHelper(AbstractFragmentActivity activity) {
 		this.activity = activity;
@@ -179,16 +178,16 @@ public class ActivityHelper implements ActivityIf {
 		}
 
 		if (savedInstanceState != null) {
-			uriHandled = savedInstanceState.getBoolean(URI_HANDLED);
+			uriHandlingResult = (UriHandlingResult)savedInstanceState.getSerializable(UriHandlingResult.class.getSimpleName());
 		}
-		if (uriHandled == null) {
-			uriHandled = AbstractApplication.get().getUriMapper().handleUri(activity, uriHandler);
+		if (uriHandlingResult == null) {
+			uriHandlingResult = AbstractApplication.get().getUriMapper().handleUri(activity, uriHandler);
 		}
 		if (referrer == null) {
 			referrer = ReferrerUtils.getReferrerCategory(activity);
 		}
 
-		if (savedInstanceState == null && isAppInviteEnabled() && (uriHandled || isHomeActivity())) {
+		if (savedInstanceState == null && isAppInviteEnabled() && (uriHandlingResult.isHandled() || isHomeActivity())) {
 			PendingResult<AppInviteInvitationResult> pendingResult = AppInvite.AppInviteApi.getInvitation(googleApiClient, getActivity(), false);
 			pendingResult.setResultCallback(new SafeResultCallback<AppInviteInvitationResult>() {
 
@@ -203,7 +202,7 @@ public class ActivityHelper implements ActivityIf {
 
 						getActivityIf().onAppInvite(deepLink, invitationId);
 
-						if (!uriHandled && isHomeActivity()) {
+						if (!uriHandlingResult.isHandled() && isHomeActivity()) {
 							if (uriHandler != null && deepLink.equals(uriHandler.getUrl(activity))) {
 								LOGGER.debug("Skipping reopening invitation deepLink");
 							} else {
@@ -280,7 +279,7 @@ public class ActivityHelper implements ActivityIf {
 
 	public void onSaveInstanceState(Bundle outState) {
 		LOGGER.debug("Executing onSaveInstanceState on " + activity);
-		outState.putBoolean(URI_HANDLED, uriHandled);
+		outState.putSerializable(UriHandlingResult.class.getSimpleName(), uriHandlingResult.isHandled());
 		dismissLoading();
 	}
 
@@ -655,5 +654,9 @@ public class ActivityHelper implements ActivityIf {
 	@Override
 	public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 		AbstractApplication.get().getExceptionHandler().logHandledException(connectionResult.getErrorMessage());
+	}
+
+	public UriHandlingResult getUriHandlingResult() {
+		return uriHandlingResult;
 	}
 }

@@ -29,6 +29,10 @@ import com.jdroid.java.exception.UnexpectedException;
 public abstract class AbstractFragmentActivity extends AppCompatActivity implements ActivityIf {
 	
 	private ActivityHelper activityHelper;
+
+	public ActivityHelper getActivityHelper() {
+		return activityHelper;
+	}
 	
 	@Override
 	public Boolean onBeforeSetContentView() {

@@ -29,7 +29,8 @@ public class UriMapper {
 	private List<UriWatcher> uriWatchers = Lists.newArrayList();
 
 	@Internal
-	public Boolean handleUri(@NonNull Activity activity, @Nullable UriHandler uriHandler) {
+	public UriHandlingResult handleUri(@NonNull Activity activity, @Nullable UriHandler uriHandler) {
+		UriHandlingResult uriHandlingResult = new UriHandlingResult();
 		Uri uri = UriUtils.getUri(activity);
 		if (uri != null && !uri.getScheme().equals("notification")) {
 			notifyToUriWatchers(uri);
@@ -43,30 +44,31 @@ public class UriMapper {
 					if (uriHandler.matches(uri)) {
 						LOGGER.debug(uriHandler.getClass().getSimpleName() + " matches the main intent: " + uri.toString());
 						Intent intent = uriHandler.createMainIntent(activity, uri);
-						handleIntent(intent, activity, uri, referrerCategory);
+						handleIntent(intent, activity, uri, referrerCategory, uriHandlingResult);
 					} else {
 						AbstractApplication.get().getExceptionHandler().logWarningException(uriHandler.getClass().getSimpleName() + " matches the default intent: " + uri.toString());
-						handleDefaultIntent(activity, uriHandler, uri, referrerCategory);
+						handleDefaultIntent(activity, uriHandler, uri, referrerCategory, uriHandlingResult);
 					}
 				} catch (Exception e) {
 					AbstractApplication.get().getExceptionHandler().logHandledException(new UnexpectedException("Error matching: " + uri.toString(), e));
 					try {
-						handleDefaultIntent(activity, uriHandler, uri, referrerCategory);
+						handleDefaultIntent(activity, uriHandler, uri, referrerCategory, uriHandlingResult);
 					} catch (Exception e2) {
 						Intent homeIntent = new Intent(activity, AbstractApplication.get().getHomeActivityClass());
 						activity.finish();
 						activity.startActivity(homeIntent);
 					}
 				}
-				return true;
+				uriHandlingResult.setUriHandled(true);
 			} else {
 				AbstractApplication.get().getExceptionHandler().logHandledException(new UnexpectedException("No uriHandler defined for: " + uri.toString()));
 			}
 		}
-		return false;
+		uriHandlingResult.setUriHandled(false);
+		return uriHandlingResult;
 	}
 
-	private void handleIntent(Intent intent, Activity activity, Uri uri, String referrerCategory) {
+	private void handleIntent(Intent intent, Activity activity, Uri uri, String referrerCategory, UriHandlingResult uriHandlingResult) {
 		if (intent != null) {
 			ReferrerUtils.setReferrer(intent, referrerCategory);
 			String className = intent.getComponent().getShortClassName();
@@ -81,15 +83,16 @@ public class UriMapper {
 			} else {
 				activity.finish();
 				activity.startActivity(intent);
+				uriHandlingResult.setNewActivityOpened(true);
 			}
 		} else {
 			AbstractApplication.get().getAnalyticsSender().trackUriOpened(activity.getClass().getSimpleName(), referrerCategory);
 		}
 	}
 
-	private void handleDefaultIntent(Activity activity, UriHandler uriHandler, Uri uri, String referrerCategory) {
+	private void handleDefaultIntent(Activity activity, UriHandler uriHandler, Uri uri, String referrerCategory, UriHandlingResult uriHandlingResult) {
 		Intent intent = uriHandler.createDefaultIntent(activity, uri);
-		handleIntent(intent, activity, uri, referrerCategory);
+		handleIntent(intent, activity, uri, referrerCategory, uriHandlingResult);
 	}
 
 	private void notifyToUriWatchers(final Uri uri) {
