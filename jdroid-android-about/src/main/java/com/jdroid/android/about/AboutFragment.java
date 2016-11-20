@@ -50,7 +50,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 
 				@Override
 				public void onSelected(Activity activity) {
-					Intent intent = ShareUtils.createOpenMail(contactUsEmailAddress,
+					Intent intent = ShareUtils.createOpenMailIntent(contactUsEmailAddress,
 						AbstractApplication.get().getAppName());
 					if (IntentUtils.isIntentAvailable(intent)) {
 						startActivity(intent);

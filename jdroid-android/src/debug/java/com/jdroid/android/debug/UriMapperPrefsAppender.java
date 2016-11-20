@@ -1,12 +1,15 @@
 package com.jdroid.android.debug;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Environment;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceGroup;
+import android.support.v4.app.ShareCompat;
 
 import com.jdroid.android.R;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.permission.PermissionHelper;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.ExternalAppsUtils;
@@ -61,6 +64,37 @@ public class UriMapperPrefsAppender extends PreferencesAppender {
 					ExternalAppsUtils.openOnBrowser(activity, file);
 				} catch (IOException e) {
 					throw new UnexpectedException(e);
+				}
+
+				return true;
+			}
+		});
+		preferenceGroup.addPreference(preference);
+
+		preference = new Preference(activity);
+		preference.setTitle(R.string.jdroid_emailUrlSample);
+		preference.setSummary(R.string.jdroid_emailUrlSample);
+		preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+
+				StringBuilder builder = new StringBuilder();
+				for (String each : AbstractApplication.get().getDebugContext().getUrlsToTest()) {
+					builder.append("<h4><a href=\"");
+					builder.append(each);
+					builder.append("\" target=\"_blank\">");
+					builder.append(each);
+					builder.append("</a></h4>");
+				}
+
+				Intent shareIntent = ShareCompat.IntentBuilder.from(activity)
+						.setType("text/html")
+						.setSubject(AppUtils.getApplicationName() + " urls samples")
+						.setHtmlText(builder.toString())
+						.getIntent();
+				if (shareIntent.resolveActivity(activity.getPackageManager()) != null) {
+					activity.startActivity(shareIntent);
 				}
 
 				return true;

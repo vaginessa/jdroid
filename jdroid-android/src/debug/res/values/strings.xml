@@ -59,6 +59,7 @@
 	<!-- Uri Mapper -->
 	<string name="jdroid_uriMapper" tools:ignore="MissingTranslation">Uri Mapper</string>
 	<string name="jdroid_downloadUrlSample" tools:ignore="MissingTranslation">Download Url Sample</string>
+	<string name="jdroid_emailUrlSample" tools:ignore="MissingTranslation">Email Url Sample</string>
 
 	<!-- Notifications -->
 	<string name="jdroid_notifications" tools:ignore="MissingTranslation">Notifications</string>

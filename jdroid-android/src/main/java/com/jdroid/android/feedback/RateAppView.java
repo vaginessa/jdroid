@@ -80,7 +80,7 @@ public class RateAppView extends RelativeLayout {
 			@Override
 			public void onClick(View v) {
 				String contactUsEmailAddress = AbstractApplication.get().getAppContext().getContactUsEmail();
-				Intent intent = ShareUtils.createOpenMail(contactUsEmailAddress,
+				Intent intent = ShareUtils.createOpenMailIntent(contactUsEmailAddress,
 						AbstractApplication.get().getAppName());
 				if (IntentUtils.isIntentAvailable(intent)) {
 					context.startActivity(intent);

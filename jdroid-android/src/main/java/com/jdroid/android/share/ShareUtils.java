@@ -98,7 +98,7 @@ public class ShareUtils {
 		return intent;
 	}
 	
-	public static Intent createOpenMail(String mailto, String subject) {
+	public static Intent createOpenMailIntent(String mailto, String subject) {
 		Intent intent = new Intent(Intent.ACTION_SENDTO);
 		String uriText = "mailto:" + mailto + "?subject=" + EncodingUtils.encodeURL(subject);
 		Uri uri = Uri.parse(uriText);
