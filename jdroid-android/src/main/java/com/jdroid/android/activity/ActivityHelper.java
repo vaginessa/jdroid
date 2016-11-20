@@ -279,7 +279,7 @@ public class ActivityHelper implements ActivityIf {
 
 	public void onSaveInstanceState(Bundle outState) {
 		LOGGER.debug("Executing onSaveInstanceState on " + activity);
-		outState.putSerializable(UriHandlingResult.class.getSimpleName(), uriHandlingResult.isHandled());
+		outState.putSerializable(UriHandlingResult.class.getSimpleName(), uriHandlingResult);
 		dismissLoading();
 	}
 

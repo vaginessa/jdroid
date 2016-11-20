@@ -52,6 +52,7 @@ public class UriMapperPrefsAppender extends PreferencesAppender {
 
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
+				// TODO To make it work on Android N, read this https://medium.com/google-developers/sharing-content-between-android-apps-2e6db9d1368b#.aauyfutg4
 				try {
 					File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 					dir.mkdirs();
