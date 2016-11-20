@@ -1,6 +1,5 @@
 package com.jdroid.android.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -33,8 +32,6 @@ public interface ActivityIf extends ComponentIf, GoogleApiClient.OnConnectionFai
 	public MenuInflater getMenuInflater();
 	
 	public Boolean isLauncherActivity();
-
-	public Intent getUpIntent();
 
 	public Boolean isActivityDestroyed();
 

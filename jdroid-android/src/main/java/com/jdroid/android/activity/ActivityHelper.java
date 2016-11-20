@@ -15,7 +15,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -472,11 +471,8 @@ public class ActivityHelper implements ActivityIf {
 	}
 
 	protected boolean onHomeOptionItemSelected() {
-		Intent upIntent = getActivityIf().getUpIntent();
-		if (upIntent == null) {
-			upIntent = NavUtils.getParentActivityIntent(activity);
-		}
-		if (upIntent != null && NavUtils.shouldUpRecreateTask(activity, upIntent)) {
+		Intent upIntent = getParentActivityIntent();
+		if (activity.shouldUpRecreateTask(upIntent)) {
 			// This activity is NOT part of this app's task, so create a new task
 			// when navigating up, with a synthesized back stack.
 			TaskStackBuilder builder = TaskStackBuilder.create(activity);
@@ -487,16 +483,24 @@ public class ActivityHelper implements ActivityIf {
 		} else {
 			// This activity is part of this app's task, so simply
 			// navigate up to the logical parent activity.
-			// NavUtils.navigateUpTo(activity, upIntent);
-			if (upIntent != null) {
-				upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				activity.startActivity(upIntent);
-				activity.finish();
-			} else {
-				ActivityLauncher.launchHomeActivity();
-			}
+			activity.startActivity(upIntent);
+			activity.finish();
 		}
 		return true;
+	}
+
+	@NonNull
+	private Intent getParentActivityIntent() {
+		Intent intent = activity.getParentActivityIntent();
+		if (intent == null) {
+			intent = new Intent(getActivity(), AbstractApplication.get().getHomeActivityClass());
+		}
+		intent.addFlags(getParentActivityIntentFlags());
+		return intent;
+	}
+
+	protected int getParentActivityIntentFlags() {
+		return Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -532,11 +536,6 @@ public class ActivityHelper implements ActivityIf {
 		} catch (Exception e) {
 			AbstractApplication.get().getExceptionHandler().logHandledException(e);
 		}
-	}
-
-	@Override
-	public Intent getUpIntent() {
-		return null;
 	}
 
 	@Override

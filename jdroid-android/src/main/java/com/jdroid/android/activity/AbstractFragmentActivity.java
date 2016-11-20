@@ -93,7 +93,7 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 		super.onDestroy();
 		activityHelper.onDestroy();
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -228,11 +228,6 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		activityHelper.onConfigurationChanged(newConfig);
-	}
-	
-	@Override
-	public Intent getUpIntent() {
-		return activityHelper.getUpIntent();
 	}
 	
 	@Override
