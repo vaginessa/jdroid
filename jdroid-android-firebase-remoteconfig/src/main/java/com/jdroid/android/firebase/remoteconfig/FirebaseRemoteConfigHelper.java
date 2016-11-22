@@ -93,10 +93,10 @@ public class FirebaseRemoteConfigHelper {
 			task.addOnFailureListener(new OnFailureListener() {
 				@Override
 				public void onFailure(@NonNull Exception exception) {
+					LOGGER.error("Firebase Remote Config fetch failed", exception);
 					retryCount++;
 
 					if (retryCount <= 3) {
-						LOGGER.error("Firebase Remote Config fetch failed", exception);
 						Bundle bundle = new Bundle();
 						bundle.putLong(FirebaseRemoteConfigFetchCommand.CACHE_EXPIRATION_SECONDS, cacheExpirationSeconds);
 						bundle.putBoolean(FirebaseRemoteConfigFetchCommand.SET_EXPERIMENT_USER_PROPERTY, setExperimentUserProperty);

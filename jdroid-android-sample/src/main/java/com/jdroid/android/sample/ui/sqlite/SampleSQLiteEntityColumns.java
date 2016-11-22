@@ -9,7 +9,7 @@ import com.jdroid.android.sqlite.Reference;
 
 public enum SampleSQLiteEntityColumns implements Column {
 
-	ID(Column.ID, DataType.LONG, Column.PRIMARY_KEY, Boolean.FALSE, Boolean.TRUE),
+	ID(Column.ID, DataType.TEXT, Column.PRIMARY_KEY, Boolean.FALSE, Boolean.TRUE),
 	FIELD("field", DataType.TEXT, null, Boolean.FALSE, Boolean.FALSE);
 
 	private String columnName;

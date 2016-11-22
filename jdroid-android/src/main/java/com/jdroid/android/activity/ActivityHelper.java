@@ -23,8 +23,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appinvite.AppInvite;
 import com.google.android.gms.appinvite.AppInviteInvitationResult;
 import com.google.android.gms.appinvite.AppInviteReferral;
@@ -32,8 +30,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
+import com.google.firebase.appindexing.Action;
+import com.google.firebase.appindexing.FirebaseUserActions;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.UsageStats;
@@ -163,9 +161,6 @@ public class ActivityHelper implements ActivityIf {
 
 		if (isAppInviteEnabled()) {
 			googleApis.add(AppInvite.API);
-		}
-		if (uriHandler != null && uriHandler.isAppIndexingEnabled(activity)) {
-			googleApis.add(AppIndex.API);
 		}
 		if (!googleApis.isEmpty()) {
 			GoogleApiClient.Builder builder = new GoogleApiClient.Builder(activity);
@@ -319,17 +314,7 @@ public class ActivityHelper implements ActivityIf {
 				appIndexingAction = uriHandler.getAppIndexingAction(activity);
 			}
 			if (appIndexingAction != null) {
-				PendingResult<Status> result = AppIndex.AppIndexApi.start(googleApiClient, appIndexingAction);
-				result.setResultCallback(new ResultCallback<Status>() {
-					@Override
-					public void onResult(@NonNull Status status) {
-						if (status.isSuccess()) {
-							LOGGER.debug("App Indexing API started successfully on " + activity);
-						} else {
-							AbstractApplication.get().getExceptionHandler().logHandledException("App Indexing API started with error [" + status.getStatusCode() + "] on " + activity.getClass());
-						}
-					}
-				});
+				FirebaseUserActions.getInstance().start(appIndexingAction);
 			}
 		}
 	}
@@ -385,17 +370,7 @@ public class ActivityHelper implements ActivityIf {
 
 	public void onBeforeStop() {
 		if (appIndexingAction != null) {
-			PendingResult<Status> result = AppIndex.AppIndexApi.end(googleApiClient, appIndexingAction);
-			result.setResultCallback(new ResultCallback<Status>() {
-				@Override
-				public void onResult(@NonNull Status status) {
-					if (status.isSuccess()) {
-						LOGGER.debug("App Indexing API ended successfully on " + activity);
-					} else {
-						AbstractApplication.get().getExceptionHandler().logHandledException("App Indexing API ended with error on " + activity);
-					}
-				}
-			});
+			FirebaseUserActions.getInstance().end(appIndexingAction);
 		}
 	}
 

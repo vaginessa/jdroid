@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
-import com.google.android.gms.appindexing.Action;
+import com.google.firebase.appindexing.Action;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -45,10 +45,10 @@ public abstract class AbstractUriHandler implements UriHandler {
 		if (isAppIndexingEnabled(activity)) {
 			String url = getUrl(activity);
 			if (url != null) {
-				String actionType = Action.TYPE_VIEW;
+				String actionType = Action.Builder.VIEW_ACTION;
 				String title = getAppIndexingTitle(activity);
 				LOGGER.debug("New App Indexing Action created. Type: " + actionType + " | Title: " + title + " | Url: " + url);
-				return Action.newAction(actionType, title, Uri.parse(url));
+				return new Action.Builder(actionType).setObject(title, url).build();
 			}
 		}
 		return null;

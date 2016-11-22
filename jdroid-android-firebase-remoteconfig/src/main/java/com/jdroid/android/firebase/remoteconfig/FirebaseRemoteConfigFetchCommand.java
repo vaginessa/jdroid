@@ -3,7 +3,6 @@ package com.jdroid.android.firebase.remoteconfig;
 import android.os.Bundle;
 
 import com.google.android.gms.gcm.GcmNetworkManager;
-import com.google.android.gms.gcm.Task;
 import com.jdroid.android.service.ServiceCommand;
 
 public class FirebaseRemoteConfigFetchCommand extends ServiceCommand {
@@ -17,11 +16,6 @@ public class FirebaseRemoteConfigFetchCommand extends ServiceCommand {
 		Boolean setExperimentUserProperty = bundle.getBoolean(SET_EXPERIMENT_USER_PROPERTY);
 		FirebaseRemoteConfigHelper.fetch(cacheExpirationSeconds, setExperimentUserProperty);
 		return GcmNetworkManager.RESULT_SUCCESS;
-	}
-
-	@Override
-	protected Task.Builder createRetryTaskBuilder() {
-		return super.createRetryTaskBuilder().setRequiredNetwork(Task.NETWORK_STATE_CONNECTED);
 	}
 
 	@Override

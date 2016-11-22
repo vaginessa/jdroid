@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
-import com.google.android.gms.appindexing.Action;
+import com.google.firebase.appindexing.Action;
 
 /**
  * Handler which parse the parameters and create an intent based on an uri
