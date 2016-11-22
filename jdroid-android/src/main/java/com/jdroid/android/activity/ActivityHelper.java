@@ -182,7 +182,7 @@ public class ActivityHelper implements ActivityIf {
 			referrer = ReferrerUtils.getReferrerCategory(activity);
 		}
 
-		if (savedInstanceState == null && isAppInviteEnabled() && (uriHandlingResult.isHandled() || isHomeActivity())) {
+		if (savedInstanceState == null && getActivityIf().isAppInviteEnabled() && (uriHandlingResult.isHandled() || isHomeActivity())) {
 			PendingResult<AppInviteInvitationResult> pendingResult = AppInvite.AppInviteApi.getInvitation(googleApiClient, getActivity(), false);
 			pendingResult.setResultCallback(new SafeResultCallback<AppInviteInvitationResult>() {
 
@@ -231,7 +231,8 @@ public class ActivityHelper implements ActivityIf {
 		}
 	}
 
-	protected Boolean isAppInviteEnabled() {
+	@Override
+	public Boolean isAppInviteEnabled() {
 		return true;
 	}
 
@@ -493,7 +494,7 @@ public class ActivityHelper implements ActivityIf {
 
 		UriHandler uriHandler = getActivityIf().getUriHandler();
 		if (uriHandler != null) {
-			AbstractApplication.get().getUriMapper().handleUri(activity, uriHandler);
+			uriHandlingResult = AbstractApplication.get().getUriMapper().handleUri(activity, uriHandler);
 		}
 
 		trackNotificationOpened(intent);

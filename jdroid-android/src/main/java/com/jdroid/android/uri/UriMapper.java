@@ -64,7 +64,6 @@ public class UriMapper {
 				AbstractApplication.get().getExceptionHandler().logHandledException(new UnexpectedException("No uriHandler defined for: " + uri.toString()));
 			}
 		}
-		uriHandlingResult.setUriHandled(false);
 		return uriHandlingResult;
 	}
 

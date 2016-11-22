@@ -4,7 +4,6 @@ import android.app.Activity;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.HitBuilders.SocialBuilder;
-import com.google.android.gms.analytics.StandardExceptionParser;
 import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.social.AccountType;
@@ -193,25 +192,12 @@ public class GoogleAnalyticsTracker extends AbstractGoogleAnalyticsTracker imple
 
 	@Override
 	public void trackFatalException(Throwable throwable, List<String> tags) {
-		HitBuilders.ExceptionBuilder builder = new HitBuilders.ExceptionBuilder();
-		String description = new StandardExceptionParser(AbstractApplication.get(), null).getDescription(Thread.currentThread().getName(), throwable);
-		builder.setDescription(description);
-		builder.setFatal(true);
-		builder.setNonInteraction(true);
-		getGoogleAnalyticsHelper().getTracker().send(builder.build());
-		getGoogleAnalyticsHelper().dispatchLocalHits();
-		LOGGER.debug("Fatal exception sent. Description [" + description + "]");
+		// Do nothing
 	}
 
 	@Override
 	public void trackHandledException(Throwable throwable, List<String> tags) {
-		HitBuilders.ExceptionBuilder builder = new HitBuilders.ExceptionBuilder();
-		String description = new StandardExceptionParser(AbstractApplication.get(), null).getDescription(Thread.currentThread().getName(), throwable);
-		builder.setDescription(description);
-		builder.setFatal(false);
-		builder.setNonInteraction(true);
-		getGoogleAnalyticsHelper().getTracker().send(builder.build());
-		LOGGER.debug("Non fatal exception sent. Description [" + description + "]");
+		// Do nothing
 	}
 
 	@Override

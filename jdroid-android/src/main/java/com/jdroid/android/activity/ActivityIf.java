@@ -66,6 +66,8 @@ public interface ActivityIf extends ComponentIf, GoogleApiClient.OnConnectionFai
 	@Nullable
 	public UriHandler getUriHandler();
 
+	public Boolean isAppInviteEnabled();
+
 	public void onAppInvite(String deepLink, String invitationId);
 
 	// //////////////////////// Others //////////////////////// //

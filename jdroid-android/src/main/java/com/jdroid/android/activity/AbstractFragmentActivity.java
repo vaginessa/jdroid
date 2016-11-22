@@ -329,6 +329,11 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	}
 
 	@Override
+	public Boolean isAppInviteEnabled() {
+		return activityHelper.isAppInviteEnabled();
+	}
+
+	@Override
 	public void onAppInvite(String deepLink, String invitationId) {
 		activityHelper.onAppInvite(deepLink, invitationId);
 	}
