@@ -2,6 +2,7 @@ package com.jdroid.android.api;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.api.AbstractApiService;
+import com.jdroid.java.http.HttpServiceFactory;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.http.cache.Cache;
 import com.jdroid.java.http.mock.AbstractMockHttpService;
@@ -28,5 +29,10 @@ public abstract class AndroidApiService extends AbstractApiService {
 	@Override
 	protected Server getServer() {
 		return AbstractApplication.get().getAppContext().getServer();
+	}
+
+	@Override
+	protected HttpServiceFactory createHttpServiceFactory() {
+		return AbstractApplication.get().getHttpServiceFactory();
 	}
 }

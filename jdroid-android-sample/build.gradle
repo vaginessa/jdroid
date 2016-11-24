@@ -1,5 +1,5 @@
+ext.COMPONENTS = ['jdroid-android', 'jdroid-java-okhttp']
 apply plugin: 'com.jdroid.android.application'
-
 
 description = 'Jdroid Sample Android'
 

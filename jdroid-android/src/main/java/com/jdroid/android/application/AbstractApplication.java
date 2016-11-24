@@ -39,6 +39,7 @@ import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.context.GitContext;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.domain.Identifiable;
+import com.jdroid.java.http.HttpServiceFactory;
 import com.jdroid.java.repository.Repository;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.ReflectionUtils;
@@ -95,6 +96,8 @@ public abstract class AbstractApplication extends Application {
 	private ActivityLifecycleHandler activityLifecycleHandler;
 
 	private List<RemoteConfigParameter> remoteConfigParameters;
+
+	private HttpServiceFactory httpServiceFactory;
 
 	public AbstractApplication() {
 		INSTANCE = this;
@@ -496,5 +499,21 @@ public abstract class AbstractApplication extends Application {
 
 	public List<RemoteConfigParameter> getRemoteConfigParameters() {
 		return remoteConfigParameters;
+	}
+
+	public void addAppModulesMap(String name, AppModule appModule) {
+		this.appModulesMap.put(name, appModule);
+	}
+
+	public HttpServiceFactory getHttpServiceFactory() {
+		return httpServiceFactory;
+	}
+
+	public void setHttpServiceFactory(HttpServiceFactory httpServiceFactory) {
+		this.httpServiceFactory = httpServiceFactory;
+	}
+
+	public Class<?> getBuildConfigClass() {
+		return ReflectionUtils.getClass(getManifestPackageName() + ".BuildConfig");
 	}
 }

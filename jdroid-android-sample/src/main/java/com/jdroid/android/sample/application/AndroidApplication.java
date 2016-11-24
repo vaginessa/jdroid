@@ -46,6 +46,7 @@ import com.jdroid.android.sample.ui.uri.SampleUriWatcher;
 import com.jdroid.android.sqlite.SQLiteHelper;
 import com.jdroid.android.twitter.TwitterAppModule;
 import com.jdroid.java.domain.Identifiable;
+import com.jdroid.java.http.okhttp.OkHttpServiceFactory;
 import com.jdroid.java.repository.Repository;
 
 import java.util.List;
@@ -55,6 +56,10 @@ public class AndroidApplication extends AbstractApplication {
 	
 	public static AndroidApplication get() {
 		return (AndroidApplication)AbstractApplication.INSTANCE;
+	}
+
+	public AndroidApplication() {
+		setHttpServiceFactory(new OkHttpServiceFactory());
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
@@ -29,6 +30,7 @@ public abstract class OkHttpService extends AbstractHttpService {
 
 	protected OkHttpClient client;
 	protected Request request;
+	private List<Interceptor> networkInterceptors;
 
 	public OkHttpService(Server server, List<Object> urlSegments, List<HttpServiceProcessor> httpServiceProcessors) {
 		super(server, urlSegments, httpServiceProcessors);
@@ -49,6 +51,11 @@ public abstract class OkHttpService extends AbstractHttpService {
 		clientBuilder.connectTimeout(getConnectionTimeout(), TimeUnit.MILLISECONDS);
 		clientBuilder.writeTimeout(getWriteTimeout(), TimeUnit.MILLISECONDS);
 		clientBuilder.readTimeout(getReadTimeout(), TimeUnit.MILLISECONDS);
+		if (networkInterceptors != null) {
+			for (Interceptor each : networkInterceptors) {
+				clientBuilder.addNetworkInterceptor(each);
+			}
+		}
 		client = clientBuilder.build();
 
 		Request.Builder builder = new Request.Builder();
@@ -95,5 +102,13 @@ public abstract class OkHttpService extends AbstractHttpService {
 		} catch (Exception e) {
 			LoggerUtils.logHandledException(LOGGER, e);
 		}
+	}
+
+	public void setNetworkInterceptors(List<Interceptor> networkInterceptors) {
+		this.networkInterceptors = networkInterceptors;
+	}
+
+	public void addNetworkInterceptor(Interceptor networkInterceptor) {
+		this.networkInterceptors.add(networkInterceptor);
 	}
 }

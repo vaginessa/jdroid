@@ -5,7 +5,9 @@ import com.jdroid.java.exception.UnexpectedException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.util.Collection;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * Reflection related utilities
@@ -38,6 +40,10 @@ public abstract class ReflectionUtils {
 			throw new UnexpectedException("Unable to instantiate class [" + clazz.getSimpleName() + "]", e);
 		}
 	}
+
+	public static <T> T newInstance(String className, List<Class<?>> parameterTypes, List<Object> parameterValues) {
+		return (T)newInstance(getClass(className), parameterTypes, parameterValues);
+	}
 	
 	/**
 	 * Create a class for the specified type, using the specified constructor with the passed parameters.
@@ -48,8 +54,7 @@ public abstract class ReflectionUtils {
 	 * @param parameterValues parameter values to be used when instantiating
 	 * @return an instance of the class specified
 	 */
-	public static <T> T newInstance(Class<T> clazz, Collection<Class<?>> parameterTypes,
-			Collection<Object> parameterValues) {
+	public static <T> T newInstance(Class<T> clazz, List<Class<?>> parameterTypes, List<Object> parameterValues) {
 		try {
 			Constructor<T> constructor = clazz.getConstructor(parameterTypes.toArray(new Class[0]));
 			return constructor.newInstance(parameterValues.toArray(new Object[0]));
@@ -90,6 +95,31 @@ public abstract class ReflectionUtils {
 		Field field = getField(object, fieldName);
 		field.setAccessible(true);
 		return get(field, object);
+	}
+
+	public static Object invokeStaticMethod(String className, String methodName, List<Class<?>> parameterTypes, List<Object> parameterValues) {
+		return invokeStaticMethod(getClass(className), methodName, parameterTypes, parameterValues);
+	}
+
+	public static Object invokeStaticMethod(Class<?> clazz, String methodName, List<Class<?>> parameterTypes, List<Object> parameterValues) {
+		return invokeMethod(clazz, null, methodName, parameterTypes, parameterValues);
+	}
+
+	public static Object invokeMethod(String className, Object obj, String methodName, List<Class<?>> parameterTypes, List<Object> parameterValues) {
+		return invokeMethod(getClass(className), obj, methodName, parameterTypes, parameterValues);
+	}
+
+	public static Object invokeMethod(Class<?> clazz, Object obj, String methodName, List<Class<?>> parameterTypes, List<Object> parameterValues) {
+		try {
+			Method method = clazz.getMethod(methodName, parameterTypes.toArray(new Class[0]));
+			return method.invoke(obj, parameterValues.toArray(new Object[0]));
+		} catch (NoSuchMethodException e) {
+			throw new UnexpectedException(e);
+		} catch (InvocationTargetException e) {
+			throw new UnexpectedException(e);
+		} catch (IllegalAccessException e) {
+			throw new UnexpectedException(e);
+		}
 	}
 
 	public static Object getStaticFieldValue(Class<?> clazz, String fieldName) {

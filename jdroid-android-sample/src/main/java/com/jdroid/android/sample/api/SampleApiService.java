@@ -5,8 +5,6 @@ import com.jdroid.android.firebase.fcm.AbstractFcmMessageResolver;
 import com.jdroid.android.firebase.fcm.device.Device;
 import com.jdroid.android.firebase.fcm.device.DeviceMarshaller;
 import com.jdroid.java.http.HttpService;
-import com.jdroid.java.http.HttpServiceFactory;
-import com.jdroid.java.http.okhttp.OkHttpServiceFactory;
 import com.jdroid.java.http.post.BodyEnclosingHttpService;
 import com.jdroid.java.marshaller.MarshallerProvider;
 
@@ -97,10 +95,5 @@ public class SampleApiService extends AndroidApiService {
 		stringBuilder.append("]");
 		httpService.addQueryParameter("params", stringBuilder.toString());
 		httpService.execute();
-	}
-
-	@Override
-	public HttpServiceFactory createHttpServiceFactory() {
-		return new OkHttpServiceFactory();
 	}
 }

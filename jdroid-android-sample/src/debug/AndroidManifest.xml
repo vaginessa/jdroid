@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.jdroid.android.sample">
 
-	<!-- Used by the UriMapperPrefsAppender. Move this permission to jdroid-android when https://github.com/maxirosson/jdroid/issues/236 is fixed -->
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
 	<application>
-
 
 	</application>
 </manifest>
