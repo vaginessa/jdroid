@@ -10,6 +10,11 @@ public class TestAppContext extends AppContext {
 	}
 
 	@Override
+	public String getInstallationSource() {
+		return "GooglePlay";
+	}
+
+	@Override
 	public String getBuildType() {
 		return "test";
 	}
