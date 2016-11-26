@@ -111,6 +111,8 @@
 	<string name="httpPut">PUT</string>
 	<string name="httpDelete">DELETE</string>
 	<string name="httpPatch">PATCH</string>
+	<string name="unexpectedExceptionParser">Unexpected Exception Parser</string>
+	<string name="connectionExceptionParser">Connection Exception Parser</string>
 
 	<!-- Card View -->
 	<string name="cardView">Card View</string>

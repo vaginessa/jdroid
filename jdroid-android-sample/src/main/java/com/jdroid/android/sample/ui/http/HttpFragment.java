@@ -89,6 +89,30 @@ public class HttpFragment extends AbstractFragment {
 			}
 		});
 
+		findView(R.id.connectionExceptionParser).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				ExecutorUtils.execute(new Runnable() {
+					@Override
+					public void run() {
+						new SampleApiService().connectionExceptionParser();
+					}
+				});
+			}
+		});
+
+		findView(R.id.unexpectedExceptionParser).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				ExecutorUtils.execute(new Runnable() {
+					@Override
+					public void run() {
+						new SampleApiService().unexpectedExceptionParser();
+					}
+				});
+			}
+		});
+
 	}
 
 	@Override

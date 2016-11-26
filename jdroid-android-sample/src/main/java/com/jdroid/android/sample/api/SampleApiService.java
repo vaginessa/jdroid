@@ -59,6 +59,22 @@ public class SampleApiService extends AndroidApiService {
 		httpService.execute();
 	}
 
+	public void connectionExceptionParser() {
+		HttpService httpService = newGetService("sample", "get");
+		httpService.addQueryParameter("param1", "value1");
+		httpService.addHeader("header1", "value1");
+		httpService.setUserAgent("sampleUserAgent");
+		httpService.execute(new ConnectionExceptionParser());
+	}
+
+	public void unexpectedExceptionParser() {
+		HttpService httpService = newGetService("sample", "get");
+		httpService.addQueryParameter("param1", "value1");
+		httpService.addHeader("header1", "value1");
+		httpService.setUserAgent("sampleUserAgent");
+		httpService.execute(new UnexpectedExceptionParser());
+	}
+
 	public void addDevice(Device device, Boolean updateLastActiveTimestamp) {
 		BodyEnclosingHttpService httpService = newPostService("fcm", "device");
 		httpService.addQueryParameter("updateLastActiveTimestamp", updateLastActiveTimestamp);

@@ -17,4 +17,10 @@
 	<Button android:id="@+id/httpPatch" android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:text="@string/httpPatch" />
 
+	<Button android:id="@+id/connectionExceptionParser" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:text="@string/connectionExceptionParser" />
+
+	<Button android:id="@+id/unexpectedExceptionParser" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:text="@string/unexpectedExceptionParser" />
+
 </LinearLayout>

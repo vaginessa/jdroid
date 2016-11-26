@@ -75,7 +75,6 @@ public abstract class AbstractHttpService implements HttpService {
 		execute(null);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T execute(Parser parser) {
 		InputStream inputStream = null;
@@ -108,7 +107,7 @@ public abstract class AbstractHttpService implements HttpService {
 				inputStream = httpResponseWrapper.getInputStream();
 
 				if (inputStream != null) {
-					return (T)parser.parse(inputStream);
+					return parse(parser, inputStream);
 				} else {
 					throw new UnexpectedException("The http service was expecting a response, but it was null");
 				}
@@ -128,9 +127,11 @@ public abstract class AbstractHttpService implements HttpService {
 
 	protected abstract HttpResponseWrapper doExecute(String url);
 
-	/**
-	 * @see HttpService#setSsl(java.lang.Boolean)
-	 */
+	@SuppressWarnings("unchecked")
+	protected <T> T parse(Parser parser, InputStream inputStream) {
+		return (T)parser.parse(inputStream);
+	}
+
 	@Override
 	public void setSsl(Boolean ssl) {
 		this.ssl = ssl;
@@ -140,17 +141,11 @@ public abstract class AbstractHttpService implements HttpService {
 		return ssl;
 	}
 
-	/**
-	 * @see HttpService#setUserAgent(java.lang.String)
-	 */
 	@Override
 	public void setUserAgent(String userAgent) {
 		this.userAgent = userAgent;
 	}
 
-	/**
-	 * @see HttpService#setConnectionTimeout(java.lang.Integer)
-	 */
 	@Override
 	public void setConnectionTimeout(Integer connectionTimeout) {
 		this.connectionTimeout = connectionTimeout;

@@ -5,9 +5,11 @@ import com.jdroid.java.http.HttpResponseWrapper;
 import com.jdroid.java.http.HttpService;
 import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.Server;
+import com.jdroid.java.http.parser.Parser;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.StringUtils;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -68,6 +70,12 @@ public abstract class OkHttpService extends AbstractHttpService {
 		request = builder.build();
 
 		return new ExecuteRequestCommand().execute(this);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	protected <T> T parse(Parser parser, InputStream inputStream) {
+		return (T)new ParseCommand(parser).execute(inputStream);
 	}
 
 	protected void addUserAgent(Request.Builder builder) {

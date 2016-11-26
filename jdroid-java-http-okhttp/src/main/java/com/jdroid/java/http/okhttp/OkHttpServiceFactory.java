@@ -59,14 +59,14 @@ public class OkHttpServiceFactory implements HttpServiceFactory {
 	
 	@Override
 	public BodyEnclosingHttpService newPatchService(Server baseURL, List<Object> urlSegments, List<HttpServiceProcessor> httpServiceProcessors) {
-		OkPatchHttpService service =  new OkPatchHttpService(baseURL, urlSegments, httpServiceProcessors);
+		OkPatchHttpService service = new OkPatchHttpService(baseURL, urlSegments, httpServiceProcessors);
 		service.setNetworkInterceptors(networkInterceptors);
 		return service;
 	}
 	
 	@Override
 	public HttpService newDeleteService(Server server, List<Object> urlSegments, List<HttpServiceProcessor> httpServiceProcessors) {
-		OkHttpService service =  new OkDeleteHttpService(server, urlSegments, httpServiceProcessors);
+		OkHttpService service = new OkDeleteHttpService(server, urlSegments, httpServiceProcessors);
 		service.setNetworkInterceptors(networkInterceptors);
 		return service;
 	}
