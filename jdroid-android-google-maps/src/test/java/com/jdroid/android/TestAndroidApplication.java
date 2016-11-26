@@ -8,8 +8,13 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.exception.ExceptionHandler;
+import com.jdroid.java.http.okhttp.OkHttpServiceFactory;
 
 public class TestAndroidApplication extends AbstractApplication {
+
+	public TestAndroidApplication() {
+		setHttpServiceFactory(new OkHttpServiceFactory());
+	}
 
 	@Override
 	protected void attachBaseContext(Context base) {
