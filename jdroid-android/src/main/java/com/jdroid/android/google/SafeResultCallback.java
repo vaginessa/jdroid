@@ -11,11 +11,17 @@ public abstract class SafeResultCallback<R extends Result> implements ResultCall
 	@Override
 	public final void onResult(@NonNull R result) {
 		try {
-			onSafeResult(result);
+			if (result.getStatus().isSuccess()) {
+				onSuccessResult(result);
+			} else {
+				onFailedResult(result);
+			}
 		} catch (Exception e) {
 			AbstractApplication.get().getExceptionHandler().logHandledException(e);
 		}
 	}
 
-	public abstract void onSafeResult(@NonNull R result);
+	public abstract void onSuccessResult(@NonNull R result);
+
+	public abstract void onFailedResult(@NonNull R result);
 }

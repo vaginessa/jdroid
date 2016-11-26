@@ -8,13 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.loading.ActivityLoading;
 import com.jdroid.android.navdrawer.NavDrawer;
 import com.jdroid.android.uri.UriHandler;
 
-public interface ActivityIf extends ComponentIf, GoogleApiClient.OnConnectionFailedListener {
+public interface ActivityIf extends ComponentIf {
 
 	// //////////////////////// Layout //////////////////////// //
 

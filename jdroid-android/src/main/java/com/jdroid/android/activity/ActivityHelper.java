@@ -43,7 +43,6 @@ import com.jdroid.android.location.LocationHelper;
 import com.jdroid.android.navdrawer.NavDrawer;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.uri.UriHandler;
-import com.jdroid.android.uri.UriHandlingResult;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.ReferrerUtils;
@@ -61,6 +60,8 @@ import java.util.Set;
 public class ActivityHelper implements ActivityIf {
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(ActivityHelper.class);
+
+	private static final String REFERRER = "referrer";
 	
 	private static final int LOCATION_UPDATE_TIMER_CODE = IdGenerator.getIntId();
 
@@ -83,8 +84,6 @@ public class ActivityHelper implements ActivityIf {
 	private static Boolean isGooglePlayServicesAvailable;
 
 	private String referrer;
-
-	private UriHandlingResult uriHandlingResult;
 
 	public ActivityHelper(AbstractFragmentActivity activity) {
 		this.activity = activity;
@@ -156,39 +155,18 @@ public class ActivityHelper implements ActivityIf {
 
 		AbstractApplication.get().initExceptionHandlers();
 
-		Set<Api<? extends Api.ApiOptions.NotRequiredOptions>> googleApis = Sets.newHashSet();
-		final UriHandler uriHandler = getActivityIf().getUriHandler();
+		initGoogleApiClient();
 
-		if (isAppInviteEnabled()) {
-			googleApis.add(AppInvite.API);
-		}
-		if (!googleApis.isEmpty()) {
-			GoogleApiClient.Builder builder = new GoogleApiClient.Builder(activity);
-			for(Api<? extends Api.ApiOptions.NotRequiredOptions> api : googleApis) {
-				builder.addApi(api);
-			}
-			builder.enableAutoManage(getActivity(), getActivityIf());
-			onInitGoogleApiClientBuilder(builder);
-			googleApiClient = builder.build();
-		}
-
-		if (savedInstanceState != null) {
-			uriHandlingResult = (UriHandlingResult)savedInstanceState.getSerializable(UriHandlingResult.class.getSimpleName());
-		}
-		if (uriHandlingResult == null) {
-			uriHandlingResult = AbstractApplication.get().getUriMapper().handleUri(activity, uriHandler);
-		}
-		if (referrer == null) {
+		if (savedInstanceState == null) {
+			final UriHandler uriHandler = getActivityIf().getUriHandler();
+			final Boolean uriHandled = AbstractApplication.get().getUriMapper().handleUri(activity, uriHandler);
 			referrer = ReferrerUtils.getReferrerCategory(activity);
-		}
+			if (getActivityIf().isAppInviteEnabled() && (uriHandled || isHomeActivity())) {
+				PendingResult<AppInviteInvitationResult> pendingResult = AppInvite.AppInviteApi.getInvitation(googleApiClient, getActivity(), false);
+				pendingResult.setResultCallback(new SafeResultCallback<AppInviteInvitationResult>() {
 
-		if (savedInstanceState == null && getActivityIf().isAppInviteEnabled() && (uriHandlingResult.isHandled() || isHomeActivity())) {
-			PendingResult<AppInviteInvitationResult> pendingResult = AppInvite.AppInviteApi.getInvitation(googleApiClient, getActivity(), false);
-			pendingResult.setResultCallback(new SafeResultCallback<AppInviteInvitationResult>() {
-
-				@Override
-				public void onSafeResult(@NonNull AppInviteInvitationResult result) {
-					if (result.getStatus().isSuccess()) {
+					@Override
+					public void onSuccessResult(@NonNull AppInviteInvitationResult result) {
 						String deepLink = AppInviteReferral.getDeepLink(result.getInvitationIntent());
 						LOGGER.debug("AppInvite invitation deep link: " + deepLink);
 
@@ -197,7 +175,7 @@ public class ActivityHelper implements ActivityIf {
 
 						getActivityIf().onAppInvite(deepLink, invitationId);
 
-						if (!uriHandlingResult.isHandled() && isHomeActivity()) {
+						if (!uriHandled && isHomeActivity()) {
 							if (uriHandler != null && deepLink.equals(uriHandler.getUrl(activity))) {
 								LOGGER.debug("Skipping reopening invitation deepLink");
 							} else {
@@ -209,13 +187,18 @@ public class ActivityHelper implements ActivityIf {
 								activity.startActivity(targetIntent);
 							}
 						}
+					}
 
-					} else {
+					@Override
+					public void onFailedResult(@NonNull AppInviteInvitationResult result) {
 						LOGGER.debug("AppInvite invitation not found. Status code: " + result.getStatus().getStatusCode());
 					}
-				}
-			});
+				});
+			}
+		} else {
+			referrer = (String)savedInstanceState.getSerializable(REFERRER);
 		}
+
 
 		if (getActivityIf().onBeforeSetContentView() && getContentView() != 0) {
 			activity.setContentView(getContentView());
@@ -240,8 +223,34 @@ public class ActivityHelper implements ActivityIf {
 		return AbstractApplication.get().getHomeActivityClass().equals(getActivity().getClass());
 	}
 
+	private void initGoogleApiClient() {
+		Set<Api<? extends Api.ApiOptions.NotRequiredOptions>> googleApis = Sets.newHashSet();
+		if (getActivityIf().isAppInviteEnabled()) {
+			googleApis.add(AppInvite.API);
+		}
+		googleApis.addAll(getCustomGoogleApis());
+		if (!googleApis.isEmpty()) {
+			GoogleApiClient.Builder builder = new GoogleApiClient.Builder(activity);
+			for(Api<? extends Api.ApiOptions.NotRequiredOptions> api : googleApis) {
+				builder.addApi(api);
+			}
+			builder.enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
+				@Override
+				public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+					AbstractApplication.get().getExceptionHandler().logHandledException(connectionResult.getErrorMessage());
+				}
+			});
+			onInitGoogleApiClientBuilder(builder);
+			googleApiClient = builder.build();
+		}
+	}
+
+	protected Set<Api<? extends Api.ApiOptions.NotRequiredOptions>> getCustomGoogleApis() {
+		return Sets.newHashSet();
+	}
+
 	protected void onInitGoogleApiClientBuilder(GoogleApiClient.Builder builder) {
-		// Do Nothing
+		// Do nothing
 	}
 
 	@Override
@@ -275,7 +284,7 @@ public class ActivityHelper implements ActivityIf {
 
 	public void onSaveInstanceState(Bundle outState) {
 		LOGGER.debug("Executing onSaveInstanceState on " + activity);
-		outState.putSerializable(UriHandlingResult.class.getSimpleName(), uriHandlingResult);
+		outState.putSerializable(REFERRER, referrer);
 		dismissLoading();
 	}
 
@@ -494,7 +503,7 @@ public class ActivityHelper implements ActivityIf {
 
 		UriHandler uriHandler = getActivityIf().getUriHandler();
 		if (uriHandler != null) {
-			uriHandlingResult = AbstractApplication.get().getUriMapper().handleUri(activity, uriHandler);
+			AbstractApplication.get().getUriMapper().handleUri(activity, uriHandler);
 		}
 
 		trackNotificationOpened(intent);
@@ -625,14 +634,5 @@ public class ActivityHelper implements ActivityIf {
 	@Override
 	public Boolean isGooglePlayServicesVerificationEnabled() {
 		return false;
-	}
-
-	@Override
-	public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-		AbstractApplication.get().getExceptionHandler().logHandledException(connectionResult.getErrorMessage());
-	}
-
-	public UriHandlingResult getUriHandlingResult() {
-		return uriHandlingResult;
 	}
 }

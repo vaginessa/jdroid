@@ -19,7 +19,7 @@ public abstract class HorizontalFragmentsContainerActivity extends AbstractFragm
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		if (savedInstanceState == null) {
+		if (savedInstanceState == null && !isFinishing()) {
 
 			FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 

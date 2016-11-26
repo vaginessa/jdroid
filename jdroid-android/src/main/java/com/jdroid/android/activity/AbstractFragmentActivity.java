@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.fragment.UseCaseFragment;
@@ -314,11 +313,6 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	@Override
 	public ActivityDelegate getActivityDelegate(AppModule appModule) {
 		return activityHelper.getActivityDelegate(appModule);
-	}
-
-	@Override
-	public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-		activityHelper.onConnectionFailed(connectionResult);
 	}
 
 	// //////////////////////// Uri, Dynamic Links & App Invites //////////////////////// //

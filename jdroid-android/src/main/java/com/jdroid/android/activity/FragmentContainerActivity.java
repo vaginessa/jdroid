@@ -20,7 +20,7 @@ public abstract class FragmentContainerActivity extends AbstractFragmentActivity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		if (savedInstanceState == null && !getActivityHelper().getUriHandlingResult().isNewActivityOpened()) {
+		if (savedInstanceState == null && !isFinishing()) {
 			FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 			Fragment fragment = createNewFragment();
 			fragmentTransaction.add(getFragmentContainerId(), fragment, fragment.getClass().getSimpleName());
