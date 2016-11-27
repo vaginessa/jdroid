@@ -13,7 +13,7 @@ public class MatchSameActivity extends FragmentContainerActivity {
 	}
 
 	@Override
-	public UriHandler getUriHandler() {
+	public UriHandler createUriHandler() {
 		return new MatchSameActivityUriHandler();
 	}
 }

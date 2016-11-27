@@ -13,7 +13,7 @@ public class MatchNullIntentActivity extends FragmentContainerActivity {
 	}
 
 	@Override
-	public UriHandler getUriHandler() {
+	public UriHandler createUriHandler() {
 		return new MatchNullIntentActivityUriHandler();
 	}
 }

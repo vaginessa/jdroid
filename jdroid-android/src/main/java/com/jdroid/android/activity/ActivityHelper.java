@@ -30,6 +30,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.firebase.appindexing.Action;
 import com.google.firebase.appindexing.FirebaseUserActions;
 import com.jdroid.android.application.AbstractApplication;
@@ -158,7 +159,7 @@ public class ActivityHelper implements ActivityIf {
 		initGoogleApiClient();
 
 		if (savedInstanceState == null) {
-			final UriHandler uriHandler = getActivityIf().getUriHandler();
+			final UriHandler uriHandler = getActivityIf().createUriHandler();
 			final Boolean uriHandled = AbstractApplication.get().getUriMapper().handleUri(activity, uriHandler);
 			referrer = ReferrerUtils.getReferrerCategory(activity);
 			if (getActivityIf().isAppInviteEnabled() && (uriHandled || isHomeActivity())) {
@@ -227,6 +228,9 @@ public class ActivityHelper implements ActivityIf {
 		Set<Api<? extends Api.ApiOptions.NotRequiredOptions>> googleApis = Sets.newHashSet();
 		if (getActivityIf().isAppInviteEnabled()) {
 			googleApis.add(AppInvite.API);
+		}
+		if (getActivityIf().isLocationServicesEnabled()) {
+			googleApis.add(LocationServices.API);
 		}
 		googleApis.addAll(getCustomGoogleApis());
 		if (!googleApis.isEmpty()) {
@@ -318,7 +322,7 @@ public class ActivityHelper implements ActivityIf {
 			each.onStart();
 		}
 
-		UriHandler uriHandler = getActivityIf().getUriHandler();
+		UriHandler uriHandler = getActivityIf().createUriHandler();
 		if (uriHandler != null) {
 			if (appIndexingAction == null) {
 				appIndexingAction = uriHandler.getAppIndexingAction(activity);
@@ -501,7 +505,7 @@ public class ActivityHelper implements ActivityIf {
 		referrer = ReferrerUtils.getReferrerCategory(activity);
 
 
-		UriHandler uriHandler = getActivityIf().getUriHandler();
+		UriHandler uriHandler = getActivityIf().createUriHandler();
 		if (uriHandler != null) {
 			AbstractApplication.get().getUriMapper().handleUri(activity, uriHandler);
 		}
@@ -617,6 +621,11 @@ public class ActivityHelper implements ActivityIf {
 		return null;
 	}
 
+	@Override
+	public Boolean isLocationServicesEnabled() {
+		return false;
+	}
+
 	// //////////////////////// Others //////////////////////// //
 
 	@Override
@@ -627,12 +636,16 @@ public class ActivityHelper implements ActivityIf {
 	}
 
 	@Override
-	public UriHandler getUriHandler() {
+	public UriHandler createUriHandler() {
 		return null;
 	}
 
 	@Override
 	public Boolean isGooglePlayServicesVerificationEnabled() {
 		return false;
+	}
+
+	public GoogleApiClient getGoogleApiClient() {
+		return googleApiClient;
 	}
 }

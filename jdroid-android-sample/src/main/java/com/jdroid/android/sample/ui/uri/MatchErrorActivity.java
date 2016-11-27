@@ -13,7 +13,7 @@ public class MatchErrorActivity extends FragmentContainerActivity {
 	}
 
 	@Override
-	public UriHandler getUriHandler() {
+	public UriHandler createUriHandler() {
 		return new MatchErrorUriHandler();
 	}
 }

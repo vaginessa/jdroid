@@ -368,21 +368,21 @@ public class PermissionHelper {
 	}
 
 	private int getAppInfoDialogMessageResId() {
-		if(appInfoDialogMessageResId!=0) {
+		if(appInfoDialogMessageResId != 0) {
 			return appInfoDialogMessageResId;
 		}
 		return permissionRationaleMessageResId;
 	}
 
 	private int getAppInfoDialogTitleResId() {
-		if(appInfoDialogTitleResId!=0) {
+		if(appInfoDialogTitleResId != 0) {
 			return appInfoDialogTitleResId;
 		}
 		return getPermissionRationaleTitleResId();
 	}
 
 	private int getPermissionRationaleTitleResId() {
-		if(permissionRationaleTitleResId!=0) {
+		if(permissionRationaleTitleResId != 0) {
 			return permissionRationaleTitleResId;
 		}
 		return R.string.jdroid_requiredPermission;
@@ -390,7 +390,7 @@ public class PermissionHelper {
 
 	private void showAppInfoDialog() {
 		int appInfoDialogMessageResId = getAppInfoDialogMessageResId();
-		if(appInfoDialogMessageResId!=0) {
+		if(appInfoDialogMessageResId != 0) {
 			AppInfoDialogFragment.show(permissionDelegate.getActivity(), getAppInfoDialogTitleResId(), appInfoDialogMessageResId, permission);
 		}
 	}

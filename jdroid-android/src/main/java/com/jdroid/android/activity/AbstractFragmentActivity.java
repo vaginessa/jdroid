@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.fragment.UseCaseFragment;
@@ -222,6 +223,11 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	}
 
 	@Override
+	public Boolean isLocationServicesEnabled() {
+		return activityHelper.isLocationServicesEnabled();
+	}
+
+	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
 		activityHelper.onPostCreate(savedInstanceState);
@@ -318,8 +324,8 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	// //////////////////////// Uri, Dynamic Links & App Invites //////////////////////// //
 
 	@Override
-	public UriHandler getUriHandler() {
-		return activityHelper.getUriHandler();
+	public UriHandler createUriHandler() {
+		return activityHelper.createUriHandler();
 	}
 
 	@Override
@@ -330,5 +336,10 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	@Override
 	public void onAppInvite(String deepLink, String invitationId) {
 		activityHelper.onAppInvite(deepLink, invitationId);
+	}
+
+	@Override
+	public GoogleApiClient getGoogleApiClient() {
+		return activityHelper.getGoogleApiClient();
 	}
 }
