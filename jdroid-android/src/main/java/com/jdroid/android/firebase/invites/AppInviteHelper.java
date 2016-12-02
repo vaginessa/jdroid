@@ -8,14 +8,15 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.RandomUtils;
 
+import java.util.List;
+
 public class AppInviteHelper {
 
 	public static final int REQUEST_CODE = RandomUtils.get16BitsInt();
 
-	public static void onActivityResult(int appInviteRequestCode, int requestCode, int resultCode, Intent data) {
+	public static List<String> onActivityResult(int appInviteRequestCode, int requestCode, int resultCode, Intent data) {
 		if (requestCode == appInviteRequestCode) {
 			if (resultCode == Activity.RESULT_OK) {
-				// Check how many invitations were sent and log a message
 				// The ids array contains the unique invitation ids for each invitation sent
 				// (one for each contact select by the user). You can use these for analytics
 				// as the ID will be consistent on the sending and receiving devices.
@@ -24,15 +25,18 @@ public class AppInviteHelper {
 					for (String invitationId : ids) {
 						AbstractApplication.get().getAnalyticsSender().trackSendAppInvitation(invitationId);
 					}
-					AppInviteStats.invitesSent(Lists.newArrayList(ids));
+					List<String> invitationsIds = Lists.newArrayList(ids);
+					AppInviteStats.invitesSent(invitationsIds);
+					return invitationsIds;
 				}
 			} else if (resultCode != Activity.RESULT_CANCELED) {
 				AbstractApplication.get().getExceptionHandler().logWarningException("Error when sending app invite: " + resultCode);
 			}
 		}
+		return null;
 	}
 
-	public static void onActivityResult(int requestCode, int resultCode, Intent data) {
-		onActivityResult(REQUEST_CODE, requestCode, resultCode, data);
+	public static List<String> onActivityResult(int requestCode, int resultCode, Intent data) {
+		return onActivityResult(REQUEST_CODE, requestCode, resultCode, data);
 	}
 }

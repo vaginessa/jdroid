@@ -14,8 +14,8 @@
 	<string name="displayInterstitial">Display Interstitial</string>
 	<string name="houseAds">House Ads</string>
 
-	<!-- App Invite -->
-	<string name="appInvite">App Invite</string>
+	<!-- Firebase Invites -->
+	<string name="appInvite">Firebase Invites</string>
 
 	<!-- Date & Time -->
 	<string name="dateTime">Date &amp; Time</string>

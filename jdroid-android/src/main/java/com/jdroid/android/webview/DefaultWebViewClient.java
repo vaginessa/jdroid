@@ -30,6 +30,7 @@ public class DefaultWebViewClient extends WebViewClient {
 	public void onReceivedSslError(WebView view, @NonNull SslErrorHandler handler, SslError error) {
 		AbstractApplication.get().getExceptionHandler().logHandledException(
 					new UnexpectedException("WebView Ssl error: " + error.getPrimaryError()));
+		handler.cancel();
 	}
 	
 	public Boolean isErrorReceived() {
