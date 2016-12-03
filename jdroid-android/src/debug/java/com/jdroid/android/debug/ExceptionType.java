@@ -38,7 +38,7 @@ public enum ExceptionType {
 	},
 	UNEXPECTED_WRAPPED_EXCEPTION {
 		
-		@SuppressWarnings("null")
+		@SuppressWarnings({"null", "ConstantConditions", "ResultOfMethodCallIgnored"})
 		@Override
 		public void crash() {
 			try {
@@ -51,7 +51,7 @@ public enum ExceptionType {
 	},
 	UNEXPECTED_NO_MESSAGE_WRAPPED_EXCEPTION {
 		
-		@SuppressWarnings("null")
+		@SuppressWarnings({"null", "ConstantConditions", "ResultOfMethodCallIgnored"})
 		@Override
 		public void crash() {
 			try {

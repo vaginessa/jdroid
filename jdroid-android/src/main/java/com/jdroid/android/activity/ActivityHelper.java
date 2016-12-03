@@ -46,7 +46,7 @@ import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.uri.UriHandler;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.AppUtils;
-import com.jdroid.android.utils.ReferrerUtils;
+import com.jdroid.android.uri.ReferrerUtils;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.collections.Sets;

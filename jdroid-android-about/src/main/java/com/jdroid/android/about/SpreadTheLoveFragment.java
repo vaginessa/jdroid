@@ -25,7 +25,7 @@ import com.jdroid.android.share.SmsSharingItem;
 import com.jdroid.android.share.TelegramSharingItem;
 import com.jdroid.android.share.TwitterSharingItem;
 import com.jdroid.android.share.WhatsAppSharingItem;
-import com.jdroid.android.social.twitter.TwitterConnector;
+import com.jdroid.android.social.twitter.TwitterHelper;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
@@ -79,7 +79,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 
 				@Override
 				public void onClick(View v) {
-					TwitterConnector.openProfile(getTwitterAccount());
+					TwitterHelper.openProfile(getTwitterAccount());
 				}
 			});
 			followUsVisible = true;

@@ -11,7 +11,6 @@ import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.android.utils.DeviceUtils;
 import com.jdroid.android.utils.ScreenUtils;
-import com.jdroid.android.utils.SharedPreferencesHelper;
 
 import java.util.List;
 import java.util.Map;
@@ -49,17 +48,14 @@ public class FirebaseAnalyticsTracker extends AbstractFirebaseAnalyticsTracker i
 
 	@Override
 	public void onActivityStart(Class<? extends Activity> activityClass, String referrer, Object data) {
-		if (firstTrackingSent) {
+		if (!firstTrackingSent) {
 			getFirebaseAnalyticsHelper().setUserProperty(DEVICE_YEAR_CLASS_USER_PROPERTY, DeviceUtils.getDeviceYearClass().toString());
 			getFirebaseAnalyticsHelper().setUserProperty(SCREEN_WIDTH, ScreenUtils.getScreenWidthDp().toString());
 			getFirebaseAnalyticsHelper().setUserProperty(SCREEN_HEIGHT, ScreenUtils.getScreenHeightDp().toString());
 			getFirebaseAnalyticsHelper().setUserProperty(SCREEN_DENSITY, ScreenUtils.getScreenDensity());
 			getFirebaseAnalyticsHelper().setUserProperty(SCREEN_DENSITY_DPI, ScreenUtils.getDensityDpi().toString());
-
-			String installationSource = SharedPreferencesHelper.get().loadPreference(AbstractApplication.INSTALLATION_SOURCE);
-			if (installationSource != null) {
-				getFirebaseAnalyticsHelper().setUserProperty(INSTALLATION_SOURCE_USER_PROPERTY, installationSource);
-			}
+			getFirebaseAnalyticsHelper().setUserProperty(INSTALLATION_SOURCE_USER_PROPERTY, AbstractApplication.get().getInstallationSource());
+			firstTrackingSent = true;
 		}
 	}
 

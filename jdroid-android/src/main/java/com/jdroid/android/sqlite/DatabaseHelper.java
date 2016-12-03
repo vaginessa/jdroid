@@ -1,11 +1,13 @@
 package com.jdroid.android.sqlite;
 
-import java.util.Set;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.collections.Sets;
+
+import java.util.Set;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 	
@@ -34,9 +36,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		dropSQLs.add(sql);
 	}
 	
-	/**
-	 * @see android.database.sqlite.SQLiteOpenHelper#onCreate(android.database.sqlite.SQLiteDatabase)
-	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		for (String createSQL : createSQLs) {
@@ -44,9 +43,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		}
 	}
 	
-	/**
-	 * @see android.database.sqlite.SQLiteOpenHelper#onUpgrade(android.database.sqlite.SQLiteDatabase, int, int)
-	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		Log.w(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion

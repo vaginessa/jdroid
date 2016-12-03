@@ -198,7 +198,7 @@ public class BezelImageView extends ImageView {
     }
 
     @Override
-    protected boolean verifyDrawable(Drawable who) {
+    protected boolean verifyDrawable(@NonNull Drawable who) {
         return who == mBorderDrawable || who == mMaskDrawable || super.verifyDrawable(who);
     }
 }

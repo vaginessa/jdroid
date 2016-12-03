@@ -258,17 +258,17 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	
 	@Override
 	public <E> E getExtra(String key) {
-		return fragmentHelper.<E>getExtra(key);
+		return fragmentHelper.getExtra(key);
 	}
 	
 	@Override
 	public <E> E getArgument(String key) {
-		return fragmentHelper.<E>getArgument(key);
+		return fragmentHelper.getArgument(key);
 	}
 	
 	@Override
 	public <E> E getArgument(String key, E defaultValue) {
-		return fragmentHelper.<E>getArgument(key, defaultValue);
+		return fragmentHelper.getArgument(key, defaultValue);
 	}
 	
 	@Override

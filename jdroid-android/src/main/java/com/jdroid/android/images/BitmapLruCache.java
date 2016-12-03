@@ -9,9 +9,6 @@ public class BitmapLruCache extends LruCache<String, Bitmap> {
 		super(maxSizeBytes);
 	}
 	
-	/**
-	 * @see android.support.v4.util.LruCache#sizeOf(java.lang.Object, java.lang.Object)
-	 */
 	@Override
 	protected int sizeOf(String key, Bitmap value) {
 		return value.getRowBytes() * value.getHeight();

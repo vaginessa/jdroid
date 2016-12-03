@@ -8,14 +8,13 @@ import android.net.Uri;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.intent.IntentUtils;
 import com.jdroid.android.utils.AppUtils;
-import com.jdroid.android.utils.ReferrerUtils;
 import com.jdroid.java.utils.RandomUtils;
 import com.jdroid.java.utils.StringUtils;
 
 public class UriUtils {
 
 	private static final String ORIGINAL_URI = "originalUri";
-	private static String RANDOM_PARAMETER = "rnd";
+	private static final String RANDOM_PARAMETER = "rnd";
 
 	public static Intent createIntent(Context context, String url, String referrer) {
 		Intent intent;

@@ -1,22 +1,23 @@
 package com.jdroid.android;
 
-import java.io.Serializable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
+import java.io.Serializable;
+
 public interface ActionItem extends Serializable {
 	
-	public String getName();
+	String getName();
 	
-	public Integer getIconResource();
+	Integer getIconResource();
 	
-	public Integer getNameResource();
+	Integer getNameResource();
 	
-	public Integer getDescriptionResource();
+	Integer getDescriptionResource();
 	
-	public Fragment createFragment(Object args);
+	Fragment createFragment(Object args);
 	
-	public void startActivity(FragmentActivity fragmentActivity);
+	void startActivity(FragmentActivity fragmentActivity);
 	
-	public Boolean matchesActivity(FragmentActivity fragmentActivity);
+	Boolean matchesActivity(FragmentActivity fragmentActivity);
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
 	<!--Enable Activity tracking -->
-	<bool name="ga_autoActivityTracking">true</bool>
+	<bool name="ga_autoActivityTracking" tools:ignore="ResourceName">true</bool>
 
 	<!--Enable automatic exception tracking -->
-	<bool name="ga_reportUncaughtExceptions">false</bool>
+	<bool name="ga_reportUncaughtExceptions" tools:ignore="ResourceName">false</bool>
 </resources>

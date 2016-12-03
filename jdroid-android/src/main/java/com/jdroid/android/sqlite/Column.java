@@ -24,11 +24,6 @@ public interface Column {
 	public final String DTYPE = "dtype";
 
 	/**
-	 * Default syncStatus column name.
-	 */
-	public final String SYNC_STATUS = "syncStatus";
-
-	/**
 	 * Default value column name.
 	 */
 	public final String VALUE = "value";

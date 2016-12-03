@@ -63,7 +63,7 @@ public abstract class AbstractApplication extends Application {
 	 */
 	protected static Logger LOGGER;
 	
-	public static final String INSTALLATION_SOURCE = "installationSource";
+	private static final String INSTALLATION_SOURCE = "installationSource";
 	private static final String VERSION_CODE_KEY = "versionCodeKey";
 	
 	protected static AbstractApplication INSTANCE;

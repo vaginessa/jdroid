@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
 
@@ -72,10 +71,6 @@ public class DeviceUtils {
 
 	public static Boolean isEmulator() {
 		return "google_sdk".equals(Build.PRODUCT);
-	}
-
-	public static String getAndroidId() {
-		return Settings.Secure.getString(AbstractApplication.get().getContentResolver(), Settings.Secure.ANDROID_ID);
 	}
 
 	public static String getNetworkOperatorName() {

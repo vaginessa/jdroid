@@ -1,4 +1,4 @@
-package com.jdroid.android.utils;
+package com.jdroid.android.uri;
 
 import android.app.Activity;
 import android.content.Intent;

@@ -1,5 +1,6 @@
 package com.jdroid.android.concurrent;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Build;
 import android.support.v4.app.Fragment;
@@ -28,6 +29,7 @@ public class SafeExecuteWrapperRunnable implements Runnable {
 		}
 	}
 
+	@SuppressLint("NewApi")
 	private Boolean isActivityDestroyed(Activity activity) {
 		return AndroidUtils.getApiLevel() >= Build.VERSION_CODES.JELLY_BEAN_MR1 && activity.isDestroyed();
 	}

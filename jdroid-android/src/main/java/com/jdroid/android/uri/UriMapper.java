@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.utils.ReferrerUtils;
 import com.jdroid.java.annotation.Internal;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.UnexpectedException;

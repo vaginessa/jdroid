@@ -117,7 +117,7 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	
 	@Override
 	public <E> E getExtra(String key) {
-		return getFragmentIf().<E>getExtra(key);
+		return getFragmentIf().getExtra(key);
 	}
 	
 	@Override
@@ -191,7 +191,7 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	@NonNull
 	@Override
 	public String getScreenViewName() {
-		return null;
+		return AbstractPreferenceFragment.class.getSimpleName();
 	}
 	
 	// //////////////////////// Loading //////////////////////// //

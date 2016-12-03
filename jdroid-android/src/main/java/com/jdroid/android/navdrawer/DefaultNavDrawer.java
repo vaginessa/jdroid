@@ -1,5 +1,6 @@
 package com.jdroid.android.navdrawer;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -27,7 +28,7 @@ public abstract class DefaultNavDrawer extends NavDrawer {
 		navigationView.setNavigationItemSelectedListener(
 				new NavigationView.OnNavigationItemSelectedListener() {
 					@Override
-					public boolean onNavigationItemSelected(MenuItem menuItem) {
+					public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 						DefaultNavDrawer.this.onNavigationItemSelected(menuItem);
 						menuItem.setChecked(true);
 						getDrawerLayout().closeDrawers();

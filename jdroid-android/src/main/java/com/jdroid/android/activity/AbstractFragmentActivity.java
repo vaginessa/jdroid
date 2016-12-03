@@ -142,7 +142,7 @@ public abstract class AbstractFragmentActivity extends AppCompatActivity impleme
 	
 	@Override
 	public <E> E getExtra(String key) {
-		return activityHelper.<E>getExtra(key);
+		return activityHelper.getExtra(key);
 	}
 	
 	public void loadUseCaseFragment(Bundle savedInstanceState, Class<? extends UseCaseFragment<?>> useCaseFragmentClass) {

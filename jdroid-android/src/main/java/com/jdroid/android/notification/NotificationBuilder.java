@@ -22,7 +22,7 @@ import com.jdroid.android.images.BitmapUtils;
 import com.jdroid.android.uri.UriUtils;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.LocalizationUtils;
-import com.jdroid.android.utils.ReferrerUtils;
+import com.jdroid.android.uri.ReferrerUtils;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.RandomUtils;
 import com.jdroid.java.utils.StringUtils;
