@@ -17,6 +17,7 @@ import com.jdroid.android.sample.ui.firebase.database.FirebaseDatabaseActivity;
 import com.jdroid.android.sample.ui.firebase.dynamiclinks.DynamicLinksActivity;
 import com.jdroid.android.sample.ui.firebase.fcm.FcmActivity;
 import com.jdroid.android.sample.ui.google.admob.AdsActivity;
+import com.jdroid.android.sample.ui.google.geofences.GeofencesActivity;
 import com.jdroid.android.sample.ui.google.maps.GoogleMapsActivity;
 import com.jdroid.android.sample.ui.google.playservices.GooglePlayServicesActivity;
 import com.jdroid.android.sample.ui.google.signin.GoogleSignInActivity;
@@ -51,6 +52,7 @@ public enum HomeItem implements ActionItem {
 	FIREBASE_FCM(R.string.fcm, R.drawable.ic_fcm, FcmActivity.class),
 	FIREBASE_INVITES(R.string.appInvite, R.drawable.ic_admob, AppInviteActivity.class),
 	GOOGLE_ADMOB(R.string.adMob, R.drawable.ic_admob, AdsActivity.class),
+	GOOGLE_GEOFENCES(R.string.geofences, R.drawable.ic_maps, GeofencesActivity.class),
 	GOOGLE_MAPS(R.string.googleMaps, R.drawable.ic_maps, GoogleMapsActivity.class),
 	GOOGLE_PLAY_SERVICES(R.string.googlePlayServices, R.drawable.ic_fcm, GooglePlayServicesActivity.class),
 	GOOGLE_SIGN_IN(R.string.jdroid_googleSignIn, R.drawable.ic_sign_in_24dp, GoogleSignInActivity.class),

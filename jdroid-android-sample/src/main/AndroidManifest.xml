@@ -118,6 +118,11 @@
 		<activity android:name="com.jdroid.android.sample.ui.facebook.FacebookSignInActivity" android:label="@string/jdroid_facebook"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<!-- Google GeoFences -->
+
+		<activity android:name="com.jdroid.android.sample.ui.google.geofences.GeofencesActivity" android:label="@string/geofences"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
 		<!-- Google Sign In -->
 
 		<activity android:name="com.jdroid.android.sample.ui.google.signin.GoogleSignInActivity" android:label="@string/jdroid_googleSignIn"

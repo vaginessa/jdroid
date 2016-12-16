@@ -104,6 +104,13 @@
 	<string name="checkGooglePlayServices">Check Google Play Services</string>
 	<string name="openGooglePlayServices">Open Google Play Services</string>
 
+	<!-- Google Geofences -->
+	<string name="geofences">Geofences</string>
+	<string name="geofenceRadius">Geofence Radius (meters)</string>
+	<string name="geofenceExpiration">Geofence Expiration (milliseconds)</string>
+	<string name="addGeofence">Add Geofence</string>
+	<string name="removeGeofence">Remove Geofence</string>
+
 	<!-- Http -->
 	<string name="http">Http</string>
 	<string name="httpGet">GET</string>
