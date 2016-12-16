@@ -28,6 +28,8 @@ public interface UriHandler {
 
 	public Intent createDefaultIntent(Context context, Uri uri);
 
+	public void logUriNotMatch(Uri uri);
+
 	public Boolean isAppIndexingEnabled(Activity activity);
 
 	public Action getAppIndexingAction(Activity activity);

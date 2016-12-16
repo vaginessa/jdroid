@@ -28,7 +28,7 @@ public class UriMapper {
 	private List<UriWatcher> uriWatchers = Lists.newArrayList();
 
 	@Internal
-	public Boolean handleUri(@NonNull Activity activity, @Nullable UriHandler uriHandler) {
+	public Boolean handleUri(@NonNull Activity activity, @Nullable UriHandler uriHandler, Boolean onActivityCreation) {
 		Uri uri = UriUtils.getUri(activity);
 		if (uri != null && !uri.getScheme().equals("notification")) {
 			notifyToUriWatchers(uri);
@@ -42,15 +42,15 @@ public class UriMapper {
 					if (uriHandler.matches(uri)) {
 						LOGGER.debug(uriHandler.getClass().getSimpleName() + " matches the main intent: " + uri.toString());
 						Intent intent = uriHandler.createMainIntent(activity, uri);
-						handleIntent(intent, activity, uri, referrerCategory);
+						handleIntent(intent, activity, uri, referrerCategory, onActivityCreation);
 					} else {
-						AbstractApplication.get().getExceptionHandler().logWarningException(uriHandler.getClass().getSimpleName() + " matches the default intent: " + uri.toString());
-						handleDefaultIntent(activity, uriHandler, uri, referrerCategory);
+						uriHandler.logUriNotMatch(uri);
+						handleDefaultIntent(activity, uriHandler, uri, referrerCategory, onActivityCreation);
 					}
 				} catch (Exception e) {
 					AbstractApplication.get().getExceptionHandler().logHandledException(new UnexpectedException("Error matching: " + uri.toString(), e));
 					try {
-						handleDefaultIntent(activity, uriHandler, uri, referrerCategory);
+						handleDefaultIntent(activity, uriHandler, uri, referrerCategory, onActivityCreation);
 					} catch (Exception e2) {
 						Intent homeIntent = new Intent(activity, AbstractApplication.get().getHomeActivityClass());
 						activity.finish();
@@ -65,7 +65,7 @@ public class UriMapper {
 		return false;
 	}
 
-	private void handleIntent(Intent intent, Activity activity, Uri uri, String referrerCategory) {
+	private void handleIntent(Intent intent, Activity activity, Uri uri, String referrerCategory, Boolean onActivityCreation) {
 		if (intent != null) {
 			ReferrerUtils.setReferrer(intent, referrerCategory);
 			String className = intent.getComponent().getShortClassName();
@@ -78,7 +78,9 @@ public class UriMapper {
 				intent.setData(uri);
 				activity.setIntent(intent);
 			} else {
-				activity.finish();
+				if (onActivityCreation) {
+					activity.finish();
+				}
 				activity.startActivity(intent);
 			}
 		} else {
@@ -86,9 +88,9 @@ public class UriMapper {
 		}
 	}
 
-	private void handleDefaultIntent(Activity activity, UriHandler uriHandler, Uri uri, String referrerCategory) {
+	private void handleDefaultIntent(Activity activity, UriHandler uriHandler, Uri uri, String referrerCategory, Boolean onActivityCreation) {
 		Intent intent = uriHandler.createDefaultIntent(activity, uri);
-		handleIntent(intent, activity, uri, referrerCategory);
+		handleIntent(intent, activity, uri, referrerCategory, onActivityCreation);
 	}
 
 	private void notifyToUriWatchers(final Uri uri) {

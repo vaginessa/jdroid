@@ -3,7 +3,6 @@ package com.jdroid.android.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -43,10 +42,10 @@ import com.jdroid.android.loading.DefaultBlockingLoading;
 import com.jdroid.android.location.LocationHelper;
 import com.jdroid.android.navdrawer.NavDrawer;
 import com.jdroid.android.notification.NotificationBuilder;
+import com.jdroid.android.uri.ReferrerUtils;
 import com.jdroid.android.uri.UriHandler;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.AppUtils;
-import com.jdroid.android.uri.ReferrerUtils;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.collections.Sets;
@@ -73,8 +72,6 @@ public class ActivityHelper implements ActivityIf {
 	private ActivityLoading loading;
 	
 	private NavDrawer navDrawer;
-
-	private Dialog googlePlayServicesErrorDialog;
 
 	private Map<AppModule, ActivityDelegate> activityDelegatesMap;
 
@@ -137,6 +134,8 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.debug("Executing onCreate on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 
+		verifyGooglePlayServicesAvailability();
+
 		activityDelegatesMap = Maps.newHashMap();
 		for (AppModule appModule : AbstractApplication.get().getAppModules()) {
 			ActivityDelegate activityDelegate = getActivityIf().createActivityDelegate(appModule);
@@ -160,9 +159,9 @@ public class ActivityHelper implements ActivityIf {
 
 		if (savedInstanceState == null) {
 			final UriHandler uriHandler = getActivityIf().createUriHandler();
-			final Boolean uriHandled = AbstractApplication.get().getUriMapper().handleUri(activity, uriHandler);
+			final Boolean uriHandled = AbstractApplication.get().getUriMapper().handleUri(activity, uriHandler, true);
 			referrer = ReferrerUtils.getReferrerCategory(activity);
-			if (getActivityIf().isAppInviteEnabled() && (uriHandled || isHomeActivity())) {
+			if (googleApiClient != null && getActivityIf().isAppInviteEnabled() && (uriHandled || isHomeActivity())) {
 				PendingResult<AppInviteInvitationResult> pendingResult = AppInvite.AppInviteApi.getInvitation(googleApiClient, getActivity(), false);
 				pendingResult.setResultCallback(new SafeResultCallback<AppInviteInvitationResult>() {
 
@@ -225,27 +224,29 @@ public class ActivityHelper implements ActivityIf {
 	}
 
 	private void initGoogleApiClient() {
-		Set<Api<? extends Api.ApiOptions.NotRequiredOptions>> googleApis = Sets.newHashSet();
-		if (getActivityIf().isAppInviteEnabled()) {
-			googleApis.add(AppInvite.API);
-		}
-		if (getActivityIf().isLocationServicesEnabled()) {
-			googleApis.add(LocationServices.API);
-		}
-		googleApis.addAll(getCustomGoogleApis());
-		if (!googleApis.isEmpty()) {
-			GoogleApiClient.Builder builder = new GoogleApiClient.Builder(activity);
-			for(Api<? extends Api.ApiOptions.NotRequiredOptions> api : googleApis) {
-				builder.addApi(api);
+		if (isGooglePlayServicesAvailable) {
+			Set<Api<? extends Api.ApiOptions.NotRequiredOptions>> googleApis = Sets.newHashSet();
+			if (getActivityIf().isAppInviteEnabled()) {
+				googleApis.add(AppInvite.API);
 			}
-			builder.enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
-				@Override
-				public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-					AbstractApplication.get().getExceptionHandler().logHandledException(connectionResult.getErrorMessage());
+			if (getActivityIf().isLocationServicesEnabled()) {
+				googleApis.add(LocationServices.API);
+			}
+			googleApis.addAll(getCustomGoogleApis());
+			if (!googleApis.isEmpty()) {
+				GoogleApiClient.Builder builder = new GoogleApiClient.Builder(activity);
+				for(Api<? extends Api.ApiOptions.NotRequiredOptions> api : googleApis) {
+					builder.addApi(api);
 				}
-			});
-			onInitGoogleApiClientBuilder(builder);
-			googleApiClient = builder.build();
+				builder.enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
+					@Override
+					public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+						AbstractApplication.get().getExceptionHandler().logHandledException(connectionResult.getErrorMessage());
+					}
+				});
+				onInitGoogleApiClientBuilder(builder);
+				googleApiClient = builder.build();
+			}
 		}
 	}
 
@@ -323,7 +324,7 @@ public class ActivityHelper implements ActivityIf {
 		}
 
 		UriHandler uriHandler = getActivityIf().createUriHandler();
-		if (uriHandler != null) {
+		if (uriHandler != null && isGooglePlayServicesAvailable) {
 			if (appIndexingAction == null) {
 				appIndexingAction = uriHandler.getAppIndexingAction(activity);
 			}
@@ -343,20 +344,7 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.debug("Executing onResume on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 
-		if (getActivityIf().isGooglePlayServicesVerificationEnabled()) {
-			if (googlePlayServicesErrorDialog != null) {
-				googlePlayServicesErrorDialog.dismiss();
-			}
-			Boolean oldIsGooglePlayServicesAvailable = isGooglePlayServicesAvailable;
-			GooglePlayServicesUtils.GooglePlayServicesResponse googlePlayServicesResponse = GooglePlayServicesUtils.verifyGooglePlayServices(activity);
-			googlePlayServicesErrorDialog = googlePlayServicesResponse.getDialog();
-			isGooglePlayServicesAvailable = googlePlayServicesResponse.isAvailable();
-			if (oldIsGooglePlayServicesAvailable != null && !oldIsGooglePlayServicesAvailable && isGooglePlayServicesAvailable) {
-				for (AppModule appModule : AbstractApplication.get().getAppModules()) {
-					appModule.onGooglePlayServicesUpdated();
-				}
-			}
-		}
+		verifyGooglePlayServicesAvailability(getActivityIf().isGooglePlayServicesVerificationEnabled());
 
 		for (ActivityDelegate each : activityDelegatesMap.values()) {
 			each.onResume();
@@ -364,6 +352,22 @@ public class ActivityHelper implements ActivityIf {
 
 		if (navDrawer != null) {
 			navDrawer.onResume();
+		}
+	}
+
+	private void verifyGooglePlayServicesAvailability() {
+		verifyGooglePlayServicesAvailability(false);
+	}
+
+	private void verifyGooglePlayServicesAvailability(Boolean displayDialog) {
+		Boolean oldIsGooglePlayServicesAvailable = isGooglePlayServicesAvailable;
+		// TODO Ver si puedo hacer que solo se muestre una vez el dialogo
+		isGooglePlayServicesAvailable = displayDialog ? GooglePlayServicesUtils.verifyGooglePlayServices(activity).isAvailable() : GooglePlayServicesUtils.isGooglePlayServicesAvailable(activity);
+		if (oldIsGooglePlayServicesAvailable != null && !oldIsGooglePlayServicesAvailable && isGooglePlayServicesAvailable) {
+			LOGGER.info("Google Play Services updated");
+			for (AppModule appModule : AbstractApplication.get().getAppModules()) {
+				appModule.onGooglePlayServicesUpdated();
+			}
 		}
 	}
 
@@ -383,7 +387,7 @@ public class ActivityHelper implements ActivityIf {
 	}
 
 	public void onBeforeStop() {
-		if (appIndexingAction != null) {
+		if (appIndexingAction != null && isGooglePlayServicesAvailable) {
 			FirebaseUserActions.getInstance().end(appIndexingAction);
 		}
 	}
@@ -507,7 +511,7 @@ public class ActivityHelper implements ActivityIf {
 
 		UriHandler uriHandler = getActivityIf().createUriHandler();
 		if (uriHandler != null) {
-			AbstractApplication.get().getUriMapper().handleUri(activity, uriHandler);
+			AbstractApplication.get().getUriMapper().handleUri(activity, uriHandler, false);
 		}
 
 		trackNotificationOpened(intent);
@@ -645,6 +649,7 @@ public class ActivityHelper implements ActivityIf {
 		return false;
 	}
 
+	@Nullable
 	public GoogleApiClient getGoogleApiClient() {
 		return googleApiClient;
 	}

@@ -21,6 +21,11 @@ public abstract class AbstractUriHandler implements UriHandler {
 	}
 
 	@Override
+	public void logUriNotMatch(Uri uri) {
+		AbstractApplication.get().getExceptionHandler().logWarningException(getClass().getSimpleName() + " matches the default intent: " + uri.toString());
+	}
+
+	@Override
 	public Intent createMainIntent(Context context, Uri uri) {
 		return null;
 	}

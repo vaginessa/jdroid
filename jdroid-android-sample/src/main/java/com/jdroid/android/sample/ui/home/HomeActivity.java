@@ -5,9 +5,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.FragmentContainerActivity;
-import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigHelper;
 import com.jdroid.android.navdrawer.NavDrawer;
-import com.jdroid.android.sample.firebase.remoteconfig.AndroidRemoteConfigParameter;
 import com.jdroid.android.uri.UriHandler;
 
 public class HomeActivity extends FragmentContainerActivity {
@@ -27,10 +25,5 @@ public class HomeActivity extends FragmentContainerActivity {
 	@Override
 	public UriHandler createUriHandler() {
 		return new HomeUriHandler();
-	}
-
-	@Override
-	public Boolean isGooglePlayServicesVerificationEnabled() {
-		return true;
 	}
 }
