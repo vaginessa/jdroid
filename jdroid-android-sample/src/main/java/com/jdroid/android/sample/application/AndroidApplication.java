@@ -147,7 +147,7 @@ public class AndroidApplication extends AbstractApplication {
 		appModulesMap.put(AbstractFcmAppModule.MODULE_NAME, new AndroidFcmAppModule());
 		appModulesMap.put(FirebaseRemoteConfigAppModule.MODULE_NAME, new FirebaseRemoteConfigAppModule());
 		appModulesMap.put(AboutAppModule.MODULE_NAME, new AndroidAboutAppModule());
-		appModulesMap.put(TwitterAppModule.MODULE_NAME, new TwitterAppModule(BuildConfig.TWITTER_OAUTH_CONSUMER_KEY, BuildConfig.TWITTER_OAUTH_CONSUMER_SECRET));
+		appModulesMap.put(TwitterAppModule.MODULE_NAME, new TwitterAppModule());
 	}
 
 	@Override
