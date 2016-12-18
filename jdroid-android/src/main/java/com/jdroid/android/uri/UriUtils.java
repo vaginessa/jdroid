@@ -53,13 +53,17 @@ public class UriUtils {
 	}
 
 
-	public static Uri getUri(Activity activity) {
-		Uri uri = activity.getIntent().getData();
+	public static Uri getUri(Intent intent) {
+		Uri uri = intent.getData();
 		if (uri != null) {
-			if (activity.getIntent().hasExtra(ORIGINAL_URI)) {
-				uri = Uri.parse(activity.getIntent().getStringExtra(ORIGINAL_URI));
+			if (intent.hasExtra(ORIGINAL_URI)) {
+				uri = Uri.parse(intent.getStringExtra(ORIGINAL_URI));
 			}
 		}
 		return uri;
+	}
+
+	public static Uri getUri(Activity activity) {
+		return getUri(activity.getIntent());
 	}
 }

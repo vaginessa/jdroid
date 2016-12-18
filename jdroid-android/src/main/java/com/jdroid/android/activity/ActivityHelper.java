@@ -159,7 +159,7 @@ public class ActivityHelper implements ActivityIf {
 
 		if (savedInstanceState == null) {
 			final UriHandler uriHandler = getActivityIf().createUriHandler();
-			final Boolean uriHandled = AbstractApplication.get().getUriMapper().handleUri(activity, uriHandler, true);
+			final Boolean uriHandled = AbstractApplication.get().getUriMapper().handleUri(activity, activity.getIntent(), uriHandler, true);
 			referrer = ReferrerUtils.getReferrerCategory(activity);
 			if (googleApiClient != null && getActivityIf().isAppInviteEnabled() && (uriHandled || isHomeActivity())) {
 				PendingResult<AppInviteInvitationResult> pendingResult = AppInvite.AppInviteApi.getInvitation(googleApiClient, getActivity(), false);
@@ -505,14 +505,17 @@ public class ActivityHelper implements ActivityIf {
 	public void onNewIntent(Intent intent) {
 		LOGGER.debug("Executing onNewIntent on " + activity);
 
-		activity.setIntent(intent);
-		referrer = ReferrerUtils.getReferrerCategory(activity);
-
-
 		UriHandler uriHandler = getActivityIf().createUriHandler();
 		if (uriHandler != null) {
-			AbstractApplication.get().getUriMapper().handleUri(activity, uriHandler, false);
+			Boolean uriHandled = AbstractApplication.get().getUriMapper().handleUri(activity, intent, uriHandler, false);
+			if (!uriHandled) {
+				activity.setIntent(intent);
+			}
+		} else {
+			activity.setIntent(intent);
 		}
+
+		referrer = ReferrerUtils.getReferrerCategory(activity);
 
 		trackNotificationOpened(intent);
 	}

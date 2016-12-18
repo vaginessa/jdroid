@@ -28,21 +28,21 @@ public class UriMapper {
 	private List<UriWatcher> uriWatchers = Lists.newArrayList();
 
 	@Internal
-	public Boolean handleUri(@NonNull Activity activity, @Nullable UriHandler uriHandler, Boolean onActivityCreation) {
-		Uri uri = UriUtils.getUri(activity);
+	public Boolean handleUri(@NonNull Activity activity, Intent intent, @Nullable UriHandler uriHandler, Boolean onActivityCreation) {
+		Uri uri = UriUtils.getUri(intent);
 		if (uri != null && !uri.getScheme().equals("notification")) {
 			notifyToUriWatchers(uri);
 			if (uriHandler != null) {
 				String referrerCategory = ReferrerUtils.getReferrerCategory(activity);
 				if (referrerCategory == null) {
 					referrerCategory = HTTP_UNDEFINED;
-					ReferrerUtils.setReferrer(activity.getIntent(), referrerCategory);
+					ReferrerUtils.setReferrer(intent, referrerCategory);
 				}
 				try {
 					if (uriHandler.matches(uri)) {
 						LOGGER.debug(uriHandler.getClass().getSimpleName() + " matches the main intent: " + uri.toString());
-						Intent intent = uriHandler.createMainIntent(activity, uri);
-						handleIntent(intent, activity, uri, referrerCategory, onActivityCreation);
+						Intent mainIntent = uriHandler.createMainIntent(activity, uri);
+						handleIntent(mainIntent, activity, uri, referrerCategory, onActivityCreation);
 					} else {
 						uriHandler.logUriNotMatch(uri);
 						handleDefaultIntent(activity, uriHandler, uri, referrerCategory, onActivityCreation);
