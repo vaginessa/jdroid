@@ -80,6 +80,7 @@ public class ActivityHelper implements ActivityIf {
 
 	private static Boolean firstAppLoad;
 	private static Boolean isGooglePlayServicesAvailable;
+	private static Boolean isGooglePlayServicesDialogDisplayed = false;
 
 	private String referrer;
 
@@ -361,8 +362,10 @@ public class ActivityHelper implements ActivityIf {
 
 	private void verifyGooglePlayServicesAvailability(Boolean displayDialog) {
 		Boolean oldIsGooglePlayServicesAvailable = isGooglePlayServicesAvailable;
-		// TODO Ver si puedo hacer que solo se muestre una vez el dialogo
-		isGooglePlayServicesAvailable = displayDialog ? GooglePlayServicesUtils.verifyGooglePlayServices(activity).isAvailable() : GooglePlayServicesUtils.isGooglePlayServicesAvailable(activity);
+		isGooglePlayServicesAvailable = displayDialog && !isGooglePlayServicesDialogDisplayed ? GooglePlayServicesUtils.verifyGooglePlayServices(activity).isAvailable() : GooglePlayServicesUtils.isGooglePlayServicesAvailable(activity);
+		if (!isGooglePlayServicesAvailable && displayDialog) {
+			isGooglePlayServicesDialogDisplayed = true;
+		}
 		if (oldIsGooglePlayServicesAvailable != null && !oldIsGooglePlayServicesAvailable && isGooglePlayServicesAvailable) {
 			LOGGER.info("Google Play Services updated");
 			for (AppModule appModule : AbstractApplication.get().getAppModules()) {
