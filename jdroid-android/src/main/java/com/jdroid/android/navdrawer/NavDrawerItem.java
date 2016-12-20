@@ -1,6 +1,6 @@
 package com.jdroid.android.navdrawer;
 
-import android.support.v4.app.FragmentActivity;
+import android.app.Activity;
 
 public interface NavDrawerItem {
 
@@ -8,8 +8,8 @@ public interface NavDrawerItem {
 
 	public void startActivity();
 
-	public Boolean matchesActivity(FragmentActivity fragmentActivity);
+	public Boolean matchesActivity(Activity activity);
 
-	public Class<? extends FragmentActivity> getActivityClass();
+	public Class<? extends Activity> getActivityClass();
 
 }

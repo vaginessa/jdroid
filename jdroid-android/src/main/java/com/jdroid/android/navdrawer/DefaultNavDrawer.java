@@ -17,9 +17,12 @@ import java.util.List;
 public abstract class DefaultNavDrawer extends NavDrawer {
 
 	private NavigationView navigationView;
+	private List<NavDrawerItem> navDrawerItems;
 
 	public DefaultNavDrawer(AbstractFragmentActivity activity, Toolbar appBar) {
 		super(activity, appBar);
+
+		navDrawerItems = createNavDrawerItems();
 	}
 
 	@Override
@@ -55,7 +58,7 @@ public abstract class DefaultNavDrawer extends NavDrawer {
 		for (int i = 0; i < navigationView.getMenu().size(); i++) {
 			MenuItem menuItem = navigationView.getMenu().getItem(i);
 			NavDrawerItem navDrawerItem = findNavDrawerByMenu(menuItem);
-			if (AbstractApplication.get().getCurrentActivity().getClass().equals(navDrawerItem.getActivityClass())) {
+			if (navDrawerItem.matchesActivity(AbstractApplication.get().getCurrentActivity())) {
 				menuItem.setChecked(true);
 				break;
 			}
@@ -63,7 +66,7 @@ public abstract class DefaultNavDrawer extends NavDrawer {
 	}
 
 	private NavDrawerItem findNavDrawerByMenu(MenuItem menuItem) {
-		for (NavDrawerItem each: getNavDrawerItems()) {
+		for (NavDrawerItem each: navDrawerItems) {
 			if (each.getItemId().equals(menuItem.getItemId())) {
 				return each;
 			}
@@ -71,7 +74,7 @@ public abstract class DefaultNavDrawer extends NavDrawer {
 		return null;
 	}
 
-	protected abstract List<NavDrawerItem> getNavDrawerItems();
+	protected abstract List<NavDrawerItem> createNavDrawerItems();
 
 	protected void initNavDrawerHeader(NavDrawerHeader navDrawerHeader) {
 		User user = SecurityContext.get().getUser();

@@ -3,16 +3,19 @@ package com.jdroid.android.sample.ui;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 
+import com.jdroid.android.about.AboutActivity;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.firebase.invites.AppInviteHelper;
+import com.jdroid.android.firebase.invites.AppInviteSender;
+import com.jdroid.android.navdrawer.AbstractNavDrawerItem;
 import com.jdroid.android.navdrawer.DefaultNavDrawer;
 import com.jdroid.android.navdrawer.NavDrawer;
 import com.jdroid.android.navdrawer.NavDrawerHeader;
 import com.jdroid.android.navdrawer.NavDrawerItem;
 import com.jdroid.android.sample.R;
+import com.jdroid.android.sample.ui.home.HomeActivity;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.android.sample.ui.navdrawer.AndroidNavDrawerItem;
 
 import java.util.List;
 
@@ -32,8 +35,17 @@ public class AndroidActivityHelper extends ActivityHelper {
 		return new DefaultNavDrawer(activity, appBar) {
 
 			@Override
-			public List<NavDrawerItem> getNavDrawerItems() {
-				return Lists.<NavDrawerItem>newArrayList(AndroidNavDrawerItem.values());
+			protected List<NavDrawerItem> createNavDrawerItems() {
+				List<NavDrawerItem> navDrawerItems = Lists.newArrayList();
+				navDrawerItems.add(new AbstractNavDrawerItem(R.id.home, HomeActivity.class));
+				navDrawerItems.add(new AbstractNavDrawerItem(R.id.about, AboutActivity.class));
+				navDrawerItems.add(new AbstractNavDrawerItem(R.id.inviteFriends) {
+					@Override
+					public void startActivity() {
+						new AppInviteSender().sendInvitation();
+					}
+				});
+				return navDrawerItems;
 			}
 
 			@Override
