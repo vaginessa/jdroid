@@ -58,10 +58,7 @@ public abstract class DefaultNavDrawer extends NavDrawer {
 		for (int i = 0; i < navigationView.getMenu().size(); i++) {
 			MenuItem menuItem = navigationView.getMenu().getItem(i);
 			NavDrawerItem navDrawerItem = findNavDrawerByMenu(menuItem);
-			if (navDrawerItem.matchesActivity(AbstractApplication.get().getCurrentActivity())) {
-				menuItem.setChecked(true);
-				break;
-			}
+			menuItem.setChecked(navDrawerItem.matchesActivity(AbstractApplication.get().getCurrentActivity()));
 		}
 	}
 
