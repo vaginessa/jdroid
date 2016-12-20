@@ -44,7 +44,7 @@ public abstract class DefaultNavDrawer extends NavDrawer {
 	}
 
 	protected void onNavigationItemSelected(MenuItem menuItem) {
-		findNavDrawerByMenu(menuItem).startActivity();
+		findNavDrawerByMenu(menuItem).startActivity(getActivity());
 	}
 
 	@Override

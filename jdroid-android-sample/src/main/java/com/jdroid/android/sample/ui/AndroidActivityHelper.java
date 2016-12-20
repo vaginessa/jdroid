@@ -41,7 +41,7 @@ public class AndroidActivityHelper extends ActivityHelper {
 				navDrawerItems.add(new AbstractNavDrawerItem(R.id.about, AboutActivity.class));
 				navDrawerItems.add(new AbstractNavDrawerItem(R.id.inviteFriends) {
 					@Override
-					public void startActivity() {
+					public void startActivity(AbstractFragmentActivity currentActivity) {
 						new AppInviteSender().sendInvitation();
 					}
 				});

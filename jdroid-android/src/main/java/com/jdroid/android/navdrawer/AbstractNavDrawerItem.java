@@ -1,8 +1,9 @@
 package com.jdroid.android.navdrawer;
 
 import android.app.Activity;
+import android.content.Intent;
 
-import com.jdroid.android.activity.ActivityLauncher;
+import com.jdroid.android.activity.AbstractFragmentActivity;
 
 public class AbstractNavDrawerItem implements NavDrawerItem {
 
@@ -19,8 +20,11 @@ public class AbstractNavDrawerItem implements NavDrawerItem {
 	}
 
 	@Override
-	public void startActivity() {
-		ActivityLauncher.launchActivity(activityClass);
+	public void startActivity(AbstractFragmentActivity currentActivity) {
+		if (currentActivity.getClass() != activityClass) {
+			Intent intent = new Intent(currentActivity, activityClass);
+			currentActivity.startActivity(intent);
+		}
 	}
 
 	@Override
