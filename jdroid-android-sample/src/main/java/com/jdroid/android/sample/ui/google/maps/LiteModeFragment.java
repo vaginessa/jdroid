@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.google.GooglePlayServicesUtils;
+import com.jdroid.android.google.maps.AbstractMapFragment;
 import com.jdroid.android.sample.R;
 
 public class LiteModeFragment extends AbstractFragment {
@@ -26,6 +27,8 @@ public class LiteModeFragment extends AbstractFragment {
 	
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
+		AbstractMapFragment.doMapToolbarWorkaround(savedInstanceState);
+
 		super.onViewCreated(view, savedInstanceState);
 
 		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(getActivity())) {
