@@ -29,6 +29,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	private static final Logger LOGGER = LoggerUtils.getLogger(SQLiteRepository.class);
 	
 	protected SQLiteHelper dbHelper;
+
 	private EntityChildrenListener<T> entityChildrenListener;
 	
 	/**
@@ -528,5 +529,9 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 			projection[i] = getColumns()[i].getColumnName();
 		}
 		return projection;
+	}
+
+	public void setEntityChildrenListener(EntityChildrenListener<T> entityChildrenListener) {
+		this.entityChildrenListener = entityChildrenListener;
 	}
 }
