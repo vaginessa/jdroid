@@ -202,6 +202,7 @@
 	<string name="sqliteRemove">Remove</string>
 	<string name="sqliteRemoveAll">Remove All</string>
 	<string name="sqliteGetAll">Get All</string>
+	<string name="sqliteReplaceAll">Replace All</string>
 
 	<!-- Service -->
 	<string name="service">Service</string>

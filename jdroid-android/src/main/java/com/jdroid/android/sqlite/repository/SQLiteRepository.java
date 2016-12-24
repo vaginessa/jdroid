@@ -7,9 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.sqlite.Column;
 import com.jdroid.android.sqlite.SQLiteHelper;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.domain.Entity;
 import com.jdroid.java.repository.Repository;
 import com.jdroid.java.utils.LoggerUtils;
+import com.jdroid.java.utils.StringUtils;
 
 import org.slf4j.Logger;
 
@@ -27,17 +29,23 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	private static final Logger LOGGER = LoggerUtils.getLogger(SQLiteRepository.class);
 	
 	protected SQLiteHelper dbHelper;
+	private EntityChildrenListener<T> entityChildrenListener;
 	
 	/**
 	 * Constructor. It register create SQL statements in {@link SQLiteHelper}.
 	 * 
 	 * @param dbHelper {@link SQLiteHelper} to be used be repository.
 	 */
-	public SQLiteRepository(SQLiteHelper dbHelper) {
+	public SQLiteRepository(SQLiteHelper dbHelper, EntityChildrenListener<T> entityChildrenListener) {
 		this.dbHelper = dbHelper;
 		this.dbHelper.addCreateSQL(getCreateTableSQL());
+		this.entityChildrenListener = entityChildrenListener;
 	}
-	
+
+	public SQLiteRepository(SQLiteHelper dbHelper) {
+		this(dbHelper, null);
+	}
+
 	/**
 	 * Returns the name of the table which store the entities.
 	 * 
@@ -85,46 +93,6 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	 * @return the {@link ContentValues} instance.
 	 */
 	protected abstract ContentValues createContentValuesFromObject(T item);
-	
-	/**
-	 * Called before an entity is stored, allows to store/update entity children.
-	 * 
-	 * @param item stored entity.
-	 */
-	protected void onPreStored(T item) {
-	}
-	
-	/**
-	 * Called after an entity is stored, allows to store entity children.
-	 * 
-	 * @param item stored entity.
-	 */
-	protected void onStored(T item) {
-	}
-
-	/**
-	 * Called after an entity is updated, allows to store/update entity children.
-	 *
-	 * @param item stored entity.
-	 */
-	protected void onUpdated(T item) {
-	}
-
-	/**
-	 * Called after an entity is loaded. It allows to populate entity children.
-	 * 
-	 * @param item loaded entity.
-	 */
-	protected void onLoaded(T item) {
-	}
-	
-	/**
-	 * Called after an entity is removed. It allows to remove entity children.
-	 * 
-	 * @param item removed entity.
-	 */
-	protected void onRemoved(T item) {
-	}
 	
 	/**
 	 * Default sort to be used in ORDER BY section of queries.
@@ -188,7 +156,9 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 			T item = null;
 			if (cursor.moveToNext()) {
 				item = createObjectFromCursor(cursor);
-				onLoaded(item);
+				if (entityChildrenListener != null) {
+					entityChildrenListener.onLoaded(item);
+				}
 			}
 			LOGGER.trace("Retrieved object from database of type: " + getTableName() + " id: " + id);
 			return item;
@@ -199,9 +169,6 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#findByField(java.lang.String, java.lang.Object[])
-	 */
 	@SuppressWarnings("resource")
 	@Override
 	public List<T> findByField(String fieldName, Object... values) {
@@ -229,13 +196,15 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 			cursor = db.query(getTableName(), getProjection(), selection, selectionArgs, null, null, getDefaultSort());
 			while (cursor.moveToNext()) {
 				T item = createObjectFromCursor(cursor);
-				onLoaded(item);
+				if (entityChildrenListener != null) {
+					entityChildrenListener.onLoaded(item);
+				}
 				items.add(item);
 			}
 			cursor.close();
 			
-			LOGGER.trace("Retrieved objects from database of type: " + getTableName() + " field: " + fieldName
-					+ " values: " + values);
+			LOGGER.trace("Retrieved objects from database [" + items.size() + "] of type: " + getTableName() + ". Field: " + fieldName
+					+ " | Values: " + values);
 			
 			return items;
 		} finally {
@@ -245,35 +214,21 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#getAll(java.util.List)
-	 */
 	@Override
 	public List<T> getAll(List<String> ids) {
 		return findByField(getIdColumnName(), ids);
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#getAll()
-	 */
 	@Override
 	public List<T> getAll() {
-		List<T> results = findByField(null, new Object[0]);
-		LOGGER.trace("Retrieved all objects [" + results.size() + "] from database of type: " + getTableName());
-		return results;
+		return findByField(null, (Object[])null);
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#isEmpty()
-	 */
 	@Override
 	public Boolean isEmpty() {
 		return getSize() == 0;
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#getSize()
-	 */
 	@SuppressWarnings("resource")
 	@Override
 	public Long getSize() {
@@ -289,9 +244,6 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#add(com.jdroid.java.domain.Identifiable)
-	 */
 	@Override
 	public void add(T item) {
 		@SuppressWarnings("resource")
@@ -303,7 +255,9 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 			if (item.getId() == null) {
 				item.setId(id.toString());
 			}
-			onStored(item);
+			if (entityChildrenListener != null) {
+				entityChildrenListener.onStored(item);
+			}
 			LOGGER.trace("Stored object in database: " + item);
 			successTransaction(db, endTransaction);
 		} finally {
@@ -311,9 +265,6 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#addAll(java.util.Collection)
-	 */
 	@Override
 	public void addAll(Collection<T> items) {
 		@SuppressWarnings("resource")
@@ -330,9 +281,6 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#update(com.jdroid.java.domain.Identifiable)
-	 */
 	@Override
 	public void update(T item) {
 		@SuppressWarnings("resource")
@@ -341,7 +289,9 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		try {
 			ContentValues values = createContentValuesFromObject(item);
 			db.update(getTableName(), values, getIdColumnName() + "=?", new String[]{item.getId()});
-			onUpdated(item);
+			if (entityChildrenListener != null) {
+				entityChildrenListener.onUpdated(item);
+			}
 			LOGGER.trace("Updated object in database: " + item);
 			successTransaction(db, endTransaction);
 		} finally {
@@ -349,30 +299,28 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#replaceAll(java.util.Collection)
-	 */
 	@Override
 	public void replaceAll(Collection<T> items) {
 		@SuppressWarnings("resource")
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		boolean endTransaction = beginTransaction(db);
 		try {
-			removeAll();
-			LOGGER.trace("Deleted from database all objects of type: " + getTableName());
+			List<String> idsToKeep = Lists.newArrayList();
+			for (T item : items) {
+				idsToKeep.add(item.getId());
+			}
+			db.delete(getTableName(), getIdColumnName() + " NOT IN (" + StringUtils.join(idsToKeep) + ")", null);
+			LOGGER.trace("Deleted from database all objects of type: " + getTableName() + " with ids != to " + idsToKeep);
+
 			for (T item : items) {
 				add(item);
 			}
-			LOGGER.trace("Stored objects in database:\n" + items);
 			successTransaction(db, endTransaction);
 		} finally {
 			endTransaction(db, endTransaction);
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#remove(com.jdroid.java.domain.Identifiable)
-	 */
 	@Override
 	public void remove(T item) {
 		remove(item.getId());
@@ -384,29 +332,36 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		boolean endTransaction = beginTransaction(db);
 		try {
-			T item = get(id);
+			T item = null;
+			if (entityChildrenListener != null) {
+				item = get(id);
+			}
 			db.delete(getTableName(), getIdColumnName() + "=?", new String[] { id });
-			onRemoved(item);
-			LOGGER.trace("Deleted object in database: " + item);
+			if (entityChildrenListener != null) {
+				entityChildrenListener.onRemoved(item);
+			}
+			LOGGER.trace("Deleted object in database with id: " + id);
 			successTransaction(db, endTransaction);
 		} finally {
 			endTransaction(db, endTransaction);
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#removeAll()
-	 */
 	@Override
 	public void removeAll() {
 		@SuppressWarnings("resource")
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		boolean endTransaction = beginTransaction(db);
 		try {
-			List<T> all = getAll();
+			List<T> all = null;
+			if (entityChildrenListener != null) {
+				all = getAll();
+			}
 			db.delete(getTableName(), null, null);
-			for (T item : all) {
-				onRemoved(item);
+			if (entityChildrenListener != null) {
+				for (T item : all) {
+					entityChildrenListener.onRemoved(item);
+				}
 			}
 			LOGGER.trace("Deleted from database all objects of type: " + getTableName());
 			successTransaction(db, endTransaction);
@@ -415,9 +370,6 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#removeAll(java.util.Collection)
-	 */
 	@Override
 	public void removeAll(Collection<T> items) {
 		@SuppressWarnings("resource")
@@ -434,9 +386,6 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.java.repository.Repository#getUniqueInstance()
-	 */
 	@Override
 	public T getUniqueInstance() {
 		List<T> all = getAll();

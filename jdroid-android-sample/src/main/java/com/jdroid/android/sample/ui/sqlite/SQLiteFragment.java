@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.application.AndroidApplication;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.repository.Repository;
 import com.jdroid.java.utils.RandomUtils;
@@ -23,9 +24,6 @@ public class SQLiteFragment extends AbstractFragment {
 		return R.layout.sqlite_fragment;
 	}
 
-	/**
-	 * @see AbstractFragment#onViewCreated(View, Bundle)
-	 */
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
@@ -95,6 +93,35 @@ public class SQLiteFragment extends AbstractFragment {
 				});
 			}
 		});
+		findView(R.id.sqliteReplaceAll).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				ExecutorUtils.execute(new Runnable() {
+					@Override
+					public void run() {
+						Repository<SampleSQLiteEntity> repository = AndroidApplication.get().getRepositoryInstance(SampleSQLiteEntity.class);
+
+						List<SampleSQLiteEntity> entities = Lists.newArrayList();
+
+						SampleSQLiteEntity entity = new SampleSQLiteEntity();
+						lastId = RandomUtils.getLong().toString();
+						entity.setId(lastId);
+						entity.setField(RandomUtils.getLong().toString());
+						entities.add(entity);
+
+						entity = new SampleSQLiteEntity();
+						lastId = RandomUtils.getLong().toString();
+						entity.setId(lastId);
+						entity.setField(RandomUtils.getLong().toString());
+						entities.add(entity);
+
+						repository.replaceAll(entities);
+					}
+				});
+			}
+		});
+
 		findView(R.id.sqliteGetAll).setOnClickListener(new OnClickListener() {
 			
 			@Override
