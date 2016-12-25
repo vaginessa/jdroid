@@ -10,12 +10,6 @@
 			</intent-filter>
 		</service>
 
-		<receiver android:name="com.jdroid.android.firebase.fcm.LocaleChangedReceiver" android:exported="true" tools:ignore="ExportedReceiver">
-			<intent-filter>
-				<action android:name="android.intent.action.LOCALE_CHANGED" />
-			</intent-filter>
-		</receiver>
-
 	</application>
 
 </manifest>

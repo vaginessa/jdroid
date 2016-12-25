@@ -33,6 +33,8 @@ public interface AppModule {
 
 	public void onGooglePlayServicesUpdated();
 
+	public void onLocaleChanged();
+
 	public List<? extends AnalyticsTracker> getAnalyticsTrackers();
 
 	public List<Kit> getFabricKits();

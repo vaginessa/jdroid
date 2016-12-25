@@ -95,6 +95,11 @@ public abstract class AbstractFcmAppModule extends AbstractAppModule {
 		startFcmRegistration(false);
 	}
 
+	@Override
+	public void onLocaleChanged() {
+		startFcmRegistration(false);
+	}
+
 	public void startFcmRegistration(Boolean updateLastActiveTimestamp) {
 		createFcmRegistrationCommand().start(updateLastActiveTimestamp);
 	}

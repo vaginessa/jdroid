@@ -218,6 +218,13 @@ public abstract class AbstractApplication extends Application {
 		}
 	}
 
+	public void onLocaleChanged() {
+
+		for (AppModule each: appModulesMap.values()) {
+			each.onLocaleChanged();
+		}
+	}
+
 	@Override
 	protected void attachBaseContext(Context base) {
 		super.attachBaseContext(base);

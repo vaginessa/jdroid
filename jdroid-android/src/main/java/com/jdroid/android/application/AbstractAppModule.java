@@ -75,6 +75,11 @@ public abstract class AbstractAppModule implements AppModule {
 	}
 
 	@Override
+	public void onLocaleChanged() {
+		// Do Nothing
+	}
+
+	@Override
 	public List<? extends AnalyticsTracker> getAnalyticsTrackers() {
 		return Lists.newArrayList();
 	}
