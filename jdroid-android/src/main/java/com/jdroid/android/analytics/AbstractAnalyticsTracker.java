@@ -22,7 +22,12 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	}
 
 	@Override
-	public void onActivityStart(Class<? extends Activity> activityClass, String referrer, Object data) {
+	public void onActivityCreate(Activity activity) {
+		// Do nothing
+	}
+
+	@Override
+	public void onActivityStart(Activity activity, String referrer, Object data) {
 		// Do Nothing
 	}
 	

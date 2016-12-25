@@ -135,6 +135,8 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.debug("Executing onCreate on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 
+		AbstractApplication.get().getAnalyticsSender().onActivityCreate(activity);
+
 		verifyGooglePlayServicesAvailability();
 
 		activityDelegatesMap = Maps.newHashMap();
@@ -303,7 +305,7 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.debug("Executing onStart on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 
-		AbstractApplication.get().getAnalyticsSender().onActivityStart(activity.getClass(), referrer, getOnActivityStartData());
+		AbstractApplication.get().getAnalyticsSender().onActivityStart(activity, referrer, getOnActivityStartData());
 
 		final Long locationFrequency = getActivityIf().getLocationFrequency();
 		if (locationFrequency != null) {

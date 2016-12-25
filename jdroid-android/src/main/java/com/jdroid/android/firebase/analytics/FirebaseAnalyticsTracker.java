@@ -47,7 +47,12 @@ public class FirebaseAnalyticsTracker extends AbstractFirebaseAnalyticsTracker i
 	}
 
 	@Override
-	public void onActivityStart(Class<? extends Activity> activityClass, String referrer, Object data) {
+	public void onActivityCreate(Activity activity) {
+		// Do nothing
+	}
+
+	@Override
+	public void onActivityStart(Activity activity, String referrer, Object data) {
 		if (!firstTrackingSent) {
 			getFirebaseAnalyticsHelper().setUserProperty(DEVICE_YEAR_CLASS_USER_PROPERTY, DeviceUtils.getDeviceYearClass().toString());
 			getFirebaseAnalyticsHelper().setUserProperty(SCREEN_WIDTH, ScreenUtils.getScreenWidthDp().toString());

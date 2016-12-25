@@ -37,9 +37,14 @@ public class GoogleAnalyticsTracker extends AbstractGoogleAnalyticsTracker imple
 		DEVICE_TYPE, // User scope
 		DEVICE_YEAR_CLASS; // User scope
 	}
-	
+
 	@Override
-	public void onActivityStart(Class<? extends Activity> activityClass, String referrer, Object data) {
+	public void onActivityCreate(Activity activity) {
+		// Do nothing
+	}
+
+	@Override
+	public void onActivityStart(Activity activity, String referrer, Object data) {
 		
 		synchronized (GoogleAnalyticsTracker.class) {
 			
@@ -60,7 +65,7 @@ public class GoogleAnalyticsTracker extends AbstractGoogleAnalyticsTracker imple
 				}
 			}
 			onActivityStartTrack(screenViewBuilder, data);
-			getGoogleAnalyticsHelper().sendScreenView(screenViewBuilder, activityClass.getSimpleName());
+			getGoogleAnalyticsHelper().sendScreenView(screenViewBuilder, activity.getClass().getSimpleName());
 		}
 	}
 

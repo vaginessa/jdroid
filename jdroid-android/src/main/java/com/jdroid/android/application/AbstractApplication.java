@@ -253,12 +253,17 @@ public abstract class AbstractApplication extends Application {
 		return new AnalyticsSender<>(analyticsTrackers);
 	}
 
-	public List<? extends AnalyticsTracker> createAnalyticsTrackers() {
+	protected final List<? extends AnalyticsTracker> createAnalyticsTrackers() {
 		List<AnalyticsTracker> analyticsTrackers = Lists.newArrayList();
 		for (AppModule each: appModulesMap.values()) {
 			analyticsTrackers.addAll(each.getAnalyticsTrackers());
 		}
+		analyticsTrackers.addAll(createCustomAnalyticsTrackers());
 		return analyticsTrackers;
+	}
+
+	protected List<? extends AnalyticsTracker> createCustomAnalyticsTrackers() {
+		return Lists.newArrayList();
 	}
 
 	@SuppressWarnings("unchecked")

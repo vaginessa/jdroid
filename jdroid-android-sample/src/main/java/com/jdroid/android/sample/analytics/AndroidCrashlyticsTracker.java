@@ -25,7 +25,7 @@ public class AndroidCrashlyticsTracker extends DefaultAnalyticsTracker {
 	}
 	
 	@Override
-	public void onActivityStart(Class<? extends Activity> activityClass, String referrer, Object data) {
-		CrashlyticsTracker.get().onActivityStart(activityClass, referrer, data);
+	public void onActivityStart(Activity activity, String referrer, Object data) {
+		CrashlyticsTracker.get().onActivityStart(activity, referrer, data);
 	}
 }

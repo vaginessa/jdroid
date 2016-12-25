@@ -53,7 +53,7 @@ public class CrashlyticsTracker extends AbstractAnalyticsTracker {
 	}
 
 	@Override
-	public void onActivityStart(Class<? extends Activity> activityClass, String referrer, Object data) {
+	public void onActivityStart(Activity activity, String referrer, Object data) {
 		if (referrer != null) {
 			Crashlytics.getInstance().core.setString("Referrer", referrer);
 		}
@@ -61,6 +61,6 @@ public class CrashlyticsTracker extends AbstractAnalyticsTracker {
 		Crashlytics.getInstance().core.setString("UserId",
 				SecurityContext.get().isAuthenticated() ? SecurityContext.get().getUser().getId().toString() : null);
 
-		Crashlytics.getInstance().core.log("Started " + activityClass.getSimpleName());
+		Crashlytics.getInstance().core.log("Started " + activity.getClass().getSimpleName());
 	}
 }

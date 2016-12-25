@@ -24,8 +24,10 @@ public interface AnalyticsTracker extends BaseAnalyticsTracker {
 
 	// Activity/fragment life cycle
 	
-	public void onActivityStart(Class<? extends Activity> activityClass, String referrer, Object data);
-	
+	public void onActivityCreate(Activity activity);
+
+	public void onActivityStart(Activity activity, String referrer, Object data);
+
 	public void onActivityResume(Activity activity);
 	
 	public void onActivityPause(Activity activity);

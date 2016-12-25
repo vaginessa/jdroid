@@ -56,13 +56,24 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 	}
 
 	@Override
-	public void onActivityStart(final Class<? extends Activity> activityClass, final String referrer,
+	public void onActivityCreate(final Activity activity) {
+		ExecutorUtils.execute(new TrackerRunnable() {
+
+			@Override
+			protected void track(T tracker) {
+				tracker.onActivityCreate(activity);
+			}
+		});
+	}
+
+	@Override
+	public void onActivityStart(final Activity activity, final String referrer,
 			final Object data) {
 		ExecutorUtils.execute(new TrackerRunnable() {
 			
 			@Override
 			protected void track(T tracker) {
-				tracker.onActivityStart(activityClass, referrer, data);
+				tracker.onActivityStart(activity, referrer, data);
 			}
 		});
 	}
