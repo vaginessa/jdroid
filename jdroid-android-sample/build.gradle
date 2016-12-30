@@ -41,12 +41,6 @@ dependencies {
 		releaseCompile project(path: ":jdroid-android-about", configuration: 'release')
 	}
 
-	debugCompile project(path: ":jdroid-android-crashlytics", configuration: 'debug')
-	uatCompile project(path: ":jdroid-android-crashlytics", configuration: 'debug')
-	if (jdroid.isReleaseBuildTypeEnabled()) {
-		releaseCompile project(path: ":jdroid-android-crashlytics", configuration: 'release')
-	}
-
 	debugCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
@@ -57,6 +51,12 @@ dependencies {
 	uatCompile project(path: ':jdroid-android-firebase-admob', configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ":jdroid-android-firebase-admob", configuration: 'release')
+	}
+
+	debugCompile project(path: ':jdroid-android-firebase-crash', configuration: 'debug')
+	uatCompile project(path: ':jdroid-android-firebase-crash', configuration: 'debug')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ":jdroid-android-firebase-crash", configuration: 'release')
 	}
 
 	debugCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
