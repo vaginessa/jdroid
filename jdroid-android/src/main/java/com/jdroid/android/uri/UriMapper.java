@@ -19,6 +19,7 @@ import java.util.List;
 /**
  * Mapper which allows to navigate the application using a Uri.
  */
+@Internal
 public class UriMapper {
 
 	private static final Logger LOGGER = LoggerUtils.getLogger(UriMapper.class);
