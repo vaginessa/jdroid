@@ -3,7 +3,7 @@ package com.jdroid.android.crashlytics;
 import android.app.Activity;
 
 import com.crashlytics.android.Crashlytics;
-import com.jdroid.android.analytics.AbstractAnalyticsTracker;
+import com.jdroid.android.analytics.AbstractCoreAnalyticsTracker;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class CrashlyticsTracker extends AbstractAnalyticsTracker {
+public class CrashlyticsCoreAnalyticsTracker extends AbstractCoreAnalyticsTracker {
 	
 	@Override
 	public Boolean isEnabled() {

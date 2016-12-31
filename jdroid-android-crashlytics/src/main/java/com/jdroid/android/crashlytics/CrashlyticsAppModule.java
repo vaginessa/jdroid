@@ -3,7 +3,7 @@ package com.jdroid.android.crashlytics;
 import android.support.v4.util.Pair;
 
 import com.crashlytics.android.Crashlytics;
-import com.jdroid.android.analytics.AnalyticsTracker;
+import com.jdroid.android.analytics.CoreAnalyticsTracker;
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.collections.Lists;
@@ -47,11 +47,11 @@ public class CrashlyticsAppModule extends AbstractAppModule {
 	}
 
 	@Override
-	public List<? extends AnalyticsTracker> createAnalyticsTrackers() {
+	public List<? extends CoreAnalyticsTracker> createCoreAnalyticsTrackers() {
 		return Lists.newArrayList(createCrashlyticsTracker());
 	}
 
-	protected AnalyticsTracker createCrashlyticsTracker() {
-		return new CrashlyticsTracker();
+	protected CoreAnalyticsTracker createCrashlyticsTracker() {
+		return new CrashlyticsCoreAnalyticsTracker();
 	}
 }

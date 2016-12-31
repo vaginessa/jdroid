@@ -135,7 +135,7 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.debug("Executing onCreate on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 
-		AbstractApplication.get().getAnalyticsSender().onActivityCreate(activity);
+		AbstractApplication.get().getCoreAnalyticsSender().onActivityCreate(activity);
 
 		verifyGooglePlayServicesAvailability();
 
@@ -305,7 +305,7 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.debug("Executing onStart on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 
-		AbstractApplication.get().getAnalyticsSender().onActivityStart(activity, referrer, getOnActivityStartData());
+		AbstractApplication.get().getCoreAnalyticsSender().onActivityStart(activity, referrer, getOnActivityStartData());
 
 		final Long locationFrequency = getActivityIf().getLocationFrequency();
 		if (locationFrequency != null) {
@@ -402,7 +402,7 @@ public class ActivityHelper implements ActivityIf {
 
 		UsageStats.setLastStopTime();
 		ToastUtils.cancelCurrentToast();
-		AbstractApplication.get().getAnalyticsSender().onActivityStop(activity);
+		AbstractApplication.get().getCoreAnalyticsSender().onActivityStop(activity);
 
 		if (locationHandler != null) {
 			locationHandler.removeCallbacksAndMessages(null);
@@ -530,7 +530,7 @@ public class ActivityHelper implements ActivityIf {
 			if (NotificationBuilder.generateNotificationsReferrer().equals(referrer)) {
 				String notificationName = intent.getStringExtra(NotificationBuilder.NOTIFICATION_NAME);
 				if (notificationName != null) {
-					AbstractApplication.get().getAnalyticsSender().trackNotificationOpened(notificationName);
+					AbstractApplication.get().getCoreAnalyticsSender().trackNotificationOpened(notificationName);
 				}
 			}
 		} catch (Exception e) {

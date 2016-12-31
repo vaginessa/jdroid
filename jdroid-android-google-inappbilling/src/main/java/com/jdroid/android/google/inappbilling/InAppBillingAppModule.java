@@ -9,9 +9,9 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.android.google.inappbilling.analytics.InAppBillingAnalyticsSender;
 import com.jdroid.android.google.inappbilling.analytics.InAppBillingAnalyticsTracker;
-import com.jdroid.android.google.inappbilling.analytics.InAppBillingGoogleAnalyticsTracker;
-import com.jdroid.java.analytics.BaseAnalyticsSender;
-import com.jdroid.java.analytics.BaseAnalyticsTracker;
+import com.jdroid.android.google.inappbilling.analytics.GoogleInAppBillingAnalyticsTracker;
+import com.jdroid.java.analytics.AnalyticsSender;
+import com.jdroid.java.analytics.AnalyticsTracker;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
@@ -73,13 +73,13 @@ public class InAppBillingAppModule extends AbstractAppModule {
 
 	@NonNull
 	@Override
-	public BaseAnalyticsSender<? extends BaseAnalyticsTracker> createModuleAnalyticsSender(List<? extends BaseAnalyticsTracker> analyticsTrackers) {
+	public AnalyticsSender<? extends AnalyticsTracker> createModuleAnalyticsSender(List<? extends AnalyticsTracker> analyticsTrackers) {
 		return new InAppBillingAnalyticsSender((List<InAppBillingAnalyticsTracker>)analyticsTrackers);
 	}
 
 	@Override
-	public List<? extends BaseAnalyticsTracker> createModuleAnalyticsTrackers() {
-		return Lists.newArrayList(new InAppBillingGoogleAnalyticsTracker());
+	public List<? extends AnalyticsTracker> createModuleAnalyticsTrackers() {
+		return Lists.newArrayList(new GoogleInAppBillingAnalyticsTracker());
 	}
 
 	@NonNull

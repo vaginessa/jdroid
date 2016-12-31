@@ -5,12 +5,12 @@ import android.app.Activity;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.usecase.AbstractUseCase;
-import com.jdroid.java.analytics.BaseAnalyticsTracker;
+import com.jdroid.java.analytics.AnalyticsTracker;
 
 import java.util.List;
 import java.util.Map;
 
-public interface AnalyticsTracker extends BaseAnalyticsTracker {
+public interface CoreAnalyticsTracker extends AnalyticsTracker {
 
 	// Error handling
 	

@@ -108,7 +108,7 @@ public class NotificationBuilder {
 
 	public void setContentIntent(Intent notificationIntent) {
 		// TODO Disabled to avoid session creation on Google Analytics
-		//	AbstractApplication.get().getAnalyticsSender().trackNotificationDisplayed(notificationName);
+		//	AbstractApplication.get().getCoreAnalyticsSender().trackNotificationDisplayed(notificationName);
 		notificationIntent.putExtra(NOTIFICATION_NAME, notificationName);
 
 		// This is a hack to avoid the notification caching

@@ -2,7 +2,7 @@ package com.jdroid.android.google.analytics;
 
 import android.support.annotation.WorkerThread;
 
-import com.jdroid.android.analytics.AnalyticsTracker;
+import com.jdroid.android.analytics.CoreAnalyticsTracker;
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.collections.Lists;
@@ -45,11 +45,11 @@ public class GoogleAnalyticsAppModule extends AbstractAppModule {
 	}
 
 	@Override
-	public List<? extends AnalyticsTracker> createAnalyticsTrackers() {
-		return googleAnalyticsAppContext.isGoogleAnalyticsEnabled() ? Lists.newArrayList(createGoogleAnalyticsTracker()) : Lists.<AnalyticsTracker>newArrayList();
+	public List<? extends CoreAnalyticsTracker> createCoreAnalyticsTrackers() {
+		return googleAnalyticsAppContext.isGoogleAnalyticsEnabled() ? Lists.newArrayList(createGoogleCoreAnalyticsTracker()) : Lists.<CoreAnalyticsTracker>newArrayList();
 	}
 
-	protected AnalyticsTracker createGoogleAnalyticsTracker() {
-		return new GoogleAnalyticsTracker();
+	protected CoreAnalyticsTracker createGoogleCoreAnalyticsTracker() {
+		return new GoogleCoreAnalyticsTracker();
 	}
 }

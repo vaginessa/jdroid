@@ -19,7 +19,7 @@ public class ShareUtils {
 		shareTextContent(shareKey, activity.getString(shareTitle), activity.getString(shareSubject),
 				activity.getString(shareText));
 		
-		AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(null, SocialAction.SHARE, shareKey);
+		AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(null, SocialAction.SHARE, shareKey);
 	}
 	
 	public static void shareTextContent(String shareKey, String shareTitle, String shareSubject, String shareText) {
@@ -27,7 +27,7 @@ public class ShareUtils {
 		Intent intent = createShareTextContentIntent(shareSubject, shareText);
 		activity.startActivity(Intent.createChooser(intent, shareTitle));
 		
-		AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(null, SocialAction.SHARE, shareKey);
+		AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(null, SocialAction.SHARE, shareKey);
 	}
 	
 	public static void shareHtmlContent(String shareKey, String shareTitle, String shareSubject, String shareText) {
@@ -35,7 +35,7 @@ public class ShareUtils {
 		Intent intent = createShareHtmlContentIntent(shareSubject, shareText);
 		activity.startActivity(Intent.createChooser(intent, shareTitle));
 		
-		AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(null, SocialAction.SHARE, shareKey);
+		AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(null, SocialAction.SHARE, shareKey);
 	}
 	
 	public static void shareOnTwitter(String shareKey, String shareText) {
@@ -71,7 +71,7 @@ public class ShareUtils {
 		intent.setPackage(packageName);
 		try {
 			AbstractApplication.get().getCurrentActivity().startActivity(intent);
-			AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(accountType, SocialAction.SHARE, shareKey);
+			AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(accountType, SocialAction.SHARE, shareKey);
 		} catch (ActivityNotFoundException e) {
 			Integer installedAppVersionCode = ExternalAppsUtils.getInstalledAppVersionCode(AbstractApplication.get(), packageName);
 			String message = "ACTION_SEND not supported by " + packageName;

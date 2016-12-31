@@ -6,12 +6,12 @@ import android.support.v4.app.Fragment;
 
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityDelegate;
-import com.jdroid.android.analytics.AnalyticsTracker;
+import com.jdroid.android.analytics.CoreAnalyticsTracker;
 import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
 import com.jdroid.android.fragment.FragmentDelegate;
-import com.jdroid.java.analytics.BaseAnalyticsSender;
-import com.jdroid.java.analytics.BaseAnalyticsTracker;
+import com.jdroid.java.analytics.AnalyticsSender;
+import com.jdroid.java.analytics.AnalyticsTracker;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public interface AppModule {
 
 	public void onLocaleChanged();
 
-	public List<? extends AnalyticsTracker> createAnalyticsTrackers();
+	public List<? extends CoreAnalyticsTracker> createCoreAnalyticsTrackers();
 
 	public List<Kit> getFabricKits();
 
@@ -49,11 +49,11 @@ public interface AppModule {
 
 	// Analytics
 
-	public BaseAnalyticsSender<? extends BaseAnalyticsTracker> createModuleAnalyticsSender(List<? extends BaseAnalyticsTracker> analyticsTrackers);
+	public AnalyticsSender<? extends AnalyticsTracker> createModuleAnalyticsSender(List<? extends AnalyticsTracker> analyticsTrackers);
 
-	public List<? extends BaseAnalyticsTracker> createModuleAnalyticsTrackers();
+	public List<? extends AnalyticsTracker> createModuleAnalyticsTrackers();
 
-	public BaseAnalyticsSender<? extends BaseAnalyticsTracker> getAnalyticsSender();
+	public AnalyticsSender<? extends AnalyticsTracker> getAnalyticsSender();
 
 	public List<RemoteConfigParameter> getRemoteConfigParameters();
 }

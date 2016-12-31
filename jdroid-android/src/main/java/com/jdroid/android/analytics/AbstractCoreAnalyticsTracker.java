@@ -9,7 +9,7 @@ import com.jdroid.android.usecase.AbstractUseCase;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
+public abstract class AbstractCoreAnalyticsTracker implements CoreAnalyticsTracker {
 	
 	@Override
 	public void onInitExceptionHandler(Map<String, String> metadata) {

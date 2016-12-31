@@ -4,7 +4,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.jdroid.android.google.analytics.AbstractGoogleAnalyticsTracker;
 import com.jdroid.android.google.inappbilling.Product;
 
-public class InAppBillingGoogleAnalyticsTracker extends AbstractGoogleAnalyticsTracker implements InAppBillingAnalyticsTracker {
+public class GoogleInAppBillingAnalyticsTracker extends AbstractGoogleAnalyticsTracker implements InAppBillingAnalyticsTracker {
 
 	@Override
 	public void trackInAppBillingPurchaseTry(Product product) {

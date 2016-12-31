@@ -2,7 +2,7 @@ package com.jdroid.android.about.analytics;
 
 import com.jdroid.android.google.analytics.AbstractGoogleAnalyticsTracker;
 
-public class AboutGoogleAnalyticsTracker extends AbstractGoogleAnalyticsTracker implements AboutAnalyticsTracker {
+public class GoogleAboutAnalyticsTracker extends AbstractGoogleAnalyticsTracker implements AboutAnalyticsTracker {
 
 	private static final String ABOUT_CATEGORY = "about";
 

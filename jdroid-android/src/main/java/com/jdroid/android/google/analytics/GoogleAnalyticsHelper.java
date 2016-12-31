@@ -119,7 +119,7 @@ public class GoogleAnalyticsHelper {
 				+ "] Value [" + value + "]");
 	}
 
-	protected void addCustomDimension(HitBuilders.ScreenViewBuilder screenViewBuilder, GoogleAnalyticsTracker.CustomDimension customDimension, String dimension) {
+	protected void addCustomDimension(HitBuilders.ScreenViewBuilder screenViewBuilder, GoogleCoreAnalyticsTracker.CustomDimension customDimension, String dimension) {
 		addCustomDimension(screenViewBuilder, customDimension.name(), dimension);
 	}
 
@@ -158,7 +158,7 @@ public class GoogleAnalyticsHelper {
 		}
 	}
 
-	protected void addCustomDimension(HitBuilders.EventBuilder eventBuilder, GoogleAnalyticsTracker.CustomDimension customDimension, String dimension) {
+	protected void addCustomDimension(HitBuilders.EventBuilder eventBuilder, GoogleCoreAnalyticsTracker.CustomDimension customDimension, String dimension) {
 		addCustomDimension(eventBuilder, customDimension.name(), dimension);
 	}
 

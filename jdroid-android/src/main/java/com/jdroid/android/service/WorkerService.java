@@ -36,7 +36,7 @@ public abstract class WorkerService extends IntentService {
 					doExecute(intent);
 					if (enableTimingTracking()) {
 						long executionTime = DateUtils.nowMillis() - startTime;
-						AbstractApplication.get().getAnalyticsSender().trackServiceTiming(getTrackingVariable(intent),
+						AbstractApplication.get().getCoreAnalyticsSender().trackServiceTiming(getTrackingVariable(intent),
 								getTrackingLabel(intent), executionTime);
 					}
 			} catch (Exception e) {

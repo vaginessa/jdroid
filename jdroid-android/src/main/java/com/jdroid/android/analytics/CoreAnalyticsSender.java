@@ -5,7 +5,7 @@ import android.app.Activity;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.usecase.AbstractUseCase;
-import com.jdroid.java.analytics.BaseAnalyticsSender;
+import com.jdroid.java.analytics.AnalyticsSender;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -18,16 +18,16 @@ import java.util.Map;
  * 
  * @param <T>
  */
-public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSender<T> implements AnalyticsTracker {
+public class CoreAnalyticsSender<T extends CoreAnalyticsTracker> extends AnalyticsSender<T> implements CoreAnalyticsTracker {
 	
-	private static final Logger LOGGER = LoggerUtils.getLogger(AnalyticsSender.class);
+	private static final Logger LOGGER = LoggerUtils.getLogger(CoreAnalyticsSender.class);
 	
 	@SafeVarargs
-	public AnalyticsSender(T... trackers) {
+	public CoreAnalyticsSender(T... trackers) {
 		super(trackers);
 	}
 	
-	public AnalyticsSender(List<T> trackers) {
+	public CoreAnalyticsSender(List<T> trackers) {
 		super(trackers);
 	}
 	

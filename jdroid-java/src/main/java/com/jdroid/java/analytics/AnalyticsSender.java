@@ -7,18 +7,18 @@ import org.slf4j.Logger;
 
 import java.util.List;
 
-public class BaseAnalyticsSender<T extends BaseAnalyticsTracker> implements BaseAnalyticsTracker {
+public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTracker {
 
-	private static final Logger LOGGER = LoggerUtils.getLogger(BaseAnalyticsSender.class);
+	private static final Logger LOGGER = LoggerUtils.getLogger(AnalyticsSender.class);
 
 	private List<T> trackers = Lists.newArrayList();
 
 	@SafeVarargs
-	public BaseAnalyticsSender(T... trackers) {
+	public AnalyticsSender(T... trackers) {
 		this(Lists.newArrayList(trackers));
 	}
 
-	public BaseAnalyticsSender(List<T> trackers) {
+	public AnalyticsSender(List<T> trackers) {
 		for (T tracker : trackers) {
 			if (tracker.isEnabled()) {
 				this.trackers.add(tracker);

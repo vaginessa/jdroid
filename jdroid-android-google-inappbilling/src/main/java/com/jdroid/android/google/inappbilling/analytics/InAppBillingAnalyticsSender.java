@@ -1,12 +1,12 @@
 package com.jdroid.android.google.inappbilling.analytics;
 
 import com.jdroid.android.google.inappbilling.Product;
-import com.jdroid.java.analytics.BaseAnalyticsSender;
+import com.jdroid.java.analytics.AnalyticsSender;
 import com.jdroid.java.concurrent.ExecutorUtils;
 
 import java.util.List;
 
-public class InAppBillingAnalyticsSender extends BaseAnalyticsSender<InAppBillingAnalyticsTracker> implements InAppBillingAnalyticsTracker {
+public class InAppBillingAnalyticsSender extends AnalyticsSender<InAppBillingAnalyticsTracker> implements InAppBillingAnalyticsTracker {
 
 	public InAppBillingAnalyticsSender(List<InAppBillingAnalyticsTracker> trackers) {
 		super(trackers);

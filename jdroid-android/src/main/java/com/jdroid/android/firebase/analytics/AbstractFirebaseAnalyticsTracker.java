@@ -3,9 +3,9 @@ package com.jdroid.android.firebase.analytics;
 import android.support.annotation.WorkerThread;
 
 import com.jdroid.android.firebase.FirebaseAppModule;
-import com.jdroid.java.analytics.BaseAnalyticsTracker;
+import com.jdroid.java.analytics.AnalyticsTracker;
 
-public class AbstractFirebaseAnalyticsTracker implements BaseAnalyticsTracker {
+public class AbstractFirebaseAnalyticsTracker implements AnalyticsTracker {
 
 	@Override
 	public Boolean isEnabled() {

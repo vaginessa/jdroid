@@ -57,11 +57,11 @@ public class GooglePlusOneButtonHelper {
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if ((requestCode == PLUS_ONE_UNDO_REQUEST_CODE) && (resultCode != 0)) {
-			AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(AccountType.GOOGLE_PLUS,
+			AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(AccountType.GOOGLE_PLUS,
 				SocialAction.PLUS_ONE_UNDO, getUrl());
 			onUndoPlusOne();
 		} else if ((requestCode == PLUS_ONE_REQUEST_CODE) && (resultCode != 0)) {
-			AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(AccountType.GOOGLE_PLUS,
+			AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(AccountType.GOOGLE_PLUS,
 				SocialAction.PLUS_ONE, getUrl());
 			onPlusOne();
 		}

@@ -1,11 +1,11 @@
 package com.jdroid.android.google.admob.analytics;
 
-import com.jdroid.java.analytics.BaseAnalyticsSender;
+import com.jdroid.java.analytics.AnalyticsSender;
 import com.jdroid.java.concurrent.ExecutorUtils;
 
 import java.util.List;
 
-public class AdMobAnalyticsSender extends BaseAnalyticsSender<AdMobAnalyticsTracker> implements AdMobAnalyticsTracker {
+public class AdMobAnalyticsSender extends AnalyticsSender<AdMobAnalyticsTracker> implements AdMobAnalyticsTracker {
 
 	public AdMobAnalyticsSender(List<AdMobAnalyticsTracker> trackers) {
 		super(trackers);

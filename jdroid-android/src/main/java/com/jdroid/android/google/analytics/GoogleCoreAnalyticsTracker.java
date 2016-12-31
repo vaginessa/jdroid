@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.HitBuilders.SocialBuilder;
-import com.jdroid.android.analytics.AnalyticsTracker;
+import com.jdroid.android.analytics.CoreAnalyticsTracker;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
@@ -17,9 +17,9 @@ import org.slf4j.Logger;
 import java.util.List;
 import java.util.Map;
 
-public class GoogleAnalyticsTracker extends AbstractGoogleAnalyticsTracker implements AnalyticsTracker {
+public class GoogleCoreAnalyticsTracker extends AbstractGoogleAnalyticsTracker implements CoreAnalyticsTracker {
 	
-	private static final Logger LOGGER = LoggerUtils.getLogger(GoogleAnalyticsTracker.class);
+	private static final Logger LOGGER = LoggerUtils.getLogger(GoogleCoreAnalyticsTracker.class);
 	
 	public static final String NOTIFICATION_CATEGORY = "notification";
 	private static final String FEEDBACK_CATEGORY = "feedback";
@@ -46,7 +46,7 @@ public class GoogleAnalyticsTracker extends AbstractGoogleAnalyticsTracker imple
 	@Override
 	public void onActivityStart(Activity activity, String referrer, Object data) {
 		
-		synchronized (GoogleAnalyticsTracker.class) {
+		synchronized (GoogleCoreAnalyticsTracker.class) {
 			
 			HitBuilders.ScreenViewBuilder screenViewBuilder = new HitBuilders.ScreenViewBuilder();
 			initReferrerCustomDimension(referrer);
@@ -107,7 +107,7 @@ public class GoogleAnalyticsTracker extends AbstractGoogleAnalyticsTracker imple
 	
 	@Override
 	public void onFragmentStart(String screenViewName) {
-		synchronized (GoogleAnalyticsTracker.class) {
+		synchronized (GoogleCoreAnalyticsTracker.class) {
 			HitBuilders.ScreenViewBuilder screenViewBuilder = new HitBuilders.ScreenViewBuilder();
 			getGoogleAnalyticsHelper().sendScreenView(screenViewBuilder, screenViewName);
 		}
@@ -166,7 +166,7 @@ public class GoogleAnalyticsTracker extends AbstractGoogleAnalyticsTracker imple
 
 	@Override
 	public void trackSendAppInvitation(String invitationId) {
-		getGoogleAnalyticsHelper().sendEvent(GoogleAnalyticsTracker.SOCIAL, "sendAppInvitation", invitationId);
+		getGoogleAnalyticsHelper().sendEvent(GoogleCoreAnalyticsTracker.SOCIAL, "sendAppInvitation", invitationId);
 	}
 	
 	@Override

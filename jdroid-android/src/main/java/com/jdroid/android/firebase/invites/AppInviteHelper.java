@@ -23,7 +23,7 @@ public class AppInviteHelper {
 				String[] ids = AppInviteInvitation.getInvitationIds(resultCode, data);
 				if (ids != null) {
 					for (String invitationId : ids) {
-						AbstractApplication.get().getAnalyticsSender().trackSendAppInvitation(invitationId);
+						AbstractApplication.get().getCoreAnalyticsSender().trackSendAppInvitation(invitationId);
 					}
 					List<String> invitationsIds = Lists.newArrayList(ids);
 					AppInviteStats.invitesSent(invitationsIds);

@@ -55,7 +55,7 @@ public class RateAppView extends RelativeLayout {
 			@Override
 			public void onClick(View v) {
 				googlePlayView(context);
-				AbstractApplication.get().getAnalyticsSender().trackEnjoyingApp(true);
+				AbstractApplication.get().getCoreAnalyticsSender().trackEnjoyingApp(true);
 				RateAppStats.setEnjoyingApp(true);
 			}
 
@@ -66,7 +66,7 @@ public class RateAppView extends RelativeLayout {
 			@Override
 			public void onClick(View v) {
 				feedbackView(context);
-				AbstractApplication.get().getAnalyticsSender().trackEnjoyingApp(false);
+				AbstractApplication.get().getCoreAnalyticsSender().trackEnjoyingApp(false);
 				RateAppStats.setEnjoyingApp(false);
 			}
 		});
@@ -89,7 +89,7 @@ public class RateAppView extends RelativeLayout {
 					AbstractApplication.get().getExceptionHandler().logWarningException("Error when sending email intent");
 				}
 				setVisibility(View.GONE);
-				AbstractApplication.get().getAnalyticsSender().trackGiveFeedback(true);
+				AbstractApplication.get().getCoreAnalyticsSender().trackGiveFeedback(true);
 				RateAppStats.setGiveFeedback(true);
 			}
 
@@ -100,7 +100,7 @@ public class RateAppView extends RelativeLayout {
 			@Override
 			public void onClick(View v) {
 				setVisibility(View.GONE);
-				AbstractApplication.get().getAnalyticsSender().trackGiveFeedback(false);
+				AbstractApplication.get().getCoreAnalyticsSender().trackGiveFeedback(false);
 				RateAppStats.setGiveFeedback(false);
 			}
 
@@ -116,7 +116,7 @@ public class RateAppView extends RelativeLayout {
 			public void onClick(View v) {
 				GooglePlayUtils.launchAppDetails(context);
 				setVisibility(View.GONE);
-				AbstractApplication.get().getAnalyticsSender().trackRateOnGooglePlay(true);
+				AbstractApplication.get().getCoreAnalyticsSender().trackRateOnGooglePlay(true);
 				RateAppStats.setRateOnGooglePlay(true);
 			}
 
@@ -127,7 +127,7 @@ public class RateAppView extends RelativeLayout {
 			@Override
 			public void onClick(View v) {
 				setVisibility(View.GONE);
-				AbstractApplication.get().getAnalyticsSender().trackRateOnGooglePlay(false);
+				AbstractApplication.get().getCoreAnalyticsSender().trackRateOnGooglePlay(false);
 				RateAppStats.setRateOnGooglePlay(false);
 			}
 		});
