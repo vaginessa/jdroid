@@ -256,14 +256,14 @@ public abstract class AbstractApplication extends Application {
 	}
 
 	@NonNull
-	protected AnalyticsSender<? extends AnalyticsTracker> createAnalyticsSender(List<? extends AnalyticsTracker> analyticsTrackers) {
+	private AnalyticsSender<? extends AnalyticsTracker> createAnalyticsSender(List<? extends AnalyticsTracker> analyticsTrackers) {
 		return new AnalyticsSender<>(analyticsTrackers);
 	}
 
 	protected final List<? extends AnalyticsTracker> createAnalyticsTrackers() {
 		List<AnalyticsTracker> analyticsTrackers = Lists.newArrayList();
 		for (AppModule each: appModulesMap.values()) {
-			analyticsTrackers.addAll(each.getAnalyticsTrackers());
+			analyticsTrackers.addAll(each.createAnalyticsTrackers());
 		}
 		analyticsTrackers.addAll(createCustomAnalyticsTrackers());
 		return analyticsTrackers;

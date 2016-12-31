@@ -35,7 +35,7 @@ public interface AppModule {
 
 	public void onLocaleChanged();
 
-	public List<? extends AnalyticsTracker> getAnalyticsTrackers();
+	public List<? extends AnalyticsTracker> createAnalyticsTrackers();
 
 	public List<Kit> getFabricKits();
 

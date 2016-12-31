@@ -1,14 +1,19 @@
 package com.jdroid.android.sample.analytics;
 
-import com.jdroid.android.analytics.AnalyticsSender;
+import com.jdroid.java.analytics.BaseAnalyticsSender;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.concurrent.ExecutorUtils;
 
-import java.util.List;
+public class AppAnalyticsSender extends BaseAnalyticsSender<AppAnalyticsTracker> implements AppAnalyticsTracker {
 
-public class AppAnalyticsSender extends AnalyticsSender<AppAnalyticsTracker> implements AppAnalyticsTracker {
+	private static final AppAnalyticsSender INSTANCE = new AppAnalyticsSender();
 
-	public AppAnalyticsSender(List<AppAnalyticsTracker> trackers) {
-		super(trackers);
+	public static AppAnalyticsSender get() {
+		return INSTANCE;
+	}
+
+	public AppAnalyticsSender() {
+		super(Lists.newArrayList(new AndroidFirebaseAnalyticsTracker(), new AndroidGoogleAnalyticsTracker()));
 	}
 	
 	@Override

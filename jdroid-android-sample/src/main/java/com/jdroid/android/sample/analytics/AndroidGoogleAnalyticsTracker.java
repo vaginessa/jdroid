@@ -1,11 +1,11 @@
 package com.jdroid.android.sample.analytics;
 
 import com.google.android.gms.analytics.HitBuilders;
-import com.jdroid.android.google.analytics.GoogleAnalyticsTracker;
+import com.jdroid.android.google.analytics.AbstractGoogleAnalyticsTracker;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.RandomUtils;
 
-public class AndroidGoogleAnalyticsTracker extends GoogleAnalyticsTracker implements AppAnalyticsTracker {
+public class AndroidGoogleAnalyticsTracker extends AbstractGoogleAnalyticsTracker implements AppAnalyticsTracker {
 	
 	private static final String EXAMPLE_CATEGORY = "exampleCategory";
 	private static final String EXAMPLE_LABEL = "exampleLabel";

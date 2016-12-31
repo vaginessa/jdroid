@@ -13,12 +13,6 @@ import java.util.Map.Entry;
 
 public class CrashlyticsTracker extends AbstractAnalyticsTracker {
 	
-	private static final CrashlyticsTracker INSTANCE = new CrashlyticsTracker();
-	
-	public static CrashlyticsTracker get() {
-		return INSTANCE;
-	}
-	
 	@Override
 	public Boolean isEnabled() {
 		return CrashlyticsAppModule.get().getCrashlyticsAppContext().isCrashlyticsEnabled();

@@ -80,7 +80,7 @@ public abstract class AbstractAppModule implements AppModule {
 	}
 
 	@Override
-	public List<? extends AnalyticsTracker> getAnalyticsTrackers() {
+	public List<? extends AnalyticsTracker> createAnalyticsTrackers() {
 		return Lists.newArrayList();
 	}
 

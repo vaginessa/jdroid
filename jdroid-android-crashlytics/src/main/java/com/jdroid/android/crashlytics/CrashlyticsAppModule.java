@@ -47,7 +47,11 @@ public class CrashlyticsAppModule extends AbstractAppModule {
 	}
 
 	@Override
-	public List<? extends AnalyticsTracker> getAnalyticsTrackers() {
-		return Lists.newArrayList(crashlyticsAppContext.getAnalyticsTracker());
+	public List<? extends AnalyticsTracker> createAnalyticsTrackers() {
+		return Lists.newArrayList(createCrashlyticsTracker());
+	}
+
+	protected AnalyticsTracker createCrashlyticsTracker() {
+		return new CrashlyticsTracker();
 	}
 }

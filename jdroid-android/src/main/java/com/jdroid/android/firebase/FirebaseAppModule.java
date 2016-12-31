@@ -48,7 +48,7 @@ public class FirebaseAppModule extends AbstractAppModule {
 	}
 
 	@Override
-	public List<? extends AnalyticsTracker> getAnalyticsTrackers() {
+	public List<? extends AnalyticsTracker> createAnalyticsTrackers() {
 		return firebaseAppContext.isFirebaseAnalyticsEnabled() ? Lists.newArrayList(createFirebaseAnalyticsTracker()) : Lists.<AnalyticsTracker>newArrayList();
 	}
 

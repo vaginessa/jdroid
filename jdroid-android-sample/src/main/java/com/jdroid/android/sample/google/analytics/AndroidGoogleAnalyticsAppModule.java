@@ -1,16 +1,9 @@
 package com.jdroid.android.sample.google.analytics;
 
-import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsTracker;
-import com.jdroid.android.sample.analytics.AndroidGoogleAnalyticsTracker;
 
 public class AndroidGoogleAnalyticsAppModule extends GoogleAnalyticsAppModule {
-
-	@Override
-	protected AnalyticsTracker createGoogleAnalyticsTracker() {
-		return new AndroidGoogleAnalyticsTracker();
-	}
 
 	@Override
 	public void onCreate() {

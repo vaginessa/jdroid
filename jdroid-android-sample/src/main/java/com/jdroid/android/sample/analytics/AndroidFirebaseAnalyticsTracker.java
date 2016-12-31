@@ -2,9 +2,9 @@ package com.jdroid.android.sample.analytics;
 
 import android.os.Bundle;
 
-import com.jdroid.android.firebase.analytics.FirebaseAnalyticsTracker;
+import com.jdroid.android.firebase.analytics.AbstractFirebaseAnalyticsTracker;
 
-public class AndroidFirebaseAnalyticsTracker extends FirebaseAnalyticsTracker implements AppAnalyticsTracker {
+public class AndroidFirebaseAnalyticsTracker extends AbstractFirebaseAnalyticsTracker implements AppAnalyticsTracker {
 	
 	@Override
 	public void trackExampleEvent() {
