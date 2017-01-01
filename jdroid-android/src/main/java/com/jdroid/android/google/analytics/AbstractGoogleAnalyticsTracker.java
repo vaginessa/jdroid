@@ -2,9 +2,11 @@ package com.jdroid.android.google.analytics;
 
 import android.support.annotation.WorkerThread;
 
-import com.jdroid.java.analytics.BaseAnalyticsTracker;
+import com.jdroid.java.analytics.AnalyticsTracker;
 
-public class AbstractGoogleAnalyticsTracker implements BaseAnalyticsTracker {
+import java.util.concurrent.Executor;
+
+public class AbstractGoogleAnalyticsTracker implements AnalyticsTracker {
 
 	@Override
 	public Boolean isEnabled() {
@@ -14,5 +16,10 @@ public class AbstractGoogleAnalyticsTracker implements BaseAnalyticsTracker {
 	@WorkerThread
 	protected GoogleAnalyticsHelper getGoogleAnalyticsHelper() {
 		return GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper();
+	}
+
+	@Override
+	public Executor getExecutor() {
+		return getGoogleAnalyticsHelper().getExecutor();
 	}
 }

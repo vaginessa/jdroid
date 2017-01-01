@@ -1,6 +1,6 @@
 package com.jdroid.android.sample.analytics;
 
-import com.jdroid.android.analytics.AnalyticsTracker;
+import com.jdroid.java.analytics.AnalyticsTracker;
 
 public interface AppAnalyticsTracker extends AnalyticsTracker {
 	

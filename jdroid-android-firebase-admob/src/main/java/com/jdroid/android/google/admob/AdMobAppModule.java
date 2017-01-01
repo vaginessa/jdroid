@@ -12,9 +12,9 @@ import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
 import com.jdroid.android.fragment.FragmentDelegate;
 import com.jdroid.android.google.admob.analytics.AdMobAnalyticsSender;
 import com.jdroid.android.google.admob.analytics.AdMobAnalyticsTracker;
-import com.jdroid.android.google.admob.analytics.AdMobGoogleAnalyticsTracker;
-import com.jdroid.java.analytics.BaseAnalyticsSender;
-import com.jdroid.java.analytics.BaseAnalyticsTracker;
+import com.jdroid.android.google.admob.analytics.GoogleAdMobAnalyticsTracker;
+import com.jdroid.java.analytics.AnalyticsSender;
+import com.jdroid.java.analytics.AnalyticsTracker;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
@@ -72,13 +72,13 @@ public class AdMobAppModule extends AbstractAppModule {
 
 	@NonNull
 	@Override
-	public BaseAnalyticsSender<? extends BaseAnalyticsTracker> createModuleAnalyticsSender(List<? extends BaseAnalyticsTracker> analyticsTrackers) {
+	public AnalyticsSender<? extends AnalyticsTracker> createModuleAnalyticsSender(List<? extends AnalyticsTracker> analyticsTrackers) {
 		return new AdMobAnalyticsSender((List<AdMobAnalyticsTracker>)analyticsTrackers);
 	}
 
 	@Override
-	public List<? extends BaseAnalyticsTracker> createModuleAnalyticsTrackers() {
-		return Lists.newArrayList(new AdMobGoogleAnalyticsTracker());
+	public List<? extends AnalyticsTracker> createModuleAnalyticsTrackers() {
+		return Lists.newArrayList(new GoogleAdMobAnalyticsTracker());
 	}
 
 	@NonNull

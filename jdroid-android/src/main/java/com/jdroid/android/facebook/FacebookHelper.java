@@ -18,7 +18,7 @@ public class FacebookHelper {
 			AbstractApplication.get().getCurrentActivity().startActivity(
 					new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/" + pageId)));
 		} finally {
-			AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(AccountType.FACEBOOK,
+			AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(AccountType.FACEBOOK,
 					SocialAction.OPEN_PROFILE, pageId);
 		}
 	}

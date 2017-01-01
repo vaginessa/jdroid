@@ -182,7 +182,7 @@ public class FragmentHelper implements FragmentIf {
 		LOGGER.debug("Executing onStart on " + fragment);
 		FragmentIf fragmentIf = getFragmentIf();
 		if (fragmentIf.shouldTrackOnFragmentStart()) {
-			AbstractApplication.get().getAnalyticsSender().onFragmentStart(fragmentIf.getScreenViewName());
+			AbstractApplication.get().getCoreAnalyticsSender().onFragmentStart(fragmentIf.getScreenViewName());
 		}
 	}
 

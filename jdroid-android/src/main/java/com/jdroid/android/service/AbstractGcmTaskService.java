@@ -30,7 +30,7 @@ public abstract class AbstractGcmTaskService extends GcmTaskService {
 			int result = doRunTask(taskParams);
 			if (result == GcmNetworkManager.RESULT_SUCCESS) {
 				long executionTime = DateUtils.nowMillis() - startTime;
-				AbstractApplication.get().getAnalyticsSender().trackServiceTiming(trackingVariable, trackingLabel, executionTime);
+				AbstractApplication.get().getCoreAnalyticsSender().trackServiceTiming(trackingVariable, trackingLabel, executionTime);
 			}
 			return result;
 		} catch (ConnectionException e) {

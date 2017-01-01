@@ -72,7 +72,7 @@ public class ExceptionHandlingDebugPrefsAppender extends PreferencesAppender {
 
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				AbstractApplication.get().getAnalyticsSender().trackErrorBreadcrumb("Sample message " + IdGenerator.getIntId());
+				AbstractApplication.get().getCoreAnalyticsSender().trackErrorBreadcrumb("Sample message " + IdGenerator.getIntId());
 				return true;
 			}
 		});

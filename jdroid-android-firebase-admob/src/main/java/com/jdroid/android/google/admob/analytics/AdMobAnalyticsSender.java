@@ -1,11 +1,10 @@
 package com.jdroid.android.google.admob.analytics;
 
-import com.jdroid.java.analytics.BaseAnalyticsSender;
-import com.jdroid.java.concurrent.ExecutorUtils;
+import com.jdroid.java.analytics.AnalyticsSender;
 
 import java.util.List;
 
-public class AdMobAnalyticsSender extends BaseAnalyticsSender<AdMobAnalyticsTracker> implements AdMobAnalyticsTracker {
+public class AdMobAnalyticsSender extends AnalyticsSender<AdMobAnalyticsTracker> implements AdMobAnalyticsTracker {
 
 	public AdMobAnalyticsSender(List<AdMobAnalyticsTracker> trackers) {
 		super(trackers);
@@ -13,7 +12,7 @@ public class AdMobAnalyticsSender extends BaseAnalyticsSender<AdMobAnalyticsTrac
 
 	@Override
 	public void trackRemoveAdsBannerClicked() {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(AdMobAnalyticsTracker tracker) {

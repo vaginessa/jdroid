@@ -1,6 +1,6 @@
 package com.jdroid.android.firebase.crash;
 
-import com.jdroid.android.analytics.AnalyticsTracker;
+import com.jdroid.android.analytics.CoreAnalyticsTracker;
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.collections.Lists;
@@ -15,22 +15,12 @@ public class FirebaseCrashAppModule extends AbstractAppModule {
 		return (FirebaseCrashAppModule)AbstractApplication.get().getAppModule(MODULE_NAME);
 	}
 
-	private FirebaseCrashAppContext firebaseCrashAppContext;
-
-	public FirebaseCrashAppModule() {
-		firebaseCrashAppContext = createFirebaseCrashAppContext();
-	}
-
-	protected FirebaseCrashAppContext createFirebaseCrashAppContext() {
-		return new FirebaseCrashAppContext();
-	}
-
-	public FirebaseCrashAppContext getFirebaseCrashAppContext() {
-		return firebaseCrashAppContext;
-	}
-
 	@Override
-	public List<? extends AnalyticsTracker> getAnalyticsTrackers() {
-		return Lists.newArrayList(firebaseCrashAppContext.getAnalyticsTracker());
+	public List<? extends CoreAnalyticsTracker> createCoreAnalyticsTrackers() {
+		return Lists.newArrayList(createCrashlyticsTracker());
+	}
+
+	protected CoreAnalyticsTracker createCrashlyticsTracker() {
+		return new FirebaseCrashTracker();
 	}
 }

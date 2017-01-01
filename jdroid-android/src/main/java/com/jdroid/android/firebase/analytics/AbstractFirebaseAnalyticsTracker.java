@@ -3,9 +3,11 @@ package com.jdroid.android.firebase.analytics;
 import android.support.annotation.WorkerThread;
 
 import com.jdroid.android.firebase.FirebaseAppModule;
-import com.jdroid.java.analytics.BaseAnalyticsTracker;
+import com.jdroid.java.analytics.AnalyticsTracker;
 
-public class AbstractFirebaseAnalyticsTracker implements BaseAnalyticsTracker {
+import java.util.concurrent.Executor;
+
+public class AbstractFirebaseAnalyticsTracker implements AnalyticsTracker {
 
 	@Override
 	public Boolean isEnabled() {
@@ -15,5 +17,10 @@ public class AbstractFirebaseAnalyticsTracker implements BaseAnalyticsTracker {
 	@WorkerThread
 	protected FirebaseAnalyticsHelper getFirebaseAnalyticsHelper() {
 		return FirebaseAppModule.get().getFirebaseAnalyticsHelper();
+	}
+
+	@Override
+	public Executor getExecutor() {
+		return getFirebaseAnalyticsHelper().getExecutor();
 	}
 }

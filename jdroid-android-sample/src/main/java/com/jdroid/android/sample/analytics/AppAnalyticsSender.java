@@ -1,20 +1,25 @@
 package com.jdroid.android.sample.analytics;
 
-import com.jdroid.android.analytics.AnalyticsSender;
-import com.jdroid.java.concurrent.ExecutorUtils;
-
-import java.util.List;
+import com.jdroid.android.sample.firebase.analytics.FirebaseAppAnalyticsTracker;
+import com.jdroid.android.sample.google.analytics.AppGoogleAnalyticsTracker;
+import com.jdroid.java.analytics.AnalyticsSender;
+import com.jdroid.java.collections.Lists;
 
 public class AppAnalyticsSender extends AnalyticsSender<AppAnalyticsTracker> implements AppAnalyticsTracker {
 
-	public AppAnalyticsSender(List<AppAnalyticsTracker> trackers) {
-		super(trackers);
+	private static final AppAnalyticsSender INSTANCE = new AppAnalyticsSender();
+
+	public static AppAnalyticsSender get() {
+		return INSTANCE;
+	}
+
+	public AppAnalyticsSender() {
+		super(Lists.newArrayList(new FirebaseAppAnalyticsTracker(), new AppGoogleAnalyticsTracker()));
 	}
 	
 	@Override
 	public void trackExampleEvent() {
-		ExecutorUtils.execute(new TrackerRunnable() {
-			
+		execute(new TrackingCommand() {
 			@Override
 			protected void track(AppAnalyticsTracker tracker) {
 				tracker.trackExampleEvent();
@@ -24,7 +29,7 @@ public class AppAnalyticsSender extends AnalyticsSender<AppAnalyticsTracker> imp
 
 	@Override
 	public void trackExampleTransaction() {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(AppAnalyticsTracker tracker) {
@@ -35,7 +40,7 @@ public class AppAnalyticsSender extends AnalyticsSender<AppAnalyticsTracker> imp
 
 	@Override
 	public void trackExampleTiming() {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(AppAnalyticsTracker tracker) {

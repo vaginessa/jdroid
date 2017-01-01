@@ -85,7 +85,7 @@ public class GooglePlusHelperFragment extends AbstractFragment {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if ((requestCode == SHARE_REQUEST_CODE) && (resultCode == Activity.RESULT_OK) && (shareLink != null)) {
-			AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(AccountType.GOOGLE_PLUS,
+			AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(AccountType.GOOGLE_PLUS,
 				SocialAction.SHARE, shareLink);
 			shareLink = null;
 		}
@@ -125,7 +125,7 @@ public class GooglePlusHelperFragment extends AbstractFragment {
 	public static void openCommunity(String community) {
 		AbstractApplication.get().getCurrentActivity().startActivity(
 			new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/u/0/communities/" + community)));
-		AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(AccountType.GOOGLE_PLUS,
+		AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(AccountType.GOOGLE_PLUS,
 			SocialAction.OPEN_PROFILE, community);
 	}
 }

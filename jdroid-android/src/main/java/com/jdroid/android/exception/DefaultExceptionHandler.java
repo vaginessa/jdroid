@@ -42,7 +42,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 			try {
 				UsageStats.setLastCrashTimestamp();
 				List<String> tags = getThrowableTags(throwable, null);
-				AbstractApplication.get().getAnalyticsSender().trackFatalException(throwable, tags);
+				AbstractApplication.get().getCoreAnalyticsSender().trackFatalException(throwable, tags);
 			} catch (Exception e) {
 				wrappedExceptionHandler.uncaughtException(thread, e);
 			}
@@ -100,7 +100,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 			if (trackable) {
 				LOGGER.error(errorMessage, throwableToLog);
 				List<String> tags = getThrowableTags(throwable, priorityLevel);
-				AbstractApplication.get().getAnalyticsSender().trackHandledException(throwableToLog, tags);
+				AbstractApplication.get().getCoreAnalyticsSender().trackHandledException(throwableToLog, tags);
 			} else {
 				LOGGER.warn(errorMessage);
 			}
@@ -109,7 +109,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 
 	private void logHandledExceptionSafe(String errorMessage, Throwable throwable) {
 		LOGGER.error(errorMessage, throwable);
-		AbstractApplication.get().getAnalyticsSender().trackHandledException(throwable, getDefaultThrowableTags());
+		AbstractApplication.get().getCoreAnalyticsSender().trackHandledException(throwable, getDefaultThrowableTags());
 	}
 
 	protected List<String> getDefaultThrowableTags() {

@@ -10,8 +10,6 @@ import com.firebase.client.Firebase;
 import com.jdroid.android.about.AboutAppModule;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
-import com.jdroid.android.analytics.AnalyticsSender;
-import com.jdroid.android.analytics.AnalyticsTracker;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.AppContext;
@@ -26,11 +24,7 @@ import com.jdroid.android.google.admob.AdMobAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sample.R;
-import com.jdroid.android.sample.analytics.AppAnalyticsSender;
-import com.jdroid.android.sample.analytics.AppAnalyticsTracker;
 import com.jdroid.android.sample.debug.AndroidDebugContext;
-import com.jdroid.android.sample.exception.AndroidFirebaseCrashAppModule;
-import com.jdroid.android.sample.firebase.AndroidFirebaseAppModule;
 import com.jdroid.android.sample.firebase.fcm.AndroidFcmAppModule;
 import com.jdroid.android.sample.google.analytics.AndroidGoogleAnalyticsAppModule;
 import com.jdroid.android.sample.repository.UserRepositoryImpl;
@@ -48,7 +42,6 @@ import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.http.okhttp.OkHttpServiceFactory;
 import com.jdroid.java.repository.Repository;
 
-import java.util.List;
 import java.util.Map;
 
 public class AndroidApplication extends AbstractApplication {
@@ -104,18 +97,6 @@ public class AndroidApplication extends AbstractApplication {
 		return new AndroidFragmentHelper(fragment);
 	}
 
-	@NonNull
-	@Override
-	protected AnalyticsSender<? extends AnalyticsTracker> createAnalyticsSender(List<? extends AnalyticsTracker> analyticsTrackers) {
-		return new AppAnalyticsSender((List<AppAnalyticsTracker>)analyticsTrackers);
-	}
-
-	@NonNull
-	@Override
-	public AppAnalyticsSender getAnalyticsSender() {
-		return (AppAnalyticsSender)super.getAnalyticsSender();
-	}
-
 	@Override
 	protected DebugContext createDebugContext() {
 		return new AndroidDebugContext();
@@ -139,8 +120,8 @@ public class AndroidApplication extends AbstractApplication {
 	@Override
 	protected void initAppModule(Map<String, AppModule> appModulesMap) {
 		appModulesMap.put(GoogleAnalyticsAppModule.MODULE_NAME, new AndroidGoogleAnalyticsAppModule());
-		appModulesMap.put(FirebaseAppModule.MODULE_NAME, new AndroidFirebaseAppModule());
-		appModulesMap.put(FirebaseCrashAppModule.MODULE_NAME, new AndroidFirebaseCrashAppModule());
+		appModulesMap.put(FirebaseCrashAppModule.MODULE_NAME, new FirebaseCrashAppModule());
+		appModulesMap.put(FirebaseAppModule.MODULE_NAME, new FirebaseAppModule());
 		appModulesMap.put(AdMobAppModule.MODULE_NAME, new SampleAdMobAppModule());
 		appModulesMap.put(FacebookAppModule.MODULE_NAME, new FacebookAppModule());
 		appModulesMap.put(AbstractFcmAppModule.MODULE_NAME, new AndroidFcmAppModule());

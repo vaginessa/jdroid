@@ -3,12 +3,13 @@ package com.jdroid.android.crashlytics;
 import android.support.v4.util.Pair;
 
 import com.crashlytics.android.Crashlytics;
-import com.jdroid.android.analytics.AnalyticsTracker;
+import com.jdroid.android.analytics.CoreAnalyticsTracker;
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
+import java.util.Map;
 
 import io.fabric.sdk.android.Kit;
 
@@ -47,7 +48,22 @@ public class CrashlyticsAppModule extends AbstractAppModule {
 	}
 
 	@Override
-	public List<? extends AnalyticsTracker> getAnalyticsTrackers() {
-		return Lists.newArrayList(crashlyticsAppContext.getAnalyticsTracker());
+	public List<? extends CoreAnalyticsTracker> createCoreAnalyticsTrackers() {
+		return Lists.newArrayList(createCrashlyticsTracker());
+	}
+
+	protected CoreAnalyticsTracker createCrashlyticsTracker() {
+		return new CrashlyticsCoreAnalyticsTracker();
+	}
+
+	@Override
+	public void onInitExceptionHandler(Map<String, String> metadata) {
+		if (metadata != null) {
+			for (Map.Entry<String, String> entry : metadata.entrySet()) {
+				if (entry.getValue() != null) {
+					Crashlytics.getInstance().core.setString(entry.getKey(), entry.getValue());
+				}
+			}
+		}
 	}
 }

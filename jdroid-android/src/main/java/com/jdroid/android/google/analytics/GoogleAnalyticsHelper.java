@@ -6,10 +6,13 @@ import com.google.android.gms.analytics.Tracker;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.UsageStats;
 import com.jdroid.java.collections.Maps;
+import com.jdroid.java.concurrent.LowPriorityThreadFactory;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
 import java.util.Map;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class GoogleAnalyticsHelper {
 
@@ -24,6 +27,8 @@ public class GoogleAnalyticsHelper {
 	private Map<String, Integer> customMetricsMap = Maps.newHashMap();
 
 	private Map<String, String> commonCustomDimensionsValues = Maps.newHashMap();
+
+	private Executor executor = Executors.newSingleThreadExecutor(new LowPriorityThreadFactory("google-analytics"));
 
 	public synchronized Tracker getTracker() {
 		if (tracker == null) {
@@ -119,7 +124,7 @@ public class GoogleAnalyticsHelper {
 				+ "] Value [" + value + "]");
 	}
 
-	protected void addCustomDimension(HitBuilders.ScreenViewBuilder screenViewBuilder, GoogleAnalyticsTracker.CustomDimension customDimension, String dimension) {
+	protected void addCustomDimension(HitBuilders.ScreenViewBuilder screenViewBuilder, GoogleCoreAnalyticsTracker.CustomDimension customDimension, String dimension) {
 		addCustomDimension(screenViewBuilder, customDimension.name(), dimension);
 	}
 
@@ -158,7 +163,7 @@ public class GoogleAnalyticsHelper {
 		}
 	}
 
-	protected void addCustomDimension(HitBuilders.EventBuilder eventBuilder, GoogleAnalyticsTracker.CustomDimension customDimension, String dimension) {
+	protected void addCustomDimension(HitBuilders.EventBuilder eventBuilder, GoogleCoreAnalyticsTracker.CustomDimension customDimension, String dimension) {
 		addCustomDimension(eventBuilder, customDimension.name(), dimension);
 	}
 
@@ -231,5 +236,9 @@ public class GoogleAnalyticsHelper {
 
 	public Boolean hasCommonCustomDimension(String key) {
 		return commonCustomDimensionsValues.containsKey(key);
+	}
+
+	public Executor getExecutor() {
+		return executor;
 	}
 }
