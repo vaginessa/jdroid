@@ -283,8 +283,10 @@ public abstract class AbstractApplication extends Application {
 	public void initExceptionHandlers() {
 		Class<? extends ExceptionHandler> exceptionHandlerClass = getExceptionHandlerClass();
 		if (!Thread.getDefaultUncaughtExceptionHandler().getClass().equals(exceptionHandlerClass)) {
-			getCoreAnalyticsSender().onInitExceptionHandler(getExceptionHandlerMetadata());
-
+			Map<String, String> exceptionHandlerMetadata = getExceptionHandlerMetadata();
+			for (AppModule each: appModulesMap.values()) {
+				each.onInitExceptionHandler(exceptionHandlerMetadata);
+			}
 			ExceptionHandler exceptionHandler = ReflectionUtils.newInstance(exceptionHandlerClass);
 			exceptionHandler.setDefaultExceptionHandler(defaultAndroidExceptionHandler);
 			Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);

@@ -8,14 +8,11 @@ import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.java.analytics.AnalyticsTracker;
 
 import java.util.List;
-import java.util.Map;
 
 public interface CoreAnalyticsTracker extends AnalyticsTracker {
 
 	// Error handling
 	
-	public void onInitExceptionHandler(Map<String, String> metadata);
-
 	public void trackFatalException(Throwable throwable, List<String> tags);
 
 	public void trackHandledException(Throwable throwable, List<String> tags);

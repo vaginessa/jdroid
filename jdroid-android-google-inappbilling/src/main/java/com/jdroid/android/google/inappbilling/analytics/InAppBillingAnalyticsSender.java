@@ -2,7 +2,6 @@ package com.jdroid.android.google.inappbilling.analytics;
 
 import com.jdroid.android.google.inappbilling.Product;
 import com.jdroid.java.analytics.AnalyticsSender;
-import com.jdroid.java.concurrent.ExecutorUtils;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ public class InAppBillingAnalyticsSender extends AnalyticsSender<InAppBillingAna
 
 	@Override
 	public void trackInAppBillingPurchaseTry(final Product product) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(InAppBillingAnalyticsTracker tracker) {
@@ -25,7 +24,7 @@ public class InAppBillingAnalyticsSender extends AnalyticsSender<InAppBillingAna
 
 	@Override
 	public void trackInAppBillingPurchase(final Product product) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(InAppBillingAnalyticsTracker tracker) {

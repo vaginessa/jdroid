@@ -8,8 +8,6 @@ import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 public class CrashlyticsCoreAnalyticsTracker extends AbstractCoreAnalyticsTracker {
 	
@@ -17,18 +15,7 @@ public class CrashlyticsCoreAnalyticsTracker extends AbstractCoreAnalyticsTracke
 	public Boolean isEnabled() {
 		return CrashlyticsAppModule.get().getCrashlyticsAppContext().isCrashlyticsEnabled();
 	}
-	
-	@Override
-	public void onInitExceptionHandler(Map<String, String> metadata) {
-		if (metadata != null) {
-			for (Entry<String, String> entry : metadata.entrySet()) {
-				if (entry.getValue() != null) {
-					Crashlytics.getInstance().core.setString(entry.getKey(), entry.getValue());
-				}
-			}
-		}
-	}
-	
+
 	@Override
 	public void trackHandledException(Throwable throwable, List<String> tags) {
 		if (areTagsEnabled()) {

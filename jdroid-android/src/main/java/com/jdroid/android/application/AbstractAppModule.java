@@ -16,6 +16,7 @@ import com.jdroid.java.analytics.AnalyticsTracker;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
+import java.util.Map;
 
 import io.fabric.sdk.android.Kit;
 
@@ -76,6 +77,11 @@ public abstract class AbstractAppModule implements AppModule {
 
 	@Override
 	public void onLocaleChanged() {
+		// Do Nothing
+	}
+
+	@Override
+	public void onInitExceptionHandler(Map<String, String> metadata) {
 		// Do Nothing
 	}
 

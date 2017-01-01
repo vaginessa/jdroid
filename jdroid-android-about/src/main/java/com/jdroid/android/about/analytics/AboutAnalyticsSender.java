@@ -1,7 +1,6 @@
 package com.jdroid.android.about.analytics;
 
 import com.jdroid.java.analytics.AnalyticsSender;
-import com.jdroid.java.concurrent.ExecutorUtils;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ public class AboutAnalyticsSender extends AnalyticsSender<AboutAnalyticsTracker>
 
 	@Override
 	public void trackAboutLibraryOpen(final String libraryKey) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(AboutAnalyticsTracker tracker) {
@@ -24,7 +23,7 @@ public class AboutAnalyticsSender extends AnalyticsSender<AboutAnalyticsTracker>
 
 	@Override
 	public void trackContactUs() {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(AboutAnalyticsTracker tracker) {

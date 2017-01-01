@@ -14,6 +14,7 @@ import com.jdroid.java.analytics.AnalyticsSender;
 import com.jdroid.java.analytics.AnalyticsTracker;
 
 import java.util.List;
+import java.util.Map;
 
 import io.fabric.sdk.android.Kit;
 
@@ -34,6 +35,8 @@ public interface AppModule {
 	public void onGooglePlayServicesUpdated();
 
 	public void onLocaleChanged();
+
+	public void onInitExceptionHandler(Map<String, String> metadata);
 
 	public List<? extends CoreAnalyticsTracker> createCoreAnalyticsTrackers();
 

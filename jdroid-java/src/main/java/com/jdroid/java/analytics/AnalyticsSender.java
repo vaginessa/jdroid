@@ -6,6 +6,7 @@ import com.jdroid.java.utils.LoggerUtils;
 import org.slf4j.Logger;
 
 import java.util.List;
+import java.util.concurrent.Executor;
 
 public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTracker {
 
@@ -31,6 +32,11 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 		return null;
 	}
 
+	@Override
+	public Executor getExecutor() {
+		return null;
+	}
+
 	protected List<T> getTrackers() {
 		return trackers;
 	}
@@ -39,22 +45,55 @@ public class AnalyticsSender<T extends AnalyticsTracker> implements AnalyticsTra
 		trackers.add(tracker);
 	}
 
-	public abstract class TrackerRunnable implements Runnable {
-
-		@Override
-		public void run() {
-			for (T tracker : getTrackers()) {
-				try {
-					if (tracker.isEnabled()) {
-						track(tracker);
-					}
-				} catch (Exception e) {
+	protected void execute(TrackingCommand trackingCommand, Boolean logHandledExceptionEnabled) {
+		for (final T tracker : getTrackers()) {
+			try {
+				if (tracker.isEnabled()) {
+					tracker.getExecutor().execute(new TrackerRunnable(tracker, trackingCommand, logHandledExceptionEnabled));
+				}
+			} catch (Exception e) {
+				if (logHandledExceptionEnabled) {
 					LoggerUtils.logHandledException(LOGGER, e);
+				} else {
+					LOGGER.error("Error when tracking.", e);
 				}
 			}
 		}
+	}
 
+	protected void execute(TrackingCommand trackingCommand) {
+		execute(trackingCommand, true);
+	}
+
+
+	public abstract class TrackingCommand {
 		protected abstract void track(T tracker);
+	}
+
+	private class TrackerRunnable implements Runnable {
+
+		private T tracker;
+		private TrackingCommand trackingCommand;
+		private Boolean logHandledExceptionEnabled;
+
+		public TrackerRunnable(T tracker, TrackingCommand trackingCommand, Boolean logHandledExceptionEnabled) {
+			this.tracker = tracker;
+			this.trackingCommand = trackingCommand;
+			this.logHandledExceptionEnabled = logHandledExceptionEnabled;
+		}
+
+		@Override
+		public void run() {
+			try {
+				trackingCommand.track(tracker);
+			} catch (Exception e) {
+				if (logHandledExceptionEnabled) {
+					LoggerUtils.logHandledException(LOGGER, e);
+				} else {
+					LOGGER.error("Error when tracking", e);
+				}
+			}
+		}
 	}
 
 }

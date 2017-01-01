@@ -9,6 +9,7 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
+import java.util.Map;
 
 import io.fabric.sdk.android.Kit;
 
@@ -53,5 +54,16 @@ public class CrashlyticsAppModule extends AbstractAppModule {
 
 	protected CoreAnalyticsTracker createCrashlyticsTracker() {
 		return new CrashlyticsCoreAnalyticsTracker();
+	}
+
+	@Override
+	public void onInitExceptionHandler(Map<String, String> metadata) {
+		if (metadata != null) {
+			for (Map.Entry<String, String> entry : metadata.entrySet()) {
+				if (entry.getValue() != null) {
+					Crashlytics.getInstance().core.setString(entry.getKey(), entry.getValue());
+				}
+			}
+		}
 	}
 }

@@ -13,7 +13,6 @@ import com.jdroid.android.utils.DeviceUtils;
 import com.jdroid.android.utils.ScreenUtils;
 
 import java.util.List;
-import java.util.Map;
 
 public class FirebaseCoreAnalyticsTracker extends AbstractFirebaseAnalyticsTracker implements CoreAnalyticsTracker {
 
@@ -25,11 +24,6 @@ public class FirebaseCoreAnalyticsTracker extends AbstractFirebaseAnalyticsTrack
 	private static final String SCREEN_DENSITY_DPI = "SCREEN_DENSITY_DPI";
 
 	private Boolean firstTrackingSent = false;
-
-	@Override
-	public void onInitExceptionHandler(Map<String, String> metadata) {
-		// Do nothing
-	}
 
 	@Override
 	public void trackFatalException(Throwable throwable, List<String> tags) {

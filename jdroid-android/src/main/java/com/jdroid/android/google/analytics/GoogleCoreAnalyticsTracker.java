@@ -15,7 +15,6 @@ import com.jdroid.java.utils.LoggerUtils;
 import org.slf4j.Logger;
 
 import java.util.List;
-import java.util.Map;
 
 public class GoogleCoreAnalyticsTracker extends AbstractGoogleAnalyticsTracker implements CoreAnalyticsTracker {
 	
@@ -190,11 +189,6 @@ public class GoogleCoreAnalyticsTracker extends AbstractGoogleAnalyticsTracker i
 				+ "] Target [" + socialTarget + "]");
 	}
 	
-	@Override
-	public void onInitExceptionHandler(Map<String, String> metadata) {
-		// Do nothing
-	}
-
 	@Override
 	public void trackFatalException(Throwable throwable, List<String> tags) {
 		// Do nothing

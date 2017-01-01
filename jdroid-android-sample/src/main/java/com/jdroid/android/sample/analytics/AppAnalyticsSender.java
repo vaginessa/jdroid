@@ -4,7 +4,6 @@ import com.jdroid.android.sample.firebase.analytics.FirebaseAppAnalyticsTracker;
 import com.jdroid.android.sample.google.analytics.AppGoogleAnalyticsTracker;
 import com.jdroid.java.analytics.AnalyticsSender;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.concurrent.ExecutorUtils;
 
 public class AppAnalyticsSender extends AnalyticsSender<AppAnalyticsTracker> implements AppAnalyticsTracker {
 
@@ -20,8 +19,7 @@ public class AppAnalyticsSender extends AnalyticsSender<AppAnalyticsTracker> imp
 	
 	@Override
 	public void trackExampleEvent() {
-		ExecutorUtils.execute(new TrackerRunnable() {
-			
+		execute(new TrackingCommand() {
 			@Override
 			protected void track(AppAnalyticsTracker tracker) {
 				tracker.trackExampleEvent();
@@ -31,7 +29,7 @@ public class AppAnalyticsSender extends AnalyticsSender<AppAnalyticsTracker> imp
 
 	@Override
 	public void trackExampleTransaction() {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(AppAnalyticsTracker tracker) {
@@ -42,7 +40,7 @@ public class AppAnalyticsSender extends AnalyticsSender<AppAnalyticsTracker> imp
 
 	@Override
 	public void trackExampleTiming() {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(AppAnalyticsTracker tracker) {
