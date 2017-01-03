@@ -1,7 +1,7 @@
 package com.jdroid.android.api;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.java.api.AbstractApiService;
+import com.jdroid.java.http.api.AbstractApiService;
 import com.jdroid.java.http.HttpServiceFactory;
 import com.jdroid.java.http.Server;
 import com.jdroid.java.http.cache.Cache;

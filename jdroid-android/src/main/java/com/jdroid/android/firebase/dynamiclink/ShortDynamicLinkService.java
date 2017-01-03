@@ -1,8 +1,7 @@
 package com.jdroid.android.firebase.dynamiclink;
 
-import com.google.firebase.FirebaseApp;
 import com.jdroid.android.firebase.FirebaseAppModule;
-import com.jdroid.java.api.AbstractApiService;
+import com.jdroid.java.http.api.AbstractApiService;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.http.DefaultServer;
 import com.jdroid.java.http.HttpService;
@@ -16,8 +15,6 @@ import com.jdroid.java.marshaller.MarshallerMode;
 import com.jdroid.java.marshaller.MarshallerProvider;
 
 import java.util.Map;
-
-import static android.R.attr.apiKey;
 
 public class ShortDynamicLinkService extends AbstractApiService {
 

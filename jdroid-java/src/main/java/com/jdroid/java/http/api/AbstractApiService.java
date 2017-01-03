@@ -1,4 +1,4 @@
-package com.jdroid.java.api;
+package com.jdroid.java.http.api;
 
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.UnexpectedException;
