@@ -19,6 +19,7 @@ import java.util.List;
 /**
  * Mapper which allows to navigate the application using a Uri.
  */
+@Internal
 public class UriMapper {
 
 	private static final Logger LOGGER = LoggerUtils.getLogger(UriMapper.class);
@@ -28,29 +29,29 @@ public class UriMapper {
 	private List<UriWatcher> uriWatchers = Lists.newArrayList();
 
 	@Internal
-	public Boolean handleUri(@NonNull Activity activity, @Nullable UriHandler uriHandler) {
-		Uri uri = UriUtils.getUri(activity);
+	public Boolean handleUri(@NonNull Activity activity, Intent intent, @Nullable UriHandler uriHandler, Boolean onActivityCreation) {
+		Uri uri = UriUtils.getUri(intent);
 		if (uri != null && !uri.getScheme().equals("notification")) {
 			notifyToUriWatchers(uri);
 			if (uriHandler != null) {
 				String referrerCategory = ReferrerUtils.getReferrerCategory(activity);
 				if (referrerCategory == null) {
 					referrerCategory = HTTP_UNDEFINED;
-					ReferrerUtils.setReferrer(activity.getIntent(), referrerCategory);
+					ReferrerUtils.setReferrer(intent, referrerCategory);
 				}
 				try {
 					if (uriHandler.matches(uri)) {
 						LOGGER.debug(uriHandler.getClass().getSimpleName() + " matches the main intent: " + uri.toString());
-						Intent intent = uriHandler.createMainIntent(activity, uri);
-						handleIntent(intent, activity, uri, referrerCategory);
+						Intent mainIntent = uriHandler.createMainIntent(activity, uri);
+						handleIntent(mainIntent, activity, uri, referrerCategory, onActivityCreation);
 					} else {
-						AbstractApplication.get().getExceptionHandler().logWarningException(uriHandler.getClass().getSimpleName() + " matches the default intent: " + uri.toString());
-						handleDefaultIntent(activity, uriHandler, uri, referrerCategory);
+						uriHandler.logUriNotMatch(uri);
+						handleDefaultIntent(activity, uriHandler, uri, referrerCategory, onActivityCreation);
 					}
 				} catch (Exception e) {
 					AbstractApplication.get().getExceptionHandler().logHandledException(new UnexpectedException("Error matching: " + uri.toString(), e));
 					try {
-						handleDefaultIntent(activity, uriHandler, uri, referrerCategory);
+						handleDefaultIntent(activity, uriHandler, uri, referrerCategory, onActivityCreation);
 					} catch (Exception e2) {
 						Intent homeIntent = new Intent(activity, AbstractApplication.get().getHomeActivityClass());
 						activity.finish();
@@ -65,7 +66,7 @@ public class UriMapper {
 		return false;
 	}
 
-	private void handleIntent(Intent intent, Activity activity, Uri uri, String referrerCategory) {
+	private void handleIntent(Intent intent, Activity activity, Uri uri, String referrerCategory, Boolean onActivityCreation) {
 		if (intent != null) {
 			ReferrerUtils.setReferrer(intent, referrerCategory);
 			String className = intent.getComponent().getShortClassName();
@@ -73,22 +74,24 @@ public class UriMapper {
 			if (dot != -1) {
 				className = className.substring(dot + 1);
 			}
-			AbstractApplication.get().getAnalyticsSender().trackUriOpened(className, referrerCategory);
+			AbstractApplication.get().getCoreAnalyticsSender().trackUriOpened(className, referrerCategory);
 			if (activity.getIntent().getComponent().equals(intent.getComponent())) {
 				intent.setData(uri);
 				activity.setIntent(intent);
 			} else {
-				activity.finish();
+				if (onActivityCreation) {
+					activity.finish();
+				}
 				activity.startActivity(intent);
 			}
 		} else {
-			AbstractApplication.get().getAnalyticsSender().trackUriOpened(activity.getClass().getSimpleName(), referrerCategory);
+			AbstractApplication.get().getCoreAnalyticsSender().trackUriOpened(activity.getClass().getSimpleName(), referrerCategory);
 		}
 	}
 
-	private void handleDefaultIntent(Activity activity, UriHandler uriHandler, Uri uri, String referrerCategory) {
+	private void handleDefaultIntent(Activity activity, UriHandler uriHandler, Uri uri, String referrerCategory, Boolean onActivityCreation) {
 		Intent intent = uriHandler.createDefaultIntent(activity, uri);
-		handleIntent(intent, activity, uri, referrerCategory);
+		handleIntent(intent, activity, uri, referrerCategory, onActivityCreation);
 	}
 
 	private void notifyToUriWatchers(final Uri uri) {

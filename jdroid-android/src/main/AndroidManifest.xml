@@ -14,6 +14,12 @@
 
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 
+		<receiver android:name="com.jdroid.android.receiver.LocaleChangedReceiver" android:exported="true">
+			<intent-filter>
+				<action android:name="android.intent.action.LOCALE_CHANGED" />
+			</intent-filter>
+		</receiver>
+
 		<!-- Register AnalyticsReceiver and AnalyticsService to support background dispatching on non-Google Play devices -->
 		<receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver"
 				  android:enabled="true">

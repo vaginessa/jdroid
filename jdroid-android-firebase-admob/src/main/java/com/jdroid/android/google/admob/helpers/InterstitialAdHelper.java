@@ -3,7 +3,6 @@ package com.jdroid.android.google.admob.helpers;
 import android.app.Activity;
 import android.view.ViewGroup;
 
-import com.google.android.gms.ads.AdActivity;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -64,13 +63,6 @@ public class InterstitialAdHelper implements AdHelper {
 						displayInterstitial(false);
 					}
 				}
-
-				@Override
-				public void onAdOpened() {
-					super.onAdOpened();
-					AbstractApplication.get().getAnalyticsSender().onActivityStart(AdActivity.class, null, null);
-				}
-
 			});
 		}
 	}

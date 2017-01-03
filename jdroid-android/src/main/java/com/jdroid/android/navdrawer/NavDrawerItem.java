@@ -1,15 +1,17 @@
 package com.jdroid.android.navdrawer;
 
-import android.support.v4.app.FragmentActivity;
+import android.app.Activity;
+
+import com.jdroid.android.activity.AbstractFragmentActivity;
 
 public interface NavDrawerItem {
 
 	public Integer getItemId();
 
-	public void startActivity();
+	public void startActivity(AbstractFragmentActivity currentActivity);
 
-	public Boolean matchesActivity(FragmentActivity fragmentActivity);
+	public Boolean matchesActivity(Activity activity);
 
-	public Class<? extends FragmentActivity> getActivityClass();
+	public Class<? extends Activity> getActivityClass();
 
 }

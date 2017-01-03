@@ -19,17 +19,23 @@ public class TwitterAppModule extends AbstractAppModule {
 		return (TwitterAppModule)AbstractApplication.get().getAppModule(MODULE_NAME);
 	}
 
-	private String twitterOauthConsumerKey;
-	private String twitterOauthConsumerSecret;
+	private TwitterAppContext twitterAppContext;
 
-	public TwitterAppModule(String twitterOauthConsumerKey, String twitterOauthConsumerSecret) {
-		this.twitterOauthConsumerKey = twitterOauthConsumerKey;
-		this.twitterOauthConsumerSecret = twitterOauthConsumerSecret;
+	public TwitterAppModule() {
+		twitterAppContext = createTwitterAppContext();
+	}
+
+	protected TwitterAppContext createTwitterAppContext() {
+		return new TwitterAppContext();
+	}
+
+	public TwitterAppContext getTwitterAppContext() {
+		return twitterAppContext;
 	}
 
 	@Override
 	public List<Kit> getFabricKits() {
-		TwitterAuthConfig authConfig = new TwitterAuthConfig(twitterOauthConsumerKey, twitterOauthConsumerSecret);
+		TwitterAuthConfig authConfig = new TwitterAuthConfig(twitterAppContext.getTwitterOauthConsumerKey(), twitterAppContext.getTwitterOauthConsumerSecret());
 		return Lists.<Kit>newArrayList(new TwitterCore(authConfig), new TweetUi());
 	}
 

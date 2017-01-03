@@ -6,7 +6,7 @@ import android.view.View.OnClickListener;
 
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
-import com.jdroid.android.sample.application.AndroidApplication;
+import com.jdroid.android.sample.analytics.AppAnalyticsSender;
 
 public class AnalyticsFragment extends AbstractFragment {
 	
@@ -23,7 +23,7 @@ public class AnalyticsFragment extends AbstractFragment {
 			
 			@Override
 			public void onClick(View v) {
-				AndroidApplication.get().getAnalyticsSender().trackExampleEvent();
+				AppAnalyticsSender.get().trackExampleEvent();
 			}
 		});
 
@@ -31,7 +31,7 @@ public class AnalyticsFragment extends AbstractFragment {
 
 			@Override
 			public void onClick(View v) {
-				AndroidApplication.get().getAnalyticsSender().trackExampleTransaction();
+				AppAnalyticsSender.get().trackExampleTransaction();
 			}
 		});
 
@@ -39,7 +39,7 @@ public class AnalyticsFragment extends AbstractFragment {
 
 			@Override
 			public void onClick(View v) {
-				AndroidApplication.get().getAnalyticsSender().trackExampleTiming();
+				AppAnalyticsSender.get().trackExampleTiming();
 			}
 		});
 	}

@@ -22,7 +22,7 @@ public class TwitterHelper {
 			AbstractApplication.get().getCurrentActivity().startActivity(
 				new Intent(Intent.ACTION_VIEW, Uri.parse("http://twitter.com/" + account)));
 		} finally {
-			AbstractApplication.get().getAnalyticsSender().trackSocialInteraction(AccountType.TWITTER,
+			AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(AccountType.TWITTER,
 				SocialAction.OPEN_PROFILE, account);
 		}
 	}

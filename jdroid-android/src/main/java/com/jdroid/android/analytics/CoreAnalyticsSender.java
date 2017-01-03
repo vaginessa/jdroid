@@ -5,48 +5,33 @@ import android.app.Activity;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.usecase.AbstractUseCase;
-import com.jdroid.java.analytics.BaseAnalyticsSender;
-import com.jdroid.java.concurrent.ExecutorUtils;
+import com.jdroid.java.analytics.AnalyticsSender;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 
  * @param <T>
  */
-public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSender<T> implements AnalyticsTracker {
+public class CoreAnalyticsSender<T extends CoreAnalyticsTracker> extends AnalyticsSender<T> implements CoreAnalyticsTracker {
 	
-	private static final Logger LOGGER = LoggerUtils.getLogger(AnalyticsSender.class);
+	private static final Logger LOGGER = LoggerUtils.getLogger(CoreAnalyticsSender.class);
 	
 	@SafeVarargs
-	public AnalyticsSender(T... trackers) {
+	public CoreAnalyticsSender(T... trackers) {
 		super(trackers);
 	}
 	
-	public AnalyticsSender(List<T> trackers) {
+	public CoreAnalyticsSender(List<T> trackers) {
 		super(trackers);
 	}
 	
-	@Override
-	public void onInitExceptionHandler(Map<String, String> metadata) {
-		try {
-			for (T tracker : getTrackers()) {
-				if (tracker.isEnabled()) {
-					tracker.onInitExceptionHandler(metadata);
-				}
-			}
-		} catch (Exception e) {
-			LOGGER.error("Error when initializing the exception handler", e);
-		}
-	}
-
 	@Override
 	public void trackErrorBreadcrumb(final String message) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(T tracker) {
@@ -56,31 +41,41 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 	}
 
 	@Override
-	public void onActivityStart(final Class<? extends Activity> activityClass, final String referrer,
+	public void onActivityCreate(final Activity activity) {
+		execute(new TrackingCommand() {
+
+			@Override
+			protected void track(T tracker) {
+				tracker.onActivityCreate(activity);
+			}
+		});
+	}
+
+	@Override
+	public void onActivityStart(final Activity activity, final String referrer,
 			final Object data) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 			
 			@Override
 			protected void track(T tracker) {
-				tracker.onActivityStart(activityClass, referrer, data);
+				tracker.onActivityStart(activity, referrer, data);
 			}
 		});
 	}
 	
 	@Override
 	public void onActivityResume(final Activity activity) {
-		ExecutorUtils.execute(new TrackerRunnable() {
-			
+		execute(new TrackingCommand() {
 			@Override
 			protected void track(T tracker) {
 				tracker.onActivityResume(activity);
 			}
 		});
 	}
-	
+
 	@Override
 	public void onActivityPause(final Activity activity) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 			
 			@Override
 			protected void track(T tracker) {
@@ -91,7 +86,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 	
 	@Override
 	public void onActivityStop(final Activity activity) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 			
 			@Override
 			protected void track(T tracker) {
@@ -102,7 +97,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 	
 	@Override
 	public void onActivityDestroy(final Activity activity) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 			
 			@Override
 			protected void track(T tracker) {
@@ -113,7 +108,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 	
 	@Override
 	public void onFragmentStart(final String screenViewName) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 			
 			@Override
 			protected void track(T tracker) {
@@ -124,39 +119,29 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 
 	@Override
 	public void trackFatalException(final Throwable throwable, final List<String> tags) {
-		ExecutorUtils.execute(new Runnable() {
+		execute(new TrackingCommand() {
+
 			@Override
-			public void run() {
-				for (T tracker : getTrackers()) {
-					if (tracker.isEnabled()) {
-						tracker.trackFatalException(throwable, tags);
-					}
-				}
+			protected void track(T tracker) {
+				tracker.trackFatalException(throwable, tags);
 			}
 		});
 	}
 	
 	@Override
 	public void trackHandledException(final Throwable throwable, final List<String> tags) {
-		ExecutorUtils.execute(new Runnable() {
+		execute(new TrackingCommand() {
+
 			@Override
-			public void run() {
-				for (T tracker : getTrackers()) {
-					try {
-						if (tracker.isEnabled()) {
-							tracker.trackHandledException(throwable, tags);
-						}
-					} catch (Exception e) {
-						LOGGER.error("Error when trying to track the exception.", e);
-					}
-				}
+			protected void track(T tracker) {
+				tracker.trackHandledException(throwable, tags);
 			}
-		});
+		}, false);
 	}
 	
 	@Override
 	public void trackUriOpened(final String screenName, final String referrer) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 			
 			@Override
 			protected void track(T tracker) {
@@ -168,7 +153,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 	@Override
 	public void trackSocialInteraction(final AccountType accountType, final SocialAction socialAction,
 			final String socialTarget) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 			
 			@Override
 			protected void track(T tracker) {
@@ -179,7 +164,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 	
 	@Override
 	public void trackNotificationDisplayed(final String notificationName) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 			
 			@Override
 			protected void track(T tracker) {
@@ -190,7 +175,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 	
 	@Override
 	public void trackNotificationOpened(final String notificationName) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 			
 			@Override
 			protected void track(T tracker) {
@@ -201,7 +186,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 
 	@Override
 	public void trackEnjoyingApp(final Boolean enjoying) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(T tracker) {
@@ -212,7 +197,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 
 	@Override
 	public void trackRateOnGooglePlay(final Boolean rate) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(T tracker) {
@@ -223,7 +208,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 
 	@Override
 	public void trackGiveFeedback(final Boolean feedback) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(T tracker) {
@@ -234,7 +219,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 
 	@Override
 	public void trackUseCaseTiming(final Class<? extends AbstractUseCase> useCaseClass, final long executionTime) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(T tracker) {
@@ -245,7 +230,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 
 	@Override
 	public void trackServiceTiming(final String trackingVariable, final String trackingLabel, final long executionTime) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(T tracker) {
@@ -258,7 +243,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 
 	@Override
 	public void trackWidgetAdded(final String widgetName) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(T tracker) {
@@ -269,7 +254,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 
 	@Override
 	public void trackWidgetRemoved(final String widgetName) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(T tracker) {
@@ -280,7 +265,7 @@ public class AnalyticsSender<T extends AnalyticsTracker> extends BaseAnalyticsSe
 
 	@Override
 	public void trackSendAppInvitation(final String invitationId) {
-		ExecutorUtils.execute(new TrackerRunnable() {
+		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(T tracker) {

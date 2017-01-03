@@ -5,17 +5,14 @@ import android.app.Activity;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.usecase.AbstractUseCase;
-import com.jdroid.java.analytics.BaseAnalyticsTracker;
+import com.jdroid.java.analytics.AnalyticsTracker;
 
 import java.util.List;
-import java.util.Map;
 
-public interface AnalyticsTracker extends BaseAnalyticsTracker {
+public interface CoreAnalyticsTracker extends AnalyticsTracker {
 
 	// Error handling
 	
-	public void onInitExceptionHandler(Map<String, String> metadata);
-
 	public void trackFatalException(Throwable throwable, List<String> tags);
 
 	public void trackHandledException(Throwable throwable, List<String> tags);
@@ -24,8 +21,10 @@ public interface AnalyticsTracker extends BaseAnalyticsTracker {
 
 	// Activity/fragment life cycle
 	
-	public void onActivityStart(Class<? extends Activity> activityClass, String referrer, Object data);
-	
+	public void onActivityCreate(Activity activity);
+
+	public void onActivityStart(Activity activity, String referrer, Object data);
+
 	public void onActivityResume(Activity activity);
 	
 	public void onActivityPause(Activity activity);

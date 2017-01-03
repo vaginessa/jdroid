@@ -20,7 +20,7 @@ public class WidgetHelper {
 				if (widgets.contains(widgetName)) {
 					widgets.remove(widgetName);
 					sharedPreferencesHelper.savePreference(WIDGET_NAMES, widgets);
-					AbstractApplication.get().getAnalyticsSender().trackWidgetRemoved(widgetName);
+					AbstractApplication.get().getCoreAnalyticsSender().trackWidgetRemoved(widgetName);
 				}
 			}
 		});
@@ -35,7 +35,7 @@ public class WidgetHelper {
 				List<String> widgets = sharedPreferencesHelper.loadPreferenceAsStringList(WIDGET_NAMES);
 				if (!widgets.contains(widgetName)) {
 					sharedPreferencesHelper.appendPreferenceAsync(WIDGET_NAMES, widgetName);
-					AbstractApplication.get().getAnalyticsSender().trackWidgetAdded(widgetName);
+					AbstractApplication.get().getCoreAnalyticsSender().trackWidgetAdded(widgetName);
 				}
 			}
 		});

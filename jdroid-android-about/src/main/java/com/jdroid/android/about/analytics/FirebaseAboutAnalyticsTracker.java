@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.jdroid.android.firebase.analytics.AbstractFirebaseAnalyticsTracker;
 
-public class AboutFirebaseAnalyticsTracker extends AbstractFirebaseAnalyticsTracker implements AboutAnalyticsTracker {
+public class FirebaseAboutAnalyticsTracker extends AbstractFirebaseAnalyticsTracker implements AboutAnalyticsTracker {
 
 	@Override
 	public void trackAboutLibraryOpen(String libraryKey) {

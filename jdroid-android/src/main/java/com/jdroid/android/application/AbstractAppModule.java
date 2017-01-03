@@ -7,21 +7,22 @@ import android.support.v4.app.Fragment;
 
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityDelegate;
-import com.jdroid.android.analytics.AnalyticsTracker;
+import com.jdroid.android.analytics.CoreAnalyticsTracker;
 import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
 import com.jdroid.android.fragment.FragmentDelegate;
-import com.jdroid.java.analytics.BaseAnalyticsSender;
-import com.jdroid.java.analytics.BaseAnalyticsTracker;
+import com.jdroid.java.analytics.AnalyticsSender;
+import com.jdroid.java.analytics.AnalyticsTracker;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
+import java.util.Map;
 
 import io.fabric.sdk.android.Kit;
 
 public abstract class AbstractAppModule implements AppModule {
 
-	private BaseAnalyticsSender<? extends BaseAnalyticsTracker> analyticsSender;
+	private AnalyticsSender<? extends AnalyticsTracker> analyticsSender;
 
 	@Override
 	public void onCreate() {
@@ -30,17 +31,17 @@ public abstract class AbstractAppModule implements AppModule {
 
 	@NonNull
 	@Override
-	public BaseAnalyticsSender<? extends BaseAnalyticsTracker> createModuleAnalyticsSender(List<? extends BaseAnalyticsTracker> analyticsTrackers) {
-		return new BaseAnalyticsSender<>(analyticsTrackers);
+	public AnalyticsSender<? extends AnalyticsTracker> createModuleAnalyticsSender(List<? extends AnalyticsTracker> analyticsTrackers) {
+		return new AnalyticsSender<>(analyticsTrackers);
 	}
 
 	@Override
-	public List<? extends BaseAnalyticsTracker> createModuleAnalyticsTrackers() {
+	public List<? extends AnalyticsTracker> createModuleAnalyticsTrackers() {
 		return Lists.newArrayList();
 	}
 
 	@Override
-	public BaseAnalyticsSender<? extends BaseAnalyticsTracker> getAnalyticsSender() {
+	public AnalyticsSender<? extends AnalyticsTracker> getAnalyticsSender() {
 		return analyticsSender;
 	}
 
@@ -75,7 +76,17 @@ public abstract class AbstractAppModule implements AppModule {
 	}
 
 	@Override
-	public List<? extends AnalyticsTracker> getAnalyticsTrackers() {
+	public void onLocaleChanged() {
+		// Do Nothing
+	}
+
+	@Override
+	public void onInitExceptionHandler(Map<String, String> metadata) {
+		// Do Nothing
+	}
+
+	@Override
+	public List<? extends CoreAnalyticsTracker> createCoreAnalyticsTrackers() {
 		return Lists.newArrayList();
 	}
 

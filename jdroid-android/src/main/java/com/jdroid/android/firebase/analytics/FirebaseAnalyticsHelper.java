@@ -4,15 +4,21 @@ import android.os.Bundle;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.java.concurrent.LowPriorityThreadFactory;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class FirebaseAnalyticsHelper {
 
 	private static final Logger LOGGER = LoggerUtils.getLogger(FirebaseAnalyticsHelper.class);
 
 	private FirebaseAnalytics firebaseAnalytics;
+
+	private Executor executor = Executors.newSingleThreadExecutor(new LowPriorityThreadFactory("firebase-analytics"));
 
 	public FirebaseAnalyticsHelper() {
 		firebaseAnalytics = FirebaseAnalytics.getInstance(AbstractApplication.get());
@@ -52,4 +58,7 @@ public class FirebaseAnalyticsHelper {
 		LOGGER.debug("User Id removed.");
 	}
 
+	public Executor getExecutor() {
+		return executor;
+	}
 }

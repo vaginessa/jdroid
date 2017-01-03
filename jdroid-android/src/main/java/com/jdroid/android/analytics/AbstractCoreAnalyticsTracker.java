@@ -5,15 +5,19 @@ import android.app.Activity;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.usecase.AbstractUseCase;
+import com.jdroid.java.concurrent.LowPriorityThreadFactory;
 
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
-public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
-	
+public abstract class AbstractCoreAnalyticsTracker implements CoreAnalyticsTracker {
+
+	private Executor executor = Executors.newSingleThreadExecutor(new LowPriorityThreadFactory("analytics"));
+
 	@Override
-	public void onInitExceptionHandler(Map<String, String> metadata) {
-		// Do Nothing
+	public Executor getExecutor() {
+		return executor;
 	}
 
 	@Override
@@ -22,7 +26,12 @@ public abstract class AbstractAnalyticsTracker implements AnalyticsTracker {
 	}
 
 	@Override
-	public void onActivityStart(Class<? extends Activity> activityClass, String referrer, Object data) {
+	public void onActivityCreate(Activity activity) {
+		// Do nothing
+	}
+
+	@Override
+	public void onActivityStart(Activity activity, String referrer, Object data) {
 		// Do Nothing
 	}
 	

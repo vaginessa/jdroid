@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.jdroid.android.analytics.AnalyticsTracker;
+import com.jdroid.android.analytics.CoreAnalyticsTracker;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
@@ -13,9 +13,8 @@ import com.jdroid.android.utils.DeviceUtils;
 import com.jdroid.android.utils.ScreenUtils;
 
 import java.util.List;
-import java.util.Map;
 
-public class FirebaseAnalyticsTracker extends AbstractFirebaseAnalyticsTracker implements AnalyticsTracker {
+public class FirebaseCoreAnalyticsTracker extends AbstractFirebaseAnalyticsTracker implements CoreAnalyticsTracker {
 
 	private static final String INSTALLATION_SOURCE_USER_PROPERTY = "INSTALLATION_SOURCE";
 	private static final String DEVICE_YEAR_CLASS_USER_PROPERTY = "DEVICE_YEAR_CLASS";
@@ -25,11 +24,6 @@ public class FirebaseAnalyticsTracker extends AbstractFirebaseAnalyticsTracker i
 	private static final String SCREEN_DENSITY_DPI = "SCREEN_DENSITY_DPI";
 
 	private Boolean firstTrackingSent = false;
-
-	@Override
-	public void onInitExceptionHandler(Map<String, String> metadata) {
-		// Do nothing
-	}
 
 	@Override
 	public void trackFatalException(Throwable throwable, List<String> tags) {
@@ -47,7 +41,12 @@ public class FirebaseAnalyticsTracker extends AbstractFirebaseAnalyticsTracker i
 	}
 
 	@Override
-	public void onActivityStart(Class<? extends Activity> activityClass, String referrer, Object data) {
+	public void onActivityCreate(Activity activity) {
+		// Do nothing
+	}
+
+	@Override
+	public void onActivityStart(Activity activity, String referrer, Object data) {
 		if (!firstTrackingSent) {
 			getFirebaseAnalyticsHelper().setUserProperty(DEVICE_YEAR_CLASS_USER_PROPERTY, DeviceUtils.getDeviceYearClass().toString());
 			getFirebaseAnalyticsHelper().setUserProperty(SCREEN_WIDTH, ScreenUtils.getScreenWidthDp().toString());

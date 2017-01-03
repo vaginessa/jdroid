@@ -15,7 +15,7 @@ public class AppInviteHelper {
 	public static final int REQUEST_CODE = RandomUtils.get16BitsInt();
 
 	public static List<String> onActivityResult(int appInviteRequestCode, int requestCode, int resultCode, Intent data) {
-		if (requestCode == appInviteRequestCode) {
+		if (data != null && requestCode == appInviteRequestCode) {
 			if (resultCode == Activity.RESULT_OK) {
 				// The ids array contains the unique invitation ids for each invitation sent
 				// (one for each contact select by the user). You can use these for analytics
@@ -23,7 +23,7 @@ public class AppInviteHelper {
 				String[] ids = AppInviteInvitation.getInvitationIds(resultCode, data);
 				if (ids != null) {
 					for (String invitationId : ids) {
-						AbstractApplication.get().getAnalyticsSender().trackSendAppInvitation(invitationId);
+						AbstractApplication.get().getCoreAnalyticsSender().trackSendAppInvitation(invitationId);
 					}
 					List<String> invitationsIds = Lists.newArrayList(ids);
 					AppInviteStats.invitesSent(invitationsIds);

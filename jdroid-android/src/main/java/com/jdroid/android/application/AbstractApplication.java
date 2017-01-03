@@ -14,8 +14,8 @@ import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.activity.ActivityLifecycleHandler;
-import com.jdroid.android.analytics.AnalyticsSender;
-import com.jdroid.android.analytics.AnalyticsTracker;
+import com.jdroid.android.analytics.CoreAnalyticsSender;
+import com.jdroid.android.analytics.CoreAnalyticsTracker;
 import com.jdroid.android.context.AndroidGitContext;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
@@ -72,7 +72,7 @@ public abstract class AbstractApplication extends Application {
 	private GitContext gitContext;
 	private DebugContext debugContext;
 
-	private AnalyticsSender<? extends AnalyticsTracker> analyticsSender;
+	private CoreAnalyticsSender<? extends CoreAnalyticsTracker> coreAnalyticsSender;
 	private UriMapper uriMapper;
 	
 	/** Current activity in the top stack. */
@@ -139,7 +139,7 @@ public abstract class AbstractApplication extends Application {
 			Fabric.with(this, fabricKits.toArray(new Kit[0]));
 		}
 
-		analyticsSender = createAnalyticsSender(createAnalyticsTrackers());
+		initCoreAnalyticsSender();
 
 		uriMapper = createUriMapper();
 
@@ -218,6 +218,13 @@ public abstract class AbstractApplication extends Application {
 		}
 	}
 
+	public void onLocaleChanged() {
+
+		for (AppModule each: appModulesMap.values()) {
+			each.onLocaleChanged();
+		}
+	}
+
 	@Override
 	protected void attachBaseContext(Context base) {
 		super.attachBaseContext(base);
@@ -248,23 +255,24 @@ public abstract class AbstractApplication extends Application {
 		}
 	}
 
-	@NonNull
-	protected AnalyticsSender<? extends AnalyticsTracker> createAnalyticsSender(List<? extends AnalyticsTracker> analyticsTrackers) {
-		return new AnalyticsSender<>(analyticsTrackers);
+	private void initCoreAnalyticsSender() {
+		List<CoreAnalyticsTracker> coreAnalyticsTrackers = Lists.newArrayList();
+		for (AppModule each: appModulesMap.values()) {
+			coreAnalyticsTrackers.addAll(each.createCoreAnalyticsTrackers());
+		}
+		coreAnalyticsTrackers.addAll(createCoreAnalyticsTrackers());
+
+		coreAnalyticsSender = new CoreAnalyticsSender<>(coreAnalyticsTrackers);
 	}
 
-	public List<? extends AnalyticsTracker> createAnalyticsTrackers() {
-		List<AnalyticsTracker> analyticsTrackers = Lists.newArrayList();
-		for (AppModule each: appModulesMap.values()) {
-			analyticsTrackers.addAll(each.getAnalyticsTrackers());
-		}
-		return analyticsTrackers;
+	protected List<? extends CoreAnalyticsTracker> createCoreAnalyticsTrackers() {
+		return Lists.newArrayList();
 	}
 
 	@SuppressWarnings("unchecked")
 	@NonNull
-	public AnalyticsSender<? extends AnalyticsTracker> getAnalyticsSender() {
-		return analyticsSender;
+	public CoreAnalyticsSender<? extends CoreAnalyticsTracker> getCoreAnalyticsSender() {
+		return coreAnalyticsSender;
 	}
 	
 	protected void initStrictMode() {
@@ -275,8 +283,10 @@ public abstract class AbstractApplication extends Application {
 	public void initExceptionHandlers() {
 		Class<? extends ExceptionHandler> exceptionHandlerClass = getExceptionHandlerClass();
 		if (!Thread.getDefaultUncaughtExceptionHandler().getClass().equals(exceptionHandlerClass)) {
-			getAnalyticsSender().onInitExceptionHandler(getExceptionHandlerMetadata());
-
+			Map<String, String> exceptionHandlerMetadata = getExceptionHandlerMetadata();
+			for (AppModule each: appModulesMap.values()) {
+				each.onInitExceptionHandler(exceptionHandlerMetadata);
+			}
 			ExceptionHandler exceptionHandler = ReflectionUtils.newInstance(exceptionHandlerClass);
 			exceptionHandler.setDefaultExceptionHandler(defaultAndroidExceptionHandler);
 			Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);

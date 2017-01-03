@@ -3,8 +3,8 @@ package com.jdroid.android.google.maps;
 import com.jdroid.android.api.AndroidApiService;
 import com.jdroid.android.domain.GeoLocation;
 import com.jdroid.java.http.DefaultServer;
-import com.jdroid.java.http.Server;
 import com.jdroid.java.http.HttpService;
+import com.jdroid.java.http.Server;
 
 public class GoogleMapService extends AndroidApiService {
 	
@@ -34,9 +34,6 @@ public class GoogleMapService extends AndroidApiService {
 		return Double.toString(geoLocation.getLatitude()) + "," + Double.toString(geoLocation.getLongitude());
 	}
 	
-	/**
-	 * @see com.jdroid.java.api.AbstractApiService#getServer()
-	 */
 	@Override
 	protected Server getServer() {
 		return GMAPS_API;
