@@ -27,7 +27,7 @@ public class GeofencesHelper {
 
 	private final static Logger LOGGER = LoggerUtils.getLogger(GeofencesHelper.class);
 
-	public static void addGeofences(final FragmentIf fragmentIf, final int intialTrigger, final List<Geofence> geofences) {
+	public static void addGeofences(final FragmentIf fragmentIf, final int initialTrigger, final List<Geofence> geofences, final GeofenceResultCallback geofenceResultCallback) {
 
 		PermissionHelper locationPermissionHelper = PermissionHelper.createLocationPermissionHelper((Fragment)fragmentIf);
 		// TODO
@@ -35,7 +35,7 @@ public class GeofencesHelper {
 		locationPermissionHelper.setOnRequestPermissionsResultListener(new PermissionHelper.OnRequestPermissionsResultListener() {
 			@Override
 			public void onRequestPermissionsGranted() {
-				addGeofencesInternal(fragmentIf, intialTrigger, geofences);
+				addGeofencesInternal(fragmentIf, initialTrigger, geofences, geofenceResultCallback);
 			}
 
 			@Override
@@ -45,14 +45,14 @@ public class GeofencesHelper {
 		});
 		Boolean locationPermissionGranted = locationPermissionHelper.checkPermission(false);
 		if (locationPermissionGranted) {
-			addGeofencesInternal(fragmentIf, intialTrigger, geofences);
+			addGeofencesInternal(fragmentIf, initialTrigger, geofences, geofenceResultCallback);
 		}
 	}
 
 	@SuppressWarnings("MissingPermission")
-	private static void addGeofencesInternal(FragmentIf fragmentIf, final int intialTrigger, final List<Geofence> geofences) {
+	private static void addGeofencesInternal(FragmentIf fragmentIf, final int initialTrigger, final List<Geofence> geofences, GeofenceResultCallback geofenceResultCallback) {
 		GeofencingRequest.Builder geofencingRequestBuilder = new GeofencingRequest.Builder();
-		geofencingRequestBuilder.setInitialTrigger(intialTrigger);
+		geofencingRequestBuilder.setInitialTrigger(initialTrigger);
 		geofencingRequestBuilder.addGeofences(geofences);
 		GeofencingRequest geofencingRequest = geofencingRequestBuilder.build();
 
@@ -61,32 +61,11 @@ public class GeofencesHelper {
 		// calling addGeofences() and removeGeofences().
 		PendingIntent geofencePendingIntent = PendingIntent.getService(AbstractApplication.get(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-		LocationServices.GeofencingApi.addGeofences(fragmentIf.getActivityIf().getGoogleApiClient(), geofencingRequest, geofencePendingIntent).setResultCallback(new GeofenceResultCallback() {
-
-			@Override
-			public void onSuccessResult(@NonNull Status result) {
-				LOGGER.info("Geofence added.");
-			}
-
-			@Override
-			protected void onGeofenceNotAvailable() {
-
-			}
-		});
+		LocationServices.GeofencingApi.addGeofences(fragmentIf.getActivityIf().getGoogleApiClient(), geofencingRequest, geofencePendingIntent).setResultCallback(geofenceResultCallback);
 	}
 
-	public static void removeGeofence(ActivityIf activityIf, String geoFenceId) {
-		LocationServices.GeofencingApi.removeGeofences(activityIf.getGoogleApiClient(), Lists.newArrayList(geoFenceId)).setResultCallback(new GeofenceResultCallback() {
-			@Override
-			public void onSuccessResult(@NonNull Status result) {
-				LOGGER.info("Geofence removed.");
-			}
-
-			@Override
-			protected void onGeofenceNotAvailable() {
-
-			}
-		});
+	public static void removeGeofence(ActivityIf activityIf, String geoFenceId, GeofenceResultCallback geofenceResultCallback) {
+		LocationServices.GeofencingApi.removeGeofences(activityIf.getGoogleApiClient(), Lists.newArrayList(geoFenceId)).setResultCallback(geofenceResultCallback);
 	}
 
 	public static abstract class GeofenceResultCallback extends SafeResultCallback<Status> {
@@ -97,7 +76,7 @@ public class GeofencesHelper {
 				case GeofenceStatusCodes.GEOFENCE_NOT_AVAILABLE:
 					// Geofence service is not available now. Typically this is because the user turned off location access in settings > location access.
 					LOGGER.warn("Geofence service not available.");
-					onGeofenceNotAvailable();
+					onGeofenceServiceNotAvailable();
 				case GeofenceStatusCodes.GEOFENCE_TOO_MANY_GEOFENCES:
 					// Your app has registered more than 100 geofences. Remove unused ones before adding new geofences.
 					AbstractApplication.get().getExceptionHandler().logHandledException("Too many geofences");
@@ -112,7 +91,7 @@ public class GeofencesHelper {
 			}
 		}
 
-		protected abstract void onGeofenceNotAvailable();
+		protected abstract void onGeofenceServiceNotAvailable();
 
 		protected void onUnexpectedError(@NonNull Status result) {
 			// Do nothing
