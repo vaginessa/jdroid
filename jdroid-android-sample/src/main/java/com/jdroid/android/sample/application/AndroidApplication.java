@@ -7,6 +7,7 @@ import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 
 import com.firebase.client.Firebase;
+import com.google.android.gms.location.GeofencingEvent;
 import com.jdroid.android.about.AboutAppModule;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
@@ -22,6 +23,10 @@ import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigAppModule;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.google.admob.AdMobAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
+import com.jdroid.android.google.geofences.GeofenceTransitionListener;
+import com.jdroid.android.google.geofences.GeofencesHelper;
+import com.jdroid.android.notification.NotificationBuilder;
+import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.debug.AndroidDebugContext;
@@ -41,6 +46,7 @@ import com.jdroid.android.twitter.TwitterAppModule;
 import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.http.okhttp.OkHttpServiceFactory;
 import com.jdroid.java.repository.Repository;
+import com.jdroid.java.utils.IdGenerator;
 
 import java.util.Map;
 
@@ -61,6 +67,38 @@ public class AndroidApplication extends AbstractApplication {
 		getUriMapper().addUriWatcher(new SampleUriWatcher());
 
 		Firebase.setAndroidContext(this);
+
+		GeofencesHelper.addGeofenceTransitionListener(new GeofenceTransitionListener() {
+			@Override
+			public void onTransitionEnter(GeofencingEvent geofencingEvent) {
+				NotificationBuilder builder = new NotificationBuilder("sampleGeoFenceNotification");
+				builder.setSmallIcon(AbstractApplication.get().getNotificationIconResId());
+				builder.setContentTitle("Geofences triggered: " + geofencingEvent.getTriggeringGeofences().size());
+				builder.setContentText("Enter");
+				
+				NotificationUtils.sendNotification(IdGenerator.getIntId(), builder);
+			}
+
+			@Override
+			public void onTransitionDwell(GeofencingEvent geofencingEvent) {
+				NotificationBuilder builder = new NotificationBuilder("sampleGeoFenceNotification");
+				builder.setSmallIcon(AbstractApplication.get().getNotificationIconResId());
+				builder.setContentTitle("Geofences triggered: " + geofencingEvent.getTriggeringGeofences().size());
+				builder.setContentText("Dwell");
+
+				NotificationUtils.sendNotification(IdGenerator.getIntId(), builder);
+			}
+
+			@Override
+			public void onTransitionExit(GeofencingEvent geofencingEvent) {
+				NotificationBuilder builder = new NotificationBuilder("sampleGeoFenceNotification");
+				builder.setSmallIcon(AbstractApplication.get().getNotificationIconResId());
+				builder.setContentTitle("Geofences triggered: " + geofencingEvent.getTriggeringGeofences().size());
+				builder.setContentText("Exit");
+
+				NotificationUtils.sendNotification(IdGenerator.getIntId(), builder);
+			}
+		});
 	}
 
 	@Override

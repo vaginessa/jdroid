@@ -105,6 +105,7 @@ public class GeofencesFragment extends AbstractFragment implements View.OnFocusC
 			public void onMapReady(final GoogleMap googleMap) {
 				GeofencesFragment.this.googleMap = googleMap;
 				googleMap.getUiSettings().setMapToolbarEnabled(false);
+				googleMap.setMyLocationEnabled(true);
 				googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
 					@Override
 					public void onMapLoaded() {

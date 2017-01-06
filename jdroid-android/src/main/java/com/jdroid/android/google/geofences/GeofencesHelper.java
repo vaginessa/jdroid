@@ -27,6 +27,8 @@ public class GeofencesHelper {
 
 	private final static Logger LOGGER = LoggerUtils.getLogger(GeofencesHelper.class);
 
+	private static List<GeofenceTransitionListener> geofenceTransitionListeners = Lists.newArrayList();
+
 	public static void addGeofences(final FragmentIf fragmentIf, final int initialTrigger, final List<Geofence> geofences, final GeofenceResultCallback geofenceResultCallback) {
 
 		PermissionHelper locationPermissionHelper = PermissionHelper.createLocationPermissionHelper((Fragment)fragmentIf);
@@ -66,6 +68,24 @@ public class GeofencesHelper {
 
 	public static void removeGeofence(ActivityIf activityIf, String geoFenceId, GeofenceResultCallback geofenceResultCallback) {
 		LocationServices.GeofencingApi.removeGeofences(activityIf.getGoogleApiClient(), Lists.newArrayList(geoFenceId)).setResultCallback(geofenceResultCallback);
+	}
+
+	public static List<GeofenceTransitionListener> getGeofenceTransitionListeners() {
+		return geofenceTransitionListeners;
+	}
+
+	public static void clearGeofenceTransitionListeners() {
+		geofenceTransitionListeners.clear();
+	}
+
+	public static void addGeofenceTransitionListener(GeofenceTransitionListener geofenceTransitionListener) {
+		if (geofenceTransitionListener != null && !geofenceTransitionListeners.contains(geofenceTransitionListener)) {
+			geofenceTransitionListeners.add(geofenceTransitionListener);
+		}
+	}
+
+	public static void removeGeofenceTransitionListener(GeofenceTransitionListener geofenceTransitionListener) {
+		geofenceTransitionListeners.remove(geofenceTransitionListener);
 	}
 
 	public static abstract class GeofenceResultCallback extends SafeResultCallback<Status> {

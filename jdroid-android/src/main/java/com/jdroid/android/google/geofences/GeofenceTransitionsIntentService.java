@@ -7,14 +7,9 @@ import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofenceStatusCodes;
 import com.google.android.gms.location.GeofencingEvent;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.notification.NotificationBuilder;
-import com.jdroid.android.notification.NotificationUtils;
-import com.jdroid.java.utils.IdGenerator;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
-
-import java.util.List;
 
 public class GeofenceTransitionsIntentService extends IntentService {
 
@@ -50,24 +45,43 @@ public class GeofenceTransitionsIntentService extends IntentService {
 			// Get the transition type.
 			int geofenceTransition = geofencingEvent.getGeofenceTransition();
 
-			// Test that the reported transition was of interest.
-			if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER ||
-					geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
-
-				// Get the geofences that were triggered. A single event can trigge multiple geofences.
-				List<Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
-
-				NotificationBuilder builder = new NotificationBuilder("sampleGeoFenceNotification");
-				builder.setSmallIcon(AbstractApplication.get().getNotificationIconResId());
-				builder.setContentTitle("Geofence triggered");
-				builder.setContentText(geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER ? "Enter" : "Exit");
-
-				NotificationUtils.sendNotification(IdGenerator.getIntId(), builder);
-
-			} else {
-				// Log the error.
+			if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
+				onTransitionEnter(geofencingEvent);
+			} else if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL) {
+				onTransitionDwell(geofencingEvent);
+			} else if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
+				onTransitionExit(geofencingEvent);
 			}
 		}
+	}
 
+	protected void onTransitionEnter(GeofencingEvent geofencingEvent) {
+		for (GeofenceTransitionListener each : GeofencesHelper.getGeofenceTransitionListeners()) {
+			try {
+				each.onTransitionEnter(geofencingEvent);
+			} catch (Exception e) {
+				AbstractApplication.get().getExceptionHandler().logHandledException(e);
+			}
+		}
+	}
+
+	protected void onTransitionDwell(GeofencingEvent geofencingEvent) {
+		for (GeofenceTransitionListener each : GeofencesHelper.getGeofenceTransitionListeners()) {
+			try {
+				each.onTransitionDwell(geofencingEvent);
+			} catch (Exception e) {
+				AbstractApplication.get().getExceptionHandler().logHandledException(e);
+			}
+		}
+	}
+
+	protected void onTransitionExit(GeofencingEvent geofencingEvent) {
+		for (GeofenceTransitionListener each : GeofencesHelper.getGeofenceTransitionListeners()) {
+			try {
+				each.onTransitionExit(geofencingEvent);
+			} catch (Exception e) {
+				AbstractApplication.get().getExceptionHandler().logHandledException(e);
+			}
+		}
 	}
 }
