@@ -24,8 +24,6 @@ public class UriMapper {
 
 	private static final Logger LOGGER = LoggerUtils.getLogger(UriMapper.class);
 
-	private static final String HTTP_UNDEFINED = "http://undefined";
-
 	private List<UriWatcher> uriWatchers = Lists.newArrayList();
 
 	@Internal
@@ -35,10 +33,6 @@ public class UriMapper {
 			notifyToUriWatchers(uri);
 			if (uriHandler != null) {
 				String referrerCategory = ReferrerUtils.getReferrerCategory(activity);
-				if (referrerCategory == null) {
-					referrerCategory = HTTP_UNDEFINED;
-					ReferrerUtils.setReferrer(intent, referrerCategory);
-				}
 				try {
 					if (uriHandler.matches(uri)) {
 						LOGGER.debug(uriHandler.getClass().getSimpleName() + " matches the main intent: " + uri.toString());

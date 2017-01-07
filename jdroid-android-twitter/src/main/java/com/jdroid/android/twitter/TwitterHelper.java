@@ -14,6 +14,7 @@ import com.twitter.sdk.android.tweetui.SearchTimeline;
 import com.twitter.sdk.android.tweetui.TimelineResult;
 
 import java.net.ConnectException;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.List;
 
@@ -56,6 +57,8 @@ public abstract class TwitterHelper {
 						} else if (e.getCause().getMessage().equals("Unable to resolve host \"api.twitter.com\": No address associated with hostname")) {
 							connectionError = true;
 						} else if (e.getCause() instanceof SocketTimeoutException) {
+							connectionError = true;
+						} else if (e.getCause() instanceof SocketException) {
 							connectionError = true;
 						} else if (e.getCause() instanceof SSLHandshakeException) {
 							connectionError = true;

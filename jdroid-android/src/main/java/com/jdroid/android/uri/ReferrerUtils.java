@@ -11,6 +11,8 @@ public class ReferrerUtils {
 
 	private static final String EXTRA_REFERRER = "android.intent.extra.REFERRER";
 
+	private static final String HTTP_UNDEFINED = "http://undefined";
+
 	public static String getReferrerCategory(Activity activity) {
 		String referrerCategory = null;
 		Uri referrerUri = ActivityCompat.getReferrer(activity);
@@ -35,13 +37,20 @@ public class ReferrerUtils {
 			} else {
 				referrerCategory = referrerUri.toString();
 			}
+		} else {
+			referrerCategory = HTTP_UNDEFINED;
 		}
 		return referrerCategory;
 	}
 
 	public static void setReferrer(Intent intent, Uri referrer) {
-		intent.putExtra(EXTRA_REFERRER, referrer);
+		if (referrer == null || HTTP_UNDEFINED.equals(referrer.toString())) {
+			intent.putExtra(EXTRA_REFERRER, (String)null);
+		} else {
+			intent.putExtra(EXTRA_REFERRER, referrer);
+		}
 	}
+
 	public static void setReferrer(Intent intent, String referrer) {
 		if (referrer != null) {
 			setReferrer(intent, Uri.parse(referrer));
