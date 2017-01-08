@@ -7,6 +7,7 @@ import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 
 import com.firebase.client.Firebase;
+import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
 import com.jdroid.android.about.AboutAppModule;
 import com.jdroid.android.activity.AbstractFragmentActivity;
@@ -71,35 +72,35 @@ public class AndroidApplication extends AbstractApplication {
 		GeofencesHelper.addGeofenceTransitionListener(new GeofenceTransitionListener() {
 			@Override
 			public void onTransitionEnter(GeofencingEvent geofencingEvent) {
-				NotificationBuilder builder = new NotificationBuilder("sampleGeoFenceNotification");
-				builder.setSmallIcon(AbstractApplication.get().getNotificationIconResId());
-				builder.setContentTitle("Geofences triggered: " + geofencingEvent.getTriggeringGeofences().size());
-				builder.setContentText("Enter");
-				
-				NotificationUtils.sendNotification(IdGenerator.getIntId(), builder);
+				sendNotification(geofencingEvent, "Geofence Enter");
 			}
 
 			@Override
 			public void onTransitionDwell(GeofencingEvent geofencingEvent) {
-				NotificationBuilder builder = new NotificationBuilder("sampleGeoFenceNotification");
-				builder.setSmallIcon(AbstractApplication.get().getNotificationIconResId());
-				builder.setContentTitle("Geofences triggered: " + geofencingEvent.getTriggeringGeofences().size());
-				builder.setContentText("Dwell");
-
-				NotificationUtils.sendNotification(IdGenerator.getIntId(), builder);
+				sendNotification(geofencingEvent, "Geofence Dwell");
 			}
 
 			@Override
 			public void onTransitionExit(GeofencingEvent geofencingEvent) {
+				sendNotification(geofencingEvent, "Geofence Exit");
+			}
+
+			private void sendNotification(GeofencingEvent geofencingEvent, String transition) {
 				NotificationBuilder builder = new NotificationBuilder("sampleGeoFenceNotification");
 				builder.setSmallIcon(AbstractApplication.get().getNotificationIconResId());
-				builder.setContentTitle("Geofences triggered: " + geofencingEvent.getTriggeringGeofences().size());
-				builder.setContentText("Exit");
+
+				builder.setContentTitle(transition);
+				StringBuilder contentBuilder = new StringBuilder();
+				for (Geofence geofence : geofencingEvent.getTriggeringGeofences()) {
+					contentBuilder.append(geofence.getRequestId());
+				}
+				builder.setContentText(contentBuilder.toString());
 
 				NotificationUtils.sendNotification(IdGenerator.getIntId(), builder);
 			}
 		});
 	}
+
 
 	@Override
 	protected void attachBaseContext(Context base) {

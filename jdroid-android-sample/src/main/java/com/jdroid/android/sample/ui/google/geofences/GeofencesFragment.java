@@ -37,11 +37,11 @@ public class GeofencesFragment extends AbstractFragment implements View.OnFocusC
 	private static final Double LONGITUDE = -58.370833;
 	private static final Long GEOFENCE_RADIUS_IN_METERS = 300L;
 	private static final Long GEOFENCE_EXPIRATION_IN_MILLISECONDS = DateUtils.MILLIS_PER_DAY;
-
 	private static final String GEOFENCE_ID = "sampleGeofenceId";
 
 	private MapView mapView;
 
+	private EditText geofenceId;
 	private EditText latitude;
 	private EditText longitude;
 	private EditText geofenceRadius;
@@ -79,6 +79,9 @@ public class GeofencesFragment extends AbstractFragment implements View.OnFocusC
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		geofenceId = findView(R.id.geofenceId);
+		geofenceId.setText(GEOFENCE_ID.toString());
 
 		latitude = findView(R.id.latitude);
 		latitude.setText(LATITUDE.toString());
@@ -131,7 +134,7 @@ public class GeofencesFragment extends AbstractFragment implements View.OnFocusC
 
 				final List<Geofence> geofences = Lists.newArrayList();
 				Geofence.Builder builder = new Geofence.Builder();
-				builder.setRequestId(GEOFENCE_ID);
+				builder.setRequestId(geofenceId.getText().toString());
 				builder.setCircularRegion(getLatitude(), getLongitude(), getGeofenceRadius());
 				builder.setExpirationDuration(NumberUtils.getLong(geofenceExpiration.getText().toString()));
 				builder.setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT);
@@ -184,6 +187,34 @@ public class GeofencesFragment extends AbstractFragment implements View.OnFocusC
 					protected void onUnexpectedError(@NonNull Status result) {
 						SnackbarBuilder snackbarBuilder = new SnackbarBuilder();
 						snackbarBuilder.setDescription("Unexpected error removing Geofence");
+						snackbarBuilder.build(getActivity()).show();
+					}
+				});
+			}
+		});
+
+		findView(R.id.removeAllGeofences).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				GeofencesHelper.removeAllGeofences(getActivityIf(), new GeofencesHelper.GeofenceResultCallback() {
+					@Override
+					public void onSuccessResult(@NonNull Status result) {
+						SnackbarBuilder snackbarBuilder = new SnackbarBuilder();
+						snackbarBuilder.setDescription("All geofences removed");
+						snackbarBuilder.build(getActivity()).show();
+					}
+
+					@Override
+					protected void onGeofenceServiceNotAvailable() {
+						SnackbarBuilder snackbarBuilder = new SnackbarBuilder();
+						snackbarBuilder.setDescription("Geofence service not available");
+						snackbarBuilder.build(getActivity()).show();
+					}
+
+					@Override
+					protected void onUnexpectedError(@NonNull Status result) {
+						SnackbarBuilder snackbarBuilder = new SnackbarBuilder();
+						snackbarBuilder.setDescription("Unexpected error removing all geofences");
 						snackbarBuilder.build(getActivity()).show();
 					}
 				});

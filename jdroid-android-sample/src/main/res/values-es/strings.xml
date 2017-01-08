@@ -110,8 +110,10 @@
 	<string name="geofenceExpiration">Geofence Expiration (milliseconds)</string>
 	<string name="addGeofence">Add Geofence</string>
 	<string name="removeGeofence">Remove Geofence</string>
+	<string name="removeAllGeofences">Remove all Geofences</string>
 	<string name="latitude">Latitude</string>
 	<string name="longitude">Longitude</string>
+	<string name="geofenceId">Geofence Id</string>
 
 	<!-- Http -->
 	<string name="http">Http</string>

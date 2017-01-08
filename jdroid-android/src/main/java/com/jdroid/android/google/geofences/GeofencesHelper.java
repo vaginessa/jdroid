@@ -59,8 +59,7 @@ public class GeofencesHelper {
 		GeofencingRequest geofencingRequest = geofencingRequestBuilder.build();
 
 		Intent intent = new Intent(AbstractApplication.get(), GeofenceTransitionsIntentService.class);
-		// We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
-		// calling addGeofences() and removeGeofences().
+		// We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when calling addGeofences() and removeGeofences().
 		PendingIntent geofencePendingIntent = PendingIntent.getService(AbstractApplication.get(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 		LocationServices.GeofencingApi.addGeofences(fragmentIf.getActivityIf().getGoogleApiClient(), geofencingRequest, geofencePendingIntent).setResultCallback(geofenceResultCallback);
@@ -68,6 +67,12 @@ public class GeofencesHelper {
 
 	public static void removeGeofence(ActivityIf activityIf, String geoFenceId, GeofenceResultCallback geofenceResultCallback) {
 		LocationServices.GeofencingApi.removeGeofences(activityIf.getGoogleApiClient(), Lists.newArrayList(geoFenceId)).setResultCallback(geofenceResultCallback);
+	}
+
+	public static void removeAllGeofences(ActivityIf activityIf, GeofenceResultCallback geofenceResultCallback) {
+		Intent intent = new Intent(AbstractApplication.get(), GeofenceTransitionsIntentService.class);
+		PendingIntent geofencePendingIntent = PendingIntent.getService(AbstractApplication.get(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		LocationServices.GeofencingApi.removeGeofences(activityIf.getGoogleApiClient(), geofencePendingIntent).setResultCallback(geofenceResultCallback);
 	}
 
 	public static List<GeofenceTransitionListener> getGeofenceTransitionListeners() {
