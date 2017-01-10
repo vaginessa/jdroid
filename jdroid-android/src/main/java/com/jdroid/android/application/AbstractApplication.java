@@ -282,7 +282,8 @@ public abstract class AbstractApplication extends Application {
 	
 	public void initExceptionHandlers() {
 		Class<? extends ExceptionHandler> exceptionHandlerClass = getExceptionHandlerClass();
-		if (!Thread.getDefaultUncaughtExceptionHandler().getClass().equals(exceptionHandlerClass)) {
+		UncaughtExceptionHandler currentExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
+		if (!currentExceptionHandler.getClass().equals(exceptionHandlerClass)) {
 			Map<String, String> exceptionHandlerMetadata = getExceptionHandlerMetadata();
 			for (AppModule each: appModulesMap.values()) {
 				each.onInitExceptionHandler(exceptionHandlerMetadata);
@@ -290,7 +291,16 @@ public abstract class AbstractApplication extends Application {
 			ExceptionHandler exceptionHandler = ReflectionUtils.newInstance(exceptionHandlerClass);
 			exceptionHandler.setDefaultExceptionHandler(defaultAndroidExceptionHandler);
 			Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);
-			LOGGER.info(exceptionHandlerClass.getSimpleName() + " initialized");
+			if (LoggerUtils.isEnabled()) {
+				StringBuilder builder = new StringBuilder();
+				builder.append(exceptionHandlerClass.getCanonicalName());
+				builder.append(" initialized");
+				if (currentExceptionHandler != null) {
+					builder.append(", wrapping ");
+					builder.append(currentExceptionHandler.getClass().getCanonicalName());
+				}
+				LOGGER.info(builder.toString());
+			}
 		}
 	}
 	

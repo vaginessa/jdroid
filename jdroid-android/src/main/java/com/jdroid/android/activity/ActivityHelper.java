@@ -135,7 +135,7 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.debug("Executing onCreate on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 
-		AbstractApplication.get().getCoreAnalyticsSender().onActivityCreate(activity);
+		AbstractApplication.get().getCoreAnalyticsSender().onActivityCreate(activity, savedInstanceState);
 
 		verifyGooglePlayServicesAvailability();
 

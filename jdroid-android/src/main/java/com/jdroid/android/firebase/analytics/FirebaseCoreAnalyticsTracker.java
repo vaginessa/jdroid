@@ -41,7 +41,7 @@ public class FirebaseCoreAnalyticsTracker extends AbstractFirebaseAnalyticsTrack
 	}
 
 	@Override
-	public void onActivityCreate(Activity activity) {
+	public void onActivityCreate(Activity activity, Bundle savedInstanceState) {
 		// Do nothing
 	}
 

@@ -14,6 +14,7 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.firebase.FirebaseAppModule;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.concurrent.ExecutorUtils;
+import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
@@ -26,6 +27,8 @@ public class FirebaseRemoteConfigHelper {
 	private static final Logger LOGGER = LoggerUtils.getLogger(FirebaseRemoteConfigHelper.class);
 
 	private static FirebaseRemoteConfig firebaseRemoteConfig;
+
+	private static final long DEFAULT_FETCH_EXPIRATION = DateUtils.MILLIS_PER_HOUR * 2;
 
 	private static int retryCount = 0;
 
@@ -50,6 +53,16 @@ public class FirebaseRemoteConfigHelper {
 		}
 
 		fetch(0, true);
+	}
+
+	public static void fetchNowIfExpired(long fetchExpirationMillis) {
+		if (firebaseRemoteConfig != null && System.currentTimeMillis() - firebaseRemoteConfig.getInfo().getFetchTimeMillis() > fetchExpirationMillis) {
+			fetch(0L, false);
+		}
+	}
+
+	public static void fetchNowIfExpired() {
+		fetchNowIfExpired(DEFAULT_FETCH_EXPIRATION);
 	}
 
 	public static void fetchNow() {

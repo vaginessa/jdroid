@@ -1,6 +1,7 @@
 package com.jdroid.android.analytics;
 
 import android.app.Activity;
+import android.os.Bundle;
 
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
@@ -41,12 +42,12 @@ public class CoreAnalyticsSender<T extends CoreAnalyticsTracker> extends Analyti
 	}
 
 	@Override
-	public void onActivityCreate(final Activity activity) {
+	public void onActivityCreate(final Activity activity, final Bundle savedInstanceState) {
 		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(T tracker) {
-				tracker.onActivityCreate(activity);
+				tracker.onActivityCreate(activity, savedInstanceState);
 			}
 		});
 	}

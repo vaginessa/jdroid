@@ -1,6 +1,7 @@
 package com.jdroid.android.analytics;
 
 import android.app.Activity;
+import android.os.Bundle;
 
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
@@ -26,7 +27,7 @@ public abstract class AbstractCoreAnalyticsTracker implements CoreAnalyticsTrack
 	}
 
 	@Override
-	public void onActivityCreate(Activity activity) {
+	public void onActivityCreate(Activity activity, Bundle savedInstanceState) {
 		// Do nothing
 	}
 
