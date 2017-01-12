@@ -68,7 +68,7 @@ public class UriMapper {
 			if (dot != -1) {
 				className = className.substring(dot + 1);
 			}
-			AbstractApplication.get().getCoreAnalyticsSender().trackUriOpened(className, referrerCategory);
+			AbstractApplication.get().getCoreAnalyticsSender().trackUriOpened(className, uri, referrerCategory);
 			if (activity.getIntent().getComponent().equals(intent.getComponent())) {
 				intent.setData(uri);
 				activity.setIntent(intent);
@@ -79,7 +79,7 @@ public class UriMapper {
 				activity.startActivity(intent);
 			}
 		} else {
-			AbstractApplication.get().getCoreAnalyticsSender().trackUriOpened(activity.getClass().getSimpleName(), referrerCategory);
+			AbstractApplication.get().getCoreAnalyticsSender().trackUriOpened(activity.getClass().getSimpleName(), uri, referrerCategory);
 		}
 	}
 

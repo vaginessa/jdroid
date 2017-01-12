@@ -1,6 +1,7 @@
 package com.jdroid.android.analytics;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.jdroid.android.social.AccountType;
@@ -141,12 +142,12 @@ public class CoreAnalyticsSender<T extends CoreAnalyticsTracker> extends Analyti
 	}
 	
 	@Override
-	public void trackUriOpened(final String screenName, final String referrer) {
+	public void trackUriOpened(final String screenName, final Uri uri, final String referrer) {
 		execute(new TrackingCommand() {
 			
 			@Override
 			protected void track(T tracker) {
-				tracker.trackUriOpened(screenName, referrer);
+				tracker.trackUriOpened(screenName, uri, referrer);
 			}
 		});
 	}

@@ -1,6 +1,7 @@
 package com.jdroid.android.analytics;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.jdroid.android.social.AccountType;
@@ -62,7 +63,7 @@ public interface CoreAnalyticsTracker extends AnalyticsTracker {
 
 	// More
 
-	public void trackUriOpened(String screenName, String referrer);
+	public void trackUriOpened(String screenName, Uri uri, String referrer);
 
 	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget);
 
