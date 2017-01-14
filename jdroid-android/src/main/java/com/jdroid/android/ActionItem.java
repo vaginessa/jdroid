@@ -1,5 +1,6 @@
 package com.jdroid.android;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
@@ -18,6 +19,8 @@ public interface ActionItem extends Serializable {
 	Fragment createFragment(Object args);
 	
 	void startActivity(FragmentActivity fragmentActivity);
-	
+
+	Intent getIntent();
+
 	Boolean matchesActivity(FragmentActivity fragmentActivity);
 }

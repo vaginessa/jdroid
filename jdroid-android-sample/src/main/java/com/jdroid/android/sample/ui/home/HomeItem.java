@@ -1,10 +1,11 @@
 package com.jdroid.android.sample.ui.home;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.jdroid.android.ActionItem;
-import com.jdroid.android.activity.ActivityLauncher;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.ui.analytics.AnalyticsActivity;
 import com.jdroid.android.sample.ui.appinvite.AppInviteActivity;
@@ -36,6 +37,7 @@ import com.jdroid.android.sample.ui.toasts.ToastsActivity;
 import com.jdroid.android.sample.ui.twitter.TwitterActivity;
 import com.jdroid.android.sample.ui.uri.UriMapperActivity;
 import com.jdroid.android.sample.ui.usecases.UseCasesActivity;
+import com.jdroid.android.shortcuts.AppShortcutsHelper;
 import com.jdroid.android.utils.ScreenUtils;
 
 public enum HomeItem implements ActionItem {
@@ -93,9 +95,15 @@ public enum HomeItem implements ActionItem {
 	
 	@Override
 	public void startActivity(FragmentActivity fragmentActivity) {
-		ActivityLauncher.launchActivity(activityClass);
+		fragmentActivity.startActivity(getIntent());
 	}
-	
+
+	@Override
+	public Intent getIntent() {
+		AppShortcutsHelper.reportShortcutUsed(name());
+		return new Intent(AbstractApplication.get(), activityClass);
+	}
+
 	@Override
 	public Boolean matchesActivity(FragmentActivity fragmentActivity) {
 		return activityClass.equals(fragmentActivity.getClass());
