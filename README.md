@@ -53,7 +53,10 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 * Android M Permissions scheme support
 * [Navigation Drawer support](https://developer.android.com/design/patterns/navigation-drawer.html)
 * [Google Analytics v4 integration](https://developers.google.com/analytics/devguides/collection/android/v4/)
-* [Firebase Analytics Integration](https://firebase.google.com/docs/analytics/)
+* [Firebase Integration](https://firebase.google.com/docs/)
+ * [Firebase Analytics](https://firebase.google.com/docs/analytics/)
+ * [Firebase Dynamic Links](https://firebase.google.com/docs/dynamic-links/)
+ * [Firebase Invites](https://firebase.google.com/docs/invites/)
 * [Sqlite integration](https://sqlite.org/)
 * [Android Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader)
 * [Device year class integration](https://github.com/facebook/device-year-class)
