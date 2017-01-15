@@ -54,8 +54,6 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 * [Navigation Drawer support](https://developer.android.com/design/patterns/navigation-drawer.html)
 * [Google Analytics v4 integration](https://developers.google.com/analytics/devguides/collection/android/v4/)
 * [Firebase Analytics Integration](https://firebase.google.com/docs/analytics/)
-* [Firebase Remote Config Integration](https://firebase.google.com/docs/remote-config/)
- * A/B Testing support
 * [Sqlite integration](https://sqlite.org/)
 * [Android Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader)
 * [Device year class integration](https://github.com/facebook/device-year-class)
@@ -116,6 +114,11 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-firebase-fcm](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
  * [Firebase Cloud Messaging integration](https://firebase.google.com/docs/cloud-messaging/)
+ 
+ [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-firebase-remoteconfig](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
+--------------
+* [Firebase Remote Config Integration](https://firebase.google.com/docs/remote-config/)
+ * A/B Testing support
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-google-inappbilling](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
