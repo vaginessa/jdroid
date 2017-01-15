@@ -113,9 +113,9 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-firebase-fcm](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
- * [Firebase Cloud Messaging integration](https://firebase.google.com/docs/cloud-messaging/)
+* [Firebase Cloud Messaging integration](https://firebase.google.com/docs/cloud-messaging/)
  
- [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-firebase-remoteconfig](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-firebase-remoteconfig](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
 * [Firebase Remote Config Integration](https://firebase.google.com/docs/remote-config/)
  * A/B Testing support
