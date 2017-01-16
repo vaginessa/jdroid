@@ -79,7 +79,7 @@ subprojects {
 
 	buildscript {
 		dependencies {
-			classpath 'com.jdroidframework:jdroid-gradle-plugin:0.13.0'
+			classpath 'com.jdroidframework:jdroid-gradle-plugin:0.14.0-SNAPSHOT'
 		}
 	}
 
