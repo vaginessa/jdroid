@@ -1,6 +1,7 @@
 package com.jdroid.android.images.loader.uil;
 
 import android.graphics.Bitmap;
+import android.support.annotation.WorkerThread;
 import android.widget.ImageView;
 
 import com.jdroid.android.R;
@@ -26,6 +27,7 @@ public class UilImageLoaderHelper implements ImageLoaderHelper {
 	private SharedPreferencesHelper sharedPreferencesHelper;
 	private Map<String, Long> imagesExpirationMap;
 
+	@WorkerThread
 	@Override
 	@SuppressWarnings("unchecked")
 	public synchronized void init() {

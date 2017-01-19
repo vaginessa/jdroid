@@ -1,9 +1,12 @@
 package com.jdroid.android.usecase;
 
-import java.util.Set;
+import android.support.annotation.WorkerThread;
+
 import com.jdroid.android.search.SortingType;
 import com.jdroid.java.collections.Sets;
 import com.jdroid.java.search.PagedResult;
+
+import java.util.Set;
 
 /**
  * @param <T> item to search for
@@ -15,14 +18,12 @@ public abstract class SearchUseCase<T> extends PaginatedUseCase<T> {
 	private String searchValue;
 	private Set<T> selectedItems = Sets.newHashSet();
 	
-	/**
-	 * @see com.jdroid.android.usecase.PaginatedUseCase#doPopulate(int, int, com.jdroid.android.search.SortingType)
-	 */
 	@Override
 	protected final PagedResult<T> doPopulate(int page, int pageSize, SortingType sortingType) {
 		return doSearch(searchValue, page, pageSize, sortingType);
 	}
-	
+
+	@WorkerThread
 	protected abstract PagedResult<T> doSearch(String searchValue, int page, int pageSize, SortingType sortingType);
 	
 	/**

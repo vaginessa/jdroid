@@ -1,5 +1,7 @@
 package com.jdroid.android.usecase;
 
+import android.support.annotation.WorkerThread;
+
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.collections.Lists;
@@ -95,6 +97,7 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 	/**
 	 * Override this method with the use case functionality to be executed
 	 */
+	@WorkerThread
 	protected abstract void doExecute();
 	
 	/**

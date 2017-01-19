@@ -1,5 +1,7 @@
 package com.jdroid.android.firebase.dynamiclink;
 
+import android.support.annotation.WorkerThread;
+
 import com.jdroid.android.firebase.FirebaseAppModule;
 import com.jdroid.java.http.api.AbstractApiService;
 import com.jdroid.java.collections.Maps;
@@ -37,10 +39,12 @@ public class ShortDynamicLinkService extends AbstractApiService {
 		return false;
 	}
 
+	@WorkerThread
 	public String getShortDynamicLink(String longDynamicLink) {
 		return getShortDynamicLink(longDynamicLink, false);
 	}
 
+	@WorkerThread
 	public String getShortDynamicLink(String longDynamicLink, Boolean unguessable) {
 		BodyEnclosingHttpService service = newPostService("shortLinks");
 		service.setSsl(true);

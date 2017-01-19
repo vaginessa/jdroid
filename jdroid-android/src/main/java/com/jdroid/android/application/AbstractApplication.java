@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.StrictMode;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
@@ -106,10 +107,8 @@ public abstract class AbstractApplication extends Application {
 	public static AbstractApplication get() {
 		return INSTANCE;
 	}
-	
-	/**
-	 * @see android.app.Application#onCreate()
-	 */
+
+	@MainThread
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -131,7 +130,7 @@ public abstract class AbstractApplication extends Application {
 		List<Kit> fabricKits = Lists.newArrayList();
 		for (AppModule each: appModulesMap.values()) {
 			each.onCreate();
-			fabricKits.addAll(each.getFabricKits());
+			fabricKits.addAll(each.createFabricKits());
 		}
 		fabricKits.addAll(getFabricKits());
 
@@ -233,7 +232,8 @@ public abstract class AbstractApplication extends Application {
 			each.attachBaseContext(base);
 		}
 	}
-	
+
+	@WorkerThread
 	protected void verifyAppLaunchStatus() {
 		Integer fromVersionCode = SharedPreferencesHelper.get().loadPreferenceAsInteger(VERSION_CODE_KEY);
 		if (fromVersionCode == null) {
@@ -324,6 +324,7 @@ public abstract class AbstractApplication extends Application {
 		return installationSource;
 	}
 
+	@WorkerThread
 	private synchronized void fetchInstallationSource() {
 		installationSource = SharedPreferencesHelper.get().loadPreference(INSTALLATION_SOURCE);
 		if (StringUtils.isBlank(installationSource)) {
@@ -509,7 +510,7 @@ public abstract class AbstractApplication extends Application {
 			remoteConfigParameters.addAll(params);
 		}
 		for (AppModule each: appModulesMap.values()) {
-			params = each.getRemoteConfigParameters();
+			params = each.createRemoteConfigParameters();
 			if (params != null) {
 				remoteConfigParameters.addAll(params);
 			}
