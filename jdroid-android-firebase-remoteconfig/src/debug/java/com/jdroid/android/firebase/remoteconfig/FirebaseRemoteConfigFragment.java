@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.debug.PairItemRecyclerViewType;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
@@ -23,6 +24,10 @@ public class FirebaseRemoteConfigFragment extends AbstractRecyclerFragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
+		initRecyclerView();
+	}
+
+	private void initRecyclerView() {
 		List<Object> items = Lists.newArrayList();
 		items.add("");
 		for(RemoteConfigParameter each: AbstractApplication.get().getRemoteConfigParameters()) {
@@ -64,13 +69,21 @@ public class FirebaseRemoteConfigFragment extends AbstractRecyclerFragment {
 			holder.fetch.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					FirebaseRemoteConfigHelper.fetchNow();
-				}
+					FirebaseRemoteConfigHelper.fetchNow(new OnSuccessListener<Void>() {
+						@Override
+						public void onSuccess(Void aVoid) {
+							executeOnUIThread(new Runnable() {
+								@Override
+								public void run() {
+									initRecyclerView();
+								}
+							});
+						}
+					});				}
 			});
 
 			String fetchDate = DateUtils.formatDateTime(new Date(FirebaseRemoteConfigHelper.getFirebaseRemoteConfig().getInfo().getFetchTimeMillis()));
 			holder.fetchTimeMillis.setText("Fetch Date: " + fetchDate);
-
 			holder.lastFetchStatus.setText("Last Fetch Status: " + FirebaseRemoteConfigHelper.getFirebaseRemoteConfig().getInfo().getLastFetchStatus());
 		}
 

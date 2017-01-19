@@ -83,6 +83,8 @@ public class ActivityHelper implements ActivityIf {
 	private static Boolean isGooglePlayServicesDialogDisplayed = false;
 
 	private String referrer;
+	private UriHandler uriHandler;
+	private Boolean uriHandled = false;
 
 	public ActivityHelper(AbstractFragmentActivity activity) {
 		this.activity = activity;
@@ -161,8 +163,8 @@ public class ActivityHelper implements ActivityIf {
 		initGoogleApiClient();
 
 		if (savedInstanceState == null) {
-			final UriHandler uriHandler = getActivityIf().createUriHandler();
-			final Boolean uriHandled = AbstractApplication.get().getUriMapper().handleUri(activity, activity.getIntent(), uriHandler, true);
+			uriHandler = getActivityIf().createUriHandler();
+			uriHandled = AbstractApplication.get().getUriMapper().handleUri(activity, activity.getIntent(), uriHandler, true);
 			referrer = ReferrerUtils.getReferrerCategory(activity);
 			if (googleApiClient != null && getActivityIf().isAppInviteEnabled() && (uriHandled || isHomeActivity())) {
 				PendingResult<AppInviteInvitationResult> pendingResult = AppInvite.AppInviteApi.getInvitation(googleApiClient, getActivity(), false);
@@ -326,7 +328,6 @@ public class ActivityHelper implements ActivityIf {
 			each.onStart();
 		}
 
-		UriHandler uriHandler = getActivityIf().createUriHandler();
 		if (uriHandler != null && isGooglePlayServicesAvailable) {
 			if (appIndexingAction == null) {
 				appIndexingAction = uriHandler.getAppIndexingAction(activity);
@@ -510,9 +511,8 @@ public class ActivityHelper implements ActivityIf {
 	public void onNewIntent(Intent intent) {
 		LOGGER.debug("Executing onNewIntent on " + activity);
 
-		UriHandler uriHandler = getActivityIf().createUriHandler();
 		if (uriHandler != null) {
-			Boolean uriHandled = AbstractApplication.get().getUriMapper().handleUri(activity, intent, uriHandler, false);
+			uriHandled = AbstractApplication.get().getUriMapper().handleUri(activity, intent, uriHandler, false);
 			if (!uriHandled) {
 				activity.setIntent(intent);
 			}

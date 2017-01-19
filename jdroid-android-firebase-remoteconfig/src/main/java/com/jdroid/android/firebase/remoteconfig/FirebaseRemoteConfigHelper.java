@@ -66,10 +66,18 @@ public class FirebaseRemoteConfigHelper {
 	}
 
 	public static void fetchNow() {
-		fetch(0, false);
+		fetchNow(null);
 	}
 
-	public static void fetch(final long cacheExpirationSeconds, final Boolean setExperimentUserProperty) {
+	public static void fetchNow(OnSuccessListener<Void> onSuccessListener) {
+		fetch(0, false, onSuccessListener);
+	}
+
+	public static void fetch(long cacheExpirationSeconds, Boolean setExperimentUserProperty) {
+		fetch(cacheExpirationSeconds, setExperimentUserProperty, null);
+	}
+
+	public static void fetch(final long cacheExpirationSeconds, final Boolean setExperimentUserProperty, final OnSuccessListener<Void> onSuccessListener) {
 		if (firebaseRemoteConfig != null) {
 			Task<Void> task = firebaseRemoteConfig.fetch(cacheExpirationSeconds);
 			task.addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -100,6 +108,15 @@ public class FirebaseRemoteConfigHelper {
 								}
 							});
 						}
+					}
+
+					if (onSuccessListener != null) {
+						ExecutorUtils.execute(new Runnable() {
+							@Override
+							public void run() {
+								onSuccessListener.onSuccess(null);
+							}
+						});
 					}
 				}
 			});
