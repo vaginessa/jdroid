@@ -40,6 +40,11 @@ public class GoogleCoreAnalyticsTracker extends AbstractGoogleAnalyticsTracker i
 	}
 
 	@Override
+	public void onFirstActivityCreate(Activity activity) {
+		// Do nothing
+	}
+
+	@Override
 	public void onActivityCreate(Activity activity, Bundle savedInstanceState) {
 		// Do nothing
 	}

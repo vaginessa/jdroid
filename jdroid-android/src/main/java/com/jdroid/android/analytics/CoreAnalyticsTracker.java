@@ -22,7 +22,9 @@ public interface CoreAnalyticsTracker extends AnalyticsTracker {
 	public void trackErrorBreadcrumb(String message);
 
 	// Activity/fragment life cycle
-	
+
+	public void onFirstActivityCreate(Activity activity);
+
 	public void onActivityCreate(Activity activity, Bundle savedInstanceState);
 
 	public void onActivityStart(Activity activity, String referrer, Object data);

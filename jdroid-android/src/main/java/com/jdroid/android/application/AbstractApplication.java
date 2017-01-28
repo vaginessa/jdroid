@@ -142,7 +142,8 @@ public abstract class AbstractApplication extends Application {
 
 		uriMapper = createUriMapper();
 
-		updateManager = createUpdateManager();
+		updateManager = new UpdateManager();
+		updateManager.addUpdateSteps(createUpdateSteps());
 
 		initExceptionHandlers();
 		LoggerUtils.setExceptionLogger(getExceptionHandler());
@@ -344,7 +345,7 @@ public abstract class AbstractApplication extends Application {
 	}
 
 	@Nullable
-	protected UpdateManager createUpdateManager() {
+	protected List<UpdateStep> createUpdateSteps() {
 		return null;
 	}
 

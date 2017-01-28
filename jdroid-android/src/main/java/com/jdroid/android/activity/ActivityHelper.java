@@ -78,7 +78,7 @@ public class ActivityHelper implements ActivityIf {
 	private GoogleApiClient googleApiClient;
 	private Action appIndexingAction;
 
-	private static Boolean firstAppLoad;
+	private static Boolean firstActivityCreate;
 	private static Boolean isGooglePlayServicesAvailable;
 	private static Boolean isGooglePlayServicesDialogDisplayed = false;
 
@@ -149,11 +149,12 @@ public class ActivityHelper implements ActivityIf {
 			}
 		}
 
-		if (firstAppLoad == null) {
-			firstAppLoad = true;
+		if (firstActivityCreate == null) {
+			firstActivityCreate = true;
 			UsageStats.incrementAppLoad();
+			AbstractApplication.get().getCoreAnalyticsSender().onFirstActivityCreate(getActivity());
 		} else {
-			firstAppLoad = false;
+			firstActivityCreate = false;
 		}
 
 		overrideStatusBarColor();

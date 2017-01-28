@@ -29,4 +29,10 @@ class UpdateManager {
 	public void addUpdateStep(UpdateStep updateStep) {
 		updatedSteps.add(updateStep);
 	}
+
+	public void addUpdateSteps(List<UpdateStep> updateSteps) {
+		if (updateSteps != null) {
+			updatedSteps.addAll(updateSteps);
+		}
+	}
 }

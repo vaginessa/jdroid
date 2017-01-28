@@ -43,6 +43,17 @@ public class CoreAnalyticsSender<T extends CoreAnalyticsTracker> extends Analyti
 	}
 
 	@Override
+	public void onFirstActivityCreate(final Activity activity) {
+		execute(new TrackingCommand() {
+
+			@Override
+			protected void track(T tracker) {
+				tracker.onFirstActivityCreate(activity);
+			}
+		});
+	}
+
+	@Override
 	public void onActivityCreate(final Activity activity, final Bundle savedInstanceState) {
 		execute(new TrackingCommand() {
 

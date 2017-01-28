@@ -3,5 +3,7 @@
 
 	<string name="jdroid_firebaseRemoteConfigSettings">Firebase Remote Config</string>
 	<string name="jdroid_firebaseRemoteConfigFetchNow">Fetch Now</string>
+	<string name="jdroid_firebaseRemoteConfigSave">Save</string>
+	<string name="jdroid_firebaseRemoteConfigMocksEnabled">Mocks Enabled</string>
 
 </resources>

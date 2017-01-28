@@ -28,6 +28,11 @@ public abstract class AbstractCoreAnalyticsTracker implements CoreAnalyticsTrack
 	}
 
 	@Override
+	public void onFirstActivityCreate(Activity activity) {
+		// Do nothing
+	}
+
+	@Override
 	public void onActivityCreate(Activity activity, Bundle savedInstanceState) {
 		// Do nothing
 	}

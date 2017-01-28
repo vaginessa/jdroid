@@ -45,21 +45,25 @@ public class NumberUtils {
 	}
 	
 	public static Double getDouble(String value) {
-		return StringUtils.isNotEmpty(value) ? Double.valueOf(value) : null;
+		return getDouble(value, null);
 	}
-	
+
+	public static Double getDouble(String value, Double defaultValue) {
+		return StringUtils.isNotEmpty(value) ? Double.valueOf(value) : defaultValue;
+	}
+
 	public static Boolean getBooleanFromNumber(String value) {
 		return StringUtils.isNotEmpty(value) ? "1".equals(value) : null;
 	}
-	
+
 	public static Boolean getBoolean(String value) {
 		return getBoolean(value, null);
 	}
-	
+
 	public static Boolean getBoolean(String value, Boolean defaultValue) {
 		return StringUtils.isNotEmpty(value) ? Boolean.parseBoolean(value) : defaultValue;
 	}
-	
+
 	public static String getString(Integer value) {
 		return value != null ? value.toString() : null;
 	}
