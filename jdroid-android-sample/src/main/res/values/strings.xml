@@ -197,6 +197,17 @@
 	<string name="searchPaginatedRecycler">Search Paginated Recycler</string>
 	<string name="autofitGridLayoutRecycler">Autofit Grid Recycler</string>
 	<string name="noResults">No Results</string>
+	<string name="addItem">Add Item</string>
+	<string name="addItems">Add Items</string>
+	<string name="removeFirstItem">Remove First Item</string>
+	<string name="removeSecondItem">Remove Second Item</string>
+	<string name="addHeader">Add header</string>
+	<string name="addClickableHeader">Add clickable header</string>
+	<string name="removeHeader">Remove header</string>
+	<string name="addFooter">Add footer</string>
+	<string name="addClickableFooter">Add clickable footer</string>
+	<string name="removeFooter">Remove footer</string>
+	<string name="clearItems">Clear Items</string>
 
 	<!-- SQLite -->
 	<string name="sqlite">SQLite</string>

@@ -16,14 +16,8 @@ public abstract class RecyclerViewType<ITEM, VIEWHOLDER extends RecyclerView.Vie
 	private final static Logger LOGGER = LoggerUtils.getLogger(RecyclerViewType.class);
 
 	public View inflateView(LayoutInflater inflater, ViewGroup parent) {
-		View view = inflater.inflate(getLayoutResourceId(), parent, false);
-		if (isClickable()) {
-			view.setOnClickListener(this);
-		}
-		return view;
+		return inflater.inflate(getLayoutResourceId(), parent, false);
 	}
-
-	protected abstract Class<ITEM> getItemClass();
 
 	protected abstract Integer getLayoutResourceId();
 
@@ -41,7 +35,7 @@ public abstract class RecyclerViewType<ITEM, VIEWHOLDER extends RecyclerView.Vie
 	 * @param item The Object.
 	 * @param holder The VIEWHOLDER.
 	 */
-	public abstract  void fillHolderFromItem(ITEM item, VIEWHOLDER holder);
+	public abstract void fillHolderFromItem(ITEM item, VIEWHOLDER holder);
 
 	public abstract AbstractRecyclerFragment getAbstractRecyclerFragment();
 
@@ -85,4 +79,18 @@ public abstract class RecyclerViewType<ITEM, VIEWHOLDER extends RecyclerView.Vie
 	protected Activity getActivity() {
 		return getAbstractRecyclerFragment().getActivity();
 	}
+
+	public Boolean matchViewType(Object item) {
+		Class itemClass = item.getClass();
+		while (itemClass != null) {
+			if (getItemClass().equals(itemClass)) {
+				return true;
+			}
+			itemClass = itemClass.getSuperclass();
+		}
+		return false;
+	}
+
+	protected abstract Class<ITEM> getItemClass();
+
 }

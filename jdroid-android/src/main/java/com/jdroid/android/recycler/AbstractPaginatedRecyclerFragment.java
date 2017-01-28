@@ -15,7 +15,6 @@ import java.util.List;
 public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecyclerFragment {
 	
 	protected PaginatedUseCase<Object> paginatedUseCase;
-	private int loadingItemViewType;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,9 +44,7 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 	protected abstract RecyclerViewAdapter createAdapter(List<Object> items);
 
 	private void setAdapter() {
-		RecyclerViewAdapter adapter = createAdapter(paginatedUseCase.getResults());
-		loadingItemViewType = adapter.addRecyclerViewType(new LoadingRecyclerViewType());
-		setAdapter(adapter);
+		setAdapter(createAdapter(paginatedUseCase.getResults()));
 	}
 
 	@Override
@@ -56,14 +53,7 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 			executeOnUIThread(new Runnable() {
 				@Override
 				public void run() {
-					// Add loading footer
-					int lastPosition = getAdapter().getItemCount() - 1;
-					if (lastPosition >= 0) {
-						int itemViewType = getAdapter().getItemViewType(getAdapter().getItemCount() - 1);
-						if (itemViewType != loadingItemViewType) {
-							getAdapter().addItem(new Object());
-						}
-					}
+					getAdapter().addFooter(new LoadingRecyclerViewType());
 				}
 			});
 		} else {
@@ -87,13 +77,7 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 	}
 
 	private void dismissPaginationLoading() {
-		int lastPosition = getAdapter().getItemCount() - 1;
-		if (lastPosition >= 0) {
-			int itemViewType = getAdapter().getItemViewType(getAdapter().getItemCount() - 1);
-			if (itemViewType == loadingItemViewType) {
-				getAdapter().removeItemByPosition(lastPosition);
-			}
-		}
+		getAdapter().removeFooter();
 	}
 	
 	@Override
@@ -163,7 +147,7 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 		return R.layout.jdroid_pagination_footer;
 	}
 	
-	public class LoadingRecyclerViewType extends SimpleRecyclerViewType {
+	public class LoadingRecyclerViewType extends FooterRecyclerViewType {
 
 		@Override
 		protected Integer getLayoutResourceId() {
