@@ -158,10 +158,5 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 		public AbstractRecyclerFragment getAbstractRecyclerFragment() {
 			return AbstractPaginatedRecyclerFragment.this;
 		}
-
-		@Override
-		protected Boolean isClickable() {
-			return false;
-		}
 	}
 }

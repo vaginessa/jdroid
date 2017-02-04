@@ -174,8 +174,8 @@ public class ComplexRecyclerFragment extends AbstractRecyclerFragment {
 		}
 
 		@Override
-		protected Boolean isClickable() {
-			return false;
+		public boolean isSelectable() {
+			return true;
 		}
 
 		@Override

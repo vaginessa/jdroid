@@ -15,6 +15,8 @@ public abstract class RecyclerViewType<ITEM, VIEWHOLDER extends RecyclerView.Vie
 
 	private final static Logger LOGGER = LoggerUtils.getLogger(RecyclerViewType.class);
 
+	private RecyclerViewTypeListener recyclerViewTypeListener;
+
 	public View inflateView(LayoutInflater inflater, ViewGroup parent) {
 		return inflater.inflate(getLayoutResourceId(), parent, false);
 	}
@@ -48,6 +50,9 @@ public abstract class RecyclerViewType<ITEM, VIEWHOLDER extends RecyclerView.Vie
 	public void onClick(View view) {
 		int itemPosition = getAbstractRecyclerFragment().getRecyclerView().getChildAdapterPosition(view);
 		if (itemPosition != RecyclerView.NO_POSITION) {
+			if (recyclerViewTypeListener != null) {
+				recyclerViewTypeListener.onItemSelected(itemPosition);
+			}
 			onItemSelected((ITEM)getAbstractRecyclerFragment().getAdapter().getItem(itemPosition), view);
 		} else {
 			LOGGER.warn("Ignored onClick for item with no position");
@@ -92,5 +97,17 @@ public abstract class RecyclerViewType<ITEM, VIEWHOLDER extends RecyclerView.Vie
 	}
 
 	protected abstract Class<ITEM> getItemClass();
+
+	void setRecyclerViewTypeListener(RecyclerViewType.RecyclerViewTypeListener recyclerViewTypeListener) {
+		this.recyclerViewTypeListener = recyclerViewTypeListener;
+	}
+
+	public boolean isSelectable() {
+		return false;
+	}
+
+	interface RecyclerViewTypeListener {
+		void onItemSelected(int position);
+	}
 
 }

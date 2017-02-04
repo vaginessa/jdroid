@@ -25,6 +25,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 	private List<Object> items;
 	private FooterRecyclerViewType.FooterItem footerItem;
 
+	private int selectedItemPosition = RecyclerView.NO_POSITION;
+	private RecyclerViewType.RecyclerViewTypeListener recyclerViewTypeListener = new RecyclerViewType.RecyclerViewTypeListener() {
+		@Override
+		public void onItemSelected(int position) {
+			setSelectedItem(position);
+		}
+	};
+
 	public RecyclerViewAdapter(RecyclerViewType recyclerViewType) {
 		this(Lists.newArrayList(recyclerViewType), Lists.newArrayList());
 	}
@@ -123,6 +131,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 	}
 
 	public int addRecyclerViewType(RecyclerViewType recyclerViewType) {
+		recyclerViewType.setRecyclerViewTypeListener(recyclerViewTypeListener);
 		int viewType = recyclerViewTypeMap.size() + 1;
 		recyclerViewTypeMap.put(viewType, recyclerViewType);
 		return viewType;
@@ -153,11 +162,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		Integer itemViewType = holder.getItemViewType();
 		Object item = getItem(position);
 		RecyclerViewType recyclerViewType = recyclerViewTypeMap.get(itemViewType);
+
 		if (recyclerViewType.isClickable()) {
 			holder.itemView.setOnClickListener(recyclerViewType);
 		} else {
 			holder.itemView.setOnClickListener(null);
 		}
+
+		if (recyclerViewType.isSelectable()){
+			holder.itemView.setSelected(holder.getLayoutPosition() == selectedItemPosition);
+		}
+
 		recyclerViewType.fillHolderFromItem(item, holder);
 	}
 
@@ -247,5 +262,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			int pos = items.indexOf(item);
 			return headerItem != null ? pos + 1 : pos;
 		}
+	}
+
+	public void setSelectedItem(int position) {
+		int itemViewType = getItemViewType(position);
+		RecyclerViewType recyclerViewType = recyclerViewTypeMap.get(itemViewType);
+		if (recyclerViewType.isSelectable()) {
+			int previousSelectedItemPosition = selectedItemPosition;
+			selectedItemPosition = position;
+			notifyItemChanged(previousSelectedItemPosition);
+			notifyItemChanged(selectedItemPosition);
+		}
+	}
+
+	public int getSelectedItemPosition() {
+		return selectedItemPosition;
 	}
 }
