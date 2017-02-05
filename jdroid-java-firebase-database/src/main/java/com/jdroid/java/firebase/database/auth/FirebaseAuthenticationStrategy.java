@@ -1,10 +1,10 @@
-package com.jdroid.java.firebase.auth;
+package com.jdroid.java.firebase.database.auth;
 
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.firebase.FirebaseRepository;
+import com.jdroid.java.firebase.database.FirebaseRepository;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;

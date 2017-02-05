@@ -1,4 +1,4 @@
-package com.jdroid.java.firebase;
+package com.jdroid.java.firebase.database;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -6,7 +6,7 @@ import com.firebase.client.Query;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.domain.Entity;
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.firebase.auth.FirebaseAuthenticationStrategy;
+import com.jdroid.java.firebase.database.auth.FirebaseAuthenticationStrategy;
 import com.jdroid.java.repository.Repository;
 import com.jdroid.java.utils.LoggerUtils;
 

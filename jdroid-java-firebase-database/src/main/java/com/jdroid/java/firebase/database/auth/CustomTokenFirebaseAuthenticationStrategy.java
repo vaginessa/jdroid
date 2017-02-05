@@ -1,4 +1,4 @@
-package com.jdroid.java.firebase.auth;
+package com.jdroid.java.firebase.database.auth;
 
 import com.firebase.client.Firebase;
 
