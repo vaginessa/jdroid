@@ -2,6 +2,7 @@ package com.jdroid.android.recycler;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,7 @@ public abstract class RecyclerViewType<ITEM, VIEWHOLDER extends RecyclerView.Vie
 	 */
 	public abstract void fillHolderFromItem(ITEM item, VIEWHOLDER holder);
 
+	@NonNull
 	public abstract AbstractRecyclerFragment getAbstractRecyclerFragment();
 
 	protected Boolean isClickable() {

@@ -22,7 +22,7 @@ public abstract class AbstractRecyclerFragment extends AbstractFragment {
 	protected ViewGroup emptyViewContainer;
 	private RecyclerView.AdapterDataObserver adapterDataObserver;
 	private RecyclerView.LayoutManager layoutManager;
-	private int selectedItemPosition = RecyclerView.NO_POSITION;
+	private Integer selectedItemPosition;
 
 	@Override
 	public Integer getContentFragmentLayout() {
@@ -93,8 +93,9 @@ public abstract class AbstractRecyclerFragment extends AbstractFragment {
 
 		refreshEmptyView();
 		
-		if (selectedItemPosition != RecyclerView.NO_POSITION && this.adapter.getItemCount() > selectedItemPosition) {
-			this.adapter.setSelectedItem(selectedItemPosition);
+		if (selectedItemPosition != null) {
+			this.adapter.setSelectedItemPosition(selectedItemPosition);
+			selectedItemPosition = null;
 		}
 	}
 

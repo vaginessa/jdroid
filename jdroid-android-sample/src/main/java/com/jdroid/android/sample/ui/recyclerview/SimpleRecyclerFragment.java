@@ -75,19 +75,19 @@ public class SimpleRecyclerFragment extends AbstractRecyclerFragment {
 				getAdapter().removeItemByPosition(1);
 				return true;
 			case R.id.addHeader:
-				getAdapter().addHeader(R.layout.header_item);
+				getAdapter().setHeader(R.layout.header_item);
 				return true;
 			case R.id.addClickableHeader:
-				getAdapter().addHeader(new SampleHeaderRecyclerViewType());
+				getAdapter().setHeader(new SampleHeaderRecyclerViewType());
 				return true;
 			case R.id.removeHeader:
 				getAdapter().removeHeader();
 				return true;
 			case R.id.addFooter:
-				getAdapter().addFooter(R.layout.footer_item);
+				getAdapter().setFooter(R.layout.footer_item);
 				return true;
 			case R.id.addClickableFooter:
-				getAdapter().addFooter(new SampleFooterRecyclerViewType());
+				getAdapter().setFooter(new SampleFooterRecyclerViewType());
 				return true;
 			case R.id.removeFooter:
 				getAdapter().removeFooter();

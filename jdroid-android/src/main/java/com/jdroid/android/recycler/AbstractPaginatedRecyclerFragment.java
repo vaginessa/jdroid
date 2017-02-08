@@ -13,7 +13,10 @@ import com.jdroid.java.exception.AbstractException;
 import java.util.List;
 
 public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecyclerFragment {
-	
+
+	private static final int ITEMS_REMAINING_TO_START_PAGINATION = 4;
+
+	private Boolean paginationInProgress = false;
 	protected PaginatedUseCase<Object> paginatedUseCase;
 
 	@Override
@@ -43,7 +46,10 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 
 	protected abstract RecyclerViewAdapter createAdapter(List<Object> items);
 
-	private void setAdapter() {
+	private void initAdapter() {
+		if (getAdapter() != null) {
+			getAdapter().clear();
+		}
 		setAdapter(createAdapter(paginatedUseCase.getResults()));
 	}
 
@@ -53,7 +59,7 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 			executeOnUIThread(new Runnable() {
 				@Override
 				public void run() {
-					getAdapter().addFooter(new LoadingRecyclerViewType());
+					getAdapter().setFooter(new LoadingRecyclerViewType());
 				}
 			});
 		} else {
@@ -63,6 +69,7 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 	
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
+		paginationInProgress = false;
 		if (paginatedUseCase.isPaginating()) {
 			AbstractApplication.get().getExceptionHandler().logHandledException(abstractException);
 			executeOnUIThread(new Runnable() {
@@ -79,7 +86,7 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 	private void dismissPaginationLoading() {
 		getAdapter().removeFooter();
 	}
-	
+
 	@Override
 	public void onFinishUseCase() {
 		executeOnUIThread(new Runnable() {
@@ -97,15 +104,15 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 					
 					if ((getItemsToAutoPaginate() != null) && (paginatedUseCase.getResults().size() <= getItemsToAutoPaginate())) {
 						if (paginatedUseCase.getResults().isEmpty()) {
-							setAdapter();
+							initAdapter();
 						} else {
-							setAdapter();
+							initAdapter();
 							dismissLoading();
 						}
 						paginatedUseCase.markAsPaginating();
 						executeUseCase(paginatedUseCase);
 					} else {
-						setAdapter();
+						initAdapter();
 						dismissLoading();
 					}
 				}
@@ -119,24 +126,31 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 
 		RecyclerView recyclerView = getRecyclerView();
 		if (recyclerView != null) {
+			paginationInProgress = false;
 			recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
 				@Override
 				public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-					if (!paginatedUseCase.isInProgress() && !paginatedUseCase.isLastPage()) {
+					if (!paginationInProgress && !paginatedUseCase.isLastPage()) {
 
 						int visibleItemCount = getLayoutManager().getChildCount();
 						int totalItemCount = getLayoutManager().getItemCount();
 						int firstVisibleItemPosition = ((LinearLayoutManager)getLayoutManager()).findFirstVisibleItemPosition();
 
-						if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount - 4 && firstVisibleItemPosition >= 0) {
+						if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount - getItemsRemainingToStartPagination()
+								&& firstVisibleItemPosition >= 0) {
 							paginatedUseCase.markAsPaginating();
 							executeUseCase(paginatedUseCase);
+							paginationInProgress = true;
 						}
 					}
 				}
 			});
 		}
+	}
+
+	protected int getItemsRemainingToStartPagination() {
+		return ITEMS_REMAINING_TO_START_PAGINATION;
 	}
 
 	protected Integer getItemsToAutoPaginate() {

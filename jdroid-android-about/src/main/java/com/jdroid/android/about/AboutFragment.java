@@ -98,7 +98,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 
 		RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(Lists.<RecyclerViewType>newArrayList(new HeaderRecyclerViewType(), new AboutRecyclerViewType()), aboutItems);
 		if (rateAppViewEnabled() && RateAppStats.displayRateAppView()) {
-			recyclerViewAdapter.addFooter(new AboutFooterRecyclerViewType());
+			recyclerViewAdapter.setFooter(new AboutFooterRecyclerViewType());
 		}
 		setAdapter(recyclerViewAdapter);
 	}

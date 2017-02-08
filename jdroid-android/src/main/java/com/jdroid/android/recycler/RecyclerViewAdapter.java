@@ -1,6 +1,7 @@
 package com.jdroid.android.recycler;
 
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +30,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 	private RecyclerViewType.RecyclerViewTypeListener recyclerViewTypeListener = new RecyclerViewType.RecyclerViewTypeListener() {
 		@Override
 		public void onItemSelected(int position) {
-			setSelectedItem(position);
+			setSelectedItemPosition(position);
 		}
 	};
 
@@ -52,21 +53,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		}
 	}
 
-	public void addHeader(final @LayoutRes int headerResId) {
-		addHeader(new HeaderRecyclerViewType() {
+	public void setHeader(final @LayoutRes int headerResId) {
+		setHeader(new HeaderRecyclerViewType() {
 			@Override
 			protected Integer getLayoutResourceId() {
 				return headerResId;
 			}
 
 			@Override
+			@Nullable
+			@SuppressWarnings("NullableProblems")
 			public AbstractRecyclerFragment getAbstractRecyclerFragment() {
 				return null;
 			}
 		});
 	}
 
-	public void addHeader(HeaderRecyclerViewType headerRecyclerViewType) {
+	public void setHeader(HeaderRecyclerViewType headerRecyclerViewType) {
 		Boolean add = headerItem == null;
 		removeHeader();
 		addRecyclerViewType(headerRecyclerViewType);
@@ -75,6 +78,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			notifyItemInserted(0);
 		} else {
 			notifyItemChanged(0);
+		}
+
+		if (selectedItemPosition != RecyclerView.NO_POSITION) {
+			selectedItemPosition++;
 		}
 	}
 
@@ -88,24 +95,30 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		if (headerItem != null) {
 			headerItem = null;
 			notifyItemRemoved(0);
+
+			if (selectedItemPosition != RecyclerView.NO_POSITION) {
+				selectedItemPosition--;
+			}
 		}
 	}
 
-	public void addFooter(final @LayoutRes int footerResId) {
-		addFooter(new FooterRecyclerViewType() {
+	public void setFooter(final @LayoutRes int footerResId) {
+		setFooter(new FooterRecyclerViewType() {
 			@Override
 			protected Integer getLayoutResourceId() {
 				return footerResId;
 			}
 
 			@Override
+			@Nullable
+			@SuppressWarnings("NullableProblems")
 			public AbstractRecyclerFragment getAbstractRecyclerFragment() {
 				return null;
 			}
 		});
 	}
 
-	public void addFooter(FooterRecyclerViewType footerRecyclerViewType) {
+	public void setFooter(FooterRecyclerViewType footerRecyclerViewType) {
 		Boolean add = footerItem == null;
 		removeFooter();
 		addRecyclerViewType(footerRecyclerViewType);
@@ -127,6 +140,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		if (footerItem != null) {
 			footerItem = null;
 			notifyItemRemoved(getItemCount() - 1);
+
+			if (selectedItemPosition >= getItemCount()) {
+				selectedItemPosition = RecyclerView.NO_POSITION;
+			}
 		}
 	}
 
@@ -206,9 +223,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		} else if (item.equals(footerItem)) {
 			removeFooter();
 		} else {
-			int pos = getPosition(item);
+			int position = getPosition(item);
 			items.remove(item);
-			notifyItemRemoved(pos);
+			notifyItemRemoved(position);
+
+			if (selectedItemPosition == position) {
+				selectedItemPosition = RecyclerView.NO_POSITION;
+			} else if (selectedItemPosition > position) {
+				selectedItemPosition--;
+			}
 		}
 	}
 
@@ -223,11 +246,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			pos = headerItem != null ? pos + 1 : pos;
 			items.remove(item);
 			notifyItemRemoved(pos);
+
+			if (selectedItemPosition == position) {
+				selectedItemPosition = RecyclerView.NO_POSITION;
+			} else if (selectedItemPosition > position) {
+				selectedItemPosition--;
+			}
 		}
 	}
 
 	public void clear() {
 		int size = getItemCount();
+		selectedItemPosition = RecyclerView.NO_POSITION;
 		headerItem = null;
 		footerItem = null;
 		items.clear();
@@ -264,14 +294,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		}
 	}
 
-	public void setSelectedItem(int position) {
-		int itemViewType = getItemViewType(position);
-		RecyclerViewType recyclerViewType = recyclerViewTypeMap.get(itemViewType);
-		if (recyclerViewType.isSelectable()) {
-			int previousSelectedItemPosition = selectedItemPosition;
-			selectedItemPosition = position;
-			notifyItemChanged(previousSelectedItemPosition);
+	public <T> void setSelectedItem(T item) {
+		setSelectedItemPosition(getPosition(item));
+	}
+
+	public void setSelectedItemPosition(int position) {
+		if (position != RecyclerView.NO_POSITION) {
+			if (position < getItemCount()) {
+				int itemViewType = getItemViewType(position);
+				RecyclerViewType recyclerViewType = recyclerViewTypeMap.get(itemViewType);
+				if (recyclerViewType.isSelectable()) {
+					int previousSelectedItemPosition = selectedItemPosition;
+					selectedItemPosition = position;
+					notifyItemChanged(previousSelectedItemPosition);
+					notifyItemChanged(selectedItemPosition);
+				}
+			}
+		} else {
 			notifyItemChanged(selectedItemPosition);
+			selectedItemPosition = position;
 		}
 	}
 
