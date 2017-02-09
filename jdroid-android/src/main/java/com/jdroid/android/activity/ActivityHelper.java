@@ -44,6 +44,7 @@ import com.jdroid.android.navdrawer.NavDrawer;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.uri.ReferrerUtils;
 import com.jdroid.android.uri.UriHandler;
+import com.jdroid.android.uri.UriUtils;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.ToastUtils;
@@ -167,7 +168,7 @@ public class ActivityHelper implements ActivityIf {
 			uriHandler = getActivityIf().createUriHandler();
 			uriHandled = AbstractApplication.get().getUriMapper().handleUri(activity, activity.getIntent(), uriHandler, true);
 			referrer = ReferrerUtils.getReferrerCategory(activity);
-			if (googleApiClient != null && getActivityIf().isAppInviteEnabled() && (uriHandled || isHomeActivity())) {
+			if (googleApiClient != null && getActivityIf().isAppInviteEnabled() && ((uriHandled && !UriUtils.isInternalReferrerCategory(referrer)) || isHomeActivity())) {
 				PendingResult<AppInviteInvitationResult> pendingResult = AppInvite.AppInviteApi.getInvitation(googleApiClient, getActivity(), false);
 				pendingResult.setResultCallback(new SafeResultCallback<AppInviteInvitationResult>() {
 

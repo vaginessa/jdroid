@@ -29,7 +29,7 @@ public class UriMapper {
 	@Internal
 	public Boolean handleUri(@NonNull Activity activity, Intent intent, @Nullable UriHandler uriHandler, Boolean onActivityCreation) {
 		Uri uri = UriUtils.getUri(intent);
-		if (uri != null && !uri.getScheme().equals("notification")) {
+		if (uri != null) {
 			notifyToUriWatchers(uri);
 			if (uriHandler != null) {
 				String referrerCategory = ReferrerUtils.getReferrerCategory(activity);
@@ -68,7 +68,9 @@ public class UriMapper {
 			if (dot != -1) {
 				className = className.substring(dot + 1);
 			}
-			AbstractApplication.get().getCoreAnalyticsSender().trackUriOpened(className, uri, referrerCategory);
+			if (!UriUtils.isInternalReferrerCategory(referrerCategory)) {
+				AbstractApplication.get().getCoreAnalyticsSender().trackUriOpened(className, uri, referrerCategory);
+			}
 			if (activity.getIntent().getComponent().equals(intent.getComponent())) {
 				intent.setData(uri);
 				activity.setIntent(intent);
@@ -79,7 +81,9 @@ public class UriMapper {
 				activity.startActivity(intent);
 			}
 		} else {
-			AbstractApplication.get().getCoreAnalyticsSender().trackUriOpened(activity.getClass().getSimpleName(), uri, referrerCategory);
+			if (!UriUtils.isInternalReferrerCategory(referrerCategory)) {
+				AbstractApplication.get().getCoreAnalyticsSender().trackUriOpened(activity.getClass().getSimpleName(), uri, referrerCategory);
+			}
 		}
 	}
 
