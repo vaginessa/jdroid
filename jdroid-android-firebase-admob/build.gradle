@@ -15,6 +15,12 @@ configurations.all {
 	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 
+buildscript {
+	dependencies {
+		classpath 'com.jdroidframework:jdroid-gradle-android-plugin:' + jdroidPluginsVersion
+	}
+}
+
 dependencies {
 
 	debugCompile project(path: ":jdroid-android", configuration: 'debug')

@@ -24,6 +24,11 @@ configurations {
 	uatCompile
 }
 
+buildscript {
+	dependencies {
+		classpath 'com.jdroidframework:jdroid-gradle-android-plugin:' + jdroidPluginsVersion
+	}
+}
 
 dependencies {
 

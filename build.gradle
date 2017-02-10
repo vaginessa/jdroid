@@ -67,6 +67,8 @@ group = 'com.jdroidframework'
 
 ext.jdroidVersion = project.version
 
+ext.jdroidPluginsVersion = '0.14.0-SNAPSHOT'
+
 // https://developers.google.com/android/guides/releases
 ext.googlePlayServicesVersion = '10.0.1'
 
@@ -76,12 +78,6 @@ ext.androidSupportVersion = '25.1.1'
 ext.PACKAGING = null
 
 subprojects {
-
-	buildscript {
-		dependencies {
-			classpath 'com.jdroidframework:jdroid-gradle-plugin:0.14.0-SNAPSHOT'
-		}
-	}
 
 	apply plugin: 'maven'
 	apply plugin: 'signing'

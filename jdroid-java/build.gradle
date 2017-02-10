@@ -3,6 +3,12 @@ apply plugin: 'com.jdroid.java.library'
 ext.PROJECT_NAME = 'Jdroid Java'
 description = 'Jdroid dependency project for both Android & Java apps'
 
+buildscript {
+	dependencies {
+		classpath 'com.jdroidframework:jdroid-gradle-java-plugin:' + jdroidPluginsVersion
+	}
+}
+
 dependencies {
 
 	// Logging
