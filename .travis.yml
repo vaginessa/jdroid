@@ -15,3 +15,5 @@ android:
     - extra-google-m2repository
 
 script: sh ./etc/scripts/test.sh true false true true
+
+after_success: sh /etc/scripts/uploadReports.sh
