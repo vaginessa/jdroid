@@ -71,18 +71,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 	public void setHeader(HeaderRecyclerViewType headerRecyclerViewType) {
 		Boolean add = headerItem == null;
-		removeHeader();
+
+		for (Map.Entry<Integer, RecyclerViewType> entry : recyclerViewTypeMap.entrySet()) {
+			if (entry.getValue() instanceof HeaderRecyclerViewType) {
+				recyclerViewTypeMap.put(entry.getKey(), null);
+				break;
+			}
+		}
 		addRecyclerViewType(headerRecyclerViewType);
+
 		headerItem = new HeaderRecyclerViewType.HeaderItem();
+
 		if (add) {
+			if (selectedItemPosition != RecyclerView.NO_POSITION) {
+				selectedItemPosition++;
+			}
 			notifyItemInserted(0);
 		} else {
 			notifyItemChanged(0);
 		}
 
-		if (selectedItemPosition != RecyclerView.NO_POSITION) {
-			selectedItemPosition++;
-		}
 	}
 
 	public void removeHeader() {
@@ -94,11 +102,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		}
 		if (headerItem != null) {
 			headerItem = null;
-			notifyItemRemoved(0);
-
 			if (selectedItemPosition != RecyclerView.NO_POSITION) {
 				selectedItemPosition--;
 			}
+			notifyItemRemoved(0);
 		}
 	}
 
@@ -120,8 +127,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 	public void setFooter(FooterRecyclerViewType footerRecyclerViewType) {
 		Boolean add = footerItem == null;
-		removeFooter();
+
+		for (Map.Entry<Integer, RecyclerViewType> entry : recyclerViewTypeMap.entrySet()) {
+			if (entry.getValue() instanceof FooterRecyclerViewType) {
+				recyclerViewTypeMap.put(entry.getKey(), null);
+				break;
+			}
+		}
 		addRecyclerViewType(footerRecyclerViewType);
+
 		footerItem = new FooterRecyclerViewType.FooterItem();
 		if (add) {
 			notifyItemInserted(getItemCount() - 1);
@@ -138,12 +152,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			}
 		}
 		if (footerItem != null) {
-			footerItem = null;
-			notifyItemRemoved(getItemCount() - 1);
-
-			if (selectedItemPosition >= getItemCount()) {
+			if (selectedItemPosition == getItemCount() - 1) {
 				selectedItemPosition = RecyclerView.NO_POSITION;
 			}
+			footerItem = null;
+			notifyItemRemoved(getItemCount() - 1);
 		}
 	}
 
@@ -186,7 +199,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			holder.itemView.setOnClickListener(null);
 		}
 
-		if (recyclerViewType.isSelectable()){
+		if (recyclerViewType.isSelectable()) {
 			holder.itemView.setSelected(holder.getLayoutPosition() == selectedItemPosition);
 		}
 
@@ -225,13 +238,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		} else {
 			int position = getPosition(item);
 			items.remove(item);
-			notifyItemRemoved(position);
-
 			if (selectedItemPosition == position) {
 				selectedItemPosition = RecyclerView.NO_POSITION;
 			} else if (selectedItemPosition > position) {
 				selectedItemPosition--;
 			}
+			notifyItemRemoved(position);
 		}
 	}
 
@@ -245,13 +257,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			int pos = items.indexOf(item);
 			pos = headerItem != null ? pos + 1 : pos;
 			items.remove(item);
-			notifyItemRemoved(pos);
-
 			if (selectedItemPosition == position) {
 				selectedItemPosition = RecyclerView.NO_POSITION;
 			} else if (selectedItemPosition > position) {
 				selectedItemPosition--;
 			}
+			notifyItemRemoved(pos);
 		}
 	}
 
@@ -311,8 +322,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 				}
 			}
 		} else {
-			notifyItemChanged(selectedItemPosition);
+			int oldPosition = selectedItemPosition;
 			selectedItemPosition = position;
+			notifyItemChanged(oldPosition);
 		}
 	}
 
