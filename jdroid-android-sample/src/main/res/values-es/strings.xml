@@ -147,11 +147,14 @@
 	<!-- Toasts -->
 	<string name="toasts">Toasts</string>
 	<string name="displayToastFromUIThread">Display Toast From UI Thread</string>
+	<string name="toastFromUIThread">Toast From UI Thread</string>
 	<string name="displayToastFromWorkerThread">Display Toast From Worker Thread</string>
+	<string name="toastFromWorkerThread">Toast From Worker Thread</string>
 
 	<!-- Tablets -->
 	<string name="tablets">Tablets</string>
 	<string name="leftAction">Left Action</string>
+	<string name="rightAction">Right Action</string>
 
 	<!-- Twitter -->
 	<string name="twitter">Twitter</string>

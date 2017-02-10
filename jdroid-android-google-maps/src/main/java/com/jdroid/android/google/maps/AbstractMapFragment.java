@@ -1,8 +1,10 @@
 package com.jdroid.android.google.maps;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresPermission;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -94,6 +96,8 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 			locationPermissionHelper = PermissionHelper.createLocationPermissionHelper(this);
 			locationPermissionHelper.setAppInfoDialogMessageResId(R.string.jdroid_locationPermissionRequired);
 			locationPermissionHelper.setOnRequestPermissionsResultListener(new PermissionHelper.OnRequestPermissionsResultListener() {
+
+				@RequiresPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
 				@Override
 				public void onRequestPermissionsGranted() {
 					if (map != null) {
@@ -110,6 +114,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 
 		getMapAsync(new OnMapReadyCallback() {
 
+			@RequiresPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
 			@Override
 			public void onMapReady(final GoogleMap googleMap) {
 				map = googleMap;
@@ -136,6 +141,8 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 						map.setMyLocationEnabled(true);
 					} else if (snackbarToSuggestLocationPermissionEnabled()) {
 						locationPermissionHelper.setOnRequestPermissionsResultListener(new PermissionHelper.OnRequestPermissionsResultListener() {
+
+							@RequiresPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
 							@Override
 							public void onRequestPermissionsGranted() {
 								if (map != null) {

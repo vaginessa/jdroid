@@ -32,8 +32,8 @@ public class BezelImageView extends ImageView {
     private Rect mBounds;
     private RectF mBoundsF;
 
-    private Drawable mBorderDrawable;
-    protected Drawable mMaskDrawable;
+    private Drawable borderDrawable;
+    protected Drawable maskDrawable;
 
     private ColorMatrixColorFilter mDesaturateColorFilter;
     private boolean mDesaturateOnPress = false;
@@ -78,19 +78,19 @@ public class BezelImageView extends ImageView {
         final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.jdroid_bezelImageView,
                 defStyle, 0);
 
-        if (mMaskDrawable == null) {
-            mMaskDrawable = a.getDrawable(R.styleable.jdroid_bezelImageView_maskDrawable);
-            if (mMaskDrawable != null) {
-                mMaskDrawable.setCallback(this);
+        if (maskDrawable == null) {
+            maskDrawable = a.getDrawable(R.styleable.jdroid_bezelImageView_jdroid_maskDrawable);
+            if (maskDrawable != null) {
+                maskDrawable.setCallback(this);
             }
         }
 
-        mBorderDrawable = a.getDrawable(R.styleable.jdroid_bezelImageView_borderDrawable);
-        if (mBorderDrawable != null) {
-            mBorderDrawable.setCallback(this);
+        borderDrawable = a.getDrawable(R.styleable.jdroid_bezelImageView_jdroid_borderDrawable);
+        if (borderDrawable != null) {
+            borderDrawable.setCallback(this);
         }
 
-        mDesaturateOnPress = a.getBoolean(R.styleable.jdroid_bezelImageView_desaturateOnPress,
+        mDesaturateOnPress = a.getBoolean(R.styleable.jdroid_bezelImageView_jdroid_desaturateOnPress,
                 mDesaturateOnPress);
 
         a.recycle();
@@ -102,11 +102,11 @@ public class BezelImageView extends ImageView {
         mBounds = new Rect(0, 0, r - l, b - t);
         mBoundsF = new RectF(mBounds);
 
-        if (mBorderDrawable != null) {
-            mBorderDrawable.setBounds(mBounds);
+        if (borderDrawable != null) {
+            borderDrawable.setBounds(mBounds);
         }
-        if (mMaskDrawable != null) {
-            mMaskDrawable.setBounds(mBounds);
+        if (maskDrawable != null) {
+            maskDrawable.setBounds(mBounds);
         }
 
         if (changed) {
@@ -144,9 +144,9 @@ public class BezelImageView extends ImageView {
             }
 
             Canvas cacheCanvas = new Canvas(mCacheBitmap);
-            if (mMaskDrawable != null) {
+            if (maskDrawable != null) {
                 int sc = cacheCanvas.save();
-                mMaskDrawable.draw(cacheCanvas);
+                maskDrawable.draw(cacheCanvas);
                 mMaskedPaint.setColorFilter((mDesaturateOnPress && isPressed())
                         ? mDesaturateColorFilter : null);
                 cacheCanvas.saveLayer(mBoundsF, mMaskedPaint,
@@ -165,8 +165,8 @@ public class BezelImageView extends ImageView {
                 super.onDraw(cacheCanvas);
             }
 
-            if (mBorderDrawable != null) {
-                mBorderDrawable.draw(cacheCanvas);
+            if (borderDrawable != null) {
+                borderDrawable.draw(cacheCanvas);
             }
         }
 
@@ -177,11 +177,11 @@ public class BezelImageView extends ImageView {
     @Override
     protected void drawableStateChanged() {
         super.drawableStateChanged();
-        if (mBorderDrawable != null && mBorderDrawable.isStateful()) {
-            mBorderDrawable.setState(getDrawableState());
+        if (borderDrawable != null && borderDrawable.isStateful()) {
+            borderDrawable.setState(getDrawableState());
         }
-        if (mMaskDrawable != null && mMaskDrawable.isStateful()) {
-            mMaskDrawable.setState(getDrawableState());
+        if (maskDrawable != null && maskDrawable.isStateful()) {
+            maskDrawable.setState(getDrawableState());
         }
         if (isDuplicateParentStateEnabled()) {
             ViewCompat.postInvalidateOnAnimation(this);
@@ -190,7 +190,7 @@ public class BezelImageView extends ImageView {
 
     @Override
     public void invalidateDrawable(@NonNull Drawable who) {
-        if (who == mBorderDrawable || who == mMaskDrawable) {
+        if (who == borderDrawable || who == maskDrawable) {
             invalidate();
         } else {
             super.invalidateDrawable(who);
@@ -199,6 +199,6 @@ public class BezelImageView extends ImageView {
 
     @Override
     protected boolean verifyDrawable(@NonNull Drawable who) {
-        return who == mBorderDrawable || who == mMaskDrawable || super.verifyDrawable(who);
+        return who == borderDrawable || who == maskDrawable || super.verifyDrawable(who);
     }
 }
