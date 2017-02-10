@@ -5,7 +5,7 @@ then
   echo -e "Starting to update gh-pages\n"
 
   # copy data we're interested in to other place
-  mkdir -P $HOME/reports/$TRAVIS_BRANCH/jdroid-android/build/outputs
+  mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android/build/outputs
   cp jdroid-android/build/outputs/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android/build/outputs/lint-results.html
 
   # go to home and setup git
