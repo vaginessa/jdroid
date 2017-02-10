@@ -16,4 +16,4 @@ android:
 
 script: sh ./etc/scripts/test.sh true false true true
 
-after_script: sh /etc/scripts/uploadReports.sh
+after_script: sh ./etc/scripts/uploadReports.sh
