@@ -1,0 +1,1442 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Lint Report</title>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto" />
+<style>
+body {
+    max-width: 800px;
+    background-color: #000000;
+    background: -webkit-gradient(linear, left top, right bottom, from(#000000), to(#272d33));
+    background: -moz-linear-gradient(left top, #000000, #272d33);
+    color: #f3f3f3;
+    font-family: 'Roboto', Sans-Serif;
+}
+.issue {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px 0px 5px 5px;
+}
+.id {
+    font-size: 14pt;
+    color: #bebebe;
+    margin: 5px 0px 5px 0px;
+}
+.category {
+    font-size: 18pt;
+    color: #bebebe;
+    margin: 10px 0px 5px 0px;
+}
+.explanation {
+    margin-top: 10px;
+}
+.explanation b {
+    color: #ffbbbb;
+}
+.explanation code {
+    color: #bebebe;
+    font-family: 'Roboto', Sans-Serif;
+}
+pre {
+    background-color: #282828;
+    margin: 5px 0px 5px 5px;
+    padding: 5px 5px 5px 0px;
+    overflow: hidden;
+}
+.lineno {
+    color: #4f4f4f;
+}
+.embedimage {
+    max-width: 200px;
+    max-height: 200px;
+}
+th { font-weight: normal; }
+table { border: none; }
+.metadata {
+}
+.location {
+    color: #bebebe;
+}
+.message { }
+.errorspan { color: #33b5e5; }
+.errorline { color: #33b5e5; }
+.warningslist { margin-bottom: 20px; }
+.overview {
+    padding: 10pt;
+    width: 100%;
+    overflow: auto;
+    border-collapse:collapse;
+}
+.overview tr {
+    border-top: solid 1px #39393a;
+    border-bottom: solid 1px #39393a;
+}
+.countColumn {
+    text-align: right;
+    padding-right: 20px;
+}
+.issueColumn {
+   padding-left: 16px;
+}
+.categoryColumn {
+   position: relative;
+   left: -50px;
+   padding-top: 20px;
+   padding-bottom: 5px;
+}
+.titleSeparator {
+    background-color: #33b5e5;
+    height: 3px;
+    margin-bottom: 10px;
+}
+.categorySeparator {
+    background-color: #33b5e5;
+    height: 3px;
+    margin-bottom: 10px;
+}
+.issueSeparator {
+    background-color: #39393a;
+    height: 2px;
+    margin-bottom: 10px;
+}
+.location a:link {
+    text-decoration: none;
+    color: #bebebe;
+}
+.location a:hover {
+    text-decoration: underline;
+    color: #f3f3f3;
+}
+a:link {
+    text-decoration: none;
+    color: #f3f3f3;
+}
+a:visited {
+    text-decoration: none;
+    color: #bebebe;
+}
+a:hover {
+    text-decoration: underline;
+    color: #f3f3f3;
+}
+a:active {
+    text-decoration: underline;
+    color: #f3f3f3;
+}
+.moreinfo a:link {
+    text-decoration: underline;
+    color: #33b5e5;
+}
+.moreinfo a:visited {
+    text-decoration: underline;
+    color: #33b5e5;
+}
+.issue a:link {
+    text-decoration: underline;
+}
+.issue a:visited {
+    text-decoration: underline;
+}
+.id a:link {
+    text-decoration: none;
+    color: #bebebe;
+}
+.id a:visited {
+    text-decoration: none;
+    color: #bebebe;
+}
+.id a:hover {
+    text-decoration: underline;
+    color: #f3f3f3;
+}
+.id a:active {
+    text-decoration: underline;
+    color: #bebebe;
+}
+.category a:link {
+    text-decoration: none;
+    color: #bebebe;
+}
+.category a:visited {
+    text-decoration: none;
+    color: #bebebe;
+}
+.category a:hover {
+    text-decoration: underline;
+    color: #f3f3f3;
+}
+.category a:active {
+    text-decoration: underline;
+    color: #bebebe;
+}
+button {
+    color: #ffffff;
+    background-color: #353535;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-top: solid 1px #5b5b5b;
+    font-family: 'Roboto', Sans-Serif;
+    font-size: 12pt;
+}
+</style>
+<script language="javascript" type="text/javascript"> 
+<!--
+function reveal(id) {
+if (document.getElementById) {
+document.getElementById(id).style.display = 'block';
+document.getElementById(id+'Link').style.display = 'none';
+}
+}
+//--> 
+</script>
+</head>
+<body>
+<h1>Lint Report</h1>
+<div class="titleSeparator"></div>
+Check performed at Sat Feb 11 06:59:25 UTC 2017.<br/>
+1 errors and 46 warnings found:<br/><br/>
+<table class="overview">
+<tr><td></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
+<a href="#DefaultLocale">DefaultLocale: Implied default locale in case conversion</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
+<a href="#InconsistentLayout">InconsistentLayout: Inconsistent Layouts</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" width="15" height="15" alt="Error" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAB00lEQVR42nWTS0hbQRiF587MzkUXooi6UHAjhNKNSkGhCDXxkZhUIwWhBLoRsQpi3bXmIboSV2aliI+WKqLUtqsuSxclrhRBUMnVmIpa2oIkQon+zhlr9F7jwOEw/znfLO6dYcy2Arys6AUv6x7klTNh4ViFY485u2+N8Uc8yB1DH0Vt6ki2UkZ20LkS/Eh6CXPk6FnAKVHNJ3nViind9E/6tTKto3TxaU379Qw5euhn4QXxOGzKFjqT7Vmlwx8IC357jh76GvzC64pj4mn6VLbRbf0Nvdcw3J6hr7gS9o3XDxwIN/0RPot+h95pGG7P0AfH1oVz6UR4ya5foXkNw3Pl4Ngub/p6yD1k13FoTsPwXDk4ti89SwnuJrtigYiGY4FhypWDY2aeb0CJ4rzZou9GPc0Y1drtGfrgWLzweUm8uPNsx2ikrHgjHT6LUOrzD/rpDpIlU0JfcaX6d8UfdoW38/20ZbiuxF10MHL1tRNvp2/mSuihn70kZl2/MJ+8Xtkq8NOm4VRqoIUKLy0Hx2mx3PN/5iTk6KFvuaJmyxux3zE8tFPTm9p84KMNdcAGa9COvZqnkaN37wNJvpooSvZFexIvx2b3OkdX4dgne6N3XtUl5wqoyBY2uZQAAAAASUVORK5CYII=" />
+<a href="#NewApi">NewApi: Calling new methods on older versions</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
+<a href="#InflateParams">InflateParams: Layout Inflation without a Parent</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Security">Security</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
+<a href="#GetInstance">GetInstance: Cipher.getInstance with ECB</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
+<a href="#TrulyRandom">TrulyRandom: Weak RNG</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
+<a href="#HardwareIds">HardwareIds: Hardware Id Usage</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
+<a href="#UnsafeProtectedBroadcastReceiver">UnsafeProtectedBroadcastReceiver: Unsafe Protected BroadcastReceiver</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
+<a href="#ExportedReceiver">ExportedReceiver: Receiver does not require permission</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
+<a href="#ExportedService">ExportedService: Exported service does not require permission</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Performance">Performance</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
+<a href="#StaticFieldLeak">StaticFieldLeak: Static Field Leaks</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
+<a href="#HandlerLeak">HandlerLeak: Handler reference leaks</a>
+</td></tr>
+<tr>
+<td class="countColumn">3</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
+<a href="#Overdraw">Overdraw: Overdraw: Painting regions more than once</a>
+</td></tr>
+<tr>
+<td class="countColumn">22</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
+<a href="#UnusedResources">UnusedResources: Unused resources</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
+<a href="#UselessParent">UselessParent: Useless parent layout</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Usability:Icons">Usability:Icons</a>
+</td></tr>
+<tr>
+<td class="countColumn">4</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
+<a href="#IconDensities">IconDensities: Icon densities validation</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
+<a href="#IconMissingDensityFolder">IconMissingDensityFolder: Missing density folder</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#Internationalization">Internationalization</a>
+</td></tr>
+<tr>
+<td class="countColumn">4</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
+<a href="#SetTextI18n">SetTextI18n: TextView Internationalization</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#MissingIssues">Disabled Checks (22)</a>
+</td></tr></table>
+<br/>
+<a name="Correctness"></a>
+<div class="category"><a href="#" title="Return to top">Correctness</a><div class="categorySeparator"></div>
+</div>
+<a name="DefaultLocale"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">DefaultLocale: Implied default locale in case conversion</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/java/com/jdroid/android/exception/DefaultExceptionHandler.java">../../src/main/java/com/jdroid/android/exception/DefaultExceptionHandler.java</a>:131</span>: <span class="message">Implicitly using the default locale is a common source of bugs: Use <code>String.format(Locale, ...)</code> instead</span><br /><pre class="errorlines">
+<span class="lineno"> 128</span> 	protected List&lt;String> getThrowableTags(Throwable throwable, Integer priorityLevel) {
+<span class="lineno"> 129</span> 		List&lt;String> tags = Lists.newArrayList();
+<span class="lineno"> 130</span> 		if (priorityLevel != null) {
+<span class="lineno"> 131</span> 			tags.add("level" + <span class="errorspan">String.format("%02d", priorityLevel));</span>
+<span class="lineno"> 132</span> 		}
+<span class="lineno"> 133</span> 		return tags;
+</pre>
+</div>
+<div class="metadata">Priority: 6 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Implied default locale in case conversion.</div>
+<div class="explanation">
+Calling <code>String#toLowerCase()</code> or <code>#toUpperCase()</code> <b>without specifying an explicit locale</b> is a common source of bugs. The reason for that is that those methods will use the current locale on the user's device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for <code>i</code> is <b>not</b> <code>I</code>.<br/>
+<br/>
+If you want the methods to just perform ASCII replacement, for example to convert an enum name, call <code>String#toUpperCase(Locale.US)</code> instead. If you really want to use the current locale, call <code>String#toUpperCase(Locale.getDefault())</code> instead.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/reference/java/util/Locale.html#default_locale">http://developer.android.com/reference/java/util/Locale.html#default_locale</a>
+</div><br/>To suppress this error, use the issue id "DefaultLocale" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="InconsistentLayout"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">InconsistentLayout: Inconsistent Layouts</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/res/layout/notification_template_custom_big.xml">../intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/res/layout/notification_template_custom_big.xml</a>:26</span>: <span class="message">The id "icon" in layout "notification_template_custom_big" is missing from the following layout configurations: layout-v21 (present in layout, layout-v16)</span><br /><pre class="errorlines">
+<span class="lineno">  23</span>     android:orientation="horizontal"
+<span class="lineno">  24</span>     android:paddingRight="12dp"
+<span class="lineno">  25</span>     android:paddingEnd="12dp">
+<span class="lineno">  26</span>     &lt;ImageView <span class="errorspan">android:id="@+id/icon"</span>
+<span class="lineno">  27</span>         android:layout_width="@dimen/notification_large_icon_width"
+<span class="lineno">  28</span>         android:layout_height="@dimen/notification_large_icon_height"
+</pre>
+<ul><span class="location"><a href="../intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/res/layout-v16/notification_template_custom_big.xml">../intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/res/layout-v16/notification_template_custom_big.xml</a>:22</span>: <span class="message">Occurrence in layout-v16</span><br /><pre class="errorlines">
+<span class="lineno">  19</span>     android:id="@+id/notification_background"
+<span class="lineno">  20</span>     android:layout_width="match_parent"
+<span class="lineno">  21</span>     android:layout_height="wrap_content" >
+<span class="lineno">  22</span>     &lt;ImageView <span class="errorspan">android:id="@+id/icon"</span>
+<span class="lineno">  23</span>         android:layout_width="@dimen/notification_large_icon_width"
+<span class="lineno">  24</span>         android:layout_height="@dimen/notification_large_icon_height"
+</pre></ul></div>
+<div class="metadata">Priority: 6 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Inconsistent Layouts.</div>
+<div class="explanation">
+This check ensures that a layout resource which is defined in multiple resource folders, specifies the same set of widgets.<br/>
+<br/>
+This finds cases where you have accidentally forgotten to add a widget to all variations of the layout, which could result in a runtime crash for some resource configurations when a <code>findViewById()</code> fails.<br/>
+<br/>
+There <b>are</b> cases where this is intentional. For example, you may have a dedicated large tablet layout which adds some extra widgets that are not present in the phone version of the layout. As long as the code accessing the layout resource is careful to handle this properly, it is valid. In that case, you can suppress this lint check for the given extra or missing views, or the whole layout
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "InconsistentLayout" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="NewApi"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">NewApi: Calling new methods on older versions</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../../jdroid-android">../../../jdroid-android</a></span>: <span class="message">The SDK platform-tools version (23.0.1) is too old  to check APIs compiled with API 25; please update</span><br />
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ & Eclipse/ADT<br>
+Priority: 6 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="error">Error</span><div class="summary">
+Explanation: Calling new methods on older versions.</div>
+<div class="explanation">
+This check scans through all the Android API calls in the application and warns about any calls that are not available on <b>all</b> versions targeted by this application (according to its minimum SDK attribute in the manifest).<br/>
+<br/>
+If you really want to use this API and don't need to support older devices just set the <code>minSdkVersion</code> in your <code>build.gradle</code> or <code>AndroidManifest.xml</code> files.<br/>
+<br/>
+If your code is <b>deliberately</b> accessing newer APIs, and you have ensured (e.g. with conditional execution) that this code will only ever be called on a supported platform, then you can annotate your class or method with the <code>@TargetApi</code> annotation specifying the local minimum SDK to apply, such as <code>@TargetApi(11)</code>, such that this check considers 11 rather than your manifest file's minimum SDK as the required API level.<br/>
+<br/>
+If you are deliberately setting <code>android:</code> attributes in style definitions, make sure you place this in a <code>values-vNN</code> folder in order to avoid running into runtime conflicts on certain devices where manufacturers have added custom attributes whose ids conflict with the new ones on later platforms.<br/>
+<br/>
+Similarly, you can use tools:targetApi="11" in an XML file to indicate that the element will only be inflated in an adequate context.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "NewApi" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="InflateParams"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">InflateParams: Layout Inflation without a Parent</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/java/com/jdroid/android/refresh/RefreshActionProvider.java">../../src/main/java/com/jdroid/android/refresh/RefreshActionProvider.java</a>:33</span>: <span class="message">Avoid passing <code>null</code> as the view root (needed to resolve layout parameters on the inflated layout's root element)</span><br /><pre class="errorlines">
+<span class="lineno">  30</span> 	public RefreshActionProvider(final Context context) {
+<span class="lineno">  31</span> 		super(context);
+<span class="lineno">  32</span> 		
+<span class="lineno">  33</span> 		viewSwitcher = (ViewSwitcher)LayoutInflater.from(context).inflate(R.layout.jdroid_refresh_action_item, <span class="errorspan">null);</span>
+<span class="lineno">  34</span> 		
+<span class="lineno">  35</span> 		ImageButton refreshButton = (ImageButton)viewSwitcher.findViewById(R.id.refresh_button);
+</pre>
+</div>
+<div class="metadata">Priority: 5 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Layout Inflation without a Parent.</div>
+<div class="explanation">
+When inflating a layout, avoid passing in null as the parent view, since otherwise any layout parameters on the root of the inflated layout will be ignored.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://www.doubleencore.com/2013/05/layout-inflation-as-intended">http://www.doubleencore.com/2013/05/layout-inflation-as-intended</a>
+</div><br/>To suppress this error, use the issue id "InflateParams" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="Security"></a>
+<div class="category"><a href="#" title="Return to top">Security</a><div class="categorySeparator"></div>
+</div>
+<a name="GetInstance"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">GetInstance: Cipher.getInstance with ECB</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/java/com/jdroid/android/utils/AndroidEncryptionUtils.java">../../src/main/java/com/jdroid/android/utils/AndroidEncryptionUtils.java</a>:66</span>: <span class="message">ECB encryption mode should not be used (was "AES/ECB/PKCS5Padding")</span><br /><pre class="errorlines">
+<span class="lineno">  63</span> 	
+<span class="lineno">  64</span> 	private static byte[] doFinal(byte[] raw, int opMode, byte[] input) {
+<span class="lineno">  65</span> 		try {
+<span class="lineno">  66</span> 			Cipher cipher = Cipher.getInstance(<span class="errorspan">TRANSFORMATION);</span>
+<span class="lineno">  67</span> 			SecretKeySpec skeySpec = new SecretKeySpec(raw, ALGORITHM);
+<span class="lineno">  68</span> 			cipher.init(opMode, skeySpec);
+</pre>
+</div>
+<div class="metadata">Priority: 9 / 10<br/>
+Category: Security</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Cipher.getInstance with ECB.</div>
+<div class="explanation">
+<code>Cipher#getInstance</code> should not be called with ECB as the cipher mode or without setting the cipher mode because the default mode on android is ECB, which is insecure.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "GetInstance" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="TrulyRandom"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">TrulyRandom: Weak RNG</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/java/com/jdroid/android/utils/AndroidEncryptionUtils.java">../../src/main/java/com/jdroid/android/utils/AndroidEncryptionUtils.java</a>:95</span>: <span class="message">Potentially insecure random numbers on Android 4.3 and older. Read https://android-developers.blogspot.com/2013/08/some-securerandom-thoughts.html for more info.</span><br /><pre class="errorlines">
+<span class="lineno">  92</span> 	private static String generateBase64Key() {
+<span class="lineno">  93</span> 		final int outputKeyLength = 128;
+<span class="lineno">  94</span> 		try {
+<span class="lineno">  95</span> 			<span class="errorspan">SecureRandom secureRandom = new SecureRandom();</span>
+<span class="lineno">  96</span> 			KeyGenerator keyGenerator;
+<span class="lineno">  97</span> 			keyGenerator = KeyGenerator.getInstance(ALGORITHM);
+</pre>
+</div>
+<div class="metadata">Priority: 9 / 10<br/>
+Category: Security</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Weak RNG.</div>
+<div class="explanation">
+Key generation, signing, encryption, and random number generation may not receive cryptographically strong values due to improper initialization of the underlying PRNG on Android 4.3 and below.<br/>
+<br/>
+If your application relies on cryptographically secure random number generation you should apply the workaround described in https://android-developers.blogspot.com/2013/08/some-securerandom-thoughts.html .<br/>
+<br/>
+This lint rule is mostly informational; it does not accurately detect whether cryptographically secure RNG is required, or whether the workaround has already been applied. After reading the blog entry and updating your code if necessary, you can disable this lint issue.
+</div>
+<br/><div class="moreinfo">More info: <a href="https://android-developers.blogspot.com/2013/08/some-securerandom-thoughts.html">https://android-developers.blogspot.com/2013/08/some-securerandom-thoughts.html</a>
+</div><br/>To suppress this error, use the issue id "TrulyRandom" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="HardwareIds"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">HardwareIds: Hardware Id Usage</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/java/com/jdroid/android/utils/DeviceUtils.java">../../src/main/java/com/jdroid/android/utils/DeviceUtils.java</a>:91</span>: <span class="message">Using <code>getMacAddress</code> to get device identifiers is not recommended.</span><br /><pre class="errorlines">
+<span class="lineno">  88</span> 	@RequiresPermission(Manifest.permission.ACCESS_WIFI_STATE)
+<span class="lineno">  89</span> 	public static String getMacAddress() {
+<span class="lineno">  90</span> 		WifiManager wifiManager = (WifiManager)AbstractApplication.get().getSystemService(Context.WIFI_SERVICE);
+<span class="lineno">  91</span> 		return <span class="errorspan">wifiManager.getConnectionInfo().getMacAddress();</span>
+<span class="lineno">  92</span> 	}
+<span class="lineno">  93</span> 
+</pre>
+</div>
+<div class="metadata">Priority: 6 / 10<br/>
+Category: Security</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Hardware Id Usage.</div>
+<div class="explanation">
+Using device identifiers is not recommended other than for high value fraud prevention and advanced telephony use-cases. For advertising use-cases, use <code>AdvertisingIdClient$Info#getId</code> and for analytics, use <code>InstanceId#getId</code>.
+</div>
+<br/><div class="moreinfo">More info: <a href="https://developer.android.com/training/articles/user-data-ids.html">https://developer.android.com/training/articles/user-data-ids.html</a>
+</div><br/>To suppress this error, use the issue id "HardwareIds" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="UnsafeProtectedBroadcastReceiver"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">UnsafeProtectedBroadcastReceiver: Unsafe Protected BroadcastReceiver</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/java/com/jdroid/android/receiver/LocaleChangedReceiver.java">../../src/main/java/com/jdroid/android/receiver/LocaleChangedReceiver.java</a>:19</span>: <span class="message">This broadcast receiver declares an intent-filter for a protected broadcast action string, which can only be sent by the system, not third-party applications. However, the receiver's onReceive method does not appear to call getAction to ensure that the received Intent's action string matches the expected value, potentially making it possible for another actor to send a spoofed intent with no action string or a different action string and cause undesired behavior.</span><br /><pre class="errorlines">
+<span class="lineno">  16</span> 	private final static Logger LOGGER = LoggerUtils.getLogger(LocaleChangedReceiver.class);
+<span class="lineno">  17</span> 
+<span class="lineno">  18</span> 	@Override
+<span class="lineno">  19</span> 	public void <span class="errorspan">onReceive(Context context, Intent intent) {</span>
+<span class="lineno">  20</span> 		LOGGER.info("Changed locale to " + Locale.getDefault());
+<span class="lineno">  21</span> 		AbstractApplication.get().onLocaleChanged();
+</pre>
+</div>
+<div class="metadata">Priority: 6 / 10<br/>
+Category: Security</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Unsafe Protected BroadcastReceiver.</div>
+<div class="explanation">
+BroadcastReceivers that declare an intent-filter for a protected-broadcast action string must check that the received intent's action string matches the expected value, otherwise it is possible for malicious actors to spoof intents.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "UnsafeProtectedBroadcastReceiver" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="ExportedReceiver"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">ExportedReceiver: Receiver does not require permission</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/AndroidManifest.xml">../../src/main/AndroidManifest.xml</a>:23</span>: <span class="message">Exported receiver does not require permission</span><br /><pre class="errorlines">
+<span class="lineno">  20</span> 		&lt;/receiver>
+<span class="lineno">  21</span> 
+<span class="lineno">  22</span> 		&lt;!-- Register AnalyticsReceiver and AnalyticsService to support background dispatching on non-Google Play devices -->
+<span class="lineno">  23</span> 		<span class="errorspan">&lt;receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver"</span>
+<span class="lineno">  24</span> 				  android:enabled="true">
+<span class="lineno">  25</span> 			&lt;intent-filter>
+</pre>
+</div>
+<div class="metadata">Priority: 5 / 10<br/>
+Category: Security</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Receiver does not require permission.</div>
+<div class="explanation">
+Exported receivers (receivers which either set <code>exported=true</code> or contain an intent-filter and do not specify <code>exported=false</code>) should define a permission that an entity must have in order to launch the receiver or bind to it. Without this, any application can use this receiver.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "ExportedReceiver" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="ExportedService"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">ExportedService: Exported service does not require permission</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/AndroidManifest.xml">../../src/main/AndroidManifest.xml</a>:43</span>: <span class="message">Exported service does not require permission</span><br /><pre class="errorlines">
+<span class="lineno">  40</span> 		&lt;service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
+<span class="lineno">  41</span> 
+<span class="lineno">  42</span> 		&lt;!-- Service to handle the creation, rotation, and updating of registration tokens. -->
+<span class="lineno">  43</span> 		<span class="errorspan">&lt;service android:name=".firebase.instanceid.InstanceIdService"></span>
+<span class="lineno">  44</span> 			&lt;intent-filter>
+<span class="lineno">  45</span> 				&lt;action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ & Eclipse/ADT<br>
+Priority: 5 / 10<br/>
+Category: Security</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Exported service does not require permission.</div>
+<div class="explanation">
+Exported services (services which either set <code>exported=true</code> or contain an intent-filter and do not specify <code>exported=false</code>) should define a permission that an entity must have in order to launch the service or bind to it. Without this, any application can use this service.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "ExportedService" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="Performance"></a>
+<div class="category"><a href="#" title="Return to top">Performance</a><div class="categorySeparator"></div>
+</div>
+<a name="StaticFieldLeak"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">StaticFieldLeak: Static Field Leaks</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/java/com/jdroid/android/application/AbstractApplication.java">../../src/main/java/com/jdroid/android/application/AbstractApplication.java</a>:70</span>: <span class="message">Do not place Android context classes in static fields (static reference to <code>AbstractApplication</code> which has field <code>currentActivity</code> pointing to <code>Activity</code>); this is a memory leak (and also breaks Instant Run)</span><br /><pre class="errorlines">
+<span class="lineno">  67</span> 	private static final String INSTALLATION_SOURCE = "installationSource";
+<span class="lineno">  68</span> 	private static final String VERSION_CODE_KEY = "versionCodeKey";
+<span class="lineno">  69</span> 	
+<span class="lineno">  70</span> 	<span class="errorspan">protected static AbstractApplication INSTANCE;</span>
+<span class="lineno">  71</span> 	
+<span class="lineno">  72</span> 	private AppContext appContext;
+</pre>
+</div>
+<div class="metadata">Priority: 6 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Static Field Leaks.</div>
+<div class="explanation">
+A static field will leak contexts.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "StaticFieldLeak" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="HandlerLeak"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">HandlerLeak: Handler reference leaks</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/java/com/jdroid/android/utils/ToastUtils.java">../../src/main/java/com/jdroid/android/utils/ToastUtils.java</a>:16</span>: <span class="message">This Handler class should be static or leaks might occur (anonymous android.os.Handler)</span><br /><pre class="errorlines">
+<span class="lineno">  13</span> 	
+<span class="lineno">  14</span> 	private static WeakReference&lt;Toast> currentToast;
+<span class="lineno">  15</span> 	
+<span class="lineno">  16</span> 	private static final Handler HANDLER = new <span class="errorspan">Handler() {</span>
+<span class="lineno">  17</span> 		
+<span class="lineno">  18</span> 		@Override
+</pre>
+</div>
+<div class="metadata">Priority: 4 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Handler reference leaks.</div>
+<div class="explanation">
+Since this Handler is declared as an inner class, it may prevent the outer class from being garbage collected. If the Handler is using a Looper or MessageQueue for a thread other than the main thread, then there is no issue. If the Handler is using the Looper or MessageQueue of the main thread, you need to fix your Handler declaration, as follows: Declare the Handler as a static class; In the outer class, instantiate a WeakReference to the outer class and pass this object to your Handler when you instantiate the Handler; Make all references to members of the outer class using the WeakReference object.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "HandlerLeak" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="Overdraw"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">Overdraw: Overdraw: Painting regions more than once</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/res/layout/jdroid_app_bar.xml">../../src/main/res/layout/jdroid_app_bar.xml</a>:8</span>: <span class="message">Possible overdraw: Root element paints background <code>?attr/colorPrimary</code> with a theme that also paints a background (inferred theme is <code>@android:style/Theme.Holo</code>)</span><br /><pre class="errorlines">
+<span class="lineno">   5</span> 								   android:id="@+id/appBar"
+<span class="lineno">   6</span> 								   android:layout_width="match_parent"
+<span class="lineno">   7</span> 								   android:layout_height="?attr/actionBarSize"
+<span class="lineno">   8</span> 								   <span class="errorspan">android:background="?attr/colorPrimary"</span>
+<span class="lineno">   9</span> 								   android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+<span class="lineno">  10</span> 								   app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+</pre>
+<span class="location"><a href="../../src/main/res/layout/jdroid_nav_drawer_header.xml">../../src/main/res/layout/jdroid_nav_drawer_header.xml</a>:9</span>: <span class="message">Possible overdraw: Root element paints background <code>@android:color/white</code> with a theme that also paints a background (inferred theme is <code>@android:style/Theme.Holo</code>)</span><br /><pre class="errorlines">
+<span class="lineno">   6</span> 	android:layout_height="match_parent"
+<span class="lineno">   7</span> 	android:layout_gravity="start"
+<span class="lineno">   8</span> 	android:id="@+id/navDrawerHeader"
+<span class="lineno">   9</span> 	<span class="errorspan">android:background="@android:color/white"</span>
+<span class="lineno">  10</span> 	android:fitsSystemWindows="true"
+<span class="lineno">  11</span> 	app:jdroid_insetScrollForeground="#4000">
+</pre>
+<span class="location"><a href="../../src/main/res/layout/jdroid_share_view.xml">../../src/main/res/layout/jdroid_share_view.xml</a>:3</span>: <span class="message">Possible overdraw: Root element paints background <code>?android:attr/selectableItemBackground</code> with a theme that also paints a background (inferred theme is <code>@android:style/Theme.Holo</code>)</span><br /><pre class="errorlines">
+<span class="lineno">   1</span> &lt;?xml version="1.0" encoding="utf-8"?>
+<span class="lineno">   2</span> &lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<span class="lineno">   3</span> 	android:layout_height="wrap_content" android:orientation="vertical" <span class="errorspan">android:background="?android:attr/selectableItemBackground"</span>
+<span class="lineno">   4</span> 	android:layout_margin="4dp" android:padding="4dp">
+<span class="lineno">   5</span> 
+</pre>
+</div>
+<div class="metadata">Priority: 3 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Overdraw: Painting regions more than once.</div>
+<div class="explanation">
+If you set a background drawable on a root view, then you should use a custom theme where the theme background is null. Otherwise, the theme background will be painted first, only to have your custom background completely cover it; this is called "overdraw".<br/>
+<br/>
+NOTE: This detector relies on figuring out which layouts are associated with which activities based on scanning the Java code, and it's currently doing that using an inexact pattern matching algorithm. Therefore, it can incorrectly conclude which activity the layout is associated with and then wrongly complain that a background-theme is hidden.<br/>
+<br/>
+If you want your custom background on multiple pages, then you should consider making a custom theme with your custom background and just using that theme instead of a root element background.<br/>
+<br/>
+Of course it's possible that your custom drawable is translucent and you want it to be mixed with the background. However, you will get better performance if you pre-mix the background with your drawable and use that resulting image or color as a custom theme background instead.<br/>
+
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "Overdraw" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="UnusedResources"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">UnusedResources: Unused resources</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/res/values/colors.xml">../../src/main/res/values/colors.xml</a>:25</span>: <span class="message">The resource <code>R.color.jdroid_cardViewBackground</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  22</span> 	&lt;color name="jdroid_grey">#DBDBDB&lt;/color>
+<span class="lineno">  23</span> 
+<span class="lineno">  24</span> 	&lt;!-- Card View -->
+<span class="lineno">  25</span> 	&lt;color <span class="errorspan">name="jdroid_cardViewBackground">#FFFFFF&lt;/color></span>
+<span class="lineno">  26</span> 
+<span class="lineno">  27</span> &lt;/resources>
+</pre>
+<span class="location"><a href="../../src/main/res/drawable/jdroid_actionbar_gradient.xml">../../src/main/res/drawable/jdroid_actionbar_gradient.xml</a>:2</span>: <span class="message">The resource <code>R.drawable.jdroid_actionbar_gradient</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">   1</span> &lt;?xml version="1.0" encoding="utf-8"?>
+<span class="lineno">   2</span> <span class="errorspan">&lt;shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle"></span>
+<span class="lineno">   3</span> 	&lt;size android:height="100dp" />
+<span class="lineno">   4</span> 	&lt;gradient android:angle="270" android:startColor="#8000" android:endColor="#0000" />
+</pre>
+<span class="location"><a href="../../src/main/res/layout/jdroid_fragment_container_centered_activity.xml">../../src/main/res/layout/jdroid_fragment_container_centered_activity.xml</a>:2</span>: <span class="message">The resource <code>R.layout.jdroid_fragment_container_centered_activity</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">   1</span> &lt;?xml version="1.0" encoding="utf-8"?>
+<span class="lineno">   2</span> <span class="errorspan">&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/fragmentContainer"</span>
+<span class="lineno">   3</span> 	android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content"
+<span class="lineno">   4</span> 	android:layout_gravity="center_vertical|center_horizontal" />
+</pre>
+<span class="location"><a href="../../src/main/res/drawable/jdroid_ic_clear_white_24dp.xml">../../src/main/res/drawable/jdroid_ic_clear_white_24dp.xml</a>:1</span>: <span class="message">The resource <code>R.drawable.jdroid_ic_clear_white_24dp</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">   1</span> <span class="errorspan">&lt;vector xmlns:android="http://schemas.android.com/apk/res/android"</span>
+<span class="lineno">   2</span>         android:width="24dp"
+<span class="lineno">   3</span>         android:height="24dp"
+</pre>
+<span class="location"><a href="../../src/main/res/drawable-xxhdpi/jdroid_ic_drawer_accounts_collapse.png">../../src/main/res/drawable-xxhdpi/jdroid_ic_drawer_accounts_collapse.png</a></span>: <img class="embedimage" align="right" src="../../src/main/res/drawable-xxhdpi/jdroid_ic_drawer_accounts_collapse.png" /><span class="message">The resource <code>R.drawable.jdroid_ic_drawer_accounts_collapse</code> appears to be unused</span><br clear="right"/>
+<button id="UnusedResourcesDivLink" onclick="reveal('UnusedResourcesDiv');" />+ 17 More Occurrences...</button>
+<div id="UnusedResourcesDiv" style="display: none">
+<span class="location"><a href="../../src/main/res/drawable/jdroid_ic_mail_outline_black_24dp.xml">../../src/main/res/drawable/jdroid_ic_mail_outline_black_24dp.xml</a>:1</span>: <span class="message">The resource <code>R.drawable.jdroid_ic_mail_outline_black_24dp</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">   1</span> <span class="errorspan">&lt;vector xmlns:android="http://schemas.android.com/apk/res/android"</span>
+<span class="lineno">   2</span>         android:width="24dp"
+<span class="lineno">   3</span>         android:height="24dp"
+</pre>
+<span class="location"><a href="../../src/main/res/layout/jdroid_share_section.xml">../../src/main/res/layout/jdroid_share_section.xml</a>:1</span>: <span class="message">The resource <code>R.layout.jdroid_share_section</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">   1</span> <span class="errorspan">&lt;android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"</span>
+<span class="lineno">   2</span> 									android:id="@+id/shareSection" style="@style/jdroid_cardViewFullMarginStyle" android:visibility="gone">
+<span class="lineno">   3</span> 
+</pre>
+<span class="location"><a href="../../src/main/res/layout/jdroid_time_layout.xml">../../src/main/res/layout/jdroid_time_layout.xml</a>:2</span>: <span class="message">The resource <code>R.layout.jdroid_time_layout</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">   1</span> &lt;?xml version="1.0" encoding="UTF-8"?>
+<span class="lineno">   2</span> <span class="errorspan">&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="horizontal"</span>
+<span class="lineno">   3</span> 	android:layout_width="wrap_content" android:layout_height="wrap_content">
+<span class="lineno">   4</span> 
+</pre>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:12</span>: <span class="message">The resource <code>R.string.jdroid_update</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">   9</span> 	&lt;string name="jdroid_noResults">There are no results available&lt;/string>
+<span class="lineno">  10</span> 	&lt;string name="jdroid_zeroPercent">0%&lt;/string>
+<span class="lineno">  11</span> 	&lt;string name="jdroid_refresh">Refresh&lt;/string>
+<span class="lineno">  12</span> 	&lt;string <span class="errorspan">name="jdroid_update">Update&lt;/string></span>
+<span class="lineno">  13</span> 	&lt;string name="jdroid_retry">Retry&lt;/string>
+<span class="lineno">  14</span> 	&lt;string name="jdroid_removeAdsNow">Remove ads now!&lt;/string>
+</pre>
+<ul></ul><button id="Location9DivLink" onclick="reveal('Location9Div');" />+ 1 Additional Locations...</button>
+<div id="Location9Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:12</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:14</span>: <span class="message">The resource <code>R.string.jdroid_removeAdsNow</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  11</span> 	&lt;string name="jdroid_refresh">Refresh&lt;/string>
+<span class="lineno">  12</span> 	&lt;string name="jdroid_update">Update&lt;/string>
+<span class="lineno">  13</span> 	&lt;string name="jdroid_retry">Retry&lt;/string>
+<span class="lineno">  14</span> 	&lt;string <span class="errorspan">name="jdroid_removeAdsNow">Remove ads now!&lt;/string></span>
+<span class="lineno">  15</span> 
+<span class="lineno">  16</span> 	&lt;!-- App Invite -->
+</pre>
+<ul></ul><button id="Location10DivLink" onclick="reveal('Location10Div');" />+ 1 Additional Locations...</button>
+<div id="Location10Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:14</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:17</span>: <span class="message">The resource <code>R.string.jdroid_appInviteButtonTitle</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  14</span> 	&lt;string name="jdroid_removeAdsNow">Remove ads now!&lt;/string>
+<span class="lineno">  15</span> 
+<span class="lineno">  16</span> 	&lt;!-- App Invite -->
+<span class="lineno">  17</span> 	&lt;string <span class="errorspan">name="jdroid_appInviteButtonTitle">Invite Friends&lt;/string></span>
+<span class="lineno">  18</span> 	&lt;string name="jdroid_appInviteButtonSubtitle">Recommend %1$s to your friends&lt;/string>
+<span class="lineno">  19</span> 	&lt;string name="jdroid_appInviteTitle">Invite Friends to %1$s&lt;/string>
+</pre>
+<ul></ul><button id="Location11DivLink" onclick="reveal('Location11Div');" />+ 1 Additional Locations...</button>
+<div id="Location11Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:17</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:18</span>: <span class="message">The resource <code>R.string.jdroid_appInviteButtonSubtitle</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  15</span> 
+<span class="lineno">  16</span> 	&lt;!-- App Invite -->
+<span class="lineno">  17</span> 	&lt;string name="jdroid_appInviteButtonTitle">Invite Friends&lt;/string>
+<span class="lineno">  18</span> 	&lt;string <span class="errorspan">name="jdroid_appInviteButtonSubtitle">Recommend %1$s to your friends&lt;/string></span>
+<span class="lineno">  19</span> 	&lt;string name="jdroid_appInviteTitle">Invite Friends to %1$s&lt;/string>
+<span class="lineno">  20</span> 	&lt;string name="jdroid_appInviteMessage">Download %1$s on your android&lt;/string>
+</pre>
+<ul></ul><button id="Location12DivLink" onclick="reveal('Location12Div');" />+ 1 Additional Locations...</button>
+<div id="Location12Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:18</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:24</span>: <span class="message">The resource <code>R.string.jdroid_allow</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  21</span> 
+<span class="lineno">  22</span> 	&lt;!-- Permissions -->
+<span class="lineno">  23</span> 	&lt;string name="jdroid_requiredPermission">Required Permission&lt;/string>
+<span class="lineno">  24</span> 	&lt;string <span class="errorspan">name="jdroid_allow">Allow&lt;/string></span>
+<span class="lineno">  25</span> 	&lt;string name="jdroid_deviceSettings">Settings&lt;/string>
+<span class="lineno">  26</span> 
+</pre>
+<ul></ul><button id="Location13DivLink" onclick="reveal('Location13Div');" />+ 1 Additional Locations...</button>
+<div id="Location13Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:24</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:52</span>: <span class="message">The resource <code>R.string.jdroid_selectTime</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  49</span> 	&lt;string name="jdroid_requiredSearchTerm">Search term is required&lt;/string>
+<span class="lineno">  50</span> 
+<span class="lineno">  51</span> 	&lt;!-- Time Picker Dialog Fragment -->
+<span class="lineno">  52</span> 	&lt;string <span class="errorspan">name="jdroid_selectTime">Select Time&lt;/string></span>
+<span class="lineno">  53</span> 
+<span class="lineno">  54</span> 	&lt;!-- Picture Dialog Fragment -->
+</pre>
+<ul></ul><button id="Location14DivLink" onclick="reveal('Location14Div');" />+ 1 Additional Locations...</button>
+<div id="Location14Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:54</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:61</span>: <span class="message">The resource <code>R.string.jdroid_voiceSearch</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  58</span> 
+<span class="lineno">  59</span> 	&lt;!-- External Apps -->
+<span class="lineno">  60</span> 	&lt;string name="jdroid_barcodeScanner">Barcode Scanner&lt;/string>
+<span class="lineno">  61</span> 	&lt;string <span class="errorspan">name="jdroid_voiceSearch">Voice Search&lt;/string></span>
+<span class="lineno">  62</span> 
+<span class="lineno">  63</span> 	&lt;!-- Sharing -->
+</pre>
+<ul></ul><button id="Location15DivLink" onclick="reveal('Location15Div');" />+ 1 Additional Locations...</button>
+<div id="Location15Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:63</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:64</span>: <span class="message">The resource <code>R.string.jdroid_share</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  61</span> 	&lt;string name="jdroid_voiceSearch">Voice Search&lt;/string>
+<span class="lineno">  62</span> 
+<span class="lineno">  63</span> 	&lt;!-- Sharing -->
+<span class="lineno">  64</span> 	&lt;string <span class="errorspan">name="jdroid_share">Share&lt;/string></span>
+<span class="lineno">  65</span> 	&lt;string name="jdroid_sharingFailed">The sharing failed&lt;/string>
+<span class="lineno">  66</span> 
+</pre>
+<ul></ul><button id="Location16DivLink" onclick="reveal('Location16Div');" />+ 1 Additional Locations...</button>
+<div id="Location16Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:66</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:65</span>: <span class="message">The resource <code>R.string.jdroid_sharingFailed</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  62</span> 
+<span class="lineno">  63</span> 	&lt;!-- Sharing -->
+<span class="lineno">  64</span> 	&lt;string name="jdroid_share">Share&lt;/string>
+<span class="lineno">  65</span> 	&lt;string <span class="errorspan">name="jdroid_sharingFailed">The sharing failed&lt;/string></span>
+<span class="lineno">  66</span> 
+<span class="lineno">  67</span> 	&lt;!-- Sign In -->
+</pre>
+<ul></ul><button id="Location17DivLink" onclick="reveal('Location17Div');" />+ 1 Additional Locations...</button>
+<div id="Location17Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:67</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:68</span>: <span class="message">The resource <code>R.string.jdroid_logout</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  65</span> 	&lt;string name="jdroid_sharingFailed">The sharing failed&lt;/string>
+<span class="lineno">  66</span> 
+<span class="lineno">  67</span> 	&lt;!-- Sign In -->
+<span class="lineno">  68</span> 	&lt;string <span class="errorspan">name="jdroid_logout">Logout&lt;/string></span>
+<span class="lineno">  69</span> 	&lt;string name="jdroid_signIn">Sign in&lt;/string>
+<span class="lineno">  70</span> 
+</pre>
+<ul></ul><button id="Location18DivLink" onclick="reveal('Location18Div');" />+ 1 Additional Locations...</button>
+<div id="Location18Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:70</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:69</span>: <span class="message">The resource <code>R.string.jdroid_signIn</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  66</span> 
+<span class="lineno">  67</span> 	&lt;!-- Sign In -->
+<span class="lineno">  68</span> 	&lt;string name="jdroid_logout">Logout&lt;/string>
+<span class="lineno">  69</span> 	&lt;string <span class="errorspan">name="jdroid_signIn">Sign in&lt;/string></span>
+<span class="lineno">  70</span> 
+<span class="lineno">  71</span> 	&lt;!-- Facebook -->
+</pre>
+<ul></ul><button id="Location19DivLink" onclick="reveal('Location19Div');" />+ 1 Additional Locations...</button>
+<div id="Location19Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:71</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:72</span>: <span class="message">The resource <code>R.string.jdroid_facebook</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  69</span> 	&lt;string name="jdroid_signIn">Sign in&lt;/string>
+<span class="lineno">  70</span> 
+<span class="lineno">  71</span> 	&lt;!-- Facebook -->
+<span class="lineno">  72</span> 	&lt;string <span class="errorspan">name="jdroid_facebook">Facebook&lt;/string></span>
+<span class="lineno">  73</span> 
+<span class="lineno">  74</span> 	&lt;!-- Google Sign In -->
+</pre>
+<ul></ul><button id="Location20DivLink" onclick="reveal('Location20Div');" />+ 1 Additional Locations...</button>
+<div id="Location20Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:74</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:75</span>: <span class="message">The resource <code>R.string.jdroid_googleSignIn</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  72</span> 	&lt;string name="jdroid_facebook">Facebook&lt;/string>
+<span class="lineno">  73</span> 
+<span class="lineno">  74</span> 	&lt;!-- Google Sign In -->
+<span class="lineno">  75</span> 	&lt;string <span class="errorspan">name="jdroid_googleSignIn">Google Sign In&lt;/string></span>
+<span class="lineno">  76</span> 
+<span class="lineno">  77</span> 	&lt;!-- Twitter -->
+</pre>
+<ul></ul><button id="Location21DivLink" onclick="reveal('Location21Div');" />+ 1 Additional Locations...</button>
+<div id="Location21Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:77</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:78</span>: <span class="message">The resource <code>R.string.jdroid_twitter</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  75</span> 	&lt;string name="jdroid_googleSignIn">Google Sign In&lt;/string>
+<span class="lineno">  76</span> 
+<span class="lineno">  77</span> 	&lt;!-- Twitter -->
+<span class="lineno">  78</span> 	&lt;string <span class="errorspan">name="jdroid_twitter">Twitter&lt;/string></span>
+<span class="lineno">  79</span> 
+<span class="lineno">  80</span> 	&lt;string name="jdroid_universalImageLoaderTitle">Universal Image Loader&lt;/string>
+</pre>
+<ul></ul><button id="Location22DivLink" onclick="reveal('Location22Div');" />+ 1 Additional Locations...</button>
+<div id="Location22Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:80</span>
+</ul>
+</div><br/><br/>
+</div>
+</div>
+<div class="metadata">Priority: 3 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Unused resources.</div>
+<div class="explanation">
+Unused resources make applications larger and slow down builds.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "UnusedResources" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="UselessParent"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">UselessParent: Useless parent layout</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/res/layout/jdroid_nav_drawer_header.xml">../../src/main/res/layout/jdroid_nav_drawer_header.xml</a>:15</span>: <span class="message">This <code>FrameLayout</code> layout or its <code>LinearLayout</code> parent is possibly useless</span><br /><pre class="errorlines">
+<span class="lineno">  12</span> 
+<span class="lineno">  13</span> 	&lt;LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+<span class="lineno">  14</span> 
+<span class="lineno">  15</span> 		<span class="errorspan">&lt;FrameLayout android:id="@+id/chosen_account_view" android:layout_width="match_parent" android:layout_height="@dimen/jdroid_navdrawerHeaderHeight"></span>
+<span class="lineno">  16</span> 
+<span class="lineno">  17</span> 			&lt;ImageView android:layout_width="match_parent"
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT<br>
+Priority: 2 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Useless parent layout.</div>
+<div class="explanation">
+A layout with children that has no siblings, is not a scrollview or a root layout, and does not have a background, can be removed and have its children moved directly into the parent for a flatter and more efficient layout hierarchy.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "UselessParent" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="Usability:Icons"></a>
+<div class="category"><a href="#" title="Return to top">Usability:Icons</a><div class="categorySeparator"></div>
+</div>
+<a name="IconDensities"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">IconDensities: Icon densities validation</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/res/drawable-hdpi">../../src/main/res/drawable-hdpi</a></span>: <span class="message">Missing the following drawables in <code>drawable-hdpi</code>: jdroid_ic_drawer_accounts_collapse.png, jdroid_ic_drawer_accounts_expand.png</span><br />
+<span class="location"><a href="../../src/main/res/drawable-mdpi">../../src/main/res/drawable-mdpi</a></span>: <span class="message">Missing the following drawables in <code>drawable-mdpi</code>: jdroid_ic_drawer_accounts_collapse.png, jdroid_ic_drawer_accounts_expand.png</span><br />
+<span class="location"><a href="../../src/main/res/drawable-xhdpi">../../src/main/res/drawable-xhdpi</a></span>: <span class="message">Missing the following drawables in <code>drawable-xhdpi</code>: jdroid_ic_drawer_accounts_collapse.png, jdroid_ic_drawer_accounts_expand.png</span><br />
+<span class="location"><a href="../../src/main/res/drawable-xxhdpi">../../src/main/res/drawable-xxhdpi</a></span>: <span class="message">Missing the following drawables in <code>drawable-xxhdpi</code>: jdroid_ic_facebook.png (found in drawable-mdpi, drawable-xhdpi, drawable-hdpi)</span><br />
+</div>
+<div class="metadata">Priority: 4 / 10<br/>
+Category: Usability:Icons</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Icon densities validation.</div>
+<div class="explanation">
+Icons will look best if a custom version is provided for each of the major screen density classes (low, medium, high, extra high). This lint check identifies icons which do not have complete coverage across the densities.<br/>
+<br/>
+Low density is not really used much anymore, so this check ignores the ldpi density. To force lint to include it, set the environment variable <code>ANDROID_LINT_INCLUDE_LDPI=true</code>. For more information on current density usage, see <a href="http://developer.android.com/resources/dashboard/screens.html">http://developer.android.com/resources/dashboard/screens.html</a>
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/practices/screens_support.html">http://developer.android.com/guide/practices/screens_support.html</a>
+</div><br/>To suppress this error, use the issue id "IconDensities" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="IconMissingDensityFolder"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">IconMissingDensityFolder: Missing density folder</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/res">../../src/main/res</a></span>: <span class="message">Missing density variation folders in <code>src/main/res</code>: drawable-xxxhdpi</span><br />
+</div>
+<div class="metadata">Priority: 3 / 10<br/>
+Category: Usability:Icons</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Missing density folder.</div>
+<div class="explanation">
+Icons will look best if a custom version is provided for each of the major screen density classes (low, medium, high, extra-high, extra-extra-high). This lint check identifies folders which are missing, such as <code>drawable-hdpi</code>.<br/>
+<br/>
+Low density is not really used much anymore, so this check ignores the ldpi density. To force lint to include it, set the environment variable <code>ANDROID_LINT_INCLUDE_LDPI=true</code>. For more information on current density usage, see <a href="http://developer.android.com/resources/dashboard/screens.html">http://developer.android.com/resources/dashboard/screens.html</a>
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/practices/screens_support.html">http://developer.android.com/guide/practices/screens_support.html</a>
+</div><br/>To suppress this error, use the issue id "IconMissingDensityFolder" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="Internationalization"></a>
+<div class="category"><a href="#" title="Return to top">Internationalization</a><div class="categorySeparator"></div>
+</div>
+<a name="SetTextI18n"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">SetTextI18n: TextView Internationalization</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/java/com/jdroid/android/view/BadgeView.java">../../src/main/java/com/jdroid/android/view/BadgeView.java</a>:50</span>: <span class="message">Do not concatenate text displayed with <code>setText</code>. Use resource string with placeholders.</span><br /><pre class="errorlines">
+<span class="lineno">  47</span> 		if ((notifications != null) &amp;&amp; (notifications > 0)) {
+<span class="lineno">  48</span> 			setVisibility(VISIBLE);
+<span class="lineno">  49</span> 			if (notifications > maximum) {
+<span class="lineno">  50</span> 				this.setText(<span class="errorspan">maximum + "+");</span>
+<span class="lineno">  51</span> 			} else {
+<span class="lineno">  52</span> 				this.setText(notifications.toString());
+</pre>
+<span class="location"><a href="../../src/main/java/com/jdroid/android/view/BadgeView.java">../../src/main/java/com/jdroid/android/view/BadgeView.java</a>:52</span>: <span class="message">Number formatting does not take into account locale settings. Consider using <code>String.format</code> instead.</span><br /><pre class="errorlines">
+<span class="lineno">  49</span> 			if (notifications > maximum) {
+<span class="lineno">  50</span> 				this.setText(maximum + "+");
+<span class="lineno">  51</span> 			} else {
+<span class="lineno">  52</span> 				this.setText(<span class="errorspan">notifications.toString());</span>
+<span class="lineno">  53</span> 			}
+<span class="lineno">  54</span> 		} else {
+</pre>
+<span class="location"><a href="../../src/debug/java/com/jdroid/android/debug/PairItemRecyclerViewType.java">../../src/debug/java/com/jdroid/android/debug/PairItemRecyclerViewType.java</a>:32</span>: <span class="message">Do not concatenate text displayed with <code>setText</code>. Use resource string with placeholders.</span><br /><pre class="errorlines">
+<span class="lineno">  29</span> 
+<span class="lineno">  30</span> 	@Override
+<span class="lineno">  31</span> 	public void fillHolderFromItem(Pair item, PairItemHolder holder) {
+<span class="lineno">  32</span> 		holder.name.setText(<span class="errorspan">item.first + ": " + item.second);</span>
+<span class="lineno">  33</span> 	}
+<span class="lineno">  34</span> 
+</pre>
+<span class="location"><a href="../../src/debug/java/com/jdroid/android/debug/PairItemRecyclerViewType.java">../../src/debug/java/com/jdroid/android/debug/PairItemRecyclerViewType.java</a>:32</span>: <span class="message">Do not concatenate text displayed with <code>setText</code>. Use resource string with placeholders.</span><br /><pre class="errorlines">
+<span class="lineno">  29</span> 
+<span class="lineno">  30</span> 	@Override
+<span class="lineno">  31</span> 	public void fillHolderFromItem(Pair item, PairItemHolder holder) {
+<span class="lineno">  32</span> 		holder.name.setText(<span class="errorspan">item.first + ": " + item.second);</span>
+<span class="lineno">  33</span> 	}
+<span class="lineno">  34</span> 
+</pre>
+</div>
+<div class="metadata">Priority: 6 / 10<br/>
+Category: Internationalization</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: TextView Internationalization.</div>
+<div class="explanation">
+When calling <code>TextView#setText</code><br/>
+* Never call <code>Number#toString()</code> to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using <code>String#format</code> with proper format specifications (<code>%d</code> or <code>%f</code>) instead.<br/>
+* Do not pass a string literal (e.g. "Hello") to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.<br/>
+* Do not build messages by concatenating text chunks. Such messages can not be properly translated.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/topics/resources/localization.html">http://developer.android.com/guide/topics/resources/localization.html</a>
+</div><br/>To suppress this error, use the issue id "SetTextI18n" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="MissingIssues"></a>
+<div class="category">Disabled Checks<div class="categorySeparator"></div>
+</div>
+The following issues were not run by lint, either because the check is not enabled by default, or because it was disabled with a command line flag or via one or more lint.xml configuration files in the project directories.
+<br/><br/>
+<a name="AppLinksAutoVerifyError"></a>
+<div class="issue">
+<div class="id">AppLinksAutoVerifyError<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 5 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="error">Error</span><div class="summary">
+Explanation: App Links Auto Verification Failure.</div>
+<div class="explanation">
+Ensures that app links are correctly set and associated with website.
+</div>
+<br/><div class="moreinfo">More info: <a href="https://g.co/appindexing/applinks">https://g.co/appindexing/applinks</a>
+</div><br/>To suppress this error, use the issue id "AppLinksAutoVerifyError" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="AppLinksAutoVerifyWarning"></a>
+<div class="issue">
+<div class="id">AppLinksAutoVerifyWarning<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 5 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Potential App Links Auto Verification Failure.</div>
+<div class="explanation">
+Ensures that app links are correctly set and associated with website.
+</div>
+<br/><div class="moreinfo">More info: <a href="https://g.co/appindexing/applinks">https://g.co/appindexing/applinks</a>
+</div><br/>To suppress this error, use the issue id "AppLinksAutoVerifyWarning" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="BackButton"></a>
+<div class="issue">
+<div class="id">BackButton<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 6 / 10<br/>
+Category: Usability</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Back button.</div>
+<div class="explanation">
+According to the Android Design Guide,<br/>
+<br/>
+"Other platforms use an explicit back button with label to allow the user to navigate up the application's hierarchy. Instead, Android uses the main action bar's app icon for hierarchical navigation and the navigation bar's back button for temporal navigation."<br/>
+This check is not very sophisticated (it just looks for buttons with the label "Back"), so it is disabled by default to not trigger on common scenarios like pairs of Back/Next buttons to paginate through screens.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/design/patterns/pure-android.html">http://developer.android.com/design/patterns/pure-android.html</a>
+</div><br/>To suppress this error, use the issue id "BackButton" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="ContentDescription"></a>
+<div class="issue">
+<div class="id">ContentDescription<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ & Eclipse/ADT<br>
+Disabled By: Command line flag<br/>
+Priority: 3 / 10<br/>
+Category: Accessibility</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Image without <code>contentDescription</code></div>
+<div class="explanation">
+Non-textual widgets like ImageViews and ImageButtons should use the <code>contentDescription</code> attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.<br/>
+<br/>
+Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore="ContentDescription" attribute.<br/>
+<br/>
+Note that for text fields, you should not set both the <code>hint</code> and the <code>contentDescription</code> attributes since the hint will never be shown. Just set the <code>hint</code>. See <a href="http://developer.android.com/guide/topics/ui/accessibility/checklist.html#special-cases">http://developer.android.com/guide/topics/ui/accessibility/checklist.html#special-cases</a>.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "ContentDescription" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="EasterEgg"></a>
+<div class="issue">
+<div class="id">EasterEgg<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 6 / 10<br/>
+Category: Security</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Code contains easter egg.</div>
+<div class="explanation">
+An "easter egg" is code deliberately hidden in the code, both from potential users and even from other developers. This lint check looks for code which looks like it may be hidden from sight.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "EasterEgg" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="FieldGetter"></a>
+<div class="issue">
+<div class="id">FieldGetter<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 4 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Using getter instead of field.</div>
+<div class="explanation">
+Accessing a field within the class that defines a getter for that field is at least 3 times faster than calling the getter. For simple getters that do nothing other than return the field, you might want to just reference the local field directly instead.<br/>
+<br/>
+<b>NOTE</b>: As of Android 2.3 (Gingerbread), this optimization is performed automatically by Dalvik, so there is no need to change your code; this is only relevant if you are targeting older versions of Android.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/practices/design/performance.html#internal_get_set">http://developer.android.com/guide/practices/design/performance.html#internal_get_set</a>
+</div><br/>To suppress this error, use the issue id "FieldGetter" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="GoogleAppIndexingApiWarning"></a>
+<div class="issue">
+<div class="id">GoogleAppIndexingApiWarning<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ<br>
+Disabled By: Default<br/>
+Priority: 5 / 10<br/>
+Category: Usability</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Missing support for Firebase App Indexing Api.</div>
+<div class="explanation">
+Adds URLs to get your app into the Google index, to get installs and traffic to your app from Google Search.
+</div>
+<br/><div class="moreinfo">More info: <a href="https://g.co/AppIndexing/AndroidStudio">https://g.co/AppIndexing/AndroidStudio</a>
+</div><br/>To suppress this error, use the issue id "GoogleAppIndexingApiWarning" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="IconExpectedSize"></a>
+<div class="issue">
+<div class="id">IconExpectedSize<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 5 / 10<br/>
+Category: Usability:Icons</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Icon has incorrect size.</div>
+<div class="explanation">
+There are predefined sizes (for each density) for launcher icons. You should follow these conventions to make sure your icons fit in with the overall look of the platform.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/design/style/iconography.html">http://developer.android.com/design/style/iconography.html</a>
+</div><br/>To suppress this error, use the issue id "IconExpectedSize" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="LogConditional"></a>
+<div class="issue">
+<div class="id">LogConditional<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 5 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Unconditional Logging Calls.</div>
+<div class="explanation">
+The BuildConfig class (available in Tools 17) provides a constant, "DEBUG", which indicates whether the code is being built in release mode or in debug mode. In release mode, you typically want to strip out all the logging calls. Since the compiler will automatically remove all code which is inside a "if (false)" check, surrounding your logging calls with a check for BuildConfig.DEBUG is a good idea.<br/>
+<br/>
+If you <b>really</b> intend for the logging to be present in release mode, you can suppress this warning with a @SuppressLint annotation for the intentional logging calls.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "LogConditional" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="MangledCRLF"></a>
+<div class="issue">
+<div class="id">MangledCRLF<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT<br>
+Disabled By: Default<br/>
+Priority: 2 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="error">Error</span><div class="summary">
+Explanation: Mangled file line endings.</div>
+<div class="explanation">
+On Windows, line endings are typically recorded as carriage return plus newline: \r\n.<br/>
+<br/>
+This detector looks for invalid line endings with repeated carriage return characters (without newlines). Previous versions of the ADT plugin could accidentally introduce these into the file, and when editing the file, the editor could produce confusing visual artifacts.
+</div>
+<br/><div class="moreinfo">More info: <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=375421">https://bugs.eclipse.org/bugs/show_bug.cgi?id=375421</a>
+</div><br/>To suppress this error, use the issue id "MangledCRLF" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="MissingRegistered"></a>
+<div class="issue">
+<div class="id">MissingRegistered<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 8 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="error">Error</span><div class="summary">
+Explanation: Missing registered class.</div>
+<div class="explanation">
+If a class is referenced in the manifest or in a layout file, it must also exist in the project (or in one of the libraries included by the project. This check helps uncover typos in registration names, or attempts to rename or move classes without updating the manifest file properly.
+</div>
+<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/topics/manifest/manifest-intro.html">http://developer.android.com/guide/topics/manifest/manifest-intro.html</a>
+</div><br/>To suppress this error, use the issue id "MissingRegistered" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="NegativeMargin"></a>
+<div class="issue">
+<div class="id">NegativeMargin<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 4 / 10<br/>
+Category: Usability</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Negative Margins.</div>
+<div class="explanation">
+Margin values should be positive. Negative values are generally a sign that you are making assumptions about views surrounding the current one, or may be tempted to turn off child clipping to allow a view to escape its parent. Turning off child clipping to do this not only leads to poor graphical performance, it also results in wrong touch event handling since touch events are based strictly on a chain of parent-rect hit tests. Finally, making assumptions about the size of strings can lead to localization problems.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "NegativeMargin" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="NewerVersionAvailable"></a>
+<div class="issue">
+<div class="id">NewerVersionAvailable<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ<br>
+Disabled By: Default<br/>
+Priority: 4 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Newer Library Versions Available.</div>
+<div class="explanation">
+This detector checks with a central repository to see if there are newer versions available for the dependencies used by this project. This is similar to the <code>GradleDependency</code> check, which checks for newer versions available in the Android SDK tools and libraries, but this works with any MavenCentral dependency, and connects to the library every time, which makes it more flexible but also <b>much</b> slower.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "NewerVersionAvailable" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="RtlEnabled"></a>
+<div class="issue">
+<div class="id">RtlEnabled<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Command line flag<br/>
+Priority: 3 / 10<br/>
+Category: Internationalization:Bidirectional Text</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Using RTL attributes without enabling RTL support.</div>
+<div class="explanation">
+To enable right-to-left support, when running on API 17 and higher, you must set the <code>android:supportsRtl</code> attribute in the manifest <code>&lt;application></code> element.<br/>
+<br/>
+If you have started adding RTL attributes, but have not yet finished the migration, you can set the attribute to false to satisfy this lint check.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "RtlEnabled" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="RtlHardcoded"></a>
+<div class="issue">
+<div class="id">RtlHardcoded<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Command line flag<br/>
+Priority: 5 / 10<br/>
+Category: Internationalization:Bidirectional Text</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Using left/right instead of start/end attributes.</div>
+<div class="explanation">
+Using <code>Gravity#LEFT</code> and <code>Gravity#RIGHT</code> can lead to problems when a layout is rendered in locales where text flows from right to left. Use <code>Gravity#START</code> and <code>Gravity#END</code> instead. Similarly, in XML <code>gravity</code> and <code>layout_gravity</code> attributes, use <code>start</code> rather than <code>left</code>.<br/>
+<br/>
+For XML attributes such as paddingLeft and <code>layout_marginLeft</code>, use <code>paddingStart</code> and <code>layout_marginStart</code>. <b>NOTE</b>: If your <code>minSdkVersion</code> is less than 17, you should add <b>both</b> the older left/right attributes <b>as well as</b> the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.<br/>
+<br/>
+(Note: For <code>Gravity#LEFT</code> and <code>Gravity#START</code>, you can use these constants even when targeting older platforms, because the <code>start</code> bitmask is a superset of the <code>left</code> bitmask. Therefore, you can use <code>gravity="start"</code> rather than <code>gravity="left|start"</code>.)
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "RtlHardcoded" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="RtlSymmetry"></a>
+<div class="issue">
+<div class="id">RtlSymmetry<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Command line flag<br/>
+Priority: 6 / 10<br/>
+Category: Internationalization:Bidirectional Text</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Padding and margin symmetry.</div>
+<div class="explanation">
+If you specify padding or margin on the left side of a layout, you should probably also specify padding on the right side (and vice versa) for right-to-left layout symmetry.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "RtlSymmetry" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="SelectableText"></a>
+<div class="issue">
+<div class="id">SelectableText<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ<br>
+Disabled By: Default<br/>
+Priority: 7 / 10<br/>
+Category: Usability</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Dynamic text should probably be selectable.</div>
+<div class="explanation">
+If a <code>&lt;TextView></code> is used to display data, the user might want to copy that data and paste it elsewhere. To allow this, the <code>&lt;TextView></code> should specify <code>android:textIsSelectable="true"</code>.<br/>
+<br/>
+This lint check looks for TextViews which are likely to be displaying data: views whose text is set dynamically. This value will be ignored on platforms older than API 11, so it is okay to set it regardless of your <code>minSdkVersion</code>.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "SelectableText" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="StopShip"></a>
+<div class="issue">
+<div class="id">StopShip<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ<br>
+Disabled By: Default<br/>
+Priority: 10 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Code contains <code>STOPSHIP</code> marker.</div>
+<div class="explanation">
+Using the comment <code>// STOPSHIP</code> can be used to flag code that is incomplete but checked in. This comment marker can be used to indicate that the code should not be shipped until the issue is addressed, and lint will look for these.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "StopShip" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="TypographyQuotes"></a>
+<div class="issue">
+<div class="id">TypographyQuotes<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ & Eclipse/ADT<br>
+Disabled By: Default<br/>
+Priority: 5 / 10<br/>
+Category: Usability:Typography</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Straight quotes can be replaced with curvy quotes.</div>
+<div class="explanation">
+Straight single quotes and double quotes, when used as a pair, can be replaced by "curvy quotes" (or directional quotes). This can make the text more readable.<br/>
+<br/>
+Note that you should never use grave accents and apostrophes to quote, `like this'.<br/>
+<br/>
+(Also note that you should not use curvy quotes for code fragments.)
+</div>
+<br/><div class="moreinfo">More info: <a href="http://en.wikipedia.org/wiki/Quotation_mark">http://en.wikipedia.org/wiki/Quotation_mark</a>
+</div><br/>To suppress this error, use the issue id "TypographyQuotes" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="UnknownIdInLayout"></a>
+<div class="issue">
+<div class="id">UnknownIdInLayout<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Command line flag<br/>
+Priority: 5 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Reference to an id that is not in the current layout.</div>
+<div class="explanation">
+The <code>@+id/</code> syntax refers to an existing id, or creates a new one if it has not already been defined elsewhere. However, this means that if you have a typo in your reference, or if the referred view no longer exists, you do not get a warning since the id will be created on demand.<br/>
+<br/>
+This is sometimes intentional, for example where you are referring to a view which is provided in a different layout via an include. However, it is usually an accident where you have a typo or you have renamed a view without updating all the references to it.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "UnknownIdInLayout" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="UnusedIds"></a>
+<div class="issue">
+<div class="id">UnusedIds<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+Priority: 1 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Unused id.</div>
+<div class="explanation">
+This resource id definition appears not to be needed since it is not referenced from anywhere. Having id definitions, even if unused, is not necessarily a bad idea since they make working on layouts and menus easier, so there is not a strong reason to delete these.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "UnusedIds" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+<a name="UseCompoundDrawables"></a>
+<div class="issue">
+<div class="id">UseCompoundDrawables<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Eclipse/ADT<br>
+Disabled By: Command line flag<br/>
+Priority: 6 / 10<br/>
+Category: Performance</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: Node can be replaced by a <code>TextView</code> with compound drawables.</div>
+<div class="explanation">
+A <code>LinearLayout</code> which contains an <code>ImageView</code> and a <code>TextView</code> can be more efficiently handled as a compound drawable (a single TextView, using the <code>drawableTop</code>, <code>drawableLeft</code>, <code>drawableRight</code> and/or <code>drawableBottom</code> attributes to draw one or more images adjacent to the text).<br/>
+<br/>
+If the two widgets are offset from each other with margins, this can be replaced with a <code>drawablePadding</code> attribute.<br/>
+<br/>
+There's a lint quickfix to perform this conversion in the Eclipse plugin.
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "UseCompoundDrawables" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+
+<a name="SuppressInfo"></a>
+<div class="category">Suppressing Warnings and Errors<div class="categorySeparator"></div>
+</div>
+Lint errors can be suppressed in a variety of ways:<br/>
+<br/>
+1. With a <code>@SuppressLint</code> annotation in the Java code<br/>
+2. With a <code>tools:ignore</code> attribute in the XML file<br/>
+3. With ignore flags specified in the <code>build.gradle</code> file, as explained below<br/>
+4. With a <code>lint.xml</code> configuration file in the project<br/>
+5. With a <code>lint.xml</code> configuration file passed to lint via the --config flag<br/>
+6. With the --ignore flag passed to lint.<br/>
+<br/>
+To suppress a lint warning with an annotation, add a <code>@SuppressLint("id")</code> annotation on the class, method or variable declaration closest to the warning instance you want to disable. The id can be one or more issue id's, such as <code>"UnusedResources"</code> or <code>{"UnusedResources","UnusedIds"}</code>, or it can be <code>"all"</code> to suppress all lint warnings in the given scope.<br/>
+<br/>
+To suppress a lint warning in an XML file, add a <code>tools:ignore="id"</code> attribute on the element containing the error, or one of its surrounding elements. You also need to define the namespace for the tools prefix on the root element in your document, next to the <code>xmlns:android</code> declaration:<br/>
+<code>xmlns:tools="http://schemas.android.com/tools"</code><br/>
+<br/>
+To suppress a lint warning in a <code>build.gradle</code> file, add a section like this:<br/>
+<br/>
+android {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;lintOptions {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;disable 'TypographyFractions','TypographyQuotes'<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+}<br/>
+<br/>
+Here we specify a comma separated list of issue id's after the disable command. You can also use <code>warning</code> or <code>error</code> instead of <code>disable</code> to change the severity of issues.<br/>
+<br/>
+To suppress lint warnings with a configuration XML file, create a file named <code>lint.xml</code> and place it at the root directory of the project in which it applies.<br/>
+<br/>
+The format of the <code>lint.xml</code> file is something like the following:<br/>
+<br/>
+&lt;?xml version="1.0" encoding="UTF-8"?><br/>
+&lt;lint><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Disable this given check in this project --><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;issue id="IconMissingDensityFolder" severity="ignore" /><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Ignore the ObsoleteLayoutParam issue in the given files --><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;issue id="ObsoleteLayoutParam"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ignore path="res/layout/activation.xml" /><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ignore path="res/layout-xlarge/activation.xml" /><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/issue><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Ignore the UselessLeaf issue in the given file --><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;issue id="UselessLeaf"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ignore path="res/layout/main.xml" /><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/issue><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Change the severity of hardcoded strings to "error" --><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;issue id="HardcodedText" severity="error" /><br/>
+&lt;/lint><br/>
+<br/>
+To suppress lint checks from the command line, pass the --ignore flag with a comma separated list of ids to be suppressed, such as:<br/>
+<code>$ lint --ignore UnusedResources,UselessLeaf /my/project/path</code><br/>
+<br/>
+For more information, see <a href="http://g.co/androidstudio/suppressing-lint-warnings">http://g.co/androidstudio/suppressing-lint-warnings</a><br/>
+
+
+</body>
+</html>
