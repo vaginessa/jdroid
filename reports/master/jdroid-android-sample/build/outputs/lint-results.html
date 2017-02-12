@@ -194,10 +194,14 @@ document.getElementById(id+'Link').style.display = 'none';
 <body>
 <h1>Lint Report</h1>
 <div class="titleSeparator"></div>
-Check performed at Sat Feb 11 07:37:37 UTC 2017.<br/>
-0 errors and 44 warnings found:<br/><br/>
+Check performed at Sun Feb 12 18:31:55 UTC 2017.<br/>
+0 errors and 46 warnings found:<br/><br/>
 <table class="overview">
 <tr><td></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
+<a href="#ScrollViewSize">ScrollViewSize: ScrollView size validation</a>
 </td></tr>
 <tr>
 <td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
@@ -252,7 +256,7 @@ Check performed at Sat Feb 11 07:37:37 UTC 2017.<br/>
 <tr><td></td><td class="categoryColumn"><a href="#Internationalization">Internationalization</a>
 </td></tr>
 <tr>
-<td class="countColumn">13</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
+<td class="countColumn">14</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
 <a href="#SetTextI18n">SetTextI18n: TextView Internationalization</a>
 </td></tr>
 <tr>
@@ -264,6 +268,29 @@ Check performed at Sat Feb 11 07:37:37 UTC 2017.<br/>
 <br/>
 <a name="Correctness"></a>
 <div class="category"><a href="#" title="Return to top">Correctness</a><div class="categorySeparator"></div>
+</div>
+<a name="ScrollViewSize"></a>
+<div class="issue">
+<div class="id"><a href="#" title="Return to top">ScrollViewSize: ScrollView size validation</a><div class="issueSeparator"></div>
+</div>
+<div class="warningslist">
+<span class="location"><a href="../../src/main/res/layout/usecases_fragment.xml">../../src/main/res/layout/usecases_fragment.xml</a>:3</span>: <span class="message">This LinearLayout should use <code>android:layout_height="wrap_content"</code></span><br /><pre class="errorlines">
+<span class="lineno">   1</span> &lt;?xml version="1.0" encoding="utf-8"?>
+<span class="lineno">   2</span> &lt;ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="match_parent" android:layout_width="wrap_content">
+<span class="lineno">   3</span> 	&lt;LinearLayout android:layout_width="match_parent" <span class="errorspan">android:layout_height="match_parent" android:orientation="vertical" android:padding="8dp"></span>
+<span class="lineno">   4</span> 
+<span class="lineno">   5</span> 		&lt;CheckBox android:id="@+id/failExecution" android:layout_width="wrap_content" android:layout_height="wrap_content"
+</pre>
+</div>
+<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ & Eclipse/ADT<br>
+Priority: 7 / 10<br/>
+Category: Correctness</div>
+Severity: <span class="warning">Warning</span><div class="summary">
+Explanation: ScrollView size validation.</div>
+<div class="explanation">
+ScrollView children must set their <code>layout_width</code> or <code>layout_height</code> attributes to <code>wrap_content</code> rather than <code>fill_parent</code> or <code>match_parent</code> in the scrolling dimension
+</div>
+<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "ScrollViewSize" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
 </div>
 <a name="UnusedAttribute"></a>
 <div class="issue">
@@ -444,74 +471,74 @@ Additional locations: <ul>
 <li> <span class="location"><a href="../generated/res/resValues/debug/values/generated.xml">../generated/res/resValues/debug/values/generated.xml</a>:12</span>
 </ul>
 </div><br/><br/>
-<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:137</span>: <span class="message">The resource <code>R.string.notifications</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno"> 134</span> 	&lt;string name="inAppBilling">In App Billing&lt;/string>
-<span class="lineno"> 135</span> 
-<span class="lineno"> 136</span> 	&lt;!-- Notifications -->
-<span class="lineno"> 137</span> 	&lt;string <span class="errorspan">name="notifications">Notifications&lt;/string></span>
-<span class="lineno"> 138</span> 	&lt;string name="notificationName">Notification name&lt;/string>
-<span class="lineno"> 139</span> 	&lt;string name="contentTitle">Content title&lt;/string>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:141</span>: <span class="message">The resource <code>R.string.notifications</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 138</span> 	&lt;string name="inAppBilling">In App Billing&lt;/string>
+<span class="lineno"> 139</span> 
+<span class="lineno"> 140</span> 	&lt;!-- Notifications -->
+<span class="lineno"> 141</span> 	&lt;string <span class="errorspan">name="notifications">Notifications&lt;/string></span>
+<span class="lineno"> 142</span> 	&lt;string name="notificationName">Notification name&lt;/string>
+<span class="lineno"> 143</span> 	&lt;string name="contentTitle">Content title&lt;/string>
 </pre>
 <ul></ul><button id="Location2DivLink" onclick="reveal('Location2Div');" />+ 1 Additional Locations...</button>
 <div id="Location2Div" style="display: none">
 Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:137</span>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:141</span>
 </ul>
 </div><br/><br/>
-<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:160</span>: <span class="message">The resource <code>R.string.twitter</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno"> 157</span> 	&lt;string name="rightAction">Right Action&lt;/string>
-<span class="lineno"> 158</span> 
-<span class="lineno"> 159</span> 	&lt;!-- Twitter -->
-<span class="lineno"> 160</span> 	&lt;string <span class="errorspan">name="twitter">Twitter&lt;/string></span>
-<span class="lineno"> 161</span> 
-<span class="lineno"> 162</span> 	&lt;!-- Uri Mapper -->
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:164</span>: <span class="message">The resource <code>R.string.twitter</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 161</span> 	&lt;string name="rightAction">Right Action&lt;/string>
+<span class="lineno"> 162</span> 
+<span class="lineno"> 163</span> 	&lt;!-- Twitter -->
+<span class="lineno"> 164</span> 	&lt;string <span class="errorspan">name="twitter">Twitter&lt;/string></span>
+<span class="lineno"> 165</span> 
+<span class="lineno"> 166</span> 	&lt;!-- Uri Mapper -->
 </pre>
 <ul></ul><button id="Location3DivLink" onclick="reveal('Location3Div');" />+ 1 Additional Locations...</button>
 <div id="Location3Div" style="display: none">
 Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:160</span>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:164</span>
 </ul>
 </div><br/><br/>
-<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:163</span>: <span class="message">The resource <code>R.string.uriMapper</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno"> 160</span> 	&lt;string name="twitter">Twitter&lt;/string>
-<span class="lineno"> 161</span> 
-<span class="lineno"> 162</span> 	&lt;!-- Uri Mapper -->
-<span class="lineno"> 163</span> 	&lt;string <span class="errorspan">name="uriMapper">Uri Mapper&lt;/string></span>
-<span class="lineno"> 164</span> 	&lt;string name="uriMapperSingleTop">Single Top&lt;/string>
-<span class="lineno"> 165</span> 	&lt;string name="uriMapperNoFlags">No Flags&lt;/string>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:167</span>: <span class="message">The resource <code>R.string.uriMapper</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 164</span> 	&lt;string name="twitter">Twitter&lt;/string>
+<span class="lineno"> 165</span> 
+<span class="lineno"> 166</span> 	&lt;!-- Uri Mapper -->
+<span class="lineno"> 167</span> 	&lt;string <span class="errorspan">name="uriMapper">Uri Mapper&lt;/string></span>
+<span class="lineno"> 168</span> 	&lt;string name="uriMapperSingleTop">Single Top&lt;/string>
+<span class="lineno"> 169</span> 	&lt;string name="uriMapperNoFlags">No Flags&lt;/string>
 </pre>
 <ul></ul><button id="Location4DivLink" onclick="reveal('Location4Div');" />+ 1 Additional Locations...</button>
 <div id="Location4Div" style="display: none">
 Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:163</span>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:167</span>
 </ul>
 </div><br/><br/>
-<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:189</span>: <span class="message">The resource <code>R.string.rateApp</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno"> 186</span> 	&lt;string name="hero">Hero &amp;amp; Parallax&lt;/string>
-<span class="lineno"> 187</span> 
-<span class="lineno"> 188</span> 	&lt;!-- Rate App -->
-<span class="lineno"> 189</span> 	&lt;string <span class="errorspan">name="rateApp">Rate App&lt;/string></span>
-<span class="lineno"> 190</span> 
-<span class="lineno"> 191</span> 	&lt;!-- Recycler View -->
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:194</span>: <span class="message">The resource <code>R.string.rateApp</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 191</span> 	&lt;string name="hero">Hero &amp;amp; Parallax&lt;/string>
+<span class="lineno"> 192</span> 
+<span class="lineno"> 193</span> 	&lt;!-- Rate App -->
+<span class="lineno"> 194</span> 	&lt;string <span class="errorspan">name="rateApp">Rate App&lt;/string></span>
+<span class="lineno"> 195</span> 
+<span class="lineno"> 196</span> 	&lt;!-- Recycler View -->
 </pre>
 <ul></ul><button id="Location5DivLink" onclick="reveal('Location5Div');" />+ 1 Additional Locations...</button>
 <div id="Location5Div" style="display: none">
 Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:189</span>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:194</span>
 </ul>
 </div><br/><br/>
-<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:199</span>: <span class="message">The resource <code>R.string.noResults</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno"> 196</span> 	&lt;string name="paginatedGridRecycler">Paginated Grid Recycler&lt;/string>
-<span class="lineno"> 197</span> 	&lt;string name="searchPaginatedRecycler">Search Paginated Recycler&lt;/string>
-<span class="lineno"> 198</span> 	&lt;string name="autofitGridLayoutRecycler">Autofit Grid Recycler&lt;/string>
-<span class="lineno"> 199</span> 	&lt;string <span class="errorspan">name="noResults">No Results&lt;/string></span>
-<span class="lineno"> 200</span> 	&lt;string name="addItem">Add Item&lt;/string>
-<span class="lineno"> 201</span> 	&lt;string name="addItems">Add Items&lt;/string>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:204</span>: <span class="message">The resource <code>R.string.noResults</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 201</span> 	&lt;string name="paginatedGridRecycler">Paginated Grid Recycler&lt;/string>
+<span class="lineno"> 202</span> 	&lt;string name="searchPaginatedRecycler">Search Paginated Recycler&lt;/string>
+<span class="lineno"> 203</span> 	&lt;string name="autofitGridLayoutRecycler">Autofit Grid Recycler&lt;/string>
+<span class="lineno"> 204</span> 	&lt;string <span class="errorspan">name="noResults">No Results&lt;/string></span>
+<span class="lineno"> 205</span> 	&lt;string name="addItem">Add Item&lt;/string>
+<span class="lineno"> 206</span> 	&lt;string name="addItems">Add Items&lt;/string>
 </pre>
 <ul></ul><button id="Location6DivLink" onclick="reveal('Location6Div');" />+ 1 Additional Locations...</button>
 <div id="Location6Div" style="display: none">
 Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:199</span>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:204</span>
 </ul>
 </div><br/><br/>
 <span class="location"><a href="../../src/debug/res/raw/url_samples.html">../../src/debug/res/raw/url_samples.html</a></span>: <span class="message">The resource <code>R.raw.url_samples</code> appears to be unused</span><br />
@@ -689,13 +716,13 @@ Note that for text fields, you should not set both the <code>hint</code> and the
 <div class="id"><a href="#" title="Return to top">SetTextI18n: TextView Internationalization</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/jdroid/android/sample/ui/recyclerview/ComplexRecyclerFragment.java">../../src/main/java/com/jdroid/android/sample/ui/recyclerview/ComplexRecyclerFragment.java</a>:173</span>: <span class="message">Number formatting does not take into account locale settings. Consider using <code>String.format</code> instead.</span><br /><pre class="errorlines">
+<span class="location"><a href="../../src/main/java/com/jdroid/android/sample/ui/recyclerview/ComplexRecyclerFragment.java">../../src/main/java/com/jdroid/android/sample/ui/recyclerview/ComplexRecyclerFragment.java</a>:168</span>: <span class="message">Number formatting does not take into account locale settings. Consider using <code>String.format</code> instead.</span><br /><pre class="errorlines">
+<span class="lineno"> 165</span> 
+<span class="lineno"> 166</span> 		@Override
+<span class="lineno"> 167</span> 		public void fillHolderFromItem(Integer item, IntegerViewHolder holder) {
+<span class="lineno"> 168</span> 			holder.textView.setText(<span class="errorspan">item.toString());</span>
+<span class="lineno"> 169</span> 		}
 <span class="lineno"> 170</span> 
-<span class="lineno"> 171</span> 		@Override
-<span class="lineno"> 172</span> 		public void fillHolderFromItem(Integer item, IntegerViewHolder holder) {
-<span class="lineno"> 173</span> 			holder.textView.setText(<span class="errorspan">item.toString());</span>
-<span class="lineno"> 174</span> 		}
-<span class="lineno"> 175</span> 
 </pre>
 <span class="location"><a href="../../src/main/java/com/jdroid/android/sample/ui/firebase/dynamiclinks/DynamicLinksFragment.java">../../src/main/java/com/jdroid/android/sample/ui/firebase/dynamiclinks/DynamicLinksFragment.java</a>:44</span>: <span class="message">String literal in <code>setText</code> can not be translated. Use Android resources instead.</span><br /><pre class="errorlines">
 <span class="lineno">  41</span> 
@@ -729,7 +756,7 @@ Note that for text fields, you should not set both the <code>hint</code> and the
 <span class="lineno"> 128</span> 
 <span class="lineno"> 129</span> 		signInButton.setVisibility(View.VISIBLE);
 </pre>
-<button id="SetTextI18nDivLink" onclick="reveal('SetTextI18nDiv');" />+ 8 More Occurrences...</button>
+<button id="SetTextI18nDivLink" onclick="reveal('SetTextI18nDiv');" />+ 9 More Occurrences...</button>
 <div id="SetTextI18nDiv" style="display: none">
 <span class="location"><a href="../../src/main/java/com/jdroid/android/sample/ui/google/signin/GoogleSignInFragment.java">../../src/main/java/com/jdroid/android/sample/ui/google/signin/GoogleSignInFragment.java</a>:138</span>: <span class="message">String literal in <code>setText</code> can not be translated. Use Android resources instead.</span><br /><pre class="errorlines">
 <span class="lineno"> 135</span> 
@@ -794,6 +821,14 @@ Note that for text fields, you should not set both the <code>hint</code> and the
 <span class="lineno">  51</span> 		urlEditText.setText(<span class="errorspan">"http://jdroidframework.com/uri");</span>
 <span class="lineno">  52</span> 
 <span class="lineno">  53</span> 		largeIconDrawable = findView(R.id.largeIconDrawable);
+</pre>
+<span class="location"><a href="../../src/main/java/com/jdroid/android/sample/ui/usecases/UseCasesFragment.java">../../src/main/java/com/jdroid/android/sample/ui/usecases/UseCasesFragment.java</a>:153</span>: <span class="message">Number formatting does not take into account locale settings. Consider using <code>String.format</code> instead.</span><br /><pre class="errorlines">
+<span class="lineno"> 150</span> 		});
+<span class="lineno"> 151</span> 
+<span class="lineno"> 152</span> 		delayTextView = findView(R.id.delay);
+<span class="lineno"> 153</span> 		delayTextView.setText(<span class="errorspan">delay.toString());</span>
+<span class="lineno"> 154</span> 
+<span class="lineno"> 155</span> 		useCaseTriggerRadioGroup = findView(R.id.useCaseTrigger);
 </pre>
 </div>
 </div>
