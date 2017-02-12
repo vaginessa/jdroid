@@ -3,6 +3,7 @@ package com.jdroid.android.google.maps;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresPermission;
 import android.support.v7.widget.Toolbar;
@@ -352,26 +353,20 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	public View inflate(int resource) {
 		return fragmentHelper.inflate(resource);
 	}
-	
-	/**
-	 * @see UseCaseListener#onStartUseCase()
-	 */
+
+	@MainThread
 	@Override
 	public void onStartUseCase() {
 		fragmentHelper.onStartUseCase();
 	}
 	
-	/**
-	 * @see UseCaseListener#onUpdateUseCase()
-	 */
+	@MainThread
 	@Override
 	public void onUpdateUseCase() {
 		fragmentHelper.onUpdateUseCase();
 	}
 	
-	/**
-	 * @see UseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
-	 */
+	@MainThread
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		fragmentHelper.onFinishFailedUseCase(abstractException);
@@ -382,17 +377,12 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 		return fragmentHelper.createErrorDisplayer(abstractException);
 	}
 
-	/**
-	 * @see UseCaseListener#onFinishUseCase()
-	 */
+	@MainThread
 	@Override
 	public void onFinishUseCase() {
 		fragmentHelper.onFinishUseCase();
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeOnUIThread(java.lang.Runnable)
-	 */
 	@Override
 	public void executeOnUIThread(Runnable runnable) {
 		fragmentHelper.executeOnUIThread(runnable);

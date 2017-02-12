@@ -1,11 +1,12 @@
 package com.jdroid.android.recycler;
 
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.jdroid.android.R;
-import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.exception.DialogErrorDisplayer;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.usecase.PaginatedUseCase;
 import com.jdroid.java.exception.AbstractException;
@@ -53,33 +54,26 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 		setAdapter(createAdapter(paginatedUseCase.getResults()));
 	}
 
+	@MainThread
 	@Override
 	public void onStartUseCase() {
 		if (paginatedUseCase.isPaginating()) {
-			executeOnUIThread(new Runnable() {
-				@Override
-				public void run() {
-					getAdapter().setFooter(new LoadingRecyclerViewType());
-				}
-			});
+			getAdapter().setFooter(new LoadingRecyclerViewType());
 		} else {
 			super.onStartUseCase();
 		}
 	}
-	
+
+	@MainThread
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
+		if (paginatedUseCase.isPaginating()) {
+			DialogErrorDisplayer.markAsNotGoBackOnError(abstractException);
+		}
+		super.onFinishFailedUseCase(abstractException);
 		paginationInProgress = false;
 		if (paginatedUseCase.isPaginating()) {
-			AbstractApplication.get().getExceptionHandler().logHandledException(abstractException);
-			executeOnUIThread(new Runnable() {
-				@Override
-				public void run() {
-					dismissPaginationLoading();
-				}
-			});
-		} else {
-			super.onFinishFailedUseCase(abstractException);
+			dismissPaginationLoading();
 		}
 	}
 
@@ -87,37 +81,32 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 		getAdapter().removeFooter();
 	}
 
+	@MainThread
 	@Override
 	public void onFinishUseCase() {
-		executeOnUIThread(new Runnable() {
-			
-			@SuppressWarnings("unchecked")
-			@Override
-			public void run() {
-				if (paginatedUseCase.isPaginating()) {
+		paginationInProgress = false;
+		if (paginatedUseCase.isPaginating()) {
 
-					dismissPaginationLoading();
+			dismissPaginationLoading();
 
-					getAdapter().addItems(paginatedUseCase.getResults());
-					dismissLoading();
+			getAdapter().addItems(paginatedUseCase.getResults());
+			dismissLoading();
+		} else {
+
+			if ((getItemsToAutoPaginate() != null) && (paginatedUseCase.getResults().size() <= getItemsToAutoPaginate())) {
+				if (paginatedUseCase.getResults().isEmpty()) {
+					initAdapter();
 				} else {
-					
-					if ((getItemsToAutoPaginate() != null) && (paginatedUseCase.getResults().size() <= getItemsToAutoPaginate())) {
-						if (paginatedUseCase.getResults().isEmpty()) {
-							initAdapter();
-						} else {
-							initAdapter();
-							dismissLoading();
-						}
-						paginatedUseCase.markAsPaginating();
-						executeUseCase(paginatedUseCase);
-					} else {
-						initAdapter();
-						dismissLoading();
-					}
+					initAdapter();
+					dismissLoading();
 				}
+				paginatedUseCase.markAsPaginating();
+				executeUseCase(paginatedUseCase);
+			} else {
+				initAdapter();
+				dismissLoading();
 			}
-		});
+		}
 	}
 
 	@Override

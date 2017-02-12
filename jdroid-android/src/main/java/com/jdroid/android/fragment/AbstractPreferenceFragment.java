@@ -3,6 +3,7 @@ package com.jdroid.android.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -81,17 +82,20 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	public View inflate(int resource) {
 		return getFragmentIf().inflate(resource);
 	}
-	
+
+	@MainThread
 	@Override
 	public void onStartUseCase() {
 		getFragmentIf().onStartUseCase();
 	}
-	
+
+	@MainThread
 	@Override
 	public void onUpdateUseCase() {
 		getFragmentIf().onUpdateUseCase();
 	}
-	
+
+	@MainThread
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		getFragmentIf().onFinishFailedUseCase(abstractException);
@@ -102,6 +106,7 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 		return getFragmentIf().createErrorDisplayer(abstractException);
 	}
 
+	@MainThread
 	@Override
 	public void onFinishUseCase() {
 		getFragmentIf().onFinishUseCase();

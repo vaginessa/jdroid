@@ -42,13 +42,8 @@ public class SimpleRecyclerFragment extends AbstractRecyclerFragment {
 
 	@Override
 	public void onFinishUseCase() {
-		executeOnUIThread(new Runnable() {
-			@Override
-			public void run() {
-				setAdapter(new RecyclerViewAdapter(new StringRecyclerViewType(), sampleItemsUseCase.getItems()));
-				dismissLoading();
-			}
-		});
+		setAdapter(new RecyclerViewAdapter(new StringRecyclerViewType(), sampleItemsUseCase.getItems()));
+		dismissLoading();
 	}
 
 	@Override

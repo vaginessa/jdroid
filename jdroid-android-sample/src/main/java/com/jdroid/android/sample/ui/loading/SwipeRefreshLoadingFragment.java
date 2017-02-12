@@ -45,24 +45,19 @@ public class SwipeRefreshLoadingFragment extends SwipeRecyclerFragment {
 
 	@Override
 	public void onFinishUseCase() {
-		executeOnUIThread(new Runnable() {
+		setAdapter(new RecyclerViewAdapter(new SampleRecyclerViewType() {
+
 			@Override
-			public void run() {
-				setAdapter(new RecyclerViewAdapter(new SampleRecyclerViewType() {
-
-					@Override
-					public void onItemSelected(String item, View view) {
-						getAdapter().removeItem(item);
-					}
-
-					@Override
-					public AbstractRecyclerFragment getAbstractRecyclerFragment() {
-						return SwipeRefreshLoadingFragment.this;
-					}
-				}, sampleItemsUseCase.getItems()));
-				dismissLoading();
+			public void onItemSelected(String item, View view) {
+				getAdapter().removeItem(item);
 			}
-		});
+
+			@Override
+			public AbstractRecyclerFragment getAbstractRecyclerFragment() {
+				return SwipeRefreshLoadingFragment.this;
+			}
+		}, sampleItemsUseCase.getItems()));
+		dismissLoading();
 	}
 
 	@Override

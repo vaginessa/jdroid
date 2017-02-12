@@ -3,6 +3,7 @@ package com.jdroid.android.fragment;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
@@ -222,17 +223,20 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	public View inflate(int resource) {
 		return fragmentHelper.inflate(resource);
 	}
-	
+
+	@MainThread
 	@Override
 	public void onStartUseCase() {
 		fragmentHelper.onStartUseCase();
 	}
-	
+
+	@MainThread
 	@Override
 	public void onUpdateUseCase() {
 		fragmentHelper.onUpdateUseCase();
 	}
-	
+
+	@MainThread
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		fragmentHelper.onFinishFailedUseCase(abstractException);
@@ -242,15 +246,13 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	public ErrorDisplayer createErrorDisplayer(AbstractException abstractException) {
 		return fragmentHelper.createErrorDisplayer(abstractException);
 	}
-	
+
+	@MainThread
 	@Override
 	public void onFinishUseCase() {
 		fragmentHelper.onFinishUseCase();
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeOnUIThread(java.lang.Runnable)
-	 */
 	@Override
 	public void executeOnUIThread(Runnable runnable) {
 		fragmentHelper.executeOnUIThread(runnable);

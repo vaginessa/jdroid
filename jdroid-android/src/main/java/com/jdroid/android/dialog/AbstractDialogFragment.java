@@ -2,6 +2,7 @@ package com.jdroid.android.dialog;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.Toolbar;
@@ -123,17 +124,20 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	public View inflate(int resource) {
 		return fragmentHelper.inflate(resource);
 	}
-	
+
+	@MainThread
 	@Override
 	public void onStartUseCase() {
 		fragmentHelper.onStartUseCase();
 	}
-	
+
+	@MainThread
 	@Override
 	public void onUpdateUseCase() {
 		fragmentHelper.onUpdateUseCase();
 	}
-	
+
+	@MainThread
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		fragmentHelper.onFinishFailedUseCase(abstractException);
@@ -143,7 +147,8 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	public ErrorDisplayer createErrorDisplayer(AbstractException abstractException) {
 		return fragmentHelper.createErrorDisplayer(abstractException);
 	}
-	
+
+	@MainThread
 	@Override
 	public void onFinishUseCase() {
 		fragmentHelper.onFinishUseCase();

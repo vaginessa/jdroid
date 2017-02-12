@@ -45,25 +45,20 @@ public class AdRecyclerFragment extends AbstractRecyclerFragment {
 
 	@Override
 	public void onFinishUseCase() {
-		executeOnUIThread(new Runnable() {
-			@Override
-			public void run() {
-				List<RecyclerViewType> recyclerViewTypes = Lists.<RecyclerViewType>newArrayList(new StringRecyclerViewType(), new MyAdViewType());
+		List<RecyclerViewType> recyclerViewTypes = Lists.<RecyclerViewType>newArrayList(new StringRecyclerViewType(), new MyAdViewType());
 
-				List<Object> items = Lists.newArrayList();
-				for(String each : sampleItemsUseCase.getItems()) {
-					items.add(each);
-					if (each.equals("three")) {
-						BaseAdViewHelper baseAdViewHelper = new NativeExpressAdViewHelper();
-						baseAdViewHelper.setAdSize(new AdSize(AdSize.FULL_WIDTH, 80));
-						baseAdViewHelper.setAdUnitId(AndroidAppContext.SAMPLE_SMALL_NATIVE_AD_EXPRESS_AD_UNIT_ID);
-						items.add(baseAdViewHelper);
-					}
-				}
-				setAdapter(new RecyclerViewAdapter(recyclerViewTypes, items));
-				dismissLoading();
+		List<Object> items = Lists.newArrayList();
+		for(String each : sampleItemsUseCase.getItems()) {
+			items.add(each);
+			if (each.equals("three")) {
+				BaseAdViewHelper baseAdViewHelper = new NativeExpressAdViewHelper();
+				baseAdViewHelper.setAdSize(new AdSize(AdSize.FULL_WIDTH, 80));
+				baseAdViewHelper.setAdUnitId(AndroidAppContext.SAMPLE_SMALL_NATIVE_AD_EXPRESS_AD_UNIT_ID);
+				items.add(baseAdViewHelper);
 			}
-		});
+		}
+		setAdapter(new RecyclerViewAdapter(recyclerViewTypes, items));
+		dismissLoading();
 	}
 
 	public class StringRecyclerViewType extends RecyclerViewType<String, SimpleRecyclerFragment.StringViewHolder> {

@@ -28,7 +28,10 @@
 	<!-- Use Cases -->
 	<string name="useCases">Use Cases</string>
 	<string name="execute">Execute</string>
-	<string name="fail">Fail</string>
+	<string name="failExecution">Fail Execution</string>
+	<string name="failStartNotification">Fail Start Notification</string>
+	<string name="failFinishNotification">Fail Finish Notification</string>
+	<string name="failFinishFailedNotification">Fail Finish Failed Notification</string>
 	<string name="noListener">No Listener (Reload fragment if you change this)</string>
 	<string name="onStartUseCase">Starting Use Case</string>
 	<string name="onFinishedUseCase">On Finished Use Case</string>
@@ -37,6 +40,7 @@
 	<string name="onceUseCaseTrigger">Once Use Case Trigger</string>
 	<string name="alwaysUseCaseTrigger">Always Use Case Trigger</string>
 	<string name="useCaseTrigger">Use Case Trigger (Reload fragment if you change this)</string>
+	<string name="delay">Delay (seconds)</string>
 
 	<!-- Floating Action Button -->
 
@@ -181,6 +185,7 @@
 	<string name="dismissLoading">Dismiss Loading</string>
 	<string name="nonBlockingLoading">Non Blocking Loading</string>
 	<string name="swipeRefresLoading">Swipe Refresh Loading</string>
+	<string name="fail">Fail</string>
 
 	<!-- Hero -->
 	<string name="hero">Hero &amp; Parallax</string>

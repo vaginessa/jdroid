@@ -7,26 +7,42 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.jdroid.android.exception.DialogErrorDisplayer;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.sample.R;
-import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.exception.AbstractException;
+import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.java.utils.NumberUtils;
 
 public class UseCasesFragment extends AbstractFragment {
 
 	private SampleUseCase sampleUseCase;
 
-	private static Boolean fail = false;
-	private CheckBox failCheckBox;
+	private static Boolean failExecution = false;
+	private CheckBox failExecutionCheckBox;
+
+	private static Boolean failStartNotification = false;
+	private CheckBox failStartNotificationCheckBox;
+
+	private static Boolean failFinishNotification = false;
+	private CheckBox failFinishNotificationCheckBox;
+
+	private static Boolean failFinishFailedNotification = false;
+	private CheckBox failFinishFailedNotificationCheckBox;
 
 	private static Boolean noListener = false;
 	private CheckBox noListenerCheckBox;
 
+	private static Integer delay = 5;
+	private TextView delayTextView;
+
 	private static FragmentHelper.UseCaseTrigger useCaseTrigger = FragmentHelper.UseCaseTrigger.MANUAL;
 	private RadioGroup useCaseTriggerRadioGroup;
+
+	private TextView useCaseStatus;
 
 	@Override
 	public Integer getContentFragmentLayout() {
@@ -38,25 +54,37 @@ public class UseCasesFragment extends AbstractFragment {
 		super.onCreate(savedInstanceState);
 
 		sampleUseCase = new SampleUseCase();
-		sampleUseCase.setDelayInSeconds(5);
-		sampleUseCase.setFail(fail);
+		sampleUseCase.setDelayInSeconds(delay);
+		sampleUseCase.setFail(failExecution);
 	}
 
 	@Override
 	public void onStartUseCase() {
-		ToastUtils.showToastOnUIThread(R.string.onStartUseCase);
+		if (failStartNotification) {
+			throw new UnexpectedException("Failed start use case");
+		} else {
+			useCaseStatus.setText(R.string.onStartUseCase);
+		}
 	}
 
 	@Override
 	public void onFinishUseCase() {
-		ToastUtils.showToastOnUIThread(R.string.onFinishedUseCase);
+		if (failFinishNotification) {
+			throw new UnexpectedException("Failed finish use case");
+		} else {
+			useCaseStatus.setText(R.string.onFinishedUseCase);
+		}
 	}
 
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
-		ToastUtils.showToastOnUIThread(R.string.onFinishedFailUseCase);
-		DialogErrorDisplayer.markAsNotGoBackOnError(abstractException);
-		super.onFinishFailedUseCase(abstractException);
+		if (failFinishFailedNotification) {
+			throw new UnexpectedException("Failed finish failed use case");
+		} else {
+			useCaseStatus.setText(R.string.onFinishedFailUseCase);
+			DialogErrorDisplayer.markAsNotGoBackOnError(abstractException);
+			super.onFinishFailedUseCase(abstractException);
+		}
 	}
 
 	@Override
@@ -75,13 +103,40 @@ public class UseCasesFragment extends AbstractFragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
-		failCheckBox = findView(R.id.fail);
-		failCheckBox.setChecked(fail);
-		failCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+		failExecutionCheckBox = findView(R.id.failExecution);
+		failExecutionCheckBox.setChecked(failExecution);
+		failExecutionCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				fail = isChecked;
-				sampleUseCase.setFail(fail);
+				failExecution = isChecked;
+				sampleUseCase.setFail(failExecution);
+			}
+		});
+
+		failStartNotificationCheckBox = findView(R.id.failStartNotification);
+		failStartNotificationCheckBox.setChecked(failStartNotification);
+		failStartNotificationCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				failStartNotification = isChecked;
+			}
+		});
+
+		failFinishNotificationCheckBox = findView(R.id.failFinishNotification);
+		failFinishNotificationCheckBox.setChecked(failFinishNotification);
+		failFinishNotificationCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				failFinishNotification = isChecked;
+			}
+		});
+
+		failFinishFailedNotificationCheckBox = findView(R.id.failFinishFailedNotification);
+		failFinishFailedNotificationCheckBox.setChecked(failFinishFailedNotification);
+		failFinishFailedNotificationCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				failFinishFailedNotification = isChecked;
 			}
 		});
 
@@ -93,6 +148,9 @@ public class UseCasesFragment extends AbstractFragment {
 				noListener = isChecked;
 			}
 		});
+
+		delayTextView = findView(R.id.delay);
+		delayTextView.setText(delay.toString());
 
 		useCaseTriggerRadioGroup = findView(R.id.useCaseTrigger);
 		if (useCaseTrigger.equals(FragmentHelper.UseCaseTrigger.ALWAYS)) {
@@ -119,9 +177,13 @@ public class UseCasesFragment extends AbstractFragment {
 
 			@Override
 			public void onClick(View v) {
+				delay = NumberUtils.getSafeInteger(delayTextView.getText().toString());
+				sampleUseCase.setDelayInSeconds(delay);
 				executeUseCase(sampleUseCase);
 			}
 		});
+
+		useCaseStatus = findView(R.id.useCaseStatus);
 
 	}
 }
