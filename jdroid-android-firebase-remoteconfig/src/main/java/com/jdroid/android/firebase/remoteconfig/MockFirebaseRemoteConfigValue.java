@@ -1,7 +1,7 @@
 package com.jdroid.android.firebase.remoteconfig;
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigValue;
-import com.jdroid.java.utils.NumberUtils;
+import com.jdroid.java.utils.TypeUtils;
 
 import java.util.Map;
 
@@ -17,12 +17,12 @@ public class MockFirebaseRemoteConfigValue implements FirebaseRemoteConfigValue 
 
 	@Override
 	public long asLong() throws IllegalArgumentException {
-		return NumberUtils.getLong(mocks.get(remoteConfigParameter.getKey()), 0L);
+		return TypeUtils.getLong(mocks.get(remoteConfigParameter.getKey()), 0L);
 	}
 
 	@Override
 	public double asDouble() throws IllegalArgumentException {
-		return NumberUtils.getDouble(mocks.get(remoteConfigParameter.getKey()), 0D);
+		return TypeUtils.getDouble(mocks.get(remoteConfigParameter.getKey()), 0D);
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class MockFirebaseRemoteConfigValue implements FirebaseRemoteConfigValue 
 
 	@Override
 	public boolean asBoolean() throws IllegalArgumentException {
-		return NumberUtils.getBoolean(mocks.get(remoteConfigParameter.getKey()), false);
+		return TypeUtils.getBoolean(mocks.get(remoteConfigParameter.getKey()), false);
 	}
 
 	@Override

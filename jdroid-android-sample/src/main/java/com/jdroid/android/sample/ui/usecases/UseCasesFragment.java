@@ -15,7 +15,7 @@ import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.sample.R;
 import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.utils.NumberUtils;
+import com.jdroid.java.utils.TypeUtils;
 
 public class UseCasesFragment extends AbstractFragment {
 
@@ -177,7 +177,7 @@ public class UseCasesFragment extends AbstractFragment {
 
 			@Override
 			public void onClick(View v) {
-				delay = NumberUtils.getSafeInteger(delayTextView.getText().toString());
+				delay = TypeUtils.getSafeInteger(delayTextView.getText().toString());
 				sampleUseCase.setDelayInSeconds(delay);
 				executeUseCase(sampleUseCase);
 			}

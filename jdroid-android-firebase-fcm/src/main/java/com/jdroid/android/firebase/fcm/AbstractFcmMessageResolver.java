@@ -8,7 +8,7 @@ import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.LoggerUtils;
-import com.jdroid.java.utils.NumberUtils;
+import com.jdroid.java.utils.TypeUtils;
 
 import org.slf4j.Logger;
 
@@ -48,14 +48,14 @@ public abstract class AbstractFcmMessageResolver implements FcmMessageResolver {
 	public FcmMessage resolve(RemoteMessage remoteMessage) {
 		String messageKey = remoteMessage.getData().get(getMessageKeyExtraName());
 		LOGGER.debug("FCM message received. / Message Key: " + messageKey);
-		Long minAppVersionCode =  NumberUtils.getLong(remoteMessage.getData().get(MIN_APP_VERSION_CODE_KEY), 0L);
+		Long minAppVersionCode =  TypeUtils.getLong(remoteMessage.getData().get(MIN_APP_VERSION_CODE_KEY), 0L);
 		if (AppUtils.getVersionCode() >= minAppVersionCode) {
-			Long minDeviceOsVersion = NumberUtils.getLong(remoteMessage.getData().get(MIN_DEVICE_OS_VERSION_KEY), 0L);
+			Long minDeviceOsVersion = TypeUtils.getLong(remoteMessage.getData().get(MIN_DEVICE_OS_VERSION_KEY), 0L);
 			if (AndroidUtils.getApiLevel() >= minDeviceOsVersion) {
 				for (FcmMessage each : fcmMessages) {
 					if (each.getMessageKey().equalsIgnoreCase(messageKey)) {
 
-						Long userId = NumberUtils.getLong(remoteMessage.getData().get(USER_ID_KEY));
+						Long userId = TypeUtils.getLong(remoteMessage.getData().get(USER_ID_KEY));
 
 						// We should ignore messages received for previously logged users
 						if ((userId != null) && (!SecurityContext.get().isAuthenticated() || !SecurityContext.get().getUser().getId().equals(userId))) {

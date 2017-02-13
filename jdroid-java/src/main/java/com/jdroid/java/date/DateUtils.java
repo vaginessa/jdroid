@@ -1,7 +1,6 @@
 package com.jdroid.java.date;
 
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.utils.NumberUtils;
 import com.jdroid.java.utils.StringUtils;
 
 import java.text.DateFormat;
@@ -91,23 +90,6 @@ public abstract class DateUtils {
 			}
 		}
 		return date;
-	}
-	
-	/**
-	 * Transform the {@link Date} to a {@link String} with a format like Friday November 5th
-	 * 
-	 * @param date The {@link Date} to be formatted
-	 * @return A String that represent the date with the pattern
-	 */
-	public static String formatToCardinal(Date date) {
-		int day = DateUtils.getDayOfMonth(date);
-		String ordinalSuffix = NumberUtils.getOrdinalSuffix(day);
-		StringBuilder builder = new StringBuilder();
-		builder.append(format(date, DateTimeFormat.EEEEMMMM));
-		builder.append(" ");
-		builder.append(day);
-		builder.append(ordinalSuffix);
-		return builder.toString();
 	}
 	
 	/**
