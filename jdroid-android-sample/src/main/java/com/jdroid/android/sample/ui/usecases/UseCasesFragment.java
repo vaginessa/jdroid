@@ -11,8 +11,9 @@ import android.widget.TextView;
 
 import com.jdroid.android.exception.DialogErrorDisplayer;
 import com.jdroid.android.fragment.AbstractFragment;
-import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.sample.R;
+import com.jdroid.android.usecase.UseCaseHelper;
+import com.jdroid.android.usecase.UseCaseTrigger;
 import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.TypeUtils;
@@ -39,7 +40,7 @@ public class UseCasesFragment extends AbstractFragment {
 	private static Integer delay = 5;
 	private TextView delayTextView;
 
-	private static FragmentHelper.UseCaseTrigger useCaseTrigger = FragmentHelper.UseCaseTrigger.MANUAL;
+	private static UseCaseTrigger useCaseTrigger = UseCaseTrigger.MANUAL;
 	private RadioGroup useCaseTriggerRadioGroup;
 
 	private TextView useCaseStatus;
@@ -90,13 +91,13 @@ public class UseCasesFragment extends AbstractFragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		registerUseCase(sampleUseCase, noListener ? null : this, useCaseTrigger);
+		UseCaseHelper.registerUseCase(sampleUseCase, noListener ? null : this, useCaseTrigger);
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
-		unregisterUseCase(sampleUseCase, this);
+		UseCaseHelper.unregisterUseCase(sampleUseCase, this);
 	}
 
 	@Override
@@ -153,22 +154,22 @@ public class UseCasesFragment extends AbstractFragment {
 		delayTextView.setText(delay.toString());
 
 		useCaseTriggerRadioGroup = findView(R.id.useCaseTrigger);
-		if (useCaseTrigger.equals(FragmentHelper.UseCaseTrigger.ALWAYS)) {
+		if (useCaseTrigger.equals(UseCaseTrigger.ALWAYS)) {
 			((RadioButton)findView(R.id.alwaysUseCaseTrigger)).setChecked(true);
-		} else if (useCaseTrigger.equals(FragmentHelper.UseCaseTrigger.MANUAL)) {
+		} else if (useCaseTrigger.equals(UseCaseTrigger.MANUAL)) {
 			((RadioButton)findView(R.id.manualUseCaseTrigger)).setChecked(true);
-		} else if (useCaseTrigger.equals(FragmentHelper.UseCaseTrigger.ONCE)) {
+		} else if (useCaseTrigger.equals(UseCaseTrigger.ONCE)) {
 			((RadioButton)findView(R.id.onceUseCaseTrigger)).setChecked(true);
 		}
 		useCaseTriggerRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				if (checkedId == R.id.onceUseCaseTrigger) {
-					useCaseTrigger = FragmentHelper.UseCaseTrigger.ONCE;
+					useCaseTrigger = UseCaseTrigger.ONCE;
 				} else if (checkedId == R.id.alwaysUseCaseTrigger) {
-					useCaseTrigger = FragmentHelper.UseCaseTrigger.ALWAYS;
+					useCaseTrigger = UseCaseTrigger.ALWAYS;
 				} else if (checkedId == R.id.manualUseCaseTrigger) {
-					useCaseTrigger = FragmentHelper.UseCaseTrigger.MANUAL;
+					useCaseTrigger = UseCaseTrigger.MANUAL;
 				}
 			}
 		});
@@ -179,7 +180,7 @@ public class UseCasesFragment extends AbstractFragment {
 			public void onClick(View v) {
 				delay = TypeUtils.getSafeInteger(delayTextView.getText().toString());
 				sampleUseCase.setDelayInSeconds(delay);
-				executeUseCase(sampleUseCase);
+				UseCaseHelper.executeUseCase(sampleUseCase);
 			}
 		});
 

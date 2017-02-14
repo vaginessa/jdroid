@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.google.android.gms.ads.AdSize;
-import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.google.admob.AdViewType;
 import com.jdroid.android.google.admob.helpers.BaseAdViewHelper;
 import com.jdroid.android.google.admob.helpers.NativeExpressAdViewHelper;
@@ -16,6 +15,8 @@ import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.application.AndroidAppContext;
 import com.jdroid.android.sample.ui.recyclerview.SimpleRecyclerFragment;
 import com.jdroid.android.sample.usecase.SampleItemsUseCase;
+import com.jdroid.android.usecase.UseCaseHelper;
+import com.jdroid.android.usecase.UseCaseTrigger;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
@@ -34,13 +35,13 @@ public class AdRecyclerFragment extends AbstractRecyclerFragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		registerUseCase(sampleItemsUseCase, this, FragmentHelper.UseCaseTrigger.ONCE);
+		UseCaseHelper.registerUseCase(sampleItemsUseCase, this, UseCaseTrigger.ONCE);
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
-		unregisterUseCase(sampleItemsUseCase, this);
+		UseCaseHelper.unregisterUseCase(sampleItemsUseCase, this);
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package com.jdroid.android.recycler;
+package com.jdroid.android.recycler.pagination;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,9 +11,9 @@ import android.widget.EditText;
 import com.jdroid.android.R;
 import com.jdroid.android.exception.DialogErrorDisplayer;
 import com.jdroid.android.exception.ErrorDisplayer;
-import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.listener.OnEnterKeyListener;
-import com.jdroid.android.usecase.SearchUseCase;
+import com.jdroid.android.usecase.UseCaseHelper;
+import com.jdroid.android.usecase.UseCaseTrigger;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.exception.AbstractException;
@@ -191,7 +191,7 @@ public abstract class AbstractSearchPaginatedRecyclerFragment extends AbstractPa
 		if (!isInstantSearchEnabled() && getAdapter() != null) {
 			getAdapter().clear();
 		}
-		executeUseCase(getSearchUseCase());
+		UseCaseHelper.executeUseCase(getSearchUseCase());
 	}
 	
 	@Override

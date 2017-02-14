@@ -3,8 +3,6 @@ package com.jdroid.android.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -23,10 +21,7 @@ import com.jdroid.android.concurrent.SafeExecuteWrapperRunnable;
 import com.jdroid.android.exception.AbstractErrorDisplayer;
 import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.loading.FragmentLoading;
-import com.jdroid.android.usecase.AbstractUseCase;
-import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.collections.Maps;
-import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -278,73 +273,6 @@ public class FragmentHelper implements FragmentIf {
 	}
 
 	// //////////////////////// Use cases //////////////////////// //
-
-	@MainThread
-	@Override
-	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener) {
-		registerUseCase(useCase, listener, UseCaseTrigger.MANUAL);
-	}
-
-	@MainThread
-	@Override
-	public void registerUseCase(final AbstractUseCase useCase, final UseCaseListener listener,
-								final UseCaseTrigger useCaseTrigger) {
-		if (useCase != null) {
-			useCase.addListener(listener);
-			useCase.setHandler(new Handler(Looper.getMainLooper()));
-			if (useCase.isInProgress()) {
-				if (listener != null && !useCase.isNotified()) {
-					useCase.notifyUseCaseStart(listener);
-				}
-			} else if (useCase.isFinishSuccessful()) {
-				if (listener != null && !useCase.isNotified()) {
-					useCase.notifyFinishedUseCase(listener);
-					useCase.markAsNotified();
-				}
-
-				if (useCaseTrigger.equals(UseCaseTrigger.ALWAYS)) {
-					executeUseCase(useCase);
-				}
-			} else if (useCase.isFinishFailed()) {
-				if (listener != null && !useCase.isNotified()) {
-					useCase.notifyFailedUseCase(useCase.getAbstractException(), listener);
-					useCase.markAsNotified();
-				}
-
-				if (useCaseTrigger.equals(UseCaseTrigger.ALWAYS)) {
-					executeUseCase(useCase);
-				}
-
-			} else if (useCase.isNotInvoked()
-					&& (useCaseTrigger.equals(UseCaseTrigger.ONCE) || useCaseTrigger.equals(UseCaseTrigger.ALWAYS))) {
-				executeUseCase(useCase);
-			}
-		}
-	}
-
-	public enum UseCaseTrigger {
-		MANUAL,
-		ONCE,
-		ALWAYS;
-	}
-
-	@MainThread
-	@Override
-	public void unregisterUseCase(final AbstractUseCase userCase, final UseCaseListener listener) {
-		if (userCase != null) {
-			userCase.removeListener(listener);
-		}
-	}
-
-	@Override
-	public void executeUseCase(AbstractUseCase useCase) {
-		ExecutorUtils.execute(useCase);
-	}
-
-	@Override
-	public void executeUseCase(AbstractUseCase useCase, Long delaySeconds) {
-		ExecutorUtils.schedule(useCase, delaySeconds);
-	}
 
 	@MainThread
 	@Override

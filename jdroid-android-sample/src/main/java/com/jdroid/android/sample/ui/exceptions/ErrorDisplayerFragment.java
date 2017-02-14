@@ -10,7 +10,9 @@ import com.jdroid.android.exception.SnackbarErrorDisplayer;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.ui.usecases.SampleUseCase;
+import com.jdroid.android.usecase.UseCaseHelper;
 import com.jdroid.java.exception.AbstractException;
+
 
 public class ErrorDisplayerFragment extends AbstractFragment {
 
@@ -41,7 +43,7 @@ public class ErrorDisplayerFragment extends AbstractFragment {
 			public void onClick(View v) {
 				ErrorDisplayerFragment.this.errorDisplayer = null;
 				ErrorDisplayerFragment.this.goBackOnError = true;
-				executeUseCase(failingUseCase);
+				UseCaseHelper.executeUseCase(failingUseCase);
 			}
 		});
 
@@ -50,7 +52,7 @@ public class ErrorDisplayerFragment extends AbstractFragment {
 			public void onClick(View v) {
 				ErrorDisplayerFragment.this.errorDisplayer = null;
 				ErrorDisplayerFragment.this.goBackOnError = false;
-				executeUseCase(failingUseCase);
+				UseCaseHelper.executeUseCase(failingUseCase);
 			}
 		});
 
@@ -64,11 +66,11 @@ public class ErrorDisplayerFragment extends AbstractFragment {
 				errorDisplayer.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						executeUseCase(failingUseCase);
+						UseCaseHelper.executeUseCase(failingUseCase);
 					}
 				});
 				ErrorDisplayerFragment.this.errorDisplayer = errorDisplayer;
-				executeUseCase(failingUseCase);
+				UseCaseHelper.executeUseCase(failingUseCase);
 			}
 		});
 	}
@@ -77,14 +79,14 @@ public class ErrorDisplayerFragment extends AbstractFragment {
 	public void onStart() {
 		super.onStart();
 
-		registerUseCase(failingUseCase, this);
+		UseCaseHelper.registerUseCase(failingUseCase, this);
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
 
-		unregisterUseCase(failingUseCase, this);
+		UseCaseHelper.unregisterUseCase(failingUseCase, this);
 	}
 
 	@Override

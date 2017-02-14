@@ -1,4 +1,4 @@
-package com.jdroid.android.usecase;
+package com.jdroid.android.recycler.pagination;
 
 import android.support.annotation.WorkerThread;
 

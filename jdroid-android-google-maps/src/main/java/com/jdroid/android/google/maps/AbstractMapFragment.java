@@ -25,14 +25,11 @@ import com.jdroid.android.application.AppModule;
 import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.fragment.FragmentDelegate;
 import com.jdroid.android.fragment.FragmentHelper;
-import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.fragment.FragmentIf;
 import com.jdroid.android.google.GooglePlayServicesUtils;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.permission.PermissionHelper;
 import com.jdroid.android.snackbar.SnackbarBuilder;
-import com.jdroid.android.usecase.AbstractUseCase;
-import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.exception.AbstractException;
 
 public abstract class AbstractMapFragment extends SupportMapFragment implements FragmentIf {
@@ -413,16 +410,6 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	}
 	
 	@Override
-	public void executeUseCase(AbstractUseCase useCase) {
-		fragmentHelper.executeUseCase(useCase);
-	}
-	
-	@Override
-	public void executeUseCase(AbstractUseCase useCase, Long delaySeconds) {
-		fragmentHelper.executeUseCase(useCase, delaySeconds);
-	}
-
-	@Override
 	public void beforeInitAppBar(Toolbar appBar) {
 		fragmentHelper.beforeInitAppBar(appBar);
 	}
@@ -437,22 +424,6 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 		return fragmentHelper.getAppBar();
 	}
 
-	@Override
-	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener) {
-		fragmentHelper.registerUseCase(useCase, listener);
-	}
-	
-	@Override
-	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener,
-								UseCaseTrigger useCaseTrigger) {
-		fragmentHelper.registerUseCase(useCase, listener, useCaseTrigger);
-	}
-	
-	@Override
-	public void unregisterUseCase(AbstractUseCase useCase, UseCaseListener listener) {
-		fragmentHelper.unregisterUseCase(useCase, listener);
-	}
-	
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getActivityIf()
 	 */

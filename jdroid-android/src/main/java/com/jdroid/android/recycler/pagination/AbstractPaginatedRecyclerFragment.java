@@ -1,4 +1,4 @@
-package com.jdroid.android.recycler;
+package com.jdroid.android.recycler.pagination;
 
 import android.os.Bundle;
 import android.support.annotation.MainThread;
@@ -7,8 +7,11 @@ import android.support.v7.widget.RecyclerView;
 
 import com.jdroid.android.R;
 import com.jdroid.android.exception.DialogErrorDisplayer;
-import com.jdroid.android.fragment.FragmentHelper;
-import com.jdroid.android.usecase.PaginatedUseCase;
+import com.jdroid.android.recycler.AbstractRecyclerFragment;
+import com.jdroid.android.recycler.FooterRecyclerViewType;
+import com.jdroid.android.recycler.RecyclerViewAdapter;
+import com.jdroid.android.usecase.UseCaseHelper;
+import com.jdroid.android.usecase.UseCaseTrigger;
 import com.jdroid.java.exception.AbstractException;
 
 import java.util.List;
@@ -30,17 +33,17 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 	@Override
 	public void onStart() {
 		super.onStart();
-		registerUseCase(paginatedUseCase, this, getUseCaseTrigger());
+		UseCaseHelper.registerUseCase(paginatedUseCase, this, getUseCaseTrigger());
 	}
 
-	protected FragmentHelper.UseCaseTrigger getUseCaseTrigger() {
-		return FragmentHelper.UseCaseTrigger.ONCE;
+	protected UseCaseTrigger getUseCaseTrigger() {
+		return UseCaseTrigger.ONCE;
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
-		unregisterUseCase(paginatedUseCase, this);
+		UseCaseHelper.unregisterUseCase(paginatedUseCase, this);
 	}
 
 	protected abstract PaginatedUseCase<Object> createPaginatedUseCase();
@@ -101,7 +104,7 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 					dismissLoading();
 				}
 				paginatedUseCase.markAsPaginating();
-				executeUseCase(paginatedUseCase);
+				UseCaseHelper.executeUseCase(paginatedUseCase);
 			} else {
 				initAdapter();
 				dismissLoading();
@@ -129,7 +132,7 @@ public abstract class AbstractPaginatedRecyclerFragment extends AbstractRecycler
 						if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount - getItemsRemainingToStartPagination()
 								&& firstVisibleItemPosition >= 0) {
 							paginatedUseCase.markAsPaginating();
-							executeUseCase(paginatedUseCase);
+							UseCaseHelper.executeUseCase(paginatedUseCase);
 							paginationInProgress = true;
 						}
 					}

@@ -6,7 +6,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.recycler.FooterRecyclerViewType;
 import com.jdroid.android.recycler.HeaderRecyclerViewType;
@@ -14,6 +13,8 @@ import com.jdroid.android.recycler.RecyclerViewAdapter;
 import com.jdroid.android.recycler.RecyclerViewType;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.usecase.SampleItemsUseCase;
+import com.jdroid.android.usecase.UseCaseHelper;
+import com.jdroid.android.usecase.UseCaseTrigger;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.IdGenerator;
 
@@ -31,13 +32,13 @@ public class SimpleRecyclerFragment extends AbstractRecyclerFragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		registerUseCase(sampleItemsUseCase, this, FragmentHelper.UseCaseTrigger.ONCE);
+		UseCaseHelper.registerUseCase(sampleItemsUseCase, this, UseCaseTrigger.ONCE);
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
-		unregisterUseCase(sampleItemsUseCase, this);
+		UseCaseHelper.unregisterUseCase(sampleItemsUseCase, this);
 	}
 
 	@Override
