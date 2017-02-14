@@ -252,9 +252,9 @@ android {
 				jdroid.setResValueString(defaultConfig, "google_storage_bucket", "fir-jdroid-production.appspot.com")
 
 				manifestPlaceholders = [
-						googleMapsApiKey: jdroid.getProp("GOOGLE_MAPS_API_KEY", ""),
-						fabricApiKey: jdroid.getProp("FABRIC_API_KEY", ""),
-						facebookAppId: jdroid.getProp("FACEBOOK_APP_ID", "")
+						googleMapsApiKey: jdroid.getStringProp("GOOGLE_MAPS_API_KEY", ""),
+						fabricApiKey: jdroid.getStringProp("FABRIC_API_KEY", ""),
+						facebookAppId: jdroid.getStringProp("FACEBOOK_APP_ID", "")
 				]
 			}
 		}

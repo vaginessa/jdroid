@@ -59,7 +59,7 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-java-github-connector:0.9.0'
+		classpath 'com.jdroidframework:jdroid-java-github:0.9.3'
 	}
 }
 
@@ -87,7 +87,7 @@ subprojects {
 	group = rootProject.group
 
 	Boolean localUpload = getBooleanProp('LOCAL_UPLOAD', true)
-	def localMavenRepo = getProp('LOCAL_MAVEN_REPO')
+	String localMavenRepo = getProp('LOCAL_MAVEN_REPO')
 
 	if (localUpload && localMavenRepo == null) {
 		project.logger.warn("LOCAL_MAVEN_REPO property is not defined. Skipping uploadArchives configuration")
