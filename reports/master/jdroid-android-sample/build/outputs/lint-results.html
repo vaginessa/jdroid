@@ -194,7 +194,7 @@ document.getElementById(id+'Link').style.display = 'none';
 <body>
 <h1>Lint Report</h1>
 <div class="titleSeparator"></div>
-Check performed at Tue Feb 14 08:15:55 UTC 2017.<br/>
+Check performed at Tue Feb 14 22:13:23 UTC 2017.<br/>
 0 errors and 46 warnings found:<br/><br/>
 <table class="overview">
 <tr><td></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
@@ -716,13 +716,13 @@ Note that for text fields, you should not set both the <code>hint</code> and the
 <div class="id"><a href="#" title="Return to top">SetTextI18n: TextView Internationalization</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/jdroid/android/sample/ui/recyclerview/ComplexRecyclerFragment.java">../../src/main/java/com/jdroid/android/sample/ui/recyclerview/ComplexRecyclerFragment.java</a>:168</span>: <span class="message">Number formatting does not take into account locale settings. Consider using <code>String.format</code> instead.</span><br /><pre class="errorlines">
-<span class="lineno"> 165</span> 
-<span class="lineno"> 166</span> 		@Override
-<span class="lineno"> 167</span> 		public void fillHolderFromItem(Integer item, IntegerViewHolder holder) {
-<span class="lineno"> 168</span> 			holder.textView.setText(<span class="errorspan">item.toString());</span>
-<span class="lineno"> 169</span> 		}
-<span class="lineno"> 170</span> 
+<span class="location"><a href="../../src/main/java/com/jdroid/android/sample/ui/recyclerview/ComplexRecyclerFragment.java">../../src/main/java/com/jdroid/android/sample/ui/recyclerview/ComplexRecyclerFragment.java</a>:169</span>: <span class="message">Number formatting does not take into account locale settings. Consider using <code>String.format</code> instead.</span><br /><pre class="errorlines">
+<span class="lineno"> 166</span> 
+<span class="lineno"> 167</span> 		@Override
+<span class="lineno"> 168</span> 		public void fillHolderFromItem(Integer item, IntegerViewHolder holder) {
+<span class="lineno"> 169</span> 			holder.textView.setText(<span class="errorspan">item.toString());</span>
+<span class="lineno"> 170</span> 		}
+<span class="lineno"> 171</span> 
 </pre>
 <span class="location"><a href="../../src/main/java/com/jdroid/android/sample/ui/firebase/dynamiclinks/DynamicLinksFragment.java">../../src/main/java/com/jdroid/android/sample/ui/firebase/dynamiclinks/DynamicLinksFragment.java</a>:44</span>: <span class="message">String literal in <code>setText</code> can not be translated. Use Android resources instead.</span><br /><pre class="errorlines">
 <span class="lineno">  41</span> 
@@ -822,13 +822,13 @@ Note that for text fields, you should not set both the <code>hint</code> and the
 <span class="lineno">  52</span> 
 <span class="lineno">  53</span> 		largeIconDrawable = findView(R.id.largeIconDrawable);
 </pre>
-<span class="location"><a href="../../src/main/java/com/jdroid/android/sample/ui/usecases/UseCasesFragment.java">../../src/main/java/com/jdroid/android/sample/ui/usecases/UseCasesFragment.java</a>:153</span>: <span class="message">Number formatting does not take into account locale settings. Consider using <code>String.format</code> instead.</span><br /><pre class="errorlines">
-<span class="lineno"> 150</span> 		});
-<span class="lineno"> 151</span> 
-<span class="lineno"> 152</span> 		delayTextView = findView(R.id.delay);
-<span class="lineno"> 153</span> 		delayTextView.setText(<span class="errorspan">delay.toString());</span>
-<span class="lineno"> 154</span> 
-<span class="lineno"> 155</span> 		useCaseTriggerRadioGroup = findView(R.id.useCaseTrigger);
+<span class="location"><a href="../../src/main/java/com/jdroid/android/sample/ui/usecases/UseCasesFragment.java">../../src/main/java/com/jdroid/android/sample/ui/usecases/UseCasesFragment.java</a>:154</span>: <span class="message">Number formatting does not take into account locale settings. Consider using <code>String.format</code> instead.</span><br /><pre class="errorlines">
+<span class="lineno"> 151</span> 		});
+<span class="lineno"> 152</span> 
+<span class="lineno"> 153</span> 		delayTextView = findView(R.id.delay);
+<span class="lineno"> 154</span> 		delayTextView.setText(<span class="errorspan">delay.toString());</span>
+<span class="lineno"> 155</span> 
+<span class="lineno"> 156</span> 		useCaseTriggerRadioGroup = findView(R.id.useCaseTrigger);
 </pre>
 </div>
 </div>
