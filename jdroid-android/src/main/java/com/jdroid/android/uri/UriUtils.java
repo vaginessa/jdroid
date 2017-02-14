@@ -29,6 +29,7 @@ public class UriUtils {
 		if (url != null) {
 			intent = new Intent();
 			intent.putExtra(ORIGINAL_URI, url);
+			intent.setAction(Intent.ACTION_VIEW);
 			intent.setData(UriUtils.addRandomParam(Uri.parse(url)));
 			intent.setPackage(AppUtils.getApplicationId());
 			if (!IntentUtils.isIntentAvailable(intent)) {
