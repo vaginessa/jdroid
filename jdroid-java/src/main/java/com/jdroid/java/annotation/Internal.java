@@ -8,6 +8,6 @@ import java.lang.annotation.RetentionPolicy;
  * Annotation to tag all the internal APIs that shouldn't be used by the library users
  */
 @Documented
-@Retention(RetentionPolicy.SOURCE)
+@Retention(RetentionPolicy.CLASS)
 public @interface Internal {
 }

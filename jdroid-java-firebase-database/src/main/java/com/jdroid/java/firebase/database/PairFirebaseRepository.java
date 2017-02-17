@@ -49,10 +49,15 @@ public abstract class PairFirebaseRepository implements PairRepository {
 		firebase.addListenerForSingleValueEvent(listener);
 		listener.waitOperation();
 		String result = listener.getDataSnapshot().getValue(String.class);
-		Pair pair = new Pair();
-		pair.setId(id);
-		pair.setValue(result);
-		LOGGER.info("Retrieved object from database of path: " + getPath() + ". [ " + result + " ]");
+		Pair pair = null;
+		if (result != null) {
+			pair = new Pair();
+			pair.setId(id);
+			pair.setValue(result);
+			LOGGER.info("Retrieved object from database with path [ " + getPath() + "]. [ " + result + " ]");
+		} else {
+			LOGGER.info("Object not found on database with path [ " + getPath() + " ] and id [ " + id + " ]");
+		}
 		return pair;
 	}
 

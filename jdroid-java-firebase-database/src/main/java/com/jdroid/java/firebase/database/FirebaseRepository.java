@@ -54,7 +54,11 @@ public abstract class FirebaseRepository<T extends Entity> implements Repository
 		firebase.addListenerForSingleValueEvent(listener);
 		listener.waitOperation();
 		T result = listener.getDataSnapshot().getValue(getEntityClass());
-		LOGGER.info("Retrieved object from database of path: " + getPath() + ". [ " + result + " ]");
+		if (result != null) {
+			LOGGER.info("Retrieved object from database with path [ " + getPath() + "]. [ " + result + " ]");
+		} else {
+			LOGGER.info("Object not found on database with path [ " + getPath() + " ] and id [ " + id + " ]");
+		}
 		return result;
 	}
 
