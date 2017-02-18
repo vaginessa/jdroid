@@ -65,4 +65,8 @@ public class ReferrerUtils {
 			setReferrer(intent, Uri.parse(referrer));
 		}
 	}
+
+	public static Boolean isUndefined(String referrer) {
+		return HTTP_UNDEFINED.equals(referrer);
+	}
 }

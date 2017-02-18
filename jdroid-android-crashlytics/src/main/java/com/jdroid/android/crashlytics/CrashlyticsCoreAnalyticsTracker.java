@@ -6,6 +6,7 @@ import com.crashlytics.android.Crashlytics;
 import com.jdroid.android.analytics.AbstractCoreAnalyticsTracker;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.exception.DefaultExceptionHandler;
+import com.jdroid.android.uri.ReferrerUtils;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class CrashlyticsCoreAnalyticsTracker extends AbstractCoreAnalyticsTracke
 
 	@Override
 	public void onActivityStart(Activity activity, String referrer, Object data) {
-		if (referrer != null) {
+		if (!ReferrerUtils.isUndefined(referrer)) {
 			Crashlytics.getInstance().core.setString("Referrer", referrer);
 		}
 		
