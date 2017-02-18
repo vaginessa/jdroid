@@ -1,6 +1,8 @@
 package com.jdroid.android.analytics;
 
 import android.app.Activity;
+import android.net.Uri;
+import android.os.Bundle;
 
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
@@ -41,12 +43,23 @@ public class CoreAnalyticsSender<T extends CoreAnalyticsTracker> extends Analyti
 	}
 
 	@Override
-	public void onActivityCreate(final Activity activity) {
+	public void onFirstActivityCreate(final Activity activity) {
 		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(T tracker) {
-				tracker.onActivityCreate(activity);
+				tracker.onFirstActivityCreate(activity);
+			}
+		});
+	}
+
+	@Override
+	public void onActivityCreate(final Activity activity, final Bundle savedInstanceState) {
+		execute(new TrackingCommand() {
+
+			@Override
+			protected void track(T tracker) {
+				tracker.onActivityCreate(activity, savedInstanceState);
 			}
 		});
 	}
@@ -140,12 +153,12 @@ public class CoreAnalyticsSender<T extends CoreAnalyticsTracker> extends Analyti
 	}
 	
 	@Override
-	public void trackUriOpened(final String screenName, final String referrer) {
+	public void trackUriOpened(final String screenName, final Uri uri, final String referrer) {
 		execute(new TrackingCommand() {
 			
 			@Override
 			protected void track(T tracker) {
-				tracker.trackUriOpened(screenName, referrer);
+				tracker.trackUriOpened(screenName, uri, referrer);
 			}
 		});
 	}

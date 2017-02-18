@@ -47,9 +47,6 @@ public abstract class AbstractMockHttpService implements MultipartHttpService {
 		}
 	}
 	
-	/**
-	 * @see HttpService#execute(Parser)
-	 */
 	@SuppressWarnings({ "unchecked", "resource" })
 	@Override
 	public <T> T execute(Parser parser) {
@@ -98,9 +95,6 @@ public abstract class AbstractMockHttpService implements MultipartHttpService {
 		// Do nothing by default
 	}
 	
-	/**
-	 * @see HttpService#addHeader(java.lang.String, java.lang.String)
-	 */
 	@Override
 	public void addHeader(String name, String value) {
 		if (value != null) {
@@ -108,9 +102,6 @@ public abstract class AbstractMockHttpService implements MultipartHttpService {
 		}
 	}
 	
-	/**
-	 * @see HttpService#addQueryParameter(java.lang.String, java.lang.Object)
-	 */
 	@Override
 	public void addQueryParameter(String name, Object value) {
 		if (value != null) {
@@ -118,42 +109,26 @@ public abstract class AbstractMockHttpService implements MultipartHttpService {
 		}
 	}
 	
-	/**
-	 * @see HttpService#addQueryParameter(java.lang.String, java.util.Collection)
-	 */
 	@Override
 	public void addQueryParameter(String name, Collection<?> values) {
 		addQueryParameter(name, StringUtils.join(values));
 	}
 	
-	/**
-	 * @see MultipartHttpService#addPart(java.lang.String, java.io.ByteArrayInputStream,
-	 *      java.lang.String, java.lang.String)
-	 */
 	@Override
 	public void addPart(String name, ByteArrayInputStream in, String mimeType, String filename) {
 		// Do Nothing
 	}
 	
-	/**
-	 * @see MultipartHttpService#addPart(java.lang.String, java.lang.Object, java.lang.String)
-	 */
 	@Override
 	public void addPart(String name, Object value, String mimeType) {
 		// Do Nothing
 	}
 	
-	/**
-	 * @see MultipartHttpService#addJsonPart(java.lang.String, java.lang.Object)
-	 */
 	@Override
 	public void addJsonPart(String name, Object value) {
 		// Do Nothing
 	}
 	
-	/**
-	 * @see HttpService#addUrlSegment(java.lang.Object)
-	 */
 	@Override
 	public void addUrlSegment(Object segment) {
 		String segmentString = segment.toString();
@@ -162,25 +137,16 @@ public abstract class AbstractMockHttpService implements MultipartHttpService {
 		}
 	}
 	
-	/**
-	 * @see HttpService#addHttpServiceProcessor(HttpServiceProcessor)
-	 */
 	@Override
 	public void addHttpServiceProcessor(HttpServiceProcessor httpServiceProcessor) {
 		// Do Nothing
 	}
 	
-	/**
-	 * @see BodyEnclosingHttpService#setBody(String)
-	 */
 	@Override
 	public void setBody(String body) {
 		this.body = body;
 	}
 	
-	/**
-	 * @see HttpService#setConnectionTimeout(java.lang.Integer)
-	 */
 	@Override
 	public void setConnectionTimeout(Integer connectionTimeout) {
 		// Do Nothing
@@ -196,38 +162,26 @@ public abstract class AbstractMockHttpService implements MultipartHttpService {
 		// Do Nothing
 	}
 
-	/**
-	 * @see HttpService#setUserAgent(java.lang.String)
-	 */
 	@Override
 	public void setUserAgent(String userAgent) {
 		// Do Nothing
 	}
 	
-	/**
-	 * @see HttpService#setSsl(java.lang.Boolean)
-	 */
 	@Override
 	public void setSsl(Boolean ssl) {
 		// Do Nothing
 	}
-	
+
 	/**
 	 * @return The time to sleep (in seconds) to simulate the execution of the request
 	 */
 	protected abstract Integer getHttpMockSleepDuration(Object... urlSegments);
 	
-	/**
-	 * @see HttpService#getUrl()
-	 */
 	@Override
 	public String getUrl() {
 		return generateMockFilePath(urlSegments);
 	}
 	
-	/**
-	 * @see HttpService#getUrlSuffix()
-	 */
 	@Override
 	public String getUrlSuffix() {
 		return null;

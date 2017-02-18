@@ -9,17 +9,11 @@ public abstract class JsonMockHttpService extends AbstractMockHttpService {
 		super(urlSegments);
 	}
 	
-	/**
-	 * @see AbstractMockHttpService#getMocksBasePath()
-	 */
 	@Override
 	protected String getMocksBasePath() {
 		return MOCKS_BASE_PATH;
 	}
 	
-	/**
-	 * @see AbstractMockHttpService#getMocksExtension()
-	 */
 	@Override
 	protected String getMocksExtension() {
 		return MOCKS_EXTENSION;

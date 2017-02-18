@@ -88,7 +88,7 @@ public class AdMobAppModule extends AbstractAppModule {
 	}
 
 	@Override
-	public List<RemoteConfigParameter> getRemoteConfigParameters() {
+	public List<RemoteConfigParameter> createRemoteConfigParameters() {
 		return Lists.<RemoteConfigParameter>newArrayList(AdMobRemoteConfigParameter.values());
 	}
 }

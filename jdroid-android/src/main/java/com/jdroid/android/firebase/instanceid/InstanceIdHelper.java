@@ -52,11 +52,13 @@ public class InstanceIdHelper {
 		}
 	}
 
+	@WorkerThread
 	public static void clearInstanceId() {
 		instanceId = null;
 		getSharedPreferencesHelper().removePreferences(INSTANCE_ID);
 	}
 
+	@WorkerThread
 	public static void removeInstanceId() {
 		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(AbstractApplication.get())) {
 			try {

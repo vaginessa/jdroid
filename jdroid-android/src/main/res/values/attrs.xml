@@ -2,17 +2,17 @@
 <resources>
 
 	<declare-styleable name="jdroid_bezelImageView">
-		<attr name="maskDrawable" format="reference" />
-		<attr name="borderDrawable" format="reference" />
-		<attr name="desaturateOnPress" format="boolean" />
+		<attr name="jdroid_maskDrawable" format="reference" />
+		<attr name="jdroid_borderDrawable" format="reference" />
+		<attr name="jdroid_desaturateOnPress" format="boolean" />
 	</declare-styleable>
 
 	<declare-styleable name="jdroid_navDrawerHeaderImageView">
-		<attr name="circleImage" format="boolean" />
+		<attr name="jdroid_circleImage" format="boolean" />
 	</declare-styleable>
 
 	<declare-styleable name="jdroid_scrimInsetsView">
-		<attr name="insetScrollForeground" format="reference|color" />
+		<attr name="jdroid_insetScrollForeground" format="reference|color" />
 	</declare-styleable>
 
 </resources>

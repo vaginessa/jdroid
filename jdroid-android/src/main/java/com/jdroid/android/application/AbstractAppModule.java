@@ -2,6 +2,7 @@ package com.jdroid.android.application;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
@@ -24,6 +25,7 @@ public abstract class AbstractAppModule implements AppModule {
 
 	private AnalyticsSender<? extends AnalyticsTracker> analyticsSender;
 
+	@MainThread
 	@Override
 	public void onCreate() {
 		analyticsSender = createModuleAnalyticsSender(createModuleAnalyticsTrackers());
@@ -45,21 +47,25 @@ public abstract class AbstractAppModule implements AppModule {
 		return analyticsSender;
 	}
 
+	@MainThread
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		// Do Nothing
 	}
 
+	@MainThread
 	@Override
 	public void onLowMemory() {
 		// Do Nothing
 	}
 
+	@MainThread
 	@Override
 	public void onTrimMemory(int level) {
 		// Do Nothing
 	}
 
+	@MainThread
 	@Override
 	public void attachBaseContext(Context base) {
 		// Do Nothing
@@ -70,16 +76,19 @@ public abstract class AbstractAppModule implements AppModule {
 		// Do Nothing
 	}
 
+	@MainThread
 	@Override
 	public void onGooglePlayServicesUpdated() {
 		// Do Nothing
 	}
 
+	@MainThread
 	@Override
 	public void onLocaleChanged() {
 		// Do Nothing
 	}
 
+	@MainThread
 	@Override
 	public void onInitExceptionHandler(Map<String, String> metadata) {
 		// Do Nothing
@@ -90,8 +99,9 @@ public abstract class AbstractAppModule implements AppModule {
 		return Lists.newArrayList();
 	}
 
+	@MainThread
 	@Override
-	public List<Kit> getFabricKits() {
+	public List<Kit> createFabricKits() {
 		return Lists.newArrayList();
 	}
 
@@ -104,18 +114,21 @@ public abstract class AbstractAppModule implements AppModule {
 		// Do Nothing
 	}
 
+	@MainThread
 	@Override
 	public ActivityDelegate createActivityDelegate(AbstractFragmentActivity abstractFragmentActivity) {
 		return null;
 	}
 
+	@MainThread
 	@Override
 	public FragmentDelegate createFragmentDelegate(Fragment fragment) {
 		return null;
 	}
 
+	@MainThread
 	@Override
-	public List<RemoteConfigParameter> getRemoteConfigParameters() {
+	public List<RemoteConfigParameter> createRemoteConfigParameters() {
 		return null;
 	}
 }

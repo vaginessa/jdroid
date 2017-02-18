@@ -8,7 +8,7 @@ import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.java.date.DateTimeFormat;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.IdGenerator;
-import com.jdroid.java.utils.NumberUtils;
+import com.jdroid.java.utils.TypeUtils;
 
 import java.util.Date;
 
@@ -26,7 +26,7 @@ public enum AndroidFcmMessage implements FcmMessage {
 			builder.setTicker("Sample Ticker");
 			builder.setContentTitle("Sample Content Title");
 			String description = "Sample Content Description";
-			Long timestamp = NumberUtils.getLong(remoteMessage.getData().get("timestamp"));
+			Long timestamp = TypeUtils.getLong(remoteMessage.getData().get("timestamp"));
 			if (timestamp != null) {
 				description = DateUtils.format(new Date(timestamp), DateTimeFormat.YYYYMMDDHHMMSSSSS);
 			}

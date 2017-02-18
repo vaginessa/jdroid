@@ -1,4 +1,4 @@
-package com.jdroid.java.firebase;
+package com.jdroid.java.firebase.database;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.FirebaseError;
@@ -16,7 +16,7 @@ public class FirebaseValueEventListener implements ValueEventListener {
 	}
 	@Override
 	public void onCancelled(FirebaseError firebaseError) {
-		done.setFirebaseException(new FirebaseException(firebaseError));
+		done.setFirebaseException(new com.jdroid.java.firebase.database.FirebaseException(firebaseError));
 		done.countDown();
 	}
 

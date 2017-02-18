@@ -1,5 +1,7 @@
 package com.jdroid.android.feedback;
 
+import android.support.annotation.WorkerThread;
+
 import com.jdroid.android.context.UsageStats;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.date.DateUtils;
@@ -19,6 +21,7 @@ public class RateAppStats {
 		getSharedPreferencesHelper().savePreferenceAsync(LAST_RESPONSE_TIMESTAMP, DateUtils.nowMillis());
 	}
 
+	@WorkerThread
 	public static Boolean getEnjoyingApp() {
 		return getSharedPreferencesHelper().loadPreferenceAsBoolean(ENJOYING);
 	}
@@ -28,6 +31,7 @@ public class RateAppStats {
 		getSharedPreferencesHelper().savePreferenceAsync(LAST_RESPONSE_TIMESTAMP, DateUtils.nowMillis());
 	}
 
+	@WorkerThread
 	public static Boolean getGiveFeedback() {
 		return getSharedPreferencesHelper().loadPreferenceAsBoolean(GIVE_FEEDBACK);
 	}
@@ -37,14 +41,17 @@ public class RateAppStats {
 		getSharedPreferencesHelper().savePreferenceAsync(LAST_RESPONSE_TIMESTAMP, DateUtils.nowMillis());
 	}
 
+	@WorkerThread
 	public static Boolean getRateOnGooglePlay() {
 		return getSharedPreferencesHelper().loadPreferenceAsBoolean(RATE_ON_GOOGLE_PLAY);
 	}
 
+	@WorkerThread
 	public static Long getLastResponseTimestamp() {
 		return getSharedPreferencesHelper().loadPreferenceAsLong(LAST_RESPONSE_TIMESTAMP, 0L);
 	}
 
+	@WorkerThread
 	public static void reset() {
 		getSharedPreferencesHelper().removeAllPreferences();
 	}
@@ -56,6 +63,7 @@ public class RateAppStats {
 		return sharedPreferencesHelper;
 	}
 
+	@WorkerThread
 	public static Boolean displayRateAppView() {
 		Boolean alreadyRated = getRateOnGooglePlay();
 		Boolean enoughDaysSinceLastResponse =  DateUtils.millisecondsToDays(RateAppStats.getLastResponseTimestamp()) >= 90;

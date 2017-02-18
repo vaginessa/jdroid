@@ -4,14 +4,16 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
 import com.jdroid.android.recycler.SwipeRecyclerFragment;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.ui.adapter.SampleRecyclerViewType;
 import com.jdroid.android.sample.usecase.SampleItemsUseCase;
+import com.jdroid.android.usecase.UseCaseHelper;
+import com.jdroid.android.usecase.UseCaseTrigger;
 import com.jdroid.java.utils.IdGenerator;
+
 
 public class SwipeRefreshLoadingFragment extends SwipeRecyclerFragment {
 	
@@ -27,42 +29,37 @@ public class SwipeRefreshLoadingFragment extends SwipeRecyclerFragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		registerUseCase(sampleItemsUseCase, this, UseCaseTrigger.ONCE);
+		UseCaseHelper.registerUseCase(sampleItemsUseCase, this, UseCaseTrigger.ONCE);
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
-		unregisterUseCase(sampleItemsUseCase, this);
+		UseCaseHelper.unregisterUseCase(sampleItemsUseCase, this);
 	}
 	
 	@Override
 	public void onRefresh() {
 		if (!sampleItemsUseCase.isInProgress()) {
-			executeUseCase(sampleItemsUseCase);
+			UseCaseHelper.executeUseCase(sampleItemsUseCase);
 		}
 	}
 
 	@Override
 	public void onFinishUseCase() {
-		executeOnUIThread(new Runnable() {
+		setAdapter(new RecyclerViewAdapter(new SampleRecyclerViewType() {
+
 			@Override
-			public void run() {
-				setAdapter(new RecyclerViewAdapter(new SampleRecyclerViewType() {
-
-					@Override
-					public void onItemSelected(String item, View view) {
-						getAdapter().removeItem(item);
-					}
-
-					@Override
-					public AbstractRecyclerFragment getAbstractRecyclerFragment() {
-						return SwipeRefreshLoadingFragment.this;
-					}
-				}, sampleItemsUseCase.getItems()));
-				dismissLoading();
+			public void onItemSelected(String item, View view) {
+				getAdapter().removeItem(item);
 			}
-		});
+
+			@Override
+			public AbstractRecyclerFragment getAbstractRecyclerFragment() {
+				return SwipeRefreshLoadingFragment.this;
+			}
+		}, sampleItemsUseCase.getItems()));
+		dismissLoading();
 	}
 
 	@Override

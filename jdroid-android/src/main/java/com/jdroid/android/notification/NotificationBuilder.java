@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.annotation.WorkerThread;
 import android.support.v4.app.NotificationCompat;
@@ -31,7 +32,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 public class NotificationBuilder {
 
 	public static final String NOTIFICATION_NAME = "notificationName";
-	public static String NOTIFICATION_URI = "notification://";
+	public static String NOTIFICATION_SCHEME = "notification";
 
 	private String notificationName;
 
@@ -122,19 +123,19 @@ public class NotificationBuilder {
 				notificationIntent, 0));
 	}
 
-	public void setNewTaskUrl(String url) {
+	public void setNewTaskUrl(@NonNull String url) {
 		setUrl(url, Intent.FLAG_ACTIVITY_NEW_TASK);
 	}
 
-	public void setSingleTopUrl(String url) {
+	public void setSingleTopUrl(@NonNull String url) {
 		setUrl(url, Intent.FLAG_ACTIVITY_SINGLE_TOP);
 	}
 
-	public void setUrl(String url) {
+	public void setUrl(@NonNull String url) {
 		setUrl(url, null);
 	}
 
-	public void setUrl(String url, Integer flags) {
+	public void setUrl(@NonNull String url, Integer flags) {
 		if (StringUtils.isNotEmpty(url)) {
 			Intent notificationIntent = UriUtils.createIntent(AbstractApplication.get(), url, generateNotificationsReferrer());
 			if (flags != null) {
@@ -145,11 +146,11 @@ public class NotificationBuilder {
 	}
 
 	public static String generateNotificationsReferrer() {
-		return "notification://" + AppUtils.getApplicationId();
+		return NOTIFICATION_SCHEME + "://" + AppUtils.getApplicationId();
 	}
 
 	protected Uri createUniqueNotificationUri() {
-		return Uri.parse(NOTIFICATION_URI + RandomUtils.getInt());
+		return Uri.parse(NOTIFICATION_SCHEME + "://" + RandomUtils.getInt());
 	}
 
 	public void setWhen(Long when) {

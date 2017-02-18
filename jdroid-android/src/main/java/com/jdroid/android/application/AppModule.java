@@ -2,6 +2,7 @@ package com.jdroid.android.application;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.support.annotation.MainThread;
 import android.support.v4.app.Fragment;
 
 import com.jdroid.android.activity.AbstractFragmentActivity;
@@ -20,34 +21,45 @@ import io.fabric.sdk.android.Kit;
 
 public interface AppModule {
 
+	@MainThread
 	public void onCreate();
 
+	@MainThread
 	public void onConfigurationChanged(Configuration newConfig);
 
+	@MainThread
 	public void onLowMemory();
 
+	@MainThread
 	public void onTrimMemory(int level);
 
+	@MainThread
 	public void attachBaseContext(Context base);
 
 	public void onInstanceIdTokenRefresh();
 
+	@MainThread
 	public void onGooglePlayServicesUpdated();
 
+	@MainThread
 	public void onLocaleChanged();
 
+	@MainThread
 	public void onInitExceptionHandler(Map<String, String> metadata);
 
 	public List<? extends CoreAnalyticsTracker> createCoreAnalyticsTrackers();
 
-	public List<Kit> getFabricKits();
+	@MainThread
+	public List<Kit> createFabricKits();
 
 	public List<PreferencesAppender> getPreferencesAppenders();
 
 	public void onInitializeGcmTasks();
 
+	@MainThread
 	public ActivityDelegate createActivityDelegate(AbstractFragmentActivity abstractFragmentActivity);
 
+	@MainThread
 	public FragmentDelegate createFragmentDelegate(Fragment fragment);
 
 	// Analytics
@@ -58,5 +70,6 @@ public interface AppModule {
 
 	public AnalyticsSender<? extends AnalyticsTracker> getAnalyticsSender();
 
-	public List<RemoteConfigParameter> getRemoteConfigParameters();
+	@MainThread
+	public List<RemoteConfigParameter> createRemoteConfigParameters();
 }

@@ -1,6 +1,7 @@
 package com.jdroid.android.google.admob;
 
 import android.content.Context;
+import android.support.annotation.WorkerThread;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +45,8 @@ public class RemoveAdsView extends RelativeLayout {
 			}
 		});
 	}
-	
+
+	@WorkerThread
 	public static Boolean displayRemoveAdsView() {
 		return DateUtils.millisecondsToDays(UsageStats.getFirstAppLoadTimestamp()) > 3;
 	}

@@ -1,6 +1,7 @@
 package com.jdroid.android.http.cache;
 
 import android.content.Context;
+import android.support.annotation.WorkerThread;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppLaunchStatus;
@@ -25,6 +26,7 @@ public class CacheManager {
 
 	private static final String CACHE_DIRECTORY_PREFIX = "cache_";
 
+	@WorkerThread
 	public void initFileSystemCache() {
 		try {
 

@@ -1,6 +1,8 @@
 package com.jdroid.android.google.analytics;
 
 import android.app.Activity;
+import android.net.Uri;
+import android.os.Bundle;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.HitBuilders.SocialBuilder;
@@ -38,7 +40,12 @@ public class GoogleCoreAnalyticsTracker extends AbstractGoogleAnalyticsTracker i
 	}
 
 	@Override
-	public void onActivityCreate(Activity activity) {
+	public void onFirstActivityCreate(Activity activity) {
+		// Do nothing
+	}
+
+	@Override
+	public void onActivityCreate(Activity activity, Bundle savedInstanceState) {
 		// Do nothing
 	}
 
@@ -48,6 +55,10 @@ public class GoogleCoreAnalyticsTracker extends AbstractGoogleAnalyticsTracker i
 		synchronized (GoogleCoreAnalyticsTracker.class) {
 			
 			HitBuilders.ScreenViewBuilder screenViewBuilder = new HitBuilders.ScreenViewBuilder();
+			Uri uri = activity.getIntent().getData();
+			if (uri != null) {
+				screenViewBuilder.setCampaignParamsFromUrl(uri.toString());
+			}
 			initReferrerCustomDimension(referrer);
 
 
@@ -148,7 +159,7 @@ public class GoogleCoreAnalyticsTracker extends AbstractGoogleAnalyticsTracker i
 	}
 
 	@Override
-	public void trackUriOpened(String screenName, String referrer) {
+	public void trackUriOpened(String screenName, Uri uri, String referrer) {
 		initReferrerCustomDimension(referrer);
 		getGoogleAnalyticsHelper().sendEvent("uri", "open", screenName);
 	}

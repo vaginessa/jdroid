@@ -43,7 +43,7 @@ public class CrashlyticsAppModule extends AbstractAppModule {
 	}
 
 	@Override
-	public List<Kit> getFabricKits() {
+	public List<Kit> createFabricKits() {
 		return Lists.<Kit>newArrayList(new Crashlytics());
 	}
 

@@ -1,4 +1,4 @@
-package com.jdroid.java.firebase;
+package com.jdroid.java.firebase.database;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -6,7 +6,7 @@ import com.firebase.client.Query;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.domain.Entity;
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.firebase.auth.FirebaseAuthenticationStrategy;
+import com.jdroid.java.firebase.database.auth.FirebaseAuthenticationStrategy;
 import com.jdroid.java.repository.Repository;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -54,7 +54,11 @@ public abstract class FirebaseRepository<T extends Entity> implements Repository
 		firebase.addListenerForSingleValueEvent(listener);
 		listener.waitOperation();
 		T result = listener.getDataSnapshot().getValue(getEntityClass());
-		LOGGER.info("Retrieved object from database of path: " + getPath() + ". [ " + result + " ]");
+		if (result != null) {
+			LOGGER.info("Retrieved object from database with path [ " + getPath() + "]. [ " + result + " ]");
+		} else {
+			LOGGER.info("Object not found on database with path [ " + getPath() + " ] and id [ " + id + " ]");
+		}
 		return result;
 	}
 

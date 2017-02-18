@@ -3,6 +3,7 @@ package com.jdroid.android.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -14,10 +15,7 @@ import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.exception.ErrorDisplayer;
-import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.FragmentLoading;
-import com.jdroid.android.usecase.AbstractUseCase;
-import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.exception.AbstractException;
 
 public abstract class AbstractPreferenceFragment extends PreferenceFragment implements FragmentIf {
@@ -81,17 +79,20 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	public View inflate(int resource) {
 		return getFragmentIf().inflate(resource);
 	}
-	
+
+	@MainThread
 	@Override
 	public void onStartUseCase() {
 		getFragmentIf().onStartUseCase();
 	}
-	
+
+	@MainThread
 	@Override
 	public void onUpdateUseCase() {
 		getFragmentIf().onUpdateUseCase();
 	}
-	
+
+	@MainThread
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		getFragmentIf().onFinishFailedUseCase(abstractException);
@@ -102,6 +103,7 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 		return getFragmentIf().createErrorDisplayer(abstractException);
 	}
 
+	@MainThread
 	@Override
 	public void onFinishUseCase() {
 		getFragmentIf().onFinishUseCase();
@@ -134,36 +136,9 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragment impl
 	}
 	
 	@Override
-	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener) {
-		getFragmentIf().registerUseCase(useCase, listener);
-	}
-	
-	@Override
-	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener,
-								UseCaseTrigger useCaseTrigger) {
-		getFragmentIf().registerUseCase(useCase, listener, useCaseTrigger);
-	}
-	
-	@Override
-	public void unregisterUseCase(AbstractUseCase useCase, UseCaseListener listener) {
-		getFragmentIf().unregisterUseCase(useCase, listener);
-	}
-	
-	@Override
-	public void executeUseCase(AbstractUseCase useCase) {
-		getFragmentIf().executeUseCase(useCase);
-	}
-	
-	@Override
-	public void executeUseCase(AbstractUseCase useCase, Long delaySeconds) {
-		getFragmentIf().executeUseCase(useCase, delaySeconds);
-	}
-	
-	@Override
 	public ActivityIf getActivityIf() {
 		return (ActivityIf)getActivity();
 	}
-
 
 	@Override
 	public void beforeInitAppBar(Toolbar appBar) {

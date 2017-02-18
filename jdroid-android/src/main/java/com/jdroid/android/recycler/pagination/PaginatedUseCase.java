@@ -1,6 +1,9 @@
-package com.jdroid.android.usecase;
+package com.jdroid.android.recycler.pagination;
+
+import android.support.annotation.WorkerThread;
 
 import com.jdroid.android.search.SortingType;
+import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.java.search.PagedResult;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -30,10 +33,8 @@ public abstract class PaginatedUseCase<T> extends AbstractUseCase {
 	private SortingType sortingType;
 	
 	private PagedResult<T> pagedResult;
-	
-	/**
-	 * @see com.jdroid.android.usecase.AbstractUseCase#doExecute()
-	 */
+
+	@WorkerThread
 	@Override
 	protected final void doExecute() {
 		

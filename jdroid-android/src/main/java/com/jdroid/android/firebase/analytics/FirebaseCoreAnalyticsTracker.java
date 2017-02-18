@@ -1,6 +1,7 @@
 package com.jdroid.android.firebase.analytics;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -41,7 +42,12 @@ public class FirebaseCoreAnalyticsTracker extends AbstractFirebaseAnalyticsTrack
 	}
 
 	@Override
-	public void onActivityCreate(Activity activity) {
+	public void onFirstActivityCreate(Activity activity) {
+		// Do nothing
+	}
+
+	@Override
+	public void onActivityCreate(Activity activity, Bundle savedInstanceState) {
 		// Do nothing
 	}
 
@@ -133,7 +139,7 @@ public class FirebaseCoreAnalyticsTracker extends AbstractFirebaseAnalyticsTrack
 	}
 
 	@Override
-	public void trackUriOpened(String screenName, String referrer) {
+	public void trackUriOpened(String screenName, Uri uri, String referrer) {
 		Bundle bundle = new Bundle();
 		bundle.putString("screenName", screenName);
 		bundle.putString("referrer", referrer);

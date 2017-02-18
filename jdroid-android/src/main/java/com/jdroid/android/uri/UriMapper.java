@@ -24,21 +24,15 @@ public class UriMapper {
 
 	private static final Logger LOGGER = LoggerUtils.getLogger(UriMapper.class);
 
-	private static final String HTTP_UNDEFINED = "http://undefined";
-
 	private List<UriWatcher> uriWatchers = Lists.newArrayList();
 
 	@Internal
 	public Boolean handleUri(@NonNull Activity activity, Intent intent, @Nullable UriHandler uriHandler, Boolean onActivityCreation) {
 		Uri uri = UriUtils.getUri(intent);
-		if (uri != null && !uri.getScheme().equals("notification")) {
+		if (uri != null) {
 			notifyToUriWatchers(uri);
 			if (uriHandler != null) {
 				String referrerCategory = ReferrerUtils.getReferrerCategory(activity);
-				if (referrerCategory == null) {
-					referrerCategory = HTTP_UNDEFINED;
-					ReferrerUtils.setReferrer(intent, referrerCategory);
-				}
 				try {
 					if (uriHandler.matches(uri)) {
 						LOGGER.debug(uriHandler.getClass().getSimpleName() + " matches the main intent: " + uri.toString());
@@ -74,7 +68,9 @@ public class UriMapper {
 			if (dot != -1) {
 				className = className.substring(dot + 1);
 			}
-			AbstractApplication.get().getCoreAnalyticsSender().trackUriOpened(className, referrerCategory);
+			if (!UriUtils.isInternalReferrerCategory(referrerCategory)) {
+				AbstractApplication.get().getCoreAnalyticsSender().trackUriOpened(className, uri, referrerCategory);
+			}
 			if (activity.getIntent().getComponent().equals(intent.getComponent())) {
 				intent.setData(uri);
 				activity.setIntent(intent);
@@ -85,7 +81,9 @@ public class UriMapper {
 				activity.startActivity(intent);
 			}
 		} else {
-			AbstractApplication.get().getCoreAnalyticsSender().trackUriOpened(activity.getClass().getSimpleName(), referrerCategory);
+			if (!UriUtils.isInternalReferrerCategory(referrerCategory)) {
+				AbstractApplication.get().getCoreAnalyticsSender().trackUriOpened(activity.getClass().getSimpleName(), uri, referrerCategory);
+			}
 		}
 	}
 

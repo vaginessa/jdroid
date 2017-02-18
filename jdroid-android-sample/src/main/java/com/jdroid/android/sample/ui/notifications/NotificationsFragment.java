@@ -1,5 +1,6 @@
 package com.jdroid.android.sample.ui.notifications;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -74,7 +75,15 @@ public class NotificationsFragment extends AbstractFragment {
 
 						builder.setContentTitle(contentTitle.getText().toString());
 						builder.setContentText(contentText.getText().toString());
-						builder.setSingleTopUrl(urlEditText.getText().toString());
+
+						String url = urlEditText.getText().toString();
+						if (StringUtils.isNotBlank(url)) {
+							builder.setSingleTopUrl(url);
+						} else {
+							Intent intent = new Intent(getActivity(), AbstractApplication.get().getHomeActivityClass());
+							builder.setContentIntent(intent);
+						}
+
 						builder.setWhen(DateUtils.nowMillis());
 						builder.setBlueLight();
 						builder.setDefaultSound();

@@ -34,7 +34,7 @@ public class TwitterAppModule extends AbstractAppModule {
 	}
 
 	@Override
-	public List<Kit> getFabricKits() {
+	public List<Kit> createFabricKits() {
 		TwitterAuthConfig authConfig = new TwitterAuthConfig(twitterAppContext.getTwitterOauthConsumerKey(), twitterAppContext.getTwitterOauthConsumerSecret());
 		return Lists.<Kit>newArrayList(new TwitterCore(authConfig), new TweetUi());
 	}

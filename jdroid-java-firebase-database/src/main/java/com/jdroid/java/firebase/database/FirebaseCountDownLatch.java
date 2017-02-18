@@ -1,4 +1,4 @@
-package com.jdroid.java.firebase;
+package com.jdroid.java.firebase.database;
 
 import com.firebase.client.DataSnapshot;
 

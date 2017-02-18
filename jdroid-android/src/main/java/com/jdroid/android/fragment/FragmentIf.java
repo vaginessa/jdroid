@@ -13,7 +13,6 @@ import com.jdroid.android.activity.ComponentIf;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.loading.FragmentLoading;
-import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.exception.AbstractException;
 
@@ -67,19 +66,6 @@ public interface FragmentIf extends ComponentIf, UseCaseListener {
 	// //////////////////////// Error Handling //////////////////////// //
 
 	public ErrorDisplayer createErrorDisplayer(AbstractException abstractException);
-
-	// //////////////////////// Use cases //////////////////////// //
-
-	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener);
-
-	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener,
-								FragmentHelper.UseCaseTrigger useCaseTrigger);
-
-	public void unregisterUseCase(AbstractUseCase useCase, UseCaseListener listener);
-
-	public void executeUseCase(AbstractUseCase useCase);
-
-	public void executeUseCase(AbstractUseCase useCase, Long delaySeconds);
 
 	// //////////////////////// Loading //////////////////////// //
 	

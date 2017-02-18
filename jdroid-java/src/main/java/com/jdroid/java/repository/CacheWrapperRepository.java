@@ -26,7 +26,7 @@ public class CacheWrapperRepository<T extends Identifiable> implements Repositor
 	}
 
 	protected Map<String, T> createCacheMap() {
-		return  Maps.newConcurrentHashMap();
+		return Maps.newConcurrentHashMap();
 	}
 
 	protected Map<String, T> getCache() {
@@ -48,13 +48,15 @@ public class CacheWrapperRepository<T extends Identifiable> implements Repositor
 	@Override
 	public T get(String id) {
 		T item = cache.get(id);
-		if (item == null) {
+		if (item != null || synced) {
+			if (item != null) {
+				LOGGER.info("Retrieved object: " + item.getClass().getSimpleName() + ". [ " + item + " ]");
+			}
+		} else {
 			item = wrappedRepository.get(id);
 			if (item != null) {
 				cache.put(id, item);
 			}
-		} else {
-			LOGGER.info("Retrieved object: " + item.getClass().getSimpleName() + ". [ " + item + " ]");
 		}
 		return item;
 	}
@@ -89,6 +91,7 @@ public class CacheWrapperRepository<T extends Identifiable> implements Repositor
 	public void removeAll() {
 		wrappedRepository.removeAll();
 		cache.clear();
+		synced = true;
 	}
 
 	@Override
@@ -112,6 +115,7 @@ public class CacheWrapperRepository<T extends Identifiable> implements Repositor
 			return items;
 		} else {
 			List<T> items = wrappedRepository.getAll();
+			cache.clear();
 			for (T each : items) {
 				cache.put(each.getId(), each);
 			}
@@ -176,16 +180,19 @@ public class CacheWrapperRepository<T extends Identifiable> implements Repositor
 
 	@Override
 	public T getUniqueInstance() {
-		if (!cache.isEmpty()) {
-			return cache.values().iterator().next();
+		if (!cache.isEmpty() || synced) {
+			return cache.isEmpty() ? null : cache.values().iterator().next();
 		} else {
 			T item = wrappedRepository.getUniqueInstance();
-			cache.put(item.getId(), item);
+			if (item != null) {
+				cache.put(item.getId(), item);
+			}
 			return item;
 		}
 	}
 
 	public void clearCache() {
 		cache.clear();
+		synced = false;
 	}
 }

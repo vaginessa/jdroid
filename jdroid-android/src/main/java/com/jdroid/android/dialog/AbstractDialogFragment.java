@@ -2,6 +2,7 @@ package com.jdroid.android.dialog;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.Toolbar;
@@ -16,11 +17,8 @@ import com.jdroid.android.application.AppModule;
 import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.fragment.FragmentDelegate;
 import com.jdroid.android.fragment.FragmentHelper;
-import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.fragment.FragmentIf;
 import com.jdroid.android.loading.FragmentLoading;
-import com.jdroid.android.usecase.AbstractUseCase;
-import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.exception.AbstractException;
 
 public class AbstractDialogFragment extends DialogFragment implements FragmentIf {
@@ -123,17 +121,20 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	public View inflate(int resource) {
 		return fragmentHelper.inflate(resource);
 	}
-	
+
+	@MainThread
 	@Override
 	public void onStartUseCase() {
 		fragmentHelper.onStartUseCase();
 	}
-	
+
+	@MainThread
 	@Override
 	public void onUpdateUseCase() {
 		fragmentHelper.onUpdateUseCase();
 	}
-	
+
+	@MainThread
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		fragmentHelper.onFinishFailedUseCase(abstractException);
@@ -143,7 +144,8 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	public ErrorDisplayer createErrorDisplayer(AbstractException abstractException) {
 		return fragmentHelper.createErrorDisplayer(abstractException);
 	}
-	
+
+	@MainThread
 	@Override
 	public void onFinishUseCase() {
 		fragmentHelper.onFinishUseCase();
@@ -168,16 +170,6 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 	public <E> E getArgument(String key, E defaultValue) {
 		return fragmentHelper.getArgument(key, defaultValue);
 	}
-	
-	@Override
-	public void executeUseCase(AbstractUseCase useCase) {
-		fragmentHelper.executeUseCase(useCase);
-	}
-	
-	@Override
-	public void executeUseCase(AbstractUseCase useCase, Long delaySeconds) {
-		fragmentHelper.executeUseCase(useCase, delaySeconds);
-	}
 
 	@Override
 	public void beforeInitAppBar(Toolbar appBar) {
@@ -194,25 +186,6 @@ public class AbstractDialogFragment extends DialogFragment implements FragmentIf
 		return fragmentHelper.getAppBar();
 	}
 
-	@Override
-	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener) {
-		fragmentHelper.registerUseCase(useCase, listener);
-	}
-	
-	@Override
-	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener,
-								UseCaseTrigger useCaseTrigger) {
-		fragmentHelper.registerUseCase(useCase, listener, useCaseTrigger);
-	}
-	
-	@Override
-	public void unregisterUseCase(AbstractUseCase useCase, UseCaseListener listener) {
-		fragmentHelper.unregisterUseCase(useCase, listener);
-	}
-	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getActivityIf()
-	 */
 	@Override
 	public ActivityIf getActivityIf() {
 		return fragmentHelper.getActivityIf();

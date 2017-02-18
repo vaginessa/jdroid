@@ -6,20 +6,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
+import com.jdroid.android.recycler.FooterRecyclerViewType;
+import com.jdroid.android.recycler.HeaderRecyclerViewType;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
 import com.jdroid.android.recycler.RecyclerViewType;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.usecase.SampleItemsUseCase;
+import com.jdroid.android.usecase.UseCaseHelper;
+import com.jdroid.android.usecase.UseCaseTrigger;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.IdGenerator;
 
 import java.util.List;
 
 public class ComplexRecyclerFragment extends AbstractRecyclerFragment {
-
-	private RecyclerViewAdapter adapter;
 
 	private SampleItemsUseCase sampleItemsUseCase;
 
@@ -33,26 +34,20 @@ public class ComplexRecyclerFragment extends AbstractRecyclerFragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		registerUseCase(sampleItemsUseCase, this, FragmentHelper.UseCaseTrigger.ONCE);
+		UseCaseHelper.registerUseCase(sampleItemsUseCase, this, UseCaseTrigger.ONCE);
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
-		unregisterUseCase(sampleItemsUseCase, this);
+		UseCaseHelper.unregisterUseCase(sampleItemsUseCase, this);
 	}
 
 	@Override
 	public void onFinishUseCase() {
-		executeOnUIThread(new Runnable() {
-			@Override
-			public void run() {
-				List<RecyclerViewType> recyclerViewTypes = Lists.<RecyclerViewType>newArrayList(new StringRecyclerViewType(), new IntegerRecyclerViewType(), new BooleanRecyclerViewType());
-				adapter = new RecyclerViewAdapter(recyclerViewTypes, sampleItemsUseCase.getComplexItems());
-				setAdapter(adapter);
-				dismissLoading();
-			}
-		});
+		List<RecyclerViewType> recyclerViewTypes = Lists.<RecyclerViewType>newArrayList(new StringRecyclerViewType(), new IntegerRecyclerViewType(), new BooleanRecyclerViewType());
+		setAdapter(new RecyclerViewAdapter(recyclerViewTypes, sampleItemsUseCase.getComplexItems()));
+		dismissLoading();
 	}
 
 	@Override
@@ -63,8 +58,38 @@ public class ComplexRecyclerFragment extends AbstractRecyclerFragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.add:
-				adapter.addItem(IdGenerator.getIntId().toString());
+			case R.id.addItem:
+				getAdapter().addItem(IdGenerator.getIntId().toString());
+				return true;
+			case R.id.addItems:
+				getAdapter().addItems(Lists.newArrayList(IdGenerator.getIntId().toString(), IdGenerator.getIntId().toString(), IdGenerator.getIntId().toString()));
+				return true;
+			case R.id.clearItems:
+				getAdapter().clear();
+				return true;
+			case R.id.removeFirstItem:
+				getAdapter().removeItemByPosition(0);
+				return true;
+			case R.id.removeSecondItem:
+				getAdapter().removeItemByPosition(1);
+				return true;
+			case R.id.addHeader:
+				getAdapter().setHeader(R.layout.header_item);
+				return true;
+			case R.id.addClickableHeader:
+				getAdapter().setHeader(new SampleHeaderRecyclerViewType());
+				return true;
+			case R.id.removeHeader:
+				getAdapter().removeHeader();
+				return true;
+			case R.id.addFooter:
+				getAdapter().setFooter(R.layout.footer_item);
+				return true;
+			case R.id.addClickableFooter:
+				getAdapter().setFooter(new SampleFooterRecyclerViewType());
+				return true;
+			case R.id.removeFooter:
+				getAdapter().removeFooter();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -107,7 +132,7 @@ public class ComplexRecyclerFragment extends AbstractRecyclerFragment {
 
 		@Override
 		public void onItemSelected(String item, View view) {
-			adapter.removeItem(item);
+			getAdapter().removeItem(item);
 		}
 	}
 
@@ -145,8 +170,8 @@ public class ComplexRecyclerFragment extends AbstractRecyclerFragment {
 		}
 
 		@Override
-		protected Boolean isClickable() {
-			return false;
+		public boolean isSelectable() {
+			return true;
 		}
 
 		@Override
@@ -205,6 +230,52 @@ public class ComplexRecyclerFragment extends AbstractRecyclerFragment {
 
 		public BooleanViewHolder(View itemView) {
 			super(itemView);
+		}
+	}
+
+	public class SampleHeaderRecyclerViewType extends HeaderRecyclerViewType {
+
+		@Override
+		protected Integer getLayoutResourceId() {
+			return R.layout.clickable_header_item;
+		}
+
+		@Override
+		protected Boolean isClickable() {
+			return true;
+		}
+
+		@Override
+		public void onItemSelected(HeaderItem headerItem, View view) {
+			getAdapter().removeItem(headerItem);
+		}
+
+		@Override
+		public AbstractRecyclerFragment getAbstractRecyclerFragment() {
+			return ComplexRecyclerFragment.this;
+		}
+	}
+
+	public class SampleFooterRecyclerViewType extends FooterRecyclerViewType {
+
+		@Override
+		protected Integer getLayoutResourceId() {
+			return R.layout.clickable_footer_item;
+		}
+
+		@Override
+		protected Boolean isClickable() {
+			return true;
+		}
+
+		@Override
+		public void onItemSelected(FooterItem footerItem, View view) {
+			getAdapter().removeItem(footerItem);
+		}
+
+		@Override
+		public AbstractRecyclerFragment getAbstractRecyclerFragment() {
+			return ComplexRecyclerFragment.this;
 		}
 	}
 }

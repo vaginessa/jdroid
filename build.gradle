@@ -14,7 +14,7 @@ allprojects {
 	ext.RESOURCE_FILES_TO_SKIP_PREFIX_VALIDATION = ["analytics.xml", "com_crashlytics_export_strings.xml"]
 
 	ext.VERSION_MAJOR = 0
-	ext.VERSION_MINOR = 12
+	ext.VERSION_MINOR = 13
 	ext.VERSION_PATCH = 0
 	ext.VERSION_CLASSIFIER = isSnapshot ? "SNAPSHOT" : null
 
@@ -59,7 +59,7 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-java-github-connector:0.9.0'
+		classpath 'com.jdroidframework:jdroid-java-github:0.9.3'
 	}
 }
 
@@ -67,21 +67,17 @@ group = 'com.jdroidframework'
 
 ext.jdroidVersion = project.version
 
+ext.jdroidPluginsVersion = '0.14.0-SNAPSHOT'
+
 // https://developers.google.com/android/guides/releases
 ext.googlePlayServicesVersion = '10.0.1'
 
 // https://developer.android.com/topic/libraries/support-library/revisions.html
-ext.androidSupportVersion = '25.1.0'
+ext.androidSupportVersion = '25.1.1'
 
 ext.PACKAGING = null
 
 subprojects {
-
-	buildscript {
-		dependencies {
-			classpath 'com.jdroidframework:jdroid-gradle-plugin:0.13.0-SNAPSHOT'
-		}
-	}
 
 	apply plugin: 'maven'
 	apply plugin: 'signing'
@@ -91,7 +87,7 @@ subprojects {
 	group = rootProject.group
 
 	Boolean localUpload = getBooleanProp('LOCAL_UPLOAD', true)
-	def localMavenRepo = getProp('LOCAL_MAVEN_REPO')
+	String localMavenRepo = getProp('LOCAL_MAVEN_REPO')
 
 	if (localUpload && localMavenRepo == null) {
 		project.logger.warn("LOCAL_MAVEN_REPO property is not defined. Skipping uploadArchives configuration")

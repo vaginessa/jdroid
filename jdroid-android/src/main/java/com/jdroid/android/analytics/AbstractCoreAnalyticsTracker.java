@@ -1,6 +1,8 @@
 package com.jdroid.android.analytics;
 
 import android.app.Activity;
+import android.net.Uri;
+import android.os.Bundle;
 
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
@@ -26,7 +28,12 @@ public abstract class AbstractCoreAnalyticsTracker implements CoreAnalyticsTrack
 	}
 
 	@Override
-	public void onActivityCreate(Activity activity) {
+	public void onFirstActivityCreate(Activity activity) {
+		// Do nothing
+	}
+
+	@Override
+	public void onActivityCreate(Activity activity, Bundle savedInstanceState) {
 		// Do nothing
 	}
 
@@ -71,7 +78,7 @@ public abstract class AbstractCoreAnalyticsTracker implements CoreAnalyticsTrack
 	}
 	
 	@Override
-	public void trackUriOpened(String screenName, String referrer) {
+	public void trackUriOpened(String screenName, Uri uri, String referrer) {
 		// Do Nothing
 	}
 	

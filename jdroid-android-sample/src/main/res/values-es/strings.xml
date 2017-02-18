@@ -28,7 +28,10 @@
 	<!-- Use Cases -->
 	<string name="useCases">Use Cases</string>
 	<string name="execute">Execute</string>
-	<string name="fail">Fail</string>
+	<string name="failExecution">Fail Execution</string>
+	<string name="failStartNotification">Fail Start Notification</string>
+	<string name="failFinishNotification">Fail Finish Notification</string>
+	<string name="failFinishFailedNotification">Fail Finish Failed Notification</string>
 	<string name="noListener">No Listener (Reload fragment if you change this)</string>
 	<string name="onStartUseCase">Starting Use Case</string>
 	<string name="onFinishedUseCase">On Finished Use Case</string>
@@ -37,6 +40,7 @@
 	<string name="onceUseCaseTrigger">Once Use Case Trigger</string>
 	<string name="alwaysUseCaseTrigger">Always Use Case Trigger</string>
 	<string name="useCaseTrigger">Use Case Trigger (Reload fragment if you change this)</string>
+	<string name="delay">Delay (seconds)</string>
 
 	<!-- Floating Action Button -->
 
@@ -147,11 +151,14 @@
 	<!-- Toasts -->
 	<string name="toasts">Toasts</string>
 	<string name="displayToastFromUIThread">Display Toast From UI Thread</string>
+	<string name="toastFromUIThread">Toast From UI Thread</string>
 	<string name="displayToastFromWorkerThread">Display Toast From Worker Thread</string>
+	<string name="toastFromWorkerThread">Toast From Worker Thread</string>
 
 	<!-- Tablets -->
 	<string name="tablets">Tablets</string>
 	<string name="leftAction">Left Action</string>
+	<string name="rightAction">Right Action</string>
 
 	<!-- Twitter -->
 	<string name="twitter">Twitter</string>
@@ -178,6 +185,7 @@
 	<string name="dismissLoading">Dismiss Loading</string>
 	<string name="nonBlockingLoading">Non Blocking Loading</string>
 	<string name="swipeRefresLoading">Swipe Refresh Loading</string>
+	<string name="fail">Fail</string>
 
 	<!-- Hero -->
 	<string name="hero">Hero &amp; Parallax</string>
@@ -194,6 +202,17 @@
 	<string name="searchPaginatedRecycler">Search Paginated Recycler</string>
 	<string name="autofitGridLayoutRecycler">Autofit Grid Recycler</string>
 	<string name="noResults">No Results</string>
+	<string name="addItem">Add Item</string>
+	<string name="addItems">Add Items</string>
+	<string name="removeFirstItem">Remove First Item</string>
+	<string name="removeSecondItem">Remove Second Item</string>
+	<string name="addHeader">Add header</string>
+	<string name="addClickableHeader">Add clickable header</string>
+	<string name="removeHeader">Remove header</string>
+	<string name="addFooter">Add footer</string>
+	<string name="addClickableFooter">Add clickable footer</string>
+	<string name="removeFooter">Remove footer</string>
+	<string name="clearItems">Clear Items</string>
 
 	<!-- SQLite -->
 	<string name="sqlite">SQLite</string>

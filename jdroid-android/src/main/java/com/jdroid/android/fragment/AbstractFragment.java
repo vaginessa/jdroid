@@ -3,6 +3,7 @@ package com.jdroid.android.fragment;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
@@ -17,10 +18,7 @@ import com.jdroid.android.activity.ActivityIf;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.exception.ErrorDisplayer;
-import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.FragmentLoading;
-import com.jdroid.android.usecase.AbstractUseCase;
-import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.android.view.NotifyingScrollView;
 import com.jdroid.android.view.ParallaxScrollView;
 import com.jdroid.java.exception.AbstractException;
@@ -222,17 +220,20 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	public View inflate(int resource) {
 		return fragmentHelper.inflate(resource);
 	}
-	
+
+	@MainThread
 	@Override
 	public void onStartUseCase() {
 		fragmentHelper.onStartUseCase();
 	}
-	
+
+	@MainThread
 	@Override
 	public void onUpdateUseCase() {
 		fragmentHelper.onUpdateUseCase();
 	}
-	
+
+	@MainThread
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		fragmentHelper.onFinishFailedUseCase(abstractException);
@@ -242,15 +243,13 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	public ErrorDisplayer createErrorDisplayer(AbstractException abstractException) {
 		return fragmentHelper.createErrorDisplayer(abstractException);
 	}
-	
+
+	@MainThread
 	@Override
 	public void onFinishUseCase() {
 		fragmentHelper.onFinishUseCase();
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeOnUIThread(java.lang.Runnable)
-	 */
 	@Override
 	public void executeOnUIThread(Runnable runnable) {
 		fragmentHelper.executeOnUIThread(runnable);
@@ -272,16 +271,6 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	}
 	
 	@Override
-	public void executeUseCase(AbstractUseCase useCase) {
-		fragmentHelper.executeUseCase(useCase);
-	}
-	
-	@Override
-	public void executeUseCase(AbstractUseCase useCase, Long delaySeconds) {
-		fragmentHelper.executeUseCase(useCase, delaySeconds);
-	}
-	
-	@Override
 	public void beforeInitAppBar(Toolbar appBar) {
 		fragmentHelper.beforeInitAppBar(appBar);
 	}
@@ -296,22 +285,6 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 		return fragmentHelper.getAppBar();
 	}
 
-	@Override
-	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener) {
-		fragmentHelper.registerUseCase(useCase, listener);
-	}
-	
-	@Override
-	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener,
-								UseCaseTrigger useCaseTrigger) {
-		fragmentHelper.registerUseCase(useCase, listener, useCaseTrigger);
-	}
-	
-	@Override
-	public void unregisterUseCase(AbstractUseCase useCase, UseCaseListener listener) {
-		fragmentHelper.unregisterUseCase(useCase, listener);
-	}
-	
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getActivityIf()
 	 */

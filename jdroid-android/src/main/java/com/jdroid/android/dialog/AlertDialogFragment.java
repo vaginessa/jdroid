@@ -93,9 +93,6 @@ public class AlertDialogFragment extends AbstractDialogFragment {
 		alertDialogFragment.show(fragmentManager, dialogTag);
 	}
 	
-	/**
-	 * @see com.jdroid.android.dialog.AbstractDialogFragment#onCreate(android.os.Bundle)
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
