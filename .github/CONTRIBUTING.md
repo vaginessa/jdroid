@@ -93,18 +93,19 @@ included in the project:
 
    ```bash
    # Clone your fork of the repo into the current directory
-   git clone https://github.com/<your-username>/jdroid.git
+   git clone git@github.com:<your-username>/jdroid.git
    # Navigate to the newly cloned directory
    cd jdroid
    # Assign the original repo to a remote called "upstream"
-   git remote add upstream https://github.com/maxirosson/jdroid.git
+   git remote add upstream git@github.com:maxirosson/jdroid.git
    ```
 
 2. If you cloned a while ago, get the latest changes from upstream:
 
    ```bash
-   git checkout master
-   git pull upstream master
+git pull --all
+git co {BRANCH}
+git pull upstream {BRANCH}
    ```
 
 3. Create a new topic branch (off the main project development branch) to
