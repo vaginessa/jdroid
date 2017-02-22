@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.intent.IntentUtils;
 import com.jdroid.android.utils.AppUtils;
+import com.jdroid.android.widget.WidgetHelper;
 import com.jdroid.java.utils.RandomUtils;
 import com.jdroid.java.utils.StringUtils;
 
@@ -69,7 +70,7 @@ public class UriUtils {
 				uri = Uri.parse(intent.getStringExtra(ORIGINAL_URI));
 			}
 		}
-		return uri != null && uri.getScheme().equals(NOTIFICATION_SCHEME) ? null : uri;
+		return uri != null && (uri.getScheme().equals(NOTIFICATION_SCHEME) || uri.getScheme().equals(WidgetHelper.WIDGET_SCHEME)) ? null : uri;
 	}
 
 	public static Uri getUri(Activity activity) {

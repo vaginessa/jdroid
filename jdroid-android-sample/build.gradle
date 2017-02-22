@@ -144,8 +144,6 @@ android {
 
 		jdroid.setBuildConfigString(defaultConfig, "GOOGLE_SERVER_CLIENT_ID", "852072465140-ksbqqoidt2jl2nqqvffnc6ic07fqb6g8.apps.googleusercontent.com")
 
-		jdroid.setBuildConfigBoolean(defaultConfig, "CRASHLYTICS_ENABLED", true)
-
 		jdroid.setBuildConfigString(defaultConfig, "LOCAL_IP")
 
 		jdroid.setBuildConfigString(defaultConfig, "INSTALLATION_SOURCE", "GooglePlay")
