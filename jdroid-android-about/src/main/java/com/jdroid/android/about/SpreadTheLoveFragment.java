@@ -190,10 +190,11 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 		if (displayGooglePlusOneButton()) {
 			PlusOneButton plusOneButton = findView(R.id.plusOneButton);
 			googlePlusOneButtonHelper = new GooglePlusOneButtonHelper(this, plusOneButton);
-			if (!GooglePlayServicesUtils.isGooglePlayServicesAvailable(getActivity())) {
+			if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(getActivity())) {
+				displayShareTitle = true;
+			} else {
 				findView(R.id.plusOneSection).setVisibility(View.GONE);
 			}
-			displayShareTitle = true;
 		} else {
 			findView(R.id.plusOneSection).setVisibility(View.GONE);
 		}

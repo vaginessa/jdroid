@@ -8,6 +8,7 @@ import android.support.annotation.WorkerThread;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigValue;
@@ -44,32 +45,39 @@ public class FirebaseRemoteConfigHelper {
 	@WorkerThread
 	@Internal
 	static void init() {
-		firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
 
-		FirebaseRemoteConfigSettings.Builder configSettingsBuilder = new FirebaseRemoteConfigSettings.Builder();
-		configSettingsBuilder.setDeveloperModeEnabled(!AbstractApplication.get().getAppContext().isProductionEnvironment());
+		try {
+			FirebaseApp.initializeApp(AbstractApplication.get());
 
-		firebaseRemoteConfig.setConfigSettings(configSettingsBuilder.build());
+			firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
 
-		List<RemoteConfigParameter> remoteConfigParameters = AbstractApplication.get().getRemoteConfigParameters();
-		if (remoteConfigParameters != null) {
-			Map<String, Object> defaults = Maps.newHashMap();
-			for (RemoteConfigParameter each : remoteConfigParameters) {
-				Object defaultValue = each.getDefaultValue();
-				if (defaultValue != null) {
-					defaults.put(each.getKey(), defaultValue);
+			FirebaseRemoteConfigSettings.Builder configSettingsBuilder = new FirebaseRemoteConfigSettings.Builder();
+			configSettingsBuilder.setDeveloperModeEnabled(!AbstractApplication.get().getAppContext().isProductionEnvironment());
+
+			firebaseRemoteConfig.setConfigSettings(configSettingsBuilder.build());
+
+			List<RemoteConfigParameter> remoteConfigParameters = AbstractApplication.get().getRemoteConfigParameters();
+			if (remoteConfigParameters != null) {
+				Map<String, Object> defaults = Maps.newHashMap();
+				for (RemoteConfigParameter each : remoteConfigParameters) {
+					Object defaultValue = each.getDefaultValue();
+					if (defaultValue != null) {
+						defaults.put(each.getKey(), defaultValue);
+					}
 				}
+				firebaseRemoteConfig.setDefaults(defaults);
 			}
-			firebaseRemoteConfig.setDefaults(defaults);
-		}
 
-		if (!AbstractApplication.get().getAppContext().isProductionEnvironment()) {
-			sharedPreferencesHelper = SharedPreferencesHelper.get(FirebaseRemoteConfigHelper.class.getSimpleName());
-			mocks  = (Map<String, String>)sharedPreferencesHelper.loadAllPreferences();
-			mocksEnabled = sharedPreferencesHelper.loadPreferenceAsBoolean(MOCKS_ENABLED, false);
-		}
+			if (!AbstractApplication.get().getAppContext().isProductionEnvironment()) {
+				sharedPreferencesHelper = SharedPreferencesHelper.get(FirebaseRemoteConfigHelper.class.getSimpleName());
+				mocks  = (Map<String, String>)sharedPreferencesHelper.loadAllPreferences();
+				mocksEnabled = sharedPreferencesHelper.loadPreferenceAsBoolean(MOCKS_ENABLED, false);
+			}
 
-		fetch(DEFAULT_FETCH_EXPIRATION, true);
+			fetch(DEFAULT_FETCH_EXPIRATION, true);
+		} catch (Exception e) {
+			AbstractApplication.get().getExceptionHandler().logHandledException("Error initializing Firebase Remote Config", e);
+		}
 	}
 
 	@Internal

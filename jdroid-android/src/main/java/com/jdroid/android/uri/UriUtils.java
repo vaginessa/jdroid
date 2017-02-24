@@ -66,8 +66,9 @@ public class UriUtils {
 	public static Uri getUri(Intent intent) {
 		Uri uri = intent.getData();
 		if (uri != null) {
-			if (intent.hasExtra(ORIGINAL_URI)) {
-				uri = Uri.parse(intent.getStringExtra(ORIGINAL_URI));
+			String originalUri = intent.getStringExtra(ORIGINAL_URI);
+			if (originalUri != null) {
+				uri = Uri.parse(originalUri);
 			}
 		}
 		return uri != null && (uri.getScheme().equals(NOTIFICATION_SCHEME) || uri.getScheme().equals(WidgetHelper.WIDGET_SCHEME)) ? null : uri;
