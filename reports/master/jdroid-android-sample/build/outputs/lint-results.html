@@ -194,7 +194,7 @@ document.getElementById(id+'Link').style.display = 'none';
 <body>
 <h1>Lint Report</h1>
 <div class="titleSeparator"></div>
-Check performed at Thu Feb 23 07:56:34 UTC 2017.<br/>
+Check performed at Fri Feb 24 06:28:00 UTC 2017.<br/>
 0 errors and 46 warnings found:<br/><br/>
 <table class="overview">
 <tr><td></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
@@ -324,13 +324,13 @@ Note: This check does not only apply to attributes. For example, some tags can b
 <div class="id"><a href="#" title="Return to top">UnknownIdInLayout: Reference to an id that is not in the current layout</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
-<span class="location"><a href="../../src/main/res/layout/hero_fragment.xml">../../src/main/res/layout/hero_fragment.xml</a>:6</span>: <span class="message">The id "<code>adViewContainer</code>" is not referring to any views in this layout</span><br /><pre class="errorlines">
-<span class="lineno">   3</span> 				android:layout_height="match_parent">
-<span class="lineno">   4</span> 
-<span class="lineno">   5</span> 	&lt;com.jdroid.android.view.ParallaxScrollView android:id="@+id/scrollView"
-<span class="lineno">   6</span> 												android:layout_width="match_parent" android:layout_height="match_parent" <span class="errorspan">android:layout_above="@+id/adViewContainer"></span>
-<span class="lineno">   7</span> 
-<span class="lineno">   8</span> 		&lt;FrameLayout android:layout_height="wrap_content" android:layout_width="match_parent">
+<span class="location"><a href="../../src/main/res/layout/hero_fragment.xml">../../src/main/res/layout/hero_fragment.xml</a>:7</span>: <span class="message">The id "<code>adViewContainer</code>" is not referring to any views in this layout</span><br /><pre class="errorlines">
+<span class="lineno">   4</span> 				android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
+<span class="lineno">   5</span> 
+<span class="lineno">   6</span> 	&lt;com.jdroid.android.view.ParallaxScrollView android:id="@+id/scrollView"
+<span class="lineno">   7</span> 												android:layout_width="match_parent" android:layout_height="match_parent" <span class="errorspan">android:layout_above="@+id/adViewContainer"></span>
+<span class="lineno">   8</span> 
+<span class="lineno">   9</span> 		&lt;FrameLayout android:layout_height="wrap_content" android:layout_width="match_parent">
 </pre>
 </div>
 <div class="metadata">Priority: 5 / 10<br/>
@@ -676,13 +676,13 @@ If you really want to keep the text field generic, you can suppress this warning
 <div class="id"><a href="#" title="Return to top">ContentDescription: Image without <code>contentDescription</code></a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
-<span class="location"><a href="../../src/main/res/layout/hero_fragment.xml">../../src/main/res/layout/hero_fragment.xml</a>:13</span>: <span class="message">[Accessibility] Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
-<span class="lineno">  10</span> 			&lt;FrameLayout android:id="@+id/heroImageContainer" android:layout_width="match_parent"
-<span class="lineno">  11</span> 						 android:layout_height="wrap_content">
-<span class="lineno">  12</span> 
-<span class="lineno">  13</span> 				<span class="errorspan">&lt;ImageView android:id="@+id/heroImage" android:layout_height="250dp" android:layout_width="match_parent"</span>
-<span class="lineno">  14</span> 						   android:scaleType="centerCrop" android:src="@drawable/hero" />
-<span class="lineno">  15</span> 
+<span class="location"><a href="../../src/main/res/layout/hero_fragment.xml">../../src/main/res/layout/hero_fragment.xml</a>:14</span>: <span class="message">[Accessibility] Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="lineno">  11</span> 			&lt;FrameLayout android:id="@+id/heroImageContainer" android:layout_width="match_parent"
+<span class="lineno">  12</span> 						 android:layout_height="wrap_content">
+<span class="lineno">  13</span> 
+<span class="lineno">  14</span> 				<span class="errorspan">&lt;ImageView android:id="@+id/heroImage" android:layout_height="250dp" android:layout_width="match_parent"</span>
+<span class="lineno">  15</span> 						   android:scaleType="centerCrop" app:srcCompat="@drawable/hero" />
+<span class="lineno">  16</span> 
 </pre>
 <span class="location"><a href="../../src/main/res/layout/imageloader_fragment.xml">../../src/main/res/layout/imageloader_fragment.xml</a>:5</span>: <span class="message">[Accessibility] Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
 <span class="lineno">   2</span> &lt;RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"

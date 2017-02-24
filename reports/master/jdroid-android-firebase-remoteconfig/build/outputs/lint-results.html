@@ -194,7 +194,7 @@ document.getElementById(id+'Link').style.display = 'none';
 <body>
 <h1>Lint Report</h1>
 <div class="titleSeparator"></div>
-Check performed at Thu Feb 23 07:54:06 UTC 2017.<br/>
+Check performed at Fri Feb 24 06:25:44 UTC 2017.<br/>
 0 errors and 11 warnings found:<br/><br/>
 <table class="overview">
 <tr><td></td><td class="categoryColumn"><a href="#Performance">Performance</a>
@@ -226,13 +226,13 @@ Check performed at Thu Feb 23 07:54:06 UTC 2017.<br/>
 <div class="id"><a href="#" title="Return to top">StaticFieldLeak: Static Field Leaks</a><div class="issueSeparator"></div>
 </div>
 <div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigHelper.java">../../src/main/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigHelper.java</a>:34</span>: <span class="message">Do not place Android context classes in static fields (static reference to <code>FirebaseRemoteConfig</code> which has field <code>mContext</code> pointing to <code>Context</code>); this is a memory leak (and also breaks Instant Run)</span><br /><pre class="errorlines">
-<span class="lineno">  31</span> 
-<span class="lineno">  32</span> 	private static final String MOCKS_ENABLED = "firebase.remote.config.mocks.enabled";
-<span class="lineno">  33</span> 
-<span class="lineno">  34</span> 	<span class="errorspan">private static FirebaseRemoteConfig firebaseRemoteConfig;</span>
-<span class="lineno">  35</span> 
-<span class="lineno">  36</span> 	private static final long DEFAULT_FETCH_EXPIRATION = DateUtils.MILLIS_PER_HOUR * 12;
+<span class="location"><a href="../../src/main/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigHelper.java">../../src/main/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigHelper.java</a>:35</span>: <span class="message">Do not place Android context classes in static fields (static reference to <code>FirebaseRemoteConfig</code> which has field <code>mContext</code> pointing to <code>Context</code>); this is a memory leak (and also breaks Instant Run)</span><br /><pre class="errorlines">
+<span class="lineno">  32</span> 
+<span class="lineno">  33</span> 	private static final String MOCKS_ENABLED = "firebase.remote.config.mocks.enabled";
+<span class="lineno">  34</span> 
+<span class="lineno">  35</span> 	<span class="errorspan">private static FirebaseRemoteConfig firebaseRemoteConfig;</span>
+<span class="lineno">  36</span> 
+<span class="lineno">  37</span> 	private static final long DEFAULT_FETCH_EXPIRATION = DateUtils.MILLIS_PER_HOUR * 12;
 </pre>
 </div>
 <div class="metadata">Priority: 6 / 10<br/>
