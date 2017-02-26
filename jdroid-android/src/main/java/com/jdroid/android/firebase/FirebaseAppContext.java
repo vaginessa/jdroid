@@ -1,6 +1,7 @@
 package com.jdroid.android.firebase;
 
 import com.jdroid.android.context.AbstractAppContext;
+import com.jdroid.android.firebase.testlab.FirebaseTestLab;
 
 public class FirebaseAppContext extends AbstractAppContext {
 
@@ -8,7 +9,7 @@ public class FirebaseAppContext extends AbstractAppContext {
 	 * @return Whether the application has Firebase Analytics enabled or not
 	 */
 	public Boolean isFirebaseAnalyticsEnabled() {
-		return getBuildConfigValue("FIREBASE_ANALYTICS_ENABLED", false);
+		return getBuildConfigBoolean("FIREBASE_ANALYTICS_ENABLED", false) && !FirebaseTestLab.isRunningInstrumentedTests();
 	}
 
 	public String getDynamicLinksDomain() {

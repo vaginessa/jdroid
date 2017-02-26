@@ -1,6 +1,7 @@
 package com.jdroid.android.google.analytics;
 
 import com.jdroid.android.context.AbstractAppContext;
+import com.jdroid.android.firebase.testlab.FirebaseTestLab;
 
 public class GoogleAnalyticsAppContext extends AbstractAppContext {
 
@@ -8,7 +9,7 @@ public class GoogleAnalyticsAppContext extends AbstractAppContext {
 	 * @return Whether the application has Google Analytics enabled or not
 	 */
 	public Boolean isGoogleAnalyticsEnabled() {
-		return getBuildConfigValue("GOOGLE_ANALYTICS_ENABLED", false);
+		return getBuildConfigBoolean("GOOGLE_ANALYTICS_ENABLED", false) && !FirebaseTestLab.isRunningInstrumentedTests();
 	}
 
 	/**
