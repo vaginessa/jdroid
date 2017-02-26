@@ -109,7 +109,6 @@ cd $PROJECT_HOME
 cmd="./gradlew clean"
 
 cmd="${cmd} :jdroid-java:uploadArchives"
-cmd="${cmd} :jdroid-java-http-okhttp:uploadArchives"
 cmd="${cmd} :jdroid-java-firebase-database:uploadArchives"
 
 cmd="${cmd} :jdroid-android:uploadArchives"

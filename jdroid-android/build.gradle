@@ -59,6 +59,10 @@ dependencies {
 	// Module dependencies
 	compile project(':jdroid-java')
 
+	compile ('com.jdroidframework:jdroid-java-http:' + JDROID_HTTP_VERSION) {
+		exclude module: 'jdroid-java'
+	}
+
 	testCompile 'junit:junit:4.12'
 	testCompile "org.mockito:mockito-all:1.10.19"
 

@@ -45,7 +45,6 @@ if [ "$ENABLE_TESTS" = "true" ]
 then
 
 	cmd="${cmd} :jdroid-java:build :jdroid-java:test"
-	cmd="${cmd} :jdroid-java-http-okhttp:build :jdroid-java-http-okhttp:test"
 	cmd="${cmd} :jdroid-java-firebase-database:build :jdroid-java-firebase-database:test"
 
 	if [ "$ENABLE_ANDROID" = "true" ]

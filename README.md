@@ -41,11 +41,6 @@ Library for Android & Java apps
 * Repository Pattern
  * [Firebase Implementation](https://www.firebase.com)
 
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-http-okhttp](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
------------
-* HTTP Service Layer
- * [OkHttp Implementation](http://square.github.io/okhttp/)
-
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
 Libray for Android apps. Support for Android 4.0 (api level 15) and higher versions
@@ -163,6 +158,7 @@ External Jdroid Components
 --------------
 * [jdroid-gradle-plugin](https://github.com/maxirosson/jdroid-gradle-plugin)
 * [jdroid-java-webapp](https://github.com/maxirosson/jdroid-java-webapp)
+* [jdroid-java-http](https://github.com/maxirosson/jdroid-java-http)
 * [jdroid-java-github](https://github.com/maxirosson/jdroid-java-github)
 * [jdroid-java-google-drive](https://github.com/maxirosson/jdroid-java-google-drive)
 * [jdroid-googleplay-publisher-plugin](https://github.com/maxirosson/jdroid-googleplay-publisher-plugin)
