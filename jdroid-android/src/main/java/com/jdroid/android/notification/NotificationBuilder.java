@@ -20,10 +20,10 @@ import android.widget.RemoteViews;
 import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.images.BitmapUtils;
+import com.jdroid.android.uri.ReferrerUtils;
 import com.jdroid.android.uri.UriUtils;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.LocalizationUtils;
-import com.jdroid.android.uri.ReferrerUtils;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.RandomUtils;
 import com.jdroid.java.utils.StringUtils;
@@ -57,6 +57,9 @@ public class NotificationBuilder {
 		return builder.build();
 	}
 
+	/**
+	 * @param icon The drawable resource icon. Vector drawables are not supported
+	 */
 	public void setSmallIcon(@DrawableRes int icon) {
 		builder.setSmallIcon(icon);
 	}
