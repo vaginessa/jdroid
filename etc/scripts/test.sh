@@ -76,7 +76,6 @@ if [ "$UPLOAD" = "true" ]
 then
 
 	cmd="${cmd} :jdroid-java:uploadArchives"
-	cmd="${cmd} :jdroid-java-http-okhttp:uploadArchives"
 	cmd="${cmd} :jdroid-java-firebase-database:uploadArchives"
 
 	if [ "$ENABLE_ANDROID" = "true" ]

@@ -17,7 +17,7 @@ configurations.all {
 
 buildscript {
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-android-plugin:' + jdroidPluginsVersion
+		classpath 'com.jdroidframework:jdroid-gradle-android-plugin:' + JDROID_GRADLE_PLUGIN_VERSION
 	}
 }
 
@@ -33,13 +33,10 @@ dependencies {
 		releaseCompile project(path: ':jdroid-android-firebase-remoteconfig', configuration: 'release')
 	}
 
-	compile 'com.google.firebase:firebase-ads:' + googlePlayServicesVersion
+	compile 'com.google.firebase:firebase-ads:' + GOOGLE_PLAY_SERVICES_VERSION
 
-	testCompile 'junit:junit:4.12'
-	testCompile "org.mockito:mockito-all:1.10.19"
-
-	// https://github.com/robolectric/robolectric
-	testCompile 'org.robolectric:robolectric:3.1'
+	testCompile 'junit:junit:' + JUNIT_VERSION
+	testCompile 'org.robolectric:robolectric:' + ROBOLECTRIC_VERSION
 }
 
 jdroid {

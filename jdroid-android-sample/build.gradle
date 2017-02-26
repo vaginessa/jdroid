@@ -26,7 +26,7 @@ configurations {
 
 buildscript {
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-android-plugin:' + jdroidPluginsVersion
+		classpath 'com.jdroidframework:jdroid-gradle-android-plugin:' + JDROID_GRADLE_PLUGIN_VERSION
 	}
 }
 
@@ -112,11 +112,8 @@ dependencies {
 		exclude module: 'jdroid-java'
 	}
 
-	testCompile 'junit:junit:4.12'
-	testCompile "org.mockito:mockito-core:1.9.5"
-
-	// https://github.com/robolectric/robolectric
-	testCompile 'org.robolectric:robolectric:3.1'
+	testCompile 'junit:junit:' + JUNIT_VERSION
+	testCompile 'org.robolectric:robolectric:' + ROBOLECTRIC_VERSION
 }
 
 
