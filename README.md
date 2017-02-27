@@ -12,8 +12,6 @@ Continuous Integration
 |Staging|[![Build Status](https://api.travis-ci.org/maxirosson/jdroid.svg?branch=staging)](https://travis-ci.org/maxirosson/jdroid)|
 |Production|[![Build Status](https://api.travis-ci.org/maxirosson/jdroid.svg?branch=production)](https://travis-ci.org/maxirosson/jdroid)|
 
-
-
 Components
 --------------
 
@@ -135,7 +133,7 @@ A set of useful shell scripts to
  * Start/stop and deploy on [Apache Tomcat](http://tomcat.apache.org/)
  * Automatically restart [Apache Tomcat](http://tomcat.apache.org/)
 
-External Jdroid Components
+More Jdroid Components
 --------------
 * [jdroid-gradle-plugin](https://github.com/maxirosson/jdroid-gradle-plugin)
 * [jdroid-java-webapp](https://github.com/maxirosson/jdroid-java-webapp)
@@ -145,14 +143,6 @@ External Jdroid Components
 * [jdroid-java-google-drive](https://github.com/maxirosson/jdroid-java-google-drive)
 * [jdroid-googleplay-publisher-plugin](https://github.com/maxirosson/jdroid-googleplay-publisher-plugin)
 * [jdroid-gradle-timer-plugin](https://github.com/maxirosson/jdroid-gradle-timer-plugin)
-
-Apps using jdroid
---------------
-
-|               | Name | Platform |
-| ------------- | ------------- | ------------- |
-| [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/mediafever.png" width="40" height="40"/>](https://play.google.com/store/apps/details?id=com.mediafever&referrer=utm_source%3Djdroid) | Media Fever - Track your movies & series | Android |
-| [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/subtefy.png" width="40" height="40"/>](https://play.google.com/store/apps/details?id=com.subtefy&referrer=utm_source%3Djdroid) | Subtefy - Alertas del Subte | Android |
 
 ## Donations
 Help us to continue with this project:
