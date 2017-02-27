@@ -56,10 +56,20 @@ dependencies {
 	// https://twittersdk.artifactoryonline.com/twittersdk/public/io/fabric/sdk/android/fabric/
 	compile 'io.fabric.sdk.android:fabric:1.3.14'
 
-	// Module dependencies
-	compile 'com.jdroidframework:jdroid-java:' + JDROID_JAVA_VERSION
-	compile ('com.jdroidframework:jdroid-java-http-core:' + JDROID_JAVA_HTTP_VERSION) {
-		exclude module: 'jdroid-java'
+	// Jdroid dependencies
+
+	if (jdroid.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
+		compile project(":jdroid-java-core")
+	} else {
+		compile 'com.jdroidframework:jdroid-java-core:' + JDROID_JAVA_VERSION
+	}
+
+	if (jdroid.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
+		compile project(":jdroid-java-http-core")
+	} else {
+		compile ('com.jdroidframework:jdroid-java-http-core:' + JDROID_JAVA_HTTP_VERSION) {
+			exclude module: 'jdroid-java-core'
+		}
 	}
 
 	testCompile 'junit:junit:' + JUNIT_VERSION

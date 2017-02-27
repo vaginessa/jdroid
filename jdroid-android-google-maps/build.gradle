@@ -30,7 +30,14 @@ dependencies {
 
 	compile 'com.google.android.gms:play-services-maps:' + GOOGLE_PLAY_SERVICES_VERSION
 
-	testCompile 'com.jdroidframework:jdroid-java-http-okhttp:' + JDROID_JAVA_HTTP_VERSION
+	if (jdroid.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
+		testCompile project(":jdroid-java-http-okhttp")
+	} else {
+		testCompile ('com.jdroidframework:jdroid-java-http-okhttp:' + JDROID_JAVA_HTTP_VERSION) {
+			exclude module: 'slf4j-api'
+			exclude module: 'jdroid-java-core'
+		}
+	}
 
 	testCompile 'junit:junit:' + JUNIT_VERSION
 	testCompile 'org.robolectric:robolectric:' + ROBOLECTRIC_VERSION

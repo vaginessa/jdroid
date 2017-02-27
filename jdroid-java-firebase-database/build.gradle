@@ -11,7 +11,11 @@ buildscript {
 
 dependencies {
 
-	compile 'com.jdroidframework:jdroid-java:' + JDROID_JAVA_VERSION
+	if (jdroid.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
+		compile project(":jdroid-java-core")
+	} else {
+		compile 'com.jdroidframework:jdroid-java-core:' + JDROID_JAVA_VERSION
+	}
 
 	// https://www.firebase.com/docs/android/changelog.html
 	compile 'com.firebase:firebase-client-jvm:2.5.2'
