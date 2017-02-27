@@ -11,8 +11,7 @@ buildscript {
 
 dependencies {
 
-	// Module dependencies
-	compile project(':jdroid-java')
+	compile 'com.jdroidframework:jdroid-java:' + JDROID_JAVA_VERSION
 
 	// https://www.firebase.com/docs/android/changelog.html
 	compile 'com.firebase:firebase-client-jvm:2.5.2'

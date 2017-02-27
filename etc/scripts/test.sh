@@ -44,7 +44,6 @@ cmd="./gradlew clean"
 if [ "$ENABLE_TESTS" = "true" ]
 then
 
-	cmd="${cmd} :jdroid-java:build :jdroid-java:test"
 	cmd="${cmd} :jdroid-java-firebase-database:build :jdroid-java-firebase-database:test"
 
 	if [ "$ENABLE_ANDROID" = "true" ]
@@ -75,7 +74,6 @@ fi
 if [ "$UPLOAD" = "true" ]
 then
 
-	cmd="${cmd} :jdroid-java:uploadArchives"
 	cmd="${cmd} :jdroid-java-firebase-database:uploadArchives"
 
 	if [ "$ENABLE_ANDROID" = "true" ]

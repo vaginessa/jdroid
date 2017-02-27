@@ -107,9 +107,8 @@ dependencies {
 		exclude group:'com.firebase', module: 'firebase-client-jvm'
 	}
 
-	compile ('com.jdroidframework:jdroid-java-http-okhttp:' + JDROID_HTTP_VERSION) {
+	compile ('com.jdroidframework:jdroid-java-http-okhttp:' + JDROID_JAVA_HTTP_VERSION) {
 		exclude module: 'slf4j-api'
-		exclude module: 'jdroid-java'
 	}
 
 	testCompile 'junit:junit:' + JUNIT_VERSION

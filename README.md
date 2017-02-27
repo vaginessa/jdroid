@@ -17,25 +17,6 @@ Continuous Integration
 Components
 --------------
 
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
------------
-Library for Android & Java apps
-* HTTP Service Layer
- * GET, POST, PUT, PATCH & DELETE methods
- * Headers appender
- * Response validator
- * Response mocks support
- * GZIP encoding
- * Cache support
-* Parsers
- * [Jackson JSON parser](https://github.com/FasterXML/jackson)
- * Plain text parser
-* JSON marshallers
-* Exception handling
-* Repository Pattern
- * In Memory Implementation 
-* Utilities for Collections, Strings, Dates, Files, Encryption, Threads, [Logging](http://www.slf4j.org/), Validations, Reflection and more
-
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-firebase-database](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
 -----------
 * Repository Pattern
@@ -158,6 +139,7 @@ External Jdroid Components
 --------------
 * [jdroid-gradle-plugin](https://github.com/maxirosson/jdroid-gradle-plugin)
 * [jdroid-java-webapp](https://github.com/maxirosson/jdroid-java-webapp)
+* [jdroid-java](https://github.com/maxirosson/jdroid-java)
 * [jdroid-java-http](https://github.com/maxirosson/jdroid-java-http)
 * [jdroid-java-github](https://github.com/maxirosson/jdroid-java-github)
 * [jdroid-java-google-drive](https://github.com/maxirosson/jdroid-java-google-drive)

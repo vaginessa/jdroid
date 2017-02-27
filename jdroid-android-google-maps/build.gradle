@@ -30,9 +30,7 @@ dependencies {
 
 	compile 'com.google.android.gms:play-services-maps:' + GOOGLE_PLAY_SERVICES_VERSION
 
-	testCompile ('com.jdroidframework:jdroid-java-http-okhttp:' + JDROID_HTTP_VERSION) {
-		exclude module: 'jdroid-java'
-	}
+	testCompile 'com.jdroidframework:jdroid-java-http-okhttp:' + JDROID_JAVA_HTTP_VERSION
 
 	testCompile 'junit:junit:' + JUNIT_VERSION
 	testCompile 'org.robolectric:robolectric:' + ROBOLECTRIC_VERSION
