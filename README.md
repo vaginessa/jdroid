@@ -126,13 +126,6 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 --------------
  * [Fabric TweetUi integration](https://docs.fabric.io/android/twitter/overview.html)
 
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/genericNews.png" width="25" height="25"/> jdroid-scripts](https://github.com/maxirosson/jdroid/wiki/jdroid-Scripts)
---------------
-A set of useful shell scripts to
- * Create a pull request on [Github](https://github.com)
- * Start/stop and deploy on [Apache Tomcat](http://tomcat.apache.org/)
- * Automatically restart [Apache Tomcat](http://tomcat.apache.org/)
-
 More Jdroid Components
 --------------
 * [jdroid-gradle-plugin](https://github.com/maxirosson/jdroid-gradle-plugin)
