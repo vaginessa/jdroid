@@ -102,11 +102,18 @@ dependencies {
 
 	compile 'com.firebase:firebase-client-android:2.5.0'
 
-	compile(project(':jdroid-java-firebase-database')) {
-		exclude module: 'slf4j-api'
-		exclude group:'com.firebase', module: 'firebase-client-jvm'
-		exclude module: 'jdroid-java-core'
-
+	if (jdroid.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
+		compile(project(':jdroid-java-firebase-database')) {
+			exclude module: 'slf4j-api'
+			exclude group: 'com.firebase', module: 'firebase-client-jvm'
+			exclude module: 'jdroid-java-core'
+		}
+	} else {
+		compile('com.jdroidframework:jdroid-java-firebase-database:' + JDROID_JAVA_VERSION) {
+			exclude module: 'slf4j-api'
+			exclude group: 'com.firebase', module: 'firebase-client-jvm'
+			exclude module: 'jdroid-java-core'
+		}
 	}
 
 	if (jdroid.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {

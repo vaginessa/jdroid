@@ -44,8 +44,6 @@ cmd="./gradlew clean"
 if [ "$ENABLE_TESTS" = "true" ]
 then
 
-	cmd="${cmd} :jdroid-java-firebase-database:build :jdroid-java-firebase-database:test"
-
 	if [ "$ENABLE_ANDROID" = "true" ]
 	then
 		cmd="${cmd} :jdroid-android:assemble :jdroid-android:testDebug :jdroid-android:lintDebug"
