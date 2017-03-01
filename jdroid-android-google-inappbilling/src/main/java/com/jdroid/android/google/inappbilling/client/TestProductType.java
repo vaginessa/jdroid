@@ -1,6 +1,6 @@
-package com.jdroid.android.google.inappbilling;
+package com.jdroid.android.google.inappbilling.client;
 
-import com.jdroid.android.google.inappbilling.Product.ItemType;
+import com.jdroid.android.google.inappbilling.client.Product.ItemType;
 
 public enum TestProductType implements ProductType {
 	
@@ -33,41 +33,26 @@ public enum TestProductType implements ProductType {
 		this.productId = productId;
 	}
 	
-	/**
-	 * @see com.jdroid.android.google.inappbilling.ProductType#getProductId()
-	 */
 	@Override
 	public String getProductId() {
 		return productId;
 	}
 	
-	/**
-	 * @see com.jdroid.android.google.inappbilling.ProductType#isConsumable()
-	 */
 	@Override
 	public Boolean isConsumable() {
 		return false;
 	}
 	
-	/**
-	 * @see com.jdroid.android.google.inappbilling.ProductType#getTitleId()
-	 */
 	@Override
 	public Integer getTitleId() {
 		return null;
 	}
 	
-	/**
-	 * @see com.jdroid.android.google.inappbilling.ProductType#getDescriptionId()
-	 */
 	@Override
 	public Integer getDescriptionId() {
 		return null;
 	}
 	
-	/**
-	 * @see com.jdroid.android.google.inappbilling.ProductType#getItemType()
-	 */
 	@Override
 	public ItemType getItemType() {
 		return ItemType.MANAGED;

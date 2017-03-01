@@ -150,6 +150,11 @@
 		<activity android:name="com.jdroid.android.sample.ui.firebase.dynamiclinks.DynamicLinksActivity" android:label="@string/firebaseDynamicLinks"
 			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<!-- Google InAppBilling -->
+
+		<activity android:name="com.jdroid.android.sample.ui.google.inappbilling.GoogleInAppBillingActivity" android:label="@string/inAppBilling"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
 		<!-- Google Maps -->
 
 		<activity android:name="com.jdroid.android.sample.ui.google.maps.GoogleMapsActivity" android:label="@string/googleMaps"

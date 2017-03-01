@@ -1,4 +1,6 @@
-package com.jdroid.android.google.inappbilling;
+package com.jdroid.android.google.inappbilling.ui;
+
+import com.jdroid.android.google.inappbilling.client.Product;
 
 import java.util.List;
 

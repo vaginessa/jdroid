@@ -1,6 +1,6 @@
-package com.jdroid.android.google.inappbilling;
+package com.jdroid.android.google.inappbilling.client;
 
-import com.jdroid.android.google.inappbilling.Purchase.PurchaseState;
+import com.jdroid.android.google.inappbilling.client.utils.Security;
 
 import org.json.JSONException;
 
@@ -92,7 +92,7 @@ public class Product {
 	}
 	
 	public Boolean isPurchaseVerified() {
-		return (purchase != null) && (purchase.getState() == PurchaseState.PURCHASED) && purchase.isVerified();
+		return (purchase != null) && (purchase.getState() == Purchase.PurchaseState.PURCHASED) && purchase.isVerified();
 	}
 	
 	public Boolean isAvailable() {

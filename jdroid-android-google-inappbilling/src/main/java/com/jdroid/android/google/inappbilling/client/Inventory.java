@@ -7,12 +7,13 @@
  * License.
  */
 
-package com.jdroid.android.google.inappbilling;
+package com.jdroid.android.google.inappbilling.client;
+
+import com.jdroid.java.collections.Lists;
+import com.jdroid.java.collections.Maps;
 
 import java.util.List;
 import java.util.Map;
-import com.jdroid.java.collections.Lists;
-import com.jdroid.java.collections.Maps;
 
 /**
  * Represents a block of information about in-app items. An Inventory is returned by such methods as

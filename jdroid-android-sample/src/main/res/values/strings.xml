@@ -135,7 +135,7 @@
 	<string name="userNavDrawer">User Nav Drawer</string>
 
 	<!-- In App Billing -->
-	<string name="inAppBilling">In App Billing</string>
+	<string name="inAppBilling">Google In App Billing</string>
 
 	<!-- Notifications -->
 	<string name="notifications">Notifications</string>

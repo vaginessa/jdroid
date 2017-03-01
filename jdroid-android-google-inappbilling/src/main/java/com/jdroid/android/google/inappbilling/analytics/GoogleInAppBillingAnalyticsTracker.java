@@ -2,7 +2,7 @@ package com.jdroid.android.google.inappbilling.analytics;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.jdroid.android.google.analytics.AbstractGoogleAnalyticsTracker;
-import com.jdroid.android.google.inappbilling.Product;
+import com.jdroid.android.google.inappbilling.client.Product;
 
 public class GoogleInAppBillingAnalyticsTracker extends AbstractGoogleAnalyticsTracker implements InAppBillingAnalyticsTracker {
 

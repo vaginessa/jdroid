@@ -1,10 +1,13 @@
-package com.jdroid.android.google.inappbilling;
+package com.jdroid.android.google.inappbilling.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.jdroid.android.fragment.AbstractFragment;
+import com.jdroid.android.google.inappbilling.InAppBillingAppModule;
+import com.jdroid.android.google.inappbilling.client.Product;
+import com.jdroid.android.google.inappbilling.client.ProductType;
 
 import java.util.List;
 

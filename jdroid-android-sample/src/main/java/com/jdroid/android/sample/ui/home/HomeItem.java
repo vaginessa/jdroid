@@ -18,6 +18,7 @@ import com.jdroid.android.sample.ui.firebase.database.FirebaseDatabaseActivity;
 import com.jdroid.android.sample.ui.firebase.dynamiclinks.DynamicLinksActivity;
 import com.jdroid.android.sample.ui.firebase.fcm.FcmActivity;
 import com.jdroid.android.sample.ui.google.admob.AdsActivity;
+import com.jdroid.android.sample.ui.google.inappbilling.GoogleInAppBillingActivity;
 import com.jdroid.android.sample.ui.google.maps.GoogleMapsActivity;
 import com.jdroid.android.sample.ui.google.playservices.GooglePlayServicesActivity;
 import com.jdroid.android.sample.ui.google.signin.GoogleSignInActivity;
@@ -53,12 +54,12 @@ public enum HomeItem implements ActionItem {
 	FIREBASE_FCM(R.string.fcm, R.drawable.ic_fcm, FcmActivity.class),
 	FIREBASE_INVITES(R.string.appInvite, R.drawable.ic_admob, AppInviteActivity.class),
 	GOOGLE_ADMOB(R.string.adMob, R.drawable.ic_admob, AdsActivity.class),
+	GOOGLE_IN_APP_BILLING(R.string.inAppBilling, R.drawable.ic_inapp_billing, GoogleInAppBillingActivity.class),
 	GOOGLE_MAPS(R.string.googleMaps, R.drawable.ic_maps, GoogleMapsActivity.class),
 	GOOGLE_PLAY_SERVICES(R.string.googlePlayServices, R.drawable.ic_fcm, GooglePlayServicesActivity.class),
 	GOOGLE_SIGN_IN(R.string.jdroid_googleSignIn, R.drawable.ic_sign_in_24dp, GoogleSignInActivity.class),
 	HERO(R.string.hero, R.drawable.ic_photo, HeroActivity.class),
 	HTTP(R.string.http, R.drawable.ic_http, HttpActivity.class),
-	IN_APP_BILLING(R.string.inAppBilling, R.drawable.ic_inapp_billing, ImageLoaderActivity.class),
 	LOADING(R.string.loading, R.drawable.ic_loading, LoadingActivity.class),
 	NAVDRAWER(R.string.navDrawer, R.drawable.ic_nav_drawer, NavDrawerActivity.class),
 	NOTIFICATIONS(R.string.jdroid_notifications, R.drawable.ic_notifications, NotificationsActivity.class),

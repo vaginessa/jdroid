@@ -2,4 +2,6 @@
 <resources>
 	<string name="jdroid_notSupportedInAppBillingError">Your device doesn\'t support in app billing.</string>
 	<string name="jdroid_failedToLoadPurchases">We could\'t load the items to purchase. Please try again later.</string>
+	<string name="jdroid_purchaseThanks">Thanks for your purchase</string>
+	<string name="jdroid_purchased">Purchased</string>
 </resources>

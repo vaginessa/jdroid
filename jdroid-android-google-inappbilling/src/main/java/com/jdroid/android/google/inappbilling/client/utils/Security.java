@@ -7,7 +7,14 @@
  * License.
  */
 
-package com.jdroid.android.google.inappbilling;
+package com.jdroid.android.google.inappbilling.client.utils;
+
+import android.text.TextUtils;
+import android.util.Log;
+
+import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
 
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -17,8 +24,6 @@ import java.security.Signature;
 import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
-import android.text.TextUtils;
-import android.util.Log;
 
 /**
  * Security-related methods. For a secure implementation, all of this code should be implemented on a server that
@@ -27,9 +32,9 @@ import android.util.Log;
  * code to make it harder for an attacker to replace the code with stubs that treat all purchases as verified.
  */
 public class Security {
-	
-	private static final String TAG = "IABUtil/Security";
-	
+
+	private final static Logger LOGGER = LoggerUtils.getLogger(Security.class);
+
 	private static final String KEY_FACTORY_ALGORITHM = "RSA";
 	private static final String SIGNATURE_ALGORITHM = "SHA1withRSA";
 	
@@ -44,7 +49,7 @@ public class Security {
 	 */
 	public static boolean verifyPurchase(String base64PublicKey, String signedData, String signature) {
 		if (TextUtils.isEmpty(signedData) || TextUtils.isEmpty(base64PublicKey) || TextUtils.isEmpty(signature)) {
-			Log.e(TAG, "Purchase verification failed: missing data.");
+			LOGGER.error("Purchase verification failed: missing data.");
 			return false;
 		}
 		
@@ -67,10 +72,10 @@ public class Security {
 		} catch (NoSuchAlgorithmException e) {
 			throw new RuntimeException(e);
 		} catch (InvalidKeySpecException e) {
-			Log.e(TAG, "Invalid key specification.");
+			LOGGER.error("Invalid key specification.");
 			throw new IllegalArgumentException(e);
 		} catch (Base64DecoderException e) {
-			Log.e(TAG, "Base64 decoding failed.");
+			LOGGER.error("Base64 decoding failed.");
 			throw new IllegalArgumentException(e);
 		}
 	}
@@ -91,18 +96,18 @@ public class Security {
 			sig.initVerify(publicKey);
 			sig.update(signedData.getBytes());
 			if (!sig.verify(Base64.decode(signature))) {
-				Log.e(TAG, "Signature verification failed.");
+				LOGGER.error("Signature verification failed.");
 				return false;
 			}
 			return true;
 		} catch (NoSuchAlgorithmException e) {
-			Log.e(TAG, "NoSuchAlgorithmException.");
+			LOGGER.error("NoSuchAlgorithmException.");
 		} catch (InvalidKeyException e) {
-			Log.e(TAG, "Invalid key specification.");
+			LOGGER.error("Invalid key specification.");
 		} catch (SignatureException e) {
-			Log.e(TAG, "Signature exception.");
+			LOGGER.error("Signature exception.");
 		} catch (Base64DecoderException e) {
-			Log.e(TAG, "Base64 decoding failed.");
+			LOGGER.error("Base64 decoding failed.");
 		}
 		return false;
 	}

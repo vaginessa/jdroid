@@ -1,4 +1,4 @@
-package com.jdroid.android.google.inappbilling;
+package com.jdroid.android.google.inappbilling.client;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -16,7 +16,9 @@ import android.text.TextUtils;
 
 import com.android.vending.billing.IInAppBillingService;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.google.inappbilling.Product.ItemType;
+import com.jdroid.android.google.inappbilling.InAppBillingAppModule;
+import com.jdroid.android.google.inappbilling.InAppBillingContext;
+import com.jdroid.android.google.inappbilling.client.Product.ItemType;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.concurrent.ExecutorUtils;

@@ -1,6 +1,6 @@
 package com.jdroid.android.google.inappbilling.analytics;
 
-import com.jdroid.android.google.inappbilling.Product;
+import com.jdroid.android.google.inappbilling.client.Product;
 import com.jdroid.java.analytics.AnalyticsTracker;
 
 public interface InAppBillingAnalyticsTracker extends AnalyticsTracker {

@@ -1,4 +1,4 @@
-package com.jdroid.android.google.inappbilling;
+package com.jdroid.android.google.inappbilling.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,14 @@ import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.DialogErrorDisplayer;
 import com.jdroid.android.fragment.AbstractFragment;
+import com.jdroid.android.google.inappbilling.InAppBillingAppModule;
+import com.jdroid.android.google.inappbilling.client.InAppBillingClient;
+import com.jdroid.android.google.inappbilling.client.InAppBillingClientListener;
+import com.jdroid.android.google.inappbilling.client.InAppBillingErrorCode;
+import com.jdroid.android.google.inappbilling.client.Inventory;
+import com.jdroid.android.google.inappbilling.client.Product;
+import com.jdroid.android.google.inappbilling.client.ProductType;
+import com.jdroid.android.google.inappbilling.R;
 import com.jdroid.java.exception.ErrorCodeException;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -63,9 +71,6 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 		
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onCreate(android.os.Bundle)
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -82,9 +87,6 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 		inAppBillingClient.startSetup();
 	}
 	
-	/**
-	 * @see com.jdroid.android.google.inappbilling.InAppBillingClientListener#onSetupFinished()
-	 */
 	@Override
 	public void onSetupFinished() {
 		inAppBillingClient.queryInventory(managedProductTypes, subscriptionsProductTypes);
@@ -168,9 +170,6 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 		}
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onActivityResult(int, int, android.content.Intent)
-	 */
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (inAppBillingClient != null) {
@@ -185,9 +184,6 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 		}
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.AbstractFragment#onDestroy()
-	 */
 	@Override
 	public void onDestroy() {
 		super.onDestroy();

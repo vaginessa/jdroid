@@ -68,7 +68,7 @@ public class InAppBillingAppModule extends AbstractAppModule {
 
 	@Override
 	public ActivityDelegate createActivityDelegate(AbstractFragmentActivity abstractFragmentActivity) {
-		return new InAppBillingActivityDelegate(abstractFragmentActivity);
+		return isInAppBillingEnabled() ? new InAppBillingActivityDelegate(abstractFragmentActivity) : null;
 	}
 
 	@NonNull

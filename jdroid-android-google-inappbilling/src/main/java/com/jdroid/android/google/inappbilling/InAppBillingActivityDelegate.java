@@ -4,8 +4,11 @@ import android.os.Bundle;
 
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityDelegate;
+import com.jdroid.android.google.inappbilling.ui.InAppBillingHelperFragment;
 
 public class InAppBillingActivityDelegate extends ActivityDelegate {
+
+	private static Boolean inAppBillingLoaded = false;
 
 	public InAppBillingActivityDelegate(AbstractFragmentActivity activity) {
 		super(activity);
@@ -15,6 +18,9 @@ public class InAppBillingActivityDelegate extends ActivityDelegate {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		InAppBillingHelper.onCreate(getActivity(), savedInstanceState);
+		if ((savedInstanceState == null) && InAppBillingAppModule.get().getInAppBillingContext() != null && !inAppBillingLoaded) {
+			InAppBillingHelperFragment.add(getActivity(), InAppBillingHelperFragment.class, true, null);
+			inAppBillingLoaded = true;
+		}
 	}
 }

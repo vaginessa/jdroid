@@ -6,6 +6,8 @@ import android.preference.ListPreference;
 import android.preference.PreferenceGroup;
 
 import com.jdroid.android.debug.PreferencesAppender;
+import com.jdroid.android.google.inappbilling.client.ProductType;
+import com.jdroid.android.google.inappbilling.client.TestProductType;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;

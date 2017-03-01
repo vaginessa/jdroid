@@ -12,15 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.jdroid.android.google.inappbilling;
+package com.jdroid.android.google.inappbilling.client.utils;
 
 /**
  * Exception thrown when encountering an invalid Base64 input character.
- * 
- * @author nelson
  */
 public class Base64DecoderException extends Exception {
-	
+
+	private static final long serialVersionUID = 1L;
+
 	public Base64DecoderException() {
 		super();
 	}
@@ -29,5 +29,4 @@ public class Base64DecoderException extends Exception {
 		super(s);
 	}
 	
-	private static final long serialVersionUID = 1L;
 }

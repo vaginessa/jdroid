@@ -6,6 +6,10 @@ import android.preference.PreferenceManager;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AbstractAppContext;
+import com.jdroid.android.google.inappbilling.client.Inventory;
+import com.jdroid.android.google.inappbilling.client.Product;
+import com.jdroid.android.google.inappbilling.client.ProductType;
+import com.jdroid.android.google.inappbilling.client.TestProductType;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.StringUtils;
 

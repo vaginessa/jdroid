@@ -7,7 +7,7 @@
  * License.
  */
 
-package com.jdroid.android.google.inappbilling;
+package com.jdroid.android.google.inappbilling.client;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -90,9 +90,6 @@ public class Purchase {
 		return verified;
 	}
 	
-	/**
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return "Purchase [orderId=" + orderId + ", productId=" + productId + ", state=" + state + ", developerPayload="

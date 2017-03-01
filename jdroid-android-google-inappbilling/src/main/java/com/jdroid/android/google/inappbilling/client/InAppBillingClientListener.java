@@ -1,4 +1,4 @@
-package com.jdroid.android.google.inappbilling;
+package com.jdroid.android.google.inappbilling.client;
 
 import com.jdroid.java.exception.ErrorCodeException;
 

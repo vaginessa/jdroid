@@ -1,5 +1,6 @@
-package com.jdroid.android.google.inappbilling;
+package com.jdroid.android.google.inappbilling.client;
 
+import com.jdroid.android.google.inappbilling.R;
 import com.jdroid.java.exception.ErrorCode;
 import com.jdroid.java.exception.ErrorCodeException;
 
@@ -95,57 +96,36 @@ public enum InAppBillingErrorCode implements ErrorCode {
 		return errorCode;
 	}
 	
-	/**
-	 * @see com.jdroid.java.exception.ErrorCode#getStatusCode()
-	 */
 	@Override
 	public String getStatusCode() {
 		return null;
 	}
 	
-	/**
-	 * @see com.jdroid.java.exception.ErrorCode#newErrorCodeException(java.lang.Object[])
-	 */
 	@Override
 	public ErrorCodeException newErrorCodeException(Object... errorCodeParameters) {
 		return new ErrorCodeException(this, errorCodeParameters).setTrackable(trackable);
 	}
 	
-	/**
-	 * @see com.jdroid.java.exception.ErrorCode#newErrorCodeException()
-	 */
 	@Override
 	public ErrorCodeException newErrorCodeException() {
 		return new ErrorCodeException(this).setTrackable(trackable);
 	}
 	
-	/**
-	 * @see com.jdroid.java.exception.ErrorCode#newErrorCodeException(java.lang.Throwable)
-	 */
 	@Override
 	public ErrorCodeException newErrorCodeException(Throwable throwable) {
 		return new ErrorCodeException(this, throwable).setTrackable(trackable);
 	}
 	
-	/**
-	 * @see com.jdroid.java.exception.ErrorCode#newErrorCodeException(java.lang.String)
-	 */
 	@Override
 	public ErrorCodeException newErrorCodeException(String message) {
 		return new ErrorCodeException(this, name() + ": " + message).setTrackable(trackable);
 	}
 	
-	/**
-	 * @see com.jdroid.java.exception.ErrorCode#getTitleResId()
-	 */
 	@Override
 	public Integer getTitleResId() {
 		return null;
 	}
 	
-	/**
-	 * @see com.jdroid.java.exception.ErrorCode#getDescriptionResId()
-	 */
 	@Override
 	public Integer getDescriptionResId() {
 		return resourceId;
