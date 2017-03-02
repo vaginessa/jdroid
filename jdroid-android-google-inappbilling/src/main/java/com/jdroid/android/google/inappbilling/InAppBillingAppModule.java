@@ -7,6 +7,7 @@ import com.jdroid.android.activity.ActivityDelegate;
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.debug.PreferencesAppender;
+import com.jdroid.android.google.inappbilling.analytics.FirebaseInAppBillingAnalyticsTracker;
 import com.jdroid.android.google.inappbilling.analytics.InAppBillingAnalyticsSender;
 import com.jdroid.android.google.inappbilling.analytics.InAppBillingAnalyticsTracker;
 import com.jdroid.android.google.inappbilling.analytics.GoogleInAppBillingAnalyticsTracker;
@@ -79,7 +80,7 @@ public class InAppBillingAppModule extends AbstractAppModule {
 
 	@Override
 	public List<? extends AnalyticsTracker> createModuleAnalyticsTrackers() {
-		return Lists.newArrayList(new GoogleInAppBillingAnalyticsTracker());
+		return Lists.newArrayList(new GoogleInAppBillingAnalyticsTracker(), new FirebaseInAppBillingAnalyticsTracker());
 	}
 
 	@NonNull
