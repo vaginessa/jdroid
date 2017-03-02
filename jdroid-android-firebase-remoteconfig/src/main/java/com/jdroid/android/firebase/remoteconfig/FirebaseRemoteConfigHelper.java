@@ -34,7 +34,7 @@ public class FirebaseRemoteConfigHelper {
 
 	private static FirebaseRemoteConfig firebaseRemoteConfig;
 
-	private static final long DEFAULT_FETCH_EXPIRATION = DateUtils.MILLIS_PER_HOUR * 12;
+	private static final long DEFAULT_FETCH_EXPIRATION = DateUtils.SECONDS_PER_HOUR * 12;
 
 	private static int retryCount = 0;
 
