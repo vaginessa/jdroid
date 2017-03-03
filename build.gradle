@@ -1,32 +1,45 @@
-import com.jdroid.github.IRepositoryIdProvider;
-import com.jdroid.github.Milestone;
-import com.jdroid.github.Release;
-import com.jdroid.github.RepositoryId;
-import com.jdroid.github.client.GitHubClient;
-import com.jdroid.github.service.MilestoneService;
-import com.jdroid.github.service.ReleaseService;
+ext.VERSION_MAJOR = 0
+ext.VERSION_MINOR = 13
+ext.VERSION_PATCH = 0
 
-Boolean isSnapshot = getBooleanProp('SNAPSHOT', true)
+ext.JDROID_GITHUB_REPOSITORY_OWNER = 'maxirosson'
+ext.JDROID_GITHUB_REPOSITORY_NAME = 'jdroid'
+
+apply from: rootProject.file('libraryVersions.gradle')
+
+apply plugin: 'com.jdroid.root'
+apply plugin: 'com.jdroid.component.builder'
+
+buildscript {
+
+	repositories {
+		jcenter()
+		String localMavenRepo = project.hasProperty('LOCAL_MAVEN_REPO') ? project.ext.get('LOCAL_MAVEN_REPO') : System.getenv('LOCAL_MAVEN_REPO')
+		if (localMavenRepo != null) {
+			maven {
+				url localMavenRepo
+			}
+		}
+		maven {
+			url "https://oss.sonatype.org/content/repositories/snapshots/"
+		}
+	}
+
+	dependencies {
+		classpath 'com.jdroidframework:jdroid-component-builder:0.2.0-SNAPSHOT'
+		classpath 'com.jdroidframework:jdroid-gradle-root-plugin:0.14.0-SNAPSHOT'
+	}
+}
 
 allprojects {
 
 	ext.RESOURCE_PREFIX = "jdroid"
 	ext.RESOURCE_FILES_TO_SKIP_PREFIX_VALIDATION = ["analytics.xml", "com_crashlytics_export_strings.xml"]
 
-	ext.VERSION_MAJOR = 0
-	ext.VERSION_MINOR = 13
-	ext.VERSION_PATCH = 0
-	ext.VERSION_CLASSIFIER = isSnapshot ? "SNAPSHOT" : null
-
-	project.version = "${ext.VERSION_MAJOR}.${ext.VERSION_MINOR}.${ext.VERSION_PATCH}"
-	if (ext.VERSION_CLASSIFIER != null && !ext.VERSION_CLASSIFIER.isEmpty()) {
-		project.version = project.version + "-" + ext.VERSION_CLASSIFIER
-	}
-
 	buildscript {
 		repositories {
 			jcenter()
-			String localMavenRepo = project.getProp('LOCAL_MAVEN_REPO')
+			String localMavenRepo = project.hasProperty('LOCAL_MAVEN_REPO') ? project.ext.get('LOCAL_MAVEN_REPO') : System.getenv('LOCAL_MAVEN_REPO')
 			if (localMavenRepo != null) {
 				maven {
 					url localMavenRepo
@@ -40,7 +53,7 @@ allprojects {
 
     repositories {
 		jcenter()
-		String localMavenRepo = project.getProp('LOCAL_MAVEN_REPO')
+		String localMavenRepo = project.hasProperty('LOCAL_MAVEN_REPO') ? project.ext.get('LOCAL_MAVEN_REPO') : System.getenv('LOCAL_MAVEN_REPO')
 		if (localMavenRepo != null) {
 			maven {
 				url localMavenRepo
@@ -51,208 +64,3 @@ allprojects {
 		}
     }
 }
-
-buildscript {
-
-	repositories {
-		jcenter()
-	}
-
-	dependencies {
-		classpath 'com.jdroidframework:jdroid-java-github:0.9.3'
-	}
-}
-
-group = 'com.jdroidframework'
-
-ext.jdroidVersion = project.version
-
-ext.JDROID_GRADLE_PLUGIN_VERSION = '0.14.0-SNAPSHOT'
-ext.JDROID_JAVA_VERSION = '0.13.0-SNAPSHOT'
-ext.JDROID_JAVA_HTTP_VERSION = '0.13.0-SNAPSHOT'
-
-// https://developers.google.com/android/guides/releases
-ext.GOOGLE_PLAY_SERVICES_VERSION = '10.2.0'
-
-// https://developer.android.com/topic/libraries/support-library/revisions.html
-ext.ANDROID_SUPPORT_VERSION = '25.2.0'
-
-ext.JUNIT_VERSION = '4.12'
-
-// https://github.com/robolectric/robolectric
-ext.ROBOLECTRIC_VERSION = '3.1'
-
-ext.PACKAGING = null
-
-subprojects {
-
-	apply plugin: 'maven'
-	apply plugin: 'signing'
-
-	ext.PROJECT_NAME = null
-
-	group = rootProject.group
-
-	Boolean localUpload = getBooleanProp('LOCAL_UPLOAD', true)
-	String localMavenRepo = getProp('LOCAL_MAVEN_REPO')
-
-	if (localUpload && localMavenRepo == null) {
-		project.logger.warn("LOCAL_MAVEN_REPO property is not defined. Skipping uploadArchives configuration")
-	} else {
-		afterEvaluate {
-			uploadArchives {
-				repositories {
-					mavenDeployer {
-
-						beforeDeployment { MavenDeployment deployment ->
-							signing.signPom(deployment)
-						}
-
-						if (localUpload) {
-							repository(url: project.uri(localMavenRepo))
-						} else {
-							repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-								authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-							}
-							snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-								authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-							}
-						}
-
-						pom.project {
-							name project.ext.PROJECT_NAME
-							description project.description
-							packaging project.PACKAGING
-							url 'http://www.jdroidframework.com'
-							inceptionYear '2011'
-							organization {
-								name 'Jdroid'
-								url 'http://www.jdroidframework.com'
-							}
-							licenses {
-								license {
-									name 'The Apache License, Version 2.0'
-									url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-									distribution 'repo'
-								}
-							}
-							developers {
-								developer {
-									name 'Maxi Rosson'
-									email 'jdroidframework@gmail.com'
-									roles {
-										role 'architect'
-										role 'developer'
-									}
-								}
-							}
-							scm {
-								connection 'scm:git:git@github.com:maxirosson/jdroid.git'
-								developerConnection 'scm:git:git@github.com:maxirosson/jdroid.git'
-								url 'git@github.com:maxirosson/jdroid.git'
-							}
-							issueManagement {
-								system 'GitHub'
-								url 'https://github.com/maxirosson/jdroid/issues'
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	if (getBooleanProp('SIGNING_ENABLED', true)) {
-		signing {
-			required { !isSnapshot && gradle.taskGraph.hasTask("uploadArchives") }
-			sign configurations.archives
-		}
-	}
-}
-
-def getRepositoryUsername() {
-	return getProp('JDROID_NEXUS_USERNAME')
-}
-
-def getRepositoryPassword() {
-	getProp('JDROID_NEXUS_PASSWORD')
-}
-
-public def getProp(String propertyName) {
-	return project.hasProperty(propertyName) ? project.ext.get(propertyName) : System.getenv(propertyName)
-}
-
-public Boolean getBooleanProp(String propertyName, Boolean defaultValue) {
-    def value = getProp(propertyName)
-	if (value == null) {
-		return defaultValue
-	} else if (value == 'true') {
-		return true
-	} else if (value == 'false') {
-		return false
-	} else {
-		throw new GradleException('Invalid Boolean value: ' + value)
-	}
-}
-
-task printVersion << {
-	println version
-}
-
-task closeGitHubMilestone << {
-
-	GitHubClient client = new com.jdroid.github.client.GitHubClient();
-	client.setSerializeNulls(false);
-	client.setOAuth2Token(getProp('GITHUB_OATH_TOKEN'));
-
-	IRepositoryIdProvider repositoryIdProvider = RepositoryId.create(getProp('REPOSITORY_OWNER'), getProp('REPOSITORY_NAME'));
-
-	closeMilestone(client, repositoryIdProvider, "v${version}");
-}
-
-
-public void closeMilestone(GitHubClient client, IRepositoryIdProvider repositoryIdProvider, String milestoneTitle) throws IOException {
-
-	MilestoneService milestoneService = new MilestoneService(client);
-	for (Milestone each : milestoneService.getMilestones(repositoryIdProvider, "open")) {
-		if (each.getTitle().equals(milestoneTitle)) {
-
-			Milestone newMilestone = new Milestone();
-			newMilestone.setNumber(each.getNumber());
-			newMilestone.setTitle(each.getTitle());
-			newMilestone.setDescription(each.getDescription());
-			newMilestone.setDueOn(new Date());
-			newMilestone.setState("closed");
-			milestoneService.editMilestone(repositoryIdProvider, newMilestone);
-			break;
-		}
-	}
-}
-
-task createGitHubRelease << {
-	GitHubClient client = new GitHubClient();
-	client.setSerializeNulls(false);
-	client.setOAuth2Token(getProp('GITHUB_OATH_TOKEN'));
-
-	IRepositoryIdProvider repositoryIdProvider = RepositoryId.create(getProp('REPOSITORY_OWNER'), getProp('REPOSITORY_NAME'));
-
-	def releaseNotesFile = project.file("./etc/releaseNotes.md")
-
-	createRelease(client, repositoryIdProvider, "v${version}", releaseNotesFile.getText());
-}
-
-public void createRelease(GitHubClient client, IRepositoryIdProvider repositoryIdProvider, String name, String body) throws IOException {
-
-	Release release = new Release();
-	release.setBody(body);
-	release.setDraft(false);
-	release.setName(name);
-	release.setTagName(name);
-	release.setPrerelease(false);
-	release.setTargetCommitish("production");
-
-	ReleaseService releaseService = new ReleaseService(client);
-	releaseService.createRelease(repositoryIdProvider, release);
-}
-
-
