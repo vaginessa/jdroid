@@ -295,12 +295,10 @@ public abstract class AbstractApplication extends Application {
 			if (LoggerUtils.isEnabled()) {
 				StringBuilder builder = new StringBuilder();
 				builder.append(exceptionHandlerClass.getCanonicalName());
-				builder.append(" initialized");
-				if (currentExceptionHandler != null) {
-					builder.append(", wrapping ");
-					builder.append(currentExceptionHandler.getClass().getCanonicalName());
-				}
+				builder.append(" initialized, wrapping ");
+				builder.append(currentExceptionHandler.getClass().getCanonicalName());
 				LOGGER.info(builder.toString());
+				getCoreAnalyticsSender().trackErrorBreadcrumb(builder.toString());
 			}
 		}
 	}
@@ -310,6 +308,9 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	public ExceptionHandler getExceptionHandler() {
+		if (!(Thread.getDefaultUncaughtExceptionHandler() instanceof ExceptionHandler)) {
+			initExceptionHandlers();
+		}
 		return (ExceptionHandler)Thread.getDefaultUncaughtExceptionHandler();
 	}
 	
