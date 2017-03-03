@@ -194,26 +194,14 @@ document.getElementById(id+'Link').style.display = 'none';
 <body>
 <h1>Lint Report</h1>
 <div class="titleSeparator"></div>
-Check performed at Fri Mar 03 00:17:40 UTC 2017.<br/>
-0 errors and 11 warnings found:<br/><br/>
+Check performed at Fri Mar 03 11:44:46 UTC 2017.<br/>
+0 errors and 1 warnings found:<br/><br/>
 <table class="overview">
 <tr><td></td><td class="categoryColumn"><a href="#Performance">Performance</a>
 </td></tr>
 <tr>
 <td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
 <a href="#StaticFieldLeak">StaticFieldLeak: Static Field Leaks</a>
-</td></tr>
-<tr><td></td><td class="categoryColumn"><a href="#Usability">Usability</a>
-</td></tr>
-<tr>
-<td class="countColumn">1</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
-<a href="#TextFields">TextFields: Missing <code>inputType</code> or <code>hint</code></a>
-</td></tr>
-<tr><td></td><td class="categoryColumn"><a href="#Internationalization">Internationalization</a>
-</td></tr>
-<tr>
-<td class="countColumn">9</td><td class="issueColumn"><img border="0" align="top" width="16" height="15" alt="Warning" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAQAAABHeoekAAAA3klEQVR42nWPsWoCQRCGVyJiF9tAsNImbcDKR/ABBEurYCsBsfQRQiAPYGPyAAnYWQULS9MErNU2Vsr/ObMX7g6O+xd2/5n5dmY3hFQEBVVpuCsVT/yoUl6u4XotBz4E4qR2YYyH6ugEWY8comR/t+tvPPJtSLPYvhvvTswtbdCmCOwjMHXAzjP9kB/ByB7nejbgy43WVPF3WNG+p9+kzkozdhGAQdZh7BlHdGTL3z98pp6Um7okKdvHNuIzWk+9xN+yINOcHps0OnAfuOOoHJH3pmHghhYP2VJcaXx7BaKz9YB2HVrDAAAAAElFTkSuQmCC"/>
-<a href="#SetTextI18n">SetTextI18n: TextView Internationalization</a>
 </td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#MissingIssues">Disabled Checks (22)</a>
 </td></tr></table>
@@ -243,136 +231,6 @@ Explanation: Static Field Leaks.</div>
 A static field will leak contexts.
 </div>
 <br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "StaticFieldLeak" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
-
-<a name="Usability"></a>
-<div class="category"><a href="#" title="Return to top">Usability</a><div class="categorySeparator"></div>
-</div>
-<a name="TextFields"></a>
-<div class="issue">
-<div class="id"><a href="#" title="Return to top">TextFields: Missing <code>inputType</code> or <code>hint</code></a><div class="issueSeparator"></div>
-</div>
-<div class="warningslist">
-<span class="location"><a href="../../src/debug/res/layout/jdroid_firebase_remote_config_param.xml">../../src/debug/res/layout/jdroid_firebase_remote_config_param.xml</a>:12</span>: <span class="message">This text field does not specify an <code>inputType</code> or a <code>hint</code></span><br /><pre class="errorlines">
-<span class="lineno">   9</span> 
-<span class="lineno">  10</span> 		&lt;RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-<span class="lineno">  11</span> 
-<span class="lineno">  12</span> 			<span class="errorspan">&lt;EditText android:id="@+id/value" android:layout_width="match_parent" android:layout_height="wrap_content" tools:text="value" android:layout_toLeftOf="@+id/save"/></span>
-<span class="lineno">  13</span> 
-<span class="lineno">  14</span> 			&lt;Button android:id="@+id/save" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/jdroid_firebaseRemoteConfigSave"
-</pre>
-</div>
-<div class="metadata">Note: This issue has an associated quickfix operation in Android Studio/IntelliJ & Eclipse/ADT<br>
-Priority: 5 / 10<br/>
-Category: Usability</div>
-Severity: <span class="warning">Warning</span><div class="summary">
-Explanation: Missing <code>inputType</code> or <code>hint</code></div>
-<div class="explanation">
-Providing an <code>inputType</code> attribute on a text field improves usability because depending on the data to be input, optimized keyboards can be shown to the user (such as just digits and parentheses for a phone number). Similarly,a hint attribute displays a hint to the user for what is expected in the text field.<br/>
-<br/>
-The lint detector also looks at the <code>id</code> of the view, and if the id offers a hint of the purpose of the field (for example, the <code>id</code> contains the phrase <code>phone</code> or <code>email</code>), then lint will also ensure that the <code>inputType</code> contains the corresponding type attributes.<br/>
-<br/>
-If you really want to keep the text field generic, you can suppress this warning by setting <code>inputType="text"</code>.
-</div>
-<br/><div class="moreinfo">More info: </div><br/>To suppress this error, use the issue id "TextFields" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
-
-<a name="Internationalization"></a>
-<div class="category"><a href="#" title="Return to top">Internationalization</a><div class="categorySeparator"></div>
-</div>
-<a name="SetTextI18n"></a>
-<div class="issue">
-<div class="id"><a href="#" title="Return to top">SetTextI18n: TextView Internationalization</a><div class="issueSeparator"></div>
-</div>
-<div class="warningslist">
-<span class="location"><a href="../../src/debug/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigFragment.java">../../src/debug/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigFragment.java</a>:93</span>: <span class="message">Do not concatenate text displayed with <code>setText</code>. Use resource string with placeholders.</span><br /><pre class="errorlines">
-<span class="lineno">  90</span> 			FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfigHelper.getFirebaseRemoteConfig();
-<span class="lineno">  91</span> 			if (firebaseRemoteConfig != null) {
-<span class="lineno">  92</span> 				String fetchDate = DateUtils.formatDateTime(new Date(firebaseRemoteConfig.getInfo().getFetchTimeMillis()));
-<span class="lineno">  93</span> 				holder.fetchTimeMillis.setText(<span class="errorspan">"Fetch Date: " + fetchDate);</span>
-<span class="lineno">  94</span> 				int status = firebaseRemoteConfig.getInfo().getLastFetchStatus();
-<span class="lineno">  95</span> 				String statusValue = "Unknown";
-</pre>
-<span class="location"><a href="../../src/debug/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigFragment.java">../../src/debug/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigFragment.java</a>:93</span>: <span class="message">String literal in <code>setText</code> can not be translated. Use Android resources instead.</span><br /><pre class="errorlines">
-<span class="lineno">  90</span> 			FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfigHelper.getFirebaseRemoteConfig();
-<span class="lineno">  91</span> 			if (firebaseRemoteConfig != null) {
-<span class="lineno">  92</span> 				String fetchDate = DateUtils.formatDateTime(new Date(firebaseRemoteConfig.getInfo().getFetchTimeMillis()));
-<span class="lineno">  93</span> 				holder.fetchTimeMillis.setText(<span class="errorspan">"Fetch Date: " + fetchDate);</span>
-<span class="lineno">  94</span> 				int status = firebaseRemoteConfig.getInfo().getLastFetchStatus();
-<span class="lineno">  95</span> 				String statusValue = "Unknown";
-</pre>
-<span class="location"><a href="../../src/debug/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigFragment.java">../../src/debug/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigFragment.java</a>:105</span>: <span class="message">Do not concatenate text displayed with <code>setText</code>. Use resource string with placeholders.</span><br /><pre class="errorlines">
-<span class="lineno"> 102</span> 				} else if (status == 2) {
-<span class="lineno"> 103</span> 					statusValue = "Throttled";
-<span class="lineno"> 104</span> 				}
-<span class="lineno"> 105</span> 				holder.lastFetchStatus.setText(<span class="errorspan">"Last Fetch Status: " + statusValue);</span>
-<span class="lineno"> 106</span> 			}
-<span class="lineno"> 107</span> 		}
-</pre>
-<span class="location"><a href="../../src/debug/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigFragment.java">../../src/debug/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigFragment.java</a>:105</span>: <span class="message">String literal in <code>setText</code> can not be translated. Use Android resources instead.</span><br /><pre class="errorlines">
-<span class="lineno"> 102</span> 				} else if (status == 2) {
-<span class="lineno"> 103</span> 					statusValue = "Throttled";
-<span class="lineno"> 104</span> 				}
-<span class="lineno"> 105</span> 				holder.lastFetchStatus.setText(<span class="errorspan">"Last Fetch Status: " + statusValue);</span>
-<span class="lineno"> 106</span> 			}
-<span class="lineno"> 107</span> 		}
-</pre>
-<span class="location"><a href="../../src/debug/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigFragment.java">../../src/debug/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigFragment.java</a>:153</span>: <span class="message">Do not concatenate text displayed with <code>setText</code>. Use resource string with placeholders.</span><br /><pre class="errorlines">
-<span class="lineno"> 150</span> 		@Override
-<span class="lineno"> 151</span> 		public void fillHolderFromItem(final RemoteConfigParameter item, final RemoteConfigParameterItemHolder holder) {
-<span class="lineno"> 152</span> 			holder.key.setText(item.getKey());
-<span class="lineno"> 153</span> 			holder.specs.setText(<span class="errorspan">"User property: " + item.isUserProperty() + " | Default value: " + item.getDefaultValue());</span>
-<span class="lineno"> 154</span> 			holder.value.setText(FirebaseRemoteConfigHelper.getString(item));
-<span class="lineno"> 155</span> 			holder.value.setEnabled(FirebaseRemoteConfigHelper.isMocksEnabled());
-</pre>
-<button id="SetTextI18nDivLink" onclick="reveal('SetTextI18nDiv');" />+ 4 More Occurrences...</button>
-<div id="SetTextI18nDiv" style="display: none">
-<span class="location"><a href="../../src/debug/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigFragment.java">../../src/debug/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigFragment.java</a>:153</span>: <span class="message">Do not concatenate text displayed with <code>setText</code>. Use resource string with placeholders.</span><br /><pre class="errorlines">
-<span class="lineno"> 150</span> 		@Override
-<span class="lineno"> 151</span> 		public void fillHolderFromItem(final RemoteConfigParameter item, final RemoteConfigParameterItemHolder holder) {
-<span class="lineno"> 152</span> 			holder.key.setText(item.getKey());
-<span class="lineno"> 153</span> 			holder.specs.setText(<span class="errorspan">"User property: " + item.isUserProperty() + " | Default value: " + item.getDefaultValue());</span>
-<span class="lineno"> 154</span> 			holder.value.setText(FirebaseRemoteConfigHelper.getString(item));
-<span class="lineno"> 155</span> 			holder.value.setEnabled(FirebaseRemoteConfigHelper.isMocksEnabled());
-</pre>
-<span class="location"><a href="../../src/debug/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigFragment.java">../../src/debug/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigFragment.java</a>:153</span>: <span class="message">Do not concatenate text displayed with <code>setText</code>. Use resource string with placeholders.</span><br /><pre class="errorlines">
-<span class="lineno"> 150</span> 		@Override
-<span class="lineno"> 151</span> 		public void fillHolderFromItem(final RemoteConfigParameter item, final RemoteConfigParameterItemHolder holder) {
-<span class="lineno"> 152</span> 			holder.key.setText(item.getKey());
-<span class="lineno"> 153</span> 			holder.specs.setText(<span class="errorspan">"User property: " + item.isUserProperty() + " | Default value: " + item.getDefaultValue());</span>
-<span class="lineno"> 154</span> 			holder.value.setText(FirebaseRemoteConfigHelper.getString(item));
-<span class="lineno"> 155</span> 			holder.value.setEnabled(FirebaseRemoteConfigHelper.isMocksEnabled());
-</pre>
-<span class="location"><a href="../../src/debug/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigFragment.java">../../src/debug/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigFragment.java</a>:153</span>: <span class="message">String literal in <code>setText</code> can not be translated. Use Android resources instead.</span><br /><pre class="errorlines">
-<span class="lineno"> 150</span> 		@Override
-<span class="lineno"> 151</span> 		public void fillHolderFromItem(final RemoteConfigParameter item, final RemoteConfigParameterItemHolder holder) {
-<span class="lineno"> 152</span> 			holder.key.setText(item.getKey());
-<span class="lineno"> 153</span> 			holder.specs.setText(<span class="errorspan">"User property: " + item.isUserProperty() + " | Default value: " + item.getDefaultValue());</span>
-<span class="lineno"> 154</span> 			holder.value.setText(FirebaseRemoteConfigHelper.getString(item));
-<span class="lineno"> 155</span> 			holder.value.setEnabled(FirebaseRemoteConfigHelper.isMocksEnabled());
-</pre>
-<span class="location"><a href="../../src/debug/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigFragment.java">../../src/debug/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigFragment.java</a>:153</span>: <span class="message">String literal in <code>setText</code> can not be translated. Use Android resources instead.</span><br /><pre class="errorlines">
-<span class="lineno"> 150</span> 		@Override
-<span class="lineno"> 151</span> 		public void fillHolderFromItem(final RemoteConfigParameter item, final RemoteConfigParameterItemHolder holder) {
-<span class="lineno"> 152</span> 			holder.key.setText(item.getKey());
-<span class="lineno"> 153</span> 			holder.specs.setText("User property: " + item.isUserProperty() + <span class="errorspan">" | Default value: " + item.getDefaultValue());</span>
-<span class="lineno"> 154</span> 			holder.value.setText(FirebaseRemoteConfigHelper.getString(item));
-<span class="lineno"> 155</span> 			holder.value.setEnabled(FirebaseRemoteConfigHelper.isMocksEnabled());
-</pre>
-</div>
-</div>
-<div class="metadata">Priority: 6 / 10<br/>
-Category: Internationalization</div>
-Severity: <span class="warning">Warning</span><div class="summary">
-Explanation: TextView Internationalization.</div>
-<div class="explanation">
-When calling <code>TextView#setText</code><br/>
-* Never call <code>Number#toString()</code> to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using <code>String#format</code> with proper format specifications (<code>%d</code> or <code>%f</code>) instead.<br/>
-* Do not pass a string literal (e.g. "Hello") to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.<br/>
-* Do not build messages by concatenating text chunks. Such messages can not be properly translated.
-</div>
-<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/topics/resources/localization.html">http://developer.android.com/guide/topics/resources/localization.html</a>
-</div><br/>To suppress this error, use the issue id "SetTextI18n" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
 </div>
 
 <a name="MissingIssues"></a>
