@@ -1,14 +1,11 @@
 package com.jdroid.android.utils;
 
-import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Context;
-import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.provider.MediaStore;
-import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
 
 import com.facebook.device.yearclass.YearClass;
@@ -83,12 +80,6 @@ public class DeviceUtils {
 		TelephonyManager manager = (TelephonyManager)AbstractApplication.get().getSystemService(
 				Context.TELEPHONY_SERVICE);
 		return manager.getSimOperatorName();
-	}
-
-	@RequiresPermission(Manifest.permission.ACCESS_WIFI_STATE)
-	public static String getMacAddress() {
-		WifiManager wifiManager = (WifiManager)AbstractApplication.get().getSystemService(Context.WIFI_SERVICE);
-		return wifiManager.getConnectionInfo().getMacAddress();
 	}
 
 	/**

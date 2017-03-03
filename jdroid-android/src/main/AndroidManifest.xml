@@ -40,7 +40,7 @@
 		<service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
 
 		<!-- Service to handle the creation, rotation, and updating of registration tokens. -->
-		<service android:name=".firebase.instanceid.InstanceIdService">
+		<service android:name=".firebase.instanceid.InstanceIdService" android:exported="true" tools:ignore="ExportedService">
 			<intent-filter>
 				<action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
 			</intent-filter>

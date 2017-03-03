@@ -90,7 +90,7 @@ public class FirebaseRemoteConfigFragment extends AbstractRecyclerFragment {
 			FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfigHelper.getFirebaseRemoteConfig();
 			if (firebaseRemoteConfig != null) {
 				String fetchDate = DateUtils.formatDateTime(new Date(firebaseRemoteConfig.getInfo().getFetchTimeMillis()));
-				holder.fetchTimeMillis.setText("Fetch Date: " + fetchDate);
+				holder.fetchTimeMillis.setText(getString(R.string.jdroid_firebaseRemoteConfigFetchDate, fetchDate));
 				int status = firebaseRemoteConfig.getInfo().getLastFetchStatus();
 				String statusValue = "Unknown";
 				if (status == -1) {
@@ -102,7 +102,7 @@ public class FirebaseRemoteConfigFragment extends AbstractRecyclerFragment {
 				} else if (status == 2) {
 					statusValue = "Throttled";
 				}
-				holder.lastFetchStatus.setText("Last Fetch Status: " + statusValue);
+				holder.lastFetchStatus.setText(getString(R.string.jdroid_firebaseRemoteConfigLastFetchStatus, statusValue));
 			}
 		}
 
@@ -150,7 +150,7 @@ public class FirebaseRemoteConfigFragment extends AbstractRecyclerFragment {
 		@Override
 		public void fillHolderFromItem(final RemoteConfigParameter item, final RemoteConfigParameterItemHolder holder) {
 			holder.key.setText(item.getKey());
-			holder.specs.setText("User property: " + item.isUserProperty() + " | Default value: " + item.getDefaultValue());
+			holder.specs.setText(getString(R.string.jdroid_firebaseRemoteConfigSpec, item.isUserProperty().toString(), item.getDefaultValue()));
 			holder.value.setText(FirebaseRemoteConfigHelper.getString(item));
 			holder.value.setEnabled(FirebaseRemoteConfigHelper.isMocksEnabled());
 			holder.save.setVisibility(FirebaseRemoteConfigHelper.isMocksEnabled() ? View.VISIBLE : View.GONE);

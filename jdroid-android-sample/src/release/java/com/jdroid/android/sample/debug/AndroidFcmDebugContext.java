@@ -1,7 +1,7 @@
 package com.jdroid.android.sample.debug;
 
-import com.jdroid.android.google.fcm.FcmDebugContext;
+import com.jdroid.android.firebase.fcm.FcmDebugContext;
 
-public class AndroidGcmDebugContext extends FcmDebugContext {
+public class AndroidFcmDebugContext extends FcmDebugContext {
 
 }

@@ -17,7 +17,9 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		LOGGER.info("Changed locale to " + Locale.getDefault());
-		AbstractApplication.get().onLocaleChanged();
+		if (intent != null && Intent.ACTION_LOCALE_CHANGED.equals(intent.getAction())) {
+			LOGGER.info("Changed locale to " + Locale.getDefault());
+			AbstractApplication.get().onLocaleChanged();
+		}
 	}
 }

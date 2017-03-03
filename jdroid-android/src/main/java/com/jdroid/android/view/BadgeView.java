@@ -1,5 +1,6 @@
 package com.jdroid.android.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -42,6 +43,7 @@ public class BadgeView extends TextView {
 	 * 
 	 * @param notifications
 	 */
+	@SuppressLint("SetTextI18n")
 	public void setNotifications(Integer notifications) {
 		
 		if ((notifications != null) && (notifications > 0)) {

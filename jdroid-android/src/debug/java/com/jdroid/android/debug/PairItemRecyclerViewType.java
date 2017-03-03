@@ -1,5 +1,6 @@
 package com.jdroid.android.debug;
 
+import android.annotation.SuppressLint;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -27,6 +28,7 @@ public abstract class PairItemRecyclerViewType extends RecyclerViewType<Pair, Pa
 		return holder;
 	}
 
+	@SuppressLint("SetTextI18n")
 	@Override
 	public void fillHolderFromItem(Pair item, PairItemHolder holder) {
 		holder.name.setText(item.first + ": " + item.second);

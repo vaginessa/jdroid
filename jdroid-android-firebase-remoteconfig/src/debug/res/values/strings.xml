@@ -6,4 +6,8 @@
 	<string name="jdroid_firebaseRemoteConfigSave">Save</string>
 	<string name="jdroid_firebaseRemoteConfigMocksEnabled">Mocks Enabled</string>
 
+	<string name="jdroid_firebaseRemoteConfigFetchDate">Fetch Date: %1$s</string>
+	<string name="jdroid_firebaseRemoteConfigLastFetchStatus">Fetch Date: %1$s</string>
+	<string name="jdroid_firebaseRemoteConfigSpec">User property: %1$s | Default value: %2$s</string>
+
 </resources>

@@ -15,6 +15,6 @@ android:
     - extra-android-m2repository
     - extra-google-m2repository
 
-script: sh ./etc/scripts/test.sh true false true true
+script: sh ./etc/scripts/test.sh false
 
 after_script: sh ./etc/scripts/uploadReports.sh

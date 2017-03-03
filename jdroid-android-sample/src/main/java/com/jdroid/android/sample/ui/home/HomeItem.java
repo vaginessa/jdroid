@@ -62,8 +62,8 @@ public enum HomeItem implements ActionItem {
 	HTTP(R.string.http, R.drawable.ic_http, HttpActivity.class),
 	LOADING(R.string.loading, R.drawable.ic_loading, LoadingActivity.class),
 	NAVDRAWER(R.string.navDrawer, R.drawable.ic_nav_drawer, NavDrawerActivity.class),
-	NOTIFICATIONS(R.string.jdroid_notifications, R.drawable.ic_notifications, NotificationsActivity.class),
-	RATE_APP(R.string.jdroid_rateApp, R.drawable.ic_rate, RateAppActivity.class),
+	NOTIFICATIONS(R.string.notifications, R.drawable.ic_notifications, NotificationsActivity.class),
+	RATE_APP(R.string.rateApp, R.drawable.ic_rate, RateAppActivity.class),
 	RECYCLER_VIEW(R.string.recyclerView, R.drawable.ic_recycler_view, RecyclerViewActivity.class),
 	SERVICE(R.string.service, R.drawable.ic_service, ServiceActivity.class),
 	SQLITE(R.string.sqlite, R.drawable.ic_sqlite, SQLiteActivity.class),
@@ -71,7 +71,7 @@ public enum HomeItem implements ActionItem {
 	TOASTS(R.string.toasts, R.drawable.ic_toasts, ToastsActivity.class),
 	TWITTER(R.string.jdroid_twitter, R.drawable.jdroid_ic_twitter, TwitterActivity.class),
 	UNVERSAL_IMAGE_LOADER(R.string.universalImageLoader, R.drawable.ic_photo, ImageLoaderActivity.class),
-	URI_MAPPER(R.string.jdroid_uriMapper, R.drawable.ic_photo, UriMapperActivity.class),
+	URI_MAPPER(R.string.uriMapper, R.drawable.ic_photo, UriMapperActivity.class),
 	USE_CASES(R.string.useCases, R.drawable.ic_service, UseCasesActivity.class);
 
 	private Integer resourceId;
