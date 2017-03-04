@@ -49,10 +49,6 @@ jdroid {
 
 android {
 
-	lintOptions {
-		disable 'ContentDescription', 'RtlEnabled', 'RtlHardcoded', 'RtlSymmetry', 'UseCompoundDrawables', 'UnknownIdInLayout'
-	}
-
 	defaultConfig {
 		manifestPlaceholders = [ googleMapsApiKey: "" ]
 	}

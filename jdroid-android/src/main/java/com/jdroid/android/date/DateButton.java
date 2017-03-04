@@ -6,9 +6,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 
 import com.jdroid.java.date.DateTimeFormat;
@@ -16,7 +16,7 @@ import com.jdroid.java.date.DateUtils;
 
 import java.util.Date;
 
-public class DateButton extends Button {
+public class DateButton extends AppCompatButton {
 	
 	private Date date;
 	
