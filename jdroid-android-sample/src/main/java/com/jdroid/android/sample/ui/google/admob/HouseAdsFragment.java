@@ -34,7 +34,7 @@ public class HouseAdsFragment extends AbstractFragment {
 							View view = super.build(activity);
 							if (view == null) {
 								view = new TextView(getActivity());
-								((TextView)view).setText("House ad");
+								((TextView)view).setText(R.string.houseAd);
 							}
 							return view;
 						}

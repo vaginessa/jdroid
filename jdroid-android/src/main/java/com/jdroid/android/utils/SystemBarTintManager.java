@@ -208,9 +208,8 @@ public class SystemBarTintManager {
 	 * 
 	 * @param alpha The alpha to use
 	 */
-	@TargetApi(11)
 	public void setStatusBarAlpha(float alpha) {
-		if (mStatusBarAvailable && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)) {
+		if (mStatusBarAvailable) {
 			mStatusBarTintView.setAlpha(alpha);
 		}
 	}
@@ -254,9 +253,8 @@ public class SystemBarTintManager {
 	 * 
 	 * @param alpha The alpha to use
 	 */
-	@TargetApi(11)
 	public void setNavigationBarAlpha(float alpha) {
-		if (mNavBarAvailable && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)) {
+		if (mNavBarAvailable) {
 			mNavBarTintView.setAlpha(alpha);
 		}
 	}
@@ -376,12 +374,10 @@ public class SystemBarTintManager {
 			return result;
 		}
 		
-		@TargetApi(14)
 		private int getNavigationBarWidth(Context context) {
 			Resources res = context.getResources();
 			int result = 0;
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH &&
-					!ViewConfiguration.get(context).hasPermanentMenuKey()) {
+			if (!ViewConfiguration.get(context).hasPermanentMenuKey()) {
 				return getInternalDimensionSize(res, NAV_BAR_WIDTH_RES_NAME);
 			}
 			return result;

@@ -13,6 +13,7 @@
 	<string name="activityBanner">Activity Banner</string>
 	<string name="displayInterstitial">Display Interstitial</string>
 	<string name="houseAds">House Ads</string>
+	<string name="houseAd">House ad</string>
 
 	<!-- Firebase Invites -->
 	<string name="appInvite">Firebase Invites</string>
@@ -102,6 +103,8 @@
 
 	<!-- Google Sign In -->
 	<string name="revokeAccess">Revoke</string>
+	<string name="notLogged">Not Logged</string>
+	<string name="connectionFailed">Connection Failed</string>
 
 	<!-- Google Play Services -->
 	<string name="googlePlayServices">Google Play Services</string>
@@ -147,6 +150,8 @@
 	<string name="largeIconDrawable">Large icon drawable</string>
 	<string name="sendNotification">Send Notification</string>
 	<string name="cancelNotifications">Cancel Notifications</string>
+	<string name="contentTitleSample">Title example</string>
+	<string name="contextTextSample">Description example</string>
 
 	<!-- Toasts -->
 	<string name="toasts">Toasts</string>
@@ -213,6 +218,10 @@
 	<string name="addClickableFooter">Add clickable footer</string>
 	<string name="removeFooter">Remove footer</string>
 	<string name="clearItems">Clear Items</string>
+	<string name="clickableFooter">clickable footer</string>
+	<string name="clickableHeader">clickable header</string>
+	<string name="footer">footer</string>
+	<string name="header">header</string>
 
 	<!-- SQLite -->
 	<string name="sqlite">SQLite</string>

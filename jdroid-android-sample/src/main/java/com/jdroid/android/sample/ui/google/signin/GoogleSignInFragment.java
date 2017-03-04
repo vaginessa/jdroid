@@ -109,7 +109,7 @@ public class GoogleSignInFragment extends AbstractFragment implements GoogleSign
 		builder.append("\nId: ");
 		builder.append(googleSignInAccount.getId());
 		builder.append("\nId Token: ");
-		builder.append(googleSignInAccount.getIdToken().substring(0, 50));
+		builder.append(googleSignInAccount.getIdToken() != null ? googleSignInAccount.getIdToken().substring(0, 50) : null);
 		builder.append("\nServer Auth Code: ");
 		builder.append(googleSignInAccount.getServerAuthCode());
 		status.setText(builder.toString());
@@ -124,7 +124,7 @@ public class GoogleSignInFragment extends AbstractFragment implements GoogleSign
 
 	@Override
 	public void onGoogleSignOut() {
-		status.setText("Not Logged");
+		status.setText(R.string.notLogged);
 
 		signInButton.setVisibility(View.VISIBLE);
 		signOutButton.setVisibility(View.GONE);
@@ -135,7 +135,7 @@ public class GoogleSignInFragment extends AbstractFragment implements GoogleSign
 
 	@Override
 	public void onGoogleAccessRevoked() {
-		status.setText("Not Logged");
+		status.setText(R.string.notLogged);
 
 		signInButton.setVisibility(View.VISIBLE);
 		signOutButton.setVisibility(View.GONE);
@@ -146,7 +146,7 @@ public class GoogleSignInFragment extends AbstractFragment implements GoogleSign
 
 	@Override
 	public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-		status.setText("Connection Failed");
+		status.setText(R.string.connectionFailed);
 
 		signInButton.setVisibility(View.VISIBLE);
 		signOutButton.setVisibility(View.GONE);

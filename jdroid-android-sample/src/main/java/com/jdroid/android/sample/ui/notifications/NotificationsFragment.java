@@ -1,5 +1,6 @@
 package com.jdroid.android.sample.ui.notifications;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +32,7 @@ public class NotificationsFragment extends AbstractFragment {
 		return R.layout.notifications_fragment;
 	}
 	
+	@SuppressLint("SetTextI18n")
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
@@ -39,10 +41,10 @@ public class NotificationsFragment extends AbstractFragment {
 		notificationName.setText("myNotification");
 
 		contentTitle = findView(R.id.contentTitle);
-		contentTitle.setText("Title example");
+		contentTitle.setText(R.string.contentTitleSample);
 
 		contentText = findView(R.id.contentText);
-		contentText.setText("Description example");
+		contentText.setText(R.string.contextTextSample);
 
 		largeIconUrlEditText = findView(R.id.largeIconUrl);
 		largeIconUrlEditText.setText("http://jdroidframework.com/images/gradle.png");

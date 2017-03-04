@@ -2,6 +2,7 @@ package com.jdroid.android.recycler;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -67,7 +68,7 @@ public abstract class AbstractRecyclerFragment extends AbstractFragment {
 	}
 
 	protected RecyclerView.ItemDecoration createDividerItemDecoration(){
-		return new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST);
+		return new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
 	}
 
 	protected Boolean isDividerItemDecorationEnabled() {

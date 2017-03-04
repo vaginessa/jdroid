@@ -1,5 +1,6 @@
 package com.jdroid.android.sample.ui.firebase.dynamiclinks;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -35,6 +36,7 @@ public class DynamicLinksFragment extends AbstractFragment {
 		return R.layout.dynamic_links_fragment;
 	}
 
+	@SuppressLint("SetTextI18n")
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);

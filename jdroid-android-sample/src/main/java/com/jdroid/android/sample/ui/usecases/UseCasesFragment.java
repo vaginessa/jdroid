@@ -1,10 +1,12 @@
 package com.jdroid.android.sample.ui.usecases;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -38,7 +40,7 @@ public class UseCasesFragment extends AbstractFragment {
 	private CheckBox noListenerCheckBox;
 
 	private static Integer delay = 5;
-	private TextView delayTextView;
+	private EditText delayTextView;
 
 	private static UseCaseTrigger useCaseTrigger = UseCaseTrigger.MANUAL;
 	private RadioGroup useCaseTriggerRadioGroup;
@@ -100,6 +102,7 @@ public class UseCasesFragment extends AbstractFragment {
 		UseCaseHelper.unregisterUseCase(sampleUseCase, this);
 	}
 
+	@SuppressLint("SetTextI18n")
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
