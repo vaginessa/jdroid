@@ -39,6 +39,8 @@ dependencies {
 	// https://developers.facebook.com/docs/android
 	compile 'com.facebook.android:facebook-android-sdk:4.14.1'
 
+	compile 'com.android.support:customtabs:' + ANDROID_SUPPORT_VERSION
+
 	testCompile 'junit:junit:' + JUNIT_VERSION
 	testCompile 'org.robolectric:robolectric:' + ROBOLECTRIC_VERSION
 }
