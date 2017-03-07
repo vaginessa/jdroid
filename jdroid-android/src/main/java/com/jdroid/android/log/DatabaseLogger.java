@@ -349,12 +349,11 @@ public class DatabaseLogger implements Logger {
 
 			@Override
 			public void run() {
-
 				try {
-
-					Repository<DatabaseLog> repository = AbstractApplication.get().getRepositoryInstance(
-							DatabaseLog.class);
-					repository.add(new DatabaseLog(message));
+					Repository<DatabaseLog> repository = AbstractApplication.get().getRepositoryInstance(DatabaseLog.class);
+					if (repository != null) {
+						repository.add(new DatabaseLog(message));
+					}
 				} catch (Exception e) {
 					AbstractApplication.get().getExceptionHandler().logHandledException(e);
 				}
