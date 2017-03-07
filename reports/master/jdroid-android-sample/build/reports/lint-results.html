@@ -173,10 +173,10 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 7 errors and 20 warnings</span>
+      <span class="mdl-layout-title">Lint Report: 19 warnings</span>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-Check performed at Tue Mar 07 02:35:39 UTC 2017      </nav>
+Check performed at Tue Mar 07 07:17:06 UTC 2017      </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -186,9 +186,7 @@ Check performed at Tue Mar 07 02:35:39 UTC 2017      </nav>
       <a class="mdl-navigation__link" href="#Overdraw"><i class="material-icons warning-icon">warning</i>Overdraw: Painting regions more than once (7)</a>
       <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (7)</a>
       <a class="mdl-navigation__link" href="#UselessLeaf"><i class="material-icons warning-icon">warning</i>Useless leaf layout (2)</a>
-      <a class="mdl-navigation__link" href="#WebpUnsupported"><i class="material-icons error-icon">error</i>WebP Unsupported (7)</a>
       <a class="mdl-navigation__link" href="#IconDensities"><i class="material-icons warning-icon">warning</i>Icon densities validation (3)</a>
-      <a class="mdl-navigation__link" href="#SetTextI18n"><i class="material-icons warning-icon">warning</i>TextView Internationalization (1)</a>
     </nav>
   </div>
   <main class="mdl-layout__content">
@@ -215,16 +213,8 @@ Check performed at Tue Mar 07 02:35:39 UTC 2017      </nav>
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Usability:Icons">Usability:Icons</a>
 </td></tr>
 <tr>
-<td class="countColumn">7</td><td class="issueColumn"><i class="material-icons error-icon">error</i>
-<a href="#WebpUnsupported">WebpUnsupported</a>: WebP Unsupported</td></tr>
-<tr>
 <td class="countColumn">3</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#IconDensities">IconDensities</a>: Icon densities validation</td></tr>
-<tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Internationalization">Internationalization</a>
-</td></tr>
-<tr>
-<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
-<a href="#SetTextI18n">SetTextI18n</a>: TextView Internationalization</td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#MissingIssues">Disabled Checks (29)</a>
 </td></tr></table>
 <br/>              </div>
@@ -490,54 +480,8 @@ Dismiss</button>            </div>
             </div>
           </section>
 <a name="Usability:Icons"></a>
-<a name="WebpUnsupported"></a>
+<a name="IconDensities"></a>
 <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card4" style="display: block;">
-            <div class="mdl-card mdl-cell mdl-cell--12-col">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">WebP Unsupported</h2>
-  </div>
-              <div class="mdl-card__supporting-text">
-<div class="issue">
-<div class="warningslist">
-<span class="location"><a href="../../src/main/res/drawable-xxhdpi/hero.webp">../../src/main/res/drawable-xxhdpi/hero.webp</a></span>: <span class="message">WebP extended or lossless format requires Android 4.2.1 (API 18); current minSdkVersion is 16</span><br />
-<span class="location"><a href="../../src/main/res/drawable-hdpi/ic_notification.webp">../../src/main/res/drawable-hdpi/ic_notification.webp</a></span>: <span class="message">WebP extended or lossless format requires Android 4.2.1 (API 18); current minSdkVersion is 16</span><br />
-<span class="location"><a href="../../src/main/res/drawable-mdpi/ic_notification.webp">../../src/main/res/drawable-mdpi/ic_notification.webp</a></span>: <span class="message">WebP extended or lossless format requires Android 4.2.1 (API 18); current minSdkVersion is 16</span><br />
-<span class="location"><a href="../../src/main/res/drawable-xhdpi/ic_notification.webp">../../src/main/res/drawable-xhdpi/ic_notification.webp</a></span>: <span class="message">WebP extended or lossless format requires Android 4.2.1 (API 18); current minSdkVersion is 16</span><br />
-<span class="location"><a href="../../src/main/res/drawable-xxhdpi/ic_notification.webp">../../src/main/res/drawable-xxhdpi/ic_notification.webp</a></span>: <span class="message">WebP extended or lossless format requires Android 4.2.1 (API 18); current minSdkVersion is 16</span><br />
-<span class="location"><a href="../../src/main/res/drawable-xxxhdpi/ic_notification.webp">../../src/main/res/drawable-xxxhdpi/ic_notification.webp</a></span>: <span class="message">WebP extended or lossless format requires Android 4.2.1 (API 18); current minSdkVersion is 16</span><br />
-<span class="location"><a href="../../src/main/res/drawable-xxhdpi/marker.webp">../../src/main/res/drawable-xxhdpi/marker.webp</a></span>: <span class="message">WebP extended or lossless format requires Android 4.2.1 (API 18); current minSdkVersion is 16</span><br />
-</div>
-<div class="metadata"><div class="explanation" id="explanationWebpUnsupported" style="display: none;">
-The WebP format requires Android 4.0 (API 15). Certain features, such as lossless encoding and transparency, requires Android 4.2.1 (API 18; API 17 is 4.2.0.)<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
-To suppress this error, use the issue id "WebpUnsupported" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
-</div>
-</div>
-<div class="chips">
-<span class="mdl-chip">
-    <span class="mdl-chip__text">WebpUnsupported</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Icons</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Usability</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Error</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Priority 6/10</span>
-</span>
-</div>
-              </div>
-              <div class="mdl-card__actions mdl-card--border">
-<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationWebpUnsupportedLink" onclick="reveal('explanationWebpUnsupported');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card4Link" onclick="hideid('card4');">
-Dismiss</button>            </div>
-            </div>
-          </section><a name="IconDensities"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card5" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Icon densities validation</h2>
@@ -545,9 +489,9 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/res/drawable-hdpi">../../src/main/res/drawable-hdpi</a></span>: <span class="message">Missing the following drawables in <code>drawable-hdpi</code>: hero.webp, marker.webp</span><br />
-<span class="location"><a href="../../src/main/res/drawable-mdpi">../../src/main/res/drawable-mdpi</a></span>: <span class="message">Missing the following drawables in <code>drawable-mdpi</code>: hero.webp, marker.webp</span><br />
-<span class="location"><a href="../../src/main/res/drawable-xhdpi">../../src/main/res/drawable-xhdpi</a></span>: <span class="message">Missing the following drawables in <code>drawable-xhdpi</code>: hero.webp, marker.webp</span><br />
+<span class="location"><a href="../../src/main/res/drawable-hdpi">../../src/main/res/drawable-hdpi</a></span>: <span class="message">Missing the following drawables in <code>drawable-hdpi</code>: hero.png, marker.png</span><br />
+<span class="location"><a href="../../src/main/res/drawable-mdpi">../../src/main/res/drawable-mdpi</a></span>: <span class="message">Missing the following drawables in <code>drawable-mdpi</code>: hero.png, marker.png</span><br />
+<span class="location"><a href="../../src/main/res/drawable-xhdpi">../../src/main/res/drawable-xhdpi</a></span>: <span class="message">Missing the following drawables in <code>drawable-xhdpi</code>: hero.png, marker.png</span><br />
 </div>
 <div class="metadata"><div class="explanation" id="explanationIconDensities" style="display: none;">
 Icons will look best if a custom version is provided for each of the major screen density classes (low, medium, high, extra high). This lint check identifies icons which do not have complete coverage across the densities.<br/>
@@ -577,62 +521,12 @@ Low density is not really used much anymore, so this check ignores the ldpi dens
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationIconDensitiesLink" onclick="reveal('explanationIconDensities');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card5Link" onclick="hideid('card5');">
-Dismiss</button>            </div>
-            </div>
-          </section>
-<a name="Internationalization"></a>
-<a name="SetTextI18n"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card6" style="display: block;">
-            <div class="mdl-card mdl-cell mdl-cell--12-col">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">TextView Internationalization</h2>
-  </div>
-              <div class="mdl-card__supporting-text">
-<div class="issue">
-<div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/jdroid/android/sample/ui/recyclerview/ComplexRecyclerFragment.java">../../src/main/java/com/jdroid/android/sample/ui/recyclerview/ComplexRecyclerFragment.java</a>:169</span>: <span class="message">Number formatting does not take into account locale settings. Consider using <code>String.format</code> instead.</span><br /><pre class="errorlines">
-<span class="lineno"> 166 </span>
-<span class="lineno"> 167 </span>        <span class="annotation">@Override</span>
-<span class="lineno"> 168 </span>        <span class="keyword">public</span> <span class="keyword">void</span> fillHolderFromItem(Integer item, IntegerViewHolder holder) {
-<span class="caretline"><span class="lineno"> 169 </span>            holder.textView.setText(<span class="warning">item.toString()</span>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 170 </span>        }
-<span class="lineno"> 171 </span>
-<span class="lineno"> 172 </span>        <span class="annotation">@Override</span></pre>
-
-</div>
-<div class="metadata"><div class="explanation" id="explanationSetTextI18n" style="display: none;">
-When calling <code>TextView#setText</code><br/>
-* Never call <code>Number#toString()</code> to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using <code>String#format</code> with proper format specifications (<code>%d</code> or <code>%f</code>) instead.<br/>
-* Do not pass a string literal (e.g. "Hello") to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.<br/>
-* Do not build messages by concatenating text chunks. Such messages can not be properly translated.<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/topics/resources/localization.html">http://developer.android.com/guide/topics/resources/localization.html</a>
-</div><br/>To suppress this error, use the issue id "SetTextI18n" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
-</div>
-</div>
-<div class="chips">
-<span class="mdl-chip">
-    <span class="mdl-chip__text">SetTextI18n</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Internationalization</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Warning</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Priority 6/10</span>
-</span>
-</div>
-              </div>
-              <div class="mdl-card__actions mdl-card--border">
-<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationSetTextI18nLink" onclick="reveal('explanationSetTextI18n');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card6Link" onclick="hideid('card6');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card4Link" onclick="hideid('card4');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="MissingIssues"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card7" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card5" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Disabled Checks</h2>
@@ -967,12 +861,12 @@ There's a lint quickfix to perform this conversion in the Eclipse plugin.<br/><b
 </div>              </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="SuppressedIssuesLink" onclick="reveal('SuppressedIssues');">
-List Missing Issues</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card7Link" onclick="hideid('card7');">
+List Missing Issues</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card5Link" onclick="hideid('card5');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="SuppressInfo"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card8" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card6" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Suppressing Warnings and Errors</h2>
