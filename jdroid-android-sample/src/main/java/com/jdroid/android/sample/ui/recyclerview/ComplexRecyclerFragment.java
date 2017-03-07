@@ -1,5 +1,6 @@
 package com.jdroid.android.sample.ui.recyclerview;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -164,6 +165,7 @@ public class ComplexRecyclerFragment extends AbstractRecyclerFragment {
 			return viewHolder;
 		}
 
+		@SuppressLint("SetTextI18n")
 		@Override
 		public void fillHolderFromItem(Integer item, IntegerViewHolder holder) {
 			holder.textView.setText(item.toString());
