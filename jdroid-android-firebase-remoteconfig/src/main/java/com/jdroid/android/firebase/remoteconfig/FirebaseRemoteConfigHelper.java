@@ -47,6 +47,9 @@ public class FirebaseRemoteConfigHelper {
 	static void init() {
 
 		try {
+			
+			LOGGER.debug("Initializing Firebase Remote Config");
+			
 			FirebaseApp.initializeApp(AbstractApplication.get());
 
 			firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
@@ -154,7 +157,7 @@ public class FirebaseRemoteConfigHelper {
 				}
 			});
 		} else {
-			AbstractApplication.get().getExceptionHandler().logWarningException("Ignoring Firebase Remote Config fetch, because it wasn't initialized yet.");
+			init();
 		}
 	}
 
@@ -182,7 +185,7 @@ public class FirebaseRemoteConfigHelper {
 			value = firebaseRemoteConfigValue.asString();
 		}
 		log(remoteConfigParameter, firebaseRemoteConfigValue, value);
-		return (String)value;
+		return value != null ? value.toString() : null;
 	}
 
 	public static Boolean getBoolean(RemoteConfigParameter remoteConfigParameter) {
