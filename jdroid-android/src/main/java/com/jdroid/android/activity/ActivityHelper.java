@@ -248,7 +248,7 @@ public class ActivityHelper implements ActivityIf {
 				builder.enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
 					@Override
 					public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-						AbstractApplication.get().getExceptionHandler().logHandledException(connectionResult.getErrorMessage());
+						AbstractApplication.get().getExceptionHandler().logHandledException("Error when connecting to google api client: " + connectionResult.getErrorMessage());
 					}
 				});
 				onInitGoogleApiClientBuilder(builder);
