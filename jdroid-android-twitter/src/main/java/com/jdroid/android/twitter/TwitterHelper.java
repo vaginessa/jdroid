@@ -13,6 +13,7 @@ import com.twitter.sdk.android.core.models.Tweet;
 import com.twitter.sdk.android.tweetui.SearchTimeline;
 import com.twitter.sdk.android.tweetui.TimelineResult;
 
+import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
@@ -63,6 +64,8 @@ public abstract class TwitterHelper {
 						} else if (e.getCause() instanceof SSLHandshakeException) {
 							connectionError = true;
 						} else if (e.getCause() instanceof SSLException) {
+							connectionError = true;
+						} else if (e.getCause() instanceof IOException) {
 							connectionError = true;
 						} else if (e.getCause().getMessage().startsWith("Failed to connect to api.twitter.com")) {
 							connectionError = true;
