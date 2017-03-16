@@ -15,11 +15,6 @@ Continuous Integration
 Components
 --------------
 
-[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/java.png" width="25" height="25"/> jdroid-java-firebase-database](https://github.com/maxirosson/jdroid/wiki/jdroid-Java)
------------
-* Repository Pattern
- * [Firebase Implementation](https://www.firebase.com)
-
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
 Libray for Android apps. Support for Android 4.0 (api level 15) and higher versions
