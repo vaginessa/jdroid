@@ -1,5 +1,22 @@
 # Change Log
 
+## [v0.13.0](https://github.com/maxirosson/jdroid/tree/v0.13.0) (2017-03-15)
+[Full Changelog](https://github.com/maxirosson/jdroid/compare/v0.12.0...v0.13.0)
+
+**Implemented enhancements:**
+
+- Use Cases: Support to notify on UI Thread [\#394](https://github.com/maxirosson/jdroid/issues/394)
+- Recycler View: Support to header & footer [\#393](https://github.com/maxirosson/jdroid/issues/393)
+- Recycler View: Support to selectable items [\#392](https://github.com/maxirosson/jdroid/issues/392)
+- Support Vector Drawables [\#306](https://github.com/maxirosson/jdroid/issues/306)
+
+**Closed issues:**
+
+- Upgrade to Jdroid Android Gradle Plugin v0.14.0 [\#398](https://github.com/maxirosson/jdroid/issues/398)
+- Upgrade to Google Play Services v10.2.0 [\#397](https://github.com/maxirosson/jdroid/issues/397)
+- Upgrade to Android Support Library v25.2.0 [\#391](https://github.com/maxirosson/jdroid/issues/391)
+- Firebase Crash Reporting support [\#320](https://github.com/maxirosson/jdroid/issues/320)
+
 ## [v0.12.0](https://github.com/maxirosson/jdroid/tree/v0.12.0) (2017-01-16)
 [Full Changelog](https://github.com/maxirosson/jdroid/compare/v0.11.0...v0.12.0)
 
