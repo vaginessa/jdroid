@@ -17,10 +17,10 @@ public class FirebaseCrashAppModule extends AbstractAppModule {
 
 	@Override
 	public List<? extends CoreAnalyticsTracker> createCoreAnalyticsTrackers() {
-		return Lists.newArrayList(createCrashlyticsTracker());
+		return Lists.newArrayList(createFirebaseCrashTracker());
 	}
 
-	protected CoreAnalyticsTracker createCrashlyticsTracker() {
+	protected CoreAnalyticsTracker createFirebaseCrashTracker() {
 		return new FirebaseCrashTracker();
 	}
 }

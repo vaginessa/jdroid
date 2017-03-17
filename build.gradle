@@ -34,7 +34,7 @@ buildscript {
 allprojects {
 
 	ext.RESOURCE_PREFIX = "jdroid"
-	ext.RESOURCE_FILES_TO_SKIP_PREFIX_VALIDATION = ["analytics.xml", "com_crashlytics_export_strings.xml"]
+	ext.RESOURCE_FILES_TO_SKIP_PREFIX_VALIDATION = ["analytics.xml"]
 
 	buildscript {
 		repositories {

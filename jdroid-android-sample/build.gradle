@@ -218,7 +218,6 @@ android {
 
 			applicationIdSuffix ".debug"
 
-			jdroid.setBuildConfigBoolean(buildTypes.debug, "CRASHLYTICS_ENABLED", false)
 			jdroid.setBuildConfigString(buildTypes.debug, "SERVER_NAME", "DEV")
 		}
 

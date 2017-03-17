@@ -8,7 +8,6 @@ then
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-about/build/reports
-  mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-crashlytics/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-facebook/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-database/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-crash/build/reports
@@ -24,7 +23,6 @@ then
 
   cp jdroid-android/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android/build/reports/lint-results.html
   cp jdroid-android-about/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-about/build/reports/lint-results.html
-  cp jdroid-android-crashlytics/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-crashlytics/build/reports/lint-results.html
   cp jdroid-android-facebook/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-facebook/build/reports/lint-results.html
   cp jdroid-android-firebase-crash/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-crash/build/reports/lint-results.html
   cp jdroid-android-firebase-database/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-database/build/reports/lint-results.html
