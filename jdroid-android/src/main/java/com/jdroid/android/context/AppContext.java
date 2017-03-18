@@ -1,12 +1,11 @@
 package com.jdroid.android.context;
 
-import android.preference.PreferenceManager;
-
 import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
 import com.jdroid.android.firebase.testlab.FirebaseTestLab;
 import com.jdroid.android.utils.LocalizationUtils;
+import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.http.Server;
 
 import java.util.List;
@@ -35,7 +34,7 @@ public abstract class AppContext extends AbstractAppContext {
 		} else {
 			Class<?> clazz = defaultServer.getClass().getEnclosingClass() != null ? defaultServer.getClass().getEnclosingClass()
 					: defaultServer.getClass();
-			return (T)defaultServer.instance(PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
+			return (T)defaultServer.instance(SharedPreferencesHelper.get().loadPreference(
 					clazz.getSimpleName(), defaultServer.getName()).toUpperCase(Locale.US));
 		}
 	}

@@ -1,11 +1,9 @@
 package com.jdroid.android.google.admob;
 
-import android.preference.PreferenceManager;
-
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AbstractAppContext;
 import com.jdroid.android.context.UsageStats;
 import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigHelper;
+import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.collections.Sets;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.StringUtils;
@@ -24,7 +22,7 @@ public class AdMobAppContext extends AbstractAppContext {
 	 * @return Whether the application has ads enabled or not
 	 */
 	public Boolean areAdsEnabled() {
-		Boolean prefEnabled = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(AdMobRemoteConfigParameter.ADS_ENABLED.getKey(), areAdsEnabledByDefault());
+		Boolean prefEnabled = SharedPreferencesHelper.get().loadPreferenceAsBoolean(AdMobRemoteConfigParameter.ADS_ENABLED.getKey(), areAdsEnabledByDefault());
 		Boolean enoughDaysSinceFirstAppLoad = DateUtils.millisecondsToDays(UsageStats.getFirstAppLoadTimestamp()) >= getMinDaysSinceFirstAppLoad();
 		Boolean enoughAppLoads = UsageStats.getAppLoads() >= getMinAppLoadsToDisplayAds() ;
 		return prefEnabled && enoughDaysSinceFirstAppLoad && enoughAppLoads;
@@ -39,7 +37,7 @@ public class AdMobAppContext extends AbstractAppContext {
 	}
 
 	public Boolean isTestAdUnitIdEnabled() {
-		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(TEST_AD_UNIT_ID_ENABLED, true);
+		return SharedPreferencesHelper.get().loadPreferenceAsBoolean(TEST_AD_UNIT_ID_ENABLED, true);
 	}
 
 	/**

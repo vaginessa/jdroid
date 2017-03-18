@@ -64,9 +64,6 @@ public class SkuDetails {
 		return currencyCode;
 	}
 	
-	/**
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return "SkuDetails [mItemType=" + mItemType + ", mSku=" + mSku + ", formattedPrice=" + formattedPrice

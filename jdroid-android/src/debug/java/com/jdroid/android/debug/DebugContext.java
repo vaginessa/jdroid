@@ -1,6 +1,5 @@
 package com.jdroid.android.debug;
 
-import android.preference.PreferenceManager;
 import android.support.v4.util.Pair;
 
 import com.jdroid.android.activity.ActivityLauncher;
@@ -9,6 +8,7 @@ import com.jdroid.android.debug.mocks.AndroidJsonMockHttpService;
 import com.jdroid.android.log.DatabaseLog;
 import com.jdroid.android.log.DatabaseLogsRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
+import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.domain.Identifiable;
@@ -28,13 +28,11 @@ public class DebugContext {
 
 	public Boolean isHttpMockEnabled() {
 		return !AbstractApplication.get().getAppContext().isProductionEnvironment()
-				&& PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(
-				HTTP_MOCK_ENABLED, false);
+				&& SharedPreferencesHelper.get().loadPreferenceAsBoolean(HTTP_MOCK_ENABLED, false);
 	}
 
 	public Integer getHttpMockSleepDuration() {
-		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(HTTP_MOCK_SLEEP,
-				false) ? 10 : null;
+		return SharedPreferencesHelper.get().loadPreferenceAsBoolean(HTTP_MOCK_SLEEP, false) ? 10 : null;
 	}
 
 	public void launchActivityDebugSettingsActivity() {

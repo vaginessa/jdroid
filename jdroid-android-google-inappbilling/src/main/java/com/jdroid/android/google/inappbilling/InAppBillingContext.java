@@ -1,17 +1,13 @@
 package com.jdroid.android.google.inappbilling;
 
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.preference.PreferenceManager;
-
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AbstractAppContext;
 import com.jdroid.android.google.inappbilling.client.Inventory;
 import com.jdroid.android.google.inappbilling.client.Product;
 import com.jdroid.android.google.inappbilling.client.ProductType;
 import com.jdroid.android.google.inappbilling.client.TestProductType;
+import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.collections.Lists;
-import com.jdroid.java.utils.StringUtils;
 
 import java.util.List;
 
@@ -19,7 +15,7 @@ public class InAppBillingContext extends AbstractAppContext {
 	
 	public static final String MOCK_ENABLED = "inAppBillingMockEnabled";
 	public static final String TEST_PRODUCT_IDS = "inAppBillingTestProductIds";
-	public static final String PURCHASED_PRODUCT_TYPES = "inAppBillingPurchasedProductTypes";
+	private static final String PURCHASED_PRODUCT_TYPES = "inAppBillingPurchasedProductTypes";
 	
 	private String googlePlayPublicKey;
 	private List<ProductType> purchasedProductTypes;
@@ -45,19 +41,15 @@ public class InAppBillingContext extends AbstractAppContext {
 	
 	public Boolean isInAppBillingMockEnabled() {
 		return !AbstractApplication.get().getAppContext().isProductionEnvironment()
-				&& PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(MOCK_ENABLED,
-					false);
+				&& SharedPreferencesHelper.get().loadPreferenceAsBoolean(MOCK_ENABLED, false);
 	}
 	
 	public TestProductType getTestProductType() {
-		return TestProductType.valueOf(PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
-			TEST_PRODUCT_IDS, TestProductType.PURCHASED.name()));
+		return TestProductType.valueOf(SharedPreferencesHelper.get().loadPreference(TEST_PRODUCT_IDS, TestProductType.PURCHASED.name()));
 	}
 	
 	public synchronized void setPurchasedProductTypes(Inventory inventory) {
 		purchasedProductTypes = Lists.newArrayList();
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
-		Editor editor = sharedPreferences.edit();
 		List<String> productIds = Lists.newArrayList();
 		for (Product each : inventory.getProducts()) {
 			if (each.isPurchaseVerified()) {
@@ -65,32 +57,23 @@ public class InAppBillingContext extends AbstractAppContext {
 				purchasedProductTypes.add(each.getProductType());
 			}
 		}
-		editor.putString(PURCHASED_PRODUCT_TYPES, StringUtils.join(productIds));
-		editor.apply();
+		SharedPreferencesHelper.get().savePreferenceAsync(PURCHASED_PRODUCT_TYPES, productIds);
 	}
 	
 	public synchronized void addPurchasedProductType(ProductType productType) {
 		if (purchasedProductTypes != null) {
 			purchasedProductTypes.add(productType);
 		}
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
-		String value = sharedPreferences.getString(PURCHASED_PRODUCT_TYPES, null);
-		Editor editor = sharedPreferences.edit();
-		if (StringUtils.isNotEmpty(value)) {
-			value = value + "," + productType.getProductId();
-		} else {
-			value = productType.getProductId();
-		}
-		editor.putString(PURCHASED_PRODUCT_TYPES, value);
-		editor.apply();
+		List<String> purchasedProductTypesIds = SharedPreferencesHelper.get().loadPreferenceAsStringList(PURCHASED_PRODUCT_TYPES);
+		purchasedProductTypesIds.add(productType.getProductId());
+		SharedPreferencesHelper.get().savePreferenceAsync(PURCHASED_PRODUCT_TYPES, purchasedProductTypesIds);
 	}
 
 	public synchronized List<ProductType> getPurchasedProductTypes() {
 		if (purchasedProductTypes == null) {
-			String purchasedProductTypesPref = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
-				PURCHASED_PRODUCT_TYPES, null);
+			List<String> purchasedProductTypesIds = SharedPreferencesHelper.get().loadPreferenceAsStringList(PURCHASED_PRODUCT_TYPES);
 			purchasedProductTypes = Lists.newArrayList();
-			for (String each : StringUtils.splitToCollectionWithCommaSeparator(purchasedProductTypesPref)) {
+			for (String each : purchasedProductTypesIds) {
 				List<ProductType> supportedProductTypes = Lists.newArrayList();
 				supportedProductTypes.addAll(getManagedProductTypes());
 				supportedProductTypes.addAll(getSubscriptionsProductTypes());

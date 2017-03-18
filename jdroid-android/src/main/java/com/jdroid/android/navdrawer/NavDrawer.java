@@ -1,10 +1,8 @@
 package com.jdroid.android.navdrawer;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,9 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
+import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.concurrent.ExecutorUtils;
 
 public abstract class NavDrawer {
@@ -111,8 +109,7 @@ public abstract class NavDrawer {
 
 				@Override
 				public void run() {
-					navDrawerManuallyUsed = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(
-							NAV_DRAWER_MANUALLY_USED, false);
+					navDrawerManuallyUsed = SharedPreferencesHelper.get().loadPreferenceAsBoolean(NAV_DRAWER_MANUALLY_USED, false);
 					activity.runOnUiThread(new Runnable() {
 
 						@Override
@@ -134,10 +131,7 @@ public abstract class NavDrawer {
 
 				@Override
 				public void run() {
-					SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get());
-					SharedPreferences.Editor editor = sharedPreferences.edit();
-					editor.putBoolean(NAV_DRAWER_MANUALLY_USED, true);
-					editor.apply();
+					SharedPreferencesHelper.get().savePreferenceAsync(NAV_DRAWER_MANUALLY_USED, true);
 					navDrawerManuallyUsed = true;
 				}
 			});

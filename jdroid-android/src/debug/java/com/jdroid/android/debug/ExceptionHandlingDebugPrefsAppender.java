@@ -6,10 +6,10 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceGroup;
-import android.preference.PreferenceManager;
 
 import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.IdGenerator;
 
@@ -55,10 +55,8 @@ public class ExceptionHandlingDebugPrefsAppender extends PreferencesAppender {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				
-				Boolean uiThread = PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(
-					UI_THREAD_KEY, false);
-				ExceptionType exceptionType = ExceptionType.valueOf(PreferenceManager.getDefaultSharedPreferences(
-					AbstractApplication.get()).getString(CRASH_TYPE_KEY, ExceptionType.UNEXPECTED_EXCEPTION.name()));
+				Boolean uiThread = SharedPreferencesHelper.get().loadPreferenceAsBoolean(UI_THREAD_KEY, false);
+				ExceptionType exceptionType = ExceptionType.valueOf(SharedPreferencesHelper.get().loadPreference(CRASH_TYPE_KEY, ExceptionType.UNEXPECTED_EXCEPTION.name()));
 				CrashGenerator.crash(exceptionType, !uiThread);
 				return true;
 			}
