@@ -53,7 +53,7 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 * Loading & Refresh
  * Blocking loading dialog
  * Non blocking loading component
- * [Swipe to refresh support] (http://developer.android.com/reference/android/support/v4/widget/SwipeRefreshLayout.html)
+ * [Swipe to refresh support](http://developer.android.com/reference/android/support/v4/widget/SwipeRefreshLayout.html)
  * Refresh action provider component
 * Rate App component
 * Picture import (From camera or gallery) component
@@ -113,7 +113,10 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
  * [Google Sign In integration](https://developers.google.com/identity/sign-in/android/)
   * sign in, sign out, revoke access
   
-
+[<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-fabric](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
+--------------
+ * [Fabric integration](https://docs.fabric.io/android/)
+ 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-twitter](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
  * [Fabric TweetUi integration](https://docs.fabric.io/android/twitter/overview.html)

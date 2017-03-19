@@ -17,8 +17,6 @@ import com.jdroid.java.analytics.AnalyticsTracker;
 import java.util.List;
 import java.util.Map;
 
-import io.fabric.sdk.android.Kit;
-
 public interface AppModule {
 
 	@MainThread
@@ -48,9 +46,6 @@ public interface AppModule {
 	public void onInitExceptionHandler(Map<String, String> metadata);
 
 	public List<? extends CoreAnalyticsTracker> createCoreAnalyticsTrackers();
-
-	@MainThread
-	public List<Kit> createFabricKits();
 
 	public List<PreferencesAppender> getPreferencesAppenders();
 

@@ -2,6 +2,7 @@ package com.jdroid.android.application;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.support.annotation.CallSuper;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -19,12 +20,11 @@ import com.jdroid.java.collections.Lists;
 import java.util.List;
 import java.util.Map;
 
-import io.fabric.sdk.android.Kit;
-
 public abstract class AbstractAppModule implements AppModule {
 
 	private AnalyticsSender<? extends AnalyticsTracker> analyticsSender;
 
+	@CallSuper
 	@MainThread
 	@Override
 	public void onCreate() {
@@ -96,12 +96,6 @@ public abstract class AbstractAppModule implements AppModule {
 
 	@Override
 	public List<? extends CoreAnalyticsTracker> createCoreAnalyticsTrackers() {
-		return Lists.newArrayList();
-	}
-
-	@MainThread
-	@Override
-	public List<Kit> createFabricKits() {
 		return Lists.newArrayList();
 	}
 

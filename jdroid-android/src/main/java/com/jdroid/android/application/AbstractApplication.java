@@ -53,9 +53,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.fabric.sdk.android.Fabric;
-import io.fabric.sdk.android.Kit;
-
 public abstract class AbstractApplication extends Application {
 	
 	/**
@@ -127,17 +124,10 @@ public abstract class AbstractApplication extends Application {
 		initAppModule(appModulesMap);
 		remoteConfigParameters = createRemoteConfigParameters();
 
-		List<Kit> fabricKits = Lists.newArrayList();
 		for (AppModule each: appModulesMap.values()) {
 			each.onCreate();
-			fabricKits.addAll(each.createFabricKits());
 		}
-		fabricKits.addAll(getFabricKits());
-
-		if (!fabricKits.isEmpty()) {
-			Fabric.with(this, fabricKits.toArray(new Kit[0]));
-		}
-
+		
 		initCoreAnalyticsSender();
 
 		uriMapper = createUriMapper();
@@ -487,10 +477,6 @@ public abstract class AbstractApplication extends Application {
 
 	public AppModule getAppModule(String appModuleName) {
 		return appModulesMap.get(appModuleName);
-	}
-
-	public List<Kit> getFabricKits() {
-		return Lists.newArrayList();
 	}
 
 	public void initializeGcmTasks() {

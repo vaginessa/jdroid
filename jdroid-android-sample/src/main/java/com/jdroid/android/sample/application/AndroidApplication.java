@@ -14,6 +14,7 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
+import com.jdroid.android.fabric.FabricAppModule;
 import com.jdroid.android.facebook.FacebookAppModule;
 import com.jdroid.android.firebase.FirebaseAppModule;
 import com.jdroid.android.firebase.crash.FirebaseCrashAppModule;
@@ -130,6 +131,7 @@ public class AndroidApplication extends AbstractApplication {
 		appModulesMap.put(FirebaseRemoteConfigAppModule.MODULE_NAME, new FirebaseRemoteConfigAppModule());
 		appModulesMap.put(AboutAppModule.MODULE_NAME, new AndroidAboutAppModule());
 		appModulesMap.put(TwitterAppModule.MODULE_NAME, new TwitterAppModule());
+		appModulesMap.put(FabricAppModule.MODULE_NAME, new FabricAppModule());
 		appModulesMap.put(InAppBillingAppModule.MODULE_NAME, new AndroidInAppBillingAppModule());
 	}
 

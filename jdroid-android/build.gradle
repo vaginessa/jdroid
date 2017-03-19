@@ -3,12 +3,6 @@ apply plugin: 'com.jdroid.android.library'
 ext.PROJECT_NAME = 'Jdroid Android'
 description = 'Jdroid dependency project for Android apps'
 
-repositories {
-	maven {
-		url 'https://maven.fabric.io/public'
-	}
-}
-
 configurations {
 	compile.exclude group: "org.apache.httpcomponents",  module: "httpclient"
 	compile.exclude group: "org.slf4j",  module: "slf4j-api"
@@ -51,10 +45,6 @@ dependencies {
 
 	// https://github.com/facebook/device-year-class
 	compile 'com.facebook.device.yearclass:yearclass:1.0.1'
-
-	// https://docs.fabric.io/android/changelog.html#fabric
-	// https://twittersdk.artifactoryonline.com/twittersdk/public/io/fabric/sdk/android/fabric/
-	compile 'io.fabric.sdk.android:fabric:1.3.14'
 
 	// Jdroid dependencies
 
