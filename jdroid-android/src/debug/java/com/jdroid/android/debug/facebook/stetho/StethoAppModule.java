@@ -19,6 +19,7 @@ public class StethoAppModule extends AbstractAppModule {
 
 	@Override
 	public void onCreate() {
+		super.onCreate();
 		try {
 			ReflectionUtils.invokeStaticMethod(STETHO, INITIALIZE_WITH_DEFAULTS,
 					Lists.<Class<?>>newArrayList(Context.class), Lists.<Object>newArrayList(AbstractApplication.get()));
