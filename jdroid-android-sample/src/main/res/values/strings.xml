@@ -100,6 +100,7 @@
 	<string name="googleMaps">Google Maps</string>
 	<string name="fullMap">Full Map</string>
 	<string name="liteModeMap">Lite Mode Map</string>
+	<string name="streetView">Street View</string>
 
 	<!-- Google Sign In -->
 	<string name="revokeAccess">Revoke</string>

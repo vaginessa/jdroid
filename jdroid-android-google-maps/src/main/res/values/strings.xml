@@ -3,7 +3,7 @@
 
 	<string name="jdroid_driving">Driving</string>
 	<string name="jdroid_walking">Walking</string>
-	<string name="jdroid_updateGooglePlayServices">You need to update the <b>Google Play Services</b> app to see the map.</string>
+	<string name="jdroid_updateGooglePlayServices">You need to update the <b>Google Play Services</b> app.</string>
 	<string name="jdroid_locationPermissionSuggested"><b>Location</b> permission is suggested</string>
 	<string name="jdroid_locationPermissionRequired">You need to allow the <b>Location</b> permission in order to see your current location.</string>
 

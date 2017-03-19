@@ -166,6 +166,9 @@
 		<activity android:name="com.jdroid.android.sample.ui.google.maps.MapActivity" android:label="@string/googleMaps"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<activity android:name="com.jdroid.android.sample.ui.google.maps.StreetViewActivity" android:label="@string/googleMaps"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
 		<!-- Nav Drawer -->
 
 		<activity android:name="com.jdroid.android.sample.ui.navdrawer.NavDrawerActivity" android:label="@string/navDrawer"

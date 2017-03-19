@@ -100,7 +100,8 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-google-maps](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
- * [Google Maps v2 integration](http://developer.android.com/google/play-services/maps.html)
+ * [Google Maps integration](http://developer.android.com/google/play-services/maps.html)
+ * [Google Street View integration](https://developers.google.com/maps/documentation/android-api/streetview)
 
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-google-plus](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
