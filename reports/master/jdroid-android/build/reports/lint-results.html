@@ -176,7 +176,7 @@ document.getElementById(id).style.display = 'none';
       <span class="mdl-layout-title">Lint Report: 38 warnings</span>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-Check performed at Wed Mar 22 08:04:14 UTC 2017      </nav>
+Check performed at Thu Mar 23 01:21:39 UTC 2017      </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -503,14 +503,14 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/jdroid/android/application/AbstractApplication.java">../../src/main/java/com/jdroid/android/application/AbstractApplication.java</a>:67</span>: <span class="message">Do not place Android context classes in static fields (static reference to <code>AbstractApplication</code> which has field <code>currentActivity</code> pointing to <code>Activity</code>); this is a memory leak (and also breaks Instant Run)</span><br /><pre class="errorlines">
-<span class="lineno">  64 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String INSTALLATION_SOURCE = <span class="string">"installationSource"</span>;
-<span class="lineno">  65 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String VERSION_CODE_KEY = <span class="string">"versionCodeKey"</span>;
+<span class="location"><a href="../../src/main/java/com/jdroid/android/application/AbstractApplication.java">../../src/main/java/com/jdroid/android/application/AbstractApplication.java</a>:65</span>: <span class="message">Do not place Android context classes in static fields (static reference to <code>AbstractApplication</code> which has field <code>currentActivity</code> pointing to <code>Activity</code>); this is a memory leak (and also breaks Instant Run)</span><br /><pre class="errorlines">
+<span class="lineno">  62 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String INSTALLATION_SOURCE = <span class="string">"installationSource"</span>;
+<span class="lineno">  63 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String VERSION_CODE_KEY = <span class="string">"versionCodeKey"</span>;
+<span class="lineno">  64 </span>    
+<span class="caretline"><span class="lineno">  65 </span>    <span class="warning"><span class="keyword">protected</span> <span class="keyword">static</span> AbstractApplication INSTANCE;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno">  66 </span>    
-<span class="caretline"><span class="lineno">  67 </span>    <span class="warning"><span class="keyword">protected</span> <span class="keyword">static</span> AbstractApplication INSTANCE;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  68 </span>    
-<span class="lineno">  69 </span>    <span class="keyword">private</span> AppContext appContext;
-<span class="lineno">  70 </span>    <span class="keyword">private</span> GitContext gitContext;
+<span class="lineno">  67 </span>    <span class="keyword">private</span> AppContext appContext;
+<span class="lineno">  68 </span>    <span class="keyword">private</span> GitContext gitContext;
 </pre>
 
 </div>
@@ -920,8 +920,8 @@ Additional locations: <ul>
 <span class="lineno"> 77 </span>    <span class="comment">&lt;!-- Twitter --></span>
 <span class="caretline"><span class="lineno"> 78 </span>    <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_twitter"</span></span>>Twitter<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno"> 79 </span>
-<span class="lineno"> 80 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_universalImageLoaderTitle"</span>>Universal Image Loader<span class="tag">&lt;/string></span>
-<span class="lineno"> 81 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_universalImageLoaderDescription"</span>>Powerful and flexible library for loading, caching and displaying images on Android.<span class="tag">&lt;/string></span></pre>
+<span class="lineno"> 80 </span>    <span class="comment">&lt;!-- Rate App --></span>
+<span class="lineno"> 81 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_rateAppEnjoying"</span>>Enjoying %1$s?<span class="tag">&lt;/string></span></pre>
 
 <ul></ul><button id="Location23DivLink" onclick="reveal('Location23Div');" />+ 1 Additional Locations...</button>
 <div id="Location23Div" style="display: none">
