@@ -20,6 +20,7 @@ import android.widget.RemoteViews;
 import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.images.BitmapUtils;
+import com.jdroid.android.images.loader.BitmapLoader;
 import com.jdroid.android.uri.ReferrerUtils;
 import com.jdroid.android.uri.UriUtils;
 import com.jdroid.android.utils.AppUtils;
@@ -27,7 +28,6 @@ import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.RandomUtils;
 import com.jdroid.java.utils.StringUtils;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 public class NotificationBuilder {
 
@@ -171,14 +171,18 @@ public class NotificationBuilder {
 			builder.setLargeIcon(largeIcon);
 		}
 	}
-
+	
 	@WorkerThread
-	public void setLargeIcon(String largeIconUrl) {
-		if (largeIconUrl != null) {
-			builder.setLargeIcon(createLargeIconBitmap(largeIconUrl));
+	public void setLargeIcon(BitmapLoader bitmapLoader) {
+		if (bitmapLoader != null) {
+			builder.setLargeIcon(createLargeIconBitmap(bitmapLoader));
 		}
 	}
 	
+	private Bitmap createLargeIconBitmap(BitmapLoader bitmapLoader) {
+		return bitmapLoader.load(NotificationUtils.getNotificationLargeIconHeightPx(), NotificationUtils.getNotificationLargeIconWidthPx());
+	}
+
 	public void setInProgress(@DrawableRes int notificationIcon, int progress, int contentTitle, int actionText) {
 		builder.setOngoing(true);
 		
@@ -266,16 +270,6 @@ public class NotificationBuilder {
 	public void setDefaultVibration() {
 		long[] defaultPattern = { 1000, 500 };
 		builder.setVibrate(defaultPattern);
-	}
-	
-	private Bitmap createLargeIconBitmap(String largeIconUrl) {
-		Bitmap largeIconBitmap = null;
-		if (StringUtils.isNotEmpty(largeIconUrl)) {
-			largeIconBitmap = AbstractApplication.get().getImageLoaderHelper().loadBitmap(largeIconUrl, ImageScaleType.EXACTLY,
-				NotificationUtils.getNotificationLargeIconWidthPx(),
-				NotificationUtils.getNotificationLargeIconHeightPx(), null);
-		}
-		return largeIconBitmap;
 	}
 	
 	public void setBigTextStyle(String title, String text) {

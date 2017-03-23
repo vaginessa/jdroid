@@ -3,13 +3,14 @@ package com.jdroid.android.firebase.fcm.notification;
 import com.google.firebase.messaging.RemoteMessage;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.firebase.fcm.FcmMessage;
+import com.jdroid.android.images.loader.BitmapLoader;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.IdGenerator;
-import com.jdroid.java.utils.TypeUtils;
 import com.jdroid.java.utils.StringUtils;
+import com.jdroid.java.utils.TypeUtils;
 
 public class NotificationFcmMessage implements FcmMessage {
 
@@ -115,7 +116,18 @@ public class NotificationFcmMessage implements FcmMessage {
 
 	protected void initLargeIcon(RemoteMessage remoteMessage, NotificationBuilder builder) {
 		String largeIconUrl = remoteMessage.getData().get(LARGE_ICON_URL);
-		builder.setLargeIcon(largeIconUrl);
+		BitmapLoader bitmapLoader = createBitmapLoader(largeIconUrl);
+		if (largeIconUrl != null)  {
+			if (bitmapLoader != null) {
+				builder.setLargeIcon(bitmapLoader);
+			} else {
+				AbstractApplication.get().getExceptionHandler().logWarningException("Not bitmapLoader defined to load large icon url");
+			}
+		}
+	}
+	
+	protected BitmapLoader createBitmapLoader(String url) {
+		return null;
 	}
 
 	protected void configureBuilder(RemoteMessage remoteMessage, NotificationBuilder notificationBuilder) {

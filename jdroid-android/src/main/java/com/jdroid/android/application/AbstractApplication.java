@@ -25,8 +25,6 @@ import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.http.cache.CacheManager;
-import com.jdroid.android.images.loader.ImageLoaderHelper;
-import com.jdroid.android.images.loader.uil.UilImageLoaderHelper;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
 import com.jdroid.android.sqlite.SQLiteUpgradeStep;
@@ -81,8 +79,6 @@ public abstract class AbstractApplication extends Application {
 	private Map<Class<? extends Identifiable>, Repository<? extends Identifiable>> repositories;
 
 	private Map<String, AppModule> appModulesMap = Maps.newLinkedHashMap();
-
-	private ImageLoaderHelper imageLoaderHelper;
 
 	private UpdateManager updateManager;
 	private CacheManager cacheManager;
@@ -142,7 +138,6 @@ public abstract class AbstractApplication extends Application {
 		ToastUtils.init();
 		DateUtils.init();
 
-		imageLoaderHelper = createImageLoaderHelper();
 		initRepositories();
 
 		ExecutorUtils.execute(new Runnable() {
@@ -155,26 +150,12 @@ public abstract class AbstractApplication extends Application {
 				if (getCacheManager() != null) {
 					getCacheManager().initFileSystemCache();
 				}
-
-				if (imageLoaderHelper != null) {
-					imageLoaderHelper.init();
-				}
 			}
 		});
 
 		activityLifecycleHandler = new ActivityLifecycleHandler();
 		registerActivityLifecycleCallbacks(activityLifecycleHandler);
 
-	}
-
-	@Nullable
-	public ImageLoaderHelper getImageLoaderHelper() {
-		return imageLoaderHelper;
-	}
-
-	@Nullable
-	protected ImageLoaderHelper createImageLoaderHelper() {
-		return new UilImageLoaderHelper();
 	}
 
 	protected void initAppModule(Map<String, AppModule> appModulesMap) {

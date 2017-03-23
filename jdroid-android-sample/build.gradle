@@ -40,6 +40,12 @@ dependencies {
 		releaseCompile project(path: ":jdroid-android", configuration: 'release')
 	}
 
+	debugCompile project(path: ":jdroid-android-uil", configuration: 'debug')
+	uatCompile project(path: ":jdroid-android-uil", configuration: 'debug')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ":jdroid-android-uil", configuration: 'release')
+	}
+
 	debugCompile project(path: ":jdroid-android-about", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-about", configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {

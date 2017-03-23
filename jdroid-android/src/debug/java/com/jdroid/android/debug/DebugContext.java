@@ -74,10 +74,6 @@ public class DebugContext {
 		return new HttpCacheDebugPrefsAppender();
 	}
 	
-	public ImageLoaderDebugPrefsAppender createImageLoaderDebugPrefsAppender() {
-		return new ImageLoaderDebugPrefsAppender();
-	}
-	
 	public DatabaseDebugPrefsAppender createDatabaseDebugPrefsAppender() {
 		return new DatabaseDebugPrefsAppender();
 	}

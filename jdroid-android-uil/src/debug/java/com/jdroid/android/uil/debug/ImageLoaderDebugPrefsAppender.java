@@ -1,12 +1,13 @@
-package com.jdroid.android.debug;
+package com.jdroid.android.uil.debug;
 
 import android.app.Activity;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceGroup;
 
-import com.jdroid.android.R;
-import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.debug.PreferencesAppender;
+import com.jdroid.android.uil.R;
+import com.jdroid.android.uil.UilImageLoaderHelper;
 
 public class ImageLoaderDebugPrefsAppender extends PreferencesAppender {
 
@@ -24,7 +25,7 @@ public class ImageLoaderDebugPrefsAppender extends PreferencesAppender {
 			
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				AbstractApplication.get().getImageLoaderHelper().clearDiskCache();
+				UilImageLoaderHelper.clearDiskCache();
 				return true;
 			}
 		});
@@ -37,16 +38,10 @@ public class ImageLoaderDebugPrefsAppender extends PreferencesAppender {
 			
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				AbstractApplication.get().getImageLoaderHelper().clearMemoryCache();
+				UilImageLoaderHelper.clearMemoryCache();
 				return true;
 			}
 		});
 		preferenceGroup.addPreference(preference);
 	}
-	
-	@Override
-	public Boolean isEnabled() {
-		return AbstractApplication.get().getImageLoaderHelper() != null;
-	}
-	
 }

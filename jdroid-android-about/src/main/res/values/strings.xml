@@ -9,7 +9,5 @@
 	<string name="jdroid_website">Web Site</string>
 	<string name="jdroid_contactUs">Contact Us</string>
 	<string name="jdroid_beta">Beta</string>
-	<string name="jdroid_jdroidTitle">Jdroid</string>
-	<string name="jdroid_jdroidDescription">The jdroid Framework provides a programming and architectural model for modern Java-based enterprise and android applications.</string>
 
 </resources>

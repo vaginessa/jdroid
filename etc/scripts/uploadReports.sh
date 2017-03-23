@@ -19,6 +19,7 @@ then
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-google-plus/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-google-signin/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-fabric/build/reports
+  mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-uil/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-twitter/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-sample/build/reports
 
@@ -35,6 +36,7 @@ then
   cp jdroid-android-google-plus/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-google-plus/build/reports/lint-results.html
   cp jdroid-android-google-signin/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-google-signin/build/reports/lint-results.html
   cp jdroid-android-fabric/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-fabric/build/reports/lint-results.html
+  cp jdroid-android-uil/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-uil/build/reports/lint-results.html
   cp jdroid-android-twitter/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-twitter/build/reports/lint-results.html
   cp jdroid-android-sample/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-sample/build/reports/lint-results.html
 

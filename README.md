@@ -27,7 +27,6 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
  * [Firebase Dynamic Links](https://firebase.google.com/docs/dynamic-links/)
  * [Firebase Invites](https://firebase.google.com/docs/invites/)
 * [Sqlite integration](https://sqlite.org/)
-* [Android Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader)
 * [Device year class integration](https://github.com/facebook/device-year-class)
 * [Facebook Stetho Integration](https://github.com/facebook/stetho)
 * Exception handling
@@ -120,6 +119,11 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-twitter](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 --------------
  * [Fabric TweetUi integration](https://docs.fabric.io/android/twitter/overview.html)
+ 
+ [<img src="https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/android.png" width="25" height="25"/> jdroid-android-uil](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
+ --------------
+ * [Android Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader)
+
 
 More Jdroid Components
 --------------

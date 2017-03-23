@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
+import com.jdroid.android.uil.UilImageLoaderHelper;
 
 public class ImageLoaderFragment extends AbstractFragment {
 	
@@ -20,7 +20,7 @@ public class ImageLoaderFragment extends AbstractFragment {
 		super.onViewCreated(view, savedInstanceState);
 		
 		ImageView imageView = findView(R.id.image);
-		AbstractApplication.get().getImageLoaderHelper().displayImage("http://jdroidframework.com/images/mainImage.png", imageView,
+		UilImageLoaderHelper.displayImage("http://jdroidframework.com/images/mainImage.png", imageView,
 				R.drawable.hero);
 	}
 }

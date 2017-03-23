@@ -79,9 +79,6 @@
 	<!-- Twitter -->
 	<string name="jdroid_twitter">Twitter</string>
 
-	<string name="jdroid_universalImageLoaderTitle">Universal Image Loader</string>
-	<string name="jdroid_universalImageLoaderDescription">Powerful and flexible library for loading, caching and displaying images on Android.</string>
-
 	<!-- Rate App -->
 	<string name="jdroid_rateAppEnjoying">¿Disfrutando %1$s?</string>
 	<string name="jdroid_rateAppGooglePlay">¿Le gustaría calificarnos en Google Play?</string>
