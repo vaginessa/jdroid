@@ -34,6 +34,7 @@ import com.jdroid.android.sample.ui.service.ServiceActivity;
 import com.jdroid.android.sample.ui.sqlite.SQLiteActivity;
 import com.jdroid.android.sample.ui.tablets.LeftTabletActivity;
 import com.jdroid.android.sample.ui.tablets.TabletActivity;
+import com.jdroid.android.sample.ui.timer.TimerActivity;
 import com.jdroid.android.sample.ui.toasts.ToastsActivity;
 import com.jdroid.android.sample.ui.twitter.TwitterActivity;
 import com.jdroid.android.sample.ui.uri.UriMapperActivity;
@@ -68,6 +69,7 @@ public enum HomeItem implements ActionItem {
 	SERVICE(R.string.service, R.drawable.ic_service, ServiceActivity.class),
 	SQLITE(R.string.sqlite, R.drawable.ic_sqlite, SQLiteActivity.class),
 	TABLETS(R.string.tablets, R.drawable.ic_tablets, ScreenUtils.is10Inches() ? TabletActivity.class : LeftTabletActivity.class),
+	TIMER(R.string.timer, R.drawable.ic_toasts, TimerActivity.class),
 	TOASTS(R.string.toasts, R.drawable.ic_toasts, ToastsActivity.class),
 	TWITTER(R.string.jdroid_twitter, R.drawable.jdroid_ic_twitter, TwitterActivity.class),
 	UNVERSAL_IMAGE_LOADER(R.string.universalImageLoader, R.drawable.ic_photo, ImageLoaderActivity.class),

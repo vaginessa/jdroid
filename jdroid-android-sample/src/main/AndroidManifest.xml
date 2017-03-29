@@ -150,6 +150,11 @@
 		<activity android:name="com.jdroid.android.sample.ui.firebase.dynamiclinks.DynamicLinksActivity" android:label="@string/firebaseDynamicLinks"
 			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<!-- Timer -->
+
+		<activity android:name="com.jdroid.android.sample.ui.timer.TimerActivity" android:label="@string/timer"
+			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
 		<!-- Google InAppBilling -->
 
 		<activity android:name="com.jdroid.android.sample.ui.google.inappbilling.GoogleInAppBillingActivity" android:label="@string/inAppBilling"

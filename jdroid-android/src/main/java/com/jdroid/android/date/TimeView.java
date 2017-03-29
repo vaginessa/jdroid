@@ -32,9 +32,6 @@ public class TimeView extends AppCompatTextView implements Callback {
 		this(context, null);
 	}
 	
-	/**
-	 * @see android.os.Handler.Callback#handleMessage(android.os.Message)
-	 */
 	@Override
 	public boolean handleMessage(Message msg) {
 		updateTime();
@@ -55,9 +52,6 @@ public class TimeView extends AppCompatTextView implements Callback {
 		}
 	}
 	
-	/**
-	 * @see android.view.View#onWindowVisibilityChanged(int)
-	 */
 	@Override
 	protected void onWindowVisibilityChanged(int visibility) {
 		super.onWindowVisibilityChanged(visibility);
@@ -65,9 +59,6 @@ public class TimeView extends AppCompatTextView implements Callback {
 		updateTime();
 	}
 	
-	/**
-	 * @see android.widget.TextView#onDetachedFromWindow()
-	 */
 	@Override
 	protected void onDetachedFromWindow() {
 		super.onDetachedFromWindow();

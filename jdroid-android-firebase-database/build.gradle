@@ -3,13 +3,6 @@ apply plugin: 'com.jdroid.android.library'
 ext.PROJECT_NAME = 'Jdroid Android - Firebase Database'
 description = 'Jdroid dependency project for Firebase Database'
 
-repositories {
-	// TODO See how to remove this dependency
-	maven {
-		url 'https://maven.fabric.io/public'
-	}
-}
-
 configurations.all {
 	// check for updates every build
 	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
