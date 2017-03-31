@@ -6,11 +6,11 @@ import android.view.View.OnClickListener;
 
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
-import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.android.view.TimerView;
-import com.jdroid.java.concurrent.ExecutorUtils;
 
 public class TimerFragment extends AbstractFragment {
+	
+	private TimerView timerView;
 	
 	@Override
 	public Integer getContentFragmentLayout() {
@@ -21,7 +21,7 @@ public class TimerFragment extends AbstractFragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		
-		final TimerView timerView = findView(R.id.timer);
+		timerView = findView(R.id.timer);
 		
 		findView(R.id.start).setOnClickListener(new OnClickListener() {
 			
@@ -44,5 +44,33 @@ public class TimerFragment extends AbstractFragment {
 				timerView.reset();
 			}
 		});
+	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		
+		if (timerView.getStatus().equals(TimerView.Status.PAUSED)) {
+			timerView.unpause();
+		}
+	}
+	
+	@Override
+	public void onStop() {
+		super.onStop();
+		
+		if (timerView.getStatus().equals(TimerView.Status.STARTED)) {
+			timerView.pause();
+		}
+		
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		
+		if (timerView.getStatus().equals(TimerView.Status.STARTED)) {
+			timerView.pause();
+		}
 	}
 }
