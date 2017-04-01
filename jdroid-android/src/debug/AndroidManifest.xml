@@ -5,6 +5,8 @@
 
 	<application>
 
+		<meta-data android:name="com.jdroid.android.debug.facebook.stetho.StethoApplicationLifecycleCallback" android:value="ApplicationLifecycleCallback" />
+
 		<activity android:name="com.jdroid.android.debug.DebugSettingsActivity"
 				  android:label="@string/jdroid_debugSettings" />
 
@@ -15,12 +17,6 @@
 		<activity android:name="com.jdroid.android.debug.DebugInfoActivity"
 				  android:parentActivityName="com.jdroid.android.debug.DebugSettingsActivity"
 				  android:label="@string/jdroid_debugInfoSettings" />
-
-		<provider
-			android:name="com.jdroid.android.debug.facebook.stetho.StethoInitProvider"
-			android:authorities="${applicationId}.stethoinitprovider"
-			android:exported="false"
-			android:initOrder="1" />
 
 	</application>
 </manifest>

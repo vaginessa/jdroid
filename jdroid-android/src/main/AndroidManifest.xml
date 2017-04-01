@@ -58,5 +58,11 @@
 			</intent-filter>
 		</service>
 
+		<provider
+			android:name="com.jdroid.android.application.lifecycle.ApplicationLifecycleInitProvider"
+			android:authorities="${applicationId}.com.jdroid.android.application.lifecycle.ApplicationLifecycleInitProvider"
+			android:exported="false"
+			android:initOrder="1" />
+
 	</application>
 </manifest>

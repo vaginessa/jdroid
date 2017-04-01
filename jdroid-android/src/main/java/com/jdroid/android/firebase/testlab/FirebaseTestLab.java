@@ -1,15 +1,14 @@
 package com.jdroid.android.firebase.testlab;
 
 import android.provider.Settings;
+import android.util.Log;
 
+import com.jdroid.android.BuildConfig;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.java.utils.LoggerUtils;
-
-import org.slf4j.Logger;
 
 public class FirebaseTestLab {
 
-	private final static Logger LOGGER = LoggerUtils.getLogger(FirebaseTestLab.class);
+	private final static String TAG = FirebaseTestLab.class.getSimpleName();
 
 	private static Boolean isRunningInstrumentedTests;
 
@@ -20,9 +19,13 @@ public class FirebaseTestLab {
 				isRunningInstrumentedTests = "true".equals(testLabSetting);
 			} catch (Exception e) {
 				isRunningInstrumentedTests = false;
-				LOGGER.warn("Error when getting firebase.test.lab system property", e);
+				if (BuildConfig.DEBUG) {
+					Log.w(TAG, "Error when getting firebase.test.lab system property", e);
+				}
 			} finally {
-				LOGGER.debug("Running Firebase Tests Labs: " + isRunningInstrumentedTests);
+				if (BuildConfig.DEBUG) {
+					Log.d(TAG, "Running Firebase Tests Labs: " + isRunningInstrumentedTests);
+				}
 			}
 		}
 		return isRunningInstrumentedTests;

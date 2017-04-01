@@ -3,7 +3,6 @@ package com.jdroid.android.context;
 import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
-import com.jdroid.android.firebase.testlab.FirebaseTestLab;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.http.Server;
@@ -48,10 +47,6 @@ public abstract class AppContext extends AbstractAppContext {
 	 */
 	public Boolean displayDebugSettings() {
 		return !isProductionEnvironment();
-	}
-
-	public Boolean isLoggingEnabled() {
-		return !isProductionEnvironment() || FirebaseTestLab.isRunningInstrumentedTests();
 	}
 
 	public String getBuildType() {

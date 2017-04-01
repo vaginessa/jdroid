@@ -1,16 +1,18 @@
 package com.jdroid.android.uil;
 
+import android.content.Context;
+
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.provider.AbstractInitProvider;
+import com.jdroid.android.application.lifecycle.ApplicationLifecycleCallback;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
-public class UniversalImageLoaderInitProvider extends AbstractInitProvider {
+public class UilApplicationLifecycleCallback extends ApplicationLifecycleCallback {
 	
 	@Override
-	protected void init() {
+	public void onProviderInit(Context context) {
 		// Create global configuration and initialize ImageLoader with this configuration
 		
 		DisplayImageOptions.Builder displayImageOptionsBuilder = new DisplayImageOptions.Builder();

@@ -1,7 +1,5 @@
 package com.jdroid.android.application;
 
-import android.content.Context;
-import android.content.res.Configuration;
 import android.support.annotation.MainThread;
 import android.support.v4.app.Fragment;
 
@@ -21,18 +19,6 @@ public interface AppModule {
 
 	@MainThread
 	public void onCreate();
-
-	@MainThread
-	public void onConfigurationChanged(Configuration newConfig);
-
-	@MainThread
-	public void onLowMemory();
-
-	@MainThread
-	public void onTrimMemory(int level);
-
-	@MainThread
-	public void attachBaseContext(Context base);
 
 	public void onInstanceIdTokenRefresh();
 

@@ -1,7 +1,5 @@
 package com.jdroid.android.application;
 
-import android.content.Context;
-import android.content.res.Configuration;
 import android.support.annotation.CallSuper;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
@@ -45,30 +43,6 @@ public abstract class AbstractAppModule implements AppModule {
 	@Override
 	public AnalyticsSender<? extends AnalyticsTracker> getAnalyticsSender() {
 		return analyticsSender;
-	}
-
-	@MainThread
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		// Do Nothing
-	}
-
-	@MainThread
-	@Override
-	public void onLowMemory() {
-		// Do Nothing
-	}
-
-	@MainThread
-	@Override
-	public void onTrimMemory(int level) {
-		// Do Nothing
-	}
-
-	@MainThread
-	@Override
-	public void attachBaseContext(Context base) {
-		// Do Nothing
 	}
 
 	@Override

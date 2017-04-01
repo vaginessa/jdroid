@@ -1,23 +1,24 @@
 package com.jdroid.android.debug.facebook.stetho;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.application.lifecycle.ApplicationLifecycleCallback;
 import com.jdroid.android.context.BuildConfigUtils;
-import com.jdroid.android.provider.AbstractInitProvider;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.http.HttpServiceFactory;
 import com.jdroid.java.utils.ReflectionUtils;
 
-public class StethoInitProvider extends AbstractInitProvider {
+public class StethoApplicationLifecycleCallback extends ApplicationLifecycleCallback {
 
 	private static final String OKHTTP_SERVICE_FACTORY = "com.jdroid.java.http.okhttp.OkHttpServiceFactory";
 	private static final String OKHTTP_INTERCEPTOR = "okhttp3.Interceptor";
 	private static final String STETHO_OKHTTP_INTERCEPTOR = "com.facebook.stetho.okhttp3.StethoInterceptor";
 	private static final String ADD_NETWORK_INTERCEPTOR = "addNetworkInterceptor";
-
+	
 	@Override
-	protected void init() {
+	public void onProviderInit(Context context) {
 		try {
 			if (BuildConfigUtils.getBuildConfigBoolean("STETHO_ENABLED", false)) {
 				if (BuildConfigUtils.getBuildConfigBoolean("JDROID_JAVA_OKHTTP_ENABLED", false)) {
@@ -31,7 +32,7 @@ public class StethoInitProvider extends AbstractInitProvider {
 				AbstractApplication.get().addAppModulesMap(StethoAppModule.class.getSimpleName(), new StethoAppModule());
 			}
 		} catch (Exception e) {
-			Log.e(StethoInitProvider.class.getName(), "Error initializing StethoInitProvider", e);
+			Log.e(StethoApplicationLifecycleCallback.class.getName(), "Error initializing StethoInitProvider", e);
 		}
 	}
 

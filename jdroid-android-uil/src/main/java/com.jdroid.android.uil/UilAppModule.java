@@ -21,7 +21,7 @@ public class UilAppModule extends AbstractAppModule {
 		return new UilDebugContext();
 	}
 
-	public UilDebugContext getFcmDebugContext() {
+	public UilDebugContext getUilDebugContext() {
 		synchronized (AbstractApplication.class) {
 			if (uilDebugContext == null) {
 				uilDebugContext = createUilDebugContext();
@@ -32,6 +32,6 @@ public class UilAppModule extends AbstractAppModule {
 
 	@Override
 	public List<PreferencesAppender> getPreferencesAppenders() {
-		return getFcmDebugContext().getPreferencesAppenders();
+		return getUilDebugContext().getPreferencesAppenders();
 	}
 }

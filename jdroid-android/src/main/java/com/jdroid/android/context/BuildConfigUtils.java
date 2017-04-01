@@ -14,7 +14,11 @@ public class BuildConfigUtils {
 	public static <T> T getBuildConfigValue(String property, Object defaultValue) {
 		return (T)ReflectionUtils.getStaticFieldValue(AbstractApplication.get().getBuildConfigClass(), property, defaultValue);
 	}
-
+	
+	public static String getBuildConfigString(String property) {
+		return (String)ReflectionUtils.getStaticFieldValue(AbstractApplication.get().getBuildConfigClass(), property);
+	}
+	
 	public static Boolean getBuildConfigBoolean(String property, Boolean defaultValue) {
 		return (Boolean)getBuildConfigValue(property, defaultValue);
 	}

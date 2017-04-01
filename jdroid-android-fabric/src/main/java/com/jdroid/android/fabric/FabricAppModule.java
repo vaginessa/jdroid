@@ -4,9 +4,6 @@ import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.exception.UnexpectedException;
-import com.jdroid.java.utils.LoggerUtils;
-
-import org.slf4j.Logger;
 
 import java.util.List;
 
@@ -14,8 +11,6 @@ import io.fabric.sdk.android.Fabric;
 import io.fabric.sdk.android.Kit;
 
 public class FabricAppModule extends AbstractAppModule {
-
-	private final static Logger LOGGER = LoggerUtils.getLogger(FabricAppModule.class);
 
 	public static final String MODULE_NAME = FabricAppModule.class.getName();
 

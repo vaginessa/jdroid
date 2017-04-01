@@ -3,6 +3,7 @@ package com.jdroid.android.application;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.os.StrictMode;
 import android.support.annotation.MainThread;
@@ -17,12 +18,14 @@ import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.activity.ActivityLifecycleHandler;
 import com.jdroid.android.analytics.CoreAnalyticsSender;
 import com.jdroid.android.analytics.CoreAnalyticsTracker;
+import com.jdroid.android.application.lifecycle.ApplicationLifecycleHelper;
 import com.jdroid.android.context.AndroidGitContext;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
+import com.jdroid.android.firebase.testlab.FirebaseTestLab;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.http.cache.CacheManager;
 import com.jdroid.android.repository.UserRepository;
@@ -100,17 +103,33 @@ public abstract class AbstractApplication extends Application {
 	public static AbstractApplication get() {
 		return INSTANCE;
 	}
+	
+	private void initLogging() {
+		if (LOGGER == null) {
+			LoggerUtils.setEnabled(isLoggingEnabled());
+			LOGGER = LoggerUtils.getLogger(AbstractApplication.class);
+		}
+	}
+	
+	@Override
+	protected void attachBaseContext(Context base) {
+		super.attachBaseContext(base);
+		
+		initLogging();
+		
+		ApplicationLifecycleHelper.attachBaseContext(base);
+	}
 
 	@MainThread
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		
+		initLogging();
+		
+		ApplicationLifecycleHelper.onCreate(this);
+		
 		appContext = createAppContext();
-
-		LoggerUtils.setEnabled(appContext.isLoggingEnabled());
-		LOGGER = LoggerUtils.getLogger(AbstractApplication.class);
-		LOGGER.debug("Executing onCreate on " + this);
 
 		// Strict mode
 		if (appContext.isStrictModeEnabled()) {
@@ -155,7 +174,19 @@ public abstract class AbstractApplication extends Application {
 
 		activityLifecycleHandler = new ActivityLifecycleHandler();
 		registerActivityLifecycleCallbacks(activityLifecycleHandler);
-
+	}
+	
+	private boolean isDebuggable() {
+		int flags = this.getApplicationInfo().flags;
+		return (flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+	}
+	
+	protected Boolean isLoggingEnabled() {
+		return isDebuggable() || (isFirebaseTestLabLoggingEnabled() && FirebaseTestLab.isRunningInstrumentedTests());
+	}
+	
+	protected Boolean isFirebaseTestLabLoggingEnabled() {
+		return true;
 	}
 
 	protected void initAppModule(Map<String, AppModule> appModulesMap) {
@@ -166,42 +197,27 @@ public abstract class AbstractApplication extends Application {
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 
-		for (AppModule each: appModulesMap.values()) {
-			each.onConfigurationChanged(newConfig);
-		}
+		ApplicationLifecycleHelper.onConfigurationChanged(this, newConfig);
 	}
 
 	@Override
 	public void onLowMemory() {
 		super.onLowMemory();
 
-		for (AppModule each: appModulesMap.values()) {
-			each.onLowMemory();
-		}
+		ApplicationLifecycleHelper.onLowMemory(this);
 	}
 
 	@Override
 	public void onTrimMemory(int level) {
 		super.onTrimMemory(level);
 
-		for (AppModule each: appModulesMap.values()) {
-			each.onTrimMemory(level);
-		}
+		ApplicationLifecycleHelper.onTrimMemory(this, level);
 	}
 
 	public void onLocaleChanged() {
 
 		for (AppModule each: appModulesMap.values()) {
 			each.onLocaleChanged();
-		}
-	}
-
-	@Override
-	protected void attachBaseContext(Context base) {
-		super.attachBaseContext(base);
-
-		for (AppModule each: appModulesMap.values()) {
-			each.attachBaseContext(base);
 		}
 	}
 
