@@ -14,7 +14,6 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
-import com.jdroid.android.facebook.FacebookAppModule;
 import com.jdroid.android.firebase.FirebaseAppModule;
 import com.jdroid.android.firebase.crash.FirebaseCrashAppModule;
 import com.jdroid.android.firebase.fcm.AbstractFcmAppModule;
@@ -125,7 +124,6 @@ public class AndroidApplication extends AbstractApplication {
 		appModulesMap.put(FirebaseCrashAppModule.MODULE_NAME, new FirebaseCrashAppModule());
 		appModulesMap.put(FirebaseAppModule.MODULE_NAME, new FirebaseAppModule());
 		appModulesMap.put(AdMobAppModule.MODULE_NAME, new SampleAdMobAppModule());
-		appModulesMap.put(FacebookAppModule.MODULE_NAME, new FacebookAppModule());
 		appModulesMap.put(AbstractFcmAppModule.MODULE_NAME, new AndroidFcmAppModule());
 		appModulesMap.put(FirebaseRemoteConfigAppModule.MODULE_NAME, new FirebaseRemoteConfigAppModule());
 		appModulesMap.put(AboutAppModule.MODULE_NAME, new AndroidAboutAppModule());
