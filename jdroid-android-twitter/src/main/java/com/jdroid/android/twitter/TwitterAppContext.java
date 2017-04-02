@@ -1,14 +1,14 @@
 package com.jdroid.android.twitter;
 
-import com.jdroid.android.context.AbstractAppContext;
+import static com.jdroid.android.context.BuildConfigUtils.getBuildConfigValue;
 
-public class TwitterAppContext extends AbstractAppContext {
+public class TwitterAppContext {
 
-	public String getTwitterOauthConsumerKey() {
+	public static String getTwitterOauthConsumerKey() {
 		return getBuildConfigValue("TWITTER_OAUTH_CONSUMER_KEY");
 	}
 
-	public String getTwitterOauthConsumerSecret() {
+	public static String getTwitterOauthConsumerSecret() {
 		return getBuildConfigValue("TWITTER_OAUTH_CONSUMER_SECRET");
 	}
 
