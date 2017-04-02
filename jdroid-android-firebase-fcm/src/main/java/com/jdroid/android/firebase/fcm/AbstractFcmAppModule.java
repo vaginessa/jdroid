@@ -1,6 +1,7 @@
 package com.jdroid.android.firebase.fcm;
 
 import android.os.Bundle;
+import android.support.annotation.WorkerThread;
 
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityDelegate;
@@ -79,7 +80,8 @@ public abstract class AbstractFcmAppModule extends AbstractAppModule {
 	protected List<String> getSubscriptionTopics() {
 		return null;
 	}
-
+	
+	@WorkerThread
 	@Override
 	public void onInstanceIdTokenRefresh() {
 		startFcmRegistration(false);

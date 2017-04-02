@@ -3,6 +3,7 @@ package com.jdroid.android.application;
 import android.support.annotation.CallSuper;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
+import android.support.annotation.WorkerThread;
 import android.support.v4.app.Fragment;
 
 import com.jdroid.android.activity.AbstractFragmentActivity;
@@ -16,7 +17,6 @@ import com.jdroid.java.analytics.AnalyticsTracker;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
-import java.util.Map;
 
 public abstract class AbstractAppModule implements AppModule {
 
@@ -44,7 +44,8 @@ public abstract class AbstractAppModule implements AppModule {
 	public AnalyticsSender<? extends AnalyticsTracker> getAnalyticsSender() {
 		return analyticsSender;
 	}
-
+	
+	@WorkerThread
 	@Override
 	public void onInstanceIdTokenRefresh() {
 		// Do Nothing
@@ -53,12 +54,6 @@ public abstract class AbstractAppModule implements AppModule {
 	@MainThread
 	@Override
 	public void onGooglePlayServicesUpdated() {
-		// Do Nothing
-	}
-
-	@MainThread
-	@Override
-	public void onInitExceptionHandler(Map<String, String> metadata) {
 		// Do Nothing
 	}
 

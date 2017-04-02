@@ -265,10 +265,6 @@ public abstract class AbstractApplication extends Application {
 		Class<? extends ExceptionHandler> exceptionHandlerClass = getExceptionHandlerClass();
 		UncaughtExceptionHandler currentExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
 		if (!currentExceptionHandler.getClass().equals(exceptionHandlerClass)) {
-			Map<String, String> exceptionHandlerMetadata = getExceptionHandlerMetadata();
-			for (AppModule each: appModulesMap.values()) {
-				each.onInitExceptionHandler(exceptionHandlerMetadata);
-			}
 			ExceptionHandler exceptionHandler = ReflectionUtils.newInstance(exceptionHandlerClass);
 			exceptionHandler.setDefaultExceptionHandler(defaultAndroidExceptionHandler);
 			Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);
@@ -281,10 +277,6 @@ public abstract class AbstractApplication extends Application {
 				getCoreAnalyticsSender().trackErrorBreadcrumb(builder.toString());
 			}
 		}
-	}
-	
-	protected Map<String, String> getExceptionHandlerMetadata() {
-		return null;
 	}
 	
 	public ExceptionHandler getExceptionHandler() {
@@ -468,7 +460,8 @@ public abstract class AbstractApplication extends Application {
 	public AppModule getAppModule(String appModuleName) {
 		return appModulesMap.get(appModuleName);
 	}
-
+	
+	@MainThread
 	public void initializeGcmTasks() {
 		for (AppModule each: appModulesMap.values()) {
 			each.onInitializeGcmTasks();

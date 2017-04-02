@@ -8,7 +8,7 @@ import com.google.android.gms.gcm.TaskParams;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
-import com.jdroid.android.service.AbstractGcmTaskService;
+import com.jdroid.android.google.gcm.AbstractGcmTaskService;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.IdGenerator;
 

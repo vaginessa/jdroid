@@ -10,7 +10,7 @@ import android.support.annotation.RequiresApi;
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.sample.ui.home.HomeItem;
-import com.jdroid.android.service.ServiceCommand;
+import com.jdroid.android.google.gcm.ServiceCommand;
 import com.jdroid.android.shortcuts.AppShortcutsHelper;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.LocalizationUtils;

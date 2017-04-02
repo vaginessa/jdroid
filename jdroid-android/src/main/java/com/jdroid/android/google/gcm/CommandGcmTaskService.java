@@ -1,4 +1,4 @@
-package com.jdroid.android.service;
+package com.jdroid.android.google.gcm;
 
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.TaskParams;

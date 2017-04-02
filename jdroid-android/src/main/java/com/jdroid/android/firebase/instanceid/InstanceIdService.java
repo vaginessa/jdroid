@@ -1,5 +1,7 @@
 package com.jdroid.android.firebase.instanceid;
 
+import android.support.annotation.WorkerThread;
+
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
@@ -17,6 +19,7 @@ public class InstanceIdService extends FirebaseInstanceIdService {
 	 * when the InstanceID token is initially generated, so this is where
 	 * you retrieve the token.
 	 */
+	@WorkerThread
 	@Override
 	public void onTokenRefresh() {
 		LOGGER.info("Refreshing Instance Id Tokens");

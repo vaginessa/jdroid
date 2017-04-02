@@ -1,4 +1,6 @@
-package com.jdroid.android.service;
+package com.jdroid.android.google.gcm;
+
+import android.support.annotation.MainThread;
 
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmTaskService;
@@ -14,6 +16,7 @@ public abstract class AbstractGcmTaskService extends GcmTaskService {
 
 	private final static Logger LOGGER = LoggerUtils.getLogger(GcmTaskService.class);
 
+	@MainThread
 	@Override
 	public void onInitializeTasks() {
 		LOGGER.info("Initializing task: " + getClass().getSimpleName());

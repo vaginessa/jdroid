@@ -1,4 +1,4 @@
-package com.jdroid.android.service;
+package com.jdroid.android.google.gcm;
 
 import android.os.Bundle;
 import android.support.annotation.WorkerThread;

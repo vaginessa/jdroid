@@ -1,6 +1,7 @@
 package com.jdroid.android.application;
 
 import android.support.annotation.MainThread;
+import android.support.annotation.WorkerThread;
 import android.support.v4.app.Fragment;
 
 import com.jdroid.android.activity.AbstractFragmentActivity;
@@ -13,26 +14,24 @@ import com.jdroid.java.analytics.AnalyticsSender;
 import com.jdroid.java.analytics.AnalyticsTracker;
 
 import java.util.List;
-import java.util.Map;
 
 public interface AppModule {
 
 	@MainThread
 	public void onCreate();
-
+	
+	@WorkerThread
 	public void onInstanceIdTokenRefresh();
 
 	@MainThread
 	public void onGooglePlayServicesUpdated();
-
+	
 	@MainThread
-	public void onInitExceptionHandler(Map<String, String> metadata);
+	public void onInitializeGcmTasks();
 
 	public List<? extends CoreAnalyticsTracker> createCoreAnalyticsTrackers();
 
 	public List<PreferencesAppender> getPreferencesAppenders();
-
-	public void onInitializeGcmTasks();
 
 	@MainThread
 	public ActivityDelegate createActivityDelegate(AbstractFragmentActivity abstractFragmentActivity);

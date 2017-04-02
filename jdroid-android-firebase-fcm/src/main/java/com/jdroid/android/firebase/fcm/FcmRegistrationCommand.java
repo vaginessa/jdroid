@@ -6,7 +6,7 @@ import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.GooglePlayServicesUtils;
-import com.jdroid.android.service.ServiceCommand;
+import com.jdroid.android.google.gcm.ServiceCommand;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
 
