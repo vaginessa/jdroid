@@ -1,4 +1,4 @@
-package com.jdroid.android.debug;
+package com.jdroid.android.debug.appenders;
 
 import android.app.Activity;
 import android.preference.ListPreference;
@@ -7,6 +7,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceGroup;
 
 import com.jdroid.android.R;
+import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.http.Server;

@@ -1,4 +1,4 @@
-package com.jdroid.android.debug;
+package com.jdroid.android.debug.appenders;
 
 import android.app.Activity;
 import android.preference.Preference;
@@ -7,6 +7,8 @@ import android.preference.PreferenceGroup;
 
 import com.jdroid.android.R;
 import com.jdroid.android.activity.ActivityLauncher;
+import com.jdroid.android.debug.info.DebugInfoActivity;
+import com.jdroid.android.debug.PreferencesAppender;
 
 public class InfoDebugPrefsAppender extends PreferencesAppender {
 

@@ -1,4 +1,4 @@
-package com.jdroid.android.debug;
+package com.jdroid.android.debug.info;
 
 import android.os.Bundle;
 import android.support.v4.util.Pair;

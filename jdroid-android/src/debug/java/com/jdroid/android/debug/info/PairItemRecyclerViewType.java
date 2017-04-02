@@ -1,4 +1,4 @@
-package com.jdroid.android.debug;
+package com.jdroid.android.debug.info;
 
 import android.annotation.SuppressLint;
 import android.support.v4.util.Pair;

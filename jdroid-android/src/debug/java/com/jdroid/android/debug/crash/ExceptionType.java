@@ -1,4 +1,4 @@
-package com.jdroid.android.debug;
+package com.jdroid.android.debug.crash;
 
 import com.jdroid.java.exception.CommonErrorCode;
 import com.jdroid.java.exception.ConnectionException;

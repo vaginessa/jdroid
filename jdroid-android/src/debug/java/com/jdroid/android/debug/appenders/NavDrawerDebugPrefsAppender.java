@@ -1,10 +1,11 @@
-package com.jdroid.android.debug;
+package com.jdroid.android.debug.appenders;
 
 import android.app.Activity;
 import android.preference.CheckBoxPreference;
 import android.preference.PreferenceGroup;
 
 import com.jdroid.android.R;
+import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.android.navdrawer.NavDrawer;
 
 public class NavDrawerDebugPrefsAppender extends PreferencesAppender {

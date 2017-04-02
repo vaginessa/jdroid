@@ -1,4 +1,4 @@
-package com.jdroid.android.debug;
+package com.jdroid.android.debug.appenders;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.support.v4.app.ShareCompat;
 
 import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.android.permission.PermissionHelper;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.ExternalAppsUtils;

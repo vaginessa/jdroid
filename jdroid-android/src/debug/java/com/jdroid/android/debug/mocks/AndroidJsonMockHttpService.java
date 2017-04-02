@@ -1,8 +1,8 @@
 package com.jdroid.android.debug.mocks;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.debug.CrashGenerator;
-import com.jdroid.android.debug.ExceptionType;
+import com.jdroid.android.debug.crash.CrashGenerator;
+import com.jdroid.android.debug.crash.ExceptionType;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.http.mock.AbstractMockHttpService;
 import com.jdroid.java.http.mock.JsonMockHttpService;

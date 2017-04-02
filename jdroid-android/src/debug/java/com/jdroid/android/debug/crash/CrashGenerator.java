@@ -1,4 +1,4 @@
-package com.jdroid.android.debug;
+package com.jdroid.android.debug.crash;
 
 import com.jdroid.android.exception.DialogErrorDisplayer;
 import com.jdroid.java.concurrent.ExecutorUtils;

@@ -14,7 +14,7 @@
 				  android:parentActivityName="com.jdroid.android.debug.DebugSettingsActivity"
 				  android:theme="@style/Jdroid.Theme.Light.Debug" />
 
-		<activity android:name="com.jdroid.android.debug.DebugInfoActivity"
+		<activity android:name="com.jdroid.android.debug.info.DebugInfoActivity"
 				  android:parentActivityName="com.jdroid.android.debug.DebugSettingsActivity"
 				  android:label="@string/jdroid_debugInfoSettings" />
 

@@ -4,6 +4,18 @@ import android.support.v4.util.Pair;
 
 import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.debug.appenders.DatabaseDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.ExceptionHandlingDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.HttpCacheDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.HttpMocksDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.InfoDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.LogsDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.NavDrawerDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.NotificationsDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.RateAppDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.ServersDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.UriMapperPrefsAppender;
+import com.jdroid.android.debug.appenders.UsageStatsDebugPrefsAppender;
 import com.jdroid.android.debug.mocks.AndroidJsonMockHttpService;
 import com.jdroid.android.log.DatabaseLog;
 import com.jdroid.android.log.DatabaseLogsRepository;

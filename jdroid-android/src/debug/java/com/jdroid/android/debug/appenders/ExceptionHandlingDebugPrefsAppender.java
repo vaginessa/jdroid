@@ -1,4 +1,4 @@
-package com.jdroid.android.debug;
+package com.jdroid.android.debug.appenders;
 
 import android.app.Activity;
 import android.preference.CheckBoxPreference;
@@ -9,6 +9,9 @@ import android.preference.PreferenceGroup;
 
 import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.debug.crash.CrashGenerator;
+import com.jdroid.android.debug.crash.ExceptionType;
+import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.utils.IdGenerator;
