@@ -58,12 +58,6 @@ public abstract class AbstractAppModule implements AppModule {
 
 	@MainThread
 	@Override
-	public void onLocaleChanged() {
-		// Do Nothing
-	}
-
-	@MainThread
-	@Override
 	public void onInitExceptionHandler(Map<String, String> metadata) {
 		// Do Nothing
 	}

@@ -4,6 +4,8 @@
 
 	<application>
 
+		<meta-data android:name="com.jdroid.android.firebase.fcm.FcmApplicationLifecycleCallback" android:value="ApplicationLifecycleCallback" />
+
 		<service android:name="com.jdroid.android.firebase.fcm.DefaultFirebaseMessagingService">
 			<intent-filter>
 				<action android:name="com.google.firebase.MESSAGING_EVENT" />

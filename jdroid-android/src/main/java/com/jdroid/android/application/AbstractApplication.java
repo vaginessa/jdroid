@@ -214,13 +214,6 @@ public abstract class AbstractApplication extends Application {
 		ApplicationLifecycleHelper.onTrimMemory(this, level);
 	}
 
-	public void onLocaleChanged() {
-
-		for (AppModule each: appModulesMap.values()) {
-			each.onLocaleChanged();
-		}
-	}
-
 	@WorkerThread
 	protected void verifyAppLaunchStatus() {
 		Integer fromVersionCode = SharedPreferencesHelper.get().loadPreferenceAsInteger(VERSION_CODE_KEY);

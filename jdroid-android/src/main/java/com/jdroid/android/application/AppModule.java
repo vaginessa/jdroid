@@ -26,9 +26,6 @@ public interface AppModule {
 	public void onGooglePlayServicesUpdated();
 
 	@MainThread
-	public void onLocaleChanged();
-
-	@MainThread
 	public void onInitExceptionHandler(Map<String, String> metadata);
 
 	public List<? extends CoreAnalyticsTracker> createCoreAnalyticsTrackers();

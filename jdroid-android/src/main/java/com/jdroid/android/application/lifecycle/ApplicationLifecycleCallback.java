@@ -41,6 +41,11 @@ public abstract class ApplicationLifecycleCallback implements Comparable<Applica
 		// Do nothing
 	}
 	
+	@MainThread
+	public void onLocaleChanged(Context context) {
+		// Do nothing
+	}
+	
 	/*
 	 * The order in which the application listener should be invoked, relative to other application listeners.
 	 * When there are dependencies among application listener, setting this attribute for each of them ensures that they are created in the order required by those dependencies.

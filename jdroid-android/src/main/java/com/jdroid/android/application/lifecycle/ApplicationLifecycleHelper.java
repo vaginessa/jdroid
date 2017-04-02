@@ -94,6 +94,18 @@ public class ApplicationLifecycleHelper {
 		}
 	}
 	
+	@MainThread
+	public static void onLocaleChanged(Context context) {
+		
+		LOGGER.trace("Executing onLocaleChanged on application");
+		
+		init(context);
+		for (ApplicationLifecycleCallback callback : applicationLifecycleCallbacks) {
+			LOGGER.debug("Executing onLocaleChanged for callback " + callback.getClass().getName());
+			callback.onLocaleChanged(context);
+		}
+	}
+	
 	private static void init(Context context) {
 		if (applicationLifecycleCallbacks == null) {
 			applicationLifecycleCallbacks = ApplicationLifecycleHelper.parseApplicationLifecycleCallbacks(context);
