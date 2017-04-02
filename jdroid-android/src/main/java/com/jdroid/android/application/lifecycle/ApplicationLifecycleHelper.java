@@ -29,8 +29,10 @@ public class ApplicationLifecycleHelper {
 		
 		init(context);
 		for (ApplicationLifecycleCallback callback : applicationLifecycleCallbacks) {
-			LOGGER.debug("Executing onProviderInit for callback " + callback.getClass().getName());
-			callback.onProviderInit(context);
+			if (callback.isEnabled()) {
+				LOGGER.debug("Executing onProviderInit for callback " + callback.getClass().getName());
+				callback.onProviderInit(context);
+			}
 		}
 	}
 	
@@ -41,8 +43,10 @@ public class ApplicationLifecycleHelper {
 		
 		init(base);
 		for (ApplicationLifecycleCallback callback : applicationLifecycleCallbacks) {
-			LOGGER.debug("Executing attachBaseContext for callback " + callback.getClass().getName());
-			callback.attachBaseContext(base);
+			if (callback.isEnabled()) {
+				LOGGER.debug("Executing attachBaseContext for callback " + callback.getClass().getName());
+				callback.attachBaseContext(base);
+			}
 		}
 	}
 	
@@ -53,8 +57,10 @@ public class ApplicationLifecycleHelper {
 		
 		init(context);
 		for (ApplicationLifecycleCallback callback : applicationLifecycleCallbacks) {
-			LOGGER.debug("Executing onCreate for callback " + callback.getClass().getName());
-			callback.onCreate(context);
+			if (callback.isEnabled()) {
+				LOGGER.debug("Executing onCreate for callback " + callback.getClass().getName());
+				callback.onCreate(context);
+			}
 		}
 	}
 	
@@ -65,8 +71,10 @@ public class ApplicationLifecycleHelper {
 		
 		init(context);
 		for (ApplicationLifecycleCallback callback : applicationLifecycleCallbacks) {
-			LOGGER.debug("Executing onConfigurationChanged for callback " + callback.getClass().getName());
-			callback.onConfigurationChanged(context, newConfig);
+			if (callback.isEnabled()) {
+				LOGGER.debug("Executing onConfigurationChanged for callback " + callback.getClass().getName());
+				callback.onConfigurationChanged(context, newConfig);
+			}
 		}
 	}
 	
@@ -77,8 +85,10 @@ public class ApplicationLifecycleHelper {
 		
 		init(context);
 		for (ApplicationLifecycleCallback callback : applicationLifecycleCallbacks) {
-			LOGGER.debug("Executing onLowMemory for callback " + callback.getClass().getName());
-			callback.onLowMemory(context);
+			if (callback.isEnabled()) {
+				LOGGER.debug("Executing onLowMemory for callback " + callback.getClass().getName());
+				callback.onLowMemory(context);
+			}
 		}
 	}
 	
@@ -89,8 +99,10 @@ public class ApplicationLifecycleHelper {
 		
 		init(context);
 		for (ApplicationLifecycleCallback callback : applicationLifecycleCallbacks) {
-			LOGGER.debug("Executing onTrimMemory for callback " + callback.getClass().getName());
-			callback.onTrimMemory(context, level);
+			if (callback.isEnabled()) {
+				LOGGER.debug("Executing onTrimMemory for callback " + callback.getClass().getName());
+				callback.onTrimMemory(context, level);
+			}
 		}
 	}
 	
@@ -101,8 +113,10 @@ public class ApplicationLifecycleHelper {
 		
 		init(context);
 		for (ApplicationLifecycleCallback callback : applicationLifecycleCallbacks) {
-			LOGGER.debug("Executing onLocaleChanged for callback " + callback.getClass().getName());
-			callback.onLocaleChanged(context);
+			if (callback.isEnabled()) {
+				LOGGER.debug("Executing onLocaleChanged for callback " + callback.getClass().getName());
+				callback.onLocaleChanged(context);
+			}
 		}
 	}
 	

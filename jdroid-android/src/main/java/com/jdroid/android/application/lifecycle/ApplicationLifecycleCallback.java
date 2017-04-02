@@ -60,4 +60,8 @@ public abstract class ApplicationLifecycleCallback implements Comparable<Applica
 	public int compareTo(@NonNull ApplicationLifecycleCallback o) {
 		return o.getInitOrder().compareTo(getInitOrder());
 	}
+	
+	public Boolean isEnabled() {
+		return true;
+	}
 }
