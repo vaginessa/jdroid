@@ -21,12 +21,12 @@ import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigAppModule;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.google.admob.AdMobAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
+import com.jdroid.android.google.analytics.GoogleCoreAnalyticsTracker;
 import com.jdroid.android.google.inappbilling.InAppBillingAppModule;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.debug.AndroidDebugContext;
 import com.jdroid.android.sample.firebase.fcm.AndroidFcmAppModule;
-import com.jdroid.android.sample.google.analytics.AndroidGoogleAnalyticsAppModule;
 import com.jdroid.android.sample.repository.UserRepositoryImpl;
 import com.jdroid.android.sample.ui.AndroidActivityHelper;
 import com.jdroid.android.sample.ui.AndroidFragmentHelper;
@@ -58,6 +58,13 @@ public class AndroidApplication extends AbstractApplication {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		
+		if (GoogleAnalyticsAppModule.get().getGoogleAnalyticsAppContext().isGoogleAnalyticsEnabled()) {
+			GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleCoreAnalyticsTracker.CustomDimension.INSTALLATION_SOURCE.name(), 1);
+			GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleCoreAnalyticsTracker.CustomDimension.DEVICE_TYPE.name(), 2);
+			GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleCoreAnalyticsTracker.CustomDimension.REFERRER.name(), 3);
+			GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleCoreAnalyticsTracker.CustomDimension.DEVICE_YEAR_CLASS.name(), 4);
+		}
 
 		getUriMapper().addUriWatcher(new SampleUriWatcher());
 
@@ -120,7 +127,7 @@ public class AndroidApplication extends AbstractApplication {
 
 	@Override
 	protected void initAppModule(Map<String, AppModule> appModulesMap) {
-		appModulesMap.put(GoogleAnalyticsAppModule.MODULE_NAME, new AndroidGoogleAnalyticsAppModule());
+		appModulesMap.put(GoogleAnalyticsAppModule.MODULE_NAME, new GoogleAnalyticsAppModule());
 		appModulesMap.put(FirebaseCrashAppModule.MODULE_NAME, new FirebaseCrashAppModule());
 		appModulesMap.put(FirebaseAppModule.MODULE_NAME, new FirebaseAppModule());
 		appModulesMap.put(AdMobAppModule.MODULE_NAME, new SampleAdMobAppModule());

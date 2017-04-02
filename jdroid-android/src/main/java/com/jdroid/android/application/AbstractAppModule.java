@@ -1,6 +1,5 @@
 package com.jdroid.android.application;
 
-import android.support.annotation.CallSuper;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
@@ -22,13 +21,6 @@ public abstract class AbstractAppModule implements AppModule {
 
 	private AnalyticsSender<? extends AnalyticsTracker> analyticsSender;
 
-	@CallSuper
-	@MainThread
-	@Override
-	public void onCreate() {
-		analyticsSender = createModuleAnalyticsSender(createModuleAnalyticsTrackers());
-	}
-
 	@NonNull
 	@Override
 	public AnalyticsSender<? extends AnalyticsTracker> createModuleAnalyticsSender(List<? extends AnalyticsTracker> analyticsTrackers) {
@@ -41,7 +33,10 @@ public abstract class AbstractAppModule implements AppModule {
 	}
 
 	@Override
-	public AnalyticsSender<? extends AnalyticsTracker> getAnalyticsSender() {
+	public synchronized AnalyticsSender<? extends AnalyticsTracker> getAnalyticsSender() {
+		if (analyticsSender == null) {
+			analyticsSender = createModuleAnalyticsSender(createModuleAnalyticsTrackers());
+		}
 		return analyticsSender;
 	}
 	

@@ -139,10 +139,6 @@ public abstract class AbstractApplication extends Application {
 		initAppModule(appModulesMap);
 		remoteConfigParameters = createRemoteConfigParameters();
 
-		for (AppModule each: appModulesMap.values()) {
-			each.onCreate();
-		}
-		
 		initCoreAnalyticsSender();
 
 		uriMapper = createUriMapper();

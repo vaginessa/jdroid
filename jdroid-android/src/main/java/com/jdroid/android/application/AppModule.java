@@ -17,9 +17,6 @@ import java.util.List;
 
 public interface AppModule {
 
-	@MainThread
-	public void onCreate();
-	
 	@WorkerThread
 	public void onInstanceIdTokenRefresh();
 
