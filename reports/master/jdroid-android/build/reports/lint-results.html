@@ -176,7 +176,7 @@ document.getElementById(id).style.display = 'none';
       <span class="mdl-layout-title">Lint Report: 38 warnings</span>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-Check performed at Tue Apr 04 08:07:12 UTC 2017      </nav>
+Check performed at Wed Apr 05 03:09:26 UTC 2017      </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -456,14 +456,14 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/AndroidManifest.xml">../../src/main/AndroidManifest.xml</a>:26</span>: <span class="message">Exported receiver does not require permission</span><br /><pre class="errorlines">
-<span class="lineno"> 23 </span>        <span class="tag">&lt;/receiver></span>
-<span class="lineno"> 24 </span>
-<span class="lineno"> 25 </span>        <span class="comment">&lt;!-- Register AnalyticsReceiver and AnalyticsService to support background dispatching on non-Google Play devices --></span>
-<span class="caretline"><span class="lineno"> 26 </span>        <span class="warning"><span class="tag">&lt;receiver</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">name</span>=<span class="value">"com.google.android.gms.analytics.AnalyticsReceiver"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 27 </span>  <span class="prefix">android:</span><span class="attribute">enabled</span>=<span class="value">"true"</span>>
-<span class="lineno"> 28 </span>            <span class="tag">&lt;intent-filter></span>
-<span class="lineno"> 29 </span>                <span class="tag">&lt;action</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">name</span>=<span class="value">"com.google.android.gms.analytics.ANALYTICS_DISPATCH"</span> />
+<span class="location"><a href="../../src/main/AndroidManifest.xml">../../src/main/AndroidManifest.xml</a>:28</span>: <span class="message">Exported receiver does not require permission</span><br /><pre class="errorlines">
+<span class="lineno"> 25 </span>        <span class="tag">&lt;/receiver></span>
+<span class="lineno"> 26 </span>
+<span class="lineno"> 27 </span>        <span class="comment">&lt;!-- Register AnalyticsReceiver and AnalyticsService to support background dispatching on non-Google Play devices --></span>
+<span class="caretline"><span class="lineno"> 28 </span>        <span class="warning"><span class="tag">&lt;receiver</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">name</span>=<span class="value">"com.google.android.gms.analytics.AnalyticsReceiver"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 29 </span>  <span class="prefix">android:</span><span class="attribute">enabled</span>=<span class="value">"true"</span>>
+<span class="lineno"> 30 </span>            <span class="tag">&lt;intent-filter></span>
+<span class="lineno"> 31 </span>                <span class="tag">&lt;action</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">name</span>=<span class="value">"com.google.android.gms.analytics.ANALYTICS_DISPATCH"</span> />
 </pre>
 
 </div>
@@ -503,14 +503,14 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/jdroid/android/application/AbstractApplication.java">../../src/main/java/com/jdroid/android/application/AbstractApplication.java</a>:68</span>: <span class="message">Do not place Android context classes in static fields (static reference to <code>AbstractApplication</code> which has field <code>currentActivity</code> pointing to <code>Activity</code>); this is a memory leak (and also breaks Instant Run)</span><br /><pre class="errorlines">
-<span class="lineno">  65 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String INSTALLATION_SOURCE = <span class="string">"installationSource"</span>;
-<span class="lineno">  66 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String VERSION_CODE_KEY = <span class="string">"versionCodeKey"</span>;
-<span class="lineno">  67 </span>    
-<span class="caretline"><span class="lineno">  68 </span>    <span class="warning"><span class="keyword">protected</span> <span class="keyword">static</span> AbstractApplication INSTANCE;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  69 </span>    
-<span class="lineno">  70 </span>    <span class="keyword">private</span> AppContext appContext;
-<span class="lineno">  71 </span>    <span class="keyword">private</span> GitContext gitContext;
+<span class="location"><a href="../../src/main/java/com/jdroid/android/application/AbstractApplication.java">../../src/main/java/com/jdroid/android/application/AbstractApplication.java</a>:67</span>: <span class="message">Do not place Android context classes in static fields (static reference to <code>AbstractApplication</code> which has field <code>currentActivity</code> pointing to <code>Activity</code>); this is a memory leak (and also breaks Instant Run)</span><br /><pre class="errorlines">
+<span class="lineno">  64 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String INSTALLATION_SOURCE = <span class="string">"installationSource"</span>;
+<span class="lineno">  65 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String VERSION_CODE_KEY = <span class="string">"versionCodeKey"</span>;
+<span class="lineno">  66 </span>    
+<span class="caretline"><span class="lineno">  67 </span>    <span class="warning"><span class="keyword">protected</span> <span class="keyword">static</span> AbstractApplication INSTANCE;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  68 </span>    
+<span class="lineno">  69 </span>    <span class="keyword">private</span> AppContext appContext;
+<span class="lineno">  70 </span>    <span class="keyword">private</span> GitContext gitContext;
 </pre>
 
 </div>
