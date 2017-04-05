@@ -3,6 +3,8 @@
 
 	<application>
 
+		<meta-data android:name="com.jdroid.android.google.admob.AdMobAppLifecycleCallback" android:value="ApplicationLifecycleCallback" />
+
 		<activity android:name="com.google.android.gms.ads.AdActivity"
 				  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
 

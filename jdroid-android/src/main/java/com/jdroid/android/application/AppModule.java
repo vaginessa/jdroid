@@ -8,7 +8,6 @@ import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityDelegate;
 import com.jdroid.android.analytics.CoreAnalyticsTracker;
 import com.jdroid.android.debug.PreferencesAppender;
-import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
 import com.jdroid.android.fragment.FragmentDelegate;
 import com.jdroid.java.analytics.AnalyticsSender;
 import com.jdroid.java.analytics.AnalyticsTracker;
@@ -44,6 +43,4 @@ public interface AppModule {
 
 	public AnalyticsSender<? extends AnalyticsTracker> getAnalyticsSender();
 
-	@MainThread
-	public List<RemoteConfigParameter> createRemoteConfigParameters();
 }

@@ -47,9 +47,4 @@ public class AndroidAppContext extends AppContext {
 	public String getFirebaseAuthToken() {
 		return BuildConfig.FIREBASE_AUTH_TOKEN;
 	}
-
-	@Override
-	public List<RemoteConfigParameter> getRemoteConfigParameters() {
-		return Lists.<RemoteConfigParameter>newArrayList(AndroidRemoteConfigParameter.values());
-	}
 }

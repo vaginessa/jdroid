@@ -18,6 +18,7 @@ import com.jdroid.android.firebase.FirebaseAppModule;
 import com.jdroid.android.firebase.crash.FirebaseCrashAppModule;
 import com.jdroid.android.firebase.fcm.AbstractFcmAppModule;
 import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigAppModule;
+import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigHelper;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.google.admob.AdMobAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
@@ -27,6 +28,7 @@ import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.debug.AndroidDebugContext;
 import com.jdroid.android.sample.firebase.fcm.AndroidFcmAppModule;
+import com.jdroid.android.sample.firebase.remoteconfig.AndroidRemoteConfigParameter;
 import com.jdroid.android.sample.repository.UserRepositoryImpl;
 import com.jdroid.android.sample.ui.AndroidActivityHelper;
 import com.jdroid.android.sample.ui.AndroidFragmentHelper;
@@ -54,7 +56,14 @@ public class AndroidApplication extends AbstractApplication {
 	public AndroidApplication() {
 		setHttpServiceFactory(new OkHttpServiceFactory());
 	}
-
+	
+	@Override
+	public void onProviderInit() {
+		super.onProviderInit();
+		
+		FirebaseRemoteConfigHelper.addRemoteConfigParameters(AndroidRemoteConfigParameter.values());
+	}
+	
 	@Override
 	public void onCreate() {
 		super.onCreate();

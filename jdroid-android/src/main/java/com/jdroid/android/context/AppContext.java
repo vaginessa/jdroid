@@ -2,12 +2,10 @@ package com.jdroid.android.context;
 
 import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.http.Server;
 
-import java.util.List;
 import java.util.Locale;
 
 public abstract class AppContext extends AbstractAppContext {
@@ -108,10 +106,6 @@ public abstract class AppContext extends AbstractAppContext {
 	}
 	
 	public String getGooglePlusCommunityId() {
-		return null;
-	}
-
-	public List<RemoteConfigParameter> getRemoteConfigParameters() {
 		return null;
 	}
 

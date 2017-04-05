@@ -23,7 +23,7 @@ public class DeviceUtils {
 	public static Integer getDeviceYearClass() {
 		if (deviceYearClass != null) {
 			deviceYearClass = SharedPreferencesHelper.get().loadPreferenceAsInteger(DEVICE_YEAR_CLASS, YearClass.CLASS_UNKNOWN);
-			//Try again if device was previously unknown.
+			// Try again if device was previously unknown.
 			if (deviceYearClass == YearClass.CLASS_UNKNOWN) {
 				deviceYearClass = YearClass.get(AbstractApplication.get());
 				SharedPreferencesHelper.get().savePreferenceAsync(DEVICE_YEAR_CLASS, deviceYearClass);

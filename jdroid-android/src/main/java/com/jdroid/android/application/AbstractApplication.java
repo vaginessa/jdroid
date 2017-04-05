@@ -24,7 +24,6 @@ import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.exception.DefaultExceptionHandler;
 import com.jdroid.android.exception.ExceptionHandler;
-import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
 import com.jdroid.android.firebase.testlab.FirebaseTestLab;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.http.cache.CacheManager;
@@ -92,8 +91,6 @@ public abstract class AbstractApplication extends Application {
 
 	private ActivityLifecycleHandler activityLifecycleHandler;
 
-	private List<RemoteConfigParameter> remoteConfigParameters;
-
 	private HttpServiceFactory httpServiceFactory;
 
 	public AbstractApplication() {
@@ -109,6 +106,11 @@ public abstract class AbstractApplication extends Application {
 			LoggerUtils.setEnabled(isLoggingEnabled());
 			LOGGER = LoggerUtils.getLogger(AbstractApplication.class);
 		}
+	}
+	
+	@MainThread
+	public void onProviderInit() {
+		// Do nothing
 	}
 	
 	@Override
@@ -137,7 +139,6 @@ public abstract class AbstractApplication extends Application {
 		}
 
 		initAppModule(appModulesMap);
-		remoteConfigParameters = createRemoteConfigParameters();
 
 		initCoreAnalyticsSender();
 
@@ -469,25 +470,6 @@ public abstract class AbstractApplication extends Application {
 	public abstract int getNotificationIconResId();
 
 	public abstract String getManifestPackageName();
-
-	private List<RemoteConfigParameter> createRemoteConfigParameters() {
-		List<RemoteConfigParameter> remoteConfigParameters = Lists.newArrayList();
-		List<RemoteConfigParameter> params = appContext.getRemoteConfigParameters();
-		if (params != null) {
-			remoteConfigParameters.addAll(params);
-		}
-		for (AppModule each: appModulesMap.values()) {
-			params = each.createRemoteConfigParameters();
-			if (params != null) {
-				remoteConfigParameters.addAll(params);
-			}
-		}
-		return remoteConfigParameters;
-	}
-
-	public List<RemoteConfigParameter> getRemoteConfigParameters() {
-		return remoteConfigParameters;
-	}
 
 	public void addAppModulesMap(String name, AppModule appModule) {
 		this.appModulesMap.put(name, appModule);

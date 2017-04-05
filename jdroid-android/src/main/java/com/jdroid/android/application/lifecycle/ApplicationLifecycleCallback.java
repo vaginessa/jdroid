@@ -12,12 +12,12 @@ import android.support.annotation.NonNull;
 public abstract class ApplicationLifecycleCallback implements Comparable<ApplicationLifecycleCallback> {
 	
 	@MainThread
-	public void onProviderInit(Context context) {
+	public void attachBaseContext(Context base) {
 		// Do nothing
 	}
 	
 	@MainThread
-	public void attachBaseContext(Context base) {
+	public void onProviderInit(Context context) {
 		// Do nothing
 	}
 	

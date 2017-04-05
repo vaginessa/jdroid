@@ -16,6 +16,7 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.firebase.FirebaseAppModule;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.annotation.Internal;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.date.DateUtils;
@@ -41,7 +42,8 @@ public class FirebaseRemoteConfigHelper {
 	private static Boolean mocksEnabled = false;
 	private static Map<String, String> mocks;
 	private static SharedPreferencesHelper sharedPreferencesHelper;
-
+	private static List<RemoteConfigParameter> remoteConfigParameters = Lists.newArrayList();
+	
 	@WorkerThread
 	@Internal
 	static void init() {
@@ -59,8 +61,7 @@ public class FirebaseRemoteConfigHelper {
 
 			firebaseRemoteConfig.setConfigSettings(configSettingsBuilder.build());
 
-			List<RemoteConfigParameter> remoteConfigParameters = AbstractApplication.get().getRemoteConfigParameters();
-			if (remoteConfigParameters != null) {
+			if (!Lists.isNullOrEmpty(remoteConfigParameters)) {
 				Map<String, Object> defaults = Maps.newHashMap();
 				for (RemoteConfigParameter each : remoteConfigParameters) {
 					Object defaultValue = each.getDefaultValue();
@@ -115,21 +116,18 @@ public class FirebaseRemoteConfigHelper {
 					// true if there was a Fetched Config, and it was activated. false if no Fetched Config was found, or the Fetched Config was already activated.
 					LOGGER.debug("Firebase Remote Config activate fetched result: " + result);
 
-					if (setExperimentUserProperty) {
-						final List<RemoteConfigParameter> remoteConfigParameters = AbstractApplication.get().getRemoteConfigParameters();
-						if (remoteConfigParameters != null) {
-							ExecutorUtils.execute(new Runnable() {
-								@Override
-								public void run() {
-									for (RemoteConfigParameter each : remoteConfigParameters) {
-										if (each.isUserProperty()) {
-											String experimentVariant = FirebaseRemoteConfig.getInstance().getString(each.getKey());
-											FirebaseAppModule.get().getFirebaseAnalyticsHelper().setUserProperty(each.getKey(), experimentVariant);
-										}
+					if (setExperimentUserProperty && !Lists.isNullOrEmpty(remoteConfigParameters)) {
+						ExecutorUtils.execute(new Runnable() {
+							@Override
+							public void run() {
+								for (RemoteConfigParameter each : remoteConfigParameters) {
+									if (each.isUserProperty()) {
+										String experimentVariant = FirebaseRemoteConfig.getInstance().getString(each.getKey());
+										FirebaseAppModule.get().getFirebaseAnalyticsHelper().setUserProperty(each.getKey(), experimentVariant);
 									}
 								}
-							});
-						}
+							}
+						});
 					}
 
 					if (onSuccessListener != null) {
@@ -248,7 +246,7 @@ public class FirebaseRemoteConfigHelper {
 	@Internal
 	public static void setMocksEnabled(Boolean mocksEnabled) {
 		if (mocksEnabled) {
-			for (RemoteConfigParameter each : AbstractApplication.get().getRemoteConfigParameters()) {
+			for (RemoteConfigParameter each : remoteConfigParameters) {
 				String value = getString(each);
 				sharedPreferencesHelper.savePreference(each.getKey(), value);
 				mocks.put(each.getKey(), value);
@@ -262,5 +260,21 @@ public class FirebaseRemoteConfigHelper {
 	public static void setParameterMock(RemoteConfigParameter remoteConfigParameter, String value) {
 		sharedPreferencesHelper.savePreferenceAsync(remoteConfigParameter.getKey(), value);
 		mocks.put(remoteConfigParameter.getKey(), value);
+	}
+	
+	public static void addRemoteConfigParameter(RemoteConfigParameter remoteConfigParameter) {
+		remoteConfigParameters.add(remoteConfigParameter);
+	}
+	
+	public static void addRemoteConfigParameters(List<RemoteConfigParameter> params) {
+		remoteConfigParameters.addAll(params);
+	}
+	
+	public static void addRemoteConfigParameters(RemoteConfigParameter... remoteConfigParameters) {
+		addRemoteConfigParameters(Lists.newArrayList(remoteConfigParameters));
+	}
+	
+	public static List<RemoteConfigParameter> getRemoteConfigParameters() {
+		return remoteConfigParameters;
 	}
 }

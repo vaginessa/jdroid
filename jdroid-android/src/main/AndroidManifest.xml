@@ -14,6 +14,8 @@
 
 	<application>
 
+		<meta-data android:name="com.jdroid.android.application.AppLifecycleCallback" android:value="ApplicationLifecycleCallback" />
+
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 
 		<receiver android:name="com.jdroid.android.application.lifecycle.LocaleChangedReceiver" android:exported="true">
