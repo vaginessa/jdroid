@@ -3,6 +3,8 @@
 
 	<application>
 
+		<meta-data android:name="com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigDebugAppLifecycleCallback" android:value="ApplicationLifecycleCallback" />
+
 		<activity android:name="com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigActivity"
 				  android:parentActivityName="com.jdroid.android.debug.DebugSettingsActivity"
 				  android:label="@string/jdroid_firebaseRemoteConfigSettings" />

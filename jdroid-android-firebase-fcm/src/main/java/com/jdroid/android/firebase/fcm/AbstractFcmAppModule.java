@@ -7,7 +7,6 @@ import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityDelegate;
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.debug.PreferencesAppender;
 
 import java.util.List;
 
@@ -19,7 +18,6 @@ public abstract class AbstractFcmAppModule extends AbstractAppModule {
 		return (AbstractFcmAppModule)AbstractApplication.get().getAppModule(MODULE_NAME);
 	}
 
-	private FcmDebugContext fcmDebugContext;
 	private FcmMessageResolver fcmMessageResolver;
 	private FcmListenerResolver fcmListenerResolver;
 	private Boolean fcmInitialized = false;
@@ -27,24 +25,6 @@ public abstract class AbstractFcmAppModule extends AbstractAppModule {
 	public AbstractFcmAppModule() {
 		fcmMessageResolver = createFcmMessageResolver();
 		fcmListenerResolver = createFcmListenerResolver();
-	}
-
-	protected FcmDebugContext createFcmDebugContext() {
-		return new FcmDebugContext();
-	}
-
-	public FcmDebugContext getFcmDebugContext() {
-		synchronized (AbstractApplication.class) {
-			if (fcmDebugContext == null) {
-				fcmDebugContext = createFcmDebugContext();
-			}
-		}
-		return fcmDebugContext;
-	}
-
-	@Override
-	public List<PreferencesAppender> getPreferencesAppenders() {
-		return getFcmDebugContext().getPreferencesAppenders();
 	}
 
 	public FcmMessageResolver getFcmMessageResolver(String from) {

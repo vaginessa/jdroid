@@ -8,7 +8,6 @@ import com.jdroid.android.about.analytics.FirebaseAboutAnalyticsTracker;
 import com.jdroid.android.about.analytics.GoogleAboutAnalyticsTracker;
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.java.analytics.AnalyticsSender;
 import com.jdroid.java.analytics.AnalyticsTracker;
 import com.jdroid.java.collections.Lists;
@@ -24,7 +23,6 @@ public class AboutAppModule extends AbstractAppModule {
 	}
 
 	private AboutContext aboutContext;
-	private AboutDebugContext aboutDebugContext;
 
 	public AboutAppModule() {
 		aboutContext = createAboutContext();
@@ -36,24 +34,6 @@ public class AboutAppModule extends AbstractAppModule {
 
 	public AboutContext getAboutContext() {
 		return aboutContext;
-	}
-
-	@Override
-	public List<PreferencesAppender> getPreferencesAppenders() {
-		return getAboutDebugContext().getPreferencesAppenders();
-	}
-
-	public AboutDebugContext getAboutDebugContext() {
-		synchronized (AbstractApplication.class) {
-			if (aboutDebugContext == null) {
-				aboutDebugContext = createAboutDebugContext();
-			}
-		}
-		return aboutDebugContext;
-	}
-
-	protected AboutDebugContext createAboutDebugContext() {
-		return new AboutDebugContext();
 	}
 
 	@NonNull

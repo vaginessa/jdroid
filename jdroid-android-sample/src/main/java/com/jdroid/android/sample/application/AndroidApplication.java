@@ -40,7 +40,6 @@ import com.jdroid.android.sample.ui.sqlite.SampleSQLiteEntity;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteRepository;
 import com.jdroid.android.sample.ui.uri.SampleUriWatcher;
 import com.jdroid.android.sqlite.SQLiteHelper;
-import com.jdroid.android.uil.UilAppModule;
 import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.http.okhttp.OkHttpServiceFactory;
 import com.jdroid.java.repository.Repository;
@@ -144,7 +143,6 @@ public class AndroidApplication extends AbstractApplication {
 		appModulesMap.put(FirebaseRemoteConfigAppModule.MODULE_NAME, new FirebaseRemoteConfigAppModule());
 		appModulesMap.put(AboutAppModule.MODULE_NAME, new AndroidAboutAppModule());
 		appModulesMap.put(InAppBillingAppModule.MODULE_NAME, new AndroidInAppBillingAppModule());
-		appModulesMap.put(UilAppModule.MODULE_NAME, new UilAppModule());
 	}
 
 	@Override

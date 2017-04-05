@@ -6,11 +6,10 @@ import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityDelegate;
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.android.google.inappbilling.analytics.FirebaseInAppBillingAnalyticsTracker;
+import com.jdroid.android.google.inappbilling.analytics.GoogleInAppBillingAnalyticsTracker;
 import com.jdroid.android.google.inappbilling.analytics.InAppBillingAnalyticsSender;
 import com.jdroid.android.google.inappbilling.analytics.InAppBillingAnalyticsTracker;
-import com.jdroid.android.google.inappbilling.analytics.GoogleInAppBillingAnalyticsTracker;
 import com.jdroid.java.analytics.AnalyticsSender;
 import com.jdroid.java.analytics.AnalyticsTracker;
 import com.jdroid.java.collections.Lists;
@@ -26,25 +25,6 @@ public class InAppBillingAppModule extends AbstractAppModule {
 	}
 
 	private InAppBillingContext inAppBillingContext;
-	private InAppBillingDebugContext inAppBillingDebugContext;
-
-	@Override
-	public List<PreferencesAppender> getPreferencesAppenders() {
-		return getInAppBillingDebugContext().getPreferencesAppenders();
-	}
-
-	public InAppBillingDebugContext getInAppBillingDebugContext() {
-		synchronized (AbstractApplication.class) {
-			if (inAppBillingDebugContext == null) {
-				inAppBillingDebugContext = createInAppBillingDebugContext();
-			}
-		}
-		return inAppBillingDebugContext;
-	}
-
-	protected InAppBillingDebugContext createInAppBillingDebugContext() {
-		return new InAppBillingDebugContext();
-	}
 
 	public InAppBillingContext getInAppBillingContext() {
 		if (isInAppBillingEnabled()) {

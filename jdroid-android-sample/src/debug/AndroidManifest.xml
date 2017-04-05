@@ -4,5 +4,7 @@
 
 	<application android:allowBackup="false" tools:ignore="GoogleAppIndexingWarning">
 
+		<meta-data android:name="com.jdroid.android.sample.debug.FcmDebugAppLifecycleCallback" android:value="ApplicationLifecycleCallback" />
+
 	</application>
 </manifest>

@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityDelegate;
 import com.jdroid.android.analytics.CoreAnalyticsTracker;
-import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.android.fragment.FragmentDelegate;
 import com.jdroid.java.analytics.AnalyticsSender;
 import com.jdroid.java.analytics.AnalyticsTracker;
@@ -26,8 +25,6 @@ public interface AppModule {
 	public void onInitializeGcmTasks();
 
 	public List<? extends CoreAnalyticsTracker> createCoreAnalyticsTrackers();
-
-	public List<PreferencesAppender> getPreferencesAppenders();
 
 	@MainThread
 	public ActivityDelegate createActivityDelegate(AbstractFragmentActivity abstractFragmentActivity);

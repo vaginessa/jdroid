@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.application.AppModule;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
 import com.jdroid.android.recycler.RecyclerViewType;
@@ -37,10 +36,8 @@ public class DebugSettingsFragment extends AbstractRecyclerFragment {
 		addAppender(appenders, debugContext.createUriMapperPrefsAppender());
 		addAppender(appenders, debugContext.createNotificationsDebugPrefsAppender());
 
-		for (AppModule each : AbstractApplication.get().getAppModules()) {
-			for (PreferencesAppender preferencesAppender : each.getPreferencesAppenders()) {
-				addAppender(appenders, preferencesAppender);
-			}
+		for (PreferencesAppender preferencesAppender : DebugSettingsHelper.getPreferencesAppenders()) {
+			addAppender(appenders, preferencesAppender);
 		}
 
 		appenders.addAll(debugContext.getCustomPreferencesAppenders());

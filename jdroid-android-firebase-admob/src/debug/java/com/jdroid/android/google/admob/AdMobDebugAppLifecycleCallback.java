@@ -1,17 +1,23 @@
 package com.jdroid.android.google.admob;
 
-import com.jdroid.android.debug.PreferencesAppender;
-import com.jdroid.android.utils.SharedPreferencesHelper;
-import com.jdroid.java.collections.Lists;
-import com.jdroid.java.concurrent.ExecutorUtils;
+import android.content.Context;
 
-import java.util.List;
+import com.jdroid.android.application.lifecycle.ApplicationLifecycleCallback;
+import com.jdroid.android.debug.DebugSettingsHelper;
+import com.jdroid.android.utils.SharedPreferencesHelper;
+import com.jdroid.java.concurrent.ExecutorUtils;
 
 import static com.jdroid.android.google.admob.AdMobAppContext.TEST_AD_UNIT_ID_ENABLED;
 
-public class AdMobDebugContext {
-
-	public AdMobDebugContext() {
+public class AdMobDebugAppLifecycleCallback extends ApplicationLifecycleCallback {
+	
+	@Override
+	public void onProviderInit(Context context) {
+		DebugSettingsHelper.addPreferencesAppender(new AdsDebugPrefsAppender());
+	}
+	
+	@Override
+	public void onCreate(Context context) {
 		ExecutorUtils.execute(new Runnable() {
 			@Override
 			public void run() {
@@ -24,11 +30,5 @@ public class AdMobDebugContext {
 				}
 			}
 		});
-	}
-
-	public List<PreferencesAppender> getPreferencesAppenders() {
-		List<PreferencesAppender> appenders = Lists.newArrayList();
-		appenders.add(new AdsDebugPrefsAppender());
-		return appenders;
 	}
 }

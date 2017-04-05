@@ -7,7 +7,6 @@ import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityDelegate;
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.android.fragment.FragmentDelegate;
 import com.jdroid.android.google.admob.analytics.AdMobAnalyticsSender;
 import com.jdroid.android.google.admob.analytics.AdMobAnalyticsTracker;
@@ -27,7 +26,6 @@ public class AdMobAppModule extends AbstractAppModule {
 	}
 
 	private AdMobAppContext adMobAppContext;
-	private AdMobDebugContext adMobDebugContext;
 
 	public AdMobAppModule() {
 		adMobAppContext = createAdMobAppContext();
@@ -39,24 +37,6 @@ public class AdMobAppModule extends AbstractAppModule {
 
 	public AdMobAppContext getAdMobAppContext() {
 		return adMobAppContext;
-	}
-
-	@Override
-	public List<PreferencesAppender> getPreferencesAppenders() {
-		return getAdMobDebugContext().getPreferencesAppenders();
-	}
-
-	public AdMobDebugContext getAdMobDebugContext() {
-		synchronized (AbstractApplication.class) {
-			if (adMobDebugContext == null) {
-				adMobDebugContext = createAdMobDebugContext();
-			}
-		}
-		return adMobDebugContext;
-	}
-
-	protected AdMobDebugContext createAdMobDebugContext() {
-		return new AdMobDebugContext();
 	}
 
 	@Override
