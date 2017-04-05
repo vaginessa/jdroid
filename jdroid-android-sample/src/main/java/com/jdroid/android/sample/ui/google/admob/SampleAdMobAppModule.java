@@ -1,7 +1,7 @@
 package com.jdroid.android.sample.ui.google.admob;
 
-import com.jdroid.android.google.admob.AdMobAppContext;
-import com.jdroid.android.google.admob.AdMobAppModule;
+import com.jdroid.android.firebase.admob.AdMobAppContext;
+import com.jdroid.android.firebase.admob.AdMobAppModule;
 
 public class SampleAdMobAppModule extends AdMobAppModule {
 

@@ -1,4 +1,4 @@
-package com.jdroid.android.google.admob.analytics;
+package com.jdroid.android.firebase.admob.analytics;
 
 import com.jdroid.java.analytics.AnalyticsSender;
 

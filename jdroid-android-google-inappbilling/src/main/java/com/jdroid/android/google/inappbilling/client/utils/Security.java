@@ -10,7 +10,6 @@
 package com.jdroid.android.google.inappbilling.client.utils;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.jdroid.java.utils.LoggerUtils;
 

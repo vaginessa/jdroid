@@ -1,4 +1,4 @@
-package com.jdroid.android.google.admob;
+package com.jdroid.android.firebase.admob;
 
 import android.app.Activity;
 import android.view.View;

@@ -1,4 +1,4 @@
-package com.jdroid.android.google.admob.analytics;
+package com.jdroid.android.firebase.admob.analytics;
 
 import com.jdroid.android.google.analytics.AbstractGoogleAnalyticsTracker;
 

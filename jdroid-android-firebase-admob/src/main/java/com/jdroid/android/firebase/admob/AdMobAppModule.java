@@ -1,4 +1,4 @@
-package com.jdroid.android.google.admob;
+package com.jdroid.android.firebase.admob;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -8,9 +8,9 @@ import com.jdroid.android.activity.ActivityDelegate;
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.fragment.FragmentDelegate;
-import com.jdroid.android.google.admob.analytics.AdMobAnalyticsSender;
-import com.jdroid.android.google.admob.analytics.AdMobAnalyticsTracker;
-import com.jdroid.android.google.admob.analytics.GoogleAdMobAnalyticsTracker;
+import com.jdroid.android.firebase.admob.analytics.AdMobAnalyticsSender;
+import com.jdroid.android.firebase.admob.analytics.AdMobAnalyticsTracker;
+import com.jdroid.android.firebase.admob.analytics.GoogleAdMobAnalyticsTracker;
 import com.jdroid.java.analytics.AnalyticsSender;
 import com.jdroid.java.analytics.AnalyticsTracker;
 import com.jdroid.java.collections.Lists;

@@ -1,4 +1,4 @@
-package com.jdroid.android.google.admob;
+package com.jdroid.android.firebase.admob;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,9 +7,10 @@ import android.view.ViewGroup;
 import com.google.android.gms.ads.MobileAds;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityDelegate;
-import com.jdroid.android.google.admob.helpers.AdViewHelper;
-import com.jdroid.android.google.admob.helpers.BaseAdViewHelper;
-import com.jdroid.android.google.admob.helpers.InterstitialAdHelper;
+import com.jdroid.android.google.admob.R;
+import com.jdroid.android.firebase.admob.helpers.AdViewHelper;
+import com.jdroid.android.firebase.admob.helpers.BaseAdViewHelper;
+import com.jdroid.android.firebase.admob.helpers.InterstitialAdHelper;
 import com.jdroid.java.exception.UnexpectedException;
 
 public class AdMobActivityDelegate extends ActivityDelegate {

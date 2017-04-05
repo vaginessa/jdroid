@@ -5,9 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.google.android.gms.ads.AdSize;
-import com.jdroid.android.google.admob.AdViewType;
-import com.jdroid.android.google.admob.helpers.BaseAdViewHelper;
-import com.jdroid.android.google.admob.helpers.NativeExpressAdViewHelper;
+import com.jdroid.android.firebase.admob.AdViewType;
+import com.jdroid.android.firebase.admob.helpers.BaseAdViewHelper;
+import com.jdroid.android.firebase.admob.helpers.NativeExpressAdViewHelper;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
 import com.jdroid.android.recycler.RecyclerViewType;

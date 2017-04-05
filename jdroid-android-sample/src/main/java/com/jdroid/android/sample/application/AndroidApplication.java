@@ -20,7 +20,7 @@ import com.jdroid.android.firebase.fcm.AbstractFcmAppModule;
 import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigAppModule;
 import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigHelper;
 import com.jdroid.android.fragment.FragmentHelper;
-import com.jdroid.android.google.admob.AdMobAppModule;
+import com.jdroid.android.firebase.admob.AdMobAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
 import com.jdroid.android.google.analytics.GoogleCoreAnalyticsTracker;
 import com.jdroid.android.google.inappbilling.InAppBillingAppModule;

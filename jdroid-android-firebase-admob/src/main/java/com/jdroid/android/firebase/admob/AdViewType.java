@@ -1,10 +1,11 @@
-package com.jdroid.android.google.admob;
+package com.jdroid.android.firebase.admob;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jdroid.android.google.admob.helpers.BaseAdViewHelper;
+import com.jdroid.android.firebase.admob.helpers.BaseAdViewHelper;
+import com.jdroid.android.google.admob.R;
 import com.jdroid.android.recycler.RecyclerViewType;
 
 public abstract class AdViewType extends RecyclerViewType<BaseAdViewHelper, AdViewType.AdHolder> {

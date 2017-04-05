@@ -1,4 +1,4 @@
-package com.jdroid.android.google.admob;
+package com.jdroid.android.firebase.admob;
 
 import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
 

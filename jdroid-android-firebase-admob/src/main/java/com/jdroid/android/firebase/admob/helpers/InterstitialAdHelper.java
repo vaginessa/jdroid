@@ -1,4 +1,4 @@
-package com.jdroid.android.google.admob.helpers;
+package com.jdroid.android.firebase.admob.helpers;
 
 import android.app.Activity;
 import android.view.ViewGroup;
@@ -8,7 +8,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
-import com.jdroid.android.google.admob.AdMobAppModule;
+import com.jdroid.android.firebase.admob.AdMobAppModule;
 import com.jdroid.android.location.LocationHelper;
 import com.jdroid.java.exception.UnexpectedException;
 

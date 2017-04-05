@@ -4,10 +4,12 @@ import android.content.Context;
 
 import com.jdroid.android.application.lifecycle.ApplicationLifecycleCallback;
 import com.jdroid.android.debug.DebugSettingsHelper;
+import com.jdroid.android.firebase.admob.AdMobAppModule;
+import com.jdroid.android.firebase.admob.AdMobRemoteConfigParameter;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.concurrent.ExecutorUtils;
 
-import static com.jdroid.android.google.admob.AdMobAppContext.TEST_AD_UNIT_ID_ENABLED;
+import static com.jdroid.android.firebase.admob.AdMobAppContext.TEST_AD_UNIT_ID_ENABLED;
 
 public class AdMobDebugAppLifecycleCallback extends ApplicationLifecycleCallback {
 	
