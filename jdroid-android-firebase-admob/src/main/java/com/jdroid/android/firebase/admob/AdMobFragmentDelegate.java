@@ -6,10 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jdroid.android.firebase.admob.helpers.AdViewHelper;
 import com.jdroid.android.firebase.admob.helpers.BaseAdViewHelper;
 import com.jdroid.android.fragment.FragmentDelegate;
-import com.jdroid.android.google.admob.R;
-import com.jdroid.android.firebase.admob.helpers.AdViewHelper;
 
 public class AdMobFragmentDelegate extends FragmentDelegate {
 

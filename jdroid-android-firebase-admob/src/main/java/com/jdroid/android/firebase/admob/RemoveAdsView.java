@@ -10,7 +10,6 @@ import android.widget.RelativeLayout;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.UsageStats;
-import com.jdroid.android.google.admob.R;
 import com.jdroid.java.date.DateUtils;
 
 public class RemoveAdsView extends RelativeLayout {

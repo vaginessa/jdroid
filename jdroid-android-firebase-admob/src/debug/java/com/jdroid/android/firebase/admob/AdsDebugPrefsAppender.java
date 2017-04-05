@@ -1,12 +1,10 @@
-package com.jdroid.android.google.admob;
+package com.jdroid.android.firebase.admob;
 
 import android.app.Activity;
 import android.preference.CheckBoxPreference;
 import android.preference.PreferenceGroup;
 
 import com.jdroid.android.debug.PreferencesAppender;
-import com.jdroid.android.firebase.admob.AdMobAppContext;
-import com.jdroid.android.firebase.admob.AdMobRemoteConfigParameter;
 
 public class AdsDebugPrefsAppender extends PreferencesAppender {
 

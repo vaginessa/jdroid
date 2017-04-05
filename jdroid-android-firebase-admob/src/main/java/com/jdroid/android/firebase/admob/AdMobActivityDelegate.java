@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import com.google.android.gms.ads.MobileAds;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityDelegate;
-import com.jdroid.android.google.admob.R;
 import com.jdroid.android.firebase.admob.helpers.AdViewHelper;
 import com.jdroid.android.firebase.admob.helpers.BaseAdViewHelper;
 import com.jdroid.android.firebase.admob.helpers.InterstitialAdHelper;
