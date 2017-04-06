@@ -100,7 +100,7 @@ public class ApplicationLifecycleHelper {
 		init(context);
 		for (ApplicationLifecycleCallback callback : applicationLifecycleCallbacks) {
 			if (callback.isEnabled()) {
-				LOGGER.debug("Executing onTrimMemory for callback " + callback.getClass().getName());
+				LOGGER.trace("Executing onTrimMemory for callback " + callback.getClass().getName());
 				callback.onTrimMemory(context, level);
 			}
 		}

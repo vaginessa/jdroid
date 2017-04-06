@@ -60,7 +60,7 @@ public class InAppBillingDebugPrefsAppender extends PreferencesAppender {
 	
 	@Override
 	public Boolean isEnabled() {
-		return !InAppBillingAppModule.get().getInAppBillingContext().getManagedProductTypes().isEmpty()
-				|| !InAppBillingAppModule.get().getInAppBillingContext().getSubscriptionsProductTypes().isEmpty();
+		return InAppBillingAppModule.get() != null && (!InAppBillingAppModule.get().getInAppBillingContext().getManagedProductTypes().isEmpty()
+				|| !InAppBillingAppModule.get().getInAppBillingContext().getSubscriptionsProductTypes().isEmpty());
 	}
 }
