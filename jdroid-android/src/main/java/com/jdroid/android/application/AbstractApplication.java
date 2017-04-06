@@ -127,8 +127,6 @@ public abstract class AbstractApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		
-		initLogging();
-		
 		ApplicationLifecycleHelper.onCreate(this);
 		
 		appContext = createAppContext();
@@ -485,5 +483,10 @@ public abstract class AbstractApplication extends Application {
 
 	public Class<?> getBuildConfigClass() {
 		return ReflectionUtils.getClass(getManifestPackageName() + ".BuildConfig");
+	}
+	
+	@MainThread
+	public void onLocaleChanged() {
+		// Do nothing
 	}
 }

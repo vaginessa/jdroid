@@ -11,4 +11,9 @@ public class AppLifecycleCallback extends ApplicationLifecycleCallback {
 	public void onProviderInit(Context context) {
 		AbstractApplication.get().onProviderInit();
 	}
+	
+	@Override
+	public void onLocaleChanged(Context context) {
+		AbstractApplication.get().onLocaleChanged();
+	}
 }
