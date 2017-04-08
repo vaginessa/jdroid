@@ -70,7 +70,8 @@ public abstract class AbstractApplication extends Application {
 	private AppContext appContext;
 	private GitContext gitContext;
 	private DebugContext debugContext;
-
+	
+	private List<CoreAnalyticsTracker> coreAnalyticsTrackers = Lists.newArrayList();
 	private CoreAnalyticsSender<? extends CoreAnalyticsTracker> coreAnalyticsSender;
 	private UriMapper uriMapper;
 	
@@ -249,12 +250,7 @@ public abstract class AbstractApplication extends Application {
 	}
 
 	private void initCoreAnalyticsSender() {
-		List<CoreAnalyticsTracker> coreAnalyticsTrackers = Lists.newArrayList();
-		for (AppModule each: appModulesMap.values()) {
-			coreAnalyticsTrackers.addAll(each.createCoreAnalyticsTrackers());
-		}
 		coreAnalyticsTrackers.addAll(createCoreAnalyticsTrackers());
-
 		coreAnalyticsSender = new CoreAnalyticsSender<>(coreAnalyticsTrackers);
 	}
 
@@ -505,5 +501,9 @@ public abstract class AbstractApplication extends Application {
 	@MainThread
 	public void onLocaleChanged() {
 		// Do nothing
+	}
+	
+	public void addCoreAnalyticsTracker(CoreAnalyticsTracker coreAnalyticsTracker) {
+		this.coreAnalyticsTrackers.add(coreAnalyticsTracker);
 	}
 }

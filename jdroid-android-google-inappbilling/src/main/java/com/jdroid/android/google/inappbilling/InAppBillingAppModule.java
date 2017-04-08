@@ -65,7 +65,7 @@ public class InAppBillingAppModule extends AbstractAppModule {
 
 	@NonNull
 	@Override
-	public InAppBillingAnalyticsSender getAnalyticsSender() {
-		return (InAppBillingAnalyticsSender)super.getAnalyticsSender();
+	public InAppBillingAnalyticsSender getModuleAnalyticsSender() {
+		return (InAppBillingAnalyticsSender)super.getModuleAnalyticsSender();
 	}
 }

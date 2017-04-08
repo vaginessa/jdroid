@@ -7,9 +7,7 @@ import android.view.View;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.UsageStats;
-import com.jdroid.android.firebase.FirebaseAppModule;
 import com.jdroid.android.firebase.instanceid.InstanceIdHelper;
-import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
 import com.jdroid.android.utils.AndroidUtils;
@@ -36,11 +34,6 @@ public class DebugInfoFragment extends AbstractRecyclerFragment {
 
 		properties.add(new Pair<String, Object>("Instance ID", InstanceIdHelper.getInstanceId()));
 
-		properties.add(new Pair<String, Object>("Firebase Analytics Enabled", FirebaseAppModule.get().getFirebaseAppContext().isFirebaseAnalyticsEnabled()));
-
-		properties.add(new Pair<String, Object>("Google Analytics Enabled", GoogleAnalyticsAppModule.get().getGoogleAnalyticsAppContext().isGoogleAnalyticsEnabled()));
-		properties.add(new Pair<String, Object>("Google Analytics Tracking Id", GoogleAnalyticsAppModule.get().getGoogleAnalyticsAppContext().getGoogleAnalyticsTrackingId()));
-
 		properties.add(new Pair<String, Object>("Installation Source", appContext.getInstallationSource()));
 
 		properties.add(new Pair<String, Object>("Screen Width Dp", ScreenUtils.getScreenWidthDp()));
@@ -65,6 +58,10 @@ public class DebugInfoFragment extends AbstractRecyclerFragment {
 
 		properties.add(new Pair<String, Object>("App Loads", UsageStats.getAppLoads()));
 
+		for (DebugInfoAppender each : DebugInfoHelper.getDebugInfoAppenders()) {
+			properties.addAll(each.getDebugInfoProperties());
+		}
+		
 		properties.addAll(AbstractApplication.get().getDebugContext().getCustomDebugInfoProperties());
 	}
 

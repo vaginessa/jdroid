@@ -62,7 +62,7 @@ public class AdMobAppModule extends AbstractAppModule {
 
 	@NonNull
 	@Override
-	public AdMobAnalyticsSender getAnalyticsSender() {
-		return (AdMobAnalyticsSender)super.getAnalyticsSender();
+	public AdMobAnalyticsSender getModuleAnalyticsSender() {
+		return (AdMobAnalyticsSender)super.getModuleAnalyticsSender();
 	}
 }

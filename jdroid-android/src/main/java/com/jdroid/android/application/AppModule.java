@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityDelegate;
-import com.jdroid.android.analytics.CoreAnalyticsTracker;
 import com.jdroid.android.fragment.FragmentDelegate;
 import com.jdroid.java.analytics.AnalyticsSender;
 import com.jdroid.java.analytics.AnalyticsTracker;
@@ -24,20 +23,18 @@ public interface AppModule {
 	@MainThread
 	public void onInitializeGcmTasks();
 
-	public List<? extends CoreAnalyticsTracker> createCoreAnalyticsTrackers();
-
 	@MainThread
 	public ActivityDelegate createActivityDelegate(AbstractFragmentActivity abstractFragmentActivity);
 
 	@MainThread
 	public FragmentDelegate createFragmentDelegate(Fragment fragment);
 
-	// Analytics
+	// Module Analytics
 
 	public AnalyticsSender<? extends AnalyticsTracker> createModuleAnalyticsSender(List<? extends AnalyticsTracker> analyticsTrackers);
 
 	public List<? extends AnalyticsTracker> createModuleAnalyticsTrackers();
 
-	public AnalyticsSender<? extends AnalyticsTracker> getAnalyticsSender();
+	public AnalyticsSender<? extends AnalyticsTracker> getModuleAnalyticsSender();
 
 }

@@ -54,7 +54,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 						AbstractApplication.get().getAppName());
 					if (IntentUtils.isIntentAvailable(intent)) {
 						startActivity(intent);
-						AboutAppModule.get().getAnalyticsSender().trackContactUs();
+						AboutAppModule.get().getModuleAnalyticsSender().trackContactUs();
 					} else {
 						// TODO Improve this adding a toast or something
 						AbstractApplication.get().getExceptionHandler().logWarningException(

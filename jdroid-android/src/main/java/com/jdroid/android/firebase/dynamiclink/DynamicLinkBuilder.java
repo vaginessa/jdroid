@@ -1,6 +1,5 @@
 package com.jdroid.android.firebase.dynamiclink;
 
-import com.jdroid.android.firebase.FirebaseAppModule;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.http.AbstractHttpService;
@@ -47,7 +46,7 @@ public class DynamicLinkBuilder {
 		builder.append("://");
 
 		if (domain == null) {
-			domain = FirebaseAppModule.get().getFirebaseAppContext().getDynamicLinksDomain();
+			domain = FirebaseDynamicLinksAppContext.getDynamicLinksDomain();
 		}
 		if (domain == null) {
 			throw new UnexpectedException("Missing domain when building Firebase dynamic link");

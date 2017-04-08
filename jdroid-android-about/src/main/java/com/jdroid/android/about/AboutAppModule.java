@@ -49,7 +49,7 @@ public class AboutAppModule extends AbstractAppModule {
 
 	@NonNull
 	@Override
-	public AboutAnalyticsSender getAnalyticsSender() {
-		return (AboutAnalyticsSender)super.getAnalyticsSender();
+	public AboutAnalyticsSender getModuleAnalyticsSender() {
+		return (AboutAnalyticsSender)super.getModuleAnalyticsSender();
 	}
 }

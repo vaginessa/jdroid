@@ -7,7 +7,7 @@ import android.support.annotation.StringRes;
 
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
+import com.jdroid.android.google.analytics.GoogleAnalyticsAppContext;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.java.exception.UnexpectedException;
 
@@ -27,7 +27,7 @@ public class AppInviteSender {
 	private Account account;
 	private Map<String, String> additionalReferralParameters;
 	private Integer minimumVersionCode;
-	private String googleAnalyticsTrackingId = GoogleAnalyticsAppModule.get().getGoogleAnalyticsAppContext().getGoogleAnalyticsTrackingId();
+	private String googleAnalyticsTrackingId = GoogleAnalyticsAppContext.getGoogleAnalyticsTrackingId();
 
 	private Activity activity;
 

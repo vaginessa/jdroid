@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityDelegate;
-import com.jdroid.android.analytics.CoreAnalyticsTracker;
 import com.jdroid.android.fragment.FragmentDelegate;
 import com.jdroid.java.analytics.AnalyticsSender;
 import com.jdroid.java.analytics.AnalyticsTracker;
@@ -31,7 +30,7 @@ public abstract class AbstractAppModule implements AppModule {
 	}
 
 	@Override
-	public synchronized AnalyticsSender<? extends AnalyticsTracker> getAnalyticsSender() {
+	public synchronized AnalyticsSender<? extends AnalyticsTracker> getModuleAnalyticsSender() {
 		if (analyticsSender == null) {
 			analyticsSender = createModuleAnalyticsSender(createModuleAnalyticsTrackers());
 		}
@@ -48,11 +47,6 @@ public abstract class AbstractAppModule implements AppModule {
 	@Override
 	public void onGooglePlayServicesUpdated() {
 		// Do Nothing
-	}
-
-	@Override
-	public List<? extends CoreAnalyticsTracker> createCoreAnalyticsTrackers() {
-		return Lists.newArrayList();
 	}
 
 	@Override

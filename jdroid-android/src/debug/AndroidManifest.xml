@@ -5,6 +5,8 @@
 
 	<application>
 
+		<meta-data android:name="com.jdroid.android.debug.firebase.analytics.FirebaseAnalyticsDebugAppLifecycleCallback" android:value="ApplicationLifecycleCallback" />
+		<meta-data android:name="com.jdroid.android.debug.google.analytics.GoogleAnalyticsDebugAppLifecycleCallback" android:value="ApplicationLifecycleCallback" />
 		<meta-data android:name="com.jdroid.android.debug.facebook.stetho.StethoApplicationLifecycleCallback" android:value="ApplicationLifecycleCallback" />
 
 		<activity android:name="com.jdroid.android.debug.DebugSettingsActivity"

@@ -14,7 +14,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigValue;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.firebase.FirebaseAppModule;
+import com.jdroid.android.firebase.analytics.FirebaseAnalyticsFactory;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
@@ -125,7 +125,7 @@ public class FirebaseRemoteConfigHelper {
 								for (RemoteConfigParameter each : remoteConfigParameters) {
 									if (each.isUserProperty()) {
 										String experimentVariant = FirebaseRemoteConfig.getInstance().getString(each.getKey());
-										FirebaseAppModule.get().getFirebaseAnalyticsHelper().setUserProperty(each.getKey(), experimentVariant);
+										FirebaseAnalyticsFactory.getFirebaseAnalyticsHelper().setUserProperty(each.getKey(), experimentVariant);
 									}
 								}
 							}

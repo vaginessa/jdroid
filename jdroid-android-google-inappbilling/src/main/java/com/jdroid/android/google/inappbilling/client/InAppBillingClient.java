@@ -548,7 +548,7 @@ public class InAppBillingClient {
 					product.setPurchase(signatureBase64, purchaseData, signature);
 					LOGGER.debug("Purchase signature successfully verified.");
 					InAppBillingAppModule.get().getInAppBillingContext().addPurchasedProductType(product.getProductType());
-					InAppBillingAppModule.get().getAnalyticsSender().trackInAppBillingPurchase(product);
+					InAppBillingAppModule.get().getModuleAnalyticsSender().trackInAppBillingPurchase(product);
 					if (listener != null) {
 						listener.onPurchaseFinished(product);
 					}

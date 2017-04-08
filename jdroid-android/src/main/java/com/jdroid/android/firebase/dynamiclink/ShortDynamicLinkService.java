@@ -2,13 +2,12 @@ package com.jdroid.android.firebase.dynamiclink;
 
 import android.support.annotation.WorkerThread;
 
-import com.jdroid.android.firebase.FirebaseAppModule;
-import com.jdroid.java.http.api.AbstractApiService;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.http.DefaultServer;
 import com.jdroid.java.http.HttpService;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.http.Server;
+import com.jdroid.java.http.api.AbstractApiService;
 import com.jdroid.java.http.mock.AbstractMockHttpService;
 import com.jdroid.java.http.post.BodyEnclosingHttpService;
 import com.jdroid.java.json.JsonMap;
@@ -49,7 +48,7 @@ public class ShortDynamicLinkService extends AbstractApiService {
 		BodyEnclosingHttpService service = newPostService("shortLinks");
 		service.setSsl(true);
 		service.addHeader(HttpService.CONTENT_TYPE_HEADER, MimeType.JSON);
-		service.addQueryParameter("key", FirebaseAppModule.get().getFirebaseAppContext().getWebApiKey());
+		service.addQueryParameter("key", FirebaseDynamicLinksAppContext.getWebApiKey());
 
 		DynamicLink dynamicLink = new DynamicLink();
 		dynamicLink.longDynamicLink = longDynamicLink;

@@ -13,14 +13,12 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
-import com.jdroid.android.firebase.FirebaseAppModule;
 import com.jdroid.android.firebase.admob.AdMobAppModule;
-import com.jdroid.android.firebase.crash.FirebaseCrashAppModule;
 import com.jdroid.android.firebase.fcm.AbstractFcmAppModule;
-import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigAppModule;
 import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigHelper;
 import com.jdroid.android.fragment.FragmentHelper;
-import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
+import com.jdroid.android.google.analytics.GoogleAnalyticsAppContext;
+import com.jdroid.android.google.analytics.GoogleAnalyticsFactory;
 import com.jdroid.android.google.analytics.GoogleCoreAnalyticsTracker;
 import com.jdroid.android.google.inappbilling.InAppBillingAppModule;
 import com.jdroid.android.repository.UserRepository;
@@ -66,11 +64,11 @@ public class AndroidApplication extends AbstractApplication {
 	public void onCreate() {
 		super.onCreate();
 		
-		if (GoogleAnalyticsAppModule.get().getGoogleAnalyticsAppContext().isGoogleAnalyticsEnabled()) {
-			GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleCoreAnalyticsTracker.CustomDimension.INSTALLATION_SOURCE.name(), 1);
-			GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleCoreAnalyticsTracker.CustomDimension.DEVICE_TYPE.name(), 2);
-			GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleCoreAnalyticsTracker.CustomDimension.REFERRER.name(), 3);
-			GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleCoreAnalyticsTracker.CustomDimension.DEVICE_YEAR_CLASS.name(), 4);
+		if (GoogleAnalyticsAppContext.isGoogleAnalyticsEnabled()) {
+			GoogleAnalyticsFactory.getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleCoreAnalyticsTracker.CustomDimension.INSTALLATION_SOURCE.name(), 1);
+			GoogleAnalyticsFactory.getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleCoreAnalyticsTracker.CustomDimension.DEVICE_TYPE.name(), 2);
+			GoogleAnalyticsFactory.getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleCoreAnalyticsTracker.CustomDimension.REFERRER.name(), 3);
+			GoogleAnalyticsFactory.getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleCoreAnalyticsTracker.CustomDimension.DEVICE_YEAR_CLASS.name(), 4);
 		}
 
 		getUriMapper().addUriWatcher(new SampleUriWatcher());
@@ -131,12 +129,8 @@ public class AndroidApplication extends AbstractApplication {
 
 	@Override
 	protected void initAppModule(Map<String, AppModule> appModulesMap) {
-		appModulesMap.put(GoogleAnalyticsAppModule.MODULE_NAME, new GoogleAnalyticsAppModule());
-		appModulesMap.put(FirebaseCrashAppModule.MODULE_NAME, new FirebaseCrashAppModule());
-		appModulesMap.put(FirebaseAppModule.MODULE_NAME, new FirebaseAppModule());
 		appModulesMap.put(AdMobAppModule.MODULE_NAME, new SampleAdMobAppModule());
 		appModulesMap.put(AbstractFcmAppModule.MODULE_NAME, new AndroidFcmAppModule());
-		appModulesMap.put(FirebaseRemoteConfigAppModule.MODULE_NAME, new FirebaseRemoteConfigAppModule());
 		appModulesMap.put(AboutAppModule.MODULE_NAME, new AndroidAboutAppModule());
 		appModulesMap.put(InAppBillingAppModule.MODULE_NAME, new AndroidInAppBillingAppModule());
 	}

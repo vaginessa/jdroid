@@ -41,7 +41,7 @@ public class RemoveAdsView extends RelativeLayout {
 			@Override
 			public void onClick(View v) {
 				removeAdsClickListener.onClick(v);
-				AdMobAppModule.get().getAnalyticsSender().trackRemoveAdsBannerClicked();
+				AdMobAppModule.get().getModuleAnalyticsSender().trackRemoveAdsBannerClicked();
 			}
 		});
 	}
