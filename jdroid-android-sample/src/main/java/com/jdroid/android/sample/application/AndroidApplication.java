@@ -1,7 +1,6 @@
 package com.jdroid.android.sample.application;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
@@ -15,12 +14,12 @@ import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
 import com.jdroid.android.firebase.FirebaseAppModule;
+import com.jdroid.android.firebase.admob.AdMobAppModule;
 import com.jdroid.android.firebase.crash.FirebaseCrashAppModule;
 import com.jdroid.android.firebase.fcm.AbstractFcmAppModule;
 import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigAppModule;
 import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigHelper;
 import com.jdroid.android.fragment.FragmentHelper;
-import com.jdroid.android.firebase.admob.AdMobAppModule;
 import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
 import com.jdroid.android.google.analytics.GoogleCoreAnalyticsTracker;
 import com.jdroid.android.google.inappbilling.InAppBillingAppModule;
@@ -78,13 +77,10 @@ public class AndroidApplication extends AbstractApplication {
 
 		Firebase.setAndroidContext(this);
 	}
-
+	
 	@Override
-	protected void attachBaseContext(Context base) {
-		super.attachBaseContext(base);
-
+	protected void onInitMultiDex() {
 		MultiDex.install(this);
-
 	}
 
 	@Override

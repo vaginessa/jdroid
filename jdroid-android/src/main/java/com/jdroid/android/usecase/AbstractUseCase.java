@@ -1,11 +1,11 @@
 package com.jdroid.android.usecase;
 
 import android.os.Handler;
+import android.support.annotation.RestrictTo;
 import android.support.annotation.WorkerThread;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.usecase.listener.UseCaseListener;
-import com.jdroid.java.annotation.Internal;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.exception.AbstractException;
@@ -16,6 +16,8 @@ import org.slf4j.Logger;
 
 import java.io.Serializable;
 import java.util.List;
+
+import static android.support.annotation.RestrictTo.Scope.LIBRARY;
 
 public abstract class AbstractUseCase implements Runnable, Serializable {
 	
@@ -154,7 +156,7 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 	 * 
 	 * @param listener The listener to notify.
 	 */
-	@Internal
+	@RestrictTo(LIBRARY)
 	public void notifyUseCaseStart(UseCaseListener listener) {
 		try {
 			LOGGER.debug("Notifying " + getClass().getSimpleName() + " start to listener " + listener.getClass().getSimpleName());
@@ -172,7 +174,7 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 	 * 
 	 * @param listener The listener to notify.
 	 */
-	@Internal
+	@RestrictTo(LIBRARY)
 	public void notifyFinishedUseCase(UseCaseListener listener) {
 		try {
 			LOGGER.debug("Notifying " + getClass().getSimpleName() + " finish to listener " + listener.getClass().getSimpleName());
@@ -190,7 +192,7 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 	 * 
 	 * @param listener The listener to notify.
 	 */
-	@Internal
+	@RestrictTo(LIBRARY)
 	public void notifyFailedUseCase(AbstractException exception, UseCaseListener listener) {
 		try {
 			LOGGER.debug("Notifying " + getClass().getSimpleName() + " finish failed to listener " + listener.getClass().getSimpleName());

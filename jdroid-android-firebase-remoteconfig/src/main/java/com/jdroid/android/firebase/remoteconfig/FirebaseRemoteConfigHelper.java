@@ -3,6 +3,7 @@ package com.jdroid.android.firebase.remoteconfig;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RestrictTo;
 import android.support.annotation.WorkerThread;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -15,7 +16,6 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigValue;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.firebase.FirebaseAppModule;
 import com.jdroid.android.utils.SharedPreferencesHelper;
-import com.jdroid.java.annotation.Internal;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.concurrent.ExecutorUtils;
@@ -26,6 +26,8 @@ import org.slf4j.Logger;
 
 import java.util.List;
 import java.util.Map;
+
+import static android.support.annotation.RestrictTo.Scope.LIBRARY;
 
 public class FirebaseRemoteConfigHelper {
 
@@ -45,7 +47,7 @@ public class FirebaseRemoteConfigHelper {
 	private static List<RemoteConfigParameter> remoteConfigParameters = Lists.newArrayList();
 	
 	@WorkerThread
-	@Internal
+	@RestrictTo(LIBRARY)
 	static void init() {
 
 		try {
@@ -83,23 +85,23 @@ public class FirebaseRemoteConfigHelper {
 			AbstractApplication.get().getExceptionHandler().logHandledException("Error initializing Firebase Remote Config", e);
 		}
 	}
-
-	@Internal
+	
+	@RestrictTo(LIBRARY)
 	public static void fetchNow() {
 		fetchNow(null);
 	}
-
-	@Internal
+	
+	@RestrictTo(LIBRARY)
 	public static void fetchNow(OnSuccessListener<Void> onSuccessListener) {
 		fetch(0, false, onSuccessListener);
 	}
-
-	@Internal
+	
+	@RestrictTo(LIBRARY)
 	public static void fetch(long cacheExpirationSeconds, Boolean setExperimentUserProperty) {
 		fetch(cacheExpirationSeconds, setExperimentUserProperty, null);
 	}
-
-	@Internal
+	
+	@RestrictTo(LIBRARY)
 	public static void fetch(final long cacheExpirationSeconds, final Boolean setExperimentUserProperty, final OnSuccessListener<Void> onSuccessListener) {
 		if (firebaseRemoteConfig != null) {
 			Task<Void> task = firebaseRemoteConfig.fetch(cacheExpirationSeconds);
@@ -237,13 +239,13 @@ public class FirebaseRemoteConfigHelper {
 			LOGGER.info("Loaded Firebase Remote Config. Source [" + source + "] Key [" + remoteConfigParameter.getKey() + "] Value [" + value + "]");
 		}
 	}
-
-	@Internal
+	
+	@RestrictTo(LIBRARY)
 	public static Boolean isMocksEnabled() {
 		return mocksEnabled;
 	}
-
-	@Internal
+	
+	@RestrictTo(LIBRARY)
 	public static void setMocksEnabled(Boolean mocksEnabled) {
 		if (mocksEnabled) {
 			for (RemoteConfigParameter each : remoteConfigParameters) {
@@ -255,8 +257,8 @@ public class FirebaseRemoteConfigHelper {
 		FirebaseRemoteConfigHelper.mocksEnabled = mocksEnabled;
 		sharedPreferencesHelper.savePreference(MOCKS_ENABLED, mocksEnabled);
 	}
-
-	@Internal
+	
+	@RestrictTo(LIBRARY)
 	public static void setParameterMock(RemoteConfigParameter remoteConfigParameter, String value) {
 		sharedPreferencesHelper.savePreferenceAsync(remoteConfigParameter.getKey(), value);
 		mocks.put(remoteConfigParameter.getKey(), value);

@@ -15,14 +15,10 @@ public class TestAndroidApplication extends AbstractApplication {
 	public TestAndroidApplication() {
 		setHttpServiceFactory(new OkHttpServiceFactory());
 	}
-
+	
 	@Override
-	protected void attachBaseContext(Context base) {
-		try {
-			super.attachBaseContext(base);
-		} catch (RuntimeException ignored) {
-			// Multidex support doesn't play well with Robolectric yet
-		}
+	protected void onInitMultiDex() {
+		// Multidex support doesn't play well with Robolectric yet
 	}
 
 	@Override

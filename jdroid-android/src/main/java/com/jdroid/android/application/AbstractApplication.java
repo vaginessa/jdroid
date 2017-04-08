@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.os.StrictMode;
+import android.support.annotation.CallSuper;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -113,16 +114,26 @@ public abstract class AbstractApplication extends Application {
 		// Do nothing
 	}
 	
+	@MainThread
+	@CallSuper
 	@Override
 	protected void attachBaseContext(Context base) {
 		super.attachBaseContext(base);
+		
+		onInitMultiDex();
 		
 		initLogging();
 		
 		ApplicationLifecycleHelper.attachBaseContext(base);
 	}
+	
+	@MainThread
+	protected void onInitMultiDex() {
+		// Do nothing
+	}
 
 	@MainThread
+	@CallSuper
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -188,6 +199,8 @@ public abstract class AbstractApplication extends Application {
 		// Do nothing
 	}
 
+	@MainThread
+	@CallSuper
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
@@ -195,6 +208,8 @@ public abstract class AbstractApplication extends Application {
 		ApplicationLifecycleHelper.onConfigurationChanged(this, newConfig);
 	}
 
+	@MainThread
+	@CallSuper
 	@Override
 	public void onLowMemory() {
 		super.onLowMemory();
@@ -202,6 +217,8 @@ public abstract class AbstractApplication extends Application {
 		ApplicationLifecycleHelper.onLowMemory(this);
 	}
 
+	@MainThread
+	@CallSuper
 	@Override
 	public void onTrimMemory(int level) {
 		super.onTrimMemory(level);

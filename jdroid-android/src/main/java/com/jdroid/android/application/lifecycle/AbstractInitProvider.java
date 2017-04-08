@@ -7,13 +7,10 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.jdroid.java.annotation.Internal;
-
-@Internal
-public abstract class AbstractInitProvider extends ContentProvider {
-
+abstract class AbstractInitProvider extends ContentProvider {
+	
 	protected abstract void init();
-
+	
 	@Override
 	public final boolean onCreate() {
 		init();
