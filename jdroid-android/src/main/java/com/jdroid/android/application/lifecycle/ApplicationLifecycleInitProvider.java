@@ -1,6 +1,6 @@
 package com.jdroid.android.application.lifecycle;
 
-class ApplicationLifecycleInitProvider extends AbstractInitProvider {
+public class ApplicationLifecycleInitProvider extends AbstractInitProvider {
 	
 	@Override
 	protected void init() {
