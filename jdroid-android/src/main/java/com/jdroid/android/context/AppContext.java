@@ -8,7 +8,7 @@ import com.jdroid.java.http.Server;
 
 import java.util.Locale;
 
-public abstract class AppContext extends AbstractAppContext {
+public class AppContext extends AbstractAppContext {
 	
 	// Environment
 	private Server defaultServer;

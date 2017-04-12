@@ -1,6 +1,7 @@
 package com.jdroid.android.application;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -13,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 import android.support.v4.app.Fragment;
 
+import com.jdroid.android.BuildConfig;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityHelper;
@@ -28,11 +30,13 @@ import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.firebase.testlab.FirebaseTestLab;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.http.cache.CacheManager;
+import com.jdroid.android.leakcanary.LeakCanaryHelper;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
 import com.jdroid.android.sqlite.SQLiteUpgradeStep;
 import com.jdroid.android.uri.UriMapper;
 import com.jdroid.android.utils.AppUtils;
+import com.jdroid.android.utils.ProcessUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.android.utils.ToastUtils;
 import com.jdroid.java.collections.Lists;
@@ -94,7 +98,7 @@ public abstract class AbstractApplication extends Application {
 	private ActivityLifecycleHandler activityLifecycleHandler;
 
 	private HttpServiceFactory httpServiceFactory;
-
+	
 	public AbstractApplication() {
 		INSTANCE = this;
 	}
@@ -111,76 +115,106 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	@MainThread
-	public void onProviderInit() {
-		// Do nothing
-	}
-	
-	@MainThread
 	@CallSuper
 	@Override
-	protected void attachBaseContext(Context base) {
+	protected final void attachBaseContext(Context base) {
 		super.attachBaseContext(base);
 		
 		onInitMultiDex();
 		
-		initLogging();
-		
-		ApplicationLifecycleHelper.attachBaseContext(base);
+		if (!isMultiProcessSupportEnabled() || ProcessUtils.isMainProcess(this)) {
+			initLogging();
+			ApplicationLifecycleHelper.attachBaseContext(base);
+			onMainProcessAttachBaseContext();
+		} else {
+			onSecondaryProcessAttachBaseContext(ProcessUtils.getProcessInfo(this));
+		}
 	}
 	
 	@MainThread
 	protected void onInitMultiDex() {
 		// Do nothing
 	}
+	
+	@MainThread
+	protected void onMainProcessAttachBaseContext() {
+		// Do nothing
+	}
+	
+	@MainThread
+	protected void onSecondaryProcessAttachBaseContext(ActivityManager.RunningAppProcessInfo processInfo) {
+		// Do nothing
+	}
+	
+	@MainThread
+	public void onProviderInit() {
+		// Do nothing
+	}
 
 	@MainThread
 	@CallSuper
 	@Override
-	public void onCreate() {
+	public final void onCreate() {
 		super.onCreate();
 		
-		ApplicationLifecycleHelper.onCreate(this);
-		
-		appContext = createAppContext();
-
-		// Strict mode
-		if (appContext.isStrictModeEnabled()) {
-			initStrictMode();
-		}
-
-		initAppModule(appModulesMap);
-
-		initCoreAnalyticsSender();
-
-		uriMapper = createUriMapper();
-
-		updateManager = new UpdateManager();
-		updateManager.addUpdateSteps(createUpdateSteps());
-
-		initExceptionHandlers();
-		LoggerUtils.setExceptionLogger(getExceptionHandler());
-
-		// This is required to initialize the statics fields of the utils classes.
-		ToastUtils.init();
-		DateUtils.init();
-
-		initRepositories();
-
-		ExecutorUtils.execute(new Runnable() {
-
-			@Override
-			public void run() {
-				fetchInstallationSource();
-				verifyAppLaunchStatus();
-
-				if (getCacheManager() != null) {
-					getCacheManager().initFileSystemCache();
-				}
+		if (!isMultiProcessSupportEnabled() || ProcessUtils.isMainProcess(this)) {
+			ApplicationLifecycleHelper.onCreate(this);
+			
+			appContext = createAppContext();
+			
+			// Strict mode
+			if (appContext.isStrictModeEnabled()) {
+				initStrictMode();
 			}
-		});
-
-		activityLifecycleHandler = new ActivityLifecycleHandler();
-		registerActivityLifecycleCallbacks(activityLifecycleHandler);
+			
+			initAppModule(appModulesMap);
+			
+			initCoreAnalyticsSender();
+			
+			uriMapper = createUriMapper();
+			
+			updateManager = new UpdateManager();
+			updateManager.addUpdateSteps(createUpdateSteps());
+			
+			initExceptionHandlers();
+			LoggerUtils.setExceptionLogger(getExceptionHandler());
+			
+			// This is required to initialize the statics fields of the utils classes.
+			ToastUtils.init();
+			DateUtils.init();
+			
+			initRepositories();
+			
+			ExecutorUtils.execute(new Runnable() {
+				
+				@Override
+				public void run() {
+					fetchInstallationSource();
+					verifyAppLaunchStatus();
+					
+					if (getCacheManager() != null) {
+						getCacheManager().initFileSystemCache();
+					}
+				}
+			});
+			
+			activityLifecycleHandler = new ActivityLifecycleHandler();
+			registerActivityLifecycleCallbacks(activityLifecycleHandler);
+			
+			onMainProcessCreate();
+		} else  {
+			onSecondaryProcessCreate(ProcessUtils.getProcessInfo(this));
+		}
+	}
+	
+	@MainThread
+	protected void onMainProcessCreate() {
+		// Do nothing
+	}
+	
+	@MainThread
+	protected void onSecondaryProcessCreate(ActivityManager.RunningAppProcessInfo processInfo) {
+		// Do nothing
 	}
 	
 	private boolean isDebuggable() {
@@ -203,30 +237,81 @@ public abstract class AbstractApplication extends Application {
 	@MainThread
 	@CallSuper
 	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
+	public final void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
-
-		ApplicationLifecycleHelper.onConfigurationChanged(this, newConfig);
+		
+		if (!isMultiProcessSupportEnabled() || ProcessUtils.isMainProcess(this)) {
+			ApplicationLifecycleHelper.onConfigurationChanged(this, newConfig);
+			onMainProcessConfigurationChanged();
+		} else  {
+			onSecondaryProcessConfigurationChanged(ProcessUtils.getProcessInfo(this));
+		}
+	}
+	
+	@MainThread
+	protected void onMainProcessConfigurationChanged() {
+		// Do nothing
+	}
+	
+	@MainThread
+	protected void onSecondaryProcessConfigurationChanged(ActivityManager.RunningAppProcessInfo processInfo) {
+		// Do nothing
 	}
 
 	@MainThread
 	@CallSuper
 	@Override
-	public void onLowMemory() {
+	public final void onLowMemory() {
 		super.onLowMemory();
-
-		ApplicationLifecycleHelper.onLowMemory(this);
+		
+		if (!isMultiProcessSupportEnabled() || ProcessUtils.isMainProcess(this)) {
+			ApplicationLifecycleHelper.onLowMemory(this);
+			onMainProcessLowMemory();
+		} else  {
+			onSecondaryProcessLowMemory(ProcessUtils.getProcessInfo(this));
+		}
 	}
-
+	
+	@MainThread
+	protected void onMainProcessLowMemory() {
+		// Do nothing
+	}
+	
+	@MainThread
+	protected void onSecondaryProcessLowMemory(ActivityManager.RunningAppProcessInfo processInfo) {
+		// Do nothing
+	}
+	
 	@MainThread
 	@CallSuper
 	@Override
-	public void onTrimMemory(int level) {
+	public final void onTrimMemory(int level) {
 		super.onTrimMemory(level);
+		
+		if (!isMultiProcessSupportEnabled() || ProcessUtils.isMainProcess(this)) {
+			ApplicationLifecycleHelper.onTrimMemory(this, level);
+			onMainProcessTrimMemory();
+		} else  {
+			onSecondaryProcessTrimMemory(ProcessUtils.getProcessInfo(this));
+		}
 
 		ApplicationLifecycleHelper.onTrimMemory(this, level);
 	}
-
+	
+	@MainThread
+	protected void onMainProcessTrimMemory() {
+		// Do nothing
+	}
+	
+	@MainThread
+	protected void onSecondaryProcessTrimMemory(ActivityManager.RunningAppProcessInfo processInfo) {
+		// Do nothing
+	}
+	
+	protected Boolean isMultiProcessSupportEnabled() {
+		return BuildConfig.DEBUG && LeakCanaryHelper.isLeakCanaryEnabled();
+	}
+	
 	@WorkerThread
 	protected void verifyAppLaunchStatus() {
 		Integer fromVersionCode = SharedPreferencesHelper.get().loadPreferenceAsInteger(VERSION_CODE_KEY);
@@ -318,7 +403,9 @@ public abstract class AbstractApplication extends Application {
 	public abstract Class<? extends Activity> getHomeActivityClass();
 
 	@NonNull
-	protected abstract AppContext createAppContext();
+	protected AppContext createAppContext() {
+		return new AppContext();
+	}
 
 	@NonNull
 	public AppContext getAppContext() {

@@ -160,6 +160,7 @@ android {
 		}
 
 		jdroid.setBuildConfigBoolean(defaultConfig, "STRICT_MODE_ENABLED", false)
+		jdroid.setBuildConfigBoolean(defaultConfig, "LEAK_CANARY_ENABLED", false)
 		jdroid.setBuildConfigBoolean(defaultConfig, "FIREBASE_ANALYTICS_ENABLED", true)
 
 		jdroid.setBuildConfigBoolean(defaultConfig, "GOOGLE_ANALYTICS_ENABLED", true)

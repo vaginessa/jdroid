@@ -40,6 +40,10 @@ dependencies {
 	compile 'com.google.firebase:firebase-messaging:' + GOOGLE_PLAY_SERVICES_VERSION
 	compile 'com.google.firebase:firebase-invites:' + GOOGLE_PLAY_SERVICES_VERSION
 
+	debugCompile ('com.squareup.leakcanary:leakcanary-android:' + LEAK_CANARY_VERSION) { force = true }
+	releaseCompile ('com.squareup.leakcanary:leakcanary-android-no-op:' + LEAK_CANARY_VERSION) { force = true }
+	testCompile ('com.squareup.leakcanary:leakcanary-android-no-op:' + LEAK_CANARY_VERSION) { force = true }
+
 	// https://github.com/facebook/device-year-class
 	compile 'com.facebook.device.yearclass:yearclass:1.0.1'
 

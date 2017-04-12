@@ -20,6 +20,7 @@ import com.jdroid.android.application.AppModule;
 import com.jdroid.android.concurrent.SafeExecuteWrapperRunnable;
 import com.jdroid.android.exception.AbstractErrorDisplayer;
 import com.jdroid.android.exception.ErrorDisplayer;
+import com.jdroid.android.leakcanary.LeakCanaryHelper;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.exception.AbstractException;
@@ -208,6 +209,8 @@ public class FragmentHelper implements FragmentIf {
 
 	public void onDestroyView() {
 		LOGGER.debug("Executing onDestroyView on " + fragment);
+		
+		LeakCanaryHelper.onFragmentDestroyView(getFragment());
 	}
 
 	public void onBeforeDestroy() {

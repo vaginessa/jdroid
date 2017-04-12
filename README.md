@@ -29,6 +29,7 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 * [Sqlite integration](https://sqlite.org/)
 * [Device year class integration](https://github.com/facebook/device-year-class)
 * [Facebook Stetho Integration](https://github.com/facebook/stetho)
+* [Leak Canary Integration](https://github.com/square/leakcanary)
 * Exception handling
 * [Lint support](http://developer.android.com/tools/help/lint.html)
 * [Strict mode support](http://developer.android.com/reference/android/os/StrictMode.html)

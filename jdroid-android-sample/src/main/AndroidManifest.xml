@@ -125,6 +125,11 @@
 		<activity android:name="com.jdroid.android.sample.ui.google.signin.GoogleSignInActivity" android:label="@string/jdroid_googleSignIn"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<!-- Leak Canary -->
+
+		<activity android:name="com.jdroid.android.sample.ui.leakcanary.LeakCanaryActivity" android:label="@string/jdroid_leakCanary"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
+
 		<!-- Loading -->
 
 		<activity android:name="com.jdroid.android.sample.ui.loading.LoadingActivity" android:label="@string/loading"

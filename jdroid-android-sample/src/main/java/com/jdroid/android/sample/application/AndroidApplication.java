@@ -61,9 +61,7 @@ public class AndroidApplication extends AbstractApplication {
 	}
 	
 	@Override
-	public void onCreate() {
-		super.onCreate();
-		
+	protected void onMainProcessCreate() {
 		if (GoogleAnalyticsAppContext.isGoogleAnalyticsEnabled()) {
 			GoogleAnalyticsFactory.getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleCoreAnalyticsTracker.CustomDimension.INSTALLATION_SOURCE.name(), 1);
 			GoogleAnalyticsFactory.getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleCoreAnalyticsTracker.CustomDimension.DEVICE_TYPE.name(), 2);
