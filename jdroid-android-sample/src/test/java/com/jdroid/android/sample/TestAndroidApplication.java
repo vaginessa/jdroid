@@ -14,6 +14,11 @@ public class TestAndroidApplication extends AbstractApplication {
 	protected void onInitMultiDex() {
 		// Multidex support doesn't play well with Robolectric yet
 	}
+	
+	@Override
+	protected Boolean isMultiProcessSupportEnabled() {
+		return false;
+	}
 
 	@Override
 	public Class<? extends Activity> getHomeActivityClass() {
