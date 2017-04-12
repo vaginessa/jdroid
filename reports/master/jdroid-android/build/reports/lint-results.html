@@ -173,10 +173,10 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 38 warnings</span>
+      <span class="mdl-layout-title">Lint Report: 39 warnings</span>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-Check performed at Mon Apr 10 08:10:09 UTC 2017      </nav>
+Check performed at Wed Apr 12 02:04:19 UTC 2017      </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -191,7 +191,7 @@ Check performed at Mon Apr 10 08:10:09 UTC 2017      </nav>
       <a class="mdl-navigation__link" href="#StaticFieldLeak"><i class="material-icons warning-icon">warning</i>Static Field Leaks (1)</a>
       <a class="mdl-navigation__link" href="#HandlerLeak"><i class="material-icons warning-icon">warning</i>Handler reference leaks (1)</a>
       <a class="mdl-navigation__link" href="#Overdraw"><i class="material-icons warning-icon">warning</i>Overdraw: Painting regions more than once (3)</a>
-      <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (23)</a>
+      <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (24)</a>
       <a class="mdl-navigation__link" href="#UselessParent"><i class="material-icons warning-icon">warning</i>Useless parent layout (1)</a>
       <a class="mdl-navigation__link" href="#IconDensities"><i class="material-icons warning-icon">warning</i>Icon densities validation (4)</a>
     </nav>
@@ -237,7 +237,7 @@ Check performed at Mon Apr 10 08:10:09 UTC 2017      </nav>
 <td class="countColumn">3</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#Overdraw">Overdraw</a>: Overdraw: Painting regions more than once</td></tr>
 <tr>
-<td class="countColumn">23</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">24</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#UnusedResources">UnusedResources</a>: Unused resources</td></tr>
 <tr>
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
@@ -503,14 +503,14 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/jdroid/android/application/AbstractApplication.java">../../src/main/java/com/jdroid/android/application/AbstractApplication.java</a>:68</span>: <span class="message">Do not place Android context classes in static fields (static reference to <code>AbstractApplication</code> which has field <code>currentActivity</code> pointing to <code>Activity</code>); this is a memory leak (and also breaks Instant Run)</span><br /><pre class="errorlines">
-<span class="lineno">  65 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String INSTALLATION_SOURCE = <span class="string">"installationSource"</span>;
-<span class="lineno">  66 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String VERSION_CODE_KEY = <span class="string">"versionCodeKey"</span>;
-<span class="lineno">  67 </span>    
-<span class="caretline"><span class="lineno">  68 </span>    <span class="warning"><span class="keyword">protected</span> <span class="keyword">static</span> AbstractApplication INSTANCE;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  69 </span>    
-<span class="lineno">  70 </span>    <span class="keyword">private</span> AppContext appContext;
-<span class="lineno">  71 </span>    <span class="keyword">private</span> GitContext gitContext;
+<span class="location"><a href="../../src/main/java/com/jdroid/android/application/AbstractApplication.java">../../src/main/java/com/jdroid/android/application/AbstractApplication.java</a>:72</span>: <span class="message">Do not place Android context classes in static fields (static reference to <code>AbstractApplication</code> which has field <code>currentActivity</code> pointing to <code>Activity</code>); this is a memory leak (and also breaks Instant Run)</span><br /><pre class="errorlines">
+<span class="lineno">  69 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String INSTALLATION_SOURCE = <span class="string">"installationSource"</span>;
+<span class="lineno">  70 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String VERSION_CODE_KEY = <span class="string">"versionCodeKey"</span>;
+<span class="lineno">  71 </span>    
+<span class="caretline"><span class="lineno">  72 </span>    <span class="warning"><span class="keyword">protected</span> <span class="keyword">static</span> AbstractApplication INSTANCE;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  73 </span>    
+<span class="lineno">  74 </span>    <span class="keyword">private</span> AppContext appContext;
+<span class="lineno">  75 </span>    <span class="keyword">private</span> GitContext gitContext;
 </pre>
 
 </div>
@@ -697,7 +697,7 @@ Dismiss</button>            </div>
 <span class="lineno">  3 </span>        <span class="prefix">android:</span><span class="attribute">height</span>=<span class="value">"24dp"</span>
 <span class="lineno">  4 </span>        <span class="prefix">android:</span><span class="attribute">viewportWidth</span>=<span class="value">"24.0"</span></pre>
 
-<button class="mdl-button mdl-js-button mdl-button--primary" id="UnusedResourcesDivLink" onclick="reveal('UnusedResourcesDiv');" />+ 18 More Occurrences...</button>
+<button class="mdl-button mdl-js-button mdl-button--primary" id="UnusedResourcesDivLink" onclick="reveal('UnusedResourcesDiv');" />+ 19 More Occurrences...</button>
 <div id="UnusedResourcesDiv" style="display: none">
 <span class="location"><a href="../../src/main/res/drawable-xxhdpi/jdroid_ic_drawer_accounts_collapse.png">../../src/main/res/drawable-xxhdpi/jdroid_ic_drawer_accounts_collapse.png</a></span>: <img class="embedimage" align="right" src="../../src/main/res/drawable-xxhdpi/jdroid_ic_drawer_accounts_collapse.png" /><span class="message">The resource <code>R.drawable.jdroid_ic_drawer_accounts_collapse</code> appears to be unused</span><br clear="right"/>
 <span class="location"><a href="../../src/main/res/drawable/jdroid_ic_mail_outline_black_24dp.xml">../../src/main/res/drawable/jdroid_ic_mail_outline_black_24dp.xml</a>:1</span>: <span class="message">The resource <code>R.drawable.jdroid_ic_mail_outline_black_24dp</code> appears to be unused</span><br /><pre class="errorlines">
@@ -905,8 +905,8 @@ Additional locations: <ul>
 <span class="lineno"> 74 </span>    <span class="comment">&lt;!-- Google Sign In --></span>
 <span class="caretline"><span class="lineno"> 75 </span>    <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_googleSignIn"</span></span>>Google Sign In<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno"> 76 </span>
-<span class="lineno"> 77 </span>    <span class="comment">&lt;!-- Twitter --></span>
-<span class="lineno"> 78 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_twitter"</span>>Twitter<span class="tag">&lt;/string></span></pre>
+<span class="lineno"> 77 </span>    <span class="comment">&lt;!-- Leak Canary --></span>
+<span class="lineno"> 78 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_leakCanary"</span>>Leak Canary<span class="tag">&lt;/string></span></pre>
 
 <ul></ul><button id="Location22DivLink" onclick="reveal('Location22Div');" />+ 1 Additional Locations...</button>
 <div id="Location22Div" style="display: none">
@@ -914,19 +914,34 @@ Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:77</span>
 </ul>
 </div><br/><br/>
-<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:78</span>: <span class="message">The resource <code>R.string.jdroid_twitter</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:78</span>: <span class="message">The resource <code>R.string.jdroid_leakCanary</code> appears to be unused</span><br /><pre class="errorlines">
 <span class="lineno"> 75 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_googleSignIn"</span>>Google Sign In<span class="tag">&lt;/string></span>
 <span class="lineno"> 76 </span>
-<span class="lineno"> 77 </span>    <span class="comment">&lt;!-- Twitter --></span>
-<span class="caretline"><span class="lineno"> 78 </span>    <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_twitter"</span></span>>Twitter<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 77 </span>    <span class="comment">&lt;!-- Leak Canary --></span>
+<span class="caretline"><span class="lineno"> 78 </span>    <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_leakCanary"</span></span>>Leak Canary<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno"> 79 </span>
-<span class="lineno"> 80 </span>    <span class="comment">&lt;!-- Rate App --></span>
-<span class="lineno"> 81 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_rateAppEnjoying"</span>>Enjoying %1$s?<span class="tag">&lt;/string></span></pre>
+<span class="lineno"> 80 </span>    <span class="comment">&lt;!-- Twitter --></span>
+<span class="lineno"> 81 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_twitter"</span>>Twitter<span class="tag">&lt;/string></span></pre>
 
 <ul></ul><button id="Location23DivLink" onclick="reveal('Location23Div');" />+ 1 Additional Locations...</button>
 <div id="Location23Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:80</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:81</span>: <span class="message">The resource <code>R.string.jdroid_twitter</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 78 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_leakCanary"</span>>Leak Canary<span class="tag">&lt;/string></span>
+<span class="lineno"> 79 </span>
+<span class="lineno"> 80 </span>    <span class="comment">&lt;!-- Twitter --></span>
+<span class="caretline"><span class="lineno"> 81 </span>    <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_twitter"</span></span>>Twitter<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 82 </span>
+<span class="lineno"> 83 </span>    <span class="comment">&lt;!-- Rate App --></span>
+<span class="lineno"> 84 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_rateAppEnjoying"</span>>Enjoying %1$s?<span class="tag">&lt;/string></span></pre>
+
+<ul></ul><button id="Location24DivLink" onclick="reveal('Location24Div');" />+ 1 Additional Locations...</button>
+<div id="Location24Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:83</span>
 </ul>
 </div><br/><br/>
 </div>
