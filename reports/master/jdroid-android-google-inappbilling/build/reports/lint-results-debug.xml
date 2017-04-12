@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="4" by="lint 2.3.0">
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.jdroid_purchaseThanks` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1=" &lt;string name=&quot;jdroid_purchaseThanks&quot;>Thanks for your purchase&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android-google-inappbilling/src/main/res/values/strings.xml"
+            line="5"
+            column="10"/>
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android-google-inappbilling/src/main/res/values-es/strings.xml"
+            line="5"
+            column="10"/>
+    </issue>
+
+</issues>
