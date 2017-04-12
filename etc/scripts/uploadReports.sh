@@ -6,8 +6,8 @@ then
 
   # copy data we're interested in to other place
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android/build/reports
-  mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-about/build/reports
+  mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-fabric/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-facebook/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-database/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-crash/build/reports
@@ -18,27 +18,26 @@ then
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-google-maps/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-google-plus/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-google-signin/build/reports
-  mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-fabric/build/reports
-  mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-uil/build/reports
-  mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-twitter/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-sample/build/reports
+  mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-twitter/build/reports
+  mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-uil/build/reports
 
-  cp jdroid-android/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android/build/reports/lint-results.html
-  cp jdroid-android-about/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-about/build/reports/lint-results.html
-  cp jdroid-android-facebook/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-facebook/build/reports/lint-results.html
-  cp jdroid-android-firebase-crash/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-crash/build/reports/lint-results.html
-  cp jdroid-android-firebase-database/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-database/build/reports/lint-results.html
-  cp jdroid-android-firebase-fcm/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-fcm/build/reports/lint-results.html
-  cp jdroid-android-firebase-remoteconfig/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-remoteconfig/build/reports/lint-results.html
-  cp jdroid-android-firebase-admob/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-admob/build/reports/lint-results.html
-  cp jdroid-android-google-inappbilling/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-google-inappbilling/build/reports/lint-results.html
-  cp jdroid-android-google-maps/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-google-maps/build/reports/lint-results.html
-  cp jdroid-android-google-plus/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-google-plus/build/reports/lint-results.html
-  cp jdroid-android-google-signin/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-google-signin/build/reports/lint-results.html
-  cp jdroid-android-fabric/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-fabric/build/reports/lint-results.html
-  cp jdroid-android-uil/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-uil/build/reports/lint-results.html
-  cp jdroid-android-twitter/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-twitter/build/reports/lint-results.html
-  cp jdroid-android-sample/build/reports/lint-results-debug.html $HOME/reports/$TRAVIS_BRANCH/jdroid-android-sample/build/reports/lint-results.html
+  cp -R jdroid-android/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android/build/reports/
+  cp -R jdroid-android-about/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-about/build/reports/
+  cp -R jdroid-android-fabric/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-fabric/build/reports/
+  cp -R jdroid-android-facebook/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-facebook/build/reports/
+  cp -R jdroid-android-firebase-crash/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-crash/build/reports/
+  cp -R jdroid-android-firebase-database/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-database/build/reports/
+  cp -R jdroid-android-firebase-fcm/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-fcm/build/reports/
+  cp -R jdroid-android-firebase-remoteconfig/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-remoteconfig/build/reports/
+  cp -R jdroid-android-firebase-admob/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-admob/build/reports/
+  cp -R jdroid-android-google-inappbilling/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-google-inappbilling/build/reports/
+  cp -R jdroid-android-google-maps/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-google-maps/build/reports/
+  cp -R jdroid-android-google-plus/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-google-plus/build/reports/
+  cp -R jdroid-android-google-signin/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-google-signin/build/reports/
+  cp -R jdroid-android-twitter/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-twitter/build/reports/
+  cp -R jdroid-android-sample/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-sample/build/reports/
+  cp -R jdroid-android-uil/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-uil/build/reports/
 
   # go to home and setup git
   cd $HOME
