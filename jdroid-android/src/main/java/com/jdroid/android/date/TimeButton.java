@@ -42,6 +42,10 @@ public class TimeButton extends AppCompatButton {
 		init(fragment, defaultTime, 1);
 	}
 	
+	public void setTime(Long timestamp) {
+		setTime(DateUtils.getDate(timestamp));
+	}
+	
 	public void setTime(Date time) {
 		this.time = time;
 		setText(AndroidDateUtils.formatTime(time));

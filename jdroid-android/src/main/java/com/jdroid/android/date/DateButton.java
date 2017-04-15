@@ -56,6 +56,10 @@ public class DateButton extends AppCompatButton {
 		});
 	}
 	
+	public void setDate(Long timestamp) {
+		setDate(DateUtils.getDate(timestamp));
+	}
+	
 	public void setDate(Date date) {
 		this.date = date;
 		setText(DateUtils.format(date, DateTimeFormat.EEMMMDYYYY));
