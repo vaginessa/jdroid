@@ -43,19 +43,17 @@ public abstract class TwitterHelper {
 				Boolean connectionError = false;
 				if (e instanceof TwitterApiException) {
 					TwitterApiException twitterApiException = (TwitterApiException)e;
-					if (e.getMessage().equals("Unable to resolve host \"api.twitter.com\": No address associated with hostname")) {
+					if ("Unable to resolve host \"api.twitter.com\": No address associated with hostname".equals(e.getMessage())) {
 						connectionError = true;
-					} else if (e.getMessage().startsWith("failed to connect to ")) {
+					} else if (e.getMessage() != null && e.getMessage().startsWith("failed to connect to ")) {
 						connectionError = true;
 					} else {
 						String errorMessage = twitterApiException.getErrorCode() + " " + twitterApiException.getErrorMessage();
 						AbstractApplication.get().getCoreAnalyticsSender().trackErrorBreadcrumb(errorMessage);
 					}
-				} else if (e.getMessage().equals("Request Failure")) {
+				} else if ("Request Failure".equals(e.getMessage())) {
 					if (e.getCause() != null) {
 						if (e.getCause() instanceof ConnectException) {
-							connectionError = true;
-						} else if (e.getCause().getMessage().equals("Unable to resolve host \"api.twitter.com\": No address associated with hostname")) {
 							connectionError = true;
 						} else if (e.getCause() instanceof SocketTimeoutException) {
 							connectionError = true;
@@ -67,8 +65,12 @@ public abstract class TwitterHelper {
 							connectionError = true;
 						} else if (e.getCause() instanceof IOException) {
 							connectionError = true;
-						} else if (e.getCause().getMessage().startsWith("Failed to connect to api.twitter.com")) {
-							connectionError = true;
+						} else if (e.getCause().getMessage() != null) {
+							if (e.getCause().getMessage().startsWith("Failed to connect to api.twitter.com")) {
+								connectionError = true;
+							} else if (e.getCause().getMessage().equals("Unable to resolve host \"api.twitter.com\": No address associated with hostname")) {
+								connectionError = true;
+							}
 						}
 					}
 				}
