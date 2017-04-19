@@ -20,7 +20,7 @@ public class AdMobFragmentDelegate extends FragmentDelegate {
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
-		if (AdMobAppModule.get().getAdMobAppContext().areAdsEnabled()) {
+		if (AdMobAppModule.getAdMobAppContext().areAdsEnabled()) {
 			baseAdViewHelper = createBaseAdViewHelper();
 			if (baseAdViewHelper != null) {
 				initBaseAdViewHelper(baseAdViewHelper);

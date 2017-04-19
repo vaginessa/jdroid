@@ -27,18 +27,18 @@ public abstract class BaseAdViewHelper implements AdHelper {
 	private Boolean displayAds = false;
 
 	public BaseAdViewHelper() {
-		adUnitId = AdMobAppModule.get().getAdMobAppContext().getDefaultAdUnitId();
+		adUnitId = AdMobAppModule.getAdMobAppContext().getDefaultAdUnitId();
 	}
 
 	@Override
 	public void loadAd(Activity activity, final ViewGroup adViewContainer) {
 		if (adViewContainer != null) {
-			if ((getAdSize() != null) && AdMobAppModule.get().getAdMobAppContext().areAdsEnabled()) {
+			if ((getAdSize() != null) && AdMobAppModule.getAdMobAppContext().areAdsEnabled()) {
 				if (adUnitId != null) {
 
 					baseAdViewWrapper = createBaseAdViewWrapper(activity);
 
-					if (!AbstractApplication.get().getAppContext().isProductionEnvironment() && AdMobAppModule.get().getAdMobAppContext().isTestAdUnitIdEnabled()) {
+					if (!AbstractApplication.get().getAppContext().isProductionEnvironment() && AdMobAppModule.getAdMobAppContext().isTestAdUnitIdEnabled()) {
 						baseAdViewWrapper.setAdUnitId(BaseAdViewHelper.TEST_AD_UNIT_ID);
 					} else {
 						baseAdViewWrapper.setAdUnitId(adUnitId);
@@ -131,7 +131,7 @@ public abstract class BaseAdViewHelper implements AdHelper {
 		final AdRequest.Builder builder = new AdRequest.Builder();
 		if (!applicationContext.isProductionEnvironment()) {
 			builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
-			for (String deviceId : AdMobAppModule.get().getAdMobAppContext().getTestDevicesIds()) {
+			for (String deviceId : AdMobAppModule.getAdMobAppContext().getTestDevicesIds()) {
 				builder.addTestDevice(deviceId);
 			}
 		}
@@ -171,7 +171,7 @@ public abstract class BaseAdViewHelper implements AdHelper {
 
 	public void onResume() {
 		if (baseAdViewWrapper != null) {
-			if (AdMobAppModule.get().getAdMobAppContext().areAdsEnabled()) {
+			if (AdMobAppModule.getAdMobAppContext().areAdsEnabled()) {
 				baseAdViewWrapper.resume();
 			} else if (adViewContainer != null) {
 				adViewContainer.removeView(baseAdViewWrapper.getBaseAdView());

@@ -129,7 +129,9 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 				getGoogleMap().setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
 					@Override
 					public void onMapLoaded() {
-						AbstractMapFragment.this.onMapLoaded(googleMap);
+						if (!isDetached()) {
+							AbstractMapFragment.this.onMapLoaded(googleMap);
+						}
 					}
 				});
 

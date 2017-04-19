@@ -25,7 +25,7 @@ public enum AdMobRemoteConfigParameter implements RemoteConfigParameter {
 
 	@Override
 	public Object getDefaultValue() {
-		return AdMobAppModule.get().getAdMobAppContext().getBuildConfigValue(name(), defaultValue);
+		return AdMobAppModule.getAdMobAppContext().getBuildConfigValue(name(), defaultValue);
 	}
 
 	@Override

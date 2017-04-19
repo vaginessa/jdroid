@@ -30,7 +30,7 @@ import com.jdroid.android.sample.repository.UserRepositoryImpl;
 import com.jdroid.android.sample.ui.AndroidActivityHelper;
 import com.jdroid.android.sample.ui.AndroidFragmentHelper;
 import com.jdroid.android.sample.ui.about.AndroidAboutAppModule;
-import com.jdroid.android.sample.ui.google.admob.SampleAdMobAppModule;
+import com.jdroid.android.sample.ui.google.admob.SampleAdMobAppContext;
 import com.jdroid.android.sample.ui.google.inappbilling.AndroidInAppBillingAppModule;
 import com.jdroid.android.sample.ui.home.HomeActivity;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteEntity;
@@ -58,6 +58,7 @@ public class AndroidApplication extends AbstractApplication {
 		super.onProviderInit();
 		
 		FirebaseRemoteConfigHelper.addRemoteConfigParameters(AndroidRemoteConfigParameter.values());
+		AdMobAppModule.setAdMobAppContext(new SampleAdMobAppContext());
 	}
 	
 	@Override
@@ -127,7 +128,7 @@ public class AndroidApplication extends AbstractApplication {
 
 	@Override
 	protected void initAppModule(Map<String, AppModule> appModulesMap) {
-		appModulesMap.put(AdMobAppModule.MODULE_NAME, new SampleAdMobAppModule());
+		appModulesMap.put(AdMobAppModule.MODULE_NAME, new AdMobAppModule());
 		appModulesMap.put(AbstractFcmAppModule.MODULE_NAME, new AndroidFcmAppModule());
 		appModulesMap.put(AboutAppModule.MODULE_NAME, new AndroidAboutAppModule());
 		appModulesMap.put(InAppBillingAppModule.MODULE_NAME, new AndroidInAppBillingAppModule());

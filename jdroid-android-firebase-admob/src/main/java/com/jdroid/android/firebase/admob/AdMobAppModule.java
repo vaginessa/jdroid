@@ -24,19 +24,15 @@ public class AdMobAppModule extends AbstractAppModule {
 	public static AdMobAppModule get() {
 		return (AdMobAppModule)AbstractApplication.get().getAppModule(MODULE_NAME);
 	}
+	
+	private static AdMobAppContext adMobAppContext = new AdMobAppContext();
 
-	private AdMobAppContext adMobAppContext;
-
-	public AdMobAppModule() {
-		adMobAppContext = createAdMobAppContext();
-	}
-
-	protected AdMobAppContext createAdMobAppContext() {
-		return new AdMobAppContext();
-	}
-
-	public AdMobAppContext getAdMobAppContext() {
+	public static AdMobAppContext getAdMobAppContext() {
 		return adMobAppContext;
+	}
+	
+	public static void setAdMobAppContext(AdMobAppContext adMobAppContext) {
+		AdMobAppModule.adMobAppContext = adMobAppContext;
 	}
 
 	@Override

@@ -25,10 +25,10 @@ public class AdMobActivityDelegate extends ActivityDelegate {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		if (AdMobAppModule.get().getAdMobAppContext().areAdsEnabled()) {
+		if (AdMobAppModule.getAdMobAppContext().areAdsEnabled()) {
 
 			if (!initialized) {
-				String adMobAppId = AdMobAppModule.get().getAdMobAppContext().getAdMobAppId();
+				String adMobAppId = AdMobAppModule.getAdMobAppContext().getAdMobAppId();
 				if (adMobAppId == null) {
 					throw new UnexpectedException("Missing AdMob App Id");
 				}

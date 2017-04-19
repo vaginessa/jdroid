@@ -23,7 +23,7 @@ public class AdMobDebugAppLifecycleCallback extends ApplicationLifecycleCallback
 			public void run() {
 				// This is required to initialize the prefs to display on the debug settings
 				if (!SharedPreferencesHelper.get().hasPreference(AdMobRemoteConfigParameter.ADS_ENABLED.getKey())) {
-					SharedPreferencesHelper.get().savePreferenceAsync(AdMobRemoteConfigParameter.ADS_ENABLED.getKey(), AdMobAppModule.get().getAdMobAppContext().areAdsEnabledByDefault());
+					SharedPreferencesHelper.get().savePreferenceAsync(AdMobRemoteConfigParameter.ADS_ENABLED.getKey(), AdMobAppModule.getAdMobAppContext().areAdsEnabledByDefault());
 				}
 				if (!SharedPreferencesHelper.get().hasPreference(TEST_AD_UNIT_ID_ENABLED)) {
 					SharedPreferencesHelper.get().savePreferenceAsync(TEST_AD_UNIT_ID_ENABLED, true);
