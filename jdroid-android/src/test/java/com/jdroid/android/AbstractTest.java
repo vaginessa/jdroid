@@ -2,6 +2,8 @@ package com.jdroid.android;
 
 import android.os.Build;
 
+import com.jdroid.android.debug.http.HttpDebugConfiguration;
+
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -13,7 +15,7 @@ public abstract class AbstractTest {
 
 	@Before
 	public final void setUp() throws Exception {
-		TestDebugContext.HTTP_MOCK_ENABLED = isHttpMockEnabled();
+		HttpDebugConfiguration.setHttpMockEnabled(isHttpMockEnabled());
 		onSetup();
 	}
 

@@ -6,9 +6,9 @@ import android.preference.ListPreference;
 import android.preference.PreferenceGroup;
 
 import com.jdroid.android.R;
-import com.jdroid.android.debug.DebugContext;
-import com.jdroid.android.debug.crash.ExceptionType;
 import com.jdroid.android.debug.PreferencesAppender;
+import com.jdroid.android.debug.crash.ExceptionType;
+import com.jdroid.android.debug.http.HttpDebugConfiguration;
 import com.jdroid.android.debug.mocks.AndroidJsonMockHttpService;
 import com.jdroid.java.collections.Lists;
 
@@ -24,13 +24,13 @@ public class HttpMocksDebugPrefsAppender extends PreferencesAppender {
 	@Override
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		CheckBoxPreference checkBoxPreference = new CheckBoxPreference(activity);
-		checkBoxPreference.setKey(DebugContext.HTTP_MOCK_ENABLED);
+		checkBoxPreference.setKey(HttpDebugConfiguration.HTTP_MOCK_ENABLED);
 		checkBoxPreference.setTitle(R.string.jdroid_httpMockEnabledTitle);
 		checkBoxPreference.setSummary(R.string.jdroid_httpMockEnabledDescription);
 		preferenceGroup.addPreference(checkBoxPreference);
 		
 		checkBoxPreference = new CheckBoxPreference(activity);
-		checkBoxPreference.setKey(DebugContext.HTTP_MOCK_SLEEP);
+		checkBoxPreference.setKey(HttpDebugConfiguration.HTTP_MOCK_SLEEP);
 		checkBoxPreference.setTitle(R.string.jdroid_httpMockSleepTitle);
 		checkBoxPreference.setSummary(R.string.jdroid_httpMockSleepDescription);
 		// FIXME this is not working

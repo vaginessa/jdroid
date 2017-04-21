@@ -1,9 +1,11 @@
 package com.jdroid.android.api;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.java.http.api.AbstractApiService;
+import com.jdroid.android.debug.http.HttpDebugConfiguration;
+import com.jdroid.android.http.HttpConfiguration;
 import com.jdroid.java.http.HttpServiceFactory;
 import com.jdroid.java.http.Server;
+import com.jdroid.java.http.api.AbstractApiService;
 import com.jdroid.java.http.cache.Cache;
 import com.jdroid.java.http.mock.AbstractMockHttpService;
 
@@ -18,12 +20,12 @@ public abstract class AndroidApiService extends AbstractApiService {
 	
 	@Override
 	protected Boolean isHttpMockEnabled() {
-		return AbstractApplication.get().getDebugContext().isHttpMockEnabled();
+		return HttpDebugConfiguration.isHttpMockEnabled();
 	}
 	
 	@Override
 	protected AbstractMockHttpService getAbstractMockHttpServiceInstance(Object... urlSegments) {
-		return AbstractApplication.get().getDebugContext().getAbstractMockHttpServiceInstance(urlSegments);
+		return HttpDebugConfiguration.getAbstractMockHttpServiceInstance(urlSegments);
 	}
 	
 	@Override
@@ -33,6 +35,6 @@ public abstract class AndroidApiService extends AbstractApiService {
 
 	@Override
 	protected HttpServiceFactory createHttpServiceFactory() {
-		return AbstractApplication.get().getHttpServiceFactory();
+		return HttpConfiguration.getHttpServiceFactory();
 	}
 }

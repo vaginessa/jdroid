@@ -5,6 +5,7 @@ import android.content.Context;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.lifecycle.ApplicationLifecycleCallback;
 import com.jdroid.android.context.BuildConfigUtils;
+import com.jdroid.android.http.HttpConfiguration;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.http.HttpServiceFactory;
 import com.jdroid.java.utils.LoggerUtils;
@@ -32,7 +33,7 @@ public class StethoApplicationLifecycleCallback extends ApplicationLifecycleCall
 				Object stethoInterceptor = ReflectionUtils.newInstance(STETHO_OKHTTP_INTERCEPTOR);
 				ReflectionUtils.invokeMethod(OKHTTP_SERVICE_FACTORY, okhttpServiceFactory, ADD_NETWORK_INTERCEPTOR,
 						Lists.<Class<?>>newArrayList(interceptorClass), Lists.newArrayList(stethoInterceptor));
-				AbstractApplication.get().setHttpServiceFactory(okhttpServiceFactory);
+				HttpConfiguration.setHttpServiceFactory(okhttpServiceFactory);
 			}
 		} catch (Exception e) {
 			LOGGER.error(StethoApplicationLifecycleCallback.class.getName(), "Error initializing StethoInitProvider", e);

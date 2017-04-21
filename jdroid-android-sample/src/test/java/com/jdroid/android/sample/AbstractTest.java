@@ -3,6 +3,7 @@ package com.jdroid.android.sample;
 import android.os.Build;
 
 import com.jdroid.android.BuildConfig;
+import com.jdroid.android.debug.http.HttpDebugConfiguration;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -15,7 +16,7 @@ public abstract class AbstractTest {
 
 	@Before
 	public final void setUp() throws Exception {
-		TestDebugContext.HTTP_MOCK_ENABLED = isHttpMockEnabled();
+		HttpDebugConfiguration.setHttpMockEnabled(isHttpMockEnabled());
 		onSetup();
 	}
 

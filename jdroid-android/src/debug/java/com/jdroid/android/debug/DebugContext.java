@@ -16,16 +16,13 @@ import com.jdroid.android.debug.appenders.RateAppDebugPrefsAppender;
 import com.jdroid.android.debug.appenders.ServersDebugPrefsAppender;
 import com.jdroid.android.debug.appenders.UriMapperPrefsAppender;
 import com.jdroid.android.debug.appenders.UsageStatsDebugPrefsAppender;
-import com.jdroid.android.debug.mocks.AndroidJsonMockHttpService;
 import com.jdroid.android.log.DatabaseLog;
 import com.jdroid.android.log.DatabaseLogsRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
-import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.http.Server;
-import com.jdroid.java.http.mock.AbstractMockHttpService;
 import com.jdroid.java.repository.Repository;
 
 import java.util.List;
@@ -33,26 +30,10 @@ import java.util.Map;
 
 public class DebugContext {
 
-	public static final String HTTP_MOCK_ENABLED = "httpMockEnabled";
-	public static final String HTTP_MOCK_SLEEP = "httpMockSleep";
-
 	private List<Pair<String, Object>> customDebugInfoProperties = Lists.newArrayList();
-
-	public Boolean isHttpMockEnabled() {
-		return !AbstractApplication.get().getAppContext().isProductionEnvironment()
-				&& SharedPreferencesHelper.get().loadPreferenceAsBoolean(HTTP_MOCK_ENABLED, false);
-	}
-
-	public Integer getHttpMockSleepDuration() {
-		return SharedPreferencesHelper.get().loadPreferenceAsBoolean(HTTP_MOCK_SLEEP, false) ? 10 : null;
-	}
 
 	public void launchActivityDebugSettingsActivity() {
 		ActivityLauncher.launchActivity(DebugSettingsActivity.class);
-	}
-
-	public AbstractMockHttpService getAbstractMockHttpServiceInstance(Object... urlSegments) {
-		return new AndroidJsonMockHttpService(urlSegments);
 	}
 
 	public void initDebugRepositories(

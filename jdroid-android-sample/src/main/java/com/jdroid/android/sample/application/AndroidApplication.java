@@ -21,6 +21,7 @@ import com.jdroid.android.google.analytics.GoogleAnalyticsAppContext;
 import com.jdroid.android.google.analytics.GoogleAnalyticsFactory;
 import com.jdroid.android.google.analytics.GoogleCoreAnalyticsTracker;
 import com.jdroid.android.google.inappbilling.InAppBillingAppModule;
+import com.jdroid.android.http.HttpConfiguration;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.debug.AndroidDebugContext;
@@ -50,7 +51,7 @@ public class AndroidApplication extends AbstractApplication {
 	}
 
 	public AndroidApplication() {
-		setHttpServiceFactory(new OkHttpServiceFactory());
+		HttpConfiguration.setHttpServiceFactory(new OkHttpServiceFactory());
 	}
 	
 	@Override
