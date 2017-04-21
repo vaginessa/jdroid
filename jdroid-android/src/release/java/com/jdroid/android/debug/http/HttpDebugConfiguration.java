@@ -1,5 +1,7 @@
 package com.jdroid.android.debug.http;
 
+import com.jdroid.java.http.mock.AbstractMockHttpService;
+
 public class HttpDebugConfiguration {
 	
 	public static boolean isHttpMockEnabled() {
