@@ -3,7 +3,7 @@ package com.jdroid.android.uil;
 import android.content.Context;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.application.lifecycle.ApplicationLifecycleCallback;
+import com.jdroid.android.lifecycle.ApplicationLifecycleCallback;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;

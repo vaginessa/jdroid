@@ -10,7 +10,8 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ScrollView;
 
-import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.BuildConfig;
+import com.jdroid.android.lifecycle.AppContextContainer;
 
 public class AppUtils {
 
@@ -40,27 +41,29 @@ public class AppUtils {
 	 */
 	public static String getReleaseApplicationId() {
 		String applicationId = getApplicationId();
-		if (!AbstractApplication.get().getAppContext().isProductionEnvironment()) {
+		if (!isReleaseBuildType()) {
 			if (applicationId.endsWith(".debug")) {
 				applicationId = applicationId.replace(".debug", "");
 			}
 		}
 		return  applicationId;
 	}
+	
+	public static boolean isReleaseBuildType() {
+		return BuildConfig.BUILD_TYPE.equals("release");
+	}
 
 	/**
 	 * @return The name of the application
 	 */
 	public static String getApplicationName() {
-		Context context = AbstractApplication.get();
-		return context.getPackageManager().getApplicationLabel(getApplicationInfo()).toString();
+		return getContext().getPackageManager().getApplicationLabel(getApplicationInfo()).toString();
 	}
 
 	public static PackageInfo getPackageInfo() {
 		PackageInfo info = null;
 		try {
-			Context context = AbstractApplication.get();
-			info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+			info = getContext().getPackageManager().getPackageInfo(AppContextContainer.getApplicationContext().getPackageName(), 0);
 		} catch (PackageManager.NameNotFoundException e) {
 			// Do Nothing
 		}
@@ -70,7 +73,7 @@ public class AppUtils {
 	public static ApplicationInfo getApplicationInfo() {
 		ApplicationInfo info = null;
 		try {
-			Context context = AbstractApplication.get();
+			Context context = getContext();
 			info = context.getPackageManager().getApplicationInfo(context.getPackageName(),
 					PackageManager.GET_META_DATA);
 		} catch (PackageManager.NameNotFoundException e) {
@@ -84,7 +87,7 @@ public class AppUtils {
 	}
 
 	public static void hideSoftInput(View view) {
-		((InputMethodManager)AbstractApplication.get().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
+		((InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
 				view.getWindowToken(), 0);
 	}
 
@@ -107,5 +110,9 @@ public class AppUtils {
 	 */
 	public static Boolean isInstalledOnSdCard() {
 		return (getPackageInfo().applicationInfo.flags & ApplicationInfo.FLAG_EXTERNAL_STORAGE) == ApplicationInfo.FLAG_EXTERNAL_STORAGE;
+	}
+	
+	private static Context getContext() {
+		return AppContextContainer.getApplicationContext();
 	}
 }

@@ -3,7 +3,7 @@ package com.jdroid.android.sample.application.lifecycle;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.jdroid.android.application.lifecycle.ApplicationLifecycleCallback;
+import com.jdroid.android.lifecycle.ApplicationLifecycleCallback;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;

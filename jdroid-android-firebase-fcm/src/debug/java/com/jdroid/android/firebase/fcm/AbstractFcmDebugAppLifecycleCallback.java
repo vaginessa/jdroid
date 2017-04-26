@@ -2,7 +2,7 @@ package com.jdroid.android.firebase.fcm;
 
 import android.content.Context;
 
-import com.jdroid.android.application.lifecycle.ApplicationLifecycleCallback;
+import com.jdroid.android.lifecycle.ApplicationLifecycleCallback;
 import com.jdroid.android.debug.DebugSettingsHelper;
 
 import java.util.Map;

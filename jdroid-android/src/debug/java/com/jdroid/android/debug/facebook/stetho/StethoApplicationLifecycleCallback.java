@@ -3,7 +3,7 @@ package com.jdroid.android.debug.facebook.stetho;
 import android.content.Context;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.application.lifecycle.ApplicationLifecycleCallback;
+import com.jdroid.android.lifecycle.ApplicationLifecycleCallback;
 import com.jdroid.android.context.BuildConfigUtils;
 import com.jdroid.android.http.HttpConfiguration;
 import com.jdroid.java.collections.Lists;

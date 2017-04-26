@@ -20,7 +20,7 @@
 
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 
-		<receiver android:name="com.jdroid.android.application.lifecycle.LocaleChangedReceiver" android:exported="true">
+		<receiver android:name="com.jdroid.android.lifecycle.LocaleChangedReceiver" android:exported="true">
 			<intent-filter>
 				<action android:name="android.intent.action.LOCALE_CHANGED" />
 			</intent-filter>
@@ -63,8 +63,8 @@
 		</service>
 
 		<provider
-			android:name="com.jdroid.android.application.lifecycle.ApplicationLifecycleInitProvider"
-			android:authorities="${applicationId}.com.jdroid.android.application.lifecycle.ApplicationLifecycleInitProvider"
+			android:name="com.jdroid.android.lifecycle.ApplicationLifecycleInitProvider"
+			android:authorities="${applicationId}.com.jdroid.android.lifecycle.ApplicationLifecycleInitProvider"
 			android:exported="false"
 			android:initOrder="1" />
 

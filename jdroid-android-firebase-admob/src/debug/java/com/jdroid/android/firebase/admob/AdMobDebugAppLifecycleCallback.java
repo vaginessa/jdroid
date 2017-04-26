@@ -2,7 +2,7 @@ package com.jdroid.android.firebase.admob;
 
 import android.content.Context;
 
-import com.jdroid.android.application.lifecycle.ApplicationLifecycleCallback;
+import com.jdroid.android.lifecycle.ApplicationLifecycleCallback;
 import com.jdroid.android.debug.DebugSettingsHelper;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.concurrent.ExecutorUtils;

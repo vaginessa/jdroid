@@ -1,4 +1,4 @@
-package com.jdroid.android.application.lifecycle;
+package com.jdroid.android.lifecycle;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;

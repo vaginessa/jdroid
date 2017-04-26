@@ -1,4 +1,4 @@
-package com.jdroid.android.application.lifecycle;
+package com.jdroid.android.lifecycle;
 
 public class ApplicationLifecycleInitProvider extends AbstractInitProvider {
 	

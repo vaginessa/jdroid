@@ -2,7 +2,7 @@ package com.jdroid.android.twitter;
 
 import android.content.Context;
 
-import com.jdroid.android.application.lifecycle.ApplicationLifecycleCallback;
+import com.jdroid.android.lifecycle.ApplicationLifecycleCallback;
 import com.jdroid.android.fabric.FabricAppLifecycleCallback;
 import com.jdroid.java.utils.LoggerUtils;
 import com.twitter.sdk.android.core.TwitterAuthConfig;

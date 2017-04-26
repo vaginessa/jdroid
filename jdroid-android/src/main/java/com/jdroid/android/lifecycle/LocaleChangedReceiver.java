@@ -1,4 +1,4 @@
-package com.jdroid.android.application.lifecycle;
+package com.jdroid.android.lifecycle;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

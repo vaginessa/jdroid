@@ -5,7 +5,7 @@ import android.content.Context;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.application.lifecycle.ApplicationLifecycleCallback;
+import com.jdroid.android.lifecycle.ApplicationLifecycleCallback;
 import com.jdroid.android.context.BuildConfigUtils;
 import com.jdroid.java.utils.LoggerUtils;
 

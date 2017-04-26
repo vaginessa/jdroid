@@ -21,7 +21,7 @@ import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.activity.ActivityLifecycleHandler;
 import com.jdroid.android.analytics.CoreAnalyticsSender;
 import com.jdroid.android.analytics.CoreAnalyticsTracker;
-import com.jdroid.android.application.lifecycle.ApplicationLifecycleHelper;
+import com.jdroid.android.lifecycle.ApplicationLifecycleHelper;
 import com.jdroid.android.context.AndroidGitContext;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
@@ -121,7 +121,7 @@ public abstract class AbstractApplication extends Application {
 		
 		if (!isMultiProcessSupportEnabled() || ProcessUtils.isMainProcess(this)) {
 			initLogging();
-			ApplicationLifecycleHelper.attachBaseContext(base);
+			ApplicationLifecycleHelper.attachBaseContext(this);
 			onMainProcessAttachBaseContext();
 		} else {
 			onSecondaryProcessAttachBaseContext(ProcessUtils.getProcessInfo(this));
@@ -570,10 +570,6 @@ public abstract class AbstractApplication extends Application {
 		this.appModulesMap.put(name, appModule);
 	}
 
-	public Class<?> getBuildConfigClass() {
-		return ReflectionUtils.getClass(getManifestPackageName() + ".BuildConfig");
-	}
-	
 	@MainThread
 	public void onLocaleChanged() {
 		// Do nothing

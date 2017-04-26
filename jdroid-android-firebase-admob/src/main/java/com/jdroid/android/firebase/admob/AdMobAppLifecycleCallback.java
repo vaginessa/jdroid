@@ -2,7 +2,7 @@ package com.jdroid.android.firebase.admob;
 
 import android.content.Context;
 
-import com.jdroid.android.application.lifecycle.ApplicationLifecycleCallback;
+import com.jdroid.android.lifecycle.ApplicationLifecycleCallback;
 import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigHelper;
 
 

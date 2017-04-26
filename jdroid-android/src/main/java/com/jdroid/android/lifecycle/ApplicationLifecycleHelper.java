@@ -1,4 +1,4 @@
-package com.jdroid.android.application.lifecycle;
+package com.jdroid.android.lifecycle;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -37,15 +37,17 @@ public class ApplicationLifecycleHelper {
 	}
 	
 	@MainThread
-	public static void attachBaseContext(Context base) {
+	public static void attachBaseContext(Context context) {
+		
+		AppContextContainer.setApplicationContext(context);
 		
 		LOGGER.debug("Executing attachBaseContext on application");
 		
-		init(base);
+		init(context);
 		for (ApplicationLifecycleCallback callback : applicationLifecycleCallbacks) {
 			if (callback.isEnabled()) {
 				LOGGER.debug("Executing attachBaseContext for callback " + callback.getClass().getName());
-				callback.attachBaseContext(base);
+				callback.attachBaseContext(context);
 			}
 		}
 	}

@@ -3,7 +3,7 @@ package com.jdroid.android.debug.firebase.analytics;
 import android.content.Context;
 import android.support.v4.util.Pair;
 
-import com.jdroid.android.application.lifecycle.ApplicationLifecycleCallback;
+import com.jdroid.android.lifecycle.ApplicationLifecycleCallback;
 import com.jdroid.android.debug.info.DebugInfoAppender;
 import com.jdroid.android.debug.info.DebugInfoHelper;
 import com.jdroid.android.firebase.analytics.FirebaseAnalyticsAppContext;

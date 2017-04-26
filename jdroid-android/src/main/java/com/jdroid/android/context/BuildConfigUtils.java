@@ -19,7 +19,7 @@ public class BuildConfigUtils {
 	public static <T> T getBuildConfigValue(String property, Object defaultValue) {
 		Object value = cache.get(property);
 		if (value == null) {
-			value = ReflectionUtils.getStaticFieldValue(AbstractApplication.get().getBuildConfigClass(), property, defaultValue);
+			value = ReflectionUtils.getStaticFieldValue(getBuildConfigClass(), property, defaultValue);
 			if (value != null) {
 				cache.put(property, value);
 			}
@@ -33,5 +33,9 @@ public class BuildConfigUtils {
 	
 	public static Boolean getBuildConfigBoolean(String property, Boolean defaultValue) {
 		return (Boolean)getBuildConfigValue(property, defaultValue);
+	}
+	
+	private static Class<?> getBuildConfigClass() {
+		return ReflectionUtils.getClass(AbstractApplication.get().getManifestPackageName() + ".BuildConfig");
 	}
 }

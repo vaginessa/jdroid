@@ -2,7 +2,7 @@ package com.jdroid.android.application;
 
 import android.content.Context;
 
-import com.jdroid.android.application.lifecycle.ApplicationLifecycleCallback;
+import com.jdroid.android.lifecycle.ApplicationLifecycleCallback;
 
 
 public class AppLifecycleCallback extends ApplicationLifecycleCallback {
