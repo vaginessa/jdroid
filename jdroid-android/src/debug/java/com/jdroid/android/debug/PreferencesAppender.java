@@ -21,4 +21,8 @@ public abstract class PreferencesAppender implements Serializable {
 	public List<String> getRequiredPermissions() {
 		return Lists.newArrayList();
 	}
+	
+	public String getSharedPreferencesName() {
+		return null;
+	}
 }

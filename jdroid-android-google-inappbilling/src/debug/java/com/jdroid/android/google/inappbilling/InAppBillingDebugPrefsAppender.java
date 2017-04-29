@@ -63,4 +63,9 @@ public class InAppBillingDebugPrefsAppender extends PreferencesAppender {
 		return InAppBillingAppModule.get() != null && (!InAppBillingAppModule.get().getInAppBillingContext().getManagedProductTypes().isEmpty()
 				|| !InAppBillingAppModule.get().getInAppBillingContext().getSubscriptionsProductTypes().isEmpty());
 	}
+	
+	@Override
+	public String getSharedPreferencesName() {
+		return InAppBillingContext.SHARED_PREFERENCES_NAME;
+	}
 }

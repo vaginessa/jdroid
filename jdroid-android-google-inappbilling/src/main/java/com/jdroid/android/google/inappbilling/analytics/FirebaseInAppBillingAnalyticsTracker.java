@@ -11,7 +11,7 @@ public class FirebaseInAppBillingAnalyticsTracker extends AbstractFirebaseAnalyt
 	@Override
 	public void trackInAppBillingPurchaseTry(Product product) {
 		Bundle bundle = new Bundle();
-		bundle.putString(FirebaseAnalytics.Param.ITEM_ID, product.getProductType().getProductId());
+		bundle.putString(FirebaseAnalytics.Param.ITEM_ID, product.getId());
 		getFirebaseAnalyticsHelper().sendEvent("in_app_purchase_try", bundle);
 	}
 

@@ -25,6 +25,11 @@ public class PreferenceAppenderFragment extends AbstractPreferenceFragment {
 
 		PreferencesAppender preferencesAppender = getArgument(PreferenceAppenderActivity.APPENDER_EXTRA);
 		getActivity().setTitle(preferencesAppender.getNameResId());
+		
+		String sharedPreferencesName = preferencesAppender.getSharedPreferencesName();
+		if (sharedPreferencesName != null) {
+			getPreferenceManager().setSharedPreferencesName(sharedPreferencesName);
+		}
 
 		List<PermissionHelper> permissionHelpers = Lists.newArrayList();
 		for (String each : preferencesAppender.getRequiredPermissions()) {

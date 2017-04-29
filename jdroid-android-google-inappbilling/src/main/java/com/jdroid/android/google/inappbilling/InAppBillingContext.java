@@ -13,9 +13,11 @@ import java.util.List;
 
 public class InAppBillingContext extends AbstractAppContext {
 	
-	public static final String MOCK_ENABLED = "inAppBillingMockEnabled";
-	public static final String TEST_PRODUCT_IDS = "inAppBillingTestProductIds";
-	private static final String PURCHASED_PRODUCT_TYPES = "inAppBillingPurchasedProductTypes";
+	public static final String SHARED_PREFERENCES_NAME = "InAppBilling";
+	
+	public static final String MOCK_ENABLED = "mockEnabled";
+	public static final String TEST_PRODUCT_IDS = "testProductIds";
+	private static final String PURCHASED_PRODUCT_IDS = "purchasedProductIds";
 	
 	private String googlePlayPublicKey;
 	private List<ProductType> purchasedProductTypes;
@@ -41,11 +43,11 @@ public class InAppBillingContext extends AbstractAppContext {
 	
 	public Boolean isInAppBillingMockEnabled() {
 		return !AbstractApplication.get().getAppContext().isProductionEnvironment()
-				&& SharedPreferencesHelper.get().loadPreferenceAsBoolean(MOCK_ENABLED, false);
+				&& getSharedPreferencesHelper().loadPreferenceAsBoolean(MOCK_ENABLED, false);
 	}
 	
 	public TestProductType getTestProductType() {
-		return TestProductType.valueOf(SharedPreferencesHelper.get().loadPreference(TEST_PRODUCT_IDS, TestProductType.PURCHASED.name()));
+		return TestProductType.valueOf(getSharedPreferencesHelper().loadPreference(TEST_PRODUCT_IDS, TestProductType.PURCHASED.name()));
 	}
 	
 	public synchronized void setPurchasedProductTypes(Inventory inventory) {
@@ -57,23 +59,23 @@ public class InAppBillingContext extends AbstractAppContext {
 				purchasedProductTypes.add(each.getProductType());
 			}
 		}
-		SharedPreferencesHelper.get().savePreferenceAsync(PURCHASED_PRODUCT_TYPES, productIds);
+		getSharedPreferencesHelper().savePreferenceAsync(PURCHASED_PRODUCT_IDS, productIds);
 	}
 	
 	public synchronized void addPurchasedProductType(ProductType productType) {
 		if (purchasedProductTypes != null) {
 			purchasedProductTypes.add(productType);
 		}
-		List<String> purchasedProductTypesIds = SharedPreferencesHelper.get().loadPreferenceAsStringList(PURCHASED_PRODUCT_TYPES);
-		purchasedProductTypesIds.add(productType.getProductId());
-		SharedPreferencesHelper.get().savePreferenceAsync(PURCHASED_PRODUCT_TYPES, purchasedProductTypesIds);
+		List<String> purchasedProductIds = getSharedPreferencesHelper().loadPreferenceAsStringList(PURCHASED_PRODUCT_IDS);
+		purchasedProductIds.add(productType.getProductId());
+		getSharedPreferencesHelper().savePreferenceAsync(PURCHASED_PRODUCT_IDS, purchasedProductIds);
 	}
 
 	public synchronized List<ProductType> getPurchasedProductTypes() {
 		if (purchasedProductTypes == null) {
-			List<String> purchasedProductTypesIds = SharedPreferencesHelper.get().loadPreferenceAsStringList(PURCHASED_PRODUCT_TYPES);
+			List<String> purchasedProductIds = getSharedPreferencesHelper().loadPreferenceAsStringList(PURCHASED_PRODUCT_IDS);
 			purchasedProductTypes = Lists.newArrayList();
-			for (String each : purchasedProductTypesIds) {
+			for (String each : purchasedProductIds) {
 				List<ProductType> supportedProductTypes = Lists.newArrayList();
 				supportedProductTypes.addAll(getManagedProductTypes());
 				supportedProductTypes.addAll(getSubscriptionsProductTypes());
@@ -94,5 +96,9 @@ public class InAppBillingContext extends AbstractAppContext {
 
 	public List<ProductType> getSubscriptionsProductTypes() {
 		return Lists.newArrayList();
+	}
+	
+	public SharedPreferencesHelper getSharedPreferencesHelper() {
+		return SharedPreferencesHelper.get(SHARED_PREFERENCES_NAME);
 	}
 }

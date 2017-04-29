@@ -4,7 +4,7 @@ package com.jdroid.android.sample.ui.google.inappbilling;
 import com.jdroid.android.google.inappbilling.client.Product;
 import com.jdroid.android.google.inappbilling.client.ProductType;
 
-public enum AndroidProductType implements ProductType {
+public enum SampleProductType implements ProductType {
 	
 	REMOVE_ADS("remove.ads", false, null, null);
 	
@@ -13,7 +13,7 @@ public enum AndroidProductType implements ProductType {
 	private Integer titleId;
 	private Integer descriptionId;
 	
-	private AndroidProductType(String productId, Boolean consumable, Integer titleId, Integer descriptionId) {
+	private SampleProductType(String productId, Boolean consumable, Integer titleId, Integer descriptionId) {
 		this.productId = productId;
 		this.consumable = consumable;
 		this.titleId = titleId;
