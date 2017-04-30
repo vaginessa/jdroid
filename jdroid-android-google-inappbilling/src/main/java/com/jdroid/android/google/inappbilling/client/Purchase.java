@@ -41,9 +41,11 @@ public class Purchase {
 	
 	private String orderId;
 	private String productId;
+	private Long purchaseTime;
 	private PurchaseState state;
 	private String developerPayload;
 	private String token;
+	private Boolean autoRenewing;
 	private String signature;
 	private Boolean verified;
 	
@@ -51,9 +53,11 @@ public class Purchase {
 		JSONObject jsonObject = new JSONObject(jsonPurchaseInfo);
 		orderId = jsonObject.optString("orderId");
 		productId = jsonObject.optString("productId");
+		purchaseTime = jsonObject.optLong("purchaseTime");
 		state = PurchaseState.valueOf(jsonObject.optInt("purchaseState"));
 		developerPayload = jsonObject.optString("developerPayload");
 		token = jsonObject.optString("token", jsonObject.optString("purchaseToken"));
+		autoRenewing = jsonObject.optBoolean("autoRenewing");
 		this.signature = signature;
 		verified = false;
 	}
@@ -90,10 +94,27 @@ public class Purchase {
 		return verified;
 	}
 	
-	@Override
-	public String toString() {
-		return "Purchase [orderId=" + orderId + ", productId=" + productId + ", state=" + state + ", developerPayload="
-				+ developerPayload + ", token=" + token + ", signature=" + signature + "]";
+	public Long getPurchaseTime() {
+		return purchaseTime;
 	}
 	
+	public Boolean isAutoRenewing() {
+		return autoRenewing;
+	}
+	
+	@Override
+	public String toString() {
+		final StringBuffer sb = new StringBuffer("Purchase{");
+		sb.append("orderId='").append(orderId).append('\'');
+		sb.append(", productId='").append(productId).append('\'');
+		sb.append(", purchaseTime=").append(purchaseTime);
+		sb.append(", state=").append(state);
+		sb.append(", developerPayload='").append(developerPayload).append('\'');
+		sb.append(", token='").append(token).append('\'');
+		sb.append(", signature='").append(signature).append('\'');
+		sb.append(", verified=").append(verified);
+		sb.append(", autoRenewing=").append(autoRenewing);
+		sb.append('}');
+		return sb.toString();
+	}
 }

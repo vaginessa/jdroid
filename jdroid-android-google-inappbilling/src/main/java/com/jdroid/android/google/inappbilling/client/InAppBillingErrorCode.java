@@ -6,8 +6,11 @@ import com.jdroid.java.exception.ErrorCodeException;
 
 public enum InAppBillingErrorCode implements ErrorCode {
 	
-	// Indicates that the user pressed the back button on the checkout dialog instead of buying the item.
+	// User pressed back or canceled a dialog
 	USER_CANCELED(null, 1),
+	
+	// Network connection is down
+	SERVICE_UNAVAILABLE(R.string.jdroid_connectionErrorDescription, 2),
 	
 	// Indicates that in-app billing is not available because the API_VERSION that you specified is not recognized by
 	// the Google Play app or the user is ineligible for in-app billing (for example, the user resides in a
@@ -15,8 +18,7 @@ public enum InAppBillingErrorCode implements ErrorCode {
 	BILLING_UNAVAILABLE(R.string.jdroid_notSupportedInAppBillingError, 3, false),
 	
 	// Indicates that the Google Play app cannot find the requested item in the application's product list. This can
-	// happen
-	// if the product ID is misspelled in your REQUEST_PURCHASE request or if an item is unpublished in the
+	// happen if the product ID is misspelled in your REQUEST_PURCHASE request or if an item is unpublished in the
 	// application's product list.
 	ITEM_UNAVAILABLE(null, 4),
 	

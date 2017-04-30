@@ -8,10 +8,10 @@ import org.json.JSONObject;
  */
 public class SkuDetails {
 	
-	private String mSku;
-	private String mItemType;
-	private String mTitle;
-	private String mDescription;
+	private String sku;
+	private String itemType;
+	private String title;
+	private String description;
 	
 	private String formattedPrice;
 	private Double price;
@@ -19,10 +19,10 @@ public class SkuDetails {
 	
 	public SkuDetails(String jsonSkuDetails) throws JSONException {
 		JSONObject o = new JSONObject(jsonSkuDetails);
-		mSku = o.optString("productId");
-		mItemType = o.optString("type");
-		mTitle = o.optString("title");
-		mDescription = o.optString("description");
+		sku = o.optString("productId");
+		itemType = o.optString("type");
+		title = o.optString("title");
+		description = o.optString("description");
 		
 		formattedPrice = o.optString("price");
 		price = o.optDouble("price_amount_micros") / 1000000;
@@ -31,11 +31,11 @@ public class SkuDetails {
 	}
 	
 	public String getSku() {
-		return mSku;
+		return sku;
 	}
 	
 	public String getItemType() {
-		return mItemType;
+		return itemType;
 	}
 	
 	public String getFormattedPrice() {
@@ -43,11 +43,11 @@ public class SkuDetails {
 	}
 	
 	public String getTitle() {
-		return mTitle;
+		return title;
 	}
 	
 	public String getDescription() {
-		return mDescription;
+		return description;
 	}
 	
 	/**
@@ -66,8 +66,8 @@ public class SkuDetails {
 	
 	@Override
 	public String toString() {
-		return "SkuDetails [mItemType=" + mItemType + ", mSku=" + mSku + ", formattedPrice=" + formattedPrice
-				+ ", mTitle=" + mTitle + ", mDescription=" + mDescription + ", price=" + price + ", currencyCode="
+		return "SkuDetails [itemType=" + itemType + ", sku=" + sku + ", formattedPrice=" + formattedPrice
+				+ ", title=" + title + ", description=" + description + ", price=" + price + ", currencyCode="
 				+ currencyCode + "]";
 	}
 	

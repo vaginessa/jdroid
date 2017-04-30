@@ -1,6 +1,7 @@
 package com.jdroid.android.google.inappbilling.client;
 
 import com.jdroid.android.google.inappbilling.client.utils.Security;
+import com.jdroid.java.exception.ErrorCodeException;
 
 import org.json.JSONException;
 
@@ -74,7 +75,7 @@ public class Product {
 		return productType;
 	}
 	
-	public void setPurchase(String signatureBase64, String jsonPurchaseInfo, String signature) throws JSONException {
+	public void setPurchase(String signatureBase64, String jsonPurchaseInfo, String signature) throws JSONException, ErrorCodeException {
 		available = false;
 		purchase = new Purchase(jsonPurchaseInfo, signature);
 		if (Security.verifyPurchase(signatureBase64, jsonPurchaseInfo, signature)) {

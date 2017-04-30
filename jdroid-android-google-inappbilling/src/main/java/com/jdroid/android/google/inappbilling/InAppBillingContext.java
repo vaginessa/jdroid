@@ -66,9 +66,7 @@ public class InAppBillingContext extends AbstractAppContext {
 		if (purchasedProductTypes != null) {
 			purchasedProductTypes.add(productType);
 		}
-		List<String> purchasedProductIds = getSharedPreferencesHelper().loadPreferenceAsStringList(PURCHASED_PRODUCT_IDS);
-		purchasedProductIds.add(productType.getProductId());
-		getSharedPreferencesHelper().savePreferenceAsync(PURCHASED_PRODUCT_IDS, purchasedProductIds);
+		getSharedPreferencesHelper().appendPreferenceAsync(PURCHASED_PRODUCT_IDS, productType.getProductId());
 	}
 
 	public synchronized List<ProductType> getPurchasedProductTypes() {

@@ -1,5 +1,7 @@
 package com.jdroid.android.google.inappbilling.client;
 
+import android.support.annotation.MainThread;
+
 import com.jdroid.java.exception.ErrorCodeException;
 
 public interface InAppBillingClientListener {
@@ -7,6 +9,7 @@ public interface InAppBillingClientListener {
 	/**
 	 * Called to notify that setup is complete.
 	 */
+	@MainThread
 	public void onSetupFinished();
 	
 	/**
@@ -14,6 +17,7 @@ public interface InAppBillingClientListener {
 	 * 
 	 * @param errorCodeException The result of the setup process.
 	 */
+	@MainThread
 	public void onSetupFailed(ErrorCodeException errorCodeException);
 	
 	/**
@@ -21,6 +25,7 @@ public interface InAppBillingClientListener {
 	 * 
 	 * @param inventory The inventory.
 	 */
+	@MainThread
 	public void onQueryInventoryFinished(Inventory inventory);
 	
 	/**
@@ -28,6 +33,7 @@ public interface InAppBillingClientListener {
 	 * 
 	 * @param errorCodeException The result of the operation.
 	 */
+	@MainThread
 	public void onQueryInventoryFailed(ErrorCodeException errorCodeException);
 	
 	/**
@@ -35,6 +41,7 @@ public interface InAppBillingClientListener {
 	 * 
 	 * @param product The {@link Product} purchased
 	 */
+	@MainThread
 	public void onPurchaseFinished(Product product);
 	
 	/**
@@ -42,6 +49,7 @@ public interface InAppBillingClientListener {
 	 * 
 	 * @param errorCodeException The result of the purchase.
 	 */
+	@MainThread
 	public void onPurchaseFailed(ErrorCodeException errorCodeException);
 	
 	/**
@@ -49,6 +57,7 @@ public interface InAppBillingClientListener {
 	 * 
 	 * @param product The {@link Product} that was (or was to be) consumed.
 	 */
+	@MainThread
 	public void onConsumeFinished(Product product);
 	
 	/**
@@ -56,6 +65,7 @@ public interface InAppBillingClientListener {
 	 * 
 	 * @param errorCodeException The result of the consumption operation.
 	 */
+	@MainThread
 	public void onConsumeFailed(ErrorCodeException errorCodeException);
 	
 }
