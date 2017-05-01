@@ -4,6 +4,9 @@ import com.jdroid.android.google.inappbilling.client.Product.ItemType;
 
 public interface ProductType {
 	
+	/*
+	 * @return The product ID for the product
+	 */
 	public String getProductId();
 	
 	/*

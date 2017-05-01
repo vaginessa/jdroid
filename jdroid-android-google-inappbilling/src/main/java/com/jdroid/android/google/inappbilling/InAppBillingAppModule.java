@@ -10,7 +10,9 @@ import com.jdroid.android.google.inappbilling.analytics.FirebaseInAppBillingAnal
 import com.jdroid.android.google.inappbilling.analytics.GoogleInAppBillingAnalyticsTracker;
 import com.jdroid.android.google.inappbilling.analytics.InAppBillingAnalyticsSender;
 import com.jdroid.android.google.inappbilling.analytics.InAppBillingAnalyticsTracker;
+import com.jdroid.android.google.inappbilling.client.DeveloperPayloadVerificationStrategy;
 import com.jdroid.android.google.inappbilling.client.InAppBillingBroadcastListener;
+import com.jdroid.android.google.inappbilling.client.SimpleDeveloperPayloadVerificationStrategy;
 import com.jdroid.java.analytics.AnalyticsSender;
 import com.jdroid.java.analytics.AnalyticsTracker;
 import com.jdroid.java.collections.Lists;
@@ -27,6 +29,7 @@ public class InAppBillingAppModule extends AbstractAppModule {
 
 	private InAppBillingContext inAppBillingContext;
 	private InAppBillingBroadcastListener inAppBillingBroadcastListener;
+	private DeveloperPayloadVerificationStrategy developerPayloadVerificationStrategy = new SimpleDeveloperPayloadVerificationStrategy();
 
 	public InAppBillingContext getInAppBillingContext() {
 		if (isInAppBillingEnabled()) {
@@ -77,5 +80,13 @@ public class InAppBillingAppModule extends AbstractAppModule {
 	
 	public InAppBillingBroadcastListener getInAppBillingBroadcastListener() {
 		return inAppBillingBroadcastListener;
+	}
+	
+	public DeveloperPayloadVerificationStrategy getDeveloperPayloadVerificationStrategy() {
+		return developerPayloadVerificationStrategy;
+	}
+	
+	public void setDeveloperPayloadVerificationStrategy(DeveloperPayloadVerificationStrategy developerPayloadVerificationStrategy) {
+		this.developerPayloadVerificationStrategy = developerPayloadVerificationStrategy;
 	}
 }

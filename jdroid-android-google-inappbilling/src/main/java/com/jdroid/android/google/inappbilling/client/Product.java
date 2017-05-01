@@ -1,6 +1,5 @@
 package com.jdroid.android.google.inappbilling.client;
 
-import com.jdroid.android.google.inappbilling.client.utils.Security;
 import com.jdroid.java.exception.ErrorCodeException;
 
 import org.json.JSONException;
@@ -55,14 +54,14 @@ public class Product {
 	}
 	
 	/**
-	 * @return the title
+	 * @return the title of the product
 	 */
 	public String getTitle() {
 		return title;
 	}
 	
 	/**
-	 * @return the description
+	 * @return the description of the product
 	 */
 	public String getDescription() {
 		return description;
@@ -75,23 +74,14 @@ public class Product {
 		return productType;
 	}
 	
-	public void setPurchase(String signatureBase64, String jsonPurchaseInfo, String signature) throws JSONException, ErrorCodeException {
+	public void setPurchase(String signatureBase64, String purchaseJson, String signature,
+							DeveloperPayloadVerificationStrategy developerPayloadVerificationStrategy) throws JSONException, ErrorCodeException {
+		purchase = new Purchase(purchaseJson, signatureBase64, signature);
+		purchase.verify(this, purchaseJson, developerPayloadVerificationStrategy);
 		available = false;
-		purchase = new Purchase(jsonPurchaseInfo, signature);
-		if (Security.verifyPurchase(signatureBase64, jsonPurchaseInfo, signature)) {
-			if (!verifyDeveloperPayload()) {
-				throw InAppBillingErrorCode.VERIFICATION_FAILED.newErrorCodeException("Purchase developer payload verification FAILED. "
-						+ jsonPurchaseInfo);
-			}
-		} else {
-			throw InAppBillingErrorCode.VERIFICATION_FAILED.newErrorCodeException("Purchase signature verification FAILED. "
-					+ jsonPurchaseInfo);
-		}
-		
-		purchase.markAsVerified();
 	}
 	
-	public Boolean isPurchaseVerified() {
+	public Boolean hasVerifiedPurchase() {
 		return (purchase != null) && (purchase.getState() == Purchase.PurchaseState.PURCHASED) && purchase.isVerified();
 	}
 	
@@ -104,8 +94,12 @@ public class Product {
 		available = true;
 	}
 	
+	public Boolean isConsumable() {
+		return productType.getItemType().equals(ItemType.MANAGED) && productType.isConsumable();
+	}
+	
 	public Boolean isWaitingToConsume() {
-		return productType.isConsumable() && !available && isPurchaseVerified();
+		return isConsumable() && !available && hasVerifiedPurchase();
 	}
 	
 	public String getDeveloperPayload() {
@@ -118,36 +112,15 @@ public class Product {
 	}
 	
 	/**
-	 * Verifies the developer payload of a purchase.
-	 * 
-	 * @return
-	 */
-	protected Boolean verifyDeveloperPayload() {
-		String payload = purchase.getDeveloperPayload();
-		
-		/*
-		 * TODO: verify that the developer payload of the purchase is correct. It will be the same one that you sent
-		 * when initiating the purchase. WARNING: Locally generating a random string when starting a purchase and
-		 * verifying it here might seem like a good approach, but this will fail in the case where the user purchases an
-		 * item on one device and then uses your app on a different device, because on the other device you will not
-		 * have access to the random string you originally generated. So a good developer payload has these
-		 * characteristics: 1. If two different users purchase an item, the payload is different between them, so that
-		 * one user's purchase can't be replayed to another user. 2. The payload must be such that you can verify it
-		 * even when the app wasn't the one who initiated the purchase flow (so that items purchased by the user on one
-		 * device work on other devices owned by the user). Using your own server to store and verify developer payloads
-		 * across app installations is recommended.
-		 */
-		
-		return purchase.getProductId().equals(payload);
-	}
-	
-	/**
 	 * @return the purchase
 	 */
 	public Purchase getPurchase() {
 		return purchase;
 	}
 	
+	/*
+	 * @return ISO 4217 currency code for price
+	 */
 	public String getCurrencyCode() {
 		return currencyCode;
 	}

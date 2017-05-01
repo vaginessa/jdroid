@@ -322,7 +322,7 @@ public class InAppBillingClient {
 					if (product != null) {
 						try {
 							LOGGER.debug("Setting purchase to product: " + productId + ". " + purchaseData);
-							product.setPurchase(signatureBase64, purchaseData, signature);
+							product.setPurchase(signatureBase64, purchaseData, signature, InAppBillingAppModule.get().getDeveloperPayloadVerificationStrategy());
 						} catch (ErrorCodeException e) {
 							AbstractApplication.get().getExceptionHandler().logHandledException(e);
 						}
@@ -332,6 +332,7 @@ public class InAppBillingClient {
 					}
 				}
 				
+				// the service returns only up to 700 products that are owned by the user when getPurchase is first called.
 				continueToken = ownedItems.getString(INAPP_CONTINUATION_TOKEN);
 				LOGGER.debug("Continuation token: " + continueToken);
 			} while (!TextUtils.isEmpty(continueToken));
@@ -369,7 +370,7 @@ public class InAppBillingClient {
 						Map<String, SkuDetails> map = Maps.newHashMap();
 						for (String each : skuDetailsList) {
 							SkuDetails skuDetails = new SkuDetails(each);
-							map.put(skuDetails.getSku(), skuDetails);
+							map.put(skuDetails.getProductId(), skuDetails);
 						}
 						
 						for (ProductType each : productTypes) {
@@ -521,8 +522,8 @@ public class InAppBillingClient {
 		InAppBillingErrorCode inAppBillingErrorCode = getResponseCode(data.getExtras());
 		if ((resultCode == Activity.RESULT_OK) && (inAppBillingErrorCode == null)) {
 			
-			String purchaseData = data.getStringExtra(RESPONSE_INAPP_PURCHASE_DATA);
-			if (purchaseData == null) {
+			String purchaseJson = data.getStringExtra(RESPONSE_INAPP_PURCHASE_DATA);
+			if (purchaseJson == null) {
 				if (listener != null) {
 					listener.onPurchaseFailed(InAppBillingErrorCode.MISSING_PURCHASE_DATA.newErrorCodeException("PurchaseData is null. Extras: "
 							+ data.getExtras().toString()));
@@ -540,7 +541,7 @@ public class InAppBillingClient {
 			}
 			
 			LOGGER.debug("Successful result code from purchase activity.");
-			LOGGER.debug("Purchase data: " + purchaseData);
+			LOGGER.debug("Purchase JSON: " + purchaseJson);
 			LOGGER.debug("Data signature: " + signature);
 			LOGGER.debug("Extras: " + data.getExtras());
 			
@@ -548,7 +549,7 @@ public class InAppBillingClient {
 				
 				Product product = inventory.getProduct(productId);
 				try {
-					product.setPurchase(signatureBase64, purchaseData, signature);
+					product.setPurchase(signatureBase64, purchaseJson, signature, InAppBillingAppModule.get().getDeveloperPayloadVerificationStrategy());
 					LOGGER.debug("Purchase signature successfully verified.");
 					InAppBillingAppModule.get().getInAppBillingContext().addPurchasedProductType(product.getProductType());
 					InAppBillingAppModule.get().getModuleAnalyticsSender().trackInAppBillingPurchase(product);

@@ -1,5 +1,7 @@
 package com.jdroid.android.google.inappbilling.ui;
 
+import android.support.annotation.MainThread;
+
 import com.jdroid.android.google.inappbilling.client.Product;
 
 import java.util.List;
@@ -11,6 +13,7 @@ public interface InAppBillingListener {
 	 * 
 	 * @param products The loaded products
 	 */
+	@MainThread
 	public void onProductsLoaded(List<Product> products);
 	
 	/**
@@ -18,6 +21,7 @@ public interface InAppBillingListener {
 	 * 
 	 * @param product The purchased {@link Product}
 	 */
+	@MainThread
 	public void onPurchased(Product product);
 	
 	/**
@@ -25,5 +29,6 @@ public interface InAppBillingListener {
 	 * 
 	 * @param product The consumed {@link Product}
 	 */
+	@MainThread
 	public void onConsumed(Product product);
 }

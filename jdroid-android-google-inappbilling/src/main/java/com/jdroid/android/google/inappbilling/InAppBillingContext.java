@@ -54,7 +54,7 @@ public class InAppBillingContext extends AbstractAppContext {
 		purchasedProductTypes = Lists.newArrayList();
 		List<String> productIds = Lists.newArrayList();
 		for (Product each : inventory.getProducts()) {
-			if (each.isPurchaseVerified()) {
+			if (each.hasVerifiedPurchase()) {
 				productIds.add(each.getId());
 				purchasedProductTypes.add(each.getProductType());
 			}

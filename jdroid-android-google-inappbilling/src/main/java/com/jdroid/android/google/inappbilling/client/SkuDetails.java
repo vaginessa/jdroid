@@ -8,7 +8,7 @@ import org.json.JSONObject;
  */
 public class SkuDetails {
 	
-	private String sku;
+	private String productId;
 	private String itemType;
 	private String title;
 	private String description;
@@ -19,7 +19,7 @@ public class SkuDetails {
 	
 	public SkuDetails(String jsonSkuDetails) throws JSONException {
 		JSONObject o = new JSONObject(jsonSkuDetails);
-		sku = o.optString("productId");
+		productId = o.optString("productId");
 		itemType = o.optString("type");
 		title = o.optString("title");
 		description = o.optString("description");
@@ -30,8 +30,8 @@ public class SkuDetails {
 		
 	}
 	
-	public String getSku() {
-		return sku;
+	public String getProductId() {
+		return productId;
 	}
 	
 	public String getItemType() {
@@ -66,7 +66,7 @@ public class SkuDetails {
 	
 	@Override
 	public String toString() {
-		return "SkuDetails [itemType=" + itemType + ", sku=" + sku + ", formattedPrice=" + formattedPrice
+		return "SkuDetails [itemType=" + itemType + ", productId=" + productId + ", formattedPrice=" + formattedPrice
 				+ ", title=" + title + ", description=" + description + ", price=" + price + ", currencyCode="
 				+ currencyCode + "]";
 	}

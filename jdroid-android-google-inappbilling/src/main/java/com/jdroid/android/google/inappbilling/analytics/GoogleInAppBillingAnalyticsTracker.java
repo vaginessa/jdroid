@@ -23,7 +23,7 @@ public class GoogleInAppBillingAnalyticsTracker extends AbstractGoogleAnalyticsT
 		HitBuilders.ItemBuilder itemBuilder = new HitBuilders.ItemBuilder();
 		itemBuilder.setTransactionId(product.getPurchase().getOrderId());
 		itemBuilder.setName(product.getId());
-		itemBuilder.setCategory(product.getProductType().isConsumable() ? "consumable" : "notConsumable");
+		itemBuilder.setCategory(product.isConsumable() ? "consumable" : "notConsumable");
 		itemBuilder.setSku(product.getId());
 		itemBuilder.setQuantity(1);
 		itemBuilder.setPrice(product.getPrice());
