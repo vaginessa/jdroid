@@ -47,7 +47,7 @@ public class Product {
 	 * @return the Formatted price of the item, including its currency sign. The price does not include tax.
 	 */
 	public String getFormattedPrice() {
-		return formattedPrice;
+		return currencyCode + " " + String.format("%.2f", price);
 	}
 	
 	public Double getPrice() {

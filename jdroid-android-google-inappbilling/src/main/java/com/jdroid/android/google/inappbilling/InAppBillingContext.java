@@ -5,7 +5,6 @@ import com.jdroid.android.context.AbstractAppContext;
 import com.jdroid.android.google.inappbilling.client.Inventory;
 import com.jdroid.android.google.inappbilling.client.Product;
 import com.jdroid.android.google.inappbilling.client.ProductType;
-import com.jdroid.android.google.inappbilling.client.TestProductType;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.collections.Lists;
 
@@ -16,7 +15,6 @@ public class InAppBillingContext extends AbstractAppContext {
 	public static final String SHARED_PREFERENCES_NAME = "InAppBilling";
 	
 	public static final String STATIC_RESPONSES_ENABLED = "staticResonsesEnabled";
-	public static final String TEST_PRODUCT_ID = "testProductId";
 	private static final String PURCHASED_PRODUCT_IDS = "purchasedProductIds";
 	
 	private String googlePlayPublicKey;
@@ -43,10 +41,6 @@ public class InAppBillingContext extends AbstractAppContext {
 	public Boolean isStaticResponsesEnabledEnabled() {
 		return !AbstractApplication.get().getAppContext().isProductionEnvironment()
 				&& getSharedPreferencesHelper().loadPreferenceAsBoolean(STATIC_RESPONSES_ENABLED, false);
-	}
-	
-	public TestProductType getTestProductType() {
-		return TestProductType.valueOf(getSharedPreferencesHelper().loadPreference(TEST_PRODUCT_ID, TestProductType.PURCHASED.name()));
 	}
 	
 	public synchronized void setPurchasedProductTypes(Inventory inventory) {

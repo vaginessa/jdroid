@@ -7,7 +7,6 @@ import android.preference.PreferenceGroup;
 
 import com.jdroid.android.debug.PreferencesAppender;
 import com.jdroid.android.google.inappbilling.client.ProductType;
-import com.jdroid.android.google.inappbilling.client.TestProductType;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
@@ -28,27 +27,14 @@ public class InAppBillingDebugPrefsAppender extends PreferencesAppender {
 		checkBoxPreference.setSummary(R.string.jdroid_inAppBillingStaticResponsesDescription);
 		preferenceGroup.addPreference(checkBoxPreference);
 		
-		ListPreference preference = new ListPreference(activity);
-		preference.setKey(InAppBillingContext.TEST_PRODUCT_ID);
-		preference.setTitle(R.string.jdroid_inAppBillingTestProductIdsTitle);
-		preference.setDialogTitle(R.string.jdroid_inAppBillingTestProductIdsTitle);
-		preference.setSummary(R.string.jdroid_inAppBillingTestProductIdsDescription);
-		List<CharSequence> entries = Lists.newArrayList();
-		for (TestProductType each : TestProductType.values()) {
-			entries.add(each.name());
-		}
-		preference.setEntries(entries.toArray(new CharSequence[0]));
-		preference.setEntryValues(entries.toArray(new CharSequence[0]));
-		preferenceGroup.addPreference(preference);
-		
 		// Purchased products
 		List<ProductType> purchasedProductTypes = InAppBillingAppModule.get().getInAppBillingContext().getPurchasedProductTypes();
 		if (!purchasedProductTypes.isEmpty()) {
-			preference = new ListPreference(activity);
+			ListPreference preference = new ListPreference(activity);
 			preference.setTitle(R.string.jdroid_inAppBillingPurchasedProductTypeTitle);
 			preference.setDialogTitle(R.string.jdroid_inAppBillingPurchasedProductTypeTitle);
 			preference.setSummary(R.string.jdroid_inAppBillingPurchasedProductTypeTitle);
-			entries = Lists.newArrayList();
+			List<CharSequence> entries = Lists.newArrayList();
 			for (ProductType each : InAppBillingAppModule.get().getInAppBillingContext().getPurchasedProductTypes()) {
 				entries.add(each.getProductId());
 			}

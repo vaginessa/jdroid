@@ -45,4 +45,13 @@ public class Inventory {
 		return productsMap.get(productId);
 	}
 	
+	public Product getProductByTestProductId(String testProductId) {
+		for (Product each : productsMap.values()) {
+			if (testProductId.equals(each.getProductType().getTestProductId())){
+				return each;
+			}
+		}
+		return null;
+ 	}
+	
 }

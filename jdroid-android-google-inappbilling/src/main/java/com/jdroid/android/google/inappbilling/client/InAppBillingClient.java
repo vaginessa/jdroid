@@ -238,7 +238,7 @@ public class InAppBillingClient {
 				public void run() {
 					try {
 						if (!disposed) {
-							final Inventory inventory = new Inventory();
+							inventory = new Inventory();
 							if (!managedProductTypes.isEmpty()) {
 								queryProductsDetails(inventory, ItemType.MANAGED, managedProductTypes);
 								queryPurchases(inventory, ItemType.MANAGED);
@@ -318,7 +318,12 @@ public class InAppBillingClient {
 					String signature = signatureList.get(i);
 					String productId = ownedProductIds.get(i);
 					
-					Product product = inventory.getProduct(productId);
+					Product product = null;
+					if (InAppBillingAppModule.get().getInAppBillingContext().isStaticResponsesEnabledEnabled()) {
+						product = inventory.getProductByTestProductId(productId);
+					} else {
+						product = inventory.getProduct(productId);
+					}
 					if (product != null) {
 						try {
 							LOGGER.debug("Setting purchase to product: " + productId + ". " + purchaseData);
@@ -353,7 +358,7 @@ public class InAppBillingClient {
 		LOGGER.debug("Querying products details.");
 		ArrayList<String> productsIdsToQuery = Lists.newArrayList();
 		for (ProductType each : productTypes) {
-			String productId = inAppBillingContext.isStaticResponsesEnabledEnabled() ? inAppBillingContext.getTestProductType().getProductId() : each.getProductId();
+			String productId = inAppBillingContext.isStaticResponsesEnabledEnabled() ? each.getTestProductId() : each.getProductId();
 			if (!productsIdsToQuery.contains(productId)) {
 				productsIdsToQuery.add(productId);
 			}
@@ -377,12 +382,11 @@ public class InAppBillingClient {
 						}
 						
 						for (ProductType each : productTypes) {
-							SkuDetails skuDetails = map.get(inAppBillingContext.isStaticResponsesEnabledEnabled() ? inAppBillingContext.getTestProductType().getProductId() : each.getProductId());
+							SkuDetails skuDetails = map.get(inAppBillingContext.isStaticResponsesEnabledEnabled() ? each.getTestProductId() : each.getProductId());
 							if (skuDetails != null) {
-								ProductType productType = inAppBillingContext.isStaticResponsesEnabledEnabled() ? inAppBillingContext.getTestProductType() : each;
 								String title = each.getTitleId() != null ? context.getString(each.getTitleId()) : skuDetails.getTitle();
 								String description = each.getDescriptionId() != null ? context.getString(each.getDescriptionId()) : skuDetails.getDescription();
-								Product product = new Product(productType, skuDetails.getFormattedPrice(),
+								Product product = new Product(each, skuDetails.getFormattedPrice(),
 										skuDetails.getPrice(), skuDetails.getCurrencyCode(), title, description);
 								LOGGER.debug("Adding to inventory: " + product);
 								inventory.addProduct(product);
@@ -408,14 +412,13 @@ public class InAppBillingClient {
 	}
 	
 	@MainThread
-	public void launchInAppPurchaseFlow(Activity activity, String productId, String developerPayload) {
-		launchPurchaseFlow(activity, productId, ItemType.MANAGED, null, PURCHASE_REQUEST_CODE, developerPayload);
+	public void launchInAppPurchaseFlow(Activity activity, Product product) {
+		launchPurchaseFlow(activity, product, ItemType.MANAGED, null, PURCHASE_REQUEST_CODE);
 	}
 	
 	@MainThread
-	public void launchSubscriptionPurchaseFlow(Activity activity, String productId, List<String> oldProductIds, int requestCode,
-			String developerPayload) {
-		launchPurchaseFlow(activity, productId, ItemType.SUBSCRIPTION, oldProductIds, PURCHASE_REQUEST_CODE, developerPayload);
+	public void launchSubscriptionPurchaseFlow(Activity activity, Product product, List<String> oldProductIds) {
+		launchPurchaseFlow(activity, product, ItemType.SUBSCRIPTION, oldProductIds, PURCHASE_REQUEST_CODE);
 	}
 	
 	/**
@@ -426,17 +429,13 @@ public class InAppBillingClient {
 	 * This method MUST be called from the UI thread of the Activity.
 	 * 
 	 * @param activity The calling activity.
-	 * @param productId The product id of the item to purchase.
+	 * @param product The product to purchase.
 	 * @param itemType indicates if it's a product or a subscription (ITEM_TYPE_INAPP or ITEM_TYPE_SUBS)
 	 * @param oldProductIds A list of SKUs which the new SKU is replacing or null if there are none
 	 * @param requestCode A request code (to differentiate from other responses -- as in
 	 *            {@link android.app.Activity#startActivityForResult}).
-	 * @param developerPayload The developer payload, which will be returned with the purchase data when the purchase
-	 *            completes. This extra data will be permanently bound to that purchase and will always be returned when
-	 *            the purchase is queried.
 	 */
-	private void launchPurchaseFlow(Activity activity, String productId, ItemType itemType, List<String> oldProductIds, int requestCode,
-			String developerPayload) {
+	private void launchPurchaseFlow(Activity activity, Product product, ItemType itemType, List<String> oldProductIds, int requestCode) {
 		if (flagStartAsync("launchPurchaseFlow")) {
 			
 			if (itemType.equals(ItemType.SUBSCRIPTION) && !subscriptionsSupported) {
@@ -448,23 +447,25 @@ public class InAppBillingClient {
 			}
 			
 			try {
-				LOGGER.debug("Constructing buy intent for product id " + productId + ", item type: " + itemType);
+				LOGGER.debug("Constructing buy intent for product id " + product.getId() + ", item type: " + itemType);
+				String productIdToBuy = InAppBillingAppModule.get().getInAppBillingContext().isStaticResponsesEnabledEnabled() ?
+						product.getProductType().getTestProductId() : product.getId();
 				Bundle buyIntentBundle;
 				if (oldProductIds == null || oldProductIds.isEmpty()) {
 					// Purchasing a new item or subscription re-signup
 					buyIntentBundle = service.getBuyIntent(IN_APP_BILLING_API_VERSION, context.getPackageName(),
-							productId, itemType.getType(), developerPayload);
+							productIdToBuy, itemType.getType(), product.getDeveloperPayload());
 				} else {
 					// Subscription upgrade/downgrade
 					buyIntentBundle = service.getBuyIntentToReplaceSkus(IN_APP_BILLING_SUBSCRIPTION_UPDATE_API_VERSION, context.getPackageName(),
-							oldProductIds, productId, itemType.getType(), developerPayload);
+							oldProductIds, product.getId(), itemType.getType(), product.getDeveloperPayload());
 				}
 				InAppBillingErrorCode inAppBillingErrorCode = getResponseCode(buyIntentBundle);
 				if (inAppBillingErrorCode == null) {
 					PendingIntent pendingIntent = buyIntentBundle.getParcelable(RESPONSE_BUY_INTENT);
-					LOGGER.debug("Launching buy intent for product id " + productId + ". Request code: " + requestCode);
+					LOGGER.debug("Launching buy intent for product id " + product.getId() + ". Request code: " + requestCode);
 					this.requestCode = requestCode;
-					this.productId = productId;
+					this.productId = product.getId();
 					activity.startIntentSenderForResult(pendingIntent.getIntentSender(), requestCode, new Intent(), 0, 0, 0);
 				} else {
 					flagEndAsync();
