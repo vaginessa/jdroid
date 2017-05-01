@@ -27,6 +27,7 @@ import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.debug.AndroidDebugContext;
 import com.jdroid.android.sample.firebase.fcm.AndroidFcmAppModule;
 import com.jdroid.android.sample.firebase.remoteconfig.AndroidRemoteConfigParameter;
+import com.jdroid.android.sample.google.inappbilling.SampleInAppBillingBroadcastListener;
 import com.jdroid.android.sample.repository.UserRepositoryImpl;
 import com.jdroid.android.sample.ui.AndroidActivityHelper;
 import com.jdroid.android.sample.ui.AndroidFragmentHelper;
@@ -133,6 +134,8 @@ public class AndroidApplication extends AbstractApplication {
 		appModulesMap.put(AbstractFcmAppModule.MODULE_NAME, new AndroidFcmAppModule());
 		appModulesMap.put(AboutAppModule.MODULE_NAME, new AndroidAboutAppModule());
 		appModulesMap.put(InAppBillingAppModule.MODULE_NAME, new AndroidInAppBillingAppModule());
+		
+		AndroidInAppBillingAppModule.get().setInAppBillingBroadcastListener(new SampleInAppBillingBroadcastListener());
 	}
 
 	@Override
