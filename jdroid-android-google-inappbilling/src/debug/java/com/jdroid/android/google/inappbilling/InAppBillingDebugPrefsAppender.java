@@ -23,13 +23,13 @@ public class InAppBillingDebugPrefsAppender extends PreferencesAppender {
 	public void initPreferences(Activity activity, PreferenceGroup preferenceGroup) {
 		
 		CheckBoxPreference checkBoxPreference = new CheckBoxPreference(activity);
-		checkBoxPreference.setKey(InAppBillingContext.MOCK_ENABLED);
-		checkBoxPreference.setTitle(R.string.jdroid_inAppBillingMockEnabledTitle);
-		checkBoxPreference.setSummary(R.string.jdroid_inAppBillingMockEnabledDescription);
+		checkBoxPreference.setKey(InAppBillingContext.STATIC_RESPONSES_ENABLED);
+		checkBoxPreference.setTitle(R.string.jdroid_inAppBillingStaticResponsesTitle);
+		checkBoxPreference.setSummary(R.string.jdroid_inAppBillingStaticResponsesDescription);
 		preferenceGroup.addPreference(checkBoxPreference);
 		
 		ListPreference preference = new ListPreference(activity);
-		preference.setKey(InAppBillingContext.TEST_PRODUCT_IDS);
+		preference.setKey(InAppBillingContext.TEST_PRODUCT_ID);
 		preference.setTitle(R.string.jdroid_inAppBillingTestProductIdsTitle);
 		preference.setDialogTitle(R.string.jdroid_inAppBillingTestProductIdsTitle);
 		preference.setSummary(R.string.jdroid_inAppBillingTestProductIdsDescription);

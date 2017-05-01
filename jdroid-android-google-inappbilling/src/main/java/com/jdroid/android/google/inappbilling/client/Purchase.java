@@ -118,6 +118,7 @@ public class Purchase {
 	}
 	
 	public void verify(Product product, String purchaseJson, DeveloperPayloadVerificationStrategy developerPayloadVerificationStrategy) {
+		// TODO Perform signature verification tasks on a server
 		if (Security.verifyPurchase(signatureBase64, purchaseJson, signature)) {
 			if (!developerPayloadVerificationStrategy.verify(product)) {
 				throw InAppBillingErrorCode.VERIFICATION_FAILED.newErrorCodeException("Purchase developer payload verification FAILED. "

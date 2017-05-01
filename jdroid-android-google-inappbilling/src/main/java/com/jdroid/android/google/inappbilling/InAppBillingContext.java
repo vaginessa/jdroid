@@ -15,15 +15,14 @@ public class InAppBillingContext extends AbstractAppContext {
 	
 	public static final String SHARED_PREFERENCES_NAME = "InAppBilling";
 	
-	public static final String MOCK_ENABLED = "mockEnabled";
-	public static final String TEST_PRODUCT_IDS = "testProductIds";
+	public static final String STATIC_RESPONSES_ENABLED = "staticResonsesEnabled";
+	public static final String TEST_PRODUCT_ID = "testProductId";
 	private static final String PURCHASED_PRODUCT_IDS = "purchasedProductIds";
 	
 	private String googlePlayPublicKey;
 	private List<ProductType> purchasedProductTypes;
 
 	public InAppBillingContext() {
-		
 		// TODO Instead of just storing the entire literal string here embedded in the program, construct the key at
 		// runtime from pieces or use bit manipulation (for example, XOR with some other string) to hide the actual key.
 		// The key itself is not secret information, but we don't want to make it easy for an attacker to replace the
@@ -41,13 +40,13 @@ public class InAppBillingContext extends AbstractAppContext {
 		return googlePlayPublicKey;
 	}
 	
-	public Boolean isInAppBillingMockEnabled() {
+	public Boolean isStaticResponsesEnabledEnabled() {
 		return !AbstractApplication.get().getAppContext().isProductionEnvironment()
-				&& getSharedPreferencesHelper().loadPreferenceAsBoolean(MOCK_ENABLED, false);
+				&& getSharedPreferencesHelper().loadPreferenceAsBoolean(STATIC_RESPONSES_ENABLED, false);
 	}
 	
 	public TestProductType getTestProductType() {
-		return TestProductType.valueOf(getSharedPreferencesHelper().loadPreference(TEST_PRODUCT_IDS, TestProductType.PURCHASED.name()));
+		return TestProductType.valueOf(getSharedPreferencesHelper().loadPreference(TEST_PRODUCT_ID, TestProductType.PURCHASED.name()));
 	}
 	
 	public synchronized void setPurchasedProductTypes(Inventory inventory) {

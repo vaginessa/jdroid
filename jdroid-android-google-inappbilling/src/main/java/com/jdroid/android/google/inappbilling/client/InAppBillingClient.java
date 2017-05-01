@@ -348,11 +348,14 @@ public class InAppBillingClient {
 	private void queryProductsDetails(Inventory inventory, ItemType itemType, List<ProductType> productTypes)
 			throws ErrorCodeException {
 		
+		InAppBillingContext inAppBillingContext = InAppBillingAppModule.get().getInAppBillingContext();
+		
 		LOGGER.debug("Querying products details.");
 		ArrayList<String> productsIdsToQuery = Lists.newArrayList();
 		for (ProductType each : productTypes) {
-			if (!productsIdsToQuery.contains(each.getProductId())) {
-				productsIdsToQuery.add(each.getProductId());
+			String productId = inAppBillingContext.isStaticResponsesEnabledEnabled() ? inAppBillingContext.getTestProductType().getProductId() : each.getProductId();
+			if (!productsIdsToQuery.contains(productId)) {
+				productsIdsToQuery.add(productId);
 			}
 		}
 		
@@ -374,10 +377,9 @@ public class InAppBillingClient {
 						}
 						
 						for (ProductType each : productTypes) {
-							SkuDetails skuDetails = map.get(each.getProductId());
+							SkuDetails skuDetails = map.get(inAppBillingContext.isStaticResponsesEnabledEnabled() ? inAppBillingContext.getTestProductType().getProductId() : each.getProductId());
 							if (skuDetails != null) {
-								InAppBillingContext inAppBillingContext = InAppBillingAppModule.get().getInAppBillingContext();
-								ProductType productType = inAppBillingContext.isInAppBillingMockEnabled() ? inAppBillingContext.getTestProductType() : each;
+								ProductType productType = inAppBillingContext.isStaticResponsesEnabledEnabled() ? inAppBillingContext.getTestProductType() : each;
 								String title = each.getTitleId() != null ? context.getString(each.getTitleId()) : skuDetails.getTitle();
 								String description = each.getDescriptionId() != null ? context.getString(each.getDescriptionId()) : skuDetails.getDescription();
 								Product product = new Product(productType, skuDetails.getFormattedPrice(),
@@ -406,14 +408,14 @@ public class InAppBillingClient {
 	}
 	
 	@MainThread
-	public void launchInAppPurchaseFlow(Activity activity, String productId, String devloperPayload) {
-		launchPurchaseFlow(activity, productId, ItemType.MANAGED, null, PURCHASE_REQUEST_CODE, devloperPayload);
+	public void launchInAppPurchaseFlow(Activity activity, String productId, String developerPayload) {
+		launchPurchaseFlow(activity, productId, ItemType.MANAGED, null, PURCHASE_REQUEST_CODE, developerPayload);
 	}
 	
 	@MainThread
 	public void launchSubscriptionPurchaseFlow(Activity activity, String productId, List<String> oldProductIds, int requestCode,
-			String devloperPayload) {
-		launchPurchaseFlow(activity, productId, ItemType.SUBSCRIPTION, oldProductIds, PURCHASE_REQUEST_CODE, devloperPayload);
+			String developerPayload) {
+		launchPurchaseFlow(activity, productId, ItemType.SUBSCRIPTION, oldProductIds, PURCHASE_REQUEST_CODE, developerPayload);
 	}
 	
 	/**

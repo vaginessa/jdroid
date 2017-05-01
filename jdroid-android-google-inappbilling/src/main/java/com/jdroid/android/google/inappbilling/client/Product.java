@@ -1,6 +1,7 @@
 package com.jdroid.android.google.inappbilling.client;
 
 import com.jdroid.java.exception.ErrorCodeException;
+import com.jdroid.java.utils.Hasher;
 
 import org.json.JSONException;
 
@@ -103,12 +104,7 @@ public class Product {
 	}
 	
 	public String getDeveloperPayload() {
-		/*
-		 * TODO: for security, generate your payload here for verification. See the comments on verifyDeveloperPayload()
-		 * for more info. Since this is a SAMPLE, we just use an empty string, but on a production app you should
-		 * carefully generate this.
-		 */
-		return productType.getProductId();
+		return Hasher.SHA_1.hash(productType.getProductId());
 	}
 	
 	/**
