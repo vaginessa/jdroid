@@ -51,5 +51,9 @@ public class GoogleInAppBillingFragment extends InAppBillingRecyclerFragment {
 	public void onPurchased(final Product product) {
 		getAdapter().notifyDataSetChanged();
 		ToastUtils.showToast(R.string.jdroid_purchaseThanks);
+		// TODO InAppBilling Security Recommendation: Send a consumption request before provisioning the benefit of the consumable in-app purchase to the user.
+		// Ensure that you receive a successful consumption response from Google Play before you provision the item.
+		
+		
 	}
 }

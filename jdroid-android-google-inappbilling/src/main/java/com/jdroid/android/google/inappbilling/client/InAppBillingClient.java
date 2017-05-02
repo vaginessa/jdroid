@@ -572,22 +572,22 @@ public class InAppBillingClient {
 			
 		} else if (resultCode == Activity.RESULT_OK) {
 			if (listener != null) {
-				listener.onPurchaseFailed(inAppBillingErrorCode.newErrorCodeException("Result code was OK but in-app billing response was not OK"));
+				listener.onPurchaseFailed(inAppBillingErrorCode.newErrorCodeException("Result code was OK but in-app billing response was not OK. Product id: " + productId));
 			}
 		} else if (resultCode == Activity.RESULT_CANCELED) {
 			if (listener != null) {
 				if (inAppBillingErrorCode != null) {
-					listener.onPurchaseFailed(inAppBillingErrorCode.newErrorCodeException("Purchase canceled."));
+					listener.onPurchaseFailed(inAppBillingErrorCode.newErrorCodeException("Purchase canceled. Product id: " + productId));
 				} else {
-					listener.onPurchaseFailed(InAppBillingErrorCode.USER_CANCELED.newErrorCodeException("Purchase canceled."));
+					listener.onPurchaseFailed(InAppBillingErrorCode.UNKNOWN_PURCHASE_RESPONSE.newErrorCodeException("Purchase failed. Result code: " + resultCode + ". Product id: " + productId));
 				}
 			}
 		} else {
 			if (listener != null) {
 				if (inAppBillingErrorCode != null) {
-					listener.onPurchaseFailed(inAppBillingErrorCode.newErrorCodeException("Purchase Failed. Result code: " + resultCode));
+					listener.onPurchaseFailed(inAppBillingErrorCode.newErrorCodeException("Purchase Failed. Result code: " + resultCode + ". Product id: " + productId));
 				} else {
-					listener.onPurchaseFailed(InAppBillingErrorCode.UNKNOWN_PURCHASE_RESPONSE.newErrorCodeException("Purchase failed. Result code: " + resultCode));
+					listener.onPurchaseFailed(InAppBillingErrorCode.UNKNOWN_PURCHASE_RESPONSE.newErrorCodeException("Purchase failed. Result code: " + resultCode + ". Product id: " + productId));
 				}
 			}
 		}

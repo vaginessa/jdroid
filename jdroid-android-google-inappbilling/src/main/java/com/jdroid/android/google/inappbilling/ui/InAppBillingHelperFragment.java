@@ -79,11 +79,15 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 		subscriptionsProductTypes = getArgument(SUBSCRIPTIONS_PRODUCT_TYPES);
 		silentMode = getArgument(SILENT_MODE);
 		
+		// TODO See what happens on rotation. A new instance is created??? A new serviceconnection is created on thw startsetup()??
 		inAppBillingClient = new InAppBillingClient(getActivity());
 		
 		// TODO The use cases logic should be replicated here. With the current approach, if an error happens on while
 		// the app is on the background, when the fragment is resumed, the error dialog is not displayed to the user
 		inAppBillingClient.startSetup(this);
+		
+		// TODO To support promotion codes, your app must call the getPurchases() method whenever the app starts or resumes.
+		// The simplest approach is to call getPurchases() in your activity's onResume() method, since that callback fires when the activity is created, as well as when the activity is unpaused.
 	}
 	
 	@Override

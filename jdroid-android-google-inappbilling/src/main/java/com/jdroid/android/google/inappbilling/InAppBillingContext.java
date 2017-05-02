@@ -56,6 +56,7 @@ public class InAppBillingContext extends AbstractAppContext {
 	}
 	
 	public synchronized void addPurchasedProductType(ProductType productType) {
+		// TODO See this
 		if (purchasedProductTypes != null) {
 			purchasedProductTypes.add(productType);
 		}
