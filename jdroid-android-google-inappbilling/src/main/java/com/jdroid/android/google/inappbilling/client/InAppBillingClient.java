@@ -260,6 +260,9 @@ public class InAppBillingClient {
 									if (!disposed && listener != null) {
 										listener.onQueryInventoryFinished(inventory);
 									}
+									for (Product each : inventory.getProductsWaitingToConsume()) {
+										consume(each);
+									}
 								}
 							});
 						} else {
@@ -559,6 +562,11 @@ public class InAppBillingClient {
 					if (listener != null) {
 						listener.onPurchaseFinished(product);
 					}
+					if (product.isWaitingToConsume()) {
+						consume(product);
+					} else if (listener != null) {
+						listener.onProvideProduct(product);
+					}
 				} catch (ErrorCodeException e) {
 					if (listener != null) {
 						listener.onPurchaseFailed(e);
@@ -637,6 +645,7 @@ public class InAppBillingClient {
 									public void run() {
 										if (!disposed && listener != null) {
 											listener.onConsumeFinished(product);
+											listener.onProvideProduct(product);
 										}
 									}
 								});

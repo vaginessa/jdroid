@@ -79,7 +79,6 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 		subscriptionsProductTypes = getArgument(SUBSCRIPTIONS_PRODUCT_TYPES);
 		silentMode = getArgument(SILENT_MODE);
 		
-		// TODO See what happens on rotation. A new instance is created??? A new serviceconnection is created on thw startsetup()??
 		inAppBillingClient = new InAppBillingClient(getActivity());
 		
 		// TODO The use cases logic should be replicated here. With the current approach, if an error happens on while
@@ -112,9 +111,6 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 		InAppBillingListener inAppBillingListener = getInAppBillingListener();
 		if (inAppBillingListener != null) {
 			inAppBillingListener.onProductsLoaded(inventory.getProducts());
-			for (Product each : inventory.getProductToConsume()) {
-				inAppBillingClient.consume(each);
-			}
 		}
 	}
 	
@@ -137,9 +133,6 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 		InAppBillingListener inAppBillingListener = getInAppBillingListener();
 		if (inAppBillingListener != null) {
 			inAppBillingListener.onPurchased(product);
-			if (product.isWaitingToConsume()) {
-				inAppBillingClient.consume(product);
-			}
 		}
 	}
 	
@@ -170,6 +163,14 @@ public class InAppBillingHelperFragment extends AbstractFragment implements InAp
 		AbstractApplication.get().getExceptionHandler().logHandledException(errorCodeException);
 		if (!silentMode) {
 			createErrorDisplayer(errorCodeException).displayError(errorCodeException);
+		}
+	}
+	
+	@Override
+	public void onProvideProduct(Product product) {
+		InAppBillingListener inAppBillingListener = getInAppBillingListener();
+		if (inAppBillingListener != null) {
+			inAppBillingListener.onProvideProduct(product);
 		}
 	}
 	

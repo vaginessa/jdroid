@@ -9,6 +9,7 @@
 
 package com.jdroid.android.google.inappbilling.client;
 
+import com.jdroid.android.google.inappbilling.InAppBillingAppModule;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 
@@ -31,7 +32,7 @@ public class Inventory {
 		productsMap.put(product.getId(), product);
 	}
 	
-	public List<Product> getProductToConsume() {
+	public List<Product> getProductsWaitingToConsume() {
 		List<Product> productsToConsume = Lists.newArrayList();
 		for (Product product : getProducts()) {
 			if (product.isWaitingToConsume()) {
@@ -39,6 +40,19 @@ public class Inventory {
 			}
 		}
 		return productsToConsume;
+	}
+	
+	public List<Product> getSupportedPurchasedProducts() {
+		List<ProductType> supportedProductTypes = Lists.newArrayList();
+		supportedProductTypes.addAll(InAppBillingAppModule.get().getInAppBillingContext().getManagedProductTypes());
+		supportedProductTypes.addAll(InAppBillingAppModule.get().getInAppBillingContext().getSubscriptionsProductTypes());
+		List<Product> purchasedProducts = Lists.newArrayList();
+		for (Product each : productsMap.values()) {
+			if (each.hasVerifiedPurchase() && supportedProductTypes.contains(each.getProductType())) {
+				purchasedProducts.add(each);
+			}
+		}
+		return purchasedProducts;
 	}
 	
 	public Product getProduct(String productId) {

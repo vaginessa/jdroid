@@ -68,4 +68,7 @@ public interface InAppBillingClientListener {
 	@MainThread
 	public void onConsumeFailed(ErrorCodeException errorCodeException);
 	
+	@MainThread
+	public void onProvideProduct(Product product);
+	
 }

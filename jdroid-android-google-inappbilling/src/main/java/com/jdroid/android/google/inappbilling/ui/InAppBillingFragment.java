@@ -23,11 +23,11 @@ public abstract class InAppBillingFragment extends AbstractFragment implements I
 		}
 	}
 	
-	public List<ProductType> getManagedProductTypes() {
+	protected List<ProductType> getManagedProductTypes() {
 		return InAppBillingAppModule.get().getInAppBillingContext().getManagedProductTypes();
 	}
 	
-	public List<ProductType> getSubscriptionsProductTypes() {
+	protected List<ProductType> getSubscriptionsProductTypes() {
 		return InAppBillingAppModule.get().getInAppBillingContext().getSubscriptionsProductTypes();
 	}
 	
@@ -39,16 +39,16 @@ public abstract class InAppBillingFragment extends AbstractFragment implements I
 	}
 	
 	@Override
+	public void onConsumed(Product product) {
+		// Do Nothing
+	}
+	
+	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		InAppBillingHelperFragment inAppBillingHelperFragment = InAppBillingHelperFragment.get(getActivity());
 		if (inAppBillingHelperFragment != null) {
 			inAppBillingHelperFragment.onActivityResult(requestCode, resultCode, data);
 		}
-	}
-	
-	@Override
-	public void onConsumed(Product product) {
-		// Do Nothing
 	}
 	
 	@Override

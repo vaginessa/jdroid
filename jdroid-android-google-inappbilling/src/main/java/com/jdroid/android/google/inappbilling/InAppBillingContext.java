@@ -14,7 +14,7 @@ public class InAppBillingContext extends AbstractAppContext {
 	
 	public static final String SHARED_PREFERENCES_NAME = "InAppBilling";
 	
-	public static final String STATIC_RESPONSES_ENABLED = "staticResonsesEnabled";
+	public static final String STATIC_RESPONSES_ENABLED = "staticResponsesEnabled";
 	private static final String PURCHASED_PRODUCT_IDS = "purchasedProductIds";
 	
 	private String googlePlayPublicKey;
@@ -46,27 +46,25 @@ public class InAppBillingContext extends AbstractAppContext {
 	public synchronized void setPurchasedProductTypes(Inventory inventory) {
 		purchasedProductTypes = Lists.newArrayList();
 		List<String> productIds = Lists.newArrayList();
-		for (Product each : inventory.getProducts()) {
-			if (each.hasVerifiedPurchase()) {
-				productIds.add(each.getId());
-				purchasedProductTypes.add(each.getProductType());
-			}
+		for (Product each : inventory.getSupportedPurchasedProducts()) {
+			productIds.add(each.getId());
+			purchasedProductTypes.add(each.getProductType());
 		}
 		getSharedPreferencesHelper().savePreferenceAsync(PURCHASED_PRODUCT_IDS, productIds);
 	}
 	
 	public synchronized void addPurchasedProductType(ProductType productType) {
-		// TODO See this
-		if (purchasedProductTypes != null) {
-			purchasedProductTypes.add(productType);
+		if (purchasedProductTypes == null) {
+			purchasedProductTypes = Lists.newArrayList();
 		}
+		purchasedProductTypes.add(productType);
 		getSharedPreferencesHelper().appendPreferenceAsync(PURCHASED_PRODUCT_IDS, productType.getProductId());
 	}
 
 	public synchronized List<ProductType> getPurchasedProductTypes() {
 		if (purchasedProductTypes == null) {
-			List<String> purchasedProductIds = getSharedPreferencesHelper().loadPreferenceAsStringList(PURCHASED_PRODUCT_IDS);
 			purchasedProductTypes = Lists.newArrayList();
+			List<String> purchasedProductIds = getSharedPreferencesHelper().loadPreferenceAsStringList(PURCHASED_PRODUCT_IDS);
 			for (String each : purchasedProductIds) {
 				List<ProductType> supportedProductTypes = Lists.newArrayList();
 				supportedProductTypes.addAll(getManagedProductTypes());

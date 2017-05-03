@@ -26,7 +26,7 @@ public class Product {
 	private String title;
 	private String description;
 	private Purchase purchase;
-	private Boolean available;
+	private Boolean availableToPurchase;
 	
 	private String formattedPrice;
 	private Double price;
@@ -40,7 +40,7 @@ public class Product {
 		this.formattedPrice = formattedPrice;
 		this.price = price;
 		this.currencyCode = currencyCode;
-		available = true;
+		availableToPurchase = true;
 	}
 	
 	/**
@@ -79,20 +79,21 @@ public class Product {
 							DeveloperPayloadVerificationStrategy developerPayloadVerificationStrategy) throws JSONException, ErrorCodeException {
 		purchase = new Purchase(purchaseJson, signatureBase64, signature);
 		purchase.verify(this, purchaseJson, developerPayloadVerificationStrategy);
-		available = false;
+		availableToPurchase = false;
 	}
 	
 	public Boolean hasVerifiedPurchase() {
 		return (purchase != null) && (purchase.getState() == Purchase.PurchaseState.PURCHASED) && purchase.isVerified();
 	}
 	
-	public Boolean isAvailable() {
-		return available;
+	public Boolean isAvailableToPurchase() {
+		return availableToPurchase;
+	}
 	}
 	
 	public void consume() {
 		purchase = null;
-		available = true;
+		availableToPurchase = true;
 	}
 	
 	public Boolean isConsumable() {
@@ -100,7 +101,7 @@ public class Product {
 	}
 	
 	public Boolean isWaitingToConsume() {
-		return isConsumable() && !available && hasVerifiedPurchase();
+		return isConsumable() && !availableToPurchase && hasVerifiedPurchase();
 	}
 	
 	public String getDeveloperPayload() {
@@ -128,7 +129,7 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [productType=" + productType + ", title=" + title + ", description=" + description
-				+ ", purchase=" + purchase + ", available=" + available + ", formattedPrice=" + formattedPrice
+				+ ", purchase=" + purchase + ", availableToPurchase=" + availableToPurchase + ", formattedPrice=" + formattedPrice
 				+ ", price=" + price + ", currencyCode=" + currencyCode + "]";
 	}
 }

@@ -8,6 +8,7 @@ import com.jdroid.android.google.inappbilling.InAppBillingAppModule;
 import com.jdroid.android.google.inappbilling.client.Product;
 import com.jdroid.android.google.inappbilling.client.ProductType;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
+import com.jdroid.android.recycler.RecyclerViewAdapter;
 
 import java.util.List;
 
@@ -21,14 +22,34 @@ public abstract class InAppBillingRecyclerFragment extends AbstractRecyclerFragm
 			InAppBillingHelperFragment.add(getActivity(), InAppBillingHelperFragment.class, getManagedProductTypes(),
 				getSubscriptionsProductTypes(), false, this);
 		}
+		showLoading();
 	}
 	
-	public List<ProductType> getManagedProductTypes() {
+	protected List<ProductType> getManagedProductTypes() {
 		return InAppBillingAppModule.get().getInAppBillingContext().getManagedProductTypes();
 	}
 	
-	public List<ProductType> getSubscriptionsProductTypes() {
+	protected List<ProductType> getSubscriptionsProductTypes() {
 		return InAppBillingAppModule.get().getInAppBillingContext().getSubscriptionsProductTypes();
+	}
+	
+	@Override
+	public void onProductsLoaded(final List<Product> products) {
+		setAdapter(new RecyclerViewAdapter(new ProductViewType() {
+			
+			@Override
+			public AbstractRecyclerFragment getAbstractRecyclerFragment() {
+				return InAppBillingRecyclerFragment.this;
+			}
+			
+			@Override
+			protected void onPriceClick(Product product) {
+				launchPurchaseFlow(product);
+			}
+			
+			
+		}, products));
+		dismissLoading();
 	}
 	
 	public void launchPurchaseFlow(Product product) {

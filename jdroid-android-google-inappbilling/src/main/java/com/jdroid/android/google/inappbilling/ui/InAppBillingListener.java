@@ -31,4 +31,7 @@ public interface InAppBillingListener {
 	 */
 	@MainThread
 	public void onConsumed(Product product);
+	
+	@MainThread
+	public void onProvideProduct(Product product);
 }
