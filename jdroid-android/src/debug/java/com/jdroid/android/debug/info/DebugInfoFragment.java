@@ -7,7 +7,6 @@ import android.view.View;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.UsageStats;
-import com.jdroid.android.firebase.instanceid.InstanceIdHelper;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
 import com.jdroid.android.utils.AndroidUtils;
@@ -31,8 +30,6 @@ public class DebugInfoFragment extends AbstractRecyclerFragment {
 
 		properties.add(new Pair<String, Object>("Build Type", appContext.getBuildType()));
 		properties.add(new Pair<String, Object>("Build Time", appContext.getBuildTime()));
-
-		properties.add(new Pair<String, Object>("Instance ID", InstanceIdHelper.getInstanceId()));
 
 		properties.add(new Pair<String, Object>("Installation Source", appContext.getInstallationSource()));
 

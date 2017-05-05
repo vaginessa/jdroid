@@ -58,6 +58,12 @@ dependencies {
 		releaseCompile project(path: ":jdroid-android-facebook", configuration: 'release')
 	}
 
+	debugCompile project(path: ':jdroid-android-firebase-instanceid', configuration: 'debug')
+	uatCompile project(path: ':jdroid-android-firebase-instanceid', configuration: 'debug')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ":jdroid-android-firebase-instanceid", configuration: 'release')
+	}
+
 	debugCompile project(path: ':jdroid-android-firebase-admob', configuration: 'debug')
 	uatCompile project(path: ':jdroid-android-firebase-admob', configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
@@ -154,6 +160,9 @@ android {
 				def outputFile = output.outputFile
 				if (outputFile != null && outputFile.name.endsWith('.apk')) {
 					def fileName = outputFile.name.replace('.apk', "-v${versionName}.apk")
+					if (variant.buildType.debuggable && variant.name.endsWith("Release")) {
+						fileName = fileName.replace("-v", "-DEBUGGABLE-v")
+					}
 					output.outputFile = new File(outputFile.parent, fileName)
 				}
 			}
@@ -248,6 +257,8 @@ android {
 				} else {
 
 					signingConfig signingConfigs.release
+
+					debuggable jdroid.getBooleanProp('DEBUGGABLE', false)
 
 					jdroid.setBuildConfigString(buildTypes.release, "SERVER_NAME", "PROD")
 

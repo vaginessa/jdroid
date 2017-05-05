@@ -3,7 +3,6 @@ package com.jdroid.android.http;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
-import com.jdroid.android.firebase.instanceid.InstanceIdHelper;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.java.http.HttpResponseWrapper;
@@ -12,18 +11,23 @@ import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.MimeType;
 import com.jdroid.java.utils.LocaleUtils;
 
-public class AbstractHeaderAppender implements HttpServiceProcessor {
+public class DefaultHeaderAppender implements HttpServiceProcessor {
 	
 	private static final String API_VERSION_HEADER = "api-version";
 
 	private static final String USER_AGENT_HEADER_VALUE = "android";
 	
 	public static final String USER_TOKEN_HEADER = "x-user-token";
-	public static final String INSTANCE_ID_HEADER = "instanceId";
 
 	// TODO Review these name to unify them with Device class
 	public static final String CLIENT_APP_VERSION_HEADER = "clientAppVersion";
 	public static final String CLIENT_OS_VERSION_HEADER = "clientOsVersion";
+	
+	private static final DefaultHeaderAppender INSTANCE = new DefaultHeaderAppender();
+	
+	public static DefaultHeaderAppender get() {
+		return INSTANCE;
+	}
 
 	@Override
 	public void onInit(HttpService httpService) {
@@ -44,7 +48,6 @@ public class AbstractHeaderAppender implements HttpServiceProcessor {
 		httpService.addHeader(HttpService.ACCEPT_HEADER, MimeType.JSON);
 		httpService.addHeader(HttpService.ACCEPT_ENCODING_HEADER, HttpService.GZIP_ENCODING);
 
-		httpService.addHeader(INSTANCE_ID_HEADER, InstanceIdHelper.getInstanceId());
 		httpService.addHeader(CLIENT_APP_VERSION_HEADER, AppUtils.getVersionCode().toString());
 		httpService.addHeader(CLIENT_OS_VERSION_HEADER, AndroidUtils.getApiLevel().toString());
 	}

@@ -46,13 +46,6 @@
 		</receiver>
 		<service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
 
-		<!-- Service to handle the creation, rotation, and updating of registration tokens. -->
-		<service android:name=".firebase.instanceid.InstanceIdService" android:exported="true" tools:ignore="ExportedService">
-			<intent-filter>
-				<action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-			</intent-filter>
-		</service>
-
 		<service android:name="com.jdroid.android.google.gcm.CommandWorkerService" android:exported="false" />
 		<service android:name="com.jdroid.android.google.gcm.CommandGcmTaskService"
 				 android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE"
