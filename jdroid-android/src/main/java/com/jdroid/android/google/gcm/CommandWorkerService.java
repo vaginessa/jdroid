@@ -7,7 +7,7 @@ import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.Task;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.service.WorkerService;
-import com.jdroid.java.exception.ConnectionException;
+import com.jdroid.java.http.exception.ConnectionException;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.ReflectionUtils;
 

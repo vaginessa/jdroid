@@ -7,7 +7,7 @@ import com.google.android.gms.gcm.GcmTaskService;
 import com.google.android.gms.gcm.TaskParams;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.date.DateUtils;
-import com.jdroid.java.exception.ConnectionException;
+import com.jdroid.java.http.exception.ConnectionException;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;

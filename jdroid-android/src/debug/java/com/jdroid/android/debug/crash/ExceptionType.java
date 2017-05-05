@@ -1,10 +1,10 @@
 package com.jdroid.android.debug.crash;
 
 import com.jdroid.java.exception.CommonErrorCode;
-import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.ErrorCodeException;
-import com.jdroid.java.exception.HttpResponseException;
 import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.java.http.exception.ConnectionException;
+import com.jdroid.java.http.exception.HttpResponseException;
 
 public enum ExceptionType {
 	

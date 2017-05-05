@@ -2,7 +2,7 @@ package com.jdroid.android.http.parser;
 
 import android.util.Xml;
 
-import com.jdroid.java.exception.ConnectionException;
+import com.jdroid.java.http.exception.ConnectionException;
 import com.jdroid.java.http.parser.Parser;
 import com.jdroid.java.utils.FileUtils;
 import com.jdroid.java.utils.TypeUtils;
