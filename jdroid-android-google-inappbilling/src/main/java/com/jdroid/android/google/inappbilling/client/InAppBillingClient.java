@@ -20,13 +20,12 @@ import com.android.vending.billing.IInAppBillingService;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.inappbilling.InAppBillingAppModule;
 import com.jdroid.android.google.inappbilling.InAppBillingContext;
-import com.jdroid.android.google.inappbilling.client.Product.ItemType;
+import com.jdroid.java.collections.CollectionUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.exception.ErrorCode;
 import com.jdroid.java.exception.ErrorCodeException;
-import com.jdroid.java.collections.CollectionUtils;
 import com.jdroid.java.utils.LoggerUtils;
 import com.jdroid.java.utils.StringUtils;
 

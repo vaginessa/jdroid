@@ -7,21 +7,6 @@ import org.json.JSONException;
 
 public class Product {
 	
-	public enum ItemType {
-		MANAGED("inapp"),
-		SUBSCRIPTION("subs");
-		
-		private String type;
-		
-		ItemType(String type) {
-			this.type = type;
-		}
-		
-		public String getType() {
-			return type;
-		}
-	}
-	
 	private ProductType productType;
 	private String title;
 	private String description;

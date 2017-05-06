@@ -1,7 +1,7 @@
 package com.jdroid.android.sample.ui.google.inappbilling;
 
 
-import com.jdroid.android.google.inappbilling.client.Product;
+import com.jdroid.android.google.inappbilling.client.ItemType;
 import com.jdroid.android.google.inappbilling.client.ProductType;
 import com.jdroid.android.google.inappbilling.client.TestProductType;
 
@@ -51,8 +51,8 @@ public enum SampleProductType implements ProductType {
 	}
 	
 	@Override
-	public Product.ItemType getItemType() {
-		return Product.ItemType.MANAGED;
+	public ItemType getItemType() {
+		return ItemType.MANAGED;
 	}
 	
 	@Override

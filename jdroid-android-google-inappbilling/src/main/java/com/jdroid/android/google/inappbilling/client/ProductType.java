@@ -1,6 +1,5 @@
 package com.jdroid.android.google.inappbilling.client;
 
-import com.jdroid.android.google.inappbilling.client.Product.ItemType;
 
 public interface ProductType {
 	
