@@ -11,7 +11,7 @@
 		<item name="android:layout_marginTop">8dp</item>
 	</style>
 
-	<style name="jdroid_spreadTheLoveFollowUsItemText" parent="jdroid_textMediumBold">
+	<style name="jdroid_spreadTheLoveFollowUsItemText" parent="@style/jdroid_textMediumBold">
 		<item name="android:textStyle">normal</item>
 		<item name="android:singleLine">true</item>
 		<item name="android:ellipsize">end</item>

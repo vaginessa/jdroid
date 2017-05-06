@@ -10,31 +10,31 @@
 		<item name="android:textColor">@color/jdroid_textColor</item>
 	</style>
 
-	<style name="jdroid_textMicro" parent="jdroid_baseText">
+	<style name="jdroid_textMicro" parent="@style/jdroid_baseText">
 		<item name="android:textAppearance">?android:textAppearanceSmall</item>
 		<item name="android:textSize">@dimen/jdroid_textMicro</item>
 	</style>
 
-	<style name="jdroid_textSmall" parent="jdroid_baseText">
+	<style name="jdroid_textSmall" parent="@style/jdroid_baseText">
 		<item name="android:textAppearance">?android:textAppearanceSmall</item>
 		<item name="android:textSize">@dimen/jdroid_textSmall</item>
 	</style>
 
-	<style name="jdroid_textMedium" parent="jdroid_baseText">
+	<style name="jdroid_textMedium" parent="@style/jdroid_baseText">
 		<item name="android:textAppearance">?android:textAppearanceMedium</item>
 		<item name="android:textSize">@dimen/jdroid_textMedium</item>
 	</style>
 
-	<style name="jdroid_textLarge" parent="jdroid_baseText">
+	<style name="jdroid_textLarge" parent="@style/jdroid_baseText">
 		<item name="android:textAppearance">?android:textAppearanceLarge</item>
 		<item name="android:textSize">@dimen/jdroid_textLarge</item>
 	</style>
 
-	<style name="jdroid_textMediumBold" parent="jdroid_textMedium">
+	<style name="jdroid_textMediumBold" parent="@style/jdroid_textMedium">
 		<item name="android:textStyle">bold</item>
 	</style>
 
-	<style name="jdroid_textLargeBold" parent="jdroid_textLarge">
+	<style name="jdroid_textLargeBold" parent="@style/jdroid_textLarge">
 		<item name="android:textStyle">bold</item>
 	</style>
 
@@ -45,7 +45,7 @@
 		<item name="android:layout_gravity">center</item>
 	</style>
 
-	<style name="jdroid_sectionTitle" parent="jdroid_textMediumBold">
+	<style name="jdroid_sectionTitle" parent="@style/jdroid_textMediumBold">
 		<item name="android:paddingLeft">8dp</item>
 		<item name="android:paddingRight">8dp</item>
 		<item name="android:paddingTop">4dp</item>
