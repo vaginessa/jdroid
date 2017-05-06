@@ -74,7 +74,6 @@ public class Product {
 	public Boolean isAvailableToPurchase() {
 		return availableToPurchase;
 	}
-	}
 	
 	public void consume() {
 		purchase = null;
