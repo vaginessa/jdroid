@@ -4,10 +4,10 @@ import android.os.Bundle;
 
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.google.gcm.ServiceCommand;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
-import com.jdroid.android.google.gcm.ServiceCommand;
-import com.jdroid.java.exception.ConnectionException;
+import com.jdroid.java.http.exception.ConnectionException;
 import com.jdroid.java.utils.IdGenerator;
 
 public class SampleServiceCommand3 extends ServiceCommand {
