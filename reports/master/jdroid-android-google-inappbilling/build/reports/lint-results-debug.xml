@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="4" by="lint 2.3.0">
+<issues format="4" by="lint 2.3.1">
 
     <issue
         id="DefaultLocale"
@@ -15,7 +15,7 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="/home/travis/build/maxirosson/jdroid/jdroid-android-google-inappbilling/src/main/java/com/jdroid/android/google/inappbilling/client/Product.java"
-            line="50"
+            line="35"
             column="31"/>
     </issue>
 

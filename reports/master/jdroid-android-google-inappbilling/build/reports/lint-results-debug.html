@@ -176,7 +176,7 @@ document.getElementById(id).style.display = 'none';
       <span class="mdl-layout-title">Lint Report: 2 warnings</span>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-Check performed at Wed May 03 08:23:01 UTC 2017      </nav>
+Check performed at Sun May 07 01:07:13 UTC 2017      </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -225,14 +225,14 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/jdroid/android/google/inappbilling/client/Product.java">../../src/main/java/com/jdroid/android/google/inappbilling/client/Product.java</a>:50</span>: <span class="message">Implicitly using the default locale is a common source of bugs: Use <code>String.format(Locale, ...)</code> instead</span><br /><pre class="errorlines">
-<span class="lineno">  47 </span><span class="javadoc"> * @return the Formatted price of the item, including its currency sign. The price does not include tax.
-</span><span class="lineno">  48 </span><span class="javadoc"> */</span>
-<span class="lineno">  49 </span>    <span class="keyword">public</span> String getFormattedPrice() {
-<span class="caretline"><span class="lineno">  50 </span>        <span class="keyword">return</span> currencyCode + <span class="string">" "</span> + <span class="warning">String.format(<span class="string">"%.2f"</span>, price)</span>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  51 </span>    }
-<span class="lineno">  52 </span>
-<span class="lineno">  53 </span>    <span class="keyword">public</span> Double getPrice() {
+<span class="location"><a href="../../src/main/java/com/jdroid/android/google/inappbilling/client/Product.java">../../src/main/java/com/jdroid/android/google/inappbilling/client/Product.java</a>:35</span>: <span class="message">Implicitly using the default locale is a common source of bugs: Use <code>String.format(Locale, ...)</code> instead</span><br /><pre class="errorlines">
+<span class="lineno">  32 </span><span class="javadoc"> * @return the Formatted price of the item, including its currency sign. The price does not include tax.
+</span><span class="lineno">  33 </span><span class="javadoc"> */</span>
+<span class="lineno">  34 </span>    <span class="keyword">public</span> String getFormattedPrice() {
+<span class="caretline"><span class="lineno">  35 </span>        <span class="keyword">return</span> currencyCode + <span class="string">" "</span> + <span class="warning">String.format(<span class="string">"%.2f"</span>, price)</span>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  36 </span>    }
+<span class="lineno">  37 </span>
+<span class="lineno">  38 </span>    <span class="keyword">public</span> Double getPrice() {
 </pre>
 
 </div>
