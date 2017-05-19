@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.firebase.perf.FirebasePerformance;
+import com.google.firebase.perf.metrics.Trace;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
@@ -28,26 +30,42 @@ public abstract class WorkerService extends IntentService {
 	@Override
 	protected final void onHandleIntent(Intent intent) {
 		if (intent != null) {
+			
 			String trackingVariable = getTrackingVariable(intent);
 			String trackingLabel = getTrackingLabel(intent);
-			LOGGER.info("Starting service. Variable: " + trackingVariable + " - Label: " + trackingLabel);
+			
+			Trace trace = null;
+			if (timingTrackingEnabled()) {
+				trace = FirebasePerformance.getInstance().newTrace(trackingLabel);
+				trace.start();
+			}
+			
 			try {
-					long startTime = DateUtils.nowMillis();
-					doExecute(intent);
-					if (enableTimingTracking()) {
-						long executionTime = DateUtils.nowMillis() - startTime;
-						AbstractApplication.get().getCoreAnalyticsSender().trackServiceTiming(getTrackingVariable(intent),
-								getTrackingLabel(intent), executionTime);
-					}
+				LOGGER.info("Starting service. Variable: " + trackingVariable + " - Label: " + trackingLabel);
+				long startTime = DateUtils.nowMillis();
+				doExecute(intent);
+				long executionTime = DateUtils.nowMillis() - startTime;
+				LOGGER.debug("Finished service. Variable: " + trackingVariable + " - Label: " + trackingLabel + ". Execution time: " + DateUtils.formatDuration(executionTime));
+				
+				if (trace != null) {
+					trace.incrementCounter("success");
+				}
 			} catch (Exception e) {
+				if (trace != null) {
+					trace.incrementCounter("failure");
+				}
 				AbstractApplication.get().getExceptionHandler().logHandledException(e);
+			} finally {
+				if (trace != null) {
+					trace.stop();
+				}
 			}
 		} else {
 			LOGGER.warn("Null intent when starting the service: " + getClass().getName());
 		}
 	}
 
-	protected Boolean enableTimingTracking() {
+	protected Boolean timingTrackingEnabled() {
 		return true;
 	}
 

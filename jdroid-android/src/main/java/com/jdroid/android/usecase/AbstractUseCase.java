@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.WorkerThread;
 
+import com.google.firebase.perf.FirebasePerformance;
+import com.google.firebase.perf.metrics.Trace;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.collections.Lists;
@@ -66,6 +68,12 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 				startUseCaseRunnable.run();
 			}
 		}
+		
+		Trace trace = null;
+		if (timingTrackingEnabled()) {
+			trace = FirebasePerformance.getInstance().newTrace(getClass().getSimpleName());
+			trace.start();
+		}
 
 		try {
 			
@@ -73,12 +81,13 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 			long startTime = DateUtils.nowMillis();
 			doExecute();
 			executionTime = DateUtils.nowMillis() - startTime;
-			LOGGER.debug("Finished " + getClass().getSimpleName() + ". Execution time: "
-					+ DateUtils.formatDuration(executionTime));
+			LOGGER.debug("Finished " + getClass().getSimpleName() + ". Execution time: " + DateUtils.formatDuration(executionTime));
+			
+			if (trace != null) {
+				trace.incrementCounter("success");
+			}
 			
 			markAsSuccessful();
-
-			AbstractApplication.get().getCoreAnalyticsSender().trackUseCaseTiming(getClass(), executionTime);
 
 			if (!Lists.isNullOrEmpty(listeners)) {
 				Runnable finishedUseCaseRunnable = new Runnable() {
@@ -98,6 +107,9 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 			}
 
 		} catch (RuntimeException e) {
+			if (trace != null) {
+				trace.incrementCounter("failure");
+			}
 			final AbstractException abstractException = wrapException(e);
 			markAsFailed(abstractException);
 			logHandledException(abstractException);
@@ -118,7 +130,15 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 					finishedFailedUseCaseRunnable.run();
 				}
 			}
+		} finally {
+			if (trace != null) {
+				trace.stop();
+			}
 		}
+	}
+	
+	protected Boolean timingTrackingEnabled() {
+		return true;
 	}
 
 	private AbstractException wrapException(Exception e) {

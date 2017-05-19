@@ -9,7 +9,6 @@ import com.jdroid.android.analytics.CoreAnalyticsTracker;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
-import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.android.utils.DeviceUtils;
 import com.jdroid.android.utils.ScreenUtils;
 
@@ -144,23 +143,6 @@ public class FirebaseCoreAnalyticsTracker extends AbstractFirebaseAnalyticsTrack
 		bundle.putString("screenName", screenName);
 		bundle.putString("referrer", referrer);
 		getFirebaseAnalyticsHelper().sendEvent("OpenUri", bundle);
-	}
-
-	@Override
-	public void trackUseCaseTiming(Class<? extends AbstractUseCase> useCaseClass, long executionTime) {
-		Bundle bundle = new Bundle();
-		bundle.putString("useCase", useCaseClass.getSimpleName());
-		bundle.putLong(FirebaseAnalytics.Param.VALUE, executionTime);
-		getFirebaseAnalyticsHelper().sendEvent("ExecuteUseCase", bundle);
-	}
-
-	@Override
-	public void trackServiceTiming(String trackingVariable, String trackingLabel, long executionTime) {
-		Bundle bundle = new Bundle();
-		bundle.putString("service", trackingVariable);
-		bundle.putString("label", trackingLabel);
-		bundle.putLong(FirebaseAnalytics.Param.VALUE, executionTime);
-		getFirebaseAnalyticsHelper().sendEvent("ExecuteService", bundle);
 	}
 
 	@Override

@@ -230,28 +230,6 @@ public class CoreAnalyticsSender<T extends CoreAnalyticsTracker> extends Analyti
 		});
 	}
 
-	@Override
-	public void trackUseCaseTiming(final Class<? extends AbstractUseCase> useCaseClass, final long executionTime) {
-		execute(new TrackingCommand() {
-
-			@Override
-			protected void track(T tracker) {
-				tracker.trackUseCaseTiming(useCaseClass, executionTime);
-			}
-		});
-	}
-
-	@Override
-	public void trackServiceTiming(final String trackingVariable, final String trackingLabel, final long executionTime) {
-		execute(new TrackingCommand() {
-
-			@Override
-			protected void track(T tracker) {
-				tracker.trackServiceTiming(trackingVariable, trackingLabel, executionTime);
-			}
-		});
-	}
-
 	// Widgets
 
 	@Override

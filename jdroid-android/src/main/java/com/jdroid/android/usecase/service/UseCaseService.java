@@ -28,7 +28,7 @@ public class UseCaseService extends WorkerService {
 	}
 
 	@Override
-	protected Boolean enableTimingTracking() {
+	protected Boolean timingTrackingEnabled() {
 		return false;
 	}
 

@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
-import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.java.concurrent.LowPriorityThreadFactory;
 
 import java.util.List;
@@ -109,16 +108,6 @@ public abstract class AbstractCoreAnalyticsTracker implements CoreAnalyticsTrack
 
 	@Override
 	public void trackGiveFeedback(Boolean feedback) {
-		// Do Nothing
-	}
-
-	@Override
-	public void trackUseCaseTiming(Class<? extends  AbstractUseCase> useCaseClass, long executionTime) {
-		// Do Nothing
-	}
-
-	@Override
-	public void trackServiceTiming(String trackingVariable, String trackingLabel, long executionTime) {
 		// Do Nothing
 	}
 

@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
-import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.java.analytics.AnalyticsTracker;
 
 import java.util.List;
@@ -68,9 +67,5 @@ public interface CoreAnalyticsTracker extends AnalyticsTracker {
 	public void trackUriOpened(String screenName, Uri uri, String referrer);
 
 	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget);
-
-	public void trackUseCaseTiming(Class<? extends AbstractUseCase> useCaseClass, long executionTime);
-
-	public void trackServiceTiming(String trackingVariable, String trackingLabel, long executionTime);
 
 }

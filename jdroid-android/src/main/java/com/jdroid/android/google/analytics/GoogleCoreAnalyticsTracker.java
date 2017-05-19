@@ -149,16 +149,6 @@ public class GoogleCoreAnalyticsTracker extends AbstractGoogleAnalyticsTracker i
 	}
 
 	@Override
-	public void trackUseCaseTiming(Class<? extends AbstractUseCase> useCaseClass, long executionTime) {
-		// Do nothing
-	}
-
-	@Override
-	public void trackServiceTiming(String trackingVariable, String trackingLabel, long executionTime) {
-		// Do nothing
-	}
-
-	@Override
 	public void trackUriOpened(String screenName, Uri uri, String referrer) {
 		initReferrerCustomDimension(referrer);
 		getGoogleAnalyticsHelper().sendEvent("uri", "open", screenName);
