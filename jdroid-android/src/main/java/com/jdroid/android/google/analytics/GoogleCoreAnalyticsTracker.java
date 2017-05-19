@@ -150,12 +150,12 @@ public class GoogleCoreAnalyticsTracker extends AbstractGoogleAnalyticsTracker i
 
 	@Override
 	public void trackUseCaseTiming(Class<? extends AbstractUseCase> useCaseClass, long executionTime) {
-		getGoogleAnalyticsHelper().trackTiming("UseCase", useCaseClass.getSimpleName(), useCaseClass.getSimpleName(), executionTime);
+		// Do nothing
 	}
 
 	@Override
 	public void trackServiceTiming(String trackingVariable, String trackingLabel, long executionTime) {
-		getGoogleAnalyticsHelper().trackTiming("Service", trackingVariable, trackingLabel, executionTime);
+		// Do nothing
 	}
 
 	@Override
