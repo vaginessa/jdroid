@@ -1,4 +1,5 @@
 ext.COMPONENTS = ['jdroid-android', 'jdroid-java-okhttp']
+ext.RES_CONFIGS = ['en', 'es']
 apply plugin: 'com.jdroid.android.application'
 
 description = 'Jdroid Sample Android'
