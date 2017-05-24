@@ -13,11 +13,6 @@ import java.util.List;
 public class FirebaseCrashTracker extends AbstractCoreAnalyticsTracker {
 	
 	@Override
-	public Boolean isEnabled() {
-		return true;
-	}
-	
-	@Override
 	public void trackHandledException(Throwable throwable, List<String> tags) {
 		if (areTagsEnabled()) {
 			DefaultExceptionHandler.addTags(throwable, tags);
