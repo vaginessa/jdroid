@@ -83,7 +83,7 @@
         errorLine2="  ^">
         <location
             file="/home/travis/build/maxirosson/jdroid/jdroid-android/src/main/AndroidManifest.xml"
-            line="31"
+            line="33"
             column="3"/>
     </issue>
 
