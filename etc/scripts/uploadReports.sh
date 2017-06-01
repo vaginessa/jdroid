@@ -7,7 +7,6 @@ then
   # copy data we're interested in to other place
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-about/build/reports
-  mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-fabric/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-facebook/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-instanceid/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-database/build/reports
@@ -25,7 +24,6 @@ then
 
   cp -R jdroid-android/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android/build/reports/
   cp -R jdroid-android-about/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-about/build/reports/
-  cp -R jdroid-android-fabric/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-fabric/build/reports/
   cp -R jdroid-android-facebook/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-facebook/build/reports/
   cp -R jdroid-android-firebase-instanceid/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-instanceid/build/reports/
   cp -R jdroid-android-firebase-crash/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-firebase-crash/build/reports/

@@ -10,7 +10,6 @@ jdroid {
 
 repositories {
 	jcenter()
-	maven { url 'https://maven.fabric.io/public' }
 }
 
 configurations.all {
@@ -203,7 +202,6 @@ android {
 
 		manifestPlaceholders = [
 				googleMapsApiKey: "AIzaSyA2UZNjUMaw7kFk9qvHeGLTppXxcgI3l1Y",
-				fabricApiKey: "478dae49374362f33bc054fc44d1f4242c574ccb",
 				facebookAppId: "fb1048902711862195"
 		]
 
@@ -274,7 +272,6 @@ android {
 
 					manifestPlaceholders = [
 							googleMapsApiKey: jdroid.getStringProp("GOOGLE_MAPS_API_KEY", ""),
-							fabricApiKey: jdroid.getStringProp("FABRIC_API_KEY", ""),
 							facebookAppId: jdroid.getStringProp("FACEBOOK_APP_ID", "")
 					]
 				}

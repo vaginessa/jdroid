@@ -3,13 +3,6 @@ apply plugin: 'com.jdroid.android.library'
 ext.PROJECT_NAME = 'Jdroid Android - Twitter SDK'
 description = 'Jdroid dependency project for Twitter SDK'
 
-repositories {
-	// TODO See how to remove this dependency
-	maven {
-		url 'https://maven.fabric.io/public'
-	}
-}
-
 configurations.all {
 	// check for updates every build
 	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
@@ -23,13 +16,13 @@ buildscript {
 
 dependencies {
 
-	debugCompile project(path: ":jdroid-android-fabric", configuration: 'debug')
+	debugCompile project(path: ":jdroid-android", configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
-		releaseCompile project(path: ":jdroid-android-fabric", configuration: 'release')
+		releaseCompile project(path: ":jdroid-android", configuration: 'release')
 	}
 
-	// https://docs.fabric.io/android/changelog.html#tweetui
-	compile('com.twitter.sdk.android:tweet-ui:2.3.2@aar') {
+	// https://dev.twitter.com/twitterkit/android/changelog
+	compile('com.twitter.sdk.android:tweet-ui:3.0.0@aar') {
 		transitive = true;
 	}
 

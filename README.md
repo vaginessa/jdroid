@@ -116,13 +116,9 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
  * [Google Sign In integration](https://developers.google.com/identity/sign-in/android/)
   * sign in, sign out, revoke access
   
-## [jdroid-android-fabric](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
-
- * [Fabric integration](https://docs.fabric.io/android/)
- 
 ## [jdroid-android-twitter](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
 
- * [Fabric TweetUi integration](https://docs.fabric.io/android/twitter/overview.html)
+ * [TweetUi integration](https://dev.twitter.com/twitterkit/android/overview)
  
 ## [jdroid-android-uil](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
  
