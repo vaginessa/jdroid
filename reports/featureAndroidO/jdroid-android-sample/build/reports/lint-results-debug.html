@@ -173,18 +173,16 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 2 errors and 22 warnings</span>
+      <span class="mdl-layout-title">Lint Report: 19 warnings</span>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-Check performed at Tue Jun 13 12:07:32 UTC 2017      </nav>
+Check performed at Tue Jun 13 22:39:19 UTC 2017      </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">Issue Types</span>
     <nav class="mdl-navigation">
       <a class="mdl-navigation__link" href="#overview"><i class="material-icons">dashboard</i>Overview</a>
-      <a class="mdl-navigation__link" href="#InlinedApi"><i class="material-icons warning-icon">warning</i>Using inlined constants on older versions (3)</a>
-      <a class="mdl-navigation__link" href="#NewApi"><i class="material-icons error-icon">error</i>Calling new methods on older versions (2)</a>
       <a class="mdl-navigation__link" href="#Overdraw"><i class="material-icons warning-icon">warning</i>Overdraw: Painting regions more than once (7)</a>
       <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (7)</a>
       <a class="mdl-navigation__link" href="#UselessLeaf"><i class="material-icons warning-icon">warning</i>Useless leaf layout (2)</a>
@@ -201,14 +199,6 @@ Check performed at Tue Jun 13 12:07:32 UTC 2017      </nav>
   </div>
               <div class="mdl-card__supporting-text">
 <table class="overview">
-<tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
-</td></tr>
-<tr>
-<td class="countColumn">3</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
-<a href="#InlinedApi">InlinedApi</a>: Using inlined constants on older versions</td></tr>
-<tr>
-<td class="countColumn">2</td><td class="issueColumn"><i class="material-icons error-icon">error</i>
-<a href="#NewApi">NewApi</a>: Calling new methods on older versions</td></tr>
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Performance">Performance</a>
 </td></tr>
 <tr>
@@ -233,145 +223,9 @@ Check performed at Tue Jun 13 12:07:32 UTC 2017      </nav>
 Dismiss</button>            </div>
             </div>
           </section>
-<a name="Correctness"></a>
-<a name="InlinedApi"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card1" style="display: block;">
-            <div class="mdl-card mdl-cell mdl-cell--12-col">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Using inlined constants on older versions</h2>
-  </div>
-              <div class="mdl-card__supporting-text">
-<div class="issue">
-<div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/jdroid/android/sample/application/AndroidNotificationChannelType.java">../../src/main/java/com/jdroid/android/sample/application/AndroidNotificationChannelType.java</a>:11</span>: <span class="message">Field requires API level 24 (current min is 16): <code>android.app.NotificationManager#IMPORTANCE_LOW</code></span><br /><pre class="errorlines">
-<span class="lineno">  8 </span>
-<span class="lineno">  9 </span><span class="keyword">public</span> <span class="keyword">enum</span> AndroidNotificationChannelType <span class="keyword">implements</span> NotificationChannelType {
-<span class="lineno"> 10 </span>    
-<span class="caretline"><span class="lineno"> 11 </span>    LOW_IMPORTANCE(<span class="string">"lowImportance"</span>, R.string.lowImportanceNotificationChannelName, <span class="warning">NotificationManager.IMPORTANCE_LOW</span>) {</span>
-<span class="lineno"> 12 </span>        <span class="keyword">public</span> <span class="keyword">void</span> config(NotificationChannel notificationChannel) {
-<span class="lineno"> 13 </span>            notificationChannel.setShowBadge(<span class="keyword">false</span>);
-<span class="lineno"> 14 </span>        }
-</pre>
-
-<span class="location"><a href="../../src/main/java/com/jdroid/android/sample/application/AndroidNotificationChannelType.java">../../src/main/java/com/jdroid/android/sample/application/AndroidNotificationChannelType.java</a>:16</span>: <span class="message">Field requires API level 24 (current min is 16): <code>android.app.NotificationManager#IMPORTANCE_DEFAULT</code></span><br /><pre class="errorlines">
-<span class="lineno"> 13 </span>            notificationChannel.setShowBadge(<span class="keyword">false</span>);
-<span class="lineno"> 14 </span>        }
-<span class="lineno"> 15 </span>    },
-<span class="caretline"><span class="lineno"> 16 </span>    DEFAULT_IMPORTANCE(<span class="string">"defaultImportance"</span>, R.string.defaultImportanceNotificationChannelName, <span class="warning">NotificationManager.IMPORTANCE_DEFAULT</span>),</span>
-<span class="lineno"> 17 </span>    HIGH_IMPORTANCE(<span class="string">"highImportance"</span>, R.string.highImportanceNotificationChannelName, NotificationManager.IMPORTANCE_HIGH) {
-<span class="lineno"> 18 </span>        <span class="keyword">public</span> <span class="keyword">void</span> config(NotificationChannel notificationChannel) {
-<span class="lineno"> 19 </span>            notificationChannel.setShowBadge(<span class="keyword">true</span>);
-</pre>
-
-<span class="location"><a href="../../src/main/java/com/jdroid/android/sample/application/AndroidNotificationChannelType.java">../../src/main/java/com/jdroid/android/sample/application/AndroidNotificationChannelType.java</a>:17</span>: <span class="message">Field requires API level 24 (current min is 16): <code>android.app.NotificationManager#IMPORTANCE_HIGH</code></span><br /><pre class="errorlines">
-<span class="lineno"> 14 </span>        }
-<span class="lineno"> 15 </span>    },
-<span class="lineno"> 16 </span>    DEFAULT_IMPORTANCE(<span class="string">"defaultImportance"</span>, R.string.defaultImportanceNotificationChannelName, NotificationManager.IMPORTANCE_DEFAULT),
-<span class="caretline"><span class="lineno"> 17 </span>    HIGH_IMPORTANCE(<span class="string">"highImportance"</span>, R.string.highImportanceNotificationChannelName, <span class="warning">NotificationManager.IMPORTANCE_HIGH</span>) {</span>
-<span class="lineno"> 18 </span>        <span class="keyword">public</span> <span class="keyword">void</span> config(NotificationChannel notificationChannel) {
-<span class="lineno"> 19 </span>            notificationChannel.setShowBadge(<span class="keyword">true</span>);
-<span class="lineno"> 20 </span>        }
-</pre>
-
-</div>
-<div class="metadata"><div class="explanation" id="explanationInlinedApi" style="display: none;">
-This check scans through all the Android API field references in the application and flags certain constants, such as static final integers and Strings, which were introduced in later versions. These will actually be copied into the class files rather than being referenced, which means that the value is available even when running on older devices. In some cases that's fine, and in other cases it can result in a runtime crash or incorrect behavior. It depends on the context, so consider the code carefully and device whether it's safe and can be suppressed or whether the code needs tbe guarded.<br/>
-<br/>
-If you really want to use this API and don't need to support older devices just set the <code>minSdkVersion</code> in your <code>build.gradle</code> or <code>AndroidManifest.xml</code> files.<br/>
-If your code is <b>deliberately</b> accessing newer APIs, and you have ensured (e.g. with conditional execution) that this code will only ever be called on a supported platform, then you can annotate your class or method with the <code>@TargetApi</code> annotation specifying the local minimum SDK to apply, such as <code>@TargetApi(11)</code>, such that this check considers 11 rather than your manifest file's minimum SDK as the required API level.<br/>
-<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
-To suppress this error, use the issue id "InlinedApi" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
-</div>
-</div>
-<div class="chips">
-<span class="mdl-chip">
-    <span class="mdl-chip__text">InlinedApi</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Correctness</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Warning</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Priority 6/10</span>
-</span>
-</div>
-              </div>
-              <div class="mdl-card__actions mdl-card--border">
-<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationInlinedApiLink" onclick="reveal('explanationInlinedApi');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card1Link" onclick="hideid('card1');">
-Dismiss</button>            </div>
-            </div>
-          </section><a name="NewApi"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card2" style="display: block;">
-            <div class="mdl-card mdl-cell mdl-cell--12-col">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Calling new methods on older versions</h2>
-  </div>
-              <div class="mdl-card__supporting-text">
-<div class="issue">
-<div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/jdroid/android/sample/application/AndroidNotificationChannelType.java">../../src/main/java/com/jdroid/android/sample/application/AndroidNotificationChannelType.java</a>:13</span>: <span class="message">Call requires API level 26 (current min is 16): <code>android.app.NotificationChannel#setShowBadge</code></span><br /><pre class="errorlines">
-<span class="lineno"> 10 </span>
-<span class="lineno"> 11 </span>    LOW_IMPORTANCE(<span class="string">"lowImportance"</span>, R.string.lowImportanceNotificationChannelName, NotificationManager.IMPORTANCE_LOW) {
-<span class="lineno"> 12 </span>        <span class="keyword">public</span> <span class="keyword">void</span> config(NotificationChannel notificationChannel) {
-<span class="caretline"><span class="lineno"> 13 </span>            notificationChannel.<span class="error">setShowBadge</span>(<span class="keyword">false</span>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 14 </span>        }
-<span class="lineno"> 15 </span>    },
-<span class="lineno"> 16 </span>    DEFAULT_IMPORTANCE(<span class="string">"defaultImportance"</span>, R.string.defaultImportanceNotificationChannelName, NotificationManager.IMPORTANCE_DEFAULT),
-</pre>
-
-<span class="location"><a href="../../src/main/java/com/jdroid/android/sample/application/AndroidNotificationChannelType.java">../../src/main/java/com/jdroid/android/sample/application/AndroidNotificationChannelType.java</a>:19</span>: <span class="message">Call requires API level 26 (current min is 16): <code>android.app.NotificationChannel#setShowBadge</code></span><br /><pre class="errorlines">
-<span class="lineno"> 16 </span>    DEFAULT_IMPORTANCE(<span class="string">"defaultImportance"</span>, R.string.defaultImportanceNotificationChannelName, NotificationManager.IMPORTANCE_DEFAULT),
-<span class="lineno"> 17 </span>    HIGH_IMPORTANCE(<span class="string">"highImportance"</span>, R.string.highImportanceNotificationChannelName, NotificationManager.IMPORTANCE_HIGH) {
-<span class="lineno"> 18 </span>        <span class="keyword">public</span> <span class="keyword">void</span> config(NotificationChannel notificationChannel) {
-<span class="caretline"><span class="lineno"> 19 </span>            notificationChannel.<span class="error">setShowBadge</span>(<span class="keyword">true</span>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 20 </span>        }
-<span class="lineno"> 21 </span>    };
-<span class="lineno"> 22 </span>
-</pre>
-
-</div>
-<div class="metadata"><div class="explanation" id="explanationNewApi" style="display: none;">
-This check scans through all the Android API calls in the application and warns about any calls that are not available on <b>all</b> versions targeted by this application (according to its minimum SDK attribute in the manifest).<br/>
-<br/>
-If you really want to use this API and don't need to support older devices just set the <code>minSdkVersion</code> in your <code>build.gradle</code> or <code>AndroidManifest.xml</code> files.<br/>
-<br/>
-If your code is <b>deliberately</b> accessing newer APIs, and you have ensured (e.g. with conditional execution) that this code will only ever be called on a supported platform, then you can annotate your class or method with the <code>@TargetApi</code> annotation specifying the local minimum SDK to apply, such as <code>@TargetApi(11)</code>, such that this check considers 11 rather than your manifest file's minimum SDK as the required API level.<br/>
-<br/>
-If you are deliberately setting <code>android:</code> attributes in style definitions, make sure you place this in a <code>values-vNN</code> folder in order to avoid running into runtime conflicts on certain devices where manufacturers have added custom attributes whose ids conflict with the new ones on later platforms.<br/>
-<br/>
-Similarly, you can use tools:targetApi="11" in an XML file to indicate that the element will only be inflated in an adequate context.<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
-To suppress this error, use the issue id "NewApi" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
-</div>
-</div>
-<div class="chips">
-<span class="mdl-chip">
-    <span class="mdl-chip__text">NewApi</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Correctness</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Error</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Priority 6/10</span>
-</span>
-</div>
-              </div>
-              <div class="mdl-card__actions mdl-card--border">
-<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationNewApiLink" onclick="reveal('explanationNewApi');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card2Link" onclick="hideid('card2');">
-Dismiss</button>            </div>
-            </div>
-          </section>
 <a name="Performance"></a>
 <a name="Overdraw"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card3" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card1" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Overdraw: Painting regions more than once</h2>
@@ -465,11 +319,11 @@ Of course it's possible that your custom drawable is translucent and you want it
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationOverdrawLink" onclick="reveal('explanationOverdraw');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card3Link" onclick="hideid('card3');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card1Link" onclick="hideid('card1');">
 Dismiss</button>            </div>
             </div>
           </section><a name="UnusedResources"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card4" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card2" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Unused resources</h2>
@@ -567,11 +421,11 @@ To suppress this error, use the issue id "UnusedResources" as explained in the <
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationUnusedResourcesLink" onclick="reveal('explanationUnusedResources');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card4Link" onclick="hideid('card4');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card2Link" onclick="hideid('card2');">
 Dismiss</button>            </div>
             </div>
           </section><a name="UselessLeaf"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card5" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card3" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Useless leaf layout</h2>
@@ -621,13 +475,13 @@ To suppress this error, use the issue id "UselessLeaf" as explained in the <a hr
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationUselessLeafLink" onclick="reveal('explanationUselessLeaf');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card5Link" onclick="hideid('card5');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card3Link" onclick="hideid('card3');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="Usability:Icons"></a>
 <a name="IconDensities"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card6" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card4" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Icon densities validation</h2>
@@ -667,12 +521,12 @@ Low density is not really used much anymore, so this check ignores the ldpi dens
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationIconDensitiesLink" onclick="reveal('explanationIconDensities');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card6Link" onclick="hideid('card6');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card4Link" onclick="hideid('card4');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="MissingIssues"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card7" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card5" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Disabled Checks</h2>
@@ -1007,12 +861,12 @@ There's a lint quickfix to perform this conversion in the Eclipse plugin.<br/><b
 </div>              </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="SuppressedIssuesLink" onclick="reveal('SuppressedIssues');">
-List Missing Issues</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card7Link" onclick="hideid('card7');">
+List Missing Issues</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card5Link" onclick="hideid('card5');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="SuppressInfo"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card8" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card6" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Suppressing Warnings and Errors</h2>
