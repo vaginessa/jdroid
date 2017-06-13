@@ -5,6 +5,7 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.firebase.fcm.FcmMessage;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
+import com.jdroid.android.sample.application.AndroidNotificationChannelType;
 import com.jdroid.java.date.DateTimeFormat;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.IdGenerator;
@@ -21,7 +22,7 @@ public enum AndroidFcmMessage implements FcmMessage {
 		
 		@Override
 		public void handle(RemoteMessage remoteMessage) {
-			NotificationBuilder builder = new NotificationBuilder("pushNotification");
+			NotificationBuilder builder = new NotificationBuilder("pushNotification", AndroidNotificationChannelType.DEFAULT_IMPORTANCE);
 			builder.setSmallIcon(AbstractApplication.get().getNotificationIconResId());
 			builder.setTicker("Sample Ticker");
 			builder.setContentTitle("Sample Content Title");

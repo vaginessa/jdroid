@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
+import com.jdroid.android.sample.application.AndroidNotificationChannelType;
 import com.jdroid.android.service.WorkerService;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.IdGenerator;
@@ -19,7 +20,7 @@ public class SampleWorkerService extends WorkerService {
 		if (fail) {
 			throw new UnexpectedException("Failing service");
 		} else {
-			NotificationBuilder builder = new NotificationBuilder("myNotification");
+			NotificationBuilder builder = new NotificationBuilder("myNotification", AndroidNotificationChannelType.DEFAULT_IMPORTANCE);
 			builder.setSmallIcon(AbstractApplication.get().getNotificationIconResId());
 			builder.setTicker("Sample Ticker");
 			builder.setContentTitle(getClass().getSimpleName());

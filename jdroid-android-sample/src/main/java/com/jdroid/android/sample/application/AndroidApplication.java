@@ -6,7 +6,6 @@ import android.content.pm.ShortcutInfo;
 import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 
@@ -27,6 +26,7 @@ import com.jdroid.android.google.analytics.GoogleAnalyticsFactory;
 import com.jdroid.android.google.analytics.GoogleCoreAnalyticsTracker;
 import com.jdroid.android.google.inappbilling.InAppBillingAppModule;
 import com.jdroid.android.http.HttpConfiguration;
+import com.jdroid.android.notification.NotificationChannelType;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.debug.AndroidDebugContext;
@@ -46,7 +46,6 @@ import com.jdroid.android.sample.ui.sqlite.SampleSQLiteRepository;
 import com.jdroid.android.sample.ui.uri.SampleUriWatcher;
 import com.jdroid.android.shortcuts.AppShortcutsHelper;
 import com.jdroid.android.sqlite.SQLiteHelper;
-import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.domain.Identifiable;
@@ -186,5 +185,10 @@ public class AndroidApplication extends AbstractApplication {
 	@Override
 	public String getManifestPackageName() {
 		return "com.jdroid.android.sample";
+	}
+	
+	@Override
+	public List<NotificationChannelType> getNotificationChannelTypes() {
+		return Lists.<NotificationChannelType>newArrayList(AndroidNotificationChannelType.values());
 	}
 }

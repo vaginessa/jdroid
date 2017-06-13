@@ -13,6 +13,7 @@ import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.android.sample.R;
+import com.jdroid.android.sample.application.AndroidNotificationChannelType;
 import com.jdroid.android.uil.UilBitmapLoader;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.date.DateUtils;
@@ -22,6 +23,7 @@ import com.jdroid.java.utils.StringUtils;
 public class NotificationsFragment extends AbstractFragment {
 
 	private EditText notificationName;
+	private EditText notificationChannel;
 	private EditText contentTitle;
 	private EditText contentText;
 	private EditText largeIconUrlEditText;
@@ -40,6 +42,9 @@ public class NotificationsFragment extends AbstractFragment {
 
 		notificationName = findView(R.id.notificationName);
 		notificationName.setText("myNotification");
+		
+		notificationChannel = findView(R.id.notificationChannel);
+		notificationChannel.setText(AndroidNotificationChannelType.DEFAULT_IMPORTANCE.getId());
 
 		contentTitle = findView(R.id.contentTitle);
 		contentTitle.setText(R.string.contentTitleSample);
@@ -64,7 +69,7 @@ public class NotificationsFragment extends AbstractFragment {
 				ExecutorUtils.execute(new Runnable() {
 					@Override
 					public void run() {
-						NotificationBuilder builder = new NotificationBuilder(notificationName.getText().toString());
+						NotificationBuilder builder = new NotificationBuilder(notificationName.getText().toString(), notificationChannel.getText().toString());
 						builder.setSmallIcon(AbstractApplication.get().getNotificationIconResId());
 
 						if (largeIconDrawable.isChecked()) {

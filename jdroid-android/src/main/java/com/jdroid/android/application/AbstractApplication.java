@@ -21,7 +21,6 @@ import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.activity.ActivityLifecycleHandler;
 import com.jdroid.android.analytics.CoreAnalyticsSender;
 import com.jdroid.android.analytics.CoreAnalyticsTracker;
-import com.jdroid.android.lifecycle.ApplicationLifecycleHelper;
 import com.jdroid.android.context.AndroidGitContext;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
@@ -31,6 +30,9 @@ import com.jdroid.android.firebase.testlab.FirebaseTestLab;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.http.cache.CacheManager;
 import com.jdroid.android.leakcanary.LeakCanaryHelper;
+import com.jdroid.android.lifecycle.ApplicationLifecycleHelper;
+import com.jdroid.android.notification.NotificationChannelType;
+import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
 import com.jdroid.android.sqlite.SQLiteUpgradeStep;
@@ -163,6 +165,8 @@ public abstract class AbstractApplication extends Application {
 			if (appContext.isStrictModeEnabled()) {
 				initStrictMode();
 			}
+			
+			NotificationUtils.createNotificationChannelsByType(getNotificationChannelTypes());
 			
 			initAppModule(appModulesMap);
 			
@@ -571,11 +575,16 @@ public abstract class AbstractApplication extends Application {
 	}
 
 	@MainThread
+	@CallSuper
 	public void onLocaleChanged() {
-		// Do nothing
+		NotificationUtils.createNotificationChannelsByType(getNotificationChannelTypes());
 	}
 	
 	public void addCoreAnalyticsTracker(CoreAnalyticsTracker coreAnalyticsTracker) {
 		this.coreAnalyticsTrackers.add(coreAnalyticsTracker);
+	}
+	
+	public List<NotificationChannelType> getNotificationChannelTypes() {
+		return Lists.newArrayList();
 	}
 }

@@ -150,6 +150,7 @@
 	<!-- Notifications -->
 	<string name="notifications">Notifications</string>
 	<string name="notificationName">Notification name</string>
+	<string name="notificationChannel">Notification channel</string>
 	<string name="contentTitle">Content title</string>
 	<string name="contentText">Content text</string>
 	<string name="url">Url</string>
@@ -159,6 +160,9 @@
 	<string name="cancelNotifications">Cancel Notifications</string>
 	<string name="contentTitleSample">Title example</string>
 	<string name="contextTextSample">Description example</string>
+	<string name="lowImportanceNotificationChannelName">Notification channel lowImportance</string>
+	<string name="defaultImportanceNotificationChannelName">Notification channel defaultImportance</string>
+	<string name="highImportanceNotificationChannelName">Notification channel highImportance</string>
 
 	<!-- Toasts -->
 	<string name="toasts">Toasts</string>

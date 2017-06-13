@@ -4,9 +4,10 @@ import android.os.Bundle;
 
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.google.gcm.ServiceCommand;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
-import com.jdroid.android.google.gcm.ServiceCommand;
+import com.jdroid.android.sample.application.AndroidNotificationChannelType;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.IdGenerator;
 
@@ -18,7 +19,7 @@ public class SampleServiceCommand4 extends ServiceCommand {
 		if (fail) {
 			throw new UnexpectedException("Failing service");
 		} else {
-			NotificationBuilder builder = new NotificationBuilder("myNotification");
+			NotificationBuilder builder = new NotificationBuilder("myNotification", AndroidNotificationChannelType.DEFAULT_IMPORTANCE);
 			builder.setSmallIcon(AbstractApplication.get().getNotificationIconResId());
 			builder.setTicker("Sample Ticker");
 			builder.setContentTitle(getClass().getSimpleName());
@@ -31,7 +32,7 @@ public class SampleServiceCommand4 extends ServiceCommand {
 
 	@Override
 	protected int executeRetry(Bundle bundle) {
-		NotificationBuilder builder = new NotificationBuilder("myNotification");
+		NotificationBuilder builder = new NotificationBuilder("myNotification", AndroidNotificationChannelType.DEFAULT_IMPORTANCE);
 		builder.setSmallIcon(AbstractApplication.get().getNotificationIconResId());
 		builder.setTicker("Sample Ticker");
 		builder.setContentTitle(getClass().getSimpleName());

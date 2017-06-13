@@ -25,7 +25,6 @@ import com.jdroid.android.uri.ReferrerUtils;
 import com.jdroid.android.uri.UriUtils;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.LocalizationUtils;
-import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.RandomUtils;
 import com.jdroid.java.utils.StringUtils;
 
@@ -38,13 +37,14 @@ public class NotificationBuilder {
 
 	private NotificationCompat.Builder builder;
 	
-	public NotificationBuilder(String notificationName) {
+	public NotificationBuilder(@NonNull String notificationName, @NonNull NotificationChannelType notificationChannelType) {
+		this(notificationName, notificationChannelType.getId());
+	}
+	
+	public NotificationBuilder(@NonNull String notificationName, @NonNull String channelId) {
 		this.notificationName = notificationName;
-		if (notificationName == null) {
-			throw new UnexpectedException("Missing notificationName");
-		}
 		Context context = AbstractApplication.get();
-		builder = new NotificationCompat.Builder(context);
+		builder = new NotificationCompat.Builder(context, channelId);
 		builder.setAutoCancel(true);
 		setColor(R.color.jdroid_colorPrimary);
 	}

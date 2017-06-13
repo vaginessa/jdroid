@@ -1,10 +1,16 @@
 package com.jdroid.android.notification;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.utils.ScreenUtils;
+
+import java.util.List;
 
 public class NotificationUtils {
 	
@@ -30,6 +36,24 @@ public class NotificationUtils {
 	 */
 	public static void cancelAllNotifications() {
 		NOTIFICATION_MANAGER.cancelAll();
+	}
+	
+	@RequiresApi(api = Build.VERSION_CODES.O)
+	public static void createNotificationChannel(NotificationChannel notificationChannel) {
+		NOTIFICATION_MANAGER.createNotificationChannel(notificationChannel);
+	}
+	
+	@RequiresApi(api = Build.VERSION_CODES.O)
+	public static void createNotificationChannels(List<NotificationChannel> notificationChannels) {
+		NOTIFICATION_MANAGER.createNotificationChannels(notificationChannels);
+	}
+	
+	public static void createNotificationChannelsByType(List<NotificationChannelType> notificationChannelTypes) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			for (NotificationChannelType notificationChannelType : notificationChannelTypes) {
+				NotificationUtils.createNotificationChannel(NotificationChannelFactory.createNotificationChannel(notificationChannelType));
+			}
+		}
 	}
 	
 	public static int getNotificationLargeIconWidthPx() {

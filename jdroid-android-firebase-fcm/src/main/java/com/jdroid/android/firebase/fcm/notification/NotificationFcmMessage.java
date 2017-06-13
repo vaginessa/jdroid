@@ -14,6 +14,7 @@ import com.jdroid.java.utils.TypeUtils;
 
 public class NotificationFcmMessage implements FcmMessage {
 
+	public static final String CHANNEL = "channel";
 	public static final String CONTENT_TITLE = "contentTitle";
 	public static final String CONTENT_TEXT = "contentText";
 	public static final String SOUND_ENABLED = "soundEnabled";
@@ -26,7 +27,7 @@ public class NotificationFcmMessage implements FcmMessage {
 
 	@Override
 	public void handle(RemoteMessage remoteMessage) {
-		NotificationBuilder builder = new NotificationBuilder(getMessageKey());
+		NotificationBuilder builder = new NotificationBuilder(getMessageKey(), remoteMessage.getData().get(CHANNEL));
 
 		initContentTitle(remoteMessage, builder);
 		initContentText(remoteMessage, builder);
