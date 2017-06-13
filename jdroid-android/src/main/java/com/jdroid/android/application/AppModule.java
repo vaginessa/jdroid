@@ -14,6 +14,9 @@ import java.util.List;
 
 public interface AppModule {
 
+	/*
+	 * Since Android O, have a guaranteed life cycle limited to 10 seconds for this method execution.
+	 */
 	@WorkerThread
 	public void onInstanceIdTokenRefresh();
 

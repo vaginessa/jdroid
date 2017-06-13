@@ -18,6 +18,11 @@ public class InstanceIdService extends FirebaseInstanceIdService {
 	 * the previous token had been compromised. Note that this is also called
 	 * when the InstanceID token is initially generated, so this is where
 	 * you retrieve the token.
+	 *
+	 * Since Android O, have a guaranteed life cycle limited to 10 seconds for this method execution.
+	 * To avoid your process being terminated before your callback is completed, be sure to perform only quick operations
+	 * (like updating a local database, or displaying a custom notification) inside the callback, and use JobScheduler to
+	 * schedule longer background processes (like downloading additional images or syncing the database with a remote source).
 	 */
 	@WorkerThread
 	@Override

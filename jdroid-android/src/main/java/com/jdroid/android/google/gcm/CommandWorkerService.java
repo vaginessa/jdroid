@@ -71,6 +71,9 @@ public class CommandWorkerService extends WorkerService {
 	private static void startGcmTaskService(Bundle bundle, ServiceCommand serviceCommand) {
 		LOGGER.info("Scheduling GCM Task Service for " + serviceCommand.getClass().getSimpleName());
 
+		if (bundle == null) {
+			bundle = new Bundle();
+		}
 		bundle.putSerializable(CommandWorkerService.COMMAND_EXTRA, serviceCommand.getClass().getName());
 
 		Task.Builder builder = serviceCommand.createRetryTaskBuilder();

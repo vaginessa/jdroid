@@ -6,6 +6,7 @@ import android.content.pm.ShortcutManager;
 import android.os.Build;
 
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.google.gcm.ServiceCommand;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -70,7 +71,9 @@ public class AppShortcutsHelper {
 	}
 	
 	public static void registerDynamicShortcuts() {
-		new AppShortcutsCommand().start();
+		ServiceCommand serviceCommand = new AppShortcutsCommand();
+		serviceCommand.setInstantExecutionRequired(false);
+		serviceCommand.start();
 	}
 	
 	public static Boolean isAppShortcutsAvailable() {

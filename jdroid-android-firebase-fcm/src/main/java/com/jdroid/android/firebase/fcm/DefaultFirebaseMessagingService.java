@@ -9,6 +9,12 @@ import com.google.firebase.messaging.RemoteMessage;
  */
 public class DefaultFirebaseMessagingService extends FirebaseMessagingService {
 
+	/*
+	 * Since Android O, have a guaranteed life cycle limited to 10 seconds for this method execution.
+	 * To avoid your process being terminated before your callback is completed, be sure to perform only quick operations
+	 * (like updating a local database, or displaying a custom notification) inside the callback, and use JobScheduler to
+	 * schedule longer background processes (like downloading additional images or syncing the database with a remote source).
+	 */
 	@Override
 	public void onMessageReceived(RemoteMessage remoteMessage) {
 		AbstractFcmAppModule.get().getFcmListenerResolver().onMessageReceived(remoteMessage);

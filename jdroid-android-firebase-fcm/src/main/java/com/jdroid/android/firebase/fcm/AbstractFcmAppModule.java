@@ -50,7 +50,7 @@ public abstract class AbstractFcmAppModule extends AbstractAppModule {
 			@Override
 			public void onCreate(Bundle savedInstanceState) {
 				if (!fcmInitialized) {
-					startFcmRegistration(true);
+					startFcmRegistration(true, true);
 					fcmInitialized = true;
 				}
 			}
@@ -64,21 +64,23 @@ public abstract class AbstractFcmAppModule extends AbstractAppModule {
 	@WorkerThread
 	@Override
 	public void onInstanceIdTokenRefresh() {
-		startFcmRegistration(false);
+		startFcmRegistration(false, false);
 	}
 
 	@Override
 	public void onGooglePlayServicesUpdated() {
-		startFcmRegistration(false);
+		startFcmRegistration(false, true);
 	}
 
 	@Override
 	public void onInitializeGcmTasks() {
-		startFcmRegistration(false);
+		startFcmRegistration(false, true);
 	}
 
-	public void startFcmRegistration(Boolean updateLastActiveTimestamp) {
-		createFcmRegistrationCommand().start(updateLastActiveTimestamp);
+	public void startFcmRegistration(Boolean updateLastActiveTimestamp, Boolean isInstantExecutionRequired) {
+		FcmRegistrationCommand fcmRegistrationCommand = createFcmRegistrationCommand();
+		fcmRegistrationCommand.setInstantExecutionRequired(isInstantExecutionRequired);
+		fcmRegistrationCommand.start(updateLastActiveTimestamp);
 	}
 
 	protected FcmRegistrationCommand createFcmRegistrationCommand() {
