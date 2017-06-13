@@ -1,20 +1,43 @@
 package com.jdroid.android.sample.application;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 
 import com.jdroid.android.notification.NotificationChannelType;
 import com.jdroid.android.sample.R;
 
+@SuppressLint("NewApi")
 public enum AndroidNotificationChannelType implements NotificationChannelType {
 	
-	LOW_IMPORTANCE("lowImportance", R.string.lowImportanceNotificationChannelName, NotificationManager.IMPORTANCE_LOW) {
+	LOW_IMPORTANCE("lowImportance", R.string.lowImportanceNotificationChannelName) {
+		
+		@Override
+		public int getImportance() {
+			return NotificationManager.IMPORTANCE_LOW;
+		}
+		
+		@Override
 		public void config(NotificationChannel notificationChannel) {
 			notificationChannel.setShowBadge(false);
 		}
 	},
-	DEFAULT_IMPORTANCE("defaultImportance", R.string.defaultImportanceNotificationChannelName, NotificationManager.IMPORTANCE_DEFAULT),
-	HIGH_IMPORTANCE("highImportance", R.string.highImportanceNotificationChannelName, NotificationManager.IMPORTANCE_HIGH) {
+	DEFAULT_IMPORTANCE("defaultImportance", R.string.defaultImportanceNotificationChannelName) {
+		
+		@Override
+		public int getImportance() {
+			return NotificationManager.IMPORTANCE_DEFAULT;
+		}
+		
+	},
+	HIGH_IMPORTANCE("highImportance", R.string.highImportanceNotificationChannelName) {
+		
+		@Override
+		public int getImportance() {
+			return NotificationManager.IMPORTANCE_HIGH;
+		}
+		
+		@Override
 		public void config(NotificationChannel notificationChannel) {
 			notificationChannel.setShowBadge(true);
 		}
@@ -22,12 +45,10 @@ public enum AndroidNotificationChannelType implements NotificationChannelType {
 	
 	private String id;
 	private int nameResId;
-	private int importance;
 	
-	AndroidNotificationChannelType(String id, int nameResId, int importance) {
+	AndroidNotificationChannelType(String id, int nameResId) {
 		this.id = id;
 		this.nameResId = nameResId;
-		this.importance = importance;
 	}
 	
 	@Override
@@ -43,10 +64,5 @@ public enum AndroidNotificationChannelType implements NotificationChannelType {
 	@Override
 	public int getNameResId() {
 		return nameResId;
-	}
-	
-	@Override
-	public int getImportance() {
-		return importance;
 	}
 }
