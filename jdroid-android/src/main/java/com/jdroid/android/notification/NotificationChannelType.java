@@ -6,7 +6,7 @@ public interface NotificationChannelType {
 	
 	String getId();
 	
-	int getNameResId();
+	String getName();
 	
 	int getImportance();
 	

@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 
 import com.jdroid.android.notification.NotificationChannelType;
 import com.jdroid.android.sample.R;
+import com.jdroid.android.utils.LocalizationUtils;
 
 @SuppressLint("NewApi")
 public enum AndroidNotificationChannelType implements NotificationChannelType {
@@ -62,7 +63,7 @@ public enum AndroidNotificationChannelType implements NotificationChannelType {
 	}
 	
 	@Override
-	public int getNameResId() {
-		return nameResId;
+	public String getName() {
+		return LocalizationUtils.getString(nameResId);
 	}
 }
