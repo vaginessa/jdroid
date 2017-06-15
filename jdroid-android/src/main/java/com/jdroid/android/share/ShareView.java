@@ -1,6 +1,5 @@
 package com.jdroid.android.share;
 
-import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -9,8 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
 import com.jdroid.android.R;
 import com.jdroid.android.utils.ScreenUtils;
+
+import java.util.List;
 
 public class ShareView extends FrameLayout {
 	
@@ -26,15 +28,15 @@ public class ShareView extends FrameLayout {
 		super(context);
 	}
 	
-	public void init(Context context, final SharingItem sharingCommand) {
+	public void init(Context context, final SharingItem sharingItem) {
 		LayoutInflater.from(context).inflate(R.layout.jdroid_share_view, this, true);
-		((ImageView)findViewById(R.id.shareAppIcon)).setImageDrawable(sharingCommand.getAppIcon());
+		((ImageView)findViewById(R.id.shareAppIcon)).setImageDrawable(sharingItem.getAppIcon());
 		
 		setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				sharingCommand.share();
+				sharingItem.share();
 			}
 		});
 	}
