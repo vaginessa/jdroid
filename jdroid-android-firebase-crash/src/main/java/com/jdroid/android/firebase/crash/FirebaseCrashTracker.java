@@ -32,7 +32,7 @@ public class FirebaseCrashTracker extends AbstractCoreAnalyticsTracker {
 	@Override
 	public void onActivityCreate(Activity activity, Bundle savedInstanceState) {
 		super.onActivityCreate(activity, savedInstanceState);
-		FirebaseCrash.log(activity.getClass().getSimpleName() + " created");
+		FirebaseCrash.log(activity.getClass().getSimpleName() + " created. SavedInstanceState " + (savedInstanceState != null ? "not null" : "null"));
 	}
 
 	@Override
