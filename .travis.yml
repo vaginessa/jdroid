@@ -10,10 +10,10 @@ android:
     - tools
     - tools
     - platform-tools
+    - tools
     - build-tools-26.0.0
     - android-26
     - extra-android-m2repository
-    - extra-google-m2repository
 
 script: sh ./etc/scripts/test.sh false
 

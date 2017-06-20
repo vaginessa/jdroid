@@ -82,11 +82,15 @@ public abstract class WorkerService extends IntentService {
 	protected static void runIntentInService(Context context, Bundle bundle, Class<? extends WorkerService> serviceClass) {
 		Intent intent = new Intent();
 		intent.putExtras(bundle);
-		context.startService(getServiceIntent(context, intent, serviceClass));
+		runIntentInService(context, intent, serviceClass);
 	}
 
 	protected static void runIntentInService(Context context, Intent intent, Class<? extends WorkerService> serviceClass) {
-		context.startService(getServiceIntent(context, intent, serviceClass));
+		try {
+			context.startService(getServiceIntent(context, intent, serviceClass));
+		} catch (Exception e) {
+			AbstractApplication.get().getExceptionHandler().logHandledException(e);
+		}
 	}
 
 	protected static Intent getServiceIntent(Context context, Intent intent, Class<? extends WorkerService> serviceClass) {
