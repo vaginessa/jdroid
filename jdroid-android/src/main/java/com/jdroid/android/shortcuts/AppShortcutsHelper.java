@@ -1,10 +1,7 @@
 package com.jdroid.android.shortcuts;
 
 import android.annotation.TargetApi;
-<<<<<<< HEAD
 import android.app.PendingIntent;
-=======
->>>>>>> master
 import android.content.Intent;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
