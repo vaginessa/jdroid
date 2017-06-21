@@ -90,4 +90,8 @@ public class AppShortcutsHelper {
 		intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
 		AbstractApplication.get().sendBroadcast(intent);
 	}
+	
+	public static Boolean isPinShortcutAvailable() {
+		return AndroidUtils.getApiLevel() <= Build.VERSION_CODES.N_MR1;
+	}
 }
