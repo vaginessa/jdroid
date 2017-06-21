@@ -1,6 +1,8 @@
 package com.jdroid.android.shortcuts;
 
 import android.annotation.TargetApi;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.os.Build;
@@ -78,5 +80,25 @@ public class AppShortcutsHelper {
 	
 	public static Boolean isAppShortcutsAvailable() {
 		return AndroidUtils.getApiLevel() >= Build.VERSION_CODES.N_MR1;
+	}
+	
+	@TargetApi(Build.VERSION_CODES.O)
+	public static void pinShortcut(ShortcutInfo shortcutInfo) {
+		ShortcutManager shortcutManager = AbstractApplication.get().getSystemService(ShortcutManager.class);
+		if (shortcutManager.isRequestPinShortcutSupported()) {
+			shortcutManager.requestPinShortcut(shortcutInfo, null);
+		}
+	}
+	
+	@TargetApi(Build.VERSION_CODES.O)
+	public static void pinShortcut(ShortcutInfo shortcutInfo, Intent shortcutResultIntent) {
+		ShortcutManager shortcutManager = AbstractApplication.get().getSystemService(ShortcutManager.class);
+		if (shortcutManager.isRequestPinShortcutSupported()) {
+			// Create the PendingIntent object only if your app needs to be notified that the user allowed the shortcut to be pinned.
+			// Note that, if the pinning operation fails, your app isn't notified.
+			// Configure the intent so that your app's broadcast receiver gets the callback successfully.
+			PendingIntent successCallback = PendingIntent.getBroadcast(AbstractApplication.get(), 0, shortcutResultIntent, 0);
+			shortcutManager.requestPinShortcut(shortcutInfo, successCallback.getIntentSender());
+		}
 	}
 }
