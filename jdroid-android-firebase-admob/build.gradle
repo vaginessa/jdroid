@@ -10,7 +10,7 @@ configurations.all {
 
 buildscript {
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-android-plugin:' + JDROID_GRADLE_PLUGIN_VERSION
+		classpath "com.jdroidframework:jdroid-gradle-android-plugin:${JDROID_GRADLE_PLUGIN_VERSION}"
 	}
 }
 
@@ -26,10 +26,10 @@ dependencies {
 		releaseCompile project(path: ':jdroid-android-firebase-remoteconfig', configuration: 'release')
 	}
 
-	compile 'com.google.firebase:firebase-ads:' + GOOGLE_PLAY_SERVICES_VERSION
+	compile "com.google.firebase:firebase-ads:${GOOGLE_PLAY_SERVICES_VERSION}"
 
-	testCompile 'junit:junit:' + JUNIT_VERSION
-	testCompile 'org.robolectric:robolectric:' + ROBOLECTRIC_VERSION
+	testCompile "junit:junit:${JUNIT_VERSION}"
+	testCompile "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
 }
 
 jdroid {

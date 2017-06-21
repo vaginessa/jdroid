@@ -1,11 +1,15 @@
 package com.jdroid.android.shortcuts;
 
 import android.annotation.TargetApi;
+<<<<<<< HEAD
 import android.app.PendingIntent;
+=======
+>>>>>>> master
 import android.content.Intent;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.os.Build;
+import android.support.annotation.AnyRes;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.gcm.ServiceCommand;
@@ -100,5 +104,14 @@ public class AppShortcutsHelper {
 			PendingIntent successCallback = PendingIntent.getBroadcast(AbstractApplication.get(), 0, shortcutResultIntent, 0);
 			shortcutManager.requestPinShortcut(shortcutInfo, successCallback.getIntentSender());
 		}
+	}
+	
+	public static void pinShortcut(Intent shortcutIntent, String shortcutName, @AnyRes int iconResId) {
+		Intent intent = new Intent();
+		intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+		intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, shortcutName);
+		intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(AbstractApplication.get(), iconResId));
+		intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+		AbstractApplication.get().sendBroadcast(intent);
 	}
 }

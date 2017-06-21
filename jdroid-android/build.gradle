@@ -15,7 +15,7 @@ configurations.all {
 
 buildscript {
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-android-plugin:' + JDROID_GRADLE_PLUGIN_VERSION
+		classpath "com.jdroidframework:jdroid-gradle-android-plugin:${JDROID_GRADLE_PLUGIN_VERSION}"
 	}
 }
 
@@ -23,27 +23,27 @@ dependencies {
 
 	compile 'org.slf4j:slf4j-android:1.6.1-RC1'
 
-	compile 'com.android.support:support-v4:' + ANDROID_SUPPORT_VERSION
-	compile 'com.android.support:support-v13:'  + ANDROID_SUPPORT_VERSION
-	compile 'com.android.support:design:' + ANDROID_SUPPORT_VERSION
-	compile 'com.android.support:recyclerview-v7:' + ANDROID_SUPPORT_VERSION
-	compile 'com.android.support:appcompat-v7:' + ANDROID_SUPPORT_VERSION
-	compile 'com.android.support:cardview-v7:' + ANDROID_SUPPORT_VERSION
+	compile "com.android.support:support-v4:${ANDROID_SUPPORT_VERSION}"
+	compile "com.android.support:support-v13:${ANDROID_SUPPORT_VERSION}"
+	compile "com.android.support:design:${ANDROID_SUPPORT_VERSION}"
+	compile "com.android.support:recyclerview-v7:${ANDROID_SUPPORT_VERSION}"
+	compile "com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"
+	compile "com.android.support:cardview-v7:${ANDROID_SUPPORT_VERSION}"
 
-	compile 'com.google.android.gms:play-services-analytics:' + GOOGLE_PLAY_SERVICES_VERSION
-	compile 'com.google.android.gms:play-services-base:' + GOOGLE_PLAY_SERVICES_VERSION
-	compile 'com.google.android.gms:play-services-gcm:' + GOOGLE_PLAY_SERVICES_VERSION
-	compile 'com.google.android.gms:play-services-location:' + GOOGLE_PLAY_SERVICES_VERSION
+	compile "com.google.android.gms:play-services-analytics:${GOOGLE_PLAY_SERVICES_VERSION}"
+	compile "com.google.android.gms:play-services-base:${GOOGLE_PLAY_SERVICES_VERSION}"
+	compile "com.google.android.gms:play-services-gcm:${GOOGLE_PLAY_SERVICES_VERSION}"
+	compile "com.google.android.gms:play-services-location:${GOOGLE_PLAY_SERVICES_VERSION}"
 
-	compile 'com.google.firebase:firebase-core:' + GOOGLE_PLAY_SERVICES_VERSION
-	compile 'com.google.firebase:firebase-appindexing:' + GOOGLE_PLAY_SERVICES_VERSION
-	compile 'com.google.firebase:firebase-messaging:' + GOOGLE_PLAY_SERVICES_VERSION
-	compile 'com.google.firebase:firebase-invites:' + GOOGLE_PLAY_SERVICES_VERSION
-	compile 'com.google.firebase:firebase-perf:' + GOOGLE_PLAY_SERVICES_VERSION
+	compile "com.google.firebase:firebase-core:${GOOGLE_PLAY_SERVICES_VERSION}"
+	compile "com.google.firebase:firebase-appindexing:${GOOGLE_PLAY_SERVICES_VERSION}"
+	compile "com.google.firebase:firebase-messaging:${GOOGLE_PLAY_SERVICES_VERSION}"
+	compile "com.google.firebase:firebase-invites:${GOOGLE_PLAY_SERVICES_VERSION}"
+	compile "com.google.firebase:firebase-perf:${GOOGLE_PLAY_SERVICES_VERSION}"
 
-	debugCompile ('com.squareup.leakcanary:leakcanary-android:' + LEAK_CANARY_VERSION) { force = true }
-	releaseCompile ('com.squareup.leakcanary:leakcanary-android-no-op:' + LEAK_CANARY_VERSION) { force = true }
-	testCompile ('com.squareup.leakcanary:leakcanary-android-no-op:' + LEAK_CANARY_VERSION) { force = true }
+	debugCompile ("com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY_VERSION}") { force = true }
+	releaseCompile ("com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY_VERSION}") { force = true }
+	testCompile ("com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY_VERSION}") { force = true }
 
 	// https://github.com/facebook/device-year-class
 	compile 'com.facebook.device.yearclass:yearclass:1.0.1'
@@ -53,19 +53,19 @@ dependencies {
 	if (jdroid.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
 		compile project(":jdroid-java-core")
 	} else {
-		compile 'com.jdroidframework:jdroid-java-core:' + JDROID_JAVA_VERSION
+		compile "com.jdroidframework:jdroid-java-core:${JDROID_JAVA_VERSION}"
 	}
 
 	if (jdroid.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
 		compile project(":jdroid-java-http-core")
 	} else {
-		compile ('com.jdroidframework:jdroid-java-http-core:' + JDROID_JAVA_HTTP_VERSION) {
+		compile ("com.jdroidframework:jdroid-java-http-core:${JDROID_JAVA_HTTP_VERSION}") {
 			exclude module: 'jdroid-java-core'
 		}
 	}
 
-	testCompile 'junit:junit:' + JUNIT_VERSION
-	testCompile 'org.robolectric:robolectric:' + ROBOLECTRIC_VERSION
+	testCompile "junit:junit:${JUNIT_VERSION}"
+	testCompile "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
 }
 
 jdroid {

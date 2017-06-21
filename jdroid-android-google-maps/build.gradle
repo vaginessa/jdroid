@@ -10,7 +10,7 @@ configurations.all {
 
 buildscript {
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-android-plugin:' + JDROID_GRADLE_PLUGIN_VERSION
+		classpath "com.jdroidframework:jdroid-gradle-android-plugin:${JDROID_GRADLE_PLUGIN_VERSION}"
 	}
 }
 
@@ -21,19 +21,19 @@ dependencies {
 		releaseCompile project(path: ":jdroid-android", configuration: 'release')
 	}
 
-	compile 'com.google.android.gms:play-services-maps:' + GOOGLE_PLAY_SERVICES_VERSION
+	compile "com.google.android.gms:play-services-maps:${GOOGLE_PLAY_SERVICES_VERSION}"
 
 	if (jdroid.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
 		testCompile project(":jdroid-java-http-okhttp")
 	} else {
-		testCompile ('com.jdroidframework:jdroid-java-http-okhttp:' + JDROID_JAVA_HTTP_VERSION) {
+		testCompile ("com.jdroidframework:jdroid-java-http-okhttp:${JDROID_JAVA_HTTP_VERSION}") {
 			exclude module: 'slf4j-api'
 			exclude module: 'jdroid-java-core'
 		}
 	}
 
-	testCompile 'junit:junit:' + JUNIT_VERSION
-	testCompile 'org.robolectric:robolectric:' + ROBOLECTRIC_VERSION
+	testCompile "junit:junit:${JUNIT_VERSION}"
+	testCompile "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
 }
 
 jdroid {

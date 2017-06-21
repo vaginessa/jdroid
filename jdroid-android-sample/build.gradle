@@ -23,7 +23,7 @@ configurations {
 
 buildscript {
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-android-plugin:' + JDROID_GRADLE_PLUGIN_VERSION
+		classpath "com.jdroidframework:jdroid-gradle-android-plugin:${JDROID_GRADLE_PLUGIN_VERSION}"
 	}
 }
 
@@ -124,7 +124,7 @@ dependencies {
 			exclude module: 'jdroid-java-core'
 		}
 	} else {
-		compile('com.jdroidframework:jdroid-java-firebase-database:' + JDROID_JAVA_VERSION) {
+		compile("com.jdroidframework:jdroid-java-firebase-database:${JDROID_JAVA_VERSION}") {
 			exclude module: 'slf4j-api'
 			exclude group: 'com.firebase', module: 'firebase-client-jvm'
 			exclude module: 'jdroid-java-core'
@@ -134,14 +134,14 @@ dependencies {
 	if (jdroid.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
 		compile project(":jdroid-java-http-okhttp")
 	} else {
-		compile ('com.jdroidframework:jdroid-java-http-okhttp:' + JDROID_JAVA_HTTP_VERSION) {
+		compile ("com.jdroidframework:jdroid-java-http-okhttp:${JDROID_JAVA_HTTP_VERSION}") {
 			exclude module: 'slf4j-api'
 			exclude module: 'jdroid-java-core'
 		}
 	}
 
-	testCompile 'junit:junit:' + JUNIT_VERSION
-	testCompile 'org.robolectric:robolectric:' + ROBOLECTRIC_VERSION
+	testCompile "junit:junit:${JUNIT_VERSION}"
+	testCompile "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
 }
 
 

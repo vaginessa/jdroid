@@ -10,7 +10,7 @@ configurations.all {
 
 buildscript {
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-android-plugin:' + JDROID_GRADLE_PLUGIN_VERSION
+		classpath "com.jdroidframework:jdroid-gradle-android-plugin:${JDROID_GRADLE_PLUGIN_VERSION}"
 	}
 }
 
@@ -21,8 +21,8 @@ dependencies {
 		releaseCompile project(path: ":jdroid-android", configuration: 'release')
 	}
 
-	testCompile 'junit:junit:' + JUNIT_VERSION
-	testCompile 'org.robolectric:robolectric:' + ROBOLECTRIC_VERSION
+	testCompile "junit:junit:${JUNIT_VERSION}"
+	testCompile "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
 }
 
 jdroid {

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.jdroid.android.R;
@@ -80,7 +81,13 @@ public abstract class FragmentContainerActivity extends AbstractFragmentActivity
 		}
 		return menuResourceId;
 	}
-
+	
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		getFragment().onPrepareOptionsMenu(menu);
+		return super.onPrepareOptionsMenu(menu);
+	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		return super.onOptionsItemSelected(item) || getFragment().onOptionsItemSelected(item);
