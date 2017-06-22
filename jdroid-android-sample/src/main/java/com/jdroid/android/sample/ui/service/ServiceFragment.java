@@ -45,14 +45,14 @@ public class ServiceFragment extends AbstractFragment {
 				UseCaseService.execute(sampleUseCase);
 			}
 		});
-		findView(R.id.gcmTaskService).setOnClickListener(new OnClickListener() {
+		findView(R.id.firebaseJobService).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				Bundle bundle = new Bundle();
 				bundle.putString("a", "2");
 				bundle.putBoolean("fail", failCheckBox.isChecked());
-				SampleGcmTaskService.runIntentInService(bundle);
+				SampleFirebaseJobService.runIntentInService(bundle);
 			}
 		});
 		findView(R.id.commandService1).setOnClickListener(new OnClickListener() {

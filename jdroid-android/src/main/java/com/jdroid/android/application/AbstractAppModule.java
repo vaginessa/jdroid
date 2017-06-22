@@ -49,11 +49,6 @@ public abstract class AbstractAppModule implements AppModule {
 		// Do Nothing
 	}
 
-	@Override
-	public void onInitializeGcmTasks() {
-		// Do Nothing
-	}
-
 	@MainThread
 	@Override
 	public ActivityDelegate createActivityDelegate(AbstractFragmentActivity abstractFragmentActivity) {

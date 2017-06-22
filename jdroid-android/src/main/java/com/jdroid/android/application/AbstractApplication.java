@@ -553,13 +553,6 @@ public abstract class AbstractApplication extends Application {
 		return appModulesMap.get(appModuleName);
 	}
 	
-	@MainThread
-	public void initializeGcmTasks() {
-		for (AppModule each: appModulesMap.values()) {
-			each.onInitializeGcmTasks();
-		}
-	}
-
 	public abstract int getLauncherIconResId();
 
 	public abstract int getNotificationIconResId();
