@@ -8,7 +8,7 @@ import android.os.Build;
 import android.support.annotation.AnyRes;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.google.gcm.ServiceCommand;
+import com.jdroid.android.firebase.jobdispatcher.ServiceCommand;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -89,6 +89,8 @@ public class AppShortcutsHelper {
 		intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(AbstractApplication.get(), iconResId));
 		intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
 		AbstractApplication.get().sendBroadcast(intent);
+		
+		AppShortcutsAppModule.get().getModuleAnalyticsSender().trackPinShortcut(shortcutName);
 	}
 	
 	public static Boolean isPinShortcutAvailable() {

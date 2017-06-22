@@ -6,7 +6,6 @@ import android.content.pm.ShortcutInfo;
 import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 
@@ -44,9 +43,9 @@ import com.jdroid.android.sample.ui.home.HomeItem;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteEntity;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteRepository;
 import com.jdroid.android.sample.ui.uri.SampleUriWatcher;
+import com.jdroid.android.shortcuts.AppShortcutsAppModule;
 import com.jdroid.android.shortcuts.AppShortcutsHelper;
 import com.jdroid.android.sqlite.SQLiteHelper;
-import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.domain.Identifiable;
@@ -168,6 +167,7 @@ public class AndroidApplication extends AbstractApplication {
 		appModulesMap.put(AdMobAppModule.MODULE_NAME, new AdMobAppModule());
 		appModulesMap.put(AbstractFcmAppModule.MODULE_NAME, new AndroidFcmAppModule());
 		appModulesMap.put(AboutAppModule.MODULE_NAME, new AndroidAboutAppModule());
+		appModulesMap.put(AppShortcutsAppModule.MODULE_NAME, new AppShortcutsAppModule());
 		appModulesMap.put(InAppBillingAppModule.MODULE_NAME, new AndroidInAppBillingAppModule());
 		
 		AndroidInAppBillingAppModule.get().setInAppBillingBroadcastListener(new SampleInAppBillingBroadcastListener());
