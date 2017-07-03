@@ -19,6 +19,7 @@ configurations.all {
 
 configurations {
 	uatCompile
+	automationCompile
 }
 
 buildscript {
@@ -33,84 +34,98 @@ dependencies {
 
 	debugCompile project(path: ":jdroid-android", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android", configuration: 'debug')
+	automationCompile project(path: ":jdroid-android", configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ":jdroid-android", configuration: 'release')
 	}
 
 	debugCompile project(path: ":jdroid-android-uil", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-uil", configuration: 'debug')
+	automationCompile project(path: ":jdroid-android-uil", configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ":jdroid-android-uil", configuration: 'release')
 	}
 
 	debugCompile project(path: ":jdroid-android-about", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-about", configuration: 'debug')
+	automationCompile project(path: ":jdroid-android-about", configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ":jdroid-android-about", configuration: 'release')
 	}
 
 	debugCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
+	automationCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ":jdroid-android-facebook", configuration: 'release')
 	}
 
 	debugCompile project(path: ':jdroid-android-firebase-instanceid', configuration: 'debug')
 	uatCompile project(path: ':jdroid-android-firebase-instanceid', configuration: 'debug')
+	automationCompile project(path: ':jdroid-android-firebase-instanceid', configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ":jdroid-android-firebase-instanceid", configuration: 'release')
 	}
 
 	debugCompile project(path: ':jdroid-android-firebase-admob', configuration: 'debug')
 	uatCompile project(path: ':jdroid-android-firebase-admob', configuration: 'debug')
+	automationCompile project(path: ':jdroid-android-firebase-admob', configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ":jdroid-android-firebase-admob", configuration: 'release')
 	}
 
 	debugCompile project(path: ':jdroid-android-firebase-crash', configuration: 'debug')
 	uatCompile project(path: ':jdroid-android-firebase-crash', configuration: 'debug')
+	automationCompile project(path: ':jdroid-android-firebase-crash', configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ":jdroid-android-firebase-crash", configuration: 'release')
 	}
 
 	debugCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
+	automationCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ":jdroid-android-google-maps", configuration: 'release')
 	}
 
 	debugCompile project(path: ":jdroid-android-google-inappbilling", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-google-inappbilling", configuration: 'debug')
+	automationCompile project(path: ":jdroid-android-google-inappbilling", configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ":jdroid-android-google-inappbilling", configuration: 'release')
 	}
 
 	debugCompile project(path: ':jdroid-android-firebase-database', configuration: 'debug')
 	uatCompile project(path: ':jdroid-android-firebase-database', configuration: 'debug')
+	automationCompile project(path: ':jdroid-android-firebase-database', configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ':jdroid-android-firebase-database', configuration: 'release')
 	}
 
 	debugCompile project(path: ':jdroid-android-firebase-fcm', configuration: 'debug')
 	uatCompile project(path: ':jdroid-android-firebase-fcm', configuration: 'debug')
+	automationCompile project(path: ':jdroid-android-firebase-fcm', configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ':jdroid-android-firebase-fcm', configuration: 'release')
 	}
 
 	debugCompile project(path: ':jdroid-android-firebase-remoteconfig', configuration: 'debug')
 	uatCompile project(path: ':jdroid-android-firebase-remoteconfig', configuration: 'debug')
+	automationCompile project(path: ':jdroid-android-firebase-remoteconfig', configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ':jdroid-android-firebase-remoteconfig', configuration: 'release')
 	}
 
 	debugCompile project(path: ":jdroid-android-google-signin", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-google-signin", configuration: 'debug')
+	automationCompile project(path: ":jdroid-android-google-signin", configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ":jdroid-android-google-signin", configuration: 'release')
 	}
 
 	debugCompile project(path: ":jdroid-android-twitter", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-twitter", configuration: 'debug')
+	automationCompile project(path: ":jdroid-android-twitter", configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ":jdroid-android-twitter", configuration: 'release')
 	}
@@ -218,6 +233,7 @@ android {
 		multiDexEnabled true
 
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+		testBuildType "automation"
 	}
 
 
@@ -240,6 +256,16 @@ android {
 
 			jdroid.setBuildConfigString(buildTypes.uat, "SERVER_NAME", "UAT")
 
+		}
+
+		automation {
+			signingConfig signingConfigs.debug
+
+			applicationIdSuffix ".debug"
+
+			debuggable true
+
+			jdroid.setBuildConfigString(buildTypes.uat, "SERVER_NAME", "UAT")
 		}
 
 		if (jdroid.isReleaseBuildTypeEnabled()) {
@@ -295,6 +321,12 @@ android {
 		java.srcDirs = ['src/debug/java', 'src/uat/java']
 		resources.srcDirs = ['src/debug/resources', 'src/uat/resources']
 		res.srcDirs = ['src/debug/res', 'src/uat/res']
+	}
+
+	sourceSets.automation {
+		java.srcDirs = ['src/debug/java', 'src/automation/java']
+		resources.srcDirs = ['src/debug/resources', 'src/automation/resources']
+		res.srcDirs = ['src/debug/res', 'src/automation/res']
 	}
 
 	sourceSets.test.java.srcDirs += "build/generated/source/r/debug"

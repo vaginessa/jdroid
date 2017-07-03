@@ -17,6 +17,8 @@ android:
   - extra-android-m2repository
   - android-sdk-license-.+
 
-script: sh ./etc/scripts/test.sh false
+script:
+  - ./gradlew clean testDebug lintDebug connectedAndroidTest -PFIREBASE_PERFORMANCE_MONITORING_ENABLED=false --refresh-dependencies --stacktrace
+  - ./gradlew assemble uploadArchives -PLOCAL_UPLOAD=false -PRELEASE_BUILD_TYPE_ENABLED=true -PRELEASE_FAKE_ENABLED=true --refresh-dependencies --stacktrace
 
 after_script: sh ./etc/scripts/uploadReports.sh
