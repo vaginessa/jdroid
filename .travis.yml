@@ -16,7 +16,14 @@ android:
   - extra-google-m2repository
   - extra-android-m2repository
   - android-sdk-license-.+
-
+  
+# Emulator Management: Create, Start and Wait
+before_script:
+  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+  - emulator -avd test -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
+  
 script:
   - ./gradlew clean testDebug lintDebug connectedAndroidTest -PFIREBASE_PERFORMANCE_MONITORING_ENABLED=false --refresh-dependencies --stacktrace
   - ./gradlew assemble uploadArchives -PLOCAL_UPLOAD=false -PRELEASE_BUILD_TYPE_ENABLED=true -PRELEASE_FAKE_ENABLED=true --refresh-dependencies --stacktrace
