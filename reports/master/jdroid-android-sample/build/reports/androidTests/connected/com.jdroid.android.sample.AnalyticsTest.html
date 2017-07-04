@@ -34,7 +34,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">29.861s</div>
+<div class="counter">10.906s</div>
 <p>duration</p>
 </div>
 </td>
@@ -66,28 +66,195 @@
 <a name="listGoesOverTheFold"></a>
 <h3 class="failures">listGoesOverTheFold</h3>
 <span class="code">
-<pre>java.lang.RuntimeException: Waited for the root of the view hierarchy to have window focus and not be requesting layout for over 10 seconds. If you specified a non default root matcher, it may be picking a root that never takes focus. Otherwise, something is seriously wrong. Selected Root:
-Root{application-window-token=android.view.ViewRootImpl$W@41280e48, window-token=android.view.ViewRootImpl$W@41280e48, has-window-focus=false, layout-params-type=1, layout-params-string=WM.LayoutParams{(0,0)(fillxfill) sim=#102 ty=1 fl=#1810100 pfl=0x8 wanim=0x103028f}, decor-view-string=DecorView{id=-1, visibility=VISIBLE, width=480, height=800, has-focus=true, has-focusable=true, has-window-focus=false, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=1}}
-. All Roots:
-Root{application-window-token=android.view.ViewRootImpl$W@41280e48, window-token=android.view.ViewRootImpl$W@41280e48, has-window-focus=false, layout-params-type=1, layout-params-string=WM.LayoutParams{(0,0)(fillxfill) sim=#102 ty=1 fl=#1810100 pfl=0x8 wanim=0x103028f}, decor-view-string=DecorView{id=-1, visibility=VISIBLE, width=480, height=800, has-focus=true, has-focusable=true, has-window-focus=false, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=1}}
-at android.support.test.espresso.base.RootViewPicker.get(RootViewPicker.java:99)
-at android.support.test.espresso.ViewInteractionModule.provideRootView(ViewInteractionModule.java:69)
-at android.support.test.espresso.ViewInteractionModule_ProvideRootViewFactory.get(ViewInteractionModule_ProvideRootViewFactory.java:23)
-at android.support.test.espresso.ViewInteractionModule_ProvideRootViewFactory.get(ViewInteractionModule_ProvideRootViewFactory.java:9)
-at android.support.test.espresso.base.ViewFinderImpl.getView(ViewFinderImpl.java:68)
-at android.support.test.espresso.ViewInteraction$2.run(ViewInteraction.java:166)
-at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:442)
-at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:305)
-at java.util.concurrent.FutureTask.run(FutureTask.java:137)
-at android.os.Handler.handleCallback(Handler.java:615)
-at android.os.Handler.dispatchMessage(Handler.java:92)
-at android.os.Looper.loop(Looper.java:137)
-at android.app.ActivityThread.main(ActivityThread.java:4745)
-at java.lang.reflect.Method.invokeNative(Native Method)
-at java.lang.reflect.Method.invoke(Method.java:511)
-at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:786)
-at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:553)
-at dalvik.system.NativeStart.main(Native Method)
+<pre>android.support.test.espresso.NoMatchingViewException: No views in hierarchy found matching: with id: com.jdroid.android.sample.debug:id/sendExampleEvent
+
+View Hierarchy:
++&gt;DecorView{id=-1, visibility=VISIBLE, width=480, height=800, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=1}
+|
++-&gt;LinearLayout{id=-1, visibility=VISIBLE, width=480, height=800, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=2}
+|
++--&gt;ViewStub{id=16909166, visibility=GONE, width=0, height=0, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=true, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0}
+|
++--&gt;FrameLayout{id=-1, visibility=VISIBLE, width=480, height=800, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=1}
+|
++---&gt;FitWindowsLinearLayout{id=2131755153, res-name=action_bar_root, visibility=VISIBLE, width=480, height=800, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=2}
+|
++----&gt;ViewStubCompat{id=2131755154, res-name=action_mode_bar_stub, visibility=GONE, width=0, height=0, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=true, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0}
+|
++----&gt;ContentFrameLayout{id=16908290, res-name=content, visibility=VISIBLE, width=480, height=800, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=1}
+|
++-----&gt;DrawerLayout{id=2131755173, res-name=drawer_layout, visibility=VISIBLE, width=480, height=800, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=true, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=2}
+|
++------&gt;LinearLayout{id=2131755174, res-name=fragmentContainer, visibility=VISIBLE, width=480, height=762, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=38.0, child-count=1}
+|
++-------&gt;RelativeLayout{id=-1, visibility=VISIBLE, width=480, height=762, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=3}
+|
++--------&gt;Toolbar{id=2131755286, res-name=appBar, visibility=VISIBLE, width=480, height=84, has-focus=false, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=3}
+|
++---------&gt;AppCompatTextView{id=-1, visibility=VISIBLE, width=194, height=41, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=108.0, y=21.0, text=Jdroid Sample, input-type=0, ime-target=false, has-links=false}
+|
++---------&gt;AppCompatImageButton{id=-1, desc=Close navigation drawer, visibility=VISIBLE, width=84, height=84, has-focus=false, has-focusable=true, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=true, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0}
+|
++---------&gt;ActionMenuView{id=-1, visibility=VISIBLE, width=0, height=84, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=480.0, y=0.0, child-count=0}
+|
++--------&gt;FrameLayout{id=2131755288, res-name=content, visibility=VISIBLE, width=480, height=678, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=84.0, child-count=1}
+|
++---------&gt;LoadingLayout{id=2131755240, res-name=loadingLayout, visibility=VISIBLE, width=480, height=678, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=2}
+|
++----------&gt;ProgressBar{id=2131755310, res-name=loadingProgressBar, visibility=GONE, width=0, height=0, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=true, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0}
+|
++----------&gt;FrameLayout{id=-1, visibility=VISIBLE, width=480, height=678, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=2}
+|
++-----------&gt;RecyclerView{id=2131755284, res-name=recyclerView, visibility=VISIBLE, width=480, height=678, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=true, is-focusable=true, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=10}
+|
++------------&gt;LinearLayout{id=-1, visibility=VISIBLE, width=480, height=72, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=2}
+|
++-------------&gt;AppCompatImageView{id=2131755128, res-name=image, visibility=VISIBLE, width=36, height=36, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=24.0, y=18.0}
+|
++-------------&gt;AppCompatTextView{id=2131755275, res-name=name, visibility=VISIBLE, width=98, height=33, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=84.0, y=19.0, text=Analytics, input-type=0, ime-target=false, has-links=false}
+|
++------------&gt;LinearLayout{id=-1, visibility=VISIBLE, width=480, height=72, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=72.0, child-count=2}
+|
++-------------&gt;AppCompatImageView{id=2131755128, res-name=image, visibility=VISIBLE, width=36, height=36, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=24.0, y=18.0}
+|
++-------------&gt;AppCompatTextView{id=2131755275, res-name=name, visibility=VISIBLE, width=109, height=33, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=84.0, y=19.0, text=Card View, input-type=0, ime-target=false, has-links=false}
+|
++------------&gt;LinearLayout{id=-1, visibility=VISIBLE, width=480, height=72, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=144.0, child-count=2}
+|
++-------------&gt;AppCompatImageView{id=2131755128, res-name=image, visibility=VISIBLE, width=36, height=36, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=24.0, y=18.0}
+|
++-------------&gt;AppCompatTextView{id=2131755275, res-name=name, visibility=VISIBLE, width=131, height=33, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=84.0, y=19.0, text=Date &amp; Time, input-type=0, ime-target=false, has-links=false}
+|
++------------&gt;LinearLayout{id=-1, visibility=VISIBLE, width=480, height=72, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=216.0, child-count=2}
+|
++-------------&gt;AppCompatImageView{id=2131755128, res-name=image, visibility=VISIBLE, width=36, height=36, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=24.0, y=18.0}
+|
++-------------&gt;AppCompatTextView{id=2131755275, res-name=name, visibility=VISIBLE, width=156, height=33, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=84.0, y=19.0, text=Error Displayer, input-type=0, ime-target=false, has-links=false}
+|
++------------&gt;LinearLayout{id=-1, visibility=VISIBLE, width=480, height=72, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=288.0, child-count=2}
+|
++-------------&gt;AppCompatImageView{id=2131755128, res-name=image, visibility=VISIBLE, width=36, height=36, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=24.0, y=18.0}
+|
++-------------&gt;AppCompatTextView{id=2131755275, res-name=name, visibility=VISIBLE, width=105, height=33, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=84.0, y=19.0, text=Facebook, input-type=0, ime-target=false, has-links=false}
+|
++------------&gt;LinearLayout{id=-1, visibility=VISIBLE, width=480, height=72, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=360.0, child-count=2}
+|
++-------------&gt;AppCompatImageView{id=2131755128, res-name=image, visibility=VISIBLE, width=36, height=36, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=24.0, y=18.0}
+|
++-------------&gt;AppCompatTextView{id=2131755275, res-name=name, visibility=VISIBLE, width=198, height=33, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=84.0, y=19.0, text=Firebase Database, input-type=0, ime-target=false, has-links=false}
+|
++------------&gt;LinearLayout{id=-1, visibility=VISIBLE, width=480, height=72, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=432.0, child-count=2}
+|
++-------------&gt;AppCompatImageView{id=2131755128, res-name=image, visibility=VISIBLE, width=36, height=36, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=24.0, y=18.0}
+|
++-------------&gt;AppCompatTextView{id=2131755275, res-name=name, visibility=VISIBLE, width=252, height=33, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=84.0, y=19.0, text=Firebase Dynamic Links, input-type=0, ime-target=false, has-links=false}
+|
++------------&gt;LinearLayout{id=-1, visibility=VISIBLE, width=480, height=72, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=504.0, child-count=2}
+|
++-------------&gt;AppCompatImageView{id=2131755128, res-name=image, visibility=VISIBLE, width=36, height=36, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=24.0, y=18.0}
+|
++-------------&gt;AppCompatTextView{id=2131755275, res-name=name, visibility=VISIBLE, width=282, height=33, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=84.0, y=19.0, text=Firebase Cloud Messaging, input-type=0, ime-target=false, has-links=false}
+|
++------------&gt;LinearLayout{id=-1, visibility=VISIBLE, width=480, height=72, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=576.0, child-count=2}
+|
++-------------&gt;AppCompatImageView{id=2131755128, res-name=image, visibility=VISIBLE, width=36, height=36, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=24.0, y=18.0}
+|
++-------------&gt;AppCompatTextView{id=2131755275, res-name=name, visibility=VISIBLE, width=168, height=33, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=84.0, y=19.0, text=Firebase Invites, input-type=0, ime-target=false, has-links=false}
+|
++------------&gt;LinearLayout{id=-1, visibility=VISIBLE, width=480, height=72, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=648.0, child-count=2}
+|
++-------------&gt;AppCompatImageView{id=2131755128, res-name=image, visibility=VISIBLE, width=36, height=36, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=24.0, y=18.0}
+|
++-------------&gt;AppCompatTextView{id=2131755275, res-name=name, visibility=VISIBLE, width=239, height=33, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=84.0, y=19.0, text=Floating Action Button, input-type=0, ime-target=false, has-links=false}
+|
++-----------&gt;FrameLayout{id=2131755285, res-name=emptyViewContainer, visibility=GONE, width=0, height=0, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=true, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=0}
+|
++--------&gt;LinearLayout{id=2131755175, res-name=adViewContainer, visibility=GONE, width=0, height=0, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=true, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=0}
+|
++------&gt;NavigationView{id=2131755176, res-name=drawer, visibility=VISIBLE, width=384, height=800, has-focus=false, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=1}
+|
++-------&gt;NavigationMenuView{id=2131755217, res-name=design_navigation_view, visibility=VISIBLE, width=384, height=800, has-focus=false, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=true, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=5}
+|
++--------&gt;LinearLayout{id=2131755216, res-name=navigation_header_container, visibility=VISIBLE, width=384, height=222, has-focus=false, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=1}
+|
++---------&gt;ScrimInsetsScrollView{id=2131755304, res-name=navDrawerHeader, visibility=VISIBLE, width=384, height=210, has-focus=false, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=true, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=1}
+|
++----------&gt;LinearLayout{id=-1, visibility=VISIBLE, width=384, height=210, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=1}
+|
++-----------&gt;FrameLayout{id=2131755305, res-name=chosen_account_view, visibility=VISIBLE, width=384, height=210, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=2}
+|
++------------&gt;AppCompatImageView{id=2131755306, res-name=cover, visibility=VISIBLE, width=384, height=210, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0}
+|
++------------&gt;RelativeLayout{id=2131755307, res-name=chosen_account_content_view, visibility=VISIBLE, width=384, height=210, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=4}
+|
++-------------&gt;NavDrawerHeaderImageView{id=2131755308, res-name=photo, visibility=VISIBLE, width=60, height=60, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=24.0, y=42.0}
+|
++-------------&gt;AppCompatImageView{id=2131755309, res-name=expand_account_box_indicator, visibility=GONE, width=0, height=0, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=true, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0}
+|
++-------------&gt;AppCompatTextView{id=2131755287, res-name=subTitle, visibility=VISIBLE, width=336, height=53, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=24.0, y=157.0, text=www.jdroidframework.com, input-type=0, ime-target=false, has-links=false}
+|
++-------------&gt;AppCompatTextView{id=2131755132, res-name=title, visibility=VISIBLE, width=336, height=37, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=24.0, y=120.0, text=Jdroid Sample, input-type=0, ime-target=false, has-links=false}
+|
++--------&gt;NavigationMenuItemView{id=-1, visibility=VISIBLE, width=384, height=72, has-focus=false, has-focusable=true, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=true, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=222.0, child-count=2}
+|
++---------&gt;AppCompatCheckedTextView{id=2131755218, res-name=design_menu_item_text, visibility=VISIBLE, width=336, height=72, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=24.0, y=0.0, text=Home, input-type=0, ime-target=false, has-links=false, is-checked=true}
+|
++---------&gt;ViewStub{id=2131755219, visibility=GONE, width=0, height=0, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=true, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0}
+|
++--------&gt;NavigationMenuItemView{id=-1, visibility=VISIBLE, width=384, height=72, has-focus=false, has-focusable=true, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=true, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=294.0, child-count=2}
+|
++---------&gt;AppCompatCheckedTextView{id=2131755218, res-name=design_menu_item_text, visibility=VISIBLE, width=336, height=72, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=24.0, y=0.0, text=About, input-type=0, ime-target=false, has-links=false, is-checked=false}
+|
++---------&gt;ViewStub{id=2131755219, visibility=GONE, width=0, height=0, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=true, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0}
+|
++--------&gt;FrameLayout{id=-1, visibility=VISIBLE, width=384, height=26, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=366.0, child-count=1}
+|
++---------&gt;View{id=-1, visibility=VISIBLE, width=384, height=2, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=12.0}
+|
++--------&gt;NavigationMenuItemView{id=-1, visibility=VISIBLE, width=384, height=72, has-focus=false, has-focusable=true, has-window-focus=true, is-clickable=true, is-enabled=true, is-focused=false, is-focusable=true, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=392.0, child-count=2}
+|
++---------&gt;AppCompatCheckedTextView{id=2131755218, res-name=design_menu_item_text, visibility=VISIBLE, width=336, height=72, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=24.0, y=0.0, text=Invite Friends, input-type=0, ime-target=false, has-links=false, is-checked=false}
+|
++---------&gt;ViewStub{id=2131755219, visibility=GONE, width=0, height=0, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=true, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0}
+|
+at dalvik.system.VMStack.getThreadStackTrace(Native Method)
+at java.lang.Thread.getStackTrace(Thread.java:580)
+at android.support.test.espresso.base.DefaultFailureHandler.getUserFriendlyError(DefaultFailureHandler.java:92)
+at android.support.test.espresso.base.DefaultFailureHandler.handle(DefaultFailureHandler.java:56)
+at android.support.test.espresso.ViewInteraction.runSynchronouslyOnUiThread(ViewInteraction.java:184)
+at android.support.test.espresso.ViewInteraction.check(ViewInteraction.java:158)
+at com.jdroid.android.sample.AnalyticsTest.listGoesOverTheFold(AnalyticsTest.java:33)
+at java.lang.reflect.Method.invoke(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:372)
+at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+at android.support.test.internal.statement.UiThreadStatement.evaluate(UiThreadStatement.java:55)
+at android.support.test.rule.ActivityTestRule$ActivityStatement.evaluate(ActivityTestRule.java:270)
+at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+at org.junit.runners.Suite.runChild(Suite.java:128)
+at org.junit.runners.Suite.runChild(Suite.java:27)
+at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+at android.support.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)
+at android.support.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:262)
+at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1837)
 </pre>
 </span>
 </div>
@@ -98,19 +265,19 @@ at dalvik.system.NativeStart.main(Native Method)
 <thead>
 <tr>
 <th>Test</th>
-<th>test(AVD) - 4.1.2</th>
+<th>test(AVD) - 5.0.2</th>
 </tr>
 </thead>
 <tr>
 <td>listGoesOverTheFold</td>
-<td class="failures">failed (29.861s)</td>
+<td class="failures">failed (10.906s)</td>
 </tr>
 </table>
 </div>
 </div>
 <div id="footer">
 <p>Generated by 
-<a href="http://www.gradle.org">Gradle 3.5</a> at Jul 4, 2017 3:14:57 AM</p>
+<a href="http://www.gradle.org">Gradle 3.5</a> at Jul 4, 2017 11:57:15 AM</p>
 </div>
 </div>
 </body>

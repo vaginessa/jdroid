@@ -34,7 +34,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.379s</div>
+<div class="counter">0.158s</div>
 <p>duration</p>
 </div>
 </td>
@@ -70,8 +70,8 @@
 at android.support.test.runner.MonitoringInstrumentation.startActivitySync(MonitoringInstrumentation.java:371)
 at com.jdroid.android.sample.AbstractUriTest.openUri(AbstractUriTest.java:32)
 at com.jdroid.android.sample.UriTest.noFlagsTestFail(UriTest.java:34)
-at java.lang.reflect.Method.invokeNative(Native Method)
-at java.lang.reflect.Method.invoke(Method.java:511)
+at java.lang.reflect.Method.invoke(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:372)
 at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
 at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
 at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
@@ -98,19 +98,18 @@ at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
 at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
 at android.support.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)
 at android.support.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:262)
-at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1837)
 Caused by: android.util.AndroidRuntimeException: Calling startActivity() from outside of an Activity  context requires the FLAG_ACTIVITY_NEW_TASK flag. Is this really what you want?
-at android.app.ContextImpl.startActivity(ContextImpl.java:886)
-at android.app.ContextImpl.startActivity(ContextImpl.java:880)
-at android.app.Instrumentation.startActivitySync(Instrumentation.java:391)
+at android.app.ContextImpl.startActivity(ContextImpl.java:1232)
+at android.app.ContextImpl.startActivity(ContextImpl.java:1219)
+at android.app.Instrumentation.startActivitySync(Instrumentation.java:403)
 at android.support.test.runner.MonitoringInstrumentation.access$201(MonitoringInstrumentation.java:90)
 at android.support.test.runner.MonitoringInstrumentation$5.call(MonitoringInstrumentation.java:351)
 at android.support.test.runner.MonitoringInstrumentation$5.call(MonitoringInstrumentation.java:348)
-at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:305)
-at java.util.concurrent.FutureTask.run(FutureTask.java:137)
-at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1076)
-at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:569)
-at java.lang.Thread.run(Thread.java:856)
+at java.util.concurrent.FutureTask.run(FutureTask.java:237)
+at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1112)
+at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:587)
+at java.lang.Thread.run(Thread.java:818)
 </pre>
 </span>
 </div>
@@ -122,8 +121,8 @@ at java.lang.Thread.run(Thread.java:856)
 at android.support.test.runner.MonitoringInstrumentation.startActivitySync(MonitoringInstrumentation.java:371)
 at com.jdroid.android.sample.AbstractUriTest.openUri(AbstractUriTest.java:32)
 at com.jdroid.android.sample.UriTest.noFlagsTestOk(UriTest.java:25)
-at java.lang.reflect.Method.invokeNative(Native Method)
-at java.lang.reflect.Method.invoke(Method.java:511)
+at java.lang.reflect.Method.invoke(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:372)
 at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
 at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
 at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
@@ -150,19 +149,18 @@ at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
 at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
 at android.support.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)
 at android.support.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:262)
-at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1837)
 Caused by: android.util.AndroidRuntimeException: Calling startActivity() from outside of an Activity  context requires the FLAG_ACTIVITY_NEW_TASK flag. Is this really what you want?
-at android.app.ContextImpl.startActivity(ContextImpl.java:886)
-at android.app.ContextImpl.startActivity(ContextImpl.java:880)
-at android.app.Instrumentation.startActivitySync(Instrumentation.java:391)
+at android.app.ContextImpl.startActivity(ContextImpl.java:1232)
+at android.app.ContextImpl.startActivity(ContextImpl.java:1219)
+at android.app.Instrumentation.startActivitySync(Instrumentation.java:403)
 at android.support.test.runner.MonitoringInstrumentation.access$201(MonitoringInstrumentation.java:90)
 at android.support.test.runner.MonitoringInstrumentation$5.call(MonitoringInstrumentation.java:351)
 at android.support.test.runner.MonitoringInstrumentation$5.call(MonitoringInstrumentation.java:348)
-at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:305)
-at java.util.concurrent.FutureTask.run(FutureTask.java:137)
-at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1076)
-at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:569)
-at java.lang.Thread.run(Thread.java:856)
+at java.util.concurrent.FutureTask.run(FutureTask.java:237)
+at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1112)
+at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:587)
+at java.lang.Thread.run(Thread.java:818)
 </pre>
 </span>
 </div>
@@ -173,23 +171,23 @@ at java.lang.Thread.run(Thread.java:856)
 <thead>
 <tr>
 <th>Test</th>
-<th>test(AVD) - 4.1.2</th>
+<th>test(AVD) - 5.0.2</th>
 </tr>
 </thead>
 <tr>
 <td>noFlagsTestFail</td>
-<td class="failures">failed (0.076s)</td>
+<td class="failures">failed (0.103s)</td>
 </tr>
 <tr>
 <td>noFlagsTestOk</td>
-<td class="failures">failed (0.303s)</td>
+<td class="failures">failed (0.055s)</td>
 </tr>
 </table>
 </div>
 </div>
 <div id="footer">
 <p>Generated by 
-<a href="http://www.gradle.org">Gradle 3.5</a> at Jul 4, 2017 3:14:57 AM</p>
+<a href="http://www.gradle.org">Gradle 3.5</a> at Jul 4, 2017 11:57:15 AM</p>
 </div>
 </div>
 </body>
