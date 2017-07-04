@@ -25,9 +25,10 @@ android:
   #- sys-img-armeabi-v7a-android-24
 
 env:
-  matrix:
     - API=android-16 ABI=armeabi-v7a
-    - API=android-17 ABI=armeabi-v7a
+    #matrix:
+    #- API=android-16 ABI=armeabi-v7a
+    #- API=android-17 ABI=armeabi-v7a
     #- API=android-18 ABI=armeabi-v7a
     #- API=android-19 ABI=armeabi-v7a
     #- API=android-21 ABI=armeabi-v7a
