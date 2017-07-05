@@ -20,7 +20,7 @@ android:
   #- sys-img-armeabi-v7a-android-17
   #- sys-img-armeabi-v7a-android-18
   #- sys-img-armeabi-v7a-android-19
-  - sys-img-armeabi-v7a-android-21
+  #- sys-img-armeabi-v7a-android-21
   #- sys-img-armeabi-v7a-android-22
   #- sys-img-armeabi-v7a-android-24
 
@@ -36,14 +36,15 @@ env:
     #- API=android-24 ABI=armeabi-v7a
 
 # Emulator Management: Create, Start and Wait
-before_script:
-  - echo no | android create avd --force -n test -t $API --abi $ABI
-  - emulator -avd test -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
+#before_script:
+#  - echo no | android create avd --force -n test -t $API --abi $ABI
+#  - emulator -avd test -no-audio -no-window &
+#  - android-wait-for-emulator
+#  - adb shell input keyevent 82 &
   
 script:
-  - ./gradlew clean testDebug lintDebug connectedAndroidTest -PFIREBASE_PERFORMANCE_MONITORING_ENABLED=false --refresh-dependencies --stacktrace
+ # - ./gradlew clean testDebug lintDebug connectedAndroidTest -PFIREBASE_PERFORMANCE_MONITORING_ENABLED=false --refresh-dependencies --stacktrace
+  - ./gradlew clean testDebug lintDebug -PFIREBASE_PERFORMANCE_MONITORING_ENABLED=false --refresh-dependencies --stacktrace
   - ./gradlew assemble uploadArchives -PLOCAL_UPLOAD=false -PRELEASE_BUILD_TYPE_ENABLED=true -PRELEASE_FAKE_ENABLED=true --refresh-dependencies --stacktrace
 
 after_script: sh ./etc/scripts/uploadReports.sh
