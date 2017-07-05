@@ -1,6 +1,7 @@
 package com.jdroid.android.sample.ui.service;
 
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
@@ -18,6 +19,7 @@ import com.jdroid.java.utils.IdGenerator;
 
 public class SampleFirebaseJobService extends AbstractJobService {
 	
+	@MainThread
 	@Override
 	public boolean onRunJob(JobParameters jobParameters) {
 		Boolean fail = jobParameters.getExtras().getBoolean("fail");

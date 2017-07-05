@@ -1,6 +1,8 @@
 package com.jdroid.android.firebase.jobdispatcher;
 
 
+import android.support.annotation.WorkerThread;
+
 import com.firebase.jobdispatcher.JobParameters;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.java.utils.ReflectionUtils;
@@ -13,6 +15,7 @@ public class CommandJobService extends AbstractJobService {
 		return serviceCommandExtra == null ? getTrackingVariable(jobParameters) : serviceCommandExtra.substring(serviceCommandExtra.lastIndexOf(".") + 1);
 	}
 	
+	@WorkerThread
 	@Override
 	public boolean onRunJob(JobParameters jobParameters) {
 		String serviceCommandExtra = jobParameters.getExtras() != null ? jobParameters.getExtras().getString(CommandWorkerService.COMMAND_EXTRA) : null;
@@ -23,10 +26,5 @@ public class CommandJobService extends AbstractJobService {
 			AbstractApplication.get().getExceptionHandler().logWarningException("Service command not found on " + getClass().getSimpleName());
 			return false;
 		}
-	}
-	
-	@Override
-	public boolean onStopJob(JobParameters params) {
-		return false;
 	}
 }

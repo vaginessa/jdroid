@@ -42,7 +42,7 @@ public class CommandWorkerService extends WorkerService {
 			boolean retry;
 			try {
 				retry = serviceCommand.execute(intent.getExtras());
-				LOGGER.info(serviceCommand.getClass().getSimpleName() + " executed with result " + retry);
+				LOGGER.info(serviceCommand.getClass().getSimpleName() + " executed. Retry: " + retry);
 			} catch (ConnectionException e) {
 				AbstractApplication.get().getExceptionHandler().logHandledException(e);
 				retry = true;

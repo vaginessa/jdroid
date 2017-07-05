@@ -30,4 +30,11 @@
 	<Button android:id="@+id/commandService4" android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:text="@string/commandService4" />
 
+	<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Fail first try. Success on retry after 30 seconds"/>
+	<Button android:id="@+id/commandService5" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:text="@string/commandService5" />
+
+	<Button android:id="@+id/cancelAllJobs" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:text="@string/cancelAllJobs" />
+
 </LinearLayout>
