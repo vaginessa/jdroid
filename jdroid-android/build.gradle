@@ -32,7 +32,6 @@ dependencies {
 
 	compile "com.google.android.gms:play-services-analytics:${GOOGLE_PLAY_SERVICES_VERSION}"
 	compile "com.google.android.gms:play-services-base:${GOOGLE_PLAY_SERVICES_VERSION}"
-	compile "com.google.android.gms:play-services-gcm:${GOOGLE_PLAY_SERVICES_VERSION}"
 	compile "com.google.android.gms:play-services-location:${GOOGLE_PLAY_SERVICES_VERSION}"
 
 	compile "com.google.firebase:firebase-core:${GOOGLE_PLAY_SERVICES_VERSION}"
@@ -40,6 +39,7 @@ dependencies {
 	compile "com.google.firebase:firebase-messaging:${GOOGLE_PLAY_SERVICES_VERSION}"
 	compile "com.google.firebase:firebase-invites:${GOOGLE_PLAY_SERVICES_VERSION}"
 	compile "com.google.firebase:firebase-perf:${GOOGLE_PLAY_SERVICES_VERSION}"
+	compile 'com.firebase:firebase-jobdispatcher:0.6.0'
 
 	debugCompile ("com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY_VERSION}") { force = true }
 	releaseCompile ("com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY_VERSION}") { force = true }

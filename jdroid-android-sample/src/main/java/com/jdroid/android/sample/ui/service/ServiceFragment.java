@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.ui.usecases.SampleUseCase;
@@ -45,14 +47,14 @@ public class ServiceFragment extends AbstractFragment {
 				UseCaseService.execute(sampleUseCase);
 			}
 		});
-		findView(R.id.gcmTaskService).setOnClickListener(new OnClickListener() {
+		findView(R.id.firebaseJobService).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				Bundle bundle = new Bundle();
 				bundle.putString("a", "2");
 				bundle.putBoolean("fail", failCheckBox.isChecked());
-				SampleGcmTaskService.runIntentInService(bundle);
+				SampleFirebaseJobService.runIntentInService(bundle);
 			}
 		});
 		findView(R.id.commandService1).setOnClickListener(new OnClickListener() {
@@ -93,6 +95,21 @@ public class ServiceFragment extends AbstractFragment {
 				bundle.putString("a", "6");
 				bundle.putBoolean("fail", failCheckBox.isChecked());
 				new SampleServiceCommand4().start(bundle);
+			}
+		});
+		findView(R.id.commandService5).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				new SampleServiceCommand5().start();
+			}
+		});
+		findView(R.id.cancelAllJobs).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(getActivity()));
+				dispatcher.cancelAll();
 			}
 		});
 	}

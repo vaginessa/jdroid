@@ -247,11 +247,13 @@
 	<string name="service">Service</string>
 	<string name="workerService">Worker Service</string>
 	<string name="useCaseService">Use Case Service</string>
-	<string name="gcmTaskService">Gcm Task Service</string>
+	<string name="firebaseJobService">Firebase Job Service</string>
 	<string name="commandService1">Command Service 1</string>
 	<string name="commandService2">Command Service 2</string>
 	<string name="commandService3">Command Service 3</string>
 	<string name="commandService4">Command Service 4</string>
+	<string name="commandService5">Command Service 5</string>
+	<string name="cancelAllJobs">Cancel All Jobs</string>
 
 	<!-- Tablets -->
 	<string name="openDetail">Open Detail</string>

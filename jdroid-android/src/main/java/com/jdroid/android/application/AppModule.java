@@ -24,9 +24,6 @@ public interface AppModule {
 	public void onGooglePlayServicesUpdated();
 	
 	@MainThread
-	public void onInitializeGcmTasks();
-
-	@MainThread
 	public ActivityDelegate createActivityDelegate(AbstractFragmentActivity abstractFragmentActivity);
 
 	@MainThread

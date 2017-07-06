@@ -1,10 +1,11 @@
-package com.jdroid.android.google.gcm;
+package com.jdroid.android.firebase.jobdispatcher;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.gms.gcm.GcmNetworkManager;
-import com.google.android.gms.gcm.Task;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.service.WorkerService;
 import com.jdroid.java.http.exception.ConnectionException;
@@ -17,13 +18,13 @@ public class CommandWorkerService extends WorkerService {
 
 	private final static Logger LOGGER = LoggerUtils.getLogger(CommandWorkerService.class);
 
-	final static String COMMAND_EXTRA = "com.jdroid.android.service.CommandWorkerService.command";
+	final static String COMMAND_EXTRA = "com.jdroid.android.firebase.jobdispatcher.CommandWorkerService.command";
 
 	protected static void runService(Bundle bundle, ServiceCommand serviceCommand, Boolean requiresInstantExecution) {
 		if (requiresInstantExecution) {
 			startWorkerService(bundle, serviceCommand);
 		} else {
-			startGcmTaskService(bundle, serviceCommand);
+			startJobService(bundle, serviceCommand);
 		}
 	}
 
@@ -38,20 +39,19 @@ public class CommandWorkerService extends WorkerService {
 		String serviceCommandExtra = intent.getStringExtra(COMMAND_EXTRA);
 		if (serviceCommandExtra != null) {
 			ServiceCommand serviceCommand = ReflectionUtils.newInstance(serviceCommandExtra);
-			int result;
+			boolean retry;
 			try {
-				result = serviceCommand.execute(intent.getExtras());
-				LOGGER.info(serviceCommand.getClass().getSimpleName() + " executed with result " + result);
-
+				retry = serviceCommand.execute(intent.getExtras());
+				LOGGER.info(serviceCommand.getClass().getSimpleName() + " executed. Retry: " + retry);
 			} catch (ConnectionException e) {
 				AbstractApplication.get().getExceptionHandler().logHandledException(e);
-				result = GcmNetworkManager.RESULT_RESCHEDULE;
+				retry = true;
 			} catch (Exception e) {
 				AbstractApplication.get().getExceptionHandler().logHandledException(e);
-				result = GcmNetworkManager.RESULT_FAILURE;
+				retry = false;
 			}
-			if (result == GcmNetworkManager.RESULT_RESCHEDULE) {
-				startGcmTaskService(intent.getExtras(), serviceCommand);
+			if (retry) {
+				startJobService(intent.getExtras(), serviceCommand);
 			}
 		} else {
 			AbstractApplication.get().getExceptionHandler().logWarningException("Service command not found on " + getClass().getSimpleName());
@@ -59,7 +59,7 @@ public class CommandWorkerService extends WorkerService {
 	}
 
 	private static void startWorkerService(Bundle bundle, ServiceCommand serviceCommand) {
-		LOGGER.info("Scheduling Worker Service for " + serviceCommand.getClass().getSimpleName());
+		LOGGER.info("Starting Worker Service for " + serviceCommand.getClass().getSimpleName());
 		Intent intent = new Intent();
 		if (bundle != null) {
 			intent.putExtras(bundle);
@@ -68,17 +68,18 @@ public class CommandWorkerService extends WorkerService {
 		WorkerService.runIntentInService(AbstractApplication.get(), intent, CommandWorkerService.class);
 	}
 
-	private static void startGcmTaskService(Bundle bundle, ServiceCommand serviceCommand) {
-		LOGGER.info("Scheduling GCM Task Service for " + serviceCommand.getClass().getSimpleName());
+	private static void startJobService(Bundle bundle, ServiceCommand serviceCommand) {
+		LOGGER.info("Scheduling Job Service for " + serviceCommand.getClass().getSimpleName());
 
 		if (bundle == null) {
 			bundle = new Bundle();
 		}
 		bundle.putSerializable(CommandWorkerService.COMMAND_EXTRA, serviceCommand.getClass().getName());
-
-		Task.Builder builder = serviceCommand.createRetryTaskBuilder();
+		
+		FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(AbstractApplication.get()));
+		Job.Builder builder = serviceCommand.createRetryJobBuilder(dispatcher);
 		builder.setExtras(bundle);
-		builder.setService(CommandGcmTaskService.class);
-		GcmNetworkManager.getInstance(AbstractApplication.get()).schedule(builder.build());
+		builder.setService(CommandJobService.class);
+		dispatcher.mustSchedule(builder.build());
 	}
 }

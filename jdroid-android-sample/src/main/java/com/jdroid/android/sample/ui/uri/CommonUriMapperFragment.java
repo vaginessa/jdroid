@@ -33,5 +33,6 @@ public class CommonUriMapperFragment extends AbstractFragment {
 		if (getActivity().getIntent().getData() != null) {
 			((TextView)findView(R.id.uri)).setText(getActivity().getIntent().getData().toString());
 		}
+		((TextView)findView(R.id.activity)).setText(getActivity().getClass().getSimpleName());
 	}
 }

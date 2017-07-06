@@ -72,11 +72,6 @@ public abstract class AbstractFcmAppModule extends AbstractAppModule {
 		startFcmRegistration(false, true);
 	}
 
-	@Override
-	public void onInitializeGcmTasks() {
-		startFcmRegistration(false, true);
-	}
-
 	public void startFcmRegistration(Boolean updateLastActiveTimestamp, Boolean isInstantExecutionRequired) {
 		FcmRegistrationCommand fcmRegistrationCommand = createFcmRegistrationCommand();
 		fcmRegistrationCommand.setInstantExecutionRequired(isInstantExecutionRequired);
