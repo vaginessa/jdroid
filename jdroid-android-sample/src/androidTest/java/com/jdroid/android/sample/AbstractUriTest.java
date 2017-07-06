@@ -27,6 +27,7 @@ public class AbstractUriTest {
 		Intent intent = new Intent();
 		intent.setAction(Intent.ACTION_VIEW);
 		intent.setPackage(instrumentation.getTargetContext().getPackageName());
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.setData(Uri.parse(uri));
 		
 		activity = instrumentation.startActivitySync(intent);
