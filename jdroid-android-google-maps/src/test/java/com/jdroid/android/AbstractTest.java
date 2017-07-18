@@ -10,7 +10,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class, manifest = "src/test/AndroidManifest.xml", sdk = Build.VERSION_CODES.M)
+@Config(constants = BuildConfig.class, manifest=Config.NONE, application = TestAndroidApplication.class, sdk = Build.VERSION_CODES.N_MR1)
 public abstract class AbstractTest {
 
 	@Before

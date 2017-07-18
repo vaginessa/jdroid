@@ -22,6 +22,11 @@ public class LibrariesFragment extends AbstractRecyclerFragment {
 		super.onCreate(savedInstanceState);
 		
 		libraries.add(new Library("jdroid", "Jdroid Framework", "Maxi Rosson", "http://jdroidframework.com"));
+		libraries.add(new Library("leakCanary", "Leak Canary", "Square", "https://github.com/square/leakcanary"));
+		libraries.add(new Library("yearclass", "Device Year Class", "Facebook", "https://github.com/facebook/device-year-class"));
+		if (ReflectionUtils.getSafeClass("com.jdroid.android.twitter.TwitterAppLifecycleCallback") != null) {
+			libraries.add(new Library("tweetUi", "Tweet UI", "Twitter", "https://dev.twitter.com/twitterkit/overview"));
+		}
 		if (ReflectionUtils.getSafeClass("com.jdroid.android.uil.UilAppModule") != null) {
 			Library library = new Library("universalImageLoader", "Universal Image Loader",
 					"Sergey Tarasevich", "https://github.com/nostra13/Android-Universal-Image-Loader");

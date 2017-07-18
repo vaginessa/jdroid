@@ -6,13 +6,29 @@ import android.support.annotation.NonNull;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
-import com.jdroid.android.exception.ExceptionHandler;
+import com.jdroid.android.lifecycle.ApplicationLifecycleCallback;
+import com.jdroid.android.lifecycle.ApplicationLifecycleHelper;
+import com.jdroid.java.utils.ReflectionUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestAndroidApplication extends AbstractApplication {
 	
 	@Override
 	protected void onInitMultiDex() {
 		// Multidex support doesn't play well with Robolectric yet
+		
+		ReflectionUtils.setStaticField(ApplicationLifecycleHelper.class, "applicationLifecycleCallbacks", createApplicationLifecycleCallbacks());
+	}
+	
+	/**
+	 * This method can be overridden in subclasses to provide the list of ApplicationLifecycleCallback to use in the tests.
+	 *
+	 * @return a list of ApplicationLifecycleCallback to use in the tests, or empty list.
+	 */
+	protected List<ApplicationLifecycleCallback> createApplicationLifecycleCallbacks() {
+		return new ArrayList<>();
 	}
 	
 	@Override
@@ -37,11 +53,6 @@ public class TestAndroidApplication extends AbstractApplication {
 	}
 
 	@Override
-	public Class<? extends ExceptionHandler> getExceptionHandlerClass() {
-		return TestExceptionHandler.class;
-	}
-
-	@Override
 	public int getLauncherIconResId() {
 		return 0;
 	}
@@ -58,7 +69,7 @@ public class TestAndroidApplication extends AbstractApplication {
 
 	@Override
 	public void initExceptionHandlers() {
-		// Do Nothing
+		Thread.setDefaultUncaughtExceptionHandler(new TestExceptionHandler());
 	}
 
 	@Override

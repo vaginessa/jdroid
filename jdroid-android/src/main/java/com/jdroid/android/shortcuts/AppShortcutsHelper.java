@@ -67,7 +67,7 @@ public class AppShortcutsHelper {
 			}
 		});
 		if (shortcutInfos.size() > MAX_SHORTCUT_COUNT_PER_ACTIVITY) {
-			shortcutInfos = shortcutInfos.subList(0, MAX_SHORTCUT_COUNT_PER_ACTIVITY);
+			shortcutInfos = shortcutInfos.subList(0, MAX_SHORTCUT_COUNT_PER_ACTIVITY - 1);
 			LOGGER.warn("App Shortcuts limit [" + MAX_SHORTCUT_COUNT_PER_ACTIVITY + "] reached. Ignoring some of them");
 		}
 		return shortcutInfos;
