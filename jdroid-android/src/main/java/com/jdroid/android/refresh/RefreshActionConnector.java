@@ -66,7 +66,7 @@ public abstract class RefreshActionConnector implements RefreshActionProvider.On
 	
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
-		stopLoadingOnUIThread();
+		stopLoading();
 		createErrorDisplayer(abstractException).displayError(abstractException);
 	}
 

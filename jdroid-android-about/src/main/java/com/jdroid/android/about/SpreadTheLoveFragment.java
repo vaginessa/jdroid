@@ -164,7 +164,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 			}
 		});
 		
-		Boolean initialized = ShareView.initShareSection(getActivity(), sharingItems, new MoreSharingItem() {
+		Boolean displayShareTitle = ShareView.initShareSection(getActivity(), sharingItems, new MoreSharingItem() {
 			
 			@Override
 			public void share() {
@@ -173,10 +173,6 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 			}
 		});
 		
-		if (!initialized) {
-			findView(R.id.shareSectionTitle).setVisibility(View.GONE);
-		}
-
 		View appInvite = findView(R.id.appInvite);
 		if (displayAppInviteButton() && GooglePlayServicesUtils.isGooglePlayServicesAvailable(getActivity())) {
 			appInvite.setOnClickListener(new OnClickListener() {
@@ -186,6 +182,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 					createAppInviteSender().sendInvitation();
 				}
 			});
+			displayShareTitle = true;
 		} else {
 			appInvite.setVisibility(View.GONE);
 		}
@@ -193,11 +190,17 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 		if (displayGooglePlusOneButton()) {
 			PlusOneButton plusOneButton = findView(R.id.plusOneButton);
 			googlePlusOneButtonHelper = new GooglePlusOneButtonHelper(this, plusOneButton);
-			if (!GooglePlayServicesUtils.isGooglePlayServicesAvailable(getActivity())) {
+			if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(getActivity())) {
+				displayShareTitle = true;
+			} else {
 				findView(R.id.plusOneSection).setVisibility(View.GONE);
 			}
 		} else {
 			findView(R.id.plusOneSection).setVisibility(View.GONE);
+		}
+
+		if (!displayShareTitle) {
+			findView(R.id.shareSectionTitle).setVisibility(View.GONE);
 		}
 	}
 	

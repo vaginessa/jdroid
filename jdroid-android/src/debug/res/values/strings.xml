@@ -20,11 +20,6 @@
 	<string name="jdroid_httpCacheSettings" tools:ignore="MissingTranslation">Http cache</string>
 	<string name="jdroid_clearHttpCache" tools:ignore="MissingTranslation">Clear Http cache</string>
 
-	<!-- Image Loader -->
-	<string name="jdroid_imageLoaderSettings" tools:ignore="MissingTranslation">Image Loader</string>
-	<string name="jdroid_clearImagesDiskCache" tools:ignore="MissingTranslation">Clear images disk cache</string>
-	<string name="jdroid_clearImagesMemoryCache" tools:ignore="MissingTranslation">Clear images memory cache</string>
-
 	<!-- Exception Handling -->
 	<string name="jdroid_exceptionHandlingSettings" tools:ignore="MissingTranslation">Exception Handling</string>
 	<string name="jdroid_exceptionType" tools:ignore="MissingTranslation">Exception type</string>

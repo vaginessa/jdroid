@@ -5,6 +5,8 @@ import android.os.Bundle;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.firebase.fcm.FcmSender;
 import com.jdroid.android.firebase.fcm.device.Device;
+import com.jdroid.android.firebase.instanceid.InstanceIdHeaderAppender;
+import com.jdroid.android.http.DefaultHeaderAppender;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.http.HttpServiceProcessor;
 import com.jdroid.java.http.Server;
@@ -21,7 +23,7 @@ public enum ApiServer implements FcmSender {
 		}
 	},
 	UAT("staging-jdroid.rhcloud.com", null, "/api", true, false),
-	DEV(null, ":8080", "/sample/api", true, false),
+	DEV(null, ":8080", "/jdroid-java-webapp-sample/api", true, false),
 	MOCKEY_LOCAL(null, ":8081", "/service/api", false, false);
 
 	private String domain;
@@ -72,7 +74,7 @@ public enum ApiServer implements FcmSender {
 	
 	@Override
 	public List<HttpServiceProcessor> getHttpServiceProcessors() {
-		return Lists.newArrayList(HeadersAppender.get(), HttpResponseValidator.get());
+		return Lists.newArrayList(DefaultHeaderAppender.get(), InstanceIdHeaderAppender.get(), HttpResponseValidator.get());
 	}
 	
 	@Override

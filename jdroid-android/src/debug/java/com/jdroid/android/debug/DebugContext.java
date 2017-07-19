@@ -1,11 +1,21 @@
 package com.jdroid.android.debug;
 
-import android.preference.PreferenceManager;
 import android.support.v4.util.Pair;
 
 import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.debug.mocks.AndroidJsonMockHttpService;
+import com.jdroid.android.debug.appenders.DatabaseDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.ExceptionHandlingDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.HttpCacheDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.HttpMocksDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.InfoDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.LogsDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.NavDrawerDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.NotificationsDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.RateAppDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.ServersDebugPrefsAppender;
+import com.jdroid.android.debug.appenders.UriMapperPrefsAppender;
+import com.jdroid.android.debug.appenders.UsageStatsDebugPrefsAppender;
 import com.jdroid.android.log.DatabaseLog;
 import com.jdroid.android.log.DatabaseLogsRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
@@ -13,7 +23,6 @@ import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.http.Server;
-import com.jdroid.java.http.mock.AbstractMockHttpService;
 import com.jdroid.java.repository.Repository;
 
 import java.util.List;
@@ -21,28 +30,10 @@ import java.util.Map;
 
 public class DebugContext {
 
-	public static final String HTTP_MOCK_ENABLED = "httpMockEnabled";
-	public static final String HTTP_MOCK_SLEEP = "httpMockSleep";
-
 	private List<Pair<String, Object>> customDebugInfoProperties = Lists.newArrayList();
-
-	public Boolean isHttpMockEnabled() {
-		return !AbstractApplication.get().getAppContext().isProductionEnvironment()
-				&& PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(
-				HTTP_MOCK_ENABLED, false);
-	}
-
-	public Integer getHttpMockSleepDuration() {
-		return PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getBoolean(HTTP_MOCK_SLEEP,
-				false) ? 10 : null;
-	}
 
 	public void launchActivityDebugSettingsActivity() {
 		ActivityLauncher.launchActivity(DebugSettingsActivity.class);
-	}
-
-	public AbstractMockHttpService getAbstractMockHttpServiceInstance(Object... urlSegments) {
-		return new AndroidJsonMockHttpService(urlSegments);
 	}
 
 	public void initDebugRepositories(
@@ -74,10 +65,6 @@ public class DebugContext {
 	
 	public HttpCacheDebugPrefsAppender createHttpCacheDebugPrefsAppender() {
 		return new HttpCacheDebugPrefsAppender();
-	}
-	
-	public ImageLoaderDebugPrefsAppender createImageLoaderDebugPrefsAppender() {
-		return new ImageLoaderDebugPrefsAppender();
 	}
 	
 	public DatabaseDebugPrefsAppender createDatabaseDebugPrefsAppender() {

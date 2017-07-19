@@ -44,6 +44,7 @@ import com.jdroid.android.navdrawer.NavDrawer;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.uri.ReferrerUtils;
 import com.jdroid.android.uri.UriHandler;
+import com.jdroid.android.uri.UriUtils;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.ToastUtils;
@@ -78,11 +79,13 @@ public class ActivityHelper implements ActivityIf {
 	private GoogleApiClient googleApiClient;
 	private Action appIndexingAction;
 
-	private static Boolean firstAppLoad;
+	private static Boolean firstActivityCreate;
 	private static Boolean isGooglePlayServicesAvailable;
 	private static Boolean isGooglePlayServicesDialogDisplayed = false;
 
 	private String referrer;
+	private UriHandler uriHandler;
+	private Boolean uriHandled = false;
 
 	public ActivityHelper(AbstractFragmentActivity activity) {
 		this.activity = activity;
@@ -135,7 +138,7 @@ public class ActivityHelper implements ActivityIf {
 		LOGGER.debug("Executing onCreate on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
 
-		AbstractApplication.get().getCoreAnalyticsSender().onActivityCreate(activity);
+		AbstractApplication.get().getCoreAnalyticsSender().onActivityCreate(activity, savedInstanceState);
 
 		verifyGooglePlayServicesAvailability();
 
@@ -147,11 +150,12 @@ public class ActivityHelper implements ActivityIf {
 			}
 		}
 
-		if (firstAppLoad == null) {
-			firstAppLoad = true;
+		if (firstActivityCreate == null) {
+			firstActivityCreate = true;
 			UsageStats.incrementAppLoad();
+			AbstractApplication.get().getCoreAnalyticsSender().onFirstActivityCreate(activity);
 		} else {
-			firstAppLoad = false;
+			firstActivityCreate = false;
 		}
 
 		overrideStatusBarColor();
@@ -161,10 +165,10 @@ public class ActivityHelper implements ActivityIf {
 		initGoogleApiClient();
 
 		if (savedInstanceState == null) {
-			final UriHandler uriHandler = getActivityIf().createUriHandler();
-			final Boolean uriHandled = AbstractApplication.get().getUriMapper().handleUri(activity, activity.getIntent(), uriHandler, true);
+			uriHandler = getActivityIf().createUriHandler();
+			uriHandled = AbstractApplication.get().getUriMapper().handleUri(activity, activity.getIntent(), uriHandler, true);
 			referrer = ReferrerUtils.getReferrerCategory(activity);
-			if (googleApiClient != null && getActivityIf().isAppInviteEnabled() && (uriHandled || isHomeActivity())) {
+			if (googleApiClient != null && getActivityIf().isAppInviteEnabled() && ((uriHandled && !UriUtils.isInternalReferrerCategory(referrer)) || isHomeActivity())) {
 				PendingResult<AppInviteInvitationResult> pendingResult = AppInvite.AppInviteApi.getInvitation(googleApiClient, getActivity(), false);
 				pendingResult.setResultCallback(new SafeResultCallback<AppInviteInvitationResult>() {
 
@@ -244,7 +248,7 @@ public class ActivityHelper implements ActivityIf {
 				builder.enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
 					@Override
 					public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-						AbstractApplication.get().getExceptionHandler().logHandledException(connectionResult.getErrorMessage());
+						AbstractApplication.get().getExceptionHandler().logHandledException("Error when connecting to google api client: " + connectionResult.getErrorMessage());
 					}
 				});
 				onInitGoogleApiClientBuilder(builder);
@@ -326,7 +330,6 @@ public class ActivityHelper implements ActivityIf {
 			each.onStart();
 		}
 
-		UriHandler uriHandler = getActivityIf().createUriHandler();
 		if (uriHandler != null && isGooglePlayServicesAvailable) {
 			if (appIndexingAction == null) {
 				appIndexingAction = uriHandler.getAppIndexingAction(activity);
@@ -510,9 +513,8 @@ public class ActivityHelper implements ActivityIf {
 	public void onNewIntent(Intent intent) {
 		LOGGER.debug("Executing onNewIntent on " + activity);
 
-		UriHandler uriHandler = getActivityIf().createUriHandler();
 		if (uriHandler != null) {
-			Boolean uriHandled = AbstractApplication.get().getUriMapper().handleUri(activity, intent, uriHandler, false);
+			uriHandled = AbstractApplication.get().getUriMapper().handleUri(activity, intent, uriHandler, false);
 			if (!uriHandled) {
 				activity.setIntent(intent);
 			}

@@ -1,7 +1,10 @@
 package com.jdroid.android.sample.application;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ShortcutInfo;
+import android.graphics.drawable.Icon;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
@@ -15,40 +18,48 @@ import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.application.AppModule;
 import com.jdroid.android.context.AppContext;
-import com.jdroid.android.crashlytics.CrashlyticsAppModule;
 import com.jdroid.android.debug.DebugContext;
-import com.jdroid.android.facebook.FacebookAppModule;
-import com.jdroid.android.firebase.FirebaseAppModule;
+import com.jdroid.android.firebase.admob.AdMobAppModule;
 import com.jdroid.android.firebase.fcm.AbstractFcmAppModule;
-import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigAppModule;
+import com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigHelper;
 import com.jdroid.android.fragment.FragmentHelper;
-import com.jdroid.android.google.admob.AdMobAppModule;
-import com.jdroid.android.google.analytics.GoogleAnalyticsAppModule;
+import com.jdroid.android.google.analytics.GoogleAnalyticsAppContext;
+import com.jdroid.android.google.analytics.GoogleAnalyticsFactory;
+import com.jdroid.android.google.analytics.GoogleCoreAnalyticsTracker;
 import com.jdroid.android.google.geofences.GeofenceTransitionListener;
 import com.jdroid.android.google.geofences.GeofencesHelper;
+import com.jdroid.android.google.inappbilling.InAppBillingAppModule;
+import com.jdroid.android.http.HttpConfiguration;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.debug.AndroidDebugContext;
 import com.jdroid.android.sample.firebase.fcm.AndroidFcmAppModule;
-import com.jdroid.android.sample.google.analytics.AndroidGoogleAnalyticsAppModule;
+import com.jdroid.android.sample.firebase.remoteconfig.AndroidRemoteConfigParameter;
+import com.jdroid.android.sample.google.inappbilling.SampleInAppBillingBroadcastListener;
 import com.jdroid.android.sample.repository.UserRepositoryImpl;
 import com.jdroid.android.sample.ui.AndroidActivityHelper;
 import com.jdroid.android.sample.ui.AndroidFragmentHelper;
 import com.jdroid.android.sample.ui.about.AndroidAboutAppModule;
-import com.jdroid.android.sample.ui.google.admob.SampleAdMobAppModule;
+import com.jdroid.android.sample.ui.google.admob.SampleAdMobAppContext;
+import com.jdroid.android.sample.ui.google.inappbilling.AndroidInAppBillingAppModule;
 import com.jdroid.android.sample.ui.home.HomeActivity;
+import com.jdroid.android.sample.ui.home.HomeItem;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteEntity;
 import com.jdroid.android.sample.ui.sqlite.SampleSQLiteRepository;
 import com.jdroid.android.sample.ui.uri.SampleUriWatcher;
+import com.jdroid.android.shortcuts.AppShortcutsAppModule;
+import com.jdroid.android.shortcuts.AppShortcutsHelper;
 import com.jdroid.android.sqlite.SQLiteHelper;
-import com.jdroid.android.twitter.TwitterAppModule;
+import com.jdroid.android.utils.LocalizationUtils;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.domain.Identifiable;
 import com.jdroid.java.http.okhttp.OkHttpServiceFactory;
 import com.jdroid.java.repository.Repository;
 import com.jdroid.java.utils.IdGenerator;
 
+import java.util.List;
 import java.util.Map;
 
 public class AndroidApplication extends AbstractApplication {
@@ -58,17 +69,34 @@ public class AndroidApplication extends AbstractApplication {
 	}
 
 	public AndroidApplication() {
-		setHttpServiceFactory(new OkHttpServiceFactory());
+		HttpConfiguration.setHttpServiceFactory(new OkHttpServiceFactory());
 	}
+	
+	@Override
+	public void onProviderInit() {
+		super.onProviderInit();
+		
+		FirebaseRemoteConfigHelper.addRemoteConfigParameters(AndroidRemoteConfigParameter.values());
+		AdMobAppModule.setAdMobAppContext(new SampleAdMobAppContext());
+	}
+	
+
 
 	@Override
-	public void onCreate() {
-		super.onCreate();
+	protected void onMainProcessCreate() {
+		if (GoogleAnalyticsAppContext.isGoogleAnalyticsEnabled()) {
+			GoogleAnalyticsFactory.getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleCoreAnalyticsTracker.CustomDimension.INSTALLATION_SOURCE.name(), 1);
+			GoogleAnalyticsFactory.getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleCoreAnalyticsTracker.CustomDimension.DEVICE_TYPE.name(), 2);
+			GoogleAnalyticsFactory.getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleCoreAnalyticsTracker.CustomDimension.REFERRER.name(), 3);
+			GoogleAnalyticsFactory.getGoogleAnalyticsHelper().addCustomDimensionDefinition(GoogleCoreAnalyticsTracker.CustomDimension.DEVICE_YEAR_CLASS.name(), 4);
+		}
 
 		getUriMapper().addUriWatcher(new SampleUriWatcher());
 
 		Firebase.setAndroidContext(this);
-
+		
+		initAppShortcuts();
+		
 		GeofencesHelper.addGeofenceTransitionListener(new GeofenceTransitionListener() {
 			@Override
 			public void onTransitionEnter(GeofencingEvent geofencingEvent) {
@@ -100,14 +128,32 @@ public class AndroidApplication extends AbstractApplication {
 			}
 		});
 	}
-
-
+	
+	private void initAppShortcuts() {
+		if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N_MR1) {
+			List<ShortcutInfo> shortcutInfos = Lists.newArrayList();
+			int rank = 0;
+			for (HomeItem item : HomeItem.values()) {
+				
+				Intent intent = item.getIntent();
+				intent.setAction(Intent.ACTION_VIEW);
+				
+				ShortcutInfo.Builder shortcutInfoBuilder = new ShortcutInfo.Builder(AbstractApplication.get(), item.name());
+				shortcutInfoBuilder.setShortLabel(LocalizationUtils.getString(item.getNameResource()));
+				shortcutInfoBuilder.setLongLabel(LocalizationUtils.getString(item.getNameResource()));
+				shortcutInfoBuilder.setIcon(Icon.createWithResource(AbstractApplication.get(), item.getIconResource()));
+				shortcutInfoBuilder.setIntent(intent);
+				shortcutInfoBuilder.setRank(rank);
+				shortcutInfos.add(shortcutInfoBuilder.build());
+				rank++;
+			}
+			AppShortcutsHelper.setInitialShortcutInfos(shortcutInfos);
+		}
+	}
+	
 	@Override
-	protected void attachBaseContext(Context base) {
-		super.attachBaseContext(base);
-
+	protected void onInitMultiDex() {
 		MultiDex.install(this);
-
 	}
 
 	@Override
@@ -158,15 +204,13 @@ public class AndroidApplication extends AbstractApplication {
 
 	@Override
 	protected void initAppModule(Map<String, AppModule> appModulesMap) {
-		appModulesMap.put(GoogleAnalyticsAppModule.MODULE_NAME, new AndroidGoogleAnalyticsAppModule());
-		appModulesMap.put(FirebaseAppModule.MODULE_NAME, new FirebaseAppModule());
-		appModulesMap.put(CrashlyticsAppModule.MODULE_NAME, new CrashlyticsAppModule());
-		appModulesMap.put(AdMobAppModule.MODULE_NAME, new SampleAdMobAppModule());
-		appModulesMap.put(FacebookAppModule.MODULE_NAME, new FacebookAppModule());
+		appModulesMap.put(AdMobAppModule.MODULE_NAME, new AdMobAppModule());
 		appModulesMap.put(AbstractFcmAppModule.MODULE_NAME, new AndroidFcmAppModule());
-		appModulesMap.put(FirebaseRemoteConfigAppModule.MODULE_NAME, new FirebaseRemoteConfigAppModule());
 		appModulesMap.put(AboutAppModule.MODULE_NAME, new AndroidAboutAppModule());
-		appModulesMap.put(TwitterAppModule.MODULE_NAME, new TwitterAppModule());
+		appModulesMap.put(AppShortcutsAppModule.MODULE_NAME, new AppShortcutsAppModule());
+		appModulesMap.put(InAppBillingAppModule.MODULE_NAME, new AndroidInAppBillingAppModule());
+		
+		AndroidInAppBillingAppModule.get().setInAppBillingBroadcastListener(new SampleInAppBillingBroadcastListener());
 	}
 
 	@Override

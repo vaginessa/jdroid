@@ -1,6 +1,7 @@
 package com.jdroid.android.firebase.invites;
 
 import android.content.Context;
+import android.support.annotation.WorkerThread;
 
 import com.jdroid.android.context.UsageStats;
 import com.jdroid.android.google.GooglePlayServicesUtils;
@@ -19,6 +20,7 @@ public class AppInviteStats {
 
 	private static SharedPreferencesHelper sharedPreferencesHelper;
 
+	@WorkerThread
 	public static void invitesSent(List<String> invitationIds) {
 		String invites = getSharedPreferencesHelper().loadPreference(INVITES_SENT, "");
 		if (StringUtils.isNotBlank(invites)) {
@@ -29,10 +31,12 @@ public class AppInviteStats {
 		getSharedPreferencesHelper().savePreferenceAsync(LAST_INVITE_SENT_TIMESTAMP, DateUtils.nowMillis());
 	}
 
+	@WorkerThread
 	public static Long getLastInviteSentTimestamp() {
 		return getSharedPreferencesHelper().loadPreferenceAsLong(LAST_INVITE_SENT_TIMESTAMP, 0L);
 	}
 
+	@WorkerThread
 	public static void reset() {
 		getSharedPreferencesHelper().removeAllPreferences();
 	}
@@ -44,6 +48,7 @@ public class AppInviteStats {
 		return sharedPreferencesHelper;
 	}
 
+	@WorkerThread
 	public static Boolean displayAppInviteView(Context context) {
 		Boolean enoughDaysSinceLastInvite = DateUtils.millisecondsToDays(AppInviteStats.getLastInviteSentTimestamp()) >= 21;
 		Boolean enoughDaysSinceFirstAppLoad = DateUtils.millisecondsToDays(UsageStats.getFirstAppLoadTimestamp()) >= 7;

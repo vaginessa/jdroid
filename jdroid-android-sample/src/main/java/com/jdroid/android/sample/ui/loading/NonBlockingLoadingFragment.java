@@ -3,11 +3,12 @@ package com.jdroid.android.sample.ui.loading;
 import android.os.Bundle;
 
 import com.jdroid.android.fragment.AbstractFragment;
-import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.loading.NonBlockingLoading;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.usecase.SampleItemsUseCase;
+import com.jdroid.android.usecase.UseCaseHelper;
+import com.jdroid.android.usecase.UseCaseTrigger;
 
 public class NonBlockingLoadingFragment extends AbstractFragment {
 	
@@ -28,13 +29,13 @@ public class NonBlockingLoadingFragment extends AbstractFragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		registerUseCase(sampleItemsUseCase, this, UseCaseTrigger.ONCE);
+		UseCaseHelper.registerUseCase(sampleItemsUseCase, this, UseCaseTrigger.ONCE);
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
-		unregisterUseCase(sampleItemsUseCase, this);
+		UseCaseHelper.unregisterUseCase(sampleItemsUseCase, this);
 	}
 	
 	@Override

@@ -1,10 +1,9 @@
 package com.jdroid.android.debug.mocks;
 
-import android.preference.PreferenceManager;
-
-import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.debug.CrashGenerator;
-import com.jdroid.android.debug.ExceptionType;
+import com.jdroid.android.debug.crash.CrashGenerator;
+import com.jdroid.android.debug.crash.ExceptionType;
+import com.jdroid.android.debug.http.HttpDebugConfiguration;
+import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.http.mock.AbstractMockHttpService;
 import com.jdroid.java.http.mock.JsonMockHttpService;
 
@@ -29,11 +28,10 @@ public class AndroidJsonMockHttpService extends JsonMockHttpService {
 	
 	@Override
 	protected Integer getHttpMockSleepDuration(Object... urlSegments) {
-		return AbstractApplication.get().getDebugContext().getHttpMockSleepDuration();
+		return HttpDebugConfiguration.getHttpMockSleepDuration();
 	}
 
 	private ExceptionType getHttpMockExceptionType() {
-		return ExceptionType.find(PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
-				HTTP_MOCK_CRASH_TYPE, null));
+		return ExceptionType.find(SharedPreferencesHelper.get().loadPreference(HTTP_MOCK_CRASH_TYPE));
 	}
 }

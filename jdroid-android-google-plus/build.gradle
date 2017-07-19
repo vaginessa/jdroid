@@ -3,16 +3,15 @@ apply plugin: 'com.jdroid.android.library'
 ext.PROJECT_NAME = 'Jdroid Android - Google+'
 description = 'Jdroid dependency project for Google+'
 
-repositories {
-	// TODO See how to remove this dependency
-	maven {
-		url 'https://maven.fabric.io/public'
-	}
-}
-
 configurations.all {
 	// check for updates every build
 	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+buildscript {
+	dependencies {
+		classpath "com.jdroidframework:jdroid-gradle-android-plugin:${JDROID_GRADLE_PLUGIN_VERSION}"
+	}
 }
 
 dependencies {
@@ -22,13 +21,10 @@ dependencies {
 		releaseCompile project(path: ":jdroid-android", configuration: 'release')
 	}
 
-	compile 'com.google.android.gms:play-services-plus:' + googlePlayServicesVersion
+	compile "com.google.android.gms:play-services-plus:${GOOGLE_PLAY_SERVICES_VERSION}"
 
-	testCompile 'junit:junit:4.12'
-	testCompile "org.mockito:mockito-all:1.10.19"
-
-	// https://github.com/robolectric/robolectric
-	testCompile 'org.robolectric:robolectric:3.1'
+	testCompile "junit:junit:${JUNIT_VERSION}"
+	testCompile "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
 }
 
 jdroid {
@@ -36,11 +32,6 @@ jdroid {
 }
 
 android {
-
-	lintOptions {
-		disable 'ContentDescription', 'RtlEnabled', 'RtlHardcoded', 'RtlSymmetry', 'UseCompoundDrawables', 'UnknownIdInLayout'
-	}
-
 	sourceSets.test.java.srcDirs += "build/generated/source/r/debug"
 	sourceSets.test.java.srcDirs += sourceSets.main.java.srcDirs
 	sourceSets.test.java.srcDirs += sourceSets.debug.java.srcDirs

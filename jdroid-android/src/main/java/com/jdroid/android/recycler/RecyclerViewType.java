@@ -2,6 +2,7 @@ package com.jdroid.android.recycler;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +16,11 @@ public abstract class RecyclerViewType<ITEM, VIEWHOLDER extends RecyclerView.Vie
 
 	private final static Logger LOGGER = LoggerUtils.getLogger(RecyclerViewType.class);
 
-	public View inflateView(LayoutInflater inflater, ViewGroup parent) {
-		View view = inflater.inflate(getLayoutResourceId(), parent, false);
-		if (isClickable()) {
-			view.setOnClickListener(this);
-		}
-		return view;
-	}
+	private RecyclerViewTypeListener recyclerViewTypeListener;
 
-	protected abstract Class<ITEM> getItemClass();
+	public View inflateView(LayoutInflater inflater, ViewGroup parent) {
+		return inflater.inflate(getLayoutResourceId(), parent, false);
+	}
 
 	protected abstract Integer getLayoutResourceId();
 
@@ -41,8 +38,9 @@ public abstract class RecyclerViewType<ITEM, VIEWHOLDER extends RecyclerView.Vie
 	 * @param item The Object.
 	 * @param holder The VIEWHOLDER.
 	 */
-	public abstract  void fillHolderFromItem(ITEM item, VIEWHOLDER holder);
+	public abstract void fillHolderFromItem(ITEM item, VIEWHOLDER holder);
 
+	@NonNull
 	public abstract AbstractRecyclerFragment getAbstractRecyclerFragment();
 
 	protected Boolean isClickable() {
@@ -54,6 +52,9 @@ public abstract class RecyclerViewType<ITEM, VIEWHOLDER extends RecyclerView.Vie
 	public void onClick(View view) {
 		int itemPosition = getAbstractRecyclerFragment().getRecyclerView().getChildAdapterPosition(view);
 		if (itemPosition != RecyclerView.NO_POSITION) {
+			if (recyclerViewTypeListener != null) {
+				recyclerViewTypeListener.onItemSelected(itemPosition);
+			}
 			onItemSelected((ITEM)getAbstractRecyclerFragment().getAdapter().getItem(itemPosition), view);
 		} else {
 			LOGGER.warn("Ignored onClick for item with no position");
@@ -85,4 +86,30 @@ public abstract class RecyclerViewType<ITEM, VIEWHOLDER extends RecyclerView.Vie
 	protected Activity getActivity() {
 		return getAbstractRecyclerFragment().getActivity();
 	}
+
+	public Boolean matchViewType(Object item) {
+		Class itemClass = item.getClass();
+		while (itemClass != null) {
+			if (getItemClass().equals(itemClass)) {
+				return true;
+			}
+			itemClass = itemClass.getSuperclass();
+		}
+		return false;
+	}
+
+	protected abstract Class<ITEM> getItemClass();
+
+	void setRecyclerViewTypeListener(RecyclerViewType.RecyclerViewTypeListener recyclerViewTypeListener) {
+		this.recyclerViewTypeListener = recyclerViewTypeListener;
+	}
+
+	public boolean isSelectable() {
+		return false;
+	}
+
+	interface RecyclerViewTypeListener {
+		void onItemSelected(int position);
+	}
+
 }

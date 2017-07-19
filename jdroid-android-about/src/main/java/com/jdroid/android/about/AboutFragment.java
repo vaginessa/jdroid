@@ -14,9 +14,9 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.feedback.RateAppStats;
 import com.jdroid.android.intent.IntentUtils;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
+import com.jdroid.android.recycler.FooterRecyclerViewType;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
 import com.jdroid.android.recycler.RecyclerViewType;
-import com.jdroid.android.recycler.SimpleRecyclerViewType;
 import com.jdroid.android.share.ShareUtils;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.java.collections.Lists;
@@ -54,7 +54,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 						AbstractApplication.get().getAppName());
 					if (IntentUtils.isIntentAvailable(intent)) {
 						startActivity(intent);
-						AboutAppModule.get().getAnalyticsSender().trackContactUs();
+						AboutAppModule.get().getModuleAnalyticsSender().trackContactUs();
 					} else {
 						// TODO Improve this adding a toast or something
 						AbstractApplication.get().getExceptionHandler().logWarningException(
@@ -90,23 +90,17 @@ public class AboutFragment extends AbstractRecyclerFragment {
 			});
 		}
 		aboutItems.addAll(getCustomAboutItems());
-
-		if (rateAppViewEnabled() && RateAppStats.displayRateAppView()) {
-			// Footer
-			aboutItems.add(new Object());
-		}
 	}
 	
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
-		List<RecyclerViewType> recyclerViewTypes = Lists.newArrayList();
-		recyclerViewTypes.add(new HeaderRecyclerViewType());
-		recyclerViewTypes.add(new AboutRecyclerViewType());
-		recyclerViewTypes.add(new FooterRecyclerViewType());
-
-		setAdapter(new RecyclerViewAdapter(recyclerViewTypes, aboutItems));
+		RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(Lists.<RecyclerViewType>newArrayList(new HeaderRecyclerViewType(), new AboutRecyclerViewType()), aboutItems);
+		if (rateAppViewEnabled() && RateAppStats.displayRateAppView()) {
+			recyclerViewAdapter.setFooter(new AboutFooterRecyclerViewType());
+		}
+		setAdapter(recyclerViewAdapter);
 	}
 	
 	protected String getWebsite() {
@@ -184,7 +178,7 @@ public class AboutFragment extends AbstractRecyclerFragment {
 		}
 	}
 
-	public class FooterRecyclerViewType extends SimpleRecyclerViewType {
+	public class AboutFooterRecyclerViewType extends FooterRecyclerViewType {
 
 		@Override
 		protected Integer getLayoutResourceId() {

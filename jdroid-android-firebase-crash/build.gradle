@@ -1,0 +1,42 @@
+apply plugin: 'com.jdroid.android.library'
+
+ext.PROJECT_NAME = 'Jdroid Android - Firebase Crash Reporting'
+description = 'Jdroid dependency project for Firebase Crash Reporting'
+
+configurations.all {
+	// check for updates every build
+	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+buildscript {
+	dependencies {
+		classpath "com.jdroidframework:jdroid-gradle-android-plugin:${JDROID_GRADLE_PLUGIN_VERSION}"
+	}
+}
+
+dependencies {
+
+	compile "com.google.firebase:firebase-crash:${GOOGLE_PLAY_SERVICES_VERSION}"
+
+	debugCompile project(path: ":jdroid-android", configuration: 'debug')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ":jdroid-android", configuration: 'release')
+	}
+
+	testCompile "junit:junit:${JUNIT_VERSION}"
+	testCompile "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
+}
+
+jdroid {
+	notDefaultLanguages = ['es']
+}
+
+android {
+	sourceSets.test.java.srcDirs += "build/generated/source/r/debug"
+	sourceSets.test.java.srcDirs += sourceSets.main.java.srcDirs
+	sourceSets.test.java.srcDirs += sourceSets.debug.java.srcDirs
+	sourceSets.test.resources.srcDirs += sourceSets.main.resources.srcDirs
+	sourceSets.test.resources.srcDirs += sourceSets.debug.resources.srcDirs
+	sourceSets.test.res.srcDirs += sourceSets.main.res.srcDirs
+	sourceSets.test.res.srcDirs += sourceSets.debug.res.srcDirs
+}

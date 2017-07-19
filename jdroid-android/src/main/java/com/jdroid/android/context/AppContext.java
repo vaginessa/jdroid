@@ -1,17 +1,14 @@
 package com.jdroid.android.context;
 
-import android.preference.PreferenceManager;
-
 import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
 import com.jdroid.android.utils.LocalizationUtils;
+import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.http.Server;
 
-import java.util.List;
 import java.util.Locale;
 
-public abstract class AppContext extends AbstractAppContext {
+public class AppContext extends AbstractAppContext {
 	
 	// Environment
 	private Server defaultServer;
@@ -34,7 +31,7 @@ public abstract class AppContext extends AbstractAppContext {
 		} else {
 			Class<?> clazz = defaultServer.getClass().getEnclosingClass() != null ? defaultServer.getClass().getEnclosingClass()
 					: defaultServer.getClass();
-			return (T)defaultServer.instance(PreferenceManager.getDefaultSharedPreferences(AbstractApplication.get()).getString(
+			return (T)defaultServer.instance(SharedPreferencesHelper.get().loadPreference(
 					clazz.getSimpleName(), defaultServer.getName()).toUpperCase(Locale.US));
 		}
 	}
@@ -47,10 +44,6 @@ public abstract class AppContext extends AbstractAppContext {
 	 * @return Whether the application should display the debug settings
 	 */
 	public Boolean displayDebugSettings() {
-		return !isProductionEnvironment();
-	}
-
-	public Boolean isLoggingEnabled() {
 		return !isProductionEnvironment();
 	}
 
@@ -113,10 +106,6 @@ public abstract class AppContext extends AbstractAppContext {
 	}
 	
 	public String getGooglePlusCommunityId() {
-		return null;
-	}
-
-	public List<RemoteConfigParameter> getRemoteConfigParameters() {
 		return null;
 	}
 

@@ -33,7 +33,7 @@
 	<android.support.design.widget.FloatingActionButton
 		android:id="@+id/fab"
 		style="@style/jdroid_floatingActionButton"
-		android:src="@drawable/ic_cardview"
+		app:srcCompat="@drawable/ic_cardview"
 		app:layout_anchor="@id/scrollView"
 		app:layout_anchorGravity="bottom|right|end"
 		app:layout_behavior="com.jdroid.android.fab.ScrollAwareFABBehavior"/>

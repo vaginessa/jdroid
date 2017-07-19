@@ -34,5 +34,13 @@ public class GoogleMapsFragment extends AbstractFragment {
 				ActivityLauncher.launchActivity(LiteModeMapActivity.class);
 			}
 		});
+
+		findView(R.id.streetView).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				ActivityLauncher.launchActivity(StreetViewActivity.class);
+			}
+		});
 	}
 }

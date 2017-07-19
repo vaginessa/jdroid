@@ -1,8 +1,11 @@
 package com.jdroid.android.google.maps;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresPermission;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -22,14 +25,11 @@ import com.jdroid.android.application.AppModule;
 import com.jdroid.android.exception.ErrorDisplayer;
 import com.jdroid.android.fragment.FragmentDelegate;
 import com.jdroid.android.fragment.FragmentHelper;
-import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.fragment.FragmentIf;
 import com.jdroid.android.google.GooglePlayServicesUtils;
 import com.jdroid.android.loading.FragmentLoading;
 import com.jdroid.android.permission.PermissionHelper;
 import com.jdroid.android.snackbar.SnackbarBuilder;
-import com.jdroid.android.usecase.AbstractUseCase;
-import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.exception.AbstractException;
 
 public abstract class AbstractMapFragment extends SupportMapFragment implements FragmentIf {
@@ -94,6 +94,8 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 			locationPermissionHelper = PermissionHelper.createLocationPermissionHelper(this);
 			locationPermissionHelper.setAppInfoDialogMessageResId(R.string.jdroid_locationPermissionRequired);
 			locationPermissionHelper.setOnRequestPermissionsResultListener(new PermissionHelper.OnRequestPermissionsResultListener() {
+
+				@RequiresPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
 				@Override
 				public void onRequestPermissionsGranted() {
 					if (map != null) {
@@ -110,6 +112,7 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 
 		getMapAsync(new OnMapReadyCallback() {
 
+			@RequiresPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
 			@Override
 			public void onMapReady(final GoogleMap googleMap) {
 				map = googleMap;
@@ -126,7 +129,9 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 				getGoogleMap().setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
 					@Override
 					public void onMapLoaded() {
-						AbstractMapFragment.this.onMapLoaded(googleMap);
+						if (!isDetached()) {
+							AbstractMapFragment.this.onMapLoaded(googleMap);
+						}
 					}
 				});
 
@@ -136,6 +141,8 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 						map.setMyLocationEnabled(true);
 					} else if (snackbarToSuggestLocationPermissionEnabled()) {
 						locationPermissionHelper.setOnRequestPermissionsResultListener(new PermissionHelper.OnRequestPermissionsResultListener() {
+
+							@RequiresPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
 							@Override
 							public void onRequestPermissionsGranted() {
 								if (map != null) {
@@ -345,26 +352,20 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	public View inflate(int resource) {
 		return fragmentHelper.inflate(resource);
 	}
-	
-	/**
-	 * @see UseCaseListener#onStartUseCase()
-	 */
+
+	@MainThread
 	@Override
 	public void onStartUseCase() {
 		fragmentHelper.onStartUseCase();
 	}
 	
-	/**
-	 * @see UseCaseListener#onUpdateUseCase()
-	 */
+	@MainThread
 	@Override
 	public void onUpdateUseCase() {
 		fragmentHelper.onUpdateUseCase();
 	}
 	
-	/**
-	 * @see UseCaseListener#onFinishFailedUseCase(com.jdroid.java.exception.AbstractException)
-	 */
+	@MainThread
 	@Override
 	public void onFinishFailedUseCase(AbstractException abstractException) {
 		fragmentHelper.onFinishFailedUseCase(abstractException);
@@ -375,17 +376,12 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 		return fragmentHelper.createErrorDisplayer(abstractException);
 	}
 
-	/**
-	 * @see UseCaseListener#onFinishUseCase()
-	 */
+	@MainThread
 	@Override
 	public void onFinishUseCase() {
 		fragmentHelper.onFinishUseCase();
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#executeOnUIThread(java.lang.Runnable)
-	 */
 	@Override
 	public void executeOnUIThread(Runnable runnable) {
 		fragmentHelper.executeOnUIThread(runnable);
@@ -416,16 +412,6 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 	}
 	
 	@Override
-	public void executeUseCase(AbstractUseCase useCase) {
-		fragmentHelper.executeUseCase(useCase);
-	}
-	
-	@Override
-	public void executeUseCase(AbstractUseCase useCase, Long delaySeconds) {
-		fragmentHelper.executeUseCase(useCase, delaySeconds);
-	}
-
-	@Override
 	public void beforeInitAppBar(Toolbar appBar) {
 		fragmentHelper.beforeInitAppBar(appBar);
 	}
@@ -440,22 +426,6 @@ public abstract class AbstractMapFragment extends SupportMapFragment implements 
 		return fragmentHelper.getAppBar();
 	}
 
-	@Override
-	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener) {
-		fragmentHelper.registerUseCase(useCase, listener);
-	}
-	
-	@Override
-	public void registerUseCase(AbstractUseCase useCase, UseCaseListener listener,
-								UseCaseTrigger useCaseTrigger) {
-		fragmentHelper.registerUseCase(useCase, listener, useCaseTrigger);
-	}
-	
-	@Override
-	public void unregisterUseCase(AbstractUseCase useCase, UseCaseListener listener) {
-		fragmentHelper.unregisterUseCase(useCase, listener);
-	}
-	
 	/**
 	 * @see com.jdroid.android.fragment.FragmentIf#getActivityIf()
 	 */

@@ -28,9 +28,4 @@ public class TestAppContext extends AppContext {
 	public Boolean isStrictModeEnabled() {
 		return false;
 	}
-
-	@Override
-	public Boolean isLoggingEnabled() {
-		return false;
-	}
 }

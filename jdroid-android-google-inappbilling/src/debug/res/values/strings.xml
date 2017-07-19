@@ -2,10 +2,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
 	<string name="jdroid_inAppBillingSettings" tools:ignore="MissingTranslation">In App Billing</string>
-	<string name="jdroid_inAppBillingMockEnabledTitle" tools:ignore="MissingTranslation">In App Billing Mocks</string>
-	<string name="jdroid_inAppBillingMockEnabledDescription" tools:ignore="MissingTranslation">Enable/disable In App Billing mocks</string>
-	<string name="jdroid_inAppBillingTestProductIdsTitle" tools:ignore="MissingTranslation">Test Product Id</string>
-	<string name="jdroid_inAppBillingTestProductIdsDescription" tools:ignore="MissingTranslation">Pick the Test Product Id</string>
+	<string name="jdroid_inAppBillingStaticResponsesTitle" tools:ignore="MissingTranslation">Static Responses</string>
+	<string name="jdroid_inAppBillingStaticResponsesDescription" tools:ignore="MissingTranslation">Enable/disable static responses</string>
 	<string name="jdroid_inAppBillingPurchasedProductTypeTitle" tools:ignore="MissingTranslation">Purchased products ids</string>
 
 </resources>

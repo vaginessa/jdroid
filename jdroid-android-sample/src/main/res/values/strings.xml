@@ -13,6 +13,7 @@
 	<string name="activityBanner">Activity Banner</string>
 	<string name="displayInterstitial">Display Interstitial</string>
 	<string name="houseAds">House Ads</string>
+	<string name="houseAd">House ad</string>
 
 	<!-- Firebase Invites -->
 	<string name="appInvite">Firebase Invites</string>
@@ -28,7 +29,10 @@
 	<!-- Use Cases -->
 	<string name="useCases">Use Cases</string>
 	<string name="execute">Execute</string>
-	<string name="fail">Fail</string>
+	<string name="failExecution">Fail Execution</string>
+	<string name="failStartNotification">Fail Start Notification</string>
+	<string name="failFinishNotification">Fail Finish Notification</string>
+	<string name="failFinishFailedNotification">Fail Finish Failed Notification</string>
 	<string name="noListener">No Listener (Reload fragment if you change this)</string>
 	<string name="onStartUseCase">Starting Use Case</string>
 	<string name="onFinishedUseCase">On Finished Use Case</string>
@@ -37,6 +41,7 @@
 	<string name="onceUseCaseTrigger">Once Use Case Trigger</string>
 	<string name="alwaysUseCaseTrigger">Always Use Case Trigger</string>
 	<string name="useCaseTrigger">Use Case Trigger (Reload fragment if you change this)</string>
+	<string name="delay">Delay (seconds)</string>
 
 	<!-- Floating Action Button -->
 
@@ -47,6 +52,12 @@
 	<string name="defaultErrorDisplayer">Default Error Displayer</string>
 	<string name="defaultErrorDisplayerNotGoBack">Default Error Displayer (Not go back on error)</string>
 	<string name="snackbarErrorDisplayer">Snackbar Error Displayer</string>
+
+	<!-- Timer -->
+	<string name="timer">Timer</string>
+	<string name="start">Start</string>
+	<string name="stop">Stop</string>
+	<string name="reset">Reset</string>
 
 	<!-- Firebase Database -->
 	<string name="firebaseDatabase">Firebase Database</string>
@@ -95,9 +106,12 @@
 	<string name="googleMaps">Google Maps</string>
 	<string name="fullMap">Full Map</string>
 	<string name="liteModeMap">Lite Mode Map</string>
+	<string name="streetView">Street View</string>
 
 	<!-- Google Sign In -->
 	<string name="revokeAccess">Revoke</string>
+	<string name="notLogged">Not Logged</string>
+	<string name="connectionFailed">Connection Failed</string>
 
 	<!-- Google Play Services -->
 	<string name="googlePlayServices">Google Play Services</string>
@@ -142,7 +156,7 @@
 	<string name="userNavDrawer">User Nav Drawer</string>
 
 	<!-- In App Billing -->
-	<string name="inAppBilling">In App Billing</string>
+	<string name="inAppBilling">Google In App Billing</string>
 
 	<!-- Notifications -->
 	<string name="notifications">Notifications</string>
@@ -154,6 +168,8 @@
 	<string name="largeIconDrawable">Large icon drawable</string>
 	<string name="sendNotification">Send Notification</string>
 	<string name="cancelNotifications">Cancel Notifications</string>
+	<string name="contentTitleSample">Title example</string>
+	<string name="contextTextSample">Description example</string>
 
 	<!-- Toasts -->
 	<string name="toasts">Toasts</string>
@@ -192,6 +208,7 @@
 	<string name="dismissLoading">Dismiss Loading</string>
 	<string name="nonBlockingLoading">Non Blocking Loading</string>
 	<string name="swipeRefresLoading">Swipe Refresh Loading</string>
+	<string name="fail">Fail</string>
 
 	<!-- Hero -->
 	<string name="hero">Hero &amp; Parallax</string>
@@ -208,6 +225,21 @@
 	<string name="searchPaginatedRecycler">Search Paginated Recycler</string>
 	<string name="autofitGridLayoutRecycler">Autofit Grid Recycler</string>
 	<string name="noResults">No Results</string>
+	<string name="addItem">Add Item</string>
+	<string name="addItems">Add Items</string>
+	<string name="removeFirstItem">Remove First Item</string>
+	<string name="removeSecondItem">Remove Second Item</string>
+	<string name="addHeader">Add header</string>
+	<string name="addClickableHeader">Add clickable header</string>
+	<string name="removeHeader">Remove header</string>
+	<string name="addFooter">Add footer</string>
+	<string name="addClickableFooter">Add clickable footer</string>
+	<string name="removeFooter">Remove footer</string>
+	<string name="clearItems">Clear Items</string>
+	<string name="clickableFooter">clickable footer</string>
+	<string name="clickableHeader">clickable header</string>
+	<string name="footer">footer</string>
+	<string name="header">header</string>
 
 	<!-- SQLite -->
 	<string name="sqlite">SQLite</string>
@@ -222,11 +254,13 @@
 	<string name="service">Service</string>
 	<string name="workerService">Worker Service</string>
 	<string name="useCaseService">Use Case Service</string>
-	<string name="gcmTaskService">Gcm Task Service</string>
+	<string name="firebaseJobService">Firebase Job Service</string>
 	<string name="commandService1">Command Service 1</string>
 	<string name="commandService2">Command Service 2</string>
 	<string name="commandService3">Command Service 3</string>
 	<string name="commandService4">Command Service 4</string>
+	<string name="commandService5">Command Service 5</string>
+	<string name="cancelAllJobs">Cancel All Jobs</string>
 
 	<!-- Tablets -->
 	<string name="openDetail">Open Detail</string>

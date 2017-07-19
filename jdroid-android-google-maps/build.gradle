@@ -3,16 +3,15 @@ apply plugin: 'com.jdroid.android.library'
 ext.PROJECT_NAME = 'Jdroid Android - Google Maps'
 description = 'Jdroid dependency project for Google Maps'
 
-repositories {
-	// TODO See how to remove this dependency
-	maven {
-		url 'https://maven.fabric.io/public'
-	}
-}
-
 configurations.all {
 	// check for updates every build
 	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+buildscript {
+	dependencies {
+		classpath "com.jdroidframework:jdroid-gradle-android-plugin:${JDROID_GRADLE_PLUGIN_VERSION}"
+	}
 }
 
 dependencies {
@@ -22,14 +21,19 @@ dependencies {
 		releaseCompile project(path: ":jdroid-android", configuration: 'release')
 	}
 
-	compile 'com.google.android.gms:play-services-maps:' + googlePlayServicesVersion
+	compile "com.google.android.gms:play-services-maps:${GOOGLE_PLAY_SERVICES_VERSION}"
 
-	testCompile 'junit:junit:4.12'
-	testCompile "org.mockito:mockito-all:1.10.19"
-	testCompile project(':jdroid-java-http-okhttp')
+	if (jdroid.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
+		testCompile project(":jdroid-java-http-okhttp")
+	} else {
+		testCompile ("com.jdroidframework:jdroid-java-http-okhttp:${JDROID_JAVA_HTTP_VERSION}") {
+			exclude module: 'slf4j-api'
+			exclude module: 'jdroid-java-core'
+		}
+	}
 
-	// https://github.com/robolectric/robolectric
-	testCompile 'org.robolectric:robolectric:3.1'
+	testCompile "junit:junit:${JUNIT_VERSION}"
+	testCompile "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
 }
 
 jdroid {
@@ -37,10 +41,6 @@ jdroid {
 }
 
 android {
-
-	lintOptions {
-		disable 'ContentDescription', 'RtlEnabled', 'RtlHardcoded', 'RtlSymmetry', 'UseCompoundDrawables', 'UnknownIdInLayout'
-	}
 
 	defaultConfig {
 		manifestPlaceholders = [ googleMapsApiKey: "" ]

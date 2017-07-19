@@ -2,8 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
 		  package="com.jdroid.android">
 
+	<uses-feature android:name="android.hardware.WIFI" android:required="false" />
+
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 	<uses-permission android:name="android.permission.INTERNET" />
+
+	<!-- TODO Se why these two permissions are needed -->
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
 	<!-- Required permission to make the GcmTaskService persistence across reboots work -->
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
@@ -12,9 +18,14 @@
 
 	<application>
 
+		<meta-data android:name="com.jdroid.android.application.AppLifecycleCallback" android:value="ApplicationLifecycleCallback" />
+		<meta-data android:name="com.jdroid.android.google.analytics.GoogleAnalyticsAppLifecycleCallback" android:value="ApplicationLifecycleCallback" />
+		<meta-data android:name="com.jdroid.android.firebase.analytics.FirebaseAnalyticsAppLifecycleCallback" android:value="ApplicationLifecycleCallback" />
+		<meta-data android:name="com.jdroid.android.shortcuts.AppShortcutsAppLifecycleCallback" android:value="ApplicationLifecycleCallback" />
+
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 
-		<receiver android:name="com.jdroid.android.receiver.LocaleChangedReceiver" android:exported="true">
+		<receiver android:name="com.jdroid.android.lifecycle.LocaleChangedReceiver" android:exported="true">
 			<intent-filter>
 				<action android:name="android.intent.action.LOCALE_CHANGED" />
 			</intent-filter>
@@ -40,21 +51,18 @@
 		</receiver>
 		<service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
 
-		<!-- Service to handle the creation, rotation, and updating of registration tokens. -->
-		<service android:name=".firebase.instanceid.InstanceIdService">
+		<service android:name="com.jdroid.android.firebase.jobdispatcher.CommandWorkerService" android:exported="false" />
+		<service android:name="com.jdroid.android.firebase.jobdispatcher.CommandJobService" android:exported="false">
 			<intent-filter>
-				<action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+				<action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
 			</intent-filter>
 		</service>
 
-		<service android:name="com.jdroid.android.service.CommandWorkerService" android:exported="false" />
-		<service android:name="com.jdroid.android.service.CommandGcmTaskService"
-				 android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE"
-				 android:exported="true">
-			<intent-filter>
-				<action android:name="com.google.android.gms.gcm.ACTION_TASK_READY"/>
-			</intent-filter>
-		</service>
+		<provider
+			android:name="com.jdroid.android.lifecycle.ApplicationLifecycleInitProvider"
+			android:authorities="${applicationId}.com.jdroid.android.lifecycle.ApplicationLifecycleInitProvider"
+			android:exported="false"
+			android:initOrder="1" />
 
 		<service android:name="com.jdroid.android.google.geofences.GeofenceTransitionsIntentService"/>
 

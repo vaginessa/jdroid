@@ -8,7 +8,7 @@
 	android:id="@+id/navDrawerHeader"
 	android:background="@android:color/white"
 	android:fitsSystemWindows="true"
-	app:insetScrollForeground="#4000">
+	app:jdroid_insetScrollForeground="#4000">
 
 	<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
 
@@ -32,9 +32,9 @@
 					android:id="@+id/photo"
 					android:layout_width="@dimen/jdroid_navdrawerHeaderImageSize"
 					android:layout_height="@dimen/jdroid_navdrawerHeaderImageSize"
-					android:src="@drawable/jdroid_person_default"
+					app:srcCompat="@drawable/jdroid_person_default"
 					android:scaleType="centerCrop"
-					app:circleImage="@bool/jdroid_navDrawerHeaderCircleImage" />
+					app:jdroid_circleImage="@bool/jdroid_navDrawerHeaderCircleImage" />
 
 				<ImageView
 					android:id="@+id/expand_account_box_indicator"
@@ -46,7 +46,7 @@
 					android:layout_alignParentRight="true"
 					android:layout_alignParentBottom="true"
 					android:scaleType="center"
-					android:src="@drawable/jdroid_ic_drawer_accounts_expand" />
+					app:srcCompat="@drawable/jdroid_ic_drawer_accounts_expand" />
 
 				<TextView
 					android:id="@+id/subTitle"

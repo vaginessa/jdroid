@@ -2,13 +2,13 @@ package com.jdroid.android.google.inappbilling.analytics;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.jdroid.android.google.analytics.AbstractGoogleAnalyticsTracker;
-import com.jdroid.android.google.inappbilling.Product;
+import com.jdroid.android.google.inappbilling.client.Product;
 
 public class GoogleInAppBillingAnalyticsTracker extends AbstractGoogleAnalyticsTracker implements InAppBillingAnalyticsTracker {
 
 	@Override
 	public void trackInAppBillingPurchaseTry(Product product) {
-		getGoogleAnalyticsHelper().sendEvent("inAppBilling", "purchaseTry", product.getProductType().getProductId());
+		getGoogleAnalyticsHelper().sendEvent("inAppBilling", "purchaseTry", product.getId());
 	}
 
 	@Override
@@ -22,9 +22,9 @@ public class GoogleInAppBillingAnalyticsTracker extends AbstractGoogleAnalyticsT
 
 		HitBuilders.ItemBuilder itemBuilder = new HitBuilders.ItemBuilder();
 		itemBuilder.setTransactionId(product.getPurchase().getOrderId());
-		itemBuilder.setName(product.getProductType().getProductId());
-		itemBuilder.setCategory(product.getProductType().isConsumable() ? "consumable" : "notConsumable");
-		itemBuilder.setSku(product.getProductType().getProductId());
+		itemBuilder.setName(product.getId());
+		itemBuilder.setCategory(product.isConsumable() ? "consumable" : "notConsumable");
+		itemBuilder.setSku(product.getId());
 		itemBuilder.setQuantity(1);
 		itemBuilder.setPrice(product.getPrice());
 		itemBuilder.setCurrencyCode(product.getCurrencyCode());

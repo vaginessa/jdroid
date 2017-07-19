@@ -8,8 +8,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.java.exception.ConnectionException;
 import com.jdroid.java.exception.UnexpectedException;
+import com.jdroid.java.http.exception.ConnectionException;
 
 public class DefaultWebViewClient extends WebViewClient {
 	

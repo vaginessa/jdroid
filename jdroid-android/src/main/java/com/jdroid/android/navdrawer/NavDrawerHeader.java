@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jdroid.android.R;
-import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.images.loader.ImageViewLoader;
 
 public class NavDrawerHeader {
 
@@ -35,18 +35,19 @@ public class NavDrawerHeader {
 		((ImageView)navDrawerHeader.findViewById(R.id.cover)).setImageResource(imageResId);
 	}
 
-	public void setBackground(String imageUrl, Long ttl) {
-		AbstractApplication.get().getImageLoaderHelper().displayImage(imageUrl,
-				(ImageView)navDrawerHeader.findViewById(R.id.cover), null, null, ttl);
+	public void setBackground(String imageUrl, Long ttl, ImageViewLoader imageViewLoader) {
+		if (imageUrl != null) {
+			imageViewLoader.displayImage(imageUrl, (ImageView)navDrawerHeader.findViewById(R.id.cover), null, ttl);
+		}
 	}
 
 	public void setMainImage(@DrawableRes Integer imageResId) {
 		((ImageView)navDrawerHeader.findViewById(R.id.photo)).setImageResource(imageResId);
 	}
 
-	public void setMainImage(String imageUrl, Long ttl) {
-		AbstractApplication.get().getImageLoaderHelper().displayImage(imageUrl,
-				(ImageView)navDrawerHeader.findViewById(R.id.photo), R.drawable.jdroid_person_default, null,
-				ttl);
+	public void setMainImage(String imageUrl, Long ttl, ImageViewLoader imageViewLoader) {
+		if (imageUrl != null) {
+			imageViewLoader.displayImage(imageUrl, (ImageView)navDrawerHeader.findViewById(R.id.photo), R.drawable.jdroid_person_default, ttl);
+		}
 	}
 }

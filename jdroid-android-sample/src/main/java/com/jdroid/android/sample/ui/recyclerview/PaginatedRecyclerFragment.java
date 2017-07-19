@@ -4,12 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jdroid.android.recycler.AbstractPaginatedRecyclerFragment;
+import com.jdroid.android.recycler.pagination.AbstractPaginatedRecyclerFragment;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
 import com.jdroid.android.recycler.RecyclerViewType;
 import com.jdroid.android.sample.R;
-import com.jdroid.android.usecase.PaginatedUseCase;
+import com.jdroid.android.recycler.pagination.PaginatedUseCase;
 
 import java.util.List;
 

@@ -6,6 +6,7 @@ import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.exception.ErrorCodeException;
+import com.jdroid.java.http.exception.HttpErrorCode;
 
 public abstract class AbstractErrorDisplayer implements ErrorDisplayer {
 
@@ -28,8 +29,7 @@ public abstract class AbstractErrorDisplayer implements ErrorDisplayer {
 					if (title == null) {
 						title = LocalizationUtils.getTitle(errorCodeException.getErrorCode());
 						if ((title == null)
-								&& errorCodeException.getErrorCode().equals(
-								com.jdroid.java.exception.CommonErrorCode.CONNECTION_ERROR)) {
+								&& errorCodeException.getErrorCode().equals(HttpErrorCode.CONNECTION_ERROR)) {
 							title = LocalizationUtils.getString(R.string.jdroid_connectionErrorTitle);
 						}
 					}
@@ -37,8 +37,7 @@ public abstract class AbstractErrorDisplayer implements ErrorDisplayer {
 						description = LocalizationUtils.getDescription(errorCodeException.getErrorCode(),
 								errorCodeException.getErrorCodeDescriptionArgs());
 						if ((description == null)
-								&& errorCodeException.getErrorCode().equals(
-								com.jdroid.java.exception.CommonErrorCode.CONNECTION_ERROR)) {
+								&& errorCodeException.getErrorCode().equals(HttpErrorCode.CONNECTION_ERROR)) {
 							description = LocalizationUtils.getString(R.string.jdroid_connectionErrorDescription);
 						}
 					}

@@ -10,13 +10,15 @@ import com.jdroid.java.concurrent.LowPriorityThreadFactory;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
+import org.slf4j.Logger;
+
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class GoogleAnalyticsHelper {
 
-	private static final org.slf4j.Logger LOGGER = LoggerUtils.getLogger(GoogleAnalyticsHelper.class);
+	private static final Logger LOGGER = LoggerUtils.getLogger(GoogleAnalyticsHelper.class);
 
 	// 30 minutes
 	private static final int SESSION_TIMEOUT = 1800;
@@ -29,11 +31,11 @@ public class GoogleAnalyticsHelper {
 	private Map<String, String> commonCustomDimensionsValues = Maps.newHashMap();
 
 	private Executor executor = Executors.newSingleThreadExecutor(new LowPriorityThreadFactory("google-analytics"));
-
+	
 	public synchronized Tracker getTracker() {
 		if (tracker == null) {
 			GoogleAnalytics analytics = GoogleAnalytics.getInstance(AbstractApplication.get());
-			tracker = analytics.newTracker(GoogleAnalyticsAppModule.get().getGoogleAnalyticsAppContext().getGoogleAnalyticsTrackingId());
+			tracker = analytics.newTracker(GoogleAnalyticsAppContext.getGoogleAnalyticsTrackingId());
 			tracker.setSessionTimeout(SESSION_TIMEOUT);
 			tracker.enableAdvertisingIdCollection(isAdvertisingIdCollectionEnabled());
 		}

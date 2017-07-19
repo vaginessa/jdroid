@@ -1,17 +1,18 @@
 package com.jdroid.android.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.widget.TextView;
 
 /**
  * Text view used to show a badge with a number of notifications. If the notifications are less than zero, the badge
  * isn't visible.
  */
-public class BadgeView extends TextView {
+public class BadgeView extends AppCompatTextView {
 	
 	private static final int DEFAULT_MAXIMUM = 9;
 	private int maximum = DEFAULT_MAXIMUM;
@@ -42,6 +43,7 @@ public class BadgeView extends TextView {
 	 * 
 	 * @param notifications
 	 */
+	@SuppressLint("SetTextI18n")
 	public void setNotifications(Integer notifications) {
 		
 		if ((notifications != null) && (notifications > 0)) {

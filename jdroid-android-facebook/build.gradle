@@ -3,16 +3,23 @@ apply plugin: 'com.jdroid.android.library'
 ext.PROJECT_NAME = 'Jdroid Android - Facebook SDK'
 description = 'Jdroid dependency project for Facebook SDK'
 
-repositories {
-	// TODO See how to remove this dependency
-	maven {
-		url 'https://maven.fabric.io/public'
-	}
-}
-
 configurations.all {
 	// check for updates every build
 	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+
+	resolutionStrategy {
+		eachDependency { DependencyResolveDetails details ->
+			if (details.requested.group == 'com.android.support') {
+				details.useVersion ANDROID_SUPPORT_VERSION
+			}
+		}
+	}
+}
+
+buildscript {
+	dependencies {
+		classpath "com.jdroidframework:jdroid-gradle-android-plugin:${JDROID_GRADLE_PLUGIN_VERSION}"
+	}
 }
 
 dependencies {
@@ -23,15 +30,12 @@ dependencies {
 	}
 
 	// https://developers.facebook.com/docs/android
-	compile('com.facebook.android:facebook-android-sdk:4.14.1') {
-		exclude module: 'support-v4'
-	}
+	compile 'com.facebook.android:facebook-android-sdk:4.14.1'
 
-	testCompile 'junit:junit:4.12'
-	testCompile "org.mockito:mockito-all:1.10.19"
+	compile "com.android.support:customtabs:${ANDROID_SUPPORT_VERSION}"
 
-	// https://github.com/robolectric/robolectric
-	testCompile 'org.robolectric:robolectric:3.1'
+	testCompile "junit:junit:${JUNIT_VERSION}"
+	testCompile "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
 }
 
 jdroid {
@@ -39,11 +43,6 @@ jdroid {
 }
 
 android {
-
-	lintOptions {
-		disable 'ContentDescription', 'RtlEnabled', 'RtlHardcoded', 'RtlSymmetry', 'UseCompoundDrawables', 'UnknownIdInLayout'
-	}
-
 	sourceSets.test.java.srcDirs += "build/generated/source/r/debug"
 	sourceSets.test.java.srcDirs += sourceSets.main.java.srcDirs
 	sourceSets.test.java.srcDirs += sourceSets.debug.java.srcDirs

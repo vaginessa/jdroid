@@ -6,9 +6,9 @@ import com.google.android.gms.ads.AdSize;
 import com.jdroid.android.activity.ActivityDelegate;
 import com.jdroid.android.activity.FragmentContainerActivity;
 import com.jdroid.android.application.AppModule;
-import com.jdroid.android.google.admob.AdMobActivityDelegate;
-import com.jdroid.android.google.admob.AdMobAppModule;
-import com.jdroid.android.google.admob.helpers.BaseAdViewHelper;
+import com.jdroid.android.firebase.admob.AdMobActivityDelegate;
+import com.jdroid.android.firebase.admob.AdMobAppModule;
+import com.jdroid.android.firebase.admob.helpers.BaseAdViewHelper;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.application.AndroidAppContext;
 

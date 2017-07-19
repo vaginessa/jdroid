@@ -4,8 +4,9 @@ import android.os.Bundle;
 
 import com.jdroid.android.exception.DialogErrorDisplayer;
 import com.jdroid.android.exception.ErrorDisplayer;
-import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.usecase.AbstractUseCase;
+import com.jdroid.android.usecase.UseCaseHelper;
+import com.jdroid.android.usecase.UseCaseTrigger;
 import com.jdroid.java.exception.AbstractException;
 import com.jdroid.java.utils.ReflectionUtils;
 
@@ -40,13 +41,13 @@ public abstract class UseCaseFragment<T extends AbstractUseCase> extends Abstrac
 	@Override
 	public void onStart() {
 		super.onStart();
-		registerUseCase(useCase, this, getUseCaseTrigger());
+		UseCaseHelper.registerUseCase(useCase, this, getUseCaseTrigger());
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
-		unregisterUseCase(useCase, this);
+		UseCaseHelper.unregisterUseCase(useCase, this);
 	}
 	
 	protected UseCaseTrigger getUseCaseTrigger() {
@@ -54,7 +55,7 @@ public abstract class UseCaseFragment<T extends AbstractUseCase> extends Abstrac
 	}
 	
 	public void executeUseCase() {
-		executeUseCase(useCase);
+		UseCaseHelper.executeUseCase(useCase);
 	}
 
 	@Override

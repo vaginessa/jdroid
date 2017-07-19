@@ -6,8 +6,8 @@ import android.view.View.OnClickListener;
 
 import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.fragment.AbstractFragment;
-import com.jdroid.android.google.admob.AdMobActivityDelegate;
-import com.jdroid.android.google.admob.AdMobAppModule;
+import com.jdroid.android.firebase.admob.AdMobActivityDelegate;
+import com.jdroid.android.firebase.admob.AdMobAppModule;
 import com.jdroid.android.sample.R;
 
 public class AdsFragment extends AbstractFragment {

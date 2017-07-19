@@ -11,7 +11,7 @@ public class FcmListenerResolver {
 	private static final Logger LOGGER = LoggerUtils.getLogger(FcmListenerResolver.class);
 
 	/**
-	 * Called when message is received.
+	 * Called when message is received. Since Android O, have a guaranteed life cycle limited to 10 seconds for this method execution
 	 */
 	public void onMessageReceived(RemoteMessage remoteMessage) {
 

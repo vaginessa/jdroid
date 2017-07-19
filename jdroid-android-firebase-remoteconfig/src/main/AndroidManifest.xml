@@ -4,6 +4,8 @@
 
 	<application>
 
+		<meta-data android:name="com.jdroid.android.firebase.remoteconfig.FirebaseRemoteConfigAppLifecycleCallback" android:value="ApplicationLifecycleCallback" />
+
 	</application>
 
 </manifest>

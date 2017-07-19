@@ -1,4 +1,6 @@
 ext.COMPONENTS = ['jdroid-android', 'jdroid-java-okhttp']
+ext.RES_CONFIGS = ['en', 'es']
+ext.PROJECT_NAME = 'Jdroid Android - Sample'
 apply plugin: 'com.jdroid.android.application'
 
 description = 'Jdroid Sample Android'
@@ -9,10 +11,6 @@ jdroid {
 
 repositories {
 	jcenter()
-	maven {
-		url 'https://maven.fabric.io/public'
-	}
-
 }
 
 configurations.all {
@@ -22,8 +20,14 @@ configurations.all {
 
 configurations {
 	uatCompile
+	automationCompile
 }
 
+buildscript {
+	dependencies {
+		classpath "com.jdroidframework:jdroid-gradle-android-plugin:${JDROID_GRADLE_PLUGIN_VERSION}"
+	}
+}
 
 dependencies {
 
@@ -31,86 +35,139 @@ dependencies {
 
 	debugCompile project(path: ":jdroid-android", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android", configuration: 'debug')
+	automationCompile project(path: ":jdroid-android", configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ":jdroid-android", configuration: 'release')
 	}
 
+	debugCompile project(path: ":jdroid-android-uil", configuration: 'debug')
+	uatCompile project(path: ":jdroid-android-uil", configuration: 'debug')
+	automationCompile project(path: ":jdroid-android-uil", configuration: 'debug')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ":jdroid-android-uil", configuration: 'release')
+	}
+
 	debugCompile project(path: ":jdroid-android-about", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-about", configuration: 'debug')
+	automationCompile project(path: ":jdroid-android-about", configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ":jdroid-android-about", configuration: 'release')
 	}
 
-	debugCompile project(path: ":jdroid-android-crashlytics", configuration: 'debug')
-	uatCompile project(path: ":jdroid-android-crashlytics", configuration: 'debug')
-	if (jdroid.isReleaseBuildTypeEnabled()) {
-		releaseCompile project(path: ":jdroid-android-crashlytics", configuration: 'release')
-	}
-
 	debugCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
+	automationCompile project(path: ":jdroid-android-facebook", configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ":jdroid-android-facebook", configuration: 'release')
 	}
 
+	debugCompile project(path: ':jdroid-android-firebase-instanceid', configuration: 'debug')
+	uatCompile project(path: ':jdroid-android-firebase-instanceid', configuration: 'debug')
+	automationCompile project(path: ':jdroid-android-firebase-instanceid', configuration: 'debug')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ":jdroid-android-firebase-instanceid", configuration: 'release')
+	}
+
 	debugCompile project(path: ':jdroid-android-firebase-admob', configuration: 'debug')
 	uatCompile project(path: ':jdroid-android-firebase-admob', configuration: 'debug')
+	automationCompile project(path: ':jdroid-android-firebase-admob', configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ":jdroid-android-firebase-admob", configuration: 'release')
 	}
 
+	debugCompile project(path: ':jdroid-android-firebase-crash', configuration: 'debug')
+	uatCompile project(path: ':jdroid-android-firebase-crash', configuration: 'debug')
+	automationCompile project(path: ':jdroid-android-firebase-crash', configuration: 'debug')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ":jdroid-android-firebase-crash", configuration: 'release')
+	}
+
 	debugCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
+	automationCompile project(path: ":jdroid-android-google-maps", configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ":jdroid-android-google-maps", configuration: 'release')
 	}
 
+	debugCompile project(path: ":jdroid-android-google-inappbilling", configuration: 'debug')
+	uatCompile project(path: ":jdroid-android-google-inappbilling", configuration: 'debug')
+	automationCompile project(path: ":jdroid-android-google-inappbilling", configuration: 'debug')
+	if (jdroid.isReleaseBuildTypeEnabled()) {
+		releaseCompile project(path: ":jdroid-android-google-inappbilling", configuration: 'release')
+	}
+
 	debugCompile project(path: ':jdroid-android-firebase-database', configuration: 'debug')
 	uatCompile project(path: ':jdroid-android-firebase-database', configuration: 'debug')
+	automationCompile project(path: ':jdroid-android-firebase-database', configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ':jdroid-android-firebase-database', configuration: 'release')
 	}
 
 	debugCompile project(path: ':jdroid-android-firebase-fcm', configuration: 'debug')
 	uatCompile project(path: ':jdroid-android-firebase-fcm', configuration: 'debug')
+	automationCompile project(path: ':jdroid-android-firebase-fcm', configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ':jdroid-android-firebase-fcm', configuration: 'release')
 	}
 
 	debugCompile project(path: ':jdroid-android-firebase-remoteconfig', configuration: 'debug')
 	uatCompile project(path: ':jdroid-android-firebase-remoteconfig', configuration: 'debug')
+	automationCompile project(path: ':jdroid-android-firebase-remoteconfig', configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ':jdroid-android-firebase-remoteconfig', configuration: 'release')
 	}
 
 	debugCompile project(path: ":jdroid-android-google-signin", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-google-signin", configuration: 'debug')
+	automationCompile project(path: ":jdroid-android-google-signin", configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ":jdroid-android-google-signin", configuration: 'release')
 	}
 
 	debugCompile project(path: ":jdroid-android-twitter", configuration: 'debug')
 	uatCompile project(path: ":jdroid-android-twitter", configuration: 'debug')
+	automationCompile project(path: ":jdroid-android-twitter", configuration: 'debug')
 	if (jdroid.isReleaseBuildTypeEnabled()) {
 		releaseCompile project(path: ":jdroid-android-twitter", configuration: 'release')
 	}
 
 	compile 'com.firebase:firebase-client-android:2.5.0'
 
-	compile(project(':jdroid-java-firebase-database')) {
-		exclude module: 'slf4j-api'
-		exclude group:'com.firebase', module: 'firebase-client-jvm'
+	if (jdroid.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
+		compile(project(':jdroid-java-firebase-database')) {
+			exclude module: 'slf4j-api'
+			exclude group: 'com.firebase', module: 'firebase-client-jvm'
+			exclude module: 'jdroid-java-core'
+		}
+	} else {
+		compile("com.jdroidframework:jdroid-java-firebase-database:${JDROID_JAVA_VERSION}") {
+			exclude module: 'slf4j-api'
+			exclude group: 'com.firebase', module: 'firebase-client-jvm'
+			exclude module: 'jdroid-java-core'
+		}
 	}
 
-	compile(project(':jdroid-java-http-okhttp')) {
-		exclude module: 'slf4j-api'
+	if (jdroid.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
+		compile project(":jdroid-java-http-okhttp")
+	} else {
+		compile ("com.jdroidframework:jdroid-java-http-okhttp:${JDROID_JAVA_HTTP_VERSION}") {
+			exclude module: 'slf4j-api'
+			exclude module: 'jdroid-java-core'
+		}
 	}
 
-	testCompile 'junit:junit:4.12'
-	testCompile "org.mockito:mockito-core:1.9.5"
+	testCompile "junit:junit:${JUNIT_VERSION}"
+	testCompile "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
 
-	// https://github.com/robolectric/robolectric
-	testCompile 'org.robolectric:robolectric:3.1'
+	androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2', {
+		exclude group: 'com.android.support', module: 'support-annotations'
+	}
+	androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.2.2', {
+		exclude group: 'com.android.support'
+	}
+	androidTestCompile 'com.android.support.test:runner:0.5', {
+		exclude group: 'com.android.support', module: 'support-annotations'
+	}
 }
 
 
@@ -120,26 +177,14 @@ android {
 
 		applicationId 'com.jdroid.android.sample'
 
-		applicationVariants.all { variant ->
-
-			variant.outputs.each { output ->
-				def outputFile = output.outputFile
-				if (outputFile != null && outputFile.name.endsWith('.apk')) {
-					def fileName = outputFile.name.replace('.apk', "-v${versionName}.apk")
-					output.outputFile = new File(outputFile.parent, fileName)
-				}
-			}
-		}
-
 		jdroid.setBuildConfigBoolean(defaultConfig, "STRICT_MODE_ENABLED", false)
+		jdroid.setBuildConfigBoolean(defaultConfig, "LEAK_CANARY_ENABLED", false)
 		jdroid.setBuildConfigBoolean(defaultConfig, "FIREBASE_ANALYTICS_ENABLED", true)
 
 		jdroid.setBuildConfigBoolean(defaultConfig, "GOOGLE_ANALYTICS_ENABLED", true)
 		jdroid.setBuildConfigString(defaultConfig, "GOOGLE_ANALYTICS_TRACKING_ID", "UA-84573310-1")
 
 		jdroid.setBuildConfigString(defaultConfig, "GOOGLE_SERVER_CLIENT_ID", "852072465140-ksbqqoidt2jl2nqqvffnc6ic07fqb6g8.apps.googleusercontent.com")
-
-		jdroid.setBuildConfigBoolean(defaultConfig, "CRASHLYTICS_ENABLED", true)
 
 		jdroid.setBuildConfigString(defaultConfig, "LOCAL_IP")
 
@@ -183,11 +228,13 @@ android {
 
 		manifestPlaceholders = [
 				googleMapsApiKey: "AIzaSyA2UZNjUMaw7kFk9qvHeGLTppXxcgI3l1Y",
-				fabricApiKey: "478dae49374362f33bc054fc44d1f4242c574ccb",
 				facebookAppId: "fb1048902711862195"
 		]
 
 		multiDexEnabled true
+
+		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+		testBuildType "automation"
 	}
 
 
@@ -198,7 +245,6 @@ android {
 
 			applicationIdSuffix ".debug"
 
-			jdroid.setBuildConfigBoolean(buildTypes.debug, "CRASHLYTICS_ENABLED", false)
 			jdroid.setBuildConfigString(buildTypes.debug, "SERVER_NAME", "DEV")
 		}
 
@@ -213,44 +259,61 @@ android {
 
 		}
 
+		automation {
+			signingConfig signingConfigs.debug
+
+			applicationIdSuffix ".debug"
+
+			debuggable true
+
+			jdroid.setBuildConfigString(buildTypes.uat, "SERVER_NAME", "UAT")
+		}
+
 		if (jdroid.isReleaseBuildTypeEnabled()) {
 			release {
 
-				signingConfig signingConfigs.release
+				if (jdroid.getBooleanProp("RELEASE_FAKE_ENABLED", false)) {
+					signingConfig signingConfigs.debug
+					debuggable true
+				} else {
 
-				jdroid.setBuildConfigString(buildTypes.release, "SERVER_NAME", "PROD")
+					signingConfig signingConfigs.release
 
-				// TODO Add GOOGLE_PLAY_PUBLIC_KEY
-				// TODO Add GOOGLE_ANALYTICS_TRACKING_ID
-				// TODO Add FIREBASE_AUTH_TOKEN
-				// TODO Add GOOGLE_SERVER_CLIENT_ID
+					debuggable jdroid.getBooleanProp('DEBUGGABLE', false)
 
-				// Used by Google Sign In. {YOUR_CLIENT}/oauth_client/client_id (client_type == 3)
-				jdroid.setResValueString(defaultConfig, "default_web_client_id", "361779001695-1h1mk78pnrvlfvti8mfpcs7hbgrpcddu.apps.googleusercontent.com")
+					jdroid.setBuildConfigString(buildTypes.release, "SERVER_NAME", "PROD")
 
-				// Used by Firebase Database. project_info/firebase_url
-				jdroid.setResValueString(defaultConfig, "firebase_database_url", "https://fir-jdroid-production.firebaseio.com")
+					// TODO Add GOOGLE_PLAY_PUBLIC_KEY
+					// TODO Add GOOGLE_ANALYTICS_TRACKING_ID
+					// TODO Add FIREBASE_AUTH_TOKEN
+					// TODO Add GOOGLE_SERVER_CLIENT_ID
 
-				// project_info/project_number
-				jdroid.setResValueString(defaultConfig, "gcm_defaultSenderId", "361779001695")
+					// Used by Google Sign In. {YOUR_CLIENT}/oauth_client/client_id (client_type == 3)
+					jdroid.setResValueString(defaultConfig, "default_web_client_id", "361779001695-1h1mk78pnrvlfvti8mfpcs7hbgrpcddu.apps.googleusercontent.com")
 
-				// {YOUR_CLIENT}/api_key/current_key
-				jdroid.setResValueString(defaultConfig, "google_api_key", "AIzaSyDe-x-lkKP2VyeMYq8i0I5mbeDAElY6Pks")
+					// Used by Firebase Database. project_info/firebase_url
+					jdroid.setResValueString(defaultConfig, "firebase_database_url", "https://fir-jdroid-production.firebaseio.com")
 
-				// {YOUR_CLIENT}/client_info/mobilesdk_app_id
-				jdroid.setResValueString(defaultConfig, "google_app_id", "1:361779001695:android:85398d20b5634ada")
+					// project_info/project_number
+					jdroid.setResValueString(defaultConfig, "gcm_defaultSenderId", "361779001695")
 
-				// Used by Firebase Crash. {YOUR_CLIENT}/api_key/current_key
-				jdroid.setResValueString(defaultConfig, "google_crash_reporting_api_key", "AIzaSyDe-x-lkKP2VyeMYq8i0I5mbeDAElY6Pks")
+					// {YOUR_CLIENT}/api_key/current_key
+					jdroid.setResValueString(defaultConfig, "google_api_key", "AIzaSyDe-x-lkKP2VyeMYq8i0I5mbeDAElY6Pks")
 
-				// project_info/storage_bucket
-				jdroid.setResValueString(defaultConfig, "google_storage_bucket", "fir-jdroid-production.appspot.com")
+					// {YOUR_CLIENT}/client_info/mobilesdk_app_id
+					jdroid.setResValueString(defaultConfig, "google_app_id", "1:361779001695:android:85398d20b5634ada")
 
-				manifestPlaceholders = [
-						googleMapsApiKey: jdroid.getProp("GOOGLE_MAPS_API_KEY", ""),
-						fabricApiKey: jdroid.getProp("FABRIC_API_KEY", ""),
-						facebookAppId: jdroid.getProp("FACEBOOK_APP_ID", "")
-				]
+					// Used by Firebase Crash. {YOUR_CLIENT}/api_key/current_key
+					jdroid.setResValueString(defaultConfig, "google_crash_reporting_api_key", "AIzaSyDe-x-lkKP2VyeMYq8i0I5mbeDAElY6Pks")
+
+					// project_info/storage_bucket
+					jdroid.setResValueString(defaultConfig, "google_storage_bucket", "fir-jdroid-production.appspot.com")
+
+					manifestPlaceholders = [
+							googleMapsApiKey: jdroid.getStringProp("GOOGLE_MAPS_API_KEY", ""),
+							facebookAppId: jdroid.getStringProp("FACEBOOK_APP_ID", "")
+					]
+				}
 			}
 		}
 	}
@@ -259,6 +322,12 @@ android {
 		java.srcDirs = ['src/debug/java', 'src/uat/java']
 		resources.srcDirs = ['src/debug/resources', 'src/uat/resources']
 		res.srcDirs = ['src/debug/res', 'src/uat/res']
+	}
+
+	sourceSets.automation {
+		java.srcDirs = ['src/debug/java', 'src/automation/java']
+		resources.srcDirs = ['src/debug/resources', 'src/automation/resources']
+		res.srcDirs = ['src/debug/res', 'src/automation/res']
 	}
 
 	sourceSets.test.java.srcDirs += "build/generated/source/r/debug"

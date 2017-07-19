@@ -4,16 +4,16 @@ import android.Manifest;
 import android.content.Context;
 import android.graphics.Rect;
 import android.support.annotation.RequiresPermission;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 
 import com.jdroid.android.utils.AndroidUtils;
 
-public class EmailAutoCompleteTextView extends AutoCompleteTextView {
+public class EmailAutoCompleteTextView extends AppCompatAutoCompleteTextView {
 
 	@RequiresPermission(Manifest.permission.GET_ACCOUNTS)
 	public EmailAutoCompleteTextView(Context context, AttributeSet attrs, int defStyle) {

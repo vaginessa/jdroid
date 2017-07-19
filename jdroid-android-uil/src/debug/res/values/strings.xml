@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+	<string name="jdroid_imageLoaderSettings" tools:ignore="MissingTranslation">Image Loader</string>
+	<string name="jdroid_clearImagesDiskCache" tools:ignore="MissingTranslation">Clear images disk cache</string>
+	<string name="jdroid_clearImagesMemoryCache" tools:ignore="MissingTranslation">Clear images memory cache</string>
+
+</resources>

@@ -1,5 +1,7 @@
 package com.jdroid.android.context;
 
+import android.support.annotation.WorkerThread;
+
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.date.DateUtils;
 
@@ -14,11 +16,13 @@ public class UsageStats {
 
 	private static Long lastStopTime = DateUtils.nowMillis();
 
+	@WorkerThread
 	public static void incrementAppLoad() {
 		Long appLoads = getSharedPreferencesHelper().loadPreferenceAsLong(APP_LOADS, 0L);
 		getSharedPreferencesHelper().savePreferenceAsync(APP_LOADS, appLoads + 1);
 	}
 
+	@WorkerThread
 	public static Long getAppLoads() {
 		return getSharedPreferencesHelper().loadPreferenceAsLong(APP_LOADS, 0L);
 	}
@@ -35,10 +39,12 @@ public class UsageStats {
 		getSharedPreferencesHelper().savePreferenceAsync(LAST_CRASH_TIMESTAMP, DateUtils.nowMillis());
 	}
 
+	@WorkerThread
 	public static Long getLastCrashTimestamp() {
 		return getSharedPreferencesHelper().loadPreferenceAsLong(LAST_CRASH_TIMESTAMP, 0L);
 	}
 
+	@WorkerThread
 	public static Long getFirstAppLoadTimestamp() {
 		Long firstAppLoadTimestamp = getSharedPreferencesHelper().loadPreferenceAsLong(FIRST_APP_LOAD_TIMESTAMP);
 		if (firstAppLoadTimestamp == null) {
@@ -48,10 +54,12 @@ public class UsageStats {
 		return firstAppLoadTimestamp;
 	}
 
+	@WorkerThread
 	public static void reset() {
 		getSharedPreferencesHelper().removeAllPreferences();
 	}
 
+	@WorkerThread
 	public static void simulateHeavyUsage() {
 		reset();
 		getSharedPreferencesHelper().savePreferenceAsync(APP_LOADS, 100L);

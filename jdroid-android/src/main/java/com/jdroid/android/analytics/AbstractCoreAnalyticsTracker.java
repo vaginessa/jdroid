@@ -1,10 +1,11 @@
 package com.jdroid.android.analytics;
 
 import android.app.Activity;
+import android.net.Uri;
+import android.os.Bundle;
 
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
-import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.java.concurrent.LowPriorityThreadFactory;
 
 import java.util.List;
@@ -26,7 +27,12 @@ public abstract class AbstractCoreAnalyticsTracker implements CoreAnalyticsTrack
 	}
 
 	@Override
-	public void onActivityCreate(Activity activity) {
+	public void onFirstActivityCreate(Activity activity) {
+		// Do nothing
+	}
+
+	@Override
+	public void onActivityCreate(Activity activity, Bundle savedInstanceState) {
 		// Do nothing
 	}
 
@@ -71,7 +77,7 @@ public abstract class AbstractCoreAnalyticsTracker implements CoreAnalyticsTrack
 	}
 	
 	@Override
-	public void trackUriOpened(String screenName, String referrer) {
+	public void trackUriOpened(String screenName, Uri uri, String referrer) {
 		// Do Nothing
 	}
 	
@@ -105,16 +111,6 @@ public abstract class AbstractCoreAnalyticsTracker implements CoreAnalyticsTrack
 		// Do Nothing
 	}
 
-	@Override
-	public void trackUseCaseTiming(Class<? extends  AbstractUseCase> useCaseClass, long executionTime) {
-		// Do Nothing
-	}
-
-	@Override
-	public void trackServiceTiming(String trackingVariable, String trackingLabel, long executionTime) {
-		// Do Nothing
-	}
-
 	// Widgets
 
 	public void trackWidgetAdded(String widgetName) {
@@ -128,5 +124,10 @@ public abstract class AbstractCoreAnalyticsTracker implements CoreAnalyticsTrack
 	@Override
 	public void trackSendAppInvitation(String invitationId) {
 		// Do Nothing
+	}
+	
+	@Override
+	public Boolean isEnabled() {
+		return true;
 	}
 }

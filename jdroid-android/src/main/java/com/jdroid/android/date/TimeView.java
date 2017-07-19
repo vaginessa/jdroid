@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Handler.Callback;
 import android.os.Message;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -14,7 +15,7 @@ import com.jdroid.java.utils.IdGenerator;
  * A {@link TextView} that displays the current time
  * 
  */
-public class TimeView extends TextView implements Callback {
+public class TimeView extends AppCompatTextView implements Callback {
 	
 	private static final int MESSAGE_CODE = IdGenerator.getIntId();
 	private static final int HANDLER_DELAY = 1000;
@@ -31,9 +32,6 @@ public class TimeView extends TextView implements Callback {
 		this(context, null);
 	}
 	
-	/**
-	 * @see android.os.Handler.Callback#handleMessage(android.os.Message)
-	 */
 	@Override
 	public boolean handleMessage(Message msg) {
 		updateTime();
@@ -54,9 +52,6 @@ public class TimeView extends TextView implements Callback {
 		}
 	}
 	
-	/**
-	 * @see android.view.View#onWindowVisibilityChanged(int)
-	 */
 	@Override
 	protected void onWindowVisibilityChanged(int visibility) {
 		super.onWindowVisibilityChanged(visibility);
@@ -64,9 +59,6 @@ public class TimeView extends TextView implements Callback {
 		updateTime();
 	}
 	
-	/**
-	 * @see android.widget.TextView#onDetachedFromWindow()
-	 */
 	@Override
 	protected void onDetachedFromWindow() {
 		super.onDetachedFromWindow();

@@ -2,6 +2,7 @@ package com.jdroid.android.recycler;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,11 +16,14 @@ import com.jdroid.android.loading.NonBlockingLoading;
 
 public abstract class AbstractRecyclerFragment extends AbstractFragment {
 
+	private static final String SELECTED_ITEM_POSITION_EXTRA = "selectedItemPositionExtra";
+
 	private RecyclerView recyclerView;
 	private RecyclerViewAdapter adapter;
 	protected ViewGroup emptyViewContainer;
 	private RecyclerView.AdapterDataObserver adapterDataObserver;
 	private RecyclerView.LayoutManager layoutManager;
+	private Integer selectedItemPosition;
 
 	@Override
 	public Integer getContentFragmentLayout() {
@@ -57,10 +61,14 @@ public abstract class AbstractRecyclerFragment extends AbstractFragment {
 		if (adapter != null) {
 			setAdapter(adapter);
 		}
+		
+		if (savedInstanceState != null) {
+			selectedItemPosition = savedInstanceState.getInt(SELECTED_ITEM_POSITION_EXTRA, RecyclerView.NO_POSITION);
+		}
 	}
 
 	protected RecyclerView.ItemDecoration createDividerItemDecoration(){
-		return new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST);
+		return new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
 	}
 
 	protected Boolean isDividerItemDecorationEnabled() {
@@ -85,6 +93,11 @@ public abstract class AbstractRecyclerFragment extends AbstractFragment {
 		recyclerView.setAdapter(adapter);
 
 		refreshEmptyView();
+		
+		if (selectedItemPosition != null) {
+			this.adapter.setSelectedItemPosition(selectedItemPosition);
+			selectedItemPosition = null;
+		}
 	}
 
 	@Override
@@ -140,6 +153,14 @@ public abstract class AbstractRecyclerFragment extends AbstractFragment {
 	@Override
 	public FragmentLoading getDefaultLoading() {
 		return new NonBlockingLoading();
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		if(adapter != null){
+			outState.putSerializable(SELECTED_ITEM_POSITION_EXTRA, getAdapter().getSelectedItemPosition());
+		}
 	}
 }
 

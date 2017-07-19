@@ -6,25 +6,19 @@ import com.jdroid.android.intent.IntentUtils;
 public class Library {
 	
 	private String libraryKey;
-	private Integer nameResId;
-	private Integer descriptionResId;
+	private String name;
 	private String author;
 	private String url;
 	
-	public Library(String libraryKey, Integer nameResId, Integer descriptionResId, String author, String url) {
+	public Library(String libraryKey, String name, String author, String url) {
 		this.libraryKey = libraryKey;
-		this.nameResId = nameResId;
-		this.descriptionResId = descriptionResId;
+		this.name = name;
 		this.author = author;
 		this.url = url;
 	}
 	
-	public Integer getNameResId() {
-		return nameResId;
-	}
-	
-	public Integer getDescriptionResId() {
-		return descriptionResId;
+	public String getName() {
+		return name;
 	}
 	
 	public String getUrl() {

@@ -2,10 +2,10 @@ package com.jdroid.android.http.parser;
 
 import android.util.Xml;
 
-import com.jdroid.java.exception.ConnectionException;
+import com.jdroid.java.http.exception.ConnectionException;
 import com.jdroid.java.http.parser.Parser;
 import com.jdroid.java.utils.FileUtils;
-import com.jdroid.java.utils.NumberUtils;
+import com.jdroid.java.utils.TypeUtils;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -49,7 +49,7 @@ public abstract class AbstractXmlPullParser implements Parser {
 	}
 	
 	protected Long readLongValue(XmlPullParser parser, String name) throws IOException, XmlPullParserException {
-		return NumberUtils.getLong(readStringValue(parser, name));
+		return TypeUtils.getLong(readStringValue(parser, name));
 	}
 	
 	protected String readStringValue(XmlPullParser parser, String name) throws IOException, XmlPullParserException {

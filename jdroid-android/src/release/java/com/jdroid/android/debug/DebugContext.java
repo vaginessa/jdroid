@@ -12,20 +12,8 @@ import java.util.Map;
 
 public class DebugContext {
 
-	public Boolean isHttpMockEnabled() {
-		return false;
-	}
-
-	public Integer getHttpMockSleepDuration() {
-		return null;
-	}
-
 	public void launchActivityDebugSettingsActivity() {
 		// Do nothing
-	}
-
-	public AbstractMockHttpService getAbstractMockHttpServiceInstance(Object... urlSegments) {
-		return null;
 	}
 
 	public void initDebugRepositories(

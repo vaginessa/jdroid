@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.jdroid.android.google.admob">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.jdroid.android.firebase.admob">
+
+	<uses-permission android:name="android.permission.INTERNET" />
 
 	<application>
+
+		<meta-data android:name="com.jdroid.android.firebase.admob.AdMobAppLifecycleCallback" android:value="ApplicationLifecycleCallback" />
 
 		<activity android:name="com.google.android.gms.ads.AdActivity"
 				  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />

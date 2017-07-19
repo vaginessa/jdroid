@@ -5,10 +5,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jdroid.android.fragment.AbstractFragment;
-import com.jdroid.android.fragment.FragmentHelper.UseCaseTrigger;
 import com.jdroid.android.fragment.FragmentIf;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.ui.usecases.SampleUseCase;
+import com.jdroid.android.usecase.UseCaseHelper;
+import com.jdroid.android.usecase.UseCaseTrigger;
 import com.jdroid.android.usecase.listener.ActivityLoadingUseCaseListener;
 
 public class BlockingLoadingFragment extends AbstractFragment {
@@ -44,7 +45,7 @@ public class BlockingLoadingFragment extends AbstractFragment {
 			@Override
 			public void onClick(View v) {
 				sampleUseCase.setFail(true);
-				executeUseCase(sampleUseCase);
+				UseCaseHelper.executeUseCase(sampleUseCase);
 			}
 		});
 	}
@@ -52,12 +53,12 @@ public class BlockingLoadingFragment extends AbstractFragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		registerUseCase(sampleUseCase, sampleUseCaseListener, UseCaseTrigger.ONCE);
+		UseCaseHelper.registerUseCase(sampleUseCase, sampleUseCaseListener, UseCaseTrigger.ONCE);
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
-		unregisterUseCase(sampleUseCase, sampleUseCaseListener);
+		UseCaseHelper.unregisterUseCase(sampleUseCase, sampleUseCaseListener);
 	}
 }

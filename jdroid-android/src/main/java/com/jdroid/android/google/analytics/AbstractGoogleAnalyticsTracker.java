@@ -10,12 +10,12 @@ public class AbstractGoogleAnalyticsTracker implements AnalyticsTracker {
 
 	@Override
 	public Boolean isEnabled() {
-		return GoogleAnalyticsAppModule.get().getGoogleAnalyticsAppContext().isGoogleAnalyticsEnabled();
+		return GoogleAnalyticsAppContext.isGoogleAnalyticsEnabled();
 	}
 
 	@WorkerThread
 	protected GoogleAnalyticsHelper getGoogleAnalyticsHelper() {
-		return GoogleAnalyticsAppModule.get().getGoogleAnalyticsHelper();
+		return GoogleAnalyticsFactory.getGoogleAnalyticsHelper();
 	}
 
 	@Override

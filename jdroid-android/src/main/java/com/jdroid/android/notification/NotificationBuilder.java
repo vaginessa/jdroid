@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.annotation.WorkerThread;
 import android.support.v4.app.NotificationCompat;
@@ -19,19 +20,19 @@ import android.widget.RemoteViews;
 import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.images.BitmapUtils;
+import com.jdroid.android.images.loader.BitmapLoader;
+import com.jdroid.android.uri.ReferrerUtils;
 import com.jdroid.android.uri.UriUtils;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.LocalizationUtils;
-import com.jdroid.android.uri.ReferrerUtils;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.RandomUtils;
 import com.jdroid.java.utils.StringUtils;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 public class NotificationBuilder {
 
 	public static final String NOTIFICATION_NAME = "notificationName";
-	public static String NOTIFICATION_URI = "notification://";
+	public static String NOTIFICATION_SCHEME = "notification";
 
 	private String notificationName;
 
@@ -56,6 +57,9 @@ public class NotificationBuilder {
 		return builder.build();
 	}
 
+	/**
+	 * @param icon The drawable resource icon. Vector drawables are not supported
+	 */
 	public void setSmallIcon(@DrawableRes int icon) {
 		builder.setSmallIcon(icon);
 	}
@@ -122,19 +126,19 @@ public class NotificationBuilder {
 				notificationIntent, 0));
 	}
 
-	public void setNewTaskUrl(String url) {
+	public void setNewTaskUrl(@NonNull String url) {
 		setUrl(url, Intent.FLAG_ACTIVITY_NEW_TASK);
 	}
 
-	public void setSingleTopUrl(String url) {
+	public void setSingleTopUrl(@NonNull String url) {
 		setUrl(url, Intent.FLAG_ACTIVITY_SINGLE_TOP);
 	}
 
-	public void setUrl(String url) {
+	public void setUrl(@NonNull String url) {
 		setUrl(url, null);
 	}
 
-	public void setUrl(String url, Integer flags) {
+	public void setUrl(@NonNull String url, Integer flags) {
 		if (StringUtils.isNotEmpty(url)) {
 			Intent notificationIntent = UriUtils.createIntent(AbstractApplication.get(), url, generateNotificationsReferrer());
 			if (flags != null) {
@@ -145,11 +149,11 @@ public class NotificationBuilder {
 	}
 
 	public static String generateNotificationsReferrer() {
-		return "notification://" + AppUtils.getApplicationId();
+		return NOTIFICATION_SCHEME + "://" + AppUtils.getApplicationId();
 	}
 
 	protected Uri createUniqueNotificationUri() {
-		return Uri.parse(NOTIFICATION_URI + RandomUtils.getInt());
+		return Uri.parse(NOTIFICATION_SCHEME + "://" + RandomUtils.getInt());
 	}
 
 	public void setWhen(Long when) {
@@ -167,14 +171,18 @@ public class NotificationBuilder {
 			builder.setLargeIcon(largeIcon);
 		}
 	}
-
+	
 	@WorkerThread
-	public void setLargeIcon(String largeIconUrl) {
-		if (largeIconUrl != null) {
-			builder.setLargeIcon(createLargeIconBitmap(largeIconUrl));
+	public void setLargeIcon(BitmapLoader bitmapLoader) {
+		if (bitmapLoader != null) {
+			builder.setLargeIcon(createLargeIconBitmap(bitmapLoader));
 		}
 	}
 	
+	private Bitmap createLargeIconBitmap(BitmapLoader bitmapLoader) {
+		return bitmapLoader.load(NotificationUtils.getNotificationLargeIconHeightPx(), NotificationUtils.getNotificationLargeIconWidthPx());
+	}
+
 	public void setInProgress(@DrawableRes int notificationIcon, int progress, int contentTitle, int actionText) {
 		builder.setOngoing(true);
 		
@@ -262,16 +270,6 @@ public class NotificationBuilder {
 	public void setDefaultVibration() {
 		long[] defaultPattern = { 1000, 500 };
 		builder.setVibrate(defaultPattern);
-	}
-	
-	private Bitmap createLargeIconBitmap(String largeIconUrl) {
-		Bitmap largeIconBitmap = null;
-		if (StringUtils.isNotEmpty(largeIconUrl)) {
-			largeIconBitmap = AbstractApplication.get().getImageLoaderHelper().loadBitmap(largeIconUrl, ImageScaleType.EXACTLY,
-				NotificationUtils.getNotificationLargeIconWidthPx(),
-				NotificationUtils.getNotificationLargeIconHeightPx(), null);
-		}
-		return largeIconBitmap;
 	}
 	
 	public void setBigTextStyle(String title, String text) {

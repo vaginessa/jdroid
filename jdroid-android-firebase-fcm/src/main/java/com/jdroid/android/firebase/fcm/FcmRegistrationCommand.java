@@ -2,11 +2,10 @@ package com.jdroid.android.firebase.fcm;
 
 import android.os.Bundle;
 
-import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.firebase.jobdispatcher.ServiceCommand;
 import com.jdroid.android.google.GooglePlayServicesUtils;
-import com.jdroid.android.service.ServiceCommand;
 import com.jdroid.java.exception.UnexpectedException;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -27,7 +26,7 @@ public class FcmRegistrationCommand extends ServiceCommand {
 	}
 
 	@Override
-	protected int execute(Bundle bundle) {
+	protected boolean execute(Bundle bundle) {
 		if (GooglePlayServicesUtils.isGooglePlayServicesAvailable(AbstractApplication.get())) {
 			for (FcmSender fcmSender : AbstractFcmAppModule.get().getFcmSenders()) {
 				String registrationToken;
@@ -35,10 +34,10 @@ public class FcmRegistrationCommand extends ServiceCommand {
 					registrationToken = getRegistrationToken(fcmSender.getSenderId());
 				} catch (IOException e) {
 					LOGGER.warn("Error when getting registration token", e);
-					return GcmNetworkManager.RESULT_RESCHEDULE;
+					return true;
 				} catch (Exception e) {
 					AbstractApplication.get().getExceptionHandler().logHandledException("Error when getting FCM registration token. Will retry later.", e);
-					return GcmNetworkManager.RESULT_RESCHEDULE;
+					return true;
 				}
 
 				try {
@@ -47,13 +46,13 @@ public class FcmRegistrationCommand extends ServiceCommand {
 					fcmSender.onRegisterOnServer(registrationToken, updateLastActiveTimestamp, bundle);
 				} catch (Exception e) {
 					AbstractApplication.get().getExceptionHandler().logHandledException("Failed to register the device on server. Will retry later.", e);
-					return GcmNetworkManager.RESULT_RESCHEDULE;
+					return true;
 				}
 			}
-			return GcmNetworkManager.RESULT_SUCCESS;
+			return false;
 		} else {
 			LOGGER.warn("FCM not initialized because Google Play Services is not available");
-			return GcmNetworkManager.RESULT_RESCHEDULE;
+			return true;
 		}
 	}
 

@@ -6,11 +6,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
 import com.jdroid.android.activity.AbstractFragmentActivity;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.SecurityContext;
 import com.jdroid.android.domain.User;
+import com.jdroid.android.images.loader.ImageViewLoader;
 
 import java.util.List;
 
@@ -76,8 +77,17 @@ public abstract class DefaultNavDrawer extends NavDrawer {
 	protected void initNavDrawerHeader(NavDrawerHeader navDrawerHeader) {
 		User user = SecurityContext.get().getUser();
 		if (user != null) {
-			navDrawerHeader.setBackground(user.getCoverPictureUrl(), User.PROFILE_PICTURE_TTL);
-			navDrawerHeader.setMainImage(user.getProfilePictureUrl(), User.PROFILE_PICTURE_TTL);
+			String coverPictureUrl = user.getCoverPictureUrl();
+			String profilePictureUrl = user.getProfilePictureUrl();
+			if (coverPictureUrl != null || profilePictureUrl != null) {
+				ImageViewLoader imageViewLoader = createImageViewLoader();
+				if (imageViewLoader != null) {
+					navDrawerHeader.setBackground(coverPictureUrl, User.PROFILE_PICTURE_TTL, imageViewLoader);
+					navDrawerHeader.setMainImage(profilePictureUrl, User.PROFILE_PICTURE_TTL, imageViewLoader);
+				} else {
+					AbstractApplication.get().getExceptionHandler().logWarningException("Not imageViewLoader defined to load nav drawer images");
+				}
+			}
 			navDrawerHeader.setTitle(user.getFullname());
 			navDrawerHeader.setSubTitle(user.getEmail());
 		} else {
@@ -88,5 +98,9 @@ public abstract class DefaultNavDrawer extends NavDrawer {
 				navDrawerHeader.setSubTitle(website.replaceAll("http://", ""));
 			}
 		}
+	}
+	
+	protected ImageViewLoader createImageViewLoader() {
+		return null;
 	}
 }

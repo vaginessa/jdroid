@@ -1,6 +1,7 @@
 package com.jdroid.android.firebase.analytics;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -8,7 +9,6 @@ import com.jdroid.android.analytics.CoreAnalyticsTracker;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
-import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.android.utils.DeviceUtils;
 import com.jdroid.android.utils.ScreenUtils;
 
@@ -41,7 +41,12 @@ public class FirebaseCoreAnalyticsTracker extends AbstractFirebaseAnalyticsTrack
 	}
 
 	@Override
-	public void onActivityCreate(Activity activity) {
+	public void onFirstActivityCreate(Activity activity) {
+		// Do nothing
+	}
+
+	@Override
+	public void onActivityCreate(Activity activity, Bundle savedInstanceState) {
 		// Do nothing
 	}
 
@@ -133,28 +138,11 @@ public class FirebaseCoreAnalyticsTracker extends AbstractFirebaseAnalyticsTrack
 	}
 
 	@Override
-	public void trackUriOpened(String screenName, String referrer) {
+	public void trackUriOpened(String screenName, Uri uri, String referrer) {
 		Bundle bundle = new Bundle();
 		bundle.putString("screenName", screenName);
 		bundle.putString("referrer", referrer);
 		getFirebaseAnalyticsHelper().sendEvent("OpenUri", bundle);
-	}
-
-	@Override
-	public void trackUseCaseTiming(Class<? extends AbstractUseCase> useCaseClass, long executionTime) {
-		Bundle bundle = new Bundle();
-		bundle.putString("useCase", useCaseClass.getSimpleName());
-		bundle.putLong(FirebaseAnalytics.Param.VALUE, executionTime);
-		getFirebaseAnalyticsHelper().sendEvent("ExecuteUseCase", bundle);
-	}
-
-	@Override
-	public void trackServiceTiming(String trackingVariable, String trackingLabel, long executionTime) {
-		Bundle bundle = new Bundle();
-		bundle.putString("service", trackingVariable);
-		bundle.putString("label", trackingLabel);
-		bundle.putLong(FirebaseAnalytics.Param.VALUE, executionTime);
-		getFirebaseAnalyticsHelper().sendEvent("ExecuteService", bundle);
 	}
 
 	@Override

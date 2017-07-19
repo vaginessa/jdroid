@@ -1,5 +1,11 @@
 package com.jdroid.android.usecase;
 
+import android.os.Handler;
+import android.support.annotation.RestrictTo;
+import android.support.annotation.WorkerThread;
+
+import com.google.firebase.perf.FirebasePerformance;
+import com.google.firebase.perf.metrics.Trace;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.collections.Lists;
@@ -13,12 +19,14 @@ import org.slf4j.Logger;
 import java.io.Serializable;
 import java.util.List;
 
+import static android.support.annotation.RestrictTo.Scope.LIBRARY;
+
 public abstract class AbstractUseCase implements Runnable, Serializable {
 	
 	private static final long serialVersionUID = 3732327346852606739L;
 	
 	private final static Logger LOGGER = LoggerUtils.getLogger(AbstractUseCase.class);
-	
+
 	public enum UseCaseStatus {
 		NOT_INVOKED,
 		IN_PROGRESS,
@@ -27,6 +35,8 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 	}
 	
 	private volatile List<UseCaseListener> listeners = Lists.newArrayList();
+	private Handler handler;
+
 	private volatile UseCaseStatus useCaseStatus = UseCaseStatus.NOT_INVOKED;
 	private AbstractException abstractException;
 	private volatile Boolean notified = false;
@@ -42,43 +52,104 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 		
 		LOGGER.debug("Executing " + getClass().getSimpleName());
 		markAsInProgress();
-		for (UseCaseListener listener : listeners) {
-			notifyUseCaseStart(listener);
+
+		if (!Lists.isNullOrEmpty(listeners)) {
+			Runnable startUseCaseRunnable = new Runnable() {
+				@Override
+				public void run() {
+					for (UseCaseListener listener : listeners) {
+						notifyUseCaseStart(listener);
+					}
+				}
+			};
+			if (handler != null) {
+				handler.post(startUseCaseRunnable);
+			} else {
+				startUseCaseRunnable.run();
+			}
 		}
+		
+		Trace trace = null;
+		if (timingTrackingEnabled()) {
+			trace = FirebasePerformance.getInstance().newTrace(getClass().getSimpleName());
+			trace.start();
+		}
+
 		try {
 			
-			LOGGER.debug("Started use case " + getClass().getSimpleName());
+			LOGGER.debug("Started " + getClass().getSimpleName());
 			long startTime = DateUtils.nowMillis();
 			doExecute();
 			executionTime = DateUtils.nowMillis() - startTime;
-			LOGGER.debug("Finished use case " + getClass().getSimpleName() + ". Execution time: "
-					+ DateUtils.formatDuration(executionTime));
+			LOGGER.debug("Finished " + getClass().getSimpleName() + ". Execution time: " + DateUtils.formatDuration(executionTime));
+			
+			if (trace != null) {
+				trace.incrementCounter("success");
+			}
 			
 			markAsSuccessful();
-			for (UseCaseListener listener : listeners) {
-				notifyFinishedUseCase(listener);
-			}
-			AbstractApplication.get().getCoreAnalyticsSender().trackUseCaseTiming(getClass(), executionTime);
-		} catch (RuntimeException e) {
-			AbstractException abstractException;
-			if (e instanceof AbstractException) {
-				abstractException = (AbstractException)e;
-			} else {
-				abstractException = new UnexpectedException(e);
-			}
-			abstractException.setPriorityLevel(exceptionPriorityLevel);
-			markAsFailed(abstractException);
 
+			if (!Lists.isNullOrEmpty(listeners)) {
+				Runnable finishedUseCaseRunnable = new Runnable() {
+					@Override
+					public void run() {
+						for (UseCaseListener listener : listeners) {
+							notifyFinishedUseCase(listener);
+						}
+						markAsNotified();
+					}
+				};
+				if (handler != null) {
+					handler.post(finishedUseCaseRunnable);
+				} else {
+					finishedUseCaseRunnable.run();
+				}
+			}
+
+		} catch (RuntimeException e) {
+			if (trace != null) {
+				trace.incrementCounter("failure");
+			}
+			final AbstractException abstractException = wrapException(e);
+			markAsFailed(abstractException);
 			logHandledException(abstractException);
 
-			for (UseCaseListener listener : listeners) {
-				notifyFailedUseCase(abstractException, listener);
+			if (!Lists.isNullOrEmpty(listeners)) {
+				Runnable finishedFailedUseCaseRunnable = new Runnable() {
+					@Override
+					public void run() {
+						for (UseCaseListener listener : listeners) {
+							notifyFailedUseCase(abstractException, listener);
+						}
+						markAsNotified();
+					}
+				};
+				if (handler != null) {
+					handler.post(finishedFailedUseCaseRunnable);
+				} else {
+					finishedFailedUseCaseRunnable.run();
+				}
 			}
 		} finally {
-			if (!listeners.isEmpty()) {
-				markAsNotified();
+			if (trace != null) {
+				trace.stop();
 			}
 		}
+	}
+	
+	protected Boolean timingTrackingEnabled() {
+		return true;
+	}
+
+	private AbstractException wrapException(Exception e) {
+		final AbstractException abstractException;
+		if (e instanceof AbstractException) {
+			abstractException = (AbstractException)e;
+		} else {
+			abstractException = new UnexpectedException(e);
+		}
+		abstractException.setPriorityLevel(exceptionPriorityLevel);
+		return abstractException;
 	}
 
 	protected void logHandledException(AbstractException abstractException) {
@@ -95,6 +166,7 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 	/**
 	 * Override this method with the use case functionality to be executed
 	 */
+	@WorkerThread
 	protected abstract void doExecute();
 	
 	/**
@@ -104,8 +176,15 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 	 * 
 	 * @param listener The listener to notify.
 	 */
-	protected void notifyUseCaseStart(UseCaseListener listener) {
-		listener.onStartUseCase();
+	@RestrictTo(LIBRARY)
+	public void notifyUseCaseStart(UseCaseListener listener) {
+		try {
+			LOGGER.debug("Notifying " + getClass().getSimpleName() + " start to listener " + listener.getClass().getSimpleName());
+			listener.onStartUseCase();
+		} catch (Exception e) {
+			AbstractException abstractException = wrapException(e);
+			logHandledException(abstractException);
+		}
 	}
 	
 	/**
@@ -115,8 +194,15 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 	 * 
 	 * @param listener The listener to notify.
 	 */
-	protected void notifyFinishedUseCase(UseCaseListener listener) {
-		listener.onFinishUseCase();
+	@RestrictTo(LIBRARY)
+	public void notifyFinishedUseCase(UseCaseListener listener) {
+		try {
+			LOGGER.debug("Notifying " + getClass().getSimpleName() + " finish to listener " + listener.getClass().getSimpleName());
+			listener.onFinishUseCase();
+		} catch (Exception e) {
+			AbstractException abstractException = wrapException(e);
+			logHandledException(abstractException);
+		}
 	}
 	
 	/**
@@ -126,8 +212,15 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 	 * 
 	 * @param listener The listener to notify.
 	 */
-	protected void notifyFailedUseCase(AbstractException e, UseCaseListener listener) {
-		listener.onFinishFailedUseCase(e);
+	@RestrictTo(LIBRARY)
+	public void notifyFailedUseCase(AbstractException exception, UseCaseListener listener) {
+		try {
+			LOGGER.debug("Notifying " + getClass().getSimpleName() + " finish failed to listener " + listener.getClass().getSimpleName());
+			listener.onFinishFailedUseCase(exception);
+		} catch (Exception e) {
+			AbstractException abstractException = wrapException(e);
+			logHandledException(abstractException);
+		}
 	}
 	
 	/**
@@ -215,5 +308,9 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 
 	public void setExceptionPriorityLevel(int exceptionPriorityLevel) {
 		this.exceptionPriorityLevel = exceptionPriorityLevel;
+	}
+
+	public void setHandler(Handler handler) {
+		this.handler = handler;
 	}
 }

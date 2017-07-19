@@ -1,12 +1,12 @@
 package com.jdroid.android.firebase.fcm;
 
 import android.os.Bundle;
+import android.support.annotation.WorkerThread;
 
 import com.jdroid.android.activity.AbstractFragmentActivity;
 import com.jdroid.android.activity.ActivityDelegate;
 import com.jdroid.android.application.AbstractAppModule;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.debug.PreferencesAppender;
 
 import java.util.List;
 
@@ -18,7 +18,6 @@ public abstract class AbstractFcmAppModule extends AbstractAppModule {
 		return (AbstractFcmAppModule)AbstractApplication.get().getAppModule(MODULE_NAME);
 	}
 
-	private FcmDebugContext fcmDebugContext;
 	private FcmMessageResolver fcmMessageResolver;
 	private FcmListenerResolver fcmListenerResolver;
 	private Boolean fcmInitialized = false;
@@ -26,24 +25,6 @@ public abstract class AbstractFcmAppModule extends AbstractAppModule {
 	public AbstractFcmAppModule() {
 		fcmMessageResolver = createFcmMessageResolver();
 		fcmListenerResolver = createFcmListenerResolver();
-	}
-
-	protected FcmDebugContext createFcmDebugContext() {
-		return new FcmDebugContext();
-	}
-
-	public FcmDebugContext getFcmDebugContext() {
-		synchronized (AbstractApplication.class) {
-			if (fcmDebugContext == null) {
-				fcmDebugContext = createFcmDebugContext();
-			}
-		}
-		return fcmDebugContext;
-	}
-
-	@Override
-	public List<PreferencesAppender> getPreferencesAppenders() {
-		return getFcmDebugContext().getPreferencesAppenders();
 	}
 
 	public FcmMessageResolver getFcmMessageResolver(String from) {
@@ -69,7 +50,7 @@ public abstract class AbstractFcmAppModule extends AbstractAppModule {
 			@Override
 			public void onCreate(Bundle savedInstanceState) {
 				if (!fcmInitialized) {
-					startFcmRegistration(true);
+					startFcmRegistration(true, true);
 					fcmInitialized = true;
 				}
 			}
@@ -79,29 +60,22 @@ public abstract class AbstractFcmAppModule extends AbstractAppModule {
 	protected List<String> getSubscriptionTopics() {
 		return null;
 	}
-
+	
+	@WorkerThread
 	@Override
 	public void onInstanceIdTokenRefresh() {
-		startFcmRegistration(false);
+		startFcmRegistration(false, false);
 	}
 
 	@Override
 	public void onGooglePlayServicesUpdated() {
-		startFcmRegistration(false);
+		startFcmRegistration(false, true);
 	}
 
-	@Override
-	public void onInitializeGcmTasks() {
-		startFcmRegistration(false);
-	}
-
-	@Override
-	public void onLocaleChanged() {
-		startFcmRegistration(false);
-	}
-
-	public void startFcmRegistration(Boolean updateLastActiveTimestamp) {
-		createFcmRegistrationCommand().start(updateLastActiveTimestamp);
+	public void startFcmRegistration(Boolean updateLastActiveTimestamp, Boolean isInstantExecutionRequired) {
+		FcmRegistrationCommand fcmRegistrationCommand = createFcmRegistrationCommand();
+		fcmRegistrationCommand.setInstantExecutionRequired(isInstantExecutionRequired);
+		fcmRegistrationCommand.start(updateLastActiveTimestamp);
 	}
 
 	protected FcmRegistrationCommand createFcmRegistrationCommand() {

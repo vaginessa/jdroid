@@ -1,10 +1,11 @@
 package com.jdroid.android.sample.ui.home;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.jdroid.android.ActionItem;
-import com.jdroid.android.activity.ActivityLauncher;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.ui.analytics.AnalyticsActivity;
 import com.jdroid.android.sample.ui.appinvite.AppInviteActivity;
@@ -18,12 +19,14 @@ import com.jdroid.android.sample.ui.firebase.dynamiclinks.DynamicLinksActivity;
 import com.jdroid.android.sample.ui.firebase.fcm.FcmActivity;
 import com.jdroid.android.sample.ui.google.admob.AdsActivity;
 import com.jdroid.android.sample.ui.google.geofences.GeofencesActivity;
+import com.jdroid.android.sample.ui.google.inappbilling.GoogleInAppBillingActivity;
 import com.jdroid.android.sample.ui.google.maps.GoogleMapsActivity;
 import com.jdroid.android.sample.ui.google.playservices.GooglePlayServicesActivity;
 import com.jdroid.android.sample.ui.google.signin.GoogleSignInActivity;
 import com.jdroid.android.sample.ui.hero.HeroActivity;
 import com.jdroid.android.sample.ui.http.HttpActivity;
 import com.jdroid.android.sample.ui.imageloader.ImageLoaderActivity;
+import com.jdroid.android.sample.ui.leakcanary.LeakCanaryActivity;
 import com.jdroid.android.sample.ui.loading.LoadingActivity;
 import com.jdroid.android.sample.ui.navdrawer.NavDrawerActivity;
 import com.jdroid.android.sample.ui.notifications.NotificationsActivity;
@@ -33,10 +36,12 @@ import com.jdroid.android.sample.ui.service.ServiceActivity;
 import com.jdroid.android.sample.ui.sqlite.SQLiteActivity;
 import com.jdroid.android.sample.ui.tablets.LeftTabletActivity;
 import com.jdroid.android.sample.ui.tablets.TabletActivity;
+import com.jdroid.android.sample.ui.timer.TimerActivity;
 import com.jdroid.android.sample.ui.toasts.ToastsActivity;
 import com.jdroid.android.sample.ui.twitter.TwitterActivity;
 import com.jdroid.android.sample.ui.uri.UriMapperActivity;
 import com.jdroid.android.sample.ui.usecases.UseCasesActivity;
+import com.jdroid.android.shortcuts.AppShortcutsHelper;
 import com.jdroid.android.utils.ScreenUtils;
 
 public enum HomeItem implements ActionItem {
@@ -45,32 +50,34 @@ public enum HomeItem implements ActionItem {
 	CARD_VIEW(R.string.cardView, R.drawable.ic_cardview, CardViewActivity.class),
 	DATE_TIME(R.string.dateTime, R.drawable.ic_date_time, DateTimeActivity.class),
 	ERROR_DISPLAYER(R.string.errorDisplayer, R.drawable.ic_exception_handling, ErrorDisplayerActivity.class),
-	FAB(R.string.floatingActionButton, R.drawable.ic_firebase, FabActivity.class),
 	FACEBOOK(R.string.jdroid_facebook, R.drawable.ic_firebase, FacebookSignInActivity.class),
 	FIREBASE_DATABASE(R.string.firebaseDatabase, R.drawable.ic_firebase, FirebaseDatabaseActivity.class),
 	FIREBASE_DYNAMIC_LINKS(R.string.firebaseDynamicLinks, R.drawable.ic_fcm, DynamicLinksActivity.class),
 	FIREBASE_FCM(R.string.fcm, R.drawable.ic_fcm, FcmActivity.class),
 	FIREBASE_INVITES(R.string.appInvite, R.drawable.ic_admob, AppInviteActivity.class),
+	FAB(R.string.floatingActionButton, R.drawable.ic_firebase, FabActivity.class),
 	GOOGLE_ADMOB(R.string.adMob, R.drawable.ic_admob, AdsActivity.class),
 	GOOGLE_GEOFENCES(R.string.geofences, R.drawable.ic_maps, GeofencesActivity.class),
+	GOOGLE_IN_APP_BILLING(R.string.inAppBilling, R.drawable.ic_inapp_billing, GoogleInAppBillingActivity.class),
 	GOOGLE_MAPS(R.string.googleMaps, R.drawable.ic_maps, GoogleMapsActivity.class),
 	GOOGLE_PLAY_SERVICES(R.string.googlePlayServices, R.drawable.ic_fcm, GooglePlayServicesActivity.class),
 	GOOGLE_SIGN_IN(R.string.jdroid_googleSignIn, R.drawable.ic_sign_in_24dp, GoogleSignInActivity.class),
 	HERO(R.string.hero, R.drawable.ic_photo, HeroActivity.class),
 	HTTP(R.string.http, R.drawable.ic_http, HttpActivity.class),
-	IN_APP_BILLING(R.string.inAppBilling, R.drawable.ic_inapp_billing, ImageLoaderActivity.class),
+	LEAK_CANARY(R.string.jdroid_leakCanary, R.drawable.ic_exception_handling, LeakCanaryActivity.class),
 	LOADING(R.string.loading, R.drawable.ic_loading, LoadingActivity.class),
 	NAVDRAWER(R.string.navDrawer, R.drawable.ic_nav_drawer, NavDrawerActivity.class),
-	NOTIFICATIONS(R.string.jdroid_notifications, R.drawable.ic_notifications, NotificationsActivity.class),
-	RATE_APP(R.string.jdroid_rateApp, R.drawable.ic_rate, RateAppActivity.class),
+	NOTIFICATIONS(R.string.notifications, R.drawable.ic_notifications, NotificationsActivity.class),
+	RATE_APP(R.string.rateApp, R.drawable.ic_rate, RateAppActivity.class),
 	RECYCLER_VIEW(R.string.recyclerView, R.drawable.ic_recycler_view, RecyclerViewActivity.class),
 	SERVICE(R.string.service, R.drawable.ic_service, ServiceActivity.class),
 	SQLITE(R.string.sqlite, R.drawable.ic_sqlite, SQLiteActivity.class),
 	TABLETS(R.string.tablets, R.drawable.ic_tablets, ScreenUtils.is10Inches() ? TabletActivity.class : LeftTabletActivity.class),
+	TIMER(R.string.timer, R.drawable.ic_toasts, TimerActivity.class),
 	TOASTS(R.string.toasts, R.drawable.ic_toasts, ToastsActivity.class),
 	TWITTER(R.string.jdroid_twitter, R.drawable.jdroid_ic_twitter, TwitterActivity.class),
 	UNVERSAL_IMAGE_LOADER(R.string.universalImageLoader, R.drawable.ic_photo, ImageLoaderActivity.class),
-	URI_MAPPER(R.string.jdroid_uriMapper, R.drawable.ic_photo, UriMapperActivity.class),
+	URI_MAPPER(R.string.uriMapper, R.drawable.ic_photo, UriMapperActivity.class),
 	USE_CASES(R.string.useCases, R.drawable.ic_service, UseCasesActivity.class);
 
 	private Integer resourceId;
@@ -95,9 +102,15 @@ public enum HomeItem implements ActionItem {
 	
 	@Override
 	public void startActivity(FragmentActivity fragmentActivity) {
-		ActivityLauncher.launchActivity(activityClass);
+		fragmentActivity.startActivity(getIntent());
 	}
-	
+
+	@Override
+	public Intent getIntent() {
+		AppShortcutsHelper.reportShortcutUsed(name());
+		return new Intent(AbstractApplication.get(), activityClass);
+	}
+
 	@Override
 	public Boolean matchesActivity(FragmentActivity fragmentActivity) {
 		return activityClass.equals(fragmentActivity.getClass());

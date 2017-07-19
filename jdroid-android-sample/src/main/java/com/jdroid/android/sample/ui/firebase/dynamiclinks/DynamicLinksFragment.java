@@ -1,5 +1,6 @@
 package com.jdroid.android.sample.ui.firebase.dynamiclinks;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -10,7 +11,7 @@ import com.jdroid.android.firebase.dynamiclink.ShortDynamicLinkService;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
 import com.jdroid.java.concurrent.ExecutorUtils;
-import com.jdroid.java.utils.NumberUtils;
+import com.jdroid.java.utils.TypeUtils;
 import com.jdroid.java.utils.StringUtils;
 
 public class DynamicLinksFragment extends AbstractFragment {
@@ -35,6 +36,7 @@ public class DynamicLinksFragment extends AbstractFragment {
 		return R.layout.dynamic_links_fragment;
 	}
 
+	@SuppressLint("SetTextI18n")
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
@@ -65,7 +67,7 @@ public class DynamicLinksFragment extends AbstractFragment {
 					public void run() {
 						final DynamicLinkBuilder builder = new DynamicLinkBuilder();
 						builder.setLinkUrl(linkUrlTextView.getText().toString());
-						builder.setMinVersionCode(NumberUtils.getLong(minVersionCodeTextView.getText().toString()));
+						builder.setMinVersionCode(TypeUtils.getLong(minVersionCodeTextView.getText().toString()));
 						builder.setFallbackLink(fallbackLinkTextView.getText().toString());
 						builder.setCustomAppLocation(customAppLocationTextView.getText().toString());
 						builder.setUtmSource(utmSourceTextView.getText().toString());

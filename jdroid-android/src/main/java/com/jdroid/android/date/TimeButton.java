@@ -6,16 +6,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 
 import com.jdroid.java.date.DateUtils;
 
 import java.util.Date;
 
-public class TimeButton extends Button {
+public class TimeButton extends AppCompatButton {
 	
 	private Date time;
 	
@@ -40,6 +40,10 @@ public class TimeButton extends Button {
 	
 	public void init(Fragment fragment, Date defaultTime) {
 		init(fragment, defaultTime, 1);
+	}
+	
+	public void setTime(Long timestamp) {
+		setTime(DateUtils.getDate(timestamp));
 	}
 	
 	public void setTime(Date time) {

@@ -7,11 +7,44 @@ jdk:
 
 android:
   components:
-    - platform-tools
-    - tools
-    - build-tools-25.0.2
-    - android-25
-    - extra-android-m2repository
-    - extra-google-m2repository
+  - tools
+  - platform-tools
+  - build-tools-25.0.3
+  - tools
+  - android-25
+  - addon-google_apis-google-25
+  - extra-google-m2repository
+  - extra-android-m2repository
+  - android-sdk-license-.+
+  #- sys-img-armeabi-v7a-android-16
+  #- sys-img-armeabi-v7a-android-17
+  #- sys-img-armeabi-v7a-android-18
+  #- sys-img-armeabi-v7a-android-19
+  #- sys-img-armeabi-v7a-android-21
+  #- sys-img-armeabi-v7a-android-22
+  #- sys-img-armeabi-v7a-android-24
 
-script: sh ./etc/scripts/test.sh true false true true
+env:
+    - API=android-21 ABI=armeabi-v7a
+    #matrix:
+    #- API=android-16 ABI=armeabi-v7a
+    #- API=android-17 ABI=armeabi-v7a
+    #- API=android-18 ABI=armeabi-v7a
+    #- API=android-19 ABI=armeabi-v7a
+    #- API=android-21 ABI=armeabi-v7a
+    #- API=android-22 ABI=armeabi-v7a
+    #- API=android-24 ABI=armeabi-v7a
+
+# Emulator Management: Create, Start and Wait
+#before_script:
+#  - echo no | android create avd --force -n test -t $API --abi $ABI
+#  - emulator -avd test -no-audio -no-window &
+#  - android-wait-for-emulator
+#  - adb shell input keyevent 82 &
+  
+script:
+ # - ./gradlew clean testDebug lintDebug connectedAndroidTest -PFIREBASE_PERFORMANCE_MONITORING_ENABLED=false --refresh-dependencies --stacktrace
+  - ./gradlew clean testDebug lintDebug -PFIREBASE_PERFORMANCE_MONITORING_ENABLED=false --refresh-dependencies --stacktrace --scan
+  - ./gradlew assemble uploadArchives -PLOCAL_UPLOAD=false -PRELEASE_BUILD_TYPE_ENABLED=true -PRELEASE_FAKE_ENABLED=true --refresh-dependencies --stacktrace --scan
+
+after_script: sh ./etc/scripts/uploadReports.sh
