@@ -27,7 +27,7 @@ import com.jdroid.android.sample.R;
 import com.jdroid.android.snackbar.SnackbarBuilder;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.date.DateUtils;
-import com.jdroid.java.utils.NumberUtils;
+import com.jdroid.java.utils.TypeUtils;
 
 import java.util.List;
 
@@ -136,7 +136,7 @@ public class GeofencesFragment extends AbstractFragment implements View.OnFocusC
 				Geofence.Builder builder = new Geofence.Builder();
 				builder.setRequestId(geofenceId.getText().toString());
 				builder.setCircularRegion(getLatitude(), getLongitude(), getGeofenceRadius());
-				builder.setExpirationDuration(NumberUtils.getLong(geofenceExpiration.getText().toString()));
+				builder.setExpirationDuration(TypeUtils.getLong(geofenceExpiration.getText().toString()));
 				builder.setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT);
 				geofences.add(builder.build());
 
@@ -291,14 +291,14 @@ public class GeofencesFragment extends AbstractFragment implements View.OnFocusC
 	}
 
 	private Double getLatitude() {
-		return NumberUtils.getDouble(latitude.getText().toString());
+		return TypeUtils.getDouble(latitude.getText().toString());
 	}
 
 	private Double getLongitude() {
-		return NumberUtils.getDouble(longitude.getText().toString());
+		return TypeUtils.getDouble(longitude.getText().toString());
 	}
 
 	private Float getGeofenceRadius() {
-		return NumberUtils.getFloat(geofenceRadius.getText().toString());
+		return TypeUtils.getFloat(geofenceRadius.getText().toString());
 	}
 }
