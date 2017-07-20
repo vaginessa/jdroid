@@ -41,8 +41,8 @@ env:
 #  - emulator -avd test -no-audio -no-window &
 #  - android-wait-for-emulator
 #  - adb shell input keyevent 82 &
-  
 script:
+  - set -e # https://github.com/travis-ci/travis-ci/issues/1066
  # - ./gradlew clean testDebug lintDebug connectedAndroidTest -PFIREBASE_PERFORMANCE_MONITORING_ENABLED=false --refresh-dependencies --stacktrace
   - ./gradlew clean testDebug lintDebug -PFIREBASE_PERFORMANCE_MONITORING_ENABLED=false --refresh-dependencies --stacktrace --scan
   - ./gradlew assemble uploadArchives -PLOCAL_UPLOAD=false -PRELEASE_BUILD_TYPE_ENABLED=true -PRELEASE_FAKE_ENABLED=true --refresh-dependencies --stacktrace --scan
