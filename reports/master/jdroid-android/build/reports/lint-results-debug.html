@@ -173,10 +173,10 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 39 warnings</span>
+      <span class="mdl-layout-title">Lint Report: 42 warnings</span>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-Check performed at Wed Jul 26 08:56:37 UTC 2017      </nav>
+Check performed at Fri Jul 28 01:56:51 UTC 2017      </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -185,6 +185,7 @@ Check performed at Wed Jul 26 08:56:37 UTC 2017      </nav>
       <a class="mdl-navigation__link" href="#overview"><i class="material-icons">dashboard</i>Overview</a>
       <a class="mdl-navigation__link" href="#DefaultLocale"><i class="material-icons warning-icon">warning</i>Implied default locale in case conversion (1)</a>
       <a class="mdl-navigation__link" href="#InflateParams"><i class="material-icons warning-icon">warning</i>Layout Inflation without a Parent (1)</a>
+      <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (3)</a>
       <a class="mdl-navigation__link" href="#GetInstance"><i class="material-icons warning-icon">warning</i>Cipher.getInstance with ECB (1)</a>
       <a class="mdl-navigation__link" href="#TrulyRandom"><i class="material-icons warning-icon">warning</i>Weak RNG (1)</a>
       <a class="mdl-navigation__link" href="#ExportedReceiver"><i class="material-icons warning-icon">warning</i>Receiver does not require permission (1)</a>
@@ -214,6 +215,9 @@ Check performed at Wed Jul 26 08:56:37 UTC 2017      </nav>
 <tr>
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#InflateParams">InflateParams</a>: Layout Inflation without a Parent</td></tr>
+<tr>
+<td class="countColumn">3</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#GradleDependency">GradleDependency</a>: Obsolete Gradle Dependency</td></tr>
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Security">Security</a>
 </td></tr>
 <tr>
@@ -350,10 +354,73 @@ When inflating a layout, avoid passing in null as the parent view, since otherwi
 Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card2Link" onclick="hideid('card2');">
 Dismiss</button>            </div>
             </div>
+          </section><a name="GradleDependency"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card3" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Obsolete Gradle Dependency</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../build.gradle">../../build.gradle</a>:33</span>: <span class="message">A newer version of com.google.android.gms:play-services-analytics than 11.0.2 is available: 11.0.4</span><br /><pre class="errorlines">
+<span class="lineno"> 30 </span>    compile <span class="string">"com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="lineno"> 31 </span>    compile <span class="string">"com.android.support:cardview-v7:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="lineno"> 32 </span>
+<span class="caretline"><span class="lineno"> 33 </span>    <span class="warning">compile <span class="string">"com.google.android.gms:play-services-analytics:${GOOGLE_PLAY_SERVICES_VERSION}"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 34 </span>    compile <span class="string">"com.google.android.gms:play-services-base:${GOOGLE_PLAY_SERVICES_VERSION}"</span>
+<span class="lineno"> 35 </span>    compile <span class="string">"com.google.android.gms:play-services-location:${GOOGLE_PLAY_SERVICES_VERSION}"</span>
+</pre>
+
+<span class="location"><a href="../../build.gradle">../../build.gradle</a>:34</span>: <span class="message">A newer version of com.google.android.gms:play-services-base than 11.0.2 is available: 11.0.4</span><br /><pre class="errorlines">
+<span class="lineno"> 31 </span>    compile <span class="string">"com.android.support:cardview-v7:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="lineno"> 32 </span>
+<span class="lineno"> 33 </span>    compile <span class="string">"com.google.android.gms:play-services-analytics:${GOOGLE_PLAY_SERVICES_VERSION}"</span>
+<span class="caretline"><span class="lineno"> 34 </span>    <span class="warning">compile <span class="string">"com.google.android.gms:play-services-base:${GOOGLE_PLAY_SERVICES_VERSION}"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 35 </span>    compile <span class="string">"com.google.android.gms:play-services-location:${GOOGLE_PLAY_SERVICES_VERSION}"</span>
+<span class="lineno"> 36 </span>
+<span class="lineno"> 37 </span>    compile <span class="string">"com.google.firebase:firebase-core:${GOOGLE_PLAY_SERVICES_VERSION}"</span></pre>
+
+<span class="location"><a href="../../build.gradle">../../build.gradle</a>:35</span>: <span class="message">A newer version of com.google.android.gms:play-services-location than 11.0.2 is available: 11.0.4</span><br /><pre class="errorlines">
+<span class="lineno"> 32 </span>
+<span class="lineno"> 33 </span>    compile <span class="string">"com.google.android.gms:play-services-analytics:${GOOGLE_PLAY_SERVICES_VERSION}"</span>
+<span class="lineno"> 34 </span>    compile <span class="string">"com.google.android.gms:play-services-base:${GOOGLE_PLAY_SERVICES_VERSION}"</span>
+<span class="caretline"><span class="lineno"> 35 </span>    <span class="warning">compile <span class="string">"com.google.android.gms:play-services-location:${GOOGLE_PLAY_SERVICES_VERSION}"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 36 </span>
+<span class="lineno"> 37 </span>    compile <span class="string">"com.google.firebase:firebase-core:${GOOGLE_PLAY_SERVICES_VERSION}"</span>
+<span class="lineno"> 38 </span>    compile <span class="string">"com.google.firebase:firebase-appindexing:${GOOGLE_PLAY_SERVICES_VERSION}"</span></pre>
+
+</div>
+<div class="metadata"><div class="explanation" id="explanationGradleDependency" style="display: none;">
+This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find.<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+To suppress this error, use the issue id "GradleDependency" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">GradleDependency</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Correctness</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Warning</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 4/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationGradleDependencyLink" onclick="reveal('explanationGradleDependency');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card3Link" onclick="hideid('card3');">
+Dismiss</button>            </div>
+            </div>
           </section>
 <a name="Security"></a>
 <a name="GetInstance"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card3" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card4" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Cipher.getInstance with ECB</h2>
@@ -394,11 +461,11 @@ Dismiss</button>            </div>
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationGetInstanceLink" onclick="reveal('explanationGetInstance');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card3Link" onclick="hideid('card3');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card4Link" onclick="hideid('card4');">
 Dismiss</button>            </div>
             </div>
           </section><a name="TrulyRandom"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card4" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card5" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Weak RNG</h2>
@@ -444,11 +511,11 @@ This lint rule is mostly informational; it does not accurately detect whether cr
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationTrulyRandomLink" onclick="reveal('explanationTrulyRandom');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card4Link" onclick="hideid('card4');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card5Link" onclick="hideid('card5');">
 Dismiss</button>            </div>
             </div>
           </section><a name="ExportedReceiver"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card5" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card6" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Receiver does not require permission</h2>
@@ -489,13 +556,13 @@ Exported receivers (receivers which either set <code>exported=true</code> or con
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationExportedReceiverLink" onclick="reveal('explanationExportedReceiver');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card5Link" onclick="hideid('card5');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card6Link" onclick="hideid('card6');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="Performance"></a>
 <a name="StaticFieldLeak"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card6" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card7" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Static Field Leaks</h2>
@@ -536,11 +603,11 @@ A static field will leak contexts.<br/><br/>To suppress this error, use the issu
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationStaticFieldLeakLink" onclick="reveal('explanationStaticFieldLeak');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card6Link" onclick="hideid('card6');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card7Link" onclick="hideid('card7');">
 Dismiss</button>            </div>
             </div>
           </section><a name="HandlerLeak"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card7" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card8" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Handler reference leaks</h2>
@@ -581,11 +648,11 @@ Since this Handler is declared as an inner class, it may prevent the outer class
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationHandlerLeakLink" onclick="reveal('explanationHandlerLeak');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card7Link" onclick="hideid('card7');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card8Link" onclick="hideid('card8');">
 Dismiss</button>            </div>
             </div>
           </section><a name="Overdraw"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card8" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card9" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Overdraw: Painting regions more than once</h2>
@@ -650,11 +717,11 @@ Of course it's possible that your custom drawable is translucent and you want it
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationOverdrawLink" onclick="reveal('explanationOverdraw');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card8Link" onclick="hideid('card8');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card9Link" onclick="hideid('card9');">
 Dismiss</button>            </div>
             </div>
           </section><a name="UnusedResources"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card9" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card10" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Unused resources</h2>
@@ -969,11 +1036,11 @@ To suppress this error, use the issue id "UnusedResources" as explained in the <
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationUnusedResourcesLink" onclick="reveal('explanationUnusedResources');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card9Link" onclick="hideid('card9');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card10Link" onclick="hideid('card10');">
 Dismiss</button>            </div>
             </div>
           </section><a name="UselessParent"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card10" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card11" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Useless parent layout</h2>
@@ -1013,13 +1080,13 @@ A layout with children that has no siblings, is not a scrollview or a root layou
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationUselessParentLink" onclick="reveal('explanationUselessParent');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card10Link" onclick="hideid('card10');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card11Link" onclick="hideid('card11');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="Usability:Icons"></a>
 <a name="IconDensities"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card11" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card12" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Icon densities validation</h2>
@@ -1060,12 +1127,12 @@ Low density is not really used much anymore, so this check ignores the ldpi dens
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationIconDensitiesLink" onclick="reveal('explanationIconDensities');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card11Link" onclick="hideid('card11');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card12Link" onclick="hideid('card12');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="MissingIssues"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card12" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card13" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Disabled Checks</h2>
@@ -1389,12 +1456,12 @@ There's a lint quickfix to perform this conversion in the Eclipse plugin.<br/><b
 </div>              </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="SuppressedIssuesLink" onclick="reveal('SuppressedIssues');">
-List Missing Issues</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card12Link" onclick="hideid('card12');">
+List Missing Issues</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card13Link" onclick="hideid('card13');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="SuppressInfo"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card13" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card14" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Suppressing Warnings and Errors</h2>
