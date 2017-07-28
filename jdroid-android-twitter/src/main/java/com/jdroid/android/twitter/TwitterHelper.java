@@ -4,6 +4,7 @@ import android.support.annotation.MainThread;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.fragment.AbstractFragment;
+import com.jdroid.java.collections.Lists;
 import com.jdroid.java.http.exception.ConnectionException;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
@@ -24,7 +25,13 @@ import javax.net.ssl.SSLHandshakeException;
 
 // TODO Add support to rotation. The helper is called on each screen rotation
 public abstract class TwitterHelper {
-
+	
+	private SearchTimeline.Builder searchTimelineBuilder;
+	
+	protected SearchTimeline createSearchTimeline() {
+		return searchTimelineBuilder.build();
+	}
+	
 	public void loadTweets() {
 		onStartLoadingTweets();
 		SearchTimeline searchTimeline = createSearchTimeline();
@@ -32,7 +39,13 @@ public abstract class TwitterHelper {
 			@Override
 			public void success(Result<TimelineResult<Tweet>> result) {
 				try {
-					TwitterHelper.this.onSuccess(result.data.items);
+					List<Tweet> filteredTweets = Lists.newArrayList();
+					for(Tweet each : result.data.items) {
+						if (isValidTweet(each)) {
+							filteredTweets.add(each);
+						}
+					}
+					TwitterHelper.this.onSuccess(filteredTweets);
 				} catch (Exception e) {
 					AbstractApplication.get().getExceptionHandler().logHandledException(e);
 				}
@@ -84,8 +97,6 @@ public abstract class TwitterHelper {
 		});
 	}
 
-	protected abstract SearchTimeline createSearchTimeline();
-
 	@MainThread
 	protected  void onStartLoadingTweets() {
 		// Do Nothing
@@ -99,5 +110,13 @@ public abstract class TwitterHelper {
 		// Do Nothing
 	}
 
-	public abstract AbstractFragment getAbstractFragment();
+	protected abstract AbstractFragment getAbstractFragment();
+	
+	protected Boolean isValidTweet(Tweet tweet) {
+		return true;
+	}
+	
+	public void setSearchTimelineBuilder(SearchTimeline.Builder searchTimelineBuilder) {
+		this.searchTimelineBuilder = searchTimelineBuilder;
+	}
 }
