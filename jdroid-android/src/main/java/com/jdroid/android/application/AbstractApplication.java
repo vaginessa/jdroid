@@ -286,13 +286,10 @@ public abstract class AbstractApplication extends Application {
 		super.onTrimMemory(level);
 		
 		if (!isMultiProcessSupportEnabled() || ProcessUtils.isMainProcess(this)) {
-			ApplicationLifecycleHelper.onTrimMemory(this, level);
 			onMainProcessTrimMemory();
 		} else  {
 			onSecondaryProcessTrimMemory(ProcessUtils.getProcessInfo(this));
 		}
-
-		ApplicationLifecycleHelper.onTrimMemory(this, level);
 	}
 	
 	@MainThread

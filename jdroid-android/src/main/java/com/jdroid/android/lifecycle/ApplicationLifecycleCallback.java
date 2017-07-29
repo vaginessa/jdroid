@@ -37,11 +37,6 @@ public abstract class ApplicationLifecycleCallback implements Comparable<Applica
 	}
 	
 	@MainThread
-	public void onTrimMemory(Context context, int level) {
-		// Do nothing
-	}
-	
-	@MainThread
 	public void onLocaleChanged(Context context) {
 		// Do nothing
 	}
