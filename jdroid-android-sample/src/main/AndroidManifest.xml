@@ -414,6 +414,11 @@
 		<activity android:name="com.jdroid.android.sample.ui.google.playservices.GooglePlayServicesActivity" android:label="@string/googlePlayServices"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<!-- Strict Mode -->
+
+		<activity android:name="com.jdroid.android.sample.ui.strictmode.StrictModeActivity" android:label="@string/strictMode"
+				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity"/>
+
 		<service android:name="com.jdroid.android.usecase.service.UseCaseService" android:exported="false" />
 		<service android:name="com.jdroid.android.sample.ui.service.SampleWorkerService" android:exported="false" />
 		<service android:name="com.jdroid.android.sample.ui.service.SampleFirebaseJobService" android:exported="false">

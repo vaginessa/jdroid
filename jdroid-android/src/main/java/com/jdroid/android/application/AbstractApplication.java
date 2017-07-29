@@ -6,7 +6,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
-import android.os.StrictMode;
 import android.support.annotation.CallSuper;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
@@ -21,7 +20,6 @@ import com.jdroid.android.activity.ActivityHelper;
 import com.jdroid.android.activity.ActivityLifecycleHandler;
 import com.jdroid.android.analytics.CoreAnalyticsSender;
 import com.jdroid.android.analytics.CoreAnalyticsTracker;
-import com.jdroid.android.lifecycle.ApplicationLifecycleHelper;
 import com.jdroid.android.context.AndroidGitContext;
 import com.jdroid.android.context.AppContext;
 import com.jdroid.android.debug.DebugContext;
@@ -31,9 +29,11 @@ import com.jdroid.android.firebase.testlab.FirebaseTestLab;
 import com.jdroid.android.fragment.FragmentHelper;
 import com.jdroid.android.http.cache.CacheManager;
 import com.jdroid.android.leakcanary.LeakCanaryHelper;
+import com.jdroid.android.lifecycle.ApplicationLifecycleHelper;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
 import com.jdroid.android.sqlite.SQLiteUpgradeStep;
+import com.jdroid.android.strictmode.StrictModeHelper;
 import com.jdroid.android.uri.UriMapper;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.ProcessUtils;
@@ -152,17 +152,17 @@ public abstract class AbstractApplication extends Application {
 	@CallSuper
 	@Override
 	public final void onCreate() {
+		
+		if (!isMultiProcessSupportEnabled() || ProcessUtils.isMainProcess(this)) {
+			initStrictMode();
+		}
+		
 		super.onCreate();
 		
 		if (!isMultiProcessSupportEnabled() || ProcessUtils.isMainProcess(this)) {
 			ApplicationLifecycleHelper.onCreate(this);
 			
 			appContext = createAppContext();
-			
-			// Strict mode
-			if (appContext.isStrictModeEnabled()) {
-				initStrictMode();
-			}
 			
 			initAppModule(appModulesMap);
 			
@@ -344,8 +344,7 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	protected void initStrictMode() {
-		StrictMode.enableDefaults();
-		LOGGER.info("StrictMode initialized");
+		StrictModeHelper.initStrictMode();
 	}
 	
 	public void initExceptionHandlers() {
