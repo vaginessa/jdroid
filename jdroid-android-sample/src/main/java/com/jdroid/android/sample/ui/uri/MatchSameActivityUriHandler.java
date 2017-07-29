@@ -6,7 +6,8 @@ import android.net.Uri;
 
 import com.jdroid.android.uri.AbstractUriHandler;
 
-public class MatchSameActivityUriHandler extends AbstractUriHandler {
+public class MatchSameActivityUriHandler extends AbstractUriHandler<MatchSameActivity> {
+	
 	@Override
 	public Boolean matches(Uri uri) {
 		return true;

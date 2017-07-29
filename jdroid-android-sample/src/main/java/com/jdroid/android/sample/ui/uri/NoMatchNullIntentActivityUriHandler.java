@@ -6,7 +6,7 @@ import android.net.Uri;
 
 import com.jdroid.android.uri.AbstractUriHandler;
 
-public class NoMatchNullIntentActivityUriHandler extends AbstractUriHandler {
+public class NoMatchNullIntentActivityUriHandler extends AbstractUriHandler<NoMatchNullIntentActivity> {
 
 	@Override
 	public Boolean matches(Uri uri) {
