@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ScrollView;
 
-import com.jdroid.android.BuildConfig;
+import com.jdroid.android.context.BuildConfigUtils;
 import com.jdroid.android.lifecycle.AppContextContainer;
 
 public class AppUtils {
@@ -49,8 +49,16 @@ public class AppUtils {
 		return  applicationId;
 	}
 	
+	public static String getBuildType() {
+		return BuildConfigUtils.getBuildConfigValue("BUILD_TYPE");
+	}
+	
 	public static boolean isReleaseBuildType() {
-		return BuildConfig.BUILD_TYPE.equals("release");
+		return getBuildType().equals("release");
+	}
+	
+	public static String getBuildTime() {
+		return BuildConfigUtils.getBuildConfigValue("BUILD_TIME", null);
 	}
 
 	/**
