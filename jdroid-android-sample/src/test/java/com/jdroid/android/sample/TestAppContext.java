@@ -15,17 +15,7 @@ public class TestAppContext extends AppContext {
 	}
 
 	@Override
-	public String getBuildType() {
-		return "test";
-	}
-
-	@Override
 	public String getLocalIp() {
 		return null;
-	}
-
-	@Override
-	public Boolean isStrictModeEnabled() {
-		return false;
 	}
 }
