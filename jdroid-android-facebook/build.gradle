@@ -9,7 +9,7 @@ configurations.all {
 
 	resolutionStrategy {
 		eachDependency { DependencyResolveDetails details ->
-			if (details.requested.group == 'com.android.support') {
+			if (details.requested.group == 'com.android.support' && details.requested.name != 'multidex') {
 				details.useVersion ANDROID_SUPPORT_VERSION
 			}
 		}
