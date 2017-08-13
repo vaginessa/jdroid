@@ -99,7 +99,7 @@
         errorLine2=" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="/home/travis/build/maxirosson/jdroid/jdroid-android/src/main/java/com/jdroid/android/application/AbstractApplication.java"
-            line="71"
+            line="73"
             column="2"/>
     </issue>
 
