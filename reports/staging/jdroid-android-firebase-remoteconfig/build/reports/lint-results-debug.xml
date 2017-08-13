@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="4" by="lint 2.3.3">
+
+    <issue
+        id="StaticFieldLeak"
+        severity="Warning"
+        message="Do not place Android context classes in static fields (static reference to `FirebaseRemoteConfig` which has field `mContext` pointing to `Context`); this is a memory leak (and also breaks Instant Run)"
+        category="Performance"
+        priority="6"
+        summary="Static Field Leaks"
+        explanation="A static field will leak contexts."
+        errorLine1=" private static FirebaseRemoteConfig firebaseRemoteConfig;"
+        errorLine2=" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android-firebase-remoteconfig/src/main/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigHelper.java"
+            line="39"
+            column="2"/>
+    </issue>
+
+</issues>
