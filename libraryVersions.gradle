@@ -1,6 +1,6 @@
 ext.JDROID_GRADLE_PLUGIN_VERSION = '0.16.3'
-ext.JDROID_JAVA_VERSION = '0.14.0-SNAPSHOT'
-ext.JDROID_JAVA_HTTP_VERSION = '0.14.0-SNAPSHOT'
+ext.JDROID_JAVA_VERSION = '0.14.0'
+ext.JDROID_JAVA_HTTP_VERSION = '0.14.0'
 
 // https://developers.google.com/android/guides/releases
 // https://firebase.google.com/support/release-notes/android
