@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="4" by="lint 2.3.3">
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.drawable.jdroid_facebook_button_normal` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        quickfix="studio">
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android-facebook/src/main/res/drawable-hdpi/jdroid_facebook_button_normal.9.png"/>
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android-facebook/src/main/res/drawable-mdpi/jdroid_facebook_button_normal.9.png"/>
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android-facebook/src/main/res/drawable-xhdpi/jdroid_facebook_button_normal.9.png"/>
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android-facebook/src/main/res/drawable-xxhdpi/jdroid_facebook_button_normal.9.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.drawable.jdroid_facebook_button_pressed` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        quickfix="studio">
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android-facebook/src/main/res/drawable-hdpi/jdroid_facebook_button_pressed.9.png"/>
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android-facebook/src/main/res/drawable-mdpi/jdroid_facebook_button_pressed.9.png"/>
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android-facebook/src/main/res/drawable-xhdpi/jdroid_facebook_button_pressed.9.png"/>
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android-facebook/src/main/res/drawable-xxhdpi/jdroid_facebook_button_pressed.9.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.drawable.jdroid_facebook_button_selector` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="&lt;selector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^"
+        quickfix="studio">
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android-facebook/src/main/res/drawable/jdroid_facebook_button_selector.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.style.jdroid_facebookButton` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1=" &lt;style name=&quot;jdroid_facebookButton&quot; parent=&quot;@style/jdroid_socialButton&quot;>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android-facebook/src/main/res/values/styles.xml"
+            line="6"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.style.jdroid_facebookLoginButton` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1=" &lt;style name=&quot;jdroid_facebookLoginButton&quot; parent=&quot;@style/jdroid_facebookButton&quot;>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android-facebook/src/main/res/values/styles.xml"
+            line="10"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.style.jdroid_facebookLogoutButton` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1=" &lt;style name=&quot;jdroid_facebookLogoutButton&quot; parent=&quot;@style/jdroid_facebookButton&quot;>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android-facebook/src/main/res/values/styles.xml"
+            line="14"
+            column="9"/>
+    </issue>
+
+</issues>
