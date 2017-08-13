@@ -1,10 +1,10 @@
 package com.jdroid.android.google.inappbilling;
 
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AbstractAppContext;
 import com.jdroid.android.google.inappbilling.client.Inventory;
 import com.jdroid.android.google.inappbilling.client.Product;
 import com.jdroid.android.google.inappbilling.client.ProductType;
+import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.collections.Lists;
 
@@ -39,8 +39,7 @@ public class InAppBillingContext extends AbstractAppContext {
 	}
 	
 	public Boolean isStaticResponsesEnabledEnabled() {
-		return !AbstractApplication.get().getAppContext().isProductionEnvironment()
-				&& getSharedPreferencesHelper().loadPreferenceAsBoolean(STATIC_RESPONSES_ENABLED, false);
+		return !AppUtils.isReleaseBuildType() && getSharedPreferencesHelper().loadPreferenceAsBoolean(STATIC_RESPONSES_ENABLED, false);
 	}
 	
 	public synchronized void setPurchasedProductTypes(Inventory inventory) {

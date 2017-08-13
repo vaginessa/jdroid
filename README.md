@@ -134,7 +134,7 @@ More Jdroid Components
 * [jdroid-java-http](https://github.com/maxirosson/jdroid-java-http)
 * [jdroid-java-github](https://github.com/maxirosson/jdroid-java-github)
 * [jdroid-java-google-drive](https://github.com/maxirosson/jdroid-java-google-drive)
-* [jdroid-googleplay-publisher-plugin](https://github.com/maxirosson/jdroid-googleplay-publisher-plugin)
+* [jdroid-googleplay-publisher](https://github.com/maxirosson/jdroid-googleplay-publisher)
 * [jdroid-gradle-timer-plugin](https://github.com/maxirosson/jdroid-gradle-timer-plugin)
 
 ## Donations

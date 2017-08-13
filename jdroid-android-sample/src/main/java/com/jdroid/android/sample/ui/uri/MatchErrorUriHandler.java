@@ -4,7 +4,8 @@ import android.net.Uri;
 
 import com.jdroid.android.uri.AbstractUriHandler;
 
-public class MatchErrorUriHandler extends AbstractUriHandler {
+public class MatchErrorUriHandler extends AbstractUriHandler<MatchErrorActivity> {
+	
 	@Override
 	public Boolean matches(Uri uri) {
 		throw new RuntimeException();

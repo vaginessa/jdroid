@@ -11,7 +11,7 @@ import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
 
-public abstract class AbstractUriHandler implements UriHandler {
+public abstract class AbstractUriHandler<T extends Activity> implements UriHandler<T> {
 
 	private final static Logger LOGGER = LoggerUtils.getLogger(AbstractUriHandler.class);
 
@@ -36,17 +36,17 @@ public abstract class AbstractUriHandler implements UriHandler {
 	}
 
 	@Override
-	public String getUrl(Activity activity) {
+	public String getUrl(T activity) {
 		return null;
 	}
 
 	@Override
-	public Boolean isAppIndexingEnabled(Activity activity) {
+	public Boolean isAppIndexingEnabled(T activity) {
 		return true;
 	}
 
 	@Override
-	public Action getAppIndexingAction(Activity activity) {
+	public Action getAppIndexingAction(T activity) {
 		if (isAppIndexingEnabled(activity)) {
 			String url = getUrl(activity);
 			if (url != null) {
@@ -59,7 +59,7 @@ public abstract class AbstractUriHandler implements UriHandler {
 		return null;
 	}
 
-	protected String getAppIndexingTitle(Activity activity) {
+	protected String getAppIndexingTitle(T activity) {
 		return activity.getTitle().toString();
 	}
 }

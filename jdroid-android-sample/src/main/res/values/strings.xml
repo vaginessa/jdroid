@@ -255,6 +255,10 @@
 	<string name="commandService5">Command Service 5</string>
 	<string name="cancelAllJobs">Cancel All Jobs</string>
 
+	<!-- StrictMode -->
+	<string name="strictMode">Strict Mode</string>
+	<string name="diskAccessOnMainThread">Disk Access on Main Thread</string>
+
 	<!-- Tablets -->
 	<string name="openDetail">Open Detail</string>
 

@@ -28,8 +28,8 @@ public class DebugInfoFragment extends AbstractRecyclerFragment {
 
 		AppContext appContext = AbstractApplication.get().getAppContext();
 
-		properties.add(new Pair<String, Object>("Build Type", appContext.getBuildType()));
-		properties.add(new Pair<String, Object>("Build Time", appContext.getBuildTime()));
+		properties.add(new Pair<String, Object>("Build Type", AppUtils.getBuildType()));
+		properties.add(new Pair<String, Object>("Build Time", AppUtils.getBuildTime()));
 
 		properties.add(new Pair<String, Object>("Installation Source", appContext.getInstallationSource()));
 

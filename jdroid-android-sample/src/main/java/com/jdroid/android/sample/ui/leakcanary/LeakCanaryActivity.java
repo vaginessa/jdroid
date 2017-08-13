@@ -7,7 +7,7 @@ import com.jdroid.android.activity.FragmentContainerActivity;
 
 public class LeakCanaryActivity extends FragmentContainerActivity {
 	
-	private static LeakCanaryActivity LEAK;
+	public static LeakCanaryActivity LEAK;
 	
 	@Override
 	protected Class<? extends Fragment> getFragmentClass() {

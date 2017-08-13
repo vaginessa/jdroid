@@ -10,7 +10,7 @@ import com.google.firebase.appindexing.Action;
 /**
  * Handler which parse the parameters and create an intent based on an uri
  */
-public interface UriHandler {
+public interface UriHandler<T extends Activity> {
 
 	/**
 	 * @return Whether the uri should be transformed to a main or a default intent
@@ -30,9 +30,9 @@ public interface UriHandler {
 
 	public void logUriNotMatch(Uri uri);
 
-	public Boolean isAppIndexingEnabled(Activity activity);
+	public Boolean isAppIndexingEnabled(T activity);
 
-	public Action getAppIndexingAction(Activity activity);
+	public Action getAppIndexingAction(T activity);
 
-	public String getUrl(Activity activity);
+	public String getUrl(T activity);
 }

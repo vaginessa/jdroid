@@ -95,20 +95,6 @@ public class ApplicationLifecycleHelper {
 	}
 	
 	@MainThread
-	public static void onTrimMemory(Context context, int level) {
-		
-		LOGGER.trace("Executing onTrimMemory on application");
-		
-		init(context);
-		for (ApplicationLifecycleCallback callback : applicationLifecycleCallbacks) {
-			if (callback.isEnabled()) {
-				LOGGER.trace("Executing onTrimMemory for callback " + callback.getClass().getName());
-				callback.onTrimMemory(context, level);
-			}
-		}
-	}
-	
-	@MainThread
 	public static void onLocaleChanged(Context context) {
 		
 		LOGGER.trace("Executing onLocaleChanged on application");

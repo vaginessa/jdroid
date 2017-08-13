@@ -6,7 +6,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
-import android.os.StrictMode;
 import android.support.annotation.CallSuper;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
@@ -36,6 +35,7 @@ import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.android.repository.UserRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
 import com.jdroid.android.sqlite.SQLiteUpgradeStep;
+import com.jdroid.android.strictmode.StrictModeHelper;
 import com.jdroid.android.uri.UriMapper;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.ProcessUtils;
@@ -154,6 +154,11 @@ public abstract class AbstractApplication extends Application {
 	@CallSuper
 	@Override
 	public final void onCreate() {
+		
+		if (!isMultiProcessSupportEnabled() || ProcessUtils.isMainProcess(this)) {
+			initStrictMode();
+		}
+		
 		super.onCreate();
 		
 		if (!isMultiProcessSupportEnabled() || ProcessUtils.isMainProcess(this)) {
@@ -161,13 +166,8 @@ public abstract class AbstractApplication extends Application {
 			
 			appContext = createAppContext();
 			
-			// Strict mode
-			if (appContext.isStrictModeEnabled()) {
-				initStrictMode();
-			}
-			
 			NotificationUtils.createNotificationChannelsByType(getNotificationChannelTypes());
-			
+	
 			initAppModule(appModulesMap);
 			
 			initCoreAnalyticsSender();
@@ -290,13 +290,10 @@ public abstract class AbstractApplication extends Application {
 		super.onTrimMemory(level);
 		
 		if (!isMultiProcessSupportEnabled() || ProcessUtils.isMainProcess(this)) {
-			ApplicationLifecycleHelper.onTrimMemory(this, level);
 			onMainProcessTrimMemory();
 		} else  {
 			onSecondaryProcessTrimMemory(ProcessUtils.getProcessInfo(this));
 		}
-
-		ApplicationLifecycleHelper.onTrimMemory(this, level);
 	}
 	
 	@MainThread
@@ -351,8 +348,7 @@ public abstract class AbstractApplication extends Application {
 	}
 	
 	protected void initStrictMode() {
-		StrictMode.enableDefaults();
-		LOGGER.info("StrictMode initialized");
+		StrictModeHelper.initStrictMode();
 	}
 	
 	public void initExceptionHandlers() {

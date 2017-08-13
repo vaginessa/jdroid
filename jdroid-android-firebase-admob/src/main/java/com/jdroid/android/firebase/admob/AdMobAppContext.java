@@ -24,16 +24,16 @@ public class AdMobAppContext extends AbstractAppContext {
 	public Boolean areAdsEnabled() {
 		Boolean prefEnabled = SharedPreferencesHelper.get().loadPreferenceAsBoolean(AdMobRemoteConfigParameter.ADS_ENABLED.getKey(), areAdsEnabledByDefault());
 		Boolean enoughDaysSinceFirstAppLoad = DateUtils.millisecondsToDays(UsageStats.getFirstAppLoadTimestamp()) >= getMinDaysSinceFirstAppLoad();
-		Boolean enoughAppLoads = UsageStats.getAppLoads() >= getMinAppLoadsToDisplayAds() ;
+		Boolean enoughAppLoads = UsageStats.getAppLoads() >= getMinAppLoadsToDisplayAds();
 		return prefEnabled && enoughDaysSinceFirstAppLoad && enoughAppLoads;
 	}
 
 	protected Long getMinAppLoadsToDisplayAds() {
-		return 5L;
+		return FirebaseRemoteConfigHelper.getLong(AdMobRemoteConfigParameter.MIN_APP_LOADS_TO_DISPLAY_ADS);
 	}
 
 	protected Long getMinDaysSinceFirstAppLoad() {
-		return 7L;
+		return FirebaseRemoteConfigHelper.getLong(AdMobRemoteConfigParameter.MIN_DAYS_TO_DISPLAY_ADS);
 	}
 
 	public Boolean isTestAdUnitIdEnabled() {
@@ -44,7 +44,7 @@ public class AdMobAppContext extends AbstractAppContext {
 	 * @return The MD5-hashed ID of the devices that should display mocked ads
 	 */
 	public Set<String> getTestDevicesIds() {
-		String testDevicesIds = getBuildConfigValue("ADS_TEST_DEVICES_IDS", null);
+		String testDevicesIds = getBuildConfigValue("ADS_TEST_DEVICES_IDS");
 		return testDevicesIds != null ? Sets.newHashSet(StringUtils.splitToCollectionWithCommaSeparator(testDevicesIds)) : Sets.<String>newHashSet();
 	}
 

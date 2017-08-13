@@ -1,5 +1,6 @@
 ext.COMPONENTS = ['jdroid-android', 'jdroid-java-okhttp']
 ext.RES_CONFIGS = ['en', 'es']
+ext.PROJECT_NAME = 'Jdroid Android - Sample'
 apply plugin: 'com.jdroid.android.application'
 
 description = 'Jdroid Sample Android'
@@ -176,7 +177,6 @@ android {
 
 		applicationId 'com.jdroid.android.sample'
 
-		jdroid.setBuildConfigBoolean(defaultConfig, "STRICT_MODE_ENABLED", false)
 		jdroid.setBuildConfigBoolean(defaultConfig, "LEAK_CANARY_ENABLED", false)
 		jdroid.setBuildConfigBoolean(defaultConfig, "FIREBASE_ANALYTICS_ENABLED", true)
 

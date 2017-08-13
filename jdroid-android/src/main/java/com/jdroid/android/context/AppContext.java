@@ -2,6 +2,7 @@ package com.jdroid.android.context;
 
 import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.LocalizationUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.http.Server;
@@ -26,7 +27,7 @@ public class AppContext extends AbstractAppContext {
 	
 	@SuppressWarnings("unchecked")
 	protected <T extends Server> T getServer(Server defaultServer) {
-		if (isProductionEnvironment() || !displayDebugSettings()) {
+		if (AppUtils.isReleaseBuildType() || !displayDebugSettings()) {
 			return (T)defaultServer;
 		} else {
 			Class<?> clazz = defaultServer.getClass().getEnclosingClass() != null ? defaultServer.getClass().getEnclosingClass()
@@ -44,26 +45,7 @@ public class AppContext extends AbstractAppContext {
 	 * @return Whether the application should display the debug settings
 	 */
 	public Boolean displayDebugSettings() {
-		return !isProductionEnvironment();
-	}
-
-	public String getBuildType() {
-		return getBuildConfigValue("BUILD_TYPE");
-	}
-
-	public String getBuildTime() {
-		return getBuildConfigValue("BUILD_TIME", null);
-	}
-
-	public Boolean isStrictModeEnabled() {
-		return !isProductionEnvironment() && getBuildConfigBoolean("STRICT_MODE_ENABLED", false);
-	}
-
-	/**
-	 * @return Whether the application is running on a production environment
-	 */
-	public Boolean isProductionEnvironment() {
-		return getBuildType().equals("release");
+		return !AppUtils.isReleaseBuildType();
 	}
 
 	public String getLocalIp() {

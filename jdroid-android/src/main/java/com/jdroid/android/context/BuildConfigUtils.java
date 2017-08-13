@@ -1,13 +1,11 @@
 package com.jdroid.android.context;
 
-import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.java.utils.ReflectionUtils;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class BuildConfigUtils {
 	
+	private static BuildConfigResolver buildConfigResolver = new BuildConfigResolver();
 	private static Map<String, Object> cache = new ConcurrentHashMap<>();
 
 	@SuppressWarnings("unchecked")
@@ -19,7 +17,7 @@ public class BuildConfigUtils {
 	public static <T> T getBuildConfigValue(String property, Object defaultValue) {
 		Object value = cache.get(property);
 		if (value == null) {
-			value = ReflectionUtils.getStaticFieldValue(getBuildConfigClass(), property, defaultValue);
+			value = buildConfigResolver.getBuildConfigValue(property, defaultValue);
 			if (value != null) {
 				cache.put(property, value);
 			}
@@ -35,7 +33,7 @@ public class BuildConfigUtils {
 		return (Boolean)getBuildConfigValue(property, defaultValue);
 	}
 	
-	private static Class<?> getBuildConfigClass() {
-		return ReflectionUtils.getClass(AbstractApplication.get().getManifestPackageName() + ".BuildConfig");
+	public static void setBuildConfigResolver(BuildConfigResolver buildConfigResolver) {
+		BuildConfigUtils.buildConfigResolver = buildConfigResolver;
 	}
 }
