@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 
-import com.google.android.gms.appindexing.AndroidAppUri;
+import com.google.firebase.appindexing.AndroidAppUri;
 import com.jdroid.java.utils.LoggerUtils;
 
 import org.slf4j.Logger;
