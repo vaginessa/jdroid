@@ -27,16 +27,17 @@ public class StethoApplicationLifecycleCallback extends ApplicationLifecycleCall
 	@Override
 	public void onProviderInit(Context context) {
 		try {
-			if (BuildConfigUtils.getBuildConfigBoolean("JDROID_JAVA_OKHTTP_ENABLED", false)) {
-				HttpServiceFactory okhttpServiceFactory = ReflectionUtils.newInstance(OKHTTP_SERVICE_FACTORY);
+			HttpServiceFactory okhttpServiceFactory = ReflectionUtils.safeNewInstance(OKHTTP_SERVICE_FACTORY);
+			if (okhttpServiceFactory != null) {
 				Class<?> interceptorClass = ReflectionUtils.getClass(OKHTTP_INTERCEPTOR);
 				Object stethoInterceptor = ReflectionUtils.newInstance(STETHO_OKHTTP_INTERCEPTOR);
 				ReflectionUtils.invokeMethod(OKHTTP_SERVICE_FACTORY, okhttpServiceFactory, ADD_NETWORK_INTERCEPTOR,
 						Lists.<Class<?>>newArrayList(interceptorClass), Lists.newArrayList(stethoInterceptor));
 				HttpConfiguration.setHttpServiceFactory(okhttpServiceFactory);
+				LOGGER.info("Stetho " + STETHO_OKHTTP_INTERCEPTOR + " initialized");
 			}
 		} catch (Exception e) {
-			LOGGER.error(StethoApplicationLifecycleCallback.class.getName(), "Error initializing StethoInitProvider", e);
+			LOGGER.error("Error initializing " + STETHO_OKHTTP_INTERCEPTOR, e);
 		}
 	}
 	
