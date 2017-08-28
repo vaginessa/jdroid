@@ -6,7 +6,8 @@ import android.net.Uri;
 
 import com.jdroid.android.uri.AbstractUriHandler;
 
-public class DefaultIntentErrorUriHandler extends AbstractUriHandler {
+public class DefaultIntentErrorUriHandler extends AbstractUriHandler<DefaulItntentErrorActivity> {
+	
 	@Override
 	public Boolean matches(Uri uri) {
 		return false;

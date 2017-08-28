@@ -15,6 +15,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigValue;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.firebase.analytics.FirebaseAnalyticsFactory;
+import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
@@ -59,7 +60,7 @@ public class FirebaseRemoteConfigHelper {
 			firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
 
 			FirebaseRemoteConfigSettings.Builder configSettingsBuilder = new FirebaseRemoteConfigSettings.Builder();
-			configSettingsBuilder.setDeveloperModeEnabled(!AbstractApplication.get().getAppContext().isProductionEnvironment());
+			configSettingsBuilder.setDeveloperModeEnabled(!AppUtils.isReleaseBuildType());
 
 			firebaseRemoteConfig.setConfigSettings(configSettingsBuilder.build());
 
@@ -74,7 +75,7 @@ public class FirebaseRemoteConfigHelper {
 				firebaseRemoteConfig.setDefaults(defaults);
 			}
 
-			if (!AbstractApplication.get().getAppContext().isProductionEnvironment()) {
+			if (!AppUtils.isReleaseBuildType()) {
 				sharedPreferencesHelper = SharedPreferencesHelper.get(FirebaseRemoteConfigHelper.class.getSimpleName());
 				mocks  = (Map<String, String>)sharedPreferencesHelper.loadAllPreferences();
 				mocksEnabled = sharedPreferencesHelper.loadPreferenceAsBoolean(MOCKS_ENABLED, false);
@@ -167,7 +168,7 @@ public class FirebaseRemoteConfigHelper {
 	}
 
 	private static FirebaseRemoteConfigValue getFirebaseRemoteConfigValue(RemoteConfigParameter remoteConfigParameter) {
-		if (mocksEnabled && !AbstractApplication.get().getAppContext().isProductionEnvironment()) {
+		if (mocksEnabled && !AppUtils.isReleaseBuildType()) {
 			return new MockFirebaseRemoteConfigValue(remoteConfigParameter, mocks);
 		} else if (firebaseRemoteConfig == null) {
 			return new StaticFirebaseRemoteConfigValue(remoteConfigParameter);

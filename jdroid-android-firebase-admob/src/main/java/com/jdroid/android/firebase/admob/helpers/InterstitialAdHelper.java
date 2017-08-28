@@ -6,10 +6,9 @@ import android.view.ViewGroup;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.context.AppContext;
 import com.jdroid.android.firebase.admob.AdMobAppModule;
 import com.jdroid.android.location.LocationHelper;
+import com.jdroid.android.utils.AppUtils;
 import com.jdroid.java.exception.UnexpectedException;
 
 public class InterstitialAdHelper implements AdHelper {
@@ -24,9 +23,9 @@ public class InterstitialAdHelper implements AdHelper {
 		interstitialAdUnitId = AdMobAppModule.get().getAdMobAppContext().getDefaultAdUnitId();
 	}
 
-	private AdRequest.Builder createBuilder(AppContext applicationContext) {
+	private AdRequest.Builder createBuilder() {
 		final AdRequest.Builder builder = new AdRequest.Builder();
-		if (!applicationContext.isProductionEnvironment()) {
+		if (!AppUtils.isReleaseBuildType()) {
 			builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
 			for (String deviceId : AdMobAppModule.get().getAdMobAppContext().getTestDevicesIds()) {
 				builder.addTestDevice(deviceId);
@@ -45,14 +44,13 @@ public class InterstitialAdHelper implements AdHelper {
 				throw new UnexpectedException("Missing interstitial ad unit ID");
 			}
 
-			if (!AbstractApplication.get().getAppContext().isProductionEnvironment() && AdMobAppModule.get().getAdMobAppContext().isTestAdUnitIdEnabled()) {
+			if (!AppUtils.isReleaseBuildType() && AdMobAppModule.get().getAdMobAppContext().isTestAdUnitIdEnabled()) {
 				interstitial.setAdUnitId(TEST_AD_UNIT_ID);
 			} else {
 				interstitial.setAdUnitId(interstitialAdUnitId);
 			}
 
-			AppContext applicationContext = AbstractApplication.get().getAppContext();
-			AdRequest.Builder builder = createBuilder(applicationContext);
+			AdRequest.Builder builder = createBuilder();
 			interstitial.loadAd(builder.build());
 			interstitial.setAdListener(new AdListener() {
 

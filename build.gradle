@@ -1,6 +1,5 @@
 version = '0.15.0'
 
-ext.JDROID_GITHUB_REPOSITORY_OWNER = 'maxirosson'
 ext.JDROID_GITHUB_REPOSITORY_NAME = 'jdroid'
 
 apply from: rootProject.file('libraryVersions.gradle')
@@ -22,8 +21,8 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-component-builder:0.3.0-SNAPSHOT'
-		classpath 'com.jdroidframework:jdroid-gradle-root-plugin:0.16.1'
+		classpath 'com.jdroidframework:jdroid-component-builder:0.4.0-SNAPSHOT'
+		classpath 'com.jdroidframework:jdroid-gradle-root-plugin:0.17.0-SNAPSHOT'
 	}
 }
 

@@ -46,14 +46,14 @@ dependencies {
 	testCompile ("com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY_VERSION}") { force = true }
 
 	// https://github.com/facebook/device-year-class
-	compile 'com.facebook.device.yearclass:yearclass:1.0.1'
+	compile 'com.facebook.device.yearclass:yearclass:2.0.0'
 
 	// Jdroid dependencies
 
 	if (jdroid.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
 		compile project(":jdroid-java-core")
 	} else {
-		compile "com.jdroidframework:jdroid-java-core:${JDROID_JAVA_VERSION}"
+		compile ("com.jdroidframework:jdroid-java-core:${JDROID_JAVA_VERSION}")
 	}
 
 	if (jdroid.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {

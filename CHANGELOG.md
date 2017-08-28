@@ -1,5 +1,33 @@
 # Change Log
 
+## [v0.14.0](https://github.com/maxirosson/jdroid/tree/v0.14.0) (2017-08-13)
+[Full Changelog](https://github.com/maxirosson/jdroid/compare/v0.13.0...v0.14.0)
+
+**Implemented enhancements:**
+
+- Android O support [\#415](https://github.com/maxirosson/jdroid/issues/415)
+- Firebase Performance support [\#407](https://github.com/maxirosson/jdroid/issues/407)
+- Support to listen for app lifecycle events [\#404](https://github.com/maxirosson/jdroid/issues/404)
+- StreetView support [\#400](https://github.com/maxirosson/jdroid/issues/400)
+- Migrate to Firebase jobdispatcher [\#373](https://github.com/maxirosson/jdroid/issues/373)
+- Leak Canary support [\#226](https://github.com/maxirosson/jdroid/issues/226)
+
+**Closed issues:**
+
+- Notification Channels support [\#411](https://github.com/maxirosson/jdroid/issues/411)
+- DEPRECATED [\#405](https://github.com/maxirosson/jdroid/issues/405)
+- Upgrade to jdroid java http v0.14.0 [\#414](https://github.com/maxirosson/jdroid/issues/414)
+- Upgrade to jdroid java v0.14.0 [\#413](https://github.com/maxirosson/jdroid/issues/413)
+- Upgrade to jdroid gradle plugin v0.16.3 [\#412](https://github.com/maxirosson/jdroid/issues/412)
+- Upgrade to Twitter Kit v3.0.0 [\#409](https://github.com/maxirosson/jdroid/issues/409)
+- Upgrade to Google Play Services v11.0.4 [\#408](https://github.com/maxirosson/jdroid/issues/408)
+- New jdroid-android-firebase-instanceid library [\#406](https://github.com/maxirosson/jdroid/issues/406)
+- New jdroid-android-uil library [\#403](https://github.com/maxirosson/jdroid/issues/403)
+- Upgrade to Android Support Library v25.4.0 [\#402](https://github.com/maxirosson/jdroid/issues/402)
+- New jdroid-android-fabric library [\#401](https://github.com/maxirosson/jdroid/issues/401)
+- Removed Crashlytics support [\#399](https://github.com/maxirosson/jdroid/issues/399)
+- Upgrade Robolectric to 3.3.2 [\#247](https://github.com/maxirosson/jdroid/issues/247)
+
 ## [v0.13.0](https://github.com/maxirosson/jdroid/tree/v0.13.0) (2017-03-15)
 [Full Changelog](https://github.com/maxirosson/jdroid/compare/v0.12.0...v0.13.0)
 

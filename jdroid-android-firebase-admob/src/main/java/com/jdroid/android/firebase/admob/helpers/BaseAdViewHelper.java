@@ -13,6 +13,7 @@ import com.jdroid.android.context.AppContext;
 import com.jdroid.android.firebase.admob.AdMobAppModule;
 import com.jdroid.android.firebase.admob.HouseAdBuilder;
 import com.jdroid.android.location.LocationHelper;
+import com.jdroid.android.utils.AppUtils;
 
 public abstract class BaseAdViewHelper implements AdHelper {
 
@@ -38,7 +39,7 @@ public abstract class BaseAdViewHelper implements AdHelper {
 
 					baseAdViewWrapper = createBaseAdViewWrapper(activity);
 
-					if (!AbstractApplication.get().getAppContext().isProductionEnvironment() && AdMobAppModule.getAdMobAppContext().isTestAdUnitIdEnabled()) {
+					if (!AppUtils.isReleaseBuildType() && AdMobAppModule.getAdMobAppContext().isTestAdUnitIdEnabled()) {
 						baseAdViewWrapper.setAdUnitId(BaseAdViewHelper.TEST_AD_UNIT_ID);
 					} else {
 						baseAdViewWrapper.setAdUnitId(adUnitId);
@@ -107,8 +108,7 @@ public abstract class BaseAdViewHelper implements AdHelper {
 						});
 					}
 
-					AppContext applicationContext = AbstractApplication.get().getAppContext();
-					AdRequest.Builder builder = createBuilder(applicationContext);
+					AdRequest.Builder builder = createBuilder();
 					try {
 						baseAdViewWrapper.loadAd(builder.build());
 						adViewContainer.addView(baseAdViewWrapper.getBaseAdView());
@@ -127,9 +127,9 @@ public abstract class BaseAdViewHelper implements AdHelper {
 
 	protected abstract BaseAdViewWrapper createBaseAdViewWrapper(Activity activity);
 
-	protected AdRequest.Builder createBuilder(AppContext applicationContext) {
+	protected AdRequest.Builder createBuilder() {
 		final AdRequest.Builder builder = new AdRequest.Builder();
-		if (!applicationContext.isProductionEnvironment()) {
+		if (!AppUtils.isReleaseBuildType()) {
 			builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
 			for (String deviceId : AdMobAppModule.getAdMobAppContext().getTestDevicesIds()) {
 				builder.addTestDevice(deviceId);

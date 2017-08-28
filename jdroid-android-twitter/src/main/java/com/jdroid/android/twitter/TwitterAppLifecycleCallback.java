@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.jdroid.android.BuildConfig;
 import com.jdroid.android.lifecycle.ApplicationLifecycleCallback;
+import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.utils.LoggerUtils;
 import com.twitter.sdk.android.core.DefaultLogger;
 import com.twitter.sdk.android.core.Twitter;
@@ -18,19 +19,24 @@ public class TwitterAppLifecycleCallback extends ApplicationLifecycleCallback {
 	private final static Logger LOGGER = LoggerUtils.getLogger(TwitterAppLifecycleCallback.class);
 	
 	@Override
-	public void onCreate(Context context) {
-		String twitterOauthConsumerKey = TwitterAppContext.getTwitterOauthConsumerKey();
-		String twitterOauthConsumerSecret = TwitterAppContext.getTwitterOauthConsumerSecret();
-		if (twitterOauthConsumerKey == null || twitterOauthConsumerSecret == null) {
-			LOGGER.error("Missing TWITTER_OAUTH_CONSUMER_KEY or TWITTER_OAUTH_CONSUMER_SECRET");
-		} else {
-			TwitterAuthConfig authConfig = new TwitterAuthConfig(twitterOauthConsumerKey, twitterOauthConsumerSecret);
-			TwitterConfig.Builder builder = new TwitterConfig.Builder(context);
-			builder.logger(new DefaultLogger(Log.DEBUG));
-			builder.twitterAuthConfig(authConfig);
-			builder.debug(BuildConfig.DEBUG);
-			builder.build();
-			Twitter.initialize(builder.build());
-		}
+	public void onCreate(final Context context) {
+		ExecutorUtils.execute(new Runnable() {
+			@Override
+			public void run() {
+				String twitterOauthConsumerKey = TwitterAppContext.getTwitterOauthConsumerKey();
+				String twitterOauthConsumerSecret = TwitterAppContext.getTwitterOauthConsumerSecret();
+				if (twitterOauthConsumerKey == null || twitterOauthConsumerSecret == null) {
+					LOGGER.error("Missing TWITTER_OAUTH_CONSUMER_KEY or TWITTER_OAUTH_CONSUMER_SECRET");
+				} else {
+					TwitterAuthConfig authConfig = new TwitterAuthConfig(twitterOauthConsumerKey, twitterOauthConsumerSecret);
+					TwitterConfig.Builder builder = new TwitterConfig.Builder(context);
+					builder.logger(new DefaultLogger(Log.DEBUG));
+					builder.twitterAuthConfig(authConfig);
+					builder.debug(BuildConfig.DEBUG);
+					builder.build();
+					Twitter.initialize(builder.build());
+				}
+			}
+		});
 	}
 }

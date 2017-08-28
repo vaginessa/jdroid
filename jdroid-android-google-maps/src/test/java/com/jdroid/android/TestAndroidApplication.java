@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.AppContext;
+import com.jdroid.android.context.BuildConfigUtils;
 import com.jdroid.android.debug.DebugContext;
-import com.jdroid.android.exception.ExceptionHandler;
 import com.jdroid.android.http.HttpConfiguration;
 import com.jdroid.android.lifecycle.ApplicationLifecycleCallback;
 import com.jdroid.android.lifecycle.ApplicationLifecycleHelper;
@@ -26,6 +26,7 @@ public class TestAndroidApplication extends AbstractApplication {
 	protected void onInitMultiDex() {
 		// Multidex support doesn't play well with Robolectric yet
 		
+		BuildConfigUtils.setBuildConfigResolver(new com.jdroid.android.TestBuildConfigResolver());
 		ReflectionUtils.setStaticField(ApplicationLifecycleHelper.class, "applicationLifecycleCallbacks", createApplicationLifecycleCallbacks());
 	}
 	

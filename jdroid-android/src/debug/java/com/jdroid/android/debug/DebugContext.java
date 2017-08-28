@@ -19,6 +19,7 @@ import com.jdroid.android.debug.appenders.UsageStatsDebugPrefsAppender;
 import com.jdroid.android.log.DatabaseLog;
 import com.jdroid.android.log.DatabaseLogsRepository;
 import com.jdroid.android.sqlite.SQLiteHelper;
+import com.jdroid.android.utils.AppUtils;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.collections.Maps;
 import com.jdroid.java.domain.Identifiable;
@@ -38,7 +39,7 @@ public class DebugContext {
 
 	public void initDebugRepositories(
 			Map<Class<? extends Identifiable>, Repository<? extends Identifiable>> repositories, SQLiteHelper dbHelper) {
-		if (AbstractApplication.get().isDebugLogRepositoryEnabled() && !AbstractApplication.get().getAppContext().isProductionEnvironment()) {
+		if (AbstractApplication.get().isDebugLogRepositoryEnabled() && !AppUtils.isReleaseBuildType()) {
 			repositories.put(DatabaseLog.class, new DatabaseLogsRepository(dbHelper));
 		}
 	}

@@ -1,13 +1,12 @@
 package com.jdroid.android.sample.ui.uri;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
 import com.jdroid.android.uri.AbstractUriHandler;
 
-public class UriMapperSingleTopUriHandler extends AbstractUriHandler {
+public class UriMapperSingleTopUriHandler extends AbstractUriHandler<UriMapperSingleTopActivity> {
 
 	@Override
 	public Boolean matches(Uri uri) {
@@ -20,7 +19,7 @@ public class UriMapperSingleTopUriHandler extends AbstractUriHandler {
 	}
 
 	@Override
-	public String getUrl(Activity activity) {
+	public String getUrl(UriMapperSingleTopActivity activity) {
 		return "http://jdroidframework.com/uri/singletop?a=1";
 	}
 }
