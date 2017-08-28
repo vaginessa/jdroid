@@ -22,7 +22,7 @@ buildscript {
 
 	dependencies {
 		classpath 'com.jdroidframework:jdroid-component-builder:0.4.0-SNAPSHOT'
-		classpath 'com.jdroidframework:jdroid-gradle-root-plugin:0.17.0-SNAPSHOT'
+		classpath 'com.jdroidframework:jdroid-gradle-root-plugin:0.17.0'
 	}
 }
 
