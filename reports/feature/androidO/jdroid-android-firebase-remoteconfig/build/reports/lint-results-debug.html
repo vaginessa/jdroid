@@ -176,7 +176,7 @@ document.getElementById(id).style.display = 'none';
       <span class="mdl-layout-title">Lint Report: 1 warning</span>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-Check performed at Sun Jul 30 03:44:19 UTC 2017      </nav>
+Check performed at Mon Aug 28 02:32:00 UTC 2017      </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -219,13 +219,13 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigHelper.java">../../src/main/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigHelper.java</a>:38</span>: <span class="message">Do not place Android context classes in static fields (static reference to <code>FirebaseRemoteConfig</code> which has field <code>mContext</code> pointing to <code>Context</code>); this is a memory leak (and also breaks Instant Run)</span><br /><pre class="errorlines">
-<span class="lineno">  35 </span>
-<span class="lineno">  36 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String MOCKS_ENABLED = <span class="string">"firebase.remote.config.mocks.enabled"</span>;
-<span class="lineno">  37 </span>
-<span class="caretline"><span class="lineno">  38 </span>    <span class="warning"><span class="keyword">private</span> <span class="keyword">static</span> FirebaseRemoteConfig firebaseRemoteConfig;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno">  39 </span>
-<span class="lineno">  40 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> DEFAULT_FETCH_EXPIRATION = DateUtils.SECONDS_PER_HOUR * <span class="number">12</span>;
+<span class="location"><a href="../../src/main/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigHelper.java">../../src/main/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigHelper.java</a>:39</span>: <span class="message">Do not place Android context classes in static fields (static reference to <code>FirebaseRemoteConfig</code> which has field <code>mContext</code> pointing to <code>Context</code>); this is a memory leak (and also breaks Instant Run)</span><br /><pre class="errorlines">
+<span class="lineno">  36 </span>
+<span class="lineno">  37 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String MOCKS_ENABLED = <span class="string">"firebase.remote.config.mocks.enabled"</span>;
+<span class="lineno">  38 </span>
+<span class="caretline"><span class="lineno">  39 </span>    <span class="warning"><span class="keyword">private</span> <span class="keyword">static</span> FirebaseRemoteConfig firebaseRemoteConfig;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  40 </span>
+<span class="lineno">  41 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> DEFAULT_FETCH_EXPIRATION = DateUtils.SECONDS_PER_HOUR * <span class="number">12</span>;
 </pre>
 
 </div>
