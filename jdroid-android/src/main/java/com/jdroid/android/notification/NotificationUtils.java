@@ -9,6 +9,7 @@ import android.support.annotation.RequiresApi;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.utils.ScreenUtils;
+import com.jdroid.java.collections.Lists;
 
 import java.util.List;
 
@@ -16,6 +17,8 @@ public class NotificationUtils {
 	
 	private final static NotificationManager NOTIFICATION_MANAGER = (NotificationManager)AbstractApplication.get().getSystemService(
 		Context.NOTIFICATION_SERVICE);
+	
+	private static final List<NotificationChannelType> NOTIFICATION_CHANNEL_TYPES = Lists.newArrayList();
 	
 	public static void sendNotification(int id, NotificationBuilder notificationBuilder) {
 		sendNotification(id, notificationBuilder.build());
@@ -50,10 +53,21 @@ public class NotificationUtils {
 	
 	public static void createNotificationChannelsByType(List<NotificationChannelType> notificationChannelTypes) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			NOTIFICATION_CHANNEL_TYPES.clear();
+			NOTIFICATION_CHANNEL_TYPES.addAll(notificationChannelTypes);
 			for (NotificationChannelType notificationChannelType : notificationChannelTypes) {
 				NotificationUtils.createNotificationChannel(NotificationChannelFactory.createNotificationChannel(notificationChannelType));
 			}
 		}
+	}
+	
+	public static NotificationChannelType findNotificationChannelType(String id) {
+		for (NotificationChannelType notificationChannelType : NOTIFICATION_CHANNEL_TYPES) {
+			if (notificationChannelType.getId().equals(id)) {
+				return notificationChannelType;
+			}
+		}
+		return null;
 	}
 	
 	public static int getNotificationLargeIconWidthPx() {
