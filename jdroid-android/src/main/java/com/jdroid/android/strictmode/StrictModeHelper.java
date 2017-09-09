@@ -37,6 +37,7 @@ public class StrictModeHelper {
 		if (isStrictModeOnFirebaseTestLabEnabled() && isStrictModePenaltyDeath()) {
 			// Android SDK and Google Maps is failing
 			threadPolicyBuilder.permitDiskReads();
+			threadPolicyBuilder.permitDiskWrites();
 		}
 		threadPolicyBuilder.penaltyLog();
 		threadPolicyBuilder.penaltyFlashScreen();
