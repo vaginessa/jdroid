@@ -1,5 +1,6 @@
 package com.jdroid.android.exception;
 
+import com.jdroid.android.analytics.CoreAnalyticsSender;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.context.UsageStats;
 import com.jdroid.android.utils.LocalizationUtils;
@@ -42,7 +43,10 @@ public class DefaultExceptionHandler implements ExceptionHandler {
 			try {
 				UsageStats.setLastCrashTimestamp();
 				List<String> tags = getThrowableTags(throwable, null);
-				AbstractApplication.get().getCoreAnalyticsSender().trackFatalException(throwable, tags);
+				CoreAnalyticsSender<?> coreAnalyticsSender = AbstractApplication.get().getCoreAnalyticsSender();
+				if (coreAnalyticsSender != null) {
+					coreAnalyticsSender.trackFatalException(throwable, tags);
+				}
 			} catch (Exception e) {
 				wrappedExceptionHandler.uncaughtException(thread, e);
 			}
