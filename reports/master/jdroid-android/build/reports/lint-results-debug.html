@@ -176,7 +176,7 @@ document.getElementById(id).style.display = 'none';
       <span class="mdl-layout-title">Lint Report: 39 warnings</span>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-Check performed at Sat Sep 09 13:36:03 UTC 2017      </nav>
+Check performed at Sat Sep 09 22:14:22 UTC 2017      </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -265,14 +265,14 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/jdroid/android/exception/DefaultExceptionHandler.java">../../src/main/java/com/jdroid/android/exception/DefaultExceptionHandler.java</a>:131</span>: <span class="message">Implicitly using the default locale is a common source of bugs: Use <code>String.format(Locale, ...)</code> instead</span><br /><pre class="errorlines">
-<span class="lineno"> 128 </span>    <span class="keyword">protected</span> List&lt;String> getThrowableTags(Throwable throwable, Integer priorityLevel) {
-<span class="lineno"> 129 </span>        List&lt;String> tags = Lists.newArrayList();
-<span class="lineno"> 130 </span>        <span class="keyword">if</span> (priorityLevel != <span class="keyword">null</span>) {
-<span class="caretline"><span class="lineno"> 131 </span>            tags.add(<span class="string">"level"</span> + <span class="warning">String.format(<span class="string">"%02d"</span>, priorityLevel)</span>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 132 </span>        }
-<span class="lineno"> 133 </span>        <span class="keyword">return</span> tags;
-<span class="lineno"> 134 </span>    }
+<span class="location"><a href="../../src/main/java/com/jdroid/android/exception/DefaultExceptionHandler.java">../../src/main/java/com/jdroid/android/exception/DefaultExceptionHandler.java</a>:135</span>: <span class="message">Implicitly using the default locale is a common source of bugs: Use <code>String.format(Locale, ...)</code> instead</span><br /><pre class="errorlines">
+<span class="lineno"> 132 </span>    <span class="keyword">protected</span> List&lt;String> getThrowableTags(Throwable throwable, Integer priorityLevel) {
+<span class="lineno"> 133 </span>        List&lt;String> tags = Lists.newArrayList();
+<span class="lineno"> 134 </span>        <span class="keyword">if</span> (priorityLevel != <span class="keyword">null</span>) {
+<span class="caretline"><span class="lineno"> 135 </span>            tags.add(<span class="string">"level"</span> + <span class="warning">String.format(<span class="string">"%02d"</span>, priorityLevel)</span>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 136 </span>        }
+<span class="lineno"> 137 </span>        <span class="keyword">return</span> tags;
+<span class="lineno"> 138 </span>    }
 </pre>
 
 </div>

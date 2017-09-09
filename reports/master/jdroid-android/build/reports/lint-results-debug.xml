@@ -15,7 +15,7 @@
         errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="/home/travis/build/maxirosson/jdroid/jdroid-android/src/main/java/com/jdroid/android/exception/DefaultExceptionHandler.java"
-            line="131"
+            line="135"
             column="23"/>
     </issue>
 
