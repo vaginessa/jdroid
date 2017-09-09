@@ -1,8 +1,10 @@
 package com.jdroid.android.context;
 
+import android.support.annotation.MainThread;
 import android.support.annotation.WorkerThread;
 
 import com.jdroid.android.utils.SharedPreferencesHelper;
+import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.date.DateUtils;
 
 public class UsageStats {
@@ -15,16 +17,30 @@ public class UsageStats {
 	private static SharedPreferencesHelper sharedPreferencesHelper;
 
 	private static Long lastStopTime = DateUtils.nowMillis();
+	private static Long appLoads;
+	
+	@MainThread
+	public static void incrementAppLoadAsync() {
+		ExecutorUtils.execute(new Runnable() {
+			@Override
+			public void run() {
+				incrementAppLoad();
+			}
+		});
+	}
 
 	@WorkerThread
 	public static void incrementAppLoad() {
-		Long appLoads = getSharedPreferencesHelper().loadPreferenceAsLong(APP_LOADS, 0L);
+		appLoads = getSharedPreferencesHelper().loadPreferenceAsLong(APP_LOADS, 0L);
 		getSharedPreferencesHelper().savePreferenceAsync(APP_LOADS, appLoads + 1);
 	}
 
 	@WorkerThread
 	public static Long getAppLoads() {
-		return getSharedPreferencesHelper().loadPreferenceAsLong(APP_LOADS, 0L);
+		if (appLoads == null) {
+			appLoads = getSharedPreferencesHelper().loadPreferenceAsLong(APP_LOADS, 0L);
+		}
+		return appLoads;
 	}
 
 	public static Long getLastStopTime() {

@@ -177,6 +177,7 @@ android {
 
 		applicationId 'com.jdroid.android.sample'
 
+		jdroid.setBuildConfigBoolean(defaultConfig, "STRICT_MODE_ENABLED", false)
 		jdroid.setBuildConfigBoolean(defaultConfig, "LEAK_CANARY_ENABLED", false)
 		jdroid.setBuildConfigBoolean(defaultConfig, "FIREBASE_ANALYTICS_ENABLED", true)
 

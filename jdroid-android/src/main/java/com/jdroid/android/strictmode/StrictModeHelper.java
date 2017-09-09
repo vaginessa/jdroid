@@ -7,11 +7,17 @@ import android.os.StrictMode;
 import com.jdroid.android.context.BuildConfigUtils;
 import com.jdroid.android.firebase.testlab.FirebaseTestLab;
 import com.jdroid.android.utils.AppUtils;
+import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
 
 public class StrictModeHelper {
 	
+	private final static Logger LOGGER = LoggerUtils.getLogger(StrictModeHelper.class);
+	
 	public static void initStrictMode() {
 		if (isStrictModeEnabled()) {
+			LOGGER.debug("Initializing strict mode");
 			innerInitStrictMode();
 			if (Build.VERSION.SDK_INT >= 16) {
 				//restore strict mode after onCreate() returns.
@@ -28,6 +34,10 @@ public class StrictModeHelper {
 	private static void innerInitStrictMode() {
 		StrictMode.ThreadPolicy.Builder threadPolicyBuilder = new StrictMode.ThreadPolicy.Builder();
 		threadPolicyBuilder.detectAll();
+		if (isStrictModeOnFirebaseTestLabEnabled() && isStrictModePenaltyDeath()) {
+			// Android SDK and Google Maps is failing
+			threadPolicyBuilder.permitDiskReads();
+		}
 		threadPolicyBuilder.penaltyLog();
 		threadPolicyBuilder.penaltyFlashScreen();
 		if (isStrictModePenaltyDeath()) {
@@ -50,10 +60,14 @@ public class StrictModeHelper {
 	}
 	
 	public static Boolean isStrictModeEnabled() {
-		return FirebaseTestLab.isRunningInstrumentedTests() || !AppUtils.isReleaseBuildType() && BuildConfigUtils.getBuildConfigBoolean("STRICT_MODE_ENABLED", false);
+		return isStrictModeOnFirebaseTestLabEnabled() || !AppUtils.isReleaseBuildType() && BuildConfigUtils.getBuildConfigBoolean("STRICT_MODE_ENABLED", false);
 	}
 	
 	public static Boolean isStrictModePenaltyDeath() {
-		return FirebaseTestLab.isRunningInstrumentedTests() || BuildConfigUtils.getBuildConfigBoolean("STRICT_MODE_PENALTY_DEATH", false);
+		return isStrictModeOnFirebaseTestLabEnabled() || BuildConfigUtils.getBuildConfigBoolean("STRICT_MODE_PENALTY_DEATH", false);
+	}
+	
+	public static Boolean isStrictModeOnFirebaseTestLabEnabled() {
+		return FirebaseTestLab.isRunningInstrumentedTests() && BuildConfigUtils.getBuildConfigBoolean("STRICT_MODE_ON_FIREBASE_TEST_LAB_ENABLED", true);
 	}
 }

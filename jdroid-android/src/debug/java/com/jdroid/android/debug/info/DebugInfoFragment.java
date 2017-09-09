@@ -9,6 +9,7 @@ import com.jdroid.android.context.AppContext;
 import com.jdroid.android.context.UsageStats;
 import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
+import com.jdroid.android.strictmode.StrictModeHelper;
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.AppUtils;
 import com.jdroid.android.utils.DeviceUtils;
@@ -54,6 +55,8 @@ public class DebugInfoFragment extends AbstractRecyclerFragment {
 		properties.add(new Pair<String, Object>("Sim Operator Name", DeviceUtils.getSimOperatorName()));
 
 		properties.add(new Pair<String, Object>("App Loads", UsageStats.getAppLoads()));
+		
+		properties.add(new Pair<String, Object>("Strict Mode Enabled", StrictModeHelper.isStrictModeEnabled()));
 
 		for (DebugInfoAppender each : DebugInfoHelper.getDebugInfoAppenders()) {
 			properties.addAll(each.getDebugInfoProperties());

@@ -152,7 +152,7 @@ public class ActivityHelper implements ActivityIf {
 
 		if (firstActivityCreate == null) {
 			firstActivityCreate = true;
-			UsageStats.incrementAppLoad();
+			UsageStats.incrementAppLoadAsync();
 			AbstractApplication.get().getCoreAnalyticsSender().onFirstActivityCreate(activity);
 		} else {
 			firstActivityCreate = false;
