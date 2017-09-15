@@ -127,7 +127,6 @@ public class ExternalAppsUtils {
 	
 	public static Boolean openGoogleMap(Context context, String googleMapUrl) {
 		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(googleMapUrl));
-		context.startActivity(intent);
 		if (IntentUtils.isIntentAvailable(intent)) {
 			context.startActivity(intent);
 			return true;
@@ -177,7 +176,6 @@ public class ExternalAppsUtils {
 	
 	public static Boolean openYoutubeVideo(Context context, String videoUrl) {
 		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl));
-		context.startActivity(intent);
 		if (IntentUtils.isIntentAvailable(intent)) {
 			context.startActivity(intent);
 			return true;
@@ -190,7 +188,6 @@ public class ExternalAppsUtils {
 	public static Boolean dialPhoneNumber(Context context, String phoneNumber) {
 		Intent intent = new Intent(Intent.ACTION_DIAL);
 		intent.setData(Uri.fromParts("tel", phoneNumber, null));
-		context.startActivity(intent);
 		if (IntentUtils.isIntentAvailable(intent)) {
 			context.startActivity(intent);
 			return true;
