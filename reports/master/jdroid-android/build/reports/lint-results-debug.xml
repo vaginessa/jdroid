@@ -20,6 +20,23 @@
     </issue>
 
     <issue
+        id="UnusedAttribute"
+        severity="Warning"
+        message="Attribute `fillType` is only used in API level 24 and higher (current min is 16)"
+        category="Correctness"
+        priority="6"
+        summary="Attribute unused on older versions"
+        explanation="This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the `minSdkVersion` attribute).&#xA;&#xA;This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance of functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.&#xA;&#xA;Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new `&lt;tag>` element in layouts introduced in API 21."
+        errorLine1="  android:fillType=&quot;evenOdd&quot;"
+        errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android/src/main/res/drawable/jdroid_ic_twitter_24dp.xml"
+            line="8"
+            column="3"/>
+    </issue>
+
+    <issue
         id="InflateParams"
         severity="Warning"
         message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
@@ -687,20 +704,6 @@
         urls="http://developer.android.com/guide/practices/screens_support.html">
         <location
             file="/home/travis/build/maxirosson/jdroid/jdroid-android/src/main/res/drawable-xhdpi"/>
-    </issue>
-
-    <issue
-        id="IconDensities"
-        severity="Warning"
-        message="Missing the following drawables in `drawable-xxhdpi`: jdroid_ic_facebook.webp (found in drawable-mdpi, drawable-xhdpi, drawable-hdpi)"
-        category="Usability:Icons"
-        priority="4"
-        summary="Icon densities validation"
-        explanation="Icons will look best if a custom version is provided for each of the major screen density classes (low, medium, high, extra high). This lint check identifies icons which do not have complete coverage across the densities.&#xA;&#xA;Low density is not really used much anymore, so this check ignores the ldpi density. To force lint to include it, set the environment variable `ANDROID_LINT_INCLUDE_LDPI=true`. For more information on current density usage, see http://developer.android.com/resources/dashboard/screens.html"
-        url="http://developer.android.com/guide/practices/screens_support.html"
-        urls="http://developer.android.com/guide/practices/screens_support.html">
-        <location
-            file="/home/travis/build/maxirosson/jdroid/jdroid-android/src/main/res/drawable-xxhdpi"/>
     </issue>
 
 </issues>
