@@ -50,7 +50,7 @@ public enum HomeItem implements ActionItem {
 	CARD_VIEW(R.string.cardView, R.drawable.ic_cardview, CardViewActivity.class),
 	DATE_TIME(R.string.dateTime, R.drawable.ic_date_time, DateTimeActivity.class),
 	ERROR_DISPLAYER(R.string.errorDisplayer, R.drawable.ic_exception_handling, ErrorDisplayerActivity.class),
-	FACEBOOK(R.string.jdroid_facebook, R.drawable.ic_firebase, FacebookSignInActivity.class),
+	FACEBOOK(R.string.jdroid_facebook, R.drawable.ic_facebook_black_24dp, FacebookSignInActivity.class),
 	FIREBASE_DATABASE(R.string.firebaseDatabase, R.drawable.ic_firebase, FirebaseDatabaseActivity.class),
 	FIREBASE_DYNAMIC_LINKS(R.string.firebaseDynamicLinks, R.drawable.ic_fcm, DynamicLinksActivity.class),
 	FIREBASE_FCM(R.string.fcm, R.drawable.ic_fcm, FcmActivity.class),
@@ -75,7 +75,7 @@ public enum HomeItem implements ActionItem {
 	TABLETS(R.string.tablets, R.drawable.ic_tablets, ScreenUtils.is10Inches() ? TabletActivity.class : LeftTabletActivity.class),
 	TIMER(R.string.timer, R.drawable.ic_toasts, TimerActivity.class),
 	TOASTS(R.string.toasts, R.drawable.ic_toasts, ToastsActivity.class),
-	TWITTER(R.string.jdroid_twitter, R.drawable.jdroid_ic_twitter, TwitterActivity.class),
+	TWITTER(R.string.jdroid_twitter, R.drawable.ic_twitter_black_24dp, TwitterActivity.class),
 	UNVERSAL_IMAGE_LOADER(R.string.universalImageLoader, R.drawable.ic_photo, ImageLoaderActivity.class),
 	URI_MAPPER(R.string.uriMapper, R.drawable.ic_photo, UriMapperActivity.class),
 	USE_CASES(R.string.useCases, R.drawable.ic_service, UseCasesActivity.class);

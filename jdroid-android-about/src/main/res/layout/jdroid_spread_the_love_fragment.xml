@@ -13,7 +13,7 @@
 						  android:minHeight="@dimen/jdroid_itemMinHeight">
 
 				<ImageView android:layout_width="@dimen/jdroid_itemIconSize" android:layout_height="@dimen/jdroid_itemIconSize"
-					android:layout_marginRight="12dp" android:duplicateParentState="true" app:srcCompat="@drawable/jdroid_ic_facebook" />
+					android:layout_marginRight="12dp" android:duplicateParentState="true" app:srcCompat="@drawable/jdroid_ic_facebook_24dp" />
 
 				<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/jdroid_spreadTheLoveFollowUsItemText"
 					android:duplicateParentState="true" android:text="@string/jdroid_facebook" />
@@ -39,7 +39,7 @@
 						  android:minHeight="@dimen/jdroid_itemMinHeight">
 
 				<ImageView android:layout_width="@dimen/jdroid_itemIconSize" android:layout_height="@dimen/jdroid_itemIconSize"
-					android:layout_marginRight="12dp" android:duplicateParentState="true" app:srcCompat="@drawable/jdroid_ic_twitter" />
+					android:layout_marginRight="12dp" android:duplicateParentState="true" app:srcCompat="@drawable/jdroid_ic_twitter_24dp" />
 
 				<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" style="@style/jdroid_spreadTheLoveFollowUsItemText"
 					android:duplicateParentState="true" android:text="@string/jdroid_twitter" />
