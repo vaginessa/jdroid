@@ -1,7 +1,6 @@
 package com.jdroid.android.about;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,8 +16,8 @@ import com.jdroid.android.recycler.AbstractRecyclerFragment;
 import com.jdroid.android.recycler.FooterRecyclerViewType;
 import com.jdroid.android.recycler.RecyclerViewAdapter;
 import com.jdroid.android.recycler.RecyclerViewType;
-import com.jdroid.android.share.ShareUtils;
 import com.jdroid.android.utils.AppUtils;
+import com.jdroid.android.utils.ExternalAppsUtils;
 import com.jdroid.java.collections.Lists;
 
 import java.util.List;
@@ -50,15 +49,10 @@ public class AboutFragment extends AbstractRecyclerFragment {
 
 				@Override
 				public void onSelected(Activity activity) {
-					Intent intent = ShareUtils.createOpenMailIntent(contactUsEmailAddress,
-						AbstractApplication.get().getAppName());
-					if (IntentUtils.isIntentAvailable(intent)) {
-						startActivity(intent);
+					if (ExternalAppsUtils.openEmail(activity, contactUsEmailAddress, AbstractApplication.get().getAppName())) {
 						AboutAppModule.get().getModuleAnalyticsSender().trackContactUs();
 					} else {
 						// TODO Improve this adding a toast or something
-						AbstractApplication.get().getExceptionHandler().logWarningException(
-							"Error when sending email intent");
 					}
 				}
 			});

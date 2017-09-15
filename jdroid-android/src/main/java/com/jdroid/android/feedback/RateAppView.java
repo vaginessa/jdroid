@@ -1,7 +1,6 @@
 package com.jdroid.android.feedback;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +11,7 @@ import android.widget.TextView;
 import com.jdroid.android.R;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.GooglePlayUtils;
-import com.jdroid.android.intent.IntentUtils;
-import com.jdroid.android.share.ShareUtils;
+import com.jdroid.android.utils.ExternalAppsUtils;
 
 public class RateAppView extends RelativeLayout {
 
@@ -79,18 +77,15 @@ public class RateAppView extends RelativeLayout {
 
 			@Override
 			public void onClick(View v) {
+				
 				String contactUsEmailAddress = AbstractApplication.get().getAppContext().getContactUsEmail();
-				Intent intent = ShareUtils.createOpenMailIntent(contactUsEmailAddress,
-						AbstractApplication.get().getAppName());
-				if (IntentUtils.isIntentAvailable(intent)) {
-					context.startActivity(intent);
+				if (ExternalAppsUtils.openEmail(context, contactUsEmailAddress, AbstractApplication.get().getAppName())) {
+					AbstractApplication.get().getCoreAnalyticsSender().trackGiveFeedback(true);
+					RateAppStats.setGiveFeedback(true);
 				} else {
 					// TODO Improve this adding a toast or something
-					AbstractApplication.get().getExceptionHandler().logWarningException("Error when sending email intent");
 				}
 				setVisibility(View.GONE);
-				AbstractApplication.get().getCoreAnalyticsSender().trackGiveFeedback(true);
-				RateAppStats.setGiveFeedback(true);
 			}
 
 		});

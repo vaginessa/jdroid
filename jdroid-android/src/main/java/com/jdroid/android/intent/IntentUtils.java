@@ -1,12 +1,14 @@
 package com.jdroid.android.intent;
 
-import java.util.List;
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+
 import com.jdroid.android.application.AbstractApplication;
+
+import java.util.List;
 
 public class IntentUtils {
 	
@@ -37,9 +39,9 @@ public class IntentUtils {
 		return !list.isEmpty();
 	}
 	
-	public static void startUrl(Activity activity, String url) {
+	public static void startUrl(Context context, String url) {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.setData(Uri.parse(url));
-		activity.startActivity(intent);
+		context.startActivity(intent);
 	}
 }

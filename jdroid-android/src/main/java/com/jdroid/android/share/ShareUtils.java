@@ -3,14 +3,13 @@ package com.jdroid.android.share;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.net.Uri;
 import android.text.Html;
+
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.utils.ExternalAppsUtils;
 import com.jdroid.java.http.MimeType;
-import com.jdroid.java.utils.EncodingUtils;
 
 public class ShareUtils {
 	
@@ -95,14 +94,6 @@ public class ShareUtils {
 		intent.setType(MimeType.HTML);
 		intent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
 		intent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(shareText));
-		return intent;
-	}
-	
-	public static Intent createOpenMailIntent(String mailto, String subject) {
-		Intent intent = new Intent(Intent.ACTION_SENDTO);
-		String uriText = "mailto:" + mailto + "?subject=" + EncodingUtils.encodeURL(subject);
-		Uri uri = Uri.parse(uriText);
-		intent.setData(uri);
 		return intent;
 	}
 }

@@ -1,6 +1,7 @@
 package com.jdroid.android.facebook;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
@@ -10,12 +11,12 @@ import com.jdroid.android.social.SocialAction;
 
 public class FacebookHelper {
 
-	public static void openPage(String pageId) {
+	public static void openPage(Context context, String pageId) {
 		try {
 			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/" + pageId));
-			AbstractApplication.get().getCurrentActivity().startActivity(intent);
+			context.startActivity(intent);
 		} catch (ActivityNotFoundException e) {
-			AbstractApplication.get().getCurrentActivity().startActivity(
+			context.startActivity(
 					new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/" + pageId)));
 		} finally {
 			AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(AccountType.FACEBOOK,

@@ -1,6 +1,5 @@
 package com.jdroid.android.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -13,10 +12,16 @@ import android.provider.Settings;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.GooglePlayUtils;
 import com.jdroid.android.intent.IntentUtils;
+import com.jdroid.java.utils.EncodingUtils;
+import com.jdroid.java.utils.LoggerUtils;
+
+import org.slf4j.Logger;
 
 import java.io.File;
 
 public class ExternalAppsUtils {
+	
+	private final static Logger LOGGER = LoggerUtils.getLogger(ExternalAppsUtils.class);
 	
 	public static final String TWITTER_PACKAGE_NAME = "com.twitter.android";
 	public static final String FACEBOOK_PACKAGE_NAME = "com.facebook.katana";
@@ -82,37 +87,54 @@ public class ExternalAppsUtils {
 		context.startActivity(launchIntent);
 	}
 	
-	public static void startSkypeCall(String username) {
-		Intent skypeIntent = new Intent(Intent.ACTION_VIEW);
-		skypeIntent.setData(Uri.parse("skype:" + username + "?call"));
-		skypeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		
-		AbstractApplication.get().startActivity(skypeIntent);
+	public static Boolean startSkypeCall(Context context, String username) {
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setData(Uri.parse("skype:" + username + "?call"));
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		if (IntentUtils.isIntentAvailable(intent)) {
+			context.startActivity(intent);
+			return true;
+		} else {
+			LOGGER.info("Skype call intent not supported");
+			return false;
+		}
 	}
 
-	public static void openCustomMapOnBrowser(Activity activity, String mapId) {
-		IntentUtils.startUrl(activity, getCustomMapUrl(mapId));
+	public static void openCustomMapOnBrowser(Context context, String mapId) {
+		IntentUtils.startUrl(context, getCustomMapUrl(mapId));
 	}
 
-	public static void openCustomMap(Activity activity, String mapId) {
-		boolean isAppInstalled = isAppInstalled(activity, GOOGLE_MAPS_PACKAGE_NAME);
+	public static void openCustomMap(Context context, String mapId) {
+		boolean isAppInstalled = isAppInstalled(context, GOOGLE_MAPS_PACKAGE_NAME);
 		if (isAppInstalled) {
 			String mapUrl = getCustomMapUrl(mapId);
 			Intent intent = new Intent(Intent.ACTION_VIEW);
 			intent.setPackage(GOOGLE_MAPS_PACKAGE_NAME);
 			intent.setData(Uri.parse(mapUrl));
 			if (IntentUtils.isIntentAvailable(intent)) {
-				activity.startActivity(intent);
+				context.startActivity(intent);
 			} else {
 				openUrl(mapUrl);
 			}
 		} else {
-			GooglePlayUtils.launchAppDetails(activity, GOOGLE_MAPS_PACKAGE_NAME);
+			GooglePlayUtils.launchAppDetails(context, GOOGLE_MAPS_PACKAGE_NAME);
 		}
 	}
 
 	private static String getCustomMapUrl(String mapId) {
 		return "https://www.google.com/maps/d/viewer?mid=" + mapId;
+	}
+	
+	public static Boolean openGoogleMap(Context context, String googleMapUrl) {
+		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(googleMapUrl));
+		context.startActivity(intent);
+		if (IntentUtils.isIntentAvailable(intent)) {
+			context.startActivity(intent);
+			return true;
+		} else {
+			LOGGER.info("Open on Google Maps intent not supported");
+			return false;
+		}
 	}
 	
 	public static void openUrl(String url) {
@@ -131,25 +153,66 @@ public class ExternalAppsUtils {
 		}
 	}
 
-	public static void openAppInfo(Activity activity) {
+	public static void openAppInfo(Context context) {
 		Uri packageURI = Uri.parse("package:" + AppUtils.getApplicationId());
 		Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
-		activity.startActivity(intent);
+		context.startActivity(intent);
 	}
 
-	public static void openOnBrowser(Activity activity, File file) {
+	public static void openOnBrowser(Context context, File file) {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.setData(Uri.fromFile(file));
 		intent.setClassName("com.android.chrome", "com.google.android.apps.chrome.Main");
 		if (IntentUtils.isIntentAvailable(intent)) {
-			activity.startActivity(intent);
+			context.startActivity(intent);
 		} else {
 			intent = new Intent(Intent.ACTION_VIEW);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			intent.setData(Uri.fromFile(file));
 			intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity");
-			activity.startActivity(intent);
+			context.startActivity(intent);
+		}
+	}
+	
+	public static Boolean openYoutubeVideo(Context context, String videoUrl) {
+		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl));
+		context.startActivity(intent);
+		if (IntentUtils.isIntentAvailable(intent)) {
+			context.startActivity(intent);
+			return true;
+		} else {
+			LOGGER.info("Dial phone intent not supported");
+			return false;
+		}
+	}
+	
+	public static Boolean dialPhoneNumber(Context context, String phoneNumber) {
+		Intent intent = new Intent(Intent.ACTION_DIAL);
+		intent.setData(Uri.fromParts("tel", phoneNumber, null));
+		context.startActivity(intent);
+		if (IntentUtils.isIntentAvailable(intent)) {
+			context.startActivity(intent);
+			return true;
+		} else {
+			LOGGER.info("Dial phone intent not supported");
+			return false;
+		}
+	}
+	
+	public static Boolean openEmail(Context context, String mailto) {
+		return openEmail(context, mailto, null);
+	}
+	
+	public static Boolean openEmail(Context context, String mailto, String subject) {
+		Intent intent = new Intent(Intent.ACTION_SENDTO);
+		intent.setData(Uri.parse("mailto:" + mailto  + (subject != null ? "?subject=" + EncodingUtils.encodeURL(subject) : "")));
+		if (IntentUtils.isIntentAvailable(intent)) {
+			context.startActivity(intent);
+			return true;
+		} else {
+			LOGGER.info("Open email intent not supported");
+			return false;
 		}
 	}
 }

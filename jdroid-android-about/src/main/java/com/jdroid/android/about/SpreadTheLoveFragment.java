@@ -51,7 +51,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 
 				@Override
 				public void onClick(View v) {
-					FacebookHelper.openPage(getFacebookPageId());
+					FacebookHelper.openPage(getActivity(), getFacebookPageId());
 				}
 			});
 			followUsVisible = true;
