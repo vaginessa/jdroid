@@ -39,7 +39,7 @@ public class NotificationsDebugPrefsAppender extends PreferencesAppender {
 
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
-					NotificationBuilder builder = new NotificationBuilder("notificationFromBundle", AbstractApplication.get().getNotificationChannelTypes().get(0).getId());
+					NotificationBuilder builder = new NotificationBuilder("notificationFromBundle", AbstractApplication.get().getNotificationChannelTypes().get(0).getChannelId());
 					builder.setTicker("Sample Ticker");
 					builder.setContentTitle("Sample Content Title");
 					builder.setContentText(url);

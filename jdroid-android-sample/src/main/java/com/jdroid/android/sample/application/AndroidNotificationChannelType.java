@@ -44,11 +44,11 @@ public enum AndroidNotificationChannelType implements NotificationChannelType {
 		}
 	};
 	
-	private String id;
+	private String channelId;
 	private int nameResId;
 	
-	AndroidNotificationChannelType(String id, int nameResId) {
-		this.id = id;
+	AndroidNotificationChannelType(String channelId, int nameResId) {
+		this.channelId = channelId;
 		this.nameResId = nameResId;
 	}
 	
@@ -58,8 +58,8 @@ public enum AndroidNotificationChannelType implements NotificationChannelType {
 	}
 	
 	@Override
-	public String getId() {
-		return id;
+	public String getChannelId() {
+		return channelId;
 	}
 	
 	@Override

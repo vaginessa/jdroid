@@ -292,7 +292,7 @@ public class SharedPreferencesHelper {
 	public List<String> loadPreferenceAsStringList(String key) {
 		String value = loadPreference(key);
 		if (value != null) {
-			return StringUtils.splitToListWithCommaSeparator(value);
+			return StringUtils.splitWithCommaSeparator(value);
 		}
 		return Lists.newArrayList();
 	}

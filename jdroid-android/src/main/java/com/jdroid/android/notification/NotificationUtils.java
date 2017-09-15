@@ -61,9 +61,9 @@ public class NotificationUtils {
 		}
 	}
 	
-	public static NotificationChannelType findNotificationChannelType(String id) {
+	public static NotificationChannelType findNotificationChannelType(String channelId) {
 		for (NotificationChannelType notificationChannelType : NOTIFICATION_CHANNEL_TYPES) {
-			if (notificationChannelType.getId().equals(id)) {
+			if (notificationChannelType.getChannelId().equals(channelId)) {
 				return notificationChannelType;
 			}
 		}

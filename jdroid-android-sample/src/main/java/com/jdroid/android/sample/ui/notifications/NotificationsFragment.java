@@ -44,7 +44,7 @@ public class NotificationsFragment extends AbstractFragment {
 		notificationName.setText("myNotification");
 		
 		notificationChannel = findView(R.id.notificationChannel);
-		notificationChannel.setText(AndroidNotificationChannelType.DEFAULT_IMPORTANCE.getId());
+		notificationChannel.setText(AndroidNotificationChannelType.DEFAULT_IMPORTANCE.getChannelId());
 
 		contentTitle = findView(R.id.contentTitle);
 		contentTitle.setText(R.string.contentTitleSample);

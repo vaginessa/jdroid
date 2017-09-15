@@ -4,7 +4,7 @@ import android.app.NotificationChannel;
 
 public interface NotificationChannelType {
 	
-	String getId();
+	String getChannelId();
 	
 	String getName();
 	

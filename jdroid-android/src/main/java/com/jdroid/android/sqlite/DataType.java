@@ -4,11 +4,10 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.jdroid.android.utils.AndroidEncryptionUtils;
-import com.jdroid.java.collections.Lists;
-import com.jdroid.java.json.JSONObject;
-import com.jdroid.java.http.parser.json.JsonParser;
 import com.jdroid.java.date.DateTimeFormat;
 import com.jdroid.java.date.DateUtils;
+import com.jdroid.java.http.parser.json.JsonParser;
+import com.jdroid.java.json.JSONObject;
 import com.jdroid.java.utils.StringUtils;
 
 import java.util.Date;
@@ -271,7 +270,7 @@ public enum DataType {
 			if (cursor.isNull(columnIndex)) {
 				return null;
 			}
-			return Lists.newArrayList(StringUtils.splitToCollectionWithCommaSeparator(cursor.getString(columnIndex)));
+			return StringUtils.splitWithCommaSeparator(cursor.getString(columnIndex));
 		}
 	},
 	MAP("TEXT") {

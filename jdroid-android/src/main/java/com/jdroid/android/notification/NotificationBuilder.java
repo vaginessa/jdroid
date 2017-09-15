@@ -38,7 +38,7 @@ public class NotificationBuilder {
 	private NotificationCompat.Builder builder;
 	
 	public NotificationBuilder(@NonNull String notificationName, @NonNull NotificationChannelType notificationChannelType) {
-		this(notificationName, notificationChannelType.getId());
+		this(notificationName, notificationChannelType.getChannelId());
 	}
 	
 	public NotificationBuilder(@NonNull String notificationName, @NonNull String channelId) {
