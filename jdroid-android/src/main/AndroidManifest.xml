@@ -48,7 +48,6 @@
 				<action android:name="com.android.vending.INSTALL_REFERRER" />
 			</intent-filter>
 		</receiver>
-		<service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
 
 		<service android:name="com.jdroid.android.firebase.jobdispatcher.CommandWorkerService" android:exported="false" />
 		<service android:name="com.jdroid.android.firebase.jobdispatcher.CommandJobService" android:exported="false">
