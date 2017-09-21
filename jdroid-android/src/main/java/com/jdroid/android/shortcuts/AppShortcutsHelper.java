@@ -46,9 +46,11 @@ public class AppShortcutsHelper {
 
 	@TargetApi(Build.VERSION_CODES.N_MR1)
 	public static void setDynamicShortcuts(List<ShortcutInfo> shortcutInfos) {
-		ShortcutManager shortcutManager = AbstractApplication.get().getSystemService(ShortcutManager.class);
-		processShortcutInfos(shortcutInfos);
-		shortcutManager.setDynamicShortcuts(shortcutInfos);
+		if (shortcutInfos != null) {
+			ShortcutManager shortcutManager = AbstractApplication.get().getSystemService(ShortcutManager.class);
+			processShortcutInfos(shortcutInfos);
+			shortcutManager.setDynamicShortcuts(shortcutInfos);
+		}
 	}
 	
 	@TargetApi(Build.VERSION_CODES.N_MR1)
