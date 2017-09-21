@@ -2,13 +2,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.jdroid.android.facebook">
 	<application>
 
-		<meta-data android:name="com.jdroid.android.facebook.FacebookAppLifecycleCallback" android:value="ApplicationLifecycleCallback" />
-
-		<activity
-			android:name="com.facebook.FacebookActivity"
-			android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-			android:label="@string/jdroid_appName"
-			android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
 	</application>
 </manifest>
