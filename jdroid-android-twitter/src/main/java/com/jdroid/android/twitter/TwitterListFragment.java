@@ -30,7 +30,9 @@ public abstract class TwitterListFragment extends AbstractFragment implements Sw
 		super.onViewCreated(view, savedInstanceState);
 		
 		twitterHelper.setTweetContainer((ViewGroup)findView(R.id.tweetContainer));
-		twitterHelper.loadTweets();
+		if (loadTweetsOnViewCreated()) {
+			twitterHelper.loadTweets();
+		}
 	}
 	
 	@Override
@@ -41,6 +43,14 @@ public abstract class TwitterListFragment extends AbstractFragment implements Sw
 	@Override
 	public FragmentLoading getDefaultLoading() {
 		return new SwipeRefreshLoading();
+	}
+	
+	protected Boolean loadTweetsOnViewCreated() {
+		return true;
+	}
+	
+	protected DefaultTwitterHelper getTwitterHelper() {
+		return twitterHelper;
 	}
 	
 	protected abstract DefaultTwitterHelper createTwitterHelper();
