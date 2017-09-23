@@ -270,6 +270,13 @@
 		<activity android:name="com.jdroid.android.sample.ui.twitter.TwitterActivity" android:label="@string/jdroid_twitter"
 				  android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
+		<activity android:name=".ui.twitter.SampleListTwitterActivity" android:label="@string/listTweetHelper"
+				  android:parentActivityName="com.jdroid.android.sample.ui.twitter.TwitterActivity" tools:ignore="UnusedAttribute"/>
+
+		<activity android:name="com.jdroid.android.sample.ui.twitter.CyclingTwitterActivity" android:label="@string/cyclingTweetHelper"
+				  android:parentActivityName="com.jdroid.android.sample.ui.twitter.TwitterActivity" tools:ignore="UnusedAttribute"/>
+
+
 		<!-- Uri Mapper -->
 
 		<activity android:name="com.jdroid.android.sample.ui.uri.UriMapperActivity" android:label="@string/uriMapper"

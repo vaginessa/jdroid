@@ -11,7 +11,7 @@ import com.jdroid.android.loading.SwipeRefreshLoading;
 
 public abstract class TwitterListFragment extends AbstractFragment implements SwipeRefreshLayout.OnRefreshListener {
 	
-	private DefaultTwitterHelper twitterHelper;
+	private TwitterHelper twitterHelper;
 	
 	@Override
 	public Integer getContentFragmentLayout() {
@@ -49,9 +49,9 @@ public abstract class TwitterListFragment extends AbstractFragment implements Sw
 		return true;
 	}
 	
-	protected DefaultTwitterHelper getTwitterHelper() {
+	protected TwitterHelper getTwitterHelper() {
 		return twitterHelper;
 	}
 	
-	protected abstract DefaultTwitterHelper createTwitterHelper();
+	protected abstract TwitterHelper createTwitterHelper();
 }

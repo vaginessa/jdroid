@@ -178,6 +178,8 @@
 
 	<!-- Twitter -->
 	<string name="twitter">Twitter</string>
+	<string name="listTweetHelper">List Tweet Helper</string>
+	<string name="cyclingTweetHelper">Cycling Tweet Helper</string>
 
 	<!-- Uri Mapper -->
 	<string name="uriMapper">Uri Mapper</string>

@@ -1,7 +1,6 @@
 package com.jdroid.android.twitter;
 
 import android.content.Context;
-import android.view.ViewGroup;
 
 import com.jdroid.android.fragment.AbstractFragment;
 import com.twitter.sdk.android.core.models.Tweet;
@@ -10,9 +9,7 @@ import com.twitter.sdk.android.tweetui.CompactTweetView;
 
 import java.util.List;
 
-public abstract class DefaultTwitterHelper extends TwitterHelper {
-
-	private ViewGroup tweetContainer;
+public abstract class ListTwitterHelper extends TwitterHelper {
 
 	@Override
 	protected void onStartLoadingTweets() {
@@ -26,9 +23,9 @@ public abstract class DefaultTwitterHelper extends TwitterHelper {
 	protected void onSuccess(List<Tweet> tweets) {
 		AbstractFragment fragment = getAbstractFragment();
 		if (fragment != null) {
-			tweetContainer.removeAllViews();
+			getTweetContainer().removeAllViews();
 			for(Tweet each : tweets) {
-				tweetContainer.addView(createTweetView(fragment.getContext(), each));
+				getTweetContainer().addView(createTweetView(fragment.getContext(), each));
 			}
 			fragment.dismissLoading();
 		}
@@ -44,9 +41,5 @@ public abstract class DefaultTwitterHelper extends TwitterHelper {
 		if (fragment != null) {
 			fragment.dismissLoading();
 		}
-	}
-
-	public void setTweetContainer(ViewGroup tweetContainer) {
-		this.tweetContainer = tweetContainer;
 	}
 }
