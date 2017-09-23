@@ -173,10 +173,10 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 26 warnings</span>
+      <span class="mdl-layout-title">Lint Report: 25 warnings</span>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-Check performed at Sat Sep 23 03:07:36 UTC 2017      </nav>
+Check performed at Sat Sep 23 13:02:50 UTC 2017      </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -184,7 +184,7 @@ Check performed at Sat Sep 23 03:07:36 UTC 2017      </nav>
     <nav class="mdl-navigation">
       <a class="mdl-navigation__link" href="#overview"><i class="material-icons">dashboard</i>Overview</a>
       <a class="mdl-navigation__link" href="#Overdraw"><i class="material-icons warning-icon">warning</i>Overdraw: Painting regions more than once (7)</a>
-      <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (8)</a>
+      <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (7)</a>
       <a class="mdl-navigation__link" href="#UselessLeaf"><i class="material-icons warning-icon">warning</i>Useless leaf layout (2)</a>
       <a class="mdl-navigation__link" href="#IconDensities"><i class="material-icons warning-icon">warning</i>Icon densities validation (3)</a>
       <a class="mdl-navigation__link" href="#HardcodedText"><i class="material-icons warning-icon">warning</i>Hardcoded text (6)</a>
@@ -206,7 +206,7 @@ Check performed at Sat Sep 23 03:07:36 UTC 2017      </nav>
 <td class="countColumn">7</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#Overdraw">Overdraw</a>: Overdraw: Painting regions more than once</td></tr>
 <tr>
-<td class="countColumn">8</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">7</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#UnusedResources">UnusedResources</a>: Unused resources</td></tr>
 <tr>
 <td class="countColumn">2</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
@@ -377,9 +377,9 @@ Additional locations: <ul>
 <span class="lineno"> 178 </span>
 <span class="lineno"> 179 </span>    <span class="comment">&lt;!-- Twitter --></span>
 <span class="caretline"><span class="lineno"> 180 </span>    <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"twitter"</span></span>>Twitter<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 181 </span>
-<span class="lineno"> 182 </span>    <span class="comment">&lt;!-- Uri Mapper --></span>
-<span class="lineno"> 183 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"uriMapper"</span>>Uri Mapper<span class="tag">&lt;/string></span></pre>
+<span class="lineno"> 181 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"listTweetHelper"</span>>List Tweet Helper<span class="tag">&lt;/string></span>
+<span class="lineno"> 182 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"cyclingTweetHelper"</span>>Cycling Tweet Helper<span class="tag">&lt;/string></span>
+</pre>
 
 <ul></ul><button id="Location5DivLink" onclick="reveal('Location5Div');" />+ 1 Additional Locations...</button>
 <div id="Location5Div" style="display: none">
@@ -387,28 +387,21 @@ Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:180</span>
 </ul>
 </div><br/><br/>
-<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:220</span>: <span class="message">The resource <code>R.string.noResults</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno"> 217 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"paginatedGridRecycler"</span>>Paginated Grid Recycler<span class="tag">&lt;/string></span>
-<span class="lineno"> 218 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"searchPaginatedRecycler"</span>>Search Paginated Recycler<span class="tag">&lt;/string></span>
-<span class="lineno"> 219 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"autofitGridLayoutRecycler"</span>>Autofit Grid Recycler<span class="tag">&lt;/string></span>
-<span class="caretline"><span class="lineno"> 220 </span>    <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"noResults"</span></span>>No Results<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 221 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"addItem"</span>>Add Item<span class="tag">&lt;/string></span>
-<span class="lineno"> 222 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"addItems"</span>>Add Items<span class="tag">&lt;/string></span>
-<span class="lineno"> 223 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"removeFirstItem"</span>>Remove First Item<span class="tag">&lt;/string></span></pre>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:222</span>: <span class="message">The resource <code>R.string.noResults</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 219 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"paginatedGridRecycler"</span>>Paginated Grid Recycler<span class="tag">&lt;/string></span>
+<span class="lineno"> 220 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"searchPaginatedRecycler"</span>>Search Paginated Recycler<span class="tag">&lt;/string></span>
+<span class="lineno"> 221 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"autofitGridLayoutRecycler"</span>>Autofit Grid Recycler<span class="tag">&lt;/string></span>
+<span class="caretline"><span class="lineno"> 222 </span>    <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"noResults"</span></span>>No Results<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 223 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"addItem"</span>>Add Item<span class="tag">&lt;/string></span>
+<span class="lineno"> 224 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"addItems"</span>>Add Items<span class="tag">&lt;/string></span>
+<span class="lineno"> 225 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"removeFirstItem"</span>>Remove First Item<span class="tag">&lt;/string></span></pre>
 
 <ul></ul><button id="Location6DivLink" onclick="reveal('Location6Div');" />+ 1 Additional Locations...</button>
 <div id="Location6Div" style="display: none">
 Additional locations: <ul>
-<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:220</span>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:222</span>
 </ul>
 </div><br/><br/>
-<span class="location"><a href="../../src/main/res/layout/twitter_fragment.xml">../../src/main/res/layout/twitter_fragment.xml</a>:2</span>: <span class="message">The resource <code>R.layout.twitter_fragment</code> appears to be unused</span><br /><pre class="errorlines">
-<span class="lineno">  1 </span><span class="prologue">&lt;?xml version="1.0" encoding="utf-8"?></span>
-<span class="caretline"><span class="lineno">  2 </span><span class="warning"><span class="tag">&lt;android.support.v4.widget.SwipeRefreshLayout</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span> <span class="prefix">xmlns:</span><span class="attribute">tools</span>=<span class="value">"http://schemas.android.com/tools"</span></span></span>
-<span class="lineno">  3 </span>                                              <span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@+id/swipeRefreshLayout"</span> <span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"match_parent"</span> <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"match_parent"</span>>
-<span class="lineno">  4 </span>    <span class="tag">&lt;ScrollView</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"match_parent"</span> <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"match_parent"</span>>
-</pre>
-
 <span class="location"><a href="../../src/debug/res/raw/url_samples.html">../../src/debug/res/raw/url_samples.html</a></span>: <span class="message">The resource <code>R.raw.url_samples</code> appears to be unused</span><br />
 </div>
 <div class="metadata"><div class="explanation" id="explanationUnusedResources" style="display: none;">
