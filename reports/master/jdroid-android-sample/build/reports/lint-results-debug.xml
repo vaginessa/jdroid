@@ -230,6 +230,23 @@
     <issue
         id="UnusedResources"
         severity="Warning"
+        message="The resource `R.layout.twitter_fragment` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="&lt;android.support.v4.widget.SwipeRefreshLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; xmlns:tools=&quot;http://schemas.android.com/tools&quot;"
+        errorLine2="^"
+        quickfix="studio">
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android-sample/src/main/res/layout/twitter_fragment.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
         message="The resource `R.raw.url_samples` appears to be unused"
         category="Performance"
         priority="3"
