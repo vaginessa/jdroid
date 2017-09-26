@@ -19,7 +19,17 @@ public class HomeFragment extends AbstractRecyclerFragment {
 		super.onViewCreated(view, savedInstanceState);
 		setAdapter(new RecyclerViewAdapter(new HomeRecyclerViewType(), Lists.newArrayList(HomeItem.values())));
 	}
-
+	
+	@Override
+	protected Boolean isCardViewDecorationEnabled() {
+		return true;
+	}
+	
+	@Override
+	protected Boolean isDividerItemDecorationEnabled() {
+		return true;
+	}
+	
 	public class HomeRecyclerViewType extends RecyclerViewType<HomeItem, HomeHolder> {
 
 		@Override

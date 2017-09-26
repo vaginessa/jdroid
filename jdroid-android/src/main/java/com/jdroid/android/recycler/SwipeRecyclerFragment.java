@@ -10,7 +10,7 @@ public class SwipeRecyclerFragment extends AbstractRecyclerFragment implements S
 
 	@Override
 	public Integer getContentFragmentLayout() {
-		return R.layout.jdroid_swipe_recycler_fragment;
+		return isCardViewDecorationEnabled() ? R.layout.jdroid_cardview_swipe_recycler_fragment : R.layout.jdroid_swipe_recycler_fragment;
 	}
 
 	@Override

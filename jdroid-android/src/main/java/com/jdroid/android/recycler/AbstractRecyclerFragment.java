@@ -27,7 +27,7 @@ public abstract class AbstractRecyclerFragment extends AbstractFragment {
 
 	@Override
 	public Integer getContentFragmentLayout() {
-		return R.layout.jdroid_recycler_vertical_fragment;
+		return isCardViewDecorationEnabled() ? R.layout.jdroid_cardview_vertical_recycler_fragment : R.layout.jdroid_vertical_recycler_fragment;
 	}
 
 	@Override
@@ -72,6 +72,10 @@ public abstract class AbstractRecyclerFragment extends AbstractFragment {
 	}
 
 	protected Boolean isDividerItemDecorationEnabled() {
+		return false;
+	}
+	
+	protected Boolean isCardViewDecorationEnabled() {
 		return false;
 	}
 
