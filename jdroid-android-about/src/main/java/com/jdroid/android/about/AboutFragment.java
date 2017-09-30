@@ -1,6 +1,7 @@
 package com.jdroid.android.about;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 import com.jdroid.android.activity.ActivityLauncher;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.feedback.RateAppStats;
@@ -71,7 +73,8 @@ public class AboutFragment extends AbstractRecyclerFragment {
 			
 			@Override
 			public void onSelected(Activity activity) {
-				ActivityLauncher.launchActivity(LibrariesActivity.class);
+				startActivity(new Intent(getActivity(), OssLicensesMenuActivity.class));
+				//ActivityLauncher.launchActivity(LibrariesActivity.class);
 			}
 		});
 		if (AboutAppModule.get().getAboutContext().isBetaTestingEnabled()) {

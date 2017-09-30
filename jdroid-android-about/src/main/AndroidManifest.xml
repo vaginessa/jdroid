@@ -11,6 +11,12 @@
 		<activity android:name="com.jdroid.android.about.LibrariesActivity" android:label="@string/jdroid_libraries"
 				  android:parentActivityName="com.jdroid.android.about.AboutActivity" tools:ignore="UnusedAttribute"/>
 
+		<activity android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
+				  android:theme="@style/Jdroid.Theme.Base"/>
+
+		<activity android:name="com.google.android.gms.oss.licenses.OssLicensesActivity"
+				  android:theme="@style/Jdroid.Theme.Base"/>
+
 	</application>
 
 </manifest>

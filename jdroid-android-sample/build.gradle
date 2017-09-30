@@ -2,6 +2,7 @@ ext.COMPONENTS = ['jdroid-android', 'jdroid-java-okhttp']
 ext.RES_CONFIGS = ['en', 'es']
 ext.PROJECT_NAME = 'Jdroid Android - Sample'
 apply plugin: 'com.jdroid.android.application'
+apply plugin: 'com.google.gms.oss.licenses.plugin'
 
 description = 'Jdroid Sample Android'
 
@@ -26,6 +27,7 @@ configurations {
 buildscript {
 	dependencies {
 		classpath "com.jdroidframework:jdroid-gradle-android-plugin:${JDROID_GRADLE_PLUGIN_VERSION}"
+		classpath 'com.google.gms:oss-licenses:0.9.0'
 	}
 }
 
