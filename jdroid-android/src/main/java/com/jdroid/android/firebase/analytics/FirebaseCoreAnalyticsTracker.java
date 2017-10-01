@@ -7,7 +7,6 @@ import android.os.Bundle;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.jdroid.android.analytics.CoreAnalyticsTracker;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.utils.DeviceUtils;
 import com.jdroid.android.utils.ScreenUtils;
@@ -146,10 +145,10 @@ public class FirebaseCoreAnalyticsTracker extends AbstractFirebaseAnalyticsTrack
 	}
 
 	@Override
-	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget) {
+	public void trackSocialInteraction(String network, SocialAction socialAction, String socialTarget) {
 		Bundle bundle = new Bundle();
-		if (accountType != null) {
-			bundle.putString("accountType", accountType.getFriendlyName());
+		if (network != null) {
+			bundle.putString("network", network);
 		}
 		bundle.putString("socialTarget", socialTarget);
 		getFirebaseAnalyticsHelper().sendEvent(socialAction.getName(), bundle);

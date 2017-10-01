@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
-import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.java.analytics.AnalyticsSender;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -164,13 +162,13 @@ public class CoreAnalyticsSender<T extends CoreAnalyticsTracker> extends Analyti
 	}
 	
 	@Override
-	public void trackSocialInteraction(final AccountType accountType, final SocialAction socialAction,
-			final String socialTarget) {
+	public void trackSocialInteraction(final String network, final SocialAction socialAction,
+									   final String socialTarget) {
 		execute(new TrackingCommand() {
 			
 			@Override
 			protected void track(T tracker) {
-				tracker.trackSocialInteraction(accountType, socialAction, socialTarget);
+				tracker.trackSocialInteraction(network, socialAction, socialTarget);
 			}
 		});
 	}

@@ -1,17 +1,14 @@
 package com.jdroid.android.share;
 
-import com.jdroid.android.utils.ExternalAppsUtils;
-
-public abstract class HangoutsSharingItem extends AppSharingItem {
+public class HangoutsSharingItem extends AppSharingItem {
 	
-	@Override
-	public void share() {
-		ShareUtils.shareOnHangouts(getShareKey(), getShareText());
+	public HangoutsSharingItem(SharingData sharingData) {
+		super(sharingData);
 	}
 	
 	@Override
-	public String getPackageName() {
-		return ExternalAppsUtils.HANGOUTS_PACKAGE_NAME;
+	public SharingMedium getSharingMedium() {
+		return SharingMedium.HANGOUTS;
 	}
 	
 	@Override

@@ -1,17 +1,14 @@
 package com.jdroid.android.share;
 
-import com.jdroid.android.utils.ExternalAppsUtils;
-
-public abstract class TwitterSharingItem extends AppSharingItem {
+public class TwitterSharingItem extends AppSharingItem {
 	
-	@Override
-	public void share() {
-		ShareUtils.shareOnTwitter(getShareKey(), getShareText());
+	public TwitterSharingItem(SharingData sharingData) {
+		super(sharingData);
 	}
 	
 	@Override
-	public String getPackageName() {
-		return ExternalAppsUtils.TWITTER_PACKAGE_NAME;
+	public SharingMedium getSharingMedium() {
+		return SharingMedium.TWITTER;
 	}
 	
 	@Override

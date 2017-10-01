@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.java.concurrent.LowPriorityThreadFactory;
 
@@ -82,7 +81,7 @@ public abstract class AbstractCoreAnalyticsTracker implements CoreAnalyticsTrack
 	}
 	
 	@Override
-	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget) {
+	public void trackSocialInteraction(String network, SocialAction socialAction, String socialTarget) {
 		// Do Nothing
 	}
 	

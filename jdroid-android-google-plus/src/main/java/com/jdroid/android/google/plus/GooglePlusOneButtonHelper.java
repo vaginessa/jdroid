@@ -8,7 +8,7 @@ import com.google.android.gms.plus.PlusOneButton;
 import com.google.android.gms.plus.PlusOneButton.OnPlusOneClickListener;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.google.GooglePlayServicesUtils;
-import com.jdroid.android.social.AccountType;
+import com.jdroid.android.social.SocialNetwork;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.google.GooglePlayUtils;
 
@@ -57,11 +57,11 @@ public class GooglePlusOneButtonHelper {
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if ((requestCode == PLUS_ONE_UNDO_REQUEST_CODE) && (resultCode != 0)) {
-			AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(AccountType.GOOGLE_PLUS,
+			AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(SocialNetwork.GOOGLE_PLUS.getName(),
 				SocialAction.PLUS_ONE_UNDO, getUrl());
 			onUndoPlusOne();
 		} else if ((requestCode == PLUS_ONE_REQUEST_CODE) && (resultCode != 0)) {
-			AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(AccountType.GOOGLE_PLUS,
+			AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(SocialNetwork.GOOGLE_PLUS.getName(),
 				SocialAction.PLUS_ONE, getUrl());
 			onPlusOne();
 		}

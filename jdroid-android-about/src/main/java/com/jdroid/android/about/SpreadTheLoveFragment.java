@@ -20,15 +20,20 @@ import com.jdroid.android.share.HangoutsSharingItem;
 import com.jdroid.android.share.MoreSharingItem;
 import com.jdroid.android.share.ShareUtils;
 import com.jdroid.android.share.ShareView;
+import com.jdroid.android.share.SharingData;
+import com.jdroid.android.share.SharingDataItem;
 import com.jdroid.android.share.SharingItem;
+import com.jdroid.android.share.SharingMedium;
 import com.jdroid.android.share.SmsSharingItem;
 import com.jdroid.android.share.TelegramSharingItem;
 import com.jdroid.android.share.TwitterSharingItem;
 import com.jdroid.android.share.WhatsAppSharingItem;
 import com.jdroid.android.social.twitter.TwitterHelper;
 import com.jdroid.java.collections.Lists;
+import com.jdroid.java.collections.Maps;
 
 import java.util.List;
+import java.util.Map;
 
 public abstract class SpreadTheLoveFragment extends AbstractFragment {
 
@@ -88,81 +93,23 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 		}
 
 		findView(R.id.followUs).setVisibility(followUsVisible ? View.VISIBLE : View.GONE);
-
-		List<SharingItem> sharingItems = Lists.newArrayList();
-		sharingItems.add(new TwitterSharingItem() {
-			
-			@Override
-			public String getShareKey() {
-				return SpreadTheLoveFragment.this.getShareKey();
-			}
-			
-			@Override
-			public String getShareText() {
-				return SpreadTheLoveFragment.this.getTwitterShareText();
-			}
-		});
-		sharingItems.add(new GooglePlusSharingItem() {
-			
-			@Override
-			public String getShareKey() {
-				return SpreadTheLoveFragment.this.getShareKey();
-			}
-			
-			@Override
-			public String getShareText() {
-				return SpreadTheLoveFragment.this.getGooglePlusShareText();
-			}
-		});
-		sharingItems.add(new WhatsAppSharingItem() {
-			
-			@Override
-			public String getShareKey() {
-				return SpreadTheLoveFragment.this.getShareKey();
-			}
-			
-			@Override
-			public String getShareText() {
-				return SpreadTheLoveFragment.this.getWhatsAppShareText();
-			}
-		});
-		sharingItems.add(new TelegramSharingItem() {
-			
-			@Override
-			public String getShareKey() {
-				return SpreadTheLoveFragment.this.getShareKey();
-			}
-			
-			@Override
-			public String getShareText() {
-				return SpreadTheLoveFragment.this.getTelegramShareText();
-			}
-		});
-		sharingItems.add(new HangoutsSharingItem() {
-			
-			@Override
-			public String getShareKey() {
-				return SpreadTheLoveFragment.this.getShareKey();
-			}
-			
-			@Override
-			public String getShareText() {
-				return SpreadTheLoveFragment.this.getHangoutsShareText();
-			}
-		});
 		
-		sharingItems.add(new SmsSharingItem() {
-			
-			@Override
-			public String getShareKey() {
-				return SpreadTheLoveFragment.this.getShareKey();
-			}
-			
-			@Override
-			public String getShareText() {
-				return SpreadTheLoveFragment.this.getSmsShareText();
-			}
-		});
+		Map<String, SharingDataItem> sharingDataItemsMap = Maps.newHashMap();
+		sharingDataItemsMap.put(SharingMedium.TWITTER.getName(), new SharingDataItem(getTwitterShareText()));
+		sharingDataItemsMap.put(SharingMedium.GOOGLE_PLUS.getName(), new SharingDataItem(getGooglePlusShareText()));
+		sharingDataItemsMap.put(SharingMedium.WHATSAPP.getName(), new SharingDataItem(getWhatsAppShareText()));
+		sharingDataItemsMap.put(SharingMedium.TELEGRAM.getName(), new SharingDataItem(getTelegramShareText()));
+		sharingDataItemsMap.put(SharingMedium.HANGOUTS.getName(), new SharingDataItem(getHangoutsShareText()));
+		sharingDataItemsMap.put(SharingMedium.SMS.getName(), new SharingDataItem(getSmsShareText()));
+		SharingData sharingData = new SharingData(getShareKey(), sharingDataItemsMap);
+		
+		List<SharingItem> sharingItems = Lists.newArrayList();
+		sharingItems.add(new TwitterSharingItem(sharingData));
+		sharingItems.add(new GooglePlusSharingItem(sharingData));
+		sharingItems.add(new WhatsAppSharingItem(sharingData));
+		sharingItems.add(new TelegramSharingItem(sharingData));
+		sharingItems.add(new HangoutsSharingItem(sharingData));
+		sharingItems.add(new SmsSharingItem(sharingData));
 		
 		Boolean displayShareTitle = ShareView.initShareSection(getActivity(), sharingItems, new MoreSharingItem() {
 			

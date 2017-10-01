@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.text.Html;
 
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.social.AccountType;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.utils.ExternalAppsUtils;
 import com.jdroid.java.http.MimeType;
@@ -37,40 +36,14 @@ public class ShareUtils {
 		AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(null, SocialAction.SHARE, shareKey);
 	}
 	
-	public static void shareOnTwitter(String shareKey, String shareText) {
-		share(ExternalAppsUtils.TWITTER_PACKAGE_NAME, AccountType.TWITTER, shareKey, shareText);
-	}
-	
-	public static void shareOnFacebook(String shareKey, String shareText) {
-		share(ExternalAppsUtils.FACEBOOK_PACKAGE_NAME, AccountType.FACEBOOK, shareKey, shareText);
-	}
-	
-	public static void shareOnWhatsApp(String shareKey, String shareText) {
-		share(ExternalAppsUtils.WHATSAPP_PACKAGE_NAME, AccountType.WHATSAPP, shareKey, shareText);
-	}
-	
-	public static void shareOnTelegram(String shareKey, String shareText) {
-		share(ExternalAppsUtils.TELEGRAM_PACKAGE_NAME, AccountType.TELEGRAM, shareKey, shareText);
-	}
-	
-	public static void shareOnHangouts(String shareKey, String shareText) {
-		share(ExternalAppsUtils.HANGOUTS_PACKAGE_NAME, AccountType.HANGOUTS, shareKey, shareText);
-	}
-	
-	public static void shareOnGooglePlus(String shareKey, String shareText) {
-		share(ExternalAppsUtils.GOOGLE_PLUS_PACKAGE_NAME, AccountType.GOOGLE_PLUS, shareKey, shareText);
-	}
-	
-	public static void shareOnSmsApp(String packageName, String shareKey, String shareText) {
-		share(packageName, AccountType.SMS, shareKey, shareText);
-	}
-	
-	private static void share(String packageName, AccountType accountType, String shareKey, String shareText) {
+	public static void share(SharingMedium sharingMedium, String shareKey, String shareText) {
+		String packageName = sharingMedium.getPackageName();
+		
 		Intent intent = createShareTextContentIntent(null, shareText);
 		intent.setPackage(packageName);
 		try {
 			AbstractApplication.get().getCurrentActivity().startActivity(intent);
-			AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(accountType, SocialAction.SHARE, shareKey);
+			AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(sharingMedium.getName(), SocialAction.SHARE, shareKey);
 		} catch (ActivityNotFoundException e) {
 			Integer installedAppVersionCode = ExternalAppsUtils.getInstalledAppVersionCode(AbstractApplication.get(), packageName);
 			String message = "ACTION_SEND not supported by " + packageName;

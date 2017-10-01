@@ -14,7 +14,7 @@ import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.google.GooglePlayUtils;
 import com.jdroid.android.intent.IntentUtils;
-import com.jdroid.android.social.AccountType;
+import com.jdroid.android.social.SocialNetwork;
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.android.utils.ExternalAppsUtils;
 import com.jdroid.java.http.MimeType;
@@ -85,7 +85,7 @@ public class GooglePlusHelperFragment extends AbstractFragment {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if ((requestCode == SHARE_REQUEST_CODE) && (resultCode == Activity.RESULT_OK) && (shareLink != null)) {
-			AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(AccountType.GOOGLE_PLUS,
+			AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(SocialNetwork.GOOGLE_PLUS.getName(),
 				SocialAction.SHARE, shareLink);
 			shareLink = null;
 		}
@@ -125,7 +125,7 @@ public class GooglePlusHelperFragment extends AbstractFragment {
 	public static void openCommunity(String community) {
 		AbstractApplication.get().getCurrentActivity().startActivity(
 			new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/u/0/communities/" + community)));
-		AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(AccountType.GOOGLE_PLUS,
+		AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(SocialNetwork.GOOGLE_PLUS.getName(),
 			SocialAction.OPEN_PROFILE, community);
 	}
 }

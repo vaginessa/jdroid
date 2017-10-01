@@ -8,9 +8,8 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.HitBuilders.SocialBuilder;
 import com.jdroid.android.analytics.CoreAnalyticsTracker;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.social.AccountType;
+import com.jdroid.android.social.SocialNetwork;
 import com.jdroid.android.social.SocialAction;
-import com.jdroid.android.usecase.AbstractUseCase;
 import com.jdroid.android.utils.DeviceUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -170,13 +169,13 @@ public class GoogleCoreAnalyticsTracker extends AbstractGoogleAnalyticsTracker i
 	}
 	
 	@Override
-	public void trackSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget) {
+	public void trackSocialInteraction(String network, SocialAction socialAction, String socialTarget) {
 		
 		String category = SOCIAL;
-		String network = "Undefined";
-		if (accountType != null) {
-			category += accountType.getFriendlyName();
-			network = accountType.getFriendlyName();
+		if (network != null) {
+			category += "-" + network;
+		} else {
+			network = "Undefined";
 		}
 		getGoogleAnalyticsHelper().sendEvent(category, socialAction.getName(), socialTarget);
 		
@@ -205,15 +204,15 @@ public class GoogleCoreAnalyticsTracker extends AbstractGoogleAnalyticsTracker i
 		// Do nothing
 	}
 
-	public void sendSocialInteraction(AccountType accountType, SocialAction socialAction, String socialTarget) {
+	public void sendSocialInteraction(SocialNetwork socialNetwork, SocialAction socialAction, String socialTarget) {
 		
 		SocialBuilder socialBuilder = new SocialBuilder();
-		socialBuilder.setNetwork(accountType.getFriendlyName());
+		socialBuilder.setNetwork(socialNetwork.getName());
 		socialBuilder.setAction(socialAction.getName());
 		socialBuilder.setTarget(socialTarget);
 		
 		getGoogleAnalyticsHelper().getTracker().send(socialBuilder.build());
-		LOGGER.debug("Social interaction sent. Network [" + accountType.getFriendlyName() + "] Action ["
+		LOGGER.debug("Social interaction sent. Network [" + socialNetwork.getName() + "] Action ["
 				+ socialAction.getName() + "] Target [" + socialTarget + "]");
 	}
 }

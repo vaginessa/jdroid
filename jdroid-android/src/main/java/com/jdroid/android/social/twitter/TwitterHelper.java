@@ -4,7 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import com.jdroid.android.application.AbstractApplication;
-import com.jdroid.android.social.AccountType;
+import com.jdroid.android.social.SocialNetwork;
 import com.jdroid.android.social.SocialAction;
 
 public class TwitterHelper {
@@ -22,7 +22,7 @@ public class TwitterHelper {
 			AbstractApplication.get().getCurrentActivity().startActivity(
 				new Intent(Intent.ACTION_VIEW, Uri.parse("http://twitter.com/" + account)));
 		} finally {
-			AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(AccountType.TWITTER,
+			AbstractApplication.get().getCoreAnalyticsSender().trackSocialInteraction(SocialNetwork.TWITTER.getName(),
 				SocialAction.OPEN_PROFILE, account);
 		}
 	}

@@ -105,7 +105,7 @@ public class DynamicLinkBuilder {
 		this.linkUrl = linkUrl;
 	}
 
-	public void setMinVersionCode(Long minVersionCode) {
+	public void setMinVersionCode(Integer minVersionCode) {
 		this.minVersionCode = minVersionCode;
 	}
 
