@@ -100,7 +100,7 @@
         errorLine2="  ^">
         <location
             file="/home/travis/build/maxirosson/jdroid/jdroid-android/src/main/AndroidManifest.xml"
-            line="34"
+            line="35"
             column="3"/>
     </issue>
 
