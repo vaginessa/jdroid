@@ -26,7 +26,7 @@ public abstract class MapRepository extends StringEntityRepository {
 	 */
 	public Map<String, String> getChildrenMap(String parentId) {
 		Map<String, String> map = new HashMap<>();
-		List<StringEntity> children = findByField(Column.PARENT_ID, parentId);
+		List<StringEntity> children = getByField(Column.PARENT_ID, parentId);
 		for (StringEntity stringEntity : children) {
 			map.put(stringEntity.getId(), stringEntity.getValue());
 		}

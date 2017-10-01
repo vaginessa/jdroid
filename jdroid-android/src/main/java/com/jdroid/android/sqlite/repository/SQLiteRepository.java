@@ -172,7 +172,7 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	
 	@SuppressWarnings("resource")
 	@Override
-	public List<T> findByField(String fieldName, Object... values) {
+	public List<T> getByField(String fieldName, Object... values) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		String selection;
 		String[] selectionArgs = null;
@@ -216,13 +216,23 @@ public abstract class SQLiteRepository<T extends Entity> implements Repository<T
 	}
 	
 	@Override
-	public List<T> getAll(List<String> ids) {
-		return findByField(getIdColumnName(), ids);
+	public T getItemByField(String fieldName, Object... values) {
+		List<T> items = getByField(fieldName, values);
+		if (!items.isEmpty()) {
+			return items.get(0);
+		} else {
+			return null;
+		}
+	}
+	
+	@Override
+	public List<T> getByIds(List<String> ids) {
+		return getByField(getIdColumnName(), ids);
 	}
 	
 	@Override
 	public List<T> getAll() {
-		return findByField(null, (Object[])null);
+		return getByField(null, (Object[])null);
 	}
 	
 	@Override

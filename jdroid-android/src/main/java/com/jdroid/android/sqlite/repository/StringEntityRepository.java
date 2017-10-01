@@ -103,7 +103,7 @@ public abstract class StringEntityRepository extends SQLiteRepository<StringEnti
 	 */
 	public List<String> getStringChildren(Long parentId) {
 		ArrayList<String> strings = new ArrayList<>();
-		List<StringEntity> entities = findByField(Column.PARENT_ID, parentId);
+		List<StringEntity> entities = getByField(Column.PARENT_ID, parentId);
 		for (StringEntity entity : entities) {
 			strings.add(entity.getValue());
 		}

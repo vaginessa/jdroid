@@ -72,9 +72,6 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 		return fragmentHelper.getContentFragmentLayout();
 	}
 
-	/**
-	 * @see android.support.v4.app.Fragment#onViewCreated(android.view.View, android.os.Bundle)
-	 */
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
@@ -123,45 +120,30 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 		return null;
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onSaveInstanceState(android.os.Bundle)
-	 */
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putInt(ACTION_BAR_ALPHA, actionBarAlpha);
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
-	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		fragmentHelper.onActivityCreated(savedInstanceState);
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onStart()
-	 */
 	@Override
 	public void onStart() {
 		super.onStart();
 		fragmentHelper.onStart();
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onResume()
-	 */
 	@Override
 	public void onResume() {
 		super.onResume();
 		fragmentHelper.onResume();
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onPause()
-	 */
 	@Override
 	public void onPause() {
 		fragmentHelper.onBeforePause();
@@ -169,27 +151,18 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 		fragmentHelper.onPause();
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onStop()
-	 */
 	@Override
 	public void onStop() {
 		super.onStop();
 		fragmentHelper.onStop();
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onDestroyView()
-	 */
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
 		fragmentHelper.onDestroyView();
 	}
 	
-	/**
-	 * @see android.support.v4.app.Fragment#onDestroy()
-	 */
 	@Override
 	public void onDestroy() {
 		fragmentHelper.onBeforeDestroy();
@@ -197,25 +170,16 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 		fragmentHelper.onDestroy();
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#findView(int)
-	 */
 	@Override
 	public <V extends View> V findView(int id) {
 		return fragmentHelper.findView(id);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#findViewOnActivity(int)
-	 */
 	@Override
 	public <V extends View> V findViewOnActivity(int id) {
 		return fragmentHelper.findViewOnActivity(id);
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#inflate(int)
-	 */
 	@Override
 	public View inflate(int resource) {
 		return fragmentHelper.inflate(resource);
@@ -285,9 +249,6 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 		return fragmentHelper.getAppBar();
 	}
 
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getActivityIf()
-	 */
 	@Override
 	public ActivityIf getActivityIf() {
 		return fragmentHelper.getActivityIf();
@@ -311,33 +272,21 @@ public abstract class AbstractFragment extends Fragment implements FragmentIf {
 	
 	// //////////////////////// Loading //////////////////////// //
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#showLoading()
-	 */
 	@Override
 	public void showLoading() {
 		fragmentHelper.showLoading();
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#dismissLoading()
-	 */
 	@Override
 	public void dismissLoading() {
 		fragmentHelper.dismissLoading();
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#getDefaultLoading()
-	 */
 	@Override
 	public FragmentLoading getDefaultLoading() {
 		return fragmentHelper.getDefaultLoading();
 	}
 	
-	/**
-	 * @see com.jdroid.android.fragment.FragmentIf#setLoading(com.jdroid.android.loading.FragmentLoading)
-	 */
 	@Override
 	public void setLoading(FragmentLoading loading) {
 		fragmentHelper.setLoading(loading);

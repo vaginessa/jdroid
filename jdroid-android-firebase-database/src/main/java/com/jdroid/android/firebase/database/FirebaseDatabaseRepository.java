@@ -106,7 +106,7 @@ public abstract class FirebaseDatabaseRepository<T extends Entity> implements Re
 	}
 
 	@Override
-	public List<T> findByField(String fieldName, Object... values) {
+	public List<T> getByField(String fieldName, Object... values) {
 		DatabaseReference databaseReference = createDatabaseReference();
 		Query query = databaseReference.orderByChild(fieldName);
 
@@ -140,6 +140,16 @@ public abstract class FirebaseDatabaseRepository<T extends Entity> implements Re
 		LOGGER.info("Retrieved objects [" + results.size() + "] from database of path: " + getPath() + " field: " + fieldName);
 		return results;
 	}
+	
+	@Override
+	public T getItemByField(String fieldName, Object... values) {
+		List<T> items = getByField(fieldName, values);
+		if (!items.isEmpty()) {
+			return items.get(0);
+		} else {
+			return null;
+		}
+	}
 
 	@Override
 	public List<T> getAll() {
@@ -156,7 +166,7 @@ public abstract class FirebaseDatabaseRepository<T extends Entity> implements Re
 	}
 
 	@Override
-	public List<T> getAll(List<String> ids) {
+	public List<T> getByIds(List<String> ids) {
 		DatabaseReference databaseReference = createDatabaseReference();
 		FirebaseDatabaseValueEventListener listener = new FirebaseDatabaseValueEventListener();
 		databaseReference.addListenerForSingleValueEvent(listener);
