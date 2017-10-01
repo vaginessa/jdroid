@@ -67,7 +67,7 @@ public class DynamicLinksFragment extends AbstractFragment {
 					public void run() {
 						final DynamicLinkBuilder builder = new DynamicLinkBuilder();
 						builder.setLinkUrl(linkUrlTextView.getText().toString());
-						builder.setMinVersionCode(TypeUtils.getLong(minVersionCodeTextView.getText().toString()));
+						builder.setMinVersionCode(TypeUtils.getInteger(minVersionCodeTextView.getText().toString()));
 						builder.setFallbackLink(fallbackLinkTextView.getText().toString());
 						builder.setCustomAppLocation(customAppLocationTextView.getText().toString());
 						builder.setUtmSource(utmSourceTextView.getText().toString());

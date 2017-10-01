@@ -32,7 +32,15 @@ public abstract class TwitterHelper {
 	private SearchTimeline.Builder searchTimelineBuilder;
 	private List<Tweet> tweets = Lists.newArrayList();
 	
+	private TwitterQuery twitterQuery;
+	
 	protected SearchTimeline createSearchTimeline() {
+		if (twitterQuery != null) {
+			searchTimelineBuilder = new SearchTimeline.Builder();
+			searchTimelineBuilder.languageCode(twitterQuery.getLanguageCode());
+			searchTimelineBuilder.maxItemsPerRequest(twitterQuery.getMaxItemsPerRequest());
+			searchTimelineBuilder.query(twitterQuery.getQuery());
+		}
 		return searchTimelineBuilder.build();
 	}
 	
@@ -140,5 +148,9 @@ public abstract class TwitterHelper {
 	
 	public ViewGroup getTweetContainer() {
 		return tweetContainer;
+	}
+	
+	public void setTwitterQuery(TwitterQuery twitterQuery) {
+		this.twitterQuery = twitterQuery;
 	}
 }
