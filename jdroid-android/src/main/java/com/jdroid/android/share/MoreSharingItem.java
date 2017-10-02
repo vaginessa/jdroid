@@ -1,12 +1,25 @@
 package com.jdroid.android.share;
 
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v4.graphics.drawable.DrawableCompat;
 
-import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.R;
+import com.jdroid.android.application.AbstractApplication;
 
-public abstract class MoreSharingItem extends SharingItem {
+public class MoreSharingItem extends SharingItem {
+	
+	private SharingData sharingData;
+	
+	public MoreSharingItem(@NonNull SharingData sharingData) {
+		this.sharingData = sharingData;
+	}
+	
+	@Override
+	public void share() {
+		ShareUtils.shareTextContent(sharingData.getShareKey(), AbstractApplication.get().getString(R.string.jdroid_share),
+				sharingData.getDefaultSharingDataItem().getSubject(), sharingData.getDefaultSharingDataItem().getText());
+	}
 	
 	@Override
 	public Drawable getAppIcon() {

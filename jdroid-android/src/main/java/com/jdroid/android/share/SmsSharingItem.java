@@ -1,5 +1,7 @@
 package com.jdroid.android.share;
 
+import android.support.annotation.NonNull;
+
 import com.jdroid.android.utils.AndroidUtils;
 import com.jdroid.android.utils.ExternalAppsUtils;
 
@@ -9,6 +11,7 @@ public class SmsSharingItem extends AppSharingItem {
 		super(sharingData);
 	}
 	
+	@NonNull
 	@Override
 	public SharingMedium getSharingMedium() {
 		return SharingMedium.SMS;

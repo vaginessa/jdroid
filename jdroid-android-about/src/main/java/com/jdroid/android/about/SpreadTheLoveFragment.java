@@ -18,7 +18,6 @@ import com.jdroid.android.google.plus.GooglePlusOneButtonHelper;
 import com.jdroid.android.share.GooglePlusSharingItem;
 import com.jdroid.android.share.HangoutsSharingItem;
 import com.jdroid.android.share.MoreSharingItem;
-import com.jdroid.android.share.ShareUtils;
 import com.jdroid.android.share.ShareView;
 import com.jdroid.android.share.SharingData;
 import com.jdroid.android.share.SharingDataItem;
@@ -101,7 +100,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 		sharingDataItemsMap.put(SharingMedium.TELEGRAM.getName(), new SharingDataItem(getTelegramShareText()));
 		sharingDataItemsMap.put(SharingMedium.HANGOUTS.getName(), new SharingDataItem(getHangoutsShareText()));
 		sharingDataItemsMap.put(SharingMedium.SMS.getName(), new SharingDataItem(getSmsShareText()));
-		SharingData sharingData = new SharingData(getShareKey(), sharingDataItemsMap);
+		SharingData sharingData = new SharingData(getShareKey(), sharingDataItemsMap, new SharingDataItem(getDefaultShareSubject(), getDefaultShareText()));
 		
 		List<SharingItem> sharingItems = Lists.newArrayList();
 		sharingItems.add(new TwitterSharingItem(sharingData));
@@ -111,14 +110,7 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 		sharingItems.add(new HangoutsSharingItem(sharingData));
 		sharingItems.add(new SmsSharingItem(sharingData));
 		
-		Boolean displayShareTitle = ShareView.initShareSection(getActivity(), sharingItems, new MoreSharingItem() {
-			
-			@Override
-			public void share() {
-				ShareUtils.shareTextContent(SpreadTheLoveFragment.this.getShareKey(), getString(R.string.jdroid_share),
-						getShareTitle(), SpreadTheLoveFragment.this.getDefaultShareText());
-			}
-		});
+		Boolean displayShareTitle = ShareView.initShareSection(getActivity(), sharingItems, new MoreSharingItem(sharingData));
 		
 		View appInvite = findView(R.id.appInvite);
 		if (displayAppInviteButton() && GooglePlayServicesUtils.isGooglePlayServicesAvailable(getActivity())) {
@@ -151,10 +143,6 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 		}
 	}
 	
-	protected String getShareTitle() {
-		return getString(R.string.jdroid_appName);
-	}
-	
 	protected String getFacebookPageId() {
 		return AbstractApplication.get().getAppContext().getFacebookPageId();
 	}
@@ -181,6 +169,10 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 	
 	public String getShareKey() {
 		return GooglePlayUtils.getGooglePlayLink();
+	}
+	
+	protected String getDefaultShareSubject() {
+		return getString(R.string.jdroid_appName);
 	}
 	
 	protected abstract String getDefaultShareText();

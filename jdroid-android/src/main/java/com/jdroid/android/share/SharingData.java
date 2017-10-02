@@ -6,10 +6,12 @@ public class SharingData {
 	
 	private String shareKey;
 	private Map<String, SharingDataItem> shareInfoItemMap;
+	private SharingDataItem defaultSharingDataItem;
 	
-	public SharingData(String shareKey, Map<String, SharingDataItem> shareInfoItemMap) {
+	public SharingData(String shareKey, Map<String, SharingDataItem> shareInfoItemMap, SharingDataItem defaultSharingDataItem) {
 		this.shareKey = shareKey;
 		this.shareInfoItemMap = shareInfoItemMap;
+		this.defaultSharingDataItem = defaultSharingDataItem;
 	}
 	
 	public Map<String, SharingDataItem> getShareInfoItemMap() {
@@ -26,5 +28,13 @@ public class SharingData {
 	
 	public void setShareKey(String shareKey) {
 		this.shareKey = shareKey;
+	}
+	
+	public SharingDataItem getDefaultSharingDataItem() {
+		return defaultSharingDataItem;
+	}
+	
+	public void setDefaultSharingDataItem(SharingDataItem defaultSharingDataItem) {
+		this.defaultSharingDataItem = defaultSharingDataItem;
 	}
 }
