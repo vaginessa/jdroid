@@ -12,8 +12,11 @@ public abstract class AppSharingItem extends SharingItem {
 	
 	@Override
 	public void share() {
-		ShareUtils.share(getSharingMedium(), sharingData.getShareKey(),
-				sharingData.getShareInfoItemMap().get(getSharingMedium().getName()).getText());
+		SharingDataItem sharingDataItem = sharingData.getShareInfoItemMap().get(getSharingMedium().getName());
+		if (sharingDataItem == null) {
+			sharingDataItem = sharingData.getDefaultSharingDataItem();
+		}
+		ShareUtils.share(getSharingMedium(), sharingData.getShareKey(), sharingDataItem.getText());
 	}
 	
 	@NonNull
