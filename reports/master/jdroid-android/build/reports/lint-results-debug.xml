@@ -483,27 +483,6 @@
     <issue
         id="UnusedResources"
         severity="Warning"
-        message="The resource `R.string.jdroid_share` appears to be unused"
-        category="Performance"
-        priority="3"
-        summary="Unused resources"
-        explanation="Unused resources make applications larger and slow down builds."
-        errorLine1=" &lt;string name=&quot;jdroid_share&quot;>Share&lt;/string>"
-        errorLine2="         ~~~~~~~~~~~~~~~~~~~"
-        quickfix="studio">
-        <location
-            file="/home/travis/build/maxirosson/jdroid/jdroid-android/src/main/res/values/strings.xml"
-            line="64"
-            column="10"/>
-        <location
-            file="/home/travis/build/maxirosson/jdroid/jdroid-android/src/main/res/values-es/strings.xml"
-            line="66"
-            column="10"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        severity="Warning"
         message="The resource `R.string.jdroid_sharingFailed` appears to be unused"
         category="Performance"
         priority="3"
