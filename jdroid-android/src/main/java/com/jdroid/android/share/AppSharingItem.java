@@ -27,8 +27,4 @@ public abstract class AppSharingItem extends SharingItem {
 		return getSharingMedium().getPackageName();
 	}
 	
-	@Override
-	public Boolean isEnabled() {
-		return sharingData.getShareInfoItemMap().containsKey(getSharingMedium().getName()) && super.isEnabled();
-	}
 }
