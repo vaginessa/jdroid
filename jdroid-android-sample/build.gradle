@@ -160,6 +160,7 @@ dependencies {
 		compile project(":jdroid-java-firebase-dynamiclink")
 	} else {
 		compile ("com.jdroidframework:jdroid-java-firebase-dynamiclink:${JDROID_JAVA_VERSION}") {
+			exclude module: 'slf4j-api'
 			exclude module: 'jdroid-java-core'
 		}
 	}
