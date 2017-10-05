@@ -76,6 +76,12 @@ public class DebugInfoFragment extends AbstractRecyclerFragment {
 			}
 		}
 		setAdapter(new RecyclerViewAdapter(new PairItemRecyclerViewType() {
+			
+			@Override
+			protected Boolean isTextSelectable() {
+				return true;
+			}
+			
 			@Override
 			public AbstractRecyclerFragment getAbstractRecyclerFragment() {
 				return DebugInfoFragment.this;

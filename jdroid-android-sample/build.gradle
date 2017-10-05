@@ -156,6 +156,14 @@ dependencies {
 		}
 	}
 
+	if (jdroid.getBooleanProp("JDROID_JAVA_FIREBASE_DYNAMICLINK_AS_PROJECT_DEPENDENCY", false)) {
+		compile project(":jdroid-java-firebase-dynamiclink")
+	} else {
+		compile ("com.jdroidframework:jdroid-java-firebase-dynamiclink:${JDROID_JAVA_VERSION}") {
+			exclude module: 'jdroid-java-core'
+		}
+	}
+
 	testCompile "junit:junit:${JUNIT_VERSION}"
 	testCompile "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
 

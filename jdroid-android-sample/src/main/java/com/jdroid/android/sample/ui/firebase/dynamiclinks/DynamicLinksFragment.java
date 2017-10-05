@@ -6,13 +6,21 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.jdroid.android.firebase.dynamiclink.DynamicLinkBuilder;
-import com.jdroid.android.firebase.dynamiclink.ShortDynamicLinkService;
+import com.jdroid.android.firebase.dynamiclink.FirebaseDynamicLinksAppContext;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.sample.R;
+import com.jdroid.android.utils.AppUtils;
 import com.jdroid.java.concurrent.ExecutorUtils;
-import com.jdroid.java.utils.TypeUtils;
+import com.jdroid.java.firebase.dynamiclink.ShortDynamicLinkService;
+import com.jdroid.java.firebase.dynamiclink.domain.AnalyticsInfo;
+import com.jdroid.java.firebase.dynamiclink.domain.AndroidInfo;
+import com.jdroid.java.firebase.dynamiclink.domain.DynamicLink;
+import com.jdroid.java.firebase.dynamiclink.domain.DynamicLinkInfo;
+import com.jdroid.java.firebase.dynamiclink.domain.DynamicLinkResponse;
+import com.jdroid.java.firebase.dynamiclink.domain.GooglePlayAnalytics;
+import com.jdroid.java.firebase.dynamiclink.domain.SuffixOption;
 import com.jdroid.java.utils.StringUtils;
+import com.jdroid.java.utils.TypeUtils;
 
 public class DynamicLinksFragment extends AbstractFragment {
 
@@ -65,21 +73,37 @@ public class DynamicLinksFragment extends AbstractFragment {
 				ExecutorUtils.execute(new Runnable() {
 					@Override
 					public void run() {
-						final DynamicLinkBuilder builder = new DynamicLinkBuilder();
-						builder.setLinkUrl(linkUrlTextView.getText().toString());
-						builder.setMinVersionCode(TypeUtils.getInteger(minVersionCodeTextView.getText().toString()));
-						builder.setFallbackLink(fallbackLinkTextView.getText().toString());
-						builder.setCustomAppLocation(customAppLocationTextView.getText().toString());
-						builder.setUtmSource(utmSourceTextView.getText().toString());
-						builder.setUtmMedium(utmMediumTextView.getText().toString());
-						builder.setUtmCampaign(utmCampaignTextView.getText().toString());
-						builder.setUtmTerm(utmTermTextView.getText().toString());
-						builder.setUtmContent(utmContentTextView.getText().toString());
-
+						final DynamicLink dynamicLink = new DynamicLink();
+						
+						DynamicLinkInfo dynamicLinkInfo = new DynamicLinkInfo();
+						dynamicLinkInfo.setDynamicLinkDomain(FirebaseDynamicLinksAppContext.getDynamicLinksDomain());
+						dynamicLinkInfo.setLink(linkUrlTextView.getText().toString());
+						
+						AndroidInfo androidInfo = new AndroidInfo();
+						androidInfo.setAndroidPackageName(AppUtils.getApplicationId());
+						if (minVersionCodeTextView.getText().length() > 0) {
+							androidInfo.setAndroidMinPackageVersionCode(TypeUtils.getInteger(minVersionCodeTextView.getText().toString()));
+						}
+						androidInfo.setAndroidFallbackLink(fallbackLinkTextView.getText().toString());
+						androidInfo.setAndroidLink(customAppLocationTextView.getText().toString());
+						dynamicLinkInfo.setAndroidInfo(androidInfo);
+						
+						AnalyticsInfo analyticsInfo = new AnalyticsInfo();
+						GooglePlayAnalytics googlePlayAnalytics = new GooglePlayAnalytics();
+						googlePlayAnalytics.setUtmSource(utmSourceTextView.getText().toString());
+						googlePlayAnalytics.setUtmMedium(utmMediumTextView.getText().toString());
+						googlePlayAnalytics.setUtmCampaign(utmCampaignTextView.getText().toString());
+						googlePlayAnalytics.setUtmTerm(utmTermTextView.getText().toString());
+						googlePlayAnalytics.setUtmContent(utmContentTextView.getText().toString());
+						analyticsInfo.setGooglePlayAnalytics(googlePlayAnalytics);
+						dynamicLinkInfo.setAnalyticsInfo(analyticsInfo);
+						
+						dynamicLink.setDynamicLinkInfo(dynamicLinkInfo);
+						
 						executeOnUIThread(new Runnable() {
 							@Override
 							public void run() {
-								longLinkTextView.setText(builder.build());
+								longLinkTextView.setText(dynamicLink.build());
 							}
 						});
 					}
@@ -95,11 +119,13 @@ public class DynamicLinksFragment extends AbstractFragment {
 					ExecutorUtils.execute(new Runnable() {
 						@Override
 						public void run() {
-							final String shortLink = new ShortDynamicLinkService().getShortDynamicLink(longLink, unguessableCheckBox.isChecked());
+							final DynamicLinkResponse dynamicLinkResponse = new ShortDynamicLinkService().getShortDynamicLink(
+									FirebaseDynamicLinksAppContext.getWebApiKey(), longLink,
+									unguessableCheckBox.isChecked() ? SuffixOption.UNGUESSABLE : SuffixOption.SHORT);
 							executeOnUIThread(new Runnable() {
 								@Override
 								public void run() {
-									shortLinkTextView.setText(shortLink);
+									shortLinkTextView.setText(dynamicLinkResponse.getShortLink());
 								}
 							});
 						}

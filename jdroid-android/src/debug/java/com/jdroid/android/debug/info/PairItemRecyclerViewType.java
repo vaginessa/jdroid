@@ -32,6 +32,11 @@ public abstract class PairItemRecyclerViewType extends RecyclerViewType<Pair, Pa
 	@Override
 	public void fillHolderFromItem(Pair item, PairItemHolder holder) {
 		holder.name.setText(item.first + ": " + item.second);
+		holder.name.setTextIsSelectable(isTextSelectable());
+	}
+	
+	protected Boolean isTextSelectable() {
+		return false;
 	}
 
 	public static class PairItemHolder extends RecyclerView.ViewHolder {
