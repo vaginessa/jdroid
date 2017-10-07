@@ -4,6 +4,7 @@ public class SharingDataItem {
 	
 	private String subject;
 	private String text;
+	private String link;
 	
 	public SharingDataItem(String text) {
 		this.text = text;
@@ -28,5 +29,13 @@ public class SharingDataItem {
 	
 	public void setText(String text) {
 		this.text = text;
+	}
+	
+	public String getLink() {
+		return link;
+	}
+	
+	public void setLink(String link) {
+		this.link = link;
 	}
 }

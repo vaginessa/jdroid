@@ -16,7 +16,12 @@ public abstract class AppSharingItem extends SharingItem {
 		if (sharingDataItem == null) {
 			sharingDataItem = sharingData.getDefaultSharingDataItem();
 		}
-		ShareUtils.share(getSharingMedium(), sharingData.getShareKey(), sharingDataItem.getText());
+		
+		String text = sharingDataItem.getText() != null ? sharingDataItem.getText() : sharingData.getDefaultSharingDataItem().getText();
+		String link = sharingDataItem.getLink() != null ? sharingDataItem.getLink() : sharingData.getDefaultSharingDataItem().getLink();
+		String replacedText = text.replace("${link}", link);
+		
+		ShareUtils.share(getSharingMedium(), sharingData.getShareKey(), replacedText);
 	}
 	
 	@NonNull
