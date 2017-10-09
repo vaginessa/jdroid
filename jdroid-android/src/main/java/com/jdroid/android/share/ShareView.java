@@ -2,6 +2,7 @@ package com.jdroid.android.share;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.jdroid.android.R;
+import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.utils.ScreenUtils;
 
 import java.util.List;
@@ -43,6 +45,31 @@ public class ShareView extends FrameLayout {
 	
 	public static Boolean initShareSection(final Activity activity, List<SharingItem> sharingItems,
 			MoreSharingItem moreSharingItem) {
+		ViewGroup shareItemsContainer = activity.findViewById(R.id.shareItemsContainer);
+		Boolean result = initShareSection(activity, sharingItems);
+		
+		if (moreSharingItem != null && result) {
+			ShareView shareView = new ShareView(activity);
+			shareView.init(activity, moreSharingItem);
+			shareItemsContainer.addView(shareView);
+		}
+		return result;
+	}
+	
+	public static Boolean initShareSectionV2(final Activity activity, List<SharingItem> sharingItems,
+			@NonNull final SharingData sharingData) {
+		Boolean result = initShareSection(activity, sharingItems);
+		activity.findViewById(R.id.shareMore).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				ShareUtils.shareTextContent(sharingData.getShareKey(), AbstractApplication.get().getString(R.string.jdroid_share),
+						sharingData.getDefaultSharingDataItem().getSubject(), sharingData.getDefaultSharingDataItem().getText());
+			}
+		});
+		return result;
+	}
+	
+	private static Boolean initShareSection(Activity activity, List<SharingItem> sharingItems) {
 		ViewGroup shareSection = activity.findViewById(R.id.shareSection);
 		ViewGroup shareItemsContainer = activity.findViewById(R.id.shareItemsContainer);
 		
@@ -59,13 +86,6 @@ public class ShareView extends FrameLayout {
 				itemsToDisplay--;
 			}
 		}
-		
-		if (shareSection.getVisibility() == View.VISIBLE) {
-			ShareView shareView = new ShareView(activity);
-			shareView.init(activity, moreSharingItem);
-			shareItemsContainer.addView(shareView);
-			return true;
-		}
-		return false;
+		return shareSection.getVisibility() == View.VISIBLE;
 	}
 }
