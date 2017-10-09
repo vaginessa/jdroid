@@ -319,6 +319,23 @@
     <issue
         id="UnusedResources"
         severity="Warning"
+        message="The resource `R.layout.jdroid_share_section_v2` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1="&lt;android.support.v7.widget.CardView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^"
+        quickfix="studio">
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android/src/main/res/layout/jdroid_share_section_v2.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
         message="The resource `R.layout.jdroid_time_layout` appears to be unused"
         category="Performance"
         priority="3"
@@ -628,6 +645,27 @@
     </issue>
 
     <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.string.jdroid_more` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds."
+        errorLine1=" &lt;string name=&quot;jdroid_more&quot;>More&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~"
+        quickfix="studio">
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android/src/main/res/values/strings.xml"
+            line="92"
+            column="10"/>
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android/src/main/res/values-es/strings.xml"
+            line="94"
+            column="10"/>
+    </issue>
+
+    <issue
         id="UselessParent"
         severity="Warning"
         message="This `FrameLayout` layout or its `LinearLayout` parent is possibly useless"
@@ -683,6 +721,22 @@
         urls="http://developer.android.com/guide/practices/screens_support.html">
         <location
             file="/home/travis/build/maxirosson/jdroid/jdroid-android/src/main/res/drawable-xhdpi"/>
+    </issue>
+
+    <issue
+        id="RelativeOverlap"
+        severity="Warning"
+        message="`TextView-3` can overlap `TextView-1` if @string/jdroid_share, @string/jdroid_more grow due to localized text expansion"
+        category="Internationalization"
+        priority="3"
+        summary="Overlapping items in RelativeLayout"
+        explanation="If relative layout has text or button items aligned to left and right sides they can overlap each other due to localized text expansion unless they have mutual constraints like `toEndOf`/`toStartOf`."
+        errorLine1="   &lt;TextView android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;wrap_content&quot;"
+        errorLine2="   ^">
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android/src/main/res/layout/jdroid_share_section_v2.xml"
+            line="15"
+            column="4"/>
     </issue>
 
 </issues>

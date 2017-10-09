@@ -173,10 +173,10 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 38 warnings</span>
+      <span class="mdl-layout-title">Lint Report: 41 warnings</span>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-Check performed at Sat Oct 07 23:44:47 UTC 2017      </nav>
+Check performed at Mon Oct 09 02:41:48 UTC 2017      </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -192,9 +192,10 @@ Check performed at Sat Oct 07 23:44:47 UTC 2017      </nav>
       <a class="mdl-navigation__link" href="#StaticFieldLeak"><i class="material-icons warning-icon">warning</i>Static Field Leaks (1)</a>
       <a class="mdl-navigation__link" href="#HandlerLeak"><i class="material-icons warning-icon">warning</i>Handler reference leaks (1)</a>
       <a class="mdl-navigation__link" href="#Overdraw"><i class="material-icons warning-icon">warning</i>Overdraw: Painting regions more than once (3)</a>
-      <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (23)</a>
+      <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (25)</a>
       <a class="mdl-navigation__link" href="#UselessParent"><i class="material-icons warning-icon">warning</i>Useless parent layout (1)</a>
       <a class="mdl-navigation__link" href="#IconDensities"><i class="material-icons warning-icon">warning</i>Icon densities validation (3)</a>
+      <a class="mdl-navigation__link" href="#RelativeOverlap"><i class="material-icons warning-icon">warning</i>Overlapping items in RelativeLayout (1)</a>
     </nav>
   </div>
   <main class="mdl-layout__content">
@@ -241,7 +242,7 @@ Check performed at Sat Oct 07 23:44:47 UTC 2017      </nav>
 <td class="countColumn">3</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#Overdraw">Overdraw</a>: Overdraw: Painting regions more than once</td></tr>
 <tr>
-<td class="countColumn">23</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">25</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#UnusedResources">UnusedResources</a>: Unused resources</td></tr>
 <tr>
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
@@ -251,6 +252,11 @@ Check performed at Sat Oct 07 23:44:47 UTC 2017      </nav>
 <tr>
 <td class="countColumn">3</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#IconDensities">IconDensities</a>: Icon densities validation</td></tr>
+<tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Internationalization">Internationalization</a>
+</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#RelativeOverlap">RelativeOverlap</a>: Overlapping items in RelativeLayout</td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#MissingIssues">Disabled Checks (28)</a>
 </td></tr></table>
 <br/>              </div>
@@ -750,7 +756,7 @@ Dismiss</button>            </div>
 <span class="lineno">  3 </span>        <span class="prefix">android:</span><span class="attribute">height</span>=<span class="value">"24dp"</span>
 <span class="lineno">  4 </span>        <span class="prefix">android:</span><span class="attribute">viewportWidth</span>=<span class="value">"24.0"</span></pre>
 
-<button class="mdl-button mdl-js-button mdl-button--primary" id="UnusedResourcesDivLink" onclick="reveal('UnusedResourcesDiv');" />+ 18 More Occurrences...</button>
+<button class="mdl-button mdl-js-button mdl-button--primary" id="UnusedResourcesDivLink" onclick="reveal('UnusedResourcesDiv');" />+ 20 More Occurrences...</button>
 <div id="UnusedResourcesDiv" style="display: none">
 <span class="location"><a href="../../src/main/res/drawable-xxhdpi/jdroid_ic_drawer_accounts_collapse.png">../../src/main/res/drawable-xxhdpi/jdroid_ic_drawer_accounts_collapse.png</a></span>: <img class="embedimage" align="right" src="../../src/main/res/drawable-xxhdpi/jdroid_ic_drawer_accounts_collapse.png" /><span class="message">The resource <code>R.drawable.jdroid_ic_drawer_accounts_collapse</code> appears to be unused</span><br clear="right"/>
 <span class="location"><a href="../../src/main/res/drawable/jdroid_ic_mail_outline_black_24dp.xml">../../src/main/res/drawable/jdroid_ic_mail_outline_black_24dp.xml</a>:1</span>: <span class="message">The resource <code>R.drawable.jdroid_ic_mail_outline_black_24dp</code> appears to be unused</span><br /><pre class="errorlines">
@@ -764,6 +770,12 @@ Dismiss</button>            </div>
 <span class="lineno"> 2 </span>                                    <span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@+id/shareSection"</span> <span class="attribute">style</span>=<span class="value">"@style/jdroid_cardViewFullMarginStyle"</span> <span class="prefix">android:</span><span class="attribute">visibility</span>=<span class="value">"gone"</span>>
 <span class="lineno"> 3 </span>
 <span class="lineno"> 4 </span>    <span class="tag">&lt;LinearLayout</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@+id/shareItemsContainer"</span> <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"wrap_content"</span></pre>
+
+<span class="location"><a href="../../src/main/res/layout/jdroid_share_section_v2.xml">../../src/main/res/layout/jdroid_share_section_v2.xml</a>:1</span>: <span class="message">The resource <code>R.layout.jdroid_share_section_v2</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="caretline"><span class="lineno">  1 </span><span class="warning"><span class="tag">&lt;android.support.v7.widget.CardView</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  2 </span>                                    <span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@+id/shareSection"</span> <span class="attribute">style</span>=<span class="value">"@style/jdroid_cardViewFullMarginStyle"</span> <span class="prefix">android:</span><span class="attribute">visibility</span>=<span class="value">"gone"</span>>
+<span class="lineno">  3 </span>
+<span class="lineno">  4 </span>    <span class="tag">&lt;LinearLayout</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"match_parent"</span> <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"wrap_content"</span></pre>
 
 <span class="location"><a href="../../src/main/res/layout/jdroid_time_layout.xml">../../src/main/res/layout/jdroid_time_layout.xml</a>:2</span>: <span class="message">The resource <code>R.layout.jdroid_time_layout</code> appears to be unused</span><br /><pre class="errorlines">
 <span class="lineno"> 1 </span><span class="prologue">&lt;?xml version="1.0" encoding="UTF-8"?></span>
@@ -781,8 +793,8 @@ Dismiss</button>            </div>
 <span class="lineno"> 14 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_removeAdsNow"</span>>Remove ads now!<span class="tag">&lt;/string></span>
 </pre>
 
-<ul></ul><button id="Location10DivLink" onclick="reveal('Location10Div');" />+ 1 Additional Locations...</button>
-<div id="Location10Div" style="display: none">
+<ul></ul><button id="Location11DivLink" onclick="reveal('Location11Div');" />+ 1 Additional Locations...</button>
+<div id="Location11Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:12</span>
 </ul>
@@ -796,8 +808,8 @@ Additional locations: <ul>
 <span class="lineno"> 16 </span>    <span class="comment">&lt;!-- App Invite --></span>
 <span class="lineno"> 17 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_appInviteButtonTitle"</span>>Invite Friends<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location11DivLink" onclick="reveal('Location11Div');" />+ 1 Additional Locations...</button>
-<div id="Location11Div" style="display: none">
+<ul></ul><button id="Location12DivLink" onclick="reveal('Location12Div');" />+ 1 Additional Locations...</button>
+<div id="Location12Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:14</span>
 </ul>
@@ -811,8 +823,8 @@ Additional locations: <ul>
 <span class="lineno"> 19 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_appInviteTitle"</span>>Invite Friends to %1$s<span class="tag">&lt;/string></span>
 <span class="lineno"> 20 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_appInviteMessage"</span>>Download %1$s on your android<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location12DivLink" onclick="reveal('Location12Div');" />+ 1 Additional Locations...</button>
-<div id="Location12Div" style="display: none">
+<ul></ul><button id="Location13DivLink" onclick="reveal('Location13Div');" />+ 1 Additional Locations...</button>
+<div id="Location13Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:17</span>
 </ul>
@@ -826,8 +838,8 @@ Additional locations: <ul>
 <span class="lineno"> 20 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_appInviteMessage"</span>>Download %1$s on your android<span class="tag">&lt;/string></span>
 </pre>
 
-<ul></ul><button id="Location13DivLink" onclick="reveal('Location13Div');" />+ 1 Additional Locations...</button>
-<div id="Location13Div" style="display: none">
+<ul></ul><button id="Location14DivLink" onclick="reveal('Location14Div');" />+ 1 Additional Locations...</button>
+<div id="Location14Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:18</span>
 </ul>
@@ -841,8 +853,8 @@ Additional locations: <ul>
 <span class="lineno"> 26 </span>
 <span class="lineno"> 27 </span>    <span class="comment">&lt;!-- Navigation Drawer --></span></pre>
 
-<ul></ul><button id="Location14DivLink" onclick="reveal('Location14Div');" />+ 1 Additional Locations...</button>
-<div id="Location14Div" style="display: none">
+<ul></ul><button id="Location15DivLink" onclick="reveal('Location15Div');" />+ 1 Additional Locations...</button>
+<div id="Location15Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:24</span>
 </ul>
@@ -856,8 +868,8 @@ Additional locations: <ul>
 <span class="lineno"> 54 </span>    <span class="comment">&lt;!-- Picture Dialog Fragment --></span>
 <span class="lineno"> 55 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_selectPhoto"</span>>Photo Source<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location15DivLink" onclick="reveal('Location15Div');" />+ 1 Additional Locations...</button>
-<div id="Location15Div" style="display: none">
+<ul></ul><button id="Location16DivLink" onclick="reveal('Location16Div');" />+ 1 Additional Locations...</button>
+<div id="Location16Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:54</span>
 </ul>
@@ -871,8 +883,8 @@ Additional locations: <ul>
 <span class="lineno"> 63 </span>    <span class="comment">&lt;!-- Sharing --></span>
 <span class="lineno"> 64 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_share"</span>>Share<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location16DivLink" onclick="reveal('Location16Div');" />+ 1 Additional Locations...</button>
-<div id="Location16Div" style="display: none">
+<ul></ul><button id="Location17DivLink" onclick="reveal('Location17Div');" />+ 1 Additional Locations...</button>
+<div id="Location17Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:63</span>
 </ul>
@@ -886,8 +898,8 @@ Additional locations: <ul>
 <span class="lineno"> 67 </span>    <span class="comment">&lt;!-- Sign In --></span>
 <span class="lineno"> 68 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_logout"</span>>Logout<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location17DivLink" onclick="reveal('Location17Div');" />+ 1 Additional Locations...</button>
-<div id="Location17Div" style="display: none">
+<ul></ul><button id="Location18DivLink" onclick="reveal('Location18Div');" />+ 1 Additional Locations...</button>
+<div id="Location18Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:67</span>
 </ul>
@@ -901,8 +913,8 @@ Additional locations: <ul>
 <span class="lineno"> 70 </span>
 <span class="lineno"> 71 </span>    <span class="comment">&lt;!-- Facebook --></span></pre>
 
-<ul></ul><button id="Location18DivLink" onclick="reveal('Location18Div');" />+ 1 Additional Locations...</button>
-<div id="Location18Div" style="display: none">
+<ul></ul><button id="Location19DivLink" onclick="reveal('Location19Div');" />+ 1 Additional Locations...</button>
+<div id="Location19Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:70</span>
 </ul>
@@ -916,8 +928,8 @@ Additional locations: <ul>
 <span class="lineno"> 71 </span>    <span class="comment">&lt;!-- Facebook --></span>
 <span class="lineno"> 72 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_facebook"</span>>Facebook<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location19DivLink" onclick="reveal('Location19Div');" />+ 1 Additional Locations...</button>
-<div id="Location19Div" style="display: none">
+<ul></ul><button id="Location20DivLink" onclick="reveal('Location20Div');" />+ 1 Additional Locations...</button>
+<div id="Location20Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:71</span>
 </ul>
@@ -931,8 +943,8 @@ Additional locations: <ul>
 <span class="lineno"> 74 </span>    <span class="comment">&lt;!-- Google Sign In --></span>
 <span class="lineno"> 75 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_googleSignIn"</span>>Google Sign In<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location20DivLink" onclick="reveal('Location20Div');" />+ 1 Additional Locations...</button>
-<div id="Location20Div" style="display: none">
+<ul></ul><button id="Location21DivLink" onclick="reveal('Location21Div');" />+ 1 Additional Locations...</button>
+<div id="Location21Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:74</span>
 </ul>
@@ -946,8 +958,8 @@ Additional locations: <ul>
 <span class="lineno"> 77 </span>    <span class="comment">&lt;!-- Leak Canary --></span>
 <span class="lineno"> 78 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_leakCanary"</span>>Leak Canary<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location21DivLink" onclick="reveal('Location21Div');" />+ 1 Additional Locations...</button>
-<div id="Location21Div" style="display: none">
+<ul></ul><button id="Location22DivLink" onclick="reveal('Location22Div');" />+ 1 Additional Locations...</button>
+<div id="Location22Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:77</span>
 </ul>
@@ -961,8 +973,8 @@ Additional locations: <ul>
 <span class="lineno"> 80 </span>    <span class="comment">&lt;!-- Twitter --></span>
 <span class="lineno"> 81 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_twitter"</span>>Twitter<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location22DivLink" onclick="reveal('Location22Div');" />+ 1 Additional Locations...</button>
-<div id="Location22Div" style="display: none">
+<ul></ul><button id="Location23DivLink" onclick="reveal('Location23Div');" />+ 1 Additional Locations...</button>
+<div id="Location23Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:80</span>
 </ul>
@@ -976,10 +988,25 @@ Additional locations: <ul>
 <span class="lineno"> 83 </span>    <span class="comment">&lt;!-- Rate App --></span>
 <span class="lineno"> 84 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_rateAppEnjoying"</span>>Enjoying %1$s?<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location23DivLink" onclick="reveal('Location23Div');" />+ 1 Additional Locations...</button>
-<div id="Location23Div" style="display: none">
+<ul></ul><button id="Location24DivLink" onclick="reveal('Location24Div');" />+ 1 Additional Locations...</button>
+<div id="Location24Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:83</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/strings.xml">../../src/main/res/values/strings.xml</a>:92</span>: <span class="message">The resource <code>R.string.jdroid_more</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 89 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_rateAppOkSure"</span>>OK, sure<span class="tag">&lt;/string></span>
+<span class="lineno"> 90 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_rateAppYes"</span>>Yes!<span class="tag">&lt;/string></span>
+<span class="lineno"> 91 </span>
+<span class="caretline"><span class="lineno"> 92 </span>    <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_more"</span></span>>More<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 93 </span>
+<span class="lineno"> 94 </span><span class="tag">&lt;/resources></span>
+</pre>
+
+<ul></ul><button id="Location25DivLink" onclick="reveal('Location25Div');" />+ 1 Additional Locations...</button>
+<div id="Location25Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:94</span>
 </ul>
 </div><br/><br/>
 </div>
@@ -1101,8 +1128,55 @@ Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id
 Dismiss</button>            </div>
             </div>
           </section>
-<a name="MissingIssues"></a>
+<a name="Internationalization"></a>
+<a name="RelativeOverlap"></a>
 <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card13" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Overlapping items in RelativeLayout</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../src/main/res/layout/jdroid_share_section_v2.xml">../../src/main/res/layout/jdroid_share_section_v2.xml</a>:15</span>: <span class="message"><code>TextView-3</code> can overlap <code>TextView-1</code> if @string/jdroid_share, @string/jdroid_more grow due to localized text expansion</span><br /><pre class="errorlines">
+<span class="lineno"> 12 </span>  <span class="prefix">android:</span><span class="attribute">text</span>=<span class="value">"@string/jdroid_share"</span>
+<span class="lineno"> 13 </span>  <span class="attribute">style</span>=<span class="value">"@style/jdroid_cardViewTitle"</span> <span class="prefix">android:</span><span class="attribute">layout_centerVertical</span>=<span class="value">"true"</span>/>
+<span class="lineno"> 14 </span>
+<span class="caretline"><span class="lineno"> 15 </span>            <span class="warning"><span class="tag">&lt;TextView</span><span class="attribute"> </span><span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"wrap_content"</span> <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"wrap_content"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 16 </span>  <span class="prefix">android:</span><span class="attribute">text</span>=<span class="value">"@string/jdroid_more"</span> <span class="prefix">android:</span><span class="attribute">textAllCaps</span>=<span class="value">"true"</span>
+<span class="lineno"> 17 </span>  <span class="attribute">style</span>=<span class="value">"@style/jdroid_cardViewTitle"</span> <span class="prefix">android:</span><span class="attribute">layout_alignParentRight</span>=<span class="value">"true"</span>
+<span class="lineno"> 18 </span>  <span class="prefix">android:</span><span class="attribute">layout_centerVertical</span>=<span class="value">"true"</span>/>
+</pre>
+
+</div>
+<div class="metadata"><div class="explanation" id="explanationRelativeOverlap" style="display: none;">
+If relative layout has text or button items aligned to left and right sides they can overlap each other due to localized text expansion unless they have mutual constraints like <code>toEndOf</code>/<code>toStartOf</code>.<br/><br/>To suppress this error, use the issue id "RelativeOverlap" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">RelativeOverlap</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Internationalization</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Warning</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 3/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationRelativeOverlapLink" onclick="reveal('explanationRelativeOverlap');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card13Link" onclick="hideid('card13');">
+Dismiss</button>            </div>
+            </div>
+          </section>
+<a name="MissingIssues"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card14" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Disabled Checks</h2>
@@ -1426,12 +1500,12 @@ There's a lint quickfix to perform this conversion in the Eclipse plugin.<br/><b
 </div>              </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="SuppressedIssuesLink" onclick="reveal('SuppressedIssues');">
-List Missing Issues</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card13Link" onclick="hideid('card13');">
+List Missing Issues</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card14Link" onclick="hideid('card14');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="SuppressInfo"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card14" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card15" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Suppressing Warnings and Errors</h2>
