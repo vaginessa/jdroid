@@ -125,17 +125,6 @@ public class ExternalAppsUtils {
 		return "https://www.google.com/maps/d/viewer?mid=" + mapId;
 	}
 	
-	public static Boolean openGoogleMap(Context context, String googleMapUrl) {
-		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(googleMapUrl));
-		if (IntentUtils.isIntentAvailable(intent)) {
-			context.startActivity(intent);
-			return true;
-		} else {
-			LOGGER.info("Open on Google Maps intent not supported");
-			return false;
-		}
-	}
-	
 	public static void openUrl(String url) {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.setData(Uri.parse(url));
