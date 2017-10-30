@@ -8,11 +8,7 @@ configurations.all {
 	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 
 	resolutionStrategy {
-		eachDependency { DependencyResolveDetails details ->
-			if (details.requested.group == 'com.android.support' && details.requested.name != 'multidex') {
-				details.useVersion ANDROID_SUPPORT_VERSION
-			}
-		}
+		force "com.android.support:customtabs:${ANDROID_SUPPORT_VERSION}"
 	}
 }
 
@@ -24,18 +20,13 @@ buildscript {
 
 dependencies {
 
-	debugCompile project(path: ":jdroid-android", configuration: 'debug')
-	if (jdroid.isReleaseBuildTypeEnabled()) {
-		releaseCompile project(path: ":jdroid-android", configuration: 'release')
-	}
+	api project(":jdroid-android")
 
 	// https://developers.facebook.com/docs/android
-	compile 'com.facebook.android:facebook-android-sdk:4.26.0'
+	api ('com.facebook.android:facebook-android-sdk:4.26.0')
 
-	compile "com.android.support:customtabs:${ANDROID_SUPPORT_VERSION}"
-
-	testCompile "junit:junit:${JUNIT_VERSION}"
-	testCompile "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
+	testImplementation "junit:junit:${JUNIT_VERSION}"
+	testImplementation "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
 }
 
 jdroid {

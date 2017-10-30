@@ -16,24 +16,22 @@ buildscript {
 
 dependencies {
 
-	debugCompile project(path: ":jdroid-android", configuration: 'debug')
-	if (jdroid.isReleaseBuildTypeEnabled()) {
-		releaseCompile project(path: ":jdroid-android", configuration: 'release')
-	}
+	api project(":jdroid-android")
 
-	compile "com.google.android.gms:play-services-maps:${GOOGLE_PLAY_SERVICES_VERSION}"
+	api "com.google.android.gms:play-services-maps:${GOOGLE_PLAY_SERVICES_VERSION}"
 
 	if (jdroid.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
-		testCompile project(":jdroid-java-http-okhttp")
+		testImplementation project(":jdroid-java-http-okhttp")
 	} else {
-		testCompile ("com.jdroidframework:jdroid-java-http-okhttp:${JDROID_JAVA_HTTP_VERSION}") {
+		testImplementation ("com.jdroidframework:jdroid-java-http-okhttp:${JDROID_JAVA_HTTP_VERSION}") {
 			exclude module: 'slf4j-api'
 			exclude module: 'jdroid-java-core'
 		}
 	}
 
-	testCompile "junit:junit:${JUNIT_VERSION}"
-	testCompile "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
+
+	testImplementation "junit:junit:${JUNIT_VERSION}"
+	testImplementation "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
 }
 
 jdroid {

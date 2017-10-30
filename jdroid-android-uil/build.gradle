@@ -16,16 +16,13 @@ buildscript {
 
 dependencies {
 
+	api project(":jdroid-android")
+
 	// https://github.com/nostra13/Android-Universal-Image-Loader
-	compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+	api 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 
-	debugCompile project(path: ":jdroid-android", configuration: 'debug')
-	if (jdroid.isReleaseBuildTypeEnabled()) {
-		releaseCompile project(path: ":jdroid-android", configuration: 'release')
-	}
-
-	testCompile "junit:junit:${JUNIT_VERSION}"
-	testCompile "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
+	testImplementation "junit:junit:${JUNIT_VERSION}"
+	testImplementation "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
 }
 
 jdroid {

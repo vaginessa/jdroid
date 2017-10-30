@@ -16,15 +16,12 @@ buildscript {
 
 dependencies {
 
-	debugCompile project(path: ":jdroid-android", configuration: 'debug')
-	if (jdroid.isReleaseBuildTypeEnabled()) {
-		releaseCompile project(path: ":jdroid-android", configuration: 'release')
-	}
+	api project(":jdroid-android")
 
-	compile "com.google.firebase:firebase-config:${GOOGLE_PLAY_SERVICES_VERSION}"
+	api "com.google.firebase:firebase-config:${GOOGLE_PLAY_SERVICES_VERSION}"
 
-	testCompile "junit:junit:${JUNIT_VERSION}"
-	testCompile "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
+	testImplementation "junit:junit:${JUNIT_VERSION}"
+	testImplementation "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
 }
 
 jdroid {

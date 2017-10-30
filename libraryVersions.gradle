@@ -1,5 +1,10 @@
+// https://github.com/maxirosson/jdroid-gradle-plugin/blob/master/CHANGELOG.md
 ext.JDROID_GRADLE_PLUGIN_VERSION = '0.18.0-SNAPSHOT'
+
+// https://github.com/maxirosson/jdroid-java/blob/master/CHANGELOG.md
 ext.JDROID_JAVA_VERSION = '0.15.0-SNAPSHOT'
+
+// https://github.com/maxirosson/jdroid-java-http/blob/master/CHANGELOG.md
 ext.JDROID_JAVA_HTTP_VERSION = '0.15.0-SNAPSHOT'
 
 // https://developers.google.com/android/guides/releases

@@ -16,18 +16,11 @@ buildscript {
 
 dependencies {
 
-	debugCompile project(path: ":jdroid-android", configuration: 'debug')
-	if (jdroid.isReleaseBuildTypeEnabled()) {
-		releaseCompile project(path: ":jdroid-android", configuration: 'release')
-	}
+	api project(":jdroid-android")
+	api project(":jdroid-android-google-plus")
 
-	debugCompile project(path: ":jdroid-android-google-plus", configuration: 'debug')
-	if (jdroid.isReleaseBuildTypeEnabled()) {
-		releaseCompile project(path: ":jdroid-android-google-plus", configuration: 'release')
-	}
-
-	testCompile "junit:junit:${JUNIT_VERSION}"
-	testCompile "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
+	testImplementation "junit:junit:${JUNIT_VERSION}"
+	testImplementation "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
 }
 
 jdroid {
