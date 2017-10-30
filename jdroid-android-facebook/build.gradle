@@ -23,7 +23,7 @@ dependencies {
 	api project(":jdroid-android")
 
 	// https://developers.facebook.com/docs/android
-	api ('com.facebook.android:facebook-android-sdk:4.26.0')
+	api ('com.facebook.android:facebook-android-sdk:4.27.0')
 
 	testImplementation "junit:junit:${JUNIT_VERSION}"
 	testImplementation "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"
