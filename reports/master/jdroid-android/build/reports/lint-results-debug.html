@@ -173,26 +173,29 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 41 warnings</span>
+      <span class="mdl-layout-title">Lint Report: 76 warnings</span>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-Check performed at Sat Oct 28 09:43:03 UTC 2017      </nav>
+Check performed at Wed Nov 01 22:45:53 UTC 2017      </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">Issue Types</span>
     <nav class="mdl-navigation">
       <a class="mdl-navigation__link" href="#overview"><i class="material-icons">dashboard</i>Overview</a>
+      <a class="mdl-navigation__link" href="#CustomViewStyleable"><i class="material-icons warning-icon">warning</i>Mismatched Styleable/Custom View Name (3)</a>
       <a class="mdl-navigation__link" href="#DefaultLocale"><i class="material-icons warning-icon">warning</i>Implied default locale in case conversion (1)</a>
       <a class="mdl-navigation__link" href="#UnusedAttribute"><i class="material-icons warning-icon">warning</i>Attribute unused on older versions (1)</a>
       <a class="mdl-navigation__link" href="#InflateParams"><i class="material-icons warning-icon">warning</i>Layout Inflation without a Parent (1)</a>
+      <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (6)</a>
       <a class="mdl-navigation__link" href="#GetInstance"><i class="material-icons warning-icon">warning</i>Cipher.getInstance with ECB (1)</a>
       <a class="mdl-navigation__link" href="#TrulyRandom"><i class="material-icons warning-icon">warning</i>Weak RNG (1)</a>
       <a class="mdl-navigation__link" href="#ExportedReceiver"><i class="material-icons warning-icon">warning</i>Receiver does not require permission (1)</a>
       <a class="mdl-navigation__link" href="#StaticFieldLeak"><i class="material-icons warning-icon">warning</i>Static Field Leaks (1)</a>
+      <a class="mdl-navigation__link" href="#VectorPath"><i class="material-icons warning-icon">warning</i>Long vector paths (1)</a>
       <a class="mdl-navigation__link" href="#HandlerLeak"><i class="material-icons warning-icon">warning</i>Handler reference leaks (1)</a>
       <a class="mdl-navigation__link" href="#Overdraw"><i class="material-icons warning-icon">warning</i>Overdraw: Painting regions more than once (3)</a>
-      <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (25)</a>
+      <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (50)</a>
       <a class="mdl-navigation__link" href="#UselessParent"><i class="material-icons warning-icon">warning</i>Useless parent layout (1)</a>
       <a class="mdl-navigation__link" href="#IconDensities"><i class="material-icons warning-icon">warning</i>Icon densities validation (3)</a>
       <a class="mdl-navigation__link" href="#RelativeOverlap"><i class="material-icons warning-icon">warning</i>Overlapping items in RelativeLayout (1)</a>
@@ -201,7 +204,7 @@ Check performed at Sat Oct 28 09:43:03 UTC 2017      </nav>
   <main class="mdl-layout__content">
     <div class="mdl-layout__tab-panel is-active">
 <a name="overview"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card0" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="OverviewCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Overview</h2>
@@ -211,6 +214,9 @@ Check performed at Sat Oct 28 09:43:03 UTC 2017      </nav>
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
 </td></tr>
 <tr>
+<td class="countColumn">3</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#CustomViewStyleable">CustomViewStyleable</a>: Mismatched Styleable/Custom View Name</td></tr>
+<tr>
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#DefaultLocale">DefaultLocale</a>: Implied default locale in case conversion</td></tr>
 <tr>
@@ -219,6 +225,9 @@ Check performed at Sat Oct 28 09:43:03 UTC 2017      </nav>
 <tr>
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#InflateParams">InflateParams</a>: Layout Inflation without a Parent</td></tr>
+<tr>
+<td class="countColumn">6</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#GradleDependency">GradleDependency</a>: Obsolete Gradle Dependency</td></tr>
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Security">Security</a>
 </td></tr>
 <tr>
@@ -237,12 +246,15 @@ Check performed at Sat Oct 28 09:43:03 UTC 2017      </nav>
 <a href="#StaticFieldLeak">StaticFieldLeak</a>: Static Field Leaks</td></tr>
 <tr>
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#VectorPath">VectorPath</a>: Long vector paths</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#HandlerLeak">HandlerLeak</a>: Handler reference leaks</td></tr>
 <tr>
 <td class="countColumn">3</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#Overdraw">Overdraw</a>: Overdraw: Painting regions more than once</td></tr>
 <tr>
-<td class="countColumn">25</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">50</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#UnusedResources">UnusedResources</a>: Unused resources</td></tr>
 <tr>
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
@@ -257,17 +269,84 @@ Check performed at Sat Oct 28 09:43:03 UTC 2017      </nav>
 <tr>
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#RelativeOverlap">RelativeOverlap</a>: Overlapping items in RelativeLayout</td></tr>
-<tr><td></td><td class="categoryColumn"><a href="#MissingIssues">Disabled Checks (28)</a>
+<tr><td></td><td class="categoryColumn"><a href="#MissingIssues">Disabled Checks (30)</a>
 </td></tr></table>
 <br/>              </div>
               <div class="mdl-card__actions mdl-card--border">
-<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card0Link" onclick="hideid('card0');">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="OverviewCardLink" onclick="hideid('OverviewCard');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="Correctness"></a>
-<a name="DefaultLocale"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card1" style="display: block;">
+<a name="CustomViewStyleable"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="CustomViewStyleableCard" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Mismatched Styleable/Custom View Name</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../src/main/java/com/jdroid/android/images/BezelImageView.java">../../src/main/java/com/jdroid/android/images/BezelImageView.java</a>:80</span>: <span class="message">By convention, the custom view (<code>BezelImageView</code>) and the declare-styleable (<code>jdroid_bezelImageView</code>) should have the same name (various editor features rely on this convention)</span><br /><pre class="errorlines">
+<span class="lineno">  77 </span>  }
+<span class="lineno">  78 </span>
+<span class="lineno">  79 </span>  <span class="keyword">protected</span> <span class="keyword">void</span> attributeInitialization(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyle) {
+<span class="caretline"><span class="lineno">  80 </span>      <span class="keyword">final</span> TypedArray a = context.obtainStyledAttributes(attrs, <span class="warning">R.styleable.jdroid_bezelImageView</span>,</span>
+<span class="lineno">  81 </span>              defStyle, <span class="number">0</span>);
+<span class="lineno">  82 </span>
+<span class="lineno">  83 </span>      <span class="keyword">if</span> (maskDrawable == <span class="keyword">null</span>) {
+</pre>
+
+<span class="location"><a href="../../src/main/java/com/jdroid/android/navdrawer/NavDrawerHeaderImageView.java">../../src/main/java/com/jdroid/android/navdrawer/NavDrawerHeaderImageView.java</a>:26</span>: <span class="message">By convention, the custom view (<code>NavDrawerHeaderImageView</code>) and the declare-styleable (<code>jdroid_navDrawerHeaderImageView</code>) should have the same name (various editor features rely on this convention)</span><br /><pre class="errorlines">
+<span class="lineno"> 23 </span>
+<span class="lineno"> 24 </span>    <span class="annotation">@Override</span>
+<span class="lineno"> 25 </span>    <span class="keyword">protected</span> <span class="keyword">void</span> attributeInitialization(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyle) {
+<span class="caretline"><span class="lineno"> 26 </span>        <span class="keyword">final</span> TypedArray a = context.obtainStyledAttributes(attrs, <span class="warning">R.styleable.jdroid_navDrawerHeaderImageView</span>,</span>
+<span class="lineno"> 27 </span>                defStyle, <span class="number">0</span>);
+<span class="lineno"> 28 </span>
+<span class="lineno"> 29 </span>        Boolean circleImage = a.getBoolean(R.styleable.jdroid_navDrawerHeaderImageView_jdroid_circleImage, <span class="keyword">false</span>);
+</pre>
+
+<span class="location"><a href="../../src/main/java/com/jdroid/android/scroll/ScrimInsetsScrollView.java">../../src/main/java/com/jdroid/android/scroll/ScrimInsetsScrollView.java</a>:44</span>: <span class="message">By convention, the custom view (<code>ScrimInsetsScrollView</code>) and the declare-styleable (<code>jdroid_scrimInsetsView</code>) should have the same name (various editor features rely on this convention)</span><br /><pre class="errorlines">
+<span class="lineno">  41 </span>
+<span class="lineno">  42 </span>    <span class="keyword">private</span> <span class="keyword">void</span> init(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyle) {
+<span class="lineno">  43 </span>        <span class="keyword">final</span> TypedArray a = context.obtainStyledAttributes(attrs,
+<span class="caretline"><span class="lineno">  44 </span>                <span class="warning">R.styleable.jdroid_scrimInsetsView</span>, defStyle, <span class="number">0</span>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  45 </span>        <span class="keyword">if</span> (a == <span class="keyword">null</span>) {
+<span class="lineno">  46 </span>            <span class="keyword">return</span>;
+<span class="lineno">  47 </span>        }
+</pre>
+
+</div>
+<div class="metadata"><div class="explanation" id="explanationCustomViewStyleable" style="display: none;">
+The convention for custom views is to use a <code>declare-styleable</code> whose name matches the custom view class name. The IDE relies on this convention such that for example code completion can be offered for attributes in a custom view in layout XML resource files.<br/>
+<br/>
+(Similarly, layout parameter classes should use the suffix <code>_Layout</code>.)<br/>To suppress this error, use the issue id "CustomViewStyleable" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">CustomViewStyleable</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Correctness</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Warning</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 6/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationCustomViewStyleableLink" onclick="reveal('explanationCustomViewStyleable');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="CustomViewStyleableCardLink" onclick="hideid('CustomViewStyleableCard');">
+Dismiss</button>            </div>
+            </div>
+          </section><a name="DefaultLocale"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="DefaultLocaleCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Implied default locale in case conversion</h2>
@@ -290,8 +369,8 @@ Dismiss</button>            </div>
 Calling <code>String#toLowerCase()</code> or <code>#toUpperCase()</code> <b>without specifying an explicit locale</b> is a common source of bugs. The reason for that is that those methods will use the current locale on the user's device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for <code>i</code> is <b>not</b> <code>I</code>.<br/>
 <br/>
 If you want the methods to just perform ASCII replacement, for example to convert an enum name, call <code>String#toUpperCase(Locale.US)</code> instead. If you really want to use the current locale, call <code>String#toUpperCase(Locale.getDefault())</code> instead.<br/><div class="moreinfo">More info: <a href="http://developer.android.com/reference/java/util/Locale.html#default_locale">http://developer.android.com/reference/java/util/Locale.html#default_locale</a>
-</div><br/>To suppress this error, use the issue id "DefaultLocale" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "DefaultLocale" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="chips">
@@ -311,11 +390,11 @@ If you want the methods to just perform ASCII replacement, for example to conver
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationDefaultLocaleLink" onclick="reveal('explanationDefaultLocale');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card1Link" onclick="hideid('card1');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="DefaultLocaleCardLink" onclick="hideid('DefaultLocaleCard');">
 Dismiss</button>            </div>
             </div>
           </section><a name="UnusedAttribute"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card2" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="UnusedAttributeCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Attribute unused on older versions</h2>
@@ -336,11 +415,11 @@ Dismiss</button>            </div>
 <div class="metadata"><div class="explanation" id="explanationUnusedAttribute" style="display: none;">
 This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the <code>minSdkVersion</code> attribute).<br/>
 <br/>
-This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance of functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.<br/>
+This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance or functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.<br/>
 <br/>
-Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new <code>&lt;tag></code> element in layouts introduced in API 21.<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new <code>&lt;tag></code> element in layouts introduced in API 21.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "UnusedAttribute" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<br/></div>
 </div>
 </div>
 <div class="chips">
@@ -360,11 +439,11 @@ To suppress this error, use the issue id "UnusedAttribute" as explained in the <
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationUnusedAttributeLink" onclick="reveal('explanationUnusedAttribute');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card2Link" onclick="hideid('card2');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="UnusedAttributeCardLink" onclick="hideid('UnusedAttributeCard');">
 Dismiss</button>            </div>
             </div>
           </section><a name="InflateParams"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card3" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="InflateParamsCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Layout Inflation without a Parent</h2>
@@ -385,8 +464,8 @@ Dismiss</button>            </div>
 </div>
 <div class="metadata"><div class="explanation" id="explanationInflateParams" style="display: none;">
 When inflating a layout, avoid passing in null as the parent view, since otherwise any layout parameters on the root of the inflated layout will be ignored.<br/><div class="moreinfo">More info: <a href="http://www.doubleencore.com/2013/05/layout-inflation-as-intended">http://www.doubleencore.com/2013/05/layout-inflation-as-intended</a>
-</div><br/>To suppress this error, use the issue id "InflateParams" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "InflateParams" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="chips">
@@ -406,13 +485,103 @@ When inflating a layout, avoid passing in null as the parent view, since otherwi
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationInflateParamsLink" onclick="reveal('explanationInflateParams');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card3Link" onclick="hideid('card3');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="InflateParamsCardLink" onclick="hideid('InflateParamsCard');">
+Dismiss</button>            </div>
+            </div>
+          </section><a name="GradleDependency"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="GradleDependencyCard" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Obsolete Gradle Dependency</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../build.gradle">../../build.gradle</a>:26</span>: <span class="message">A newer version of com.android.support:support-v4 than 26.1.0 is available: 27.0.0</span><br /><pre class="errorlines">
+<span class="lineno"> 23 </span>
+<span class="lineno"> 24 </span>    api <span class="string">'org.slf4j:slf4j-android:1.6.1-RC1'</span>
+<span class="lineno"> 25 </span>
+<span class="caretline"><span class="lineno"> 26 </span>    <span class="warning">api <span class="string">"com.android.support:support-v4:${ANDROID_SUPPORT_VERSION}"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 27 </span>    api <span class="string">"com.android.support:support-v13:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="lineno"> 28 </span>    api <span class="string">"com.android.support:design:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="lineno"> 29 </span>    api <span class="string">"com.android.support:recyclerview-v7:${ANDROID_SUPPORT_VERSION}"</span></pre>
+
+<span class="location"><a href="../../build.gradle">../../build.gradle</a>:27</span>: <span class="message">A newer version of com.android.support:support-v13 than 26.1.0 is available: 27.0.0</span><br /><pre class="errorlines">
+<span class="lineno"> 24 </span>    api <span class="string">'org.slf4j:slf4j-android:1.6.1-RC1'</span>
+<span class="lineno"> 25 </span>
+<span class="lineno"> 26 </span>    api <span class="string">"com.android.support:support-v4:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="caretline"><span class="lineno"> 27 </span>    <span class="warning">api <span class="string">"com.android.support:support-v13:${ANDROID_SUPPORT_VERSION}"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 28 </span>    api <span class="string">"com.android.support:design:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="lineno"> 29 </span>    api <span class="string">"com.android.support:recyclerview-v7:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="lineno"> 30 </span>    api <span class="string">"com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"</span></pre>
+
+<span class="location"><a href="../../build.gradle">../../build.gradle</a>:28</span>: <span class="message">A newer version of com.android.support:design than 26.1.0 is available: 27.0.0</span><br /><pre class="errorlines">
+<span class="lineno"> 25 </span>
+<span class="lineno"> 26 </span>    api <span class="string">"com.android.support:support-v4:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="lineno"> 27 </span>    api <span class="string">"com.android.support:support-v13:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="caretline"><span class="lineno"> 28 </span>    <span class="warning">api <span class="string">"com.android.support:design:${ANDROID_SUPPORT_VERSION}"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 29 </span>    api <span class="string">"com.android.support:recyclerview-v7:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="lineno"> 30 </span>    api <span class="string">"com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="lineno"> 31 </span>    api <span class="string">"com.android.support:cardview-v7:${ANDROID_SUPPORT_VERSION}"</span></pre>
+
+<span class="location"><a href="../../build.gradle">../../build.gradle</a>:29</span>: <span class="message">A newer version of com.android.support:recyclerview-v7 than 26.1.0 is available: 27.0.0</span><br /><pre class="errorlines">
+<span class="lineno"> 26 </span>    api <span class="string">"com.android.support:support-v4:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="lineno"> 27 </span>    api <span class="string">"com.android.support:support-v13:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="lineno"> 28 </span>    api <span class="string">"com.android.support:design:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="caretline"><span class="lineno"> 29 </span>    <span class="warning">api <span class="string">"com.android.support:recyclerview-v7:${ANDROID_SUPPORT_VERSION}"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 30 </span>    api <span class="string">"com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="lineno"> 31 </span>    api <span class="string">"com.android.support:cardview-v7:${ANDROID_SUPPORT_VERSION}"</span>
+</pre>
+
+<span class="location"><a href="../../build.gradle">../../build.gradle</a>:30</span>: <span class="message">A newer version of com.android.support:appcompat-v7 than 26.1.0 is available: 27.0.0</span><br /><pre class="errorlines">
+<span class="lineno"> 27 </span>    api <span class="string">"com.android.support:support-v13:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="lineno"> 28 </span>    api <span class="string">"com.android.support:design:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="lineno"> 29 </span>    api <span class="string">"com.android.support:recyclerview-v7:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="caretline"><span class="lineno"> 30 </span>    <span class="warning">api <span class="string">"com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 31 </span>    api <span class="string">"com.android.support:cardview-v7:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="lineno"> 32 </span>
+<span class="lineno"> 33 </span>    api <span class="string">"com.google.android.gms:play-services-analytics:${GOOGLE_PLAY_SERVICES_VERSION}"</span></pre>
+
+<span class="location"><a href="../../build.gradle">../../build.gradle</a>:31</span>: <span class="message">A newer version of com.android.support:cardview-v7 than 26.1.0 is available: 27.0.0</span><br /><pre class="errorlines">
+<span class="lineno"> 28 </span>    api <span class="string">"com.android.support:design:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="lineno"> 29 </span>    api <span class="string">"com.android.support:recyclerview-v7:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="lineno"> 30 </span>    api <span class="string">"com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"</span>
+<span class="caretline"><span class="lineno"> 31 </span>    <span class="warning">api <span class="string">"com.android.support:cardview-v7:${ANDROID_SUPPORT_VERSION}"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 32 </span>
+<span class="lineno"> 33 </span>    api <span class="string">"com.google.android.gms:play-services-analytics:${GOOGLE_PLAY_SERVICES_VERSION}"</span>
+<span class="lineno"> 34 </span>    api <span class="string">"com.google.android.gms:play-services-base:${GOOGLE_PLAY_SERVICES_VERSION}"</span></pre>
+
+</div>
+<div class="metadata"><div class="explanation" id="explanationGradleDependency" style="display: none;">
+This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+To suppress this error, use the issue id "GradleDependency" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">GradleDependency</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Correctness</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Warning</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 4/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationGradleDependencyLink" onclick="reveal('explanationGradleDependency');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="GradleDependencyCardLink" onclick="hideid('GradleDependencyCard');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="Security"></a>
 <a name="GetInstance"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card4" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="GetInstanceCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Cipher.getInstance with ECB</h2>
@@ -432,8 +601,8 @@ Dismiss</button>            </div>
 
 </div>
 <div class="metadata"><div class="explanation" id="explanationGetInstance" style="display: none;">
-<code>Cipher#getInstance</code> should not be called with ECB as the cipher mode or without setting the cipher mode because the default mode on android is ECB, which is insecure.<br/><br/>To suppress this error, use the issue id "GetInstance" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<code>Cipher#getInstance</code> should not be called with ECB as the cipher mode or without setting the cipher mode because the default mode on android is ECB, which is insecure.<br/>To suppress this error, use the issue id "GetInstance" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="chips">
@@ -453,11 +622,11 @@ Dismiss</button>            </div>
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationGetInstanceLink" onclick="reveal('explanationGetInstance');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card4Link" onclick="hideid('card4');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="GetInstanceCardLink" onclick="hideid('GetInstanceCard');">
 Dismiss</button>            </div>
             </div>
           </section><a name="TrulyRandom"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card5" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="TrulyRandomCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Weak RNG</h2>
@@ -465,7 +634,7 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/jdroid/android/utils/AndroidEncryptionUtils.java">../../src/main/java/com/jdroid/android/utils/AndroidEncryptionUtils.java</a>:95</span>: <span class="message">Potentially insecure random numbers on Android 4.3 and older. Read https://android-developers.blogspot.com/2013/08/some-securerandom-thoughts.html for more info.</span><br /><pre class="errorlines">
+<span class="location"><a href="../../src/main/java/com/jdroid/android/utils/AndroidEncryptionUtils.java">../../src/main/java/com/jdroid/android/utils/AndroidEncryptionUtils.java</a>:95</span>: <span class="message">Potentially insecure random numbers on Android 4.3 and older. Read <a href="https://android-developers.blogspot.com/2013/08/some-securerandom-thoughts.html">https://android-developers.blogspot.com/2013/08/some-securerandom-thoughts.html</a> for more info.</span><br /><pre class="errorlines">
 <span class="lineno">  92 </span>    <span class="keyword">private</span> <span class="keyword">static</span> String generateBase64Key() {
 <span class="lineno">  93 </span>        <span class="keyword">final</span> <span class="keyword">int</span> outputKeyLength = <span class="number">128</span>;
 <span class="lineno">  94 </span>        <span class="keyword">try</span> {
@@ -479,11 +648,11 @@ Dismiss</button>            </div>
 <div class="metadata"><div class="explanation" id="explanationTrulyRandom" style="display: none;">
 Key generation, signing, encryption, and random number generation may not receive cryptographically strong values due to improper initialization of the underlying PRNG on Android 4.3 and below.<br/>
 <br/>
-If your application relies on cryptographically secure random number generation you should apply the workaround described in https://android-developers.blogspot.com/2013/08/some-securerandom-thoughts.html .<br/>
+If your application relies on cryptographically secure random number generation you should apply the workaround described in <a href="https://android-developers.blogspot.com/2013/08/some-securerandom-thoughts.html">https://android-developers.blogspot.com/2013/08/some-securerandom-thoughts.html</a> .<br/>
 <br/>
 This lint rule is mostly informational; it does not accurately detect whether cryptographically secure RNG is required, or whether the workaround has already been applied. After reading the blog entry and updating your code if necessary, you can disable this lint issue.<br/><div class="moreinfo">More info: <a href="https://android-developers.blogspot.com/2013/08/some-securerandom-thoughts.html">https://android-developers.blogspot.com/2013/08/some-securerandom-thoughts.html</a>
-</div><br/>To suppress this error, use the issue id "TrulyRandom" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "TrulyRandom" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="chips">
@@ -503,11 +672,11 @@ This lint rule is mostly informational; it does not accurately detect whether cr
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationTrulyRandomLink" onclick="reveal('explanationTrulyRandom');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card5Link" onclick="hideid('card5');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="TrulyRandomCardLink" onclick="hideid('TrulyRandomCard');">
 Dismiss</button>            </div>
             </div>
           </section><a name="ExportedReceiver"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card6" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="ExportedReceiverCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Receiver does not require permission</h2>
@@ -527,8 +696,8 @@ Dismiss</button>            </div>
 
 </div>
 <div class="metadata"><div class="explanation" id="explanationExportedReceiver" style="display: none;">
-Exported receivers (receivers which either set <code>exported=true</code> or contain an intent-filter and do not specify <code>exported=false</code>) should define a permission that an entity must have in order to launch the receiver or bind to it. Without this, any application can use this receiver.<br/><br/>To suppress this error, use the issue id "ExportedReceiver" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+Exported receivers (receivers which either set <code>exported=true</code> or contain an intent-filter and do not specify <code>exported=false</code>) should define a permission that an entity must have in order to launch the receiver or bind to it. Without this, any application can use this receiver.<br/>To suppress this error, use the issue id "ExportedReceiver" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="chips">
@@ -548,13 +717,13 @@ Exported receivers (receivers which either set <code>exported=true</code> or con
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationExportedReceiverLink" onclick="reveal('explanationExportedReceiver');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card6Link" onclick="hideid('card6');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="ExportedReceiverCardLink" onclick="hideid('ExportedReceiverCard');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="Performance"></a>
 <a name="StaticFieldLeak"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card7" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="StaticFieldLeakCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Static Field Leaks</h2>
@@ -566,7 +735,7 @@ Dismiss</button>            </div>
 <span class="lineno">  70 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String INSTALLATION_SOURCE = <span class="string">"installationSource"</span>;
 <span class="lineno">  71 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String VERSION_CODE_KEY = <span class="string">"versionCodeKey"</span>;
 <span class="lineno">  72 </span>    
-<span class="caretline"><span class="lineno">  73 </span>    <span class="warning"><span class="keyword">protected</span> <span class="keyword">static</span> AbstractApplication INSTANCE;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="caretline"><span class="lineno">  73 </span>    <span class="keyword">protected</span> <span class="warning"><span class="keyword">static</span></span> AbstractApplication INSTANCE;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno">  74 </span>    
 <span class="lineno">  75 </span>    <span class="keyword">private</span> AppContext appContext;
 <span class="lineno">  76 </span>    <span class="keyword">private</span> GitContext gitContext;
@@ -574,8 +743,14 @@ Dismiss</button>            </div>
 
 </div>
 <div class="metadata"><div class="explanation" id="explanationStaticFieldLeak" style="display: none;">
-A static field will leak contexts.<br/><br/>To suppress this error, use the issue id "StaticFieldLeak" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+A static field will leak contexts.<br/>
+<br/>
+Non-static inner classes have an implicit reference to their outer class. If that outer class is for example a <code>Fragment</code> or <code>Activity</code>, then this reference means that the long-running handler/loader/task will hold a reference to the activity which prevents it from getting garbage collected.<br/>
+<br/>
+Similarly, direct field references to activities and fragments from these longer running instances can cause leaks.<br/>
+<br/>
+ViewModel classes should never point to Views or non-application Contexts.<br/>To suppress this error, use the issue id "StaticFieldLeak" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="chips">
@@ -595,11 +770,58 @@ A static field will leak contexts.<br/><br/>To suppress this error, use the issu
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationStaticFieldLeakLink" onclick="reveal('explanationStaticFieldLeak');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card7Link" onclick="hideid('card7');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="StaticFieldLeakCardLink" onclick="hideid('StaticFieldLeakCard');">
+Dismiss</button>            </div>
+            </div>
+          </section><a name="VectorPath"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="VectorPathCard" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Long vector paths</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../src/main/res/drawable/jdroid_ic_twitter_24dp.xml">../../src/main/res/drawable/jdroid_ic_twitter_24dp.xml</a>:9</span>: <span class="message">Very long vector path (896 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.</span><br /><pre class="errorlines">
+<span class="lineno">  6 </span>    <span class="tag">&lt;path</span><span class="attribute">
+</span><span class="lineno">  7 </span><span class="attribute">        </span><span class="prefix">android:</span><span class="attribute">fillColor</span>=<span class="value">"#598DCA"</span>
+<span class="lineno">  8 </span>        <span class="prefix">android:</span><span class="attribute">fillType</span>=<span class="value">"evenOdd"</span>
+<span class="caretline"><span class="lineno">  9 </span>        <span class="prefix">android:</span><span class="attribute">pathData</span>=<span class="value">"</span><span class="warning"><span class="value">M37.17,22.28c-2.62,0.95 -4.27,3.41 -4.09,6.1l0.06,1.04l-1.05,-0.13c-3.81,-0.49 -7.14,-2.14 -9.97,-4.91l-1.38,-1.38l-0.36,1.02c-0.75,2.27 -0.27,4.66 1.3,6.27c0.84,0.89 0.65,1.02 -0.8,0.49c-0.5,-0.17 -0.94,-0.3 -0.99,-0.23c-0.15,0.15 0.36,2.08 0.75,2.84c0.55,1.06 1.65,2.1 2.87,2.71l1.03,0.49l-1.22,0.02c-1.17,0 -1.22,0.02 -1.09,0.47c0.42,1.38 2.07,2.84 3.92,3.47l1.3,0.44l-1.13,0.68c-1.68,0.98 -3.65,1.52 -5.62,1.57C19.77,43.26 19,43.34 19,43.4c0,0.21 2.56,1.4 4.04,1.86c4.46,1.38 9.77,0.78 13.75,-1.57c2.83,-1.67 5.66,-5 6.98,-8.22c0.71,-1.72 1.42,-4.85 1.42,-6.36c0,-0.98 0.06,-1.1 1.24,-2.27c0.69,-0.68 1.34,-1.42 1.47,-1.63c0.21,-0.4 0.19,-0.4 -0.88,-0.04c-1.78,0.64 -2.03,0.55 -1.15,-0.4c0.65,-0.68 1.42,-1.91 1.42,-2.27c0,-0.06 -0.31,0.04 -0.67,0.23c-0.38,0.21 -1.22,0.53 -1.84,0.72l-1.13,0.36l-1.03,-0.7c-0.57,-0.38 -1.36,-0.81 -1.78,-0.93C39.77,21.9 38.13,21.94 37.17,22.28zM3,4h60v60H3V4z</span></span><span class="value">"</span>/></span>
+<span class="lineno"> 10 </span><span class="tag">&lt;/vector></span>
+</pre>
+
+</div>
+<div class="metadata"><div class="explanation" id="explanationVectorPath" style="display: none;">
+Using long vector paths is bad for performance. There are several ways to make the <code>pathData</code> shorter:<br/>
+* Using less precision<br/>
+* Removing some minor details<br/>
+* Using the Android Studio vector conversion tool<br/>
+* Rasterizing the image (converting to PNG)<br/>To suppress this error, use the issue id "VectorPath" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">VectorPath</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Performance</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Warning</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 5/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationVectorPathLink" onclick="reveal('explanationVectorPath');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="VectorPathCardLink" onclick="hideid('VectorPathCard');">
 Dismiss</button>            </div>
             </div>
           </section><a name="HandlerLeak"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card8" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="HandlerLeakCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Handler reference leaks</h2>
@@ -611,7 +833,7 @@ Dismiss</button>            </div>
 <span class="lineno">  13 </span>    
 <span class="lineno">  14 </span>    <span class="keyword">private</span> <span class="keyword">static</span> WeakReference&lt;Toast> currentToast;
 <span class="lineno">  15 </span>    
-<span class="caretline"><span class="lineno">  16 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Handler HANDLER = <span class="keyword">new</span> <span class="warning">Handler</span>() {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="caretline"><span class="lineno">  16 </span>    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Handler HANDLER = <span class="warning"><span class="keyword">new</span> Handler() {</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno">  17 </span>        
 <span class="lineno">  18 </span>        <span class="annotation">@Override</span>
 <span class="lineno">  19 </span>        <span class="keyword">public</span> <span class="keyword">void</span> handleMessage(android.os.Message msg) {
@@ -619,8 +841,8 @@ Dismiss</button>            </div>
 
 </div>
 <div class="metadata"><div class="explanation" id="explanationHandlerLeak" style="display: none;">
-Since this Handler is declared as an inner class, it may prevent the outer class from being garbage collected. If the Handler is using a Looper or MessageQueue for a thread other than the main thread, then there is no issue. If the Handler is using the Looper or MessageQueue of the main thread, you need to fix your Handler declaration, as follows: Declare the Handler as a static class; In the outer class, instantiate a WeakReference to the outer class and pass this object to your Handler when you instantiate the Handler; Make all references to members of the outer class using the WeakReference object.<br/><br/>To suppress this error, use the issue id "HandlerLeak" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+Since this Handler is declared as an inner class, it may prevent the outer class from being garbage collected. If the Handler is using a Looper or MessageQueue for a thread other than the main thread, then there is no issue. If the Handler is using the Looper or MessageQueue of the main thread, you need to fix your Handler declaration, as follows: Declare the Handler as a static class; In the outer class, instantiate a WeakReference to the outer class and pass this object to your Handler when you instantiate the Handler; Make all references to members of the outer class using the WeakReference object.<br/>To suppress this error, use the issue id "HandlerLeak" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="chips">
@@ -640,11 +862,11 @@ Since this Handler is declared as an inner class, it may prevent the outer class
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationHandlerLeakLink" onclick="reveal('explanationHandlerLeak');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card8Link" onclick="hideid('card8');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="HandlerLeakCardLink" onclick="hideid('HandlerLeakCard');">
 Dismiss</button>            </div>
             </div>
           </section><a name="Overdraw"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card9" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="OverdrawCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Overdraw: Painting regions more than once</h2>
@@ -687,9 +909,8 @@ NOTE: This detector relies on figuring out which layouts are associated with whi
 <br/>
 If you want your custom background on multiple pages, then you should consider making a custom theme with your custom background and just using that theme instead of a root element background.<br/>
 <br/>
-Of course it's possible that your custom drawable is translucent and you want it to be mixed with the background. However, you will get better performance if you pre-mix the background with your drawable and use that resulting image or color as a custom theme background instead.<br/>
-<br/><br/>To suppress this error, use the issue id "Overdraw" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+Of course it's possible that your custom drawable is translucent and you want it to be mixed with the background. However, you will get better performance if you pre-mix the background with your drawable and use that resulting image or color as a custom theme background instead.<br/>To suppress this error, use the issue id "Overdraw" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="chips">
@@ -709,11 +930,11 @@ Of course it's possible that your custom drawable is translucent and you want it
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationOverdrawLink" onclick="reveal('explanationOverdraw');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card9Link" onclick="hideid('card9');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="OverdrawCardLink" onclick="hideid('OverdrawCard');">
 Dismiss</button>            </div>
             </div>
           </section><a name="UnusedResources"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card10" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="UnusedResourcesCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Unused resources</h2>
@@ -729,6 +950,89 @@ Dismiss</button>            </div>
 <span class="lineno"> 26 </span>
 <span class="lineno"> 27 </span><span class="tag">&lt;/resources></span></pre>
 
+<span class="location"><a href="../../src/main/res/values/dimensions.xml">../../src/main/res/values/dimensions.xml</a>:11</span>: <span class="message">The resource <code>R.dimen.jdroid_textMicro</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  8 </span>
+<span class="lineno">  9 </span>    <span class="comment">&lt;!-- Texts --></span>
+<span class="lineno"> 10 </span>
+<span class="caretline"><span class="lineno"> 11 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_textMicro"</span></span>>12sp<span class="tag">&lt;/dimen></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 12 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"jdroid_textSmall"</span>>14sp<span class="tag">&lt;/dimen></span>
+<span class="lineno"> 13 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"jdroid_textMedium"</span>>16sp<span class="tag">&lt;/dimen></span>
+<span class="lineno"> 14 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"jdroid_textLarge"</span>>20sp<span class="tag">&lt;/dimen></span></pre>
+
+<ul></ul><button id="Location2DivLink" onclick="reveal('Location2Div');" />+ 2 Additional Locations...</button>
+<div id="Location2Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-sw360dp/dimensions.xml">../../src/main/res/values-sw360dp/dimensions.xml</a>:6</span>
+<li> <span class="location"><a href="../../src/main/res/values-sw600dp/dimensions.xml">../../src/main/res/values-sw600dp/dimensions.xml</a>:6</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/dimensions.xml">../../src/main/res/values/dimensions.xml</a>:12</span>: <span class="message">The resource <code>R.dimen.jdroid_textSmall</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  9 </span>    <span class="comment">&lt;!-- Texts --></span>
+<span class="lineno"> 10 </span>
+<span class="lineno"> 11 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"jdroid_textMicro"</span>>12sp<span class="tag">&lt;/dimen></span>
+<span class="caretline"><span class="lineno"> 12 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_textSmall"</span></span>>14sp<span class="tag">&lt;/dimen></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 13 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"jdroid_textMedium"</span>>16sp<span class="tag">&lt;/dimen></span>
+<span class="lineno"> 14 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"jdroid_textLarge"</span>>20sp<span class="tag">&lt;/dimen></span>
+</pre>
+
+<ul></ul><button id="Location3DivLink" onclick="reveal('Location3Div');" />+ 2 Additional Locations...</button>
+<div id="Location3Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-sw360dp/dimensions.xml">../../src/main/res/values-sw360dp/dimensions.xml</a>:7</span>
+<li> <span class="location"><a href="../../src/main/res/values-sw600dp/dimensions.xml">../../src/main/res/values-sw600dp/dimensions.xml</a>:7</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/dimensions.xml">../../src/main/res/values/dimensions.xml</a>:14</span>: <span class="message">The resource <code>R.dimen.jdroid_textLarge</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 11 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"jdroid_textMicro"</span>>12sp<span class="tag">&lt;/dimen></span>
+<span class="lineno"> 12 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"jdroid_textSmall"</span>>14sp<span class="tag">&lt;/dimen></span>
+<span class="lineno"> 13 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"jdroid_textMedium"</span>>16sp<span class="tag">&lt;/dimen></span>
+<span class="caretline"><span class="lineno"> 14 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_textLarge"</span></span>>20sp<span class="tag">&lt;/dimen></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 15 </span>
+<span class="lineno"> 16 </span>    <span class="comment">&lt;!-- Images --></span>
+</pre>
+
+<ul></ul><button id="Location4DivLink" onclick="reveal('Location4Div');" />+ 2 Additional Locations...</button>
+<div id="Location4Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-sw360dp/dimensions.xml">../../src/main/res/values-sw360dp/dimensions.xml</a>:9</span>
+<li> <span class="location"><a href="../../src/main/res/values-sw600dp/dimensions.xml">../../src/main/res/values-sw600dp/dimensions.xml</a>:9</span>
+</ul>
+</div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/dimensions.xml">../../src/main/res/values/dimensions.xml</a>:23</span>: <span class="message">The resource <code>R.dimen.jdroid_socialButtonText</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 20 </span>
+<span class="lineno"> 21 </span>    <span class="comment">&lt;!-- Social --></span>
+<span class="lineno"> 22 </span>
+<span class="caretline"><span class="lineno"> 23 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_socialButtonText"</span></span>>16sp<span class="tag">&lt;/dimen></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 24 </span>
+<span class="lineno"> 25 </span>    <span class="comment">&lt;!-- Nav Drawer --></span>
+</pre>
+
+<button class="mdl-button mdl-js-button mdl-button--primary" id="UnusedResourcesDivLink" onclick="reveal('UnusedResourcesDiv');" />+ 45 More Occurrences...</button>
+<div id="UnusedResourcesDiv" style="display: none">
+<span class="location"><a href="../../src/main/res/values/dimensions.xml">../../src/main/res/values/dimensions.xml</a>:44</span>: <span class="message">The resource <code>R.dimen.jdroid_fabElevation</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 41 </span>
+<span class="lineno"> 42 </span>    <span class="comment">&lt;!-- Floating Action Button --></span>
+<span class="lineno"> 43 </span>
+<span class="caretline"><span class="lineno"> 44 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_fabElevation"</span></span>>4dp<span class="tag">&lt;/dimen></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 45 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"jdroid_fabSpacing"</span>>0dp<span class="tag">&lt;/dimen></span>
+<span class="lineno"> 46 </span>
+<span class="lineno"> 47 </span><span class="tag">&lt;/resources></span></pre>
+
+<span class="location"><a href="../../src/main/res/values/dimensions.xml">../../src/main/res/values/dimensions.xml</a>:45</span>: <span class="message">The resource <code>R.dimen.jdroid_fabSpacing</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 42 </span>    <span class="comment">&lt;!-- Floating Action Button --></span>
+<span class="lineno"> 43 </span>
+<span class="lineno"> 44 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> name</span>=<span class="value">"jdroid_fabElevation"</span>>4dp<span class="tag">&lt;/dimen></span>
+<span class="caretline"><span class="lineno"> 45 </span>    <span class="tag">&lt;dimen</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_fabSpacing"</span></span>>0dp<span class="tag">&lt;/dimen></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 46 </span>
+<span class="lineno"> 47 </span><span class="tag">&lt;/resources></span>
+</pre>
+
+<ul></ul><button id="Location7DivLink" onclick="reveal('Location7Div');" />+ 1 Additional Locations...</button>
+<div id="Location7Div" style="display: none">
+Additional locations: <ul>
+<li> <span class="location"><a href="../../src/main/res/values-v21/dimensions.xml">../../src/main/res/values-v21/dimensions.xml</a>:11</span>
+</ul>
+</div><br/><br/>
 <span class="location"><a href="../../src/main/res/drawable/jdroid_actionbar_gradient.xml">../../src/main/res/drawable/jdroid_actionbar_gradient.xml</a>:2</span>: <span class="message">The resource <code>R.drawable.jdroid_actionbar_gradient</code> appears to be unused</span><br /><pre class="errorlines">
 <span class="lineno"> 1 </span><span class="prologue">&lt;?xml version="1.0" encoding="utf-8"?></span>
 <span class="caretline"><span class="lineno"> 2 </span><span class="warning"><span class="tag">&lt;shape</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span> <span class="prefix">android:</span><span class="attribute">shape</span>=<span class="value">"rectangle"</span>></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -756,8 +1060,6 @@ Dismiss</button>            </div>
 <span class="lineno">  3 </span>        <span class="prefix">android:</span><span class="attribute">height</span>=<span class="value">"24dp"</span>
 <span class="lineno">  4 </span>        <span class="prefix">android:</span><span class="attribute">viewportWidth</span>=<span class="value">"24.0"</span></pre>
 
-<button class="mdl-button mdl-js-button mdl-button--primary" id="UnusedResourcesDivLink" onclick="reveal('UnusedResourcesDiv');" />+ 20 More Occurrences...</button>
-<div id="UnusedResourcesDiv" style="display: none">
 <span class="location"><a href="../../src/main/res/drawable-xxhdpi/jdroid_ic_drawer_accounts_collapse.png">../../src/main/res/drawable-xxhdpi/jdroid_ic_drawer_accounts_collapse.png</a></span>: <img class="embedimage" align="right" src="../../src/main/res/drawable-xxhdpi/jdroid_ic_drawer_accounts_collapse.png" /><span class="message">The resource <code>R.drawable.jdroid_ic_drawer_accounts_collapse</code> appears to be unused</span><br clear="right"/>
 <span class="location"><a href="../../src/main/res/drawable/jdroid_ic_mail_outline_black_24dp.xml">../../src/main/res/drawable/jdroid_ic_mail_outline_black_24dp.xml</a>:1</span>: <span class="message">The resource <code>R.drawable.jdroid_ic_mail_outline_black_24dp</code> appears to be unused</span><br /><pre class="errorlines">
 <span class="caretline"><span class="lineno">  1 </span><span class="warning"><span class="tag">&lt;vector</span><span class="attribute"> </span><span class="prefix">xmlns:</span><span class="attribute">android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -793,8 +1095,8 @@ Dismiss</button>            </div>
 <span class="lineno"> 14 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_removeAdsNow"</span>>Remove ads now!<span class="tag">&lt;/string></span>
 </pre>
 
-<ul></ul><button id="Location11DivLink" onclick="reveal('Location11Div');" />+ 1 Additional Locations...</button>
-<div id="Location11Div" style="display: none">
+<ul></ul><button id="Location17DivLink" onclick="reveal('Location17Div');" />+ 1 Additional Locations...</button>
+<div id="Location17Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:12</span>
 </ul>
@@ -808,8 +1110,8 @@ Additional locations: <ul>
 <span class="lineno"> 16 </span>    <span class="comment">&lt;!-- App Invite --></span>
 <span class="lineno"> 17 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_appInviteButtonTitle"</span>>Invite Friends<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location12DivLink" onclick="reveal('Location12Div');" />+ 1 Additional Locations...</button>
-<div id="Location12Div" style="display: none">
+<ul></ul><button id="Location18DivLink" onclick="reveal('Location18Div');" />+ 1 Additional Locations...</button>
+<div id="Location18Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:14</span>
 </ul>
@@ -823,8 +1125,8 @@ Additional locations: <ul>
 <span class="lineno"> 19 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_appInviteTitle"</span>>Invite Friends to %1$s<span class="tag">&lt;/string></span>
 <span class="lineno"> 20 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_appInviteMessage"</span>>Download %1$s on your android<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location13DivLink" onclick="reveal('Location13Div');" />+ 1 Additional Locations...</button>
-<div id="Location13Div" style="display: none">
+<ul></ul><button id="Location19DivLink" onclick="reveal('Location19Div');" />+ 1 Additional Locations...</button>
+<div id="Location19Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:17</span>
 </ul>
@@ -838,8 +1140,8 @@ Additional locations: <ul>
 <span class="lineno"> 20 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_appInviteMessage"</span>>Download %1$s on your android<span class="tag">&lt;/string></span>
 </pre>
 
-<ul></ul><button id="Location14DivLink" onclick="reveal('Location14Div');" />+ 1 Additional Locations...</button>
-<div id="Location14Div" style="display: none">
+<ul></ul><button id="Location20DivLink" onclick="reveal('Location20Div');" />+ 1 Additional Locations...</button>
+<div id="Location20Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:18</span>
 </ul>
@@ -853,8 +1155,8 @@ Additional locations: <ul>
 <span class="lineno"> 26 </span>
 <span class="lineno"> 27 </span>    <span class="comment">&lt;!-- Navigation Drawer --></span></pre>
 
-<ul></ul><button id="Location15DivLink" onclick="reveal('Location15Div');" />+ 1 Additional Locations...</button>
-<div id="Location15Div" style="display: none">
+<ul></ul><button id="Location21DivLink" onclick="reveal('Location21Div');" />+ 1 Additional Locations...</button>
+<div id="Location21Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:24</span>
 </ul>
@@ -868,8 +1170,8 @@ Additional locations: <ul>
 <span class="lineno"> 54 </span>    <span class="comment">&lt;!-- Picture Dialog Fragment --></span>
 <span class="lineno"> 55 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_selectPhoto"</span>>Photo Source<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location16DivLink" onclick="reveal('Location16Div');" />+ 1 Additional Locations...</button>
-<div id="Location16Div" style="display: none">
+<ul></ul><button id="Location22DivLink" onclick="reveal('Location22Div');" />+ 1 Additional Locations...</button>
+<div id="Location22Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:54</span>
 </ul>
@@ -883,8 +1185,8 @@ Additional locations: <ul>
 <span class="lineno"> 63 </span>    <span class="comment">&lt;!-- Sharing --></span>
 <span class="lineno"> 64 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_share"</span>>Share<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location17DivLink" onclick="reveal('Location17Div');" />+ 1 Additional Locations...</button>
-<div id="Location17Div" style="display: none">
+<ul></ul><button id="Location23DivLink" onclick="reveal('Location23Div');" />+ 1 Additional Locations...</button>
+<div id="Location23Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:63</span>
 </ul>
@@ -898,8 +1200,8 @@ Additional locations: <ul>
 <span class="lineno"> 67 </span>    <span class="comment">&lt;!-- Sign In --></span>
 <span class="lineno"> 68 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_logout"</span>>Logout<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location18DivLink" onclick="reveal('Location18Div');" />+ 1 Additional Locations...</button>
-<div id="Location18Div" style="display: none">
+<ul></ul><button id="Location24DivLink" onclick="reveal('Location24Div');" />+ 1 Additional Locations...</button>
+<div id="Location24Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:67</span>
 </ul>
@@ -913,8 +1215,8 @@ Additional locations: <ul>
 <span class="lineno"> 70 </span>
 <span class="lineno"> 71 </span>    <span class="comment">&lt;!-- Facebook --></span></pre>
 
-<ul></ul><button id="Location19DivLink" onclick="reveal('Location19Div');" />+ 1 Additional Locations...</button>
-<div id="Location19Div" style="display: none">
+<ul></ul><button id="Location25DivLink" onclick="reveal('Location25Div');" />+ 1 Additional Locations...</button>
+<div id="Location25Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:70</span>
 </ul>
@@ -928,8 +1230,8 @@ Additional locations: <ul>
 <span class="lineno"> 71 </span>    <span class="comment">&lt;!-- Facebook --></span>
 <span class="lineno"> 72 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_facebook"</span>>Facebook<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location20DivLink" onclick="reveal('Location20Div');" />+ 1 Additional Locations...</button>
-<div id="Location20Div" style="display: none">
+<ul></ul><button id="Location26DivLink" onclick="reveal('Location26Div');" />+ 1 Additional Locations...</button>
+<div id="Location26Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:71</span>
 </ul>
@@ -943,8 +1245,8 @@ Additional locations: <ul>
 <span class="lineno"> 74 </span>    <span class="comment">&lt;!-- Google Sign In --></span>
 <span class="lineno"> 75 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_googleSignIn"</span>>Google Sign In<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location21DivLink" onclick="reveal('Location21Div');" />+ 1 Additional Locations...</button>
-<div id="Location21Div" style="display: none">
+<ul></ul><button id="Location27DivLink" onclick="reveal('Location27Div');" />+ 1 Additional Locations...</button>
+<div id="Location27Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:74</span>
 </ul>
@@ -958,8 +1260,8 @@ Additional locations: <ul>
 <span class="lineno"> 77 </span>    <span class="comment">&lt;!-- Leak Canary --></span>
 <span class="lineno"> 78 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_leakCanary"</span>>Leak Canary<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location22DivLink" onclick="reveal('Location22Div');" />+ 1 Additional Locations...</button>
-<div id="Location22Div" style="display: none">
+<ul></ul><button id="Location28DivLink" onclick="reveal('Location28Div');" />+ 1 Additional Locations...</button>
+<div id="Location28Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:77</span>
 </ul>
@@ -973,8 +1275,8 @@ Additional locations: <ul>
 <span class="lineno"> 80 </span>    <span class="comment">&lt;!-- Twitter --></span>
 <span class="lineno"> 81 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_twitter"</span>>Twitter<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location23DivLink" onclick="reveal('Location23Div');" />+ 1 Additional Locations...</button>
-<div id="Location23Div" style="display: none">
+<ul></ul><button id="Location29DivLink" onclick="reveal('Location29Div');" />+ 1 Additional Locations...</button>
+<div id="Location29Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:80</span>
 </ul>
@@ -988,8 +1290,8 @@ Additional locations: <ul>
 <span class="lineno"> 83 </span>    <span class="comment">&lt;!-- Rate App --></span>
 <span class="lineno"> 84 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"jdroid_rateAppEnjoying"</span>>Enjoying %1$s?<span class="tag">&lt;/string></span></pre>
 
-<ul></ul><button id="Location24DivLink" onclick="reveal('Location24Div');" />+ 1 Additional Locations...</button>
-<div id="Location24Div" style="display: none">
+<ul></ul><button id="Location30DivLink" onclick="reveal('Location30Div');" />+ 1 Additional Locations...</button>
+<div id="Location30Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:83</span>
 </ul>
@@ -1003,18 +1305,189 @@ Additional locations: <ul>
 <span class="lineno"> 94 </span><span class="tag">&lt;/resources></span>
 </pre>
 
-<ul></ul><button id="Location25DivLink" onclick="reveal('Location25Div');" />+ 1 Additional Locations...</button>
-<div id="Location25Div" style="display: none">
+<ul></ul><button id="Location31DivLink" onclick="reveal('Location31Div');" />+ 1 Additional Locations...</button>
+<div id="Location31Div" style="display: none">
 Additional locations: <ul>
 <li> <span class="location"><a href="../../src/main/res/values-es/strings.xml">../../src/main/res/values-es/strings.xml</a>:94</span>
 </ul>
 </div><br/><br/>
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:13</span>: <span class="message">The resource <code>R.style.jdroid_textMicro</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  10 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:textColor"</span>>@color/jdroid_textColor<span class="tag">&lt;/item></span>
+<span class="lineno">  11 </span>    <span class="tag">&lt;/style></span>
+<span class="lineno">  12 </span>
+<span class="caretline"><span class="lineno">  13 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_textMicro"</span></span> <span class="attribute">parent</span>=<span class="value">"@style/jdroid_baseText"</span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  14 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:textAppearance"</span>>?android:textAppearanceSmall<span class="tag">&lt;/item></span>
+<span class="lineno">  15 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:textSize"</span>>@dimen/jdroid_textMicro<span class="tag">&lt;/item></span>
+<span class="lineno">  16 </span>    <span class="tag">&lt;/style></span></pre>
+
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:18</span>: <span class="message">The resource <code>R.style.jdroid_textSmall</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  15 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:textSize"</span>>@dimen/jdroid_textMicro<span class="tag">&lt;/item></span>
+<span class="lineno">  16 </span>    <span class="tag">&lt;/style></span>
+<span class="lineno">  17 </span>
+<span class="caretline"><span class="lineno">  18 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_textSmall"</span></span> <span class="attribute">parent</span>=<span class="value">"@style/jdroid_baseText"</span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  19 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:textAppearance"</span>>?android:textAppearanceSmall<span class="tag">&lt;/item></span>
+<span class="lineno">  20 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:textSize"</span>>@dimen/jdroid_textSmall<span class="tag">&lt;/item></span>
+<span class="lineno">  21 </span>    <span class="tag">&lt;/style></span></pre>
+
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:28</span>: <span class="message">The resource <code>R.style.jdroid_textLarge</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  25 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:textSize"</span>>@dimen/jdroid_textMedium<span class="tag">&lt;/item></span>
+<span class="lineno">  26 </span>    <span class="tag">&lt;/style></span>
+<span class="lineno">  27 </span>
+<span class="caretline"><span class="lineno">  28 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_textLarge"</span></span> <span class="attribute">parent</span>=<span class="value">"@style/jdroid_baseText"</span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  29 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:textAppearance"</span>>?android:textAppearanceLarge<span class="tag">&lt;/item></span>
+<span class="lineno">  30 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:textSize"</span>>@dimen/jdroid_textLarge<span class="tag">&lt;/item></span>
+<span class="lineno">  31 </span>    <span class="tag">&lt;/style></span></pre>
+
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:33</span>: <span class="message">The resource <code>R.style.jdroid_textMediumBold</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  30 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:textSize"</span>>@dimen/jdroid_textLarge<span class="tag">&lt;/item></span>
+<span class="lineno">  31 </span>    <span class="tag">&lt;/style></span>
+<span class="lineno">  32 </span>
+<span class="caretline"><span class="lineno">  33 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_textMediumBold"</span></span> <span class="attribute">parent</span>=<span class="value">"@style/jdroid_textMedium"</span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  34 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:textStyle"</span>>bold<span class="tag">&lt;/item></span>
+<span class="lineno">  35 </span>    <span class="tag">&lt;/style></span>
+</pre>
+
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:37</span>: <span class="message">The resource <code>R.style.jdroid_textLargeBold</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  34 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:textStyle"</span>>bold<span class="tag">&lt;/item></span>
+<span class="lineno">  35 </span>    <span class="tag">&lt;/style></span>
+<span class="lineno">  36 </span>
+<span class="caretline"><span class="lineno">  37 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_textLargeBold"</span></span> <span class="attribute">parent</span>=<span class="value">"@style/jdroid_textLarge"</span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  38 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:textStyle"</span>>bold<span class="tag">&lt;/item></span>
+<span class="lineno">  39 </span>    <span class="tag">&lt;/style></span>
+</pre>
+
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:48</span>: <span class="message">The resource <code>R.style.jdroid_sectionTitle</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  45 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_gravity"</span>>center<span class="tag">&lt;/item></span>
+<span class="lineno">  46 </span>    <span class="tag">&lt;/style></span>
+<span class="lineno">  47 </span>
+<span class="caretline"><span class="lineno">  48 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_sectionTitle"</span></span> <span class="attribute">parent</span>=<span class="value">"@style/jdroid_textMediumBold"</span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  49 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:paddingLeft"</span>>8dp<span class="tag">&lt;/item></span>
+<span class="lineno">  50 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:paddingRight"</span>>8dp<span class="tag">&lt;/item></span>
+<span class="lineno">  51 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:paddingTop"</span>>4dp<span class="tag">&lt;/item></span></pre>
+
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:91</span>: <span class="message">The resource <code>R.style.jdroid_divider</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  88 </span>
+<span class="lineno">  89 </span>    <span class="comment">&lt;!-- Divider --></span>
+<span class="lineno">  90 </span>
+<span class="caretline"><span class="lineno">  91 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_divider"</span></span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  92 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_height"</span>>1dp<span class="tag">&lt;/item></span>
+<span class="lineno">  93 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_width"</span>>match_parent<span class="tag">&lt;/item></span>
+<span class="lineno">  94 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:background"</span>>@color/jdroid_grey<span class="tag">&lt;/item></span></pre>
+
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:99</span>: <span class="message">The resource <code>R.style.jdroid_socialButton</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  96 </span>
+<span class="lineno">  97 </span>    <span class="comment">&lt;!-- Social --></span>
+<span class="lineno">  98 </span>
+<span class="caretline"><span class="lineno">  99 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_socialButton"</span></span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 100 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_width"</span>>wrap_content<span class="tag">&lt;/item></span>
+<span class="lineno"> 101 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_height"</span>>wrap_content<span class="tag">&lt;/item></span>
+<span class="lineno"> 102 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:typeface"</span>>normal<span class="tag">&lt;/item></span></pre>
+
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:117</span>: <span class="message">The resource <code>R.style.jdroid_rightNavDrawer</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 114 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_gravity"</span>>start<span class="tag">&lt;/item></span>
+<span class="lineno"> 115 </span>    <span class="tag">&lt;/style></span>
+<span class="lineno"> 116 </span>
+<span class="caretline"><span class="lineno"> 117 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_rightNavDrawer"</span></span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 118 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_width"</span>>wrap_content<span class="tag">&lt;/item></span>
+<span class="lineno"> 119 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_height"</span>>match_parent<span class="tag">&lt;/item></span>
+<span class="lineno"> 120 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_gravity"</span>>end<span class="tag">&lt;/item></span></pre>
+
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:125</span>: <span class="message">The resource <code>R.style.jdroid_updateGooglePlayServicesLegend</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 122 </span>
+<span class="lineno"> 123 </span>    <span class="comment">&lt;!-- Update Google Play Services --></span>
+<span class="lineno"> 124 </span>
+<span class="caretline"><span class="lineno"> 125 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_updateGooglePlayServicesLegend"</span></span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 126 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_marginBottom"</span>>10dp<span class="tag">&lt;/item></span>
+<span class="lineno"> 127 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_gravity"</span>>center_horizontal<span class="tag">&lt;/item></span>
+<span class="lineno"> 128 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:gravity"</span>>center_horizontal<span class="tag">&lt;/item></span></pre>
+
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:148</span>: <span class="message">The resource <code>R.style.jdroid_cardViewHalfMarginStyle</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 145 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_marginBottom"</span>>@dimen/jdroid_cardViewMargin<span class="tag">&lt;/item></span>
+<span class="lineno"> 146 </span>    <span class="tag">&lt;/style></span>
+<span class="lineno"> 147 </span>
+<span class="caretline"><span class="lineno"> 148 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_cardViewHalfMarginStyle"</span></span> <span class="attribute">parent</span>=<span class="value">"@style/jdroid_cardViewStyle"</span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 149 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_marginLeft"</span>>@dimen/jdroid_cardViewHalfMargin<span class="tag">&lt;/item></span>
+<span class="lineno"> 150 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_marginRight"</span>>@dimen/jdroid_cardViewHalfMargin<span class="tag">&lt;/item></span>
+<span class="lineno"> 151 </span>    <span class="tag">&lt;/style></span></pre>
+
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:153</span>: <span class="message">The resource <code>R.style.jdroid_cardViewClickableStyle</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 150 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_marginRight"</span>>@dimen/jdroid_cardViewHalfMargin<span class="tag">&lt;/item></span>
+<span class="lineno"> 151 </span>    <span class="tag">&lt;/style></span>
+<span class="lineno"> 152 </span>
+<span class="caretline"><span class="lineno"> 153 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_cardViewClickableStyle"</span></span> <span class="attribute">parent</span>=<span class="value">"@style/jdroid_cardViewStyle"</span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 154 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:foreground"</span>>?android:attr/selectableItemBackground<span class="tag">&lt;/item></span>
+<span class="lineno"> 155 </span>    <span class="tag">&lt;/style></span>
+</pre>
+
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:157</span>: <span class="message">The resource <code>R.style.jdroid_cardViewClickableFullMarginStyle</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 154 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:foreground"</span>>?android:attr/selectableItemBackground<span class="tag">&lt;/item></span>
+<span class="lineno"> 155 </span>    <span class="tag">&lt;/style></span>
+<span class="lineno"> 156 </span>
+<span class="caretline"><span class="lineno"> 157 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_cardViewClickableFullMarginStyle"</span></span> <span class="attribute">parent</span>=<span class="value">"@style/jdroid_cardViewClickableStyle"</span>></span>
+<span class="lineno"> 158 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_marginTop"</span>>@dimen/jdroid_cardViewMargin<span class="tag">&lt;/item></span>
+<span class="lineno"> 159 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_marginBottom"</span>>@dimen/jdroid_cardViewMargin<span class="tag">&lt;/item></span>
+<span class="lineno"> 160 </span>    <span class="tag">&lt;/style></span></pre>
+
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:162</span>: <span class="message">The resource <code>R.style.jdroid_cardViewClickableHalfMarginStyle</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 159 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_marginBottom"</span>>@dimen/jdroid_cardViewMargin<span class="tag">&lt;/item></span>
+<span class="lineno"> 160 </span>    <span class="tag">&lt;/style></span>
+<span class="lineno"> 161 </span>
+<span class="caretline"><span class="lineno"> 162 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_cardViewClickableHalfMarginStyle"</span></span> <span class="attribute">parent</span>=<span class="value">"@style/jdroid_cardViewClickableStyle"</span>></span>
+<span class="lineno"> 163 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_marginLeft"</span>>@dimen/jdroid_cardViewHalfMargin<span class="tag">&lt;/item></span>
+<span class="lineno"> 164 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_marginRight"</span>>@dimen/jdroid_cardViewHalfMargin<span class="tag">&lt;/item></span>
+<span class="lineno"> 165 </span>    <span class="tag">&lt;/style></span></pre>
+
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:167</span>: <span class="message">The resource <code>R.style.jdroid_cardViewInner</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 164 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_marginRight"</span>>@dimen/jdroid_cardViewHalfMargin<span class="tag">&lt;/item></span>
+<span class="lineno"> 165 </span>    <span class="tag">&lt;/style></span>
+<span class="lineno"> 166 </span>
+<span class="caretline"><span class="lineno"> 167 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_cardViewInner"</span></span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 168 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_width"</span>>match_parent<span class="tag">&lt;/item></span>
+<span class="lineno"> 169 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_height"</span>>wrap_content<span class="tag">&lt;/item></span>
+<span class="lineno"> 170 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:paddingTop"</span>>16dp<span class="tag">&lt;/item></span></pre>
+
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:176</span>: <span class="message">The resource <code>R.style.jdroid_cardViewTitle</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 173 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:paddingRight"</span>>16dp<span class="tag">&lt;/item></span>
+<span class="lineno"> 174 </span>    <span class="tag">&lt;/style></span>
+<span class="lineno"> 175 </span>
+<span class="caretline"><span class="lineno"> 176 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_cardViewTitle"</span></span> <span class="attribute">parent</span>=<span class="value">"@style/jdroid_textMedium"</span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 177 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:textStyle"</span>>bold<span class="tag">&lt;/item></span>
+<span class="lineno"> 178 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_marginBottom"</span>>8dp<span class="tag">&lt;/item></span>
+<span class="lineno"> 179 </span>    <span class="tag">&lt;/style></span></pre>
+
+<span class="location"><a href="../../src/main/res/values/styles.xml">../../src/main/res/values/styles.xml</a>:195</span>: <span class="message">The resource <code>R.style.jdroid_floatingActionButton</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 192 </span>
+<span class="lineno"> 193 </span>    <span class="comment">&lt;!-- Floating Action Button --></span>
+<span class="lineno"> 194 </span>
+<span class="caretline"><span class="lineno"> 195 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"jdroid_floatingActionButton"</span></span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 196 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_width"</span>>wrap_content<span class="tag">&lt;/item></span>
+<span class="lineno"> 197 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_height"</span>>wrap_content<span class="tag">&lt;/item></span>
+<span class="lineno"> 198 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"android:layout_margin"</span>>@dimen/jdroid_fabSpacing<span class="tag">&lt;/item></span></pre>
+
+<span class="location"><a href="../../src/main/res/values/themes.xml">../../src/main/res/values/themes.xml</a>:6</span>: <span class="message">The resource <code>R.style.Jdroid_Theme_Base</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  3 </span>
+<span class="lineno">  4 </span>    <span class="comment">&lt;!-- Themes --></span>
+<span class="lineno">  5 </span>
+<span class="caretline"><span class="lineno">  6 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"Jdroid.Theme.Base"</span></span> <span class="attribute">parent</span>=<span class="value">"@style/Theme.AppCompat.Light.DarkActionBar"</span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  7 </span>        <span class="comment">&lt;!-- your app branding color for the app bar --></span>
+<span class="lineno">  8 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"colorPrimary"</span>>@color/jdroid_colorPrimary<span class="tag">&lt;/item></span>
+<span class="lineno">  9 </span>        <span class="comment">&lt;!-- darker variant for the status bar and contextual app bars --></span></pre>
+
+<span class="location"><a href="../../src/main/res/values/themes.xml">../../src/main/res/values/themes.xml</a>:18</span>: <span class="message">The resource <code>R.style.Jdroid_Theme_Light</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno"> 15 </span>        <span class="tag">&lt;item</span><span class="attribute"> name</span>=<span class="value">"dialogTheme"</span>>@style/Jdroid.Dialog<span class="tag">&lt;/item></span>
+<span class="lineno"> 16 </span>    <span class="tag">&lt;/style></span>
+<span class="lineno"> 17 </span>
+<span class="caretline"><span class="lineno"> 18 </span>    <span class="tag">&lt;style</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"Jdroid.Theme.Light"</span></span> <span class="attribute">parent</span>=<span class="value">"Jdroid.Theme.Base"</span>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 19 </span>
+<span class="lineno"> 20 </span>    <span class="tag">&lt;/style></span>
+</pre>
+
 </div>
 </div>
 <div class="metadata"><div class="explanation" id="explanationUnusedResources" style="display: none;">
-Unused resources make applications larger and slow down builds.<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+Unused resources make applications larger and slow down builds.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "UnusedResources" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<br/></div>
 </div>
 </div>
 <div class="chips">
@@ -1034,11 +1507,11 @@ To suppress this error, use the issue id "UnusedResources" as explained in the <
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationUnusedResourcesLink" onclick="reveal('explanationUnusedResources');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card10Link" onclick="hideid('card10');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="UnusedResourcesCardLink" onclick="hideid('UnusedResourcesCard');">
 Dismiss</button>            </div>
             </div>
           </section><a name="UselessParent"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card11" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="UselessParentCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Useless parent layout</h2>
@@ -1057,8 +1530,8 @@ Dismiss</button>            </div>
 
 </div>
 <div class="metadata"><div class="explanation" id="explanationUselessParent" style="display: none;">
-A layout with children that has no siblings, is not a scrollview or a root layout, and does not have a background, can be removed and have its children moved directly into the parent for a flatter and more efficient layout hierarchy.<br/><br/>To suppress this error, use the issue id "UselessParent" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+A layout with children that has no siblings, is not a scrollview or a root layout, and does not have a background, can be removed and have its children moved directly into the parent for a flatter and more efficient layout hierarchy.<br/>To suppress this error, use the issue id "UselessParent" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="chips">
@@ -1078,13 +1551,13 @@ A layout with children that has no siblings, is not a scrollview or a root layou
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationUselessParentLink" onclick="reveal('explanationUselessParent');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card11Link" onclick="hideid('card11');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="UselessParentCardLink" onclick="hideid('UselessParentCard');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="Usability:Icons"></a>
 <a name="IconDensities"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card12" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="IconDensitiesCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Icon densities validation</h2>
@@ -1100,8 +1573,8 @@ Dismiss</button>            </div>
 Icons will look best if a custom version is provided for each of the major screen density classes (low, medium, high, extra high). This lint check identifies icons which do not have complete coverage across the densities.<br/>
 <br/>
 Low density is not really used much anymore, so this check ignores the ldpi density. To force lint to include it, set the environment variable <code>ANDROID_LINT_INCLUDE_LDPI=true</code>. For more information on current density usage, see <a href="http://developer.android.com/resources/dashboard/screens.html">http://developer.android.com/resources/dashboard/screens.html</a><br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/practices/screens_support.html">http://developer.android.com/guide/practices/screens_support.html</a>
-</div><br/>To suppress this error, use the issue id "IconDensities" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "IconDensities" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="chips">
@@ -1124,13 +1597,13 @@ Low density is not really used much anymore, so this check ignores the ldpi dens
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationIconDensitiesLink" onclick="reveal('explanationIconDensities');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card12Link" onclick="hideid('card12');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="IconDensitiesCardLink" onclick="hideid('IconDensitiesCard');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="Internationalization"></a>
 <a name="RelativeOverlap"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card13" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="RelativeOverlapCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Overlapping items in RelativeLayout</h2>
@@ -1150,8 +1623,8 @@ Dismiss</button>            </div>
 
 </div>
 <div class="metadata"><div class="explanation" id="explanationRelativeOverlap" style="display: none;">
-If relative layout has text or button items aligned to left and right sides they can overlap each other due to localized text expansion unless they have mutual constraints like <code>toEndOf</code>/<code>toStartOf</code>.<br/><br/>To suppress this error, use the issue id "RelativeOverlap" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+If relative layout has text or button items aligned to left and right sides they can overlap each other due to localized text expansion unless they have mutual constraints like <code>toEndOf</code>/<code>toStartOf</code>.<br/>To suppress this error, use the issue id "RelativeOverlap" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="chips">
@@ -1171,12 +1644,12 @@ If relative layout has text or button items aligned to left and right sides they
               </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationRelativeOverlapLink" onclick="reveal('explanationRelativeOverlap');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card13Link" onclick="hideid('card13');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="RelativeOverlapCardLink" onclick="hideid('RelativeOverlapCard');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="MissingIssues"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card14" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="MissingIssuesCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Disabled Checks</h2>
@@ -1192,8 +1665,8 @@ more <code>lint.xml</code> configuration files in the project directories.
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
 Ensures that app links are correctly set and associated with website.<br/><div class="moreinfo">More info: <a href="https://g.co/appindexing/applinks">https://g.co/appindexing/applinks</a>
-</div><br/>To suppress this error, use the issue id "AppLinksAutoVerifyError" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "AppLinksAutoVerifyError" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1202,8 +1675,8 @@ Ensures that app links are correctly set and associated with website.<br/><div c
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
 Ensures that app links are correctly set and associated with website.<br/><div class="moreinfo">More info: <a href="https://g.co/appindexing/applinks">https://g.co/appindexing/applinks</a>
-</div><br/>To suppress this error, use the issue id "AppLinksAutoVerifyWarning" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "AppLinksAutoVerifyWarning" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1215,8 +1688,8 @@ According to the Android Design Guide,<br/>
 <br/>
 "Other platforms use an explicit back button with label to allow the user to navigate up the application's hierarchy. Instead, Android uses the main action bar's app icon for hierarchical navigation and the navigation bar's back button for temporal navigation."<br/>
 This check is not very sophisticated (it just looks for buttons with the label "Back"), so it is disabled by default to not trigger on common scenarios like pairs of Back/Next buttons to paginate through screens.<br/><div class="moreinfo">More info: <a href="http://developer.android.com/design/patterns/pure-android.html">http://developer.android.com/design/patterns/pure-android.html</a>
-</div><br/>To suppress this error, use the issue id "BackButton" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "BackButton" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1228,9 +1701,9 @@ Non-textual widgets like ImageViews and ImageButtons should use the <code>conten
 <br/>
 Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, just suppress the lint warning with a tools:ignore="ContentDescription" attribute.<br/>
 <br/>
-Note that for text fields, you should not set both the <code>hint</code> and the <code>contentDescription</code> attributes since the hint will never be shown. Just set the <code>hint</code>. See <a href="http://developer.android.com/guide/topics/ui/accessibility/checklist.html#special-cases">http://developer.android.com/guide/topics/ui/accessibility/checklist.html#special-cases</a>.<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+Note that for text fields, you should not set both the <code>hint</code> and the <code>contentDescription</code> attributes since the hint will never be shown. Just set the <code>hint</code>. See <a href="http://developer.android.com/guide/topics/ui/accessibility/checklist.html#special-cases">http://developer.android.com/guide/topics/ui/accessibility/checklist.html#special-cases</a>.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "ContentDescription" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1240,9 +1713,9 @@ To suppress this error, use the issue id "ContentDescription" as explained in th
 <div class="explanation">
 The WebP format is typically more compact than PNG and JPEG. As of Android 4.2.1 it supports transparency and lossless conversion as well. Note that there is a quickfix in the IDE which lets you perform conversion.<br/>
 <br/>
-Launcher icons must be in the PNG format.<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+Launcher icons must be in the PNG format.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "ConvertToWebp" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1250,8 +1723,8 @@ To suppress this error, use the issue id "ConvertToWebp" as explained in the <a 
 </div>
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
-An "easter egg" is code deliberately hidden in the code, both from potential users and even from other developers. This lint check looks for code which looks like it may be hidden from sight.<br/><br/>To suppress this error, use the issue id "EasterEgg" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+An "easter egg" is code deliberately hidden in the code, both from potential users and even from other developers. This lint check looks for code which looks like it may be hidden from sight.<br/>To suppress this error, use the issue id "EasterEgg" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1262,8 +1735,8 @@ An "easter egg" is code deliberately hidden in the code, both from potential use
 Accessing a field within the class that defines a getter for that field is at least 3 times faster than calling the getter. For simple getters that do nothing other than return the field, you might want to just reference the local field directly instead.<br/>
 <br/>
 <b>NOTE</b>: As of Android 2.3 (Gingerbread), this optimization is performed automatically by Dalvik, so there is no need to change your code; this is only relevant if you are targeting older versions of Android.<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/practices/design/performance.html#internal_get_set">http://developer.android.com/guide/practices/design/performance.html#internal_get_set</a>
-</div><br/>To suppress this error, use the issue id "FieldGetter" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "FieldGetter" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1272,9 +1745,9 @@ Accessing a field within the class that defines a getter for that field is at le
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
 Adds URLs to get your app into the Google index, to get installs and traffic to your app from Google Search.<br/><div class="moreinfo">More info: <a href="https://g.co/AppIndexing/AndroidStudio">https://g.co/AppIndexing/AndroidStudio</a>
-</div><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+</div>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "GoogleAppIndexingApiWarning" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1283,8 +1756,8 @@ To suppress this error, use the issue id "GoogleAppIndexingApiWarning" as explai
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
 There are predefined sizes (for each density) for launcher icons. You should follow these conventions to make sure your icons fit in with the overall look of the platform.<br/><div class="moreinfo">More info: <a href="http://developer.android.com/design/style/iconography.html">http://developer.android.com/design/style/iconography.html</a>
-</div><br/>To suppress this error, use the issue id "IconExpectedSize" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "IconExpectedSize" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1294,8 +1767,8 @@ There are predefined sizes (for each density) for launcher icons. You should fol
 <div class="explanation">
 The BuildConfig class (available in Tools 17) provides a constant, "DEBUG", which indicates whether the code is being built in release mode or in debug mode. In release mode, you typically want to strip out all the logging calls. Since the compiler will automatically remove all code which is inside a "if (false)" check, surrounding your logging calls with a check for BuildConfig.DEBUG is a good idea.<br/>
 <br/>
-If you <b>really</b> intend for the logging to be present in release mode, you can suppress this warning with a @SuppressLint annotation for the intentional logging calls.<br/><br/>To suppress this error, use the issue id "LogConditional" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+If you <b>really</b> intend for the logging to be present in release mode, you can suppress this warning with a @SuppressLint annotation for the intentional logging calls.<br/>To suppress this error, use the issue id "LogConditional" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1306,8 +1779,18 @@ If you <b>really</b> intend for the logging to be present in release mode, you c
 On Windows, line endings are typically recorded as carriage return plus newline: \r\n.<br/>
 <br/>
 This detector looks for invalid line endings with repeated carriage return characters (without newlines). Previous versions of the ADT plugin could accidentally introduce these into the file, and when editing the file, the editor could produce confusing visual artifacts.<br/><div class="moreinfo">More info: <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=375421">https://bugs.eclipse.org/bugs/show_bug.cgi?id=375421</a>
-</div><br/>To suppress this error, use the issue id "MangledCRLF" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+</div>To suppress this error, use the issue id "MangledCRLF" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
+</div>
+<div class="issue">
+<div class="id">MinSdkTooLow<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+<div class="explanation">
+The value of the <code>minSdkVersion</code> property is too low and can be incrementedwithout noticeably reducing the number of supported devices.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+To suppress this error, use the issue id "MinSdkTooLow" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1316,8 +1799,8 @@ This detector looks for invalid line endings with repeated carriage return chara
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
 If a class is referenced in the manifest or in a layout file, it must also exist in the project (or in one of the libraries included by the project. This check helps uncover typos in registration names, or attempts to rename or move classes without updating the manifest file properly.<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/topics/manifest/manifest-intro.html">http://developer.android.com/guide/topics/manifest/manifest-intro.html</a>
-</div><br/>To suppress this error, use the issue id "MissingRegistered" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "MissingRegistered" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1325,8 +1808,8 @@ If a class is referenced in the manifest or in a layout file, it must also exist
 </div>
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
-Margin values should be positive. Negative values are generally a sign that you are making assumptions about views surrounding the current one, or may be tempted to turn off child clipping to allow a view to escape its parent. Turning off child clipping to do this not only leads to poor graphical performance, it also results in wrong touch event handling since touch events are based strictly on a chain of parent-rect hit tests. Finally, making assumptions about the size of strings can lead to localization problems.<br/><br/>To suppress this error, use the issue id "NegativeMargin" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+Margin values should be positive. Negative values are generally a sign that you are making assumptions about views surrounding the current one, or may be tempted to turn off child clipping to allow a view to escape its parent. Turning off child clipping to do this not only leads to poor graphical performance, it also results in wrong touch event handling since touch events are based strictly on a chain of parent-rect hit tests. Finally, making assumptions about the size of strings can lead to localization problems.<br/>To suppress this error, use the issue id "NegativeMargin" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1334,9 +1817,9 @@ Margin values should be positive. Negative values are generally a sign that you 
 </div>
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
-This detector checks with a central repository to see if there are newer versions available for the dependencies used by this project. This is similar to the <code>GradleDependency</code> check, which checks for newer versions available in the Android SDK tools and libraries, but this works with any MavenCentral dependency, and connects to the library every time, which makes it more flexible but also <b>much</b> slower.<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+This detector checks with a central repository to see if there are newer versions available for the dependencies used by this project. This is similar to the <code>GradleDependency</code> check, which checks for newer versions available in the Android SDK tools and libraries, but this works with any MavenCentral dependency, and connects to the library every time, which makes it more flexible but also <b>much</b> slower.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "NewerVersionAvailable" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1345,8 +1828,8 @@ To suppress this error, use the issue id "NewerVersionAvailable" as explained in
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
 The <code>&lt;uses-permission></code> element should not require a permission that implies an unsupported Chrome OS hardware feature. Google Play assumes that certain hardware related permissions indicate that the underlying hardware features are required by default. To fix the issue, consider declaring the corresponding uses-feature element with <code>required="false"</code> attribute.<br/><div class="moreinfo">More info: <a href="https://developer.android.com/topic/arc/manifest.html#implied-features">https://developer.android.com/topic/arc/manifest.html#implied-features</a>
-</div><br/>To suppress this error, use the issue id "PermissionImpliesUnsupportedChromeOsHardware" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "PermissionImpliesUnsupportedChromeOsHardware" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1357,8 +1840,8 @@ The <code>&lt;uses-permission></code> element should not require a permission th
 Activities, services and content providers should be registered in the <code>AndroidManifest.xml</code> file using <code>&lt;activity></code>, <code>&lt;service></code> and <code>&lt;provider></code> tags.<br/>
 <br/>
 If your activity is simply a parent class intended to be subclassed by other "real" activities, make it an abstract class.<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/topics/manifest/manifest-intro.html">http://developer.android.com/guide/topics/manifest/manifest-intro.html</a>
-</div><br/>To suppress this error, use the issue id "Registered" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "Registered" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1368,8 +1851,8 @@ If your activity is simply a parent class intended to be subclassed by other "re
 <div class="explanation">
 All views must specify an explicit <code>layout_width</code> and <code>layout_height</code> attribute. There is a runtime check for this, so if you fail to specify a size, an exception is thrown at runtime.<br/>
 <br/>
-It's possible to specify these widths via styles as well. GridLayout, as a special case, does not require you to specify a size.<br/><br/>To suppress this error, use the issue id "RequiredSize" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+It's possible to specify these widths via styles as well. GridLayout, as a special case, does not require you to specify a size.<br/>To suppress this error, use the issue id "RequiredSize" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1379,8 +1862,8 @@ It's possible to specify these widths via styles as well. GridLayout, as a speci
 <div class="explanation">
 To enable right-to-left support, when running on API 17 and higher, you must set the <code>android:supportsRtl</code> attribute in the manifest <code>&lt;application></code> element.<br/>
 <br/>
-If you have started adding RTL attributes, but have not yet finished the migration, you can set the attribute to false to satisfy this lint check.<br/><br/>To suppress this error, use the issue id "RtlEnabled" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+If you have started adding RTL attributes, but have not yet finished the migration, you can set the attribute to false to satisfy this lint check.<br/>To suppress this error, use the issue id "RtlEnabled" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1392,8 +1875,8 @@ Using <code>Gravity#LEFT</code> and <code>Gravity#RIGHT</code> can lead to probl
 <br/>
 For XML attributes such as paddingLeft and <code>layout_marginLeft</code>, use <code>paddingStart</code> and <code>layout_marginStart</code>. <b>NOTE</b>: If your <code>minSdkVersion</code> is less than 17, you should add <b>both</b> the older left/right attributes <b>as well as</b> the new start/right attributes. On older platforms, where RTL is not supported and the start/right attributes are unknown and therefore ignored, you need the older left/right attributes. There is a separate lint check which catches that type of error.<br/>
 <br/>
-(Note: For <code>Gravity#LEFT</code> and <code>Gravity#START</code>, you can use these constants even when targeting older platforms, because the <code>start</code> bitmask is a superset of the <code>left</code> bitmask. Therefore, you can use <code>gravity="start"</code> rather than <code>gravity="left|start"</code>.)<br/><br/>To suppress this error, use the issue id "RtlHardcoded" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+(Note: For <code>Gravity#LEFT</code> and <code>Gravity#START</code>, you can use these constants even when targeting older platforms, because the <code>start</code> bitmask is a superset of the <code>left</code> bitmask. Therefore, you can use <code>gravity="start"</code> rather than <code>gravity="left|start"</code>.)<br/>To suppress this error, use the issue id "RtlHardcoded" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1401,8 +1884,8 @@ For XML attributes such as paddingLeft and <code>layout_marginLeft</code>, use <
 </div>
 <div class="metadata">Disabled By: Command line flag<br/>
 <div class="explanation">
-If you specify padding or margin on the left side of a layout, you should probably also specify padding on the right side (and vice versa) for right-to-left layout symmetry.<br/><br/>To suppress this error, use the issue id "RtlSymmetry" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+If you specify padding or margin on the left side of a layout, you should probably also specify padding on the right side (and vice versa) for right-to-left layout symmetry.<br/>To suppress this error, use the issue id "RtlSymmetry" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1412,9 +1895,9 @@ If you specify padding or margin on the left side of a layout, you should probab
 <div class="explanation">
 If a <code>&lt;TextView></code> is used to display data, the user might want to copy that data and paste it elsewhere. To allow this, the <code>&lt;TextView></code> should specify <code>android:textIsSelectable="true"</code>.<br/>
 <br/>
-This lint check looks for TextViews which are likely to be displaying data: views whose text is set dynamically. This value will be ignored on platforms older than API 11, so it is okay to set it regardless of your <code>minSdkVersion</code>.<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+This lint check looks for TextViews which are likely to be displaying data: views whose text is set dynamically. This value will be ignored on platforms older than API 11, so it is okay to set it regardless of your <code>minSdkVersion</code>.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "SelectableText" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1422,9 +1905,9 @@ To suppress this error, use the issue id "SelectableText" as explained in the <a
 </div>
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
-Using the comment <code>// STOPSHIP</code> can be used to flag code that is incomplete but checked in. This comment marker can be used to indicate that the code should not be shipped until the issue is addressed, and lint will look for these.<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+Using the comment <code>// STOPSHIP</code> can be used to flag code that is incomplete but checked in. This comment marker can be used to indicate that the code should not be shipped until the issue is addressed, and lint will look for these.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "StopShip" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1437,9 +1920,9 @@ Straight single quotes and double quotes, when used as a pair, can be replaced b
 Note that you should never use grave accents and apostrophes to quote, `like this'.<br/>
 <br/>
 (Also note that you should not use curvy quotes for code fragments.)<br/><div class="moreinfo">More info: <a href="http://en.wikipedia.org/wiki/Quotation_mark">http://en.wikipedia.org/wiki/Quotation_mark</a>
-</div><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+</div>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "TypographyQuotes" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1449,8 +1932,8 @@ To suppress this error, use the issue id "TypographyQuotes" as explained in the 
 <div class="explanation">
 The <code>@+id/</code> syntax refers to an existing id, or creates a new one if it has not already been defined elsewhere. However, this means that if you have a typo in your reference, or if the referred view no longer exists, you do not get a warning since the id will be created on demand.<br/>
 <br/>
-This is sometimes intentional, for example where you are referring to a view which is provided in a different layout via an include. However, it is usually an accident where you have a typo or you have renamed a view without updating all the references to it.<br/><br/>To suppress this error, use the issue id "UnknownIdInLayout" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+This is sometimes intentional, for example where you are referring to a view which is provided in a different layout via an include. However, it is usually an accident where you have a typo or you have renamed a view without updating all the references to it.<br/>To suppress this error, use the issue id "UnknownIdInLayout" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1460,8 +1943,8 @@ This is sometimes intentional, for example where you are referring to a view whi
 <div class="explanation">
 This app loads native libraries using <code>System.loadLibrary()</code>.<br/>
 <br/>
-Consider adding <code>android:extractNativeLibs="false"</code> to the <code>&lt;application></code> tag in AndroidManifest.xml. Starting with Android 6.0, this will make installation faster, the app will take up less space on the device and updates will have smaller download sizes.<br/><br/>To suppress this error, use the issue id "UnpackedNativeCode" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+Consider adding <code>android:extractNativeLibs="false"</code> to the <code>&lt;application></code> tag in AndroidManifest.xml. Starting with Android 6.0, this will make installation faster, the app will take up less space on the device and updates will have smaller download sizes.<br/>To suppress this error, use the issue id "UnpackedNativeCode" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1470,8 +1953,8 @@ Consider adding <code>android:extractNativeLibs="false"</code> to the <code>&lt;
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
 The <code>&lt;uses-feature></code> element should not require this unsupported Chrome OS hardware feature. Any uses-feature not explicitly marked with <code>required="false"</code> is necessary on the device to be installed on. Ensure that any features that might prevent it from being installed on a Chrome OS device are reviewed and marked as not required in the manifest.<br/><div class="moreinfo">More info: <a href="https://developer.android.com/topic/arc/manifest.html#incompat-entries">https://developer.android.com/topic/arc/manifest.html#incompat-entries</a>
-</div><br/>To suppress this error, use the issue id "UnsupportedChromeOsHardware" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+</div>To suppress this error, use the issue id "UnsupportedChromeOsHardware" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1479,9 +1962,9 @@ The <code>&lt;uses-feature></code> element should not require this unsupported C
 </div>
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
-This resource id definition appears not to be needed since it is not referenced from anywhere. Having id definitions, even if unused, is not necessarily a bad idea since they make working on layouts and menus easier, so there is not a strong reason to delete these.<br/><br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+This resource id definition appears not to be needed since it is not referenced from anywhere. Having id definitions, even if unused, is not necessarily a bad idea since they make working on layouts and menus easier, so there is not a strong reason to delete these.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 To suppress this error, use the issue id "UnusedIds" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-</div>
+<br/></div>
 </div>
 </div>
 <div class="issue">
@@ -1493,19 +1976,29 @@ A <code>LinearLayout</code> which contains an <code>ImageView</code> and a <code
 <br/>
 If the two widgets are offset from each other with margins, this can be replaced with a <code>drawablePadding</code> attribute.<br/>
 <br/>
-There's a lint quickfix to perform this conversion in the Eclipse plugin.<br/><br/>To suppress this error, use the issue id "UseCompoundDrawables" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+There's a lint quickfix to perform this conversion in the Eclipse plugin.<br/>To suppress this error, use the issue id "UseCompoundDrawables" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
+</div>
+<div class="issue">
+<div class="id">WrongThreadInterprocedural<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+<div class="explanation">
+Searches for interprocedural call paths that violate thread annotations in the program. Tracks the flow of instantiated types and lambda expressions to increase accuracy across method boundaries.<br/><div class="moreinfo">More info: <a href="http://developer.android.com/guide/components/processes-and-threads.html#Threads">http://developer.android.com/guide/components/processes-and-threads.html#Threads</a>
+</div>To suppress this error, use the issue id "WrongThreadInterprocedural" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
 </div>
 </div>
 </div>              </div>
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="SuppressedIssuesLink" onclick="reveal('SuppressedIssues');">
-List Missing Issues</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="card14Link" onclick="hideid('card14');">
+List Missing Issues</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="MissingIssuesCardLink" onclick="hideid('MissingIssuesCard');">
 Dismiss</button>            </div>
             </div>
           </section>
 <a name="SuppressInfo"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="card15" style="display: block;">
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="SuppressCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
     <h2 class="mdl-card__title-text">Suppressing Warnings and Errors</h2>
@@ -1544,6 +2037,11 @@ The format of the <code>lint.xml</code> file is something like the following:<br
 <br/>
 &lt;?xml version="1.0" encoding="UTF-8"?><br/>
 &lt;lint><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Ignore everything in the test source set --><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;issue id="all"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ignore path="*/test/*" /><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/issue><br/>
+<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Disable this given check in this project --><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;issue id="IconMissingDensityFolder" severity="ignore" /><br/>
 <br/>
@@ -1551,6 +2049,7 @@ The format of the <code>lint.xml</code> file is something like the following:<br
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;issue id="ObsoleteLayoutParam"><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ignore path="res/layout/activation.xml" /><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ignore path="res/layout-xlarge/activation.xml" /><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ignore regexp="(foo|bar).java" /><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;/issue><br/>
 <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Ignore the UselessLeaf issue in the given file --><br/>

@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="4" by="lint 2.3.3">
+<issues format="4" by="lint 3.0.0">
+
+    <issue
+        id="MissingFirebaseInstanceTokenRefresh"
+        severity="Warning"
+        message="getToken() called without defining onTokenRefresh callback."
+        category="Correctness"
+        priority="6"
+        summary="Missing Firebase Instance ID Token Refresh"
+        explanation="Apps that check the Firebase Instance ID should usually implement the FirebaseInstanceIdService#onTokenRefresh() callback in order to observe changes."
+        url="https://firebase.google.com/docs/cloud-messaging/android/client#monitor-token-generation"
+        urls="https://firebase.google.com/docs/cloud-messaging/android/client#monitor-token-generation"
+        errorLine1="   String registrationToken = FirebaseInstanceId.getInstance().getToken(senderId, &quot;FCM&quot;);"
+        errorLine2="                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/home/travis/build/maxirosson/jdroid/jdroid-android-firebase-fcm/src/main/java/com/jdroid/android/firebase/fcm/FcmRegistrationCommand.java"
+            line="64"
+            column="31"/>
+    </issue>
 
     <issue
         id="ExportedService"

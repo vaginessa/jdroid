@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="4" by="lint 2.3.3">
+<issues format="4" by="lint 3.0.0">
 
     <issue
         id="StaticFieldLeak"
@@ -8,13 +8,13 @@
         category="Performance"
         priority="6"
         summary="Static Field Leaks"
-        explanation="A static field will leak contexts."
+        explanation="A static field will leak contexts.&#xA;&#xA;Non-static inner classes have an implicit reference to their outer class. If that outer class is for example a `Fragment` or `Activity`, then this reference means that the long-running handler/loader/task will hold a reference to the activity which prevents it from getting garbage collected.&#xA;&#xA;Similarly, direct field references to activities and fragments from these longer running instances can cause leaks.&#xA;&#xA;ViewModel classes should never point to Views or non-application Contexts."
         errorLine1=" private static FirebaseRemoteConfig firebaseRemoteConfig;"
-        errorLine2=" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine2="         ~~~~~~">
         <location
             file="/home/travis/build/maxirosson/jdroid/jdroid-android-firebase-remoteconfig/src/main/java/com/jdroid/android/firebase/remoteconfig/FirebaseRemoteConfigHelper.java"
             line="39"
-            column="2"/>
+            column="10"/>
     </issue>
 
 </issues>
