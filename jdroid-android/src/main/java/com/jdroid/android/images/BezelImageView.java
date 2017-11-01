@@ -1,5 +1,6 @@
 package com.jdroid.android.images;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -117,6 +118,7 @@ public class BezelImageView extends AppCompatImageView {
         return changed;
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onDraw(@NonNull Canvas canvas) {
         if (mBounds == null) {

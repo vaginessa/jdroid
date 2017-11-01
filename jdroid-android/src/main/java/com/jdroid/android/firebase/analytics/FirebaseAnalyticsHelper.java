@@ -1,5 +1,6 @@
 package com.jdroid.android.firebase.analytics;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -20,6 +21,7 @@ public class FirebaseAnalyticsHelper {
 
 	private Executor executor = Executors.newSingleThreadExecutor(new LowPriorityThreadFactory("firebase-analytics"));
 
+	@SuppressLint("MissingPermission")
 	public FirebaseAnalyticsHelper() {
 		firebaseAnalytics = FirebaseAnalytics.getInstance(AbstractApplication.get());
 	}
