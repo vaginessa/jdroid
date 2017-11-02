@@ -30,7 +30,7 @@ buildscript {
 }
 
 dependencies {
-	implementation 'com.android.support:multidex:1.0.1'
+	implementation 'com.android.support:multidex:1.0.2'
 	implementation project(':jdroid-android')
 	implementation project(':jdroid-android-uil')
 	implementation project(':jdroid-android-about')
