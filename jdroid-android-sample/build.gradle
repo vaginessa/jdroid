@@ -68,10 +68,10 @@ dependencies {
 			exclude module: 'jdroid-java-core'
 		}
 	}
-	if (jdroid.getBooleanProp("JDROID_JAVA_FIREBASE_DYNAMICLINK_AS_PROJECT_DEPENDENCY", false)) {
+	if (jdroid.getBooleanProp("JDROID_JAVA_FIREBASE_DYNAMICLINKS_AS_PROJECT_DEPENDENCY", false)) {
 		implementation project(":jdroid-java-firebase-dynamiclink")
 	} else {
-		implementation("com.jdroidframework:jdroid-java-firebase-dynamiclink:${JDROID_JAVA_VERSION}") {
+		implementation("com.jdroidframework:jdroid-java-firebase-dynamiclinks:0.1.0") {
 			exclude module: 'slf4j-api'
 			exclude module: 'jdroid-java-core'
 		}
