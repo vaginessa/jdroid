@@ -3,6 +3,7 @@ package com.jdroid.android.analytics;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.java.analytics.AnalyticsTracker;
@@ -17,7 +18,9 @@ public interface CoreAnalyticsTracker extends AnalyticsTracker {
 
 	public void trackHandledException(Throwable throwable, List<String> tags);
 
-	public void trackErrorBreadcrumb(String message);
+	public void trackErrorLog(@NonNull String message);
+	
+	public void trackErrorCustomKey(@NonNull String key, @NonNull Object value);
 
 	// Activity/fragment life cycle
 

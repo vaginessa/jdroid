@@ -66,17 +66,30 @@ public class ExceptionHandlingDebugPrefsAppender extends PreferencesAppender {
 		});
 		preferenceGroup.addPreference(crashPreference);
 
-		Preference breadcrumbPreference = new Preference(activity);
-		breadcrumbPreference.setTitle(R.string.jdroid_trackErrorBreadcrumb);
-		breadcrumbPreference.setSummary(R.string.jdroid_trackErrorBreadcrumb);
-		breadcrumbPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		Preference errorLogPreference = new Preference(activity);
+		errorLogPreference.setTitle(R.string.jdroid_trackErrorLog);
+		errorLogPreference.setSummary(R.string.jdroid_trackErrorLog);
+		errorLogPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				AbstractApplication.get().getCoreAnalyticsSender().trackErrorBreadcrumb("Sample message " + IdGenerator.getIntId());
+				AbstractApplication.get().getCoreAnalyticsSender().trackErrorLog("Sample message " + IdGenerator.getIntId());
 				return true;
 			}
 		});
-		preferenceGroup.addPreference(breadcrumbPreference);
+		preferenceGroup.addPreference(errorLogPreference);
+		
+		Preference customKeyPreference = new Preference(activity);
+		customKeyPreference.setTitle(R.string.jdroid_trackErrorCustomKey);
+		customKeyPreference.setSummary(R.string.jdroid_trackErrorCustomKey);
+		customKeyPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				AbstractApplication.get().getCoreAnalyticsSender().trackErrorCustomKey("Sample key", IdGenerator.getIntId());
+				return true;
+			}
+		});
+		preferenceGroup.addPreference(customKeyPreference);
 	}
 }

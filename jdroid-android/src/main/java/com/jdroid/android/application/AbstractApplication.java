@@ -364,7 +364,7 @@ public abstract class AbstractApplication extends Application {
 				builder.append(" initialized, wrapping ");
 				builder.append(currentExceptionHandler.getClass().getCanonicalName());
 				LOGGER.info(builder.toString());
-				getCoreAnalyticsSender().trackErrorBreadcrumb(builder.toString());
+				getCoreAnalyticsSender().trackErrorLog(builder.toString());
 			}
 		}
 	}

@@ -3,6 +3,7 @@ package com.jdroid.android.analytics;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.java.concurrent.LowPriorityThreadFactory;
@@ -21,10 +22,15 @@ public abstract class AbstractCoreAnalyticsTracker implements CoreAnalyticsTrack
 	}
 
 	@Override
-	public void trackErrorBreadcrumb(String message) {
+	public void trackErrorLog(@NonNull String message) {
 		// Do Nothing
 	}
-
+	
+	@Override
+	public void trackErrorCustomKey(@NonNull String key, @NonNull Object value) {
+		// Do Nothing
+	}
+	
 	@Override
 	public void onFirstActivityCreate(Activity activity) {
 		// Do nothing

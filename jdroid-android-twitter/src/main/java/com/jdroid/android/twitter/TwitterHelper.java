@@ -76,7 +76,7 @@ public abstract class TwitterHelper {
 							connectionError = true;
 						} else {
 							String errorMessage = twitterApiException.getErrorCode() + " " + twitterApiException.getErrorMessage();
-							AbstractApplication.get().getCoreAnalyticsSender().trackErrorBreadcrumb(errorMessage);
+							AbstractApplication.get().getCoreAnalyticsSender().trackErrorLog(errorMessage);
 						}
 					} else if ("Request Failure".equals(e.getMessage())) {
 						if (e.getCause() != null) {

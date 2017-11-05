@@ -3,6 +3,7 @@ package com.jdroid.android.google.analytics;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.HitBuilders.SocialBuilder;
@@ -200,10 +201,15 @@ public class GoogleCoreAnalyticsTracker extends AbstractGoogleAnalyticsTracker i
 	}
 
 	@Override
-	public void trackErrorBreadcrumb(String message) {
+	public void trackErrorLog(String message) {
 		// Do nothing
 	}
-
+	
+	@Override
+	public void trackErrorCustomKey(@NonNull String key, @NonNull Object value) {
+		// Do nothing
+	}
+	
 	public void sendSocialInteraction(SocialNetwork socialNetwork, SocialAction socialAction, String socialTarget) {
 		
 		SocialBuilder socialBuilder = new SocialBuilder();

@@ -349,7 +349,9 @@ public class ActivityHelper implements ActivityIf {
 
 		LOGGER.debug("Executing onResume on " + activity);
 		AbstractApplication.get().setCurrentActivity(activity);
-
+		
+		AbstractApplication.get().getCoreAnalyticsSender().onActivityResume(activity);
+		
 		verifyGooglePlayServicesAvailability(getActivityIf().isGooglePlayServicesVerificationEnabled());
 
 		for (ActivityDelegate each : activityDelegatesMap.values()) {
@@ -388,7 +390,9 @@ public class ActivityHelper implements ActivityIf {
 
 	public void onPause() {
 		LOGGER.debug("Executing onPause on " + activity);
-
+		
+		AbstractApplication.get().getCoreAnalyticsSender().onActivityPause(activity);
+		
 		for (ActivityDelegate each : activityDelegatesMap.values()) {
 			each.onPause();
 		}
@@ -425,6 +429,8 @@ public class ActivityHelper implements ActivityIf {
 	public void onDestroy() {
 		isDestroyed = true;
 		LOGGER.debug("Executing onDestroy on " + activity);
+		AbstractApplication.get().getCoreAnalyticsSender().onActivityDestroy(activity);
+		
 		dismissLoading();
 
 		for (ActivityDelegate each : activityDelegatesMap.values()) {

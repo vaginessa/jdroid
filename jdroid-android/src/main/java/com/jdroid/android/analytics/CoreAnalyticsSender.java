@@ -3,6 +3,7 @@ package com.jdroid.android.analytics;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import com.jdroid.android.social.SocialAction;
 import com.jdroid.java.analytics.AnalyticsSender;
@@ -30,16 +31,27 @@ public class CoreAnalyticsSender<T extends CoreAnalyticsTracker> extends Analyti
 	}
 	
 	@Override
-	public void trackErrorBreadcrumb(final String message) {
+	public void trackErrorLog(@NonNull String message) {
 		execute(new TrackingCommand() {
 
 			@Override
 			protected void track(T tracker) {
-				tracker.trackErrorBreadcrumb(message);
+				tracker.trackErrorLog(message);
 			}
 		});
 	}
-
+	
+	@Override
+	public void trackErrorCustomKey(@NonNull String key, @NonNull Object value) {
+		execute(new TrackingCommand() {
+			
+			@Override
+			protected void track(T tracker) {
+				tracker.trackErrorCustomKey(key, value);
+			}
+		});
+	}
+	
 	@Override
 	public void onFirstActivityCreate(final Activity activity) {
 		execute(new TrackingCommand() {

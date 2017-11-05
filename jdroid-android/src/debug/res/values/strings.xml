@@ -25,7 +25,8 @@
 	<string name="jdroid_exceptionType" tools:ignore="MissingTranslation">Exception type</string>
 	<string name="jdroid_uiThread" tools:ignore="MissingTranslation">UI Thread</string>
 	<string name="jdroid_crash" tools:ignore="MissingTranslation">Crash</string>
-	<string name="jdroid_trackErrorBreadcrumb" tools:ignore="MissingTranslation">Track Error Breadcrumb</string>
+	<string name="jdroid_trackErrorLog" tools:ignore="MissingTranslation">Track Error Log</string>
+	<string name="jdroid_trackErrorCustomKey" tools:ignore="MissingTranslation">Track Error Custom Key</string>
 
 	<!-- Nav Drawer -->
 	<string name="jdroid_navDrawerSettings" tools:ignore="MissingTranslation">Nav Drawer</string>

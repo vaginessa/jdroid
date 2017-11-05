@@ -1,7 +1,7 @@
 apply plugin: 'com.jdroid.android.library'
 
-ext.PROJECT_NAME = 'Jdroid Android - Firebase Crash Reporting'
-description = 'Jdroid dependency project for Firebase Crash Reporting'
+ext.PROJECT_NAME = 'Jdroid Android - Firebase Crashlytics'
+description = 'Jdroid dependency project for Firebase Crashlytics'
 
 configurations.all {
 	// check for updates every build
@@ -18,7 +18,10 @@ dependencies {
 
 	api project(":jdroid-android")
 
-	api "com.google.firebase:firebase-crash:${GOOGLE_PLAY_SERVICES_VERSION}"
+	// https://docs.fabric.io/android/changelog.html#crashlytics
+	api('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
+		transitive = true
+	}
 
 	testImplementation "junit:junit:${JUNIT_VERSION}"
 	testImplementation "org.robolectric:robolectric:${ROBOLECTRIC_VERSION}"

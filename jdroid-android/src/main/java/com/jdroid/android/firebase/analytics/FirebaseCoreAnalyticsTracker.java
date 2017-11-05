@@ -3,6 +3,7 @@ package com.jdroid.android.firebase.analytics;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.jdroid.android.analytics.CoreAnalyticsTracker;
@@ -35,10 +36,15 @@ public class FirebaseCoreAnalyticsTracker extends AbstractFirebaseAnalyticsTrack
 	}
 
 	@Override
-	public void trackErrorBreadcrumb(String message) {
+	public void trackErrorLog(String message) {
 		// Do nothing
 	}
-
+	
+	@Override
+	public void trackErrorCustomKey(@NonNull String key, @NonNull Object value) {
+		// Do nothing
+	}
+	
 	@Override
 	public void onFirstActivityCreate(Activity activity) {
 		// Do nothing

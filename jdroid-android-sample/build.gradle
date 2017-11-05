@@ -37,7 +37,7 @@ dependencies {
 	implementation project(':jdroid-android-facebook')
 	implementation project(':jdroid-android-firebase-instanceid')
 	implementation project(':jdroid-android-firebase-admob')
-	implementation project(':jdroid-android-firebase-crash')
+	implementation project(':jdroid-android-firebase-crashlytics')
 	implementation project(':jdroid-android-google-maps')
 	implementation project(':jdroid-android-google-inappbilling')
 	implementation project(':jdroid-android-firebase-database')
@@ -46,6 +46,9 @@ dependencies {
 	implementation project(':jdroid-android-google-signin')
 	implementation project(':jdroid-android-twitter')
 	implementation 'com.firebase:firebase-client-android:2.5.0'
+
+	// This dependency is required by the firebase-plugins, until they support the implementation/api configurations
+	compile "com.google.firebase:firebase-perf:${GOOGLE_PLAY_SERVICES_VERSION}"
 
 	if (jdroid.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
 		implementation(project(':jdroid-java-firebase-database')) {
@@ -124,27 +127,6 @@ android {
 		jdroid.setBuildConfigString(defaultConfig, "FIREBASE_DYNAMIC_LINKS_DOMAIN", "euv8z.app.goo.gl")
 		jdroid.setBuildConfigString(defaultConfig, "FIREBASE_WEB_API_KEY", "AIzaSyCcwMZ25CMtubXhcW3I7NVTybckPu0Dwtg")
 
-		// Used by Google Sign In. {YOUR_CLIENT}/oauth_client/client_id (client_type == 3)
-		jdroid.setResValueString(defaultConfig, "default_web_client_id", "527857945512-qr7kk98nntlt44po5cblnrgq41ief65s.apps.googleusercontent.com")
-
-		// Used by Firebase Database. project_info/firebase_url
-		jdroid.setResValueString(defaultConfig, "firebase_database_url", "https://jdroid-staging.firebaseio.com")
-
-		// project_info/project_number
-		jdroid.setResValueString(defaultConfig, "gcm_defaultSenderId", "527857945512")
-
-		// {YOUR_CLIENT}/api_key/current_key
-		jdroid.setResValueString(defaultConfig, "google_api_key", "AIzaSyDNAyitlL4PWxNCjf63Quf0ruvcFSzs6D0")
-
-		// {YOUR_CLIENT}/client_info/mobilesdk_app_id
-		jdroid.setResValueString(defaultConfig, "google_app_id", "1:527857945512:android:04da523460c0b69f")
-
-		// Used by Firebase Crash. {YOUR_CLIENT}/api_key/current_key
-		jdroid.setResValueString(defaultConfig, "google_crash_reporting_api_key", "AIzaSyDNAyitlL4PWxNCjf63Quf0ruvcFSzs6D0")
-
-		// project_info/storage_bucket
-		jdroid.setResValueString(defaultConfig, "google_storage_bucket", "jdroid-staging.appspot.com")
-
 		manifestPlaceholders = [
 				googleMapsApiKey: "AIzaSyA2UZNjUMaw7kFk9qvHeGLTppXxcgI3l1Y",
 				facebookAppId: "fb1048902711862195"
@@ -205,27 +187,6 @@ android {
 					// TODO Add FIREBASE_AUTH_TOKEN
 					// TODO Add GOOGLE_SERVER_CLIENT_ID
 
-					// Used by Google Sign In. {YOUR_CLIENT}/oauth_client/client_id (client_type == 3)
-					jdroid.setResValueString(defaultConfig, "default_web_client_id", "361779001695-1h1mk78pnrvlfvti8mfpcs7hbgrpcddu.apps.googleusercontent.com")
-
-					// Used by Firebase Database. project_info/firebase_url
-					jdroid.setResValueString(defaultConfig, "firebase_database_url", "https://fir-jdroid-production.firebaseio.com")
-
-					// project_info/project_number
-					jdroid.setResValueString(defaultConfig, "gcm_defaultSenderId", "361779001695")
-
-					// {YOUR_CLIENT}/api_key/current_key
-					jdroid.setResValueString(defaultConfig, "google_api_key", "AIzaSyDe-x-lkKP2VyeMYq8i0I5mbeDAElY6Pks")
-
-					// {YOUR_CLIENT}/client_info/mobilesdk_app_id
-					jdroid.setResValueString(defaultConfig, "google_app_id", "1:361779001695:android:85398d20b5634ada")
-
-					// Used by Firebase Crash. {YOUR_CLIENT}/api_key/current_key
-					jdroid.setResValueString(defaultConfig, "google_crash_reporting_api_key", "AIzaSyDe-x-lkKP2VyeMYq8i0I5mbeDAElY6Pks")
-
-					// project_info/storage_bucket
-					jdroid.setResValueString(defaultConfig, "google_storage_bucket", "fir-jdroid-production.appspot.com")
-
 					manifestPlaceholders = [
 							googleMapsApiKey: jdroid.getStringProp("GOOGLE_MAPS_API_KEY", ""),
 							facebookAppId: jdroid.getStringProp("FACEBOOK_APP_ID", "")
@@ -255,3 +216,5 @@ android {
 	sourceSets.test.res.srcDirs += sourceSets.main.res.srcDirs
 	sourceSets.test.res.srcDirs += sourceSets.debug.res.srcDirs
 }
+
+apply plugin: 'com.google.gms.google-services'
