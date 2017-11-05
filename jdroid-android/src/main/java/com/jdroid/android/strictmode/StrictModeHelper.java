@@ -40,7 +40,6 @@ public class StrictModeHelper {
 			threadPolicyBuilder.permitDiskWrites();
 		}
 		threadPolicyBuilder.penaltyLog();
-		threadPolicyBuilder.penaltyFlashScreen();
 		if (isStrictModePenaltyDeath()) {
 			threadPolicyBuilder.penaltyDeath();
 		}
