@@ -173,10 +173,10 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 24 warnings</span>
+      <span class="mdl-layout-title">Lint Report: 25 warnings</span>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-Check performed at Fri Nov 03 20:05:36 UTC 2017      </nav>
+Check performed at Sun Nov 05 02:24:29 UTC 2017      </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -184,7 +184,7 @@ Check performed at Fri Nov 03 20:05:36 UTC 2017      </nav>
     <nav class="mdl-navigation">
       <a class="mdl-navigation__link" href="#overview"><i class="material-icons">dashboard</i>Overview</a>
       <a class="mdl-navigation__link" href="#Overdraw"><i class="material-icons warning-icon">warning</i>Overdraw: Painting regions more than once (7)</a>
-      <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (6)</a>
+      <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (7)</a>
       <a class="mdl-navigation__link" href="#UselessLeaf"><i class="material-icons warning-icon">warning</i>Useless leaf layout (2)</a>
       <a class="mdl-navigation__link" href="#IconDensities"><i class="material-icons warning-icon">warning</i>Icon densities validation (3)</a>
       <a class="mdl-navigation__link" href="#HardcodedText"><i class="material-icons warning-icon">warning</i>Hardcoded text (6)</a>
@@ -206,7 +206,7 @@ Check performed at Fri Nov 03 20:05:36 UTC 2017      </nav>
 <td class="countColumn">7</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#Overdraw">Overdraw</a>: Overdraw: Painting regions more than once</td></tr>
 <tr>
-<td class="countColumn">6</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">7</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#UnusedResources">UnusedResources</a>: Unused resources</td></tr>
 <tr>
 <td class="countColumn">2</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
@@ -395,6 +395,14 @@ Additional locations: <ul>
 </ul>
 </div><br/><br/>
 <span class="location"><a href="../../src/debug/res/raw/url_samples.html">../../src/debug/res/raw/url_samples.html</a></span>: <span class="message">The resource <code>R.raw.url_samples</code> appears to be unused</span><br />
+<span class="location"><a href="../generated/res/google-services/debug/values/values.xml">../generated/res/google-services/debug/values/values.xml</a>:10</span>: <span class="message">The resource <code>R.string.project_id</code> appears to be unused</span><br /><pre class="errorlines">
+<span class="lineno">  7 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"google_app_id"</span> <span class="attribute">translatable</span>=<span class="value">"false"</span>>1:527857945512:android:04da523460c0b69f<span class="tag">&lt;/string></span>
+<span class="lineno">  8 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"google_crash_reporting_api_key"</span> <span class="attribute">translatable</span>=<span class="value">"false"</span>>AIzaSyDNAyitlL4PWxNCjf63Quf0ruvcFSzs6D0<span class="tag">&lt;/string></span>
+<span class="lineno">  9 </span>    <span class="tag">&lt;string</span><span class="attribute"> name</span>=<span class="value">"google_storage_bucket"</span> <span class="attribute">translatable</span>=<span class="value">"false"</span>>jdroid-staging.appspot.com<span class="tag">&lt;/string></span>
+<span class="caretline"><span class="lineno"> 10 </span>    <span class="tag">&lt;string</span><span class="attribute"> </span><span class="warning"><span class="attribute">name</span>=<span class="value">"project_id"</span></span> <span class="attribute">translatable</span>=<span class="value">"false"</span>>jdroid-staging<span class="tag">&lt;/string></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 11 </span><span class="tag">&lt;/resources></span>
+</pre>
+
 </div>
 <div class="metadata"><div class="explanation" id="explanationUnusedResources" style="display: none;">
 Unused resources make applications larger and slow down builds.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
