@@ -49,6 +49,7 @@ then
 
   # go into directory and copy data we're interested in to that directory
   cd jdroid-website
+  cd public
   mkdir -p ./reports/$TRAVIS_BRANCH
   cp -Rf $HOME/reports/$TRAVIS_BRANCH/* ./reports/$TRAVIS_BRANCH
 
