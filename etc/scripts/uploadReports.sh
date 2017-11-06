@@ -45,16 +45,16 @@ then
   git config --global user.name "Travis"
 
   # using token clone gh-pages branch
-  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/maxirosson/jdroid.git  gh-pages > /dev/null
+  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/maxirosson/jdroid-website.git > /dev/null
 
-  # go into diractory and copy data we're interested in to that directory
-  cd gh-pages
+  # go into directory and copy data we're interested in to that directory
+  cd jdroid-website
   mkdir -p ./reports/$TRAVIS_BRANCH
   cp -Rf $HOME/reports/$TRAVIS_BRANCH/* ./reports/$TRAVIS_BRANCH
 
   # add, commit and push files
   git add -f .
   git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed to gh-pages"
-  git push -fq origin gh-pages > /dev/null
+  git push -fq origin master > /dev/null
 
 fi

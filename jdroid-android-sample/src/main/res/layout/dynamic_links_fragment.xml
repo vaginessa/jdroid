@@ -11,31 +11,31 @@
 		</android.support.design.widget.TextInputLayout>
 
 		<android.support.design.widget.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-			<EditText android:id="@+id/fallbackLink" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/fallbackLink" />
+			<EditText android:id="@+id/fallbackLink" android:inputType="text" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/fallbackLink" />
 		</android.support.design.widget.TextInputLayout>
 
 		<android.support.design.widget.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-			<EditText android:id="@+id/customAppLocation" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/customAppLocation" />
+			<EditText android:id="@+id/customAppLocation" android:inputType="text" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/customAppLocation" />
 		</android.support.design.widget.TextInputLayout>
 
 		<android.support.design.widget.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-			<EditText android:id="@+id/utmSource" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/utmSource" />
+			<EditText android:id="@+id/utmSource" android:inputType="text" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/utmSource" />
 		</android.support.design.widget.TextInputLayout>
 
 		<android.support.design.widget.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-			<EditText android:id="@+id/utmMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/utmMedium" />
+			<EditText android:id="@+id/utmMedium" android:inputType="text" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/utmMedium" />
 		</android.support.design.widget.TextInputLayout>
 
 		<android.support.design.widget.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-			<EditText android:id="@+id/utmCampaign" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/utmCampaign" />
+			<EditText android:id="@+id/utmCampaign" android:inputType="text" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/utmCampaign" />
 		</android.support.design.widget.TextInputLayout>
 
 		<android.support.design.widget.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-			<EditText android:id="@+id/utmTerm" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/utmTerm" />
+			<EditText android:id="@+id/utmTerm" android:inputType="text" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/utmTerm" />
 		</android.support.design.widget.TextInputLayout>
 
 		<android.support.design.widget.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-			<EditText android:id="@+id/utmContent" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/utmContent" />
+			<EditText android:id="@+id/utmContent" android:inputType="text" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/utmContent" />
 		</android.support.design.widget.TextInputLayout>
 
 		<android.support.design.widget.TextInputLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
