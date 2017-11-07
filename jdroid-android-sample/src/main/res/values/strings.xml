@@ -268,7 +268,7 @@
 	<string name="sampleWidget">Sample Widget</string>
 
 	<!-- About -->
-	<string name="shareMessage">Jdroid - Application Framework for Android and Java apps. Download the sample app on your Android.
+	<string name="shareMessage">Jdroid - Tools for Android and Java apps. Download the sample app on your Android.
 		%1$s</string>
 
 </resources>

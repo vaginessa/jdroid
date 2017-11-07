@@ -1,7 +1,7 @@
-[![JDROID](https://raw.githubusercontent.com/maxirosson/jdroid/gh-pages/images/logoDark.png)](http://jdroidframework.com/)
+[![JDROID](https://jdroidtools.com/images/logoDark.png)](http://jdroidtools.com/)
 -----------
 
-The jdroid Framework provides a programming and architectural model for modern Java-based enterprise and android applications.
+Jdroid provides a set of tools for modern Java-based enterprise and android applications.
 
 Continuous Integration
 -----------
@@ -145,6 +145,6 @@ Help us to continue with this project:
 <a href='https://pledgie.com/campaigns/30030'><img alt='Click here to lend your support to: Jdroid and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/30030.png?skin_name=chrome' border='0' ></a>
 
 --------------
-For more information, visit the [GitHub Wiki](https://github.com/maxirosson/jdroid/wiki) or our [Site](http://jdroidframework.com/).
+For more information, visit the [GitHub Wiki](https://github.com/maxirosson/jdroid/wiki) or our [Site](http://jdroidtools.com/).
 
-Follow us on [@jdroidframework](https://twitter.com/jdroidframework)
+Follow us on [@jdroidtools](https://twitter.com/jdroidtools)

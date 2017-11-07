@@ -6,6 +6,6 @@ public class UriMapperUriHandler extends AbstractUriHandler<UriMapperActivity> {
 
 	@Override
 	public String getUrl(UriMapperActivity activity) {
-		return "http://jdroidframework.com/uri";
+		return "http://jdroidtools.com/uri";
 	}
 }

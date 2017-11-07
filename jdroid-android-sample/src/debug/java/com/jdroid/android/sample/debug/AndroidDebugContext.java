@@ -27,17 +27,17 @@ public class AndroidDebugContext extends DebugContext {
 	@Override
 	public List<String> getUrlsToTest() {
 		List<String> urls = Lists.newArrayList();
-		urls.add("http://jdroidframework.com");
-		urls.add("http://jdroidframework.com/");
-		urls.add("http://jdroidframework.com/uri");
-		urls.add("http://jdroidframework.com/uri/singletop?a=1");
-		urls.add("http://jdroidframework.com/uri/singletop?a=2");
-		urls.add("http://jdroidframework.com/uri/singletop?a=3");
-		urls.add("http://jdroidframework.com/uri/noflags?a=1");
-		urls.add("http://jdroidframework.com/uri/noflags?a=2");
-		urls.add("http://jdroidframework.com/uri/noflags?a=3");
-		urls.add("http://jdroidframework.com/uri/noflags");
-		urls.add("http://jdroidframework.com/uri/invalid");
+		urls.add("http://jdroidtools.com");
+		urls.add("http://jdroidtools.com/");
+		urls.add("http://jdroidtools.com/uri");
+		urls.add("http://jdroidtools.com/uri/singletop?a=1");
+		urls.add("http://jdroidtools.com/uri/singletop?a=2");
+		urls.add("http://jdroidtools.com/uri/singletop?a=3");
+		urls.add("http://jdroidtools.com/uri/noflags?a=1");
+		urls.add("http://jdroidtools.com/uri/noflags?a=2");
+		urls.add("http://jdroidtools.com/uri/noflags?a=3");
+		urls.add("http://jdroidtools.com/uri/noflags");
+		urls.add("http://jdroidtools.com/uri/invalid");
 		return urls;
 	}
 }

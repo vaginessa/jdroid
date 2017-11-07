@@ -20,7 +20,7 @@ public class ImageLoaderFragment extends AbstractFragment {
 		super.onViewCreated(view, savedInstanceState);
 		
 		ImageView imageView = findView(R.id.image);
-		UilImageLoaderHelper.displayImage("http://jdroidframework.com/images/mainImage.png", imageView,
+		UilImageLoaderHelper.displayImage("http://jdroidtools.com/images/mainImage.png", imageView,
 				R.drawable.hero);
 	}
 }

@@ -39,8 +39,8 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="http" android:host="jdroidframework.com" android:path="/" />
-				<data android:scheme="https" android:host="jdroidframework.com" android:path="/" />
+				<data android:scheme="http" android:host="jdroidtools.com" android:path="/" />
+				<data android:scheme="https" android:host="jdroidtools.com" android:path="/" />
 			</intent-filter>
 		</activity>
 
@@ -285,8 +285,8 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="http" android:host="jdroidframework.com" android:path="/uri" />
-				<data android:scheme="https" android:host="jdroidframework.com" android:path="/uri" />
+				<data android:scheme="http" android:host="jdroidtools.com" android:path="/uri" />
+				<data android:scheme="https" android:host="jdroidtools.com" android:path="/uri" />
 			</intent-filter>
 		</activity>
 
@@ -296,8 +296,8 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="http" android:host="jdroidframework.com" android:path="/uri/singletop" />
-				<data android:scheme="https" android:host="jdroidframework.com" android:path="/uri/singletop" />
+				<data android:scheme="http" android:host="jdroidtools.com" android:path="/uri/singletop" />
+				<data android:scheme="https" android:host="jdroidtools.com" android:path="/uri/singletop" />
 			</intent-filter>
 		</activity>
 
@@ -307,8 +307,8 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="http" android:host="jdroidframework.com" android:path="/uri/noflags" />
-				<data android:scheme="https" android:host="jdroidframework.com" android:path="/uri/noflags" />
+				<data android:scheme="http" android:host="jdroidtools.com" android:path="/uri/noflags" />
+				<data android:scheme="https" android:host="jdroidtools.com" android:path="/uri/noflags" />
 			</intent-filter>
 		</activity>
 
@@ -318,8 +318,8 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="http" android:host="jdroidframework.com" android:path="/uri/matchError" />
-				<data android:scheme="https" android:host="jdroidframework.com" android:path="/uri/matchError" />
+				<data android:scheme="http" android:host="jdroidtools.com" android:path="/uri/matchError" />
+				<data android:scheme="https" android:host="jdroidtools.com" android:path="/uri/matchError" />
 			</intent-filter>
 		</activity>
 
@@ -329,8 +329,8 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="http" android:host="jdroidframework.com" android:path="/uri/mainIntentError" />
-				<data android:scheme="https" android:host="jdroidframework.com" android:path="/uri/mainIntentError" />
+				<data android:scheme="http" android:host="jdroidtools.com" android:path="/uri/mainIntentError" />
+				<data android:scheme="https" android:host="jdroidtools.com" android:path="/uri/mainIntentError" />
 			</intent-filter>
 		</activity>
 
@@ -340,8 +340,8 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="http" android:host="jdroidframework.com" android:path="/uri/defaultIntentError" />
-				<data android:scheme="https" android:host="jdroidframework.com" android:path="/uri/defaultIntentError" />
+				<data android:scheme="http" android:host="jdroidtools.com" android:path="/uri/defaultIntentError" />
+				<data android:scheme="https" android:host="jdroidtools.com" android:path="/uri/defaultIntentError" />
 			</intent-filter>
 		</activity>
 
@@ -351,8 +351,8 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="http" android:host="jdroidframework.com" android:path="/uri/matchNewActivity" />
-				<data android:scheme="https" android:host="jdroidframework.com" android:path="/uri/matchNewActivity" />
+				<data android:scheme="http" android:host="jdroidtools.com" android:path="/uri/matchNewActivity" />
+				<data android:scheme="https" android:host="jdroidtools.com" android:path="/uri/matchNewActivity" />
 			</intent-filter>
 		</activity>
 
@@ -362,8 +362,8 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="http" android:host="jdroidframework.com" android:path="/uri/noMatchNewActivity" />
-				<data android:scheme="https" android:host="jdroidframework.com" android:path="/uri/noMatchNewActivity" />
+				<data android:scheme="http" android:host="jdroidtools.com" android:path="/uri/noMatchNewActivity" />
+				<data android:scheme="https" android:host="jdroidtools.com" android:path="/uri/noMatchNewActivity" />
 			</intent-filter>
 		</activity>
 
@@ -373,8 +373,8 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="http" android:host="jdroidframework.com" android:path="/uri/matchSameActivity" />
-				<data android:scheme="https" android:host="jdroidframework.com" android:path="/uri/matchSameActivity" />
+				<data android:scheme="http" android:host="jdroidtools.com" android:path="/uri/matchSameActivity" />
+				<data android:scheme="https" android:host="jdroidtools.com" android:path="/uri/matchSameActivity" />
 			</intent-filter>
 		</activity>
 
@@ -384,8 +384,8 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="http" android:host="jdroidframework.com" android:path="/uri/noMatchSameActivity" />
-				<data android:scheme="https" android:host="jdroidframework.com" android:path="/uri/noMatchSameActivity" />
+				<data android:scheme="http" android:host="jdroidtools.com" android:path="/uri/noMatchSameActivity" />
+				<data android:scheme="https" android:host="jdroidtools.com" android:path="/uri/noMatchSameActivity" />
 			</intent-filter>
 		</activity>
 
@@ -395,8 +395,8 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="http" android:host="jdroidframework.com" android:path="/uri/matchNullIntent" />
-				<data android:scheme="https" android:host="jdroidframework.com" android:path="/uri/matchNullIntent" />
+				<data android:scheme="http" android:host="jdroidtools.com" android:path="/uri/matchNullIntent" />
+				<data android:scheme="https" android:host="jdroidtools.com" android:path="/uri/matchNullIntent" />
 			</intent-filter>
 		</activity>
 
@@ -406,8 +406,8 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="http" android:host="jdroidframework.com" android:path="/uri/noMatchNullIntent" />
-				<data android:scheme="https" android:host="jdroidframework.com" android:path="/uri/noMatchNullIntent" />
+				<data android:scheme="http" android:host="jdroidtools.com" android:path="/uri/noMatchNullIntent" />
+				<data android:scheme="https" android:host="jdroidtools.com" android:path="/uri/noMatchNullIntent" />
 			</intent-filter>
 		</activity>
 

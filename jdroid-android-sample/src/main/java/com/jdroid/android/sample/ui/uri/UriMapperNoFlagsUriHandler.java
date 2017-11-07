@@ -21,6 +21,6 @@ public class UriMapperNoFlagsUriHandler extends AbstractUriHandler<UriMapperNoFl
 
 	@Override
 	public String getUrl(UriMapperNoFlagsActivity activity) {
-		return "http://jdroidframework.com/uri/noflags?a=1";
+		return "http://jdroidtools.com/uri/noflags?a=1";
 	}
 }

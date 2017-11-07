@@ -2,14 +2,9 @@ package com.jdroid.android.sample.application;
 
 
 import com.jdroid.android.context.AppContext;
-import com.jdroid.android.firebase.remoteconfig.RemoteConfigParameter;
 import com.jdroid.android.sample.BuildConfig;
-import com.jdroid.android.sample.firebase.remoteconfig.AndroidRemoteConfigParameter;
-import com.jdroid.java.collections.Lists;
-import com.jdroid.java.http.Server;
 import com.jdroid.android.sample.api.ApiServer;
-
-import java.util.List;
+import com.jdroid.java.http.Server;
 
 public class AndroidAppContext extends AppContext {
 
@@ -31,17 +26,17 @@ public class AndroidAppContext extends AppContext {
 
 	@Override
 	public String getWebsite() {
-		return "http://www.jdroidframework.com";
+		return "http://www.jdroidtools.com";
 	}
 
 	@Override
 	public String getContactUsEmail() {
-		return "jdroidsoft@gmail.com";
+		return "contact@jdroidtools.com";
 	}
 
 	@Override
 	public String getTwitterAccount() {
-		return "jdroidframework";
+		return "jdroidtools";
 	}
 
 	public String getFirebaseAuthToken() {

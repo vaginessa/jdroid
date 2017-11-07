@@ -21,7 +21,7 @@ public class LibrariesFragment extends AbstractRecyclerFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		libraries.add(new Library("jdroid", "Jdroid Framework", "Maxi Rosson", "http://jdroidframework.com"));
+		libraries.add(new Library("jdroid", "Jdroid Tools", "Maxi Rosson", "http://jdroidtools.com"));
 		libraries.add(new Library("leakCanary", "Leak Canary", "Square", "https://github.com/square/leakcanary"));
 		libraries.add(new Library("yearclass", "Device Year Class", "Facebook", "https://github.com/facebook/device-year-class"));
 		if (ReflectionUtils.getSafeClass("com.jdroid.android.twitter.TwitterAppLifecycleCallback") != null) {

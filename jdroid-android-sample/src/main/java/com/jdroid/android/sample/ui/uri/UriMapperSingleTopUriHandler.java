@@ -20,6 +20,6 @@ public class UriMapperSingleTopUriHandler extends AbstractUriHandler<UriMapperSi
 
 	@Override
 	public String getUrl(UriMapperSingleTopActivity activity) {
-		return "http://jdroidframework.com/uri/singletop?a=1";
+		return "http://jdroidtools.com/uri/singletop?a=1";
 	}
 }

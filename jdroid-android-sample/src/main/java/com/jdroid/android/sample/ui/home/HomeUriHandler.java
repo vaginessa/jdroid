@@ -6,7 +6,7 @@ public class HomeUriHandler extends AbstractUriHandler<HomeActivity> {
 
 	@Override
 	public String getUrl(HomeActivity activity) {
-		return "http://jdroidframework.com/";
+		return "http://jdroidtools.com/";
 	}
 
 	@Override

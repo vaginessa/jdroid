@@ -22,7 +22,7 @@ public class UriTest extends AbstractUriTest {
 	
 	@Test
 	public void noFlagsTestOk() {
-		openUri("http://jdroidframework.com/uri/noflags?a=1");
+		openUri("http://jdroidtools.com/uri/noflags?a=1");
 		
 		ViewInteraction viewInteraction = onView(withId(R.id.activity));
 		viewInteraction.check(matches(isDisplayed()));
@@ -31,7 +31,7 @@ public class UriTest extends AbstractUriTest {
 	
 	@Test
 	public void noFlagsTestFail() {
-		openUri("http://jdroidframework.com/uri/noflags");
+		openUri("http://jdroidtools.com/uri/noflags");
 		
 		ViewInteraction viewInteraction = onView(withText("Analytics"));
 		viewInteraction.check(matches(isDisplayed()));
