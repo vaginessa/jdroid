@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 if [ "$TRAVIS_PULL_REQUEST" = "false" ]
 then
