@@ -50,7 +50,7 @@ dependencies {
 	// This dependency is required by the firebase-plugins, until they support the implementation/api configurations
 	compile "com.google.firebase:firebase-perf:${GOOGLE_PLAY_SERVICES_VERSION}"
 
-	if (jdroid.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
+	if (jdroid.propertyResolver.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
 		implementation(project(':jdroid-java-firebase-database')) {
 			exclude module: 'slf4j-api'
 			exclude group: 'com.firebase', module: 'firebase-client-jvm'
@@ -63,7 +63,7 @@ dependencies {
 			exclude module: 'jdroid-java-core'
 		}
 	}
-	if (jdroid.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
+	if (jdroid.propertyResolver.getBooleanProp("JDROID_JAVA_HTTP_AS_PROJECT_DEPENDENCY", false)) {
 		implementation project(":jdroid-java-http-okhttp")
 	} else {
 		implementation("com.jdroidframework:jdroid-java-http-okhttp:${JDROID_JAVA_HTTP_VERSION}") {
@@ -71,7 +71,7 @@ dependencies {
 			exclude module: 'jdroid-java-core'
 		}
 	}
-	if (jdroid.getBooleanProp("JDROID_JAVA_FIREBASE_DYNAMICLINKS_AS_PROJECT_DEPENDENCY", false)) {
+	if (jdroid.propertyResolver.getBooleanProp("JDROID_JAVA_FIREBASE_DYNAMICLINKS_AS_PROJECT_DEPENDENCY", false)) {
 		implementation project(":jdroid-java-firebase-dynamiclink")
 	} else {
 		implementation("com.jdroidframework:jdroid-java-firebase-dynamiclinks:0.1.0") {
@@ -171,14 +171,14 @@ android {
 		if (jdroid.isReleaseBuildTypeEnabled()) {
 			release {
 
-				if (jdroid.getBooleanProp("RELEASE_FAKE_ENABLED", false)) {
+				if (jdroid.propertyResolver.getBooleanProp("RELEASE_FAKE_ENABLED", false)) {
 					signingConfig signingConfigs.debug
 					debuggable true
 				} else {
 
 					signingConfig signingConfigs.release
 
-					debuggable jdroid.getBooleanProp('DEBUGGABLE', false)
+					debuggable jdroid.propertyResolver.getBooleanProp('DEBUGGABLE', false)
 
 					jdroid.setBuildConfigString(buildTypes.release, "SERVER_NAME", "PROD")
 
@@ -188,8 +188,8 @@ android {
 					// TODO Add GOOGLE_SERVER_CLIENT_ID
 
 					manifestPlaceholders = [
-							googleMapsApiKey: jdroid.getStringProp("GOOGLE_MAPS_API_KEY", ""),
-							facebookAppId: jdroid.getStringProp("FACEBOOK_APP_ID", "")
+							googleMapsApiKey: jdroid.propertyResolver.getStringProp("GOOGLE_MAPS_API_KEY", ""),
+							facebookAppId: jdroid.propertyResolver.getStringProp("FACEBOOK_APP_ID", "")
 					]
 				}
 			}
