@@ -15,6 +15,8 @@ import com.jdroid.android.google.GooglePlayServicesUtils;
 import com.jdroid.android.google.GooglePlayUtils;
 import com.jdroid.android.google.plus.GooglePlusHelperFragment;
 import com.jdroid.android.google.plus.GooglePlusOneButtonHelper;
+import com.jdroid.android.instagram.InstagramHelper;
+import com.jdroid.android.linkedin.LinkedInHelper;
 import com.jdroid.android.share.GooglePlusSharingItem;
 import com.jdroid.android.share.HangoutsSharingItem;
 import com.jdroid.android.share.MoreSharingItem;
@@ -90,6 +92,34 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 		} else {
 			twitter.setVisibility(View.GONE);
 		}
+		
+		View instagram = findView(R.id.instagram);
+		if (getInstagramAccount() != null) {
+			instagram.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					InstagramHelper.openProfile(getActivity(),getInstagramAccount());
+				}
+			});
+			followUsVisible = true;
+		} else {
+			instagram.setVisibility(View.GONE);
+		}
+		
+		View linkedin = findView(R.id.linkedin);
+		if (getLinkedInCompanyPageId() != null) {
+			linkedin.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					LinkedInHelper.openCompanyPage(getActivity(), getLinkedInCompanyPageId());
+				}
+			});
+			followUsVisible = true;
+		} else {
+			linkedin.setVisibility(View.GONE);
+		}
 
 		findView(R.id.followUs).setVisibility(followUsVisible ? View.VISIBLE : View.GONE);
 		
@@ -153,6 +183,14 @@ public abstract class SpreadTheLoveFragment extends AbstractFragment {
 	
 	protected String getTwitterAccount() {
 		return AbstractApplication.get().getAppContext().getTwitterAccount();
+	}
+	
+	protected String getInstagramAccount() {
+		return AbstractApplication.get().getAppContext().getInstagramAccount();
+	}
+	
+	protected String getLinkedInCompanyPageId() {
+		return AbstractApplication.get().getAppContext().getLinkedInCompanyPageId();
 	}
 
 	protected Boolean displayAppInviteButton() {

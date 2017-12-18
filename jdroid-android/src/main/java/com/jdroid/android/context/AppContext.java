@@ -83,6 +83,14 @@ public class AppContext extends AbstractAppContext {
 		return null;
 	}
 	
+	public String getInstagramAccount() {
+		return null;
+	}
+	
+	public String getLinkedInCompanyPageId() {
+		return null;
+	}
+	
 	public String getFacebookPageId() {
 		return null;
 	}

@@ -82,6 +82,12 @@
 	<!-- Twitter -->
 	<string name="jdroid_twitter">Twitter</string>
 
+	<!-- Instagram -->
+	<string name="jdroid_instagram">Instagram</string>
+
+	<!-- Linkedin -->
+	<string name="jdroid_linkedin">LinkedIn</string>
+
 	<!-- Rate App -->
 	<string name="jdroid_rateAppEnjoying">¿Disfrutando %1$s?</string>
 	<string name="jdroid_rateAppGooglePlay">¿Le gustaría calificarnos en Google Play?</string>
