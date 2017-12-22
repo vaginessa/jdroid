@@ -21,7 +21,7 @@ then
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-google-signin/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-sample/build/reports
   mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-twitter/build/reports
-  mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-uil/build/reports
+  mkdir -p $HOME/reports/$TRAVIS_BRANCH/jdroid-android-glide/build/reports
 
   cp -R jdroid-android/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android/build/reports/
   cp -R jdroid-android-about/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-about/build/reports/
@@ -38,7 +38,7 @@ then
   cp -R jdroid-android-google-signin/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-google-signin/build/reports/
   cp -R jdroid-android-twitter/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-twitter/build/reports/
   cp -R jdroid-android-sample/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-sample/build/reports/
-  cp -R jdroid-android-uil/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-uil/build/reports/
+  cp -R jdroid-android-glide/build/reports/* $HOME/reports/$TRAVIS_BRANCH/jdroid-android-glide/build/reports/
 
   # go to home and setup git
   cd $HOME

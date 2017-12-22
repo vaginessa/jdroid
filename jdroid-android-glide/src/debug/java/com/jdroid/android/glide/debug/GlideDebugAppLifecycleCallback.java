@@ -1,16 +1,16 @@
-package com.jdroid.android.uil.debug;
+package com.jdroid.android.glide.debug;
 
 import android.content.Context;
 
 import com.jdroid.android.lifecycle.ApplicationLifecycleCallback;
 import com.jdroid.android.debug.DebugSettingsHelper;
 
-public class UilDebugAppLifecycleCallback extends ApplicationLifecycleCallback {
+public class GlideDebugAppLifecycleCallback extends ApplicationLifecycleCallback {
 	
 	@Override
 	public void onProviderInit(Context context) {
 		super.onProviderInit(context);
 		
-		DebugSettingsHelper.addPreferencesAppender(new ImageLoaderDebugPrefsAppender());
+		DebugSettingsHelper.addPreferencesAppender(new GlideDebugPrefsAppender());
 	}
 }

@@ -1,4 +1,4 @@
-package com.jdroid.android.uil.debug;
+package com.jdroid.android.glide.debug;
 
 import android.app.Activity;
 import android.preference.Preference;
@@ -6,14 +6,14 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceGroup;
 
 import com.jdroid.android.debug.PreferencesAppender;
-import com.jdroid.android.uil.R;
-import com.jdroid.android.uil.UilImageLoaderHelper;
+import com.jdroid.android.glide.GlideHelper;
+import com.jdroid.android.glide.R;
 
-public class ImageLoaderDebugPrefsAppender extends PreferencesAppender {
+public class GlideDebugPrefsAppender extends PreferencesAppender {
 
 	@Override
 	public int getNameResId() {
-		return R.string.jdroid_imageLoaderSettings;
+		return R.string.jdroid_glideSettings;
 	}
 	
 	@Override
@@ -25,7 +25,7 @@ public class ImageLoaderDebugPrefsAppender extends PreferencesAppender {
 			
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				UilImageLoaderHelper.clearDiskCache();
+				GlideHelper.clearDiskCache();
 				return true;
 			}
 		});
@@ -38,7 +38,7 @@ public class ImageLoaderDebugPrefsAppender extends PreferencesAppender {
 			
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				UilImageLoaderHelper.clearMemoryCache();
+				GlideHelper.clearMemory();
 				return true;
 			}
 		});

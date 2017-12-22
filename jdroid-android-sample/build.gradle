@@ -32,12 +32,12 @@ buildscript {
 dependencies {
 	implementation 'com.android.support:multidex:1.0.2'
 	implementation project(':jdroid-android')
-	implementation project(':jdroid-android-uil')
 	implementation project(':jdroid-android-about')
 	implementation project(':jdroid-android-facebook')
 	implementation project(':jdroid-android-firebase-instanceid')
 	implementation project(':jdroid-android-firebase-admob')
 	implementation project(':jdroid-android-firebase-crashlytics')
+	implementation project(':jdroid-android-glide')
 	implementation project(':jdroid-android-google-maps')
 	implementation project(':jdroid-android-google-inappbilling')
 	implementation project(':jdroid-android-firebase-database')

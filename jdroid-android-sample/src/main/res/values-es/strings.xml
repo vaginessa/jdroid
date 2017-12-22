@@ -23,8 +23,11 @@
 	<string name="datePickerDialog">Date Picker Dialog</string>
 	<string name="timePickerDialog">Time Picker Dialog</string>
 
-	<!-- Image Loader -->
-	<string name="universalImageLoader">Universal Image Loader</string>
+	<!-- Glide -->
+	<string name="glide">Glide</string>
+	<string name="withActivity">withActivity</string>
+	<string name="withFragment">withFragment</string>
+	<string name="withApplicationContext">withApplicationContext</string>
 
 	<!-- Use Cases -->
 	<string name="useCases">Use Cases</string>

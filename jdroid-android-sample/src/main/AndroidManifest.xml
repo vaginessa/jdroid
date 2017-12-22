@@ -72,9 +72,9 @@
 		<activity android:name="com.jdroid.android.sample.ui.google.admob.AdRecyclerActivity" android:label="@string/adReycler"
 				  android:parentActivityName="com.jdroid.android.sample.ui.google.admob.AdsActivity" tools:ignore="UnusedAttribute"/>
 
-		<!-- Image Loader -->
+		<!-- Glide -->
 
-		<activity android:name="com.jdroid.android.sample.ui.imageloader.ImageLoaderActivity" android:label="@string/universalImageLoader"
+		<activity android:name="com.jdroid.android.sample.ui.glide.GlideActivity" android:label="@string/glide"
 			android:parentActivityName="com.jdroid.android.sample.ui.home.HomeActivity" tools:ignore="UnusedAttribute"/>
 
 		<!-- Date Time -->

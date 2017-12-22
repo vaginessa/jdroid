@@ -121,9 +121,9 @@ Libray for Android apps. Support for Android 4.0 (api level 15) and higher versi
 
  * [TweetUi integration](https://dev.twitter.com/twitterkit/android/overview)
  
-## [jdroid-android-uil](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
+## [jdroid-android-glide](https://github.com/maxirosson/jdroid/wiki/jdroid-Android)
  
- * [Android Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader)
+ * [Glide integration](https://github.com/bumptech/glide)
 
 
 More Jdroid Components

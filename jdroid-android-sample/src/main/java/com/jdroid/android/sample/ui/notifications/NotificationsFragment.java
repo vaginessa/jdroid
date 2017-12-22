@@ -10,11 +10,11 @@ import android.widget.EditText;
 
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.fragment.AbstractFragment;
+import com.jdroid.android.glide.GlideBitmapLoader;
 import com.jdroid.android.notification.NotificationBuilder;
 import com.jdroid.android.notification.NotificationUtils;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.sample.application.AndroidNotificationChannelType;
-import com.jdroid.android.uil.UilBitmapLoader;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.IdGenerator;
@@ -77,7 +77,7 @@ public class NotificationsFragment extends AbstractFragment {
 						} else {
 							String largeIconUrl = largeIconUrlEditText.getText().toString();
 							if (StringUtils.isNotEmpty(largeIconUrl)) {
-								builder.setLargeIcon(new UilBitmapLoader(largeIconUrl));
+								builder.setLargeIcon(new GlideBitmapLoader(largeIconUrl));
 							}
 						}
 

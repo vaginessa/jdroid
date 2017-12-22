@@ -4,6 +4,7 @@ import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.os.Build;
+import android.os.Looper;
 import android.support.annotation.RequiresPermission;
 
 import com.jdroid.android.application.AbstractApplication;
@@ -39,6 +40,10 @@ public class AndroidUtils {
 			}
 		}
 		return emails;
+	}
+	
+	public static Boolean isMainThread() {
+		return Looper.getMainLooper().getThread() == Thread.currentThread();
 	}
 
 }

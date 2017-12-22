@@ -17,6 +17,7 @@ import com.jdroid.android.sample.ui.facebook.FacebookSignInActivity;
 import com.jdroid.android.sample.ui.firebase.database.FirebaseDatabaseActivity;
 import com.jdroid.android.sample.ui.firebase.dynamiclinks.DynamicLinksActivity;
 import com.jdroid.android.sample.ui.firebase.fcm.FcmActivity;
+import com.jdroid.android.sample.ui.glide.GlideActivity;
 import com.jdroid.android.sample.ui.google.admob.AdsActivity;
 import com.jdroid.android.sample.ui.google.inappbilling.GoogleInAppBillingActivity;
 import com.jdroid.android.sample.ui.google.maps.GoogleMapsActivity;
@@ -24,7 +25,6 @@ import com.jdroid.android.sample.ui.google.playservices.GooglePlayServicesActivi
 import com.jdroid.android.sample.ui.google.signin.GoogleSignInActivity;
 import com.jdroid.android.sample.ui.hero.HeroActivity;
 import com.jdroid.android.sample.ui.http.HttpActivity;
-import com.jdroid.android.sample.ui.imageloader.ImageLoaderActivity;
 import com.jdroid.android.sample.ui.leakcanary.LeakCanaryActivity;
 import com.jdroid.android.sample.ui.loading.LoadingActivity;
 import com.jdroid.android.sample.ui.navdrawer.NavDrawerActivity;
@@ -56,6 +56,7 @@ public enum HomeItem implements ActionItem {
 	FIREBASE_FCM(R.string.fcm, R.drawable.ic_fcm, FcmActivity.class),
 	FIREBASE_INVITES(R.string.appInvite, R.drawable.ic_admob, AppInviteActivity.class),
 	FAB(R.string.floatingActionButton, R.drawable.ic_firebase, FabActivity.class),
+	GLIDE(R.string.glide, R.drawable.ic_photo, GlideActivity.class),
 	GOOGLE_ADMOB(R.string.adMob, R.drawable.ic_admob, AdsActivity.class),
 	GOOGLE_IN_APP_BILLING(R.string.inAppBilling, R.drawable.ic_inapp_billing, GoogleInAppBillingActivity.class),
 	GOOGLE_MAPS(R.string.googleMaps, R.drawable.ic_maps, GoogleMapsActivity.class),
@@ -76,7 +77,6 @@ public enum HomeItem implements ActionItem {
 	TIMER(R.string.timer, R.drawable.ic_toasts, TimerActivity.class),
 	TOASTS(R.string.toasts, R.drawable.ic_toasts, ToastsActivity.class),
 	TWITTER(R.string.jdroid_twitter, R.drawable.ic_twitter_black_24dp, TwitterActivity.class),
-	UNVERSAL_IMAGE_LOADER(R.string.universalImageLoader, R.drawable.ic_photo, ImageLoaderActivity.class),
 	URI_MAPPER(R.string.uriMapper, R.drawable.ic_photo, UriMapperActivity.class),
 	USE_CASES(R.string.useCases, R.drawable.ic_service, UseCasesActivity.class);
 
