@@ -1,5 +1,6 @@
 package com.jdroid.android.sample.ui.glide;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -49,6 +50,15 @@ public class GlideFragment extends AbstractFragment {
 				RequestOptions options = new RequestOptions();
 				options = options.placeholder(R.drawable.jdroid_ic_about_black_24dp);
 				GlideHelper.with(AbstractApplication.get()).load("http://jdroidtools.com/images/gradle.png").listener(new LoggingRequestListener<>()).apply(options).into(imageView);
+			}
+		});
+		
+		findView(R.id.withNullContext).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				RequestOptions options = new RequestOptions();
+				options = options.placeholder(R.drawable.jdroid_ic_about_black_24dp);
+				GlideHelper.with((Context)null).load("http://jdroidtools.com/images/gradle.png").listener(new LoggingRequestListener<>()).apply(options).into(imageView);
 			}
 		});
 		

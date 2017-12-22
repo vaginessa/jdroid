@@ -28,6 +28,7 @@
 	<string name="withActivity">withActivity</string>
 	<string name="withFragment">withFragment</string>
 	<string name="withApplicationContext">withApplicationContext</string>
+	<string name="withNullContext">withNullContext</string>
 	<string name="invalidResourceUrl">invalidResourceUrl</string>
 	<string name="outOfMemory">outOfMemory</string>
 

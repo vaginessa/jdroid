@@ -11,6 +11,9 @@
 	<Button android:id="@+id/withApplicationContext" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/withApplicationContext" />
 
+	<Button android:id="@+id/withNullContext" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/withNullContext" />
+
 	<Button android:id="@+id/invalidResourceUrl" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/invalidResourceUrl" />
 
