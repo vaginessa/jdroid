@@ -47,6 +47,8 @@ dependencies {
 	implementation project(':jdroid-android-twitter')
 	implementation 'com.firebase:firebase-client-android:2.5.0'
 
+	annotationProcessor "com.github.bumptech.glide:compiler:${GLIDE_VERSION}"
+
 	// This dependency is required by the firebase-plugins, until they support the implementation/api configurations
 	compile "com.google.firebase:firebase-perf:${GOOGLE_PLAY_SERVICES_VERSION}"
 

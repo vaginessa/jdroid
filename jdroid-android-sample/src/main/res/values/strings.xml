@@ -28,6 +28,7 @@
 	<string name="withActivity">withActivity</string>
 	<string name="withFragment">withFragment</string>
 	<string name="withApplicationContext">withApplicationContext</string>
+	<string name="invalidResourceUrl">invalidResourceUrl</string>
 
 	<!-- Use Cases -->
 	<string name="useCases">Use Cases</string>
