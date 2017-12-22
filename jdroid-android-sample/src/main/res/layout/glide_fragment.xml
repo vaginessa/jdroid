@@ -11,7 +11,6 @@
 	<Button android:id="@+id/withApplicationContext" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="@string/withApplicationContext" />
 
-	<ImageView android:id="@+id/image" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_centerInParent="true" />
+	<ImageView android:id="@+id/image" android:layout_width="48dp" android:layout_height="48dp" />
 
 </LinearLayout>

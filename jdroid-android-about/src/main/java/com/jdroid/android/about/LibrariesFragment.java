@@ -27,9 +27,9 @@ public class LibrariesFragment extends AbstractRecyclerFragment {
 		if (ReflectionUtils.getSafeClass("com.jdroid.android.twitter.TwitterAppLifecycleCallback") != null) {
 			libraries.add(new Library("tweetUi", "Tweet UI", "Twitter", "https://dev.twitter.com/twitterkit/overview"));
 		}
-		if (ReflectionUtils.getSafeClass("com.jdroid.android.uil.UilAppModule") != null) {
-			Library library = new Library("universalImageLoader", "Universal Image Loader",
-					"Sergey Tarasevich", "https://github.com/nostra13/Android-Universal-Image-Loader");
+		if (ReflectionUtils.getSafeClass("com.jdroid.android.glide.GlideHelper") != null) {
+			Library library = new Library("glide", "Glide",
+					"Bump Technologies", "https://github.com/bumptech/glide");
 			libraries.add(library);
 		}
 		libraries.addAll(getCustomLibraries());
