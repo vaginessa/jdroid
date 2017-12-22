@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.jdroid.android.application.AbstractApplication;
 import com.jdroid.android.fragment.AbstractFragment;
 import com.jdroid.android.glide.GlideHelper;
@@ -57,6 +58,16 @@ public class GlideFragment extends AbstractFragment {
 				RequestOptions options = new RequestOptions();
 				options = options.placeholder(R.drawable.jdroid_ic_about_black_24dp);
 				GlideHelper.with(AbstractApplication.get()).load("http://jdroidtools.com/images/invalid.png").listener(new LoggingRequestListener<>()).apply(options).into(imageView);
+			}
+		});
+		
+		findView(R.id.outOfMemory).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				RequestOptions options = new RequestOptions();
+				options = options.placeholder(R.drawable.jdroid_ic_about_black_24dp);
+				options = options.override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL);
+				GlideHelper.with(AbstractApplication.get()).load("https://upload.wikimedia.org/wikipedia/commons/2/2c/A_new_map_of_Great_Britain_according_to_the_newest_and_most_exact_observations_%288342715024%29.jpg").listener(new LoggingRequestListener<>()).apply(options).into(imageView);
 			}
 		});
 	}
