@@ -38,6 +38,7 @@ import com.jdroid.android.sqlite.SQLiteUpgradeStep;
 import com.jdroid.android.strictmode.StrictModeHelper;
 import com.jdroid.android.uri.UriMapper;
 import com.jdroid.android.utils.AppUtils;
+import com.jdroid.android.utils.DeviceUtils;
 import com.jdroid.android.utils.ProcessUtils;
 import com.jdroid.android.utils.SharedPreferencesHelper;
 import com.jdroid.android.utils.ToastUtils;
@@ -190,6 +191,7 @@ public abstract class AbstractApplication extends Application {
 				
 				@Override
 				public void run() {
+					DeviceUtils.getDeviceYearClass();
 					fetchInstallationSource();
 					verifyAppLaunchStatus();
 					

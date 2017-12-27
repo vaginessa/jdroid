@@ -4,9 +4,9 @@ import android.os.Handler;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.WorkerThread;
 
-import com.google.firebase.perf.FirebasePerformance;
 import com.google.firebase.perf.metrics.Trace;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.firebase.performance.TraceHelper;
 import com.jdroid.android.usecase.listener.UseCaseListener;
 import com.jdroid.java.collections.Lists;
 import com.jdroid.java.date.DateUtils;
@@ -71,8 +71,7 @@ public abstract class AbstractUseCase implements Runnable, Serializable {
 		
 		Trace trace = null;
 		if (timingTrackingEnabled()) {
-			trace = FirebasePerformance.getInstance().newTrace(getClass().getSimpleName());
-			trace.start();
+			trace = TraceHelper.newTrace(getClass());
 		}
 
 		try {

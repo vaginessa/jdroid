@@ -5,7 +5,6 @@ import android.app.Application;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.google.firebase.perf.FirebasePerformance;
 import com.google.firebase.perf.metrics.Trace;
 import com.jdroid.java.collections.Maps;
 
@@ -32,7 +31,7 @@ public class FirebasePerformanceLifecycleCallbacks implements Application.Activi
 	@Override
 	public void onActivityStarted(Activity activity) {
 		String name = activity.getClass().getSimpleName();
-		Trace trace = FirebasePerformance.startTrace(name);
+		Trace trace = TraceHelper.startTrace(name);
 		traces.put(activity, trace);
 	}
 	

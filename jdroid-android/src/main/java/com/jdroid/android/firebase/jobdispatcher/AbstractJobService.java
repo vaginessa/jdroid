@@ -6,9 +6,9 @@ import android.support.annotation.WorkerThread;
 
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
-import com.google.firebase.perf.FirebasePerformance;
 import com.google.firebase.perf.metrics.Trace;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.firebase.performance.TraceHelper;
 import com.jdroid.java.concurrent.ExecutorUtils;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.http.exception.ConnectionException;
@@ -33,8 +33,7 @@ public abstract class AbstractJobService extends JobService {
 					String trackingLabel = getTrackingLabel(jobParameters);
 					
 					if (timingTrackingEnabled()) {
-						trace = FirebasePerformance.getInstance().newTrace(trackingLabel);
-						trace.start();
+						trace = TraceHelper.startTrace(trackingLabel);
 					}
 					LOGGER.info("Starting service. Variable: " + trackingVariable + " - Label: " + trackingLabel);
 					long startTime = DateUtils.nowMillis();

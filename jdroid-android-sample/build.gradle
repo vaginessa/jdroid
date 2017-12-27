@@ -49,9 +49,6 @@ dependencies {
 
 	annotationProcessor "com.github.bumptech.glide:compiler:${GLIDE_VERSION}"
 
-	// This dependency is required by the firebase-plugins, until they support the implementation/api configurations
-	compile "com.google.firebase:firebase-perf:${GOOGLE_PLAY_SERVICES_VERSION}"
-
 	if (jdroid.propertyResolver.getBooleanProp("JDROID_JAVA_AS_PROJECT_DEPENDENCY", false)) {
 		implementation(project(':jdroid-java-firebase-database')) {
 			exclude module: 'slf4j-api'

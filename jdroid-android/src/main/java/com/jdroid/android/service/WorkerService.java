@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.firebase.perf.FirebasePerformance;
 import com.google.firebase.perf.metrics.Trace;
 import com.jdroid.android.application.AbstractApplication;
+import com.jdroid.android.firebase.performance.TraceHelper;
 import com.jdroid.java.date.DateUtils;
 import com.jdroid.java.utils.LoggerUtils;
 
@@ -36,8 +36,7 @@ public abstract class WorkerService extends IntentService {
 			
 			Trace trace = null;
 			if (timingTrackingEnabled()) {
-				trace = FirebasePerformance.getInstance().newTrace(trackingLabel);
-				trace.start();
+				trace = TraceHelper.startTrace(trackingLabel);
 			}
 			
 			try {

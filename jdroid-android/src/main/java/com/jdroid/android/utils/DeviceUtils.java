@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.telephony.TelephonyManager;
 
 import com.facebook.device.yearclass.YearClass;
@@ -16,20 +17,8 @@ import com.jdroid.java.utils.StringUtils;
 
 public class DeviceUtils {
 
-	private static final String DEVICE_YEAR_CLASS = "DeviceYearClass";
-
-	private static Integer deviceYearClass = YearClass.CLASS_UNKNOWN;
-
-	public static Integer getDeviceYearClass() {
-		if (deviceYearClass != null) {
-			deviceYearClass = SharedPreferencesHelper.get().loadPreferenceAsInteger(DEVICE_YEAR_CLASS, YearClass.CLASS_UNKNOWN);
-			// Try again if device was previously unknown.
-			if (deviceYearClass == YearClass.CLASS_UNKNOWN) {
-				deviceYearClass = YearClass.get(AbstractApplication.get());
-				SharedPreferencesHelper.get().savePreferenceAsync(DEVICE_YEAR_CLASS, deviceYearClass);
-			}
-		}
-		return deviceYearClass;
+	public static @NonNull Integer getDeviceYearClass() {
+		return YearClass.get(AbstractApplication.get());
 	}
 
 	public static String getDeviceModel() {
