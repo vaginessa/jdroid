@@ -1,55 +1,45 @@
 package com.jdroid.android.sample.application;
 
-import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
-import android.app.NotificationManager;
+import android.os.Build;
+import android.support.annotation.StringRes;
+import android.support.v4.app.NotificationManagerCompat;
 
 import com.jdroid.android.notification.NotificationChannelType;
 import com.jdroid.android.sample.R;
 import com.jdroid.android.utils.LocalizationUtils;
 
-@SuppressLint("NewApi")
 public enum AndroidNotificationChannelType implements NotificationChannelType {
 	
-	LOW_IMPORTANCE("lowImportance", R.string.lowImportanceNotificationChannelName) {
-		
-		@Override
-		public int getImportance() {
-			return NotificationManager.IMPORTANCE_LOW;
-		}
+	LOW_IMPORTANCE("lowImportance", R.string.lowImportanceNotificationChannelName, NotificationManagerCompat.IMPORTANCE_LOW) {
 		
 		@Override
 		public void config(NotificationChannel notificationChannel) {
-			notificationChannel.setShowBadge(false);
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+				notificationChannel.setDescription("This is a sample description for low importance notification channel");
+				notificationChannel.setShowBadge(false);
+			}
 		}
 	},
-	DEFAULT_IMPORTANCE("defaultImportance", R.string.defaultImportanceNotificationChannelName) {
-		
-		@Override
-		public int getImportance() {
-			return NotificationManager.IMPORTANCE_DEFAULT;
-		}
-		
-	},
-	HIGH_IMPORTANCE("highImportance", R.string.highImportanceNotificationChannelName) {
-		
-		@Override
-		public int getImportance() {
-			return NotificationManager.IMPORTANCE_HIGH;
-		}
+	DEFAULT_IMPORTANCE("defaultImportance", R.string.defaultImportanceNotificationChannelName, NotificationManagerCompat.IMPORTANCE_DEFAULT),
+	HIGH_IMPORTANCE("highImportance", R.string.highImportanceNotificationChannelName, NotificationManagerCompat.IMPORTANCE_HIGH) {
 		
 		@Override
 		public void config(NotificationChannel notificationChannel) {
-			notificationChannel.setShowBadge(true);
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+				notificationChannel.setShowBadge(true);
+			}
 		}
 	};
 	
 	private String channelId;
-	private int nameResId;
+	private @StringRes int nameResId;
+	private int importance;
 	
-	AndroidNotificationChannelType(String channelId, int nameResId) {
+	AndroidNotificationChannelType(String channelId, @StringRes int nameResId, int importance) {
 		this.channelId = channelId;
 		this.nameResId = nameResId;
+		this.importance = importance;
 	}
 	
 	@Override
@@ -65,5 +55,10 @@ public enum AndroidNotificationChannelType implements NotificationChannelType {
 	@Override
 	public String getName() {
 		return LocalizationUtils.getString(nameResId);
+	}
+	
+	@Override
+	public int getImportance() {
+		return importance;
 	}
 }
