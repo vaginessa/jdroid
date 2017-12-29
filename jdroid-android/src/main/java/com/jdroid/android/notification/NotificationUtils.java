@@ -56,7 +56,11 @@ public class NotificationUtils {
 			NOTIFICATION_CHANNEL_TYPES.clear();
 			NOTIFICATION_CHANNEL_TYPES.addAll(notificationChannelTypes);
 			for (NotificationChannelType notificationChannelType : notificationChannelTypes) {
-				NotificationUtils.createNotificationChannel(NotificationChannelFactory.createNotificationChannel(notificationChannelType));
+				if (notificationChannelType.isDeprecated()) {
+					NOTIFICATION_MANAGER.deleteNotificationChannel(notificationChannelType.getChannelId());
+				} else {
+					NotificationUtils.createNotificationChannel(NotificationChannelFactory.createNotificationChannel(notificationChannelType));
+				}
 			}
 		}
 	}

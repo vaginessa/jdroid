@@ -35,11 +35,17 @@ public enum AndroidNotificationChannelType implements NotificationChannelType {
 	private String channelId;
 	private @StringRes int nameResId;
 	private int importance;
+	private Boolean isDeprecated;
 	
 	AndroidNotificationChannelType(String channelId, @StringRes int nameResId, int importance) {
+		this(channelId, nameResId, importance, false);
+	}
+	
+	AndroidNotificationChannelType(String channelId, @StringRes int nameResId, int importance, Boolean isDeprecated) {
 		this.channelId = channelId;
 		this.nameResId = nameResId;
 		this.importance = importance;
+		this.isDeprecated = isDeprecated;
 	}
 	
 	@Override
@@ -60,5 +66,10 @@ public enum AndroidNotificationChannelType implements NotificationChannelType {
 	@Override
 	public int getImportance() {
 		return importance;
+	}
+	
+	@Override
+	public Boolean isDeprecated() {
+		return isDeprecated;
 	}
 }
