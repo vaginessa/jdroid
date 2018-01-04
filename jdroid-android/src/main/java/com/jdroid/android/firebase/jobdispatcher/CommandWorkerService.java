@@ -1,7 +1,6 @@
 package com.jdroid.android.firebase.jobdispatcher;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
@@ -21,8 +20,8 @@ public class CommandWorkerService extends WorkerService {
 
 	final static String COMMAND_EXTRA = "com.jdroid.android.firebase.jobdispatcher.CommandWorkerService.command";
 
-	protected static void runService(Bundle bundle, ServiceCommand serviceCommand, Boolean requiresInstantExecution) {
-		if (requiresInstantExecution && (Build.VERSION.SDK_INT < Build.VERSION_CODES.O || !AbstractApplication.get().isInBackground())) {
+	protected static void runService(Bundle bundle, ServiceCommand serviceCommand, Boolean tryInstantExecution) {
+		if (tryInstantExecution && !AbstractApplication.get().isInBackground()) {
 			startWorkerService(bundle, serviceCommand);
 		} else {
 			startJobService(bundle, serviceCommand);
