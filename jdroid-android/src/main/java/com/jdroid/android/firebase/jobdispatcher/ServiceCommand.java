@@ -28,7 +28,7 @@ public abstract class ServiceCommand implements Serializable {
 		builder.setRecurring(false); // one-off job
 		builder.setLifetime(Lifetime.FOREVER);
 		builder.setTag(getClass().getSimpleName());
-		builder.setTrigger(Trigger.executionWindow(0, 5)); // start between 0 and 5 seconds from now
+		builder.setTrigger(Trigger.NOW);
 		builder.setReplaceCurrent(false); // don't overwrite an existing job with the same tag
 		builder.setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL); // retry with exponential backoff
 		return builder;
