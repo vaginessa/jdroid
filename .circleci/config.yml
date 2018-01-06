@@ -1,0 +1,103 @@
+defaults: &defaults
+  working_directory: ~/jdroid
+  docker:
+    - image: circleci/android:api-27-alpha
+  environment:
+    JVM_OPTS: -Xmx3200m
+version: 2
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          key: app-{{ .Branch }}-{{ checksum "build.gradle" }}
+
+      - run:
+          name: Download Dependencies
+          command: ./gradlew :app:androidDependencies --refresh-dependencies
+
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: app-{{ .Branch }}-{{ checksum "build.gradle" }}
+
+      - run: ./gradlew assemble -PRELEASE_BUILD_TYPE_ENABLED=true -PRELEASE_FAKE_ENABLED=true --stacktrace --scan
+      
+      - store_artifacts:
+          path: ./jdroid-android-sample/build/outputs/apk
+          destination: apks
+
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: ./gradlew testDebug -PFIREBASE_PERFORMANCE_MONITORING_ENABLED=false --stacktrace
+      - run:
+          name: Save test results 
+          command: |
+            mkdir -p ~/junit/
+            find . -type f -regex ".*/build/test-results/testDebugUnitTest/.*xml" -exec cp {} ~/junit/ \;
+          when: always
+      - store_test_results:
+          path: ~/junit
+      - store_artifacts:
+          path: ./jdroid-android/build/reports/tests/testDebugUnitTest
+          destination: jdroid-android/tests
+          
+  verify:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: ./gradlew lintDebug --stacktrace
+      
+      - store_artifacts:
+          path: ./jdroid-android/build/reports/lint-results.html
+          destination: jdroid-android/lint
+
+#  verify_nightly:
+#    <<: *defaults
+#    steps:
+#      - checkout
+#      - run: echo "Checking code quality on nightly......."
+#
+#  deploy:
+#    <<: *defaults
+#    steps:
+#      - checkout
+#      - run: echo "Deploying sample ......."
+  
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - verify:
+          requires:
+            - build
+#      - deploy:
+#          requires:
+#            - test
+#            - verify
+#          filters:
+#            branches:
+#              only:
+#                - master
+#                - production
+#  nightly:
+#    triggers:
+#      - schedule:
+#          cron: "0 0 * * *"
+#          filters:
+#            branches:
+#              only:
+#                - master
+#    jobs:
+#      - verify_nightly:
+#          requires:
+#            - build
