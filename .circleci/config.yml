@@ -43,9 +43,70 @@ jobs:
           when: always
       - store_test_results:
           path: ~/junit
+          
       - store_artifacts:
           path: ./jdroid-android/build/reports/tests/testDebugUnitTest
           destination: jdroid-android/tests
+          
+      - store_artifacts:
+          path: ./jdroid-android-about/build/reports/tests/testDebugUnitTest
+          destination: jdroid-android-about/tests
+
+      - store_artifacts:
+          path: ./jdroid-android-facebook/build/reports/tests/testDebugUnitTest
+          destination: jdroid-android-facebook/tests
+
+      - store_artifacts:
+          path: ./jdroid-android-firebase-admob/build/reports/tests/testDebugUnitTest
+          destination: jdroid-android-firebase-admob/tests
+
+      - store_artifacts:
+          path: ./jdroid-android-firebase-crashlytics/build/reports/tests/testDebugUnitTest
+          destination: jdroid-android-firebase-crashlytics/tests
+
+      - store_artifacts:
+          path: ./jdroid-android-firebase-database/build/reports/tests/testDebugUnitTest
+          destination: jdroid-android-firebase-database/tests
+
+      - store_artifacts:
+          path: ./jdroid-android-firebase-fcm/build/reports/tests/testDebugUnitTest
+          destination: jdroid-android-firebase-fcm/tests
+
+      - store_artifacts:
+          path: ./jdroid-android-firebase-instanceid/build/reports/tests/testDebugUnitTest
+          destination: jdroid-android-firebase-instanceid/tests
+
+      - store_artifacts:
+          path: ./jdroid-android-firebase-remoteconfig/build/reports/tests/testDebugUnitTest
+          destination: jdroid-android-firebase-remoteconfig/tests
+
+      - store_artifacts:
+          path: ./jdroid-android-firebase-glide/build/reports/tests/testDebugUnitTest
+          destination: jdroid-android-firebase-glide/tests
+
+      - store_artifacts:
+          path: ./jdroid-android-google-inappbilling/build/reports/tests/testDebugUnitTest
+          destination: jdroid-android-google-inappbilling/tests
+
+      - store_artifacts:
+          path: ./jdroid-android-google-maps/build/reports/tests/testDebugUnitTest
+          destination: jdroid-android-google-maps/tests
+
+      - store_artifacts:
+          path: ./jdroid-android-google-plus/build/reports/tests/testDebugUnitTest
+          destination: jdroid-android-google-plus/tests
+
+      - store_artifacts:
+          path: ./jdroid-android-google-signin/build/reports/tests/testDebugUnitTest
+          destination: jdroid-android-google-signin/tests
+
+      - store_artifacts:
+          path: ./jdroid-android-sample/build/reports/tests/testDebugUnitTest
+          destination: jdroid-android-sample/tests
+
+      - store_artifacts:
+          path: ./jdroid-android-twitter/build/reports/tests/testDebugUnitTest
+          destination: jdroid-android-twitter/tests
           
   verify:
     <<: *defaults
@@ -54,8 +115,68 @@ jobs:
       - run: ./gradlew lintDebug --stacktrace
       
       - store_artifacts:
-          path: ./jdroid-android/build/reports/lint-results.html
+          path: ./jdroid-android/build/reports/lint-results-debug.html
           destination: jdroid-android/lint
+
+      - store_artifacts:
+          path: ./jdroid-android-about/build/reports/lint-results-debug.html
+          destination: jdroid-android-about/lint
+
+      - store_artifacts:
+          path: ./jdroid-android-facebook/build/reports/lint-results-debug.html
+          destination: jdroid-android-facebook/lint
+
+      - store_artifacts:
+          path: ./jdroid-android-firebase-admob/build/reports/lint-results-debug.html
+          destination: jdroid-android-firebase-admob/lint
+
+      - store_artifacts:
+          path: ./jdroid-android-firebase-crashlytics/build/reports/lint-results-debug.html
+          destination: jdroid-android-firebase-crashlytics/lint
+
+      - store_artifacts:
+          path: ./jdroid-android-firebase-database/build/reports/lint-results-debug.html
+          destination: jdroid-android-firebase-database/lint
+
+      - store_artifacts:
+          path: ./jdroid-android-firebase-fcm/build/reports/lint-results-debug.html
+          destination: jdroid-android-firebase-fcm/lint
+
+      - store_artifacts:
+          path: ./jdroid-android-firebase-instanceid/build/reports/lint-results-debug.html
+          destination: jdroid-android-firebase-instanceid/lint
+
+      - store_artifacts:
+          path: ./jdroid-android-firebase-remoteconfig/build/reports/lint-results-debug.html
+          destination: jdroid-android-firebase-remoteconfig/lint
+
+      - store_artifacts:
+          path: ./jdroid-android-firebase-glide/build/reports/lint-results-debug.html
+          destination: jdroid-android-firebase-glide/lint
+
+      - store_artifacts:
+          path: ./jdroid-android-google-inappbilling/build/reports/lint-results-debug.html
+          destination: jdroid-android-google-inappbilling/lint
+
+      - store_artifacts:
+          path: ./jdroid-android-google-maps/build/reports/lint-results-debug.html
+          destination: jdroid-android-google-maps/lint
+
+      - store_artifacts:
+          path: ./jdroid-android-google-plus/build/reports/lint-results-debug.html
+          destination: jdroid-android-google-plus/lint
+
+      - store_artifacts:
+          path: ./jdroid-android-google-signin/build/reports/lint-results-debug.html
+          destination: jdroid-android-google-signin/lint
+
+      - store_artifacts:
+          path: ./jdroid-android-sample/build/reports/lint-results-debug.html
+          destination: jdroid-android-sample/lint
+
+      - store_artifacts:
+          path: ./jdroid-android-twitter/build/reports/lint-results-debug.html
+          destination: jdroid-android-twitter/lint
 
 #  verify_nightly:
 #    <<: *defaults
