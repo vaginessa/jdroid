@@ -17,7 +17,7 @@ jobs:
 
       - run:
           name: Download Dependencies
-          command: ./gradlew :app:androidDependencies --refresh-dependencies
+          command: ./gradlew androidDependencies --refresh-dependencies
 
       - save_cache:
           paths:
