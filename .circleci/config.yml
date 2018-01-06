@@ -4,6 +4,7 @@ defaults: &defaults
     - image: circleci/android:api-27-alpha
   environment:
     JVM_OPTS: -Xmx3200m
+    LOCAL_MAVEN_REPO: ~/repo
 version: 2
 jobs:
   build:
@@ -15,25 +16,32 @@ jobs:
       - restore_cache:
           key: app-{{ .Branch }}-{{ checksum "build.gradle" }}
 
-      - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies --refresh-dependencies
+      - run: ./gradlew assemble -PRELEASE_BUILD_TYPE_ENABLED=true -PRELEASE_FAKE_ENABLED=true --stacktrace --scan
 
       - save_cache:
           paths:
             - ~/.gradle
           key: app-{{ .Branch }}-{{ checksum "build.gradle" }}
 
-      - run: ./gradlew assemble -PRELEASE_BUILD_TYPE_ENABLED=true -PRELEASE_FAKE_ENABLED=true --stacktrace --scan
+      - run:
+          name: Save apks
+          command: |
+            mkdir -p ~/apks/
+            find . -type f -regex ".*/build/outputs/apk/.*apk" -exec cp {} ~/apks/ \;
+          when: always
       
       - store_artifacts:
-          path: ./jdroid-android-sample/build/outputs/apk
+          path: ~/apks
           destination: apks
 
   test:
     <<: *defaults
     steps:
       - checkout
+
+    - restore_cache:
+        key: app-{{ .Branch }}-{{ checksum "build.gradle" }}
+
       - run: ./gradlew testDebug -PFIREBASE_PERFORMANCE_MONITORING_ENABLED=false --stacktrace
       - run:
           name: Save test results 
@@ -112,6 +120,10 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+
+      - restore_cache:
+          key: app-{{ .Branch }}-{{ checksum "build.gradle" }}
+
       - run: ./gradlew lintDebug --stacktrace
       
       - store_artifacts:
