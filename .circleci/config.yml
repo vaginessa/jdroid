@@ -6,6 +6,7 @@ defaults: &defaults
     JVM_OPTS: -Xmx3200m
     LOCAL_MAVEN_REPO: ~/repo
     GRADLE_OPTS: -Dorg.gradle.caching=true
+    DEX_IN_PROCESS: true
 version: 2
 jobs:
   build:
@@ -193,17 +194,15 @@ jobs:
           path: ./jdroid-android-twitter/build/reports/lint-results-debug.html
           destination: jdroid-android-twitter/lint
 
-#  verify_nightly:
-#    <<: *defaults
-#    steps:
-#      - checkout
-#      - run: echo "Checking code quality on nightly......."
-#
-#  deploy:
-#    <<: *defaults
-#    steps:
-#      - checkout
-#      - run: echo "Deploying sample ......."
+  deploy:
+    <<: *defaults
+    steps:
+      - checkout
+      
+      - restore_cache:
+          key: app-{{ .Branch }}-{{ checksum "build.gradle" }}
+          
+      - run: - ./gradlew uploadArchives -PLOCAL_UPLOAD=false -PRELEASE_BUILD_TYPE_ENABLED=true -PRELEASE_FAKE_ENABLED=true --stacktrace
   
 workflows:
   version: 2
@@ -216,24 +215,7 @@ workflows:
       - verify:
           requires:
             - build
-#      - deploy:
-#          requires:
-#            - test
-#            - verify
-#          filters:
-#            branches:
-#              only:
-#                - master
-#                - production
-#  nightly:
-#    triggers:
-#      - schedule:
-#          cron: "0 0 * * *"
-#          filters:
-#            branches:
-#              only:
-#                - master
-#    jobs:
-#      - verify_nightly:
-#          requires:
-#            - build
+      - deploy:
+          requires:
+            - test
+            - verify
