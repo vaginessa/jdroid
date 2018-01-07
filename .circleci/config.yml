@@ -202,7 +202,7 @@ jobs:
       - restore_cache:
           key: app-{{ .Branch }}-{{ checksum "build.gradle" }}
           
-      - run: - ./gradlew uploadArchives -PLOCAL_UPLOAD=false -PRELEASE_BUILD_TYPE_ENABLED=true -PRELEASE_FAKE_ENABLED=true --stacktrace
+      - run: ./gradlew uploadArchives -PLOCAL_UPLOAD=false -PRELEASE_BUILD_TYPE_ENABLED=true -PRELEASE_FAKE_ENABLED=true --stacktrace
   
 workflows:
   version: 2
