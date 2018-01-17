@@ -38,6 +38,7 @@ public class StrictModeHelper {
 			// Android SDK and Google Maps is failing
 			threadPolicyBuilder.permitDiskReads();
 			threadPolicyBuilder.permitDiskWrites();
+			threadPolicyBuilder.permitCustomSlowCalls();
 		}
 		threadPolicyBuilder.penaltyLog();
 		if (isStrictModePenaltyDeath()) {
